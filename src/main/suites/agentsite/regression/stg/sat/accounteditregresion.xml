@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SAT_STG_AG_REG_HOME" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="SAT_REG_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='Auto.AD1'/>
+        <parameter name='levelLogin' value='Senior Admin'/>
+        <parameter name='level' value='SAD'/>
+        <parameter name='downlineAccount' value='Auto.AD1'/>
+        <parameter name='portalSubAccount' value='SASUBIS'/>
+        <parameter name='memberAccount' value='auto.pl1'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name="isCredit" value="false"/>
+        <groups>
+            <run>
+                <include name="regression1"/>
+                <!--                <include name="satregression"/>-->
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.all.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.all.agencymanagement.CreateUserTest"/>
+            <class name="agentsite.testcase.all.agencymanagement.downlinelisting.DownlineListingTest"/>
+        </classes>
+
+    </test>
+
+</suite>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="GREEN_W3_SMOKE_AGSMOKE_HOME" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="FE_SMOKE_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='w3green'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='7AH'/>
+        <parameter name='levelLogin' value='Senior Master Agent'/>
+        <parameter name='downlineAccount' value='7AH00'/>
+        <parameter name='portalSubAccount' value='W3SUBBA'/>
+        <parameter name='memberAccount' value='7AH0000000'/>
+        <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='Inr'/>
+
+        <groups>
+            <run>
+                <include name="smoke"/>
+                <include name="smokeNewUI"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.all.home.LoginTest"/>
+            <class name="agentsite.testcase.all.home.LogoutTest"/>
+            <class name="agentsite.testcase.all.home.HeaderTest"/>
+            <class name="agentsite.testcase.all.home.LeftMenuTest"/>
+        </classes>
+
+    </test>
+</suite>

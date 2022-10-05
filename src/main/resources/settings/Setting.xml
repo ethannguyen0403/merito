@@ -1,0 +1,59 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <context:annotation-config/>
+
+    <!-- Bean to load properties file -->
+    <bean id="browserSettingPlaceholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <!-- all files including xml, classes etc. are copied to target/classes dir after compiling and then the program will
+                read the properties and xml files in 'settings' dir-->
+                <value>classpath*:resources/settings/Browsers.properties</value>
+                <value>classpath*:resources/settings/Environments.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--Configuration for a browser running in a local machine for testing-->
+    <bean name="window10.local.chrome" class="com.paltech.driver.DriverProperties" scope="prototype">
+        <property name="browserVersion" value="${DriverSetting.Window10.Local.Chrome.BrowserVersion}"/>
+        <property name="browserName" value="${DriverSetting.Window10.Local.Chrome.BrowserName}"/>
+        <property name="platform" value="${DriverSetting.Window10.Local.Chrome.Platform}"/>
+        <property name="platformVersion" value="${DriverSetting.Window10.Local.Chrome.PlatformVersion}"/>
+        <property name="remoteURL" value="${DriverSetting.Window10.Local.Chrome.RemoteURL}"/>
+        <property name="deviceName" value="${DriverSetting.Window10.Local.Chrome.DeviceName}"/>
+        <property name="executablePath" value="${DriverSetting.Window10.Local.Chrome.ExecutablePath}"/>
+        <property name="elementWaitTimeOut" value="${DriverSetting.Window10.Local.Chrome.ElementWaitTimeOut}"/>
+    </bean>
+    
+    <bean name="stg" class="objects.Environment" scope="prototype">
+        <property name="fairURL" value="${STG.FAIRURL}"/>
+        <property name="satURL" value="${STG.SATURL}"/>
+        <property name="funsportURL" value="${STG.FUNSPORTURL}"/>
+        <property name="fairenterURL" value="${STG.FAIRENTERURL}"/>
+        <property name="laser365URL" value="${STG.LASER365URL}"/>
+        <property name="betclubURL" value="${STG.BETCUBURL}"/>
+        <property name="backofficeURL" value="${STG.BackofficeURL}"/>
+        <property name="securityCode" value="${STG.SecurityCode}"/>
+        <property name="directusURL" value="${STG.DriectusURL}"/>
+        <property name="apiURL" value="${STG.APIURL}"/>
+    </bean>
+    <bean name="green" class="objects.Environment" scope="prototype">
+        <property name="fairURL" value="${GREEN.FAIRURL}"/>
+        <property name="satURL" value="${GREEN.SATURL}"/>
+        <property name="funsportURL" value="${GREEN.FUNSPORTURL}"/>
+        <property name="fairenterURL" value="${GREEN.FAIRENTERURL}"/>
+        <property name="betclubURL" value="${GREEN.LASER365URL}"/>
+        <property name="laser365URL" value="${GREEN.BETCUBURL}"/>
+        <property name="backofficeURL" value="${GREEN.BackofficeURL}"/>
+        <property name="securityCode" value="${GREEN.SecurityCode}"/>
+        <property name="directusURL" value="${GREEN.DriectusURL}"/>
+        <property name="apiURL" value="${GREEN.APIURL}"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="FE_SMOKE_AG_Portal_TCs" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="FE_SMOKE_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='fastg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='ANSUBIS'/>
+        <parameter name='levelLogin' value='Portal'/>
+        <parameter name='downlineAccount' value='03H00'/>
+        <parameter name ='controlBlockingAccount' value ='03H'/>
+        <parameter name ='memberAccount' value ='03H0000000'/>
+        <parameter name ='accountToBet' value ='ANF0000002'/>
+        <parameter name ='controlBlockingLevel' value ='PART'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name="passwordNonePO" value="5pjguoEh1fnSILpykWt1vQ=="/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+        <groups>
+            <run>
+           <include name="smokePO" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.satsport.marketsmanagement.BlockUnblockEventsTest"/>
+            <class name="agentsite.testcase.all.marketsmanagement.LiquidityThresholdTest"/>
+            <class name="agentsite.testcase.all.reports.FollowBetsPerformanceTest"/>
+            <class name="agentsite.testcase.all.marketsmanagement.SuspendUnsuspendMarketsTest"/>
+            <class name="agentsite.testcase.all.reports.BFVoidedDiscrepancyTest"/>
+            <class name="agentsite.testcase.oldUI.report.AnalysisOfRunningMarketsTest"/>
+            <class name="agentsite.testcase.all.agencymanagement.FollowBetsTest"/>
+            <class name="agentsite.testcase.all.home.LeftMenuTest"/>
+        </classes>
+
+    </test>
+</suite>

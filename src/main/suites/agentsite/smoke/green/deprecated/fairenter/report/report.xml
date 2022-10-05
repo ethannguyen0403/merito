@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="GREEN_Fairenter_SMOKE_AG_Smoke_Report" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="SMOKE_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='faientergreen'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='QAZ'/>
+        <parameter name='levelLogin' value='Senior Master Agent'/>
+        <parameter name='downlineAccount' value='QAZ00'/>
+        <parameter name ='portalSubAccount' value ='FASUBBA'/>
+        <parameter name ='memberAccount' value ='QAZ0000001'/>
+        <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='EUR'/>
+
+        <groups>
+            <run>
+                <include name="smoke" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.all.riskmanagement.AnalysisOfRunningMarketsTest"/>
+            <class name="agentsite.testcase.all.reports.CancelledBetsTest"/>
+            <class name="agentsite.testcase.all.reports.ClientLegerTest"/>
+            <class name="agentsite.testcase.all.reports.FollowBetsPerformanceTest"/>
+            <class name="agentsite.testcase.all.reports.PositionTakingReportTest"/>
+            <class name="agentsite.testcase.all.reports.ProfitAndLossTest"/>
+            <class name="agentsite.testcase.all.reports.UnsettledBetTest"/>
+            <class name="agentsite.testcase.all.reports.StatementReportTest"/>
+            <class name="agentsite.testcase.all.reports.ViewLogTest"/>
+            <class name="agentsite.testcase.all.reports.TransactionHistoryTest"/>
+            <class name="agentsite.testcase.all.reports.TransferLogTest"/>
+            <class name="agentsite.testcase.all.reports.WinLossDetailTest"/>
+            <class name="agentsite.testcase.all.reports.WinLossByEventTest"/>
+            <class name="agentsite.testcase.all.reports.WinLossBySportAndMarketTypeTest"/>
+            <class name="agentsite.testcase.all.reports.WinLossSimpleTest"/>
+        </classes>
+
+    </test>
+</suite>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SAT_STG_AG_SMOKE_HOME" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="REG_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='fastg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='W2SUBBA'/>
+        <parameter name='levelLogin' value='Portal'/>
+        <parameter name='downlineAccount' value='ATZ00'/>
+        <parameter name='controlBlockingAccount' value='ATZ'/>
+        <parameter name='memberAccount' value='ATZ0000000'/>
+        <parameter name='accountToBet' value='FBJ00000QA'/>
+        <parameter name='controlBlockingLevel' value='SMA'/>
+        <parameter name='password' value='v+18qgA8nyoUHEW9394RTw=='/>
+        <parameter name="passwordNonePO" value="p8PEjV0gJOnWf9U0aEgGEA=="/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='Inr'/>
+        <parameter name="isCredit" value="false"/>
+        <groups>
+            <run>
+                <include name="poregression"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.all.home.HeaderTest"/>
+            <class name="agentsite.testcase.all.home.LeftMenuTest"/>
+        </classes>
+
+    </test>
+
+</suite>

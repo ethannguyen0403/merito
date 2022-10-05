@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="GREEN_BETFINEX_SMOKE_AGPortal_TCs" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="FE_SMOKE_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='bfgreen'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='BFSUBBA'/>
+        <parameter name='levelLogin' value='Portal'/>
+        <parameter name='downlineAccount' value='QAT00'/>
+        <parameter name ='controlBlockingAccount' value ='QAT'/>
+        <parameter name ='memberAccount' value ='QAT0000000'/>
+        <parameter name ='accountToBet' value ='FBJ00000QA'/>
+        <parameter name ='controlBlockingLevel' value ='SMA'/>
+        <parameter name='password' value='v+18qgA8nyoUHEW9394RTw=='/>
+        <parameter name="passwordNonePO" value="p8PEjV0gJOnWf9U0aEgGEA=="/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+
+        <groups>
+            <run>
+           <include name="smokePO" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.satsport.marketsmanagement.BlockUnblockEventsTest"/>
+            <class name="testcases.marketsmanagement.LiquidityThresholdTest"/>
+            <class name="testcases.report.FollowBetsPerformanceTest"/>
+            <class name="testcases.report.BFVoidedDiscrepancyTest"/>
+            <class name="testcases.riskmanagement.AnalysisOfRunningMarketsTest"/>
+            <class name="testcases.agencymanagement.FollowBetsTest"/>
+            <class name="testcases.home.LeftMenuTest"/>
+        </classes>
+
+    </test>
+</suite>

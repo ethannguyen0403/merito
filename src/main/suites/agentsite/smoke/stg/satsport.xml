@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="GREEN_FE_SMOKE_AGENT_SMA" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="FE_SMOKE_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='corpinr2'/>
+        <parameter name='levelLogin' value='Senior Admin'/>
+        <parameter name='downlineAccount' value='smaag1'/>
+        <parameter name ='portalSubAccount' value ='SASUBIS'/>
+        <parameter name ='memberAccount' value ='sabella1'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='INR'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value='satsport'/>
+        <groups>
+            <run>
+                <include name="smoke" />
+                <include name="satsmoke"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.satsport.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
+            <class name="agentsite.testcase.satsport.agencymanagement.depositwithdrawal.DepositTest"/>
+            <class name="agentsite.testcase.satsport.agencymanagement.depositwithdrawal.WithdrawalTest"/>
+            <class name="agentsite.testcase.satsport.home.SATLoginTest"/>
+            <class name="agentsite.testcase.satsport.home.SATLogoutTest"/>
+            <class name="agentsite.testcase.satsport.home.SATHeaderTest"/>
+            <class name="agentsite.testcase.satsport.home.SATLeftMenuTest"/>
+            <class name="agentsite.testcase.satsport.marketsmanagement.BlockUnblockEventsTest"/>
+            <class name="agentsite.testcase.satsport.marketsmanagement.BlockUnblockCompetitionsTest"/>
+            <class name="agentsite.testcase.satsport.marketsmanagement.CurrentBlockingTest"/>
+            <class name="agentsite.testcase.satsport.marketsmanagement.BlockRacingTest"/>
+            <class name="agentsite.testcase.satsport.marketsmanagement.LiquidityThresholdTest"/>
+
+            <class name="agentsite.testcase.all.reports.ProfitAndLossTest"/>
+            <class name="agentsite.testcase.all.reports.StatementReportTest"/>
+            <class name="agentsite.testcase.all.reports.TransferLogTest"/>
+            <class name="agentsite.testcase.all.reports.WinLossBySportAndMarketTypeTest"/>
+            <class name="agentsite.testcase.all.reports.TransactionHistoryTest"/>
+            <class name="agentsite.testcase.all.reports.WinLossDetailTest"/>
+            <class name="agentsite.testcase.all.reports.ClientLegerTest"/>
+            <class name="agentsite.testcase.all.reports.UnsettledBetTest"/>
+            <class name="agentsite.testcase.all.reports.WinLossByEventTest"/>
+            <class name="agentsite.testcase.all.reports.WinLossSimpleTest"/>
+
+            <class name="agentsite.testcase.satsport.report.AnalysisOfRunningMarketsTest"/>
+            <class name="agentsite.testcase.satsport.report.CancelledBetsTest"/>
+<!--            <class name="agentsite.testcase.satsport.report.ClientLegerTest"/>-->
+            <class name="agentsite.testcase.satsport.report.FollowBetsPerformanceTest"/>
+            <class name="agentsite.testcase.satsport.report.PositionTakingReportTest"/>
+<!--            <class name="agentsite.testcase.satsport.report.ProfitAndLossTest"/>-->
+<!--            <class name="agentsite.testcase.satsport.report.UnsettledBetTest"/>-->
+<!--            <class name="agentsite.testcase.satsport.report.StatementReportTest"/>-->
+            <class name="agentsite.testcase.satsport.report.ViewLogTest"/>
+<!--            <class name="agentsite.testcase.satsport.report.TransactionHistoryTest"/>-->
+<!--            <class name="agentsite.testcase.satsport.report.TransferLogTest"/>-->
+            <class name="agentsite.testcase.satsport.report.UnsettledBetTest"/>
+            <class name="agentsite.testcase.satsport.report.ViewLogTest"/>
+<!--            <class name="agentsite.testcase.satsport.report.WinLossDetailTest"/>-->
+<!--            <class name="agentsite.testcase.satsport.report.WinLossByEventTest"/>-->
+<!--            <class name="agentsite.testcase.satsport.report.WinLossBySportAndMarketTypeTest"/>-->
+<!--            <class name="agentsite.testcase.satsport.report.WinLossSimpleTest"/>&ndash;&gt;-->
+        </classes>
+
+    </test>
+</suite>

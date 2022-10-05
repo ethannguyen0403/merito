@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SAT_STG_AG_Portal_TCs" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="SAT_STG_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='SASUBAT'/>
+        <parameter name='downlineAccount' value='auto.part1'/>
+        <parameter name ='controlBlockingAccount' value ='Auto.SAD1'/>
+        <parameter name ='memberAccount' value ='auto.pl02'/>
+        <parameter name ='controlBlockingLevel' value ='CORP'/>
+        <parameter name ='accountToBet' value ='SAL0000001 (follow.pl1)'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name="passwordNonePO" value="5pjguoEh1fnSILpykWt1vQ=="/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+
+        <groups>
+            <run>
+           <include name="smokePO" />
+           <!--     <include name="regression" /> -->
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.satsport.marketsmanagement.BlockUnblockEventsTest"/>
+            <class name="agentsite.testcase.all.marketsmanagement.LiquidityThresholdTest"/>
+            <class name="agentsite.testcase.all.reports.FollowBetsPerformanceTest"/>
+            <class name="agentsite.testcase.all.reports.BFVoidedDiscrepancyTest"/>
+            <class name="agentsite.testcase.satsport.report.AnalysisOfRunningMarketsTest" />
+            <class name="agentsite.testcase.all.agencymanagement.FollowBetsTest" />
+            <class name="agentsite.testcase.all.home.LeftMenuTest"/>
+        </classes>
+
+    </test>
+</suite>
