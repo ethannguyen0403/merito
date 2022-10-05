@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SAT_STG_SMOKE_Market_Management" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="SAT_STG_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='Auto.SAD1'/>
+        <parameter name='levelLogin' value='Senior Admin'/>
+        <parameter name='downlineAccount' value='auto.part1'/>
+        <parameter name ='portalSubAccount' value ='SASUBIS'/>
+        <parameter name ='memberAccount' value ='auto.pl02'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+
+        <groups>
+            <run>
+               <include name="smoke" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.all.marketsmanagement.CurrentBlockingTest"/>
+        </classes>
+
+    </test>
+</suite>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="FAIR999_SMOKE_AG_REG" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="FAIE999_SMOKE_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='fastg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='048'/>
+        <parameter name='levelLogin' value='Parter'/>
+        <parameter name='downlineAccount' value='03H00'/>
+        <parameter name ='portalSubAccount' value ='ANSUBCT'/>
+        <parameter name ='memberAccount' value ='03H0000000'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name="isCredit" value="false"/>
+        <parameter name='level' value='SMA'/>
+        <groups>
+            <run>
+                <include name="newUI_credit_regression" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.all.home.HeaderTest"></class>
+        </classes>
+
+    </test>
+</suite>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Agent_STG_Precondition" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name= "Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='SASUBAT'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name ='controlBlockingAccount' value ='Auto.SAD1'/>
+        <parameter name='currency' value='HKD'/>
+
+        <groups>
+            <run>
+                <include name="precondition" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.satsport.marketsmanagement.BlockUnblockEventsTest"/>
+        </classes>
+
+    </test>
+</suite>

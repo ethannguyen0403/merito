@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SAT_GREEN_SMOKE_Market_Management_Member_Precondition" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="SAT_GREEN_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='green'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='SASUBBA'/>
+        <parameter name='password' value='v+18qgA8nyoUHEW9394RTw=='/>
+        <parameter name ='controlBlockingAccount' value ='QAAT.SAD'/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value='satsport'/>
+        <groups>
+            <run>
+                <include name="precondition" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.satsport.marketsmanagement.BlockUnblockEventsTest"/>
+        </classes>
+
+    </test>
+</suite>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="GREEN_Funsport_SMOKE_AGENT_SMA" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="Funsport_SMOKE_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='green'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='QAZ'/>
+        <parameter name='levelLogin' value='Senior Master Agent'/>
+        <parameter name='level' value='SMA'/>
+        <parameter name='downlineAccount' value='QAZ00'/>
+        <parameter name='dowlineLevel' value='MA'/>
+        <parameter name ='portalSubAccount' value ='FASUBBA'/>
+        <parameter name ='memberAccount' value ='QAZ0000001'/>
+        <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='EUR'/>
+        <parameter name='prefix' value='QAZ'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value='fairenter'/>
+        <groups>
+            <run>
+                <include name="smokeMA" />
+            </run>
+        </groups>
+
+        <classes>
+             <!-- Start Market Management-->
+            <class name="agentsite.testcase.all.marketsmanagement.SuspendUnsuspendMarketsTest"/>
+            <!-- End Market Management-->
+
+        </classes>
+
+    </test>
+</suite>

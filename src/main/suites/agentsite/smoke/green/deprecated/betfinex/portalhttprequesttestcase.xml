@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="GREEN_BETFINEX_SMOKE_AG_Portal_HTTPS_Request_TCs" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="FE_SMOKE_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='bfgreen'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='true'/>
+        <parameter name='username' value='BFSUBBA'/>
+        <parameter name='password' value='CEfyecbGRFAcUZh52pOG3Q=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+
+        <groups>
+            <run>
+                  <include name="http_request" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="testcases.fraudetection.FraudDetectionTest"/>
+            <class name="testcases.fraudetection.FraudPermissionTest"/>
+            <class name="testcases.fraudetection.WagerOddsHistoryTest"/>
+            <class name="testcases.report.ViewLogTest"/>
+            <class name="testcases.report.ClientLegerTest"/>
+            <class name="testcases.report.FollowBetsPerformanceTest"/>
+            <class name="testcases.marketsmanagement.LiquidityThresholdTest"/>
+
+            <class name="testcases.report.BFVoidedDiscrepancyTest"/>
+            <class name="agentsite.testcase.oldUI.report.AnalysisOfRunningMarketsTest"/>
+            <class name="testcases.agencymanagement.FollowBetsTest"/>
+            <class name="testcases.agencymanagement.PTPlayersListingTest"/>
+            <class name="testcases.agencymanagement.ShadowPlayersListingTest"/>
+        </classes>
+
+
+    </test>
+</suite>
