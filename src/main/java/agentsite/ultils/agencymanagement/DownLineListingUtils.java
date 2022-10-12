@@ -131,6 +131,13 @@ public class DownLineListingUtils {
         return null;
     }
 
+    public static String getUserCodeByLoginId(List<AccountInfo> lstAccount,String loginID){
+        for (AccountInfo acc: lstAccount) {
+            if(acc.getLoginID().equalsIgnoreCase(loginID) || acc.getUserCode().equalsIgnoreCase(loginID))
+                return acc.getUserCode();
+        }
+        return loginID;
+    }
 
     public static List<AccountInfo> getCashCreditListing() {
         List<AccountInfo> lstUsers = new ArrayList<>();

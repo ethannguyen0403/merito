@@ -1,7 +1,7 @@
 package agentsite.objects.agent.account;
 
 /**
- * @author Liam.Ho
+ * @author isabella.huynh
  * @created Nov/26/2019
  */
 public class MarketInfo {

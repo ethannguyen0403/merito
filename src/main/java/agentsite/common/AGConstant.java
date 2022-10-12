@@ -145,6 +145,7 @@ public class AGConstant {
         public final static String UNSETTLED_BET = "Unsettled Bet";
         public final static String TRANSACTION_HISTORY = "Transaction History";
         public final static String TRANSFER_LOG = "Transfer Log";
+        public final static String TRANSFER = "Transfer";
         public final static String TOP_GAINER_TOP_LOSER = "Top Gainers & Top Losers";
         public final static String VIEW_LOG = "View Log";
         public final static String WIN_LOSS_BY_EVENT = "Win Loss By Event";
