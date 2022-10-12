@@ -31,6 +31,5 @@ public class SecurityPopup extends BaseElement {
         txtSecurityCode.isDisplayed();
         txtSecurityCode.sendKeys(securityCode);
         btnSubmit.click();
-        waitForControlInvisible();
     }
 }
