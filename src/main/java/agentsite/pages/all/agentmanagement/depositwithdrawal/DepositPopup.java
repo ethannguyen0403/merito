@@ -2,9 +2,8 @@ package agentsite.pages.all.agentmanagement.depositwithdrawal;
 
 import agentsite.pages.all.agentmanagement.DepositWithdrawalPage;
 import com.paltech.element.common.*;
-import agentsite.pages.all.components.BasePage;
 
-public class DepositPopup extends BasePage {
+public class DepositPopup {
     public Popup popupDepositWithDraw = Popup.xpath("//app-adjust-credit-cash-dialog//div[@id ='adjustCreditCashDialog']");
     public Label lblTitle = Label.xpath("//div[@id='adjustCreditCashDialog']//div[contains(@class,'modal-header')]//div[contains(@class,'title')]");
     public Icon iconClose = Icon.xpath("//div[@id='adjustCreditCashDialog']//button[@class='close']");
@@ -21,47 +20,36 @@ public class DepositPopup extends BasePage {
     RadioButton rbtnCreditUpdate = RadioButton.id("radio1");
     RadioButton rbtnWinLossSettle = RadioButton.id("radio2");
     public void deposit(String amount, String remark) {
-        txtDepositToAmount.isPresent(2);
-        if (!amount.isEmpty()) {
-            txtDepositToAmount.sendKeys(amount);
-            lblYourNewBalance.isPresent();
-        }
-        if (!remark.isEmpty()) {
-            txtRemark.sendKeys(remark);
-        }
-        btnSubmit.click();
-        waitingLoadingSpinner();
-
+        deposit(amount,remark,true,true);
     }
 
-    public void deposit(String amount, String remark, boolean isCreditUpdate) {
-        txtDepositToAmount.isPresent(2);
-        if (!amount.isEmpty()) {
-            txtDepositToAmount.sendKeys(amount);
-            lblYourNewBalance.isPresent();
-        }
-        if (!remark.isEmpty()) {
-            txtRemark.sendKeys(remark);
-        }
-        if (!isCreditUpdate) {
-            rbtnWinLossSettle.click();
-        } else
-            rbtnCreditUpdate.click();
-
+    public void fillDepositInfo(String amount, String remark, boolean isCreditUpdate) {
+        deposit(amount,remark,isCreditUpdate,false);
     }
 
    public void deposit(String amount, String remark, boolean isCreditUpdate, boolean isSubmit) {
-        deposit(amount, remark, isCreditUpdate);
+       txtDepositToAmount.isPresent(2);
+       if (!amount.isEmpty()) {
+           txtDepositToAmount.sendKeys(amount);
+           lblYourNewBalance.isPresent();
+       }
+       if (!remark.isEmpty()) {
+           txtRemark.sendKeys(remark);
+       }
+       if(rbtnCreditUpdate.isDisplayed()) {
+           if (!isCreditUpdate) {
+               rbtnWinLossSettle.click();
+           } else
+               rbtnCreditUpdate.click();
+       }
         if (isSubmit) {
             btnSubmit.click();
-            waitingLoadingSpinner();
         }
     }
 
     public DepositWithdrawalPage closeDepositPopup() {
         if(btnCancel.isDisplayed()) {
             btnCancel.click();
-            waitingLoadingSpinner();
         }
         return new DepositWithdrawalPage();
     }

@@ -180,7 +180,7 @@ public class SATDepositWithdrawalPage extends DepositWithdrawalPage {
     @Override
     public String withdraw(String usercode, String amount, String remark, boolean isCreditUpdate,boolean isClose){
         WithdrawalPopup popup =  (WithdrawalPopup)action(WITHDRAWAL, usercode);
-        popup.withdraw(amount, remark,isCreditUpdate);
+        popup.fillWithdrawInfo(amount, remark,isCreditUpdate);
         String messsage = popup.lblMessage.getText().trim();;
         if(isClose)
             popup.clickXIcon();

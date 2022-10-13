@@ -271,6 +271,8 @@ public class DepositWithdrawalPage extends LeftMenu {
         return tblWithdrawalDeposit.getRowsWithoutHeader(memberNumber, false);
     }
 
+
+
     public List<String> getRowContainsUsercode(String usercode) {
         List<ArrayList<String>> lstData = tblWithdrawalDeposit.getRowsWithoutHeader(false);
         for (int i = 0; i < lstData.size(); i++)
@@ -456,7 +458,7 @@ public class DepositWithdrawalPage extends LeftMenu {
 
     public  String deposit(String usercode, String amount, String remark, boolean isCreditUpdate,boolean isClose){
         DepositToPopup popup =  (DepositToPopup)action(Actions.DEPOSIT, usercode);
-        popup.deposit(amount, remark,isCreditUpdate);
+        popup.deposit(amount, remark,isCreditUpdate,true);
         String messsage = popup.lblMessage.getText().trim();;
         if(isClose)
             popup.clickXIcon();
@@ -465,9 +467,8 @@ public class DepositWithdrawalPage extends LeftMenu {
 
     public String withdraw(String usercode, String amount, String remark, boolean isCreditUpdate, boolean isClose) {
         WithdrawalPopup popup = (WithdrawalPopup) action(WITHDRAWAL, usercode);
-        popup.withdraw(amount, remark, isCreditUpdate);
+        popup.withdraw(amount, remark, isCreditUpdate,true);
         String messsage = popup.lblMessage.getText().trim();
-        ;
         if (isClose)
             popup.clickXIcon();
         return messsage;

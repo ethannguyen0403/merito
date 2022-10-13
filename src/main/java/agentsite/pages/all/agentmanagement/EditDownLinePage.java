@@ -11,4 +11,5 @@ public class EditDownLinePage extends CreateDownLineAgentPage {
         btnSubmit.click();
         waitingLoadingSpinner();
     }
+
 }

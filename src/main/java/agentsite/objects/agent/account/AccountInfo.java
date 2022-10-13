@@ -373,7 +373,7 @@ public class AccountInfo {
     }
 
     public String getMemberSiteLoginID() {
-        String [] userCodeAndLoginID = getUserCodeAndLoginID("%s %s").split("\\s+");
+        String [] userCodeAndLoginID = getUserCodeAndLoginID("%s( %s)").split("\\s+");
         if (userCodeAndLoginID.length > 1) {
             return userCodeAndLoginID[1];
         } else {

@@ -20,7 +20,7 @@ import static agentsite.common.AGConstant.HomePage.DOWNLINE_LISTING;
 public class EditDownlineAgentTest extends BaseCaseMerito {
 
     @Test(groups = {"http_request"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_001() {
+    public void Agent_AM_Downline_Listing_Edit_Agent_001() throws Exception {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -39,7 +39,7 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
 
 
     @Test(groups = {"satregression"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_002() {
+    public void Agent_AM_Downline_Listing_Edit_Agent_002() throws Exception {
         log("@title: Validate UI in Edit Downline Agent");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -48,7 +48,7 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
         log("Step 2. Click on Edit icon of any agent");
-        EditDownLinePage editDownLineAgentPage = (EditDownLinePage) page.clickEditIcon(loginID);
+        EditDownLinePage editDownLineAgentPage = page.clickEditIcon(loginID);
 
         log("Verify 1. Verify UI in Edit Downline Agent is corrected");
         Assert.assertEquals(page.lblPageTitle.getText().trim(), AGConstant.AgencyManagement.EDIT_DOWNLINE_AGENT_TITLE, "Failed! Page title is incorrect");
@@ -98,7 +98,7 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"satregression"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_003() {
+    public void Agent_AM_Downline_Listing_Edit_Agent_003() throws Exception {
         log("@title: There is no Security Code prompted when access the page");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
