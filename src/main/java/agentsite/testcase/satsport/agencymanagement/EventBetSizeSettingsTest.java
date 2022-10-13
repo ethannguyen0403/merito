@@ -713,6 +713,7 @@ public class EventBetSizeSettingsTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
+
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount","password"})
     public void Agent_AM_Event_Bet_Site_Settings_031(String memberAccount, String password) throws Exception {
@@ -751,6 +752,7 @@ public class EventBetSizeSettingsTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
+
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount","password"})
     public void Agent_AM_Event_Bet_Site_Settings_032(String memberAccount, String password) throws Exception {

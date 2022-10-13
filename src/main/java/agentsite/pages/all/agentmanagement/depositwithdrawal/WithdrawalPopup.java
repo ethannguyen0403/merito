@@ -8,23 +8,14 @@ public class WithdrawalPopup extends DepositToPopup {
     private TextBox txtWithdrawalToAmount = TextBox.xpath("//div[@class='comp']//input");
 
     public void withdraw(String amount, String remark) {
-        // waiting for loading
-        waitingLoadingSpinner();
-        btnSubmit.isInvisible(2);
-        if (!amount.isEmpty()) {
-            txtWithdrawalToAmount.sendKeys(amount);
-        }
-        if (!remark.isEmpty()) {
-            txtRemark.sendKeys(remark);
-        }
-
-        btnSubmit.click();
-        waitingLoadingSpinner();
+        withdraw(amount,remark,true,false);
     }
 
-    public void withdraw(String amount, String remark,boolean isCreditUpdate) {
+    public void fillWithdrawInfo(String amount, String remark, boolean isCreditUpdate) {
+       withdraw(amount,remark,isCreditUpdate,false);
+    }
+    public void withdraw(String amount, String remark, boolean isCreditUpdate, boolean isSubmit) {
         // waiting for loading
-        waitingLoadingSpinner();
         btnSubmit.isInvisible(2);
         if (!amount.isEmpty()) {
             txtWithdrawalToAmount.sendKeys(amount);
@@ -32,20 +23,16 @@ public class WithdrawalPopup extends DepositToPopup {
         if (!remark.isEmpty()) {
             txtRemark.sendKeys(remark);
         }
+        if(rbtnCreditUpdate.isDisplayed()){
         if(!isCreditUpdate)
         {
             rbtnWinLossSettle.click();
         }
         else
             rbtnCreditUpdate.click();
-        // waiting for loading
-        // btnSubmit.isDisplayedShort(3);
-    }
-    public void withdraw(String amount, String remark, boolean isCreditUpdate, boolean isSubmit) {
-        withdraw(amount, remark, isCreditUpdate);
+        }
         if (isSubmit) {
             btnSubmit.click();
-            waitingLoadingSpinner();
         }
     }
 }

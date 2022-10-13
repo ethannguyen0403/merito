@@ -9,9 +9,12 @@ import agentsite.pages.all.components.LeftMenu;
 import agentsite.pages.all.components.SecurityPopup;
 import agentsite.pages.all.components.SuccessPopup;
 import agentsite.pages.oldUI.agentmanagement.EditDownLinePageOldUI;
+import com.paltech.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static baseTest.BaseCaseMerito.environment;
 
 public class DownLineListingPage extends LeftMenu {
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
@@ -77,14 +80,24 @@ public class DownLineListingPage extends LeftMenu {
         return null;
     }
 
-    public EditDownLinePage clickEditIcon(String loginID) {
+    public EditDownLinePage clickEditIcon(String loginID, boolean inputSecurityCode){
         editCol = getHeaderIndexValue("Edit");
         Link lnkEdit = (Link) tblDowlineListing.getControlBasedValueOfDifferentColumnOnRow(loginID, 1, userCodeCol, 1, null, editCol, "a[contains(@class,'pedit')]", false, false);
         if (lnkEdit.isClickable(1)) {
             lnkEdit.click();
         }
+        if(inputSecurityCode){
+            try {
+                confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         waitingLoadingSpinner();
         return new EditDownLinePage();
+    }
+    public EditDownLinePage clickEditIcon(String loginID) throws Exception {
+        return clickEditIcon(loginID,false);
     }
 
     public void clickUserName(String userName) {
@@ -125,7 +138,6 @@ public class DownLineListingPage extends LeftMenu {
         if (securityPopup.isDisplayed()) {
             if(!securityCode.isEmpty()) {
                 securityPopup.submitSecurityCode(securityCode);
-                waitingLoadingSpinner();
             }
         }
     }

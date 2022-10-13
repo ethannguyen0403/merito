@@ -18,6 +18,7 @@ import java.util.Objects;
 import static membersite.common.FEMemberConstants.BetSlip;
 import static membersite.common.FEMemberConstants.BetSlip.ERROR_STAKE_MESSAGE_MIN_BET;
 import static membersite.common.FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID_MAX_BET;
+import static membersite.common.FEMemberConstants.FANCY_CODE;
 
 public class FancyTest extends BaseCaseMerito {
 
@@ -37,7 +38,7 @@ public class FancyTest extends BaseCaseMerito {
         String sportID = "4";
         SportPage sportPage = memberHomePage.navigateCricket();
         log("Step 2 Get and click on the event that has 27Fancy");
-        FancyMarket fcMarket = BetUtils.findOpen27FancyMarket(sportID);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(sportID,FANCY_CODE);
         if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");
@@ -84,7 +85,7 @@ public class FancyTest extends BaseCaseMerito {
         String sportID = "4";
         SportPage sportPage = memberHomePage.navigateCricket();
         log("Step 2 Get and click on the event that has 27Fancy");
-        FancyMarket fcMarket = BetUtils.findOpen27FancyMarket(sportID);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(sportID,FANCY_CODE);
         if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");
@@ -133,7 +134,7 @@ public class FancyTest extends BaseCaseMerito {
         String sportID = "4";
         SportPage sportPage = memberHomePage.navigateCricket();
         log("Step 2 Get and click on the event that has 27Fancy");
-        FancyMarket fcMarket = BetUtils.findOpen27FancyMarket(sportID);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(sportID,FANCY_CODE);
         if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");
@@ -198,7 +199,7 @@ public class FancyTest extends BaseCaseMerito {
         String sportID = "4";
         SportPage sportPage = memberHomePage.navigateCricket();
         log("Step 2 Get and click on the event that has 27Fancy");
-        FancyMarket fcMarket = BetUtils.findOpen27FancyMarket(sportID);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(sportID,FANCY_CODE);
         if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");
@@ -247,7 +248,7 @@ public class FancyTest extends BaseCaseMerito {
         String sportID = "4";
         SportPage sportPage = memberHomePage.navigateCricket();
         log("Step 2 Get and click on the event that has 27Fancy");
-        FancyMarket fcMarket = BetUtils.findOpen27FancyMarket(sportID);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(sportID,FANCY_CODE);
         if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");
@@ -295,7 +296,7 @@ public class FancyTest extends BaseCaseMerito {
         String sportID = "4";
         SportPage sportPage = memberHomePage.navigateCricket();
         log("Step 2 Get and click on the event that has 27Fancy");
-        FancyMarket fcMarket = BetUtils.findOpen27FancyMarket(sportID);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(sportID,FANCY_CODE);
         if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");

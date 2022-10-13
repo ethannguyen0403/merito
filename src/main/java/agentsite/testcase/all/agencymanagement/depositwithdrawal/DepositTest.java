@@ -2,6 +2,7 @@ package agentsite.testcase.all.agencymanagement.depositwithdrawal;
 
 import agentsite.common.AGConstant;
 import agentsite.objects.agent.account.AccountInfo;
+import membersite.objects.AccountBalance;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -305,4 +306,61 @@ public class DepositTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
+    @Test (groups = {"interaction"})
+    @Parameters({"brandname","memberAccount","password"})
+    public void Agent_AM_DepositWithdrawal_Deposit_013(String brandname, String memberAccount, String password) throws Exception {
+        log("@title: Verify Balance member site is correct when deposit from agent site");
+        log("Step 1. Navigate Agency Management > Deposit Withdrawal and filter an exist player ");
+        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+        AccountInfo accountInfo = DownLineListingUtils.getAccountInfoInList(lstUsers,memberAccount);
+        String userCode = accountInfo.getUserCode();
+        double playerBalanceAfterDeposit = accountInfo.getCashBalance() - accountInfo.getMyOutstanding() + 0.5;
+        double playerOustanding = accountInfo.getMyOutstanding() *(-1);
+        double depositAmount = 0.5;
+
+        DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawal(environment.getSecurityCode());
+        page.filter(userCode, "", "");
+
+        log("Step 2. Select direct member account and click on Deposit link");
+        log("Step 3. Deposit an amount for a player"+ userCode +" with amount "+depositAmount);
+        page.deposit(userCode, String.format("%.2f",depositAmount), String.format("Deposit TC13 deposit for Player "+ userCode +" with amount "+depositAmount),true,true);
+
+        log("Verify 1. The balance in member site is deposited");
+        loginMember(memberAccount,password);
+        AccountBalance playerAccountBalance = memberHomePage.getPlayerBalance(brandname);
+        Assert.assertEquals(playerAccountBalance.getBalance(),String.format("%,.2f",playerBalanceAfterDeposit)," FAILED! Player available balance is incorrect after agent deposit! Expected is "+ String.format("%.2f",playerBalanceAfterDeposit));
+        Assert.assertEquals(playerAccountBalance.getExposure(),String.format("%,.2f",playerOustanding)," FAILED! Player exposure is incorrect after agent deposit! Expected is "+ String.format("%.2f",playerOustanding));
+
+       log("INFO: Executed completely");
+    }
+
+    @Test (groups = {"interaction"})
+    @Parameters({"brandname","memberAccount","password"})
+    public void Agent_AM_DepositWithdrawal_Deposit_014(String brandname, String memberAccount, String password) throws Exception {
+        log("@title: Verify Balance member site is correct after withdraw from agent site");
+        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+        AccountInfo accountInfo = DownLineListingUtils.getAccountInfoInList(lstUsers,memberAccount);
+        String userCode = accountInfo.getUserCode();
+        double playerBalanceAfterWithdraw =accountInfo.getCashBalance() -  accountInfo.getMyOutstanding()  - 0.5;
+        double playerOustanding = accountInfo.getMyOutstanding() * (-1);
+        double withdraw = 0.5;
+
+        log("Step 1. Navigate Agency Management > Deposit Withdrawal and filter an exist player ");
+        DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawal(environment.getSecurityCode());
+        page.filter(userCode, "", "");
+
+        log("Step 2. Select direct member account and click on Deposit link");
+        log("Step 3. Deposit an amount for a player"+ userCode +" with amount "+withdraw);
+        page.withdraw(userCode, String.format("%.2f",withdraw), String.format("Deposit TC14 withdraw for Player "+ userCode +" with amount "+withdraw),true,true);
+
+        log("Step 4. Login member site and get balance/exposure");
+        loginMember(memberAccount,password);
+        AccountBalance playerAccountBalance = memberHomePage.getPlayerBalance(brandname);
+
+        log("Verify 1. The balance in member site is withdrawal");
+        Assert.assertEquals(playerAccountBalance.getBalance(),String.format("%.2f",playerBalanceAfterWithdraw)," FAILED! Player available balance is incorrect after agent withdraw! Expected is "+ String.format("%.2f",playerBalanceAfterWithdraw));
+        Assert.assertEquals(playerAccountBalance.getExposure(),String.format("%,.2f",playerOustanding)," FAILED! Player exposure is incorrect after agent withdraw! Expected is "+ String.format("%.2f",playerOustanding));
+
+        log("INFO: Executed completely");
+    }
 }
