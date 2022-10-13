@@ -163,7 +163,8 @@ public class FancyContainerControl extends BaseElement {
 				marketName = tblMarket.getControlOfCell(1,colMarketName,1,lblMarketNameXpath).getText().trim();
 				if (marketName.equalsIgnoreCase(fcMarket.getMarketName())) {
 					System.out.println(String.format("Debug: found fancy market : %s at row %d", fcMarket.getMarketName(), i));
-					String minMax = tblMarket.getControlOfCell(1,colMinMax,1,"div[@class='value-mm-bet']/div").getText();
+					String minMax = tblMarket.getControlOfCell(1,colMinMax,1,"div[contains(@class,'value-mm-bet')]/div" +
+							"").getText();
 					String[] minMaxArr =  minMax.split("/");
 					newFancy.setMin(Integer.parseInt(minMaxArr[0].trim().replaceAll(",","")));
 					newFancy.setMmax(Integer.parseInt(minMaxArr[1].trim().replaceAll(",","")));

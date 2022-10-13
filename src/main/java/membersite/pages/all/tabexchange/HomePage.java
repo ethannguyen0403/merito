@@ -158,7 +158,7 @@ public class HomePage extends MainMenu {
     public String defineErrorMessage(double stake,double minStake, double maxStake, AccountBalance accountBalance){
        // double balance = Double.valueOf(accountBalance.getBalance().replaceAll(",", ""));
         if (stake < minStake || stake > maxStake )
-              return String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",minStake),String.format("%(,.2f",maxStake),String.format("%,.2f",stake));
+              return String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",minStake),String.format("%,.2f",maxStake),String.format("%,.2f",stake));
         return FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE;
 
     }
@@ -171,9 +171,6 @@ public class HomePage extends MainMenu {
         }
          return FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID_MAX_BET;
 
-    }
-    public AccountBalance getBalanceSATBrand(){
-        return satHeaderControl.getUserBalanceSAT();
     }
 
 

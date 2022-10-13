@@ -55,6 +55,7 @@ public class BaseCaseMerito {
     public static String backofficeSOSUrl;
     public static String backofficeDashboardUrl;
     public static String userCurrency;
+    public static String memberMarketServiceURL;
 
     @BeforeSuite(alwaysRun = true)
     public static void beforeSuite() {
@@ -72,6 +73,7 @@ public class BaseCaseMerito {
         try{
             environment = (Environment) context.getBean(env);
             driverProperties = (DriverProperties) context.getBean(browser);
+            memberMarketServiceURL = defineMemberService(brandname);
 
             domainURL = defineURL(brandname,"");
            // Define Member Site URL
@@ -293,75 +295,38 @@ public class BaseCaseMerito {
     }
 
     private static String defineURL(String brandName,String suffix){
-        switch (brandName){
-            case "fairexchange":
-                return String.format("%s%s",environment.getFairURL(), suffix);
+        return String.format("%s%s",getURL(brandName), suffix);
+    }
+    private static String defineMemberService(String brandName){
+        switch (brandName) {
             case "satsport":
-                return String.format("%s%s",environment.getSatURL(), suffix);
-            case "funsport":
-                return String.format("%s%s",environment.getFunsportURL(), suffix);
-            case "fairenter":
-                return String.format("%s%s",environment.getFairenterURL(), suffix);
-            case "laser365":
-                return String.format("%s%s",environment.getLaser365URL(), suffix);
-          /*  case "backoffice":
-                return String.format("%s%s",environment.getBackofficeDomain(), MEMBER_URL_SUFFIX.get(brandName));*/
+                return String.format("%s%s", getURL(brandName), "/market-service");
             default:
-                return "";
+                return String.format("%s%s", getURL(brandName), "/market-service");
         }
     }
 
     private static String defineMemberSiteURL(String brandName){
-
-        switch (brandName){
-            case "fairexchange":
-                return String.format("%s%s",environment.getFairURL(), MEMBER_URL_SUFFIX.get(brandName));
-            case "satsport":
-                return String.format("%s%s",environment.getSatURL(), MEMBER_URL_SUFFIX.get(brandName));
-            case "funsport":
-                return String.format("%s%s",environment.getFunsportURL(), MEMBER_URL_SUFFIX.get(brandName));
-            case "fairenter":
-                return String.format("%s%s",environment.getFairenterURL(), MEMBER_URL_SUFFIX.get(brandName));
-            case "laser365":
-                return String.format("%s%s",environment.getLaser365URL(), MEMBER_URL_SUFFIX.get(brandName));
-          /*  case "backoffice":
-                return String.format("%s%s",environment.getBackofficeDomain(), MEMBER_URL_SUFFIX.get(brandName));*/
-            default:
-                return "";
-        }
+        return String.format("%s%s",getURL(brandName), MEMBER_URL_SUFFIX.get(brandName));
     }
     private static String defineAgentSecurityCodeURL(String brandName){
-
-        switch (brandName){
-            case "fairexchange":
-                return String.format("%s%s",environment.getFairURL(), AGENT_SECURITY_CODE_URL_SUFFIX.get(brandName));
-            case "satsport":
-                return String.format("%s%s",environment.getSatURL(), AGENT_SECURITY_CODE_URL_SUFFIX.get(brandName));
-            case "funsport":
-                return String.format("%s%s",environment.getFunsportURL(), AGENT_SECURITY_CODE_URL_SUFFIX.get(brandName));
-            case "fairenter":
-                return String.format("%s%s",environment.getFairenterURL(), AGENT_SECURITY_CODE_URL_SUFFIX.get(brandName));
-            case "laser365":
-                return String.format("%s%s",environment.getLaser365URL(), AGENT_SECURITY_CODE_URL_SUFFIX.get(brandName));
-          /*  case "backoffice":
-                return String.format("%s%s",environment.getBackofficeDomain(), MEMBER_URL_SUFFIX.get(brandName));*/
-            default:
-                return "";
-        }
+        return String.format("%s%s",getURL(brandName), AGENT_SECURITY_CODE_URL_SUFFIX.get(brandName));
     }
     private static String defineAgentSiteURL(String brandName){
-
+        return  String.format("%s/agent",getURL(brandName));
+    }
+    private static String getURL(String brandName){
         switch (brandName){
             case "fairexchange":
-                return String.format("%s/agent",environment.getFairURL());
+                return environment.getFairURL();
             case "satsport":
-                return String.format("%s/agent",environment.getSatURL() );
+                return environment.getSatURL();
             case "funsport":
-                return String.format("%s/agent",environment.getFunsportURL() );
+                return environment.getFunsportURL();
             case "fairenter":
-                return String.format("%s/agent",environment.getFairenterURL() );
+                return environment.getFairenterURL() ;
             case "laser365":
-                return String.format("%s/agent",environment.getLaser365URL() );
+                return environment.getLaser365URL();
           /*  case "backoffice":
                 return String.format("%s%s",environment.getBackofficeDomain(), MEMBER_URL_SUFFIX.get(brandName));*/
             default:

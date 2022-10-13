@@ -39,6 +39,7 @@ public class MeritoConstant {
             put("betclub", "/agent/#/1/update");
         }
     };
+
     public static final Map<String, String> APP_NAME = new HashMap<String, String>() {
         {
             put("fairexchange", "Fair Exchange");
