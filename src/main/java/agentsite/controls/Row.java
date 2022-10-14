@@ -115,7 +115,7 @@ public class Row extends BaseElement {
 		Cell cell = Cell.xpath(cellXpath);
 		if (!cell.isDisplayed(2))
 			return null;
-		if (cell.getText().equals(value))
+		if (cell.getText().trim().equals(value))
 			return cell;
 		return null;
 	}

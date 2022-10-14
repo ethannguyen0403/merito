@@ -103,7 +103,11 @@ public class HomePage extends MainMenu {
     }
 
     public String getMarqueeMessage() {
-        return this.lblMarquee.getText();
+        String announcementMessage = "";
+        if(this.lblMarquee.isDisplayed()){
+            announcementMessage = this.lblMarquee.getText();
+        }
+        return announcementMessage;
     }
 
     public boolean isPopupBannerDisplay(){

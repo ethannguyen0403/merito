@@ -1,13 +1,15 @@
 package agentsite.pages.all.agentmanagement;
 
-import com.paltech.element.common.Button;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.Link;
-import com.paltech.element.common.TextBox;
+import agentsite.controls.DateTimePicker;
+import agentsite.controls.DateTimePickerOld;
+import agentsite.controls.TableNoBody;
+import agentsite.pages.all.components.DialogPopup;
+import com.paltech.element.common.*;
 import agentsite.controls.Table;
 import agentsite.pages.all.components.ConfirmPopup;
 import agentsite.pages.all.components.LeftMenu;
 
+import java.util.Date;
 import java.util.List;
 
 public class AnnoucementPage extends LeftMenu {
@@ -16,7 +18,10 @@ public class AnnoucementPage extends LeftMenu {
     public TextBox textArea = TextBox.xpath("//app-agency-announcement//textarea");
     public Button btnSave = Button.xpath("//app-agency-announcement//div[@class='submittion-area']//button[@class='pbtn']");
     public Button btnCancel = Button.xpath("//app-agency-announcement//div[@class='submittion-area']//button[@class='pbtn']");
-    public Table tblAnnouncement = Table.xpath("//app-agency-announcement//table[@class='parent']", 3);
+    public TableNoBody tblAnnouncement = TableNoBody.xpath("//app-agency-announcement//table[@class='parent']", 3);
+    int colMessage = 1;
+    int colAction= 2;
+    int colConfig= 3;
 
     public void addAnnouncement(String message) {
         if (!textArea.isDisplayed()) {
@@ -31,7 +36,6 @@ public class AnnoucementPage extends LeftMenu {
         int index = getAnnouncementIndex(message);
         if (index == 0) {
             System.out.println("DEBUG: can NOT found the announcement " + message);
-
             return false;
         }
         System.out.println("DEBUG: found the announcement " + message);
@@ -39,52 +43,102 @@ public class AnnoucementPage extends LeftMenu {
     }
 
     private int getAnnouncementIndex(String message) {
-        List<String> lstAnnoucement = tblAnnouncement.getColumn(1, true);
-        for (int i = 0; i < lstAnnoucement.size(); i++) {
-            if (lstAnnoucement.get(i).equals(message)) {
-                System.out.println("DEBUG: found the announcement" + message);
-                return i;
+        int i = 1;
+        Label lblMessage ;
+        while (true){
+            lblMessage = Label.xpath(tblAnnouncement.getxPathOfCell(1,colMessage,i,null));
+            if(!lblMessage.isDisplayed()) {
+                System.out.println("DEBUG: can NOT found the announcement " + message);
+                return 0;
             }
+           // String messageaa = lblMessage.getText().trim();
+            if(lblMessage.getText().trim().equals(message))
+                return i;
+            i = i+1;
         }
-        System.out.println("DEBUG: can NOT found the announcement" + message);
-        return 0;
     }
 
-    public void activeAnnouncement(String announcement) {
+    private void setSeenBy(int index, String specificPlayer){
+        RadioButton rbAll;
+        RadioButton rbSpecificPlayers;
+        TextBox txtSpecificPlayers;
+        Icon icPlus;
+        if(specificPlayer.equalsIgnoreCase("ALL")){
+            rbAll = RadioButton.xpath(tblAnnouncement.getxPathOfCell(1,colConfig,index,"span[1]/input[1]"));
+            if(!rbAll.isSelected())
+                rbAll.click();
+        }else
+        {
+            rbSpecificPlayers = RadioButton.xpath(tblAnnouncement.getxPathOfCell(1,colConfig,index,"span[1]/input[2]"));
+            txtSpecificPlayers = TextBox.xpath(tblAnnouncement.getxPathOfCell(1,colConfig,index,"div[@class='specificPlayer']//input"));
+            icPlus = Icon.xpath(tblAnnouncement.getxPathOfCell(1,colConfig,index,"a[contains(@class,'addButton')]"));
+            if(!rbSpecificPlayers.isSelected())
+                rbSpecificPlayers.click();
+            txtSpecificPlayers.sendKeys(specificPlayer);
+            icPlus.click();
+
+        }
+    }
+
+    public void updateAnnoucement(String announcement, boolean isActive,String newMessage, String from, String to, String seenBy ){
         int index = getAnnouncementIndex(announcement);
-        Link control = (Link) tblAnnouncement.getControlBasedValueOfDifferentColumnOnRow(announcement, 1, 1, 1,
-                null, 2, "span[@class='custom-control custom-switch']//input", true, false);
-        boolean status = control.isSelected();
-        control.click();
+        setActiveStatus(index,isActive);
+        if(!newMessage.isEmpty()){
+            editAnnoucement(index,newMessage);
+        }
+        setAnnouncementInRange(index,from,to,true);
+        setSeenBy(index,seenBy);
+    }
+    private void setActiveStatus(int index, boolean isActive) {
+        CheckBox control = CheckBox.xpath( tblAnnouncement.getxPathOfCell(1,colAction,index,"span[@class='custom-control custom-switch']"));
+        /*RadioButton btnToggel = RadioButton.xpath( tblAnnouncement.getxPathOfCell(1,colAction,index,"span[@class='custom-control custom-switch']/input"));
+        boolean status = btnToggel.isEnabled() ;*/
+        if(isActive)
+            control.click();
     }
 
-    public void updateAnnouncement(String announcement, String newMessage, String from, String to) {
-        // int index = getAnnouncementIndex(announcement);
-
-        String btnEditXpath = tblAnnouncement.getControlxPathBasedValueOfDifferentColumnOnRow(announcement, 1, 1, 1,
-                null, 2, "p//button[@class='pbtn']", true, false);
-        Button btnEdit = Button.xpath(btnEditXpath);
+    private void editAnnoucement(int index, String newMessage) {
+        Button btnEdit = Button.xpath(tblAnnouncement.getxPathOfCell(1,colAction,index,"p[1]/button[@class='pbtn']"));
         btnEdit.click();
         if (!newMessage.isEmpty()) {
             textArea.sendKeys(newMessage);
         }
+    }
+    private String setAnnouncementInRange(int index, String from, String to,boolean isCloseMessage){
+        String messsage ="";
+        Button btnSet;
+        DateTimePickerOld dtpFrom;
+        TextBox txtFrom;
+        TextBox txtTo;
+        DateTimePickerOld dtpTo;
         if (!from.isEmpty()) {
-            TextBox txtFrom = TextBox.xpath(tblAnnouncement.getControlxPathBasedValueOfDifferentColumnOnRow(announcement, 1, 1, 1,
-                    null, 2, "p[1]/button[@class='pbtn']", true, false));
-            txtFrom.click();
+            txtFrom = TextBox.xpath(tblAnnouncement.getxPathOfCell(1,colConfig,index,"table//tr[1]//input"));
+            dtpFrom = DateTimePickerOld.xpath(txtFrom,"//owl-date-time-container");
+            dtpFrom.selectDate(from,"d/MMM/yyy hh:mm");
         }
         if (!to.isEmpty()) {
-
+            txtTo = TextBox.xpath(tblAnnouncement.getxPathOfCell(1,colConfig,index,"table//tr[2]//input"));
+            dtpTo = DateTimePickerOld.xpath(txtTo,"//owl-date-time-container");
+            dtpTo.selectDate(to,"d/MMM/yyy hh:mm");
         }
+        btnSet = Button.xpath(tblAnnouncement.getxPathOfCell(1,colConfig,index,"button[@class='pbtn']"));
+        btnSet.click();
+        DialogPopup dialogPopup= new DialogPopup();
+        messsage = dialogPopup.getContentMessage();
+        if(isCloseMessage)
+            dialogPopup.confirmOK();
+        return messsage;
 
     }
 
-    public ConfirmPopup deleteAnnouncement(String announcement) {
+    public String deleteAnnouncement(String announcement, boolean isConfirmDelete) {
         int index = getAnnouncementIndex(announcement);
-        String btnEditXpath = tblAnnouncement.getControlxPathBasedValueOfDifferentColumnOnRow(announcement, 1, 1, 1,
-                null, 2, "p[2]/button[@class='pbtn']", true, false);
-        Button btnEdit = Button.xpath(btnEditXpath);
-        btnEdit.click();
-        return new ConfirmPopup();
+        Button btnDelete = Button.xpath(tblAnnouncement.getxPathOfCell(1,colAction,index,"p[2]/button[@class='pbtn']"));
+        btnDelete.click();
+        ConfirmPopup confirmPopup = new ConfirmPopup();
+        String message = confirmPopup.getContentMessage();
+        if(isConfirmDelete)
+            confirmPopup.confirm();
+        return message;
     }
 }

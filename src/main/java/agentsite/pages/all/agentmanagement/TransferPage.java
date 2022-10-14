@@ -3,6 +3,7 @@ import agentsite.controls.Table;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.all.agentmanagement.creditbalancelisting.EditCreditSettingPopup;
 import agentsite.pages.all.agentmanagement.transfer.TransferPopup;
+import agentsite.pages.all.components.DialogPopup;
 import agentsite.pages.all.components.LeftMenu;
 import agentsite.pages.all.components.SecurityPopup;
 import agentsite.pages.all.home.HomePage;
@@ -92,12 +93,24 @@ public class TransferPage extends HomePage {
         lnkTransferableBalance.click();
         return new TransferPopup();
     }
+    public DialogPopup clickUpdateStatusColumn(String username){
+        int index = getRowIndexofUserName(username);
+        String xpath =   tblAccountList.getxPathOfCell(1,colUpdateStatus,index,null);
+        Link.xpath(xpath).click();
+        return new DialogPopup();
+    }
 
     public boolean isAccountTransferredSuccess (String userName){
         int index = getRowIndexofUserName(userName);
         String xpath =  tblAccountList.getxPathOfCell(1,colUsername,index,"span[@class='psuccess']");
         return Icon.xpath(xpath).isDisplayed();
     }
+    public boolean isAccountTransferredError (String userName){
+        int index = getRowIndexofUserName(userName);
+        String xpath =  tblAccountList.getxPathOfCell(1,colUsername,index,"span[@class='perror']");
+        return Icon.xpath(xpath).isDisplayed();
+    }
+
     public String getFirstUsername(){
         if(lblNorecord.isDisplayed()){
             return "DEBUG: There is no data display in Transfer page";
