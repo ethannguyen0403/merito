@@ -1,6 +1,11 @@
 package agentsite.pages.all.agentmanagement;
 
+import com.paltech.element.common.Button;
+
+import java.util.List;
+
 public class EditDownLinePage extends CreateDownLineAgentPage {
+    public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@id='submitBtn']");
     public String getLoginIDValue() {
         return accInfoSection.tblAccountInfo.getControlOfCell(1, 1, 2, null).getText().trim();
     }
@@ -10,6 +15,11 @@ public class EditDownLinePage extends CreateDownLineAgentPage {
         if (isSubmit) ;
         btnSubmit.click();
         waitingLoadingSpinner();
+    }
+
+    public void setTransaction(boolean isDaily, List<String> days, boolean isSubmit){
+        transferSettingSection.setTransfer(isDaily,days);
+        btnSubmit.click();
     }
 
 }
