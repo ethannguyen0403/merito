@@ -23,7 +23,7 @@ import static agentsite.common.AGConstant.HomePage.*;
 
 public class EditUserTest extends BaseCaseMerito {
     @Test(groups = {"http_request"})
-    public void Agent_AM_Downline_Listing_Edit_User_001() {
+    public void Agent_AM_Downline_Listing_Edit_User_001() throws Exception {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -41,7 +41,7 @@ public class EditUserTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_Edit_User_002() {
+    public void Agent_AM_Downline_Listing_Edit_User_002() throws Exception {
         log("@title: Validate UI in Edit User");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -634,7 +634,7 @@ public class EditUserTest extends BaseCaseMerito {
 
     @Test(groups = {"satregression"})
     @Parameters({"username", "password", "currency"})
-    public void Agent_AM_Downline_Listing_Edit_User_028() {
+    public void Agent_AM_Downline_Listing_Edit_User_028() throws Exception {
         log("@title: Verify can edit User successfully if input valid min bet Setting");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -651,7 +651,7 @@ public class EditUserTest extends BaseCaseMerito {
 
     @Test(groups = {"interaction"})
     @Parameters({"username", "password", "currency"})
-    public void Agent_AM_Downline_Listing_Edit_User_030() {
+    public void Agent_AM_Downline_Listing_Edit_User_030() throws Exception {
         log("@title: Verity Exchange Product is displayed/dissappear in member site when active/inactive");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -876,5 +876,7 @@ public class EditUserTest extends BaseCaseMerito {
         LoginPopup loginPopup = new LoginPopup();
         Assert.assertTrue(loginPopup.isErrorMessageDisplayed(),"PASSED Error message is displayed");
     }
+
+
 }
 

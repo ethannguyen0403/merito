@@ -688,31 +688,17 @@ public class EventBetSizeSettingsTest extends BaseCaseMerito {
         String eventName = event.getEventName();
         int min = 100;
         int max =123;
-        log("Step 2. Select Soccer and select Today or Tomorrow tab that has event");
-        page.filter("","Cricket","Today");
+        log("Step 2. Update Max bet for an event (first colum)");
+        page.updateMinMax(event.getID(),"Exchange", Integer.toString(min),Integer.toString(max));
 
-        log("Step 3. Input min max value for all column:Min-Max, Fancy Min-Max, Bookmaker Min-Max, then click on Cancel ");
-        page.inputMinMax(event.getID(),"Exchange", Integer.toString(min),Integer.toString(max));
-        page.inputMinMax(event.getID(),"Fancy", Integer.toString(min),Integer.toString(max));
-        page.inputMinMax(event.getID(),"Bookmaker", Integer.toString(min),Integer.toString(max));
-        page.btnCancel.click();
+        log("Step 3 Login in member site and place on BF market of the event in step 2 ");
 
-        log("Verify 1. Verify the input value of all column is cleared");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId,"Exchange").getAttribute("value"),"","FAILED! Min text box of event "+eventId+" at column Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId,"Exchange").getAttribute("value"),"","FAILED! Max text box of event "+eventId+" at column Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId,"Fancy").getAttribute("value"),"","FAILED! Min text box of event "+eventId+" at column Fancy Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId,"Fancy").getAttribute("value"),"","FAILED! Max text box of event "+eventId+"at column Fancy Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId,"Bookmaker").getAttribute("value"),"","FAILED! Min text box of event "+eventId+"at column Bookmaker Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId,"Bookmaker").getAttribute("value"),"","FAILED! Max text box of event "+eventId+" at column Bookmaker Min -Max does not clear after clicking Cancel button ");
-        page.logout();
-        memberHomePage = loginMember(memberAccount,password);
-        // DriverManager.getDriver().deleteAllCookies();
-        DriverManager.getDriver().get(memberLoginURL);
-        Helper.loginFairExchange(memberSOSUrl, memberLoginURL,memberAccount,password,true);
-        memberHomePage = new membersite.pages.all.tabexchange.HomePage();
+
+        log("Verify Verify cannot place bet if max bet greater than the setting");
 
         log("INFO: Executed completely");
     }
+
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount","password"})
     public void Agent_AM_Event_Bet_Site_Settings_031(String memberAccount, String password) throws Exception {
@@ -726,31 +712,17 @@ public class EventBetSizeSettingsTest extends BaseCaseMerito {
         String eventName = event.getEventName();
         int min = 100;
         int max =123;
-        log("Step 2. Select Soccer and select Today or Tomorrow tab that has event");
-        page.filter("","Cricket","Today");
+        log("Step 2. Update Min bet for an event in Fancy Min-Max Column");
+        page.updateMinMax(event.getID(),"Fancy", Integer.toString(min),Integer.toString(max));
 
-        log("Step 3. Input min max value for all column:Min-Max, Fancy Min-Max, Bookmaker Min-Max, then click on Cancel ");
-        page.inputMinMax(event.getID(),"Exchange", Integer.toString(min),Integer.toString(max));
-        page.inputMinMax(event.getID(),"Fancy", Integer.toString(min),Integer.toString(max));
-        page.inputMinMax(event.getID(),"Bookmaker", Integer.toString(min),Integer.toString(max));
-        page.btnCancel.click();
+        log("Step 3 Login in member site and place on Fancy market under event has setting min max ");
 
-        log("Verify 1. Verify the input value of all column is cleared");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId,"Exchange").getAttribute("value"),"","FAILED! Min text box of event "+eventId+" at column Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId,"Exchange").getAttribute("value"),"","FAILED! Max text box of event "+eventId+" at column Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId,"Fancy").getAttribute("value"),"","FAILED! Min text box of event "+eventId+" at column Fancy Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId,"Fancy").getAttribute("value"),"","FAILED! Max text box of event "+eventId+"at column Fancy Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId,"Bookmaker").getAttribute("value"),"","FAILED! Min text box of event "+eventId+"at column Bookmaker Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId,"Bookmaker").getAttribute("value"),"","FAILED! Max text box of event "+eventId+" at column Bookmaker Min -Max does not clear after clicking Cancel button ");
-        page.logout();
-        memberHomePage = loginMember(memberAccount,password);
-        // DriverManager.getDriver().deleteAllCookies();
-        DriverManager.getDriver().get(memberLoginURL);
-        Helper.loginFairExchange(memberSOSUrl,memberLoginURL,memberAccount,password,true);
-        memberHomePage = new membersite.pages.all.tabexchange.HomePage ();
+
+        log("Verify Verify cannot place bet if min bet less than the setting");
 
         log("INFO: Executed completely");
     }
+
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount","password"})
     public void Agent_AM_Event_Bet_Site_Settings_032(String memberAccount, String password) throws Exception {
@@ -764,28 +736,61 @@ public class EventBetSizeSettingsTest extends BaseCaseMerito {
         String eventName = event.getEventName();
         int min = 100;
         int max =123;
-        log("Step 2. Select Soccer and select Today or Tomorrow tab that has event");
+        log("Step 2. Update Max bet for an event in Fancy Min-Max Column");
+        page.updateMinMax(event.getID(),"Fancy", Integer.toString(min),Integer.toString(max));
+
+        log("Step 3 Login in member site and place on Fancy market under event has setting min max with stake > max bet setting");
+
+
+        log("Verify cannot place bet if max bet greater than the setting");
+
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"interaction"})
+    @Parameters({"memberAccount","password"})
+    public void Agent_AM_Event_Bet_Site_Settings_033(String memberAccount, String password) throws Exception {
+        log("@title: Cannot place bet when stake greater than max setting in Event Bet Site Setting for Bookmaker market");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        AccountInfo acc = ProfileUtils.getProfile();
+        // Get the unblock event in Block Unblock event
+        EventBetSizeSettingsPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, EVENT_BET_STIE_SETTINGS, EventBetSizeSettingsPage.class);
+        Event event = EventBetSizeSettingUtils.getEventList("Cricket",acc.getUserID(),"TODAY").get(0);
+        String eventId = event.getID();
+        String eventName = event.getEventName();
+        int min = 100;
+        int max =123;
+        log("Step 2. Update Max bet for an event in Bookmaker Min-Max Column");
+        page.updateMinMax(event.getID(),"Bookmaker", Integer.toString(min),Integer.toString(max));
+
+        log("Step 3 Login in member site and place on Bookmaker market under event has setting min max with stake < max bet setting");
+        memberHomePage = loginMember(memberAccount,password);
+
+        log("Verify Verify cannot place bet if min bet less than the setting");
+
+
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"interaction"})
+    @Parameters({"memberAccount","password"})
+    public void Agent_AM_Event_Bet_Site_Settings_034(String memberAccount, String password) throws Exception {
+        log("@title:Cannot place bet when stake greater than max setting in Event Bet Site Setting for Bookmaker market");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        AccountInfo acc = ProfileUtils.getProfile();
+        // Get the unblock event in Block Unblock event
+        EventBetSizeSettingsPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, EVENT_BET_STIE_SETTINGS, EventBetSizeSettingsPage.class);
+        Event event = EventBetSizeSettingUtils.getEventList("Cricket",acc.getUserID(),"TODAY").get(0);
+        String eventId = event.getID();
+        String eventName = event.getEventName();
+        int min = 100;
+        int max =123;
+        log("Step 2. Update Max bet for an event in Bookmaker Min-Max Column");
         page.filter("","Cricket","Today");
 
-        log("Step 3. Input min max value for all column:Min-Max, Fancy Min-Max, Bookmaker Min-Max, then click on Cancel ");
-        page.inputMinMax(event.getID(),"Exchange", Integer.toString(min),Integer.toString(max));
-        page.inputMinMax(event.getID(),"Fancy", Integer.toString(min),Integer.toString(max));
-        page.inputMinMax(event.getID(),"Bookmaker", Integer.toString(min),Integer.toString(max));
-        page.btnCancel.click();
+        log("Step 3 Login in member site and place on Bookmaker market under event has setting min max with stake > max bet setting ");
 
-        log("Verify 1. Verify the input value of all column is cleared");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId,"Exchange").getAttribute("value"),"","FAILED! Min text box of event "+eventId+" at column Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId,"Exchange").getAttribute("value"),"","FAILED! Max text box of event "+eventId+" at column Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId,"Fancy").getAttribute("value"),"","FAILED! Min text box of event "+eventId+" at column Fancy Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId,"Fancy").getAttribute("value"),"","FAILED! Max text box of event "+eventId+"at column Fancy Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId,"Bookmaker").getAttribute("value"),"","FAILED! Min text box of event "+eventId+"at column Bookmaker Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId,"Bookmaker").getAttribute("value"),"","FAILED! Max text box of event "+eventId+" at column Bookmaker Min -Max does not clear after clicking Cancel button ");
-        page.logout();
-        memberHomePage = loginMember(memberAccount,password);
-        // DriverManager.getDriver().deleteAllCookies();
-        DriverManager.getDriver().get(memberLoginURL);
-        Helper.loginFairExchange(memberSOSUrl, memberLoginURL,memberAccount,password,true);
-        memberHomePage = new membersite.pages.all.tabexchange.HomePage();
+        log("Verify Verify cannot place bet if max bet greater than the setting");
 
         log("INFO: Executed completely");
     }

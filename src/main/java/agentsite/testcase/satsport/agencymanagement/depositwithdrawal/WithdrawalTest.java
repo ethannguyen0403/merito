@@ -67,9 +67,9 @@ public class WithdrawalTest extends BaseCaseMerito {
     public void Agent_AM_DepositWithdrawal_Withdraw_002(){
         log("@title: Validate that there is an error message displayed when submitted without inputting");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<String> lstUsers = DownLineListingUtils.getDownLineUsers(userID);
+        List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(userID);
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
-        String userCode = lstUsers.get(0);
+        String userCode = lstUsers.get(0).getUserCode();
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         SATDepositWithdrawalPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DEPOSIT_WITHDRAW, SATDepositWithdrawalPage.class);
@@ -98,9 +98,9 @@ public class WithdrawalTest extends BaseCaseMerito {
     public void Agent_AM_DepositWithdrawal_Withdraw_003(){
         log("@title: Validate that there is an error message displayed when submitted without any amount");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<String> lstUsers = DownLineListingUtils.getDownLineUsers(userID);
+        List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(userID);
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
-        String userCode = lstUsers.get(0);
+        String userCode = lstUsers.get(0).getUserCode();
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         SATDepositWithdrawalPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DEPOSIT_WITHDRAW, SATDepositWithdrawalPage.class);
@@ -144,7 +144,7 @@ public class WithdrawalTest extends BaseCaseMerito {
         WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdrawalPage.Actions.WITHDRAWAL, userCode);
 
         log("Step 3. Withdraw an amount more than the current cash balance");
-        popup.withdraw(Double.toString(withDrawAmount), "WithdrawTC004 withdraw amount more than member cash balance",true);
+        popup.fillWithdrawInfo(Double.toString(withDrawAmount), "WithdrawTC004 withdraw amount more than member cash balance",true);
 
         String errorMessage = popup.lblAmountError.getText();
         String expectedError = String.format(AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_ERROR_INSUFFICIENT, memberInfo.getUserCodeAndLoginID("%s (%s)"));
@@ -181,7 +181,7 @@ public class WithdrawalTest extends BaseCaseMerito {
         WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdrawalPage.Actions.WITHDRAWAL, userCode);
 
         log("Step 3. Withdraw an amount");
-        popup.withdraw(Double.toString(withDrawAmount), "WithdrawTC004 withdraw amount more than member cash balance",true);
+        popup.fillWithdrawInfo(Double.toString(withDrawAmount), "WithdrawTC004 withdraw amount more than member cash balance",true);
         String successfulMessage = popup.lblAmountSuccess.getText();
         double expectedNewMemberCash = memberInfo.getCashBalance() -  1;
         double expectedNewYourCash = accountInfo.getCashBalance() +  1;
@@ -228,7 +228,7 @@ public class WithdrawalTest extends BaseCaseMerito {
         WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdrawalPage.Actions.WITHDRAWAL, userCode);
 
         log("Step 3. Withdraw an amount from this username");
-        popup.withdraw(Double.toString(withDrawAmount), "WithdrawTC004 withdraw amount more than member cash balance",true);
+        popup.fillWithdrawInfo(Double.toString(withDrawAmount), "WithdrawTC004 withdraw amount more than member cash balance",true);
         String successfulMessage = popup.lblAmountSuccess.getText();
 
         log("Step 4. Close Withdrawal popup");
@@ -372,7 +372,7 @@ public class WithdrawalTest extends BaseCaseMerito {
         WithdrawalPopup popup = page.openWithdrawalPopup();
 
         log("Step 5. Withdraw an amount which is more than the current balance");
-        popup.withdraw(Double.toString(amountWithdraw),"Withdraw TC008 withdraw credit update amount more than current balance",true);
+        popup.fillWithdrawInfo(Double.toString(amountWithdraw),"Withdraw TC008 withdraw credit update amount more than current balance",true);
         page.waitingLoadingSpinner();
 
         log("Verify 1. An amount is withdrawn unsuccessfully");

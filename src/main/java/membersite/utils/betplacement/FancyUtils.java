@@ -12,14 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.domainURL;
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseMerito.*;
 import static membersite.common.FEMemberConstants.WICKET_BOOKMAKER_CODE;
 
 public class FancyUtils {
 
     private static JSONArray getWicketFancyJSON(String eventId){
-        String api = String.format("%s/member-service/member-market/api/event/wicket-fancy-markets.json?eventIds=%s", domainURL,eventId);
+        String api = String.format("%s/member-market/api/event/wicket-fancy-markets.json?eventIds=%s",domainURL,eventId);
         return WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
     }
 
@@ -32,12 +31,12 @@ public class FancyUtils {
     }
 
     private static JSONArray getCentraltBookMarkerJSON(String eventId){
-        String api = String.format("%s/member-service/member-market/api/event/bookmaker-markets.json?eventIds=%s&marketType=CENTRAL_BOOKMAKER", domainURL,eventId);
+        String api = String.format("%s/api/event/bookmaker-markets.json?eventIds=%s&marketType=CENTRAL_BOOKMAKER", memberMarketServiceURL,eventId);
         return WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
     }
 
     private static JSONArray getFancyJSON(String eventId){
-        String api = String.format("%sf27f-gateway/event/%s/market-by-event", domainURL,eventId);
+        String api = String.format("%s/f27f-gateway/event/%s/market-by-event", domainURL,eventId);
         // Workarround to special cookies to get 27 fancy
         String coookie =  DriverManager.getDriver().getCookies().toString();
         int index = coookie.indexOf("MESESSION");
@@ -47,7 +46,7 @@ public class FancyUtils {
         return WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, coookie,Configs.HEADER_JSON_CHARSET);
     }
     private static JSONArray getCentralFancyJSON(String eventId){
-        String api = String.format("%s/member-service/member-market/api/event/fancy-markets.json?eventIds=%s&marketType=CENTRAL_FANCY", domainURL,eventId);
+        String api = String.format("%s/member-market/api/event/fancy-markets.json?eventIds=%s&marketType=CENTRAL_FANCY", domainURL,eventId);
         return WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
     }
 
@@ -129,11 +128,66 @@ public class FancyUtils {
         return null;
     }*/
 
+    private static JSONArray getFancyJSONByProvider(String eventID, String provider){
+        switch (provider){
+            case "WICKET_FANCY":
+                return  getWicketFancyJSON(eventID);
+            case "CENTRAL_FANCY":
+                return getCentralFancyJSON(eventID);
+            default:
+                return getFancyJSON(eventID);
+        }
+    }
+
     /**
      * This action get all fancy market from api with the corresponding event
      * @param eventID
      * @return
      */
+    public static List<FancyMarket> getListFancyInEvent(String eventID,String fancy_provider_code){
+        List<FancyMarket> lstMarket = new ArrayList<>();
+        JSONArray marketJSONArray =  getFancyJSONByProvider(eventID,fancy_provider_code);
+        if(marketJSONArray.length()==0){
+            System.out.println("DEBUG: No data get fancy market api of event id" + eventID);
+            return null;
+        }
+        String marketName ;
+        String marketType ;
+        if(Objects.nonNull(marketJSONArray)) {
+            for (int i = 0; i < marketJSONArray.length(); i++) {
+                JSONObject marketObj = marketJSONArray.getJSONObject(i);
+                if(marketObj.has("marketName")){
+                    marketName = marketObj.getString("marketName");
+                }else
+                    marketName = marketObj.getString("name");
+                if(marketObj.has("marketName")){
+                    marketType = marketObj.getString("marketType");
+                }else
+                    marketType = marketObj.getString("type");
+
+                lstMarket.add( new FancyMarket.Builder()
+                        .eventName(marketObj.getString("eventName"))
+                        .marketID(Integer.toString(marketObj.getInt("marketId")))
+                        .marketName(marketName)
+                        .eventID(eventID)
+                        .status(marketObj.getString("status"))
+                        .marketType(marketType)
+                        .minBet(marketObj.getInt("minBet"))
+                        .maxBet(marketObj.getInt("maxBet"))
+                        .build());
+            }
+            return lstMarket;
+        }
+        System.out.println("DEBUG: getGETJSONResponse is null" + marketJSONArray.toString());
+        return null;
+    }
+
+
+    /**
+     * This action get all fancy market from api with the corresponding event
+     * @param eventID
+     * @return
+     *//*
     public static List<FancyMarket> getListFancyInEvent(String eventID){
         List<FancyMarket> lstMarket = new ArrayList<>();
         JSONArray marketJSONArray =  getWicketFancyJSON(eventID);
@@ -161,11 +215,43 @@ public class FancyUtils {
         return null;
     }
 
-    /**
+    *//**
      * This action get all fancy market from api with the corresponding event
      * @param eventID
      * @return
-     */
+     *//*
+    public static List<FancyMarket> getListCentralFancyInEvent(String eventID){
+        List<FancyMarket> lstMarket = new ArrayList<>();
+        JSONArray marketJSONArray =  getCentralFancyJSON(eventID);
+        if(marketJSONArray.length()==0){
+            System.out.println("DEBUG: No data get fancy market api of event id" + eventID);
+            return null;
+        }
+        if(Objects.nonNull(marketJSONArray)) {
+            for (int i = 0; i < marketJSONArray.length(); i++) {
+                JSONObject marketObj = marketJSONArray.getJSONObject(i);
+                lstMarket.add( new FancyMarket.Builder()
+                        .eventName(marketObj.getString("eventName"))
+                        .marketID(Integer.toString(marketObj.getInt("marketId")))
+                        .marketName(marketObj.getString("marketName"))
+                        .eventID(eventID)
+                        .status(marketObj.getString("status"))
+                        .marketType(marketObj.getString("marketType"))
+                        .minBet(marketObj.getInt("minBet"))
+                        .maxBet(marketObj.getInt("maxBet"))
+                        .build());
+            }
+            return lstMarket;
+        }
+        System.out.println("DEBUG: getGETJSONResponse is null" + marketJSONArray.toString());
+        return null;
+    }
+
+    *//**
+     * This action get all fancy market from api with the corresponding event
+     * @param eventID
+     * @return
+     *//*
     public static List<FancyMarket> getList27FancyInEvent(String eventID){
         List<FancyMarket> lstMarket = new ArrayList<>();
         JSONArray marketJSONArray =  getFancyJSON(eventID);
@@ -191,14 +277,14 @@ public class FancyUtils {
         }
         System.out.println("DEBUG: getGETJSONResponse is null" + marketJSONArray.toString());
         return null;
-    }
+    }*/
 
-    /**
+   /* *//**
      * This action will get the list Wicket Fancy with the expected status
      * @param eventID the list market get from api
      * @param status the expected status
      * @return the list with expected status
-     */
+     *//*
     public static List<FancyMarket> get27FancyHasExpectedStatusInEvent(String eventID, String status){
         List<FancyMarket> lstOutput = new ArrayList<>();
         List<FancyMarket> lstMarket = getList27FancyInEvent(eventID);
@@ -212,10 +298,26 @@ public class FancyUtils {
         }
         System.out.println(String.format("DEBUG: There is no wicket fancy display in the event %s", eventID ));
         return null;
+    }*/
+    /**
+     * This action will get the list Wicket Fancy with the expected status
+     * @param eventID the list market get from api
+     * @param status the expected status
+     * @return the list with expected status
+     */
+    public static FancyMarket getFancyHasExpectedStatusInEvent(String fancyProviderCode,String eventID, String status){
+        List<FancyMarket> lstMarket = getListFancyInEvent(eventID,fancyProviderCode);
+        if(Objects.nonNull(lstMarket)) {
+            for (FancyMarket market : lstMarket) {
+                if (market.getStatus().equalsIgnoreCase(status)) {
+                   return market;
+                }
+            }
+        }
+        System.out.println(String.format("DEBUG: There is no wicket fancy display in the event %s", eventID ));
+        return null;
     }
-/*
 
-    */
 /**
      * This action will get the list Wicket Fancy with the expected status
      * @param eventID the list market get from api
@@ -244,8 +346,8 @@ public class FancyUtils {
      * @param eventID the list market get from api
      * @param status the expected status
      * @return the list with expected status
-     */
-    public static List<FancyMarket> getFancyHasExpectedStatusInEvent(String eventID, String status){
+     *//*
+    public static List<FancyMarket> getFancyHasExpectedStatusInEvent(String eventID, String status,){
         List<FancyMarket> lstOutput = new ArrayList<>();
         List<FancyMarket> lstMarket = getListFancyInEvent(eventID);
         if(Objects.nonNull(lstMarket)) {
@@ -258,7 +360,29 @@ public class FancyUtils {
         }
         System.out.println(String.format("DEBUG: There is no wicket fancy display in the event %s", eventID ));
         return null;
-    }
+    }*/
+
+    /**
+     * This action will get the list Wicket Fancy with the expected status
+     * @param eventID the list market get from api
+     * @param status the expected status
+     * @return the list with expected status
+     *//*
+    public static List<FancyMarket> getCentralFancyHasExpectedStatusInEvent(String eventID, String status){
+        List<FancyMarket> lstOutput = new ArrayList<>();
+        List<FancyMarket> lstMarket = getListCentralFancyInEvent(eventID);
+        if(Objects.nonNull(lstMarket)) {
+            for (FancyMarket market : lstMarket) {
+                if (market.getStatus().equalsIgnoreCase(status)) {
+                    lstOutput.add(market);
+                }
+            }
+            return lstOutput;
+        }
+        System.out.println(String.format("DEBUG: There is no wicket fancy display in the event %s", eventID ));
+        return null;
+    }*/
+
    /* private static List<Double> getMinMaxHandicap(List<Wager> lstWager){
         List<Double> minMax = new ArrayList<>();
       List<Double> handicap = new ArrayList<>();

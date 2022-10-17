@@ -254,6 +254,15 @@ public class Header extends Footer {
         }
 
     }
+    public AccountBalance getPlayerBalance(String brandName){
+        switch (brandName){
+            case FUNSPORT:
+                return fsHeaderControl.getUserBalance();
+            default:
+                return satHeaderControl.getUserBalanceSAT();
+        }
+
+    }
 
 
 }

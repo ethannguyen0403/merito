@@ -10,7 +10,7 @@ public class DialogPopup {
     Label lblTitle = Label.xpath("//div[contains(@class,'dialog')]//div[contains(@class,'modal-header')]/div");
     Icon icClose = Icon.xpath("//div[contains(@class,'dialog')]//div[contains(@class,'modal-header')]/button");
     Label lblContent = Label.xpath("//div[contains(@class,'dialog')]//div[contains(@class,'modal-body')]");
-    Button btnOK = Button.xpath("//div[contains(@class,'modal-footer')]//button[contains(text(),'Ok') or contains(@class,'btn-warning')]");
+    Button btnOK = Button.xpath("//div[contains(@class,'modal-footer')]//button[contains(text(),'Ok') or contains(@class,'btn-warning') or contains(text(),'OK')]");
     Button btnCancel = Button.xpath("//div[contains(@class,'dialog')]//div[contains(@class,'footer')]//button[contains(@ng-click,'cancel')]");
 
     /* public DialogPopup(By locator, String xpathExpression) {

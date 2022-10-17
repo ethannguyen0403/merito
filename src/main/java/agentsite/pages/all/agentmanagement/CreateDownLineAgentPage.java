@@ -17,6 +17,9 @@ public class CreateDownLineAgentPage extends LeftMenu {
     // Info section
     public AccountInfoSection accInfoSection= AccountInfoSection.xpath("//div[@id='account']//app-agency-account-ui");
 
+    //Transer Setting Section
+    public TransferSettingSection transferSettingSection = TransferSettingSection.xpath("//div[@id='transfer-settings']");
+
     // Credit Balance Section
     public CreditBalanceSection creditBalanceSection = CreditBalanceSection.xpath("//div[@id='credit-balance-setting']//app-credit-setting-exchange");
 

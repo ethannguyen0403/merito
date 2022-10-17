@@ -50,7 +50,7 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
         log("Step 2. Click on Edit icon of any agent");
-        EditDownLinePage editDownLineAgentPage = (EditDownLinePage) page.clickEditIcon(loginID);
+        EditDownLinePage editDownLineAgentPage = page.clickEditIcon(loginID);
 
         log("Verify 1. Verify UI in Edit Downline Agent is corrected");
         Assert.assertEquals(page.lblPageTitle.getText().trim(), AGConstant.AgencyManagement.EDIT_DOWNLINE_AGENT_TITLE, "Failed! Page title is incorrect");

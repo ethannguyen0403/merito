@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static membersite.common.FEMemberConstants.CENTRAL_FANCY_CODE;
+import static membersite.common.FEMemberConstants.FANCY_CODE;
 
 public class FancyTest extends BaseCaseMerito {
 
@@ -35,7 +36,7 @@ public class FancyTest extends BaseCaseMerito {
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
-        FancyMarket fcMarket = BetUtils.findOpen27FancyMarket("4");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",FANCY_CODE);
         if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");
@@ -82,7 +83,7 @@ public class FancyTest extends BaseCaseMerito {
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
-        FancyMarket fcMarket = BetUtils.findOpen27FancyMarket("4");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",FANCY_CODE);
         if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");
@@ -131,7 +132,7 @@ public class FancyTest extends BaseCaseMerito {
         log("Step 1. Login member site and click on Cricket");
         AccountBalance balance = memberHomePage.getUserBalanceSAT();
         String sportName = "Cricket";
-        FancyMarket fcMarket = BetUtils.findOpen27FancyMarket("4");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",FANCY_CODE);
         if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");
@@ -201,7 +202,7 @@ public class FancyTest extends BaseCaseMerito {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
-        FancyMarket fcMarket = BetUtils.findOpen27FancyMarket("4");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",FANCY_CODE);
         if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");
@@ -244,7 +245,7 @@ public class FancyTest extends BaseCaseMerito {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
-        FancyMarket fcMarket = BetUtils.findOpen27FancyMarket("4");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",FANCY_CODE);
         if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");
@@ -287,27 +288,23 @@ public class FancyTest extends BaseCaseMerito {
         log("Step 1. Login member site and get account balance form api");
         AccountBalance balance = BetUtils.getUserBalance();
         String stake =Double.toString( Double.valueOf(balance.getBalance().replaceAll(",", "").toString())+ 1);
-        String sportName = "Cricket";        
-        memberHomePage.openLeftMenu();
-        SportPage sportPage =  memberHomePage.apLeftMenuControl.clickLeftMenuItem(sportName,SportPage.class);
-
-        log("Step 2 Get and click on the event that has 27 Fancy");
-        // String eventName = sportPage.eventContainerControl.getEventNameHasMarketData(currency,sportID,FANCY_MARKET_TYPE_CODE);
-        String eventName = "Sydney Sixers v Brisbane Heat";
-        // String eventId = sportPage.getEventIDHasProductData();
-        MarketPage marketPage = sportPage.eventContainerControl.clickOnRowofEventName(eventName);
-        if(Objects.isNull(marketPage)){
+        String sportName = "Cricket";
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",FANCY_CODE);
+        if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true,"By passed as has no 27 Fancy on all available event");
             return;
         }
+        memberHomePage.openLeftMenu();
+        SportPage sportPage =  memberHomePage.apLeftMenuControl.clickLeftMenuItem(sportName,SportPage.class);
 
-        log("Step 3. Get 27 Fancy available");
-        List<FancyMarket> lstFancy = FancyUtils.get27FancyHasExpectedStatusInEvent("31104923","OPEN");
-        FancyMarket fcMarket = lstFancy.get(0);
+        log("Step 2 Get and click on the event that has 27 Fancy");
+        String eventName = fcMarket.getEventName();
+        MarketPage marketPage = sportPage.eventContainerControl.clickOnRowofEventName(eventName);
 
-        log("Step 4 Active Central Fancy tab");
-        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
+        log("Step 4. Active 27 Fancy Market int the left menu");
+        marketPage = marketPage.satLeftMenuControl.clickLeftMenuItem(fcMarket.getMarketName(),MarketPage.class);
+        fcMarket =  marketPage.getFancyMarketInfo(fcMarket);
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ",fcMarket.getMarketID(),stake));
         marketPage.placeFancy(fcMarket,true,stake);

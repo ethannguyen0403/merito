@@ -10,19 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.domainURL;
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseMerito.*;
 import static com.paltech.utils.WSUtils.getGETJSONArrayWithCookies;
 
 
 public class CentralFancyUtils {
 
     private static JSONArray getWicketFancyJSON(String eventId){
-        String api = String.format("%s/member-service/member-market/api/event/fancy-markets.json?eventIds=%s&marketType=CENTRAL_FANCY", domainURL,eventId);
+        String api = String.format("%s/api/event/fancy-markets.json?eventIds=%s&marketType=CENTRAL_FANCY", memberMarketServiceURL,eventId);
         return getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
     }
     private static JSONArray getWicketBookmakerJSON(String eventId){
-        String api = String.format("%s/member-service/member-market/api/event/bookmaker-markets.json?eventIds=%s&marketType=CENTRAL_BOOKMAKER", domainURL,eventId);
+        String api = String.format("%s/api/event/bookmaker-markets.json?eventIds=%s&marketType=CENTRAL_BOOKMAKER", memberMarketServiceURL,eventId);
         return getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
     }
 

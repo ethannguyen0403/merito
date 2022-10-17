@@ -36,13 +36,13 @@ public class WicketFancyTest extends BaseCaseMerito {
         SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
 
         log("Step 2 Get and click on the event that has wicket Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenWicketMarket("4");
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if(Objects.isNull(marketPage)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
+        if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
@@ -82,13 +82,13 @@ public class WicketFancyTest extends BaseCaseMerito {
         SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
 
         log("Step 2 Get and click on the event that has wicket Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenWicketMarket("4");
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if(Objects.isNull(marketPage)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
+        if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
@@ -136,13 +136,13 @@ public class WicketFancyTest extends BaseCaseMerito {
         AccountBalance balance = sportPage.getUserBalanceSAT();
 
         log("Step 2 Get and click on the event that has wicket Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenWicketMarket("4");
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if(Objects.isNull(marketPage)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
+        if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 3. Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
@@ -205,13 +205,13 @@ public class WicketFancyTest extends BaseCaseMerito {
         SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
 
         log("Step 2 Get and click on the event that has wicket Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenWicketMarket("4");
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if(Objects.isNull(marketPage)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
+        if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
@@ -250,13 +250,13 @@ public class WicketFancyTest extends BaseCaseMerito {
         SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
 
         log("Step 2 Get and click on the event that has wicket Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenWicketMarket("4");
-        MarketPage marketPage = sportPage.eventContainerControl.clickOnRowofEventName(fcMarket.getEventName());
-        if(Objects.isNull(marketPage)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
+        if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
@@ -300,13 +300,13 @@ public class WicketFancyTest extends BaseCaseMerito {
         SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
 
         log("Step 2 Get and click on the event that has wicket Fanyc");
-        FancyMarket fcMarket = BetUtils.findOpenWicketMarket("4");
-        MarketPage marketPage = sportPage.eventContainerControl.clickOnRowofEventName(fcMarket.getEventName());
-        if(Objects.isNull(marketPage)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
+        if(Objects.isNull(fcMarket)){
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);

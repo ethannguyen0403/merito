@@ -14,10 +14,11 @@ import com.paltech.utils.WSUtils;
 import membersite.pages.all.tabexchange.SportPage;
 import java.util.*;
 
-import static baseTest.BaseCaseMerito.domainURL;
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseMerito.*;
 
 public class BetUtils {
+
+    String marketServiceULR;
 
     private static JSONObject getAppConfig() {
         String api = String.format("%s/member-service/app/sat/config", domainURL);
@@ -32,7 +33,9 @@ public class BetUtils {
 
     private static JSONObject getEvent(String sportID)
     {
-        String api = String.format("%s/member-service/market-service/whitelist/new/sport/%s?tzo=%s&_=%s",domainURL,"4","GMT%2B0700",DateUtils.getMilliSeconds());
+
+    //    String api = String.format("%s/member-service/market-service/whitelist/new/sport/%s?tzo=%s&_=%s",domainURL,"4","GMT%2B0700",DateUtils.getMilliSeconds());
+        String api = String.format("%s/whitelist/new/sport/%s", memberMarketServiceURL,"4");
         JSONObject sportObj = WSUtils.getGETJSONObjectWithCookies(api,Configs.HEADER_JSON,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if(Objects.nonNull(sportObj)){
             return sportObj.getJSONObject("eventIds");
@@ -41,8 +44,26 @@ public class BetUtils {
         System.out.println("DEBUG: getGETJSONResponse is null");
         return null;
     }
+    public static FancyMarket findOpenFancyMarket(String sportID,String providerFancyCode){
+        // Get all available event of a sport
+        JSONObject sportObj = getEvent(sportID);
+        JSONArray eventArr = sportObj.getJSONArray(sportID);
+        if(Objects.isNull(eventArr)){
+            System.out.println("DEBUG: getGETJSONResponse is null");
+            return null;
+        }
+        for (int i = 0; i < eventArr.length(); i++) {
+            // Get the first Open Fancy markets according provider(27 Fancy, Wicket Fancy, Central Fancy of an event )
+           FancyMarket fancyMaket = FancyUtils.getFancyHasExpectedStatusInEvent(providerFancyCode,Integer.toString(eventArr.getInt(i)),"OPEN");
+            if(Objects.nonNull(fancyMaket))
+            {
+                return  fancyMaket;
+            }
+        }
+        return null;
+    }
 
-    public static FancyMarket findOpen27FancyMarket(String sportID){
+   /* public static FancyMarket findOpen27FancyMarket(String sportID){
         JSONObject sportObj = getEvent(sportID);
         JSONArray eventArr = sportObj.getJSONArray(sportID);
         if(Objects.isNull(eventArr)){
@@ -77,6 +98,25 @@ public class BetUtils {
         }
         return null;
     }
+    public static FancyMarket findOpenCentralFancyMarket(String sportID){
+        // Get all available event of a sport
+        JSONObject sportObj = getEvent(sportID);
+        JSONArray eventArr = sportObj.getJSONArray(sportID);
+        if(Objects.isNull(eventArr)){
+            System.out.println("DEBUG: getGETJSONResponse is null");
+            return null;
+        }
+        for (int i = 0; i < eventArr.length(); i++) {
+            // Get the first Open Fancy markets according provider(27 Fancy, Wicket Fancy, Central Fancy of an event )
+            List<FancyMarket> lstFancy = FancyUtils.getFancyHasExpectedStatusInEvent(Integer.toString(eventArr.getInt(i)),"OPEN");
+            if(Objects.nonNull(lstFancy))
+            {
+                return  lstFancy.get(0);
+            }
+
+        }
+        return null;
+    }*/
     public static String getMinBet(SportPage.Sports sportName, SportPage.BetType betType) {
         String api = String.format("%s/member-service/user/bdata?tzo=GMT+05:30", domainURL);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
@@ -181,8 +221,8 @@ public class BetUtils {
                     }
                     return new AccountBalance.Builder()
                             .balance( String.format(Locale.getDefault(), "%,.2f",DoubleUtils.roundUpWithTwoPlaces(jsonBalance.getDouble("balance"))))
-                            .exposure(String.format("%.2f",exposure))
-                            .creditRefer(String.format("%.2f",jsonBalance.getDouble("creditRefer")))
+                            .exposure(String.format("%,.2f",exposure))
+                            .creditRefer(String.format("%,.2f",jsonBalance.getDouble("creditRefer")))
                             .build();
                 }
 
@@ -313,7 +353,7 @@ public class BetUtils {
     }
     public static List<String> getAllEventOfSport(String sportId){
         List<String> lstEvent = new ArrayList<>();
-        String api = String.format("%s/member-service/market-service/whitelist/new/sport/%s", domainURL,sportId);
+        String api = String.format("%s/whitelist/new/sport/%s", memberMarketServiceURL,sportId);
         JSONObject eventObj = WSUtils.getGETJSONResponse(api,null,Configs.HEADER_JSON);
 
         JSONArray eventArr = eventObj.getJSONObject("eventIds").getJSONArray("4");

@@ -180,7 +180,7 @@ public class DepositTest extends BaseCaseMerito {
         DepositToPopup popup = (DepositToPopup) page.action(DepositWithdrawalPage.Actions.DEPOSIT, userCode);
 
         log("Step 3. Deposit without any amount");
-        popup.deposit("0", "",true);
+        popup.fillDepositInfo("0", "",true);
         String errorMessage = popup.lblAmountError.getText();
 
         log("Verify 1. There is an error message when submitted without any amount \"Amount must be positive decimal with maximum two places and greater than zero\"");
@@ -216,7 +216,7 @@ public class DepositTest extends BaseCaseMerito {
         DepositToPopup popup = (DepositToPopup)page.action(DepositWithdrawalPage.Actions.DEPOSIT, userCode);
 
         log("Step 3.  Deposit an amount more than the current cash balance");
-        popup.deposit(Double.toString(currentCashBalance), String.format("Deposit amount %.2f",currentCashBalance),true);
+        popup.fillDepositInfo(Double.toString(currentCashBalance), String.format("Deposit amount %.2f",currentCashBalance),true);
         String errorMessage = popup.lblAmountError.getText();
         String expectedError = String.format(AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_ERROR_INSUFFICIENT, loginUserCode);
 
@@ -567,7 +567,7 @@ public class DepositTest extends BaseCaseMerito {
         DepositPopup popup = page.openDepositPopup();
 
         log("Step 5.Deposit an amount which is more than the current balance"  );
-        popup.deposit(Double.toString(depositAmount),String.format("Deposit TC010 deposit Credit with amount %s while current login balance is %s",depositAmount,currentCashBalance),false);
+        popup.fillDepositInfo(Double.toString(depositAmount),String.format("Deposit TC010 deposit Credit with amount %s while current login balance is %s",depositAmount,currentCashBalance),false);
         page.waitingLoadingSpinner();
 
         log("Verify 1. An amount is NOT deposited successfully");

@@ -67,9 +67,9 @@ public class WithdrawalTest extends BaseCaseMerito {
     public void Agent_AM_DepositWithdrawal_Withdraw_002() throws Exception {
         log("@title: Validate that there is an error message displayed when submitted without inputting");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<String> lstUsers = DownLineListingUtils.getDownLineUsers(userID);
+        List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(userID);
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
-        String userCode = lstUsers.get(0);
+        String userCode = lstUsers.get(0).getUserCode();
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawal(environment.getSecurityCode());
@@ -98,9 +98,9 @@ public class WithdrawalTest extends BaseCaseMerito {
     public void Agent_AM_DepositWithdrawal_Withdraw_003() throws Exception {
         log("@title: Validate that there is an error message displayed when submitted without any amount");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<String> lstUsers = DownLineListingUtils.getDownLineUsers(userID);
+        List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(userID);
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
-        String userCode = lstUsers.get(0);
+        String userCode = lstUsers.get(0).getUserCode();
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal and put security code");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawal(environment.getSecurityCode());

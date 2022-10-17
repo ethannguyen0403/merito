@@ -118,6 +118,14 @@ public class DownLineListingUtils {
         return lstUsers;
     }
 
+    public static AccountInfo getAccountInfoInList(List<AccountInfo> lstAccount,String userName){
+        for (AccountInfo acc: lstAccount) {
+            if(acc.getLoginID().equalsIgnoreCase(userName) || acc.getUserCode().equalsIgnoreCase(userName))
+                return acc;
+        }
+        System.out.println("Account "+ userName +" does not exist in the list");
+        return null;
+    }
     private static JSONObject getListingCreditCashBalance(){
         String api = String.format("%s/agent-services/user/getListingCreditCashBalance", domainURL);
         String jsn = String.format("{\"currentPage\":1,\"numOfRows\":50,\"products\":\"EXCHANGE\",\"filter\":{\"userName\":\"\",\"status\":\"\",\"levelSearch\":\"ALL\",\"userId\":%s}}", ProfileUtils.getProfile().getUserID());
@@ -148,6 +156,8 @@ public class DownLineListingUtils {
                 for (int i=0;i<jsnList.length();i++) {
                     JSONObject item = jsnList.getJSONObject(i);
                     double cashBalance = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("cashBalance"));
+                    double pnl = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("pnl"));
+                    double outstanding = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("plOutstanding"));
                     AccountInfo a = new AccountInfo.Builder()
                             .userID(Integer.toString(item.getInt("userId")))
                             .userCode(item.getString("userCode"))
@@ -157,6 +167,8 @@ public class DownLineListingUtils {
                             .level(item.getString("level"))
                             .cashBalance(cashBalance)
                             .currencyCode(item.getString("currencyCode"))
+                            .todayWinLoss(pnl)
+                            .myOutstanding(outstanding)
                             .build();
                     lstUsers.add(a);
                 }
