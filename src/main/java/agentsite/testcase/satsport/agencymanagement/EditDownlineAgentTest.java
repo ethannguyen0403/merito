@@ -20,11 +20,12 @@ import static agentsite.common.AGConstant.HomePage.DOWNLINE_LISTING;
 public class EditDownlineAgentTest extends BaseCaseMerito {
 
     @Test(groups = {"http_request"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_001() throws Exception {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_001(String brandname) {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, ProfileUtils.getDownlineBalanceInfo().get(0).get(0));
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, ProfileUtils.getDownlineBalanceInfo().get(0).get(0), brandname);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
@@ -39,11 +40,12 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
 
 
     @Test(groups = {"satregression"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_002() throws Exception {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_002(String brandname) {
         log("@title: Validate UI in Edit Downline Agent");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, ProfileUtils.getDownlineBalanceInfo().get(0).get(0));
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, ProfileUtils.getDownlineBalanceInfo().get(0).get(0), brandname);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
@@ -98,13 +100,14 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"satregression"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_003() throws Exception {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_003(String brandname) {
         log("@title: There is no Security Code prompted when access the page");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE",brandname);
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
@@ -119,21 +122,21 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
 
 
     @Test(groups = {"satregression"})
-    @Parameters("password")
-    public void Agent_AM_Downline_Listing_Edit_Agent_006(String password) throws Exception {
+    @Parameters({"password","brandname"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_006(String password, String brandname) throws Exception {
         log("@title:Validate UI when access from the level under SAD");
         log("Step 1. Navigate Agency Management > Downline Listing");
 
         String userID = ProfileUtils.getProfile().getUserID();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE",brandname);
 
         agentHomePage.logout();
         loginAgent(sosAgentURL, agentNewAccURL, listAccount.get(0).getUserCodeAndLoginID(), StringUtils.decrypt(password), environment.getSecurityCode());
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         userID = ProfileUtils.getProfile().getUserID();
         downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-        listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE");
+        listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname);
         String loginID = listAccount.get(0).getUserCode();
         log("Step 2. Click on Edit icon of any agent");
         EditDownLinePage editDownLineAgentPage = (EditDownLinePage) page.clickEditIcon(loginID);

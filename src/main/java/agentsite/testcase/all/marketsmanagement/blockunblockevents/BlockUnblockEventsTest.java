@@ -692,11 +692,12 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_MM_BlockUnblockEvent_016() {
+    @Parameters({"brandname"})
+    public void Agent_MM_BlockUnblockEvent_016(String brandname) {
         log("@title: Validate Event status just updated for the according selected downline");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> lstAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE");
+        List<AccountInfo> lstAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname);
         String downlineAccount = lstAccount.get(0).getUserCode();
         String downlineAccount1 = lstAccount.get(1).getUserCode();
 
@@ -730,12 +731,13 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_MM_BlockUnblockEvent_017() {
+    @Parameters({"brandname"})
+    public void Agent_MM_BlockUnblockEvent_017(String brandname) {
         log("@title: Validate can unblocked now all events for an downline in a page");
         AccountInfo acc = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> lstAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE");
+        List<AccountInfo> lstAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname);
         String downlineAccount = lstAccount.get(0).getUserCode();
         String downlineAccount1 = lstAccount.get(1).getUserCode();
 
@@ -948,11 +950,12 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
 
 
    @Test(groups = {"regression"})
-    public void Agent_MM_BlockUnblockEvent_UnblockNow_021() {
+   @Parameters({"brandname"})
+    public void Agent_MM_BlockUnblockEvent_UnblockNow_021(String brandname) {
        log("@title:Validate Event display in member site if status is Unblocked after Unblock Schedule 2 days");
        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
        String userID = ProfileUtils.getProfile().getUserID();
-       List<AccountInfo> lstAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE");
+       List<AccountInfo> lstAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname);
        String downlineAccount = lstAccount.get(0).getUserCode();
 
        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();

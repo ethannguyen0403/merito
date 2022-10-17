@@ -615,14 +615,14 @@ public class DepositTest extends BaseCaseMerito {
      * @expect: 1.The validate message displays "New Player Credit Balance has to be less than or equal to Max Player Credit. Current Player Credit Balance is 500.5"
      */
     @Test(groups = {"regression"})
-    @Parameters({"password"})
-    public void Agent_AM_DepositWithdrawal_Deposit_012(String password) throws Exception {
+    @Parameters({"password","brandname"})
+    public void Agent_AM_DepositWithdrawal_Deposit_012(String password, String brandname) throws Exception {
         log("@title: Cannot Deposit if exceed Max Player Credit setting");
         log("Step 1. Navigate Agency Management > Deposit Withdrawal");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE").get(0);
-        AccountInfo inDirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(), "PL", "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE",brandname).get(0);
+        AccountInfo inDirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(), "PL", "ACTIVE", brandname).get(0);
         SATDownLineListingPage downLineListingPage = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, SATDownLineListingPage.class);
         downLineListingPage.clickEditIcon(directDownline.getUserCode());
         int playerMaxCredit = Integer.parseInt(downLineListingPage.cashBalanceSection.getMaxPlayerCredit()) + 1;

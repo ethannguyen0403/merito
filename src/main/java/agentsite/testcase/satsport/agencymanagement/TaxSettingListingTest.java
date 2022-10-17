@@ -23,11 +23,12 @@ public class TaxSettingListingTest extends BaseCaseMerito {
      * @expect: 1. Verify Login display in the result table
      */
     @Test (groups = {"smoke"})
-    public void Agent_AM_Tax_Setting_Listing_0004() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Tax_Setting_Listing_0004(String brandname) {
         log("@title: Verify can search downline by Login ID");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(2).getLoginID();
+        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(2).getLoginID();
         TaxSettingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, TAX_SETTING_LISTING, TaxSettingListingPage.class);
 
         log("Step 2. Search PL account and Exchange Product");
@@ -51,11 +52,12 @@ public class TaxSettingListingTest extends BaseCaseMerito {
      * @expect: 1. Verify tax is updated for all sport and Update status is display green check
      */
     @Test (groups = {"smoke"})
-    public void Agent_AM_Tax_Setting_Listing_0005() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Tax_Setting_Listing_0005(String brandname) {
         log("@title: Verify can update tax for all sports");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(2).getLoginID();
+        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(2).getLoginID();
         TaxSettingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, TAX_SETTING_LISTING, TaxSettingListingPage.class);
 
         double soccerTax = 0.10;

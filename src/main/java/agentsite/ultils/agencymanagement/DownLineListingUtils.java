@@ -36,13 +36,13 @@ public class DownLineListingUtils {
         return lstUsers;
     }
 
-    public static List<AccountInfo> getDownLineUsers(String loginID,String level) {
-        return getDownLineUsers(loginID,level,"ACTIVE");
+    public static List<AccountInfo> getDownLineUsers(String loginID, String level, String brandname) {
+        return getDownLineUsers(loginID,level,"ACTIVE",brandname);
     }
 
-    public static List<AccountInfo> getDownLineUsers(String loginID,String level, String status) {
+    public static List<AccountInfo> getDownLineUsers(String loginID, String level, String status, String brandname) {
         List<AccountInfo> lstUsersFilter = new ArrayList<>();
-        List<AccountInfo> lstUsers = getAllDownLineUsers(loginID) ;
+        List<AccountInfo> lstUsers = getAllDownLineUsers(brandname,loginID) ;
         for(int i = 0; i< lstUsers.size(); i++){
             if(!level.isEmpty())
             {
@@ -58,32 +58,39 @@ public class DownLineListingUtils {
         return lstUsersFilter;
     }
 
-    public static List<AccountInfo> getAllDownLineUsers(String loginID) {
+    public static List<AccountInfo> getAllDownLineUsers(String brandName, String loginID) {
+        String api = "";
+        switch (brandName){
+            case "satsport":
+                api = String.format("%s/agent-services/user/sad-downline-list", domainURL);
+            default:
+                api = String.format("%s/agent-services/user/getListingDownline", domainURL);
+        }
         List<AccountInfo> lstUsers = new ArrayList<>();
-        String api = String.format("%s/agent-services/user/sad-downline-list", domainURL);
-        String jsn = String.format("{\"userName\":\"\",\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}",loginID, DateUtils.getMilliSeconds());
-        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn,DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+        String jsn = String.format("{\"userName\":\"\",\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", loginID, DateUtils.getMilliSeconds());
+        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("pageInfo")) {
                 JSONObject jsnPageInfo = jsonObject.getJSONObject("pageInfo");
                 JSONArray arrItems = jsnPageInfo.getJSONArray("items");
-                for (int i=0;i<arrItems.length();i++) {
+                for (int i = 0; i < arrItems.length(); i++) {
                     JSONObject item = arrItems.getJSONObject(i);
-                        AccountInfo a = new AccountInfo.Builder()
-                                .userID(Integer.toString(item.getInt("userId")))
-                                .userCode(item.getString("userCode"))
-                                .loginID(item.getString("nickname"))
-                                .parentID(Integer.toString(item.getInt("parentId")))
-                                .level(item.getString("level"))
-                                .currencyCode(item.getString("currencyCode"))
-                                .status(item.getString("status"))
-                                .build();
-                        lstUsers.add(a);
+                    AccountInfo a = new AccountInfo.Builder()
+                            .userID(Integer.toString(item.getInt("userId")))
+                            .userCode(item.getString("userCode"))
+                            .loginID(item.getString("nickname"))
+                            .parentID(Integer.toString(item.getInt("parentId")))
+                            .level(item.getString("level"))
+                            .currencyCode(item.getString("currencyCode"))
+                            .status(item.getString("status"))
+                            .build();
+                    lstUsers.add(a);
                 }
             }
         }
         return lstUsers;
     }
+
     public static List<AccountInfo> getAllDriectMember(String loginID) {
         List<AccountInfo> lstUsers = new ArrayList<>();
         String api = String.format("%s/agent-services/user/sad-downline-list", domainURL);

@@ -12,8 +12,8 @@ import org.openqa.selenium.By;
 
 public class FairenterUnderGamblingForm extends BaseElement {
     private String _xpath ;
-    public Button btnConfirm = Button.xpath("//button[contains(@class,'exitAction')]");
-    public Button btnExit = Button.xpath("//button[contains(@class,'confirmAction')]");
+    public Button btnExit = Button.xpath("//button[contains(@class,'exitAction')]");
+    public Button btnConfirm = Button.xpath("//button[contains(@class,'confirmAction')]");
     public Label lblUnderageGamblingIsProhobite = Label.xpath("//div[contains(@class,'ageVerify-container')]//div[contains(@class,'confirm-backgroup')]/div[@class='text-msg']");
     public Label lblConfirmMessage = Label.xpath("//div[contains(@class,'ageVerify-container')]//div[contains(@class,'confirm-backgroup')]/div[@class='sub-text-msg']");
     private FairenterUnderGamblingForm(By locator, String xpath) {

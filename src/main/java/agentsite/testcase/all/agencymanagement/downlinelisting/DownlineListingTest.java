@@ -4,7 +4,7 @@ import baseTest.BaseCaseMerito;
 import com.paltech.utils.StringUtils;
 import agentsite.common.AGConstant;
 import agentsite.objects.agent.account.AccountInfo;
-import org.testng.Assert; import baseTest.BaseCaseMerito;
+import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.DownLineListingPage;
@@ -65,14 +65,15 @@ public class DownlineListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_003() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_003(String brandname) {
         log("@title: Validate can search direct downline");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = loginAccInfo.getUserID();
         ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
         log("Step 2. Input direct downline , account status is All, and level is All");
@@ -87,13 +88,14 @@ public class DownlineListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_004() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_004(String brandname) {
         log("@title: Validate can search indirect downline ");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE").get(0);
-        AccountInfo indirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(), "PL", "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo indirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(), "PL", "ACTIVE", brandname).get(0);
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
         log("Step 2. Input direct downline , account status is All, and level is All");
@@ -227,12 +229,13 @@ public class DownlineListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_013() throws Exception {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_013(String brandname) throws Exception {
         log("@title: Validate can inactive member account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String userID = loginAccInfo.getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
@@ -257,12 +260,13 @@ public class DownlineListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_014() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_014(String brandname) {
         log("@title:Validate can suspend  account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String userID = loginAccInfo.getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
@@ -286,12 +290,13 @@ public class DownlineListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_017() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_017(String brandname) {
         log("@title: Validate can close an account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String userID = loginAccInfo.getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
@@ -312,12 +317,13 @@ public class DownlineListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_015() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_015(String brandname) {
         log("@title: Validate can active account from inactive status");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String userID = loginAccInfo.getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
@@ -337,12 +343,13 @@ public class DownlineListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_016() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_016(String brandname) {
         log("@title: Validate can active account from suspend status");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String userID = loginAccInfo.getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
@@ -362,11 +369,12 @@ public class DownlineListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_018() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_018(String brandname) {
         log("@title: Validate can not active close an account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
@@ -383,12 +391,13 @@ public class DownlineListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_019() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_019(String brandname) {
         log("@title: Validate can inactive an agent");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
 
@@ -421,12 +430,13 @@ public class DownlineListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_022() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_022(String brandname) {
         log("@title: Validate drill-down to member level");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(loginAccInfo.getUserID(), downlineLevel, "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(loginAccInfo.getUserID(), downlineLevel, "ACTIVE", brandname).get(0);
         if (Objects.isNull(directDownline)) {
             log("INFO: There is no member under this account");
             return;
@@ -454,13 +464,14 @@ public class DownlineListingTest extends BaseCaseMerito {
      * @expect: 1. Corresponding account display in the list
      */
     @Test(groups = {"smoke1"})
-    public void Agent_AM_Downline_Listing_006() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_006(String brandname) {
         log("@title: Validate can search downline with Username ");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
         String level = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, brandname);
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Input a Username exist indirect/direct downline");
@@ -486,13 +497,13 @@ public class DownlineListingTest extends BaseCaseMerito {
      * @expect: 1. Verify can change password successfully
      */
     @Test (groups = {"smoke"})
-    @Parameters({"level","password"})
-    public void Agent_AM_Downline_Listing_020(String level,String password) throws Exception {
+    @Parameters({"level","password","brandname"})
+    public void Agent_AM_Downline_Listing_020(String level,String password, String brandname) throws Exception {
         log("@title: Validate can change password from the table");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,level);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,level, brandname);
         String loginID =listAccount.get(0).getUserCode();
 
         log("Step 2. Select agent account in any level");

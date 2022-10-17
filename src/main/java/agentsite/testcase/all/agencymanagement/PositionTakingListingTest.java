@@ -3,6 +3,7 @@ package agentsite.testcase.all.agencymanagement;
 import agentsite.common.AGConstant;
 import agentsite.objects.agent.account.AccountInfo;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.PositionTakingListingPage;
 import agentsite.pages.all.components.ConfirmPopup;
@@ -55,11 +56,12 @@ public class PositionTakingListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Position_Taking_Listing_003() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Position_Taking_Listing_003(String brandname) {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(userID);
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname,userID);
         String downlineUserName = listAccount.get(0).getUserCode();
         PositionTakingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, POSITION_TAKING_LISTING, PositionTakingListingPage.class);
 
@@ -75,11 +77,12 @@ public class PositionTakingListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"smoke"})
-    public void Agent_AM_Position_Taking_Listing_004() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Position_Taking_Listing_004(String brandname) {
         log("@title:Verify can search by Login ID ");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(userID);
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname,userID);
         String downlineLoginID = listAccount.get(0).getLoginID();
         PositionTakingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, POSITION_TAKING_LISTING, PositionTakingListingPage.class);
 
@@ -168,11 +171,12 @@ public class PositionTakingListingTest extends BaseCaseMerito {
 
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Position_Taking_Listing_007() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Position_Taking_Listing_007(String brandname) {
         log("@title:Verify filter member level display correctly");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String member = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0).getUserCode();
+        String member = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0).getUserCode();
         PositionTakingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, POSITION_TAKING_LISTING, PositionTakingListingPage.class);
 
         log("Step 2. Filter level = member");
@@ -187,12 +191,13 @@ public class PositionTakingListingTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"regression"})
-    public void Agent_AM_Position_Taking_Listing_008() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Position_Taking_Listing_008(String brandname) {
         log("@title:Verify filter agent level display correctly");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        String agent = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE").get(0).getUserCode();
+        String agent = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0).getUserCode();
         PositionTakingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, POSITION_TAKING_LISTING, PositionTakingListingPage.class);
 
         log("Step 2. 2. Filter level = agent");
@@ -333,7 +338,8 @@ public class PositionTakingListingTest extends BaseCaseMerito {
 
 
     @Test(groups = {"smoke"})
-    public void Agent_AM_Position_Taking_Listing_012() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Position_Taking_Listing_012(String brandname) {
         log("@title: Verify can update PT for all sports");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         HashMap<String, Boolean> sportMap = new HashMap<String, Boolean>() {
@@ -349,7 +355,7 @@ public class PositionTakingListingTest extends BaseCaseMerito {
             }
         };
         String userID = ProfileUtils.getProfile().getUserID();
-        String member = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0).getUserCode();
+        String member = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0).getUserCode();
         PositionTakingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, POSITION_TAKING_LISTING, PositionTakingListingPage.class);
 
         int PT = 10;
@@ -398,11 +404,12 @@ public class PositionTakingListingTest extends BaseCaseMerito {
 
 
     @Test(groups = {"smoke"})
-    public void Agent_AM_Position_Taking_Listing_014() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Position_Taking_Listing_014(String brandname) {
         log("@title: Verify can update PT  for selected sport");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String downline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0).getUserCode();
+        String downline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0).getUserCode();
         PositionTakingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, POSITION_TAKING_LISTING, PositionTakingListingPage.class);
 
         int PT = 2;

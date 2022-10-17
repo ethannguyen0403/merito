@@ -84,11 +84,12 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      * @expect:  1. Data in this table is displayed correctly after filtering
      */
     @Test (groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_003(){
+    @Parameters({"brandname"})
+    public void Agent_AM_DepositWithdrawal_003(String brandname){
         log("@title: Validate that filtering with username is correct");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
         String userCode = directDownline.getUserCode();
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         SATDepositWithdrawalPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DEPOSIT_WITHDRAW, SATDepositWithdrawalPage.class);
@@ -314,13 +315,14 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      * @expect: 1. Verify log data display corresponding as deposit
      */
     @Test (groups = {"satregression"})
-    public void Agent_AM_DepositWithdrawal_010(){
+    @Parameters({"brandname"})
+    public void Agent_AM_DepositWithdrawal_010(String brandname){
         log("@title:  Validate Deposit log display correctly");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
         String remark = String.format("DepositWithdrawal_010 deposit 1 on %s", DateUtils.getDate(0, "DD/MM/YYY hh:mm", "GMT -4"));
         SATDepositWithdrawalPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DEPOSIT_WITHDRAW, SATDepositWithdrawalPage.class);
 
@@ -350,13 +352,14 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      * @expect:  1. Verify log data display corresponding as With draw
      */
     @Test (groups = {"satregression"})
-    public void Agent_AM_DepositWithdrawal_011(){
+    @Parameters({"brandname"})
+    public void Agent_AM_DepositWithdrawal_011(String brandname){
         log("@title: Validate Withdraw log display correctly");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
         String remark = String.format("DepositWithdrawal_011 withdraw 1 on %s", DateUtils.getDate(0, "DD/MM/YYY hh:mm", "GMT -4"));
         SATDepositWithdrawalPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DEPOSIT_WITHDRAW, SATDepositWithdrawalPage.class);
 
@@ -418,13 +421,13 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
     }
 
     @Test (groups = {"interaction"})
-    @Parameters("password")
-    public void Agent_AM_DepositWithdrawal_Deposit_015(String password) throws Exception {
+    @Parameters({"password","brandname"})
+    public void Agent_AM_DepositWithdrawal_Deposit_015(String password, String brandname) throws Exception {
         log("@title:  Verify Balance agent is correctly is correct when deposit from agent site");
         double depositAmount = 1;
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
         String userCodeAndLoginID = directDownline.getUserCodeAndLoginID("%s %s");
         String [] splitUserCodeAndID = userCodeAndLoginID.split("\\s+");
         String loginId = splitUserCodeAndID[0];
@@ -452,13 +455,13 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
     }
 
     @Test (groups = {"interaction"})
-    @Parameters("password")
-    public void Agent_AM_DepositWithdrawal_Deposit_016(String password) throws Exception {
+    @Parameters({"password","brandname"})
+    public void Agent_AM_DepositWithdrawal_Deposit_016(String password, String brandname) throws Exception {
         log("@title:  Verify Balance agent is correctly is correct when withdrawal from agent site");
         double withDrawalAmount = 1;
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
         String userCodeAndLoginID = directDownline.getUserCodeAndLoginID("%s %s");
         String [] splitUserCodeAndID = userCodeAndLoginID.split("\\s+");
         String loginId = splitUserCodeAndID[0];
