@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class DepositTest extends BaseCaseMerito {
+
     /**
      * @title: Validate that there is an error message displayed when submitted without any amount
      * @pre-condition:
@@ -307,8 +308,8 @@ public class DepositTest extends BaseCaseMerito {
     }
 
     @Test (groups = {"interaction"})
-    @Parameters({"brandname","memberAccount","password"})
-    public void Agent_AM_DepositWithdrawal_Deposit_013(String brandname, String memberAccount, String password) throws Exception {
+    @Parameters({"memberAccount","password"})
+    public void Agent_AM_DepositWithdrawal_Deposit_013(String memberAccount, String password) throws Exception {
         log("@title: Verify Balance member site is correct when deposit from agent site");
         log("Step 1. Navigate Agency Management > Deposit Withdrawal and filter an exist player ");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -327,7 +328,7 @@ public class DepositTest extends BaseCaseMerito {
 
         log("Verify 1. The balance in member site is deposited");
         loginMember(memberAccount,password);
-        AccountBalance playerAccountBalance = memberHomePage.getPlayerBalance(brandname);
+        AccountBalance playerAccountBalance = memberHomePage.getPlayerBalance(_brandname);
         Assert.assertEquals(playerAccountBalance.getBalance(),String.format("%,.2f",playerBalanceAfterDeposit)," FAILED! Player available balance is incorrect after agent deposit! Expected is "+ String.format("%.2f",playerBalanceAfterDeposit));
         Assert.assertEquals(playerAccountBalance.getExposure(),String.format("%,.2f",playerOustanding)," FAILED! Player exposure is incorrect after agent deposit! Expected is "+ String.format("%.2f",playerOustanding));
 

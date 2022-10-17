@@ -22,7 +22,7 @@ public class SecurityCodePage extends BasePage {
     }
 
     public void setSecurityCode(String securityCode, String confirmSecurityCode) {
-        imgSpin.isInvisible(2);
+        imgSpin.isInvisible(5);
         if (txtSecurityCode.isDisplayed()) {
             txtSecurityCode.sendKeys(securityCode);
         } else {

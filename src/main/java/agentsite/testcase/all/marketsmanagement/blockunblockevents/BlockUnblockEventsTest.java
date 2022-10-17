@@ -9,6 +9,8 @@ import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
 import baseTest.BaseCaseMerito;
 import com.paltech.driver.DriverManager;
 import membersite.objects.sat.Event;
+import membersite.objects.sat.Market;
+import membersite.pages.all.tabexchange.SportPage;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Parameters;
@@ -1177,20 +1179,11 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate that can suspend Layout display on the event in member site when suppend the even
-     * @pre-condition:
-     *            1. SAD level login agent in successfully and have an unblocked event
-     * @steps:   1. Navigate Markets Management > Block/Unblock Events
-     *           2. Select sport is soccer, and a tab that has data
-     *           3. Select an downline and an unblocked event
-     *           4. Click Suspend button
-     * @expect:  1 Verify in member site, the event is suspend in sport page and market page
-     */
+
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount", "memberAccount","password"})
     public void Agent_MM_BlockUnblockEvent_036(String downlineAccount,String memberAccount, String password) throws Exception {
-        log("@title: Validate that can suspend Layout display on the event in member site when suppend the even");
+        log("@title: Validate that can suspend Layout display on the event in member site when suppend the event");
         AccountInfo acc = ProfileUtils.getProfile();
 
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
@@ -1199,35 +1192,33 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
         log("Step 2: Select sport is soccer, and a tab that has data");
         page.filter("","Soccer", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         String childID =BlockUnblockEventsUtils.getchildUserID(acc.getUserID(),downlineAccount);
-        List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer",childID,"TODAY");
-        if(Objects.isNull(event.get(0).getEventName())){
-            throw new SkipException("INFO: Skipping this test case as have no event in today for Soccer");
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList("Soccer",childID,"TODAY");
+        Event event = eventList.get(0);
+        if(Objects.isNull(eventList.get(0).getEventName())){
+            throw new SkipException("INFO: Skipping this test case as have no event "+event.getEventName()+" in today for Soccer");
         }
-        String eventName = event.get(0).getEventName();
 
         log("Step 3: Select an downline and a blocked event");
-        log("Precondition Steps: Click Unblock Now to unblock the event: " + eventName);
-        page.blockUnblockEvent(downlineAccount,eventName,"Unblock Now");
+        log("Precondition Steps: Click Unblock Now to unblock the event: " + event.getEventName());
+        page.blockUnblockEvent(downlineAccount,event.getEventName(),"Unblock Now");
 
-        log("Step 5: Suspend the event: " + eventName);
-        page.blockUnblockEvent("",eventName,"Suspend");
-
-       /* log("Step 6: Logout agent site");
-        agentHomePage.logout();
+        log("Step 5: Suspend the event: " + event.getEventName());
+        page.blockUnblockEvent("",event.getEventName(),"Suspend");
 
         log("Step 7: Login member site ");
-        DriverManager.getDriver().getToAvoidTimeOut(environment.getMemberSiteURL());
         loginMember(memberAccount,password);
 
         log("Step 8: Navigate to Soccer");
-        memberagentHomePage.navigateSportMenu("Soccer", SportPage.class);
+        SportPage sportPage = memberHomePage.navigateSportMenu("Soccer",SportPage.class);
+        sportPage.clickEvent(event);
+        Market market = sportPage.marketContainerControl_SAT.getMarket(event, 1, true);
 
-        log(String.format("Step 9: Search event and click on a market",eventName));
-        memberagentHomePage.searchEvent(eventName,true);
-        memberagentHomePage.clickMarket(1);
+        log(String.format("Step 9: Search event and click on a market",event.getEventName()));
 
-        log("Verify 1 Verify in member site, the event is suspend in sport page and market page ");
-        Assert.assertTrue(memberagentHomePage.marketContainerControl.lblSuspend.isDisplayed(),"ERROR! Suspend layout not cover ");*/
+        log("Verify 1 Verify in member site, the market is suspend in sport page");
+        log("Verify 1 Verify in member site, the market is suspend in market page");
+
+
         log("INFO: Executed completely");
     }
 

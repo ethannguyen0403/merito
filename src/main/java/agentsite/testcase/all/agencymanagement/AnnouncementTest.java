@@ -73,7 +73,7 @@ public class AnnouncementTest extends BaseCaseMerito {
 
     }
 
-    @Test(groups = {"Interaction"})
+    @Test(groups = {"interaction"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_004(String username, String memberAccount, String password) throws Exception {
         log("@title: Member display announcement when agent set for a Specific player");
@@ -81,17 +81,18 @@ public class AnnouncementTest extends BaseCaseMerito {
         //String announcementMsg = "This is announcement is created by auto scrips " + DateUtils.getMilliSeconds();
         String announcementMsg= "This is announcement is created by auto scrips 1665731123774";
         AnnoucementPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, ANNOUNCEMENT, AnnoucementPage.class);
-        String todate = DateUtils.getDate(1,"d/MMM/YYYY hh:mm","GMT-4");
-        try {log("Step 2. Add annoucement, active and set for a specific player and set available in today");
-            /* page.addAnnouncement(announcementMsg);*/
-        page.updateAnnoucement(announcementMsg,true,"","",todate,memberAccount);
+        String todate = DateUtils.getDate(2,"d/MMM/YYYY hh:mm","GMT-4");
+        try {
+            log("Step 2. Add annoucement, active and set for a specific player and set available in today");
+            page.addAnnouncement(announcementMsg);
+            page.updateAnnoucement(announcementMsg,true,"","",todate,memberAccount);
 
-        log("Step 3 Login member site (SAT and /plus UI)");
-        loginMember(memberAccount,password);
-        memberHomePage.getMarqueeMessage();
+            log("Step 3 Login member site (SAT and /plus UI)");
+            loginMember(memberAccount,password);
+            memberHomePage.getMarqueeMessage();
 
-        log("Verify 1 the announcement message display in marquee bar");
-        Assert.assertEquals(memberHomePage.getMarqueeMessage(),announcementMsg,"Failed! Announcement message is incorrect display in member site");
+            log("Verify 1 the announcement message display in marquee bar");
+            Assert.assertEquals(memberHomePage.getMarqueeMessage(),announcementMsg,"Failed! Announcement message is incorrect display in member site");
 
         }finally {
             loginAgent(username,password,true);
@@ -102,14 +103,14 @@ public class AnnouncementTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
-    @Test(groups = {"Interaction"})
+    @Test(groups = {"interaction"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_005(String username, String memberAccount, String password) throws Exception {
         log("@title: The announcement not display when inactive");
         log("Step 1. Navigate Agency Management >Announcement");
         String announcementMsg = "This is announcement is created by auto scrips " + DateUtils.getMilliSeconds();
         AnnoucementPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, ANNOUNCEMENT, AnnoucementPage.class);
-        String todate = DateUtils.getDate(1,"d/MMM/YYYY hh:mm","GMT-4");
+        String todate = DateUtils.getDate(2,"d/MMM/YYYY hh:mm","GMT-4");
         try {log("Step 2. Add announcement, set for a specific player and set from and to in today and inactive status");
             page.addAnnouncement(announcementMsg);
             page.updateAnnoucement(announcementMsg,false,"","",todate,memberAccount);
@@ -130,7 +131,7 @@ public class AnnouncementTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
-    @Test(groups = {"Interaction"})
+    @Test(groups = {"interaction"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_006(String username, String memberAccount, String password) throws Exception {
         log("@title: The announcement not display if set invalid time range");
@@ -159,5 +160,6 @@ public class AnnouncementTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
+
 }
 

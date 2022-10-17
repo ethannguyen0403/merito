@@ -1,16 +1,11 @@
 package agentsite.pages.all.agentmanagement;
 
-import agentsite.controls.DateTimePicker;
 import agentsite.controls.DateTimePickerOld;
 import agentsite.controls.TableNoBody;
-import agentsite.pages.all.components.DialogPopup;
-import com.paltech.element.common.*;
-import agentsite.controls.Table;
 import agentsite.pages.all.components.ConfirmPopup;
+import agentsite.pages.all.components.DialogPopup;
 import agentsite.pages.all.components.LeftMenu;
-
-import java.util.Date;
-import java.util.List;
+import com.paltech.element.common.*;
 
 public class AnnoucementPage extends LeftMenu {
     public Button btnAddAnnouncement = Button.xpath("//app-agency-announcement//button[@class='hide pbtn']");
@@ -24,8 +19,9 @@ public class AnnoucementPage extends LeftMenu {
     int colConfig= 3;
 
     public void addAnnouncement(String message) {
-        if (!textArea.isDisplayed()) {
+        if (!textArea.isDisplayed(5)) {
             btnAddAnnouncement.click();
+
         }
         textArea.sendKeys(message);
         btnSave.click();
@@ -82,6 +78,10 @@ public class AnnoucementPage extends LeftMenu {
 
     public void updateAnnoucement(String announcement, boolean isActive,String newMessage, String from, String to, String seenBy ){
         int index = getAnnouncementIndex(announcement);
+        if(index == 0){
+            System.out.println("DEBUG: Message does not display in the list");
+            return;
+        }
         setActiveStatus(index,isActive);
         if(!newMessage.isEmpty()){
             editAnnoucement(index,newMessage);
@@ -91,8 +91,6 @@ public class AnnoucementPage extends LeftMenu {
     }
     private void setActiveStatus(int index, boolean isActive) {
         CheckBox control = CheckBox.xpath( tblAnnouncement.getxPathOfCell(1,colAction,index,"span[@class='custom-control custom-switch']"));
-        /*RadioButton btnToggel = RadioButton.xpath( tblAnnouncement.getxPathOfCell(1,colAction,index,"span[@class='custom-control custom-switch']/input"));
-        boolean status = btnToggel.isEnabled() ;*/
         if(isActive)
             control.click();
     }
