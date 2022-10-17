@@ -83,11 +83,12 @@ public class CommissionSettingListingTest extends BaseCaseMerito {
      * @expect: 1. Verify the correct username is displayed
      */
     @Test (groups = {"smoke"})
-    public void Agent_AM_Commission_Setting_Listing_0004() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Commission_Setting_Listing_0004(String brandname) {
         log("@title: Verify can search commission setting Listing by Login ID");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0).getLoginID();
+        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0).getLoginID();
         CommissionSettingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, COMMISSION_LISTING, CommissionSettingListingPage.class);
 
         log("Step 2. Enter valid Login ID in Username textbox and click on Submit button");
@@ -113,11 +114,12 @@ public class CommissionSettingListingTest extends BaseCaseMerito {
      *           2. Green check display at Update Status column if successfully update commission
      */
     @Test (groups = {"smoke"})
-    public void Agent_AM_Commission_Setting_Listing_0005() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Commission_Setting_Listing_0005(String brandname) {
         log("@title: Verify can update commission for a member account");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(2).getLoginID();
+        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(2).getLoginID();
         CommissionSettingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, COMMISSION_LISTING, CommissionSettingListingPage.class);
         List<Double> lstGameCommission = Arrays.asList(0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08);
 

@@ -11,7 +11,7 @@ public class LoginForm {
     public CheckBox cbRememberMe = CheckBox.id("frmLoginRemember");
     public TextBox txtUsername = TextBox.name("username");
     public TextBox txtPassword = TextBox.name("password");
-    public Button btnLogin = Button.xpath("//button[contains(@class,'btn-login')]");
+    public Button btnLogin = Button.xpath("//button[contains(@class,'btn-login')] | //input[@value='Login']");
 
      public HomePage login(String username, String password, boolean skipByDefault){
          txtUsername.isDisplayed();

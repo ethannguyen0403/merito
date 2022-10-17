@@ -40,13 +40,13 @@ public class EditUserTest extends BaseCaseMerito {
      *          2. Change password page display after login member site
      */
     @Test (groups = {"smoke"})
-    @Parameters({"password"})
-    public void Agent_AM_Downline_Listing_Edit_User_003(String password) throws Exception {
+    @Parameters({"password","brandname"})
+    public void Agent_AM_Downline_Listing_Edit_User_003(String password, String brandname) throws Exception {
         log("@title: Verify Can change password");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", brandname);
         String loginID =listAccount.get(0).getLoginID();
         String passwordEdit ="1234qwert";
         String passwordDecrypt = decrypt(password);
@@ -97,14 +97,14 @@ public class EditUserTest extends BaseCaseMerito {
      *          5. Can login member Site
      */
     @Test (groups = {"smoke"})
-    @Parameters({"username","password"})
-    public void Agent_AM_Downline_Listing_Edit_User_004(String username,String password) throws Exception {
+    @Parameters({"username","password","brandname"})
+    public void Agent_AM_Downline_Listing_Edit_User_004(String username,String password, String brandname) throws Exception {
         log("@title: Verify can inactive and reactive the account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String passDecrypt = StringUtils.decrypt(password);
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", brandname);
         String loginID =listAccount.get(1).getLoginID();
 
         log("Step 2. Click on Edit icon of any Member level");
@@ -174,14 +174,14 @@ public class EditUserTest extends BaseCaseMerito {
      *          3. Can add odds to bet slip when Live is active
      */
     @Test (groups = {"smoke"})
-    @Parameters({"username","password"})
-    public void Agent_AM_Downline_Listing_Edit_User_012(String username,String password) throws Exception {
+    @Parameters({"username","password","brandname"})
+    public void Agent_AM_Downline_Listing_Edit_User_012(String username,String password, String brandname) throws Exception {
         log("@title: Verify can Inactive and active Live Event");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String passwordDecrypt = StringUtils.decrypt(password);
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", brandname);
        String loginID = listAccount.get(1).getLoginID();
 
         log("Step 2. Click on Edit icon of any Member level");
@@ -270,13 +270,13 @@ public class EditUserTest extends BaseCaseMerito {
      *          3. Can add odds to bet slip when None-Live is active
      */
     @Test (groups = {"smoke"})
-    @Parameters({"username","password"})
-    public void Agent_AM_Downline_Listing_Edit_User_013(String username,String password) throws Exception {
+    @Parameters({"username","password","brandname"})
+    public void Agent_AM_Downline_Listing_Edit_User_013(String username,String password, String brandname) throws Exception {
         log("@title: Verify can update Credit Balance");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", brandname);
         String loginID = listAccount.get(1).getLoginID();
 
         log("Step 2. Click on Edit icon of any Member level");
@@ -352,14 +352,14 @@ public class EditUserTest extends BaseCaseMerito {
      *          2. Login member site and verify Sport is not displayed on the left menu or main menu
      */
     @Test (groups = {"smoke"})
-    @Parameters({"username","password"})
-    public void Agent_AM_Downline_Listing_Edit_User_014(String username,String password) throws Exception {
+    @Parameters({"username","password","brandname"})
+    public void Agent_AM_Downline_Listing_Edit_User_014(String username,String password, String brandname) throws Exception {
         log("@title: Verify can Inactive and active a sport");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String passDecryp = StringUtils.decrypt(password);
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", brandname);
         String loginID = listAccount.get(2).getLoginID();
 
         log("Step 2. Click on Edit icon of any Member level");
@@ -435,14 +435,14 @@ public class EditUserTest extends BaseCaseMerito {
      *          4. Login member site and verify Soccer event is  display with Half Time market
      */
     @Test (groups = {"smoke"})
-    @Parameters({"username","password"})
-    public void Agent_AM_Downline_Listing_Edit_User_015(String username,String password) throws Exception {
+    @Parameters({"username","password","brandname"})
+    public void Agent_AM_Downline_Listing_Edit_User_015(String username,String password, String brandname) throws Exception {
         log("@title: Verify can Inactive and active a market type of a sport");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String passDecryp = StringUtils.decrypt(password);
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", brandname);
         String loginID = listAccount.get(0).getLoginID();
 
         log("Step 2. Click on Edit icon of any Member level");
@@ -496,8 +496,8 @@ public class EditUserTest extends BaseCaseMerito {
      *          2. Verify message display correctly min bet when place bet with stake less than min setting
      */
     @Test (groups = {"smoke"})
-    @Parameters({"username","password"})
-    public void Agent_AM_Downline_Listing_Edit_User_024(String username,String password) throws Exception {
+    @Parameters({"username","password","brandname"})
+    public void Agent_AM_Downline_Listing_Edit_User_024(String username,String password, String brandname) throws Exception {
         log("@title: Verify can edit User successfully if input valid min bet Setting");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String passDecryp = StringUtils.decrypt(password);
@@ -506,7 +506,7 @@ public class EditUserTest extends BaseCaseMerito {
         int min = Integer.parseInt(String.format("%.0f", Double.parseDouble(betSettingInfo.get(0)))) ;
         int max = (Integer.parseInt(String.format("%.0f", Double.parseDouble(betSettingInfo.get(1)))) + min);
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname);
         String loginID = listAccount.get(0).getLoginID();
 
         log("Step 2. Click on Edit icon of any Member level");

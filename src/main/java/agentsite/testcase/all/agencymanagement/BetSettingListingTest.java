@@ -28,11 +28,12 @@ public class BetSettingListingTest extends BaseCaseMerito {
      *          2. Update Status column display green check
      */
     @Test (groups = {"demo_smoke"})
-    public void Agent_AM_Bet_Setting_Listing_0003_demo() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Bet_Setting_Listing_0003_demo(String brandname) {
         log("@title: Can update Min Bet, Max Bet, Max Liability per Market, Max Win per Market, for all sport of Exchange Product");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", brandname);
         String loginID = listAccount.get(0).getUserCode();
         BetSettingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, BET_SETTING_LISTING, BetSettingListingPage.class);
         HashMap<String, Boolean> sport = new HashMap<String, Boolean>() {
@@ -76,11 +77,12 @@ public class BetSettingListingTest extends BaseCaseMerito {
      *          2. Update Status column display green check
      */
     @Test (groups = {"smoke1"})
-    public void Agent_AM_Bet_Setting_Listing_0003() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Bet_Setting_Listing_0003(String brandname) {
         log("@title: Can update Min Bet, Max Bet, Max Liability per Market, Max Win per Market, for all sport of Exchange Product");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", brandname);
         String loginID = listAccount.get(0).getUserCode();
         BetSettingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, BET_SETTING_LISTING, BetSettingListingPage.class);
         HashMap<String, Boolean> sport = new HashMap<String, Boolean>() {
@@ -126,11 +128,12 @@ public class BetSettingListingTest extends BaseCaseMerito {
      * @expect: 1. Verify Soccer Min bet is update correctly, Update Status column display green check
      */
     @Test (groups = {"smoke"})
-    public void Agent_AM_Bet_Setting_Listing_0004() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Bet_Setting_Listing_0004(String brandname) {
         log("@title: Verify update bet setting with valid min bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0).getUserCode();
+        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0).getUserCode();
         BetSettingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, BET_SETTING_LISTING, BetSettingListingPage.class);
         HashMap<String, Boolean> sport = new HashMap<String, Boolean>() {
             {
@@ -175,11 +178,12 @@ public class BetSettingListingTest extends BaseCaseMerito {
      * @expect: 1. Verify Tennis Max bet is update correctly, Update Status column display green check
      */
     @Test (groups = {"smoke"})
-    public void Agent_AM_Bet_Setting_Listing_0005() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Bet_Setting_Listing_0005(String brandname) {
         log("@title: Verify update bet setting with valid max bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0).getUserCode();
+        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0).getUserCode();
         BetSettingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, BET_SETTING_LISTING, BetSettingListingPage.class);
         HashMap<String, Boolean> sport = new HashMap<String, Boolean>() {
             {
@@ -224,12 +228,12 @@ public class BetSettingListingTest extends BaseCaseMerito {
      */
 
     @Test (groups = {"smoke"})
-    @Parameters("username")
-    public void Agent_AM_Bet_Setting_Listing_0006() {
+    @Parameters({"username","brandname"})
+    public void Agent_AM_Bet_Setting_Listing_0006(String brandname) {
         log("@title: Verify update bet setting with valid Max Liability Per Market Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0).getUserCode();
+        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0).getUserCode();
         BetSettingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, BET_SETTING_LISTING, BetSettingListingPage.class);
         HashMap<String, Boolean> sport = new HashMap<String, Boolean>() {
             {
@@ -274,11 +278,12 @@ public class BetSettingListingTest extends BaseCaseMerito {
      */
 
     @Test (groups = {"smoke"})
-    public void Agent_AM_Bet_Setting_Listing_0007() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Bet_Setting_Listing_0007(String brandname) {
         log("@title: Verify update bet setting with valid  Max Win Per Market Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE").get(0).getUserCode();
+        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0).getUserCode();
         BetSettingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, BET_SETTING_LISTING, BetSettingListingPage.class);
         HashMap<String, Boolean> sport = new HashMap<String, Boolean>() {
             {
