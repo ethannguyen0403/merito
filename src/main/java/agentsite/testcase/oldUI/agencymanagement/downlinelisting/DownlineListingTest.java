@@ -24,13 +24,13 @@ public class DownlineListingTest extends BaseCaseMerito {
      * @expect: 1. Corresponding account display in the list
      */
     @Test (groups = {"smoke"})
-    @Parameters("level")
-    public void Agent_AM_Downline_Listing_006(String level) {
+    @Parameters({"level","brandname"})
+    public void Agent_AM_Downline_Listing_006(String level, String brandname) {
         log("@title: Validate can search downline with Username ");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,level);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,level, brandname);
         String loginID =listAccount.get(0).getLoginID();
 
         log("Step 2. Input a Username exist indirect/direct downline");
@@ -56,13 +56,13 @@ public class DownlineListingTest extends BaseCaseMerito {
      * @expect: 1. Verify can change password successfully
      */
     @Test (groups = {"smoke"})
-    @Parameters({"level","password"})
-    public void Agent_AM_Downline_Listing_020(String level,String password) throws Exception {
+    @Parameters({"level","password","brandname"})
+    public void Agent_AM_Downline_Listing_020(String level,String password, String brandname) throws Exception {
         log("@title: Validate can change password from the table");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,level);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,level, brandname);
         String loginID =listAccount.get(0).getLoginID();
 
         log("Step 2. Select agent account in any level");

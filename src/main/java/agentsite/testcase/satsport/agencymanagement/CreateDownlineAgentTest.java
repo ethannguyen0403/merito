@@ -373,11 +373,11 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      * @expect: 1. Popup Create Downline with the message "Login ID already exist."
      */
     @Test (groups = {"smoke"})
-    @Parameters({"level"})
-    public void Agent_AM_CreateDownline_Agent_012(String level){
+    @Parameters({"level","brandname"})
+    public void Agent_AM_CreateDownline_Agent_012(String level, String brandname){
         log("@title: Validate cannot create downline with the exist Login ID");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,level);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,level, brandname);
 
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, CREATE_DOWNLINE_AGENT, CreateDownLineAgentPage.class);

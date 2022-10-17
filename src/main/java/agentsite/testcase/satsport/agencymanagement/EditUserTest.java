@@ -3,6 +3,7 @@ package agentsite.testcase.satsport.agencymanagement;
 import agentsite.common.AGConstant;
 import agentsite.objects.agent.account.AccountInfo;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.DownLineListingPage;
 import agentsite.pages.all.agentmanagement.EditDownLinePage;
@@ -18,12 +19,13 @@ public class EditUserTest extends BaseCaseMerito {
 
 
     @Test(groups = {"satregression"})
-    public void Agent_AM_Downline_Listing_Edit_User_005() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_Edit_User_005(String brandname) {
         log("@title:Verify can Suspend  the account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname);
         String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
@@ -52,12 +54,13 @@ public class EditUserTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"satregression"})
-    public void Agent_AM_Downline_Listing_Edit_User_006() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_Edit_User_006(String brandname) {
         log("@title:Verify can Close the account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname);
         String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
@@ -77,12 +80,13 @@ public class EditUserTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"satregression"})
-    public void Agent_AM_Downline_Listing_Edit_User_009() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_Edit_User_009(String brandname) {
         log("@title:Verify cannot inactive all product");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname);
         String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
@@ -99,12 +103,13 @@ public class EditUserTest extends BaseCaseMerito {
     }
 
     @Test(groups = {"satregression"})
-    public void Agent_AM_Downline_Listing_Edit_User_010() {
+    @Parameters({"brandname"})
+    public void Agent_AM_Downline_Listing_Edit_User_010(String brandname) {
         log("@title:Verify navigate to Downline List if click on Cancel button");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname);
         String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");

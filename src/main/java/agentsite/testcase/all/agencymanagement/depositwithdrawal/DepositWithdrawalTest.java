@@ -293,13 +293,13 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
     }
 
     @Test (groups = {"interaction"})
-    @Parameters("password")
-    public void Agent_AM_DepositWithdrawal_Deposit_015(String password) throws Exception {
+    @Parameters({"password","brandname"})
+    public void Agent_AM_DepositWithdrawal_Deposit_015(String password, String brandname) throws Exception {
         log("@title:  Verify Balance agent is correctly is correct when deposit from agent site");
         double depositAmount = 1;
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
         String loginId = directDownline.getUserCode();
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -324,13 +324,13 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
     }
 
     @Test (groups = {"interaction"})
-    @Parameters("password")
-    public void Agent_AM_DepositWithdrawal_Deposit_016(String password) throws Exception {
+    @Parameters({"password","brandname"})
+    public void Agent_AM_DepositWithdrawal_Deposit_016(String password, String brandname) throws Exception {
         log("@title:  Verify Balance agent is correctly is correct when withdraw from agent site");
         double depositAmount = 1;
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
         String loginId = directDownline.getUserCode();
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");

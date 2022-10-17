@@ -4,6 +4,7 @@ import com.paltech.utils.StringUtils;
 import agentsite.controls.Table;
 import agentsite.objects.agent.account.AccountInfo;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.DownLineListingPage;
 import agentsite.pages.all.agentmanagement.EditDownLinePage;
@@ -303,11 +304,12 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 2. Verify all report display : Balance, Unsettled Bet, Client Ledger, Settings, Login
      */
     @Test (groups = {"regression"})
-    public void LeftMenu_TC009(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC009(String brandname){
         log("@title: Validate can search direct member account in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname);
         String accountDisplay = listAccount.get(0).getUserCodeAndLoginID("%s (%s)");
 
         log("Step:1. Click on Quick Search button");
@@ -337,12 +339,13 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 2. Verify all report display : Balance, Unsettled Bet, Client Ledger, Settings, Login
      */
     @Test (groups = {"regression"})
-    public void LeftMenu_TC010(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC010(String brandname){
         log("@title: Validate can search indirect member account in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
-        AccountInfo inDirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(),"","ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
+        AccountInfo inDirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(),"","ACTIVE", brandname).get(0);
         String directAccountDisplay = directDownline.getUserCodeAndLoginID("%s (%s)");
         String indirectAccountDisplay = inDirectDownline.getUserCodeAndLoginID("%s (%s)");
         log("Step:1. Click on Quick Search button");
@@ -373,11 +376,12 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 1. Verify Balance Page displayed
      */
     @Test (groups = {"regression"})
-    public void LeftMenu_TC011(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC011(String brandname){
         log("@title: Verify Balance button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         QuickSearch quickSearchPage =agentHomePage.switchQuickSearch();
@@ -402,11 +406,12 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 1. Verify Downline Listing page display
      */
     @Test (groups = {"regression"})
-    public void LeftMenu_TC012(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC012(String brandname){
         log("@title: Downline Listing button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         QuickSearch quickSearchPage =agentHomePage.switchQuickSearch();
@@ -430,11 +435,12 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 1. Verify Profit & Loss page display
      */
     @Test (groups = {"regression"})
-    public void LeftMenu_TC013(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC013(String brandname){
         log("@title: Verify Profit & Loss button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         QuickSearch quickSearchPage =agentHomePage.switchQuickSearch();
@@ -458,11 +464,12 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 1. Verify Client Ledger page display
      */
     @Test (groups = {"regression"})
-    public void LeftMenu_TC014(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC014(String brandname){
         log("@title: Verify Client Ledger button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         QuickSearch quickSearchPage =agentHomePage.switchQuickSearch();
@@ -486,11 +493,12 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 1. Verify Setting section display
      */
     @Test (groups = {"regression"})
-    public void LeftMenu_TC016(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC016(String brandname){
         log("@title: Verify Setting button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         QuickSearch quickSearchPage =agentHomePage.switchQuickSearch();
@@ -513,11 +521,12 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 1. Verify login info display
      */
     @Test (groups = {"regression"})
-    public void LeftMenu_TC015(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC015(String brandname){
         log("@title: Verify Login button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         QuickSearch quickSearchPage =agentHomePage.switchQuickSearch();
@@ -545,10 +554,11 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 3. Status is updated
      */
     @Test(groups = {"regression"})
-    public void LeftMenu_TC017(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC017(String brandname){
         log("@title: Verify can update account status in Quick Search");
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,"PL","ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,"PL","ACTIVE", brandname).get(0);
         String displayAccount = directDownline.getUserCodeAndLoginID("%s (%s)");
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
@@ -590,11 +600,12 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 1. Verify sub menu item is correctly displayed
      */
     @Test (groups = {"regression"})
-    public void LeftMenu_TC018(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC018(String brandname){
         log("@title: Verify all sub menu in Setting page work");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         QuickSearch quickSearchPage =agentHomePage.switchQuickSearch();
@@ -821,11 +832,12 @@ public class LeftMenuTest extends BaseCaseMerito {
 
 
     @Test (groups = {"interaction"})
-    public void LeftMenu_TC022(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC022(String brandname){
         log("@title: Verify Account Status in Downline Listing page is updated according after update in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
 
         log("Step 1. Click on Quick Search button");
         QuickSearch quickSearchPage =agentHomePage.switchQuickSearch();
@@ -848,11 +860,12 @@ public class LeftMenuTest extends BaseCaseMerito {
     }
 
     @Test (groups = {"interaction"})
-    public void LeftMenu_TC023(){
+    @Parameters({"brandname"})
+    public void LeftMenu_TC023(String brandname){
         log("@title: Can update user profile in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE").get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,downlineLevel,"ACTIVE", brandname).get(0);
 
         log("Step 1. Click on Quick Search button");
         QuickSearch quickSearchPage =agentHomePage.switchQuickSearch();
