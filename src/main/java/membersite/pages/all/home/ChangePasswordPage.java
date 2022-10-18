@@ -13,7 +13,7 @@ public class ChangePasswordPage extends Header {
     public TextBox txtNewPassword = TextBox.id("newPassword");
     public TextBox txtConfirnmPassword = TextBox.id("confirmNewPassword");
     public Button btnChangePassword = Button.name("ChangePassword");
-    public Button btnSkip = Button.name("Skip");
+    public Button btnSkip = Button.xpath("//button[@name='Skip'] | //button[contains(@class,'btn-change-skip')]");
 
     public HomePage changePassword(String oldPw, String newPw)
     {

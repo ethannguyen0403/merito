@@ -38,6 +38,7 @@ public class MainMenu extends LeftMenu {
     Menu menuHorseRacing = Menu.xpath("//a[@sport-id='7']");
     private Menu menuSetting = Menu.id("sport-setting");
     public MenuTree mainMenu= MenuTree.xpath("//div[@id='nav-menu']//ul","//li");
+    private String sportMenuOldUIXpath = "//a[contains(@data-sport-name,'%s')]";
 
     /**
      * This is open main sport menu with the corresponding page
@@ -52,9 +53,14 @@ public class MainMenu extends LeftMenu {
             return PageFactory.initElements(DriverManager.getDriver(),expectedPage);
         }
         Menu menu = Menu.xpath(String.format(sportMenuXpath, pageName));
+
+        //use sportMenuXpath old ui check again if not found on new UI
         if(!menu.isDisplayed(5)){
-            System.out.println(String.format("There is no %s menu display", pageName));
-            return null ;
+            menu = Menu.xpath(String.format(sportMenuOldUIXpath, pageName.toLowerCase()));
+            if(!menu.isDisplayed(5)) {
+                System.out.println(String.format("There is no %s menu display", pageName));
+                return null ;
+            }
         }
         lblNoEvent.isDisplayedShort(3);
         menu.click();

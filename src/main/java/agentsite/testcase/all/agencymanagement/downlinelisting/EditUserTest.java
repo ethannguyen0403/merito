@@ -1,10 +1,16 @@
 package agentsite.testcase.all.agencymanagement.downlinelisting;
 
+import agentsite.pages.all.components.QuickSearch;
+import agentsite.ultils.agencymanagement.EventBetSizeSettingUtils;
 import com.paltech.utils.StringUtils;
 import agentsite.common.AGConstant;
 import agentsite.objects.agent.account.AccountInfo;
+import membersite.objects.sat.Event;
+import membersite.objects.sat.Market;
 import membersite.pages.all.beforelogin.popups.LoginPopup;
 import membersite.pages.all.home.ChangePasswordPage;
+import membersite.pages.all.tabexchange.SportPage;
+import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -877,6 +883,50 @@ public class EditUserTest extends BaseCaseMerito {
         Assert.assertTrue(loginPopup.isErrorMessageDisplayed(),"PASSED Error message is displayed");
     }
 
+    @Test (groups = {"interaction01"})
+    @Parameters({"username","password","isLogin"})
+    public void Agent_AM_Downline_Listing_Edit_User_036(String memberAccount, String username, String password, boolean isLogin) throws Exception {
+        log("@title: Verify player login but cannot place bet  on exchange when account is suspended");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
+        String userID = ProfileUtils.getProfile().getUserID();
+        Event event = EventBetSizeSettingUtils.getEventList("Soccer", userID, "TODAY").get(0);
+
+        log("Step 2. Click on Edit icon of Active Member level");
+        page.searchDownline(memberAccount,"Active","Member");
+        page.clickEditIcon(memberAccount);
+
+        log("Step 2.1. Input security code");
+        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+
+        log("Step 3. Suspend the account");
+        page.editDownlinePopup.accInfoSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(3));
+        page.submitEditDownline();
+        page.closeSubmitEditDownlinePopup();
+        page.logout();
+
+        log("Step 4. Login to member site");
+        loginMember(memberAccount,password,false,"","",false);
+        memberHomePage = landingPage.login(_brandname,memberAccount,StringUtils.decrypt(password),true);
+        memberHomePage.closeBannerPopup();
+
+        log("Step 5. Place bet with suspended account");
+
+        String minBet = BetUtils.getMinBet(SportPage.Sports.SOCCER, SportPage.BetType.LAY);
+        SportPage sportPage = memberHomePage.navigateSportMenu("Soccer", SportPage.class);
+        sportPage.clickEventName(event.getEventName());
+        Market market = sportPage.marketContainerControl.getMarket(event,1,false);
+        market.getBtnOdd().click();
+        sportPage.betSlipControl.placeBet("1.01",minBet);
+
+        log("Verify suspended error message displays");
+        Assert.assertTrue(sportPage.betSlipControl.isSuspendedErrorDisplayed(),"PASSED Suspended error message is displayed");
+
+        //clean up data
+        loginAgent(username,password,isLogin);
+        QuickSearch quickSearch = agentHomePage.switchQuickSearch();
+        quickSearch.updateStatus(memberAccount, AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(1),true);
+    }
 
 }
 
