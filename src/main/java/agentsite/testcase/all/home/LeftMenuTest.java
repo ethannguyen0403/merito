@@ -861,7 +861,7 @@ public class LeftMenuTest extends BaseCaseMerito {
 
     @Test (groups = {"interaction"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC023(String brandname){
+    public void LeftMenu_TC023(String brandname) throws Exception {
         log("@title: Can update user profile in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();

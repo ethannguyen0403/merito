@@ -503,7 +503,7 @@ public class DownlineListingTest extends BaseCaseMerito {
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,level, brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,level,_brandname);
         String loginID =listAccount.get(0).getUserCode();
 
         log("Step 2. Select agent account in any level");

@@ -19,11 +19,9 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static agentsite.common.AGConstant.HomePage.*;
-import static com.paltech.utils.StringUtils.decrypt;
 
 public class EdiMarketTest extends BaseCaseMerito {
 
@@ -33,7 +31,7 @@ public class EdiMarketTest extends BaseCaseMerito {
         log("@title: Cannot transfer in a day in a weekly not allow to transfer");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(userID);
+        List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname,userID);
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         String userName = DownLineListingUtils.getAccountInfoInList(lstUsers,downlineAccount).getUserCode();
         String date = DateUtils.getDate(1,"d","GMT-4");
@@ -54,7 +52,7 @@ public class EdiMarketTest extends BaseCaseMerito {
         log("5 Do transfer for an account");
         TransferPage transferPage = agentHomePage.navigateTransferPage(environment.getSecurityCode());
         userID = ProfileUtils.getProfile().getUserID();
-        lstUsers = DownLineListingUtils.getAllDownLineUsers(userID);
+        lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname,userID);
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         userName = DownLineListingUtils.getAccountInfoInList(lstUsers,downlineAccount).getUserCode();
         AccountInfo accountInfoBeforeTransfer = transferPage.getTransferInfo(userName);

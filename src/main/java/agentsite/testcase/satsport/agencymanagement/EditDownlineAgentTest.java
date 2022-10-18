@@ -21,7 +21,7 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
 
     @Test(groups = {"http_request"})
     @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_001(String brandname) {
+    public void Agent_AM_Downline_Listing_Edit_Agent_001(String brandname) throws Exception {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -41,7 +41,7 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
 
     @Test(groups = {"satregression"})
     @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_002(String brandname) {
+    public void Agent_AM_Downline_Listing_Edit_Agent_002(String brandname) throws Exception {
         log("@title: Validate UI in Edit Downline Agent");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -101,7 +101,7 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
 
     @Test(groups = {"satregression"})
     @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_003(String brandname) {
+    public void Agent_AM_Downline_Listing_Edit_Agent_003(String brandname) throws Exception {
         log("@title: There is no Security Code prompted when access the page");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);

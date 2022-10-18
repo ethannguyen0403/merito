@@ -13,7 +13,7 @@
         <parameter name='isProxy' value='false'/>
         <parameter name='username' value='03I'/>
         <parameter name='levelLogin' value='Agent'/>
-        <parameter name='downlineAccount' value='03H0000'/>
+        <parameter name='downlineAccount' value='03I00'/>
         <parameter name ='portalSubAccount' value ='ANSUBIS'/>
         <parameter name ='memberAccount' value ='FEIDRISA'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
@@ -30,7 +30,8 @@
         <classes>
 <!--            <class name="agentsite.testcase.all.agencymanagement.CreditBalanceListingTest"/>-->
 <!--            <class name="agentsite.testcase.all.agencymanagement.TransferTest"/>-->
-            <class name="agentsite.testcase.all.agencymanagement.depositwithdrawal.DepositTest"/>
+<!--            <class name="agentsite.testcase.all.agencymanagement.depositwithdrawal.DepositTest"/>-->
+            <class name="agentsite.testcase.all.marketsmanagement.blockunblockevents.BlockUnblockEventsTest"/>
         </classes>
 
     </test>
