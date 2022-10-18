@@ -56,6 +56,7 @@ public class BaseCaseMerito {
     public static String backofficeDashboardUrl;
     public static String userCurrency;
     public static String memberMarketServiceURL;
+    public static String _brandname;
 
     @BeforeSuite(alwaysRun = true)
     public static void beforeSuite() {
@@ -70,6 +71,8 @@ public class BaseCaseMerito {
     @Parameters({"browser", "env", "language","brandname"})
     @BeforeClass(alwaysRun = true)
     public void beforeClass(String browser, String env, String language,String brandname) {
+        System.out.println("BrandName at Before Class"+ brandname);
+        _brandname = brandname;
         try{
             environment = (Environment) context.getBean(env);
             driverProperties = (DriverProperties) context.getBean(browser);
