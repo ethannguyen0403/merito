@@ -141,7 +141,9 @@ public class BOConstants {
     public static class Reports {
         public static class WinLossDetail {
             public final static String TITLE = "Win Loss Detail";
-            public final static List<String> DDB_PRODUCT = Arrays.asList("Exchange", "Live Dealer European", "Lottery & Slots","Fancy","Live Dealer Asian", "Exchange Games", "Follow Bets", "Supernowa Casino","Wicket Fancy","Wicket Bookmaker","Central Fancy","Central Bookmaker");
+            public final static List<String> DDB_PRODUCT = Arrays.asList("Exchange", "Live Dealer European", "Lottery & Slots","Fancy","Live Dealer Asian", "Exchange Games",
+                    "Follow Bets", "Supernowa Casino","Wicket Fancy","Wicket Bookmaker","Central Fancy","Central Bookmaker","Evolution","Premium Cricket Sportsbook",
+                    "Pinnacle Sportsbook","Game Hall","Vivo");
             public final static List<String> DDB_TYPE_CURRENCY = Arrays.asList("All", "Local (L)", "Foreign (F)");
             public final static String ERROR_PRODUCT_MSG = "Please select at least 1 product";
             public final static String ERROR_PORTAL_MSG = "Please select at least 1 portal";

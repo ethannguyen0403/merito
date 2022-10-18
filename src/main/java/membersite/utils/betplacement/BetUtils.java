@@ -18,8 +18,6 @@ import static baseTest.BaseCaseMerito.*;
 
 public class BetUtils {
 
-    String marketServiceULR;
-
     private static JSONObject getAppConfig() {
         String api = String.format("%s/member-service/app/sat/config", domainURL);
         return WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
@@ -33,7 +31,6 @@ public class BetUtils {
 
     private static JSONObject getEvent(String sportID)
     {
-
     //    String api = String.format("%s/member-service/market-service/whitelist/new/sport/%s?tzo=%s&_=%s",domainURL,"4","GMT%2B0700",DateUtils.getMilliSeconds());
         String api = String.format("%s/whitelist/new/sport/%s", memberMarketServiceURL,"4");
         JSONObject sportObj = WSUtils.getGETJSONObjectWithCookies(api,Configs.HEADER_JSON,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);

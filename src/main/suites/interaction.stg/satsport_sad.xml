@@ -25,12 +25,13 @@
         <groups>
             <run>
 <!--                <include name="precondition" />-->
-                <include name="Interaction1" />
+                <include name="interaction2" />
             </run>
         </groups>
 
         <classes>
             <class name="agentsite.testcase.all.agencymanagement.AnnouncementTest"/>
+            <class name="agentsite.testcase.satsport.agencymanagement.EventBetSizeSettingsTest"/>
         </classes>
 
     </test>

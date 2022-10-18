@@ -20,7 +20,7 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
 
     @Test(groups = {"http_request"})
     @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_001(String brandname) {
+    public void Agent_AM_Downline_Listing_Edit_Agent_001(String brandname) throws Exception {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();

@@ -21,7 +21,7 @@
         <parameter name='brandname' value='fairexchange'/>
         <groups>
             <run>
-                <include name="interaction1" />
+                <include name="interaction" />
             </run>
         </groups>
 

@@ -18,6 +18,21 @@ import static baseTest.BaseCaseMerito.domainURL;
 
 
 public class DownLineListingUtils {
+    private static String defineAPIUrl(String brandName){
+        switch (brandName){
+            case "satsport":
+                return String.format("%s/agent-services/user/sad-downline-list", domainURL);
+            default:
+                return String.format("%s/agent-services/user/getListingDownline", domainURL);
+        }
+
+    }
+    private static JSONObject getDownLineJson(String brandName,String loginID){
+        String api = defineAPIUrl(brandName);
+        String jsn = String.format("{\"userName\":\"\",\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", loginID, DateUtils.getMilliSeconds());
+        return WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+    }
+
     public static List<String> getDownLineUsers(String loginID) {
         List<String> lstUsers = new ArrayList<>();
         String api = String.format("%s/agent-services/user/sad-downline-list", domainURL);
@@ -40,6 +55,7 @@ public class DownLineListingUtils {
         return getDownLineUsers(loginID,level,"ACTIVE",brandname);
     }
 
+
     public static List<AccountInfo> getDownLineUsers(String loginID, String level, String status, String brandname) {
         List<AccountInfo> lstUsersFilter = new ArrayList<>();
         List<AccountInfo> lstUsers = getAllDownLineUsers(brandname,loginID) ;
@@ -59,16 +75,9 @@ public class DownLineListingUtils {
     }
 
     public static List<AccountInfo> getAllDownLineUsers(String brandName, String loginID) {
-        String api = "";
-        switch (brandName){
-            case "satsport":
-                api = String.format("%s/agent-services/user/sad-downline-list", domainURL);
-            default:
-                api = String.format("%s/agent-services/user/getListingDownline", domainURL);
-        }
+        String api = defineAPIUrl(brandName);
         List<AccountInfo> lstUsers = new ArrayList<>();
-        String jsn = String.format("{\"userName\":\"\",\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", loginID, DateUtils.getMilliSeconds());
-        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+        JSONObject jsonObject = getDownLineJson(brandName,loginID);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("pageInfo")) {
                 JSONObject jsnPageInfo = jsonObject.getJSONObject("pageInfo");
@@ -91,9 +100,9 @@ public class DownLineListingUtils {
         return lstUsers;
     }
 
-    public static List<AccountInfo> getAllDriectMember(String loginID) {
+    public static List<AccountInfo> getAllDriectMember(String brandName,String loginID) {
         List<AccountInfo> lstUsers = new ArrayList<>();
-        String api = String.format("%s/agent-services/user/sad-downline-list", domainURL);
+        String api = defineAPIUrl(brandName);
         String jsn = String.format("{\"userName\":\"\",\"loginId\":%s,\"isAgentOnly\":false,\"accStatus\":\"ACTIVE\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}",loginID, DateUtils.getMilliSeconds());
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn,DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
