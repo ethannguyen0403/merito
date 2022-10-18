@@ -1183,7 +1183,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
     }
 
 
-    @Test(groups = {"smoke"})
+    @Test(groups = {"interaction1"})
     @Parameters({"downlineAccount", "memberAccount","password"})
     public void Agent_MM_BlockUnblockEvent_036(String downlineAccount,String memberAccount, String password) throws Exception {
         log("@title: Validate that can suspend Layout display on the event in member site when suppend the event");

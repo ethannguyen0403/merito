@@ -23,7 +23,7 @@ public class TransferTest extends BaseCaseMerito {
     public void Agent_AM_Transfer_006(String brandname,String memberAccount,String password) throws Exception {
         log("@title: Verify available balance of PL in member site is updated when agent transfer successfully");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(userID,"PL");
+        List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(userID,"PL",_brandname);
         String userName = DownLineListingUtils.getAccountInfoInList(lstUsers,memberAccount).getUserCode();
 
         log("Step 1. Navigate Agency Management > Transfer");
@@ -54,7 +54,7 @@ public class TransferTest extends BaseCaseMerito {
         log("Step 1. Navigate Agency Management > Transfer");
         AccountInfo accountLoginInfo =  ProfileUtils.getProfile();
         String currencyCode = accountLoginInfo.getCurrencyCode();
-        List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(accountLoginInfo.getUserID(),"PL");
+        List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(accountLoginInfo.getUserID(),"PL",_brandname);
         String userName = DownLineListingUtils.getAccountInfoInList(lstUsers,memberAccount).getUserCode();
 
         AccountBalancePage accountBalancePage = agentHomePage.navigateAccountBalance(brandname);

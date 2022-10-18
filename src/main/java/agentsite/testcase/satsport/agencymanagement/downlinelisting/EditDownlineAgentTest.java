@@ -27,7 +27,7 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
      */
     @Test (groups = {"smoke"})
     @Parameters({"level","brandname"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_004(String level, String brandname) {
+    public void Agent_AM_Downline_Listing_Edit_Agent_004(String level, String brandname) throws Exception {
         log("@title: Validate there Cannot update if Max Player Credit exceed the limit");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
