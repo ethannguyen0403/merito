@@ -854,7 +854,7 @@ public class EditUserTest extends BaseCaseMerito {
     }
 
     @Test (groups = {"interaction01"})
-    @Parameters({"brandname","password"})
+    @Parameters({"password"})
     public void Agent_AM_Downline_Listing_Edit_User_035(String brandname, String password) throws Exception {
         log("@title: Verify player cannot login member site when the account inactive");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -884,7 +884,7 @@ public class EditUserTest extends BaseCaseMerito {
     }
 
     @Test (groups = {"interaction01"})
-    @Parameters({"username","password","isLogin"})
+    @Parameters({"memberAccount","username","password","isLogin"})
     public void Agent_AM_Downline_Listing_Edit_User_036(String memberAccount, String username, String password, boolean isLogin) throws Exception {
         log("@title: Verify player login but cannot place bet  on exchange when account is suspended");
         log("Step 1. Navigate Agency Management > Downline Listing");
