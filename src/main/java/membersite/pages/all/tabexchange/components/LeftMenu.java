@@ -217,7 +217,7 @@ public class LeftMenu extends Header {
     }
 
     public Label searchEvent(String eventName) {
-        if (txtSearch.isDisplayed()) {
+        if (!txtSearch.isDisplayed()) {
             expandLeftMenu();
         }
         txtSearch.sendKeys(eventName);

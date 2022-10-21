@@ -1,7 +1,12 @@
 package agentsite.testcase.all.agencymanagement;
 
+import agentsite.ultils.agencymanagement.EventBetSizeSettingUtils;
 import com.paltech.utils.StringUtils;
 import agentsite.objects.agent.account.AccountInfo;
+import membersite.objects.sat.Event;
+import membersite.objects.sat.Market;
+import membersite.pages.all.tabexchange.SportPage;
+import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -13,8 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static agentsite.common.AGConstant.HomePage.AGENCY_MANAGEMENT;
-import static agentsite.common.AGConstant.HomePage.BET_SETTING_LISTING;
+import static agentsite.common.AGConstant.HomePage.*;
 
 public class BetSettingListingTest extends BaseCaseMerito {
     /**
@@ -313,6 +317,33 @@ public class BetSettingListingTest extends BaseCaseMerito {
         Assert.assertEquals(lstActualData,lstExpectedData,"FAILED! Expected not match with the actual");
 
         log("INFO: Executed completely");
+    }
+
+    @Test (groups = {"interaction"})
+    @Parameters({"memberAccount","password"})
+    public void Agent_AM_Bet_Setting_Listing_008(String memberAccount, String password) throws Exception {
+        log("@title: Verify cannot place bet when place bet in member site smaller than min bet setting");
+        log("Step 1. Navigate to Agent Site and get list Event");
+        String userID = ProfileUtils.getProfile().getUserID();
+        Event event = EventBetSizeSettingUtils.getEventList("Soccer", userID, "TODAY").get(0);
+        agentHomePage.logout();
+
+        log("Step 2. Login to Member Site");
+        loginMember(memberAccount,password,false,"","",false);
+        memberHomePage = landingPage.login(_brandname,memberAccount,StringUtils.decrypt(password),true);
+        memberHomePage.closeBannerPopup();
+
+        log("Step 3. Place bet with stake < min setting");
+        String minBetSetting = BetUtils.getMinBet(SportPage.Sports.SOCCER, SportPage.BetType.LAY);
+        Double minBet = Double.parseDouble(minBetSetting) - 1;
+        memberHomePage.searchEvent(event.getEventName(),true);
+        memberHomePage.clickMarket(1);
+        Market market = memberHomePage.marketContainerControl.getMarket(event,1,false);
+        market.getBtnOdd().click();
+        memberHomePage.betSlipControl.placeBet("1.01", String.valueOf(minBet));
+
+        log("Verify stake error message displays");
+        Assert.assertTrue(memberHomePage.betSlipControl.isErrorDisplayed(memberHomePage.betSlipControl.lblMinStakeErrorMessage, "Cannot place bet. The stake must be from"),"ERROR! Min Stake error message is not displayed");
     }
 
 }
