@@ -7,6 +7,8 @@ import membersite.objects.sat.Order;
 import membersite.objects.sat.SelectedOdd;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,8 @@ public class BetSlipControl extends BaseElement {
 	private Label lblBetSlipTitle = Label.xpath("//ul[@class='nav nav-tabs row nav-bet-slip']");
 	private Button btnQuickStakes = Button.xpath("//button[contains(@class,'fastbtn')]");
 	public EditStakeControl editStakeControl = EditStakeControl.xpath("//div[contains(@class,'edit-stakes-body')]");
-	private Label lblSuspendedErrorMessage = Label.xpath("//div[@class='modal-body' and contains(text(), 'has been Suspended')]");
+	public Label lblSuspendedErrorMessage = Label.xpath("//div[@class='modal-body' and contains(text(), 'has been Suspended')]");
+	public Label lblMinStakeErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
 
 	private BetSlipControl(By locator, String xpath) {
 		super(locator);
@@ -165,7 +168,7 @@ public class BetSlipControl extends BaseElement {
 		return true;
 	}
 
-	public boolean isSuspendedErrorDisplayed() {
-		return lblSuspendedErrorMessage.isDisplayed();
+	public boolean isErrorDisplayed(Label label, String errorMessage) {
+		return label.getText().contains(errorMessage);
 	}
 }
