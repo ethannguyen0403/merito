@@ -335,7 +335,10 @@ public class BetSettingListingTest extends BaseCaseMerito {
 
         log("Step 3. Place bet with stake < min setting");
         String minBetSetting = BetUtils.getMinBet(SportPage.Sports.SOCCER, SportPage.BetType.LAY);
+        String maxBetSetting = BetUtils.getMaxBet(SportPage.Sports.SOCCER, SportPage.BetType.LAY);
         Double minBet = Double.parseDouble(minBetSetting) - 1;
+        String expectedMsg = String.format("Cannot place bet. The stake must be from %.2f to %.2f. Current Stake is %.2f"
+                ,Double.parseDouble(minBetSetting),Double.parseDouble(maxBetSetting),minBet);
         memberHomePage.searchEvent(event.getEventName(),true);
         memberHomePage.clickMarket(1);
         Market market = memberHomePage.marketContainerControl.getMarket(event,1,false);
@@ -343,8 +346,38 @@ public class BetSettingListingTest extends BaseCaseMerito {
         memberHomePage.betSlipControl.placeBet("1.01", String.valueOf(minBet));
 
         log("Verify stake error message displays");
-        Assert.assertTrue(memberHomePage.betSlipControl.isErrorDisplayed(memberHomePage.betSlipControl.lblMinStakeErrorMessage, "Cannot place bet. The stake must be from"),"ERROR! Min Stake error message is not displayed");
+        Assert.assertTrue(memberHomePage.betSlipControl.isErrorDisplayed(memberHomePage.betSlipControl.lblMinMaxStakeErrorMessage, expectedMsg),"ERROR! Min Stake error message is not displayed");
     }
 
+    @Test (groups = {"interaction01"})
+    @Parameters({"memberAccount","password"})
+    public void Agent_AM_Bet_Setting_Listing_009(String memberAccount, String password) throws Exception {
+        log("@title: Verify cannot place bet when place bet in member site greater than max bet setting");
+        log("Step 1. Navigate to Agent Site and get list Event");
+        String userID = ProfileUtils.getProfile().getUserID();
+        Event event = EventBetSizeSettingUtils.getEventList("Soccer", userID, "TODAY").get(0);
+        agentHomePage.logout();
+
+        log("Step 2. Login to Member Site");
+        loginMember(memberAccount,password,false,"","",false);
+        memberHomePage = landingPage.login(_brandname,memberAccount,StringUtils.decrypt(password),true);
+        memberHomePage.closeBannerPopup();
+
+        log("Step 3. Place bet with stake < min setting");
+        String maxBetSetting = BetUtils.getMaxBet(SportPage.Sports.SOCCER, SportPage.BetType.LAY);
+        String minBetSetting = BetUtils.getMinBet(SportPage.Sports.SOCCER, SportPage.BetType.LAY);
+        Double maxBet = Double.parseDouble(maxBetSetting) + 1;
+        String expectedMsg = String.format("Cannot place bet. The stake must be from %.2f to %.2f. Current Stake is %.2f"
+                ,Double.parseDouble(minBetSetting),Double.parseDouble(maxBetSetting),maxBet);
+        memberHomePage.searchEvent(event.getEventName(),true);
+        memberHomePage.clickMarket(1);
+        Market market = memberHomePage.marketContainerControl.getMarket(event,1,false);
+        market.getBtnOdd().click();
+        memberHomePage.betSlipControl.placeBet("1.01", String.valueOf(maxBet));
+
+        log("Verify stake error message displays");
+        Assert.assertTrue(memberHomePage.betSlipControl.isErrorDisplayed(memberHomePage.betSlipControl.lblMinMaxStakeErrorMessage, expectedMsg)
+                ,"ERROR! Max Stake error message is not displayed");
+    }
 }
 
