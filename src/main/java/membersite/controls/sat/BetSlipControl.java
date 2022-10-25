@@ -38,7 +38,7 @@ public class BetSlipControl extends BaseElement {
 	private Button btnQuickStakes = Button.xpath("//button[contains(@class,'fastbtn')]");
 	public EditStakeControl editStakeControl = EditStakeControl.xpath("//div[contains(@class,'edit-stakes-body')]");
 	public Label lblSuspendedErrorMessage = Label.xpath("//div[@class='modal-body' and contains(text(), 'has been Suspended')]");
-	public Label lblMinStakeErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
+	public Label lblMinMaxStakeErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
 
 	private BetSlipControl(By locator, String xpath) {
 		super(locator);
