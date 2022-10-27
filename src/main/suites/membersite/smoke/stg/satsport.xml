@@ -25,7 +25,7 @@
 
         <groups>
             <run>
-                <include name="smoke " />
+                <include name="smoke" />
             </run>
         </groups>
 
@@ -35,6 +35,7 @@
             <class name="membersite.testcases.sat.fancy.WicketBookmakerTest"/>
             <class name="membersite.testcases.sat.fancy.WicketFancyTest"/>
             <class name="membersite.testcases.sat.fancy.CentralFancyTest"/>
+            <class name="membersite.testcases.sat.fancy.CentralBookmakerTest"/>
             <class name="membersite.testcases.sat.SATForecastFunctionTest"/>
             <class name="membersite.testcases.sat.SATPlaceBetFunctionTest"/>
             <class name="membersite.testcases.sat.SATOddsSectionTest"/>

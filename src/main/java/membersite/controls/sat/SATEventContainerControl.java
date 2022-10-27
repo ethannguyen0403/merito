@@ -133,6 +133,7 @@ public class SATEventContainerControl extends BaseElement {
 	}
 
 	public boolean isOddsUnclickable(String eventName){
+	//	int i = getEventIndex(eventName);
 		String xpath = String.format("//span[contains(text(),'%s')]//following::li[1]//button",eventName);
 		int n = Button.xpath(String.format(xpath,eventName)).getWebElements().size();
 		for(int i =0; i<n; i++)
@@ -168,7 +169,6 @@ public class SATEventContainerControl extends BaseElement {
 			}
 
 		}
-
 	}
 
 	private Event getEvent (Link lnkEvent, boolean isInplay, boolean isSuspend, String startTime) {
@@ -181,29 +181,6 @@ public class SATEventContainerControl extends BaseElement {
 				.build();
 	}
 
-	/**
-	 * To get the event that has Wicket Fancy and and click on that event
-	 * @return
-	 */
-	public String getEventHasFancyMarket(String marketType){
-		// Scan all the list event in Cricket sport page
-		int i =1;
-		Link lnkEvent;
-		while (true){
-			lnkEvent =(Link) tblEvents.getControlOfCell(1,1,i,"div[@class='market-container']");
-			if(!lnkEvent.isDisplayed())
-				return null;
-			// get event id
-			String eventID=lnkEvent.getAttribute("id");
-			if(FancyUtils.isEventHasMarketType(eventID,marketType)){
-				lnkEvent =(Link) tblEvents.getControlOfCell(1,1,i,"span[@class='home-team']");
-				return lnkEvent.getText();
-			}
-			i++;
-			// check api tha has fany
-		}
-	}
-
 	private boolean getEventIDHasPorductData(String productName,String eventID){
 		return FancyUtils.isEventHasMarketType(eventID,productName);
 	}
@@ -214,7 +191,6 @@ public class SATEventContainerControl extends BaseElement {
 	 */
 	public String getEventIDHasMarketData(String product){
 		// Scan all the list event in Cricket sport page
-
 		int i =1;
 		Link lnkEvent;
 		while (true){
@@ -250,6 +226,49 @@ public class SATEventContainerControl extends BaseElement {
 			// check api tha has fany
 		}
 	}
+
+	private int getEventIndex(String eventName){
+		int i =1;
+		Link lnkEvent;
+		while (true){
+			lnkEvent =(Link) tblEvents.getControlOfCell(1,1,i,"span[contains(@class,'home-team')]");
+			if(!lnkEvent.isDisplayed()) {
+				System.out.println("Debug! Not found event to click");
+				return 0;
+			}
+			if(lnkEvent.getText().trim().contains(eventName)){
+				return i;
+			}
+			i++;
+		}
+	}
+
+	public Event getEventInfo(String eventName){
+		int index = getEventIndex(eventName);
+
+
+			String xpathEvents = String.format(lblListEventXPath, _xpath);
+
+			Label lblEvents = Label.xpath(String.format("%s", xpathEvents));
+
+				String xpathEvent = String.format("(%s)[%s]", xpathEvents, index);
+				Label lblEvent = Label.xpath(xpathEvent);
+				if (!lblEvent.isPresent(2)){
+					return null;
+				}
+				Label lblSuspend = Label.xpath(String.format(lblSuspendXPath, xpathEvent));
+				Icon iconInPlay = Icon.xpath(String.format(lblInplayXPath, xpathEvent));
+				Link lnkEventName = Link.xpath(String.format(lblEventNameXPath, xpathEvent));
+				boolean _isInplay =iconInPlay.isDisplayedShort(2) ;
+				boolean _isSuspend =lblSuspend.isDisplayedShort(2) ;
+
+					String eventStartTime = Label.xpath(String.format(lblEventStartTimeXpath,xpathEvent)).getText().trim();
+					return getEvent(lnkEventName, _isInplay, _isSuspend,eventStartTime);
+
+
+		}
+
+
 
 
 

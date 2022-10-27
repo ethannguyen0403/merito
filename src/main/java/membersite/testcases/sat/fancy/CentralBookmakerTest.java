@@ -39,29 +39,20 @@ public class CentralBookmakerTest extends BaseCaseMerito {
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
 
-        log("Step 2 Get and click on the event that has Central Bookmaker market");
-        String eventId = sportPage.getEventIDHasProductData(CENTRAL_BOOKMAKER_CODE);
-        MarketPage marketPage = sportPage.clickOnEvent(eventId);
-        if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Central Bookmaker market");
-            Assert.assertTrue(true,"By passed as has no Central Bookmaker market on all available event");
+        log("Step 2. Get Central Bookmaker market available");
+        BookmakerMarket bmMarket = BetUtils.findOpenBookmakerMarket("4",CENTRAL_FANCY_CODE,"OPEN");
+        if(Objects.isNull(bmMarket)){
+            log("DEBUG: Skip as have no event has Central Bookmaker");
+            Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
+        log("Step 3 Get and click on the event that has Central Bookmaker market");
+        MarketPage marketPage = sportPage.clickEventName(bmMarket.getEventName());
 
-        log("Step 3. Get Central Bookmaker market available");
-        List<BookmakerMarket> lstBookmaker = FancyUtils.getListCentralBookmakerInEvent(eventId);
-
-        if(Objects.isNull(lstBookmaker)){
-            log("DEBUG: Skip as have no Central Bookmaker market is Ball Start or Suspend");
-            Assert.assertFalse(true,"By passed as has no Central Bookmaker market on all available event");
-            return;
-        }
-        BookmakerMarket bookmakerMarket = lstBookmaker.get(0);
-
-        log("Step 4 Active Central Fancy tab");
+        log("Step 4 Active Central Bookmaker tab");
         marketPage.activeProduct(CENTRAL_BOOKMAKER_TITLE);
 
-        Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket,true);
+        Market market = marketPage.getBookmakerMarketInfo(bmMarket,true);
         market.getBtnOdd().click();
         marketPage.betSlipControlSAT.placeBet("",stake);
         Wager expectedWager = marketPage.defineWager(market,true,Double.parseDouble(stake),0);
@@ -109,7 +100,7 @@ public class CentralBookmakerTest extends BaseCaseMerito {
         List<BookmakerMarket> lstFancy = FancyUtils.getListCentralBookmakerInEvent(eventId);
         BookmakerMarket bookmakerMarket = lstFancy.get(0);
 
-        log("Step 4 Active Central Fancy tab");
+        log("Step 4 Active Central Bookmaker tab");
         marketPage.activeProduct(CENTRAL_BOOKMAKER_TITLE);
 
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket,true);
@@ -155,7 +146,7 @@ public class CentralBookmakerTest extends BaseCaseMerito {
         List<BookmakerMarket> lstFancy = FancyUtils.getListCentralBookmakerInEvent(eventId);
         BookmakerMarket bookmakerMarket = lstFancy.get(0);
 
-        log("Step 4 Active Central Fancy tab");
+        log("Step 4 Active Central Bookmaker tab");
         marketPage.activeProduct(CENTRAL_BOOKMAKER_TITLE);
 
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket,false);
@@ -201,7 +192,7 @@ public class CentralBookmakerTest extends BaseCaseMerito {
         List<BookmakerMarket> lstFancy = FancyUtils.getListCentralBookmakerInEvent(eventId);
         BookmakerMarket bookmakerMarket = lstFancy.get(0);
 
-        log("Step 4 Active Central Fancy tab");
+        log("Step 4 Active Central Bookmaker tab");
         marketPage.activeProduct(CENTRAL_BOOKMAKER_TITLE);
 
         log("Step 5 Click on an odds of a Bookmaker market then place bet with the stake  greater than available balance");

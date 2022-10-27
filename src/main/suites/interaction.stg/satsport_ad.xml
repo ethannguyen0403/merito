@@ -11,10 +11,10 @@
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='corpinr2'/>
-        <parameter name='level' value='SMA'/>
-        <parameter name='levelLogin' value='Senior Admin'/>
-        <parameter name='downlineAccount' value='smaag1'/>
+        <parameter name='username' value='smaag1'/>
+        <parameter name='level' value='AD'/>
+        <parameter name='levelLogin' value='Admin'/>
+        <parameter name='downlineAccount' value='auto.part1'/>
         <parameter name ='portalSubAccount' value ='SASUBBA'/>
         <parameter name ='memberAccount' value ='sabella1'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
@@ -22,19 +22,15 @@
         <parameter name='currency' value='HKD'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='satsport'/>
-        <parameter name='boAccount' value='isa'/>
-        <parameter name='bopassword' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <groups>
             <run>
 <!--                <include name="precondition" />-->
-                <include name="smoke1" />
+                <include name="interaction1" />
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.agencymanagement.AnnouncementTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.EventBetSizeSettingsTest"/>
-            <class name="agentsite.testcase.all.marketsmanagement.blockunblockevents.BlockUnblockEventsTest"/>
+
             <class name="agentsite.testcase.all.marketsmanagement.SuspendUnsuspendMarketsTest"/>
         </classes>
 

@@ -657,8 +657,8 @@ public class EventBetSizeSettingsTest extends BaseCaseMerito {
         blockUnblockEventPage.logout();
 
         log("Step 3. Login in member site and place on BF market of the event in step 2");
-        membersite.pages.all.tabexchange.HomePage membeSite = loginMember(memberAccount,password);
-        SportPage sportPage = membeSite.navigateSportMenu(sportName,SportPage.class);
+        loginMember(memberAccount,password);
+        SportPage sportPage = memberHomePage.navigateSportMenu(sportName,SportPage.class);
         event = sportPage.setEventLink(event);
         Market market = sportPage.marketContainerControl_SAT.getMarket(event, 1, true);
         String odds = market.getBtnOdd().getText();

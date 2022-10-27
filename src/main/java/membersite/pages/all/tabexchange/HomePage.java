@@ -9,6 +9,7 @@ import membersite.common.FEMemberConstants;
 import membersite.controls.MenuTree;
 import membersite.controls.aposta.APMainContentControl;
 import membersite.controls.funsport.HighLightRaceControl;
+import membersite.controls.funsport.MarketOddControl;
 import membersite.controls.funsport.OddPageControl;
 import membersite.controls.sat.*;
 import membersite.objects.AccountBalance;
@@ -31,6 +32,7 @@ public class HomePage extends MainMenu {
     public APMainContentControl apHomeContainerControl = APMainContentControl.xpath("//div[contains(@class,'main-content-wrapper')]//div[@class='main-content']");
     public EventContainerControl eventContainerControl = EventContainerControl.xpath("//div[@class='container-event-info']");
     public SATEventContainerControl eventContainerControl_SAT = SATEventContainerControl.xpath("//div[@class='container-event-info']");
+    public MarketOddControl marketOddControl = MarketOddControl.xpath("//div[@id='fullMarketOdds']", false);
     public SATMarketContainerControl marketContainerControl_SAT = SATMarketContainerControl.xpath("//div[contains(@class,'highlight-page market')]");
     public MarketContainerControl marketContainerControl = MarketContainerControl.xpath("//div[contains(@class,'highlight-page market')]");
     public RacingMarketControl racingMarketControl = RacingMarketControl.xpath("//app-racing-market");
@@ -63,9 +65,10 @@ public class HomePage extends MainMenu {
     }
 
     public void clickSportHighlight(String sportName){sportHighLightMenu.clickMenu(sportName);    }
+
     public List<String> getSportHighLightTab(){return sportHighLightMenu.getListSubMenu();    }
-    public void clickEvent(Event event)
-    {
+
+    public void clickEvent(Event event)    {
         String appName = BetUtils.getAppName();
         if(appName.equals("satsport")){
             eventContainerControl_SAT.clickEvent(event);
@@ -73,8 +76,8 @@ public class HomePage extends MainMenu {
             eventContainerControl.clickEvent(event);
         waitMenuLoading();
     }
-    public MarketPage clickEventName(String event)
-    {
+
+    public MarketPage clickEventName(String event)    {
         String appName = BetUtils.getAppName();
         if(appName.equals("satsport")){
             eventContainerControl.clickOnRowofEventNameSAT(event);
@@ -84,8 +87,7 @@ public class HomePage extends MainMenu {
         return new MarketPage();
     }
 
-    public void closeBannerPopup()
-    {
+    public void closeBannerPopup()    {
         if(isPopupBannerDisplay()){
             btnClose.click();
             isPopupBannerDisplay();
@@ -133,12 +135,14 @@ public class HomePage extends MainMenu {
             apHeaderControl.clickLeftMenu();
         }
     }
+
     public SportPage activeSportInLefMenu(String sportName){
         SportPage exPage;
         openLeftMenu();
         exPage = apLeftMenuControl.clickLeftMenuItem(sportName,SportPage.class);
         return exPage;
     }
+
     public EGHomePage activeExchangeGame(String brand){
         EGHomePage exPage;
         if(brand.equalsIgnoreCase("aposta") || brand.equalsIgnoreCase("fair999new"))
@@ -166,6 +170,7 @@ public class HomePage extends MainMenu {
         return FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE;
 
     }
+
     public String defineErrorMessageOldUI(double stake,double minStake, double maxStake, AccountBalance accountBalance){
         double balance = Double.valueOf(accountBalance.getBalance().replaceAll(",", ""));
         if(stake > balance) {
@@ -177,5 +182,13 @@ public class HomePage extends MainMenu {
 
     }
 
+    public Event getEventInfo(String eventName, String brandName){
+        switch (brandName){
+            case "satsport":
+                return eventContainerControl_SAT.getEventInfo(eventName);
+            default:
+                return eventContainerControl.getEventInfo(eventName);
+        }
+    }
 
 }

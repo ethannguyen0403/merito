@@ -314,7 +314,7 @@ public class FancyTest extends BaseCaseMerito {
         String maxStake = String.valueOf(fancyMarket.getMaxSetting());
         String expectedError = marketPage.defineErrorMessageOldUI(Double.valueOf(stake),Double.parseDouble(minStake),Double.parseDouble(maxStake),BetUtils.getUserBalance());
 
-        log(String.format("Step 5: On market %s Place on Yes odds with stake %s ",fcMarket.getMarketID(),stake));
+        log(String.format("Step 5: On market %s Place on Yes odds with stake %s ",fcMarket.getMarketName(),stake));
         marketPage.place27Fancy(fancyMarket,true,stake);
         SelectedOdd order = marketPage.betSlipControlOldUI.getErrorBet(1).get(0);
 

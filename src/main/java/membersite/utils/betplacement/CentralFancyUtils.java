@@ -13,7 +13,6 @@ import java.util.Objects;
 import static baseTest.BaseCaseMerito.*;
 import static com.paltech.utils.WSUtils.getGETJSONArrayWithCookies;
 
-
 public class CentralFancyUtils {
 
     private static JSONArray getWicketFancyJSON(String eventId){

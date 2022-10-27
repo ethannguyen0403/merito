@@ -4,6 +4,7 @@ import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.DoubleUtils;
 import membersite.objects.*;
+import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.FancyMarket;
 import membersite.objects.sat.Order;
@@ -32,7 +33,7 @@ public class BetUtils {
     private static JSONObject getEvent(String sportID)
     {
     //    String api = String.format("%s/member-service/market-service/whitelist/new/sport/%s?tzo=%s&_=%s",domainURL,"4","GMT%2B0700",DateUtils.getMilliSeconds());
-        String api = String.format("%s/whitelist/new/sport/%s", memberMarketServiceURL,"4");
+        String api = String.format("%s/whitelist/new/sport/%s", memberMarketServiceURL,sportID);
         JSONObject sportObj = WSUtils.getGETJSONObjectWithCookies(api,Configs.HEADER_JSON,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if(Objects.nonNull(sportObj)){
             return sportObj.getJSONObject("eventIds");
@@ -55,6 +56,25 @@ public class BetUtils {
             if(Objects.nonNull(fancyMaket))
             {
                 return  fancyMaket;
+            }
+        }
+        return null;
+    }
+
+    public static BookmakerMarket findOpenBookmakerMarket(String sportID, String providerFancyCode,String status){
+        // Get all available event of a sport
+        JSONObject sportObj = getEvent(sportID);
+        JSONArray eventArr = sportObj.getJSONArray(sportID);
+        if(Objects.isNull(eventArr)){
+            System.out.println("DEBUG: getGETJSONResponse is null");
+            return null;
+        }
+        for (int i = 0; i < eventArr.length(); i++) {
+            // Get the first Open Bookmaker markets according provider(27 Fancy, Wicket Fancy, Central Fancy of an event )
+            BookmakerMarket bmMaket = FancyUtils.getBookmakerMarketHasExpectedStatusInEvent(providerFancyCode,Integer.toString(eventArr.getInt(i)),status);
+            if(Objects.nonNull(bmMaket))
+            {
+                return bmMaket;
             }
         }
         return null;

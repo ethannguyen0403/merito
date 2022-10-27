@@ -46,10 +46,52 @@ public class SuspendUnsuspendMarketPage extends LeftMenu {
     }
 
     public MarketDetailsPopup openDetailMarket(String event){
-        tblEvent.getControlBasedValueOfDifferentColumnOnRow(event,1,colEvent,1,"div[1]/span[1]",colMarket,"span",false,false).click();
+        int index = getEVentIndex(event);
+        tblEvent.getControlBasedValueOfDifferentColumnOnRow(event,1,colEvent,index,"div[1]/span[1]",colMarket,"span",false,false).click();
         MarketDetailsPopup popup = new MarketDetailsPopup();
         popup.lblCompetitionName.isDisplayed(2);
         return popup;
     }
+    public void suspendMarket(String date, String sportName,String eventName,String marketName){
+        suspendUnsuspendMarket(date,sportName,eventName,marketName,true,true);
 
+    }
+    public void unSuspendMarket(String date, String sportName,String eventName,String marketName){
+        suspendUnsuspendMarket(date,sportName,eventName,marketName,false,true);
+
+    }
+    public void suspendUnsuspendMarket(String date, String sportName,String eventName,String marketName,boolean isSuspend, boolean isClosePopup){
+        filterEvent(sportName,date);
+        MarketDetailsPopup popup = openDetailMarket(eventName);
+        if(isSuspend){
+            popup.suspendUnsuspendMarket(marketName,true);
+        }else
+            popup.suspendUnsuspendMarket(marketName,false);
+
+        if(isClosePopup)
+            popup.close();
+    }
+
+    private int getEVentIndex(String eventName){
+        int i = 1;
+        Label lblEvent;
+        while (true){
+            lblEvent = Label.xpath(tblEvent.getxPathOfCell(1, colEvent,i,"div[1]/span[1]"));
+            if(!lblEvent.isDisplayed()){
+                System.out.println("The event "+eventName+" does not display");
+                return 0;
+            }
+            if(lblEvent.getText().trim().contains(eventName)){
+                System.out.println("Found The event "+eventName);
+                return i;
+            }
+            i++;
+
+        }
+
+    }
+    public boolean verifymarketInfo(String marketName, String status, String lastUpdateBy, String lastUpdateTime){
+        MarketDetailsPopup popup = new MarketDetailsPopup();
+        return popup.verifymarketInfo(marketName,status,lastUpdateBy,lastUpdateTime);
+    }
 }

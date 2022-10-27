@@ -25,7 +25,7 @@ import static membersite.common.FEMemberConstants.*;
 
 public class WicketBookmakerTest extends BaseCaseMerito {
     /**
-     * @title Validate can place bet on Central Bookmaker on Match odds market page
+     * @title Validate can place bet on Wicket Bookmaker on Match odds market page
      * @Precondition:  1. Get the event that have Central Bookmaker market
      * @Step 1/ Login member site
      * 2/ Active the event that have Central Bookmaker market
@@ -33,37 +33,42 @@ public class WicketBookmakerTest extends BaseCaseMerito {
      * 4/ Click on an odds of a Central Bookmaker market then place bet
      * @Expected 1. Can place bet
      */
-    @Test(groups = {"smoke2"})
+    @Test(groups = {"smoke"})
     public void WicketBookmakerTest_001(){
         log("@title: Validate can place bet on Central Bookmaker on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
         String stake = BetUtils.getMinBet(SportPage.Sports.CRICKET, SportPage.BetType.BACK);
-
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
 
-        log("Step 2 Get and click on the event that has Central Bookmaker market");
+        log("Step 2 Get and click on the event that has Wicket Bookmaker market");
         String eventId = sportPage.getEventIDHasProductData(WICKET_BOOKMAKER_CODE);
         MarketPage marketPage = sportPage.clickOnEvent(eventId);
         if(Objects.isNull(marketPage)){
-            Assert.assertFalse(true,"Cannot place on the market, please check market status");
+            Assert.assertTrue(true,"By passed as has no Central Bookmaker market on all available event");
             return;
         }
 
-        log("Step 3. Get Central Bookmaker market available");
-        List<BookmakerMarket> lstBookmaker = FancyUtils.getListCentralBookmakerInEvent(eventId);
-
-        if(Objects.isNull(lstBookmaker)){
-            log("DEBUG: Skip as have no Central Bookmaker market is Ball Start or Suspend");
-            Assert.assertFalse(true,"By passed as has no Central Bookmaker market on all available event");
+        BookmakerMarket bmMarket = BetUtils.findOpenBookmakerMarket("4",WICKET_BOOKMAKER_CODE,"ONLINE");
+        if(Objects.isNull(bmMarket)){
+            log("DEBUG: Skip as have no event has Fancy Wicket");
+            Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
-        BookmakerMarket bookmakerMarket = lstBookmaker.get(0);
 
-        log("Step 4 Active Central Fancy tab");
+        log("Step 3. Get Wicket Bookmaker market available");
+        List<BookmakerMarket> lstFancy = FancyUtils.getListWicketBookmakerInEvent(eventId);
+        BookmakerMarket bookmakerMarket = lstFancy.get(0);
+
+        log("Step 4 Active Wicket Bookmaker tab");
         marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);
 
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket,true);
+        if(Objects.isNull(marketPage)){
+            log("DEBUG: Skip as have no event has Wicket Bookmaker market");
+            Assert.assertFalse(true,"Cannot place on the market, please check market status");
+            return;
+        }
         market.getBtnOdd().click();
         marketPage.betSlipControlSAT.placeBet("",stake);
         Wager expectedWager = marketPage.defineWager(market,true,Double.parseDouble(stake),0);
@@ -98,7 +103,7 @@ public class WicketBookmakerTest extends BaseCaseMerito {
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
 
-        log("Step 2 Get and click on the event that has Central Bookmaker market");
+        log("Step 2 Get and click on the event that has Wicket Bookmaker market");
         String eventId = sportPage.getEventIDHasProductData(WICKET_BOOKMAKER_CODE);
         MarketPage marketPage = sportPage.clickOnEvent(eventId);
         if(Objects.isNull(marketPage)){
@@ -106,16 +111,16 @@ public class WicketBookmakerTest extends BaseCaseMerito {
             return;
         }
 
-        log("Step 3. Get Central Bookmaker market available");
+        log("Step 3. Get Wicket Bookmaker market available");
         List<BookmakerMarket> lstFancy = FancyUtils.getListWicketBookmakerInEvent(eventId);
         BookmakerMarket bookmakerMarket = lstFancy.get(0);
 
-        log("Step 4 Active Central Fancy tab");
+        log("Step 4 Active Wicket Bookmaker tab");
         marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);
 
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket,true);
         if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Central Bookmaker market");
+            log("DEBUG: Skip as have no event has Wicket Bookmaker market");
             Assert.assertFalse(true,"Cannot place on the market, please check market status");
             return;
         }
@@ -131,7 +136,7 @@ public class WicketBookmakerTest extends BaseCaseMerito {
 
     /**
      * @title Verify Cannot place bet if stake greater than max bet
-     * @Precondition:  1. Get the event that have Central Bookmaker market
+     * @Precondition:  1. Get the event that have Wicket Bookmaker market
      * @Step 1/ Login member site
      * 2/Active the event that have Bookmaker market
      * 3/Click on a Bookmaker market
@@ -148,24 +153,25 @@ public class WicketBookmakerTest extends BaseCaseMerito {
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
 
-        log("Step 2 Get and click on the event that has Central Bookmaker market");
+        log("Step 2 Get and click on the event that has Wicket Bookmaker market");
         String eventId = sportPage.getEventIDHasProductData(WICKET_BOOKMAKER_CODE);
         MarketPage marketPage = sportPage.clickOnEvent(eventId);
         if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Central Bookmaker market");
+            log("DEBUG: Skip as have no event has Wicket Bookmaker market");
             Assert.assertTrue(true,"By passed as has no Central Bookmaker market on all available event");
             return;
         }
 
-        log("Step 3. Get Central Bookmaker market available");
-        List<BookmakerMarket> lstFancy = FancyUtils.getListCentralBookmakerInEvent(eventId);
-        BookmakerMarket bookmakerMarket = lstFancy.get(0);
+        log("Step 3 Get Wicket Bookmaker market available");
+        log("Step 3. Get Wicket Bookmaker market available");
+        List<BookmakerMarket> lsBookmaker = FancyUtils.getListWicketBookmakerInEvent(eventId);
+        BookmakerMarket bookmakerMarket = lsBookmaker.get(0);
 
-        log("Step 4 Active Central Fancy tab");
+        log("Step 4 Active Wicket Bookmaker tab");
         marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket,false);
         if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Central Bookmaker market");
+            log("DEBUG: Skip as have no event has Wicket Bookmaker market");
             Assert.assertFalse(true,"Cannot place on the market, please check market status");
             return;
         }
@@ -181,14 +187,14 @@ public class WicketBookmakerTest extends BaseCaseMerito {
 
     /**
      * @title Verify Cannot place bet if stake less is greater than available balance
-     * @Precondition:  1. Get the event that have Central Bookmaker market
+     * @Precondition:  1. Get the event that have Wicket Bookmaker market
      * @Step 1/ Login member site
      * 2/Active the event that have Bookmaker market
      * 3/Click on a Bookmaker market
      * 4/ Click on an odds of a Bookmaker market then place bet with the stake  greater than available balance
      * @Expected 1. Can NOT place bet
      */
-    @Test(groups = {"smoke2"})
+    @Test(groups = {"smoke"})
     public void WicketBookmakerTest_005(){
         log("@title: Verify Cannot place bet if stake less is greater than availablie balance");
         log("Step 1. Login member site and click on Cricket");
@@ -197,26 +203,26 @@ public class WicketBookmakerTest extends BaseCaseMerito {
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
 
-        log("Step 2 Get and click on the event that has Central Bookmaker market");
+        log("Step 2 Get and click on the event that has Wicket Bookmaker market");
         String eventId = sportPage.getEventIDHasProductData(WICKET_BOOKMAKER_CODE);
         MarketPage marketPage = sportPage.clickOnEvent(eventId);
         if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Central Bookmaker market");
-            Assert.assertTrue(true,"By passed as has no Central Bookmaker market on all available event");
+            log("DEBUG: Skip as have no event has Wicket Bookmaker market");
+            Assert.assertTrue(true,"By passed as has no Wicket Bookmaker market on all available event");
             return;
         }
 
-        log("Step 3. Get Central Bookmaker market available");
-        List<BookmakerMarket> lstFancy = FancyUtils.getListCentralBookmakerInEvent(eventId);
+        log("Step 3. Get Wicket Bookmaker market available");
+        List<BookmakerMarket> lstFancy = FancyUtils.getListWicketBookmakerInEvent(eventId);
         BookmakerMarket bookmakerMarket = lstFancy.get(0);
 
-        log("Step 4 Active Central Fancy tab");
+        log("Step 4 Active Wicket Bookmaker tab");
         marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);
 
         log("Step 5 Click on an odds of a Bookmaker market then place bet with the stake  greater than available balance");
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket,true);
         if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Central Bookmaker market");
+            log("DEBUG: Skip as have no event has Wicket Bookmaker market");
             Assert.assertFalse(true,"Cannot place on the market, please check market status");
             return;
         }

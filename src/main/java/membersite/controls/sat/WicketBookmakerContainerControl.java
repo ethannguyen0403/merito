@@ -65,6 +65,7 @@ public class WicketBookmakerContainerControl extends BaseElement {
 			if(isRunnerSuspended(i)){
 				i = i+1;
 			}else{
+
 				runner = Label.xpath(String.format("%s%s", rowXpath, runnerNameXPath)).getText();
 				String backOrLay = isBack ? "back" : "lay";
 				String oddXPath = String.format(oddCellXpath, backOrLay);
@@ -101,8 +102,8 @@ public class WicketBookmakerContainerControl extends BaseElement {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		// wait suspend lable display in 3minutes
-		while(stopWatch.getElapsedTime() < 200000L) {
-			if(!lblSuspendMarket.isDisplayed()){
+		while(stopWatch.getElapsedTime() < 90000L) {
+			if(!lblSuspendMarket.isDisplayed(2)){
 				return false;
 			}
 			System.out.println("--- Wait suspend status disappear in  "+ stopWatch.getElapsedTime());

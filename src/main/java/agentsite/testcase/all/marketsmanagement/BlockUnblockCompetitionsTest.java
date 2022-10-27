@@ -10,6 +10,8 @@ import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
 import baseTest.BaseCaseMerito;
 import membersite.common.FEMemberConstants;
 import membersite.objects.sat.Event;
+import membersite.objects.sat.Market;
+import membersite.pages.all.tabexchange.SportPage;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -168,17 +170,6 @@ public class BlockUnblockCompetitionsTest extends BaseCaseMerito {
         String childID =BlockUnblockEventsUtils.getchildUserID(acc.getUserID(),downlineAccount);
         event = BlockUnblockEventsUtils.getEventList(sportName,childID,TABs.get(activeTab));
         Assert.assertTrue(blockUnblockEventPage.isCompetitionExist(event,competitionName),"FAILED! Competition is not display in Block UnBlock Event page after unblocking");
-//
-//        log("Step 5: Logout agent site");
-//        DriverManager.getDriver().switchToParentFrame();
-//        agentHomePage.logout();
-//
-//        log("Verify 2. Verify the competition displays on member site");
-//        DriverManager.getDriver().getToAvoidTimeOut(environment.getMemberSiteURL());
-//        loginMember(memberAccount,password);
-//        memberagentHomePage.clickMenu(sportName);
-//        List<String> leftMenuCompetitionList = memberagentHomePage.getLeftMenuList();
-//        Assert.assertTrue(leftMenuCompetitionList.contains(competitionName),String.format("FAILED! Member site left menu not display the competition %s",competitionName));
 
         log("INFO: Executed completely");
     }
@@ -196,7 +187,7 @@ public class BlockUnblockCompetitionsTest extends BaseCaseMerito {
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount","memberAccount", "password"})
     public void Agent_MM_BlockUnblockCompetitions_TC006(String downlineAccount,String memberAccount, String password) throws Exception {
-        log("@title: Verify Blocked Competition not display in Member Site and Block/Unblock Event");
+        log("@title: Verify Blocked Competition not display Block/Unblock Event");
         AccountInfo acc = ProfileUtils.getProfile();
         String sportName ="Soccer";
 
@@ -225,21 +216,66 @@ public class BlockUnblockCompetitionsTest extends BaseCaseMerito {
         event = BlockUnblockEventsUtils.getEventList(sportName,childID,TABs.get(activeTab));
         Assert.assertFalse(blockUnblockEventPage.isCompetitionExist(event,competitionName),"FAILED! Competition display in Block UnBlock Event page after blocking");
 
-      /*  log("Step 5: Logout agent site");
-        DriverManager.getDriver().switchToParentFrame();
-        agentHomePage.logout();
+        log("INFO: Executed completely");
+    }
 
-        log("Verify 2. Verify the competition does NOT displays on member site after blocking");
-        DriverManager.getDriver().getToAvoidTimeOut(environment.getMemberSiteURL());
+    @Test(groups = {"interaction5"})
+    @Parameters({"downlineAccount","memberAccount", "password"})
+    public void Agent_MM_BlockUnblockCompetitions_TC007(String downlineAccount,String memberAccount, String password) throws Exception {
+        log("@title: Verify competition is displayed in member site when unblocked in agent site");
+        log("Pre-condition: get a competition in Today Tab");
+        AccountInfo acc = ProfileUtils.getProfile();
+        String sportName ="Soccer";
+        String childID =BlockUnblockEventsUtils.getchildUserID(acc.getUserID(),downlineAccount);
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName,childID,"TODAY");
+        Event event = eventList.get(0);
+        String competitionName = event.getCompetitionName();
 
-        log("Step 6: Logout Member Site");
+        log("Step 1. Navigate Markets Management > Block/Unblock Competition");
+        BlockUnblockCompetitionPage page = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_COMPETITION, BlockUnblockCompetitionPage.class);
+
+        log("Step 2. Unblock an competition of a sport for a downline");
+        page.blockUblockCompetition(sportName, downlineAccount, competitionName, false);
+
+        log("Step 3 Unblock an event of the competition in Block/Unblock Event page");
+        BlockUnblockEventPage blockUnblockEventPage = page.clickSubMenu(MARKET_MANAGEMENT,BLOCK_UNBLOCK_EVENT,BlockUnblockEventPage.class);
+        blockUnblockEventPage.blockUnblockEvent(downlineAccount,event.getEventName(),"Unblock Now");
+
+        log("Step 4 Login member site > Active "+sportName+" and get all list competitions in the left menu");
         loginMember(memberAccount,password);
+        SportPage sportPage = memberHomePage.navigateSportMenu("Soccer",SportPage.class);
+        List<String> leftMenuCompetitionList = sportPage.getLeftMenuList();
 
-        log("Step 7: Get List competition in the leftmenu");
-        memberagentHomePage.clickMenu(sportName);
-        List<String> leftMenuCompetitionList = memberagentHomePage.getLeftMenuList();
-        Assert.assertFalse(leftMenuCompetitionList.contains(competitionName),String.format("FAILED! Member site left menu display the competition %s after blocking in agent site",competitionName));
-*/
+        log("Verify 1 Verity the competition displays in the left menu under selected sport");
+        Assert.assertTrue(leftMenuCompetitionList.contains(competitionName),String.format("FAILED! Member site left menu should display the competition %s when it is unblocked",competitionName));
+        log("INFO: Executed completely");
+    }
+    @Test(groups = {"interaction"})
+    @Parameters({"downlineAccount","memberAccount", "password"})
+    public void Agent_MM_BlockUnblockCompetitions_TC008(String downlineAccount,String memberAccount, String password) throws Exception {
+        log("@title: Verify competition is not display in member site when blocked in agent site");
+        log("Pre-condition: get a competition in Today Tab");
+        AccountInfo acc = ProfileUtils.getProfile();
+        String sportName ="Soccer";
+        String childID =BlockUnblockEventsUtils.getchildUserID(acc.getUserID(),downlineAccount);
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName,childID,"TODAY");
+        Event event = eventList.get(0);
+        String competitionName = event.getCompetitionName();
+
+        log("Step 1. Navigate Markets Management > Block/Unblock Competition");
+        BlockUnblockCompetitionPage page = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_COMPETITION, BlockUnblockCompetitionPage.class);
+
+        log("Step 2. Unblock an competition of "+sportName+" for account" + downlineAccount);
+        page.blockUblockCompetition(sportName, downlineAccount, competitionName, true);
+
+        log("Step 3 Login member site account "+memberAccount+" then Active "+sportName+" and get all list competitions in the left menu");
+        loginMember(memberAccount,password);
+        SportPage sportPage = memberHomePage.navigateSportMenu("Soccer",SportPage.class);
+        List<String> leftMenuCompetitionList = sportPage.getLeftMenuList();
+
+        log("Verify 1 Verity the competition does not display in the left menu under selected sport");
+        Assert.assertFalse(leftMenuCompetitionList.contains(competitionName),String.format("FAILED! Member site left menu does not display the competition %s after blocking in agent site",competitionName));
+
         log("INFO: Executed completely");
     }
 }

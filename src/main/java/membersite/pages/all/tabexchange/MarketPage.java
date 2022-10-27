@@ -1,5 +1,6 @@
 package membersite.pages.all.tabexchange;
 
+import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Tab;
@@ -7,9 +8,7 @@ import membersite.common.FEMemberConstants;
 import membersite.controls.funsport.MarketOddControl;
 import membersite.controls.funsport.MyBetControl;
 import membersite.controls.funsport.OneClickBettingControl;
-import membersite.controls.sat.FancyContainerControlOldUI;
-import membersite.controls.sat.WicketBookmakerContainerControl;
-import membersite.controls.sat.FancyContainerControl;
+import membersite.controls.sat.*;
 import membersite.objects.Wager;
 import membersite.objects.funsport.Odd;
 import membersite.objects.funsport.SelectedOdd;
@@ -25,7 +24,8 @@ import java.util.Objects;
 
 
 public class MarketPage extends SportPage {
-    public MarketOddControl marketOddControl = MarketOddControl.xpath("//div[@id='fullMarketOdds']", false);
+
+    public MarketContainerControl marketContainerControl = MarketContainerControl.xpath("//div[contains(@class,'highlight-page market')]");
     public Label lblTitle = Label.xpath("//div[@class='sports star-favourites-container']//span[@class='title favorites-title ']");
     public Icon icFavorite = Icon.xpath("//i[contains(@class,'multi-market add-multi-market glyphicon')]");
     public Label lblMarketStartTime = Label.xpath("//div[@class='sports star-favourites-container']//div[@id='market-date']");
@@ -37,9 +37,6 @@ public class MarketPage extends SportPage {
     public FancyContainerControlOldUI odlUIFancyContainerControl = FancyContainerControlOldUI.xpath("//div[@id='fair-27-fancy']");
     public FancyContainerControl centralFancyContainerControl = FancyContainerControl.xpath("//span[text()='Central Fancy']//ancestor::div[contains(@class,'fancy-container')]");
     public FancyContainerControl fancyContainerControl = FancyContainerControl.xpath("//span[text()='Fancy']//ancestor::div[contains(@class,'fancy-container')]");
-
-    public WicketBookmakerContainerControl wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//span[text()='Wicket Bookmaker']//ancestor::div[contains(@class,'fancy-container')]//wicket-bookmarker-odds//div[contains(@class,'table-odds')]");
-    public WicketBookmakerContainerControl centralBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//span[text()='Manual Odds']//ancestor::div[contains(@class,'fancy-container')]//central-bookmarker-odds//div[contains(@class,'table-odds')]");
     public membersite.controls.sat.BetSlipControl betSlipControlSAT= membersite.controls.sat.BetSlipControl.xpath("//app-bet-slip");
     public membersite.controls.sat.MyBetControl myBetControlSAT = membersite.controls.sat.MyBetControl.xpath("//app-open-bets");
     private Tab tabWicketFancy =Tab.xpath(String.format("//span[text()='%s']", FEMemberConstants.WICKET_FANCY_TITILE));
@@ -133,11 +130,14 @@ public class MarketPage extends SportPage {
     }
 
     public Market getBookmakerMarketInfo(BookmakerMarket bookmakerMarket, boolean isBack){
+        WicketBookmakerContainerControl wcBookmakerContainerControl;
         switch (bookmakerMarket.getMaketType()){
             case "WICKET_BOOKMAKER":
+                wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//span[text()='Wicket Bookmaker']//ancestor::div[contains(@class,'fancy-container')]//wicket-bookmarker-odds//div[contains(@class,'table-odds')]");
                 return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket,isBack);
             default :
-                return centralBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket,isBack);
+                wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//span[text()='Manual Odds']//ancestor::div[contains(@class,'fancy-container')]//central-bookmarker-odds//div[contains(@class,'table-odds')]");
+                return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket,isBack);
         }
     }
 
@@ -255,8 +255,6 @@ public class MarketPage extends SportPage {
                 }
             return lstLiabilityFCForecast;
         }
-
-
     private List<Integer> oddRange(List<Wager> fcWagerList){
         List<Integer> oddsRangeLst = new ArrayList<>();
         int maxIndex = fcWagerList.size();
@@ -273,8 +271,6 @@ public class MarketPage extends SportPage {
         oddsRangeLst.set(maxIndex, max);
         return oddsRangeLst;
     }
-
-
     private FancyContainerControlOldUI get27FancyMarketControl(String marketName){
         String fcXpath = "//div[@id='fair-27-fancy']//div[@class='FAIR_27FANCY'][%s]";
         FancyContainerControlOldUI fancyContainerControlOldUI;
@@ -296,7 +292,6 @@ public class MarketPage extends SportPage {
         FancyContainerControlOldUI fancyContainerControlOldUI =  get27FancyMarketControl(fcMarket.getMarketName());
         return fancyContainerControlOldUI.setFancyMarketInfo(fcMarket);
     }
-
     public void place27Fancy(FancyMarket fancyMarket,boolean isBack, String stake){
         if(isBack)
             fancyMarket.getBtnYes().click();
@@ -305,6 +300,21 @@ public class MarketPage extends SportPage {
         List<SelectedOdd> lstSelectedOdd = betSlipControlOldUI.getSelectedOdds27Fancy(1);
         SelectedOdd selectedOdd = lstSelectedOdd.get(0);
         betSlipControlOldUI.placeBet27Fancy(selectedOdd,stake);
+    }
+
+    public boolean verifyOddsIsClickAbleAsBetableStaus(Market market, boolean isBetable){
+        market.getBtnOdd().click();
+        Label btnOdds = market.getBtnOdd();
+        if(isBetable){
+            if(btnOdds.isEnabled())
+                return true;
+            return false;
+        }
+        else {
+            if(!btnOdds.isEnabled())
+                return true;
+            return false;
+        }
     }
 
 }

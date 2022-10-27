@@ -209,15 +209,16 @@ public class LeftMenu extends Header {
         imgLeftMenu.isInvisible(2);
     }
 
-    public void searchEvent(String eventName, boolean isClick) {
+    public MarketPage searchEvent(String eventName, boolean isClick) {
         Label lblResult = searchEvent(eventName);
         if (isClick) {
             lblResult.click();
         }
+        return  new MarketPage();
     }
 
     public Label searchEvent(String eventName) {
-        if (txtSearch.isDisplayed()) {
+        if (!txtSearch.isDisplayed()) {
             expandLeftMenu();
         }
         txtSearch.sendKeys(eventName);
