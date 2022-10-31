@@ -257,62 +257,6 @@ public class EventContainerControl extends BaseElement {
 		}
 
 	}
-	private Event getEvent (Link lnkEvent, boolean isInplay, boolean isSuspend, String startTime) {
-	return new Event.Builder()
-				.eventName(lnkEvent.getText())
-				.lnkEvent(lnkEvent)
-				.isSuspend(isSuspend)
-				.inPlay(isInplay)
-				.startTime(startTime)
-				.build();
-	}
-	/**
-	 * To get the event that has Wicket Fancy and and click on that event
-	 * @return
-	 */
-	public String getEventNameHasMarketData(String product,String currency, String sportID){
-		// Scan all the list event in Cricket sport page
-		int i =0;
-		List<Event> lstEvent = BetUtils.getListEventHighLight(currency,sportID);
-		if(Objects.isNull(lstEvent)){
-			System.out.println("There is no event in highligh page");
-			return null;
-		}
-		for(Event event: lstEvent){
-			if(getEventIDHasPorductData(product,event.getID())){
-				System.out.println("Found event has Fancy: "+ event.getEventName());
-				return event.getEventName();
-			}
-		}
-		System.out.println("Dedbug : Not found event has Fancy");
-		return null;
-		/*Link lnkEvent;
-		while (true){
-			lnkEvent =(Link) tblEvents.getControlOfCell(1,1,i+1,"div[contains(@class,'home-team-name')]");
-			if(!lnkEvent.isDisplayed())
-				return null;
-			// get event id
-			if(getEventIDHasPorductData(product,lstEvent.get(i).getID())){
-				return lstEvent.get(i).getEventName();
-			}
-			String eventID=lnkEvent.getAttribute("id");
-			String homeTeam =lnkEvent.getText().trim();
-			lnkEvent =(Link) tblEvents.getControlOfCell(1,1,i,"div[contains(@class,'away-team-name')]");
-			String awayTeam = lnkEvent.getText().trim();
-			String eventName = String.format("%s v %s", homeTeam,awayTeam);
-			if(getEventIDHasPorductData(product,eventID)){
-				return eventID;
-			}
-			i++;
-			// check api tha has fany
-		}*/
-	}
-	private boolean getEventIDHasPorductData(String productName,String eventID){
-		return FancyUtils.isEventHasMarketType(eventID,productName);
-	}
-	private boolean getEventNameHasProductData(String productName, String eventName){
-		return FancyUtils.isEventHasMarketType(eventName,productName);
-	}
 	public MarketPage clickOnRowofEventName(String eventName)	{
 		// On Highlight page, click on the event in input parameter
 		int i =1;
@@ -336,6 +280,50 @@ public class EventContainerControl extends BaseElement {
 			// check api tha has fany
 		}
 	}
+
+	private int getEventIndex(String eventName){
+		int i =1;
+		Link lnkHomeTeam;
+		Link lnkAwayTeam;
+		String homeTeamName;
+		String awayTeamName;
+		while (true){
+			lnkHomeTeam =(Link) tblEvents.getControlOfCell(1,1,i,"span[contains(@class,'home-team-name')]");
+
+			if(!lnkHomeTeam.isDisplayed()) {
+				System.out.println("Debug! Event "+eventName+" not display on the page");
+				return 0;
+			}
+			lnkAwayTeam =(Link) tblEvents.getControlOfCell(1,1,i,"span[contains(@class,'away-team-name')]");
+			homeTeamName = lnkHomeTeam.getText().trim();
+			awayTeamName = lnkAwayTeam.getText().trim();
+			if(eventName.contains(homeTeamName) && eventName.contains(awayTeamName)){
+				System.out.println("Debug! Found the event "+eventName+" at row"+ i);
+				return i;
+			}
+			i++;
+		}
+	}
+	public Event getEventInfo(String eventName){
+		int index = getEventIndex(eventName);
+			String xpathEvents = lblListEventXPath;
+			String xpathEvent = String.format("(%s)[%s]", xpathEvents, index);
+			Label lblSuspend= Label.xpath(String.format("%s%s",xpathEvent,lblSuspendXPath));
+			Label iconInPlay= Label.xpath(String.format("%s%s",xpathEvent,lblInPlayXpath));
+			Link lnkEventName = Link.xpath(String.format("%s%s", xpathEvent,lblEventNameXPath));
+			String eventStartTime  = Label.xpath(String.format("%s%s",xpathEvent,lblEventStartTimeXpath)).getText().trim();
+			boolean _isInplay =iconInPlay.isDisplayed();
+			boolean _isSuspend =lblSuspend.isDisplayed();
+			return new Event.Builder()
+						.eventName(eventName)
+						.lnkEvent(lnkEventName)
+						.isSuspend(_isInplay)
+						.inPlay(_isSuspend)
+						.startTime(eventStartTime)
+						.build();
+			}
+
+
 /*
 	public Odd getOdd(Team team, boolean isBack, boolean isOddEmpty, int limit, int eventIndex) {
 		if (lblNoEvent.isInvisible(2)) {

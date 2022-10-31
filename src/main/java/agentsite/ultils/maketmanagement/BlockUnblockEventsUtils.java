@@ -8,6 +8,7 @@ import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
 import com.paltech.utils.WSUtils;
 import membersite.objects.sat.Event;
+import membersite.objects.sat.Market;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -21,6 +22,10 @@ import static baseTest.BaseCaseMerito.environment;
 
 public class BlockUnblockEventsUtils {
 
+    private static JSONArray getListMarketOfEventJSON(String userID, String eventID, String sportID){
+        String api = String.format("%s/agent-blocking-management/event/sat/get-user-block-detail-markets.json?userId=%s&eventId=%s&sportId=%s", domainURL, userID,eventID,sportID);
+        return WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+    }
     public static String getLevelControlBlocking(String userID) {
         String api = String.format("%s/agent-blocking-management/event/sat/get-level-name.json?userId=%s", domainURL, userID);
         JSONObject obh = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
@@ -54,6 +59,23 @@ public class BlockUnblockEventsUtils {
             }
         }
         return null;
+    }
+
+    public static List<Market> getListMarketOfEvent(String eventId, String userId, String sportID){
+        JSONArray jsonArray = getListMarketOfEventJSON(userId,eventId,sportID);
+        List<Market> lstMarket = new ArrayList<Market>();
+        if (Objects.nonNull(jsonArray)) {
+            for(int i=0; i<jsonArray.length(); i++) {
+               JSONObject jsonObject = jsonArray.getJSONObject(i);
+               lstMarket.add(new Market.Builder()
+                        .marketID(Integer.toString(jsonObject.getInt("marketId")))
+                        .marketName(jsonObject.getString("marketName"))
+                        .marketStatus(jsonObject.getString("status"))
+                        .marketStartTime(Long.toString(jsonObject.getLong("marketStartTime")))
+                        .build());
+            }
+        }
+        return lstMarket;
     }
 
     public static List<Event> getEventList(String sportName, String userID, String time) {
@@ -158,5 +180,21 @@ public class BlockUnblockEventsUtils {
         return lstEvent;
     }
 
+    public static Market getAnOpenLineMarket(List<Event> lsEvent, String userID,String sportID,String status){
+        for (Event e: lsEvent
+             ) {
+            List<Market> lsMarket = getListMarketOfEvent(e.getID(),userID,sportID);
+            for (Market market:lsMarket
+                 ) {
+               if(market.getMarketName().contains("Runs Line") && market.getMarketStatus().equals(status)){
+                   market.setEventNamE(e.getEventName());
+                   market.setEventID(e.getID());
+                   return market;
+               }
+            }
+        }
+        System.out.println("DEBUG! There is no line market in the list input event");
+        return null;
 
+    }
 }

@@ -22,17 +22,20 @@ public class FancyUtils {
         return WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
     }
 
-    private static JSONArray getWicketBookMarkerJSON(String eventId){
-        String api = String.format("https://apifancy.9wickets.com/api/apiFancyBet/FANCYBET/queryBookMakerMarkets?eventIds=%s0&cert=fZzuFTbgoKU5GC5l",eventId);
-       // String api = String.format("https://www.9wickets.com/apiFancyBet/FANCYBET/queryBookMakerMarkets?eventIds=%s&cert=fZzuFTbgoKU5GC5lR",eventId);
-       // String api = String.format("%s/member-service/member-market/api/event/bookmaker-markets.json?eventIds=%s&marketType=CENTRAL_BOOKMAKER", domainURL,eventId);
-        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
-        return jsonObject.getJSONArray("events");
-    }
-
     private static JSONArray getCentraltBookMarkerJSON(String eventId){
-        String api = String.format("%s/api/event/bookmaker-markets.json?eventIds=%s&marketType=CENTRAL_BOOKMAKER", memberMarketServiceURL,eventId);
+        String api = String.format("%s/member-market/api/event/bookmaker-markets.json?eventIds=%s&marketType=MANUAL_ODDS", domainURL,eventId);
         return WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+    }
+    private static JSONArray getWicketBookMarkerJSON(String eventId){
+        //https://satstg.beatus88.com/member-market/api/event/bookmaker-markets.json?eventIds=31821119&marketType=MANUAL_ODDS
+        String api = String.format("https://apifancy.9wickets.com/api/apiFancyBet/FANCYBET/queryBookMakerMarkets?eventIds=%s&cert=fZzuFTbgoKU5GC5l",eventId);
+        // String api = String.format("https://www.9wickets.com/apiFancyBet/FANCYBET/queryBookMakerMarkets?eventIds=%s&cert=fZzuFTbgoKU5GC5lR",eventId);
+        // String api = String.format("%s/member-service/member-market/api/event/bookmaker-markets.json?eventIds=%s&marketType=CENTRAL_BOOKMAKER", domainURL,eventId);
+        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        if(jsonObject.getString("status").equalsIgnoreCase("1")){
+            return jsonObject.getJSONArray("events");
+        }
+        return null;
     }
 
     private static JSONArray getFancyJSON(String eventId){
@@ -134,6 +137,10 @@ public class FancyUtils {
                 return  getWicketFancyJSON(eventID);
             case "CENTRAL_FANCY":
                 return getCentralFancyJSON(eventID);
+            case "WICKET_BOOKMAKER":
+                return getWicketBookMarkerJSON(eventID);
+            case "CENTRAL_BOOKMAKER":
+                return getCentraltBookMarkerJSON(eventID);
             default:
                 return getFancyJSON(eventID);
         }
@@ -417,16 +424,15 @@ public class FancyUtils {
      * @param status the expected status
      * @return the list with expected status
      */
-    public static List<BookmakerMarket> getMarketHasExpectedStatusInEvent(String eventID, String status){
-        List<BookmakerMarket> lstOutput = new ArrayList<>();
+    public static BookmakerMarket getBookmakerMarketHasExpectedStatusInEvent(String eventID, String status){
         List<BookmakerMarket> lstMarket = getListCentralBookmakerInEvent(eventID);
         if(Objects.nonNull(lstMarket)) {
             for (BookmakerMarket market : lstMarket) {
                 if (market.getStatus().equalsIgnoreCase(status)) {
-                    lstOutput.add(market);
+                   return market;
                 }
             }
-            return lstOutput;
+            return null;
         }
         System.out.println(String.format("DEBUG: There is no wicket fancy display in the event %s", eventID ));
         return null;
@@ -448,13 +454,11 @@ public class FancyUtils {
                 JSONObject marketObj = marketJSONArray.getJSONObject(i);
                 lstMarket.add( new BookmakerMarket.Builder()
                         .eventName(marketObj.getString("eventName"))
-                        .marketID(Integer.toString(marketObj.getInt("marketId")))
+                        .marketID(marketObj.getString("marketId"))
                         .marketName(marketObj.getString("marketName"))
                         .eventID(eventID)
                         .status(marketObj.getString("status"))
                         .marketType(marketObj.getString("marketType"))
-                        .minBet(marketObj.getInt("minBet"))
-                        .maxBet(marketObj.getInt("maxBet"))
                         .build());
             }
             return lstMarket;
@@ -462,6 +466,7 @@ public class FancyUtils {
         System.out.println("DEBUG: getGETJSONResponse is null" + marketJSONArray.toString());
         return null;
     }
+
     /**
      * This action get all bookmaker market from api with the corresponding event
      * @param eventID
@@ -494,4 +499,49 @@ public class FancyUtils {
         System.out.println("DEBUG: getGETJSONResponse is null" + marketJSONArray.toString());
         return null;
     }
+  /*  public static BookmakerMarket findOpenBookmakerMarket(String sportID, String providerFancyCode){
+        // Get all available event of a sport
+        JSONObject sportObj = getEvent(sportID);
+        JSONArray eventArr = sportObj.getJSONArray(sportID);
+        if(Objects.isNull(eventArr)){
+            System.out.println("DEBUG: getGETJSONResponse is null");
+            return null;
+        }
+        for (int i = 0; i < eventArr.length(); i++) {
+            // Get the first Open Fancy markets according provider(27 Fancy, Wicket Fancy, Central Fancy of an event )
+            BookmakerMarket bmMaket = WicketBookmakerUtils.getBookmakerMarketHasExpectedStatusInEvent(providerFancyCode,Integer.toString(eventArr.getInt(i)),"OPEN");
+            if(Objects.nonNull(bmMaket))
+            {
+                return bmMaket;
+            }
+        }
+        return null;
+    }*/
+    /**
+     * This action will get a Bookmaker Market with the expected status
+     * @param eventID the list market get from api
+     * @param status the expected status
+     * @return the list with expected status
+     */
+    public static BookmakerMarket getBookmakerMarketHasExpectedStatusInEvent(String providerCode,String eventID, String status){
+        List<BookmakerMarket> lstMarket = getBookmakerListByProvider(providerCode,eventID);
+        if(Objects.nonNull(lstMarket)) {
+            for (BookmakerMarket market : lstMarket) {
+                if (market.getStatus().equalsIgnoreCase(status)) {
+                    return market;
+                }
+            }
+        }
+        return null;
+    }
+    private static  List<BookmakerMarket> getBookmakerListByProvider(String provider, String eventId){
+        switch (provider){
+            case "WICKET_BOOKMAKER":
+                return getListWicketBookmakerInEvent(eventId);
+            default:
+                return getListCentralBookmakerInEvent(eventId);
+        }
+    }
+
+
 }

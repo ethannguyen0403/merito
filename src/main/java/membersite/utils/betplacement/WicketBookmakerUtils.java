@@ -16,13 +16,19 @@ import static membersite.utils.betplacement.BetUtils.getAllEventOfSport;
 
 
 public class WicketBookmakerUtils {
-    private static JSONArray getWicketBookMarkerJSON(String eventId){
-        String api = String.format("%s/api/event/bookmaker-markets.json?eventIds=%s&marketType=CENTRAL_BOOKMAKER", memberMarketServiceURL,eventId);
-        return WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+
+  /*  private static JSONArray getFancyJSONByProvider(String eventID, String provider){
+        switch (provider){
+            case "WICKET_BOOKMAKER":
+                return  getWicketBookMarkerJSON(eventID);
+            default:
+                return getCentraltBookMarkerJSON(eventID);
+        }
     }
 
+
     private static JSONArray getCentraltBookMarkerJSON(String eventId){
-        String api = String.format("%s/api/event/bookmaker-markets.json?eventIds=%s&marketType=CENTRAL_BOOKMAKER", memberMarketServiceURL,eventId);
+        String api = String.format("%s/member-market/api/event/fancy-markets.json?eventIds=%s&marketType=CENTRAL_FANCY", memberMarketServiceURL,eventId);
         return WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
     }
 
@@ -77,6 +83,7 @@ public class WicketBookmakerUtils {
         System.out.println(String.format("DEBUG: Get Wicket Bookmaker of event %s api is null:" ,eventID, eventObj.toString()));
         return null;
     }
+
 
     public static BookmakerEvent getWicketBookmaker(String eventID){
         JSONObject eventObj = getWicketBookmakerEvent(eventID);
@@ -134,11 +141,11 @@ public class WicketBookmakerUtils {
         System.out.println("DEBUG: There Selection Array is null" + jArr.toString());
         return null;
     }
-    /**
+    *//**
      * This action get all fancy market from api with the corresponding event
      * @param eventID
      * @return
-     */
+     *//*
     public static List<BookmakerMarket> getListFancyInEvent(String eventID){
         List<BookmakerMarket> lstMarket = new ArrayList<>();
         JSONArray marketJSONArray =  getCentraltBookMarkerJSON(eventID);
@@ -166,30 +173,72 @@ public class WicketBookmakerUtils {
         return null;
     }
 
-    /**
-     * This action will get the list Wicket Fancy with the expected status
+ *//*   *//**//**
+     * This action will get a Bookmaker Market with the expected status
      * @param eventID the list market get from api
      * @param status the expected status
      * @return the list with expected status
-     */
-    public static List<BookmakerMarket> getMarketHasExpectedStatusInEvent(String eventID, String status){
-        List<BookmakerMarket> lstOutput = new ArrayList<>();
-        List<BookmakerMarket> lstMarket = getListFancyInEvent(eventID);
+     *//**//*
+    public static BookmakerMarket getBookmakerMarketHasExpectedStatusInEvent(String fancyProviderCode,String eventID, String status){
+        List<BookmakerMarket> lstMarket = getListBookmakerInEvent(eventID, status,fancyProviderCode);
         if(Objects.nonNull(lstMarket)) {
             for (BookmakerMarket market : lstMarket) {
                 if (market.getStatus().equalsIgnoreCase(status)) {
-                    lstOutput.add(market);
+                    return market;
                 }
             }
-            return lstOutput;
         }
-        System.out.println(String.format("DEBUG: There is no wicket fancy display in the event %s", eventID ));
+        return null;
+    }*//*
+    *//**
+     * This action get all fancy market from api with the corresponding event
+     * @param eventID
+     * @return
+     *//*
+    public static List<BookmakerMarket> getListBookmakerInEvent(String eventID,String provider_code){
+        List<FancyMarket> lstMarket = new ArrayList<>();
+        JSONArray marketJSONArray =  getFancyJSONByProvider(eventID,provider_code);
+        if(marketJSONArray.length()==0){
+            System.out.println("DEBUG: No data get fancy market api of event id" + eventID);
+            return null;
+        }
+        String marketName ;
+        String marketType ;
+        if(Objects.nonNull(marketJSONArray)) {
+            for (int i = 0; i < marketJSONArray.length(); i++) {
+                JSONObject marketObj = marketJSONArray.getJSONObject(i);
+                if(marketObj.has("marketName")){
+                    marketName = marketObj.getString("marketName");
+                }else
+                    marketName = marketObj.getString("name");
+                if(marketObj.has("marketName")){
+                    marketType = marketObj.getString("marketType");
+                }else
+                    marketType = marketObj.getString("type");
+
+                lstMarket.add( new FancyMarket.Builder()
+                        .eventName(marketObj.getString("eventName"))
+                        .marketID(Integer.toString(marketObj.getInt("marketId")))
+                        .marketName(marketName)
+                        .eventID(eventID)
+                        .status(marketObj.getString("status"))
+                        .marketType(marketType)
+                        .minBet(marketObj.getInt("minBet"))
+                        .maxBet(marketObj.getInt("maxBet"))
+                        .build());
+            }
+            return lstMarket;
+        }
+        System.out.println("DEBUG: getGETJSONResponse is null" + marketJSONArray.toString());
         return null;
     }
 
 
 
 
+
+
+*/
 
 
 }

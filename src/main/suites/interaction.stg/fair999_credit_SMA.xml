@@ -23,7 +23,7 @@
         <parameter name='brandname' value='fairexchange'/>
         <groups>
             <run>
-                <include name="interaction1" />
+                <include name="interaction5" />
             </run>
         </groups>
 
@@ -32,6 +32,7 @@
 <!--            <class name="agentsite.testcase.all.agencymanagement.TransferTest"/>-->
 <!--            <class name="agentsite.testcase.all.agencymanagement.depositwithdrawal.DepositTest"/>-->
             <class name="agentsite.testcase.all.marketsmanagement.blockunblockevents.BlockUnblockEventsTest"/>
+
         </classes>
 
     </test>

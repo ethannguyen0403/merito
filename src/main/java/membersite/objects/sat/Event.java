@@ -2,6 +2,8 @@ package membersite.objects.sat;
 
 import com.paltech.element.common.Link;
 
+import java.util.List;
+
 /**
  * @author isabella.huynh
  * @created 10/3/2020
@@ -24,6 +26,7 @@ public class Event {
     private String _awayLay;
     private Link _lnkEvent;
     private String _startTime;
+    private List<Market> _listMarket;
 
     public String getID() {
         return _id;
@@ -36,6 +39,12 @@ public class Event {
         return _eventName;
     }
 
+    public List<Market> getListMarkets() {
+        return _listMarket;
+    }
+    public void setListMarkets(List<Market> val) {
+        _listMarket=val;
+    }
     public String getCompetitionName() {
         return _competitionName;
     }
@@ -131,8 +140,13 @@ public class Event {
         private boolean _isSuspend = false;
         private Link _lnkEvent;
         private String _startTime="";
-
+        private List<Market> _listMarket;
         public Builder(){}
+
+        public Builder listMarket(List<Market> val){
+            _listMarket = val;
+            return this;
+        }
 
         public Link lnkEvent() {
             return _lnkEvent;
@@ -232,5 +246,6 @@ public class Event {
         this._isSuspend = builder._isSuspend;
         this._lnkEvent = builder._lnkEvent;
         this._startTime = builder._startTime;
+        this._listMarket = builder._listMarket;
     }
 }

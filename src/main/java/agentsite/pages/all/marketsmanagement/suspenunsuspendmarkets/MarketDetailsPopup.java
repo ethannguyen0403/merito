@@ -1,11 +1,9 @@
 package agentsite.pages.all.marketsmanagement.suspenunsuspendmarkets;
 
-import com.paltech.element.common.Button;
-import com.paltech.element.common.CheckBox;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.TextBox;
+import com.paltech.element.common.*;
 import agentsite.controls.Table;
 import agentsite.pages.all.components.DialogPopup;
+import org.openqa.selenium.Keys;
 
 public class MarketDetailsPopup extends DialogPopup {
     public TextBox txtMarketName = TextBox.xpath("//div[@class='market-search']//input");
@@ -24,13 +22,20 @@ public class MarketDetailsPopup extends DialogPopup {
     public Label lblEventNameValue = Label.xpath("//div[@class='even']/span[2]");
     public Button btnSuspend = Button.xpath("//div[@class='even']/following::div[1]/button[1]");
     public Button btnUnSuspend = Button.xpath("//div[@class='even']/following::div[1]/button[2]");
+    private Icon iconLoadSpinner1 = Icon.xpath("//div[contains(@class, 'load-spinner')]");
 
-    public void suspendMarket (String marketName){
-        String chbXpath = tblMarket.getControlxPathBasedValueOfDifferentColumnOnRow(
-                marketName,1,colMarketName,1,"div[1]/span[1]",colSelect,"input",false,false);
+    public void suspendUnsuspendMarket(String marketName, boolean isSuspend){
+        //Search the market name
+        searchMarket(marketName);
+        int index = getMarketIndex(marketName);
+        String chbXpath = tblMarket.getxPathOfCell(1,colSelect,index,"input");
         CheckBox cbCheckBox = CheckBox.xpath(chbXpath);
         cbCheckBox.click();
-        btnSuspend.click();
+        if(isSuspend)
+            btnSuspend.click();
+        else
+            btnUnSuspend.click();
+        iconLoadSpinner1.isDisplayed();
     }
 
     public boolean verifymarketInfo(String marketName, String status, String lastUpdateBy, String lastUpdateTime){
@@ -59,4 +64,28 @@ public class MarketDetailsPopup extends DialogPopup {
         return true;
     }
 
+    public void searchMarket(String marketName){
+        txtMarketName.sendKeys(marketName);
+        txtMarketName.type(Keys.ENTER);
+        iconLoadSpinner1.isDisplayed(2);
+    }
+
+    private int getMarketIndex(String marketName){
+        int i = 1;
+        Label lblMarket;
+        while (true){
+            lblMarket = Label.xpath(tblMarket.getxPathOfCell(1, colMarketName,i,"div[1]/span[1]"));
+            if(!lblMarket.isDisplayed()){
+                System.out.println("The event "+marketName+" does not display");
+                return 0;
+            }
+            if(lblMarket.getText().trim().contains(marketName)){
+                System.out.println("Found The event "+marketName);
+                return i;
+            }
+            i++;
+
+        }
+
+    }
 }

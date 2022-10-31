@@ -239,7 +239,6 @@ public class SelectedOdd {
             _currency = val;
             return this;
         }
-
         public SelectedOdd build() { return new SelectedOdd(this); }
 
     }

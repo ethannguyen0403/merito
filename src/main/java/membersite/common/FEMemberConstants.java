@@ -272,7 +272,7 @@ public class FEMemberConstants {
         public final static String ERROR_INSUFFICIENT_BALANCE_OLD_UI = "Error: Cannot place bet. Your Main balance is insufficient.";
         public final static String ERROR_SELECTION_UNAVAILABLE = "Error :This selection is not available.";
         public final static String ERROR_STAKE_NOT_VALID_MAX_BET = "The stake(s) you have entered are above the maximum.";
-        public final static String ERROR_STAKE_MESSAGE_MIN_BET = "The stake(s) you have entered are above the maximum.";
+        public final static String ERROR_STAKE_MESSAGE_MIN_BET = "The stake(s) you have entered are above the minimum.";
     }
 
     public static class Footer {

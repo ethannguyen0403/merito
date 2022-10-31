@@ -12,7 +12,7 @@ public class LefMenuList extends BaseElement {
     private String groupMenuXpath = "//div[contains(@class,'asia-menu-group')]";
     private String groupMenuTitleXpath = "//div[contains(@class,'asia-menu-title')]";
     private String subMenuXpath = "//div[@class='submenu']//div[contains(@class,'menu-item')]";
-    private String collapseSubMenuXpath ="//div[contains(@class,'collapse-icon')]";
+    private String collapseSubMenuXpath ="//div[contains(@class,'icon')]";
     public LefMenuList(By locator, String xpathExpression) {
         super(locator);
         this._xPath = xpathExpression;
@@ -63,19 +63,23 @@ public class LefMenuList extends BaseElement {
         int i = 1;
         Label lblSubMenu;
         Label lblExpandSubMenu;
+        // expand the root menu
+        lblSubMenu = Label.xpath(String.format("(%s%s)[%s]",rootMenuXpath,subMenuXpath,i));
+        if(!lblSubMenu.isDisplayed())
+            Label.xpath(rootMenuXpath).click();
         while (true){
-            lblSubMenu = Label.xpath(String.format("%s%s[%s]",rootMenuXpath,subMenuXpath,i));
+            lblSubMenu = Label.xpath(String.format("(%s%s)[%s]",rootMenuXpath,subMenuXpath,i));
             lblExpandSubMenu = Label.xpath(String.format("%s%s[%s]%s",rootMenuXpath,subMenuXpath,i,collapseSubMenuXpath));
             if(!lblSubMenu.isDisplayed()){
-                return lstSubMenu;
+                if(!lblExpandSubMenu.isDisplayed()){
+                    return lstSubMenu;
+                }else
+                {
+                    lblExpandSubMenu.click();
+                    i = i+1; continue;
+                }
             }
-            if(!lblExpandSubMenu.isDisplayed()){
-                lstSubMenu.add(lblSubMenu.getText().trim());
-            }else
-            {
-                lblExpandSubMenu.click();
-                i = i+1; continue;
-            }
+            lstSubMenu.add(lblSubMenu.getText().trim());
             i = i+1;
         }
     }
@@ -103,9 +107,12 @@ public class LefMenuList extends BaseElement {
         expandMenu(menu);
         String rootMenuXpath = String.format("(%s%s)[%s]",_xPath,groupMenuXpath,menuIndex);
         int i = 1;
-        Label lblSubMenu;
+        Label lblSubMenu = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i));
+        // expand the root menu when not found the sub list
+        if(!lblSubMenu.isDisplayed()){
+            Label.xpath(rootMenuXpath).click();
+        }
         Label lblExpandSubMenu;
-        String menuText = "";
         while (true) {
             lblSubMenu = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i));
             lblExpandSubMenu = Label.xpath(String.format("(%s%s)[%s]%s", rootMenuXpath, subMenuXpath, i, collapseSubMenuXpath));

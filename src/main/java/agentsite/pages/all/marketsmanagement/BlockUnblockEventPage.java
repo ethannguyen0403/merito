@@ -1,5 +1,6 @@
 package agentsite.pages.all.marketsmanagement;
 
+import agentsite.pages.all.marketsmanagement.blockunblockevents.MarketDetailsPopup;
 import com.paltech.element.common.*;
 import com.paltech.utils.DateUtils;
 import agentsite.common.AGConstant;
@@ -14,10 +15,7 @@ import agentsite.pages.all.marketsmanagement.blockunblockevents.UnblockScheduleP
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static agentsite.common.AGConstant.MarketsManagement.BlockUnblockEvent.*;
@@ -194,13 +192,14 @@ public class BlockUnblockEventPage extends LeftMenu {
         return defineTab(tab).isDisplayed();
     }
 
-    private Tab defineTab(String tab) {
+    private Tab defineTab(String tabName) {
+        String tab = tabName.toUpperCase();
         switch (tab) {
-            case "Today":
+            case "TODAY":
                 return Tab.xpath(String.format(tabDynamic, TAB_DAYS.get(1)));
-            case "Tomorrow":
+            case "TOMORROW":
                 return Tab.xpath(String.format(tabDynamic, TAB_DAYS.get(2)));
-            case "Future":
+            case "FUTURE":
                 return Tab.xpath(String.format(tabDynamic, TAB_DAYS.get(3)));
             default:
                 return Tab.xpath(String.format(tabDynamic, TAB_DAYS.get(0)));
@@ -219,28 +218,28 @@ public class BlockUnblockEventPage extends LeftMenu {
 
     public void selectEvent(String event)
     {
-        if(!event.isEmpty()){
-            if(event.equalsIgnoreCase("all"))
-            {
+        if(!event.isEmpty()) {
+            // for case select all event
+            if (event.equalsIgnoreCase("all")) {
                 chkEventAll.click();
                 waitingLoadingSpinner();
                 return;
             }
-            List<String> lstEvent = tblEvent.getColumn(colEvent,true);
-            CheckBox chk;
-            boolean flag = false;
-            for (int i = 0; i< lstEvent.size(); i++)
-            {
-                if(lstEvent.get(i).contains(event))
-                {
-                    chk = CheckBox.xpath(tblEvent.getxPathOfCell(1,colEvent,i+1,"span[contains(@class,'square-icon')]/i"));
-                    chk.click();
-                    flag = true;
-                    break;
+            //for case select on specific event
+            int i = 0;
+            CheckBox cbEvent;
+            while (true) {
+                cbEvent = CheckBox.xpath(tblEvent.getxPathOfCell(1, colEvent, i + 1, "span[contains(@class,'square-icon')]/i"));
+                if (!cbEvent.isDisplayed()) {
+                    System.out.println(String.format("There is NO event %s display in the list", event));
+                    return;
                 }
-            }
-            if(!flag){
-                System.out.println(String.format("There is NO event %s display in the list",event));
+                String eventCell = Label.xpath(tblEvent.getxPathOfCell(1, colEvent, i + 1, null)).getText().trim();
+                if (eventCell.contains(event)) {
+                    cbEvent.click();
+                    return;
+                }
+                i = i+1;
             }
         }
     }
@@ -329,9 +328,7 @@ public class BlockUnblockEventPage extends LeftMenu {
         if(isClick){
             clickDownline(downline);
         }
-       // waitingLoadingSpinner();
         checkDownline(downline);
-        waitingLoadingSpinner();
     }
 
     public void clickDownline(String downline){
@@ -393,6 +390,11 @@ public class BlockUnblockEventPage extends LeftMenu {
         }
     }
 
+    public void assertBetabelMarketStatusOfEventAsUnblockScheudle(String event, String unblockSchedule){
+        MarketDetailsPopup marketDetailsPopup = openMarketDetails(event);
+        int scheduleMinute = timeToOpenConvert(unblockSchedule);
+        marketDetailsPopup.assertBetStatusOfAllMarketForUnblockedEvent(scheduleMinute);
+    }
     private int timeToOpenConvert(String unblockSchedule)
     {
         //return the minute based on the
@@ -421,7 +423,6 @@ public class BlockUnblockEventPage extends LeftMenu {
 
     public void verifyUnblockSchedule(Event event, String schedule)
     {
-        List<String> lstEvent = tblEvent.getColumn(colEvent,true);
         Date date1 = DateUtils.convertToDate(DateUtils.convertMillisToDateTime(event.getStartTime(),"yyyy-MM-dd HH:mm:ss"),"yyyy-MM-dd HH:mm:ss");
         Date date2 = DateUtils.convertToDate(DateUtils.convertMillisToDateTime(Long.toString(DateUtils.getMilliSeconds()),"yyyy-MM-dd HH:mm:ss"),"yyyy-MM-dd HH:mm:ss");
         long timeDiff = DateUtils.getDateDiff(date2,date1, TimeUnit.MINUTES);
@@ -437,17 +438,28 @@ public class BlockUnblockEventPage extends LeftMenu {
             betableIconExpected = noIconxPath;
         }
 
-        for (int i = 0; i< lstEvent.size(); i++)
-        {
-            if(lstEvent.get(i).contains(event.getEventName()))
-            {
-                String _currentStatus = tblEvent.getControlOfCell(1, colStatusCurrent, i+1, "span").getText();
-                Assert.assertEquals(_currentStatus,expectedStatus,String.format("FAILED! Status should be %s but display %s",expectedStatus,_currentStatus));
-                Assert.assertTrue(tblEvent.getControlOfCell(1, colStatusViewable, i+1, viewableIconExpected).isDisplayed(),"FAILED! Viewable status not display as expected");
-                Assert.assertTrue(tblEvent.getControlOfCell(1, colStatusBetable, i+1, betableIconExpected).isDisplayed(),"FAILED! Bet status not display as expected");
-                Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToOpen, i+1, null).getText(),timeToOpenExpected,"Failed! Time to open not display as expected");
-                Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToBet,i+1, null).getText(),TIME_TO_BET,"Failed! Time to bet not display as expected");
-                return;
+        int i = getEventIndex(event.getEventName());
+        String _currentStatus = tblEvent.getControlOfCell(1, colStatusCurrent, i, "span").getText();
+        Assert.assertEquals(_currentStatus,expectedStatus,String.format("FAILED! Status should be %s but display %s",expectedStatus,_currentStatus));
+        Assert.assertTrue(tblEvent.getControlOfCell(1, colStatusViewable, i, viewableIconExpected).isDisplayed(),"FAILED! Viewable status not display as expected");
+        Assert.assertTrue(tblEvent.getControlOfCell(1, colStatusBetable, i, betableIconExpected).isDisplayed(),"FAILED! Bet status not display as expected");
+        Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToOpen, i, null).getText(),timeToOpenExpected,"Failed! Time to open not display as expected");
+        Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToBet,i, null).getText(),TIME_TO_BET,"Failed! Time to bet not display as expected");
+      
+    }
+
+    private int getEventIndex(String eventNameOrEventID){
+        int index = 1;
+        Label lblEvent;
+        while (true){
+            lblEvent = Label.xpath(tblEvent.getxPathOfCell(1, colEvent, index, null));
+            if(!lblEvent.isDisplayed()){
+                System.out.println("Not found the event "+ eventNameOrEventID);
+                return 0;
+            }
+            if(lblEvent.getText().contains(eventNameOrEventID)){
+                System.out.println("DEBUG : Found the event "+eventNameOrEventID);
+                return index;
             }
         }
     }
@@ -510,5 +522,19 @@ public class BlockUnblockEventPage extends LeftMenu {
     {
         txtSearchByEventIDName.sendKeys(eventNameorID);
         txtSearchByEventIDName.type(false,Keys.ENTER);
+    }
+
+    public MarketDetailsPopup openMarketDetails(String eventName){
+        int i = getEventIndex(eventName);
+        tblEvent.getControlOfCell(1, colStatusBetable, i, "a[contains(@class,'detail-markets')]").click();
+        return new MarketDetailsPopup();
+    }
+
+    public boolean isMarketIsBetAble(String event, String market){
+        MarketDetailsPopup marketDetailsPopup = new MarketDetailsPopup();
+        if(!marketDetailsPopup.txtMarketName.isDisplayed()){
+            marketDetailsPopup = openMarketDetails(event);
+        }
+        return marketDetailsPopup.isMarketBetAble(market);
     }
 }

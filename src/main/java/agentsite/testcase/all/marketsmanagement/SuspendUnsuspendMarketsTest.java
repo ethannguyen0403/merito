@@ -1,8 +1,17 @@
 package agentsite.testcase.all.marketsmanagement;
 
 import agentsite.common.AGConstant;
+import agentsite.objects.agent.account.AccountInfo;
 import agentsite.objects.agent.account.MarketInfo;
+import agentsite.pages.all.marketsmanagement.BlockUnblockEventPage;
+import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
+import backoffice.pages.bo.marketmanagement.FindBlockedMarketPage;
+import membersite.objects.sat.Event;
+import membersite.objects.sat.Market;
+import membersite.pages.all.tabexchange.MarketPage;
+import membersite.pages.all.tabexchange.SportPage;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.marketsmanagement.SuspendUnsuspendMarketPage;
 import agentsite.pages.all.marketsmanagement.suspenunsuspendmarkets.MarketDetailsPopup;
@@ -18,7 +27,7 @@ import static agentsite.common.AGConstant.MarketsManagement.SuspendUnsuspendMark
 
 public class SuspendUnsuspendMarketsTest extends BaseCaseMerito {
 
-    @Test(groups = {"smoke","smokePO"})
+    @Test(groups = {"smoke"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC001() {
         log("@title: Verify Control Level Blocking cannot access the page");
 
@@ -67,6 +76,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseMerito {
         Assert.assertEquals(page.tblEvent.getColumnNamesOfTable(),AGConstant.MarketsManagement.SuspendUnsuspendMarket.TABLE_EVENT,"FAILED! Header table not match with the expected when selection Event Type");
         log("INFO: Executed completely");
     }
+
     @Test(groups = {"smokeMA1"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC004() {
         String loginUserId = ProfileUtils.getProfile().getUserID();
@@ -97,30 +107,198 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
-    @Test(groups = {"smokeMA"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC005() {
-        String loginUserId = ProfileUtils.getProfile().getUserID();
-        String loginID = ProfileUtils.getProfile().getUserCode();
+
+    @Test(groups = {"smoke"})
+    @Parameters({"downlineAccount","memberAccount", "password"})
+    public void Agent_MM_SuspendUnsuspendMarkets_TC005(String downlineAccount,String memberAccount, String password) throws Exception {
         log("@title: Verify can suspend line market");
-        log("Step 1 Login agent site - the level under control blocking");
-        log("Step 2 Expand  Bet/Market Management section in the left menu");
-        log("Step 3 Access the menu");
-        SuspendUnsuspendMarketPage page = agentHomePage.clickSubMenu(MARKET_MANAGEMENT,SUSPEND_UNSUSPEND_MARKETS, SuspendUnsuspendMarketPage.class);
+        log("Step Precondition: Unblock an event has Line market at level control blocking");
+        String sportName = "Cricket";
+        AccountInfo acc = ProfileUtils.getProfile();
+        String childID =BlockUnblockEventsUtils.getchildUserID(acc.getUserID(),downlineAccount);
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName,childID,"TODAY");
+        Market market = BlockUnblockEventsUtils.getAnOpenLineMarket(eventList,childID,"4", "OPEN");
+        BlockUnblockEventPage blockUnblockEventPage = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_EVENT, BlockUnblockEventPage.class);
+        blockUnblockEventPage.filter("", sportName,"TODAY" );
+        blockUnblockEventPage.blockUnblockEvent(downlineAccount, market.getEventName(), "Unblock Now");
+        blockUnblockEventPage.blockUnblockEvent("", market.getEventName(), "Suspend");
 
-        log("Step 4 Filter a sport that have event and click on Detail link");
-        page.filterEvent("Cricket","Today");
-        List<MarketInfo> lstEventAPI = SuspendUnsuspendMarketsUtils.getListEvent("4",loginUserId,"TODAY");
-        Assert.assertFalse(Objects.isNull(lstEventAPI),"SKIP! No event for Today Cricket so cannot to continue next step");
-        MarketDetailsPopup popup = page.openDetailMarket(lstEventAPI.get(0).getEventName());
-        List<MarketInfo> lstMarketAPI = SuspendUnsuspendMarketsUtils.getListMarket(lstEventAPI.get(0).getEventID(),loginUserId);
-        Assert.assertFalse(Objects.isNull(lstMarketAPI),"SKIP! The is no market to suspend so cannot to continue the next step");
+        log("Step 2  Login the downline level under level control blocking");
+        loginAgent(downlineAccount,password,true);
 
-        log("Step 5 Suspend a line market");
-        popup.suspendMarket(lstMarketAPI.get(0).getMarketName());
+        log("Step 5 Suspend a line market in Suspend Unsuspend Market page");
+        SuspendUnsuspendMarketPage suspendUnsuspendMarketPage = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, SUSPEND_UNSUSPEND_MARKETS, SuspendUnsuspendMarketPage.class);
+        suspendUnsuspendMarketPage.suspendUnsuspendMarket("Today",sportName, market.getEventName(),market.getMarketName(),true,false);
 
         log("Verify 1 Verify Market Detail UI display correctly, competition name and Event Name");
-        Assert.assertTrue(popup.verifymarketInfo(lstMarketAPI.get(0).getMarketName(),"Suspended",loginID,""));
+        Assert.assertTrue(suspendUnsuspendMarketPage.verifymarketInfo(market.getMarketName(),"Suspended",downlineAccount,""));
 
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"interaction"})
+    @Parameters({"downlineAccount","memberAccount", "password"})
+    public void Agent_MM_SuspendUnsuspendMarkets_TC006(String downlineAccount,String memberAccount, String password) throws Exception {
+        log("@title: Verify Line market in member site is suspend ");
+        log("Step Precondition: Unblock an event has Line market at level control blocking");
+        String sportName = "Cricket";
+        AccountInfo acc = ProfileUtils.getProfile();
+        String childID =BlockUnblockEventsUtils.getchildUserID(acc.getUserID(),downlineAccount);
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName,childID,"TODAY");
+        Market market = BlockUnblockEventsUtils.getAnOpenLineMarket(eventList,childID,"4", "OPEN");
+        BlockUnblockEventPage blockUnblockEventPage = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_EVENT, BlockUnblockEventPage.class);
+        blockUnblockEventPage.filter("", sportName,"TODAY" );
+        blockUnblockEventPage.blockUnblockEvent(downlineAccount, market.getEventName(), "Unblock Now");
+        blockUnblockEventPage.blockUnblockEvent("", market.getEventName(), "Suspend");
+
+        log("Step 2  Login the downline level under level control blocking");
+        loginAgent(downlineAccount,password,true);
+
+        log("Step 5 Suspend a line market in Suspend Unsuspend Market page");
+        SuspendUnsuspendMarketPage suspendUnsuspendMarketPage = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, SUSPEND_UNSUSPEND_MARKETS, SuspendUnsuspendMarketPage.class);
+        suspendUnsuspendMarketPage.suspendMarket("Today",sportName, market.getEventName(),market.getMarketName());
+
+        log("Step 6 Login member site and check the line market");
+        loginMember(memberAccount,password);
+        SportPage sportPage = memberHomePage.navigateSportMenu(sportName,SportPage.class);
+        MarketPage marketPage = sportPage.searchEvent(market.getEventName(),true);
+        marketPage.clickMarket(market.getMarketName());
+
+        log("Verify 1. Line market is unsuspend, odds is clickable");
+        Assert.assertTrue(marketPage.marketContainerControl_SAT.lblSuspend.isDisplayed(),"Failed the market does not suspend after suspend event in agent site");
+
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"interaction"})
+    @Parameters({"downlineAccount","memberAccount", "password"})
+    public void Agent_MM_SuspendUnsuspendMarkets_TC007(String downlineAccount,String memberAccount, String password) throws Exception {
+        log("@title: Verify Line market in member site is unsuspend ");
+        log("Step Precondition: Unblock an event has Line market at level control blocking");
+        String sportName = "Cricket";
+        AccountInfo acc = ProfileUtils.getProfile();
+        String childID =BlockUnblockEventsUtils.getchildUserID(acc.getUserID(),downlineAccount);
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName,childID,"TODAY");
+        Market market = BlockUnblockEventsUtils.getAnOpenLineMarket(eventList,childID,"4", "OPEN");
+        BlockUnblockEventPage blockUnblockEventPage = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_EVENT, BlockUnblockEventPage.class);
+        blockUnblockEventPage.filter("", sportName,"TODAY" );
+        blockUnblockEventPage.blockUnblockEvent(downlineAccount, market.getEventName(), "Unblock Now");
+
+        log("Step 2  Login the downline level under level control blocking");
+        loginAgent(downlineAccount,password,true);
+
+        log("Step 5 Suspend a line market in Suspend Unsuspend Market page");
+        SuspendUnsuspendMarketPage suspendUnsuspendMarketPage = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, SUSPEND_UNSUSPEND_MARKETS, SuspendUnsuspendMarketPage.class);
+        suspendUnsuspendMarketPage.suspendMarket("Today",sportName, market.getEventName(),market.getMarketName());
+        suspendUnsuspendMarketPage.unSuspendMarket("Today",sportName, market.getEventName(),market.getMarketName());
+
+        log("Step 6 Login member site and check the line market");
+        loginMember(memberAccount,password);
+        SportPage sportPage = memberHomePage.navigateSportMenu(sportName,SportPage.class);
+        MarketPage marketPage = sportPage.searchEvent(market.getEventName(),true);
+        marketPage.clickMarket(market.getMarketName());
+
+        log("Verify Line market is unsuspend, odds is clickable");
+        Assert.assertFalse(marketPage.marketContainerControl_SAT.lblSuspend.isDisplayed(),"Failed the market does not suspend after suspend event in agent site");
+
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"interaction"})
+    @Parameters({"downlineAccount","memberAccount", "password","boAccount","bopassword"})
+    public void Agent_MM_SuspendUnsuspendMarkets_TC008(String downlineAccount, String password,String boAccount,String bopassword) throws Exception {
+        log("@title: Verify suspend market info display correctly in BO");
+        String sportName = "Cricket";
+        AccountInfo acc = ProfileUtils.getProfile();
+        String childID =BlockUnblockEventsUtils.getchildUserID(acc.getUserID(),downlineAccount);
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName,childID,"TODAY");
+        Market market = BlockUnblockEventsUtils.getAnOpenLineMarket(eventList,childID,"4", "OPEN");
+        if(Objects.isNull(market)){
+            log("Skip test case as no line markets for all event in "+sportName + " today");
+            return;
+        }
+
+        log("Step 1 Unblock an event that has line market in Block/Unblock event then suspend the event");
+        BlockUnblockEventPage page = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_EVENT, BlockUnblockEventPage.class);
+        page.filter("", sportName,"TODAY" );
+        page.blockUnblockEvent(downlineAccount, market.getEventName(), "Unblock Now");
+        page.blockUnblockEvent("", market.getEventName(), "Suspend");
+
+        log("Step 2  Login the downline level that suspend in step 1");
+        loginAgent(downlineAccount,password,true);
+        String loginUserId = ProfileUtils.getProfile().getUserID();
+
+        log("Step 3 Active Suspend/Unsuspend Markets and unsuspend a market in event step 1");
+        SuspendUnsuspendMarketPage suspendUnsuspendMarketPage = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, SUSPEND_UNSUSPEND_MARKETS, SuspendUnsuspendMarketPage.class);
+        suspendUnsuspendMarketPage.suspendMarket("Today",sportName, market.getEventName(),market.getMarketName());
+
+        log("Step 6 Login BO > Find Block Market > Search username and event id and market id");
+        loginBackoffice(boAccount,bopassword,true);
+        FindBlockedMarketPage findBlockedMarketPage = backofficeHomePage.navigateFindBlockedMarket();
+        findBlockedMarketPage.search(downlineAccount,market.getEventID(),market.getMarketID());
+
+        log("Verify 1 Verify line market is Suspend at col Suspend/Unsuspend Markets ");
+        findBlockedMarketPage.isMarketIsSuspended(loginUserId);
+
+        log("Verify 2 Verify line market is ubblocked at col Block/Unblock markets ");
+        findBlockedMarketPage.isMarketBlocked(loginUserId,"UnBlocked");
+
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"interaction"})
+    @Parameters({"downlineAccount","memberAccount", "password"})
+    public void Agent_MM_SuspendUnsuspendMarkets_TC009(String downlineAccount,String memberAccount, String password) throws Exception {
+        log("@title: Verify Suspend function in Block Unblock Event will override setting in Suspend/Unsuspend Market page");
+        log("Step precondition 1: Login agent by direct agent at control blocking");
+        String sportName = "Cricket";
+        AccountInfo acc = ProfileUtils.getProfile();
+        String childID =BlockUnblockEventsUtils.getchildUserID(acc.getUserID(),downlineAccount);
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName,childID,"TODAY");
+        Market market = BlockUnblockEventsUtils.getAnOpenLineMarket(eventList,childID,"4", "OPEN");
+
+        log("Step 1 Unblock an event that has line market in Block/Unblock event then suspend the event");
+        BlockUnblockEventPage page = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_EVENT, BlockUnblockEventPage.class);
+        page.filter("", sportName,"TODAY" );
+        page.blockUnblockEvent(downlineAccount, market.getEventName(), "Unblock Now");
+        page.blockUnblockEvent("", market.getEventName(), "Suspend");
+
+        log("Step 2  Login the downline level that suspend in step 1");
+        loginAgent(downlineAccount,password,true);
+
+        log("Step 3 Active Suspend/Unsuspend Markets and unsuspend a market in event step 1");
+        SuspendUnsuspendMarketPage suspendUnsuspendMarketPage = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, SUSPEND_UNSUSPEND_MARKETS, SuspendUnsuspendMarketPage.class);
+        suspendUnsuspendMarketPage.suspendMarket("Today",sportName, market.getEventName(),market.getMarketName());
+
+        log("Step 3 Login member site and active the line market");
+        loginMember(memberAccount,password);
+        SportPage sportPage = memberHomePage.navigateSportMenu(sportName,SportPage.class);
+        MarketPage marketPage = sportPage.searchEvent(market.getEventName(),true);
+        marketPage.clickMarket(market.getMarketName());
+
+        log("Verify the line markets of the event still suspended" );
+        Assert.assertTrue(marketPage.marketContainerControl_SAT.lblSuspend.isDisplayed(),"Failed the market does not suspend after suspend event in agent site");
+
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"interaction"})
+    @Parameters({"downlineAccount", "password"})
+    public void Agent_MM_SuspendUnsuspendMarkets_TC011(String downlineAccount, String password) throws Exception {
+        log("@title: Agent level only level under control blocking can see the menu");
+        log("Step precondition: Login agent by level control blocking");
+        log("Step 1 Expand  Bets/Market Management and observer the menu Suspend/Unsuspend Market page");
+        List<String> lstSubReprotMenu = agentHomePage.leftMenuList.getListSubMenu(MARKET_MANAGEMENT);
+
+        log("Step 1 Verify the menu doesnot display at control blocking level");
+        Assert.assertFalse(lstSubReprotMenu.contains(SUSPEND_UNSUSPEND_MARKETS),"FAILED! Verify the menu should not display at control blocking level");
+
+        log("Step 2 Get a direct dowline agent under login account the login to agent site");
+        loginAgent(downlineAccount,password,true);
+        lstSubReprotMenu = agentHomePage.leftMenuList.getListSubMenu(MARKET_MANAGEMENT);
+
+        log("Verify  2 Verify can see menu Suspend/Unsupend Market page under control blocking level");
+        Assert.assertTrue(lstSubReprotMenu.contains(SUSPEND_UNSUSPEND_MARKETS),"FAILED! Verify the menu should  display at direct agent under control blocking level");
         log("INFO: Executed completely");
     }
 }
