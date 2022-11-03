@@ -28,7 +28,7 @@ public class FancyTest extends BaseCaseMerito {
      * 4/ Click on an odds of a fancy market then place bet
      * @Expected 1. Can place bet
      */
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke"})
     public void FancyTest_001(){
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
