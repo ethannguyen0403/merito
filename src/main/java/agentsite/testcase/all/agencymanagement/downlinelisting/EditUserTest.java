@@ -676,18 +676,15 @@ public class EditUserTest extends BaseCaseMerito {
     }
 
     @Test (groups = {"interaction"})
-    @Parameters({"username","password"})
-    public void Agent_AM_Downline_Listing_Edit_User_031(String username,String password) throws Exception {
+    @Parameters({"username","password","memberAccount"})
+    public void Agent_AM_Downline_Listing_Edit_User_031(String username,String password, String memberAccount) throws Exception {
         log("@title: Verity Lottery & Slots Product is displayed/dissappear in member site when active/inactive");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
-        String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE",_brandname);
-        String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
-        page.searchDownline(loginID,"Active","Member");
-        page.clickEditIcon(loginID);
+        page.searchDownline(memberAccount,"Active","Member");
+        page.clickEditIcon(memberAccount);
 
         log("Step 2.1. Input security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -699,15 +696,15 @@ public class EditUserTest extends BaseCaseMerito {
         page.logout();
 
         log("Step 4.1 Login Member Site");
-        loginMember(loginID, password);
+        loginMember(memberAccount, password);
         log("4.1 Verify Lottery & Slots product disappears");
         Assert.assertFalse(memberHomePage.isProductTabDisplay("Lottery & Slots"), "ERROR! Product tab is not disappeared");
 
         log("Step 1.2 Login agent again and search the account");
         loginAgent(username, password, true);
         page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
-        page.searchDownline(loginID, "Active", "Member");
-        page.clickEditIcon(loginID);
+        page.searchDownline(memberAccount, "Active", "Member");
+        page.clickEditIcon(memberAccount);
 
         log("Step 2.2. Input security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -719,24 +716,21 @@ public class EditUserTest extends BaseCaseMerito {
         page.logout();
 
         log("Step 4.2 Login Member Site");
-        loginMember(loginID, password);
+        loginMember(memberAccount, password);
         log("4.2 Verify Lottery & Slots product appears");
         Assert.assertTrue(memberHomePage.isProductTabDisplay("Lottery & Slots"), "ERROR! Product tab is not appeared");
     }
 
     @Test (groups = {"interaction"})
-    @Parameters({"username","password"})
-    public void Agent_AM_Downline_Listing_Edit_User_032(String username,String password) throws Exception {
+    @Parameters({"username","password","memberAccount"})
+    public void Agent_AM_Downline_Listing_Edit_User_032(String username,String password, String memberAccount) throws Exception {
         log("@title: Verity Exchange Games Product is displayed/dissappear in member site when active/inactive");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
-        String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE",_brandname);
-        String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
-        page.searchDownline(loginID,"Active","Member");
-        page.clickEditIcon(loginID);
+        page.searchDownline(memberAccount,"Active","Member");
+        page.clickEditIcon(memberAccount);
 
         log("Step 2.1. Input security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -748,15 +742,15 @@ public class EditUserTest extends BaseCaseMerito {
         page.logout();
 
         log("Step 4.1 Login Member Site");
-        loginMember(loginID, password);
+        loginMember(memberAccount, password);
         log("4.1 Verify Exchange Games product disappears");
         Assert.assertFalse(memberHomePage.isProductTabDisplay("Exchange Games"), "ERROR! Product tab is not disappeared");
 
         log("Step 1.2 Login agent again and search the account");
         loginAgent(username, password, true);
         page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
-        page.searchDownline(loginID, "Active", "Member");
-        page.clickEditIcon(loginID);
+        page.searchDownline(memberAccount, "Active", "Member");
+        page.clickEditIcon(memberAccount);
 
         log("Step 2.2. Input security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -768,24 +762,21 @@ public class EditUserTest extends BaseCaseMerito {
         page.logout();
 
         log("Step 4.2 Login Member Site");
-        loginMember(loginID, password);
+        loginMember(memberAccount, password);
         log("Step 4.2 Verify Exchange Games product appears");
         Assert.assertTrue(memberHomePage.isProductTabDisplay("Exchange Games"), "ERROR! Product tab is not appeared");
     }
 
     @Test (groups = {"interaction"})
-    @Parameters({"username","password"})
-    public void Agent_AM_Downline_Listing_Edit_User_033(String username,String password) throws Exception {
+    @Parameters({"username","password","memberAccount"})
+    public void Agent_AM_Downline_Listing_Edit_User_033(String username,String password, String memberAccount) throws Exception {
         log("@title: Verity Live Dealer Asian Product is displayed/dissappear in member site when active/inactive");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
-        String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE",_brandname);
-        String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
-        page.searchDownline(loginID,"Active","Member");
-        page.clickEditIcon(loginID);
+        page.searchDownline(memberAccount,"Active","Member");
+        page.clickEditIcon(memberAccount);
 
         log("Step 2.1. Input security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -797,15 +788,15 @@ public class EditUserTest extends BaseCaseMerito {
         page.logout();
 
         log("Step 4.1 Login Member Site");
-        loginMember(loginID, password);
+        loginMember(memberAccount, password);
         log("4.1 Verify Exchange Games product disappears");
         Assert.assertFalse(memberHomePage.isProductTabDisplay("Live Dealer Asian"), "ERROR! Product tab is not disappeared");
 
         log("Step 1.2 Login agent again and search the account");
         loginAgent(username, password, true);
         page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
-        page.searchDownline(loginID, "Active", "Member");
-        page.clickEditIcon(loginID);
+        page.searchDownline(memberAccount, "Active", "Member");
+        page.clickEditIcon(memberAccount);
 
         log("Step 2.2. Input security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -817,25 +808,21 @@ public class EditUserTest extends BaseCaseMerito {
         page.logout();
 
         log("Step 4.2 Login Member Site");
-        loginMember(loginID, password);
+        loginMember(memberAccount, password);
         log("Step 4.2 Verify Live Dealer Asian product appears");
         Assert.assertTrue(memberHomePage.isProductTabDisplay("Live Dealer Asian"), "ERROR! Product tab is not appeared");
     }
 
     @Test (groups = {"interaction"})
-    @Parameters({"brandname","password"})
-    public void Agent_AM_Downline_Listing_Edit_User_034(String brandname, String password) throws Exception {
+    @Parameters({"memberAccount","password"})
+    public void Agent_AM_Downline_Listing_Edit_User_034(String memberAccount, String password) throws Exception {
         log("@title: Verify player display change password after agent update password");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
-        String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE",_brandname);
-        String loginID = listAccount.get(0).getMemberSiteLoginID();
-        String userCode = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
-        page.searchDownline(userCode,"Active","Member");
-        page.clickEditIcon(userCode);
+        page.searchDownline(memberAccount,"Active","Member");
+        page.clickEditIcon(memberAccount);
 
         log("Step 2.1. Input security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -846,27 +833,23 @@ public class EditUserTest extends BaseCaseMerito {
         page.closeSubmitEditDownlinePopup();
         page.logout();
 
-        loginMember(loginID,password,false,"","",false);
-        landingPage.login(brandname,loginID,StringUtils.decrypt(password),false);
+        loginMember(memberAccount,password,false,"","",false);
+        landingPage.login(_brandname,memberAccount,StringUtils.decrypt(password),false);
         ChangePasswordPage changePasswordPage = new ChangePasswordPage();
-        Assert.assertTrue(changePasswordPage.btnChangePassword.isDisplayed(),"PASSED Change Password page displays correctly");
+        Assert.assertTrue(changePasswordPage.btnChangePassword.isDisplayed(),"ERROR! Change Password page does not display");
         changePasswordPage.skip();
     }
 
-    @Test (groups = {"interaction01"})
-    @Parameters({"password"})
-    public void Agent_AM_Downline_Listing_Edit_User_035(String brandname, String password) throws Exception {
+    @Test (groups = {"interaction"})
+    @Parameters({"memberAccount","password"})
+    public void Agent_AM_Downline_Listing_Edit_User_035(String memberAccount, String password) throws Exception {
         log("@title: Verify player cannot login member site when the account inactive");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
-        String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE",_brandname);
-        String loginID = listAccount.get(0).getMemberSiteLoginID();
-        String userCode = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
-        page.searchDownline(userCode,"Active","Member");
-        page.clickEditIcon(userCode);
+        page.searchDownline(memberAccount,"Active","Member");
+        page.clickEditIcon(memberAccount);
 
         log("Step 2.1. Input security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -877,13 +860,13 @@ public class EditUserTest extends BaseCaseMerito {
         page.closeSubmitEditDownlinePopup();
         page.logout();
 
-        loginMember(loginID,password,false,"","",false);
-        landingPage.login(brandname,loginID,StringUtils.decrypt(password),true);
+        loginMember(memberAccount,password,false,"","",false);
+        landingPage.login(_brandname,memberAccount,StringUtils.decrypt(password),true);
         LoginPopup loginPopup = new LoginPopup();
-        Assert.assertTrue(loginPopup.isErrorMessageDisplayed(),"PASSED Error message is displayed");
+        Assert.assertTrue(loginPopup.isErrorMessageDisplayed(),"ERROR! Account inactive message is not displayed");
     }
 
-    @Test (groups = {"interaction01"})
+    @Test (groups = {"interaction"})
     @Parameters({"memberAccount","username","password","isLogin"})
     public void Agent_AM_Downline_Listing_Edit_User_036(String memberAccount, String username, String password, boolean isLogin) throws Exception {
         log("@title: Verify player login but cannot place bet  on exchange when account is suspended");
@@ -911,16 +894,15 @@ public class EditUserTest extends BaseCaseMerito {
         memberHomePage.closeBannerPopup();
 
         log("Step 5. Place bet with suspended account");
-
         String minBet = BetUtils.getMinBet(SportPage.Sports.SOCCER, SportPage.BetType.LAY);
-        SportPage sportPage = memberHomePage.navigateSportMenu("Soccer", SportPage.class);
-        sportPage.clickEventName(event.getEventName());
-        Market market = sportPage.marketContainerControl.getMarket(event,1,false);
+        memberHomePage.searchEvent(event.getEventName(),true);
+        memberHomePage.clickMarket(1);
+        Market market = memberHomePage.marketContainerControl.getMarket(event,1,false);
         market.getBtnOdd().click();
-        sportPage.betSlipControl.placeBet("1.01",minBet);
+        memberHomePage.betSlipControl.placeBet("1.01",minBet);
 
         log("Verify suspended error message displays");
-        Assert.assertTrue(sportPage.betSlipControl.isSuspendedErrorDisplayed(),"PASSED Suspended error message is displayed");
+        Assert.assertTrue(memberHomePage.betSlipControl.isErrorDisplayed(memberHomePage.betSlipControl.lblSuspendedErrorMessage, "has been Suspended"),"ERROR! Suspended error message is not displayed");
 
         //clean up data
         loginAgent(username,password,isLogin);
