@@ -1,7 +1,7 @@
 package backoffice.pages.bo.marketmanagement;
 
+import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
-import com.paltech.element.common.Tab;
 import com.paltech.element.common.TextBox;
 import backoffice.controls.Table;
 import backoffice.controls.bo.StaticTable;
@@ -9,6 +9,7 @@ import org.openqa.selenium.Keys;
 import backoffice.pages.bo._components.AppConfirmPopup;
 import backoffice.pages.bo.home.HomePage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LiquidityThresholdSettingsPage extends HomePage {
@@ -17,6 +18,9 @@ public class LiquidityThresholdSettingsPage extends HomePage {
     public StaticTable tblSport = StaticTable.xpath("//div[contains(@class,'pane-left')]","div[@class='list-groupb']","div[contains(@class,'list-group-itemb')]" +
             "","span[@class='ml-1']",1);
     public Table tblMarketType = Table.xpath("//table[contains(@class,'table table-striped')]",3);
+    int colMarketType = 1;
+    int colNonlive = 2;
+    int colLive = 3;
     public AppConfirmPopup popup = AppConfirmPopup.xpath("//app-comfirm-dialog");
 
     public void searchSport(String sportName){
@@ -69,6 +73,31 @@ public class LiquidityThresholdSettingsPage extends HomePage {
             }
         }
 
+    }
+    private int getMarketTypeIndex(String marketType){
+        int i =1;
+        Label lblMarketType ;
+        while (true){
+            lblMarketType = Label.xpath(tblMarketType.getxPathOfCell(1,colMarketType,i,null));
+            if(!lblMarketType.isDisplayed())
+                return 0;
+            if(lblMarketType.getText().equalsIgnoreCase(marketType)){
+                return i;
+            }
+            i = i+1;
+        }
+    }
+    public List<String> getThreshold(String sportName,String marketType){
+        searchSport(sportName);
+        selectSport(sportName);
+        searchMarketType(marketType);
+        List<String> lstThreshold = new ArrayList<>();
+        int index = getMarketTypeIndex(marketType);
+        if(index == 0)
+            return null;
+        lstThreshold.add( TextBox.xpath(tblMarketType.getxPathOfCell(1,colNonlive,index,"input")).getText());
+        lstThreshold.add( TextBox.xpath(tblMarketType.getxPathOfCell(1,colLive,index,"input")).getText());
+        return lstThreshold;
     }
 
 }

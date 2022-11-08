@@ -143,4 +143,5 @@ public class LiquidityThresholdSettingsTest extends BaseCaseMerito{
         log("INFO: Executed completely");
 
     }
+
 }

@@ -103,6 +103,7 @@ public class AnnouncementTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
+
     @Test(groups = {"interaction"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_005(String username, String memberAccount, String password) throws Exception {
@@ -131,6 +132,7 @@ public class AnnouncementTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
+
     @Test(groups = {"interaction"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_006(String username, String memberAccount, String password) throws Exception {

@@ -11,7 +11,7 @@ import agentsite.pages.all.marketsmanagement.blockunblockevents.UnblockScheduleP
 
 import java.util.List;
 
-public class BlockedUserPopup extends CurrentBlockingPage {
+public class BlockedUserPopup   {
     public Label lblTitle = Label.xpath("//span[@class='title']");
     public Label lblCompetitionName = Label.xpath("//div[contains(@class,'modal-body')]//div[contains(@class,'extra-padding')][1]");
    // public Label lblEventName = Label.xpath("//div[contains(@class,'modal-body')]//div[contains(@class,'extra-padding')][2]");
@@ -39,7 +39,6 @@ public class BlockedUserPopup extends CurrentBlockingPage {
         if(selectLoginID(loginId)) {
             //2 Click Unblock Now
             btnUnBlockNow.click();
-            waitingLoadingSpinner();
             return true;
         }
         return false;
@@ -50,7 +49,7 @@ public class BlockedUserPopup extends CurrentBlockingPage {
         if(selectLoginID(loginId)) {
             //2 Click Unblock Now
             btnUnBlockNowCompetition.click();
-            waitingLoadingSpinner();
+
             return true;
         }
         return false;

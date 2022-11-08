@@ -94,6 +94,8 @@ public class BlockUnblockEventsUtils {
                             .startTime(Long.toString(jsonObject.getLong("open")))
                             .inPlay(jsonObject.getBoolean("inplay"))
                             .competitionName(jsonObject.getString("competitionName"))
+                            .countryCode(jsonObject.getString("countryCode"))
+                            .countryName(jsonObject.getString("countryName"))
                             .build());
                 }
             }

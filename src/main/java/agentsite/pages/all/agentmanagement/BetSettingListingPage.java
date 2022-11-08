@@ -65,38 +65,38 @@ public class BetSettingListingPage extends LeftMenu {
         if(!map.get("Soccer"))
         {
             chb.click();
-            waitingLoadingSpinner();
+            //waitingLoadingSpinner();
         }
         chb =CheckBox.xpath(String.format(xPathSport,"Cricket"));
         if(!map.get("Cricket"))
         {
             chb.click();
-            waitingLoadingSpinner();
+            //waitingLoadingSpinner();
         }
         chb =CheckBox.xpath(String.format(xPathSport,"Tennis"));
         if(!map.get("Tennis"))
         {
             chb.click();
-            waitingLoadingSpinner();
+            //waitingLoadingSpinner();
         }
         chb =CheckBox.xpath(String.format(xPathSport,"Basketball"));
         if(!map.get("Basketball"))
         {
             chb.click();
-            waitingLoadingSpinner();
+            //waitingLoadingSpinner();
         }
         chb =CheckBox.xpath(String.format(xPathSport,"Fancy"));
         if(!map.get("Fancy"))
         {
             chb.click();
-            waitingLoadingSpinner();
+          //  waitingLoadingSpinner();
         }
 
         chb =CheckBox.xpath(String.format(xPathSport,"Other"));
         if(!map.get("Other"))
         {
             chb.click();
-            waitingLoadingSpinner();
+          //  waitingLoadingSpinner();
         }
     }
 
@@ -134,6 +134,14 @@ public class BetSettingListingPage extends LeftMenu {
         return i-1;
     }
 
+    /**
+     * Update value for Min Bet, Max Bet, Max Liability Per Market, maxWinPermarket. If input value = -1 we will ignore the input
+     * @param loginID
+     * @param minBet
+     * @param maxBet
+     * @param maxLiabilityPerMarket
+     * @param maxWinPerMarket
+     */
     public void updateBetSetting(String loginID,int minBet, int maxBet, int maxLiabilityPerMarket, int maxWinPerMarket){
 
         //input Min, Max, Max Liability per Market, Max Win Per Market

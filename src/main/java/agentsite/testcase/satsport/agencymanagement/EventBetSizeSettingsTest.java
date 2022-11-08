@@ -632,7 +632,7 @@ public class EventBetSizeSettingsTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"interaction1"})
+    @Test(groups = {"interaction"})
     @Parameters({"memberAccount","password","downlineAccount"})
     public void Agent_AM_Event_Bet_Site_Settings_029(String memberAccount, String password,String downlineAccount) throws Exception {
       log("@title:Cannot place bet when stake less than min setting in Event Bet Site Setting for normal market");

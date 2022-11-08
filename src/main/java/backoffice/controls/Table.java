@@ -7,10 +7,6 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * @author by Liam.Ho on Nov/26/2018.
- */
 public class Table extends BaseElement {
 	protected String _xpathTable = null;
 	protected int _columnNumber = 0;
@@ -220,7 +216,74 @@ public class Table extends BaseElement {
 		}
 		return Link.xpath(cellXpath);
 	}
+	/**
+	 * getting a control at column and row
+	 * @param tBodyOrder beginning value is 1
+	 * @param columnOrder beginning value is 1
+	 * @param rowOrder beginning value is 1
+	 * @param subTag span | a etc.
+	 * @return BaseElement
+	 */
+	public String getxPathOfCell(int tBodyOrder,int columnOrder, int rowOrder,String subTag){
+		if(columnOrder < 1 || rowOrder < 1){
+			System.out.println(String.format("Error: columnOrder or rowOrder is  %s or %s to be more than or equal to 1", columnOrder, rowOrder));
+			return null;
+		}
+		String cellXpath;
+		if (subTag == null){
+			cellXpath = String.format("%s%s%s", this._xpathTable, String.format("//tbody[%s]/tr[%s]/", tBodyOrder, rowOrder), String.format("td[%s]", columnOrder));
+		} else {
+			cellXpath = String.format("%s%s%s//%s", this._xpathTable, String.format("//tbody[%s]/tr[%s]/", tBodyOrder, rowOrder), String.format("td[%s]", columnOrder), subTag);
+		}
+		return cellXpath;
+	}
+	public String getControlxPathBasedValueOfDifferentColumnOnRow(String value, int tBodyOrder, int columnOrder, int beginRow, String subTag, int columnOfControl, String subTagOfControl, boolean isMoved, boolean isDifferentText) {
+		if (columnOrder < 1 && beginRow < 1) {
+			System.out.println(String.format("Error: columnOrder %s and beginRow %s is to be more than or equal to 1", columnOrder, beginRow));
+			return null;
+		}
+		int i = beginRow;
+		String hasBodyXpath = String.format("%s%s", this._xpathTable, String.format("//tbody[%s]/%s", tBodyOrder, "tr[%s]/"));
+		agentsite.controls.Cell cell = agentsite.controls.Cell.xpath(String.format("%s%s", String.format(hasBodyXpath, i), String.format("td[%s]", columnOrder)));
+		if (!cell.isDisplayed()) {
+			hasBodyXpath = String.format("%s%s", this._xpathTable, "/tr[%s]/");
+		}
 
+		String cellXpath;
+		String controlXpath;
+		if (subTag == null) {
+			cellXpath = String.format("(%s%s)[1]", hasBodyXpath, String.format("td[%s]", columnOrder));
+		} else {
+			cellXpath = String.format("(%s%s//%s)[1]", hasBodyXpath, String.format("td[%s]", columnOrder), subTag);
+		}
+		if (subTagOfControl == null) {
+			controlXpath = String.format("(%s%s)[1]", hasBodyXpath, String.format("td[%s]", columnOfControl));
+		} else {
+			controlXpath = String.format("(%s%s//%s)[1]", hasBodyXpath, String.format("td[%s]", columnOfControl), subTagOfControl);
+		}
+		while(true) {
+			Link lnk = Link.xpath(String.format(cellXpath, i));
+			if (!lnk.isDisplayed(timeOutInSecond)){
+				return null;
+			}
+			String text = lnk.getText().trim();
+			System.out.println("Text link is " + text);
+			if (isDifferentText){
+				if (!text.equals(value)){
+					return String.format(controlXpath,i);
+					//return Link.xpath(String.format(controlXpath, i));
+				}
+			} else {
+				if (text.equals(value))
+					return String.format(controlXpath, i);
+				//return Link.xpath(String.format(controlXpath, i));
+			}
+			if (isMoved) {
+				lnk.scrollDownInDistance();
+			}
+			i = i + 1;
+		}
+	}
 	/**
 	 * description: header is a row #1, row number 2 and next rows contain data of table.
 	 * @param isMoving moving down if isMoving is true

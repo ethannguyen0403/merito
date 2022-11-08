@@ -1,10 +1,13 @@
 package agentsite.testcase.all.marketsmanagement;
 
+import backoffice.pages.bo.marketmanagement.LiquidityThresholdSettingsPage;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.components.ConfirmPopup;
 import agentsite.pages.all.marketsmanagement.LiquidityThresholdPage;
+
+import java.util.List;
 
 import static agentsite.common.AGConstant.HomePage.LIQUIDITY_THRESHOLD;
 import static agentsite.common.AGConstant.HomePage.MARKET_MANAGEMENT;
@@ -97,6 +100,28 @@ public class LiquidityThresholdTest extends BaseCaseMerito {
         ConfirmPopup popup = new ConfirmPopup();
         Assert.assertEquals(popup.getContentMessage(),String.format("Upline %s of %s is OFF. Please help to ON it first.",controlBlockingAccount,downlineAccount),
                 "FAILED! Error message not display when acitve downline has update inacive liquidity");
+
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"interaction"})
+    @Parameters({"controlBlockingAccount","downlineAccount","memberAccount","password","boAccount","bopassword"})
+    public void Agent_MM_Liquidity_Threshold_TC007(String controlBlockingAccount,String memberAccount,String password,String boAccount, String bopassword) throws Exception {
+        log("@title: Validate odds in member affect when active/inactive liquidity threshold");
+        log("Step 1. Navigate Markets Management >Liquidity Threshold");
+        LiquidityThresholdPage page = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, LIQUIDITY_THRESHOLD, LiquidityThresholdPage.class);
+
+        log(String.format("Step 2. Search the account %S",controlBlockingAccount));
+        page.search(controlBlockingAccount);
+
+        log(String.format("Step 3. Click active liquidity threshold of %s",controlBlockingAccount));
+        page.setLiquidityThreshold(controlBlockingAccount,true);
+
+        loginBackoffice(boAccount, bopassword,true);
+        LiquidityThresholdSettingsPage liquidityThresholdSettingsPage = backofficeHomePage.navigateLiquidityThresholdSettings();
+        List<String> lstThreshold =  liquidityThresholdSettingsPage.getThreshold("Soccer","Match Odds");
+        log("Verify 1. Verify odds is blur in member Soccer for Live/Non live if Match volume over the setting in BO");
+        loginMember(memberAccount,password);
 
         log("INFO: Executed completely");
     }
