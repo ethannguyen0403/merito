@@ -27,6 +27,8 @@ public class Event {
     private Link _lnkEvent;
     private String _startTime;
     private List<Market> _listMarket;
+    private String _countryCode;
+    private String _countryName;
 
     public String getID() {
         return _id;
@@ -121,6 +123,22 @@ public class Event {
        _lnkEvent = val;
     }
 
+    public String getCountryCode() {
+        return _countryCode;
+    }
+
+    public void setCountryCode(String _countryCode) {
+        this._countryCode = _countryCode;
+    }
+
+    public String getCountryName() {
+        return _countryName;
+    }
+
+    public void setCountryName(String _countryName) {
+        this._countryName = _countryName;
+    }
+
     public static class Builder {
         // Optional parameters
         private String _id = "";
@@ -141,6 +159,8 @@ public class Event {
         private Link _lnkEvent;
         private String _startTime="";
         private List<Market> _listMarket;
+        private String _countryCode="";
+        private String _countryName="";
         public Builder(){}
 
         public Builder listMarket(List<Market> val){
@@ -225,8 +245,17 @@ public class Event {
             _lnkEvent = val;
             return this;
         }
-        public Event build() { return new Event(this); }
 
+        public Builder countryName(String val){
+            _countryName = val;
+            return this;
+        }
+
+        public Builder countryCode(String val){
+            _countryCode = val;
+            return this;
+        }
+        public Event build() { return new Event(this); }
     }
 
     private Event(Builder builder){
@@ -247,5 +276,7 @@ public class Event {
         this._lnkEvent = builder._lnkEvent;
         this._startTime = builder._startTime;
         this._listMarket = builder._listMarket;
+        this._countryCode = builder._countryCode;
+        this._countryName = builder._countryName;
     }
 }
