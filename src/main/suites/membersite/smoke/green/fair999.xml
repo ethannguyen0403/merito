@@ -30,7 +30,6 @@
         </groups>
 
         <classes>
-
             <class name="membersite.testcases.all.afterlogin.exchange.PlaceBetFunctionTest"/>
              <class name="membersite.testcases.all.afterlogin.exchange.ForecastFunctionTest"/>
              <class name="membersite.testcases.all.afterlogin.exchangegame.EGHomPageTest"/>
