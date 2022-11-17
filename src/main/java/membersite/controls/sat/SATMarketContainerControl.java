@@ -157,7 +157,8 @@ public class SATMarketContainerControl extends BaseElement {
 	public List<Label> getOddsListLabel(int selectionIndex, boolean isBack)
 	{
 		List<Label> list = new ArrayList<>();
-		String xPathOddsList = String.format("%s[%d]%s",lblSelectionListXPath,selectionIndex,lblOddListXPath);
+		String xPathOddsList = String.format("%s[%d]%s[%s]",lblSelectionListXPath,selectionIndex,lblOddListXPath);
+
 
 		int countOddsLabel = Label.xpath(xPathOddsList).getWebElements().size();
 	///	String backOrLay = isBack ? "back" : "lay";

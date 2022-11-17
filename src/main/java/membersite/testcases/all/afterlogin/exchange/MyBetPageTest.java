@@ -7,6 +7,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.MyBetsPage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -21,7 +22,8 @@ public class MyBetPageTest extends BaseCaseMerito {
      * @expect: 1. The Product label display accordingly
      *          2. Controls display correctly
      */
-    @Test(groups = {"smoke"})
+
+    @Test(groups = {"regression"})
     @Parameters("timeZone")
     public void MyBetPage_TC001(String timeZone){
         log("@title: Validate Product display correctly");
@@ -52,6 +54,7 @@ public class MyBetPageTest extends BaseCaseMerito {
      *          2. Select Exchange Bets , Order Type: Settled , Start and End Date, click Load Report
      * @expect: 1. All settled bet is filtered
      */
+   @TestRails(id="516")
     @Test(groups = {"smoke"})
     public void MyBetPage_TC002() {
         log("@title: Validate can filter Settled bet");
@@ -68,7 +71,7 @@ public class MyBetPageTest extends BaseCaseMerito {
             return;
         }
 
-        log("Verify 2. Select Exchange Bets , Order Type: Settled , Start and End Date, click Load Report");
+        log("Verify 1. Only settled orders displayed otherwise no data display");
         Assert.assertTrue(page.validateFilterStatus(DDB_ORDER_TYPE_FILTER.get("SETTLED")),"ERROR! Settled status not filter correctly.");
 
         log("INFO: Executed Completely!");
@@ -80,6 +83,7 @@ public class MyBetPageTest extends BaseCaseMerito {
      *          2. Select Exchange Bets , Order Type: Matched , Start and End Date, click Load Report
      * @expect: 1. All matched bet is filtered
      */
+    @TestRails(id="517")
     @Test(groups = {"smoke"})
     public void MyBetPage_TC003() {
         log("@title: Validate can filter Matched bet");
@@ -104,6 +108,7 @@ public class MyBetPageTest extends BaseCaseMerito {
      *          2. Select Exchange Bets , Order Type: Unmatched , Start and End Date, click Load Report
      * @expect: 1. All Unmatched bet is filtered
      */
+    @TestRails(id="518")
     @Test(groups = {"smoke"})
     public void MyBetPage_TC004() {
         log("@title: Validate can filter Settled bet");
@@ -130,6 +135,7 @@ public class MyBetPageTest extends BaseCaseMerito {
      *          2. Select Exchange Bets , Order Type: Cancelled , Start and End Date, click Load Report
      * @expect: 1. All Cancelled bet is filtered
      */
+    @TestRails(id="519")
     @Test(groups = {"smoke"})
     public void MyBetPage_TC005() {
 
@@ -156,6 +162,7 @@ public class MyBetPageTest extends BaseCaseMerito {
      *          2. Select Exchange Bets , Order Type: Lapsed , Start and End Date, click Load Report
      * @expect: 1. Bet info display correctly, all bets display with status: Lapsed
      */
+    @TestRails(id="520")
     @Test(groups = {"smoke"})
     public void MyBetPage_TC006() {
 
@@ -182,6 +189,7 @@ public class MyBetPageTest extends BaseCaseMerito {
      *          2. Select Exchange Bets , Order Type: Voided , Start and End Date, click Load Report
      * @expect: 1. Bet info display correctly, all bets display with status: Voided
      */
+    @TestRails(id="521")
     @Test(groups = {"smoke"})
     public void MyBetPage_TC007() {
         log("@title: Validate can filter Voided bet");

@@ -7,6 +7,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import membersite.pages.all.tabexchangegame.*;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 public class EGHomPageTest extends BaseCaseMerito {
 
@@ -17,7 +18,7 @@ public class EGHomPageTest extends BaseCaseMerito {
      * @step: Navigate to exchange game
      * @expect: Verify all exchange game images are loaded
      */
-    @Test(groups = {"smoke5"})
+    @Test(groups = {"regression"})
     @Parameters({"skinName"})
     public void EG_Home_Page_TC001(String skinName){
         log("@title: Verify all exchange game images are loaded");
@@ -69,6 +70,7 @@ public class EGHomPageTest extends BaseCaseMerito {
      * @step: Navigate to exchange game
      * @expect: 1/ Verify the menu is loaded correctly
      */
+    @TestRails(id="527")
     @Test(groups = {"smoke"})
     @Parameters({"skinName"})
     public void EG_Home_Page_TC002(String skinName){
@@ -94,6 +96,7 @@ public class EGHomPageTest extends BaseCaseMerito {
      * Baccarat, Blackjace, Racing, Hilo, Omahahi, Holdem
      * @expect: Verify the corresponding page is displayed
      */
+    @TestRails(id="529")
     @Test(groups = {"smoke"})
     @Parameters({"skinName"})
     public void EG_Home_Page_TC003(String skinName){
@@ -134,6 +137,7 @@ public class EGHomPageTest extends BaseCaseMerito {
      * Baccarat, Blackjace, Racing, Hilo, Omahahi, Holdem
      * @expect: Verify can open all game by when click on the image
      */
+    @TestRails(id="530")
     @Test(groups = {"smoke"})
     @Parameters({"skinName"})
     public void EG_Home_Page_TC004(String skinName){
@@ -174,6 +178,7 @@ public class EGHomPageTest extends BaseCaseMerito {
      * @step: 1.  Click Play Standard of Baccarat
      * @expect: Play Standard baccarat page is correct ly display
      */
+    @TestRails(id="532")
     @Test(groups = {"smoke"})
     @Parameters({"skinName"})
     public void EG_Home_Page_TC006(String skinName){
@@ -195,6 +200,8 @@ public class EGHomPageTest extends BaseCaseMerito {
      * @step: 1.  Click Play Turbo of Baccarat
      * @expect: Play Turbo Caccarat page is correct ly display
      */
+
+    @TestRails(id="531")
     @Test(groups = {"smoke"})
     @Parameters({"skinName"})
     public void EG_Home_Page_TC005(String skinName){
@@ -216,7 +223,7 @@ public class EGHomPageTest extends BaseCaseMerito {
      * @step: 1.  Click Play Standard of Baccarat
      * @expect: Play Standard Blackjack page is correct ly display
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"skinName"})
     public void EG_Home_Page_TC007(String skinName){
         log("@title: Verify can open Blackjack by when click Play Standard");
@@ -237,7 +244,7 @@ public class EGHomPageTest extends BaseCaseMerito {
      * @step: 1.  Click Play Standard of Hilo
      * @expect: Play Standard baccarat page is correct ly display
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"skinName"})
     public void EG_Home_Page_TC008(String skinName){
         log("@title: Verify can open Hilo by when click Play Standard");
@@ -258,7 +265,7 @@ public class EGHomPageTest extends BaseCaseMerito {
      * @step: 1.  Click Play Standard of Omahahi
      * @expect: Play Standard Omahahi page is correct ly display
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"skinName"})
     public void EG_Home_Page_TC009(String skinName){
         log("@title: Verify can open Omahahi by when click Play Standard");
@@ -279,7 +286,7 @@ public class EGHomPageTest extends BaseCaseMerito {
      * @step: 1.  Click Play Standard of Omahahi
      * @expect: Play Standard Omahahi page is correct ly display
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"skinName"})
     public void EG_Home_Page_TC010(String skinName){
         log("@title: Verify can open Omahahi by when click Play Standard");

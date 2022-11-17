@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.MyBetsPage;
 import membersite.pages.all.tabexchange.ProfitAndLossPage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class ProfitAndLossPageTest extends BaseCaseMerito {
      * @expect: 1. Verify Total profit = sum profit of all sports
      *          2. Profit of each sport match with when summary the details
      */
+    @TestRails(id="522")
     @Test(groups = {"smoke"})
     public void FE_ProfitAndLossPage_TC001(){
         log("@title: Validate Product display correctly");
@@ -57,6 +59,7 @@ public class ProfitAndLossPageTest extends BaseCaseMerito {
      * @expect: 1. Table header display correctly when clicking on sport> event
      *
      */
+    @TestRails(id="523")
     @Test(groups = {"smoke"})
     public void FE_ProfitAndLossPage_TC002(){
         log("@title: Validate Table header when clicking on sport and market");

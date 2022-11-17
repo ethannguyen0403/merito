@@ -61,7 +61,7 @@ public class PositionTakingListingTest extends BaseCaseMerito {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname,userID);
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname,"",userID);
         String downlineUserName = listAccount.get(0).getUserCode();
         PositionTakingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, POSITION_TAKING_LISTING, PositionTakingListingPage.class);
 
@@ -82,7 +82,7 @@ public class PositionTakingListingTest extends BaseCaseMerito {
         log("@title:Verify can search by Login ID ");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname,userID);
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname,"",userID);
         String downlineLoginID = listAccount.get(0).getLoginID();
         PositionTakingListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, POSITION_TAKING_LISTING, PositionTakingListingPage.class);
 

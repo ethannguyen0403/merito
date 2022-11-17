@@ -19,7 +19,7 @@ import java.util.Objects;
 public class BetSlipMyBetMarketPageTest extends BaseCaseMerito {
 
     /**
-     * @title: Verify deault value of Bet Slip and My Bet
+     * @title: Verify default value of Bet Slip and My Bet
      * @pre-condition
      *           1. Sign in
      * @steps:   1. Click Market page
@@ -59,7 +59,7 @@ public class BetSlipMyBetMarketPageTest extends BaseCaseMerito {
      */
     @Test(groups = {"smoke"})
     public void Bet_Slip_My_Bet_Market_Page_002() {
-        log("@title: Validate that user can remove a selected odd successfully on Bet Slip");
+        log("@title: Verify 1Click button");
         log("Pre-condition: Player signs in successfully");
         log("Step 1. Click Soccer page");
         SportPage sportPage = memberHomePage.navigateSoccer();

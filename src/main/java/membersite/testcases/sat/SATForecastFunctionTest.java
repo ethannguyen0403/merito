@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class SATForecastFunctionTest extends BaseCaseMerito {
      *           -  Display profit for under placed selection
      *          - Display liability of the bet under other selections
      */
+    @TestRails(id="581")
     @Test(groups = {"smoke"})
     public void SAT_ForecastFunction_TC001(){
         log("@title: Validate that user can place Matched Back bet on Soccer market");
@@ -72,6 +74,7 @@ public class SATForecastFunctionTest extends BaseCaseMerito {
      *                  - Display liability under placed selection
      *                  - Display Profit(back -lay) for other selection
      */
+    @TestRails(id = "582")
     @Test(groups = {"smoke"})
     public void SAT_ForecastFunction_TC002(){
         log("@title:  Validate forecast/ liability value display correctly when place back and Lay bet on a selection");
@@ -128,6 +131,7 @@ public class SATForecastFunctionTest extends BaseCaseMerito {
      *              5. Liability on My Bet and on Bet Slip is the same
      *              6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id = "583")
     @Test(groups = {"smoke"})
     public void SAT_ForecastFunction_TC012(){
         log("@title: Validate forecast/ liability value display correctly when place Lay bet on a selection");

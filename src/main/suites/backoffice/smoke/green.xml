@@ -82,6 +82,7 @@
             <class name="backoffice.testcases.system.PrioritySettingTest"/>
             <class name="backoffice.testcases.system.BetfairInformationTest"/>
             <class name="backoffice.testcases.system.productmaintenance.MaintenanceDetailsTest"/>
+
             <class name="backoffice.testcases.system.FollowBetToThirdPartyTest"/>
             <class name="backoffice.testcases.system.BetFairAccountInfoTest"/>
             <class name="backoffice.testcases.system.ProviderCurrencyMappingTest"/>

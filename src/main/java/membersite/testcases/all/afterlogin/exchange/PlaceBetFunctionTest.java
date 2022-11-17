@@ -12,6 +12,8 @@ import membersite.pages.all.tabexchange.SoccerPage;
 import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
+import util.testraildemo.TestRails;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -26,7 +28,8 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          4. Input stake less than min bet
      * @expect: 1. Error Cannot place bet display: "Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s."
      */
-    @Test(groups = {"smoke"})
+   @TestRails(id="555")
+   @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC001(){
         log("@title: Validate that user can NOT place matched Back bet if Stake less than min setting");
         String odds ="20.00";
@@ -78,6 +81,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *              5. Liability on My Bet and on Bet Slip is the same
      *              6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id="556")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC002(){
         log("@title: Validate that user can place Matched Back bet on Soccer market");
@@ -135,6 +139,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *              5. Liability on My Bet and on Bet Slip is the same
      *              6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id="557")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC003(){
         log("@title: Validate that user can place Matched Lay bet on Soccer market");
@@ -196,6 +201,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *                  5. Back bet background is green #C9E6EF
      *                  6. Account Balance/Outstanding updated correctly
      */
+    @TestRails(id="558")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC004(){
         log("@title: Validate can place unmatched Back bet successfully for Tennis");
@@ -260,7 +266,8 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          5. Lay bet background is pink #F9E6ED
      *          6. Account Balance/Outstanding updated correctly
      */
-     @Test(groups = {"smoke"})
+    @TestRails(id="559")
+    @Test(groups = {"smoke"})
      public void FE_Place_Bet_Function_TC005(){
             log("@title: Validate can place unmatched Lay bet successfully for Tennis");
             String odds ="1.01";
@@ -321,6 +328,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      * @expect:         1. Bet is cancel
      *                  2. Bet in My bet display with the status cancel
      */
+    @TestRails(id="560")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC006(){
         log("@title: Validate cancel bet icon works");
@@ -399,6 +407,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      * @expect:     1. Back and Lay bet are canceled
      *              2. Bets in My bet display with the status cancel
      */
+    @TestRails(id="561")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC007(){
         log("@title: Validate cancel bet icon works");
@@ -484,6 +493,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          5. Lay  bet background is pink #F9E6ED
      *          6. Account Balance/Outstanding updated correctly
      */
+    @TestRails(id="562")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC008(){
         log("@title: Validate can place unmatched Back bet successfully for Cricket");
@@ -547,6 +557,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          5. Lay bet background is pink #F9E6ED
      *          6. Account Balance/Outstanding updated correctly
      */
+    @TestRails(id="563")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC009(){
         log("@title: Validate can place unmatched Lay bet successfully for Cricket");
@@ -610,6 +621,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          4. At in-play will check  on Cancel option by default
      *          5. Back bet background is green #C9E6EF
      */
+    @TestRails(id="564")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC010(){
         log("@title: Validate can place unmatched Back bet successfully for Horse Racing");
@@ -675,6 +687,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          2. Click on any Lay odds
      * @expect: 1.  As support #44512: Lay odds is empty and are not allowed to click to add on bet slip
      */
+    @TestRails(id="565")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC011(){
         log("@title:  As support #44512: Lay odds is empty and are not allowed to click to add on bet slip");
@@ -714,6 +727,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          5. Back bet background is green #C9E6EF
      *          6. Account Balance/Outstanding updated correctly
      */
+    @TestRails(id="566")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC021(){
         log("@title: Validate that user can place unmatched Back bet on Soccer market");
@@ -777,6 +791,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          5. Back bet background is green #C9E6EF
      *          6. Account Balance/Outstanding updated correctly
      */
+    @TestRails(id="567")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC022(){
         log("@title: Validate that user can place unmatched Lay bet on Soccer market");
@@ -838,6 +853,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          2. Input stake that the exposure is greater than user available balance
      * @expect: 1. Error message "Error : Cannot place bet. Your Main balance is insufficient." display
      */
+    @TestRails(id="568")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC023(){
         log("@title: Validate that cannot place Back bet if exposure exceed available balance");
@@ -908,6 +924,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          3. Input stake less than min bet
      * @expect: 1. Error Cannot place bet display: "Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s."
      */
+    @TestRails(id="584")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC025(){
         log("@title: Validate that user can NOT place Lay bet if Stake less than min setting");
@@ -958,6 +975,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *              3. Input stake greater than max bet
      * @expect:     1  Error Cannot place bet display: "Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.""
      */
+    @TestRails(id="585")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC026(){
         log("@title: Validate that user can NOT place Back bet if Stake greater than max setting");
@@ -1006,6 +1024,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *              3. Input stake greater than max bet
      * @expect:     1  Error Cannot place bet display: "Error : Cannot place bet. The stake must be from [min] to [max]. Current Stake is [stake].""
      */
+    @TestRails(id="586")
     @Test(groups = {"smoke"})
     public void FE_Place_Bet_Function_TC027(){
         log("@title: Validate that user can NOT place Lay bet if Stake greater than max setting");

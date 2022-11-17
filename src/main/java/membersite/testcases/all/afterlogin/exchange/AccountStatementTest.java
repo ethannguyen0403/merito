@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.AccountStatementPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
+import util.testraildemo.TestRails;
+
 import java.util.ArrayList;
 import java.util.List;
 import static membersite.common.FEMemberConstants.AccountStatementPage.*;
@@ -21,6 +23,7 @@ public class AccountStatementTest extends BaseCaseMerito {
      *          3. Get any market and drill down
      * @expect: Data display correct at API
      */
+    @TestRails(id="524")
     @Test(groups = {"smoke"})
     public void FE_AccountStatement_TC001(){
         log("@title: Validate data in account statement is correctly");
@@ -47,9 +50,10 @@ public class AccountStatementTest extends BaseCaseMerito {
      *        4. Click on any sport and check details
      * @expect: 1 Table header display correctly when clicking on sport> event
      */
+    @TestRails(id="525")
     @Test(groups = {"smoke"})
     public void FE_AccountStatement_TC003(){
-        log("@title: Validate data in account statement is correctly");
+        log("@title: alidate Table header when clicking on sport and market");
         log("Step 1. Click My Account > Account Statement");
         String startDate = DateUtils.getDate(-15,"yyyy-MM-dd","IST");
         String endDate = DateUtils.getDate(0,"yyyy-MM-dd","IST");
@@ -85,13 +89,14 @@ public class AccountStatementTest extends BaseCaseMerito {
      *          2. Click Logo Image
      * @expect: 1. Home page is displayed
      */
+    @TestRails(id="526")
     @Test(groups = {"smoke"})
     public void FE_AccountStatement_TC005(){
         log("@title: Validate Home page display when clicking on home icon");
         log("Step 1.Active My Account> Account Statement");
         AccountStatementPage page =memberHomePage.openAccountStatementPage();
 
-        log("Step 2. Click hoe Image");
+        log("Step 2. Click logo Image");
         page.imgHome.click();
         page.imgSpinner.isDisplayed();
         log("Verify 1. Home page is displayed");

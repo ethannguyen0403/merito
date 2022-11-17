@@ -5,6 +5,7 @@ import agentsite.pages.all.home.SecurityCodePage;
 import com.paltech.constant.Helper;
 import com.paltech.driver.DriverManager;
 import com.paltech.driver.DriverProperties;
+import com.paltech.utils.DateUtils;
 import com.paltech.utils.ScreenShotUtils;
 import com.paltech.utils.StringUtils;
 import com.relevantcodes.extentreports.ExtentReports;
@@ -14,16 +15,25 @@ import membersite.pages.all.home.LandingPage;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.core.har.HarEntry;
 import objects.Environment;
+import org.json.simple.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.*;
+import util.testraildemo.APIClient;
+import util.testraildemo.APIException;
+import util.testraildemo.TestRails;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.rmi.UnexpectedException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static common.MeritoConstant.*;
@@ -57,14 +67,36 @@ public class BaseCaseMerito {
     public static String userCurrency;
     public static String memberMarketServiceURL;
     public static String _brandname;
+    public static String PROJECT_ID="1";
+    public static APIClient client;
+    private static boolean isAddTestRailResult = true;
+    private static  List<Long> lstCases= new ArrayList<>();
 
     @BeforeSuite(alwaysRun = true)
-    public static void beforeSuite() {
+    public static void beforeSuite(ITestContext ctx) throws APIException, IOException {
         try{
             context = new ClassPathXmlApplicationContext("resources/settings/Setting.xml");
             report = new ExtentReports("", true);
         } catch(Exception ex) {
             throw new NullPointerException(String.format("ERROR: Exception occurs beforeSuite by '%s'", ex.getMessage()));
+        }
+        // Create Test Run in Test Rails
+        ctx.getName();
+        if(isAddTestRailResult) {
+            System.out.println("Add New Test Run in TestRails");
+            client = new APIClient("https://paltech.testrail.io/");
+            client.setUser("isabella.huynh@pal.net.vn");
+            client.setPassword("P@l332211");
+            Map data = new HashMap();
+            //data.put("suite_id",true);
+            data.put("include_all", false);
+            data.put("name", "Test Run of suite " + ctx.getName() + " on" + DateUtils.getDateFollowingGMT("GMT+7", "dd-MM-YYYY hh:mm:ss"));
+            // data.put("milestone_id",1);
+
+            JSONObject c = (JSONObject) client.sendPost("add_run/" + PROJECT_ID, data);
+            c.get("id");
+            Long suite_id = (Long) c.get("id");
+            ctx.setAttribute("suiteId", suite_id);
         }
     }
 
@@ -97,11 +129,22 @@ public class BaseCaseMerito {
         } catch(Exception ex) {
             throw new NullPointerException(String.format("ERROR: Exception occurs beforeClass by '%s'", ex.getMessage()));
         }
+
     }
 
     @Parameters({"appname","username", "password", "language", "isLogin", "isProxy", "isThrown", "currency",})
     @BeforeMethod(alwaysRun = true)
-    public static void beforeMethod(String appname,String username, String password, String language, boolean isLogin, boolean isProxy, boolean isThrown, String currency, Method method, ITestResult result) throws Exception {
+    public static void beforeMethod(String appname,String username, String password, String language, boolean isLogin, boolean isProxy, boolean isThrown, String currency, Method method, ITestResult result,ITestContext ctx) throws Exception {
+        System.out.println("*** Map test case in script with test case in TestRail ***");
+        if(isAddTestRailResult){
+            Method m = method;
+            if (m.isAnnotationPresent(TestRails.class)) {
+                TestRails ta = m.getAnnotation(TestRails.class);
+                String caseId = ta.id();
+                ctx.setAttribute("caseId",caseId);
+
+            }
+        }
         System.out.println("***************************Beginning TC's " + method.getName() +"*******************************");
         logger = report.startTest(method.getName(), method.getClass().getName());
         driverProperties.setMethodName(method.getName());
@@ -153,12 +196,10 @@ public class BaseCaseMerito {
             landingPage = new LandingPage();
         }
     }
-
     public static membersite.pages.all.tabexchange.HomePage loginMember(String username, String password) throws Exception {
          loginMember( username, password,true,"","",true);
          return memberHomePage;
     }
-
     public static void loginBackoffice(String username, String password,boolean isLogin) throws Exception {
         createDriver(backofficeUrl);
         if(isLogin) {
@@ -178,7 +219,6 @@ public class BaseCaseMerito {
         securityPage.waitingLoadingSpinner();
         return securityPage;
     }
-
     public static agentsite.pages.all.home.HomePage loginAgent(String sosURL, String securityCodeUrl, String username, String password, String securityCode) throws Exception {
         Helper.loginAgentIgnoreCaptchaTest(sosURL, securityCodeUrl, username, password);
         SecurityCodePage securityCodePage = new SecurityCodePage();
@@ -203,26 +243,9 @@ public class BaseCaseMerito {
         changePWPage.changePassword(psDecrypt,psDecrypt,psDecrypt);
         agentHomePage = new agentsite.pages.all.home.HomePage();
     }
-   /* public static membersite.pages.all.tabexchange.HomePage loginMember(String username, String password) throws Exception {
-        DriverManager.getDriver().get(environment.getMemberSiteURL());
-        Helper.loginFairExchange(environment.getMemberSOSUrl(), environment.getMemberDashboardUrl(), username, password, true);
-        memberHomePage = new membersite.pages.all.tabexchange.HomePage();
-        memberHomePage.imgSpinner.isDisplayed(3);
-        // System.out.println("$$$$$$$$$Closed Banner Popup after login %%%%%%%%%%");
-        memberHomePage.closeBannerPopup();
-        return memberHomePage;
-       *//*
-        } else {
-            landingPage = new LandingPage();
-        }
-        if (isProxy) {
-            browserMobProxy = driverProperties.getBrowserMobProxy();
-        }*//*
-       // return null;
-    }
-*/
+
     @AfterMethod(alwaysRun = true)
-    public static void afterMethod(ITestResult result) {
+    public static void afterMethod(ITestResult result,ITestContext ctx) throws APIException, IOException {
         String testResult = "PASSED";
         if(!result.isSuccess()) {
             String srcBase64 = ScreenShotUtils.captureScreenshotWithBase64(DriverManager.getDriver().getWebDriver());
@@ -236,10 +259,33 @@ public class BaseCaseMerito {
         }
         DriverManager.quitAll();
         System.out.println("****************************Ending TC's name: " + result.getMethod().getMethodName() + " is " + testResult + " **********************");
+        System.out.println("*** Add result to TestRails");
+        if(isAddTestRailResult) {
+            String caseId = (String) ctx.getAttribute("caseId");
+            Long suiteId = (Long) ctx.getAttribute("suiteId");
+            Map data1 = new HashMap();
+            // add test case for test run
+            lstCases.add(Long.parseLong(caseId));
+            data1.put("case_ids",lstCases);
+            client.sendPost("update_run/" + suiteId, data1);
+            //end add test case for test run
+            //start add result for a test case
+            Map data = new HashMap();
+            if (result.isSuccess()) {
+                data.put("status_id", 1);
+            } else {
+                data.put("status_id", 5);
+                data.put("comment", result.getThrowable().toString());
+            }
+            client.sendPost("add_result_for_case/" + suiteId + "/" + caseId, data);
+            //End add result for a test case
+            System.out.println("******** Done Add Result in Test Run in Testrail *********");
+        }
     }
 
     @AfterSuite
-    public static void tearDownSuite() {
+    public static void tearDownSuite(ITestContext ctx) throws APIException, IOException {
+        client.sendPost("close_run/" + ctx.getAttribute("suiteId"),null);
         report.endTest(logger);
         report.flush();
         report.close();
@@ -336,6 +382,7 @@ public class BaseCaseMerito {
                 return "";
         }
     }
+
 }
 
 

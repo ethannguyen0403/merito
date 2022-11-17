@@ -3,9 +3,10 @@
 <suite name="Fairsport567_GREEN_SMOKE_TEST" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+        <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
-    <test name="fairsport567_Smoke_Chrome">
+    <test name="Fairsport567 PRO Smoke Chrome">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='green'/>
         <parameter name='language' value=''/>

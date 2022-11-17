@@ -301,7 +301,6 @@ public class BlockUnblockEventPage extends LeftMenu {
         }
         //2. Select sport
         if(!sport.isEmpty()){
-            waitingLoadingSpinner();
             ddbSport.selectByVisibleText(sport);
             waitingLoadingSpinner();
         }

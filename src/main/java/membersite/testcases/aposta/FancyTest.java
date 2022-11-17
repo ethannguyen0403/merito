@@ -11,6 +11,7 @@ import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
 import membersite.utils.betplacement.FancyUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class FancyTest extends BaseCaseMerito {
      * @Expected 1. Can place bet
      */
     @Test(groups = {"smoke"})
-
+    @TestRails(id="549")
     public void FancyTest_001(){
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
@@ -78,6 +79,7 @@ public class FancyTest extends BaseCaseMerito {
      * 4/ Click on an odds of a fancy market then place bet
      * @Expected 1. Exposure kept correctly when place on No section
      */
+    @TestRails(id="550")
     @Test(groups = {"smoke"})
     public void FancyTest_002(){
         log("@title: Verify exposure is kept correctly when place on No");
@@ -126,6 +128,7 @@ public class FancyTest extends BaseCaseMerito {
      * 4/ Click on an odds and place on Yes and No option
      * @Expected 1. Exposure kept correctly when place on No section
      */
+    @TestRails(id="551")
     @Test(groups = {"smoke"})
     public void FancyTest_003(){
         log("@title: Verify exposure is kept correctly when place on No");
@@ -187,7 +190,6 @@ public class FancyTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-
     /**
      * @title Verify Cannot place bet if stake less than min bet
      * @Precondition:  1. Get the event that have Fancy market
@@ -197,6 +199,7 @@ public class FancyTest extends BaseCaseMerito {
      * 4/ Click on an odds of a fancy market then place bet with the stake less than min bet
      * @Expected 1. Verify cannot place bet
      */
+    @TestRails(id="552")
     @Test(groups = {"smoke"})
     public void FancyTest_004(){
         log("@title: Verify Cannot place bet if stake less than min bet");
@@ -240,6 +243,7 @@ public class FancyTest extends BaseCaseMerito {
      * 4/ Click on an odds of a fancy market then place bet with the stake  greater than available balance
      * @Expected 1. Verify cannot place bet
      */
+    @TestRails(id="553")
     @Test(groups = {"smoke"})
     public void FancyTest_005(){
         log("@title: Verify Cannot place bet if stake greater than max bet");
@@ -282,6 +286,7 @@ public class FancyTest extends BaseCaseMerito {
      * 4/ Click on an odds of a fancy market then place bet with the stake  greater than available balance
      * @Expected 1. Verify cannot place bet
      */
+    @TestRails(id="554")
     @Test(groups = {"smoke"})
     public void FancyTest_006(){
         log("@title: Verify Cannot place bet if stake less is greater than available balance");

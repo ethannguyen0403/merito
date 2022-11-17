@@ -12,6 +12,7 @@ import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
 import membersite.utils.betplacement.FancyUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class CentralBookmakerTest extends BaseCaseMerito {
      * 4/ Click on an odds of a Central Bookmaker market then place bet
      * @Expected 1. Can place bet
      */
+    @TestRails(id="539")
     @Test(groups = {"smoke"})
     @Parameters({"isCredit"})
     public void CentralFancyTest_001(boolean isCredit){
@@ -76,6 +78,7 @@ public class CentralBookmakerTest extends BaseCaseMerito {
      * 4/ Click on an odds of a Bookmaker market then place bet with the stake less than min bet
      * @Expected 1. Can NOT place bet
      */
+    @TestRails(id="540")
     @Test(groups = {"smoke"})
     @Parameters({"isCredit"})
     public void CentralFancyTest_003(boolean isCredit){
@@ -123,6 +126,7 @@ public class CentralBookmakerTest extends BaseCaseMerito {
      * 4/ Click on an odds of a Bookmaker market then place bet with the stake greater than max bet
      * @Expected 1. Can NOT place bet
      */
+    @TestRails(id="541")
     @Test(groups = {"smoke"})
     public void CentralFancyTest_004(){
         log("@title: Verify Cannot place bet if stake greater than max bet");
@@ -170,6 +174,7 @@ public class CentralBookmakerTest extends BaseCaseMerito {
      * 4/ Click on an odds of a Bookmaker market then place bet with the stake  greater than available balance
      * @Expected 1. Can NOT place bet
      */
+    @TestRails(id="542")
     @Test(groups = {"smoke"})
     public void CentralFancyTest_005(){
         log("@title: Verify Cannot place bet if stake less is greater than availablie balance");

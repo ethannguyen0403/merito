@@ -44,7 +44,7 @@ public class BlockingSettingsTest extends BaseCaseMerito{
      * @expect: 1. Verify If the sport is active the check box in the right side is checked, otherwise is unchecked
      *          2. Verify agent site > create company > All sports is active correct as BO setting
      */
-    @Test (groups = {"smoke2"})
+    @Test (groups = {"regression"})
     public void BO_Market_Management_Blocking_Settings_004(){
         log("@title: Validate sport is active by default in edit sport popup and agent correctly");
         log("Step 1. Access Operations > Blocking Settings");
@@ -69,7 +69,7 @@ public class BlockingSettingsTest extends BaseCaseMerito{
      *          3. Click on Edit sport accordingly and verify active status
      * @expect: 1. Verify If the sport is active the check box in the right side is checked, otherwise is unchecked
      */
-    @Test (groups = {"smoke2"})
+    @Test (groups = {"regression"})
     public void BO_Market_Management_Blocking_Settings_005(){
         log("@title: Validate Market is active by default correctly in edit market popup");
         log("Step 1. Access Operations > Blocking Settings");

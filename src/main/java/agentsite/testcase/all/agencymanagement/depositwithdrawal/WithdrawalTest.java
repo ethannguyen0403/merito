@@ -67,7 +67,7 @@ public class WithdrawalTest extends BaseCaseMerito {
     public void Agent_AM_DepositWithdrawal_Withdraw_002() throws Exception {
         log("@title: Validate that there is an error message displayed when submitted without inputting");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname,userID);
+        List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname,"",userID);
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         String userCode = lstUsers.get(0).getUserCode();
 
@@ -98,7 +98,7 @@ public class WithdrawalTest extends BaseCaseMerito {
     public void Agent_AM_DepositWithdrawal_Withdraw_003() throws Exception {
         log("@title: Validate that there is an error message displayed when submitted without any amount");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname,userID);
+        List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname,"",userID);
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         String userCode = lstUsers.get(0).getUserCode();
 

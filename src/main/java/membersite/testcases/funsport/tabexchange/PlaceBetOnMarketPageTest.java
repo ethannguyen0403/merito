@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.*;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
      *          5. Liability on My Bet and on Bet Slip is the same
      *          6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id = "988")
     @Test(groups = {"smoke5"})
     public void Place_Bet_Market_Page_TC_001(){
         log("@title: Validate that user can place a bet with HOME - BACK successfully");
@@ -88,6 +90,7 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
      *          5. Liability on My Bet and on Bet Slip is the same
      *          6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id = "989")
     @Test (groups = {"smoke"})
     public void Place_Bet_Market_Page_TC_002(){
         log("@title: Validate that user can place a bet with HOME - LAY successfully");
@@ -144,6 +147,7 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
      *          5. Liability on My Bet and on Bet Slip is the same
      *          6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id = "990")
     @Test (groups = {"smoke"})
     public void Place_Bet_Market_Page_TC_003(){
         log("@title: Validate that user can place a bet with AWAY-BACK successfully");
@@ -200,6 +204,7 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
      *          5. Liability on My Bet and on Bet Slip is the same
      *          6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id = "991")
     @Test (groups = {"smoke"})
     public void Place_Bet_Market_Page_TC_004(){
         log("@title: Validate that user can place a bet with AWAY-LAY successfully");
@@ -256,6 +261,7 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
      * - Display profit for under placed selection
      * - Display liability of the bet under other selections
      */
+    @TestRails(id = "992")
     @Test (groups = {"smoke"})
     public void Place_Bet_Market_Page_TC_005(){
         log("@title: Validate forecast/ liability value display correctly when place back bet on a selection");
@@ -307,6 +313,7 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
      * - Display liability under placed selection
      * - Display Profit(back -lay) for other selection
      */
+    @TestRails(id = "993")
     @Test (groups = {"smoke4"})
     public void Place_Bet_Market_Page_TC_006(){
         log("@title: Validate forecast/ liability value display correctly when place back and Lay bet on a selection");
@@ -363,6 +370,7 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
      *  @expect: 1. Verify can place bet
      *
      */
+    @TestRails(id = "994")
     @Test (groups = {"smoke"})
     public void Place_Bet_Market_Page_TC_007(){
         log("@title: Validate that user can place a bet with BACK Horse Racing successfully");
@@ -401,6 +409,7 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
      *  @expect: 1. Verify Lay odds is unclickable
      *
      */
+    @TestRails(id = "995")
     @Test (groups = {"smoke"})
     public void Place_Bet_Market_Page_TC_008(){
         log("@title:  Verify Horse Racing is inactive Lay odds button");

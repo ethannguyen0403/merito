@@ -45,7 +45,7 @@ public class HomePageTest extends BaseCaseMerito {
      */
     @Test(groups = {"smoke"})
     public void Home_Page_TC_002(){
-        log("@title: Validate UI Home page");
+        log("@title: Validate sport in sport highlight display as left menu");
         log("Pre-condition: Player signs in successfully");
         log("Step 1. Click on Home page");
         List<String> lstPopularSport = memberHomePage.getPopularSports();

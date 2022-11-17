@@ -7,7 +7,6 @@ import membersite.objects.funsport.Odd;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import membersite.pages.all.tabexchange.EventPage;
 import membersite.pages.all.tabexchange.MarketPage;
 import membersite.pages.all.tabexchange.components.popups.MyMarketPopup;
 import membersite.pages.all.tablivedealer.components.LiveDealer;
@@ -262,7 +261,7 @@ public class HeaderSectionTest extends BaseCaseMerito {
      *  "EZUGI" Lottery & Slots display
      *  "EXCH_GAMES": Exchange game product
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void FE_HeaderSection_TC015(){
         log("@title: Validate Active product is display");
         log("Step 1. Get all product is active for login account");
@@ -285,7 +284,7 @@ public class HeaderSectionTest extends BaseCaseMerito {
      * @step: 1. Click on Exchange Games
      * @expect: 1. No console error display
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void FE_HeaderSection_TC016(){
         log("@title: Validate no console error when active Exchange Game product");
         log("Step 1. Click on Exchange Games");
@@ -302,7 +301,7 @@ public class HeaderSectionTest extends BaseCaseMerito {
      * @step: 1. Click on Lottery & Slots product
      * @expect: 1. No console error display
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void FE_HeaderSection_TC017(){
         log("@title: Validate no console error when active Lottery & Slots product");
         log("Step  1. Click on Lottery & Slots product");
@@ -319,7 +318,7 @@ public class HeaderSectionTest extends BaseCaseMerito {
      * @step: 1. Click on Live Dealer Asian product
      * @expect: 1. No console error display
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void FE_HeaderSection_TC018(){
         log("@title: Validate no console error when active  Live Dealer Asian product");
         log("Step  1. Click on Live Dealer Asian product");
@@ -335,7 +334,7 @@ public class HeaderSectionTest extends BaseCaseMerito {
      * @step: 1. Click on Live Dealer European product
      * @expect: 1. No console error display
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void FE_HeaderSection_TC019(){
         log("@title: Validate no console error when active  Live Dealer European product");
         log("Step  1. Click on Live Dealer European product");
@@ -352,7 +351,7 @@ public class HeaderSectionTest extends BaseCaseMerito {
      * @step: 1. Click on Sport menu: Home, In-Play, Soccer, Cricket, Tennis
      * @expect: There is no console display when active sport menu
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void FE_HeaderSection_TC020(){
         log("@title: Validate no console error when clicking on sports menu");
         log("Step 1. Click on Sport menu: Home, In-Play, Soccer, Cricket, Tennis");

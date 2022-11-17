@@ -3,15 +3,16 @@
 <suite name="FAIR999_GREEN_SMOKE_TEST" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+        <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
-    <test name="FAIR999_Smoke_Chrome">
+    <test name="FAIR999 STG Smoke Chrome ">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value=''/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='03H0000000'/>
+        <parameter name='username' value='feinrisa'/>
         <parameter name='usernameSAT' value='03H'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='true'/>

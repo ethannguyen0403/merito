@@ -18,7 +18,7 @@ public class BeforeLoginManagementTest extends BaseCaseMerito {
      *      2. Active/Deactive a sport
      * @expect: 1. Verify the sport display/not display in member site
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     @Parameters({"username","password"})
     public void BO_Operations_Before_Login_Management_001(String username, String password) throws Exception {
         /*log("@title: Validate sport is active/deactivate effect to member site before login page");
@@ -82,7 +82,7 @@ public class BeforeLoginManagementTest extends BaseCaseMerito {
      *          3. Active and inactive a  market:  Tied Match
      * @expect: 1. Verify the market is active/inactive on before login member. In the left menu, select cricket and any competition, verify Tied Match market is display/disappear per setting
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     @Parameters({"username","password"})
     public void BO_Operations_Before_Login_Management_002(String username, String password) throws Exception {
         log("@title: Validate sport is active/deactivate effect to member site before login page");

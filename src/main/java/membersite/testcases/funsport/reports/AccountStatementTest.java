@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import membersite.pages.funsport.tabexchange.AccountStatementPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class AccountStatementTest extends BaseCaseMerito {
      *          3. Get any market and drill down
      * @expect: Data display correct at API
      */
+    @TestRails(id="524")
     @Test(groups = {"smoke"})
     public void FE_AccountStatement_TC001(){
         log("@title: Validate data in account statement is correctly");
@@ -46,6 +48,7 @@ public class AccountStatementTest extends BaseCaseMerito {
      *        4. Click on any sport and check details
      * @expect: 1 Table header display correctly when clicking on sport> event
      */
+    @TestRails(id="525")
     @Test(groups = {"smoke"})
     public void FE_AccountStatement_TC003(){
         log("@title: Validate data in account statement is correctly");
@@ -85,7 +88,8 @@ public class AccountStatementTest extends BaseCaseMerito {
      *          2. Click Logo Image
      * @expect: 1. Home page is displayed
      */
-    @Test(groups = {"regression"})
+    @TestRails(id="526")
+    @Test(groups = {"smoke"})
     public void FE_AccountStatement_TC005(){
         log("@title: Validate Home page display when clicking on home icon");
         log("Step 1.Active My Account> Account Statement");
@@ -114,7 +118,7 @@ public class AccountStatementTest extends BaseCaseMerito {
         Assert.assertTrue(isError, "ERROR: There are some response request error when navigating to Account Statement page");
     }
 
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void FE_AccountStatement_TC007()
     {
         log("@title: Validate UI when access Account Statement Page");

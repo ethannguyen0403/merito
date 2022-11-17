@@ -11,11 +11,6 @@ import membersite.objects.sat.Market;
 import membersite.pages.all.tabexchange.SportPage;
 import membersite.utils.betplacement.BetUtils;
 import membersite.common.FEMemberConstants;
-import membersite.objects.AccountBalance;
-import membersite.objects.sat.Event;
-import membersite.objects.sat.Market;
-import membersite.pages.all.tabexchange.SportPage;
-import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -324,7 +319,9 @@ public class BetSettingListingTest extends BaseCaseMerito {
         log("@title: Cannot place bet when max liability on a market excceed the setting");
         log("Step 1. Active Bet Setting Listing and update max liability on a market for a player on Cricket");
         String sportName ="Cricket";
-        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+        String userID = ProfileUtils.getProfile().getUserID();
+
+        List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname,memberAccount,userID);
         AccountInfo accountInfo = DownLineListingUtils.getAccountInfoInList(lstUsers,memberAccount);
         String userCode = accountInfo.getUserCode();
        // String memberAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();
@@ -334,7 +331,7 @@ public class BetSettingListingTest extends BaseCaseMerito {
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(),downlineAccount);
         List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName,childID,"TODAY");
         Event event = eventList.get(0);
-        blockUnblockEventPage.blockUnblockEvent(downlineAccount,event.getEventName(),"Unblock Now","",1);
+       blockUnblockEventPage.blockUnblockEvent(downlineAccount,event.getEventName(),"Unblock Now","",1);
 
         BetSettingListingPage page = blockUnblockEventPage.clickSubMenu(AGENCY_MANAGEMENT, BET_SETTING_LISTING, BetSettingListingPage.class);
         HashMap<String, Boolean> sport = new HashMap<String, Boolean>() {
@@ -352,25 +349,38 @@ public class BetSettingListingTest extends BaseCaseMerito {
         page.enableSport(sport);
         List<ArrayList<String>> lstExpectedData = page.getBetSettingofAccount(sport);
         String min = lstExpectedData.get(0).get(8);
-       /* String max = lstExpectedData.get(1).get(1);
-        String maxLiabilyBeforeUpdate = lstExpectedData.get(2).get(1);*/
+        String max = lstExpectedData.get(1).get(1);
+        String maxLiabilyBeforeUpdate = lstExpectedData.get(2).get(1);
         int maxLiabilityOnMarket = (int) Double.parseDouble(min);
         lstExpectedData.get(2).set(1,StringUtils.formatCurrency( String.format("%.2f",(double)maxLiabilityOnMarket)));
-        page.updateBetSetting(memberAccount,-1,-1,maxLiabilityOnMarket,-1);
+        page.updateBetSetting(userCode,-1,-1,maxLiabilityOnMarket,-1);
 
+       /* Event event = new Event.Builder()
+                .id("31892018")
+                .eventName("Barbados v Jamaica")
+                .startTime(" 2022-11-08 14:00:00")
+                .inPlay(false)
+                .competitionName("Super50")
+                .countryCode("")
+                .countryName("")
+                .build();
+        String min = "10"*/;
        // List<ArrayList<String>> lstActualData = page.getBetSettingofAccount(sport);
         log("Step 2.Login member site with the player  in step 1");
         loginMember(memberAccount,password);
         SportPage sportPage = memberHomePage.navigateSportMenu(sportName,SportPage.class);
         event = sportPage.setEventLink(event);
-        event.getLinkEvent().click();
-        Market market = sportPage.marketContainerControl_SAT.getMarket(event, 1, true);
-        String odds = market.getBtnOdd().getText();
+        sportPage.clickEvent(event);
+        Market market = sportPage.marketContainerControl.getMarket(event,1,true);
         market.getBtnOdd().click();
+       /* event.getLinkEvent().click();
+        Market market = sportPage.marketContainerControl_SAT.getMarket(event, 1, true);*/
+        String odds = market.getBtnOdd().getText();
+
 
         log(String.format("Step 3. Place bet with odds:%s Stake: %s",odds,min));
-        int stake = (int) Double.parseDouble(min) + 1;
-        sportPage.betSlipControl.placeBet(odds, min);
+        int stake = ((int) Double.parseDouble(min)) + 1;
+        sportPage.betSlipControl.placeBet(odds, String.valueOf(stake));
 
         log(String.format("Verify 1: Verify cannot place bet if min bet less than the setting"));
         String actualError = sportPage.myBetControl.getPlaceBetErrorMessage();

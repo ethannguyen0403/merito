@@ -16,6 +16,7 @@ import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
 import membersite.utils.betplacement.FancyUtils;
 import membersite.utils.betplacement.WicketBookmakerUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class WicketBookmakerTest extends BaseCaseMerito {
      * 4/ Click on an odds of a Central Bookmaker market then place bet
      * @Expected 1. Can place bet
      */
+    @TestRails(id="535")
     @Test(groups = {"smoke"})
     public void WicketBookmakerTest_001(){
         log("@title: Validate can place bet on Central Bookmaker on Match odds market page");
@@ -92,6 +94,7 @@ public class WicketBookmakerTest extends BaseCaseMerito {
      * 4/ Click on an odds of a Bookmaker market then place bet with the stake less than min bet
      * @Expected 1. Can NOT place bet
      */
+    @TestRails(id="536")
     @Test(groups = {"smoke"})
     @Parameters({"isCredit"})
     public void WicketBookmakerTest_003(boolean isCredit){
@@ -143,6 +146,7 @@ public class WicketBookmakerTest extends BaseCaseMerito {
      * 4/ Click on an odds of a Bookmaker market then place bet with the stake greater than max bet
      * @Expected 1. Can NOT place bet
      */
+    @TestRails(id="537")
     @Test(groups = {"smoke"})
     public void WicketBookmakerTest_004(){
         log("@title: Verify Cannot place bet if stake greater than max bet");
@@ -194,6 +198,7 @@ public class WicketBookmakerTest extends BaseCaseMerito {
      * 4/ Click on an odds of a Bookmaker market then place bet with the stake  greater than available balance
      * @Expected 1. Can NOT place bet
      */
+    @TestRails(id="538")
     @Test(groups = {"smoke"})
     public void WicketBookmakerTest_005(){
         log("@title: Verify Cannot place bet if stake less is greater than availablie balance");
