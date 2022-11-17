@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import backoffice.pages.bo.marketmanagement.EventMarketStatusPage;
 import baseTest.BaseCaseMerito;
 import backoffice.utils.tools.EventMarketStatusUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class EventMarketStatusTest extends BaseCaseMerito{
      * @expect: 1. Verify sport display in the list
      *         2. The Competition display corresponding
      */
+    @TestRails(id = "605")
     @Test (groups = {"smoke"})
     public void BO_Market_ManagementEvent_Market_Status_001(){
         log("@title: Validate can search Sport");
@@ -60,6 +62,7 @@ public class EventMarketStatusTest extends BaseCaseMerito{
      *          5. Click on a Competition
      * @expect: 1. The events display corresponding when selecting competition
      **/
+    @TestRails(id = "606")
     @Test (groups = {"smoke"})
     public void BO_Market_ManagementEvent_Market_Status_002(){
         log("@title: Validate can search Competition ");
@@ -104,6 +107,7 @@ public class EventMarketStatusTest extends BaseCaseMerito{
      * @expect: 1. Verify Event display in the list
      *          2. The markets display corresponding
      **/
+    @TestRails(id = "607")
     @Test (groups = {"smoke"})
     public void BO_Market_ManagementEvent_Market_Status_003(){
         log("@title: Validate can search Event Name ");
@@ -153,6 +157,7 @@ public class EventMarketStatusTest extends BaseCaseMerito{
      * @expect: 1. Verify Event display in the list
      *          2. The markets display corresponding
      **/
+    @TestRails(id = "608")
     @Test (groups = {"smoke"})
     public void BO_Market_ManagementEvent_Market_Status_004(){
         log("@title: Validate can search market ID ");

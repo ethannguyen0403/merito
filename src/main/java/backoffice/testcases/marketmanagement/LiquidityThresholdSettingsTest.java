@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import backoffice.pages.bo.marketmanagement.LiquidityThresholdSettingsPage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
+
 public class LiquidityThresholdSettingsTest extends BaseCaseMerito{
 
     /**
@@ -17,6 +19,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseMerito{
      * @expect: 1 Confirm popup display with the title : Update - [Market Type] with  the message: Are you sure to set this non live to setting value ?
      * 2. Verify the confirm popup is closed and the setting is not affect
      */
+    @TestRails(id = "628")
     @Test (groups = {"smoke"})
     public void BO_Operations_Liquidity_Threshold_Setting_003(){
         log("@title: Validate confirm message display when input Non-live setting");
@@ -56,6 +59,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseMerito{
      * @expect: 1 Confirm popup display with the title : Update - [Market Type] with  the message: Are you sure to set this non live to setting value ?
      * 2. Verify the confirm popup is closed and the setting is not affect
      */
+    @TestRails(id = "629")
     @Test (groups = {"smoke"})
     public void BO_Operations_Liquidity_Threshold_Setting_004(){
         log("@title: Validate confirm message display when input Live setting");
@@ -95,6 +99,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseMerito{
      * 3. Login member site and check match odds market of event
      * @expect: 1. Verify odds is blur and unclick able if total matched value of match odds does not reach the setting
      */
+    @TestRails(id = "630")
     @Test (groups = {"smoke"})
     public void BO_Operations_Liquidity_Threshold_Setting_005(){
         log("@title: Validate odds is blur and unclick able when total match of the market not reach the setting for Non-live market");
@@ -125,6 +130,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseMerito{
      * 3. Login member site and check match odds market of event
      * @expect: 1. Verify odds is blur and unclick able if total matched value of match odds does not reach the setting
      */
+    @TestRails(id = "631")
     @Test (groups = {"smoke"})
     public void BO_Operations_Liquidity_Threshold_Setting_006(){
         log("@title: Validate odds is blur and unclick able when total match of the market not reach the setting for Live market");

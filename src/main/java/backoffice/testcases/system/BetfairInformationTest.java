@@ -5,6 +5,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import backoffice.pages.bo.system.BetFairInfoPage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 public class BetfairInformationTest extends BaseCaseMerito{
     /**
@@ -16,6 +17,7 @@ public class BetfairInformationTest extends BaseCaseMerito{
      *          3. Click Search button
      * @expect:  1. Verify Betfair Bet ID display according with merito bet id
      */
+    @TestRails(id = "658")
     @Test (groups = {"smoke"})
     @Parameters("env")
     public void BO_System_Betfair_Information_001(String env){

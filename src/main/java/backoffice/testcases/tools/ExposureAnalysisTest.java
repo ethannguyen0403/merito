@@ -5,6 +5,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import backoffice.pages.bo.tools.ExposureAnalysisPage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 public class ExposureAnalysisTest extends BaseCaseMerito{
 
@@ -16,6 +17,7 @@ public class ExposureAnalysisTest extends BaseCaseMerito{
      *          2. Input a account and click Analyze
      * @expected: 1. Verify account info is display correctly
      */
+    @TestRails(id = "599")
     @Test (groups = {"smoke"})
     @Parameters("satMemberLoginID")
     public void BO_Tools_Exposure_Analysis_001(String satMemberLoginID){
@@ -43,6 +45,7 @@ public class ExposureAnalysisTest extends BaseCaseMerito{
      * 4. Login member site and verify balance exposure
      * @expected: 1. Verify Balance, outstanding of the account is correctly display
      */
+    @TestRails(id = "600")
     @Test (groups = {"smoke"})
     @Parameters("satMemberLoginID")
     public void BO_Tools_Exposure_Analysis_002(String satMemberLoginID){
@@ -68,6 +71,7 @@ public class ExposureAnalysisTest extends BaseCaseMerito{
      *          2. Input a account and click Analyze
      * @expected: 1. Verify Correct exposure button display if Exposure different with Expected Exposure value otherwise the button does not display
      */
+    @TestRails(id = "601")
     @Test (groups = {"smoke"})
     @Parameters("satMemberLoginID")
     public void BO_Tools_Exposure_Analysis_003(String satMemberLoginID){

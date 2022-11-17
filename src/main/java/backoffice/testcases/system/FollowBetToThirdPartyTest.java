@@ -7,6 +7,7 @@ import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo._components.ConfirmPopup;
 import backoffice.pages.bo.system.FollowBetToThirdPartyPage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 public class FollowBetToThirdPartyTest extends BaseCaseMerito{
 
@@ -21,6 +22,7 @@ public class FollowBetToThirdPartyTest extends BaseCaseMerito{
      * @expect: 1. Add user success
      *          2. Confirm remove user is display and  message "Remove user success" display after that then account is removed out the list
      */
+    @TestRails(id = "647")
     @Test (groups = {"smoke"})
     @Parameters({"followBetAccount"})
     public void BO_System_Follow_Bet_To_Third_Party_002(String followBetAccount){

@@ -7,6 +7,7 @@ import com.paltech.constant.Helper;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 public class CurrencyCountryMappingTest extends BaseCaseMerito {
 
@@ -18,6 +19,7 @@ public class CurrencyCountryMappingTest extends BaseCaseMerito {
      * @expect: 1. Verify UI of Currencies and Countries section is correctly
      * 2. Save button is disable
      */
+    @TestRails(id = "656")
     @Test (groups = {"smoke"})
     public void BO_System_Currency_Country_Mapping_001(){
         log("@title: Validate UI display correctly when access Currency Country Mapping");
@@ -50,6 +52,7 @@ public class CurrencyCountryMappingTest extends BaseCaseMerito {
      *          3. Verify can unmap IP successfully
      *          4. Can not login from IT test country IP when unmapping
      */
+    @TestRails(id = "657")
     @Test (groups = {"smoke"})
     @Parameters({"fsMemberLoginID","username","password"})
     public void BO_System_Currency_Country_Mapping_004(String fsMemberLoginID, String username, String password) throws Exception {

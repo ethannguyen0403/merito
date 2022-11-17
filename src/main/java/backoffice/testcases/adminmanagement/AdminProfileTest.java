@@ -7,6 +7,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo.adminmanagement.AdminProfilePage;
+import util.testraildemo.TestRails;
 
 
 public class AdminProfileTest extends BaseCaseMerito {
@@ -22,6 +23,7 @@ public class AdminProfileTest extends BaseCaseMerito {
      *              - Login ID, User Code, Name, Email
      *          2. Message: Update success display
      */
+    @TestRails(id = "638")
     @Test (groups = {"smoke"})
     @Parameters({"username","password"})
     public void BO_Admin_Management_Admin_Profile_001(String username, String password) throws Exception {

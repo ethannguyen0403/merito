@@ -10,6 +10,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo.accountmanagement.ReopenUserPage;
+import util.testraildemo.TestRails;
+
 import java.util.List;
 
 public class ReopenUserTest extends BaseCaseMerito {
@@ -26,6 +28,7 @@ public class ReopenUserTest extends BaseCaseMerito {
      *          2. Button Active is disable
      *          3. Account is active in agent site
      */
+    @TestRails(id = "617")
     @Test (groups = {"smoke"})
     @Parameters({"satSADAgentLoginID","memberPassword","username","password","brandname"})
     public void BO_MM_Reopen_User_001(String satSADAgentLoginID,String memberPassword,String username, String password,String brandname) throws Exception {

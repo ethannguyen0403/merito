@@ -5,6 +5,7 @@ import baseTest.BaseCaseMerito;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import backoffice.pages.bo.system.CurrencyManagementPage;
+import util.testraildemo.TestRails;
 
 
 public class CurrencyManagementTest extends BaseCaseMerito {
@@ -18,6 +19,7 @@ public class CurrencyManagementTest extends BaseCaseMerito {
      * - Save button disable by default
      * - Table header : From currency, Target Currency, Currency Rate, Pending Rate, Note
      */
+    @TestRails(id = "659")
     @Test (groups = {"smoke"})
     public void BO_System_Currency_Management_001(){
         log("@title: Validate default UI in the page is correctly");

@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import backoffice.pages.bo.operations.PerformancePage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class PerformanceTest extends BaseCaseMerito{
      * @steps: 1. Access Reports > Performance
      * @expect: 1. Verify UI after clicking on Create/Manage Lines display correctly
      */
+    @TestRails(id = "639")
     @Test (groups = {"smoke"})
     public void BO_Report_Performance_002(){
         log("@title: Validate UI correctly when click Create New Line button");
@@ -69,6 +71,7 @@ public class PerformanceTest extends BaseCaseMerito{
      * @steps: 1. Access Reports > Performance
      * @expect: 1. UI on Performance page is correct
      */
+    @TestRails(id = "640")
     @Test (groups = {"smoke"})
     public void BO_Report_Performance_003(){
         log("@title: Validate UI correctly");

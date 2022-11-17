@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import backoffice.pages.bo.settlement.FancyResultPage;
 import baseTest.BaseCaseMerito;
 import backoffice.utils.settlement.FancyResultUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class FancyResultTest extends BaseCaseMerito{
      *           2. Click Search button
      * @expect:  1. There is no http responded error returned
      */
+    @TestRails(id = "591")
     @Test (groups = {"http_request"})
     public void BO_Settlement_FancyResult_003(){
         log("@title: There is no http responded error returned");
@@ -41,6 +43,7 @@ public class FancyResultTest extends BaseCaseMerito{
      * @expect:  1. Items on Event dropdown-box are loaded correctly
      *           2. Column names on this table are correct
      */
+    @TestRails(id = "593")
     @Test (groups = {"smoke"})
     public void BO_Settlement_Fancy_Result_002(){
         log("@title: Validate that this page loading is successful");
@@ -74,6 +77,7 @@ public class FancyResultTest extends BaseCaseMerito{
      *           2. Filter Market name
      * @expect:  1. Data within Market Name - Status column returned is correct
      */
+    @TestRails(id = "592")
     @Test (groups = {"smoke"})
     public void BO_Settlement_Fancy_Result_001(){
         log("@title: Validate that this page loading is successful");

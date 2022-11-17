@@ -10,6 +10,7 @@ import backoffice.pages.bo.marketmanagement.FindBlockedMarketPage;
 import baseTest.BaseCaseMerito;
 import backoffice.utils.tools.EventMarketStatusUtils;
 import backoffice.utils.tools.FindBlockedMarketUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class FindBlockedMarketTest extends BaseCaseMerito{
      *          3.Input username, Event ID, Market ID and click search button
      * @expected: 1. Verify market info display correctly
      */
+    @TestRails(id = "609")
     @Test (groups = {"smoke"})
     @Parameters("satMemberLoginID")
     public void BO_Tools_Find_Blocked_Market_001(String satMemberLoginID){
@@ -70,6 +72,7 @@ public class FindBlockedMarketTest extends BaseCaseMerito{
      *          5. Login agent the level control blocking > Block/Unblock Event
      * @expect: 1. Verify status in agent site is match with Find Blocked Market Page
      */
+    @TestRails(id = "610")
     @Test (groups = {"smoke"})
     @Parameters({"satMemberLoginID","memberPassword","satSADAgentLoginID","downlineSADAccount"})
     public void BO_Tools_Find_Blocked_Market_002(String satMemberLoginID,String memberPassword,String satSADAgentLoginID, String downlineSADAccount) throws Exception {

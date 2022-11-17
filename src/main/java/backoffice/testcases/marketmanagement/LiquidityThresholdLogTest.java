@@ -8,6 +8,8 @@ import backoffice.pages.bo.marketmanagement.LiquidityThresholdLogPage;
 import backoffice.pages.bo.marketmanagement.components.LiquidityThresholdLogPopup;
 import baseTest.BaseCaseMerito;
 import backoffice.utils.tools.LiquidityThresholdLogUltils;
+import util.testraildemo.TestRails;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class LiquidityThresholdLogTest extends BaseCaseMerito{
      * @expect: 1. Verify account is display with correct data
      *          2. View log data match with view login get in agent site
      */
+    @TestRails(id = "626")
     @Test (groups = {"smoke"})
     @Parameters({"companyAccount"})
     public void BO_Market_Management_Liquidity_Threshold_log_001(String companyAccount){
@@ -60,6 +63,7 @@ public class LiquidityThresholdLogTest extends BaseCaseMerito{
      *          2. Input the username in precondition and click search button
      * @expect: 1. Verify message No record found
      */
+    @TestRails(id = "627")
     @Test (groups = {"smoke"})
     @Parameters("BO_Market_Management_Liquidity_Threshold_log_002")
     public void BO_Market_Management_Liquidity_Threshold_log_002(String BO_Market_Management_Liquidity_Threshold_log_002){

@@ -3,6 +3,7 @@
 <suite name="BO_GREEN_Smoke" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+        <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
     <test name="BO_Smoke_Chrome">

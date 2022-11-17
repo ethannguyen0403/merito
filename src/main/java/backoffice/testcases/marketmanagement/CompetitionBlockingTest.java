@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import backoffice.pages.bo.marketmanagement.CompetitionBlockingPage;
 import baseTest.BaseCaseMerito;
 import backoffice.utils.operations.CompetitionBlockingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class CompetitionBlockingTest extends BaseCaseMerito{
      * @expect: 1. Verify UI is completed load
      *          2. The competition is unblock by default
      */
+    @TestRails(id = "625")
     @Test (groups = {"smoke"})
     public void BO_Market_Management_Competition_Blocking_001(){
         log("@title: Validate default UI is loaded and competition is unblocked by default");
