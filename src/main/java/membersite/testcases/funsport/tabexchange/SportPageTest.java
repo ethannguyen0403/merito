@@ -20,7 +20,7 @@ public class SportPageTest extends BaseCaseMerito {
     public void SportPageTest_001(){
         log("@title: Validate title is correct when clicking on Soccer");
 
-        log("Step1: 1. Click on Soccerr");
+        log("Step1: 1. Click on Soccer");
         SportPage page = memberHomePage.navigateSoccer();
 
         log("Step 1. Verify title is sport betting markets");

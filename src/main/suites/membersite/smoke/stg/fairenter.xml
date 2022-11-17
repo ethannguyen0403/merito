@@ -3,6 +3,7 @@
 <suite name="FAIRENTER_GREEN_SMOKE_TEST" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+        <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
     <test name="FAIR999_Smoke_Chrome">

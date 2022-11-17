@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +26,7 @@ public class PlaceBetOnSportPageTest extends BaseCaseMerito {
      *          5. Liability on My Bet and on Bet Slip is the same
      *          6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id = "569")
     @Test(groups = {"smoke"})
     public void Place_Bet_Sport_Page_TC_001(){
         log("@title: Validate that user can place a bet with HOME - BACK successfully");
@@ -79,6 +81,7 @@ public class PlaceBetOnSportPageTest extends BaseCaseMerito {
      *          5. Liability on My Bet and on Bet Slip is the same
      *          6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id = "570")
     @Test (groups = {"smoke"})
     public void Place_Bet_Sport_Page_TC_002(){
         log("@title: Validate that user can place a bet with HOME - LAY successfully");
@@ -132,6 +135,7 @@ public class PlaceBetOnSportPageTest extends BaseCaseMerito {
      *          5. Liability on My Bet and on Bet Slip is the same
      *          6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id = "571")
     @Test (groups = {"smoke"})
     public void Place_Bet_Sport_Page_TC_003(){
         log("@title: Validate that user can place a bet with DRAW-BACK successfully");
@@ -185,6 +189,7 @@ public class PlaceBetOnSportPageTest extends BaseCaseMerito {
      *          5. Liability on My Bet and on Bet Slip is the same
      *          6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id = "572")
     @Test (groups = {"smoke"})
     public void Place_Bet_Sport_Page_TC_004(){ log("@title: Validate that user can place a bet with DRAW-LAY successfully");
         boolean isBack = false;
@@ -237,6 +242,7 @@ public class PlaceBetOnSportPageTest extends BaseCaseMerito {
      *          5. Liability on My Bet and on Bet Slip is the same
      *          6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id = "573")
     @Test (groups = {"smoke"})
     public void Place_Bet_Sport_Page_TC_005(){
         log("@title: Validate that user can place a bet with AWAY-BACK successfully");
@@ -291,6 +297,7 @@ public class PlaceBetOnSportPageTest extends BaseCaseMerito {
      *          5. Liability on My Bet and on Bet Slip is the same
      *          6. Profit on My Bet and on Bet Slip is the same
      */
+    @TestRails(id = "574")
     @Test (groups = {"smoke"})
     public void Place_Bet_Sport_Page_TC_006(){
         log("@title: Validate that user can place a bet with AWAY-LAY successfully");

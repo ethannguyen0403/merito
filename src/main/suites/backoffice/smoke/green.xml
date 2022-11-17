@@ -3,9 +3,10 @@
 <suite name="BO_GREEN_Smoke" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+        <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
-    <test name="BO_Smoke_Chrome">
+    <test name="Backoffice PRO Smoke">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='green'/>
         <parameter name='language' value='en'/>

@@ -426,7 +426,7 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-
+    @TestRails(id = "996")
     @Test (groups = {"smoke"})
     public void Place_Bet_Market_Page_TC_009() throws InterruptedException {
         log("@title: Verify info of unmatched bet in Mini My bet is correctly");
@@ -459,7 +459,7 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
         log("Step 4: Input stake and place this bet");
         selectedOdd = marketPage.betSlipControlOldUI.placeBet(selectedOdd, minBet);
 
-        log("Verify 1: Verify UI when have an unmatched bet displayed");
+        log("Verify 1: Verify Bet Slip UI when have an unmatched bet displayed");
         Assert.assertFalse(page.betSlipControl.btnPlaceBet.isDisplayed(),"FAILED! Bet Slip not empty after place bet");
         Assert.assertTrue(page.myBetControl.isBetUnmatched(),"Failed! Unmatched section does not display");
         Assert.assertTrue(page.myBetControl.btnCancelAllUnmatched.isDisplayed(),"Failed! Cancel unmatched button does not display after placing an unmatched bet");
@@ -487,7 +487,7 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
             page.myBetControl.cancelAllBetUnmatched();
         }
     }
-
+    @TestRails(id = "997")
     @Test (groups = {"smoke"})
     public void Place_Bet_Market_Page_TC_010() throws InterruptedException {
         log("@title: Can update unmatched bet");
@@ -537,10 +537,10 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
             List<SelectedOdd> lstWagersUnmatched = page.myBetControl.getWagersUnmatched(isBack, 2);
             Assert.assertTrue((lstWagersUnmatched.size()==2), "ERROR: lstWagers size is less than 2");
 
-            log(String.format("Verify 2: Verify there is 2 unmatched bets the first bet with stake %s and the second bet with old stake %s",addedStake,minBet));
-            log("Verify 2.1: Odds is display correct");
-            log("Verify 2.2: Stake is correctly");
-            log("Verify 2.3: Profit of Back bet is correctly");
+            log(String.format("Verify 1: Verify there is 2 unmatched bets the first bet with stake %s and the second bet with old stake %s",addedStake,minBet));
+            log("Verify 1.1: Odds is display correct");
+            log("Verify 1.2: Stake is correctly");
+            log("Verify 12.3: Profit of Back bet is correctly");
             log("Verify First unmatched bet info");
             Assert.assertEquals(lstWagersUnmatched.get(0).getSelectedTeam(), selectedOdd.getSelectedTeam(),"FAILED! Selection is incorrect");
             Assert.assertEquals(lstWagersUnmatched.get(0).getOddRate() , oddsUpdate, "ERROR: Odds on my bet is incorrect");
@@ -559,8 +559,8 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
             page.myBetControl.cancelAllBetUnmatched();
         }
     }
-
-    @Test (groups = {"smoke11"})
+    @TestRails(id = "998")
+    @Test (groups = {"regression"})
     public void Place_Bet_Market_Page_TC_011() throws InterruptedException {
         log("@title: Exposure and Liability is kept correctly when place unmatched bet");
         boolean isBack = true;
@@ -610,29 +610,13 @@ public class PlaceBetOnMarketPageTest extends BaseCaseMerito {
             List<SelectedOdd> lstWagersUnmatched = page.myBetControl.getWagersUnmatched(isBack, 2);
             Assert.assertTrue((lstWagersUnmatched.size()==2), "ERROR: lstWagers size is less than 2");
 
-            log("Verify 2: Verify bet info in umatched bet is correct");
-            log("Verify 2.1: Odds is display correct");
-            log("Verify 2.2: Stake is correctly");
-            log("Verify 2.3: Profit of Back bet is correctly");
-            log("Verify First unmatched bet info");
-            Assert.assertEquals(lstWagersUnmatched.get(0).getSelectedTeam(), selectedOdd.getSelectedTeam(),"FAILED! Selection is incorrect");
-            Assert.assertEquals(lstWagersUnmatched.get(0).getOddRate() , oddsUpdate, "ERROR: Odds on my bet is incorrect");
-            Assert.assertEquals(lstWagersUnmatched.get(0).getStake(), addedStake, "ERROR: Stake on my bet is incorrect");
-            Assert.assertEquals(lstWagersUnmatched.get(0).getProfit(), profitNeUnmatchedBet,"ERROR: The profit my bet is incorrect");
-
-            log("Verify Second unmatched bet info");
-            Assert.assertEquals(lstWagersUnmatched.get(1).getSelectedTeam(), selectedOdd.getSelectedTeam(),"FAILED! Selection is incorrect");
-            Assert.assertEquals(lstWagersUnmatched.get(1).getOddRate(), oddsUpdate, "ERROR: Odds on my bet is incorrect");
-            Assert.assertEquals(lstWagersUnmatched.get(1).getStake(), minBet, "ERROR: Stake on my bet is incorrect");
-            Assert.assertEquals(lstWagersUnmatched.get(1).getProfit(),selectedOdd.getProfit(),"ERROR: The profit my bet is incorrect");
-
-           /* List<Wager> lstOrders = BetUtils.getListMatchedandUnmatchedWager("cricket","31519717","200096656");
-        List<Wager> lstOrders = BetUtils.getListMatchedandUnmatchedWager("cricket","31519711","200097713");
+            List<Wager> lstOrders = BetUtils.getListMatchedandUnmatchedWager("cricket","31519717","200096656");
+       // List<Wager> lstOrders = BetUtils.getListMatchedandUnmatchedWager("cricket","31519711","200097713");
         List<String> lstRunner = BetUtils.getListSelectionsofMarket("31519717","200097713");
         List<ArrayList<String>> lstForecast1 = BetUtils.getProfitandLiabilityBySelection(lstOrders,lstRunner);
-        List<ArrayList<String>> lstForecast= BetUtils.calculateForecast(lstForecast1);*/
-            //  log("Verify 3: Verify Balance and exposure is correctly after place unmatched bet");
-            //   AccountBalance balanceAfter = BetUtils.getUserBalance(true);
+        List<ArrayList<String>> lstForecast= BetUtils.calculateForecast(lstForecast1);
+             log("Verify 3: Verify Balance and exposure is correctly after place unmatched bet");
+       // AccountBalance balanceAfter = BetUtils.getUserBalance(true);
 
             log("INFO: Executed completely");
         }
