@@ -10,6 +10,7 @@ import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo._components.AppConfirmPopup;
 import backoffice.pages.bo.accountmanagement.APIPlayerPage;
 import backoffice.utils.tools.APIPlayerUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class APIPlayerTest extends BaseCaseMerito {
      * @expect: 1. Verify the message "User [loginId] has been added successful" and the player is added into the list
      *          2. Verify the message "User [loginId] has been removed successful" and the player is removed out the list
      */
+    @TestRails(id = "618")
     @Test (groups = {"smoke"})
     @Parameters({"satMemberLoginID"})
     public void   BO_Tools_API_Player_001(String satMemberLoginID){
@@ -65,6 +67,7 @@ public class APIPlayerTest extends BaseCaseMerito {
      * @expect: 1. Verify can login api when account is added
      *          2. Verify cannot login api when account is removed
      **/
+    @TestRails(id = "619")
     @Test (groups = {"smoke"})
     @Parameters({"satMemberLoginID","memberPassword"})
     public void BO_Tools_API_Player_003(String satMemberLoginID, String memberPassword) throws Exception {

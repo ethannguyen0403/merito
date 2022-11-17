@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import backoffice.pages.bo.settlement.WagerResettlementPage;
 import baseTest.BaseCaseMerito;
 import backoffice.utils.settlement.WagerResettlementUltils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class WagerResettlementTest extends BaseCaseMerito{
      * - Wager ID textbox, Product dropdown, Search button
      * - Table header: Wager ID, Selection Name, External Account, External ID, Stake (Original | Matched), Black/Lay, Odds, Currency, Created Date, Handicap, Status(FairExchange|Betfair), Result (FairExchange|Betfair), Action
      */
+    @TestRails(id = "594")
     @Test (groups = {"smoke"})
     public void BO_Settlement_Wager_Resettlement_001(){
         log("@title: Validate UI in Resettlement display correctly");
@@ -54,6 +56,7 @@ public class WagerResettlementTest extends BaseCaseMerito{
      * Then click Search
      * @expect:  1. Data is display, Resettle button display in Action column
      */
+    @TestRails(id = "595")
     @Test (groups = {"smoke"})
     @Parameters({"wagerID"})
     public void BO_Settlement_Wager_Resettlement_002(String wagerID){

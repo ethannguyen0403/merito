@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import backoffice.pages.bo.system.ProviderCurrencyMappingPage;
 import baseTest.BaseCaseMerito;
 import backoffice.utils.tools.ProviderCurrencyMappingUltils;
+import util.testraildemo.TestRails;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseMerito{
      *          2. Check provider currency mapping of Ezugi
      * @expect: 1. Verify Ezugi provider currency is corrected
      */
+    @TestRails(id = "651")
     @Test (groups = {"smoke"})
     public void BO_System_Provider_Currency_Mapping_001(){
         log("@title: Validate data in Ezugi display correctly");
@@ -39,6 +42,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseMerito{
      *          2. Check provider currency mapping of 27 Fancy
      * @expect: 1. Verify 27 Fancy provider currency is corrected
      */
+    @TestRails(id = "652")
     @Test (groups = {"smoke"})
     public void BO_System_Provider_Currency_Mapping_002(){
         log("@title: Validate data in 27 Fancy display correctly");
@@ -60,6 +64,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseMerito{
      *          2. Check provider currency mapping of Superspade
      * @expect: 1. Verify Superspade provider currency is corrected
      */
+    @TestRails(id = "653")
     @Test (groups = {"smoke"})
     public void BO_System_Provider_Currency_Mapping_003(){
         log("@title: Validate data in Superspade display correctly");
@@ -81,6 +86,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseMerito{
      *          2. Check provider currency mapping of Digient
      * @expect: 1. Verify Digient provider currency is corrected
      */
+    @TestRails(id = "654")
     @Test (groups = {"smoke"})
     public void BO_System_Provider_Currency_Mapping_004(){
         log("@title: Validate data in Digient display correctly");
@@ -101,6 +107,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseMerito{
      *          2. Check provider currency mapping of Supernowa
      * @expect: 1. Verify Supernowa provider currency is corrected
      */
+    @TestRails(id = "655")
     @Test (groups = {"smoke"})
     public void BO_System_Provider_Currency_Mapping_005(){
         log("@title: Validate data in Supernowa display correctly");

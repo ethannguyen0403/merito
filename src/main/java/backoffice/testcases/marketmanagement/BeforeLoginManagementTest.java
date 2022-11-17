@@ -6,6 +6,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo.marketmanagement.BeforeLoginManagementPage;
+import util.testraildemo.TestRails;
+
 import java.util.List;
 
 public class BeforeLoginManagementTest extends BaseCaseMerito {
@@ -162,6 +164,7 @@ public class BeforeLoginManagementTest extends BaseCaseMerito {
      * 2. Select a sport : Cricket
      * 3. Input a market type and press enter : e.g: Fancy
      * @expect: 1. Verify the market list will contain all markets type contain search key */
+    @TestRails(id = "632")
     @Test (groups = {"smoke"})
     public void BO_Operations_Before_Login_Management_003(){
         log("@title: Validate can search market type");

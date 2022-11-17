@@ -5,6 +5,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import backoffice.pages.bo.settlement.ResettlementLogPage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class ResettlementLogTest extends BaseCaseMerito{
      *           4.Click search button
      * @expect: 1. Verify the display log when search by Wager ID
      */
+    @TestRails(id = "596")
     @Test (groups = {"smoke"})
     public void BO_Settlement_Resettlement_Log_001(){
         log("@title: Validate can search log by Wager ID");
@@ -51,6 +53,7 @@ public class ResettlementLogTest extends BaseCaseMerito{
      *              Click search
      * @expect: 1. Verify the event/market display log
      */
+    @TestRails(id = "597")
     @Test (groups = {"smoke"})
     public void BO_Settlement_Resettlement_Log_002(){
         log("@title:Validate can search log by Event/Market");
@@ -91,6 +94,7 @@ public class ResettlementLogTest extends BaseCaseMerito{
      *              Click search
      * @expect: 1. Verify display resettle log of that account that have data
      */
+    @TestRails(id = "598")
     @Test (groups = {"smoke"})
     @Parameters({"satMemberLoginID"})
     public void BO_Settlement_Resettlement_Log_003(String satMemberLoginID){

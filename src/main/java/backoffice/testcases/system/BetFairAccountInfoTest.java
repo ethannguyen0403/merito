@@ -7,6 +7,7 @@ import backoffice.pages.bo.system.BetFairAccountInfoPage;
 import backoffice.pages.bo.system.productmaintenance.BetFairAccountChangeLogPopup;
 import baseTest.BaseCaseMerito;
 import backoffice.utils.tools.BetFairAccountInfoUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class BetFairAccountInfoTest extends BaseCaseMerito{
      * @expect: 1.  Verify header table is correctly
      *          2.Verify has data of BetFair account
      */
+    @TestRails(id = "648")
     @Test (groups = {"smoke"})
     public void BO_System_BetFair_Account_Info_001(){
         log("@title: Validate Betfair account info is display correctly");
@@ -49,6 +51,7 @@ public class BetFairAccountInfoTest extends BaseCaseMerito{
      * @expect: 1. Verify can open Log for exchange and exchange Game product.
      *          2. Available Balance, Current exposure match with the latest row in Change Log popup
      **/
+    @TestRails(id = "649")
     @Test (groups = {"smoke"})
     public void BO_System_BetFair_Account_Info_002(){
         log("@title: Validate can view Log of exchange and exchange game");

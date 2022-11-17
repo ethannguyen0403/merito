@@ -10,6 +10,7 @@ import com.paltech.utils.DateUtils;
 import membersite.objects.sat.Event;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +31,7 @@ public class   LiveStreamingManagementTest extends BaseCaseMerito{
      *          2. Verify Table header display : Start date, Fair Competition, Fair Event Name, Provider Competition, Provider Event Name
      *          3. Auto mapping popup is disappear
      */
+    @TestRails(id = "641")
     @Test (groups = {"smoke"})
     public void BO_Operations_Live_Streaming_Management_002(){
         log("@title: Validate Auto Mapping popup data display");
@@ -70,6 +72,7 @@ public class   LiveStreamingManagementTest extends BaseCaseMerito{
      *     +The 2 selected events have different open dates.
      *          4. Confirm popup is closed and the 2 event is not mapped
      */
+    @TestRails(id = "642")
     @Test (groups = {"smoke"})
     public void BO_Operations_Live_Streaming_Management_003(){
         log("@title: Validate map confirmation info is display correctly");

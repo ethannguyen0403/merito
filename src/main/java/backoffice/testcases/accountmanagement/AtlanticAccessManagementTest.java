@@ -9,6 +9,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo.accountmanagement.AtlanticAccessManagementPage;
+import util.testraildemo.TestRails;
 
 public class AtlanticAccessManagementTest extends BaseCaseMerito {
 
@@ -20,6 +21,7 @@ public class AtlanticAccessManagementTest extends BaseCaseMerito {
      *          2. Input a player that not belonging to Fairenter and click Add button
      * @expect: 1. Verify message display "User [account] is not in Fairenter brand"
      */
+    @TestRails(id = "622")
     @Test (groups = {"smoke"})
     @Parameters("satMemberLoginID")
     public void BO_Account_Management_Atlantic_Access_Management_001(String satMemberLoginID){
@@ -54,6 +56,7 @@ public class AtlanticAccessManagementTest extends BaseCaseMerito {
      *          3. Verify the message "Delete user Atlantic success!" and the agent is removed
      *          4. Verify cannot login Atlantic site when account is deleted form Atlantic Access Management page
      */
+    @TestRails(id = "623")
     @Test (groups = {"smoke"})
     @Parameters({"username","password","atlanticAccount","memberPassword"})
     public void BO_Account_Management_Atlantic_Access_Management_003(String username, String password, String atlanticAccount, String memberPassword) throws Exception {
@@ -112,6 +115,7 @@ public class AtlanticAccessManagementTest extends BaseCaseMerito {
      * @expect: 1. Verify cannot login Fairenter if account is added in Atlantic list
      *          2. Can login Fairenter when the account is removed out Atlantice list
      */
+    @TestRails(id = "624")
     @Test (groups = {"smoke"})
     @Parameters({"username","atlanticAccount","password","memberPassword"})
     public void BO_Account_Management_Atlantic_Access_Management_004(String username,String atlanticAccount, String password,String memberPassword) throws Exception {

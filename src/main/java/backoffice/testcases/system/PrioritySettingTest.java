@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import backoffice.pages.bo.system.BetFairInfoPage;
 import backoffice.pages.bo.system.PrioritySettingsPage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class PrioritySettingTest extends BaseCaseMerito{
      *          3. UI is display correctly when select Market
      *          4. UI is display correctly when select Country Races  and verify the list sports only contains Horse racing and Greyhound Racing
      */
+    @TestRails(id = "660")
     @Test (groups = {"smoke"})
     public void BO_System_Priority_Settings_001(){
         log("@title: Validate UI display correctly when access Priority Settings");
@@ -75,6 +77,7 @@ public class PrioritySettingTest extends BaseCaseMerito{
      *          3. Input sport in search sport textbox: Racing
      * @expect: 1. The list display 2 sports contains search key : Horse Racing and Greyhound Racing
      */
+    @TestRails(id = "661")
     @Test (groups = {"smoke"})
     public void BO_System_Priority_Settings_002(){
         log("@title: Validate can search Sport");
@@ -103,6 +106,7 @@ public class PrioritySettingTest extends BaseCaseMerito{
      *          4. Input competition in search textbox
      * @expect: 1. Verify the competition display in the list
      */
+    @TestRails(id = "662")
     @Test (groups = {"smoke"})
     public void BO_System_Priority_Settings_003(){
         log("@title: Validate can search Competition");
@@ -134,6 +138,7 @@ public class PrioritySettingTest extends BaseCaseMerito{
      *          4. Input Market type in the search Market Type textbox
      * @expect: 1. Verify the list market type display in the list
      */
+    @TestRails(id = "663")
     @Test (groups = {"smoke"})
     public void BO_System_Priority_Settings_004(){
         log("@title: Validate can search Market");
@@ -165,6 +170,7 @@ public class PrioritySettingTest extends BaseCaseMerito{
      *          4. Input Market type in the search Market Type textbox
      * @expect: 1. Verify the list market type display in the list
      */
+    @TestRails(id = "664")
     @Test (groups = {"smoke"})
     public void BO_System_Priority_Settings_005(){
         log("@title: Validate can search Country Races");
@@ -197,7 +203,8 @@ public class PrioritySettingTest extends BaseCaseMerito{
      * @expect: 1. Verify All brands are displayed on the dropdown box
      *          2. Verify All brands are disappeared on the dropdown box, Select brand text is display instead
      */
-    @Test (groups = {"regression"})
+    @TestRails(id = "665")
+    @Test (groups = {"smoke"})
     public void BO_System_Priority_Settings_006(){
         log("@title: Validate select Brand works");
 
@@ -223,6 +230,7 @@ public class PrioritySettingTest extends BaseCaseMerito{
      *          4. Input a  brand and select the filtered result
      * @expect: 1. Verify the brand is added
      */
+    @TestRails(id = "666")
     @Test (groups = {"smoke"})
     public void BO_System_Priority_Settings_007(){
         log("@title: Validate can search and select a brand");
@@ -253,6 +261,7 @@ public class PrioritySettingTest extends BaseCaseMerito{
      *          5. Login member site and verify sport is correctly priority
      * @expect: 1. Verify the sport menu in main menu is correctly priority
      */
+    @TestRails(id = "667")
     @Test (groups = {"smoke"})
     @Parameters({"satMemberLoginID","memberPassword"})
     public void BO_System_Priority_Settings_008(String satMemberLoginID, String memberPassword) throws Exception {
@@ -291,6 +300,7 @@ public class PrioritySettingTest extends BaseCaseMerito{
      *          5. Access member site before login SAT and verify competition is correctly priority
      * @expect: 1. Login member site and verify Competition of Soccer is correctly priority
      */
+    @TestRails(id = "668")
     @Test (groups = {"smoke"})
     public void BO_System_Priority_Settings_009() throws Exception {
         log("@title: Validate Competition priority  on member site is correctly displayed");
@@ -327,6 +337,7 @@ public class PrioritySettingTest extends BaseCaseMerito{
      *          5. Login member site and verify sport is correctly priority
      * @expect: 1. Verify left menu Market under Sport is prioritized
      */
+    @TestRails(id = "669")
     @Test (groups = {"smoke"})
     public void BO_System_Priority_Settings_010() throws Exception {
         log("@title: Validate Market priority on member site is correctly displayed");

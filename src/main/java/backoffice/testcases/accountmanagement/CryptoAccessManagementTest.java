@@ -7,6 +7,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo.accountmanagement.CryptoAccessManagementPage;
+import util.testraildemo.TestRails;
+
 public class CryptoAccessManagementTest extends BaseCaseMerito {
 
     /**
@@ -17,6 +19,7 @@ public class CryptoAccessManagementTest extends BaseCaseMerito {
      *         2. Input a player that not belonging to Funsport and click Add button
      * @expect: 1. Verify message display "User [account] is not in Funsport brand"
      */
+    @TestRails(id = "620")
     @Test (groups = {"smoke"})
     @Parameters("satMemberLoginID")
     public void BO_Account_Management_Crypto_Access_Management_001(String satMemberLoginID){
@@ -44,6 +47,7 @@ public class CryptoAccessManagementTest extends BaseCaseMerito {
      *          3. Access Crypto site and login
      * @expect: 1. Verify can login crypto site with the account in the list
      */
+    @TestRails(id = "621")
     @Test (groups = {"smoke"})
     @Parameters({"cryptoAccount","password"})
     public void BO_Account_Management_Crypto_Access_Management_002(String cryptoAccount, String password) throws Exception {

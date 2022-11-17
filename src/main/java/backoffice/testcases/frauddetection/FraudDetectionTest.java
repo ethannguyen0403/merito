@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import backoffice.pages.bo.frauddetection.FraudDetectionPage;
 import baseTest.BaseCaseMerito;
 import backoffice.utils.FraudDetection.FraudDetectionUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class FraudDetectionTest extends BaseCaseMerito{
      * Click Search
      * @expect: 1. Data will display if the event have fraud bet, otherwise display the message "No record found"
      */
+    @TestRails(id = "602")
     @Test (groups = {"smoke"})
     public void BO_Fraud_Detection_001(){
         log("@title: Validate can search fraud by Event Date");
@@ -78,6 +80,7 @@ public class FraudDetectionTest extends BaseCaseMerito{
      * Click Search
      * @expect: 1. Data will display if the event have fraud bet, otherwise display the message "No record found"
      */
+    @TestRails(id = "603")
     @Test (groups = {"smoke"})
     public void BO_Fraud_Detection_002(){
         log("@title: Validate can search fraud by Event Date");

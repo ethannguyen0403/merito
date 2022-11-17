@@ -5,6 +5,7 @@ import baseTest.BaseCaseMerito;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import backoffice.pages.bo.frauddetection.OddsMatchedHistoryPage;
+import util.testraildemo.TestRails;
 
 public class OddsMatchedHistoryTest extends BaseCaseMerito {
 
@@ -39,6 +40,7 @@ public class OddsMatchedHistoryTest extends BaseCaseMerito {
      * @steps: 1. Access Fraud Detection > Odds Matched History
      * @expect: 1. Verify UI is display correctly
      */
+    @TestRails(id = "604")
     @Test (groups = {"smoke"})
     public void BO_BO_Fraud_Detection_Odds_Matched_History_002(){
         log("@title: Validate UI is correct");

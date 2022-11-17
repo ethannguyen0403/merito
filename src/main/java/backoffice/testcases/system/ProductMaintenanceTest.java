@@ -10,6 +10,7 @@ import com.paltech.constant.Helper;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class ProductMaintenanceTest extends BaseCaseMerito{
      * @steps:   1. Navigate System > Product Maintenance
      * @expect:  1. Product names and status displays correctly
      */
+    @TestRails(id = "635")
     @Test (groups = {"smoke"})
     public void BO_System_ProductMaintenance_001(){
         log("@title: Validate that product names and status displays correctly");
@@ -53,6 +55,7 @@ public class ProductMaintenanceTest extends BaseCaseMerito{
      *           2. Click on Action of Exchange product
      * @expect:  1. Verify Maintenance Details popup is display, product and status value is correctly displayed
      */
+    @TestRails(id = "636")
     @Test (groups = {"smoke"})
     public void BO_System_ProductMaintenance_002(){
         log("@title: Validate Maintenance Details data is display correctly");
@@ -82,6 +85,7 @@ public class ProductMaintenanceTest extends BaseCaseMerito{
      *           3. Login member site of any brands
      * @expect:  1. Verify the product is active in member site, not display maintenance page
      */
+    @TestRails(id = "637")
     @Test (groups = {"smoke"})
     @Parameters({"satMemberLoginID","memberPassword"})
     public void BO_System_ProductMaintenance_003(String satMemberLoginID, String memberPassword) throws Exception {

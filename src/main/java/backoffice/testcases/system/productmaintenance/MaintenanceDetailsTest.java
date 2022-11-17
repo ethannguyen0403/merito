@@ -8,6 +8,7 @@ import backoffice.utils.system.ProductMaintenanceUtils;
 import baseTest.BaseCaseMerito;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class MaintenanceDetailsTest extends BaseCaseMerito{
      * @expect:  1. Data on this popup displays correctly
      *           2. Maintenance Details Popup is displayed
      */
+    @TestRails(id = "634")
     @Test (groups = {"smoke"})
     public void BO_System_ProductMaintenance_Popup_001(){
         log("@title: Validate that Maintenance Product popup loads correct data");

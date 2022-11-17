@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import backoffice.pages.bo.marketmanagement.BlockingSettingsPage;
 import baseTest.BaseCaseMerito;
 import backoffice.utils.operations.BlockingSettingsUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class BlockingSettingsTest extends BaseCaseMerito{
      * @expect: 1. Verify the list data in PO account column is correctly and according brand name is correct
      *          2. Default event, Level to control blocking, Unblock Schedule - Betable before 25m is display correct by default
      */
+    @TestRails(id = "633")
     @Test (groups = {"smoke"})
     public void BO_Market_Management_Blocking_Settings_001(){
         log("@title: Validate default data in PO Account, Brand, Default Event, Level to control Blocking and Unblock Schedule - Bet able before 25m display correctly");

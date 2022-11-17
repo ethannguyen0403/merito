@@ -7,6 +7,7 @@ import backoffice.pages.bo.operations.component.ConfirmIPMapppingPopup;
 import backoffice.pages.bo.system.CountryIPMappingPage;
 import backoffice.pages.bo.operations.component.NewIPPopup;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class CountryIPMappingTest extends BaseCaseMerito{
      *          7. New IP popup is close
      *          8. The ip is not added without confirm
      */
+    @TestRails(id = "650")
     @Test (groups = {"smoke"})
     public void BO_System_Country_IP_Mapping_002(){
         log("@title: Validate UI Country - IP Mapping display correctly");

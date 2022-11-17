@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo.operations.WagerVoidUnvoidPage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class WagerVoidUnvoidTest extends BaseCaseMerito{
      *          5. Input Nick name and place date range then click Search button
      * @expect: 1. Verify Wager info display correctly as pre-condition and has place date in search date range
      */
+    @TestRails(id = "643")
     @Test (groups = {"smoke"})
     @Parameters("satMemberLoginID")
     public void BO_Operations_Wager_Void_Unvoid_002(String satMemberLoginID){
@@ -92,6 +94,7 @@ public class WagerVoidUnvoidTest extends BaseCaseMerito{
      *          5. Select Event Date, Sport, Competition, Event and click Search
      * @expect: 1. Verify Wager info display correctly with search criteria
      */
+    @TestRails(id = "644")
     @Test (groups = {"smoke"})
     public void BO_Operations_Wager_Void_Unvoid_003(){
         log("@title: Validate can search void/un-void wager by Event List");
@@ -127,6 +130,7 @@ public class WagerVoidUnvoidTest extends BaseCaseMerito{
      *          5. Input Market ID and click Search
      * @expect: 1. Verify all wagers belong to the market are display
      */
+    @TestRails(id = "645")
     @Test (groups = {"smoke"})
     public void BO_Operations_Wager_Void_Unvoid_004(){
         log("@title: Validate can search wager void/un-void by market ID");
@@ -257,6 +261,7 @@ public class WagerVoidUnvoidTest extends BaseCaseMerito{
      *              if void bet lose 5 => Balance =55 and Outstanding: 0
      *          3. Verify the message  display after unvoid "Un-void Wager successful. Report might take 30 minutes to regenerate.".
      */
+    @TestRails(id = "646")
     @Test (groups = {"smoke"})
     @Parameters({"wagerID"})
     public void BO_Operations_Wager_Void_Unvoid_006(String wagerID){
