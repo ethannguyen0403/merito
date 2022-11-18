@@ -29,7 +29,7 @@ public class PlaceBetOnEventPageTest extends BaseCaseMerito {
      *          6. Profit on My Bet and on Bet Slip is the same
      */
     @TestRails(id = "575")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1"})
     public void Place_Bet_Event_Page_TC_001(){
         log("@title: Validate that user can place a bet with HOME - BACK successfully");
         boolean isBack = true;

@@ -9,6 +9,7 @@ import membersite.pages.all.tabexchange.InPlayPage;
 import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +28,7 @@ public class InplayPageTest extends BaseCaseMerito {
      *           3. Event name on Odd page and on Bet Slip is the same
      *           4. Is in-play of this event is the same on Odd page and Bet Slip
      */
+    @TestRails(id = "946")
     @Test(groups = {"smoke"})
     public void Inplay_Page_TC_TC_003(){
         log("@title: Validate that a selected odd at HOME-BACK displays correct data both Odd page and on Bet Slip");
@@ -75,6 +77,7 @@ public class InplayPageTest extends BaseCaseMerito {
      *           3. Event name on Odd page and on Bet Slip is the same
      *           4. Is in-play of this event is the same on Odd page and Bet Slip
      */
+    @TestRails(id = "947")
     @Test (groups = {"smoke"})
     public void Inplay_Page_TC_TC_004(){
         log("@title: Validate that a selected odd at HOME-LAY displays correct data both Odd page and on Bet Slip");
@@ -123,6 +126,7 @@ public class InplayPageTest extends BaseCaseMerito {
      *           3. Event name on Odd page and on Bet Slip is the same
      *           4. Is in-play of this event is the same on Odd page and Bet Slip
      */
+    @TestRails(id = "948")
     @Test (groups = {"smoke"})
     public void Inplay_Page_TC_TC_007() {
         log("@title: Validate that a selected odd at AWAY-BACK displays correct data both Odd page and on Bet Slip");
@@ -171,6 +175,7 @@ public class InplayPageTest extends BaseCaseMerito {
      *           3. Event name on Odd page and on Bet Slip is the same
      *           4. Is in-play of this event is the same on Odd page and Bet Slip
      */
+    @TestRails(id = "949")
     @Test (groups = {"smoke"})
     public void Inplay_Page_TC_TC_008() {
         log("@title: Validate that a selected odd at AWAY-LAY displays correct data both Odd page and on Bet Slip");

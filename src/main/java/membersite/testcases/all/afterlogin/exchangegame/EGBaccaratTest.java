@@ -21,7 +21,7 @@ public class EGBaccaratTest extends BaseCaseMerito {
      * 2. Place on any selection with Lay 1.02 and min stake
      * @expect: Verify can place bet
      */
-        @TestRails(id="533")
+    @TestRails(id="533")
     @Test(groups = {"smoke"})
     @Parameters({"skinName"})
     public void EG_Baccarat_TC001(String skinName){

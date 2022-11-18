@@ -9,6 +9,7 @@ import membersite.pages.all.tabexchangegame.EGHomePage;
 import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +25,7 @@ public class LeftMenuTest extends BaseCaseMerito {
      * @expect:         1. Event display in  the search list
      *                  2. Left menu display event including it's market
      */
+    @TestRails(id = "494")
     @Test (groups = {"smoke"})
     public void FE_LeftMenu_TC001() {
         log("@title: Validate that can search event name in search textbox");
@@ -59,6 +61,7 @@ public class LeftMenuTest extends BaseCaseMerito {
      *                  2. Re-click on menu icon
      * @expect:         1. Left menu is collapse/expand
      */
+    @TestRails(id = "496")
     @Test (groups = {"smoke"})
     public void FE_LeftMenu_TC003() {
         log("@title: Validate can collapse/expand left menu");
@@ -81,6 +84,7 @@ public class LeftMenuTest extends BaseCaseMerito {
      * @steps:          1. Click on the sport in main menu: Scocer, Tennis, Cricket
      * @expect:         1. Left menu display corresponding sport
      */
+    @TestRails(id = "497")
     @Test (groups = {"smoke"})
     public void FE_LeftMenu_TC005(){
         log("@title: Validate Left menu display correct sport when active a sport on main menu");
@@ -107,6 +111,7 @@ public class LeftMenuTest extends BaseCaseMerito {
      * @expect:         1.Sport Highlights section is display when clicking on Sport>Competition>Event name
      *                  2. Odds section display. Validate Event/market is displayed accordingly(Event/Market)
      */
+    @TestRails(id = "498")
     @Test (groups = {"smoke"})
     public void FE_LeftMenu_TC006(){
         log("@title: Validate odds section is active when clicking on market");
@@ -156,6 +161,7 @@ public class LeftMenuTest extends BaseCaseMerito {
      *                  2. On Left menu, click on the market list
      * @expect:        1. Market title displays with the corresponding with the left menu
      */
+    @TestRails(id = "499")
     @Test (groups = {"smoke"})
     public void FE_LeftMenu_TC008(){
         log("@title: Validate Market display corresponding when clicking on the left menu");
