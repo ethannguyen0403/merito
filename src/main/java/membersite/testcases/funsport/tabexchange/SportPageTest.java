@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.RacingPage;
 import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 public class SportPageTest extends BaseCaseMerito {
     /**
@@ -16,6 +17,7 @@ public class SportPageTest extends BaseCaseMerito {
      * @expect: 1. Verify title is sport betting markets
      *          2. Sport hightlighs section is correct
      */
+    @TestRails(id = "505")
     @Test(groups = {"smoke"})
     public void SportPageTest_001(){
         log("@title: Validate title is correct when clicking on Soccer");
@@ -39,6 +41,7 @@ public class SportPageTest extends BaseCaseMerito {
      * @expect: 1. Verify title is sport betting markets
      *          2. Sport hightlighs section is correct
      */
+    @TestRails(id = "508")
     @Test(groups = {"smoke"})
     public void SportPageTest_002(){
         log("@title: Validate title is correct when clicking on Cricket");
@@ -62,6 +65,7 @@ public class SportPageTest extends BaseCaseMerito {
      * @expect: 1. Verify title is sport betting markets
      *          2. Sport hightlighs section is correct
      */
+    @TestRails(id = "506")
     @Test(groups = {"smoke"})
     public void SportPageTest_003(){
         log("@title: Validate title is correct when clicking on Tennis");
@@ -85,6 +89,7 @@ public class SportPageTest extends BaseCaseMerito {
      * @expect: 1. Verify title is sport betting markets
      *          2. Sport hightlighs section is correct
      */
+    @TestRails(id = "507")
     @Test(groups = {"smoke"})
     public void SportPageTest_006(){
         log("@title: Validate title is correct when clicking on Horse Racing");

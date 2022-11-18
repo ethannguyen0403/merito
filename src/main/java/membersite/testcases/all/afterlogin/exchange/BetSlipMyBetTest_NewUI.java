@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
+import util.testraildemo.TestRails;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +25,7 @@ public class BetSlipMyBetTest_NewUI extends BaseCaseMerito {
      *                  2. Click on All Back Odds button of all selections
      * @Expected        1. Selection will be added in bet slip and Back odds value is corresponding updated
      */
+    @TestRails(id = "980")
     @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_003(){
         log("@title: Validate Odds display correct when clicking on the corresponding odds of all selection");
@@ -65,6 +67,7 @@ public class BetSlipMyBetTest_NewUI extends BaseCaseMerito {
      *                  2. Click on All Lay Odds button of all selections
      * @Expected        1. Selection will be added in bet slip and Lay odds is corresponding updated
      */
+    @TestRails(id = "981")
     @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_004(){
         log("@title: Validate Odds display correct when clicking on the corresponding odds of all Lay selections");
@@ -109,6 +112,7 @@ public class BetSlipMyBetTest_NewUI extends BaseCaseMerito {
      * @Expected        1. Odds is added to bet slip
      *                  2. Odds is removed out bet slip after re-clicking
      */
+    @TestRails(id = "982")
     @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_005() {
         log("@title Validate odds remove out bet slip when double click on odds");
@@ -149,6 +153,7 @@ public class BetSlipMyBetTest_NewUI extends BaseCaseMerito {
      *                  2. Click on Clear all button
      * @Expected        1. All bet in bet slip is cleared
      */
+    @TestRails(id = "983")
     @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_008() {
         log("@title: Validate Clear All button works");
@@ -177,6 +182,7 @@ public class BetSlipMyBetTest_NewUI extends BaseCaseMerito {
      * @Step           1. Click on any event to open market page
      * @Expected       1. Bet Slip display the message "Click on the odds to add selection to the Bet Slip."
      */
+    @TestRails(id = "984")
     @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_010() {
         log("@title:  Validate default message display when there is no  bet");
@@ -207,6 +213,7 @@ public class BetSlipMyBetTest_NewUI extends BaseCaseMerito {
      * @Expected        1. Edit stake is disappear when successfully save
      *                  2. Fast  button in bet slip display as expected
      */
+    @TestRails(id = "985")
     @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_011(){
         log("@title: Validate can update fast button");
@@ -255,6 +262,7 @@ public class BetSlipMyBetTest_NewUI extends BaseCaseMerito {
      *                 3. Click on all fast buttons
      * @Expected       1. Stake textbox update data correctly
      */
+    @TestRails(id = "986")
     @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_012(){
         log("Step 1. Active any market page ");
@@ -285,6 +293,7 @@ public class BetSlipMyBetTest_NewUI extends BaseCaseMerito {
      *                 3. Click Cancel button
      * @Expected       1. Edit stake popup is disappear
      */
+    @TestRails(id = "987")
     @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_015(){
         log("@title: Validate Cancel button in Edit Stake popup work");

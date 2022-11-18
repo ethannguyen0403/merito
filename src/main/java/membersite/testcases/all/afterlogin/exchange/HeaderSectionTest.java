@@ -16,6 +16,8 @@ import membersite.pages.all.tablivedealer.components.LiveDealer;
 import membersite.pages.all.tablotteryslot.LotterySlotsPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
+import util.testraildemo.TestRails;
+
 import java.util.*;
 public class  HeaderSectionTest extends BaseCaseMerito {
 
@@ -29,6 +31,7 @@ public class  HeaderSectionTest extends BaseCaseMerito {
      *          3. Verify Credit, Balance, Outstanding of the player are corrected
      *          4. Outstanding should in red color
      */
+    @TestRails(id="500")
     @Test (groups = {"smoke"})
     @Parameters({"currency"})
     public void FE_HeaderSection_TC001(String currency) {
@@ -73,6 +76,7 @@ public class  HeaderSectionTest extends BaseCaseMerito {
      *          - table with the header: Market ID, Market Start Time, Market Name (Reload button), Liability
      *          2. Popup is closed
      */
+    @TestRails(id="501")
     @Test (groups = {"smoke"})
     @Parameters("skinName")
     public void FE_HeaderSection_TC003(String skinName) {
@@ -140,8 +144,8 @@ public class  HeaderSectionTest extends BaseCaseMerito {
      * - Note: Date will be based on time zone IST
      * Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance
      */
+    @TestRails(id="502")
     @Test(groups = {"smoke"})
-
     public void FE_HeaderSection_TC006(){
         log("@title: Validate can navigate to Account Statement page");
         log("Step 1. Click My Account > Account Statement");
@@ -188,6 +192,7 @@ public class  HeaderSectionTest extends BaseCaseMerito {
      *  - Note: Date will be based on time zone IST
      *  - Table with header: Market Name, Bet ID, Event ID, Selection, Type, Odds, Stake, Profit/Loss, Status, Placed Date, IP Address
      */
+    @TestRails(id="503")
     @Test(groups = {"smoke"})
     public void FE_HeaderSection_TC007(){
         log("@title: Validate can navigate to My Bet");
@@ -211,6 +216,7 @@ public class  HeaderSectionTest extends BaseCaseMerito {
      *          - Note: Date will be based on time zone IST
      *          - Table with the header: Sport/Game, Profit/Loss
      */
+    @TestRails(id="504")
     @Test(groups = {"smoke"})
     @Parameters({"skinName"})
     public void FE_HeaderSection_TC008(String skinName){
@@ -354,6 +360,7 @@ public class  HeaderSectionTest extends BaseCaseMerito {
      * @steps:   1. Click on Soccer menu
      * @expect:  1. Soccer page display with the title: Soccer Highlights
      */
+    @TestRails(id="505")
     @Test (groups = {"smoke"})
     public void FE_HeaderSection_TC021(){
         log("@title: Validate can navigate to Soccer menu");
@@ -381,6 +388,7 @@ public class  HeaderSectionTest extends BaseCaseMerito {
      * @steps:   1. Click on Tennis menu
      * @expect:  1. Tennis page display with the title: Tennis Highlights
      */
+    @TestRails(id="506")
     @Test(groups = {"smoke","we"})
     public void FE_HeaderSection_TC022(){
         log("@title: Validate can navigate to Tennis menu");
@@ -408,6 +416,7 @@ public class  HeaderSectionTest extends BaseCaseMerito {
      * @expect: 1. Display 3 tabs: Today (active by default), Tomorrow, Next date
      *          2. Racing list display
      */
+    @TestRails(id="507")
     @Test (groups = {"smoke"})
     public void FE_HeaderSection_TC023(){
         log("@title: Validate can navigate to Horse Racing menu");
@@ -432,6 +441,7 @@ public class  HeaderSectionTest extends BaseCaseMerito {
      * @steps:   1. Click on Cricket menu
      * @expect:  1. Cricket page display with the title: Cricket Highlights
      */
+    @TestRails(id="508")
     @Test(groups = {"smoke"})
     public void FE_HeaderSection_TC024(){
         log("@title: Validate can navigate to Cricket menu");
@@ -460,6 +470,7 @@ public class  HeaderSectionTest extends BaseCaseMerito {
      *                  2. Click on market in my market popup
      * @expect:         1. The corresponding market is navigate
      */
+    @TestRails(id="509")
     @Test (groups = {"smoke"}, priority=3)
     public void FE_HeaderSection_TC025(){
         log("@title: Validate can navigate to correct market when click on market in My market");
@@ -591,6 +602,7 @@ public class  HeaderSectionTest extends BaseCaseMerito {
      *          3. Verify Credit, Balance, Outstanding of the player are corrected
      *          4. Outstanding should in red color
      */
+    @TestRails(id="510")
     @Test (groups = {"smoke"})
     @Parameters({"skinName","currency"})
     public void FE_HeaderSection_TC029(String skinName,String currency){

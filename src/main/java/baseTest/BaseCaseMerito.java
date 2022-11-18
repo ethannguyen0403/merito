@@ -182,7 +182,7 @@ public class BaseCaseMerito {
             userCurrency = currency;
             memberHomePage = new membersite.pages.all.tabexchange.HomePage();
             memberHomePage.imgSpinner.isDisplayed(3);
-            if( memberHomePage.isPopupBannerDisplay())
+            if(memberHomePage.isPopupBannerDisplay())
             {
                 System.out.println("$$$$$$$$$Closed Banner Popup after login %%%%%%%%%%");
                 memberHomePage.closeBannerPopup();

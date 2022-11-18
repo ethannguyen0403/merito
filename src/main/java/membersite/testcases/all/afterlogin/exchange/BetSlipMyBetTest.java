@@ -254,7 +254,6 @@ public class BetSlipMyBetTest extends BaseCaseMerito {
         log("INFO: Executed Completely");
     }
 
-
     @TestRails(id = "986")
     @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_012(){
@@ -286,7 +285,6 @@ public class BetSlipMyBetTest extends BaseCaseMerito {
      *                 3. Click Cancel button
      * @Expected       1. Edit stake popup is disappear
      */
-
     @TestRails(id = "987")
     @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_015(){

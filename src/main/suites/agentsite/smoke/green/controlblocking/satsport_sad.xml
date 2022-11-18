@@ -26,7 +26,7 @@
         <groups>
             <run>
 <!--                <include name="precondition" />-->
-                <include name="smoke5" />
+                <include name="smoke" />
             </run>
         </groups>
 

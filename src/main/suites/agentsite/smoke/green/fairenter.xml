@@ -22,6 +22,8 @@
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='EUR'/>
         <parameter name='prefix' value='03H'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value='faireneter'/>
         <groups>
             <run>
                 <include name="smoke" />
