@@ -6,6 +6,7 @@ import agentsite.common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import agentsite.pages.all.riskmanagement.VolumeMonitorPage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class VolumeMonitorTest extends BaseCaseMerito {
     /***
      * This tes cases only available for F24 and Betclub9
      */
-
+    @TestRails(id="830")
     @Test(groups = {"smoke","smokePO"})
     public void Agent_RM_VolumeMonitorTest_TC001() {
         log("@title: Verify UI display correctly");
@@ -46,7 +47,7 @@ public class VolumeMonitorTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-
+    @TestRails(id="831")
     @Test(groups = {"smoke","smokePO"})
     public void Agent_RM_VolumeMonitorTest_TC002() {
         log("@title: Data is display when filter");
@@ -68,7 +69,7 @@ public class VolumeMonitorTest extends BaseCaseMerito {
         }
         log("INFO: Executed completely");
     }
-
+    @TestRails(id="832")
     @Test(groups = {"smoke","smokePO"})
     public void Agent_RM_VolumeMonitorTest_TC003() {
         log("@title: Can drilldown to member level and bet history icon display");
@@ -89,6 +90,7 @@ public class VolumeMonitorTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
+    @TestRails(id="833")
     @Test(groups = {"smoke5","smokePO"})
     public void Agent_RM_VolumeMonitorTest_TC004() {
         log("@title: Can open Bet History");

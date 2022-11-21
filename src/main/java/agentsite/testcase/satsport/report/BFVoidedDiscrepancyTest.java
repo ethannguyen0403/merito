@@ -5,6 +5,7 @@ import agentsite.common.AGConstant;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.BFVoidedDiscrepancyPage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class BFVoidedDiscrepancyTest extends BaseCaseMerito {
      * @steps: 1. Navigate Report> BF Voided Discrepancy
      * @expect: 1. There is no http responded error returned
      */
+    @TestRails(id="819")
     @Test(groups = {"http_request"})
     public void Agent_Report_BF_Void_Discrepancy_001(){
         log("@title: There is no http responded error returned");
@@ -37,6 +39,7 @@ public class BFVoidedDiscrepancyTest extends BaseCaseMerito {
      * @steps: 1. Navigate Report > BF Voided Discrepancy
      * @expect: 1. Verify BF Voided Discrepancy UI display correctly
      */
+    @TestRails(id="820")
     @Test (groups = {"smokePO"})
     public void Agent_Report_BF_Void_Discrepancy_002(){
         log("@title: Validate BF Voided Discrepancy display correctly");
@@ -75,6 +78,7 @@ public class BFVoidedDiscrepancyTest extends BaseCaseMerito {
      *         2. Enter valid data and filter
      * @expect: 1. BF voided report display with valid data
      */
+    @TestRails(id="821")
     @Test (groups = {"smokePO"})
     public void Agent_Report_BF_Void_Discrepancy_003(){
         log("@title: Validate can filter the report BF voided Discrepancy");

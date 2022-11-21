@@ -19,6 +19,7 @@ import agentsite.pages.all.agentmanagement.EditDownLinePage;
 import agentsite.pages.all.marketsmanagement.BlockUnblockEventPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -116,6 +117,7 @@ public class EditUserTest extends BaseCaseMerito {
      * @expect: 1 Verify Edit Member popup display with the message "Member was update successfully"
      *          2. Change password page display after login member site
      */
+    @TestRails(id="698")
     @Test (groups = {"smoke"})
     @Parameters({"password"})
     public void Agent_AM_Downline_Listing_Edit_User_003(String password) throws Exception {
@@ -174,6 +176,7 @@ public class EditUserTest extends BaseCaseMerito {
      *          4. Downline Listing display Account Status is Active
      *          5. Can login member Site
      */
+    @TestRails(id="699")
     @Test (groups = {"smoke"})
     @Parameters({"username","password"})
     public void Agent_AM_Downline_Listing_Edit_User_004(String username,String password) throws Exception {
@@ -260,6 +263,7 @@ public class EditUserTest extends BaseCaseMerito {
      *          2. If In-Play Page has event, Odds is blur and un-clickable on sport page and market page
      *          3. Can add odds to bet slip when Live is active
      */
+    @TestRails(id="700")
     @Test (groups = {"smoke"})
     @Parameters({"username","password"})
     public void Agent_AM_Downline_Listing_Edit_User_012(String username,String password) throws Exception {
@@ -351,6 +355,7 @@ public class EditUserTest extends BaseCaseMerito {
      *          2. Active any sport that have event non-inplay and verify Odds is blur and cannot add to bet slip in sport and market page
      *          3. Can add odds to bet slip when None-Live is active
      */
+    @TestRails(id="701")
     @Test (groups = {"smoke"})
     @Parameters({"username","password"})
     public void Agent_AM_Downline_Listing_Edit_User_013(String username,String password) throws Exception {
@@ -376,36 +381,6 @@ public class EditUserTest extends BaseCaseMerito {
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS,"FAILED! Message update downline is not correct");
 
-        log("Precondition step: Unblock today market for Soccer, Tennis and Cricket sport");
-        BlockUnblockEventPage blockEventPage = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_EVENT, BlockUnblockEventPage.class);
-        blockEventPage.searchDownline(loginID);
-        blockEventPage.filter("","Soccer","Today");
-        blockEventPage.blockUnblockEvent(loginID,"all","Unblock Now","",1);
-        blockEventPage.filter("","Tennis","Today");
-        blockEventPage.blockUnblockEvent("loginID","all","Unblock Now","",1);
-
-        log("Step 4. Login member Site and Active Inlay Page");
-        agentHomePage.logout();
-//        loginMemberviaUI(loginID,password);
-//        HomePage memberHomePage = new HomePage();
-//        Event event = memberagentHomePage.eventContainerControl.getEvent(false,false,0,1);
-//        if(Objects.isNull(event))
-//        {
-//            throw new SkipException("INFO: There is no event in Inplay Event");
-//        }
-
-//        log("Verify 2.1 If In-Play Page has event, Odds is blur and un-clickable on sport page ");
-//        Assert.assertFalse(memberagentHomePage.eventContainerControl.isOddsUnclickable(event.getEventName()),"FAILED! Inplay odds is not blue and is click able");
-//        log(String.format("Step 4.1 click on the event ", event.getEventName()));
-//
-//        memberagentHomePage.eventContainerControl.clickEvent(event.getEventName());
-//        log("Verify 2.2. If In-Play Page has event, Odds is blur and un-clickable on market page");
-//        Assert.assertFalse(memberagentHomePage.marketContainerControl.verifyOddsIsClickable(event),"FAILED! Market page In-play event can click on odds when inactive Live ");
-//        memberagentHomePage.logout();
-
-        log("Step 5. Repeat step 2 to 4 and Active Live");
-        loginAgent(sosAgentURL, agentSecurityCodeURL, username, password, environment.getSecurityCode());
-        page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         page.clickEditIcon(loginID);
 
         log("Step 5.1. Input security code");
@@ -418,13 +393,6 @@ public class EditUserTest extends BaseCaseMerito {
         log("Verify 2 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS,"FAILED! Message update downline is not correct");
 
-//        log("Verify 3. Can add odds to bet slip when Live is active");
-//        agentHomePage.logout();
-//        loginMemberviaUI(loginID,password);
-//        memberHomePage = new HomePage();
-//        event = memberagentHomePage.eventContainerControl.getEvent(false,false,0,1);
-//        memberagentHomePage.eventContainerControl.clickEvent(event.getEventName());
-//        Assert.assertTrue(memberagentHomePage.marketContainerControl.verifyOddsIsClickable(event),"FAILED! Market page In-play event can NOT click on odds when active Live Setting");
     }
 
     /**
@@ -438,6 +406,7 @@ public class EditUserTest extends BaseCaseMerito {
      * @expect: 1 Verify Edit Member popup display with the message "Member was update successfully"
      *          2. Login member site and verify Sport is not displayed on the left menu or main menu
      */
+    @TestRails(id="702")
     @Test (groups = {"smoke"})
     @Parameters({"username","password"})
     public void Agent_AM_Downline_Listing_Edit_User_014(String username,String password) throws Exception {
@@ -512,6 +481,7 @@ public class EditUserTest extends BaseCaseMerito {
      *          3. Login member site and verify Soccer event not display Half Time market
      *          4. Login member site and verify Soccer event is  display with Half Time market
      */
+    @TestRails(id="703")
     @Test (groups = {"smoke"})
     @Parameters({"username","password"})
     public void Agent_AM_Downline_Listing_Edit_User_015(String username,String password) throws Exception {
@@ -570,6 +540,7 @@ public class EditUserTest extends BaseCaseMerito {
      * @expect: 1. Verify can update User with valid Min Bet
      *          2. Verify message display correctly min bet when place bet with stake less than min setting
      */
+    @TestRails(id="704")
     @Test (groups = {"smoke"})
     @Parameters({"username","password","currency"})
     public void Agent_AM_Downline_Listing_Edit_User_024(String username,String password,String currency) throws Exception {

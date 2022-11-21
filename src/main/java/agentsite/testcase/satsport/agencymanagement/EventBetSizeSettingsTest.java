@@ -18,6 +18,7 @@ import membersite.pages.all.tabexchange.SportPage;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class EventBetSizeSettingsTest extends BaseCaseMerito {
      * 2. Input event Name with a prefix "e.g. :  FC Hapoel Ashkelon v Hapoel Afula
      * @expect: 1. There is a event name "FC Hapoel Ashkelon v Hapoel Afula" display
      */
+    @TestRails(id="705")
     @Test(groups = {"smoke"})
     public void Agent_AM_Event_Bet_Site_Settings_015() {
         log("@title: Verify can search  event name with correct value");
@@ -364,6 +366,7 @@ public class EventBetSizeSettingsTest extends BaseCaseMerito {
      *          3. Verify Max bet is removed
      *          4. Verify member site will get max setting when max event setting is removed
      */
+    @TestRails(id="706")
     @Test (groups = {"smoke"})
     @Parameters({"username","downlineAccount","memberAccount","password"})
     public void Agent_AM_Event_Bet_Site_Settings_022(String username, String downlineAccount ,String memberAccount, String password) throws Exception {

@@ -15,6 +15,7 @@ import agentsite.pages.all.report.ClientLedgerPage;
 import agentsite.pages.all.report.ProfitAndLossPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -627,6 +628,7 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 1. Expand all left menu
      * @expect: Verify the list menu display correct when login Portal level
      */
+    @TestRails(id = "675")
     @Test (groups = {"smokePO"})
     public void LeftMenu_TC019() {
         log("@title:  Verify the list menu display correct when login Portal level");
@@ -694,7 +696,8 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 1. Expand all left menu
      * @expect: Verify the list menu display correct when login Control Blocking level
      */
-    @Test (groups = {"smoke_Credit_Cash"})
+    @TestRails(id = "676")
+    @Test (groups = {"smoke"})
     public void LeftMenu_TC020() {
         log("@title: Verify the list menu display correct when login Control Blocking  level");
         log("Step 1: Expand all left menu");
@@ -766,6 +769,7 @@ public class LeftMenuTest extends BaseCaseMerito {
      * 1. Expand all left menu
      * @expect: Verify the list menu display correct when other leve
      */
+    @TestRails(id = "677")
     @Test (groups = {"nonPOSmoke"})
     public void LeftMenu_TC021(){
         log("@title: Verify the list menu display correct when other level");
@@ -829,7 +833,6 @@ public class LeftMenuTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
-
 
     @Test (groups = {"interaction"})
     @Parameters({"brandname"})

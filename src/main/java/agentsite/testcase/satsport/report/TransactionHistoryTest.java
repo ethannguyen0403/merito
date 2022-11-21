@@ -3,6 +3,7 @@ package agentsite.testcase.satsport.report;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.TransactionHistoryPage;
+import util.testraildemo.TestRails;
 
 import static agentsite.common.AGConstant.HomePage.REPORT;
 import static agentsite.common.AGConstant.HomePage.TRANSACTION_HISTORY;
@@ -33,6 +34,7 @@ public class TransactionHistoryTest extends BaseCaseMerito {
      *          2. Search Exchange Product and the date range has data
      * @expect: 1. Verify data of each competition display correctly
      */
+    @TestRails(id="811")
     @Test (groups = {"smoke"})
     public void  Agent_Report_Transaction_History_003 (){
         log("@title: Validate data on Transaction History display correctly y");

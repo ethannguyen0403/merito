@@ -17,6 +17,7 @@ import agentsite.pages.all.marketsmanagement.SuspendUnsuspendMarketPage;
 import agentsite.pages.all.marketsmanagement.suspenunsuspendmarkets.MarketDetailsPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.maketmanagement.SuspendUnsuspendMarketsUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ import static agentsite.common.AGConstant.HomePage.*;
 import static agentsite.common.AGConstant.MarketsManagement.SuspendUnsuspendMarket.*;
 
 public class SuspendUnsuspendMarketsTest extends BaseCaseMerito {
-
+    @TestRails(id="782")
     @Test(groups = {"smoke"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC001() {
         log("@title: Verify Control Level Blocking cannot access the page");
@@ -40,7 +41,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseMerito {
         Assert.assertFalse(lstMarketManagementLeftMenu.contains(AGConstant.MarketsManagement.SuspendUnsuspendMarket.TITLE_PAGE), "FAILED! Suspend/Unsuspend Market only display under control blocking level, other level can not view");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id="783")
     @Test(groups = {"smokeMA"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC002() {
         log("@title: Verify can access the page at direct level under Control Blocking level");
@@ -54,7 +55,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseMerito {
         Assert.assertTrue(lstMarketManagementLeftMenu.contains(AGConstant.MarketsManagement.SuspendUnsuspendMarket.TITLE_PAGE), "FAILED! Suspend/Unsuspend Market only display under control blocking level, other level can not view");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id="784")
     @Test(groups = {"smokeMA"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC003() {
         log("@title: Verify UI is displayed correctly");
@@ -76,7 +77,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseMerito {
         Assert.assertEquals(page.tblEvent.getColumnNamesOfTable(),AGConstant.MarketsManagement.SuspendUnsuspendMarket.TABLE_EVENT,"FAILED! Header table not match with the expected when selection Event Type");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id="785")
     @Test(groups = {"smokeMA1"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC004() {
         String loginUserId = ProfileUtils.getProfile().getUserID();
@@ -107,7 +108,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id="786")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount","memberAccount", "password"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC005(String downlineAccount,String memberAccount, String password) throws Exception {

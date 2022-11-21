@@ -10,6 +10,7 @@ import agentsite.pages.all.marketsmanagement.BlockUnblockEventPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.maketmanagement.BlockUnblockCompetitionUtils;
 import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class BlockUnblockCompetitionsTest extends BaseCaseMerito {
      *
      * @expect:  1. Verify Block/Unblock Competition UI display correctly
      */
+    @TestRails(id="777")
     @Test(groups = {"smoke"})
     public void Agent_MM_BlockUnblockCompetitions_TC002() {
         log("@title: Validate Block/Unblock Competition UI display correctly");
@@ -55,6 +57,7 @@ public class BlockUnblockCompetitionsTest extends BaseCaseMerito {
      *           4. Click on Block button
      * @expect:  1. Status is change to Blocked Status, Last Update By and Last Update time display correctly
      */
+    @TestRails(id="778")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockCompetitions_TC003(String downlineAccount) {
@@ -94,6 +97,7 @@ public class BlockUnblockCompetitionsTest extends BaseCaseMerito {
      *           4. Click on Unblock button
      * @expect:  1. Status is change to Unblocked Status, Last Update By and Last Update time display correctly
      */
+    @TestRails(id="779")
     @Test(groups = {"smoke"})
     @Parameters("downlineAccount")
     public void Agent_MM_BlockUnblockCompetitions_TC004(String downlineAccount) {
@@ -132,7 +136,7 @@ public class BlockUnblockCompetitionsTest extends BaseCaseMerito {
      * @expect: 1. Verify the competition displays in Block/Unblock Event Report
      *          2. Verify the competition displays on member site
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"downlineAccount","memberAccount", "password"})
     public void Agent_MM_BlockUnblockCompetitions_TC005(String downlineAccount,String memberAccount, String password) throws Exception {
         log("@title: Verify can Unblock a competition");
@@ -191,7 +195,7 @@ public class BlockUnblockCompetitionsTest extends BaseCaseMerito {
      * @expect: 1. Verify the competition not display in Block/Unblock Event Report
      *          2. Verify the competition does not display on member site
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"downlineAccount","memberAccount", "password"})
     public void Agent_MM_BlockUnblockCompetitions_TC006(String downlineAccount,String memberAccount, String password) throws Exception {
         log("@title: Verify Blocked Competition not display in Member Site and Block/Unblock Event");

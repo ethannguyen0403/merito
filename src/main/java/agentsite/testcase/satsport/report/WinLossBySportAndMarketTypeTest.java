@@ -5,6 +5,7 @@ import agentsite.common.AGConstant;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.WinLossBySportAndMarketTypePage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseMerito {
      * @steps: 1. Navigate Report > Win Loss By Sport And Market Type
      * @expect: 1. Verify  Win Loss By Sport And Market Type UI display correctly
      */
+    @TestRails(id="804")
     @Test (groups = {"smoke"})
     public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_002(){
         log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
@@ -72,6 +74,7 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseMerito {
      *          2. Filter Exchange product that have data
      * @expect: 1. Verify Grand total row is sum by total of all sports
      */
+    @TestRails(id="806")
     @Test (groups = {"smoke"})
     public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_003(){
         log("@title: Validate Grand total row is correctly");
@@ -103,6 +106,7 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseMerito {
      *          3. Click on Turnover of a market type
      * @expect: 1 Verify Turnover in summary report match when sum player stake in detail report
      */
+    @TestRails(id="807")
     @Test (groups = {"smoke"})
     public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_004(){
         log("@title: Validate data on when click on Turnover is matched with details");

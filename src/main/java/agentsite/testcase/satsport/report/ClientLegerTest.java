@@ -4,6 +4,7 @@ import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.ClientLedgerPage;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class ClientLegerTest extends BaseCaseMerito {
      *          3. Search Username and click submit button
      * @expect: 1. Verify can filter report by username
      */
+    @TestRails(id="804")
     @Test (groups = {"smoke"})
     @Parameters("downlineAccount")
     public void Agent_Report_Client_Ledger_005(String downlineAccount){

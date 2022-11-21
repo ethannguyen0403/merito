@@ -15,6 +15,7 @@ import agentsite.pages.all.marketsmanagement.currentblocking.BlockedUserPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
 import agentsite.ultils.maketmanagement.CurrentBlockingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class CurrentBlockingTest extends BaseCaseMerito {
      * 2. Select  Type = Event, Sport = Soccer
      * @expect: 1. Verify Current Blocking UI display correctly
      */
+    @TestRails(id="773")
     @Test(groups = {"smoke"})
     public void Agent_MM_CurrentBlocking_TC002() {
         log("@title: Validate Current Blocking UI display correctly");
@@ -63,6 +65,7 @@ public class CurrentBlockingTest extends BaseCaseMerito {
      * @expect:  1. Verify Blocked User popup display, UI display correctly
      *           2. The number blocked in the list matched with the number in current column
      */
+    @TestRails(id="774")
     @Test(groups = {"smoke"})
     @Parameters("downlineAccount")
     public void Agent_MM_CurrentBlocking_TC003(String downlineAccount) {
@@ -114,6 +117,7 @@ public class CurrentBlockingTest extends BaseCaseMerito {
      * @expect:  1. Verify the account is remove in the list Blocked User
      *           2. Close the popup and verify the blocked number is deducted
      */
+    @TestRails(id="774")
     @Test(groups = {"smoke"})
     @Parameters("downlineAccount")
     public void Agent_MM_CurrentBlocking_TC004(String downlineAccount) {
@@ -170,6 +174,7 @@ public class CurrentBlockingTest extends BaseCaseMerito {
      *           2. Select  Type = Event, Sport = Soccer
      * @expect:  1. Verify UI display correct when select Competition type
      */
+    @TestRails(id="775")
     @Test(groups = {"smoke"})
     public void Agent_MM_CurrentBlocking_TC005() {
         log("@title: Verify Current Blocking UI when selecting Competition");
@@ -206,6 +211,7 @@ public class CurrentBlockingTest extends BaseCaseMerito {
      * @expect:  1. Verify the account is remove in the list Blocked User
      * 2. Close the popup and verify the blocked number is deducted
      */
+    @TestRails(id="776")
     @Test(groups = {"smoke"})
     @Parameters("downlineAccount")
     public void Agent_MM_CurrentBlocking_TC006(String downlineAccount) {

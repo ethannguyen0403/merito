@@ -17,6 +17,7 @@ import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.BetSettingListingPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,7 +87,8 @@ public class BetSettingListingTest extends BaseCaseMerito {
      * @expect: 1. Min Bet, Max Bet, Max Liability per Market, Max Win per Market is update for all sports type : Soccer, Cricket, Tennis, Basketball, Fancy, Other
      *          2. Update Status column display green check
      */
-    @Test (groups = {"smoke1"})
+    @TestRails(id="743")
+    @Test (groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_AM_Bet_Setting_Listing_0003(String brandname) {
         log("@title: Can update Min Bet, Max Bet, Max Liability per Market, Max Win per Market, for all sport of Exchange Product");
@@ -137,6 +139,7 @@ public class BetSettingListingTest extends BaseCaseMerito {
      *          5. Click Update
      * @expect: 1. Verify Soccer Min bet is update correctly, Update Status column display green check
      */
+    @TestRails(id="744")
     @Test (groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_AM_Bet_Setting_Listing_0004(String brandname) {
@@ -187,6 +190,7 @@ public class BetSettingListingTest extends BaseCaseMerito {
      *          5. Click Update
      * @expect: 1. Verify Tennis Max bet is update correctly, Update Status column display green check
      */
+    @TestRails(id="745")
     @Test (groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_AM_Bet_Setting_Listing_0005(String brandname) {
@@ -236,9 +240,10 @@ public class BetSettingListingTest extends BaseCaseMerito {
      *          5. Click Update
      * @expect: 1. Verify Max Liability Per Market is updated, Update Status column display green check
      */
-
+    @TestRails(id="746")
     @Test (groups = {"smoke"})
     @Parameters({"username","brandname"})
+
     public void Agent_AM_Bet_Setting_Listing_0006(String brandname) {
         log("@title: Verify update bet setting with valid Max Liability Per Market Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
@@ -274,7 +279,7 @@ public class BetSettingListingTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id="747")
     @Test (groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_AM_Bet_Setting_Listing_0007(String brandname) {

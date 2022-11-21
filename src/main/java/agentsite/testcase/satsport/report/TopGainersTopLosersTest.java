@@ -5,6 +5,7 @@ import agentsite.common.AGConstant;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.TopGainersTopLosersPage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,7 @@ public class TopGainersTopLosersTest extends BaseCaseMerito {
      * @steps:  1. Navigate Report > Top Gainers & Top Losers
      * @expect: 1. Verify Top Gainers & Top Losers UI display correctly
      */
+    @TestRails(id="812")
     @Test (groups = {"smoke"})
     public void  Agent_Report_Top_Gainers_Top_Losers_002 (){
         log("@title: Validate Top Gainers & Top Losers UI display correctly ");

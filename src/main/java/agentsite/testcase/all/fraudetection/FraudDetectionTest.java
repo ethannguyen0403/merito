@@ -3,6 +3,7 @@ package agentsite.testcase.all.fraudetection;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.fraudetection.FraudDetectionPage;
+import util.testraildemo.TestRails;
 
 import static agentsite.common.AGConstant.HomePage.FRAUD_DETECTION;
 
@@ -12,6 +13,7 @@ public class FraudDetectionTest extends BaseCaseMerito {
      * @steps: 1. Navigate Markets Management > Fraud Detection
      * @expect: 1. Verify there is no console error display
      */
+    @TestRails(id="827")
     @Test(groups = {"http_request"})
     public void Agent_FD_Fraud_Detection_001() {
         log("@title: Validate there is no http responded error returned");
@@ -34,6 +36,7 @@ public class FraudDetectionTest extends BaseCaseMerito {
      * 5. Click on the links: Download, KPI link
      * @expect:  1. Verify links work
      */
+
     @Test (groups = {"smoke"})
     public void Agent_FD_Fraud_Detection_006(){
         log("@title: Validate there is no http responded error returned");

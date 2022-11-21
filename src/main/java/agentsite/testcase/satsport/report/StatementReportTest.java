@@ -6,6 +6,7 @@ import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.StatementReportPage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class StatementReportTest extends BaseCaseMerito {
      * 2. Search the data range has data of Exchange Product
      * @expect: 1. Report is display if have data
      */
+    @TestRails(id="800")
     @Test (groups = {"smoke"})
     @Parameters("username")
     public void Agent_Report_Statement_Report_003(String username){

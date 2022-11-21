@@ -5,6 +5,7 @@ import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.SubUserListingPage;
+import util.testraildemo.TestRails;
 
 import java.util.HashMap;
 
@@ -20,6 +21,7 @@ public class SubUserListingTest extends BaseCaseMerito {
      * @expect: 1. Verify Sub user is created with all permission
      *          2. Verify can login agent with new sub account
      */
+    @TestRails(id="751")
     @Test (groups = {"smoke"})
     @Parameters("password")
     public void Agent_AM_Sub_User_Listing_0004(String password) throws Exception {

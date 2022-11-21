@@ -1,16 +1,21 @@
 package agentsite.testcase.satsport.report;
 
 import agentsite.common.AGConstant;
+import agentsite.objects.agent.account.AccountInfo;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import agentsite.ultils.report.ReportslUtils;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.WinLossDetailPage;
 import agentsite.ultils.account.ProfileUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
 import static agentsite.common.AGConstant.HomePage.REPORT;
 import static agentsite.common.AGConstant.HomePage.WIN_LOSS_BY_DETAIL;
+import static agentsite.common.AGConstant.Report.LIST_EXTRA_RPODUCTS;
 
 public class WinLossDetailTest extends BaseCaseMerito {
     /**
@@ -37,6 +42,7 @@ public class WinLossDetailTest extends BaseCaseMerito {
      * @steps:   1. Navigate Report> Win Loss Detail
      * @expect:  1. Verify Win Loss Detail UI display correctly
      */
+    @TestRails(id="794")
     @Test (groups = {"smoke"})
     public void Agent_Report_WinLossDetail_002(){
         log("@title: Validate Win Loss Detail UI display correctly");
@@ -65,6 +71,7 @@ public class WinLossDetailTest extends BaseCaseMerito {
      *           2. Search the data range that have data
      * @expect:  1. Verify can display data
      */
+    @TestRails(id="795")
     @Test (groups = {"smoke"})
     @Parameters("downlineAccount")
     public void Agent_Report_WinLossDetail_003(String downlineAccount){
@@ -90,5 +97,22 @@ public class WinLossDetailTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id="796")
+    @Test (groups = {"smoke"})
+    public void Agent_Report_WinLossDetail_004(){
+        log("@title: Validate data product dropdown is corrected");
+        log("Step 1: Navigate Report > Win Loss Detail");
+        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(),LIST_EXTRA_RPODUCTS);
+        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+        String winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL,ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(),ProfileUtils.getAppName()));
+        WinLossDetailPage page = agentHomePage.clickSubMenu(REPORT, winLossDetailMenu, WinLossDetailPage.class);
+
+        log("Step 2: Get all products in dropdown");
+        List<String> lstProduct = page.ddbProduct.getAllOption(true);
+
+        log("Verify 1: Products display correct");
+        Assert.assertEquals(lstProduct,lstAllProductsExpected,"FAILED! List product is incorrect");
+        log("INFO: Executed completely");
+    }
 
 }

@@ -6,6 +6,7 @@ import agentsite.common.SATAGConstant;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.home.LoginPage;
+import util.testraildemo.TestRails;
 
 public class SATLogoutTest extends BaseCaseMerito {
     /**
@@ -14,6 +15,7 @@ public class SATLogoutTest extends BaseCaseMerito {
      *           2. Click Logout button
      * @expect:  1. Logout is successful
      */
+    @TestRails(id = "672")
     @Test (groups = {"smoke"})
     public void Agent_Logout_001(){
         log("@title: Validate that user can logout successfully");
@@ -35,7 +37,7 @@ public class SATLogoutTest extends BaseCaseMerito {
      *           3. Click Back button on the browser
      * @expect:  1. Logout page is kept
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     public void Agent_Logout_002(){
         log("@title: Validate that Logout page is kept when clicking Back button on the browser");
         log("Step 1: Log in with a valid username and password");

@@ -20,13 +20,6 @@ import java.util.List;
 import static com.paltech.utils.StringUtils.decrypt;
 import static agentsite.common.AGConstant.HomePage.*;
 
-/*import pages.sat.beforelogin.popups.LoginPopup;
-import pages.sat.tabexchange.HomePage;
-import pages.sat.home.ChangePasswordPage;
-import pages.sat.tabexchange.InPlayPage;
-import pages.sat.tabexchange.SoccerPage;
-import pages.sat.tabexchange.components.SportPage;*/
-
 public class EditUserTest extends BaseCaseMerito {
     /**
      * @title: Verify Can change password

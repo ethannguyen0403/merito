@@ -5,6 +5,7 @@ import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.UnsettledBetPage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class UnsettledBetTest extends BaseCaseMerito {
      * 2. Select Last Best Mode > Select Matched and click Submit
      * @expect: 1. Match bet display correctly
      */
+    @TestRails(id="786")
     @Test (groups = {"smoke"})
     @Parameters("memberAccount")
     public void Agent_Report_Unsettled_Bet_005(String memberAccount){
@@ -52,6 +54,7 @@ public class UnsettledBetTest extends BaseCaseMerito {
      *          4. Click on event
      * @expect: 1. Verify bet number is matched with total bet
      */
+    @TestRails(id="787")
     @Test (groups = {"smoke"})
     public void Agent_Report_Unsettled_Bet_008(){
         log("@title: Validate Sport Mode - Total bet list is correct");
@@ -84,6 +87,7 @@ public class UnsettledBetTest extends BaseCaseMerito {
      *         3. Enter Soccer and click submit
      * @expect: 1. Verify data is display
      */
+    @TestRails(id="788")
     @Test (groups = {"smoke"})
     @Parameters("downlineAccount")
     public void Agent_Report_Unsettled_Bet_009(String downlineAccount){

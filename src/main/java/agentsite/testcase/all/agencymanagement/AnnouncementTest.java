@@ -7,6 +7,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.AnnoucementPage;
 import agentsite.pages.all.components.ConfirmPopup;
+import util.testraildemo.TestRails;
 
 import static agentsite.common.AGConstant.Announcement.ADD_ANNOUNCEMENT;
 import static agentsite.common.AGConstant.Announcement.INFO;
@@ -14,6 +15,7 @@ import static agentsite.common.AGConstant.HomePage.AGENCY_MANAGEMENT;
 import static agentsite.common.AGConstant.HomePage.ANNOUNCEMENT;
 
 public class AnnouncementTest extends BaseCaseMerito {
+    @TestRails(id="752")
     @Test(groups = {"http_request"})
     public void Agent_AM_Announcement_001() {
         log("@title: There is no http responded error returned");
@@ -26,6 +28,7 @@ public class AnnouncementTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id="753")
     @Test(groups = {"smoke"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_002(String username, String memberAccount, String password) throws Exception {
@@ -41,6 +44,7 @@ public class AnnouncementTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id="754")
     @Test(groups = {"smoke"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_003(String username, String memberAccount, String password) throws Exception {

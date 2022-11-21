@@ -6,6 +6,7 @@ import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.CreateUserPage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -182,6 +183,7 @@ public class CreateUserTest extends BaseCaseMerito {
      * 2. Input incorrect Login ID format
      * @expect: 1. Message "Login ID is invalid." display next to Cancel button
      */
+    @TestRails(id = "688")
     @Test(groups = {"smoke"})
     public void Agent_AM_CreateUser_007() throws Exception {
         log("@title: Validate if input incorrect Login ID format");
@@ -208,6 +210,7 @@ public class CreateUserTest extends BaseCaseMerito {
      *          2. Input correct Login ID and incorrect password format
      * @expect: 1. Message "Password is invalid." display next to Cancel button
      */
+    @TestRails(id = "689")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateUser_008() throws Exception {
         log("@title: Validate if input incorrect Change Password format");
@@ -235,6 +238,7 @@ public class CreateUserTest extends BaseCaseMerito {
      *          2. Input Login ID that exist in the system and correct password then click submit
      * @expect: 1. Popup Create Downline with the message "Login ID already exist."
      */
+    @TestRails(id = "690")
     @Test (groups = {"smoke"})
     @Parameters({"memberAccount"})
     public void Agent_AM_CreateUser_009(String memberAccount) throws Exception {
@@ -265,6 +269,7 @@ public class CreateUserTest extends BaseCaseMerito {
      *         3. Input invalid Min bet setting less than required
      * @expect: 1. Message "Min Bet is invalid." and the valid is highlight
      */
+    @TestRails(id = "691")
     @Test (groups = {"smoke"})
     @Parameters({"currency"})
     public void Agent_AM_CreateUser_010(String currency) throws Exception {
@@ -307,6 +312,7 @@ public class CreateUserTest extends BaseCaseMerito {
      *
      * @expect: 1. Message "Max Bet is invalid." and the valid is highlight
      */
+    @TestRails(id = "692")
     @Test (groups = {"smoke"})
     @Parameters({"currency"})
     public void Agent_AM_CreateUser_010_1(String currency) throws Exception {
@@ -353,6 +359,7 @@ public class CreateUserTest extends BaseCaseMerito {
      * @expect: 1. For Credit Cash line, display the message "Balance Deposit is invalid."
      *
      */
+    @TestRails(id = "693")
     @Test (groups = {"smoke"})
     @Parameters("currency")
     public void Agent_AM_CreateUser_011(String currency) throws Exception {
@@ -386,6 +393,7 @@ public class CreateUserTest extends BaseCaseMerito {
      *          4. Verify change password page display after login
      *          5. Click on Skip Home page display
      */
+    @TestRails(id = "687")
     @Test (groups = {"smoke"})
     @Parameters("password")
     public void Agent_AM_CreateUser_004(String password) throws Exception {
@@ -426,7 +434,7 @@ public class CreateUserTest extends BaseCaseMerito {
     }
 
     /**
-     * @title: Validate  Security poup display when access the page
+     * @title: Validate Security popup display when access the page
      * @pre-condition:
      *           1. Log in successfully
      * @steps: 1. Click on Agency Management

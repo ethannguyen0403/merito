@@ -8,6 +8,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.components.ChangePasswordPopup;
 import agentsite.pages.all.home.UpdateSecurityCodePage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 
@@ -274,6 +275,7 @@ public class HeaderTest extends BaseCaseMerito{
      * - Timezone, language icon and dropdown, menu,  sign out button,
      * - expand left menu icon and home menu
      */
+    @TestRails(id = "673")
     @Test (groups = {"smoke"})
     public void Header_TC001(){
         log("@title: Validate control on header section is correctly display");
@@ -297,6 +299,7 @@ public class HeaderTest extends BaseCaseMerito{
      * @expect:  1. Can change password success
      *           2. Can login with the new password
      */
+    @TestRails(id = "674")
     @Test (groups = {"smoke"})
     @Parameters({"username","password"})
     public void Header_TC015(String username, String password) throws Exception {

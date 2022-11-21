@@ -3,6 +3,7 @@ package agentsite.testcase.all.reports;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.ViewLogPage;
+import util.testraildemo.TestRails;
 
 import static agentsite.common.AGConstant.HomePage.REPORT;
 import static agentsite.common.AGConstant.HomePage.VIEW_LOG;
@@ -14,6 +15,7 @@ public class ViewLogTest extends BaseCaseMerito {
      * @steps: 1. Navigate Report > View Log
      * @expect: 1. Win Loss Simple page is displayed
      */
+    @TestRails(id="815")
     @Test(groups = {"http_request"})
     public void Agent_Report_View_Log_001(){
         log("@title: There is no http responded error returned");
@@ -25,6 +27,22 @@ public class ViewLogTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
+    /**
+     * @title: Validate View Log UI display correctly
+     * @pre-condition: 1. Log in successfully
+     * @steps: 1. Navigate Report > View Log
+     * @expect: 1.Validate View Log UI display correctly
+     */
+    @TestRails(id="816")
+    @Test(groups = {"smoke"})
+    public void Agent_Report_View_Log_002(){
+        log("@title: Validate View Log UI display correctly");
+        log("Step 1: Navigate Report > View Log");
+        ViewLogPage page = agentHomePage.clickSubMenu(REPORT, VIEW_LOG, ViewLogPage.class);
 
+        log("Verify: Validate View Log UI display correctly");
+       Assert.assertEquals( page.getPageTitle(),"View Log","FAILED! Page title is incorrect");
+        log("INFO: Executed completely");
+    }
 
 }

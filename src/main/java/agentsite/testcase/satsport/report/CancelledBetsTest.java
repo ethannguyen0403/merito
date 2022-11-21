@@ -5,6 +5,7 @@ import agentsite.common.AGConstant;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.CancelledBetsPage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class CancelledBetsTest extends BaseCaseMerito {
      * @steps:  1. Navigate Report > Cancelled Bets
      * @expect: 1. Verify Cancelled Bets UI display correctly
      */
+    @TestRails(id="798")
     @Test (groups = {"smoke"})
     public void Agent_Report_Cancelled_Bets_002(){
         log("@title: Validate Cancelled Bets UI display correctly");
@@ -67,6 +69,7 @@ public class CancelledBetsTest extends BaseCaseMerito {
      *          2. Search the data range has data of Exchange Product
      * @expect: 1. Data display with status is System Voided
      */
+    @TestRails(id="799")
     @Test (groups = {"smoke"})
     public void Agent_Report_Cancelled_Bets_003(){
         log("@title: Validate cancelled Bets can filter correct data");

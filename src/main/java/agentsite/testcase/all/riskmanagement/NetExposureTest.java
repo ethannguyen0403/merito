@@ -6,6 +6,8 @@ import agentsite.objects.agent.account.MarketInfo;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import agentsite.pages.all.riskmanagement.NetExposurePage;
+import util.testraildemo.TestRails;
+
 import java.util.List;
 
 import static agentsite.common.AGConstant.HomePage.NET_EXPOSURE;
@@ -17,7 +19,7 @@ public class NetExposureTest extends BaseCaseMerito {
     /***
      * This tes cases only available for F24 and Betclub9
      */
-
+    @TestRails(id="834")
     @Test(groups = {"smoke5","smokePO"})
     public void Agent_RM_NetExposureTest_TC001() {
         log("@title: Verify UI display correctly");
@@ -38,6 +40,7 @@ public class NetExposureTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id="835")
     @Test(groups = {"smokePO"})
     public void Agent_RM_NetExposureTest_TC002() {
         log("@title:Validate Order place on match odds market display correct section My PT mode");
@@ -56,7 +59,7 @@ public class NetExposureTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id="836")
     @Test(groups = {"smoke","smokePO"})
     public void Agent_RM_NetExposureTest_TC003() {
         log("@title: Verify can open bet list in PT Mode");
@@ -77,6 +80,7 @@ public class NetExposureTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
     }
+    @TestRails(id="837")
     @Test(groups = {"smoke","smokePO"})
     public void Agent_RM_NetExposureTest_TC004() {
         log("@title: Verify can open Downline");

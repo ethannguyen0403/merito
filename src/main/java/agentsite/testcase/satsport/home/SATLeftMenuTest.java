@@ -2,6 +2,7 @@ package agentsite.testcase.satsport.home;
 
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -127,6 +128,7 @@ public class SATLeftMenuTest extends BaseCaseMerito {
      * 1. Expand all left menu
      * @expect: Verify the list menu display correct when login Portal level
      */
+    @TestRails(id = "675")
     @Test (groups = {"smokePO"})
     public void LeftMenu_TC019(){
         log("@title:  Verify the list menu display correct when login Portal level");
@@ -195,6 +197,7 @@ public class SATLeftMenuTest extends BaseCaseMerito {
      * 1. Expand all left menu
      * @expect: Verify the list menu display correct when login Control Blocking level
      */
+    @TestRails(id = "676")
     @Test (groups = {"satsmoke"})
     public void LeftMenu_TC020() {
         log("@title: Verify the list menu display correct when login Control Blocking  level");
@@ -250,6 +253,7 @@ public class SATLeftMenuTest extends BaseCaseMerito {
      * 1. Expand all left menu
      * @expect: Verify the list menu display correct when other leve
      */
+    @TestRails(id = "677")
     @Test (groups = {"nonPOSmoke"})
     public void LeftMenu_TC021() {
         log("@title: Verify the list menu display correct when other level");
