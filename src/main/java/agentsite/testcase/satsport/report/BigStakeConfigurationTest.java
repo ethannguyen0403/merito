@@ -6,6 +6,7 @@ import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.BigStakeConfigurationPage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class BigStakeConfigurationTest extends BaseCaseMerito {
      * @steps:  1. Navigate Report > Top Gainers & Top Losers > Big Stake Configuration
      * @expect: 1. Verify Big Stake Configuration UI display correctly
      */
+    @TestRails(id="813")
     @Test (groups = {"smoke"})
     public void  Agent_Report_Big_Stake_Configuration_002(){
         log("@title:Validate Big Stake Configuration UI display correctly");
@@ -60,6 +62,7 @@ public class BigStakeConfigurationTest extends BaseCaseMerito {
      *          2. Update Big stake = Min bet + 10
      * @expect: 1. Can update big stake successfully" Big stake configuration is saved successfully."
      */
+    @TestRails(id="814")
     @Test (groups = {"smoke"})
     @Parameters("username")
     public void  Agent_Report_Big_Stake_Configuration_003(String username){

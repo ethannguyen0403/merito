@@ -3,6 +3,7 @@ package agentsite.testcase.satsport.report;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.ViewLogPage;
+import util.testraildemo.TestRails;
 
 import static agentsite.common.AGConstant.HomePage.REPORT;
 import static agentsite.common.AGConstant.HomePage.VIEW_LOG;
@@ -14,6 +15,7 @@ public class ViewLogTest extends BaseCaseMerito {
      * @steps: 1. Navigate Report > View Log
      * @expect: 1. Win Loss Simple page is displayed
      */
+    @TestRails(id="815")
     @Test(groups = {"http_request"})
     public void Agent_Report_View_Log_001(){
         log("@title: There is no http responded error returned");

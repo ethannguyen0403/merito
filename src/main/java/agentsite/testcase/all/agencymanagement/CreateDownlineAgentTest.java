@@ -6,6 +6,7 @@ import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.CreateDownLineAgentPage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          4. Verify Sport setting, Bet Settings, Tax Setting. Position Taking Setting
      *          5. Submit and Cancel button
      */
+
+    @TestRails(id = "678")
     @Test (groups = {"smoke"})
     @Parameters({"currency","prefix"})
     public void Agent_AM_CreateDownline_Agent_002(String currency,String prefix) throws Exception {
@@ -105,6 +108,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          5 Verify Bet Settings, Tax Setting. Position Taking Setting
      *          6. Submit and Cancel button
      */
+    @TestRails(id = "679")
     @Test (groups = {"smoke"})
     @Parameters({"currency","prefix"})
     public void Agent_AM_CreateDownline_Agent_003(String currency,String prefix) throws Exception {
@@ -179,6 +183,85 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
     }
 
     /**
+     * @title: Validate display Cash Balance and Risk Setting for Credit account
+     * @pre-condition:
+     *           1. Log in successfully with Credit Account
+     * @steps:  1. Navigate Agency Management > Create Downline Agent
+     * @expect: 1.Credit Balance section display
+     *      - Credit Limit
+     *      - SMA Max Credit
+     *      - PL Max Credit
+     *      2. Risk Setting section display
+     *      3. There is no cash Balance section display
+     */
+    @TestRails(id = "680")
+    @Test (groups = {"credit_smoke"})
+    public void Agent_AM_CreateDownline_Agent_004(){
+        log("@title: Validate display Credit Balance and Risk Setting for Credit account");
+        log("Step 1. Navigate Agency Management > Create Downline Agent");
+        CreateDownLineAgentPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, CREATE_DOWNLINE_AGENT, CreateDownLineAgentPage.class);
+        page.accInfoSection.ddpLevel.selectByVisibleText("Admin");
+        page.waitingLoadingSpinner();
+
+        log("Verify 1. Credit Balance section display");
+        Assert.assertEquals(page.creditBalanceSection.lblCashBalanceTitle.getText(),AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_BALANCE,"FAILED! Credit Balance Section display incorrect");
+        List<String> lstLabels = page.creditBalanceSection.tblCashBalance.getColumn(1,false);
+        Assert.assertEquals(lstLabels.get(0),AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_LIMIT,"FAILED! Credit Limit Label display incorrect");
+        Assert.assertEquals(lstLabels.get(1),AGConstant.AgencyManagement.CreateAccount.LBL_SMA_BALANCE,"FAILED! SMA Max Credit Label display incorrect");
+        Assert.assertEquals(lstLabels.get(2),AGConstant.AgencyManagement.CreateAccount.LBL_MEMBER_MAX_CREDIT,"FAILED! Member Max Credit Label display incorrect");
+        Assert.assertTrue(page.creditBalanceSection.txtCreditLimit.isDisplayed(),"FAILED! Member Max Credit textbox display incorrect");
+        Assert.assertTrue(page.creditBalanceSection.txtDownlineAGMaxCredit.isDisplayed(),"FAILED! SMA Max Credit textbox display incorrect");
+        Assert.assertTrue(page.creditBalanceSection.txtMemberMaxCredit.isDisplayed(),"FAILED! Member Max Credit textbox display incorrect");
+
+
+        log("Verify 2. Risk Setting section display");
+        Assert.assertEquals(page.lblRiskSetting.getText(),AGConstant.AgencyManagement.CreateAccount.LBL_RISK_SETTING,"FAILED! Risk Setting Section display incorrect");
+        Assert.assertEquals(page.lblMaxExposure.getText(),AGConstant.AgencyManagement.CreateAccount.LBL_MAX_EXPOSURE,"FAILED! Max Exposure label display incorrect");
+        Assert.assertEquals(page.lblMaxExposureHint.getText(),AGConstant.AgencyManagement.CreateAccount.LBL_MAX_EXPOSURE_HINT,"FAILED! Max Exposure hint label display incorrect");
+        Assert.assertTrue(page.txtMaxExposure.isDisplayed(),"FAILED! Max Exposure Textbox display incorrect");
+
+        log("Verify 3. There is no cash Balance section display");
+        Assert.assertFalse(page.creditBalanceSection.txtInitiationDeposit.isDisplayed(),"FAILED! Credit Initiation textbox display for credit account");
+
+        log("INFO: Executed completely");
+    }
+
+    /**
+     * @title: Validate display Cash Balance for Cash account
+     * @pre-condition:
+     *           1. Log in successfully with Cash Account
+     * @steps:  1. Navigate Agency Management > Create Downline Agent
+     * @expect: 1.Cash Balance section display
+     *      - Credit Initiation
+     *      - Max Player Credit
+     *      - First  Time Deposit
+     *      2. There is no Credit Balance section display
+     */
+    @TestRails(id = "681")
+    @Test (groups = {"smoke"})
+    public void Agent_AM_CreateDownline_Agent_005(){
+        log("@title: Validate display Cash Balance for Cash account");
+        log("Step 1. Navigate Agency Management > Create Downline Agent");
+        CreateDownLineAgentPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, CREATE_DOWNLINE_AGENT, CreateDownLineAgentPage.class);
+
+        log("Verify 1.Credit Cash Balance section display");
+        List<ArrayList<String>> lstBalance = page.cashBalanceSection.tblCashBalance.getRowsWithoutHeader(2,false);
+        Assert.assertEquals(page.cashBalanceSection.lblTitle.getText(),AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_BALANCE,"FAILED! Cash Balance Section display incorrect");
+        Assert.assertEquals(lstBalance.get(0).get(0),AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_INITIATION,"FAILED! Credit Initiation label displays incorrect");
+        Assert.assertEquals(lstBalance.get(0).get(2),AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_TIME_DEPOSIT,"FAILED! First Time Deposit display incorrect");
+        Assert.assertEquals(lstBalance.get(1).get(0),AGConstant.AgencyManagement.CreateAccount.LBL_MAX_PLAYER_CREDIT,"FAILED! Max Player Credit display incorrect");
+        Assert.assertFalse(page.cashBalanceSection.txtInitiationDeposit.isDisplayed(),"FAILED! Credit Initiation textbox not display");
+        Assert.assertTrue(page.cashBalanceSection.txtFirstTimeDeposit.isDisplayed(),"FAILED! First Time Deposit textbox not display");
+        Assert.assertTrue(page.cashBalanceSection.txtMemberMaxCredit.isDisplayed(),"FAILED!Max Player Credit textbox not display");
+
+        log("Verify 2. There is no Credit Balance section display");
+        Assert.assertFalse(page.creditBalanceSection.txtInitiationDeposit.isDisplayed(),"FAILED! Credit Limit textbox display for Cash Account");
+
+        Assert.assertFalse(page.lblRiskSetting.isDisplayed(),"FAILED! Risk Setting section display for Cash account");
+        log("INFO: Executed completely");
+    }
+
+    /**
      * @title: Validate default value in Create Downline Agent
      * @pre-condition:
      *           1. Log in successfully with Credit Cash Account
@@ -191,6 +274,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          3. Account Status: Active and Inactive
      *          4. The agent level under login level
      */
+    @TestRails(id = "682")
     @Test (groups = {"smoke"})
     @Parameters({"currency"})
     public void Agent_AM_CreateDownline_Agent_006(String currency) throws Exception {
@@ -228,6 +312,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          2. Validate the popup is disappear when click on OK button
      *          3. Valid can login agent with the created account
      */
+    @TestRails(id = "683")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_007() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
@@ -262,6 +347,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          2. Input correct Login ID and incorrect password format
      * @expect: 1. Message "Password is invalid." display next to Cancel button
      */
+    @TestRails(id = "685")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_011() throws Exception {
         log("@title: Validate if input incorrect Change Password format");

@@ -9,6 +9,7 @@ import agentsite.pages.all.agentmanagement.DepositWithdrawalPage;
 import agentsite.pages.all.agentmanagement.depositwithdrawal.ViewLogPopup;
 import agentsite.pages.all.report.TransferLogPage;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class TransferLogTest extends BaseCaseMerito {
      * @steps: 1. Navigate Report> Transfer Log
      * @expect: 1. There is no http responded error returned
      */
+    @TestRails(id="801")
     @Test(groups = {"http_request"})
     public void Agent_Report_Transfer_Log_001(){
         log("@title: There is no http responded error returned");
@@ -42,6 +44,7 @@ public class TransferLogTest extends BaseCaseMerito {
      *          3. Input the account do deposit/withdraw in steps 1 and click submit
      * @expect: 1. Verify log show correctly
      */
+    @TestRails(id="802")
     @Test (groups = {"smoke_Credit_Cash"})
     public void Agent_Report_Transfer_Log_003(){
         log("@title: Validate data Transfer Log display correctly");
@@ -86,6 +89,7 @@ public class TransferLogTest extends BaseCaseMerito {
      *
      * @expect: 1. Verify page UI show correctly
      */
+    @TestRails(id="803")
     @Test (groups = {"smoke"})
     public void Agent_Report_Transfer_Log_002(){
         log("@title: Validate data Transfer Log display correctly");

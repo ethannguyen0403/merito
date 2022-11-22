@@ -4,6 +4,7 @@ import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.ProfitAndLossPage;
 import agentsite.pages.all.report.components.TransactionDetailsPopup;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ProfitAndLossTest extends BaseCaseMerito {
      *          3. Get summary data then Drill down to Member level and click on the user name
      * @expect:  1. Verify data display correctly on summary and transaction detail at Member result column
      */
+    @TestRails(id="789")
     @Test (groups = {"smoke"})
     public void Agent_Report_Profit_And_Loss_004(){
         log("@title: Validate can filter data on summary display correctly with total in detail");
@@ -52,7 +54,8 @@ public class ProfitAndLossTest extends BaseCaseMerito {
      *          3. Drill down to Member level and click on the user name
      * @expect:  1. Sum member result column and verify it match with total column
      */
-    @Test (groups = {"smoke11"})
+    @TestRails(id="790")
+    @Test (groups = {"smoke"})
     public void Agent_Report_Profit_And_Loss_005(){
         log("@title: Validate can filter data on summary display correctly with total in detail");
         log("Step 1. Navigate Report > Profit And Loss");

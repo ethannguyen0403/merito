@@ -5,6 +5,7 @@ import agentsite.common.AGConstant;
 import org.testng.Assert;
 import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 public class LogoutTest extends BaseCaseMerito {
     /**
@@ -13,7 +14,8 @@ public class LogoutTest extends BaseCaseMerito {
      *           2. Click Logout button
      * @expect:  1. Logout is successful
      */
-    @Test (groups = {"smoke1"})
+    @TestRails(id = "672")
+    @Test (groups = {"smoke"})
     public void Agent_Logout_001(){
         log("@title: Validate that user can logout successfully");
         log("Step 1: Log in with a valid username and password");
@@ -34,7 +36,7 @@ public class LogoutTest extends BaseCaseMerito {
      *           3. Click Back button on the browser
      * @expect:  1. Logout page is kept
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     public void Agent_Logout_002(){
         log("@title: Validate that Logout page is kept when clicking Back button on the browser");
         log("Step 1: Log in with a valid username and password");

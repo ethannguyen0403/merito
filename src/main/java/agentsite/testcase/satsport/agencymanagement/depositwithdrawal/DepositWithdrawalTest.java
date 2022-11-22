@@ -14,6 +14,7 @@ import agentsite.pages.all.agentmanagement.depositwithdrawal.ViewLogPopup;
 import agentsite.pages.sat.agentmanagement.SATDepositWithdrawalPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      * @steps:   1. Navigate Agency Management > Deposit Withdrawal
      * @expect:  1. Deposit Withdrawal page is displayed
      */
+    @TestRails(id="711")
     @Test (groups = {"http_request"})
     public void Agent_AM_DepositWithdrawal_001(){
         log("@title: There is no http responded error returned");
@@ -53,6 +55,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           3. Column names on Account Balance info table are correct
      *           4. Column names on Downline info table are correct
      */
+    @TestRails(id="712")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_002(){
         log("@title: Validate that this page loading is successful");
@@ -83,6 +86,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           2. Filter a username
      * @expect:  1. Data in this table is displayed correctly after filtering
      */
+    @TestRails(id="713")
     @Test (groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_AM_DepositWithdrawal_003(String brandname){
@@ -112,6 +116,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           2. Filter a username and Agent level
      * @expect:  1. Data in this table is displayed correctly after filtering
      */
+    @TestRails(id="714")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_004(){
         log("@title: Validate that filtering with username is correct");
@@ -146,6 +151,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           2. Filter a username , status and Agent level
      * @expect:  1. Data in this table is displayed correctly after filtering
      */
+    @TestRails(id="715")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_005(){
         log("@title: Validate that filtering with correct username, account Status and level");
@@ -182,6 +188,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           2. Filter a username, incorrect status, and Agent level
      * @expect:  1. There is no record found when filtering an incorrect status
      */
+    @TestRails(id="716")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_006(){
         log("@title: Validate that there is no record found when filtering an incorrect status");
@@ -215,6 +222,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           2. Filter an invalid username
      * @expect:  1. There is no result found when filtering an invalid username
      */
+    @TestRails(id="717")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_007(){
         log("@title: Validate that there is no record found when filtering an invalid username");
@@ -240,6 +248,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      * @expect: 1. There is no Update Status Transfer columns
      * 2. Deposit and Withdraw button is no longer displayed
      */
+    @TestRails(id="718")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_008(){
         log("@title: Validate there is UI when drill-down");
@@ -281,6 +290,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      * @expect: 1. View Log popup display with the title "Deposit Withdrawal Log - SA1"
      *  2. View Log table display with the header "Date Time, Action, Amount, Remark, Perform By"
      */
+    @TestRails(id="719")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_009(){
         log("@title:  Validate Open View Log popup");
@@ -314,6 +324,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           3. Click View Log
      * @expect: 1. Verify log data display corresponding as deposit
      */
+    @TestRails(id="720")
     @Test (groups = {"satregression"})
     @Parameters({"brandname"})
     public void Agent_AM_DepositWithdrawal_010(String brandname){
@@ -385,6 +396,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      * @steps:   1. Navigate Agency Management > Deposit Withdrawal     *
      * @expect:  1. Verify there is no security popup display
      */
+    @TestRails(id="720")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_012(){
         log("@title: Validate there is no security popup display Deposit/withdraw page");
@@ -406,6 +418,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      * @expect: In viewied level data My Credit, Total Balance, Sub Balance, Available Balance
      * In downline table  veify data to Total Balance, Sub Balance, Available Balance
      */
+    @TestRails(id="721")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_013() {
         log("@title: Validate My Credit, Total Balance, Sub Balance,Available Balance is correct");

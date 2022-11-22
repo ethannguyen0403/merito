@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.TaxSettingListingPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class TaxSettingListingTest extends BaseCaseMerito {
      * 2. Input Login ID and  click Submit button
      * @expect: 1. Verify Login display in the result table
      */
+    @TestRails(id="748")
     @Test (groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_AM_Tax_Setting_Listing_0004(String brandname) {
@@ -51,6 +53,7 @@ public class TaxSettingListingTest extends BaseCaseMerito {
      *         3. Update valid tax for Soccer, Tennis, Cricket, Basketball, Fancy Other and Click update
      * @expect: 1. Verify tax is updated for all sport and Update status is display green check
      */
+    @TestRails(id="749")
     @Test (groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_AM_Tax_Setting_Listing_0005(String brandname) {
@@ -95,6 +98,7 @@ public class TaxSettingListingTest extends BaseCaseMerito {
      * @steps: 1. Navigate Agency Management >  Tax Setting Listing
      * @expect: 1. Verify UI Tax Setting Listing display correctly
      */
+    @TestRails(id="750")
     @Test (groups = {"smoke"})
     @Parameters("username")
     public void Agent_AM_Tax_Setting_Listing_0002(String username) {

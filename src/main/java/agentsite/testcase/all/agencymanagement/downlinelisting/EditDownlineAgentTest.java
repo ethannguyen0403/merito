@@ -11,6 +11,7 @@ import agentsite.pages.all.agentmanagement.CreateDownLineAgentPage;
 import agentsite.pages.all.agentmanagement.DownLineListingPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
     /**
-     * @title: Validate there Cannot update if Max Player Credit exceed the limit
+     * @title: Validate Cannot update if Max Player Credit exceed the limit
      * @pre-condition:
      *           1. Log in successfully
      * @steps: 1. Navigate Agency Management > Downline Listing
@@ -45,10 +46,11 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
      *         3. Input Max player Credit greater than the limit
      * @expect: 1. Verify Message "Max Player Credit is invalid" display
      */
+    @TestRails(id="696")
     @Test (groups = {"creditSmoke"})
     @Parameters({"level","brandname"})
     public void Agent_AM_Downline_Listing_Edit_Agent_004(String level, String brandname) throws Exception {
-        log("@title: Validate there Cannot update if Max Player Credit exceed the limit");
+        log("@title: Validate cannot update if Max Player Credit exceed the limit");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING, DownLineListingPage.class);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -83,6 +85,7 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
      * @expect: 1. Verify can update agent with valid max player credit
      *          2. Verify Max Player Credit display correctly as setting in First Time Deposit limit section
      */
+    @TestRails(id="679")
     @Test (groups = {"creditSmoke"})
     @Parameters({"password","downlineLevel","brandname"})
     public void Agent_AM_Downline_Listing_Edit_Agent_005(String password,String downlineLevel, String brandname) throws Exception {

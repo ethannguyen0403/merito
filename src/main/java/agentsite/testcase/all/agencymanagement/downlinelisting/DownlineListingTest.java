@@ -11,6 +11,7 @@ import agentsite.pages.all.agentmanagement.DownLineListingPage;
 import agentsite.pages.all.components.SuccessPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.Collections;
 import java.util.List;
@@ -463,7 +464,8 @@ public class DownlineListingTest extends BaseCaseMerito {
      * 2. Input a Username exist indirect/direct downline
      * @expect: 1. Corresponding account display in the list
      */
-    @Test(groups = {"smoke1"})
+    @TestRails(id="694")
+    @Test(groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_AM_Downline_Listing_006(String brandname) {
         log("@title: Validate can search downline with Username ");
@@ -496,6 +498,7 @@ public class DownlineListingTest extends BaseCaseMerito {
      *         4. Update password
      * @expect: 1. Verify can change password successfully
      */
+    @TestRails(id="695")
     @Test (groups = {"smoke"})
     @Parameters({"level","password","brandname"})
     public void Agent_AM_Downline_Listing_020(String level,String password, String brandname) throws Exception {

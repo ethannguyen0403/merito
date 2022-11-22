@@ -6,6 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.PositionTakingListingPage;
 import agentsite.ultils.account.ProfileUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class PositionTakingListingTest extends BaseCaseMerito {
      * @steps: 1. Navigate Agency Management > Position Taking Listing
      * @expect: 1. Verify UI on Position Taking Listing display correctly
      */
+    @TestRails(id="707")
     @Test(groups = {"smoke"})
     @Parameters("username")
     public void Agent_AM_Position_Taking_Listing_002(String username) {
@@ -55,6 +57,7 @@ public class PositionTakingListingTest extends BaseCaseMerito {
      *
      * @expect: 1. Verify Login ID displays
      */
+    @TestRails(id="708")
     @Test (groups = {"smoke"})
     public void Agent_AM_Position_Taking_Listing_004() {
         log("@title:Verify can search by login ID");
@@ -83,6 +86,7 @@ public class PositionTakingListingTest extends BaseCaseMerito {
      *
      * @expect: 1. Verify PT for Soccer, Cricket, Tennis, Basketball Other is updated and there is a green check in Update Status column
      */
+    @TestRails(id="709")
     @Test (groups = {"smoke"})
     public void Agent_AM_Position_Taking_Listing_012() {
         log("@title: Verify can update PT for all sports");
@@ -137,6 +141,7 @@ public class PositionTakingListingTest extends BaseCaseMerito {
      *
      * @expect: 1. Verify only PT of soccer is updated, other sport is not affected
      */
+    @TestRails(id="710")
     @Test (groups = {"smoke"})
     public void Agent_AM_Position_Taking_Listing_014() {
         log("@title: Verify can update PT  for selected sport");

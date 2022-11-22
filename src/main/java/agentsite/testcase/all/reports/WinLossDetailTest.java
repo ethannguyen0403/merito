@@ -9,6 +9,7 @@ import agentsite.pages.all.report.WinLossDetailPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import agentsite.ultils.report.ReportslUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class WinLossDetailTest extends BaseCaseMerito {
      * @steps:   1. Navigate Report> Win Loss Detail
      * @expect:  1. Verify Win Loss Detail UI display correctly
      */
+    @TestRails(id="794")
     @Test (groups = {"smoke"})
     public void Agent_Report_WinLossDetail_002(){
         log("@title: Validate Win Loss Detail UI display correctly");
@@ -65,6 +67,7 @@ public class WinLossDetailTest extends BaseCaseMerito {
      *           2. Search the data range that have data
      * @expect:  1. Verify can display data
      */
+    @TestRails(id="795")
     @Test (groups = {"smoke"})
     @Parameters("memberAccount")
     public void Agent_Report_WinLossDetail_003(String memberAccount){
@@ -90,7 +93,8 @@ public class WinLossDetailTest extends BaseCaseMerito {
         }
         log("INFO: Executed completely");
     }
-    @Test (groups = {"regression"})
+    @TestRails(id="796")
+    @Test (groups = {"smoke"})
     public void Agent_Report_WinLossDetail_004(){
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Detail");

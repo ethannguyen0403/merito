@@ -13,6 +13,7 @@ import agentsite.pages.sat.agentmanagement.SATDepositWithdrawalPage;
 import agentsite.pages.sat.agentmanagement.SATDownLineListingPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,6 +162,7 @@ public class DepositTest extends BaseCaseMerito {
      * @expect: 1. There is an error message when submitted without any amount
      * "Amount must be positive decimal with maximum two places and greater than zero"
      */
+    @TestRails(id="722")
     @Test(groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_003() {
         log("@title: Validate that there is an error message displayed when submitted without any amount");
@@ -197,6 +199,7 @@ public class DepositTest extends BaseCaseMerito {
      * 3.  Deposit an amount more than the current cash balance
      * @expect: 1. There is an error message when submitted  amount more than the current cash balance
      */
+    @TestRails(id="723")
     @Test(groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_004() {
         log("@title: Validate that there is an insufficient error displayed when inputted an amount more than the current cash balance");
@@ -237,6 +240,7 @@ public class DepositTest extends BaseCaseMerito {
      * @expect: 1. Verify message "Withdraw is successful"
      *          2. Verify available balance of deposit account is updated
      */
+    @TestRails(id="724")
     @Test(priority = 2,groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_005(){
         log("@title: Validate can deposited by Credit Update successfully");
@@ -287,6 +291,7 @@ public class DepositTest extends BaseCaseMerito {
      * @expect: 1. Deposit popup is disappeared and there is a green check display in Update Status column
      *          2. Verify Balance is updated correctly
      */
+    @TestRails(id="725")
     @Test (priority = 2,groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_006(){
         log("@title: Validate can multiple deposit by Credit Update by click on Deposit button");
@@ -360,6 +365,7 @@ public class DepositTest extends BaseCaseMerito {
      *           4. Open Deposit popup
      * @expect:  1. Deposit popup is displayed and UI display correctly
      */
+    @TestRails(id="726")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_007(){
         log("@title: Validate that Deposit popup is displayed when clicking Deposit button");
@@ -398,6 +404,7 @@ public class DepositTest extends BaseCaseMerito {
      * @expect:     1. Verify message "Withdraw is successful"
      *              2. Verify  Win/loss value is update correctly
      */
+    @TestRails(id="727")
     @Test (priority = 2,groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_008(){
         log("@title: Validate can deposited by Win/Loss Settle successfully");
@@ -458,6 +465,7 @@ public class DepositTest extends BaseCaseMerito {
      * @expect:  1. Deposit popup is disappeared and there is a green check display in Update Status column
      *           2. Verify WinLoss is updated correctly
      */
+    @TestRails(id="728")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_009(){
         log("@title: Validate can deposited by Win/Loss Settle by click on Deposit button");
@@ -541,6 +549,7 @@ public class DepositTest extends BaseCaseMerito {
      * @expect: 1. An amount is not deposited successfully
      *          2. Failure icon is displayed when depositing completely
      */
+    @TestRails(id="729")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_010(){
         log("@title:  Validate cannot deposit an amount more than the current balance");
@@ -589,6 +598,7 @@ public class DepositTest extends BaseCaseMerito {
      *         2. Select/Unselect all account checkbox
      * @expect: 1. Verify Deposit/withdraw link is disabled/enabled
      */
+    @TestRails(id="730")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_011() {
         log("@title:  Validate Deposit/Withdraw Link is disabled /enable when select/unselect account");

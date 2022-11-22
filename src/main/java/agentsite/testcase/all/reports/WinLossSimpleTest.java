@@ -6,6 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.WinLossSimplePage;
 import agentsite.ultils.report.ReportslUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -56,6 +57,7 @@ public class WinLossSimpleTest extends BaseCaseMerito {
      *           2. Select data range that have data and Exchange product
      * @expect:  1. Win Loss Simple Report display correctly
      */
+    @TestRails(id="791")
     @Test (groups = {"smoke"})
     @Parameters("memberAccount")
     public void Agent_Report_WinLossSimple_003(String memberAccount){
@@ -86,6 +88,7 @@ public class WinLossSimpleTest extends BaseCaseMerito {
      *           3. Click Submit button
      * @expect:  1. An error message is displayed if product is unchecked
      */
+    @TestRails(id="792")
     @Test (groups = {"smoke"})
     public void Agent_Report_WinLossSimple_004(){
         log("@title: Validate that an error message is displayed when filtering without any product");
@@ -102,7 +105,8 @@ public class WinLossSimpleTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    @Test (groups = {"regression"})
+    @TestRails(id="793")
+    @Test (groups = {"smoke"})
     public void Agent_Report_WinLossSimple_005(){
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Simple");
@@ -114,8 +118,6 @@ public class WinLossSimpleTest extends BaseCaseMerito {
 
         log("Verify 1: Products display correct");
         Assert.assertEquals(lstProduct,lstAllProductsExpected,"FAILED! List product is incorrect");
-
-
         log("INFO: Executed completely");
     }
 

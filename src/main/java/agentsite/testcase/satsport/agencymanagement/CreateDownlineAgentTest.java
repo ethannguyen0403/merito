@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.CreateDownLineAgentPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          4. Verify Sport setting, Bet Settings, Tax Setting. Position Taking Setting
      *          5. Submit and Cancel button
      */
+    @TestRails(id = "678")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_002() {
         log("@title: Validate UI in Create Downline Agent with Exchange Product setting");
@@ -102,6 +104,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          5 Verify Bet Settings, Tax Setting. Position Taking Setting
      *          6. Submit and Cancel button
      */
+    @TestRails(id = "679")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_003(){
         log("@title: Validate UI in Create Downline Agent with Exchange Game Product setting");
@@ -178,6 +181,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *      2. Risk Setting section display
      *      3. There is no cash Balance section display
      */
+    @TestRails(id = "680")
     @Test (groups = {"credit_smoke"})
     public void Agent_AM_CreateDownline_Agent_004(){
         log("@title: Validate display Credit Balance and Risk Setting for Credit account");
@@ -220,6 +224,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *      - First  Time Deposit
      *      2. There is no Credit Balance section display
      */
+    @TestRails(id = "681")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_005(){
         log("@title: Validate display Cash Balance for Cash account");
@@ -256,6 +261,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          3. Account Status: Active and Inactive
      *          4. The agent level under login level
      */
+    @TestRails(id = "682")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_006(){
         log("@title: Validate display Cash Balance for Credit Cash account");
@@ -289,6 +295,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          2. Validate the popup is disappear when click on OK button
      *          3. Valid can login agent with the created account
      */
+    @TestRails(id = "683")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_007() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
@@ -325,6 +332,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          2. Input incorrect Login ID format
      * @expect: 1. Message "Login ID is invalid." display next to Cancel button
      */
+    @TestRails(id = "684")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_010(){
         log("@title: Validate if input incorrect Login ID format");
@@ -348,6 +356,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          2. Input correct Login ID and incorrect password format
      * @expect: 1. Message "Password is invalid." display next to Cancel button
      */
+    @TestRails(id = "683")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_011(){
         log("@title: Validate if input incorrect Change Password format");
@@ -372,6 +381,7 @@ public class CreateDownlineAgentTest extends BaseCaseMerito {
      *          2. Input Login ID that exist in the system and correct password then click submit
      * @expect: 1. Popup Create Downline with the message "Login ID already exist."
      */
+    @TestRails(id = "685")
     @Test (groups = {"smoke"})
     @Parameters({"level","brandname"})
     public void Agent_AM_CreateDownline_Agent_012(String level, String brandname){

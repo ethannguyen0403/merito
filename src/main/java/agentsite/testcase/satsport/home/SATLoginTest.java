@@ -4,6 +4,7 @@ import agentsite.common.AGConstant;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 public class SATLoginTest extends BaseCaseMerito {
     /**
@@ -11,6 +12,7 @@ public class SATLoginTest extends BaseCaseMerito {
      * @steps:   1. Log in with a valid username and password
      * @expect:  1. Home page is displayed
      */
+    @TestRails(id = "670")
     @Test (groups = {"http_request"})
     public void Agent_Login_001(){
         log("@title: There is no http responded error returned");
@@ -26,6 +28,7 @@ public class SATLoginTest extends BaseCaseMerito {
      * @steps:   1. Log in with a valid information(username, password, captcha, security code)
      * @expect:  1. Home page is displayed
      */
+    @TestRails(id = "671")
     @Test (groups = {"smoke"})
     @Parameters({"username"})
     public void Agent_Login_002(String username){

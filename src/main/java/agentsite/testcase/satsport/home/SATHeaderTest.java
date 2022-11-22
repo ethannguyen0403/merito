@@ -1,5 +1,6 @@
 package agentsite.testcase.satsport.home;
 
+import agentsite.common.AGConstant;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.StringUtils;
 import agentsite.objects.agent.account.AccountInfo;
@@ -9,6 +10,7 @@ import org.testng.annotations.Test;
 import agentsite.pages.all.components.ChangePasswordPopup;
 import agentsite.pages.all.home.AccountBalancePage;
 import agentsite.ultils.account.ProfileUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -33,7 +35,27 @@ public class SATHeaderTest extends BaseCaseMerito {
         Assert.assertEquals(lstMenuHeader,MENULISTSAT,"FAILED! The list sub menu not display: Password, Security Code, OTP");
         log("INFO: Executed completely");
     }
-
+    /**
+     * @title: Validate control on header section is correctly display
+     * @steps:   1. Login successfully
+     * @expect: Verify UI on Header section:
+     * - Timezone, language icon and dropdown, menu,  sign out button,
+     * - expand left menu icon and home menu
+     */
+    @TestRails(id = "673")
+    @Test (groups = {"smoke"})
+    public void Header_TC001(){
+        log("@title: Validate control on header section is correctly display");
+        log("Step 1: Log in with a valid username and password");
+        log("Verify: 1 Verify UI on Header section:");
+        Assert.assertTrue(agentHomePage.lblTimeZone.isDisplayed(), "ERROR: Time zone is not displayed");
+        Assert.assertTrue(agentHomePage.ddbLanguage.isDisplayed(), "ERROR: Language dropdown box is not displayed");
+        Assert.assertTrue(agentHomePage.iconHeaderMenu.isDisplayed(), "ERROR: Header menu is not displayed");
+        Assert.assertTrue(agentHomePage.iconLeftMenu.isDisplayed(),"ERROR! Collapse left menu icon not display");
+        Assert.assertTrue(agentHomePage.iconHome.isDisplayed(),"ERROR! Home icon does not display");
+        Assert.assertEquals(agentHomePage.btnSignOut.getText(), AGConstant.HomePage.SIGN_OUT, "ERROR: Sign Out button display incorrectly");
+        log("INFO: Executed completely");
+    }
     /**
      * @title: Validate Account Balance page display when click on Home icon
      * @steps:   1. Login successfully
@@ -76,6 +98,7 @@ public class SATHeaderTest extends BaseCaseMerito {
      * @expect: 1. Can change password success
      * 2. Can login with the new password
      */
+    @TestRails(id = "674")
     @Test(groups = {"satsmoke"})
     @Parameters({"username", "password"})
     public void SAT_Header_TC015(String username, String password) throws Exception {

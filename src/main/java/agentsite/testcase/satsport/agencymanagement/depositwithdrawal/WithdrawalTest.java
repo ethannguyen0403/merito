@@ -10,6 +10,7 @@ import agentsite.pages.all.agentmanagement.depositwithdrawal.WithdrawalPopup;
 import agentsite.pages.sat.agentmanagement.SATDepositWithdrawalPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class WithdrawalTest extends BaseCaseMerito {
      * @expect:  1. Withdrawal popup is displayed
      *           2. Info is displayed correctly
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     public void Agent_AM_DepositWithdrawal_Withdraw_001(){
         log("@title: Validate that Withdrawal popup displays correct info.");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -94,7 +95,7 @@ public class WithdrawalTest extends BaseCaseMerito {
      *           3. Withdraw without any amount
      * @expect:  1. There is an error message when submitted without any amount
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     public void Agent_AM_DepositWithdrawal_Withdraw_003(){
         log("@title: Validate that there is an error message displayed when submitted without any amount");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -128,6 +129,7 @@ public class WithdrawalTest extends BaseCaseMerito {
      *         3. Withdraw an amount more than the current cash balance
      * @expect: 1. There is an error message when submitted without any amount
      */
+    @TestRails(id="731")
     @Test(priority = 3,groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Withdraw_004(){
         log("@title: Validate that there is an insufficient error displayed when inputted an amount more than the current cash balance");
@@ -164,6 +166,7 @@ public class WithdrawalTest extends BaseCaseMerito {
      *         3. Withdraw an amount
      * @expect: 1. An amount is withdrawn successfully
      */
+    @TestRails(id="732")
     @Test(priority = 3,groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Withdraw_005(){
         log("@title:Validate that an amount is withdrawn successfully");
@@ -211,6 +214,7 @@ public class WithdrawalTest extends BaseCaseMerito {
      * @expect: 1. Message Withdraw successfully is displayed
      *          2. An amount is updated correctly on this table
      */
+    @TestRails(id="733")
     @Test(priority = 3,groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Withdraw_006(){
         log("@title:Validate can withdraw Credit update by click on Withdraw link");
@@ -260,6 +264,7 @@ public class WithdrawalTest extends BaseCaseMerito {
      *         4. Click on Withdraw button
      * @expect:  1. Withdraw popup is displayed
      */
+    @TestRails(id="734")
     @Test(groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Withdraw_007(){
         log("@title: Validate that Withdrawal popup is displayed when clicking Withdraw button");
@@ -299,6 +304,7 @@ public class WithdrawalTest extends BaseCaseMerito {
      * @expect: 1. An amount is withdrawn successfully
      *          2. Success icon is displayed when withdrawing completely
      */
+    @TestRails(id="735")
     @Test(priority = 3,groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Withdraw_008(){
         log("@title: Validate can withdrawn Credit Update successfully");
@@ -349,6 +355,7 @@ public class WithdrawalTest extends BaseCaseMerito {
      * @expect: 1. An amount is withdrawn unsuccessfully
      *          2. Failure icon is displayed when withdrawing completely
      */
+    @TestRails(id="736")
     @Test(priority = 3,groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Withdraw_009(){
         log("@title: Validate that cannot withdraw with  amount more than current balance");
@@ -397,6 +404,7 @@ public class WithdrawalTest extends BaseCaseMerito {
      * @expect: 1. Message Withdraw successfully is displayed
      *          2. Amount is updated correctly
      */
+    @TestRails(id="737")
     @Test(priority = 3,groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Withdraw_010(){
         log("@title: Validate can withdraw Win/Loss Settle successfully");
@@ -445,7 +453,8 @@ public class WithdrawalTest extends BaseCaseMerito {
      * @expect: 1. Deposit popup is disappeared and there is a green check display in Update Status column
      *          2. Verify Balance is updated correctly
      */
-    @Test (priority = 3, groups = {"smoke1"})
+    @TestRails(id="738")
+    @Test (priority = 3, groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Withdraw_011(){
         log("@title: Validate can multiple Withdraw by Credit Update by click on Withdraw button");
 
@@ -526,7 +535,8 @@ public class WithdrawalTest extends BaseCaseMerito {
      * @expect: 1. Deposit popup is disappeared and there is a green check display in Update Status column
      *          2. Verify Balance is updated correctly
      */
-    @Test (groups = {"smoke1"})
+    @TestRails(id="739")
+    @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Withdraw_012(){
         log("@title: Validate can multiple Withdraw by Win/Loss Settle by click on Withdraw button");
 

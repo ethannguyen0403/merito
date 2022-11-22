@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.CommissionSettingListingPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +25,7 @@ public class CommissionSettingListingTest extends BaseCaseMerito {
      * @steps:  1. Navigate Agency Management > Commission Setting Listing
      * @expect: 1. Verify UI of Commission Setting Listing display correctly
      */
+    @TestRails(id="740")
     @Test (groups = {"smoke"})
     @Parameters("username")
     public void Agent_AM_Commission_Setting_Listing_0002(String username) {
@@ -82,6 +84,7 @@ public class CommissionSettingListingTest extends BaseCaseMerito {
      *          2. Enter valid Login ID in Username textbox and click on Submit button
      * @expect: 1. Verify the correct username is displayed
      */
+    @TestRails(id="741")
     @Test (groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_AM_Commission_Setting_Listing_0004(String brandname) {
@@ -113,6 +116,7 @@ public class CommissionSettingListingTest extends BaseCaseMerito {
      * @expect: 1. Verify commissions are update for all games
      *           2. Green check display at Update Status column if successfully update commission
      */
+    @TestRails(id="742")
     @Test (groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_AM_Commission_Setting_Listing_0005(String brandname) {

@@ -17,7 +17,7 @@ public class LoginTest extends BaseCaseMerito {
      * @steps:   1. Log in with a valid username and password
      * @expect:  1. Home page is displayed
      */
-
+    @TestRails(id = "870")
     @Test (groups = {"http_request"})
     public void Agent_Login_001(){
         log("@title: There is no http responded error returned");
@@ -32,6 +32,7 @@ public class LoginTest extends BaseCaseMerito {
      * @steps:   1. Log in with a valid information(username, password, captcha, security code)
      * @expect:  1. Home page is displayed
      */
+    @TestRails(id = "671")
     @Test (groups = {"smokeNewUI"})
     @Parameters({"username"})
     public void Agent_Login_002(String username){

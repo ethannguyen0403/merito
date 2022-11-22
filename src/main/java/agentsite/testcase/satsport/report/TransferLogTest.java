@@ -1,5 +1,6 @@
 package agentsite.testcase.satsport.report;
 
+import agentsite.common.AGConstant;
 import com.paltech.driver.DriverManager;
 import agentsite.objects.agent.account.AccountInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -9,6 +10,7 @@ import agentsite.pages.all.agentmanagement.DepositWithdrawalPage;
 import agentsite.pages.all.agentmanagement.depositwithdrawal.ViewLogPopup;
 import agentsite.pages.all.report.TransferLogPage;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class TransferLogTest extends BaseCaseMerito {
      * @steps: 1. Navigate Report> Transfer Log
      * @expect: 1. There is no http responded error returned
      */
+    @TestRails(id="801")
     @Test(groups = {"http_request"})
     public void Agent_Report_Transfer_Log_001(){
         log("@title: There is no http responded error returned");
@@ -43,6 +46,7 @@ public class TransferLogTest extends BaseCaseMerito {
      *          3. Input the account do deposit/withdraw in steps 1 and click submit
      * @expect: 1. Verify log show correctly
      */
+    @TestRails(id="801")
     @Test(groups = {"smoke"})
     public void Agent_Report_Transfer_Log_003() throws Exception {
         log("@title: Validate data Transfer Log display correctly");
@@ -73,6 +77,35 @@ public class TransferLogTest extends BaseCaseMerito {
             }
         }
 
+        log("INFO: Executed completely");
+    }
+
+    /**
+     * @title: Validate data Transfer Log UI display correctly
+     * @pre-condition:
+     *          1. Log in successfully by SAD
+     * @steps: 1. Get View Log info
+     *          2. Navigate Report > Transfer Log
+     *
+     * @expect: 1. Verify page UI show correctly
+     */
+    @TestRails(id="803")
+    @Test (groups = {"smoke"})
+    public void Agent_Report_Transfer_Log_002(){
+        log("@title: Validate data Transfer Log display correctly");
+        log("Step 1. Navigate Report > Transfer Log");
+        TransferLogPage tranferlogPage = agentHomePage.clickSubMenu(REPORT, TRANSFER_LOG, TransferLogPage.class);
+
+        List<String> lstHeader = tranferlogPage.tblReport.getHeaderNameOfRows();
+
+        log("Verify  1. Verify page UI show correctly");
+        Assert.assertEquals(tranferlogPage.txtUserName.getAttribute("placeholder"), AGConstant.LBL_USERNAME_PLACE_HOLDER,"FAILED! Username textbox placehoder is incorrect button is incorrect");
+        Assert.assertEquals(tranferlogPage.btnToday.getText(), AGConstant.Report.BTN_TODAY,"FAILED! Today button is incorrect");
+        Assert.assertEquals(tranferlogPage.btnYesterday.getText(), AGConstant.Report.BTN_YESTERDAY,"FAILED! Yesterday button is incorrect");
+        Assert.assertEquals(tranferlogPage.btnLastWeek.getText(), AGConstant.Report.LAST_WEEK,"FAILED! Last Business button is incorrect");
+        Assert.assertEquals(tranferlogPage.btnSubmit.getText(), AGConstant.BTN_SUBMIT,"FAILED! Submit button is incorrect");
+        Assert.assertEquals(tranferlogPage.lblInfo.getText(), AGConstant.Report.TransferLog.LBL_INFO,"FAILED! Hint message is incorrect");
+        Assert.assertEquals(lstHeader, AGConstant.Report.TransferLog.TABLE_HEADER,"FAILED! Table header is incorrect");
         log("INFO: Executed completely");
     }
 }

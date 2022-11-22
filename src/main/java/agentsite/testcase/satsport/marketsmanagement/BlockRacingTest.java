@@ -4,6 +4,7 @@ package agentsite.testcase.satsport.marketsmanagement;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.marketsmanagement.BlockingLogPage;
+import util.testraildemo.TestRails;
 
 import static agentsite.common.AGConstant.HomePage.BLOCKING_LOG;
 import static agentsite.common.AGConstant.HomePage.MARKET_MANAGEMENT;
@@ -15,6 +16,7 @@ public class BlockRacingTest extends BaseCaseMerito {
      * @steps: 1. Navigate Markets Management >Block Racing
      * @expect: 1. Verify there is no console error display
      */
+    @TestRails(id="772")
     @Test(groups = {"http_request"})
     public void Agent_MM_Block_Racing_TC001() {
         log("@title: Validate there is no http responded error returned");

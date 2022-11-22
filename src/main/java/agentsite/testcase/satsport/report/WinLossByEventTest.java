@@ -5,6 +5,7 @@ import agentsite.common.AGConstant;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.WinLossByEventPage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class WinLossByEventTest extends BaseCaseMerito {
      * @steps: 1. Navigate Report >  Win Loss By Event
      * @expect: 1. Verify Win Loss By Event UI display correctly
      */
+    @TestRails(id="808")
     @Test (groups = {"smoke"})
     public void Agent_Report_Win_Loss_By_Event_002(){
         log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
@@ -74,6 +76,7 @@ public class WinLossByEventTest extends BaseCaseMerito {
      *          3. Expand the competition
      * @expect: 1. Verify Grand total row is sum by total of all competitions
      */
+    @TestRails(id="809")
     @Test (groups = {"smoke"})
     public void Agent_Report_Win_Loss_By_Event_003(){
         log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
@@ -106,6 +109,7 @@ public class WinLossByEventTest extends BaseCaseMerito {
      *          4. Click on Turn over number
      * @expect: 1. Verify Turnover match with summary Player stake in bets list
      */
+    @TestRails(id="810")
     @Test (groups = {"smoke"})
     public void Agent_Report_Win_Loss_By_Event_004(){
         log("@title: Validate Turnover match with summary Player stake in bets list");

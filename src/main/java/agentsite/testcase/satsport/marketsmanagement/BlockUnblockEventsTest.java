@@ -13,6 +13,7 @@ import agentsite.pages.all.marketsmanagement.BlockUnblockEventPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *           2. Time to Bet: Now, Time to Open: Now
      *           3. Verify the status is unblocked when login by SAD level
      */
+    @TestRails(id="757")
     @Test(groups = {"smokePO"})
     @Parameters({"downlineAccount", "controlBlockingAccount","passwordNonePO","controlBlockingLevel"})
     public void Agent_MM_BlockUnblockEvent_004(String downlineAccount,String controlBlockingAccount, String password,String controlBlockingLevel) throws Exception {
@@ -90,6 +92,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *           2. Time to Bet: Now, Time to Open: Now
      *           3. Verify the event display on member site
      */
+    @TestRails(id="758")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount", "memberAccount","password"})
     public void Agent_MM_BlockUnblockEvent_005(String downlineAccount,String memberAccount, String password) throws Exception {
@@ -144,6 +147,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      * @expect:  1. Status: Current status is Blocked, Viewable Betable is Cross icon, Time to Open and Time to bet is empty
      *           2. Verify the event is not displayed in Member site
      */
+    @TestRails(id="759")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount", "memberAccount","password"})
     public void Agent_MM_BlockUnblockEvent_006(String downlineAccount,String memberAccount, String password) throws Exception {
@@ -197,6 +201,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *           2. Select an Downline and Event
      * @expect:  1.All buttons(Block, Unblock Now, Unblock Schedule, Suspend, Unsuspended) are enabled
      */
+    @TestRails(id="760")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_007(String downlineAccount)  {
@@ -257,6 +262,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      * @expect: 1. Verify if Event start time <= Current time => Status is Unblocked, is Viewable, is Betable, Time to open and time to bet = 25minutes and
      * the event is display on member site otherswise status is Blocked, Not Viewable, Not Betable, and the event not display on member site
      */
+    @TestRails(id="761")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_008(String downlineAccount) {
@@ -301,6 +307,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      * .Unblock Schedule Setting: Time to open and Time to bet have no data
      *           2. Verify the event is suspend in sport page and  market page
      */
+    @TestRails(id="762")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount", "memberAccount","password"})
     public void Agent_MM_BlockUnblockEvent_009(String downlineAccount,String memberAccount, String password) throws Exception {
@@ -353,6 +360,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *           4. Click Suspend button
      * @expect:  1. Status: Current status is Blocked, Viewable Betable is Cross icon, Time to Open and Time to bet is empty
      */
+    @TestRails(id="763")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_010(String downlineAccount){
@@ -393,6 +401,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *           4. Click Unsuspended button
      * @expect:  1. Status: Current status is Blocked, Viewable Betable is Cross icon, Time to Open and Time to bet is empty
      */
+    @TestRails(id="764")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_011(String downlineAccount){
@@ -433,6 +442,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *           4. Click Unsuspended button
      * @expect:  1. Status: Current status is Blocked, Viewable Betable is Cross icon, Time to Open and Time to bet is empty
      */
+    @TestRails(id="765")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_012(String downlineAccount){
@@ -473,6 +483,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *           4. Click Unsuspended button
      * @expect:  1. Can unsuspended event successfully, status and Unblock Schedule Setting display as data get in regression
      */
+    @TestRails(id="766")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_013(String downlineAccount){
@@ -515,6 +526,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *           4. Click Unsuspended button
      * @expect:  1. Can unsuspended event successfully, status and Unblock Schedule Setting display as data get in regression
      */
+    @TestRails(id="767")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_014(String downlineAccount){
@@ -556,6 +568,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *           3. Click Unblock Schedule 2days
      * @expect:  1. Status is suspended
      */
+    @TestRails(id="768")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_015(String downlineAccount){
@@ -638,6 +651,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *         5. Select Acc1 to view event status
      * @expect: 1. Event status not update for viewing downline just updated for selected downline
      */
+    @TestRails(id="769")
     @Test(groups = {"smoke"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_018()
     {
@@ -678,6 +692,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *         3. Click Block Now
      * @expect: All Events are blocked
      */
+    @TestRails(id="770")
     @Test(groups = {"smoke"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_019()
     {
@@ -714,6 +729,7 @@ public class BlockUnblockEventsTest extends BaseCaseMerito {
      *        5. Select Acc1 to view event status
      * @expect: 1. Event status not update for viewing downline just updated for selected downline
      */
+    @TestRails(id="771")
     @Test(groups = {"smoke"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_020()
     {

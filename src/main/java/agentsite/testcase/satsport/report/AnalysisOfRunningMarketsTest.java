@@ -4,6 +4,7 @@ import agentsite.common.AGConstant;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Test;
 import agentsite.pages.all.report.AnalysisOfRunningMarketsPage;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class AnalysisOfRunningMarketsTest extends BaseCaseMerito {
      * @steps: 1. Navigate Report> Analysis of Running Markets
      * @expect: 1. There is no http responded error returned
      */
+    @TestRails(id="822")
     @Test(groups = {"http_request"})
     public void Agent_Report_Analysis_Of_Running_Markets_001(){
         log("@title: There is no http responded error returned");
@@ -36,6 +38,7 @@ public class AnalysisOfRunningMarketsTest extends BaseCaseMerito {
      * @steps: 1. Navigate Report> Analysis of Running Markets
      * @expect: 1. Verify Analysis of Running Markets UI display correctly
      */
+    @TestRails(id="823")
     @Test (groups = {"smokePO","smoke"})
     public void Agent_Report_Analysis_Of_Running_Markets_002(){
         log("@title: Validate Analysis of Running Markets display correctly ");
@@ -63,6 +66,7 @@ public class AnalysisOfRunningMarketsTest extends BaseCaseMerito {
      *          2. Select a sport and click on the event
      ** @expect: 1. Market title display correct include competition, event name ,event start time, market name
      */
+    @TestRails(id="824")
     @Test (groups = {"smokePO","smoke"})
     public void Agent_Report_Analysis_Of_Running_Markets_003(){
         log("@title: Can drill down and open bet list");
