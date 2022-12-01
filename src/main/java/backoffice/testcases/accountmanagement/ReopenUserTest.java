@@ -14,13 +14,16 @@ import util.testraildemo.TestRails;
 
 import java.util.List;
 
+import static common.MeritoConstant.AGENT_SECURITY_CODE_URL_SUFFIX;
+import static common.MeritoConstant.AGENT_SOS_URL_SUFFIX;
+
 public class ReopenUserTest extends BaseCaseMerito {
     /**
      * @title: Validate can reopen user
      * @pre-condition:
      *           1. Get the account is closed in agent site
      *           2. Login BO
-     * @steps: 1. Access Member Management > Reopen User
+     * @steps: 1. Access Member Management >Reopen User
      *          2. Input the account in precondition and click Search
      *          3. Click Active
      *          4. Login agent site > downline listing > Search the account and check status
@@ -29,22 +32,23 @@ public class ReopenUserTest extends BaseCaseMerito {
      *          3. Account is active in agent site
      */
     @TestRails(id = "617")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke11"})
     @Parameters({"satSADAgentLoginID","memberPassword","username","password","brandname"})
     public void BO_MM_Reopen_User_001(String satSADAgentLoginID,String memberPassword,String username, String password,String brandname) throws Exception {
         log("@title:  Validate can reopen user");
-        backofficeHomePage.logout();
+backofficeHomePage.logout();
+
+        String brand = "satsport";
+        agentLoginURL = defineURL(brand,"/agent");
+        sosAgentURL = defineURL(brand,AGENT_SOS_URL_SUFFIX);
+        agentSecurityCodeURL =defineURL(brand, AGENT_SECURITY_CODE_URL_SUFFIX.get(brand));
         DriverManager.getDriver().get(agentLoginURL);
-        DriverManager.getDriver().deleteAllCookies();
-        BaseCaseMerito.loginAgent(sosAgentURL,agentSecurityCodeURL,satSADAgentLoginID,memberPassword,environment.getSecurityCode());
-        agentsite.pages.all.home.HomePage satAgentHome = new agentsite.pages.all.home.HomePage();
-        DownLineListingPage downLineListingPage =satAgentHome.clickSubMenu(AGConstant.HomePage.AGENCY_MANAGEMENT,AGConstant.HomePage.DOWNLINE_LISTING,DownLineListingPage.class);
+        agentHomePage = loginAgent(sosAgentURL,agentSecurityCodeURL,satSADAgentLoginID,memberPassword,environment.getSecurityCode());
+        DownLineListingPage downLineListingPage =agentHomePage.clickSubMenu(AGConstant.HomePage.AGENCY_MANAGEMENT,AGConstant.HomePage.DOWNLINE_LISTING,DownLineListingPage.class);
         downLineListingPage.searchDownline("","Closed","All");
         String closeAccount = downLineListingPage.tblDowlineListing.getColumn(downLineListingPage.loginIDCol,false).get(0);
-        downLineListingPage.logout();
 
         log("Step 1. Access Member Management > Reopen User");
-        DriverManager.getDriver().get(backofficeUrl);
         loginBackoffice(username,password,true);
         ReopenUserPage page = backofficeHomePage.navigateReopenUser();
 
@@ -65,11 +69,8 @@ public class ReopenUserTest extends BaseCaseMerito {
         page.logout();
 
         log("Step 4. Login agent site > downline listing > Search the account and check status");
-        //DriverManager.getDriver()
-        DriverManager.getDriver().get(agentLoginURL);
-       // BaseCaseSATAgent.loginAgent(environment.getSatAgentSOSURL(),environment.getSatAgentSecurityCodeUrl(),satSADAgentLoginID,memberPassword,environment.getSecurityCode());
-
-        downLineListingPage = satAgentHome.clickSubMenu(AGConstant.HomePage.AGENCY_MANAGEMENT,AGConstant.HomePage.DOWNLINE_LISTING,DownLineListingPage.class);
+        agentHomePage = loginAgent(sosAgentURL,agentSecurityCodeURL,username,password,environment.getSecurityCode());
+        downLineListingPage = agentHomePage.clickSubMenu(AGConstant.HomePage.AGENCY_MANAGEMENT,AGConstant.HomePage.DOWNLINE_LISTING,DownLineListingPage.class);
         downLineListingPage.searchDownline(closeAccount,"Active","All");
 
          log("Step 3. Account is active in agent site");

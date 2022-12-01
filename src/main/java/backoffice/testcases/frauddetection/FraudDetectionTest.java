@@ -35,8 +35,8 @@ public class FraudDetectionTest extends BaseCaseMerito{
     public void BO_Fraud_Detection_001(){
         log("@title: Validate can search fraud by Event Date");
         log("Step 1. Access Fraud Detection > Fraud Detection");
-
-        String date = DateUtils.getDate(0,"yyyy-MM-dd", BOConstants.GMT_FOUR);
+        FraudDetectionPage page = backofficeHomePage.navigateFraudDetection();
+        String date = DateUtils.getDate(1,"yyyy-MM-dd", BOConstants.GMT_FOUR);
         List<ArrayList<String>> lstSport = FraudDetectionUtils.getListSportHasPlace(date,"WON");
         if(Objects.isNull(lstSport)){
             System.out.println("By passed as no sport data has Fraud today");
@@ -46,8 +46,6 @@ public class FraudDetectionTest extends BaseCaseMerito{
         String sportName = lstSport.get(0).get(1);
         List<ArrayList<String>> lstCompetition = FraudDetectionUtils.getListCompetition(date,sportID,"");
         String competitionName = lstCompetition.get(0).get(1);
-
-        FraudDetectionPage page = backofficeHomePage.navigateFraudDetection();
 
         log("Step 2. Select search by Event Date");
         log("Step 3. Select Event date is today " +

@@ -1,5 +1,6 @@
 package backoffice.pages.bo.operations;
 
+import backoffice.common.BOConstants;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
@@ -44,7 +45,10 @@ public class LiveStreamingManagementPage extends HomePage {
   //  public ATable tblMappedList =ATable.xpath("//div[contains(@class,'live-streaming')]/div[contains(@class,'table-wrapper')]//div[@class='custom-table']",totalMappedListCol);
     public Label lblMappedListNoRecord = Label.xpath("//div[contains(@class,'live-streaming')]/div[contains(@class,'table-wrapper')]//div[@class='custom-table']//div[@class='text-center']");
 
-    public void filter(String sport, String feCompetition, String feEvent, String providerCompetition, String providerEvent){
+    public void filter(String date,String sport, String feCompetition, String feEvent, String providerCompetition, String providerEvent){
+        if(!date.isEmpty()){
+            dtpDate.selectDate(date, "yyyy-MM-dd");
+        }
         if(!sport.isEmpty()){
             ddbSport.selectByVisibleText(sport);
         }

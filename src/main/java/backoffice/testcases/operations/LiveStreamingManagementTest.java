@@ -79,13 +79,13 @@ public class   LiveStreamingManagementTest extends BaseCaseMerito{
         log("Step 1. Access Operations >Live Streaming Management");
         LiveStreamingManagementPage page = backofficeHomePage.navigateLiveStreamingManagement();
         List<String> lstSport = LiveStreamingManagementUtils.getSportLiveCenter();
-        String today = DateUtils.getDate(0,"dd-MM-YYYY",BOConstants.GMT_FOUR);
+        String today = DateUtils.getDate(1,"dd-MM-YYYY",BOConstants.GMT_FOUR);String date = DateUtils.getDate(1,"YYYY-MM-dd",BOConstants.GMT_FOUR);
         Event fEEvent = LiveStreamingManagementUtils.getListEvent(today,"1").get(0);
         Event lCEvent = LiveStreamingManagementUtils.getListLCEvent(today, "1").get(0);
 
         log("Step 2. Select today, Sport");
         log("Step 3. Select All data in Competition and event dropdown boxes in Fair Exchange and Provider");
-        page.filter(lstSport.get(0),"","","","");
+        page.filter(date,lstSport.get(0),"","","","");
 
         log("Step 4. Select an event in Fair Exchange table and an event in Provider table");
         log("Step 5. Click Map button");

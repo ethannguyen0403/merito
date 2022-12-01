@@ -69,7 +69,7 @@ public class BaseCaseMerito {
     public static String _brandname;
     public static String PROJECT_ID="1";
     public static APIClient client;
-    private static boolean isAddTestRailResult = true;
+    private static boolean isAddTestRailResult = false;
     private static  List<Long> lstCases= new ArrayList<>();
 
     @BeforeSuite(alwaysRun = true)
@@ -205,9 +205,11 @@ public class BaseCaseMerito {
         if(isLogin) {
             Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl, username, password, true);
             backofficeHomePage = new backoffice.pages.bo.home.HomePage();
-            //homePage.btnLogOut.isDisplayed(5);
-            if (!backofficeHomePage.btnLogOut.isDisplayed(5)) {
-                Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl, username, password, true);
+            if(!backofficeHomePage.smProductMaintenance.isDisplayed(1)) {
+                backofficeHomePage.refresh();
+                if (!backofficeHomePage.btnLogOut.isDisplayed(5)) {
+                    Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl, username, password, true);
+                }
             }
         }/*else {
 
@@ -343,7 +345,7 @@ public class BaseCaseMerito {
         }
     }
 
-    private static String defineURL(String brandName,String suffix){
+    public static String defineURL(String brandName,String suffix){
         return String.format("%s%s",getURL(brandName), suffix);
     }
     private static String defineMemberService(String brandName){
@@ -361,7 +363,7 @@ public class BaseCaseMerito {
     private static String defineAgentSecurityCodeURL(String brandName){
         return String.format("%s%s",getURL(brandName), AGENT_SECURITY_CODE_URL_SUFFIX.get(brandName));
     }
-    private static String defineAgentSiteURL(String brandName){
+    public static String defineAgentSiteURL(String brandName){
         return  String.format("%s/agent",getURL(brandName));
     }
     private static String getURL(String brandName){
