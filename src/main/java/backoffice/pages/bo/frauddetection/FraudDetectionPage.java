@@ -35,7 +35,7 @@ public class FraudDetectionPage extends HomePage {
         ddpSearchBy.selectByVisibleContainsText("Event Date");
         waitSpinIcon();
         if(!eventDate.isEmpty())
-            dtpEventDate.selectDate(eventDate,"MMM dd yyyy");
+            dtpEventDate.selectDate(eventDate,"yyyy-MM-dd");
         if(!sportName.isEmpty()){
             ddpSport.selectByVisibleText(sportName);
             waitSpinIcon();
