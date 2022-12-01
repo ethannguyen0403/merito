@@ -9,6 +9,7 @@ import membersite.common.FEMemberConstants;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import membersite.pages.all.beforelogin.popups.UnderageGamblingPopup;
 import membersite.pages.all.tabexchange.components.popups.RulePopup;
@@ -238,6 +239,7 @@ public class MarketContainerControl extends BaseElement {
 		//waitControlLoadCompletely(timeOutShortInSeconds);
 		String marketName = getTitle(false);
 		String selectionName = Label.xpath(String.format("%s[%d]%s",lblSelectionListXPath,selectionIndex,lblSelectionName)).getText();
+
 		return getMarket(event,marketName,selectionName,isBack, getOddsListLabel(selectionIndex,isBack).get(0));
 	}
 
@@ -333,5 +335,15 @@ public class MarketContainerControl extends BaseElement {
 		temp =url.split("&",0)[0];
 		infoURLLst.add(temp);
 		return infoURLLst;
+	}
+
+	public void clickOdds(Market market){
+		Label lblOdds = market.getBtnOdd();
+		try{
+
+		} catch (WebDriverException ex)
+		{
+
+		}
 	}
 }

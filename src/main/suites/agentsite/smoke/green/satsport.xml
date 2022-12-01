@@ -5,7 +5,7 @@
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="SATSport Agent Green">
+    <test name="SATSport Agent Green Smoke">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='green'/>
         <parameter name='language' value='en'/>

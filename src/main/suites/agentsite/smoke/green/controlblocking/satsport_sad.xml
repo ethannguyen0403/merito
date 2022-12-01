@@ -27,6 +27,7 @@
             <run>
 <!--                <include name="precondition" />-->
                 <include name="smoke" />
+               <include name="satsmoke"/>
             </run>
         </groups>
 
@@ -36,6 +37,7 @@
             <class name="agentsite.testcase.satsport.home.SATLogoutTest"/>
             <class name="agentsite.testcase.satsport.home.SATHeaderTest"/>
             <class name="agentsite.testcase.satsport.home.SATLeftMenuTest"/>
+
             <!--Start Agent Management-->
             <class name="agentsite.testcase.satsport.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
             <class name="agentsite.testcase.satsport.agencymanagement.depositwithdrawal.DepositTest"/>

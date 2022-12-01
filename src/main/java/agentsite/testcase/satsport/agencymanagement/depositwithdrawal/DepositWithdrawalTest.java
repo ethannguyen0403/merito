@@ -56,7 +56,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           4. Column names on Downline info table are correct
      */
     @TestRails(id="712")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke1"})
     public void Agent_AM_DepositWithdrawal_002(){
         log("@title: Validate that this page loading is successful");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");

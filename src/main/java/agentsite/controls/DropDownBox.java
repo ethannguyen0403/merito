@@ -3,6 +3,7 @@ package agentsite.controls;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Icon;
+import com.paltech.element.common.Label;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;

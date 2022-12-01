@@ -11,6 +11,7 @@ import java.util.List;
 
 public class BaccaratPage extends GamePage {
     public Table tbtOdds = Table.xpath("//app-game-odds//table[contains(@class,'tb-game-odds')]",8);
+    public Label lblMyBetsTab = Label.xpath("//app-bet-slip//ul[contains(@class,'nav-tabs ')]/li[2]");
     public BetSlipControl betSlipControl = BetSlipControl.xpath("//app-bet-slip");
     public MyBetControl myBetControl = MyBetControl.xpath("//div[@class='open-bets']");
     public int backColumn = 4;
@@ -59,7 +60,13 @@ public class BaccaratPage extends GamePage {
     }
 
     public String getUmatchedBetId(){
-        return myBetControl.unmatchedBetControl.getBetId();
+        MyBetControl myBetControl1= activeMyBet();
+        return myBetControl1.unmatchedBetControl.getBetId();
+    }
+
+    public MyBetControl activeMyBet(){
+        lblMyBetsTab.click();
+        return MyBetControl.xpath("//div[@class='open-bets']");
     }
 
 }

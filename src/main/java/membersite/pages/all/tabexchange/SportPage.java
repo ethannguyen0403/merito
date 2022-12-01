@@ -111,4 +111,8 @@ public class SportPage extends HomePage {
 
     }
 
+    public void clickOdd(Market market){
+        marketContainerControl.clickOdds(market);
+    }
+
 }

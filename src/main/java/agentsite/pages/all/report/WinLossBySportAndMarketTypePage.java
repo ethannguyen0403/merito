@@ -16,10 +16,11 @@ public class   WinLossBySportAndMarketTypePage extends LeftMenu {
     public TextBox txtSearchFrom = TextBox.id("fromDate");
     public TextBox txtSearchTo = TextBox.id("toDate");
     public TextBox txtUsername = TextBox.id("filter-username");
-   //public agentsite.controls.DropDownBox ddbProduct = agentsite.controls.DropDownBox.xpath("//select[@id='select-product']","//option/span");
-   public DropDownBox ddbProduct = DropDownBox.xpath("//select[@id='select-product']");
+   public agentsite.controls.DropDownBox ddbProduct = agentsite.controls.DropDownBox.xpath("//select[@id='select-product']","//option");
+  // public DropDownBox ddbProduct = DropDownBox.id("select-product");
+  //  public agentsite.controls.DropDownBox ddbProduct = agentsite.controls.DropDownBox.xpath("//select[@id='select-product']","//option/span");
 //  public DropDownBox ddbSport = DropDownBox.xpath("//select[@id='select-sportId']");
-    public agentsite.controls.DropDownBox ddbSport = agentsite.controls.DropDownBox.xpath("//select[@id='select-sportId']","//option/span");
+    public agentsite.controls.DropDownBox ddbSport = agentsite.controls.DropDownBox.xpath("//select[@id='select-sportId']","//option");
     public DateTimePicker dpFrom = DateTimePicker.xpath(txtSearchFrom, "//bs-days-calendar-view");
     public DateTimePicker dpTo = DateTimePicker.xpath(txtSearchTo, "//bs-days-calendar-view");
     public Button btnToday = Button.id("btn-today");
