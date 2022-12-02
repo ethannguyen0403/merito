@@ -32,6 +32,8 @@ public class HomePage extends MainMenu {
     public APMainContentControl apHomeContainerControl = APMainContentControl.xpath("//div[contains(@class,'main-content-wrapper')]//div[@class='main-content']");
     public EventContainerControl eventContainerControl = EventContainerControl.xpath("//div[@class='container-event-info']");
     public SATEventContainerControl eventContainerControl_SAT = SATEventContainerControl.xpath("//div[@class='container-event-info']");
+    public EventContainerControl inPlayEventContainerControl = EventContainerControl.xpath("//div[contains(@class,'sport-highlight-content sport-inplay')][1]//div[@class='item-child team-name']");
+    public SATEventContainerControl inPlayEventContainerControl_SAT = SATEventContainerControl.xpath("//div[contains(@class,'sport-highlight-content sport-inplay')][1]//span[@class='meto-text-primary']");
     public MarketOddControl marketOddControl = MarketOddControl.xpath("//div[@id='fullMarketOdds']", false);
     public SATMarketContainerControl marketContainerControl_SAT = SATMarketContainerControl.xpath("//div[contains(@class,'highlight-page market')]");
     public MarketContainerControl marketContainerControl = MarketContainerControl.xpath("//div[contains(@class,'highlight-page market')]");
@@ -189,6 +191,15 @@ public class HomePage extends MainMenu {
             default:
                 return eventContainerControl.getEventInfo(eventName);
         }
+    }
+
+    public void clickInplayEvent() {
+        String appName = BetUtils.getAppName();
+        if(appName.equals("satsport")){
+            inPlayEventContainerControl_SAT.click();
+        }else
+            inPlayEventContainerControl.click();
+        waitMenuLoading();
     }
 
 }

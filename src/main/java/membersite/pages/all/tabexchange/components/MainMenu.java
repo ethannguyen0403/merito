@@ -25,7 +25,8 @@ public class MainMenu extends LeftMenu {
     private Menu menuSports = Menu.xpath("//app-sport-menu-bar//ul[@class='navbar-nav']//a");
     private Link lnkSportMenu = Link.xpath("//app-sport-menu-bar//ul[@class='navbar-nav']//a");
     private Label lblNoEvent = Label.xpath("//div[@class='text-center']");
-    private Menu menuInPlay = Menu.id("inplay");
+    //private Menu menuInPlay = Menu.id("inplay");
+    private Menu menuInPlay = Menu.xpath(".//*[(text()='In-Play')]");
     private  Menu menuFavorites = Menu.xpath("//a[@id='multi-market']");
     private Menu menuActiveFavorites= Menu.xpath("//a[@id='multi-market'] and contains(@class,'active')]");
     private Menu menuCricket = Menu.xpath("//a[@sport-id='4']");

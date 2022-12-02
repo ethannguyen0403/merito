@@ -10,6 +10,7 @@ import membersite.pages.all.tabexchange.MarketPage;
 import membersite.pages.all.tabexchange.SportPage;
 import membersite.pages.funsport.tabexchange.FavoritePage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 import java.util.Objects;
 
@@ -202,5 +203,25 @@ public class FavouritePageTest extends BaseCaseMerito {
         Assert.assertTrue(index==0,"FAILED! The market-event not display in favorite page");
 
         log("INFO: Executed completely");
+    }
+
+    @TestRails(id="1007")
+    @Test(groups = {"regression"})
+    public void Favourite_Page_TC_1007(){
+        log("@title: Verify can add market to Favourites page");
+        log("Step1: 1. Select Cricket and click on + in the list event to add event");
+        SportPage page = memberHomePage.navigateSoccer();
+        Odd odd = page.oddPageControl.getOdd(OddPageControl.Team.HOME, true, false, false,2, 1);
+
+        log("Step1: 2. Navigate to favourite page");
+        page.addRemoveFavorite(odd.getEventIndex(),true);
+
+        log("Step1: 3. Back to sport page and click - of the added event");
+        FavoritePage favoritePage = page.navigateFavourite();
+        int index = favoritePage.getMarketAddIndex(odd.getEventName(),"Match Odds");
+        Assert.assertTrue(index!=0,"FAILED! The market-event not display in favorite page");
+
+        log("Cleanup: Remove favourites market added");
+        favoritePage.removeMarket(odd.getEventName(),"Match Odds");
     }
 }
