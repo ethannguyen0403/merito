@@ -216,7 +216,7 @@ public class FavouritePageTest extends BaseCaseMerito {
         log("Step1: 2. Navigate to favourite page");
         page.addRemoveFavorite(odd.getEventIndex(),true);
 
-        log("Step1: 3. Back to sport page and click - of the added event");
+        log("Step1: 3. Verify Page is added to Favorites as normally ");
         FavoritePage favoritePage = page.navigateFavourite();
         int index = favoritePage.getMarketAddIndex(odd.getEventName(),"Match Odds");
         Assert.assertTrue(index!=0,"FAILED! The market-event not display in favorite page");

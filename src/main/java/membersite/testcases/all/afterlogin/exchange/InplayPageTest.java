@@ -23,7 +23,7 @@ import java.util.Objects;
 public class InplayPageTest extends BaseCaseMerito {
 
     @TestRails(id="1010")
-    @Test (groups = {"regression1"})
+    @Test (groups = {"regression"})
     public void FE_InPlay_TC1010() {
         log("@title: Validate site load markets as user selected correctly");
         log("Step 1. Navigate to In-Play page");

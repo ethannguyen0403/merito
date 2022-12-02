@@ -7,12 +7,15 @@ import backoffice.pages.bo.system.productmaintenance.MaintenanceDetailsPopup;
 import backoffice.utils.system.ProductMaintenanceUtils;
 import baseTest.BaseCaseMerito;
 import com.paltech.constant.Helper;
+import com.paltech.driver.DriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.List;
+
+import static common.MeritoConstant.*;
 
 public class ProductMaintenanceTest extends BaseCaseMerito{
 
@@ -68,7 +71,7 @@ public class ProductMaintenanceTest extends BaseCaseMerito{
             log(String.format("Step 2.%s Click on Action of %s product",i+1, lstProducts.get(i).getProductName()));
             MaintenanceDetailsPopup popup = page.action(lstProducts.get(i).getProductName());
             log(String.format("Verify 1.%s Verify Maintenance Details popup is display, name and status is correctly displayed when open %s product",i+1, lstProducts.get(i).getProductName()));
-            Assert.assertEquals(popup.txtProductName.getAttribute("value"),lstProducts.get(i).getProductName(),"FAILED! Product name does not match");
+            Assert.assertTrue(popup.txtProductName.getAttribute("value").equalsIgnoreCase(lstProducts.get(i).getProductName()),"FAILED! Product name does not match");
             Assert.assertTrue(popup.ddbStatus.getFirstSelectedOption().equalsIgnoreCase(lstProducts.get(i).getStatus()),"FAILED! Status name does not match");
             popup.clickCloseBtn();
         }
@@ -86,22 +89,24 @@ public class ProductMaintenanceTest extends BaseCaseMerito{
      * @expect:  1. Verify the product is active in member site, not display maintenance page
      */
     @TestRails(id = "637")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke11"})
     @Parameters({"satMemberLoginID","memberPassword"})
     public void BO_System_ProductMaintenance_003(String satMemberLoginID, String memberPassword) throws Exception {
         log("@title: Validate active product can display in member");
         log("Step 1: Navigate System > Product Maintenance");
         log("Step 2. Get all product in active status");
         List<Product> lstProducts = ProductMaintenanceUtils.getProducts();
+        ProductMaintenancePage page = backofficeHomePage.navigateProductMaintenance();
+        backofficeHomePage.logout();
 
         log("Step 3. Login member site of any brands");
-        Helper.loginFairExchange(memberSOSUrl,memberLoginURL,satMemberLoginID,memberPassword,true);
-//        backofficeHomePage satbackofficeHomePage = new backofficeHomePage();
-//
-//
-//        log("Verify 1. Verify the product is active in member site, not display maintenance page");
-
-
+        String brand = "satsport";
+        memberLoginURL = defineURL(brand,"t");
+        memberSOSUrl= defineURL(brand,MEMBER_SOS_URL_SUFFIX);
+        DriverManager.getDriver().get(memberLoginURL);
+        memberHomePage = loginMember(satMemberLoginID,memberPassword);
+        log("Verify 1. Verify the product is active in member site, not display maintenance page");
+        memberHomePage.isProductTabDisplay("Exchange");
         log("INFO: Executed completely");
     }
 

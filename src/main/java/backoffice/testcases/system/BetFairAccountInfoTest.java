@@ -69,8 +69,8 @@ public class BetFairAccountInfoTest extends BaseCaseMerito{
 
         log("Verify 1. Verify can open Log for exchange and Available Balance, Current exposure match with the latest row in Change Log popup ");
         List<ArrayList<String>> balanceInfo = popup.tblBalance.getRowsWithoutHeader(1,false);
-        if(balanceInfo.get(0).get(0).equalsIgnoreCase(BOConstants.NO_RECORD_FOUND)){
-            Assert.assertTrue(popup.lblNoRecord.getText().equalsIgnoreCase(BOConstants.NO_RECORD_FOUND),"FAILED! No record message is incorrect");
+        if(balanceInfo.get(0).get(0).equalsIgnoreCase(BOConstants.NO_RECORDS_FOUND)){
+            Assert.assertTrue(popup.lblNoRecord.getText().equalsIgnoreCase(BOConstants.NO_RECORDS_FOUND),"FAILED! No record message is incorrect");
         }else {
             Assert.assertEquals(balanceInfo.get(0).get(1), exCurrentExposure, "FAILED! Exchange Exposure display not correct");
             Assert.assertEquals(balanceInfo.get(0).get(2), exAvailableBalance, "FAILED! Exchange Available Balance is incorrect");
