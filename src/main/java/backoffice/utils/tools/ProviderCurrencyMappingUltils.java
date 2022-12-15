@@ -26,7 +26,7 @@ public class ProviderCurrencyMappingUltils {
                     if(infoObject.getString("productCode").equals(provider)){
                         lst.add(new ArrayList<String>(
                                 Arrays.asList(
-                                        infoObject.getString("supportedCurrency"),
+                                        String.format("%s (code: %s)",infoObject.getString("supportedCurrency"),infoObject.getString("currencyCode")),
                                         infoObject.getString("providerCurrency"),
                                         String.format("%.2f",infoObject.getDouble("rate")))));
                     }

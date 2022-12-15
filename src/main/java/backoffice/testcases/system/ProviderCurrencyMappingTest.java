@@ -23,7 +23,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseMerito{
     @TestRails(id = "651")
     @Test (groups = {"smoke"})
     public void BO_System_Provider_Currency_Mapping_001(){
-        log("@title: Validate data in Ezugi display correctly");
+        log("@title: Validate data in Ezugi Live Dealer European display correctly");
         log("Step  1. Access Tool > Provider Currency Mapping");
         List<ArrayList<String>> lstProviderCurrencies =ProviderCurrencyMappingUltils.getProviderCurrencyMapping("EZUGI");
         ProviderCurrencyMappingPage page = backofficeHomePage.navigateProviderCurrencyMapping();

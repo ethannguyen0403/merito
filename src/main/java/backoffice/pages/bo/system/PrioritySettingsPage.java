@@ -14,7 +14,7 @@ import java.util.List;
 
 public class PrioritySettingsPage extends LeftMenu {
     public enum TYPE {SPORT, COMPETITION, MARKET,COUNTRYRACES}
-    public com.paltech.element.common.DropDownBox ddbType = com.paltech.element.common.DropDownBox.xpath("//select[@name='types']");
+    public com.paltech.element.common.DropDownBox ddbType = com.paltech.element.common.DropDownBox.xpath("//app-priority-setting//select[@name='types']");
     public Button btnSubmit = Button.name("submit");
     public DropDownBox ddbBrand = DropDownBox.xpath("//angular2-multiselect[@name='brands']//div[@class='cuppa-dropdown']","//ul[contains(@class,'lazyContainer')]//label");
    /* public RadioButton rbSport = RadioButton.id("sport");
@@ -22,7 +22,7 @@ public class PrioritySettingsPage extends LeftMenu {
     public RadioButton rbMarket = RadioButton.id("market");
     public RadioButton rbCountryRaces = RadioButton.id("country");*/
 
-    public com.paltech.element.common.DropDownBox ddbSport = com.paltech.element.common.DropDownBox.name("sports");
+    public com.paltech.element.common.DropDownBox ddbSport = com.paltech.element.common.DropDownBox.xpath("//app-priority-setting//select[@name='sports']");
     public TextBox txtSearch = TextBox.xpath("//div[contains(@class,'table-wrapper')]//div[contains(@class,'custom-table-body')]//input");
     private int totalColumns = 5;
     public int colEmpty = 1;
@@ -60,9 +60,9 @@ public class PrioritySettingsPage extends LeftMenu {
         }
         if(!searchValue.isEmpty()) {
             txtSearch.sendKeys(searchValue);
-            txtSearch.type(false, Keys.ENTER);
-            waitSpinIcon();
         }
+        tblPriority.click();
+        waitSpinIcon();
 
     }
 
