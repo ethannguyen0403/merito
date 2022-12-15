@@ -19,7 +19,17 @@ public class ChangePasswordPopup {
     private Label lblErrorMsg = Label.xpath("//span[@class='text-danger']");
     private Label lblValidateNewPasswordErrorMsg = Label.xpath("//input[@id='password-input']/following::div[@class='text-danger'][1]");
     private Label lblConfirmPasswordErrorMsg = Label.xpath("//input[@id='password-confirmation-input']/following::div[@class='text-danger'][1]");
+    private Label lblOldPasswiordErrorMsg = Label.xpath("//input[@id='oldPassword']/following::lable[@class='errorMsg'][1]");
 
+    public String getCurrentPasswordError(){
+        return lblOldPasswiordErrorMsg.getText();
+    }
+    public String getNewPasswordError(){
+        return lblValidateNewPasswordErrorMsg.getText();
+    }
+    public String getConfirmMessageError(){
+        return lblConfirmPasswordErrorMsg.getText();
+    }
     public void clickCancelBtn(){
         btnCancel.click();
         btnCancel.isInvisible(1);
