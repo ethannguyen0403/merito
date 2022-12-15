@@ -26,7 +26,6 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseMerito {
         log("Step 1. Navigate Report>  Win Loss By Sport And Market Type");
         agentHomePage.clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE, WinLossBySportAndMarketTypePage.class);
 
-
         log("Verify: There is no http requests error");
         Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
         log("INFO: Executed completely");
