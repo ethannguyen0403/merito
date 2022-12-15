@@ -9,6 +9,7 @@ import agentsite.pages.all.agentmanagement.CreateDownLineAgentPage;
 import agentsite.pages.all.agentmanagement.DownLineListingPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -25,7 +26,8 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
      *         3. Input Max player Credit greater than the limit
      * @expect: 1. Verify Message "Max Player Credit is invalid" display
      */
-    @Test (groups = {"smoke"})
+    @TestRails(id="696")
+    @Test (groups = {"creditSmoke"})
     @Parameters({"level","brandname"})
     public void Agent_AM_Downline_Listing_Edit_Agent_004(String level, String brandname) throws Exception {
         log("@title: Validate there Cannot update if Max Player Credit exceed the limit");
@@ -62,7 +64,8 @@ public class EditDownlineAgentTest extends BaseCaseMerito {
      * @expect: 1. Verify can update agent with valid max player credit
      *          2. Verify Max Player Credit display correctly as setting in First Time Deposit limit section
      */
-    @Test (groups = {"smoke"})
+    @TestRails(id="679")
+    @Test (groups = {"creditSmoke"})
     @Parameters({"password","brandname"})
     public void Agent_AM_Downline_Listing_Edit_Agent_005(String password, String brandname) throws Exception {
         log("@title: Validate Max Player Credit setting display correctly when create user");

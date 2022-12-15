@@ -28,10 +28,10 @@
         <parameter name="atlanticAccount" value="f24isapl01"/>
         <parameter name="cryptoAccount" value="fs2crypto"/>
         <parameter name='appname' value='backoffice'/>
-        <parameter name='brandname' value='backoffice'/>
+        <parameter name='brandname' value='satsport'/>
         <groups>
             <run>
-                <include name="smoke" />
+                <include name="smoke11" />
             </run>
         </groups>
 

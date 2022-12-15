@@ -33,8 +33,9 @@ public class LiquidityThresholdLogTest extends BaseCaseMerito{
         log("@title: Validate can search account in agent that have view log and log is matched");
         log("Step 1. Access Tool > Liquidity Threshold Log");
         String username = companyAccount;
-        List<ArrayList<String>> lstData = LiquidityThresholdLogUltils.getLog(username);
         LiquidityThresholdLogPage page = backofficeHomePage.navigateLiquidityThresholdLog();
+        List<ArrayList<String>> lstData = LiquidityThresholdLogUltils.getLog(username);
+
 
         log("Step 2. Input the username and click search button");
         page.search(username);
@@ -51,7 +52,7 @@ public class LiquidityThresholdLogTest extends BaseCaseMerito{
         List<ArrayList<String>> lstHistory = LiquidityThresholdLogUltils.getLiquidityHistory(username);
         List<ArrayList<String>> lstHistoryat =popup.tblLog.getRowsWithoutHeader(20,false);
         log("Verify 2. View log data match with view login get in agent site");
-          Assert.assertEquals(popup.tblLog.getRowsWithoutHeader(20,false),lstHistory,"FAILED! Log data not match with the api");
+          Assert.assertEquals(lstHistoryat,lstHistory,"FAILED! Log data not match with the api");
         log("INFO: Executed completely");
     }
     /**

@@ -52,7 +52,7 @@ public class PlayerInfoTest extends BaseCaseMerito{
      *         3. Click on Show button in Update Status row
      * @expect: 1. Verify upline status popup display correct with correct information
      */
-    @Test (groups = {"smoke3"})
+    @Test (groups = {"smoke11"})
     @Parameters({"satMemberLoginID"})
     public void BO_Account_Management_Player_Info_002(String satMemberLoginID){
         log("@title: Validate view upline status of a player");

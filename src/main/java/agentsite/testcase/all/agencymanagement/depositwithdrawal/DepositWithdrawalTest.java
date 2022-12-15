@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.DepositWithdrawalPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      * @steps:   1. Navigate Agency Management > Deposit Withdrawal
      * @expect:  1. Deposit Withdrawal page is displayed
      */
+    @TestRails(id="711")
     @Test (groups = {"http_request"})
     public void Agent_AM_DepositWithdrawal_001() throws Exception {
         log("@title: There is no http responded error returned");
@@ -46,6 +48,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           3. Column names on Account Balance info table are correct
      *           4. Column names on Downline info table are correct
      */
+    @TestRails(id="712")
     @Test (groups = {"smoke"})
     @Parameters("currency")
     public void Agent_AM_DepositWithdrawal_002(String currency) throws Exception {
@@ -84,6 +87,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           2. Filter a username
      * @expect:  1. Data in this table is displayed correctly after filtering
      */
+    @TestRails(id="713")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_003() throws Exception {
         log("@title: Validate that filtering with username is correct");
@@ -116,6 +120,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           2. Filter a username and Agent level
      * @expect:  1. Data in this table is displayed correctly after filtering
      */
+    @TestRails(id="714")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_004() throws Exception {
         log("@title: Validate that filtering with username is correct");
@@ -151,6 +156,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           2. Filter a username , status and Agent level
      * @expect:  1. Data in this table is displayed correctly after filtering
      */
+    @TestRails(id="715")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_005() throws Exception {
         log("@title: Validate that filtering with correct username, account Status and level");
@@ -187,6 +193,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           2. Filter a username, incorrect status, and Agent level
      * @expect:  1. There is no record found when filtering an incorrect status
      */
+    @TestRails(id="716")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_006() throws Exception {
         log("@title: Validate that there is no record found when filtering an incorrect status");
@@ -220,6 +227,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      *           2. Filter an invalid username
      * @expect:  1. There is no result found when filtering an invalid username
      */
+    @TestRails(id="717")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_007() throws Exception {
         log("@title: Validate that there is no record found when filtering an invalid username");
@@ -245,6 +253,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      * @expect: 1. There is no Update Status Transfer columns
      * 2. Deposit and Withdraw button is no longer displayed
      */
+    @TestRails(id="718")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_008() throws Exception {
         log("@title: Validate there is UI when drill-down");
@@ -279,6 +288,7 @@ public class DepositWithdrawalTest extends BaseCaseMerito {
      * @steps: 1. Navigate Agency Management > Deposit Withdrawal     *
      * @expect: 1. Verify security popup display
      */
+    @TestRails(id="720")
     @Test(groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_012() throws Exception {
         log("@title: Validate security popup display Deposit/withdraw page");

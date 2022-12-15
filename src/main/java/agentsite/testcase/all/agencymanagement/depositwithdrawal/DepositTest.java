@@ -10,6 +10,7 @@ import agentsite.pages.all.agentmanagement.DepositWithdrawalPage;
 import agentsite.pages.all.agentmanagement.depositwithdrawal.DepositPopup;
 import agentsite.pages.all.agentmanagement.depositwithdrawal.DepositToPopup;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class DepositTest extends BaseCaseMerito {
      * @expect: 1. There is an error message when submitted without any amount
      * "Amount must be positive decimal with maximum two places and greater than zero"
      */
+    @TestRails(id="722")
     @Test(groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_003() throws Exception {
         log("@title: Validate that there is an error message displayed when submitted without any amount");
@@ -62,6 +64,7 @@ public class DepositTest extends BaseCaseMerito {
      *          3.  Deposit an amount more than the current cash balance
      * @expect: 1. There is an error message when submitted  amount more than the current cash balance
      */
+    @TestRails(id="723")
     @Test(groups = {"smoke"})
     @Parameters({"username"})
     public void Agent_AM_DepositWithdrawal_Deposit_004(String username) throws Exception {
@@ -101,6 +104,7 @@ public class DepositTest extends BaseCaseMerito {
      * @expect: 1. Verify message "Deposit is successful"
      *          2. Verify available balance of deposit account is updated
      */
+    @TestRails(id="724")
     @Test(groups = {"smoke"})
     @Parameters("currency")
     public void Agent_AM_DepositWithdrawal_Deposit_005(String currency) throws Exception {
@@ -164,6 +168,7 @@ public class DepositTest extends BaseCaseMerito {
      * @expect: 1. Deposit popup is disappeared and there is a green check display in Update Status column
      *          2. Verify Balance is updated correctly
      */
+    @TestRails(id="725")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_006() throws Exception {
         log("@title: Validate can multiple deposit by click on Deposit button");
@@ -208,6 +213,7 @@ public class DepositTest extends BaseCaseMerito {
      *           4. Open Deposit popup
      * @expect:  1. Deposit popup is displayed and UI display correctly
      */
+    @TestRails(id="726")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_007() throws Exception {
         log("@title: Validate that Deposit popup is displayed when clicking Deposit button");
@@ -248,6 +254,7 @@ public class DepositTest extends BaseCaseMerito {
      * @expect: 1. An amount is not deposited successfully
      *          2. Failure icon is displayed when depositing completely
      */
+    @TestRails(id="729")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_010() throws Exception {
         log("@title:  Validate cannot deposit an amount more than the current balance");
@@ -292,6 +299,7 @@ public class DepositTest extends BaseCaseMerito {
      *         2. Select/Unselect all account checkbox
      * @expect: 1. Verify Deposit/withdraw link is disabled/enabled
      */
+    @TestRails(id="730")
     @Test (groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_011() throws Exception {
         log("@title:  Validate Deposit/Withdraw Link is disabled /enable when select/unselect account");

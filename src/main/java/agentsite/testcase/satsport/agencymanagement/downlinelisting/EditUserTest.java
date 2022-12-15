@@ -12,6 +12,7 @@ import agentsite.pages.all.marketsmanagement.BlockUnblockEventPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import agentsite.ultils.agencymanagement.EventBetSizeSettingUtils;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +33,7 @@ public class EditUserTest extends BaseCaseMerito {
      * @expect: 1 Verify Edit Member popup display with the message "Member was update successfully"
      *          2. Change password page display after login member site
      */
+    @TestRails(id="698")
     @Test (groups = {"smoke"})
     @Parameters({"password","brandname"})
     public void Agent_AM_Downline_Listing_Edit_User_003(String password, String brandname) throws Exception {
@@ -89,6 +91,7 @@ public class EditUserTest extends BaseCaseMerito {
      *          4. Downline Listing display Account Status is Active
      *          5. Can login member Site
      */
+    @TestRails(id="699")
     @Test (groups = {"smoke"})
     @Parameters({"username","password","brandname"})
     public void Agent_AM_Downline_Listing_Edit_User_004(String username,String password, String brandname) throws Exception {
@@ -166,6 +169,7 @@ public class EditUserTest extends BaseCaseMerito {
      *          2. If In-Play Page has event, Odds is blur and un-clickable on sport page and market page
      *          3. Can add odds to bet slip when Live is active
      */
+    @TestRails(id="700")
     @Test (groups = {"smoke"})
     @Parameters({"username","password","brandname"})
     public void Agent_AM_Downline_Listing_Edit_User_012(String username,String password, String brandname) throws Exception {
@@ -262,6 +266,7 @@ public class EditUserTest extends BaseCaseMerito {
      *          2. Active any sport that have event non-inplay and verify Odds is blur and cannot add to bet slip in sport and market page
      *          3. Can add odds to bet slip when None-Live is active
      */
+    @TestRails(id="701")
     @Test (groups = {"smoke"})
     @Parameters({"username","password","brandname"})
     public void Agent_AM_Downline_Listing_Edit_User_013(String username,String password, String brandname) throws Exception {
@@ -344,6 +349,7 @@ public class EditUserTest extends BaseCaseMerito {
      * @expect: 1 Verify Edit Member popup display with the message "Member was update successfully"
      *          2. Login member site and verify Sport is not displayed on the left menu or main menu
      */
+    @TestRails(id="702")
     @Test (groups = {"smoke"})
     @Parameters({"username","password","brandname"})
     public void Agent_AM_Downline_Listing_Edit_User_014(String username,String password, String brandname) throws Exception {
@@ -427,6 +433,7 @@ public class EditUserTest extends BaseCaseMerito {
      *          3. Login member site and verify Soccer event not display Half Time market
      *          4. Login member site and verify Soccer event is  display with Half Time market
      */
+    @TestRails(id="703")
     @Test (groups = {"smoke"})
     @Parameters({"username","password","brandname"})
     public void Agent_AM_Downline_Listing_Edit_User_015(String username,String password, String brandname) throws Exception {
@@ -488,6 +495,7 @@ public class EditUserTest extends BaseCaseMerito {
      * @expect: 1. Verify can update User with valid Min Bet
      *          2. Verify message display correctly min bet when place bet with stake less than min setting
      */
+    @TestRails(id="704")
     @Test (groups = {"smoke"})
     @Parameters({"username","password","brandname"})
     public void Agent_AM_Downline_Listing_Edit_User_024(String username,String password, String brandname) throws Exception {
