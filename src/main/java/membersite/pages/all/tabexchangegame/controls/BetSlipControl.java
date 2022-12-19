@@ -2,7 +2,7 @@ package membersite.pages.all.tabexchangegame.controls;
 
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
-import membersite.controls.Table;
+import controls.Table;
 import org.openqa.selenium.By;
 
 public class BetSlipControl extends BaseElement {

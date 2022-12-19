@@ -1,17 +1,16 @@
-package membersite.controls;
+package controls;
 
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
+import membersite.controls.Cell;
+import membersite.controls.Row;
 import org.openqa.selenium.By;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * @author by Isabella

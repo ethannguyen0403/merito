@@ -5,7 +5,7 @@ import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
-import membersite.controls.Table;
+import controls.Table;
 import membersite.objects.sat.Event;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

@@ -5,7 +5,7 @@ import com.paltech.element.common.Button;
 import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Popup;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.controls.MenuTree;
 import membersite.controls.aposta.APMainContentControl;
 import membersite.controls.funsport.HighLightRaceControl;
@@ -150,7 +150,7 @@ public class HomePage extends MainMenu {
         if(brand.equalsIgnoreCase("aposta") || brand.equalsIgnoreCase("fair999new"))
         {
             openLeftMenu();
-            exPage = apLeftMenuControl.clickLeftMenuItem(FEMemberConstants.HomePage.PRODUCTS.get("EXCH_GAMES"),EGHomePage.class);
+            exPage = apLeftMenuControl.clickLeftMenuItem(MemberConstants.HomePage.PRODUCTS.get("EXCH_GAMES"),EGHomePage.class);
 
         }
         else
@@ -168,8 +168,8 @@ public class HomePage extends MainMenu {
     public String defineErrorMessage(double stake,double minStake, double maxStake, AccountBalance accountBalance){
        // double balance = Double.valueOf(accountBalance.getBalance().replaceAll(",", ""));
         if (stake < minStake || stake > maxStake )
-              return String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",minStake),String.format("%,.2f",maxStake),String.format("%,.2f",stake));
-        return FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE;
+              return String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",minStake),String.format("%,.2f",maxStake),String.format("%,.2f",stake));
+        return MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE;
 
     }
 
@@ -177,10 +177,10 @@ public class HomePage extends MainMenu {
         double balance = Double.valueOf(accountBalance.getBalance().replaceAll(",", ""));
         if(stake > balance) {
             if (balance < maxStake) {
-                return FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE_OLD_UI;
+                return MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE_OLD_UI;
             }
         }
-         return FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID_MAX_BET;
+         return MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID_MAX_BET;
 
     }
 

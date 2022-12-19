@@ -1,7 +1,7 @@
-package membersite.testcases.all.afterlogin.exchange;
+package membersite.testcases;
 
 import com.paltech.utils.StringUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -11,15 +11,6 @@ import util.testraildemo.TestRails;
 
 public class ChangePasswordTest extends BaseCaseMerito {
 
-    /**
-     * @title: Validate change password after login successfully
-     * @pre-condition   1. Login member site
-     * @steps:          1.Select My Account > Change Password
-     *                  2. Input New Password and New Password Confirmation
-     *                  3. Current Password
-     *                  4. Click Save Change
-     * @expect:         1. Can change password
-     */
     @Test (groups = {"smoke1"})
     @Parameters({"password","skinName"})
     public void FE_Change_Password_TC001(String password,String skinName) throws Exception {
@@ -35,7 +26,7 @@ public class ChangePasswordTest extends BaseCaseMerito {
             String successMsg = popup.changePassword(passDecrypt, newPass, newPass);
             popup.clickCancelBtn();
             log("Verify 1. Can change password successfully");
-            Assert.assertEquals(successMsg, FEMemberConstants.ChangePasswordPopup.MSG_SUCCESS, String.format("ERROR! Expected success message is %s but found %s", FEMemberConstants.ChangePasswordPopup.MSG_SUCCESS,successMsg));
+            Assert.assertEquals(successMsg, MemberConstants.ChangePasswordPopup.MSG_SUCCESS, String.format("ERROR! Expected success message is %s but found %s", MemberConstants.ChangePasswordPopup.MSG_SUCCESS,successMsg));
         }finally{
             log("Pos_condition: Re-update password");
             popup = (ChangePasswordPopup)memberHomePage.openChangePasswordPopup(skinName);
@@ -47,7 +38,7 @@ public class ChangePasswordTest extends BaseCaseMerito {
     @TestRails(id="1113")
     @Test (groups = {"regression"})
     @Parameters({"password","skinName"})
-    public void MB_Change_Password_TC1113(String password,String skinName) throws Exception {
+    public void MB_Change_Password_TC1113(String password,String skinName) {
         log("@title:Validate close update password works");
         log("Step 1.Login member site");
         log("Step 2.Active My Account> Change Password");
@@ -64,7 +55,7 @@ public class ChangePasswordTest extends BaseCaseMerito {
     @TestRails(id="1114")
     @Test (groups = {"regression"})
     @Parameters({"password","skinName"})
-    public void MB_Change_Password_TC1114(String password,String skinName) throws Exception {
+    public void MB_Change_Password_TC1114(String password,String skinName) {
         log("@title:Validate can not update password if input incorrect current password\n");
         log("Step 1.Login member site");
         log("Step 2.Select My Account > Change Password");
@@ -112,6 +103,40 @@ public class ChangePasswordTest extends BaseCaseMerito {
         ChangePasswordPopup popup = (ChangePasswordPopup) memberHomePage.openChangePasswordPopup(skinName);
         popup.changePassword(StringUtils.decrypt(password), newPass, confirnNewPass);
         log("Verify 1. Error message Confirm password is not correct display");
+        Assert.assertEquals(popup.getConfirmMessageError(),"  Confirm password is not correct","Failed! The popup is display after click close button");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id="1075")
+    @Test (groups = {"regression"})
+    @Parameters({"password","skinName"})
+    public void MB_Change_Password_TC1075(String password,String skinName) throws Exception {
+        log("@title:Validate Greyhound Racing link works");
+        log("Step 1.In home page - Next Up Racing section");
+        log("Step 2.Click on any Greyhound racing link");
+        String newPass ="test1234";
+        String confirnNewPass ="test12341";
+        ChangePasswordPopup popup = (ChangePasswordPopup) memberHomePage.openChangePasswordPopup(skinName);
+        popup.changePassword(StringUtils.decrypt(password), newPass, confirnNewPass);
+        log("Verify 1. Racing market page display correctly. Country, market start time, market name is corrected");
+        Assert.assertEquals(popup.getConfirmMessageError(),"  Confirm password is not correct","Failed! The popup is display after click close button");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id="1059")
+    @Test (groups = {"regression"})
+    @Parameters({"password","skinName"})
+    public void MB_Change_Password_TC1059(String password,String skinName) throws Exception {
+        log("@title: Validate can close Change Password popup (by X icon)");
+        log("Step 1.Click My Account > Change Password");
+        log("Step 2.Click x icon to  close the popup");
+        String newPass ="test1234";
+        String confirnNewPass ="test12341";
+        ChangePasswordPopup popup = (ChangePasswordPopup) memberHomePage.openChangePasswordPopup(skinName);
+        popup.changePassword(StringUtils.decrypt(password), newPass, confirnNewPass);
+        log("Verify 1.2.Popup is closed");
         Assert.assertEquals(popup.getConfirmMessageError(),"  Confirm password is not correct","Failed! The popup is display after click close button");
 
         log("INFO: Executed completely");

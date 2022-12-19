@@ -4,11 +4,10 @@ import com.paltech.element.BaseElement;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.funsport.Odd;
 import org.openqa.selenium.By;
 import membersite.pages.all.tabexchange.EventPage;
-import membersite.pages.all.tabexchange.MarketPage;
 
 /**
  * @author by Isabella.Huynh
@@ -101,7 +100,7 @@ public class OddPageControl extends BaseElement {
 					String awayTeam = lnkAway.getText();
 					String dataEventName = lnkDataEvent.getAttribute("data-eventname");
 					int iSelectedTeam = is12 ? (team.equals(Team.HOME) ? 1 : 2) : (team.equals(Team.HOME) ? 1 : team.equals(Team.DRAW) ? 2 : 3);
-					String selectedTeam = team.equals(Team.HOME) ? homeTeam : team.equals(Team.DRAW) ? FEMemberConstants.BetSlip.DRAW : awayTeam;
+					String selectedTeam = team.equals(Team.HOME) ? homeTeam : team.equals(Team.DRAW) ? MemberConstants.BetSlip.DRAW : awayTeam;
 
 					String xpathOdd = String.format("%s//li[@class='prices-list']//li[@class='%s-cell'][%s]//span", xpathEvent, backOrLay, iSelectedTeam);
 					Link lnkSelectedOdd = Link.xpath(xpathOdd); // which odd at Back | Lay of (1 | x | 2)
@@ -165,7 +164,7 @@ public class OddPageControl extends BaseElement {
 					String eventName = String.format("%s %s %s", homeTeam, separateCharacter, awayTeam);
 					String dataEventName = lnkDataEvent.getAttribute("data-eventname");
 					int iSelectedTeam = _isMoneyLine ? (team.equals(Team.HOME) ? 1 : 2) : (team.equals(Team.HOME) ? 1 : team.equals(Team.DRAW) ? 2 : 3);
-					String selectedTeam = team.equals(Team.HOME) ? homeTeam : team.equals(Team.DRAW) ? FEMemberConstants.BetSlip.DRAW : awayTeam;
+					String selectedTeam = team.equals(Team.HOME) ? homeTeam : team.equals(Team.DRAW) ? MemberConstants.BetSlip.DRAW : awayTeam;
 
 					String xpathOdd = String.format("%s//li[@class='prices-list']//li[@class='%s-cell'][%s]//span", xpathEvent, backOrLay, iSelectedTeam);
 					Link lnkSelectedOdd = Link.xpath(xpathOdd); // which odd at Back | Lay of (1 | x | 2)

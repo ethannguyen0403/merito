@@ -1,7 +1,7 @@
 package membersite.testcases.all.afterlogin.exchange;
 
 import com.paltech.element.common.Label;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.sat.Event;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -66,14 +66,14 @@ public class LeftMenuTest extends BaseCaseMerito {
         log("Step 1. Click on Menu icon in the top left corner");
         memberHomePage.expandLeftMenu();
         log("Verify 1. Left menu is expanded");
-        Assert.assertTrue(memberHomePage.imgLeftMenu.getAttribute("src").contains(String.format(FEMemberConstants.Header.LEFT_MENU_ICON_EXPAND,skinName)),
+        Assert.assertTrue(memberHomePage.imgLeftMenu.getAttribute("src").contains(String.format(MemberConstants.Header.LEFT_MENU_ICON_EXPAND,skinName)),
                 String.format("ERROR! Expected left menu is expand but found %s",memberHomePage.imgLeftMenu.getAttribute("src")));
         Assert.assertTrue(memberHomePage.menuHome.isDisplayed(),"ERROR! Menu not display when expand left menu");
 
         log("Step 2. Re-click on menu icon");
         log("Verify 1. Left menu is collapsed");
         memberHomePage.collapseLeftMenu();
-        Assert.assertTrue(memberHomePage.imgLeftMenu.getAttribute("src").contains(String.format(FEMemberConstants.Header.LEFT_MENU_ICON_COLLAPSE,skinName)),
+        Assert.assertTrue(memberHomePage.imgLeftMenu.getAttribute("src").contains(String.format(MemberConstants.Header.LEFT_MENU_ICON_COLLAPSE,skinName)),
                 String.format("ERROR! Expected left menu is collapse but found %s",memberHomePage.imgLeftMenu.getAttribute("src")));
         Assert.assertFalse(!memberHomePage.menuHome.isDisplayed(),"ERROR! Menu not display when collapse left menu");
         log("INFO: Executed completely");
@@ -118,14 +118,14 @@ public class LeftMenuTest extends BaseCaseMerito {
 
         log("Verified 1. Sport Highlights section is display when clicking on Sport");
         log("Verified 2. Odds section display. Validate Event/market is displayed accordingly(Event/Market)");
-        Assert.assertEquals(memberHomePage.lblSportHighLight.getText(), FEMemberConstants.HomePage.SPORT_HIGHLIGHT,String.format("ERROR! Expected is Sport Highlight but found %s",memberHomePage.lblSportHighLight.getText()));
+        Assert.assertEquals(memberHomePage.lblSportHighLight.getText(), MemberConstants.HomePage.SPORT_HIGHLIGHT,String.format("ERROR! Expected is Sport Highlight but found %s",memberHomePage.lblSportHighLight.getText()));
         Assert.assertFalse(memberHomePage.marketContainerControl.isDisplayed(),"ERROR! Market page display when clicking on sport in left menu");
         log("Step 2. Select a competition ");
         memberHomePage.clickCompetition(0);
 
         log("Verified 3. Sport Highlights section is display when clicking on competition");
         log("Verified 4. Odds section display. Validate Event/market is displayed accordingly(Event/Market)");
-        Assert.assertEquals(memberHomePage.lblSportHighLight.getText(), FEMemberConstants.HomePage.SPORT_HIGHLIGHT,String.format("ERROR! Expected is Sport Highlight but found %s",memberHomePage.lblSportHighLight.getText()));
+        Assert.assertEquals(memberHomePage.lblSportHighLight.getText(), MemberConstants.HomePage.SPORT_HIGHLIGHT,String.format("ERROR! Expected is Sport Highlight but found %s",memberHomePage.lblSportHighLight.getText()));
         Assert.assertFalse(memberHomePage.marketContainerControl.isDisplayed(),"ERROR! Market page display when clicking on Competition in left menu");
 
         log("Step 3. Select a event ");
@@ -134,7 +134,7 @@ public class LeftMenuTest extends BaseCaseMerito {
 
         log("Verified 5. Sport Highlights section is display when clicking on event");
         log("Verified 6. Odds section display. Validate Event/market is displayed accordingly(Event/Market)");
-        Assert.assertEquals(memberHomePage.lblSportHighLight.getText(), FEMemberConstants.HomePage.SPORT_HIGHLIGHT,String.format("ERROR! Expected is Sport Highlight but found %s",memberHomePage.lblSportHighLight.getText()));
+        Assert.assertEquals(memberHomePage.lblSportHighLight.getText(), MemberConstants.HomePage.SPORT_HIGHLIGHT,String.format("ERROR! Expected is Sport Highlight but found %s",memberHomePage.lblSportHighLight.getText()));
         Assert.assertFalse(memberHomePage.marketContainerControl.isDisplayed(),"ERROR! Market page display when clicking on Event in left menu");
 
         log("Step 4. Select a market ");

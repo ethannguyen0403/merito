@@ -1,4 +1,4 @@
-package membersite.common;
+package common;
 public class EGConstants {
     public static final String BACCARAT ="BACCARAT";
     public static final String BACCARAT1 ="BACCARAT";

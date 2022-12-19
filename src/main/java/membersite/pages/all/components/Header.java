@@ -2,7 +2,7 @@ package membersite.pages.all.components;
 
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.controls.aposta.APHeaderControl;
 import membersite.controls.app.FSHeaderControl;
 import membersite.controls.app.FairenterUnderGamblingForm;
@@ -69,7 +69,7 @@ public class Header extends Footer {
         {
             List<String> productTranslate = new ArrayList<>();
             for (String s : productCode) {
-                productTranslate.add(FEMemberConstants.HomePage.PRODUCTS.get(s));
+                productTranslate.add(MemberConstants.HomePage.PRODUCTS.get(s));
             }
             return productTranslate;
         }else{
@@ -122,7 +122,7 @@ public class Header extends Footer {
                 return satHeaderControl.getMyAccountListMenu();
         }
     }
-    public Object openChangePasswordPopup(String skin){
+    public Object openMyLastLoginPage(String skin){
         switch (skin){
             case "satsport":
                 return satHeaderControl.openChangePasswordPopup();
@@ -137,15 +137,30 @@ public class Header extends Footer {
         }
     }
 
+    public Object openChangePasswordPopup(String skin){
+        switch (skin){
+            case "satsport":
+                return satHeaderControl.openMyBets();
+            case "fairexchange":
+                return satHeaderControl.openChangePasswordPopup();
+            case "aposta":
+                return apHeaderControl.openChangePasswordPopup();
+            case "fair999new":
+                return apHeaderControl.openChangePasswordPopup();
+            default:
+                return fsHeaderControl.openChangePasswordPopup();
+        }
+    }
+
     public boolean isProductTabDisplay(String productName)
     {
         String productTab = productName;
-        if (!productName.equals(FEMemberConstants.HomePage.PRODUCTS.get("SUPER_SPADE")) && !productName.equals(FEMemberConstants.HomePage.PRODUCTS.get("EZUGI"))) {
-            if (productName.equals(FEMemberConstants.HomePage.PRODUCTS.get("EXCHANGE"))) {
+        if (!productName.equals(MemberConstants.HomePage.PRODUCTS.get("SUPER_SPADE")) && !productName.equals(MemberConstants.HomePage.PRODUCTS.get("EZUGI"))) {
+            if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("EXCHANGE"))) {
                 productTab = "Exchange";
-            } else if (productName.equals(FEMemberConstants.HomePage.PRODUCTS.get("DIGIENT"))) {
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("DIGIENT"))) {
                 productTab = "Lottery & Slots";
-            } else if (productName.equals(FEMemberConstants.HomePage.PRODUCTS.get("EXCH_GAMES"))) {
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("EXCH_GAMES"))) {
                 productTab = "Exchange Games";
             }
         } else {

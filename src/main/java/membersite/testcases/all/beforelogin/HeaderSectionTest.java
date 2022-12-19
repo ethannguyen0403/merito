@@ -1,6 +1,6 @@
 package membersite.testcases.all.beforelogin;
 
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
 import org.testng.Assert;
@@ -84,27 +84,27 @@ public class HeaderSectionTest extends BaseCaseMerito {
         log("Step 1. Click  on Live Dealer > Asian room");
         log("Verify 1.  Asian room page display");
         AsianRoomPage page = memberHomePage.switchLiveDealerTab().switchAsianRoomTab();
-        Assert.assertEquals(page.getPageUrl(),String.format(FEMemberConstants.AsianLiveDealer.URL,memberLoginURL),
-                String.format("ERROR! Expected URL is %s but found %s", String.format(FEMemberConstants.AsianLiveDealer.URL,memberLoginURL),page.getPageUrl()));
+        Assert.assertEquals(page.getPageUrl(),String.format(MemberConstants.AsianLiveDealer.URL,memberLoginURL),
+                String.format("ERROR! Expected URL is %s but found %s", String.format(MemberConstants.AsianLiveDealer.URL,memberLoginURL),page.getPageUrl()));
 
         log("Step 2. Click on Live Dealer > European room");
         log("Verify 2.  European room page display");
         EuropeanRoomPage euroRomePage  = page.switchLiveDealerTab().switchEuropeansRoomTab();
-        Assert.assertEquals(euroRomePage.getPageUrl(),String.format(FEMemberConstants.EuropeanRoom.URL,memberLoginURL),
-                String.format("ERROR! Expected URL is %s but found %s", String.format(FEMemberConstants.EuropeanRoom.URL,memberLoginURL),euroRomePage.getPageUrl()));
+        Assert.assertEquals(euroRomePage.getPageUrl(),String.format(MemberConstants.EuropeanRoom.URL,memberLoginURL),
+                String.format("ERROR! Expected URL is %s but found %s", String.format(MemberConstants.EuropeanRoom.URL,memberLoginURL),euroRomePage.getPageUrl()));
 
         log("Step 3. Click on Lottery & Slot");
         log("Verify 3. Lottery & Slot page display");
         LotterySlotsPage lsPage = euroRomePage.switchLotterySlotsTab();
         lsPage.menuGameGroup.isDisplayed();
-        Assert.assertEquals(lsPage.getPageUrl(),String.format(FEMemberConstants.LotterySlot.URL,memberLoginURL),
-                String.format("ERROR! Expected  URL is %s but found %s", String.format(FEMemberConstants.LotterySlot.URL,memberLoginURL),lsPage.getPageUrl()));
+        Assert.assertEquals(lsPage.getPageUrl(),String.format(MemberConstants.LotterySlot.URL,memberLoginURL),
+                String.format("ERROR! Expected  URL is %s but found %s", String.format(MemberConstants.LotterySlot.URL,memberLoginURL),lsPage.getPageUrl()));
 
         log("Step 4. Click on Exchange");
         log("Verify 4. Exchange Home page display");
         memberHomePage = lsPage.switchExchangeTab();
-        Assert.assertTrue(memberHomePage.getPageUrl().contains(FEMemberConstants.HomePage.URL),
-                String.format("ERROR! Expected  URL is %s but found %s", String.format(FEMemberConstants.HomePage.URL,memberLoginURL),memberHomePage.getPageUrl()));
+        Assert.assertTrue(memberHomePage.getPageUrl().contains(MemberConstants.HomePage.URL),
+                String.format("ERROR! Expected  URL is %s but found %s", String.format(MemberConstants.HomePage.URL,memberLoginURL),memberHomePage.getPageUrl()));
         log("INFO: Executed completely");
     }
 
@@ -140,7 +140,7 @@ public class HeaderSectionTest extends BaseCaseMerito {
         log("@title:Validate odds button on In-Play Page is un-clickable");
         log("@Step 1. Access member site");
         log("@Step 2. In  In-Play page, click on any odds in the list event  ");
-        InPlayPage page = memberHomePage.navigateSportMenu(FEMemberConstants.HomePage.SPORT_ID.get("In-Play"),InPlayPage.class);
+        InPlayPage page = memberHomePage.navigateSportMenu(MemberConstants.HomePage.SPORT_ID.get("In-Play"),InPlayPage.class);
         Event event = memberHomePage.eventContainerControl.getEvent(false,false,3,1);
         if(Objects.isNull(event)) {
             log("DEBUG: There is no event available");
@@ -162,7 +162,7 @@ public class HeaderSectionTest extends BaseCaseMerito {
         log("@title:Validate odds button on Soccer page is un-clickable");
         log("@Step 1. Access member site");
         log("@Step 2. In Soccer page, click on any odds in the list event  ");
-        SoccerPage page = memberHomePage.navigateSportMenu(FEMemberConstants.HomePage.SPORT_ID.get("Soccer"),SoccerPage.class);
+        SoccerPage page = memberHomePage.navigateSportMenu(MemberConstants.HomePage.SPORT_ID.get("Soccer"),SoccerPage.class);
         Event event = page.eventContainerControl.getEvent(false,false,3,1);
         if(Objects.isNull(event)) {
             log("DEBUG: There is no event available");

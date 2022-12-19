@@ -4,7 +4,7 @@ import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Popup;
 import com.paltech.element.common.TextBox;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 
 public class ChangePasswordPopup {
     public Popup popupChangePassword = Popup.xpath("//div[@class='modal-content']/app-change-password");
@@ -41,7 +41,7 @@ public class ChangePasswordPopup {
     public String changePassword(String oldPassword, String newPassword, String confirmPassword){
        inputChangePassword(oldPassword,newPassword,confirmPassword);
        clickSaveChangeBtn();
-       lblSuccessMsg.isTextDisplayed(FEMemberConstants.ChangePasswordPopup.MSG_SUCCESS,3);
+       lblSuccessMsg.isTextDisplayed(MemberConstants.ChangePasswordPopup.MSG_SUCCESS,3);
        return lblSuccessMsg.getText();
     }
     public void inputChangePassword(String oldPassword, String newPassword, String confirmPassword){

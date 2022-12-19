@@ -4,7 +4,7 @@ import com.paltech.element.BaseElement;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.funsport.Odd;
 import org.openqa.selenium.By;
 
@@ -82,7 +82,7 @@ public class MarketOddControl extends BaseElement {
 				Link lnkAway = Link.xpath(String.format("%s//table/tbody/tr[2]//td[@class='runner-cell']/span", xpathMarket));
 				String homeTeam = lnkHome.getText();
 				String awayTeam = lnkAway.getText();
-				String selectedTeam = team.equals(OddPageControl.Team.HOME) ? homeTeam : team.equals(OddPageControl.Team.DRAW) ? FEMemberConstants.BetSlip.DRAW : awayTeam;
+				String selectedTeam = team.equals(OddPageControl.Team.HOME) ? homeTeam : team.equals(OddPageControl.Team.DRAW) ? MemberConstants.BetSlip.DRAW : awayTeam;
 				String xpathOdd = String.format("%s//table/tbody/tr[%s]//td[@class='odds highlight']//div[contains(@class,' %s')]/span[@class='price']", xpathMarket,iSelectedTeam, backOrLay);
 				Link lnkSelectedOdd = Link.xpath(xpathOdd); // which odd at Back | Lay of (1 | x | 2)
 

@@ -1,7 +1,6 @@
 package membersite.testcases.all.afterlogin.exchangegame;
 
-import membersite.common.EGConstants;
-import org.apache.commons.lang3.StringUtils;
+import common.EGConstants;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;

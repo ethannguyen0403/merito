@@ -1,8 +1,7 @@
 package membersite.testcases.sat;
 
-import com.paltech.utils.DateUtils;
 import com.paltech.utils.StringUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.controls.sat.RacingMarketControl;
 import membersite.objects.AccountBalance;
 import membersite.objects.sat.Event;
@@ -66,7 +65,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
 
         log("Verify: Error Cannot place bet display");
         String actualError = page.myBetControl.getPlaceBetErrorMessage();
-        String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%.2f",Double.parseDouble(stake)));
+        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%.2f",Double.parseDouble(stake)));
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
         log("INFO: Executed completely");
     }
@@ -362,7 +361,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
 
         log("Step 3. Open My Bet Page and get Wager info");
         MyBetsPage myBetsPage = page.satHeaderControl.openMyBets();
-        myBetsPage.filter(FEMemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), FEMemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
+        myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
         List<ArrayList<String>> lstRecords = myBetsPage.tblReport.getRowsWithoutHeader(1, false);
         wagers.setOdrerID(lstRecords.get(0).get(1));
         wagers.setPlacedDate(lstRecords.get(0).get(9));
@@ -378,7 +377,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
 
         log("Step 6. Open My bet and filter Cancel option");
         page.switchToPreviousTab();
-        myBetsPage.filter(FEMemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"),FEMemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"));
+        myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"));
         lstRecords = myBetsPage.tblReport.getRowsWithoutHeader(1, false);
 
         log("Verify 2. Bet in My bet display with the status cancel");
@@ -389,13 +388,13 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         Assert.assertEquals(lstRecords.get(0).get(5),odds,String.format("ERROR! Expected Odds is %s but found %s",odds,lstRecords.get(0).get(5)));
         Assert.assertEquals(lstRecords.get(0).get(6), String.format("%.2f",Double.parseDouble(minBet)),String.format("ERROR! Expected Stake is %s but found %s",String.format("%.2f",Double.parseDouble(minBet)),lstRecords.get(0).get(6)));
         Assert.assertEquals(lstRecords.get(0).get(7),"--",String.format("ERROR! Expected Profit is -- but found %s",lstRecords.get(0).get(7)));
-        Assert.assertEquals(lstRecords.get(0).get(8), FEMemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"),String.format("ERROR! Expected status is Cancelled but found %s",lstRecords.get(0).get(8)));
+        Assert.assertEquals(lstRecords.get(0).get(8), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"),String.format("ERROR! Expected status is Cancelled but found %s",lstRecords.get(0).get(8)));
         Assert.assertEquals(lstRecords.get(0).get(9),wagers.getPlaceDate(),String.format("ERROR! Expected Place date is %s but found %s ",wagers.getPlaceDate(),lstRecords.get(0).get(9)));
 
         log("Verify 3. Cancelled bet not display in Unmatched list anymore");
-        myBetsPage.filter(FEMemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"),FEMemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
+        myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
         lstRecords = myBetsPage.tblReport.getRowsWithoutHeader(1, false);
-        if(!lstRecords.get(0).get(0).equals(FEMemberConstants.NO_RECORD_FOUND))
+        if(!lstRecords.get(0).get(0).equals(MemberConstants.NO_RECORD_FOUND))
         {
             Assert.assertFalse(StringUtils.isListContainText(lstRecords,wagers.getOrderID(),1), "ERROR! Expected Order ID not display but found ");
         }
@@ -447,7 +446,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
 
         log("Step 3. Open My Bet Page and get Wager info");
         MyBetsPage myBetsPage = page.satHeaderControl.openMyBets();
-        myBetsPage.filter(FEMemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), FEMemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
+        myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
         List<ArrayList<String>> lstUnmatched = myBetsPage.tblReport.getRowsWithoutHeader(3, false);
 
         log("Step 4. Back to market page and click Cancel all link");
@@ -459,25 +458,25 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
 
         log("Step 5. Open My bet and filter Cancel option");
         myBetsPage = page.satHeaderControl.openMyBets();
-        myBetsPage.filter(FEMemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), FEMemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"));
+        myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"));
         List<ArrayList<String>> lstCancelled = myBetsPage.tblReport.getRowsWithoutHeader(2, false);
 
         log("Verify 2. Bet in My bet display with the status cancel");
         for (int i = 0, n= lstCancelled.size(); i<n; i++){
             Assert.assertEquals(lstCancelled.get(i).get(1),lstUnmatched.get(i).get(1), String.format("ERROR! Expected Order ID is %s but found %s",lstUnmatched.get(i).get(1),lstCancelled.get(0).get(1)));
-            Assert.assertEquals(lstCancelled.get(i).get(8),FEMemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"),String.format("ERROR! Expected status is Cancelled but found %s",lstCancelled.get(0).get(8)));
+            Assert.assertEquals(lstCancelled.get(i).get(8), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"),String.format("ERROR! Expected status is Cancelled but found %s",lstCancelled.get(0).get(8)));
         }
 
         log("Verify 3. Cancelled bet not display in Unmatched list anymore");
-        myBetsPage.filter(FEMemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"),FEMemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
+        myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
         lstUnmatched= myBetsPage.tblReport.getRowsWithoutHeader(1, false);
-        if(!lstUnmatched.get(0).get(0).equals(FEMemberConstants.NO_RECORD_FOUND))
+        if(!lstUnmatched.get(0).get(0).equals(MemberConstants.NO_RECORD_FOUND))
         {
             Assert.assertFalse(StringUtils.isListContainText(lstUnmatched,wager1.getOrderID(),1), "ERROR! Expected Order ID not display but found ");
             Assert.assertFalse(StringUtils.isListContainText(lstUnmatched,wager2.getOrderID(),1), "ERROR! Expected Order ID not display but found ");
         }
         else
-            Assert.assertTrue(lstUnmatched.get(0).get(0).equals(FEMemberConstants.NO_RECORD_FOUND),"FAILED, Message there is no record in unmatch list is incorrect");
+            Assert.assertTrue(lstUnmatched.get(0).get(0).equals(MemberConstants.NO_RECORD_FOUND),"FAILED, Message there is no record in unmatch list is incorrect");
 
         log("INFO: Executed completely");
     }
@@ -953,7 +952,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
 
         log("Verify: Error message \"Error : Cannot place bet. Your Main balance is insufficient.\" display");
         String actualError = page.myBetControl.getPlaceBetErrorMessage();
-        String expectedError = FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE;
+        String expectedError = MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE;
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
         log("INFO: Executed completely");
     }
@@ -1001,7 +1000,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
 
         log("Verify 1. Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
         String actualError = page.myBetControl.getPlaceBetErrorMessage();
-        String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%.2f",Double.parseDouble(stake)));
+        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%.2f",Double.parseDouble(stake)));
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
         log("INFO: Executed completely");
     }
@@ -1050,7 +1049,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
 
         log("Verify: 1  Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
         String actualError = page.myBetControl.getPlaceBetErrorMessage();
-       String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%,.2f",Double.parseDouble(stake)));
+       String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%,.2f",Double.parseDouble(stake)));
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
         log("INFO: Executed completely");
     }
@@ -1099,7 +1098,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
 
         log("Verify: 1 Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from [min] to [max]. Current Stake is [stake].");
         String actualError = page.myBetControl.getPlaceBetErrorMessage();
-        String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%,.2f",Double.parseDouble(stake)));
+        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%,.2f",Double.parseDouble(stake)));
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
         log("INFO: Executed completely");
     }

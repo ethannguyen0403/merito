@@ -16,10 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static membersite.common.FEMemberConstants.BetSlip;
-import static membersite.common.FEMemberConstants.BetSlip.ERROR_STAKE_MESSAGE_MIN_BET;
-import static membersite.common.FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID_MAX_BET;
-import static membersite.common.FEMemberConstants.FANCY_CODE;
+import static common.MemberConstants.BetSlip.ERROR_STAKE_MESSAGE_MIN_BET;
+import static common.MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID_MAX_BET;
+import static common.MemberConstants.FANCY_CODE;
 
 public class FancyTest extends BaseCaseMerito {
 

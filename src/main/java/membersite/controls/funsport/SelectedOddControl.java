@@ -4,7 +4,7 @@ import com.paltech.element.BaseElement;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.Label;
-import membersite.controls.Table;
+import controls.Table;
 import org.openqa.selenium.By;
 
 /**

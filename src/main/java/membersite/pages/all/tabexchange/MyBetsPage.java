@@ -1,8 +1,8 @@
 package membersite.pages.all.tabexchange;
 import com.paltech.element.common.*;
-import membersite.common.FEMemberConstants;
-import membersite.controls.DateTimePicker;
-import membersite.controls.Table;
+import common.MemberConstants;
+import controls.DateTimePicker;
+import controls.Table;
 import membersite.pages.all.components.Header;
 
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Objects;
 public class MyBetsPage extends Header {
     public Label lblOrderType = Label.xpath("//div[@class='row'][2]//select[contains(@class,'select-type-order')]//preceding::label[1]");
-    public TextBox lblStartDate = TextBox.xpath(String.format("//label[text()='%s']", FEMemberConstants.MyBetsPage.START_DATE));
-    public TextBox lblEndDate = TextBox.xpath(String.format("//label[text()='%s']", FEMemberConstants.MyBetsPage.END_DATE));
+    public TextBox lblStartDate = TextBox.xpath(String.format("//label[text()='%s']", MemberConstants.MyBetsPage.START_DATE));
+    public TextBox lblEndDate = TextBox.xpath(String.format("//label[text()='%s']", MemberConstants.MyBetsPage.END_DATE));
     public Label lblProduct = Label.xpath("//div[@class='container-title row']//div[contains(@class,'title')]");
     public Label lblNote = Label.xpath("//div[@class='container-title row']/div/span");
     public DropDownBox ddbProduct = DropDownBox.xpath("//div[@class='row'][1]//select[contains(@class,'select-type-order')]");
@@ -34,9 +34,9 @@ public class MyBetsPage extends Header {
     public Link lnkPagination = Link.xpath("//ul[@class='pagination']//li");
     public Label lblNoRecord = Label.xpath("//table[@class='table table-sm']/tbody/tr[1]/td[@class='text-center']");
 
-    public TextBox txtStartDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", FEMemberConstants.MyBetsPage.START_DATE));
+    public TextBox txtStartDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.START_DATE));
     public DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
-    public TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", FEMemberConstants.MyBetsPage.END_DATE));
+    public TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.END_DATE));
     public DateTimePicker dtpEndDate = DateTimePicker.xpath(txtEndDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
 /*
 
@@ -71,7 +71,7 @@ public class MyBetsPage extends Header {
         }
 
         btnLoadReport.click();
-        btnLoadReport.isTextDisplayed(FEMemberConstants.MyBetsPage.LOAD_REPORT,10);
+        btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT,10);
     }
 
     public boolean validateFilterStatus(String status)
@@ -104,7 +104,7 @@ public class MyBetsPage extends Header {
             List<String> productTranslate = new ArrayList<>();
             for(int i=0, n = productCode.size(); i<n; i++)
             {
-                productTranslate.add(FEMemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get(productCode.get(i)));
+                productTranslate.add(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get(productCode.get(i)));
             }
             return productTranslate;
         }else{

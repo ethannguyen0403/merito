@@ -1,10 +1,10 @@
-package membersite.common;
+package common;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FEMemberConstants {
+public class MemberConstants {
     public static final String TODAY ="Today";
     public static final String TOMORROW ="Tomorrow";
     public static final String YESTERDAY ="Yesterday";
@@ -54,6 +54,10 @@ public class FEMemberConstants {
     }
     public static class APHomePage {
         public static final String URLHOME = "%s#/1/home/exchange/main/all";
+    }
+    public static class MyLastLogin {
+        public static final String TITLE_PAGE = "My Last Logins";
+        public final static List<String> TABLE_HEADES = Arrays.asList("Login Date & Time", "Login Status", "IP Address", "Device Info","Country");
     }
     public static class HomePage {
         public static final String URL = "/home/exchange/sport/all";

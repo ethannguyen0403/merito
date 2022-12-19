@@ -3,10 +3,9 @@ package membersite.controls.aposta;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.controls.DropDownMenu;
 import membersite.objects.AccountBalance;
-import membersite.pages.all.beforelogin.popups.SATUnderageGamblingPopup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 import membersite.pages.all.beforelogin.popups.LoginPopup;
@@ -84,7 +83,7 @@ public class APHeaderControl extends BaseElement {
     }
 
     public LandingPage logout(){
-        ddmAccount.clickSubMenu(FEMemberConstants.LoginPage.LBL_LOGLOUT);
+        ddmAccount.clickSubMenu(MemberConstants.LoginPage.LBL_LOGLOUT);
         return new LandingPage();
     }
 
@@ -97,7 +96,7 @@ public class APHeaderControl extends BaseElement {
     }
 
     public AccountStatementPage openAccountStatementPage(){
-        ddmAccount.clickSubMenu(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"));
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"));
         AccountStatementPage page = new AccountStatementPage();
         DriverManager.getDriver().switchToWindow();
        // page.btnLoadReport.isTextDisplayed(FEMemberConstants.AccountStatementPage.LOAD_REPORT,5);
@@ -108,26 +107,26 @@ public class APHeaderControl extends BaseElement {
         lblLiabilityValue.click();
         DriverManager.getDriver().switchToWindow();
         MyBetsPage page = new MyBetsPage();
-        page.btnLoadReport.isTextDisplayed(FEMemberConstants.AccountStatementPage.LOAD_REPORT,5);
+        page.btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT,5);
         return page;
     }
     public AccountStatementPage clickBalanceValue(){
         lblLiabilityValue.click();
         DriverManager.getDriver().switchToWindow();
         AccountStatementPage page = new AccountStatementPage();
-        page.btnLoadReport.isTextDisplayed(FEMemberConstants.AccountStatementPage.LOAD_REPORT,5);
+        page.btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT,5);
         return page;
     }
 
     public MyBetsPage openMyBetPage(){
-        ddmAccount.clickSubMenu(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"));
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"));
         MyBetsPage page = new MyBetsPage();
         DriverManager.getDriver().switchToWindow();
         return page;
     }
 
     public ProfitAndLossPage openProfitLossPage(){
-        ddmAccount.clickSubMenu(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Profit & Loss"));
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Profit & Loss"));
         ProfitAndLossPage page = new ProfitAndLossPage();
         DriverManager.getDriver().switchToWindow();
         return page;
@@ -138,7 +137,7 @@ public class APHeaderControl extends BaseElement {
     }
 
     public ChangePasswordPopup openChangePasswordPopup() {
-        ddmAccount.clickSubMenu(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
         return new ChangePasswordPopup();
     }
 

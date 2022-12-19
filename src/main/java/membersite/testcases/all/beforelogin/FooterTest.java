@@ -1,6 +1,6 @@
 package membersite.testcases.all.beforelogin;
 
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -50,7 +50,7 @@ public class FooterTest extends BaseCaseMerito {
         log("Verify 1: Logo is displayed");
         log("Verify 2: About title is displayed");
         Assert.assertTrue(page.iconLogo.isDisplayed(), "ERROR: iconLogo is not displayed");
-        Assert.assertEquals(title, FEMemberConstants.Footer.TITLE_ABOUT, String.format("ERROR: The expected title is '%s' but found '%s'", FEMemberConstants.Footer.TITLE_ABOUT, title));
+        Assert.assertEquals(title, MemberConstants.Footer.TITLE_ABOUT, String.format("ERROR: The expected title is '%s' but found '%s'", MemberConstants.Footer.TITLE_ABOUT, title));
         log("INFO: Executed completely");
     }
 
@@ -72,9 +72,9 @@ public class FooterTest extends BaseCaseMerito {
         log("Verify 1: Logo is displayed");
         log("Verify 2: Privacy Policy title is displayed");
         Assert.assertTrue(page.iconLogo.isDisplayed(), "ERROR: iconLogo is not displayed");
-        page.lblTitle.isTextDisplayed(FEMemberConstants.Footer.TITLE_PRIVACY_POLICY,3);
+        page.lblTitle.isTextDisplayed(MemberConstants.Footer.TITLE_PRIVACY_POLICY,3);
         String title = page.lblTitle.getText();
-        Assert.assertEquals(title, FEMemberConstants.Footer.TITLE_PRIVACY_POLICY, String.format("ERROR: The expected title is '%s' but found '%s'", FEMemberConstants.Footer.TITLE_PRIVACY_POLICY, title));
+        Assert.assertEquals(title, MemberConstants.Footer.TITLE_PRIVACY_POLICY, String.format("ERROR: The expected title is '%s' but found '%s'", MemberConstants.Footer.TITLE_PRIVACY_POLICY, title));
         log("INFO: Executed completely");
     }
 
@@ -93,12 +93,12 @@ public class FooterTest extends BaseCaseMerito {
         log("Step 1: Navigate to Terms & Conditions page");
         TermConditionPage page = memberHomePage.navigateTermConditionPage();
 
-        page.lblTitle.isTextDisplayed(FEMemberConstants.Footer.TITLE_TERM_CONDITION,3);
+        page.lblTitle.isTextDisplayed(MemberConstants.Footer.TITLE_TERM_CONDITION,3);
         String title = page.lblTitle.getText();
         log("Verify 1: Logo is displayed");
         log("Verify 2: Terms & Conditions title is displayed");
         Assert.assertTrue(page.iconLogo.isDisplayed(), "ERROR: iconLogo is not displayed");
-        Assert.assertEquals(title, FEMemberConstants.Footer.TITLE_TERM_CONDITION, String.format("ERROR: The expected title is '%s' but found '%s'", FEMemberConstants.Footer.TITLE_TERM_CONDITION, title));
+        Assert.assertEquals(title, MemberConstants.Footer.TITLE_TERM_CONDITION, String.format("ERROR: The expected title is '%s' but found '%s'", MemberConstants.Footer.TITLE_TERM_CONDITION, title));
         log("INFO: Executed completely");
     }
 
@@ -117,12 +117,12 @@ public class FooterTest extends BaseCaseMerito {
         log("Step 1: Navigate to Rules & Regulations page");
         RuleRegulationPage page = memberHomePage.navigateRuleRegulationPage();
 
-        page.lblTitle.isTextDisplayed(FEMemberConstants.Footer.TITLE_RULE_REGULATION,3);
+        page.lblTitle.isTextDisplayed(MemberConstants.Footer.TITLE_RULE_REGULATION,3);
         String title = page.lblTitle.getText();
         log("Verify 1: Logo is displayed");
         log("Verify 2: Rules & Regulations title is displayed");
         Assert.assertTrue(page.iconLogo.isDisplayed(), "ERROR: iconLogo is not displayed");
-        Assert.assertEquals(title, FEMemberConstants.Footer.TITLE_RULE_REGULATION, String.format("ERROR: The expected title is '%s' but found '%s'", FEMemberConstants.Footer.TITLE_RULE_REGULATION, title));
+        Assert.assertEquals(title, MemberConstants.Footer.TITLE_RULE_REGULATION, String.format("ERROR: The expected title is '%s' but found '%s'", MemberConstants.Footer.TITLE_RULE_REGULATION, title));
         log("INFO: Executed completely");
     }
 
@@ -157,11 +157,11 @@ public class FooterTest extends BaseCaseMerito {
                 "- phone icon and phone number: +447448904678\n" +
                 "- Powered by betfair logo");
        landingPage.lblFooter.scrollToThisControl(false);
-        Assert.assertEquals(landingPage.lnkPrivacyPolicy.getText(), FEMemberConstants.Footer.TITLE_PRIVACY_POLICY,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.TITLE_PRIVACY_POLICY,landingPage.lnkPrivacyPolicy.getText()));
-        Assert.assertEquals(landingPage.lnkAbout.getText(), FEMemberConstants.Footer.TITLE_ABOUT,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.TITLE_ABOUT,landingPage.lnkAbout.getText()));
-        Assert.assertEquals(landingPage.lnkRuleRegulation.getText(), FEMemberConstants.Footer.TITLE_RULE_REGULATION,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.TITLE_RULE_REGULATION,landingPage.lnkRuleRegulation.getText()));
-        Assert.assertEquals(landingPage.lnkTermConditions.getText(), FEMemberConstants.Footer.TITLE_TERM_CONDITION,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.TITLE_TERM_CONDITION,landingPage.lnkTermConditions.getText()));
-        Assert.assertEquals(landingPage.lnkGamblingCanBeAddictive.getText(), FEMemberConstants.Footer.TITLE_GAMBLING,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.TITLE_GAMBLING,landingPage.lnkGamblingCanBeAddictive.getText()));
+        Assert.assertEquals(landingPage.lnkPrivacyPolicy.getText(), MemberConstants.Footer.TITLE_PRIVACY_POLICY,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.TITLE_PRIVACY_POLICY,landingPage.lnkPrivacyPolicy.getText()));
+        Assert.assertEquals(landingPage.lnkAbout.getText(), MemberConstants.Footer.TITLE_ABOUT,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.TITLE_ABOUT,landingPage.lnkAbout.getText()));
+        Assert.assertEquals(landingPage.lnkRuleRegulation.getText(), MemberConstants.Footer.TITLE_RULE_REGULATION,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.TITLE_RULE_REGULATION,landingPage.lnkRuleRegulation.getText()));
+        Assert.assertEquals(landingPage.lnkTermConditions.getText(), MemberConstants.Footer.TITLE_TERM_CONDITION,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.TITLE_TERM_CONDITION,landingPage.lnkTermConditions.getText()));
+        Assert.assertEquals(landingPage.lnkGamblingCanBeAddictive.getText(), MemberConstants.Footer.TITLE_GAMBLING,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.TITLE_GAMBLING,landingPage.lnkGamblingCanBeAddictive.getText()));
 
         log("INFO: Executed completely");
     }
@@ -184,22 +184,22 @@ public class FooterTest extends BaseCaseMerito {
         String iconFacebook = landingPage.imgFacebook.getColour("background");
         String iconYoutube = landingPage.imgYoutube.getColour("background");
 
-        String expectedMailURL = FEMemberConstants.Footer.IMG_MAIL_URL;
+        String expectedMailURL = MemberConstants.Footer.IMG_MAIL_URL;
         Assert.assertTrue(iconMailUrl.contains(expectedMailURL),String.format("ERROR: Expected %s but found %s",expectedMailURL, iconMailUrl));
-        Assert.assertEquals(landingPage.lblMail.getText(), FEMemberConstants.Footer.CONTACT_EMAIL,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_EMAIL, landingPage.lblMail.getText()));
-        Assert.assertTrue(iconTeleUrl.contains(FEMemberConstants.Footer.IMG_TELE_URL),String.format("ERROR: Expected %s but found %s",FEMemberConstants.Footer.IMG_TELE_URL,iconTeleUrl));
-        Assert.assertEquals(landingPage.lblTeleGram.getText(), FEMemberConstants.Footer.CONTACT_TELE,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_TELE, landingPage.lblTeleGram.getText()));
-        Assert.assertTrue(iconInstagram.contains(FEMemberConstants.Footer.IMG_INSTAGRAM_URL),String.format("ERROR: Expected Instagram image is incorrect, actual is %s",iconInstagram));
-        Assert.assertEquals(landingPage.lblInstagram.getText(), FEMemberConstants.Footer.CONTACT_INSTA,String.format("ERROR: Contact Instagram incorrect %s but found %s", FEMemberConstants.Footer.CONTACT_INSTA, landingPage.lblInstagram.getText()));
-        Assert.assertTrue(iconFacebook.contains(FEMemberConstants.Footer.IMG_FACEBOOK_URL),String.format("ERROR: Expected Facebook image is incorrect, actual is %s ",iconFacebook));
-        Assert.assertEquals(landingPage.lblFacebook.getText(), FEMemberConstants.Footer.CONTACT_INSTA,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_INSTA, landingPage.lblFacebook.getText()));
-        Assert.assertTrue(iconYoutube.contains(FEMemberConstants.Footer.IMG_YOUTUBE_URL),String.format("ERROR: Expected Youtube image image is incorrect, actual is %s",iconYoutube));
-        Assert.assertEquals(landingPage.lblYoutube.getText(), FEMemberConstants.Footer.CONTACT_INSTA,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_INSTA, landingPage.lblYoutube.getText()));
+        Assert.assertEquals(landingPage.lblMail.getText(), MemberConstants.Footer.CONTACT_EMAIL,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_EMAIL, landingPage.lblMail.getText()));
+        Assert.assertTrue(iconTeleUrl.contains(MemberConstants.Footer.IMG_TELE_URL),String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.IMG_TELE_URL,iconTeleUrl));
+        Assert.assertEquals(landingPage.lblTeleGram.getText(), MemberConstants.Footer.CONTACT_TELE,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_TELE, landingPage.lblTeleGram.getText()));
+        Assert.assertTrue(iconInstagram.contains(MemberConstants.Footer.IMG_INSTAGRAM_URL),String.format("ERROR: Expected Instagram image is incorrect, actual is %s",iconInstagram));
+        Assert.assertEquals(landingPage.lblInstagram.getText(), MemberConstants.Footer.CONTACT_INSTA,String.format("ERROR: Contact Instagram incorrect %s but found %s", MemberConstants.Footer.CONTACT_INSTA, landingPage.lblInstagram.getText()));
+        Assert.assertTrue(iconFacebook.contains(MemberConstants.Footer.IMG_FACEBOOK_URL),String.format("ERROR: Expected Facebook image is incorrect, actual is %s ",iconFacebook));
+        Assert.assertEquals(landingPage.lblFacebook.getText(), MemberConstants.Footer.CONTACT_INSTA,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_INSTA, landingPage.lblFacebook.getText()));
+        Assert.assertTrue(iconYoutube.contains(MemberConstants.Footer.IMG_YOUTUBE_URL),String.format("ERROR: Expected Youtube image image is incorrect, actual is %s",iconYoutube));
+        Assert.assertEquals(landingPage.lblYoutube.getText(), MemberConstants.Footer.CONTACT_INSTA,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_INSTA, landingPage.lblYoutube.getText()));
 
-        Assert.assertTrue(iconPhoneUrl.contains(FEMemberConstants.Footer.IMG_PHONE_URL),String.format("ERROR: Expected %s but found %s",FEMemberConstants.Footer.IMG_PHONE_URL, iconPhoneUrl));
-        Assert.assertEquals(landingPage.lblPhoneNumber.getText(), FEMemberConstants.Footer.CONTACT_PHONE_NUM,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_PHONE_NUM, landingPage.lblPhoneNumber.getText()));
-        Assert.assertEquals(landingPage.LblPhoneNumber2.getText(), FEMemberConstants.Footer.CONTACT_PHONE_NUM2,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_PHONE_NUM2, landingPage.LblPhoneNumber2.getText()));
-        Assert.assertTrue(logoBFURL.contains(FEMemberConstants.Footer.IMG_BETFAIR_URL),String.format("ERROR: Expected %s but found %s",FEMemberConstants.Footer.IMG_BETFAIR_URL,logoBFURL));
+        Assert.assertTrue(iconPhoneUrl.contains(MemberConstants.Footer.IMG_PHONE_URL),String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.IMG_PHONE_URL, iconPhoneUrl));
+        Assert.assertEquals(landingPage.lblPhoneNumber.getText(), MemberConstants.Footer.CONTACT_PHONE_NUM,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_PHONE_NUM, landingPage.lblPhoneNumber.getText()));
+        Assert.assertEquals(landingPage.LblPhoneNumber2.getText(), MemberConstants.Footer.CONTACT_PHONE_NUM2,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_PHONE_NUM2, landingPage.LblPhoneNumber2.getText()));
+        Assert.assertTrue(logoBFURL.contains(MemberConstants.Footer.IMG_BETFAIR_URL),String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.IMG_BETFAIR_URL,logoBFURL));
     }
     @Test (groups = {"jio_smoke"})
     @Parameters("skinName")
@@ -219,29 +219,29 @@ public class FooterTest extends BaseCaseMerito {
         String iconFacebook = memberHomePage.imgFacebook.getColour("background");
         String iconYoutube = memberHomePage.imgYoutube.getColour("background");
 
-        String expectedTelelURL = String.format(FEMemberConstants.Footer.IMG_TELE_URL,domainURL,skinName);
-        String expectedPhoneURL = String.format(FEMemberConstants.Footer.IMG_PHONE_URL,domainURL,skinName);
-        String expectedBFLogoURL = String.format(FEMemberConstants.Footer.IMG_BETFAIR_URL,domainURL,skinName);
-        String expectedMailURL = String.format(FEMemberConstants.Footer.IMG_MAIL_URL,domainURL,skinName);
-        String expectedFacebookImgURL = String.format(FEMemberConstants.Footer.IMG_FACEBOOK_URL,domainURL,skinName);
-        String expectedInstagramImgURL = String.format(FEMemberConstants.Footer.IMG_INSTAGRAM_URL,domainURL,skinName);
-        String expectedYoutubeImgURL = String.format(FEMemberConstants.Footer.IMG_YOUTUBE_URL,domainURL,skinName);
+        String expectedTelelURL = String.format(MemberConstants.Footer.IMG_TELE_URL,domainURL,skinName);
+        String expectedPhoneURL = String.format(MemberConstants.Footer.IMG_PHONE_URL,domainURL,skinName);
+        String expectedBFLogoURL = String.format(MemberConstants.Footer.IMG_BETFAIR_URL,domainURL,skinName);
+        String expectedMailURL = String.format(MemberConstants.Footer.IMG_MAIL_URL,domainURL,skinName);
+        String expectedFacebookImgURL = String.format(MemberConstants.Footer.IMG_FACEBOOK_URL,domainURL,skinName);
+        String expectedInstagramImgURL = String.format(MemberConstants.Footer.IMG_INSTAGRAM_URL,domainURL,skinName);
+        String expectedYoutubeImgURL = String.format(MemberConstants.Footer.IMG_YOUTUBE_URL,domainURL,skinName);
 
 
         Assert.assertTrue(iconMailUrl.contains(expectedMailURL),String.format("ERROR: Expected %s but found %s",expectedMailURL, iconMailUrl));
-        Assert.assertEquals(memberHomePage.lblMail.getText(), FEMemberConstants.Footer.JIO_CONTACT_EMAIL,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.JIO_CONTACT_EMAIL, memberHomePage.lblMail.getText()));
+        Assert.assertEquals(memberHomePage.lblMail.getText(), MemberConstants.Footer.JIO_CONTACT_EMAIL,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.JIO_CONTACT_EMAIL, memberHomePage.lblMail.getText()));
         Assert.assertTrue(iconTeleUrl.contains(expectedTelelURL),String.format("ERROR: Expected %s but found %s",expectedTelelURL,iconTeleUrl));
-        Assert.assertEquals(memberHomePage.lblTeleGram.getText(), FEMemberConstants.Footer.CONTACT_TELE,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_TELE, memberHomePage.lblTeleGram.getText()));
+        Assert.assertEquals(memberHomePage.lblTeleGram.getText(), MemberConstants.Footer.CONTACT_TELE,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_TELE, memberHomePage.lblTeleGram.getText()));
         Assert.assertTrue(iconInstagram.contains(expectedInstagramImgURL),String.format("ERROR: Expected Instagram image is %s but found %s",expectedInstagramImgURL,iconInstagram));
-        Assert.assertEquals(memberHomePage.lblInstagram.getText(), FEMemberConstants.Footer.CONTACT_TELE,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_TELE, memberHomePage.lblInstagram.getText()));
+        Assert.assertEquals(memberHomePage.lblInstagram.getText(), MemberConstants.Footer.CONTACT_TELE,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_TELE, memberHomePage.lblInstagram.getText()));
         Assert.assertTrue(iconFacebook.contains(expectedFacebookImgURL),String.format("ERROR: Expected Facebook image is %s but found %s",expectedFacebookImgURL,iconFacebook));
-        Assert.assertEquals(memberHomePage.lblFacebook.getText(), FEMemberConstants.Footer.CONTACT_TELE,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_TELE, memberHomePage.lblFacebook.getText()));
+        Assert.assertEquals(memberHomePage.lblFacebook.getText(), MemberConstants.Footer.CONTACT_TELE,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_TELE, memberHomePage.lblFacebook.getText()));
         Assert.assertTrue(iconYoutube.contains(expectedYoutubeImgURL),String.format("ERROR: Expected Youtube image is %s but found %s",expectedYoutubeImgURL,iconYoutube));
-        Assert.assertEquals(memberHomePage.lblYoutube.getText(), FEMemberConstants.Footer.CONTACT_TELE,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_TELE, memberHomePage.lblYoutube.getText()));
+        Assert.assertEquals(memberHomePage.lblYoutube.getText(), MemberConstants.Footer.CONTACT_TELE,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_TELE, memberHomePage.lblYoutube.getText()));
 
         Assert.assertTrue(iconPhoneUrl.contains(expectedPhoneURL),String.format("ERROR: Expected %s but found %s",expectedPhoneURL, iconPhoneUrl));
-        Assert.assertEquals(memberHomePage.lblPhoneNumber.getText(), FEMemberConstants.Footer.CONTACT_PHONE_NUM,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_PHONE_NUM, memberHomePage.lblPhoneNumber.getText()));
-        Assert.assertEquals(memberHomePage.LblPhoneNumber2.getText(), FEMemberConstants.Footer.CONTACT_PHONE_NUM2,String.format("ERROR: Expected %s but found %s", FEMemberConstants.Footer.CONTACT_PHONE_NUM2, memberHomePage.LblPhoneNumber2.getText()));
+        Assert.assertEquals(memberHomePage.lblPhoneNumber.getText(), MemberConstants.Footer.CONTACT_PHONE_NUM,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_PHONE_NUM, memberHomePage.lblPhoneNumber.getText()));
+        Assert.assertEquals(memberHomePage.LblPhoneNumber2.getText(), MemberConstants.Footer.CONTACT_PHONE_NUM2,String.format("ERROR: Expected %s but found %s", MemberConstants.Footer.CONTACT_PHONE_NUM2, memberHomePage.LblPhoneNumber2.getText()));
         Assert.assertEquals(logoBFURL,expectedBFLogoURL,String.format("ERROR: Expected %s but found %s",expectedBFLogoURL,logoBFURL));
     }
 

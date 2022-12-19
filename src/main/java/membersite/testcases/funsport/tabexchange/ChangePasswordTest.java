@@ -1,11 +1,10 @@
 package membersite.testcases.funsport.tabexchange;
 
 import com.paltech.utils.StringUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import membersite.pages.all.tabexchange.components.popups.ChangePasswordPopup;
 import membersite.pages.funsport.tabexchange.components.popups.ChangePasswordPopupOldUI;
 import baseTest.BaseCaseMerito;
 
@@ -35,7 +34,7 @@ public class ChangePasswordTest extends BaseCaseMerito {
             String successMsg = popup.changePassword(passDecrypt, newPass, newPass);
             popup.clickCancelBtn();
             log("Verify 1. Can change password successfully");
-            Assert.assertEquals(successMsg, FEMemberConstants.ChangePasswordPopup.MSG_SUCCESS, String.format("ERROR! Expected success message is %s but found %s", FEMemberConstants.ChangePasswordPopup.MSG_SUCCESS,successMsg));
+            Assert.assertEquals(successMsg, MemberConstants.ChangePasswordPopup.MSG_SUCCESS, String.format("ERROR! Expected success message is %s but found %s", MemberConstants.ChangePasswordPopup.MSG_SUCCESS,successMsg));
         }finally{
             log("Pos_condition: Re-update password");
             popup = (ChangePasswordPopupOldUI)memberHomePage.openChangePasswordPopup(skinName);

@@ -1,17 +1,13 @@
 package membersite.controls.sat;
 
-import com.google.common.base.Stopwatch;
 import com.paltech.constant.StopWatch;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
-import com.paltech.element.common.Tab;
-import membersite.controls.Table;
+import controls.Table;
 import membersite.objects.sat.FancyMarket;
 import org.openqa.selenium.By;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**

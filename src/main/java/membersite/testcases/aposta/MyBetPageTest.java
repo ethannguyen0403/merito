@@ -1,7 +1,7 @@
 package membersite.testcases.aposta;
 
 import com.paltech.utils.DateUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -10,7 +10,7 @@ import baseTest.BaseCaseMerito;
 
 import java.util.List;
 
-import static membersite.common.FEMemberConstants.MyBetsPage.*;
+import static common.MemberConstants.MyBetsPage.*;
 
 public class MyBetPageTest extends BaseCaseMerito {
     /**
@@ -59,15 +59,15 @@ public class MyBetPageTest extends BaseCaseMerito {
     public void MyBetPage_TC002() {
         log("@title: Validate can filter Settled bet");
         log("Step 1. Active My Account> My Bets");
-        String startDate  = DateUtils.getDate(-30,"yyyy-MM-dd", FEMemberConstants.TIMEZONE);
-        String endDate  = DateUtils.getDate(0,"yyyy-MM-dd", FEMemberConstants.TIMEZONE);
+        String startDate  = DateUtils.getDate(-30,"yyyy-MM-dd", MemberConstants.TIMEZONE);
+        String endDate  = DateUtils.getDate(0,"yyyy-MM-dd", MemberConstants.TIMEZONE);
         MyBetsPage page = memberHomePage.apHeaderControl.openMyBetPage();
 
         log("Step 2. Select Exchange Bets , Order Type: Settled , Start and End Date, click Load Report");
        // page.filter(DDB_PRODUCT_FILTER.get("Exchange"),DDB_ORDER_TYPE_FILTER.get("SETTLED"),startDate,endDate);
         page.filter(DDB_PRODUCT_FILTER.get("Exchange"),DDB_ORDER_TYPE_FILTER.get("SETTLED"));
 
-        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(FEMemberConstants.NO_RECORD_FOUND)){
+        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(MemberConstants.NO_RECORD_FOUND)){
             Assert.assertTrue(true,"By Passed as there is no data when filter Settled wagers");
             return;
         }
@@ -92,7 +92,7 @@ public class MyBetPageTest extends BaseCaseMerito {
         log("Step 2. Select Exchange Bets , Order Type: Matched , Start and End Date, click Load Report");
         page.filter(DDB_PRODUCT_FILTER.get("Exchange"),DDB_ORDER_TYPE_FILTER.get("MATCHED"));
 
-        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(FEMemberConstants.NO_RECORD_FOUND)){
+        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(MemberConstants.NO_RECORD_FOUND)){
             Assert.assertTrue(true,"By Passed as there is no data when filter Settled wagers");
             return;
         }
@@ -117,7 +117,7 @@ public class MyBetPageTest extends BaseCaseMerito {
         log("Step 2. Select Exchange Bets , Order Type: Unmatched , Start and End Date, click Load Report");
         page.filter(DDB_PRODUCT_FILTER.get("Exchange"),DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
 
-        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(FEMemberConstants.NO_RECORD_FOUND)){
+        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(MemberConstants.NO_RECORD_FOUND)){
             Assert.assertTrue(true,"By Passed as there is no data when filter Settled wagers");
             return;
         }
@@ -144,7 +144,7 @@ public class MyBetPageTest extends BaseCaseMerito {
         log("Step 2. Select Exchange Bets , Order Type: Cancelled , Start and End Date, click Load Report");
         page.filter(DDB_PRODUCT_FILTER.get("Exchange"),DDB_ORDER_TYPE_FILTER.get("CANCELLED"));
 
-        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(FEMemberConstants.NO_RECORD_FOUND)){
+        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(MemberConstants.NO_RECORD_FOUND)){
             Assert.assertTrue(true,"By Passed as there is no data when filter Settled wagers");
             return;
         }
@@ -170,7 +170,7 @@ public class MyBetPageTest extends BaseCaseMerito {
         log("Step 2.Select Exchange Bets , Order Type: Lapsed , Start and End Date, click Load Report");
         page.filter(DDB_PRODUCT_FILTER.get("Exchange"),DDB_ORDER_TYPE_FILTER.get("LAPSED"));
 
-        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(FEMemberConstants.NO_RECORD_FOUND)){
+        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(MemberConstants.NO_RECORD_FOUND)){
             Assert.assertTrue(true,"By Passed as there is no data when filter Settled wagers");
             return;
         }
@@ -195,7 +195,7 @@ public class MyBetPageTest extends BaseCaseMerito {
         log("Step 2.Select Exchange Bets , Order Type: Voided , Start and End Date, click Load Report");
         page.filter(DDB_PRODUCT_FILTER.get("Exchange"),DDB_ORDER_TYPE_FILTER.get("VOIDED"));
 
-        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(FEMemberConstants.NO_RECORD_FOUND)){
+        if(page.tblReport.getRowsWithoutHeader(1,false).get(0).get(0).equals(MemberConstants.NO_RECORD_FOUND)){
             Assert.assertTrue(true,"By Passed as there is no data when filter Settled wagers");
             return;
         }

@@ -1,11 +1,9 @@
 package membersite.testcases.sat.fancy;
 
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
-import membersite.objects.sat.BookmakerEvent;
 import membersite.objects.sat.BookmakerMarket;
-import membersite.objects.sat.FancyMarket;
 import membersite.objects.sat.Market;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -15,14 +13,13 @@ import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
 import membersite.utils.betplacement.FancyUtils;
-import membersite.utils.betplacement.WicketBookmakerUtils;
 import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static membersite.common.FEMemberConstants.*;
+import static common.MemberConstants.*;
 
 public class WicketBookmakerTest extends BaseCaseMerito {
     /**
@@ -132,7 +129,7 @@ public class WicketBookmakerTest extends BaseCaseMerito {
 
         log("Verify 1. Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
         String actualError = marketPage.myBetControlSAT.getPlaceBetErrorMessage();
-        String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%.2f",Double.parseDouble(stake)));
+        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%.2f",Double.parseDouble(stake)));
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
         log("INFO: Executed completely");
     }
@@ -236,7 +233,7 @@ public class WicketBookmakerTest extends BaseCaseMerito {
 
         log("Verify 1. Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
         String actualError = marketPage.myBetControlSAT.getPlaceBetErrorMessage();
-        Assert.assertEquals(actualError,FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE,String.format("ERROR! Expected error message is %s but found %s", FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE,actualError));
+        Assert.assertEquals(actualError, MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE,String.format("ERROR! Expected error message is %s but found %s", MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE,actualError));
 
         log("INFO: Executed completely");
     }

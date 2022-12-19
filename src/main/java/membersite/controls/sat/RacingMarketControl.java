@@ -2,7 +2,7 @@ package membersite.controls.sat;
 
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Label;
-import membersite.controls.Table;
+import controls.Table;
 import membersite.objects.sat.Market;
 import org.openqa.selenium.By;
 

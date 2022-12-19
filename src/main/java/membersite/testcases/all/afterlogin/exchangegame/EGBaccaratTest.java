@@ -1,7 +1,7 @@
 package membersite.testcases.all.afterlogin.exchangegame;
 
 import baseTest.BaseCaseMerito;
-import membersite.common.EGConstants;
+import common.EGConstants;
 import membersite.objects.AccountBalance;
 import membersite.pages.all.tabexchange.SportPage;
 import membersite.pages.all.tabexchangegame.BaccaratPage;

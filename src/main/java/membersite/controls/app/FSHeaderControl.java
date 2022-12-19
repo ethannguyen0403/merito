@@ -3,11 +3,10 @@ package membersite.controls.app;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.controls.DropDownBox;
 import membersite.controls.DropDownMenu;
 import membersite.objects.AccountBalance;
-import membersite.pages.all.beforelogin.popups.SATUnderageGamblingPopup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import membersite.pages.all.home.LandingPage;
@@ -91,7 +90,7 @@ public class FSHeaderControl extends BaseElement {
         {
             List<String> productTranslate = new ArrayList<>();
             for (String s : productCode) {
-                productTranslate.add(FEMemberConstants.HomePage.PRODUCTS.get(s));
+                productTranslate.add(MemberConstants.HomePage.PRODUCTS.get(s));
             }
             return productTranslate;
         }else{
@@ -159,26 +158,26 @@ public class FSHeaderControl extends BaseElement {
         return Arrays.asList(ddbMyAccount.getText().split("\n"));
     }
     public LandingPage logout() {
-        ddbMyAccount.selectByVisibleText(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"), true);
+        ddbMyAccount.selectByVisibleText(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"), true);
         return new LandingPage();
     }
     public AccountStatementPage openAccountStatement(){
-        ddbMyAccount.selectByVisibleText(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"),true);
+        ddbMyAccount.selectByVisibleText(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"),true);
         DriverManager.getDriver().switchToWindow();
         AccountStatementPage page = new AccountStatementPage();
-        page.btnLoadReport.isTextDisplayed(FEMemberConstants.AccountStatementPage.LOAD_REPORT,5);
+        page.btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT,5);
         return page;
     }
     public MyBetsPage openMyBets(){
-        ddbMyAccount.selectByVisibleText(FEMemberConstants.HomePage.DDB_MY_ACCOUNT_FS.get("My Bets/History"),true);
+        ddbMyAccount.selectByVisibleText(MemberConstants.HomePage.DDB_MY_ACCOUNT_FS.get("My Bets/History"),true);
         DriverManager.getDriver().switchToWindow();
         MyBetsPage page = new MyBetsPage();
-        page.btnLoadReport.isTextDisplayed(FEMemberConstants.MyBetsPage.LOAD_REPORT,5);
-        page.lblTimezone.isTextDisplayed(FEMemberConstants.MyBetsPage.NOTES,5);
+        page.btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT,5);
+        page.lblTimezone.isTextDisplayed(MemberConstants.MyBetsPage.NOTES,5);
         return page;
     }
     public ChangePasswordPopupOldUI openChangePasswordPopup(){
-        ddmAccount.clickSubMenu(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
         return new ChangePasswordPopupOldUI();
     }
     public HomePage clickLogo() {

@@ -1,7 +1,7 @@
 package membersite.testcases.funsport.home;
 
 import com.paltech.utils.StringUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -63,11 +63,11 @@ public class LoginTest extends BaseCaseMerito {
         String errorMessage = loginPopup.lblErrorMessage.getText();
 
         log("Verify 1: An error login popup is displayed");
-        log(String.format("Verify 3: The content message is '%s'", FEMemberConstants.LoginPage.MSG_INVALID_PASSWORD));
+        log(String.format("Verify 3: The content message is '%s'", MemberConstants.LoginPage.MSG_INVALID_PASSWORD));
 
         log("Verify 2: btnLogin still displays");
         Assert.assertTrue(loginPopup.popupLogin.isDisplayed(), "ERROR: popupLogin doesn't display after signed in failed");
-        Assert.assertEquals(errorMessage, FEMemberConstants.LoginPage.MSG_INVALID_PASSWORD, String.format("ERROR: The expected error message is '%s' but found '%s'", FEMemberConstants.LoginPage.MSG_INVALID_PASSWORD, errorMessage));
+        Assert.assertEquals(errorMessage, MemberConstants.LoginPage.MSG_INVALID_PASSWORD, String.format("ERROR: The expected error message is '%s' but found '%s'", MemberConstants.LoginPage.MSG_INVALID_PASSWORD, errorMessage));
         Assert.assertTrue(loginPopup.btnLogin.isDisplayedShort(3), "ERROR: btnLogin doesn't display after signed in with an invalid password");
 
         log("INFO: Executed completely");
@@ -88,11 +88,11 @@ public class LoginTest extends BaseCaseMerito {
         LoginPopup loginPopup = landingPage.fsHeaderControl.openUnderGablingPopup().clickConfirmation();
 
         log("Verify1. Login form display with username, password, Login button");
-        Assert.assertEquals(loginPopup.lblUsername.getText(),FEMemberConstants.LoginPage.LBL_USERNAME,"FAILED! Email/Username label is incorrectly displayed");
-        Assert.assertEquals(loginPopup.lblRememberPassword.getText(),FEMemberConstants.LoginPage.LBL_REMEMBER_PASSWORD,"FAILED! Remember Password label is incorrectly displayed");
-        Assert.assertEquals(loginPopup.lblPassword.getText(),FEMemberConstants.LoginPage.LBL_PASSWORD,"FAILED! Password label is incorrectly displayed");
-        Assert.assertEquals(loginPopup.lblShowPassword.getText(),FEMemberConstants.LoginPage.LBL_SHOW_PASSWORD,"FAILED!Show Password label is incorrectly displayed");
-        Assert.assertEquals(loginPopup.btnLogin.getText(),FEMemberConstants.LoginPage.BTN_LOGIN,"FAILED!Login button is incorrectly displayed");
+        Assert.assertEquals(loginPopup.lblUsername.getText(), MemberConstants.LoginPage.LBL_USERNAME,"FAILED! Email/Username label is incorrectly displayed");
+        Assert.assertEquals(loginPopup.lblRememberPassword.getText(), MemberConstants.LoginPage.LBL_REMEMBER_PASSWORD,"FAILED! Remember Password label is incorrectly displayed");
+        Assert.assertEquals(loginPopup.lblPassword.getText(), MemberConstants.LoginPage.LBL_PASSWORD,"FAILED! Password label is incorrectly displayed");
+        Assert.assertEquals(loginPopup.lblShowPassword.getText(), MemberConstants.LoginPage.LBL_SHOW_PASSWORD,"FAILED!Show Password label is incorrectly displayed");
+        Assert.assertEquals(loginPopup.btnLogin.getText(), MemberConstants.LoginPage.BTN_LOGIN,"FAILED!Login button is incorrectly displayed");
         Assert.assertTrue(loginPopup.txtPassword.isDisplayed(),"FAILED! Email/Username textbox is incorrectly displayed");
         Assert.assertTrue(loginPopup.txtPassword.isDisplayed(),"FAILED! Password textbox is incorrectly displayed");
         log("INFO: Executed completely");
@@ -113,10 +113,10 @@ public class LoginTest extends BaseCaseMerito {
         UnderageGamblingPopup underageGamblingPopup = landingPage.fsHeaderControl.openUnderGablingPopup();
 
         log("Verify 1. Validate Underage gambling is prohibited popup UI");
-        Assert.assertEquals(underageGamblingPopup.lblTitle.getText(),FEMemberConstants.LoginPage.LBL_UNDERGAMLING_TITLE,"FAILED! Title is incorrect!");
-        Assert.assertEquals(underageGamblingPopup.lblContent.getText(),FEMemberConstants.LoginPage.LBL_UNDERGAMLING_CONTENT,"FAILED! Content of Underage gambling is incorrect!");
-        Assert.assertEquals(underageGamblingPopup.btnConfirm.getText(),FEMemberConstants.LoginPage.BTN_CONFIRM,"FAILED! Confirm button is incorrect!");
-        Assert.assertEquals(underageGamblingPopup.btnExit.getText(),FEMemberConstants.LoginPage.BTN_EXIT,"FAILED! Exit button is incorrect!");
+        Assert.assertEquals(underageGamblingPopup.lblTitle.getText(), MemberConstants.LoginPage.LBL_UNDERGAMLING_TITLE,"FAILED! Title is incorrect!");
+        Assert.assertEquals(underageGamblingPopup.lblContent.getText(), MemberConstants.LoginPage.LBL_UNDERGAMLING_CONTENT,"FAILED! Content of Underage gambling is incorrect!");
+        Assert.assertEquals(underageGamblingPopup.btnConfirm.getText(), MemberConstants.LoginPage.BTN_CONFIRM,"FAILED! Confirm button is incorrect!");
+        Assert.assertEquals(underageGamblingPopup.btnExit.getText(), MemberConstants.LoginPage.BTN_EXIT,"FAILED! Exit button is incorrect!");
         log("INFO: Executed completely");
     }
 }

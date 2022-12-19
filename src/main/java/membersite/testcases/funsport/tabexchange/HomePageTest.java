@@ -297,6 +297,7 @@ public class HomePageTest extends BaseCaseMerito {
         Assert.assertEquals(odd.getIsInPlay(), selectedOdd.getIsInPlay(), String.format("ERROR: The selected odd on Odd page is in-play '%s' but found on Bet Slip is '%s'", odd.getIsInPlay(), selectedOdd.getIsInPlay()));
         log("INFO: Executed completely");
     }
+
     /**
      * @title: Validate that a selected odd at AWAY-LAY displays correct data both Odd page and on Bet Slip
      * @pre-condition

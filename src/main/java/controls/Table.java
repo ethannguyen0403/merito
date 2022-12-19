@@ -1,8 +1,10 @@
-package membersite.controls;
+package controls;
 
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
+import membersite.controls.Cell;
+import membersite.controls.Row;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
@@ -53,7 +55,15 @@ public class Table extends BaseElement {
 	public List<ArrayList<String>> getRowsWithoutHeader(int limitedRow, boolean isMoved){
 		return this.getRows(limitedRow, false, isMoved);
 	}
-
+	/**
+	 * Getting column names of a table header
+	 * @return ArrayList column names
+	 */
+	public ArrayList<String> getColumnNamesOfTable(){
+		String xpath = String.format("%s%s", this._xpathTable, "/thead/tr[1]");
+		agentsite.controls.Row row = agentsite.controls.Row.xpath(xpath);
+		return row.getRow(this._columnNumber, true);
+	}
 	/**
 	 * Get info of expected row index.
 	 * @return []
@@ -167,11 +177,6 @@ public class Table extends BaseElement {
 	 * Getting column names of a table header
 	 * @return ArrayList column names
 	 */
-	public ArrayList<String> getColumnNamesOfTable(){
-		return getColumnNamesOfTable(1);
-	}
-
-
 	public ArrayList<String> getColumnNamesOfTable(int rowIndex){
 		String xpath = String.format("%s%s", this._xpathTable,  String.format("/thead/tr[%d]",rowIndex));
 		Row row = Row.xpath(xpath);

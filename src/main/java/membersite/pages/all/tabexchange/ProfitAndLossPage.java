@@ -3,9 +3,9 @@ package membersite.pages.all.tabexchange;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
-import membersite.common.FEMemberConstants;
-import membersite.controls.DateTimePicker;
-import membersite.controls.Table;
+import common.MemberConstants;
+import controls.DateTimePicker;
+import controls.Table;
 import membersite.pages.all.components.Header;
 
 import java.util.ArrayList;
@@ -48,9 +48,9 @@ public class ProfitAndLossPage extends Header {
     public int colWagerTotalTax = 3;
     public int colWagerTotalNet = 4;
     public Table tblWager = Table.xpath("//app-profit-group-betdetail//table", colWagerTotal);
-    public TextBox txtStartDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", FEMemberConstants.MyBetsPage.START_DATE));
+    public TextBox txtStartDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.START_DATE));
     public DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
-    public TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", FEMemberConstants.MyBetsPage.END_DATE));
+    public TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.END_DATE));
     public DateTimePicker dtpEndDate = DateTimePicker.xpath(txtEndDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
 
 
@@ -61,13 +61,13 @@ public class ProfitAndLossPage extends Header {
         dtpStartDate.selectDate(startDate,"yyyy-MM-dd");
         dtpEndDate.selectDate(endDate,"yyyy-MM-dd");
         btnLoadReport.click();
-        btnLoadReport.isTextDisplayed(FEMemberConstants.MyBetsPage.LOAD_REPORT,5);
+        btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT,5);
     }
 
     public boolean verifyProfitLostMatchedWithDetails(int rowIndex)
     {
         List<ArrayList<String>> lst = tblSport.getRowsWithoutHeader(rowIndex,false);
-        if(lst.get(0).get(0).equals(FEMemberConstants.NO_RECORD_FOUND))
+        if(lst.get(0).get(0).equals(MemberConstants.NO_RECORD_FOUND))
         {
             System.out.println("INFO! By passed VP as no data display");
             return true;

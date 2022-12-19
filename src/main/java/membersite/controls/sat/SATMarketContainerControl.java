@@ -4,7 +4,7 @@ import com.paltech.element.BaseElement;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.utils.DateUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
 import org.openqa.selenium.By;
@@ -255,14 +255,14 @@ public class SATMarketContainerControl extends BaseElement {
 		String prefit = date.split(" ")[0];
 		String returnDate="";
 		switch (prefit){
-			case FEMemberConstants.TODAY:
-				returnDate = date.replace(FEMemberConstants.TODAY,String.format("%s,",DateUtils.getDate(0, "MMM dd",timeZone)));
+			case MemberConstants.TODAY:
+				returnDate = date.replace(MemberConstants.TODAY,String.format("%s,",DateUtils.getDate(0, "MMM dd",timeZone)));
 				break;
-			case FEMemberConstants.TOMORROW:
-				returnDate = date.replace(FEMemberConstants.TOMORROW,String.format("%s,",DateUtils.getDate(1, "MMM dd",timeZone)));
+			case MemberConstants.TOMORROW:
+				returnDate = date.replace(MemberConstants.TOMORROW,String.format("%s,",DateUtils.getDate(1, "MMM dd",timeZone)));
 				break;
-			case FEMemberConstants.STARTINGIN:
-				returnDate = date.replace(FEMemberConstants.STARTINGIN,String.format("%s,",DateUtils.getDate(0, "MMM dd",timeZone)));
+			case MemberConstants.STARTINGIN:
+				returnDate = date.replace(MemberConstants.STARTINGIN,String.format("%s,",DateUtils.getDate(0, "MMM dd",timeZone)));
 				break;
 			default:
 				returnDate = DateUtils.convertToDate(date,"MMM dd, hh:mm").toString();

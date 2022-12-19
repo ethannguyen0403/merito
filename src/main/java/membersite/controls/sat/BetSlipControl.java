@@ -2,12 +2,9 @@ package membersite.controls.sat;
 
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
-import membersite.controls.Table;
 import membersite.objects.sat.Order;
-import membersite.objects.sat.SelectedOdd;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;

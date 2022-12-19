@@ -1,7 +1,7 @@
 package membersite.testcases.funsport.home;
 
 import com.paltech.utils.StringUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.pages.all.beforelogin.popups.LoginForm;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.HomePage;
 import baseTest.BaseCaseMerito;
 
-import static membersite.common.FEMemberConstants.LoginPage.*;
+import static common.MemberConstants.LoginPage.*;
 
 public class FarienterLoginTest extends BaseCaseMerito {
     /**
@@ -63,10 +63,10 @@ public class FarienterLoginTest extends BaseCaseMerito {
         String errorMessage = loginPopup.lblErrorMessage.getText();
 
         log("Verify 1: An error login popup is displayed");
-        log(String.format("Verify 3: The content message is '%s'", FEMemberConstants.LoginPage.MSG_INVALID_PASSWORD));
+        log(String.format("Verify 3: The content message is '%s'", MemberConstants.LoginPage.MSG_INVALID_PASSWORD));
 
         log("Verify 2: btnLogin still displays");
-        Assert.assertEquals(errorMessage, FEMemberConstants.LoginPage.MSG_INVALID_PASSWORD, String.format("ERROR: The expected error message is '%s' but found '%s'", FEMemberConstants.LoginPage.MSG_INVALID_PASSWORD, errorMessage));
+        Assert.assertEquals(errorMessage, MemberConstants.LoginPage.MSG_INVALID_PASSWORD, String.format("ERROR: The expected error message is '%s' but found '%s'", MemberConstants.LoginPage.MSG_INVALID_PASSWORD, errorMessage));
         Assert.assertTrue(loginPopup.btnLogin.isDisplayedShort(3), "ERROR: btnLogin doesn't display after signed in with an invalid password");
 
         log("INFO: Executed completely");
@@ -88,7 +88,7 @@ public class FarienterLoginTest extends BaseCaseMerito {
 
         log("Verify1. Login form display with username, password, Login button");
         Assert.assertEquals(loginPopup.lblRememberMe.getText(), LBL_REMEMBER_Me,"FAILED! Me label is incorrectly displayed");
-        Assert.assertEquals(loginPopup.btnLogin.getAttribute("value"),FEMemberConstants.LoginPage.BTN_LOGIN,"FAILED!Login button is incorrectly displayed");
+        Assert.assertEquals(loginPopup.btnLogin.getAttribute("value"), MemberConstants.LoginPage.BTN_LOGIN,"FAILED!Login button is incorrectly displayed");
         Assert.assertEquals(loginPopup.txtUsername.getAttribute("placeholder"),LBL_USERNAME_ONLY,"FAILED! Username textbox is incorrectly displayed");
         Assert.assertEquals(loginPopup.txtPassword.getAttribute("placeholder"),LBL_PASSWORD,"FAILED! Password textbox is incorrectly displayed");
         log("INFO: Executed completely");
@@ -107,10 +107,10 @@ public class FarienterLoginTest extends BaseCaseMerito {
         log("Step 1. Access member site");
 
         log("Verify 1. Validate Underage gambling is prohibited popup UI");
-        Assert.assertEquals(landingPage.fairenterUnderGamblingForm.lblUnderageGamblingIsProhobite.getText(),FEMemberConstants.LoginPage.LBL_UNDERGAMLING_TITLE_F24,"FAILED! Title is incorrect!");
-        Assert.assertEquals(landingPage.fairenterUnderGamblingForm.lblConfirmMessage.getText(),FEMemberConstants.LoginPage.LBL_UNDERGAMLING_CONTENT_F24,"FAILED! Content of Underage gambling is incorrect!");
-        Assert.assertEquals(landingPage.fairenterUnderGamblingForm.btnConfirm.getText(),FEMemberConstants.LoginPage.BTN_CONFIRM.toUpperCase(),"FAILED! Confirm button is incorrect!");
-        Assert.assertEquals(landingPage.fairenterUnderGamblingForm.btnExit.getText(),FEMemberConstants.LoginPage.BTN_EXIT.toUpperCase(),"FAILED! Exit button is incorrect!");
+        Assert.assertEquals(landingPage.fairenterUnderGamblingForm.lblUnderageGamblingIsProhobite.getText(), MemberConstants.LoginPage.LBL_UNDERGAMLING_TITLE_F24,"FAILED! Title is incorrect!");
+        Assert.assertEquals(landingPage.fairenterUnderGamblingForm.lblConfirmMessage.getText(), MemberConstants.LoginPage.LBL_UNDERGAMLING_CONTENT_F24,"FAILED! Content of Underage gambling is incorrect!");
+        Assert.assertEquals(landingPage.fairenterUnderGamblingForm.btnConfirm.getText(), MemberConstants.LoginPage.BTN_CONFIRM.toUpperCase(),"FAILED! Confirm button is incorrect!");
+        Assert.assertEquals(landingPage.fairenterUnderGamblingForm.btnExit.getText(), MemberConstants.LoginPage.BTN_EXIT.toUpperCase(),"FAILED! Exit button is incorrect!");
         log("INFO: Executed completely");
     }
 }

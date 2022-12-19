@@ -2,10 +2,9 @@ package membersite.pages.all.tabexchange.components.popups;
 
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
-import membersite.common.FEMemberConstants;
-import membersite.controls.Table;
+import common.MemberConstants;
+import controls.Table;
 import membersite.pages.all.tabexchange.MarketPage;
-import membersite.pages.all.tabexchange.SportPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +82,7 @@ public class MyMarketPopup {
         String total = "0.00";
         int numberOfRow = tbMyMarkets.getNumberOfRows(false);
         List<ArrayList<String>> lstRecords = tbMyMarkets.getRowsWithoutHeader(numberOfRow,false);
-        if (lstRecords.get(0).get(0).trim().equals(FEMemberConstants.MyMarketsPopup.NO_RECORD_FOUNDS)) {
+        if (lstRecords.get(0).get(0).trim().equals(MemberConstants.MyMarketsPopup.NO_RECORD_FOUNDS)) {
             return total;
         } else {
             for (int i = 0; i < lstRecords.size(); i++) {

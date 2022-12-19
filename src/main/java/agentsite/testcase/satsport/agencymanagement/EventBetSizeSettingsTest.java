@@ -8,9 +8,8 @@ import agentsite.pages.all.marketsmanagement.BlockUnblockEventPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.EventBetSizeSettingUtils;
 import baseTest.BaseCaseMerito;
-import com.paltech.constant.Helper;
 import com.paltech.driver.DriverManager;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
@@ -673,7 +672,7 @@ public class EventBetSizeSettingsTest extends BaseCaseMerito {
 
         log(String.format("Verify 1: Verify cannot place bet if min bet less than the setting"));
         String actualError = sportPage.myBetControl.getPlaceBetErrorMessage();
-        String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",min),String.format("%(,.2f",max),String.format("%.2f",min));
+        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",min),String.format("%(,.2f",max),String.format("%.2f",min));
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
         log("INFO: Executed completely");
     }

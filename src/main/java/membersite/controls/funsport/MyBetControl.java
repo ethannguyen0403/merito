@@ -3,7 +3,7 @@ package membersite.controls.funsport;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
 import com.paltech.utils.DoubleUtils;
-import membersite.controls.Table;
+import controls.Table;
 import membersite.objects.funsport.SelectedOdd;
 import membersite.objects.Wager;
 import org.openqa.selenium.By;
@@ -11,7 +11,6 @@ import membersite.utils.betplacement.BetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author by Isabella.Huynh

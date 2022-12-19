@@ -1,7 +1,7 @@
 package membersite.testcases.funsport.reports;
 
 import com.paltech.utils.DateUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import membersite.pages.funsport.tabexchange.AccountStatementPage;
@@ -12,8 +12,8 @@ import util.testraildemo.TestRails;
 import java.util.ArrayList;
 import java.util.List;
 
-import static membersite.common.FEMemberConstants.AccountStatementPage.*;
-import static membersite.common.FEMemberConstants.MyBetsPage.*;
+import static common.MemberConstants.AccountStatementPage.*;
+import static common.MemberConstants.MyBetsPage.*;
 
 public class AccountStatementTest extends BaseCaseMerito {
 
@@ -66,7 +66,7 @@ public class AccountStatementTest extends BaseCaseMerito {
         Assert.assertEquals(tblHeaders,TABLE_SUMMARY_HEADER_FS,"ERROR! Sport header table not match as expected");
 
         List<ArrayList<String>> lst = page.tblReport.getRowsWithoutHeader(1,false);
-        if(lst.get(0).get(2).equals(FEMemberConstants.AccountStatementPage.OPENING_BALANCE))
+        if(lst.get(0).get(2).equals(MemberConstants.AccountStatementPage.OPENING_BALANCE))
         {
             log("Verify Pass as no report in search range");
             Assert.assertTrue(true,"By pass as there is no account statement report in search range");
