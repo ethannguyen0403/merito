@@ -1,7 +1,7 @@
 package membersite.testcases.aposta;
 
 import com.paltech.utils.DateUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -53,10 +53,10 @@ public class HeaderSectionTest extends BaseCaseMerito {
 
         log("Verify 3: Verify Credit, Balance, Outstanding of the player are corrected");
         AccountBalance balanceUI = memberHomePage.apHeaderControl.getUserBalance();
-        Assert.assertEquals(memberHomePage.apHeaderControl.lblBal.getText(), FEMemberConstants.APHeader.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",memberHomePage.apHeaderControl.lblBal.getText(), FEMemberConstants.APHeader.BALANCE));
-        Assert.assertEquals(memberHomePage.apHeaderControl.lblBalCurrency.getText(), currency,String.format("ERROR: Expected is Balance currency is %s but found %s",memberHomePage.apHeaderControl.lblBalCurrency.getText(), FEMemberConstants.APHeader.BALANCE));
+        Assert.assertEquals(memberHomePage.apHeaderControl.lblBal.getText(), MemberConstants.APHeader.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",memberHomePage.apHeaderControl.lblBal.getText(), MemberConstants.APHeader.BALANCE));
+        Assert.assertEquals(memberHomePage.apHeaderControl.lblBalCurrency.getText(), currency,String.format("ERROR: Expected is Balance currency is %s but found %s",memberHomePage.apHeaderControl.lblBalCurrency.getText(), MemberConstants.APHeader.BALANCE));
         Assert.assertTrue(balanceAPI.getBalance().equals(balanceUI.getBalance()),String.format("ERROR: The expected  balance is '%s' but found '%s'",balanceAPI.getBalance(), balanceUI.getBalance()));
-        Assert.assertEquals(memberHomePage.apHeaderControl.lblLiability.getText(), FEMemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",memberHomePage.apHeaderControl.lblLiability.getText(), FEMemberConstants.Header.OUTSTANDING));
+        Assert.assertEquals(memberHomePage.apHeaderControl.lblLiability.getText(), MemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",memberHomePage.apHeaderControl.lblLiability.getText(), MemberConstants.Header.OUTSTANDING));
         Assert.assertEquals(memberHomePage.apHeaderControl.lblLiabilityCurrency.getText(), currency,String.format("ERROR: Expected is Liability currency is incorrect"));
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()),String.format("ERROR: The expected  Liability is '%s' but found '%s'",balanceAPI.getExposure(), balanceUI.getExposure()));
 
@@ -88,18 +88,18 @@ public class HeaderSectionTest extends BaseCaseMerito {
 
         log("Verify 1: The list My account menu display correctly" );
         Assert.assertEquals(lstAccountMenu.get(0),username,String.format("ERROR: Expected login account is %s but found %s", username,lstAccountMenu.get(0)));
-        Assert.assertEquals(lstAccountMenu.get(1), FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"),
-                String.format("ERROR: Expected login account is %s but found %s", FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"),lstAccountMenu.get(1)));
-        Assert.assertEquals(lstAccountMenu.get(2), FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"),String.format("ERROR: Expected %s but found %s",
-                FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"),lstAccountMenu.get(2)));
-        Assert.assertEquals(lstAccountMenu.get(3), FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Profit & Loss"),
-                String.format("ERROR: Expected %s but found %s", FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Profit & Loss"),lstAccountMenu.get(3)));
-        Assert.assertEquals(lstAccountMenu.get(4), FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Last Logins"),
-                String.format("ERROR: Expected %s but found %s", FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Last Logins"),lstAccountMenu.get(4)));
-        Assert.assertEquals(lstAccountMenu.get(5), FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"),
-                String.format("ERROR: Expected %s but found %s", FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"),lstAccountMenu.get(5)));
-        Assert.assertEquals(lstAccountMenu.get(6), FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"),
-                String.format("ERROR: Expected %s but found %s", FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"),lstAccountMenu.get(6)));
+        Assert.assertEquals(lstAccountMenu.get(1), MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"),
+                String.format("ERROR: Expected login account is %s but found %s", MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"),lstAccountMenu.get(1)));
+        Assert.assertEquals(lstAccountMenu.get(2), MemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"),String.format("ERROR: Expected %s but found %s",
+                MemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"),lstAccountMenu.get(2)));
+        Assert.assertEquals(lstAccountMenu.get(3), MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Profit & Loss"),
+                String.format("ERROR: Expected %s but found %s", MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Profit & Loss"),lstAccountMenu.get(3)));
+        Assert.assertEquals(lstAccountMenu.get(4), MemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Last Logins"),
+                String.format("ERROR: Expected %s but found %s", MemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Last Logins"),lstAccountMenu.get(4)));
+        Assert.assertEquals(lstAccountMenu.get(5), MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"),
+                String.format("ERROR: Expected %s but found %s", MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"),lstAccountMenu.get(5)));
+        Assert.assertEquals(lstAccountMenu.get(6), MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"),
+                String.format("ERROR: Expected %s but found %s", MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"),lstAccountMenu.get(6)));
         log("INFO: Executed completely");
     }
 
@@ -119,7 +119,7 @@ public class HeaderSectionTest extends BaseCaseMerito {
         log("Step 1. Click My Account > Account Statement");
         AccountBalance balanceAPI = BetUtils.getUserBalance();
         AccountStatementPage page = memberHomePage.apHeaderControl.openAccountStatementPage();
-        page.btnLoadReport.isTextDisplayed(FEMemberConstants.AccountStatementPage.LOAD_REPORT,20);
+        page.btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT,20);
 
         log("Verify 1.Verify Header section: Leftmenu icon, logo, My Account, Balance and Liability");
         String logoImgActual = page.apHeaderControl.imgLogo.getAttribute("src");
@@ -128,10 +128,10 @@ public class HeaderSectionTest extends BaseCaseMerito {
 
         log("Verify 3: Verify Credit, Balance, Outstanding of the player are corrected");
         AccountBalance balanceUI = page.apHeaderControl.getUserBalance();
-        Assert.assertEquals(page.apHeaderControl.lblBal.getText(), FEMemberConstants.APHeader.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",memberHomePage.apHeaderControl.lblBal.getText(), FEMemberConstants.APHeader.BALANCE));
-        Assert.assertEquals(page.apHeaderControl.lblBalCurrency.getText(), currency,String.format("ERROR: Expected is Balance currency is %s but found %s",memberHomePage.apHeaderControl.lblBalCurrency.getText(), FEMemberConstants.APHeader.BALANCE));
+        Assert.assertEquals(page.apHeaderControl.lblBal.getText(), MemberConstants.APHeader.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",memberHomePage.apHeaderControl.lblBal.getText(), MemberConstants.APHeader.BALANCE));
+        Assert.assertEquals(page.apHeaderControl.lblBalCurrency.getText(), currency,String.format("ERROR: Expected is Balance currency is %s but found %s",memberHomePage.apHeaderControl.lblBalCurrency.getText(), MemberConstants.APHeader.BALANCE));
         Assert.assertTrue(balanceAPI.getBalance().equals(balanceUI.getBalance()),String.format("ERROR: The expected  balance is '%s' but found '%s'",balanceAPI.getBalance(), balanceUI.getBalance()));
-        Assert.assertEquals(page.apHeaderControl.lblLiability.getText(), FEMemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",memberHomePage.apHeaderControl.lblLiability.getText(), FEMemberConstants.Header.OUTSTANDING));
+        Assert.assertEquals(page.apHeaderControl.lblLiability.getText(), MemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",memberHomePage.apHeaderControl.lblLiability.getText(), MemberConstants.Header.OUTSTANDING));
         Assert.assertEquals(page.apHeaderControl.lblLiabilityCurrency.getText(), currency,String.format("ERROR: Expected is Liability currency is incorrect"));
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()),String.format("ERROR: The expected  Liability is '%s' but found '%s'",balanceAPI.getExposure(), balanceUI.getExposure()));
 
@@ -139,13 +139,13 @@ public class HeaderSectionTest extends BaseCaseMerito {
                 "- Start Date, End Date Calendar, and Load report button\n" +
                 "- Note: Date will be based on time zone IST\n" +
                 "Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance");
-        Assert.assertEquals(page.lblStartDate.getText(), FEMemberConstants.AccountStatementPage.START_DATE, String.format("ERROR! Expected Start Date but found %s",page.lblStartDate.getText()));
-        Assert.assertEquals(page.lblEndDate.getText(), FEMemberConstants.AccountStatementPage.END_DATE, String.format("ERROR! Expected End Date but found %s",page.lblEndDate.getText()));
-        Assert.assertEquals(page.lblNote.getText(), FEMemberConstants.AccountStatementPage.NOTES, String.format("ERROR! Current Note label shows %s",page.lblNote.getText()));
-        Assert.assertEquals(page.btnLoadReport.getText(), FEMemberConstants.AccountStatementPage.LOAD_REPORT,String.format("ERROR! Expected Load Report but found %s",page.btnLoadReport.getText()));
+        Assert.assertEquals(page.lblStartDate.getText(), MemberConstants.AccountStatementPage.START_DATE, String.format("ERROR! Expected Start Date but found %s",page.lblStartDate.getText()));
+        Assert.assertEquals(page.lblEndDate.getText(), MemberConstants.AccountStatementPage.END_DATE, String.format("ERROR! Expected End Date but found %s",page.lblEndDate.getText()));
+        Assert.assertEquals(page.lblNote.getText(), MemberConstants.AccountStatementPage.NOTES, String.format("ERROR! Current Note label shows %s",page.lblNote.getText()));
+        Assert.assertEquals(page.btnLoadReport.getText(), MemberConstants.AccountStatementPage.LOAD_REPORT,String.format("ERROR! Expected Load Report but found %s",page.btnLoadReport.getText()));
         List<String> tblHeaders = page.tblReport.getColumnNamesOfTable(1);
-        Assert.assertEquals(tblHeaders.size(), FEMemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), String.format("ERROR: The expected no of columns is %s but found %s", FEMemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(),tblHeaders.size()));
-        Assert.assertEquals(tblHeaders, FEMemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER,"ERROR! Account Statement header not match with the expected");
+        Assert.assertEquals(tblHeaders.size(), MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), String.format("ERROR: The expected no of columns is %s but found %s", MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(),tblHeaders.size()));
+        Assert.assertEquals(tblHeaders, MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER,"ERROR! Account Statement header not match with the expected");
     }
 
     /**
@@ -173,10 +173,10 @@ public class HeaderSectionTest extends BaseCaseMerito {
 
         log("Verify 3: Verify Credit, Balance, Outstanding of the player are corrected");
         AccountBalance balanceUI = page.apHeaderControl.getUserBalance();
-        Assert.assertEquals(page.apHeaderControl.lblBal.getText(), FEMemberConstants.APHeader.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",memberHomePage.apHeaderControl.lblBal.getText(), FEMemberConstants.APHeader.BALANCE));
-        Assert.assertEquals(page.apHeaderControl.lblBalCurrency.getText(), currency,String.format("ERROR: Expected is Balance currency is %s but found %s",memberHomePage.apHeaderControl.lblBalCurrency.getText(), FEMemberConstants.APHeader.BALANCE));
+        Assert.assertEquals(page.apHeaderControl.lblBal.getText(), MemberConstants.APHeader.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",memberHomePage.apHeaderControl.lblBal.getText(), MemberConstants.APHeader.BALANCE));
+        Assert.assertEquals(page.apHeaderControl.lblBalCurrency.getText(), currency,String.format("ERROR: Expected is Balance currency is %s but found %s",memberHomePage.apHeaderControl.lblBalCurrency.getText(), MemberConstants.APHeader.BALANCE));
         Assert.assertTrue(balanceAPI.getBalance().equals(balanceUI.getBalance()),String.format("ERROR: The expected  balance is '%s' but found '%s'",balanceAPI.getBalance(), balanceUI.getBalance()));
-        Assert.assertEquals(page.apHeaderControl.lblLiability.getText(), FEMemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",memberHomePage.apHeaderControl.lblLiability.getText(), FEMemberConstants.Header.OUTSTANDING));
+        Assert.assertEquals(page.apHeaderControl.lblLiability.getText(), MemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",memberHomePage.apHeaderControl.lblLiability.getText(), MemberConstants.Header.OUTSTANDING));
         Assert.assertEquals(page.apHeaderControl.lblLiabilityCurrency.getText(), currency,String.format("ERROR: Expected is Liability currency is incorrect"));
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()),String.format("ERROR: The expected  Liability is '%s' but found '%s'",balanceAPI.getExposure(), balanceUI.getExposure()));
     }
@@ -201,10 +201,10 @@ public class HeaderSectionTest extends BaseCaseMerito {
 
         log("Verify 1: Verify Header Balance, Liability of the page is corrected");
         AccountBalance balanceUI = page.apHeaderControl.getUserBalance();
-        Assert.assertEquals(page.apHeaderControl.lblBal.getText(), FEMemberConstants.APHeader.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",memberHomePage.apHeaderControl.lblBal.getText(), FEMemberConstants.APHeader.BALANCE));
-        Assert.assertEquals(page.apHeaderControl.lblBalCurrency.getText(), currency,String.format("ERROR: Expected is Balance currency is %s but found %s",memberHomePage.apHeaderControl.lblBalCurrency.getText(), FEMemberConstants.APHeader.BALANCE));
+        Assert.assertEquals(page.apHeaderControl.lblBal.getText(), MemberConstants.APHeader.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",memberHomePage.apHeaderControl.lblBal.getText(), MemberConstants.APHeader.BALANCE));
+        Assert.assertEquals(page.apHeaderControl.lblBalCurrency.getText(), currency,String.format("ERROR: Expected is Balance currency is %s but found %s",memberHomePage.apHeaderControl.lblBalCurrency.getText(), MemberConstants.APHeader.BALANCE));
         Assert.assertTrue(balanceAPI.getBalance().equals(balanceUI.getBalance()),String.format("ERROR: The expected  balance is '%s' but found '%s'",balanceAPI.getBalance(), balanceUI.getBalance()));
-        Assert.assertEquals(page.apHeaderControl.lblLiability.getText(), FEMemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",memberHomePage.apHeaderControl.lblLiability.getText(), FEMemberConstants.Header.OUTSTANDING));
+        Assert.assertEquals(page.apHeaderControl.lblLiability.getText(), MemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",memberHomePage.apHeaderControl.lblLiability.getText(), MemberConstants.Header.OUTSTANDING));
         Assert.assertEquals(page.apHeaderControl.lblLiabilityCurrency.getText(), currency,String.format("ERROR: Expected is Liability currency is incorrect"));
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()),String.format("ERROR: The expected  Liability is '%s' but found '%s'",balanceAPI.getExposure(), balanceUI.getExposure()));
 
@@ -212,14 +212,14 @@ public class HeaderSectionTest extends BaseCaseMerito {
                 "1. Start Date, End Date, Load Report\n" +
                 "Note: Date will be based on time zone IST\n" +
                 "2. Table with the header: Sport/Game, Profit/Loss");
-        Assert.assertEquals(page.lblStartDate.getText(), FEMemberConstants.AccountStatementPage.START_DATE, String.format("ERROR! Expected Start Date but found %s",page.lblStartDate.getText()));
-        Assert.assertEquals(page.lblEndDate.getText(), FEMemberConstants.AccountStatementPage.END_DATE, String.format("ERROR! Expected End Date but found %s",page.lblEndDate.getText()));
-        Assert.assertEquals(page.lblNote.getText(), FEMemberConstants.AccountStatementPage.NOTES, String.format("ERROR! Current Note label shows %s",page.lblNote.getText()));
-        Assert.assertEquals(page.btnLoadReport.getText(), FEMemberConstants.AccountStatementPage.LOAD_REPORT,String.format("ERROR! Expected Load Report but found %s",page.btnLoadReport.getText()));
+        Assert.assertEquals(page.lblStartDate.getText(), MemberConstants.AccountStatementPage.START_DATE, String.format("ERROR! Expected Start Date but found %s",page.lblStartDate.getText()));
+        Assert.assertEquals(page.lblEndDate.getText(), MemberConstants.AccountStatementPage.END_DATE, String.format("ERROR! Expected End Date but found %s",page.lblEndDate.getText()));
+        Assert.assertEquals(page.lblNote.getText(), MemberConstants.AccountStatementPage.NOTES, String.format("ERROR! Current Note label shows %s",page.lblNote.getText()));
+        Assert.assertEquals(page.btnLoadReport.getText(), MemberConstants.AccountStatementPage.LOAD_REPORT,String.format("ERROR! Expected Load Report but found %s",page.btnLoadReport.getText()));
         Assert.assertTrue(page.btnExport.isDisplayed(),"ERROR! Export button is not displayed");
         List<String> tblHeaders = page.tblSport.getColumnNamesOfTable(1);
-        Assert.assertEquals(tblHeaders.size(), FEMemberConstants.ProfitAndLossPage.TABLE_SUMMARY_HEADER.size(), String.format("ERROR: The expected no of columns is %s but found %s", FEMemberConstants.ProfitAndLossPage.TABLE_SUMMARY_HEADER.size(),tblHeaders.size()));
-        Assert.assertEquals(tblHeaders, FEMemberConstants.ProfitAndLossPage.TABLE_SUMMARY_HEADER,"ERROR: The expected not match with the actual!" );
+        Assert.assertEquals(tblHeaders.size(), MemberConstants.ProfitAndLossPage.TABLE_SUMMARY_HEADER.size(), String.format("ERROR: The expected no of columns is %s but found %s", MemberConstants.ProfitAndLossPage.TABLE_SUMMARY_HEADER.size(),tblHeaders.size()));
+        Assert.assertEquals(tblHeaders, MemberConstants.ProfitAndLossPage.TABLE_SUMMARY_HEADER,"ERROR: The expected not match with the actual!" );
 
       log("INFO: Executed completely");
 
@@ -326,8 +326,8 @@ public class HeaderSectionTest extends BaseCaseMerito {
 
         if(Objects.nonNull(page)){
             Assert.assertEquals(page.eventContainerControl.getSportHeader(),
-                    String.format(FEMemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
-                    String.format("ERROR! Expected Sport title is %s but found %s",String.format(FEMemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
+                    String.format(MemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
+                    String.format("ERROR! Expected Sport title is %s but found %s",String.format(MemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
                             page.eventContainerControl.getSportHeader()));
         }else{
             log("SKIP! There is no Soccer menu display");
@@ -352,8 +352,8 @@ public class HeaderSectionTest extends BaseCaseMerito {
         SportPage page = memberHomePage.navigateSportMenu(sportName, SportPage.class);
         if(Objects.nonNull(page)){
             Assert.assertEquals(page.eventContainerControl.getSportHeader(),
-                    String.format(FEMemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
-                    String.format("ERROR! Expected Sport title is %s but found %s",String.format(FEMemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
+                    String.format(MemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
+                    String.format("ERROR! Expected Sport title is %s but found %s",String.format(MemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
                             page.eventContainerControl.getSportHeader()));
         }else{
             log("SKIP! There is no Tennis menu display");
@@ -405,8 +405,8 @@ public class HeaderSectionTest extends BaseCaseMerito {
 
         if(Objects.nonNull(page)){
             Assert.assertEquals(page.eventContainerControl.getSportHeader(),
-                    String.format(FEMemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
-                    String.format("ERROR! Expected Sport title is %s but found %s",String.format(FEMemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
+                    String.format(MemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
+                    String.format("ERROR! Expected Sport title is %s but found %s",String.format(MemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL,sportName),
                             page.eventContainerControl.getSportHeader()));
         }else{
             log("SKIP! There is no Cricket menu display");
@@ -446,17 +446,17 @@ public class HeaderSectionTest extends BaseCaseMerito {
         Assert.assertTrue(logoImgActual.contains(environment.getDirectusURL()),"FAILED! Log0 image not display");
 
         log("Verify 2:Label: Annoucment icon, My Bet, My Market, My Account");
-        Assert.assertEquals(page.lblMyBets.getText(),FEMemberConstants.Header.MY_BETS,"Failed! My Bets label is incorrect displayed");
-        Assert.assertEquals(page.lblMyMarkets.getText(),FEMemberConstants.Header.MY_MARKET,"Failed! My Markets label is incorrect displayed");
-        Assert.assertEquals(page.lblMyAccount.getText(),FEMemberConstants.Header.My_ACCOUNT,"Failed! My Account label is incorrect displayed");
+        Assert.assertEquals(page.lblMyBets.getText(), MemberConstants.Header.MY_BETS,"Failed! My Bets label is incorrect displayed");
+        Assert.assertEquals(page.lblMyMarkets.getText(), MemberConstants.Header.MY_MARKET,"Failed! My Markets label is incorrect displayed");
+        Assert.assertEquals(page.lblMyAccount.getText(), MemberConstants.Header.My_ACCOUNT,"Failed! My Account label is incorrect displayed");
 
         log("Verify 3: Verify Credit, Balance, Outstanding of the player are corrected");
         AccountBalance balanceUI = page.getUserBalance();
-        Assert.assertEquals(page.lblBalanceTitle.getText(), FEMemberConstants.Header.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",page.lblBalanceTitle.getText(), FEMemberConstants.Header.BALANCE));
-        Assert.assertEquals(page.lblBalanceCurrency.getText(), currency,String.format("ERROR: Expected is Balance label is %s but found %s",page.lblBalanceTitle.getText(), FEMemberConstants.Header.BALANCE));
+        Assert.assertEquals(page.lblBalanceTitle.getText(), MemberConstants.Header.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",page.lblBalanceTitle.getText(), MemberConstants.Header.BALANCE));
+        Assert.assertEquals(page.lblBalanceCurrency.getText(), currency,String.format("ERROR: Expected is Balance label is %s but found %s",page.lblBalanceTitle.getText(), MemberConstants.Header.BALANCE));
         Assert.assertTrue(balanceAPI.getBalance().equals(balanceUI.getBalance()),String.format("ERROR: The expected  balance is '%s' but found '%s'",balanceAPI.getBalance(), balanceUI.getBalance()));
 
-        Assert.assertEquals(page.lblOutstandingTitle.getText(), FEMemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",page.lblOutstandingTitle.getText(), FEMemberConstants.Header.OUTSTANDING));
+        Assert.assertEquals(page.lblOutstandingTitle.getText(), MemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",page.lblOutstandingTitle.getText(), MemberConstants.Header.OUTSTANDING));
         Assert.assertEquals(page.lblLiabilityCurrency.getText(), currency,String.format("ERROR: Expected is Liability currency is incorrect"));
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()),String.format("ERROR: The expected  Liability is '%s' but found '%s'",balanceAPI.getExposure(), balanceUI.getExposure()));
 
@@ -496,17 +496,17 @@ public class HeaderSectionTest extends BaseCaseMerito {
         Assert.assertTrue(logoImgActual.contains(environment.getDirectusURL()),"FAILED! Log0 image not display");
 
         log("Verify 2:Label: Annoucment icon, My Bet, My Market, My Account");
-        Assert.assertEquals(page.lblMyBets.getText(),FEMemberConstants.Header.MY_BETS,"Failed! My Bets label is incorrect displayed");
-        Assert.assertEquals(page.lblMyMarkets.getText(),FEMemberConstants.Header.MY_MARKET,"Failed! My Markets label is incorrect displayed");
-        Assert.assertEquals(page.lblMyAccount.getText(),FEMemberConstants.Header.My_ACCOUNT,"Failed! My Account label is incorrect displayed");
+        Assert.assertEquals(page.lblMyBets.getText(), MemberConstants.Header.MY_BETS,"Failed! My Bets label is incorrect displayed");
+        Assert.assertEquals(page.lblMyMarkets.getText(), MemberConstants.Header.MY_MARKET,"Failed! My Markets label is incorrect displayed");
+        Assert.assertEquals(page.lblMyAccount.getText(), MemberConstants.Header.My_ACCOUNT,"Failed! My Account label is incorrect displayed");
 
         log("Verify 3: Verify Credit, Balance, Outstanding of the player are corrected");
         AccountBalance balanceUI = page.getUserBalance();
-        Assert.assertEquals(page.lblBalanceTitle.getText(), FEMemberConstants.Header.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",page.lblBalanceTitle.getText(), FEMemberConstants.Header.BALANCE));
-        Assert.assertEquals(page.lblBalanceCurrency.getText(), currency,String.format("ERROR: Expected is Balance label is %s but found %s",page.lblBalanceTitle.getText(), FEMemberConstants.Header.BALANCE));
+        Assert.assertEquals(page.lblBalanceTitle.getText(), MemberConstants.Header.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",page.lblBalanceTitle.getText(), MemberConstants.Header.BALANCE));
+        Assert.assertEquals(page.lblBalanceCurrency.getText(), currency,String.format("ERROR: Expected is Balance label is %s but found %s",page.lblBalanceTitle.getText(), MemberConstants.Header.BALANCE));
         Assert.assertTrue(balanceAPI.getBalance().equals(balanceUI.getBalance()),String.format("ERROR: The expected  balance is '%s' but found '%s'",balanceAPI.getBalance(), balanceUI.getBalance()));
 
-        Assert.assertEquals(page.lblOutstandingTitle.getText(), FEMemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",page.lblOutstandingTitle.getText(), FEMemberConstants.Header.OUTSTANDING));
+        Assert.assertEquals(page.lblOutstandingTitle.getText(), MemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",page.lblOutstandingTitle.getText(), MemberConstants.Header.OUTSTANDING));
         Assert.assertEquals(page.lblLiabilityCurrency.getText(), currency,String.format("ERROR: Expected is Liability currency is incorrect"));
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()),String.format("ERROR: The expected  Liability is '%s' but found '%s'",balanceAPI.getExposure(), balanceUI.getExposure()));
 
@@ -539,7 +539,7 @@ public class HeaderSectionTest extends BaseCaseMerito {
             return;
         }
         memberHomePage.apHeaderControl.clickLeftMenu();
-        EGHomePage page = memberHomePage.apLeftMenuControl.clickLeftMenuItem(FEMemberConstants.HomePage.PRODUCTS.get("EXCH_GAMES"),EGHomePage.class);
+        EGHomePage page = memberHomePage.apLeftMenuControl.clickLeftMenuItem(MemberConstants.HomePage.PRODUCTS.get("EXCH_GAMES"),EGHomePage.class);
 
         log("Verify Verify url exchange game");
         Assert.assertTrue(page.getPageUrl().contains("exchange-game"),"FAILED! Echange game url is not contains exchange-game");
@@ -551,10 +551,10 @@ public class HeaderSectionTest extends BaseCaseMerito {
 
         log("Verify 3: Verify Credit, Balance, Outstanding of the player are corrected");
         AccountBalance balanceUI = page.apHeaderControl.getUserBalance();
-        Assert.assertEquals(page.apHeaderControl.lblBal.getText(), FEMemberConstants.APHeader.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",memberHomePage.apHeaderControl.lblBal.getText(), FEMemberConstants.APHeader.BALANCE));
-        Assert.assertEquals(page.apHeaderControl.lblBalCurrency.getText(), currency,String.format("ERROR: Expected is Balance currency is %s but found %s",memberHomePage.apHeaderControl.lblBalCurrency.getText(), FEMemberConstants.APHeader.BALANCE));
+        Assert.assertEquals(page.apHeaderControl.lblBal.getText(), MemberConstants.APHeader.BALANCE,String.format("ERROR: Expected is Balance label is %s but found %s",memberHomePage.apHeaderControl.lblBal.getText(), MemberConstants.APHeader.BALANCE));
+        Assert.assertEquals(page.apHeaderControl.lblBalCurrency.getText(), currency,String.format("ERROR: Expected is Balance currency is %s but found %s",memberHomePage.apHeaderControl.lblBalCurrency.getText(), MemberConstants.APHeader.BALANCE));
         Assert.assertTrue(balanceAPI.getBalance().equals(balanceUI.getBalance()),String.format("ERROR: The expected  balance is '%s' but found '%s'",balanceAPI.getBalance(), balanceUI.getBalance()));
-        Assert.assertEquals(page.apHeaderControl.lblLiability.getText(), FEMemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",memberHomePage.apHeaderControl.lblLiability.getText(), FEMemberConstants.Header.OUTSTANDING));
+        Assert.assertEquals(page.apHeaderControl.lblLiability.getText(), MemberConstants.Header.OUTSTANDING,String.format("ERROR: Expected is Liability label is %s but found %s",memberHomePage.apHeaderControl.lblLiability.getText(), MemberConstants.Header.OUTSTANDING));
         Assert.assertEquals(page.apHeaderControl.lblLiabilityCurrency.getText(), currency,String.format("ERROR: Expected is Liability currency is incorrect"));
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()),String.format("ERROR: The expected  Liability is '%s' but found '%s'",balanceAPI.getExposure(), balanceUI.getExposure()));
 
@@ -574,7 +574,7 @@ public class HeaderSectionTest extends BaseCaseMerito {
         MyBetsPage myBetsPage =memberHomePage.apHeaderControl.clickLiabilityValue();
 
         log("1.Verify My Bet Page display after clicking on Liability");
-        Assert.assertEquals(myBetsPage.lblProductTile.getText(),FEMemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"),"FAILED! Exchange product title is not display on My bet page by default");
+        Assert.assertEquals(myBetsPage.lblProductTile.getText(), MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"),"FAILED! Exchange product title is not display on My bet page by default");
 
         log("INFO: Executed completely");
     }

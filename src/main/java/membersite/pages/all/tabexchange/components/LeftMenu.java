@@ -1,12 +1,10 @@
 package membersite.pages.all.tabexchange.components;
 
 import com.paltech.element.common.*;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.controls.DropDownBox;
 import membersite.controls.MenuTree;
 import membersite.controls.aposta.APLeftMenuControl;
-import membersite.controls.aposta.MenuControl;
-import membersite.controls.app.SATHeaderControl;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import membersite.pages.all.components.Header;
@@ -88,7 +86,7 @@ public class LeftMenu extends Header {
     }
 
     public void clickCompetition(String competition) {
-        if (menuSport.getOptionByIndex(0).equals(FEMemberConstants.HomePage.NO_EVENT_AVAILABLE)) {
+        if (menuSport.getOptionByIndex(0).equals(MemberConstants.HomePage.NO_EVENT_AVAILABLE)) {
             System.out.println("Sport has no competition");
             return;
         }

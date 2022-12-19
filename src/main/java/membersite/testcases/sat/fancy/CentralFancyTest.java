@@ -1,5 +1,5 @@
 package membersite.testcases.sat.fancy;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
 import membersite.objects.sat.FancyMarket;
@@ -10,14 +10,13 @@ import membersite.pages.all.tabexchange.MarketPage;
 import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
-import membersite.utils.betplacement.FancyUtils;
 import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static membersite.common.FEMemberConstants.*;
+import static common.MemberConstants.*;
 
 public class CentralFancyTest extends BaseCaseMerito {
 
@@ -364,7 +363,7 @@ public class CentralFancyTest extends BaseCaseMerito {
 
         log("Verify 1. Can NOT place bet");
         String actualError = marketPage.myBetControlSAT.getPlaceBetErrorMessage();
-        Assert.assertEquals(actualError,FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE,String.format("ERROR! Expected error message is %s but found %s", FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE,actualError));
+        Assert.assertEquals(actualError, MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE,String.format("ERROR! Expected error message is %s but found %s", MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE,actualError));
 
         log("INFO: Executed completely");
     }

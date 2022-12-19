@@ -3,8 +3,6 @@ package membersite.controls.sat;
 import com.paltech.constant.StopWatch;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Label;
-import com.paltech.element.common.Link;
-import membersite.controls.Table;
 import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.Market;
 import org.openqa.selenium.By;

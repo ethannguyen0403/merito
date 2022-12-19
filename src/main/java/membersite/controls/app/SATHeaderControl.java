@@ -3,7 +3,7 @@ package membersite.controls.app;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.controls.DropDownBox;
 import membersite.controls.DropDownMenu;
 import membersite.objects.AccountBalance;
@@ -110,7 +110,7 @@ public class SATHeaderControl extends BaseElement {
 
 
     public LandingPage logout() {
-        ddbMyAccount.selectByVisibleText(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"), true);
+        ddbMyAccount.selectByVisibleText(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"), true);
         return new LandingPage();
     }
 
@@ -144,35 +144,37 @@ public class SATHeaderControl extends BaseElement {
     }
 
     public AccountStatementPage openAccountStatement(){
-        ddmAccount.clickSubMenu(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"));
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"));
      //  ddbMyAccount.selectByVisibleText(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"),true);
         DriverManager.getDriver().switchToWindow();
         AccountStatementPage page = new AccountStatementPage();
-        page.btnLoadReport.isTextDisplayed(FEMemberConstants.AccountStatementPage.LOAD_REPORT,5);
+        page.btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT,5);
         return page;
     }
 
     public MyBetsPage openMyBets(){
-        ddmAccount.clickSubMenu(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"));
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"));
         /*ddbMyAccount.selectByVisibleText(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"),true);*/
         DriverManager.getDriver().switchToWindow();
         MyBetsPage page = new MyBetsPage();
-        page.btnLoadReport.isTextDisplayed(FEMemberConstants.MyBetsPage.LOAD_REPORT,5);
-        page.lblTimezone.isTextDisplayed(FEMemberConstants.MyBetsPage.NOTES,5);
+        page.btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT,5);
+        page.lblTimezone.isTextDisplayed(MemberConstants.MyBetsPage.NOTES,5);
         return page;
     }
 
     public ProfitAndLossPage openProfitAndLoss(){
-        ddmAccount.clickSubMenu(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Profit & Loss"));/*
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Profit & Loss"));/*
         ddbMyAccount.selectByVisibleText(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Profit & Loss"),true);*/
         DriverManager.getDriver().switchToWindow();
         ProfitAndLossPage page = new ProfitAndLossPage();
-        page.btnLoadReport.isTextDisplayed(FEMemberConstants.ProfitAndLossPage.LOAD_REPORT,5);
+        page.btnLoadReport.isTextDisplayed(MemberConstants.ProfitAndLossPage.LOAD_REPORT,5);
         return page;
     }
 
+
+
     public ChangePasswordPopup openChangePasswordPopup(){
-        ddmAccount.clickSubMenu(FEMemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
         return new ChangePasswordPopup();
     }
 

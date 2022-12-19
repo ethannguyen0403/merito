@@ -2,7 +2,7 @@ package membersite.controls.funsport;
 
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
-import membersite.controls.Table;
+import controls.Table;
 import membersite.objects.funsport.SelectedOdd;
 import org.openqa.selenium.By;
 

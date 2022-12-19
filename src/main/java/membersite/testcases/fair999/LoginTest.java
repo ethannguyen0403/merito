@@ -1,7 +1,7 @@
 package membersite.testcases.fair999;
 
 import com.paltech.utils.StringUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -91,9 +91,9 @@ public class LoginTest extends BaseCaseMerito {
 
         log("Verify 1: An error login popup is displayed");
         log("Verify 2: btnLogin still displays");
-        log(String.format("Verify 3: The content message is '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL));
+        log(String.format("Verify 3: The content message is '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL));
         Assert.assertTrue(loginPopup.popupLogin.isDisplayed(), "ERROR: popupLogin doesn't display after signed in failed");
-        Assert.assertEquals(errorMessage, FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
+        Assert.assertEquals(errorMessage, MemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
         Assert.assertTrue(memberHomePage.btnLogin.isDisplayedShort(3), "ERROR: btnLogin doesn't display after signed in with an invalid password");
         log("INFO: Executed completely");
     }
@@ -123,9 +123,9 @@ public class LoginTest extends BaseCaseMerito {
 
         log("Verify 1: An error login popup is displayed");
         log("Verify 2: btnLogin still displays");
-        log(String.format("Verify 3: The content message is '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL));
+        log(String.format("Verify 3: The content message is '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL));
         Assert.assertTrue(loginPopup.popupLogin.isDisplayed(), "ERROR: popupLogin doesn't display after signed in failed");
-        Assert.assertEquals(errorMessage, FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
+        Assert.assertEquals(errorMessage, MemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
         Assert.assertTrue(memberHomePage.btnLogin.isDisplayedShort(3), "ERROR: btnLogin doesn't display after signed in with an invalid password");
         log("INFO: Executed completely");
     }
@@ -182,7 +182,7 @@ public class LoginTest extends BaseCaseMerito {
         Assert.assertTrue(memberHomePage.satHeaderControl.ddbMyAccount.isDisplayed(),"Failed! my account dropdown is not display");
 
         Assert.assertEquals(lst.get(1),username,"Failed! username is incorrectly displayed");
-        Assert.assertEquals(lst.get(0),FEMemberConstants.Header.My_ACCOUNT,String.format("ERROR: Expected login account is %s but found %s", FEMemberConstants.Header.My_ACCOUNT,lst.get(0)));
+        Assert.assertEquals(lst.get(0), MemberConstants.Header.My_ACCOUNT,String.format("ERROR: Expected login account is %s but found %s", MemberConstants.Header.My_ACCOUNT,lst.get(0)));
 
         log("Verify 2: Login account in My Account dropdown display corrected:" + lst.get(1));
         Assert.assertEquals(lst.get(1),username,String.format("ERROR: Expected login account is %s but found %s", username,lst.get(1)));
@@ -215,7 +215,7 @@ public class LoginTest extends BaseCaseMerito {
         List<String> lst = memberHomePage.getAccountMenu(skinName);
 
         log("Verify 1: My Account drop-downbox displayed");
-        Assert.assertEquals(lst.get(0), FEMemberConstants.Header.My_ACCOUNT, String.format("ERROR: Expected login account is %s but found %s", FEMemberConstants.Header.My_ACCOUNT, lst.get(0)));
+        Assert.assertEquals(lst.get(0), MemberConstants.Header.My_ACCOUNT, String.format("ERROR: Expected login account is %s but found %s", MemberConstants.Header.My_ACCOUNT, lst.get(0)));
 
         log("Verify 2: Login account in My Account dropdown display corrected:" + lst.get(1));
         Assert.assertEquals(lst.get(1), "VP FAILED", String.format("FAILED!: Expected login account is %s but found %s","VP FAILED", lst.get(1)));

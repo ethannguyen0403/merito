@@ -2,8 +2,8 @@ package membersite.pages.funsport.tabexchange;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.TextBox;
 import com.paltech.utils.DateUtils;
-import membersite.controls.DateTimePicker;
-import membersite.controls.Table;
+import controls.DateTimePicker;
+import controls.Table;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Button;
 import membersite.objects.AccountBalance;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static membersite.common.FEMemberConstants.AccountStatementPage.LOAD_REPORT;
-import static membersite.common.FEMemberConstants.AccountStatementPage.OPENING_BALANCE;
+import static common.MemberConstants.AccountStatementPage.LOAD_REPORT;
+import static common.MemberConstants.AccountStatementPage.OPENING_BALANCE;
 
 public class AccountStatementPage extends Header {
     public  Label lblProductTitle = Label.xpath("//div[@class='actions no-print']//span[@class='current-activity']");

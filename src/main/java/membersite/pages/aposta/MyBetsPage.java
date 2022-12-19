@@ -1,11 +1,9 @@
 package membersite.pages.aposta;
 import com.paltech.element.common.*;
-import membersite.common.FEMemberConstants;
-import membersite.controls.DateTimePicker;
+import common.MemberConstants;
+import controls.DateTimePicker;
 import membersite.controls.DropDownMenu;
-import membersite.controls.Table;
-import membersite.controls.aposta.APHeaderControl;
-import membersite.controls.aposta.MenuControl;
+import controls.Table;
 import membersite.pages.all.components.Header;
 
 import java.util.ArrayList;
@@ -70,7 +68,7 @@ public class MyBetsPage extends Header {
             dtpStartDate.selectDate(endDate,"yyyy-MM-dd");
         }
         btnLoadReport.click();
-        btnLoadReport.isTextDisplayed(FEMemberConstants.MyBetsPage.LOAD_REPORT,10);
+        btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT,10);
     }
 
     public void selectOrderType(String orderType){
@@ -127,7 +125,7 @@ public class MyBetsPage extends Header {
             List<String> productTranslate = new ArrayList<>();
             for(int i=0, n = productCode.size(); i<n; i++)
             {
-                productTranslate.add(FEMemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get(productCode.get(i)));
+                productTranslate.add(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get(productCode.get(i)));
             }
             return productTranslate;
         }else{

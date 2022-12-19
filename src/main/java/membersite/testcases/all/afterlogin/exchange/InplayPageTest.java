@@ -1,24 +1,11 @@
 package membersite.testcases.all.afterlogin.exchange;
 
 import baseTest.BaseCaseMerito;
-import com.paltech.utils.DateUtils;
-import membersite.common.FEMemberConstants;
-import membersite.objects.AccountBalance;
-import membersite.pages.all.tabexchange.*;
-import membersite.pages.all.tabexchange.components.popups.MyMarketPopup;
-import membersite.pages.all.tabexchangegame.EGHomePage;
-import membersite.pages.all.tablivedealer.AsianRoomPage;
-import membersite.pages.all.tablivedealer.EuropeanRoomPage;
-import membersite.pages.all.tablivedealer.components.LiveDealer;
-import membersite.pages.all.tablotteryslot.LotterySlotsPage;
-import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.List;
-import java.util.Objects;
 
 public class InplayPageTest extends BaseCaseMerito {
 

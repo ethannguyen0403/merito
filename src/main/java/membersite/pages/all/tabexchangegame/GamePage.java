@@ -17,7 +17,7 @@ public class GamePage extends MainMenu {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
-        while(stopWatch.getElapsedTime() < 300000L) {
+        while(stopWatch.getElapsedTime() < 3000L) {
             try {
                 if(!lblGameStatus.isDisplayed()){
                     return;

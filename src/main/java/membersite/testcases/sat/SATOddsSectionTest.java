@@ -3,7 +3,7 @@ package membersite.testcases.sat;
 import baseTest.BaseCaseMerito;
 import com.paltech.element.common.Link;
 import com.paltech.utils.DateUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.sat.Event;
 import membersite.pages.all.tabexchange.HomePage;
 import membersite.pages.all.tabexchange.SportPage;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.Objects;
 
-import static membersite.common.FEMemberConstants.TIMEZONE;
+import static common.MemberConstants.TIMEZONE;
 
 
 public class SATOddsSectionTest extends BaseCaseMerito {
@@ -50,8 +50,8 @@ public class SATOddsSectionTest extends BaseCaseMerito {
         log("Verify 2. Validate Start time display, There is no in-play label");
         Assert.assertFalse(page.marketContainerControl_SAT.isLblInPlayDisplay(), "ERROR! In-Play label is displayed");
         Assert.assertEquals(eventStartTimeExpected, actualStartTime, String.format("ERROR! Expected Event Start Time is %s but found %s", actualStartTime, eventStartTimeExpected));
-        Assert.assertEquals(page.marketContainerControl_SAT.getRuleButton(), FEMemberConstants.MarketContainer.RULE, String.format("ERROR! Expected rule name is %s but found %s", FEMemberConstants.MarketContainer.RULE, page.marketContainerControl_SAT.getRuleButton()));
-        Assert.assertTrue(page.marketContainerControl_SAT.getTotalMatched().contains(FEMemberConstants.MarketContainer.MATCHED), String.format("ERROR! Matched label not display as expected", page.marketContainerControl_SAT.getTotalMatched()));
+        Assert.assertEquals(page.marketContainerControl_SAT.getRuleButton(), MemberConstants.MarketContainer.RULE, String.format("ERROR! Expected rule name is %s but found %s", MemberConstants.MarketContainer.RULE, page.marketContainerControl_SAT.getRuleButton()));
+        Assert.assertTrue(page.marketContainerControl_SAT.getTotalMatched().contains(MemberConstants.MarketContainer.MATCHED), String.format("ERROR! Matched label not display as expected", page.marketContainerControl_SAT.getTotalMatched()));
 
         log("Verify 3. Validate Selection list and odds list display");
         Assert.assertTrue(Objects.nonNull(page.marketContainerControl_SAT.getListSelection()), "ERROR! Selection list is empty");

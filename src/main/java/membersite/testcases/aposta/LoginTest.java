@@ -1,14 +1,14 @@
 package membersite.testcases.aposta;
 
 import com.paltech.utils.StringUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import membersite.pages.all.beforelogin.popups.LoginPopup;
 import baseTest.BaseCaseMerito;
 
-import static membersite.common.FEMemberConstants.LoginPage.LBL_AGE_18;
+import static common.MemberConstants.LoginPage.LBL_AGE_18;
 
 public class LoginTest extends BaseCaseMerito {
     /**
@@ -88,9 +88,9 @@ public class LoginTest extends BaseCaseMerito {
 
         log("Verify 1: An error login popup is displayed");
         log("Verify 2: btnLogin still displays");
-        log(String.format("Verify 3: The content message is '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL));
+        log(String.format("Verify 3: The content message is '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL));
         Assert.assertTrue(loginPopup.popupLogin.isDisplayed(), "ERROR: popupLogin doesn't display after signed in failed");
-        Assert.assertEquals(errorMessage, FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
+        Assert.assertEquals(errorMessage, MemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
         Assert.assertTrue(landingPage.apHeaderControl.isLoginBtnDisplay(), "ERROR: btnLogin doesn't display after signed in with an invalid password");
         log("INFO: Executed completely");
     }
@@ -120,9 +120,9 @@ public class LoginTest extends BaseCaseMerito {
 
         log("Verify 1: An error login popup is displayed");
         log("Verify 2: btnLogin still displays");
-        log(String.format("Verify 3: The content message is '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL));
+        log(String.format("Verify 3: The content message is '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL));
         Assert.assertTrue(loginPopup.popupLogin.isDisplayed(), "ERROR: popupLogin doesn't display after signed in failed");
-        Assert.assertEquals(errorMessage, FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
+        Assert.assertEquals(errorMessage, MemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
         Assert.assertTrue(landingPage.apHeaderControl.isLoginBtnDisplay(), "ERROR: btnLogin doesn't display after signed in with an invalid password");
         log("INFO: Executed completely");
     }

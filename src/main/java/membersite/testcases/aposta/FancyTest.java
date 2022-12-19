@@ -4,21 +4,19 @@ import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
 import membersite.objects.sat.FancyMarket;
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.MarketPage;
 import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
 import membersite.utils.betplacement.BetUtils;
-import membersite.utils.betplacement.FancyUtils;
 import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static membersite.common.FEMemberConstants.CENTRAL_FANCY_CODE;
-import static membersite.common.FEMemberConstants.FANCY_CODE;
+import static common.MemberConstants.CENTRAL_FANCY_CODE;
+import static common.MemberConstants.FANCY_CODE;
 
 public class FancyTest extends BaseCaseMerito {
 

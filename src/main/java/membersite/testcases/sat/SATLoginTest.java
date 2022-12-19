@@ -1,7 +1,7 @@
 package membersite.testcases.sat;
 
 import com.paltech.utils.StringUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -90,9 +90,9 @@ public class SATLoginTest extends BaseCaseMerito {
 
         log("Verify 1: An error login popup is displayed");
         log("Verify 2: btnLogin still displays");
-        log(String.format("Verify 3: The content message is '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL));
+        log(String.format("Verify 3: The content message is '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL));
         Assert.assertTrue(loginPopup.popupLogin.isDisplayed(), "ERROR: popupLogin doesn't display after signed in failed");
-        Assert.assertEquals(errorMessage, FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
+        Assert.assertEquals(errorMessage, MemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
         Assert.assertTrue(loginPopup.btnLogin.isDisplayedShort(3), "ERROR: btnLogin doesn't display after signed in with an invalid password");
         log("INFO: Executed completely");
     }
@@ -120,9 +120,9 @@ public class SATLoginTest extends BaseCaseMerito {
 
         log("Verify 1: An error login popup is displayed");
         log("Verify 2: btnLogin still displays");
-        log(String.format("Verify 3: The content message is '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL));
+        log(String.format("Verify 3: The content message is '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL));
         Assert.assertTrue(loginPopup.popupLogin.isDisplayed(), "ERROR: popupLogin doesn't display after signed in failed");
-        Assert.assertEquals(errorMessage, FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", FEMemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
+        Assert.assertEquals(errorMessage, MemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
         Assert.assertTrue(loginPopup.btnLogin.isDisplayedShort(3), "ERROR: btnLogin doesn't display after signed in with an invalid password");
         log("INFO: Executed completely");
     }
@@ -146,11 +146,11 @@ public class SATLoginTest extends BaseCaseMerito {
         log("Verify 1. Message\" Underage gambling is prohibited.\n" +
                 "Please confirm if you are 18 years old and above as of today.\"");
         underageGamblingPopup.lblContent.isPresent();
-        Assert.assertEquals(underageGamblingPopup.lblContent.getText(),FEMemberConstants.LoginPage.MSG_UNDERAGE_GAMELING, String.format("ERROR! Expected content is %s but found %s",FEMemberConstants.LoginPage.MSG_UNDERAGE_GAMELING,underageGamblingPopup.lblContent.getText()));
+        Assert.assertEquals(underageGamblingPopup.lblContent.getText(), MemberConstants.LoginPage.MSG_UNDERAGE_GAMELING, String.format("ERROR! Expected content is %s but found %s", MemberConstants.LoginPage.MSG_UNDERAGE_GAMELING,underageGamblingPopup.lblContent.getText()));
 
         log("Verify  2. Confirm and Exit button display");
-        Assert.assertEquals(underageGamblingPopup.btnConfirm.getText(), FEMemberConstants.LoginPage.BTN_CONFIRM,String.format("ERROR! Expected Confirm button text is %s but found %s",FEMemberConstants.LoginPage.BTN_CONFIRM,underageGamblingPopup.btnConfirm.getText()));
-        Assert.assertEquals(underageGamblingPopup.btnExit.getText(),FEMemberConstants.LoginPage.BTN_EXIT,String.format("ERROR! Expected Exit button text is %s but found %s", FEMemberConstants.LoginPage.BTN_EXIT,underageGamblingPopup.btnExit.getText()));
+        Assert.assertEquals(underageGamblingPopup.btnConfirm.getText(), MemberConstants.LoginPage.BTN_CONFIRM,String.format("ERROR! Expected Confirm button text is %s but found %s", MemberConstants.LoginPage.BTN_CONFIRM,underageGamblingPopup.btnConfirm.getText()));
+        Assert.assertEquals(underageGamblingPopup.btnExit.getText(), MemberConstants.LoginPage.BTN_EXIT,String.format("ERROR! Expected Exit button text is %s but found %s", MemberConstants.LoginPage.BTN_EXIT,underageGamblingPopup.btnExit.getText()));
         log("INFO: Executed completely");
     }
 }

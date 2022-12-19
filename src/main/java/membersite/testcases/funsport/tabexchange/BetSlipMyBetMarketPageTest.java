@@ -1,5 +1,5 @@
 package membersite.testcases.funsport.tabexchange;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.controls.funsport.EventOddContentControl;
 import membersite.controls.funsport.MarketOddControl;
 import membersite.controls.funsport.OddPageControl;
@@ -44,9 +44,9 @@ public class BetSlipMyBetMarketPageTest extends BaseCaseMerito {
         MarketPage marketPage = eventPage.openMarketPage(eventOdd.getEventName());
 
         log("Verify 1.Verify Bet Slip and Mini My bet UI when have no bet");
-        Assert.assertEquals(marketPage.betSlipControlOldUI.getGuideText(), FEMemberConstants.BetSlip.GUIDE_TEXT_MESSAGE,"FAILED! Bet slip message when have no bet is incorrect");
-        Assert.assertEquals(marketPage.myBetControl.getGuideText(), FEMemberConstants.MiniMyBet.GUIDE_TEXT_MESSAGE1,"FAILED! Bet slip message when have no bet is incorrect");
-        Assert.assertEquals(marketPage.myBetControl.getGuideTextSecondRow(), FEMemberConstants.MiniMyBet.GUIDE_TEXT_MESSAGE2,"FAILED! Bet slip message when have no bet is incorrect");
+        Assert.assertEquals(marketPage.betSlipControlOldUI.getGuideText(), MemberConstants.BetSlip.GUIDE_TEXT_MESSAGE,"FAILED! Bet slip message when have no bet is incorrect");
+        Assert.assertEquals(marketPage.myBetControl.getGuideText(), MemberConstants.MiniMyBet.GUIDE_TEXT_MESSAGE1,"FAILED! Bet slip message when have no bet is incorrect");
+        Assert.assertEquals(marketPage.myBetControl.getGuideTextSecondRow(), MemberConstants.MiniMyBet.GUIDE_TEXT_MESSAGE2,"FAILED! Bet slip message when have no bet is incorrect");
         log("INFO: Executed completely");
     }
     /**

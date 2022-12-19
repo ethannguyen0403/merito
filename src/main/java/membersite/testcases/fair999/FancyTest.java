@@ -1,7 +1,7 @@
 package membersite.testcases.fair999;
 
 import baseTest.BaseCaseMerito;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
 import membersite.objects.sat.FancyMarket;
@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static membersite.common.FEMemberConstants.FANCY_CODE;
-import static membersite.common.FEMemberConstants.FANCY_TITILE;
+import static common.MemberConstants.FANCY_CODE;
+import static common.MemberConstants.FANCY_TITILE;
 
 public class FancyTest extends BaseCaseMerito {
     /**
@@ -230,7 +230,7 @@ public class FancyTest extends BaseCaseMerito {
 
         log("Verify 1. Can NOT place bet");
         String actualError = marketPage.myBetControlSAT.getPlaceBetErrorMessage();
-        String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minStake)),String.format("%(,.2f",Double.parseDouble(maxStake)),String.format("%.2f",Double.parseDouble(stake)));
+        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minStake)),String.format("%(,.2f",Double.parseDouble(maxStake)),String.format("%.2f",Double.parseDouble(stake)));
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
 
         log("INFO: Executed completely");
@@ -321,7 +321,7 @@ public class FancyTest extends BaseCaseMerito {
 
         log("Verify 1. Can NOT place bet");
         String actualError = marketPage.myBetControlSAT.getPlaceBetErrorMessage();
-        Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE,actualError));
+        Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE,actualError));
 
         log("INFO: Executed completely");
     }

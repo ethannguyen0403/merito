@@ -31,7 +31,7 @@
         <parameter name='brandname' value='satsport'/>
         <groups>
             <run>
-                <include name="smoke11" />
+                <include name="smoke" />
             </run>
         </groups>
 

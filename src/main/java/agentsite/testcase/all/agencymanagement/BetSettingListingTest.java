@@ -10,7 +10,7 @@ import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
 import membersite.pages.all.tabexchange.SportPage;
 import membersite.utils.betplacement.BetUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static agentsite.common.AGConstant.HomePage.*;
 import static agentsite.common.AGConstant.HomePage.*;
 import static agentsite.common.AGConstant.HomePage.BLOCK_UNBLOCK_EVENT;
 
@@ -389,7 +388,7 @@ public class BetSettingListingTest extends BaseCaseMerito {
 
         log(String.format("Verify 1: Verify cannot place bet if min bet less than the setting"));
         String actualError = sportPage.myBetControl.getPlaceBetErrorMessage();
-        String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_EXCEED_LIABILITY, String.format("%,.2f",stake),String.format("%(,.2f",min));
+        String expectedError = String.format(MemberConstants.BetSlip.ERROR_EXCEED_LIABILITY, String.format("%,.2f",stake),String.format("%(,.2f",min));
 
         log("Verify Verify error message display when place bet");
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
@@ -449,7 +448,7 @@ public class BetSettingListingTest extends BaseCaseMerito {
 
         log("Verify Verify error message display when place bet");
         String actualError = sportPage.myBetControl.getPlaceBetErrorMessage();
-        String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",min),String.format("%(,.2f",max),String.format("%.2f",min));
+        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",min),String.format("%(,.2f",max),String.format("%.2f",min));
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
 
 

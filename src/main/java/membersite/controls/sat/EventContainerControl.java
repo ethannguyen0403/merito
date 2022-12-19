@@ -4,16 +4,13 @@ import com.paltech.element.BaseElement;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import com.paltech.element.common.Button;
-import membersite.controls.Table;
+import controls.Table;
 import membersite.objects.sat.Event;
 import org.openqa.selenium.By;
 import membersite.pages.all.tabexchange.MarketPage;
-import membersite.utils.betplacement.BetUtils;
-import membersite.utils.betplacement.FancyUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 /**

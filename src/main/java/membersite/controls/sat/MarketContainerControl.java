@@ -5,7 +5,7 @@ import com.paltech.element.BaseElement;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.utils.DateUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
 import org.openqa.selenium.By;
@@ -261,25 +261,25 @@ public class MarketContainerControl extends BaseElement {
 	public String convertDate(String date){
 		date = date.replace("\n"," ");
 		String prefit;
-		if(date.contains(FEMemberConstants.STARTINGIN))
-			prefit = FEMemberConstants.STARTINGIN;
-		else if(date.contains(FEMemberConstants.STARTINGSOON))
-			prefit = FEMemberConstants.STARTINGSOON;
+		if(date.contains(MemberConstants.STARTINGIN))
+			prefit = MemberConstants.STARTINGIN;
+		else if(date.contains(MemberConstants.STARTINGSOON))
+			prefit = MemberConstants.STARTINGSOON;
 		else
 			prefit = date.trim().split(" ")[0];
 		String returnDate="";
 		switch (prefit){
-			case FEMemberConstants.TODAY:
-				returnDate = date.replace(FEMemberConstants.TODAY,String.format("%s,",DateUtils.getDate(0, "MMM dd", FEMemberConstants.TIMEZONE)));
+			case MemberConstants.TODAY:
+				returnDate = date.replace(MemberConstants.TODAY,String.format("%s,",DateUtils.getDate(0, "MMM dd", MemberConstants.TIMEZONE)));
 				break;
-			case FEMemberConstants.TOMORROW:
-				returnDate = date.replace(FEMemberConstants.TOMORROW,String.format("%s,",DateUtils.getDate(1, "MMM dd", FEMemberConstants.TIMEZONE)));
+			case MemberConstants.TOMORROW:
+				returnDate = date.replace(MemberConstants.TOMORROW,String.format("%s,",DateUtils.getDate(1, "MMM dd", MemberConstants.TIMEZONE)));
 				break;
-			case FEMemberConstants.STARTINGIN:
-				returnDate = date.replace(FEMemberConstants.STARTINGIN,String.format("%s,",DateUtils.getDate(0, "MMM dd", FEMemberConstants.TIMEZONE)));
+			case MemberConstants.STARTINGIN:
+				returnDate = date.replace(MemberConstants.STARTINGIN,String.format("%s,",DateUtils.getDate(0, "MMM dd", MemberConstants.TIMEZONE)));
 				break;
-			case FEMemberConstants.STARTINGSOON:
-				returnDate = date.replace(FEMemberConstants.STARTINGSOON,String.format("%s,",DateUtils.getDate(0, "MMM dd", FEMemberConstants.TIMEZONE)));
+			case MemberConstants.STARTINGSOON:
+				returnDate = date.replace(MemberConstants.STARTINGSOON,String.format("%s,",DateUtils.getDate(0, "MMM dd", MemberConstants.TIMEZONE)));
 				break;
 			default:
 				returnDate = DateUtils.convertToDate(date,"MMM dd, hh:mm").toString();

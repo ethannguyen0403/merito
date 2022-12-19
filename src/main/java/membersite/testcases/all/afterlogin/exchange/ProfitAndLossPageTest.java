@@ -1,7 +1,7 @@
 package membersite.testcases.all.afterlogin.exchange;
 
 import com.paltech.utils.DateUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.MyBetsPage;
@@ -11,7 +11,7 @@ import util.testraildemo.TestRails;
 
 import java.util.List;
 
-import static membersite.common.FEMemberConstants.ProfitAndLossPage.*;
+import static common.MemberConstants.ProfitAndLossPage.*;
 
 public class ProfitAndLossPageTest extends BaseCaseMerito {
     /**
@@ -38,7 +38,7 @@ public class ProfitAndLossPageTest extends BaseCaseMerito {
         page.filter(startDate,endDate);
         if(page.lblNoRecord.isDisplayed())
         {
-            Assert.assertEquals(page.lblNoRecord.getText(),FEMemberConstants.NO_RECORD_FOUND,"FAILED! No record message not display");
+            Assert.assertEquals(page.lblNoRecord.getText(), MemberConstants.NO_RECORD_FOUND,"FAILED! No record message not display");
             return;
         }
         log("Step 4. Click on any sport and check details");
@@ -79,7 +79,7 @@ public class ProfitAndLossPageTest extends BaseCaseMerito {
 
         if(page.lblNoRecord.isDisplayed())
         {
-            Assert.assertEquals(page.lblNoRecord.getText(),FEMemberConstants.NO_RECORD_FOUND,"FAILED! No record message not display");
+            Assert.assertEquals(page.lblNoRecord.getText(), MemberConstants.NO_RECORD_FOUND,"FAILED! No record message not display");
             return;
         }
 

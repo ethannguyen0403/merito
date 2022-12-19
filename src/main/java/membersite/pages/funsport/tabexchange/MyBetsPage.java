@@ -1,16 +1,16 @@
 package membersite.pages.funsport.tabexchange;
 import com.paltech.element.common.*;
-import membersite.common.FEMemberConstants;
-import membersite.controls.DateTimePicker;
-import membersite.controls.Table;
+import common.MemberConstants;
+import controls.DateTimePicker;
+import controls.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 public class MyBetsPage extends membersite.pages.all.tabexchange.MyBetsPage {
     public Label lblOrderType = Label.xpath("//div[@class='row'][2]//select[contains(@class,'select-type-order')]//preceding::label[1]");
-    public TextBox lblStartDate = TextBox.xpath(String.format("//label[text()='%s']", FEMemberConstants.MyBetsPage.START_DATE));
-    public TextBox lblEndDate = TextBox.xpath(String.format("//label[text()='%s']", FEMemberConstants.MyBetsPage.END_DATE));
+    public TextBox lblStartDate = TextBox.xpath(String.format("//label[text()='%s']", MemberConstants.MyBetsPage.START_DATE));
+    public TextBox lblEndDate = TextBox.xpath(String.format("//label[text()='%s']", MemberConstants.MyBetsPage.END_DATE));
     public Label lblProduct = Label.xpath("//div[@class='container-title row']//div[contains(@class,'title')]");
 
     public  Label lblProductTitle = Label.xpath("//div[@class='actions no-print']//span[@class='current-activity']");
@@ -44,9 +44,9 @@ public class MyBetsPage extends membersite.pages.all.tabexchange.MyBetsPage {
 
     public Table tblReport = Table.xpath("//div[@id='mybets']//table[@class='table table-hover']",colTotal);
 
-    public TextBox txtStartDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", FEMemberConstants.MyBetsPage.START_DATE));
+    public TextBox txtStartDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.START_DATE));
     public DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
-    public TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", FEMemberConstants.MyBetsPage.END_DATE));
+    public TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.END_DATE));
     public DateTimePicker dtpEndDate = DateTimePicker.xpath(txtEndDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
 
     public void filter(String productName, String orderType)
@@ -112,7 +112,7 @@ public class MyBetsPage extends membersite.pages.all.tabexchange.MyBetsPage {
             List<String> productTranslate = new ArrayList<>();
             for(int i=0, n = productCode.size(); i<n; i++)
             {
-                productTranslate.add(FEMemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get(productCode.get(i)));
+                productTranslate.add(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get(productCode.get(i)));
             }
             return productTranslate;
         }else{

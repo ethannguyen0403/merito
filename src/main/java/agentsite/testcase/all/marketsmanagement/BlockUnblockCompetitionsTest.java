@@ -8,9 +8,8 @@ import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.maketmanagement.BlockUnblockCompetitionUtils;
 import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
 import baseTest.BaseCaseMerito;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.sat.Event;
-import membersite.objects.sat.Market;
 import membersite.pages.all.tabexchange.SportPage;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -68,7 +67,7 @@ public class BlockUnblockCompetitionsTest extends BaseCaseMerito {
         AccountInfo acc = ProfileUtils.getProfile();
         String updateBy = acc.getUserCodeAndLoginID();
        // String fullUserAlias = acc.getUserCodeAndLoginID();
-        String sportID = FEMemberConstants.HomePage.SPORT_ID.get("Soccer");
+        String sportID = MemberConstants.HomePage.SPORT_ID.get("Soccer");
         BlockUnblockCompetitionPage page = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_COMPETITION, BlockUnblockCompetitionPage.class);
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         String competitionName = BlockUnblockCompetitionUtils.getCompetitionList(sportID,childID,"Unblocked").get(0);
@@ -105,7 +104,7 @@ public class BlockUnblockCompetitionsTest extends BaseCaseMerito {
         log("@title: Verify can Unblock a competition");
         AccountInfo acc = ProfileUtils.getProfile();
         String fullUserAlias = acc.getUserCodeAndLoginID();
-        String sportID = FEMemberConstants.HomePage.SPORT_ID.get("Soccer");
+        String sportID = MemberConstants.HomePage.SPORT_ID.get("Soccer");
 
         log("Step 1. Navigate Markets Management > Block/Unblock Competition");
         BlockUnblockCompetitionPage page = agentHomePage.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_COMPETITION, BlockUnblockCompetitionPage.class);

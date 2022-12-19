@@ -4,8 +4,8 @@ import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Popup;
-import membersite.common.FEMemberConstants;
-import membersite.controls.Table;
+import common.MemberConstants;
+import controls.Table;
 import membersite.pages.all.tabexchange.MarketPage;
 
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class MyMarketPopup {
     public String totalLiability(){
         String total = "0.00";
         List<ArrayList<String>> lstRecords = tbMyMarkets.getRowsWithoutHeader(2,false);
-        if (!lstRecords.get(0).get(0).trim().equals(FEMemberConstants.MyMarketsPopup.NO_RECORD_FOUNDS)) {
+        if (!lstRecords.get(0).get(0).trim().equals(MemberConstants.MyMarketsPopup.NO_RECORD_FOUNDS)) {
             for (int i = 0; i < lstRecords.size(); i++) {
                 total = String.format("%.2f", Double.parseDouble(total) + Double.parseDouble(lstRecords.get(i).get(colLiability - 1)));
             }

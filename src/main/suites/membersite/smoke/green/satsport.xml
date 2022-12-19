@@ -30,7 +30,6 @@
         </groups>
 
         <classes>
-            <class name="membersite.testcases.all.afterlogin.exchangegame.EGHomPageTest"/>
             <class name="membersite.testcases.all.afterlogin.exchangegame.EGBaccaratTest"/>
             <class name="membersite.testcases.sat.fancy.WicketBookmakerTest"/>
             <class name="membersite.testcases.sat.fancy.WicketFancyTest"/>
@@ -45,6 +44,7 @@
             <class name="membersite.testcases.all.afterlogin.exchange.BetSlipMyBetTest"/>
             <class name="membersite.testcases.all.afterlogin.exchange.HeaderSectionTest"/>
             <class name="membersite.testcases.all.afterlogin.exchange.LeftMenuTest"/>
+            <class name="membersite.testcases.all.afterlogin.exchange.MyBetPageTest"/>
         </classes>
 
     </test>

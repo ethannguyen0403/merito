@@ -1,7 +1,7 @@
 package membersite.testcases.all.afterlogin.exchange;
 
 import com.paltech.utils.DateUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import membersite.pages.all.tabexchange.AccountStatementPage;
@@ -11,7 +11,7 @@ import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
-import static membersite.common.FEMemberConstants.AccountStatementPage.*;
+import static common.MemberConstants.AccountStatementPage.*;
 
 public class AccountStatementTest extends BaseCaseMerito {
 
@@ -100,7 +100,7 @@ public class AccountStatementTest extends BaseCaseMerito {
         page.imgHome.click();
         page.imgSpinner.isDisplayed();
         log("Verify 1. Home page is displayed");
-        Assert.assertTrue(page.getPageUrl().contains(FEMemberConstants.HomePage.URL),String.format("ERROR! HOME page does not display, Home page url not correct!"));
+        Assert.assertTrue(page.getPageUrl().contains(MemberConstants.HomePage.URL),String.format("ERROR! HOME page does not display, Home page url not correct!"));
     }
 
     /**

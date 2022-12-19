@@ -4,8 +4,7 @@ import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Tab;
-import membersite.common.FEMemberConstants;
-import membersite.controls.funsport.MarketOddControl;
+import common.MemberConstants;
 import membersite.controls.funsport.MyBetControl;
 import membersite.controls.funsport.OneClickBettingControl;
 import membersite.controls.sat.*;
@@ -15,6 +14,7 @@ import membersite.objects.funsport.SelectedOdd;
 import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.FancyMarket;
 import membersite.objects.sat.Market;
+import membersite.pages.all.tabexchange.components.popups.RulePopup;
 import membersite.utils.betplacement.BetUtils;
 
 import java.util.ArrayList;
@@ -39,12 +39,13 @@ public class MarketPage extends SportPage {
     public FancyContainerControl fancyContainerControl = FancyContainerControl.xpath("//span[text()='Fancy']//ancestor::div[contains(@class,'fancy-container')]");
     public membersite.controls.sat.BetSlipControl betSlipControlSAT= membersite.controls.sat.BetSlipControl.xpath("//app-bet-slip");
     public membersite.controls.sat.MyBetControl myBetControlSAT = membersite.controls.sat.MyBetControl.xpath("//app-open-bets");
-    private Tab tabWicketFancy =Tab.xpath(String.format("//span[text()='%s']", FEMemberConstants.WICKET_FANCY_TITILE));
-    private Tab tabCentralFancy =  Tab.xpath(String.format("//span[text()='%s']", FEMemberConstants.CENTRAL_FANCY_TITILE));
-    private Tab tabManualOdds = Tab.xpath(String.format("//span[text()='%s']", FEMemberConstants.CENTRAL_BOOKMAKER_TITLE));
-    private Tab tabWicketBookmaker = Tab.xpath(String.format("//span[text()='%s']", FEMemberConstants.WICKET_BOOKMAKER_TITLE));
-    private Tab tabFancy = Tab.xpath(String.format("//div[contains(@class,'fancy-container')]//span[text()='%s']", FEMemberConstants.FANCY_TITILE));
+    private Tab tabWicketFancy =Tab.xpath(String.format("//span[text()='%s']", MemberConstants.WICKET_FANCY_TITILE));
+    private Tab tabCentralFancy =  Tab.xpath(String.format("//span[text()='%s']", MemberConstants.CENTRAL_FANCY_TITILE));
+    private Tab tabManualOdds = Tab.xpath(String.format("//span[text()='%s']", MemberConstants.CENTRAL_BOOKMAKER_TITLE));
+    private Tab tabWicketBookmaker = Tab.xpath(String.format("//span[text()='%s']", MemberConstants.WICKET_BOOKMAKER_TITLE));
+    private Tab tabFancy = Tab.xpath(String.format("//div[contains(@class,'fancy-container')]//span[text()='%s']", MemberConstants.FANCY_TITILE));
     public Label oddsSpinIcon = Label.xpath("//div[@id='odds-content']//div[@class='snipper-content']");
+    private Button btnRule = Button.xpath("//app-market//span[@class='market-rules-span']");
 
     public void clickOdd(Odd odd) {
         if(Objects.isNull(odd)){
@@ -317,4 +318,8 @@ public class MarketPage extends SportPage {
         }
     }
 
+    public RulePopup openRules(){
+        btnRule.click();
+        return new RulePopup();
+    }
 }

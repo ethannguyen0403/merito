@@ -178,6 +178,7 @@ public class BaseCaseMerito {
     public static void loginMember(String username, String password,boolean isLogin, String language,String currency,boolean isThrown) throws Exception {
         createDriver(memberLoginURL);
         if (isLogin){
+            log("@Step Precondition: Login Member site");
             Helper.loginFairExchange(memberSOSUrl,memberLoginURL, username, password, isThrown);
             userCurrency = currency;
             memberHomePage = new membersite.pages.all.tabexchange.HomePage();
@@ -253,7 +254,7 @@ public class BaseCaseMerito {
             String srcBase64 = ScreenShotUtils.captureScreenshotWithBase64(DriverManager.getDriver().getWebDriver());
             result.setAttribute(result.getMethod().getMethodName(), srcBase64);
             testResult = "FAILED";
-            System.err.println(result.getThrowable().getMessage());
+         //   System.err.println(result.getThrowable().getMessage());
         }
         if (driverProperties.isProxy()){
             log("INFO: Quitting BrowserMobProxy's port is " + browserMobProxy.getPort());

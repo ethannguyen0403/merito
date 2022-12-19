@@ -2,7 +2,7 @@ package membersite.testcases.all.afterlogin.exchange;
 
 import com.paltech.element.common.Label;
 import com.paltech.utils.StringUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
@@ -141,7 +141,7 @@ public class BetSlipMyBetTest extends BaseCaseMerito {
         market.getBtnOdd().click();
 
         log("Verify: 2. Odds is removed out bet slip after re-clicking");
-        Assert.assertEquals(page.betSlipControl.getEmptyBetMessage(), FEMemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",page.betSlipControl.getEmptyBetMessage(), FEMemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
+        Assert.assertEquals(page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
 
         log("INFO: Executed Completely!");
     }
@@ -172,7 +172,7 @@ public class BetSlipMyBetTest extends BaseCaseMerito {
         page.betSlipControl.clearAll();
 
         log("Verify: 1. All bet in bet slip is cleared");
-        Assert.assertEquals(page.betSlipControl.getEmptyBetMessage(), FEMemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",page.betSlipControl.getEmptyBetMessage(), FEMemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
+        Assert.assertEquals(page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
         log("INFO: Executed Completely!");
     }
 
@@ -198,7 +198,7 @@ public class BetSlipMyBetTest extends BaseCaseMerito {
         page.betSlipControl.lblNoBetInBetSlipMessage.isTextDisplayed("Constants.BetSlip.SMG_BET_SLIP_EMPTY",3);
 
         log("Verify: 1. Bet Slip display the message \"Click on the odds to add selection to the Bet Slip.");
-        Assert.assertEquals(page.betSlipControl.getEmptyBetMessage(), FEMemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",page.betSlipControl.getEmptyBetMessage(), FEMemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
+        Assert.assertEquals(page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
 
         log("INFO: Executed Completely!");
     }

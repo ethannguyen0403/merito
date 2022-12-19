@@ -1,7 +1,7 @@
 package membersite.pages.all.tabexchange;
 import com.paltech.element.common.TextBox;
-import membersite.controls.DateTimePicker;
-import membersite.controls.Table;
+import controls.DateTimePicker;
+import controls.Table;
 import membersite.objects.AccountBalance;
 import membersite.pages.all.components.Header;
 import com.paltech.element.common.Label;
@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static membersite.common.FEMemberConstants.AccountStatementPage.LOAD_REPORT;
-import static membersite.common.FEMemberConstants.AccountStatementPage.OPENING_BALANCE;
+import static common.MemberConstants.AccountStatementPage.LOAD_REPORT;
+import static common.MemberConstants.AccountStatementPage.OPENING_BALANCE;
 
 public class AccountStatementPage extends Header {
     public Label lblStartDate = Label.xpath("//div[contains(@class,'custom-bsDatepicker')][1]//label");

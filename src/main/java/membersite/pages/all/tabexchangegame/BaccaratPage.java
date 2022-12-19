@@ -3,7 +3,7 @@ package membersite.pages.all.tabexchangegame;
 
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
-import membersite.controls.Table;
+import controls.Table;
 import membersite.pages.all.tabexchangegame.controls.BetSlipControl;
 import membersite.pages.all.tabexchangegame.controls.MyBetControl;
 

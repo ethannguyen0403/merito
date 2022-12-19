@@ -8,7 +8,7 @@ import baseTest.BaseCaseMerito;
 
 import java.util.List;
 
-import static membersite.common.FEMemberConstants.MyBetsPage.*;
+import static common.MemberConstants.MyBetsPage.*;
 
 public class MyBetPageTest extends BaseCaseMerito {
     /**

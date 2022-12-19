@@ -2,7 +2,7 @@ package membersite.testcases.fair999;
 
 import com.paltech.element.common.Link;
 import com.paltech.utils.DateUtils;
-import membersite.common.FEMemberConstants;
+import common.MemberConstants;
 import membersite.objects.sat.Event;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -47,8 +47,8 @@ public class OddsSectionTest extends BaseCaseMerito {
         log("Verify 2. Validate Start time display, There is no in-play label");
         Assert.assertFalse(page.marketContainerControl.isLblInPlayDisplay(), "ERROR! In-Play label is displayed");
         Assert.assertEquals(eventStartTimeExpected, actualStartTime, String.format("ERROR! Expected Event Start Time is %s but found %s", actualStartTime, eventStartTimeExpected));
-        Assert.assertEquals(page.marketContainerControl.getRuleButton(), FEMemberConstants.MarketContainer.RULE, String.format("ERROR! Expected rule name is %s but found %s", FEMemberConstants.MarketContainer.RULE, page.marketContainerControl.getRuleButton()));
-        Assert.assertTrue(page.marketContainerControl.getTotalMatched().contains(FEMemberConstants.MarketContainer.MATCHED), String.format("ERROR! Matched label not display as expected", page.marketContainerControl.getTotalMatched()));
+        Assert.assertEquals(page.marketContainerControl.getRuleButton(), MemberConstants.MarketContainer.RULE, String.format("ERROR! Expected rule name is %s but found %s", MemberConstants.MarketContainer.RULE, page.marketContainerControl.getRuleButton()));
+        Assert.assertTrue(page.marketContainerControl.getTotalMatched().contains(MemberConstants.MarketContainer.MATCHED), String.format("ERROR! Matched label not display as expected", page.marketContainerControl.getTotalMatched()));
 
         log("Verify 3. Validate Selection list and odds list display");
         Assert.assertTrue(Objects.nonNull(page.marketContainerControl.getListSelection()), "ERROR! Selection list is empty");

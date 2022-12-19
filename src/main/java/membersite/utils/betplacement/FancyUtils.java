@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static baseTest.BaseCaseMerito.*;
-import static membersite.common.FEMemberConstants.WICKET_BOOKMAKER_CODE;
+import static common.MemberConstants.WICKET_BOOKMAKER_CODE;
 
 public class FancyUtils {
 
