@@ -141,7 +141,7 @@ public class LoginTest extends BaseCaseMerito {
 
     @Test (groups = {"smoke"})
     public void FE_Login_004(){
-        log("@title: Validate UI of  Underage gambling popup");
+        log("@title: Validate UI of Underage gambling popup");
         log("Step 1. Access member site");
         log("Step 2. Click on Login button");
         LoginPopup loginPopup = landingPage.satHeaderControl.clickLoginBtn();

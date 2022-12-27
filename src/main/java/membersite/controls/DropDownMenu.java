@@ -72,28 +72,37 @@ public class DropDownMenu extends BaseElement {
 	}
 
 	public void clickSubMenu(String name,boolean isClick){
+		int index = findSubMenuIndex(name);
+		Label.xpath(String.format("%s[%s]", this.xpathLocatorItems,index)).click();
+	}
+
+	private int findSubMenuIndex(String subMenuName){
 		int index = 1;
-		if(isClick)
-			this.click();
+		this.click();
 		Label subMenu;
 		while (true){
 			subMenu = Label.xpath(String.format("%s[%s]", this.xpathLocatorItems,index));
-			if(!subMenu.isDisplayed(timeOutInSeconds)){
+			if(!subMenu.isDisplayed()){
 				// To handle case element is hidden but the next still available
 				if( Label.xpath(String.format("%s[%s]", this.xpathLocatorItems,index +1)).isDisplayed()){
 					index +=1;
 					continue;
 				} else {
-					System.out.println(String.format("Error: There is no sub menu %s in the list", name));
-					return;
+					System.out.println(String.format("Error: There is no sub menu %s in the list", subMenuName));
+					return 0;
 				}
 			}
-			if(subMenu.getText().contains(name)){
-				subMenu.click();
-				return;
+			if(subMenu.getText().contains(subMenuName)){
+				return index;
 			}
 			index += 1;
 		}
+	}
 
+	public boolean isContainSubmenu(String subMenu){
+		int index = findSubMenuIndex(subMenu);
+		if (index!=0)
+			return true;
+		return false;
 	}
 }
