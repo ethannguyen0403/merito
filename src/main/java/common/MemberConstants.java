@@ -44,12 +44,29 @@ public class MemberConstants {
         public final static String LBL_REMEMBER_Me ="Remember Me";
         public final static String LBL_SHOW_PASSWORD ="Show Password";
         public final static String BTN_LOGIN ="Login";
-        public final static String LBL_UNDERGAMLING_TITLE ="Underage gambling is prohibited";
-        public final static String LBL_UNDERGAMLING_CONTENT ="Please confirm if you are 18 years old and above as of today";
+        public final static String LBL_UNDERGAMLING_TITLE ="";
+        public final static String LBL_UNDERGAMLING_CONTENT ="Please confirm if you are 18 years old\n" +
+                "and above as of today.";
         public final static String LBL_UNDERGAMLING_TITLE_F24="Underage gambling is prohibited.";
         public final static String LBL_UNDERGAMLING_CONTENT_F24 ="Please confirm if you are 18 years old and above as of today.";
         public final static String LBL_AGE_18 = "Underage gambling is an offence";
-
+        public static final Map<String, String> LBL_UNDERGAMLING_TITLE_MAP = new HashMap<String, String>()
+        {
+            {
+                put("satsport", "Underage gambling is prohibited.");
+                put("fairenter", "Underage gambling is prohibited.");
+                put("funsport", "Underage gambling is prohibited");
+            }
+        };
+        public static final Map<String, String> LBL_UNDERGAMLING_CONTENT_MAP = new HashMap<String, String>()
+        {
+            {
+                put("satsport","Please confirm if you are 18 years old\n" +
+                        "and above as of today.");
+                put("fairenter", "Please confirm if you are 18 years old and above as of today.");
+                put("funsport","Please confirm if you are 18 years old and above as of today");
+            }
+        };
 
     }
     public static class APHomePage {
@@ -263,6 +280,34 @@ public class MemberConstants {
         public final static String MSG_CONFIRM_PASSWORD_NOT_MATCH ="Password does not match the confirm password";
         public final static String MSG_INCORRECT_OLD_PASSWORD = "Password is not match with old password";
         public final static String MSG_SUCCESS= "Your password has been changed successfully";
+        public static final Map<String, String> LBL_CURRENT_PASSWORD_ERROR_MSG = new HashMap<String, String>()
+        {
+            {
+                put("satsport", "Password is not match with old password");
+                put("fairenter", "The password is incorrect. You will be logged out after 4 failed attempts.");
+                put("fairexchange", "Password is not match with old password");
+                put("funsport", "The password is incorrect. You will be logged out after 4 failed attempts.");
+            }
+        };
+        public static final Map<String, String> LBL_CONFIRM_PASSWORD_ERROR_MSG = new HashMap<String, String>()
+        {
+            {
+                put("satsport", "Password does not match the confirm password");
+                put("fairenter", "Confirm password is not correct");
+                put("fairexchange", "Password does not match the confirm password");
+                put("funsport", "Confirm password is not correct");
+            }
+        };
+        public static final Map<String, String> LBL_NEW_PASSWORD_ERROR_MSG = new HashMap<String, String>()
+        {
+            {
+                put("satsport", "Please use between 8 and 15 alphanumeric character. Must have at least 1 letter and 1 number");
+                put("fairenter", " Please use between 8 and 15 alphanumeric character.\n" +
+                        "Must have at least 1 letter and 1 number.");
+                put("fairexchange", "Please use between 8 and 15 alphanumeric character. Must have at least 1 letter and 1 number");
+                put("funsport", "The password is incorrect. You will be logged out after 4 failed attempts");
+            }
+        };
     }
     public static class BetSlip {
         public final static String GUIDE_TEXT_MESSAGE ="Click on the odds to add selections to the Bet Slip.";

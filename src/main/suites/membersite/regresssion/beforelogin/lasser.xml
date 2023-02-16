@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="BETCLUB_GREEN_SMOKE_TEST" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+        <listener class-name="util.testraildemo.Listener"/>
+    </listeners>
+
+    <test name="BETCLUB_Smoke_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value=''/>
+        <parameter name='isLogin' value='false'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='F33010000000'/>
+        <parameter name='usernameSAT' value='03H'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='true'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name="skinName" value="laser365"/>
+        <parameter name="isCloseBanner" value="true"/>
+        <parameter name="isCredit" value="false"/>
+        <parameter name="timeZone" value="GMT-04:00"/>
+        <parameter name='appname' value='membersite'/>
+        <parameter name='brandname' value='laser365'/>
+
+        <groups>
+            <run>
+                <include name="smoke" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="membersite.testcases.enhance.LandingPageTest"/>
+        </classes>
+
+    </test>
+</suite>

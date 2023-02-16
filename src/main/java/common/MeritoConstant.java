@@ -16,7 +16,7 @@ public class MeritoConstant {
             put("satsport", "/x");
             put("funsport", "/xch");
             put("fairenter", "/xch");
-            put("laser365", "/xch");
+            put("laser365", "/plus");
             put("betclub", "/plus");
         }
     };
@@ -27,6 +27,7 @@ public class MeritoConstant {
             put("satsport", "/agent/#/2/code");
             put("funsport", "/agent/#/1/code");
             put("fairenter", "/agent/#/1/code");
+            put("laser365", "/agent/#/1/code");
             put("betclub", "/agent/#/1/code");
         }
     };
@@ -35,6 +36,7 @@ public class MeritoConstant {
             put("fairexchange", "agent/#/1/update");
             put("satsport", "agent/#/2/update");
             put("funsport","agent/#/1/update");
+            put("laser365", "agent/#/1/update");
             put("fairenter","agent/#/1/update");
             put("betclub", "/agent/#/1/update");
         }
@@ -46,6 +48,7 @@ public class MeritoConstant {
             put("satsport", "SAT Sport");
             put("funsport", "FunSport101");
             put("fairenter", "Fairenter");
+            put("laser365", "Laser365");
             put("backoffice", "Backoffice");
             put("betclub", "BetCub");
         }
