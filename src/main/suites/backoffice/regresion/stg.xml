@@ -17,7 +17,9 @@
         <parameter name='isThrown' value='true'/>
         <parameter name='currency' value='HKD'/>
         <parameter name='appname' value='backoffice'/>
-        <parameter name='brandname' value='backoffice'/>
+        <parameter name='brandname' value='fairexchange'/>
+        <parameter name='feMemberLoginId' value='feinrisa'/>
+        <parameter name='feMemberLoginPwd' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <groups>
             <run>
                 <include name="regression" />
@@ -26,6 +28,9 @@
 
         <classes>
 <!--            <class name="backoffice.testcases.system.BetFairTaxRecrawlTest"/>-->
+
+            <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
+            <class name="backoffice.testcases.operations.BannerManagementTest"/>
         </classes>
 
     </test>
