@@ -10,6 +10,7 @@ import backoffice.pages.bo.home.HomePage;
 import java.util.List;
 
 public class AnnouncementManagementPage extends HomePage {
+    public Label lblTitlePage = Label.xpath("//div[@id='header']//span");
     public Button btnSave = Button.xpath("//button[contains(@class,'btn-submit')]");
     public Button btnClear = Button.xpath("//button[contains(@class,'btn-clear')]");
     public TextBox txtEnglish = TextBox.xpath("//body[contains(@class,'cke_editable')]");

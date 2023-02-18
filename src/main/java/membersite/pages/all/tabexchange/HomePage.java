@@ -202,4 +202,21 @@ public class HomePage extends MainMenu {
         waitMenuLoading();
     }
 
+    public List<String> getListBanners() {
+        List<String> lstBannerSrc = new ArrayList<>();
+        int i = 1;
+        while(true) {
+            String xpathLocator = String.format("//div[@id='1']//slide[%s]//a",i);
+            Image imgLocator = Image.xpath(xpathLocator);
+            if (!imgLocator.isDisplayedShort(2)){
+                return lstBannerSrc;
+            }
+
+            String imgSrc = imgLocator.getWebElement().getCssValue("background-image");
+            imgSrc = imgSrc.split("img")[1];
+            lstBannerSrc.add(imgSrc);
+            i+=1;
+        }
+    }
+
 }
