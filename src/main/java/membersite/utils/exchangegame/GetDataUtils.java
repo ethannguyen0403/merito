@@ -9,8 +9,7 @@ import org.json.JSONObject;
 
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.domainURL;
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.domainURL;
 
 public class GetDataUtils {
 

@@ -1,16 +1,12 @@
-package membersite.testcases.enhance;
+package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
-import common.MemberConstants;
 import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
-
-import static common.MemberConstants.ChangePasswordPopup.LBL_CONFIRM_PASSWORD_ERROR_MSG;
-import static common.MemberConstants.ChangePasswordPopup.LBL_CURRENT_PASSWORD_ERROR_MSG;
 
 public class HomePageTest extends BaseCaseTest {
     @TestRails(id="1075")

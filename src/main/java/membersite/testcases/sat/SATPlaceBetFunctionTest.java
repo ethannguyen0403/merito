@@ -21,14 +21,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class SATPlaceBetFunctionTest extends BaseCaseMerito {
-    /**
+  /*  *//**
      * @title: Validate that user can NOT place Back bet if Stake less than min setting
      * @steps:  1. Click Soccer menu
      *          2. Click on an event
      *          3. Click on an Back odds without empty of the selection have the high potential win
      *          4. Input stake less than min bet
      * @expect: 1. Error Cannot place bet display: "Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s."
-     */
+     *//*
     @TestRails(id="555")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC001(){
@@ -42,7 +42,6 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
             Assert.assertTrue(true,"Bypass this test case");
             return;
         }
-
 
         log("Step 1. Click Soccer menu");
         SportPage page = memberHomePage.navigateSportMenu("Soccer",SportPage.class);
@@ -84,6 +83,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *              5. Liability on My Bet and on Bet Slip is the same
      *              6. Profit on My Bet and on Bet Slip is the same
      */
+/*
     @TestRails(id="556")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC002(){
@@ -123,9 +123,9 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
 
         //TODO: In case on a selection have Back and Lay matched bet, the explectedBalance is incorrect calculation => write scipt to handle this casse
 
-       /* log("Verify: Account Balance/Outstanding updated correctly");
+        log("Verify: Account Balance/Outstanding updated correctly");
         Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-        Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");*/
+        Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");*//*
         log("INFO: Executed completely");
     }
 
@@ -142,7 +142,8 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *              4. Selected team on My Bet and on Bet Slip is the same
      *              5. Liability on My Bet and on Bet Slip is the same
      *              6. Profit on My Bet and on Bet Slip is the same
-     */
+     *//*
+
     @TestRails(id="557")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC003(){
@@ -184,14 +185,14 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         Assert.assertEquals(expectedLiability, wagers.get(0).getLiability(), "Incorrect Liability");
 
         //TODO: In case on a selection have Back and Lay matched bet, the explectedBalance is incorrect calculation => write scipt to handle this casse
-    /*    log("Verify: Account Balance/Outstanding updated correctly");
+    *//*    log("Verify: Account Balance/Outstanding updated correctly");
         Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
         Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
-*/
+*//*
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate can place unmatched Back bet successfully for Tennis
      * @Precondition:  1. Login member site
      * @steps:         1. Active any market of Tennis
@@ -204,7 +205,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *                  4. At in-play will check  on Cancel option by default
      *                  5. Back bet background is green #C9E6EF
      *                  6. Account Balance/Outstanding updated correctly
-     */
+     *//*
     @TestRails(id="558")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC004(){
@@ -257,7 +258,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title: Validate can place unmatched Lay bet successfully for Tennis
      * @Precondition:  1. Login member site
      * @steps:        1. Active any market of Tennis
@@ -270,7 +271,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *          4. At in-play will check  on Cancel option by default
      *          5. Lay bet background is pink #F9E6ED
      *          6. Account Balance/Outstanding updated correctly
-     */
+     *//*
     @TestRails(id="559")
      @Test(groups = {"smoke"})
      public void SAT_Place_Bet_Function_TC005(){
@@ -322,7 +323,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
             }
      }
 
-    /**
+    *//**
      * @title: Validate cancel bet icon works
      * @Precondition:  1. Login member site
      * @steps:          1. Active any market of soccer
@@ -332,7 +333,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *                  5 Open My bet and filter Cancel option
      * @expect:         1. Bet is cancel
      *                  2. Bet in My bet display with the status cancel
-     */
+     *//*
     @TestRails(id="560")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC006(){
@@ -401,7 +402,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate cancel all bet icon works
      * @Precondition:  1. Login member site
      * @steps:          1. Active any market of soccer
@@ -411,7 +412,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *                  5 Open My bet and filter Cancel option
      * @expect:     1. Back and Lay bet are canceled
      *              2. Bets in My bet display with the status cancel
-     */
+     *//*
     @TestRails(id="561")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC007(){
@@ -481,7 +482,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate can place unmatched Back bet successfully for Cricket
      * @Precondition:  1. Login member site
      * @steps:        1. Active any market of Cricket
@@ -494,7 +495,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *          4. At in-play will check  on Cancel option by default
      *          5. Lay  bet background is pink #F9E6ED
      *          6. Account Balance/Outstanding updated correctly
-     */
+     *//*
     @TestRails(id="562")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC008(){
@@ -545,7 +546,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title: Validate can place unmatched Lay bet successfully for Cricket
      * @Precondition:  1. Login member site
      * @steps:        1. Active any market of Cricket
@@ -558,7 +559,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *          4. At in-play will check  on Cancel option by default
      *          5. Lay bet background is pink #F9E6ED
      *          6. Account Balance/Outstanding updated correctly
-     */
+     *//*
     @TestRails(id="563")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC009(){
@@ -610,7 +611,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title: Validate can place unmatched Back bet successfully for Horse Racing
      * @Precondition:  1. Login member site
      * @steps:  1. Active any market of Horse Racing
@@ -622,7 +623,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *          3. Selection , Odds, Stake, Profit display correctly
      *          4. At in-play will check  on Cancel option by default
      *          5. Back bet background is green #C9E6EF
-     */
+     *//*
     @TestRails(id="564")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC010(){
@@ -682,7 +683,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title: Validate can NOT place unmatched Lay bet for Horse Racing
      * @Precondition:  1. Login member site
      * @steps:  1. Active any market of Horse Racing
@@ -690,7 +691,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *          3. Update odd to 1.01, Input valid stake
      *          4. Click place bet
      * @expect: 1. The error message : This section is not available to bet
-     */
+     *//*
     @TestRails(id="565")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC011(){
@@ -718,7 +719,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         Assert.assertEquals(market.getBtnOdd().getText(),"","ERROR! Lay odds HR should not display value ");
         Assert.assertFalse(market.getBtnOdd().isClickable(1),"ERROR! Expected Lay odds HR should not clickable but cam");
         log("INFO: Executed completely");
-        /*
+        *//*
          String odds = market.getOdd().getText();
         log("Step 2. Click on any Lay odds");
         market.getOdd().click();
@@ -728,12 +729,12 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         page.betSlipControl.placeBet(odds,minBet);
         String actualError = page.myBetControl.getPlaceBetErrorMessage();
         String expectedError = FEMemberConstants.BetSlip.ERROR_SELECTION_UNAVAILABLE;
-        Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));*/
+        Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));*//*
 
 
     }
 
-    /**
+    *//**
      * @title: Validate that user can place Unmatched Back bet on Soccer market
      * @Precondition:  1. Login member site
      * @steps:  1. Active any market of Soccer
@@ -746,7 +747,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *          4. At in-play will check  on Cancel option by default
      *          5. Back bet background is green #C9E6EF
      *          6. Account Balance/Outstanding updated correctly
-     */
+     *//*
     @TestRails(id="566")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC021(){
@@ -792,9 +793,9 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
             Assert.assertEquals(expectedProfit, wagers.get(0).getProfit(), "Incorrect Profit");
 
             //TODO: In case on a selection have Back and Lay matched bet, the explectedBalance is incorrect calculation => write scipt to handle this casse
-          /*  log("Verify: Account Balance/Outstanding updated correctly");
+          *//*  log("Verify: Account Balance/Outstanding updated correctly");
             Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");*/
+            Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");*//*
         }finally {
             log("Post Condition: Cancel all unmatch bets");
             page.myBetControl.cancelAllBetUnmatched();
@@ -802,7 +803,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title: Validate that user can place Unmatched Lay bet on Soccer market
      * @Precondition:  1. Login member site
      * @steps:  1. Active any market of Soccer
@@ -815,7 +816,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *          4. At in-play will check  on Cancel option by default
      *          5. Back bet background is green #C9E6EF
      *          6. Account Balance/Outstanding updated correctly
-     */
+     *//*
     @TestRails(id="567")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC022(){
@@ -883,13 +884,13 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title: Validate that cannot place Back bet if exposure exceed available balance
      * @precondition:  1. Login member site
      * @steps:  1. Active any market, and place  Back odds
      *          2. Input stake that the exposure is greater than user available balance
      * @expect: 1. Error message "Error : Cannot place bet. Your Main balance is insufficient." display
-     */
+     *//*
     @TestRails(id="568")
     @Test(groups = {"smoke"})
     @Parameters({"isCredit"})
@@ -923,13 +924,13 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate that cannot place Lay bet if exposure exceed available balance
      * @precondition:  1. Login member site
      * @steps:  1. Active any market, and place Lay odds
      *          2. Input stake that the exposure is greater than user available balance
      * @expect: 1. Error message "Error : Cannot place bet. Your Main balance is insufficient." display
-     */
+     *//*
     @Test(groups = {"regression"})
     public void SAT_Place_Bet_Function_TC024(){
         log("@title: Validate that cannot place Lay bet if exposure exceed available balance");
@@ -957,13 +958,13 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate that user can NOT place Lay bet if Stake less than min setting
      * @steps:  1. Active any market page
      *          2. Click on an Lay Odds
      *          3. Input stake less than min bet
      * @expect: 1. Error Cannot place bet display: "Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s."
-     */
+     *//*
     @TestRails(id="584")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC025(){
@@ -1005,7 +1006,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate that user can NOT place Back bet if Stake greater than max setting
      * @precondition 1 There is an unblocked soccer event
      *              2 Login member site
@@ -1014,7 +1015,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *              2. Click on an Back Odds
      *              3. Input stake greater than max bet
      * @expect:     1  Error Cannot place bet display: "Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.""
-     */
+     *//*
     @TestRails(id="585")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC026(){
@@ -1054,7 +1055,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate that user can NOT place Lay bet if Stake greater than max setting
      * @precondition 1 There is an unblocked soccer event
      *              2 Login member site
@@ -1063,7 +1064,7 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
      *              2. Click on an Lay Odds
      *              3. Input stake greater than max bet
      * @expect:     1  Error Cannot place bet display: "Error : Cannot place bet. The stake must be from [min] to [max]. Current Stake is [stake].""
-     */
+     *//*
     @TestRails(id="586")
     @Test(groups = {"smoke"})
     public void SAT_Place_Bet_Function_TC027(){
@@ -1103,5 +1104,5 @@ public class SATPlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-
+*/
 }

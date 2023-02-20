@@ -1,28 +1,47 @@
 package membersite.pages.components.header;
 
 import com.paltech.driver.DriverManager;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.CheckBox;
-import com.paltech.element.common.Image;
-import com.paltech.element.common.TextBox;
+import com.paltech.element.common.*;
 import common.MemberConstants;
 import membersite.controls.DropDownMenu;
-import membersite.pages.all.tabexchange.AccountStatementPage;
-import membersite.pages.all.tabexchange.MyBetsPage;
-import membersite.pages.all.tabexchange.ProfitAndLossPage;
+import membersite.objects.AccountBalance;
+import membersite.pages.AccountStatementPage;
+import membersite.pages.MyBetsPage;
+import membersite.pages.ProfitAndLossPage;
+import membersite.pages.SportPage;
+import membersite.pages.exchangegames.EGHomePage;
+import membersite.pages.popup.MyMarketPopup;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
+import membersite.utils.betplacement.BetUtils;
+import org.openqa.selenium.support.PageFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 public class SatHeader extends Header {
-    public TextBox txtUsername = TextBox.name("username");
-    public TextBox txtPassword = TextBox.name("password");
+    private TextBox txtUsername = TextBox.name("username");
+    private TextBox txtPassword = TextBox.name("password");
     private Button btnLogin = Button.xpath("//header//button[contains(@class,'btn-in-out')]");
     private Button btnJoinNow = Button.xpath("//header//button[contains(@class,'join-now')]");
     Image imgLogo = Image.xpath("//span[@class='sprite-logos']");
     CheckBox chkRememberMe = CheckBox.id("remember-me");
     private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[contains(@class,'account d-block')]","","//ul[contains(@class,'dropdown-menu')]//li");
-
+    private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
+    private Label imgSpinner = Label.xpath("//div[@class=lds-spinner']");
+    private Image imgLeftMenu = Image.xpath("//div[@class='left-menu-icon']/img");
+    private Menu menuSports = Menu.xpath("//app-sport-menu-bar//ul[@class='navbar-nav']//a");
+    private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
+    private String sportMenuOldUIXpath = "//a[contains(@data-sport-name,'%s')]";
+    private Link lnkMyMarkets = Link.xpath("//span[@class='link mymarkets']");
+    private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='title']");
+    private Label lblBalanceCurrency = Label.xpath("//app-top-panel//div[contains(@class,'header-content-info')]//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='bal-val'][1]");
+    private Label lblBalance = Label.xpath("//app-top-panel//div[contains(@class,'header-content-info')]//div[contains(@class,'profit-group d-none')]//div[@class='balance'][2]//span[@class='bal-val']");
+    private Label lblLiabilityCurrency = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'lia-val')][1]");
+    private Label lblLiability = Label.xpath("(//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')])[1]/span[@class='lia-val'][1]");
     // Before Login
     public SATUnderageGamblingPopup clickLogin() {
         if(btnLogin.isDisplayed()){
@@ -58,34 +77,118 @@ public class SatHeader extends Header {
         return ddmAccount.isContainSubmenu(menu);
     }
 
-    public AccountStatementPage openAccountStatement(){
+    public AccountStatementPage openAccountStatement(String type){
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"));
         DriverManager.getDriver().switchToWindow();
-        AccountStatementPage page = new AccountStatementPage();
-        page.btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT,5);
+        AccountStatementPage page = new AccountStatementPage(type);
+        page.accountStatementContainer.waitLoadReport();
         return page;
     }
 
-    public MyBetsPage openMyBets(){
+    public MyBetsPage openMyBets(String type){
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"));
         DriverManager.getDriver().switchToWindow();
-        MyBetsPage page = new MyBetsPage();
-        page.btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT,5);
-        page.lblTimezone.isTextDisplayed(MemberConstants.MyBetsPage.NOTES,5);
+        MyBetsPage page = new MyBetsPage(type);
+        page.myBetsContainer.waitLoadReport();
         return page;
     }
 
-    public ProfitAndLossPage openProfitAndLoss(){
+    public ProfitAndLossPage openProfitAndLoss(String type){
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Profit & Loss"));
         DriverManager.getDriver().switchToWindow();
-        ProfitAndLossPage page = new ProfitAndLossPage();
-        page.btnLoadReport.isTextDisplayed(MemberConstants.ProfitAndLossPage.LOAD_REPORT,5);
+        ProfitAndLossPage page = new ProfitAndLossPage(type);
+        page.profitAndLossContainer.waitLoadReport();
         return page;
     }
 
     public SATChangePasswordPopup openChangePasswordPopup(){
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
         return new SATChangePasswordPopup();
+    }
+
+    public EGHomePage openExchangeGame(String brand){
+        tabExchangeGames.click();
+        return new EGHomePage(brand);
+    }
+
+    public void clickLogo(){imgLogo.click();}
+
+    public void waitSpinLoad(){
+        imgSpinner.waitForControlInvisible(1,2);
+    }
+    public String getLogoSrc(){return imgLogo.getAttribute("src");}
+    public boolean isLeftMenuIcondisplay(){return imgLeftMenu.isDisplayed();}
+
+    /**
+     * This is open main sport menu with the corresponding page
+     * @param pageName : ex: Soccer, Home, In-Play, Basketball, Cricket
+     * @return
+     */
+    public SportPage navigateSportMenu(String pageName, String brand) {
+        Menu menu = Menu.xpath(String.format(sportMenuXpath, pageName));
+        if(!menu.isDisplayed(5)){
+            System.out.println(String.format("There is no %s menu display", pageName));
+            return null;
+        }
+        menu.click();
+        return new SportPage(brand);
+    }
+    public MyMarketPopup openMyMarketPopup(){
+        lnkMyMarkets.click();
+        return new MyMarketPopup();
+    }
+
+    public AccountBalance getUserBalance() {
+        lblBalance.isDisplayed();
+        return new AccountBalance.Builder()
+                .balance(lblBalance.getText())
+                .exposure(lblLiability.getText())
+                .build();
+    }
+
+
+    public boolean isProductActive(String productName)
+    {
+        for (String s: translateProductsActive(BetUtils.getProductInfo())) {
+            if(s.equals(productName))
+                return true;
+        }
+        return false;
+    }
+    private List<String> translateProductsActive(List<String> productCode)
+    {
+        if(Objects.nonNull(productCode))
+        {
+            List<String> productTranslate = new ArrayList<>();
+            for (String s : productCode) {
+                productTranslate.add(MemberConstants.HomePage.PRODUCTS.get(s));
+            }
+            return productTranslate;
+        }else{
+            System.out.println("There is no product active!");
+            return null;
+        }
+    }
+
+    public String getLiabilityTextColor(){return lblLiability.getColour("color");}
+
+    public void navigateToMarketIndexOnMarketPopup(int index){
+
+    }
+
+    /**
+     * Recalulate balance after place on a market
+     * @param balance
+     * @param liabilityBeforePlaceBetOnMarket
+     * @param liabilityAfterPlaceOnMarket
+     * @return
+     */
+    public String calculateBalanceAfterPlaceBet(String balance, Double liabilityBeforePlaceBetOnMarket, Double liabilityAfterPlaceOnMarket) {
+        double balanceDoub =Double.valueOf(balance.replaceAll(",", "").toString());
+      /*  double liabilityDoubBefore =Double.valueOf(liabilityBeforePlaceBetOnMarket.replaceAll(",", "").toString());
+        double liabilityDoubAfter =Double.valueOf(liabilityAfterPlaceOnMarket.replaceAll(",", "").toString());*/
+        double balanceReturn = balanceDoub - liabilityBeforePlaceBetOnMarket + liabilityAfterPlaceOnMarket;
+        return String.format(Locale.getDefault(),"%,.2f",balanceReturn);
     }
 
 

@@ -16,6 +16,7 @@ import membersite.pages.all.tabexchange.SportPage;
 import java.util.*;
 
 import static baseTest.BaseCaseMerito.*;
+//import static baseTest.BaseCaseTest.domainURL;
 
 public class BetUtils {
 
@@ -134,6 +135,44 @@ public class BetUtils {
         }
         return null;
     }*/
+
+    public static String getMinBet(String sportName, String betType) {
+        String api = String.format("%s/member-service/user/bdata?tzo=GMT+05:30", domainURL);
+        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        if (Objects.nonNull(jsonObject)) {
+            if (jsonObject.has("betSettings")) {
+                JSONArray arraySports = jsonObject.getJSONArray("betSettings");
+                String betTypeName = betType.equals(SportPage.BetType.BACK) ? "backMinBet" : "layMinBet";
+                for (int i=0; i < arraySports.length(); i++) {
+                    JSONObject jsonSportSetting = arraySports.getJSONObject(i);
+                    if (jsonSportSetting.getString("sportGroup").equals(sportName.toString())) {
+                        return Integer.toString(jsonSportSetting.getInt(betTypeName));
+                    }
+                }
+            }
+        }
+        System.out.println("DEBUG: getGETJSONResponse is null");
+        return "-1";
+    }
+    public static String getMaxBet(String sportName, String betType) {
+        String api = String.format("%s/member-service/user/bdata?tzo=GMT+05:30",domainURL);
+        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, null,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        if (Objects.nonNull(jsonObject)) {
+            if (jsonObject.has("betSettings")) {
+                JSONArray arraySports = jsonObject.getJSONArray("betSettings");
+                String betTypeName = betType.equals(SportPage.BetType.BACK) ? "backMaxBet" : "layMaxBet";
+                for (int i=0; i < arraySports.length(); i++) {
+                    JSONObject jsonSportSetting = arraySports.getJSONObject(i);
+                    if (jsonSportSetting.getString("sportGroup").equals(sportName.toString())) {
+                        return Integer.toString(jsonSportSetting.getInt(betTypeName));
+                    }
+                }
+            }
+        }
+        System.out.println("DEBUG: getGETJSONResponse is null");
+        return "-1";
+    }
+
     public static String getMinBet(SportPage.Sports sportName, SportPage.BetType betType) {
         String api = String.format("%s/member-service/user/bdata?tzo=GMT+05:30", domainURL);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);

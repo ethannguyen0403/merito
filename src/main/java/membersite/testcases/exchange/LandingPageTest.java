@@ -1,4 +1,4 @@
-package membersite.testcases.enhance;
+package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
@@ -34,7 +34,7 @@ public class LandingPageTest extends BaseCaseTest {
     }
 
     @TestRails(id="1214")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke1"})
     @Parameters({"password"})
     public void Landing_Page_TC1214(String password) throws Exception {
         log("@title: Validate that user with invalid account cannot sign in successfully");

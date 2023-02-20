@@ -22,7 +22,7 @@ public class EGBaccaratTest extends BaseCaseMerito {
      * @expect: Verify can place bet
      */
     @TestRails(id="533")
-    @Test(groups = {"smoke21"})
+    @Test(groups = {"smoke"})
     @Parameters({"skinName"})
     public void EG_Baccarat_TC001(String skinName){
         log("@title:  Verify can place Baccarat Turbo game");

@@ -28,6 +28,17 @@ public class MemberConstants {
     public static final String WICKET_BOOKMAKER_TITLE ="Wicket Bookmaker";
     public static final String FANCY_MARKET_TYPE_CODE ="WICKET_FANCY";
     public final static String NOTES_GMT4 ="Note : Date will be based on time zone GMT-04:00";
+    public static final Map<String, String> TIMEZONE_BRAND = new HashMap<String, String>()
+    {
+        {
+            put("satsport", "IST");
+            put("funsport", "GMT-04:00");
+            put("fairenter", "GMT-04:00");
+            put("fairexchange", "GMT-04:00");
+            put("laser365", "GMT-04:00");
+
+        }
+    };
     public static class LoginPage {
         public final static String MSG_INVALID_PASSWORD = "You have entered an incorrect Password. Please try again.";
         public final static String MSG_LOGIN_FAIL= "Invalid Username OR Password.";
@@ -202,6 +213,7 @@ public class MemberConstants {
         public final static String NO_RECORD_FOUNDS = "No records found";
     }
     public static class AccountStatementPage{
+
         public final static String START_DATE = "Start Date";
         public final static String END_DATE = "End Date";
         public final static String NOTES ="Note : Date will be based on time zone GMT-04:00";
@@ -212,6 +224,18 @@ public class MemberConstants {
         public final static String MAIN_WALLET_STATEMENT ="Main Wallet Statement";
         public final static List<String> TABLE_SUMMARY_HEADER_FS = Arrays.asList("Sport/Games", "Remarks", "Turnover", "Profit & Loss","Tax/Commission","Cash Balance");
         public final static List<String> TABLE_DETAIL_SPORT_HEADER = Arrays.asList("Date","Turnover","Profit & Loss","Tax","Cash Balance");
+        public static final Map<String, String> REQUEST_URL = new HashMap<String, String>()
+        {
+            {
+                put("satsport", "/member-report-service/report/sat/account-statement");
+                put("funsport", "/member-report-service/report/account-statement");
+                put("fairenter", "/member-report-service/report/account-statement");
+                put("fairexchange", "/member-report-service/report/sat/account-statement");
+                put("laser365", "/member-report-service/report/sat/account-statement");
+
+            }
+        };
+
     }
     public static class MiniMyBet {
         public final static String GUIDE_TEXT_MESSAGE1 ="You have no bets on this market.";

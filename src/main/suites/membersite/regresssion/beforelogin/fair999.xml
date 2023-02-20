@@ -21,17 +21,18 @@
         <parameter name="isCloseBanner" value="true"/>
         <parameter name="isCredit" value="false"/>
         <parameter name="timeZone" value="GMT-04:00"/>
-        <parameter name='appname' value='membersite'/>
+
+        <parameter name='appname' value='backoffice'/>
         <parameter name='brandname' value='fairexchange'/>
 
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="smoke1"/>
             </run>
         </groups>
 
         <classes>
-            <class name="membersite.testcases.enhance.LandingPageTest"/>
+            <class name="membersite.testcases.exchange.LandingPageTest"/>
         </classes>
 
     </test>

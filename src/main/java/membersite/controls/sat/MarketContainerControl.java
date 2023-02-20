@@ -236,7 +236,7 @@ public class MarketContainerControl extends BaseElement {
 
 	public Market getMarket(Event event, int selectionIndex, boolean isBack)
 	{
-		//waitControlLoadCompletely(timeOutShortInSeconds);
+		waitControlLoadCompletely(timeOutShortInSeconds);
 		String marketName = getTitle(false);
 		String selectionName = Label.xpath(String.format("%s[%d]%s",lblSelectionListXPath,selectionIndex,lblSelectionName)).getText();
 

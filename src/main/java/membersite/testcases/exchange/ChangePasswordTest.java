@@ -1,4 +1,4 @@
-package membersite.testcases.enhance;
+package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
@@ -25,14 +25,14 @@ public class ChangePasswordTest extends BaseCaseTest {
         String passDecrypt = StringUtils.decrypt(password);
         ChangePasswordPopup popup = memberHomePage.header.openChangePasswordPopup();
         try{
-            String successMsg = popup.changePassword(passDecrypt, newPass, newPass);
+            String successMsg = popup.changePassword(newPass, newPass,passDecrypt);
             popup.clickCancelBtn();
             log("Verify 1. Can change password successfully");
             Assert.assertEquals(successMsg, MemberConstants.ChangePasswordPopup.MSG_SUCCESS, String.format("ERROR! Expected success message is %s but found %s", MemberConstants.ChangePasswordPopup.MSG_SUCCESS,successMsg));
         }finally{
             log("Pos_condition: Re-update password");
             popup =  memberHomePage.header.openChangePasswordPopup();
-            popup.changePassword(newPass,passDecrypt,passDecrypt);
+            popup.changePassword(passDecrypt,passDecrypt,newPass);
         }
         log("INFO: Executed completely");
     }

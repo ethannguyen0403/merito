@@ -43,8 +43,6 @@ public class BaseCaseTest {
     private static ApplicationContext context;
     public static DriverProperties driverProperties;
     public static Environment environment;
-    //public static WebService webService = new WebService();
-  //  public static AgentBlockingManagement agentBlockingManagementURL = new AgentBlockingManagement();
     public static ExtentTest logger;
     public static ExtentReports report;
     public static agentsite.pages.all.home.LoginPage agentLoginPage;

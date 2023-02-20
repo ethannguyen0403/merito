@@ -1,10 +1,13 @@
 package membersite.pages.components.header;
 
-import membersite.pages.all.tabexchange.AccountStatementPage;
-import membersite.pages.all.tabexchange.MyBetsPage;
-import membersite.pages.all.tabexchange.ProfitAndLossPage;
+import membersite.objects.AccountBalance;
+import membersite.pages.*;
+import membersite.pages.exchangegames.EGHomePage;
+import membersite.pages.popup.MyMarketPopup;
 import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
+
+import java.util.Locale;
 
 public class Header {
      public String getName(){
@@ -29,19 +32,63 @@ public class Header {
         return false;
     }
 
-    public AccountStatementPage openAccountStatement(){
-       return new AccountStatementPage();
+    public AccountStatementPage openAccountStatement(String type){
+       return new AccountStatementPage(type);
     }
 
-    public MyBetsPage openMyBets(){
-        return new MyBetsPage();
+    public MyBetsPage openMyBets(String type){
+        return new MyBetsPage(type);
     }
 
-    public ProfitAndLossPage openProfitAndLoss(){
-        return new ProfitAndLossPage();
+    public ProfitAndLossPage openProfitAndLoss(String type){
+        return new ProfitAndLossPage(type);
     }
 
     public ChangePasswordPopup openChangePasswordPopup(){
        return new ChangePasswordPopup();
     }
+
+    public EGHomePage openExchangeGame(String brand){return new EGHomePage(brand);}
+
+    public void clickLogo(){}
+    public void waitSpinLoad(){
+    }
+    public String getLogoSrc(){return "";}
+    public boolean isLeftMenuIcondisplay(){return false;}
+
+    public SportPage navigateSportMenu(String pageName, String brand) {
+         return new SportPage(brand);
+    }
+    public RacingPage navigateRacing(String pageName, String brand) {
+        return new RacingPage(brand);
+    }
+
+    public MyMarketPopup openMyMarketPopup(){
+        return new MyMarketPopup();
+    }
+
+    public AccountBalance getUserBalance() {
+        return null;
+    }
+    public boolean isProductActive(String productName)
+    {
+        return false;
+    }
+
+    public String getBalanceLabel(){return "";}
+    public String getLiabilityLabel(){return "";}
+
+    public String getLiabilityTextColor(){return "";}
+    public void navigateToMarketIndexOnMarketPopup(int index){}
+    /**
+     * Recalulate balance after place on a market
+     * @param balance
+     * @param liabilityBeforePlaceBetOnMarket
+     * @param liabilityAfterPlaceOnMarket
+     * @return
+     */
+    public String calculateBalanceAfterPlaceBet(String balance, Double liabilityBeforePlaceBetOnMarket, Double liabilityAfterPlaceOnMarket) {
+        return "";
+    }
+
 }
