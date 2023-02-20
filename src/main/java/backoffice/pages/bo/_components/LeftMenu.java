@@ -35,6 +35,7 @@ public class LeftMenu extends Header {
     SubMenu smBetFairInformation = SubMenu.name("betfair-information");
     public SubMenu smProductMaintenance = SubMenu.name("product-maintenance");
     SubMenu smBetFairAccountInfo = SubMenu.name("betfair-account-info");
+    SubMenu smBetFairTaxRecrawl = SubMenu.name("betfair-tax-re-crawl");
     SubMenu smProviderCurrencyMapping = SubMenu.name("provider-currency-mapping");
     SubMenu smFollowBetToThirdParty =SubMenu.name("follow-bets-to-3rd-party");
 
@@ -206,6 +207,14 @@ public class LeftMenu extends Header {
         int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
         DriverManager.getDriver().switchToFrame(countIframesInPage-1);
         return new ProviderCurrencyMappingPage();
+    }
+
+    public BetFairTaxRecrawlPage navigateBetFairTaxRecrawl() {
+        smBetFairTaxRecrawl.click();
+        // waiting for loading completely
+        smBetFairTaxRecrawl.isInvisible(2);
+        DriverManager.getDriver().switchToFrame(1);
+        return new BetFairTaxRecrawlPage();
     }
     /*************
      * Operations

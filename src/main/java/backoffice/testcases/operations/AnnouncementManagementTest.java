@@ -10,6 +10,7 @@ import backoffice.pages.bo._components.AppConfirmPopup;
 import backoffice.pages.bo._components.StaticConfirmPopup;
 import backoffice.pages.bo.operations.AnnouncementManagementPage;
 import baseTest.BaseCaseMerito;
+import util.testraildemo.TestRails;
 
 public class AnnouncementManagementTest extends BaseCaseMerito{
 
@@ -56,7 +57,7 @@ public class AnnouncementManagementTest extends BaseCaseMerito{
      *          4. Announcement message is update correctly
      *          5 Announcement is deleted
      */
-    @Test (groups = {"regression"})
+    @Test (groups = {"regression_qc"})
     public void BO_Operations_Announcement_Management_003(){
         log("@title: Validate can add Edit and Delete Announcement");
         log("Step 1. Access Operations > Announcement Management");
@@ -214,6 +215,18 @@ public class AnnouncementManagementTest extends BaseCaseMerito{
         log("Verify 1. Verify data in English and Chinese textbox is cleared");
         Assert.assertTrue(page.txtEnglish.getText().isEmpty(),"FAIELD! The message in English is not cleared");
         Assert.assertTrue(page.txtTranslate.getText().isEmpty(),"FAIELD! The message in Translate section is not cleared");
+
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "1642")
+    @Test (groups = {"regression"})
+    public void BO_Operations_Announcement_Management_1642(){
+        log("@title: Validate can search and navigate to page correctly");
+        log("Step 1. Access Operations > Announcement Management");
+        AnnouncementManagementPage page = backofficeHomePage.navigateAnnouncementManagement();
+
+        log("Verify page title displays with Announcement Management");
+        Assert.assertEquals("Announcement Management", page.lblTitlePage.getText(), "FAILED ! Page title is not displayed correctly, actual: " + page.lblTitlePage.getText());
 
         log("INFO: Executed completely");
     }
