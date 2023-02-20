@@ -227,7 +227,12 @@ public class BannerManagementPage extends HomePage {
             if (!cell.isDisplayedShort(2)){
                 return lst;
             }
-            lst.add(cell.getAttribute("textContent"));
+            if (cell.getAttribute("textContent").equalsIgnoreCase(""))
+            {
+//                lst.add(cell.getAttribute("textContent"));
+                lst.add(String.valueOf(i));
+
+            }
             if (isMoved){
                 if (!cell.isDisplayedShort(2)) {
                     cell.scrollToThisControl(true);
@@ -240,11 +245,11 @@ public class BannerManagementPage extends HomePage {
     public List<String> getListBanners(int colBanner, int colValidTill) {
         List<String> lstBanner = getListData(colBanner,true);
         List<String> lstBannerSrc = new ArrayList<>();
-        for(int i = 0; i < lstBanner.size(); i++){
-            String cellImgXpath = String.format(tblResult.getxPathOfCell(1, colBanner, i + 1,"img"));
+        for(String imgItem:lstBanner) {
+            String cellImgXpath = String.format(tblResult.getxPathOfCell(1, colBanner, Integer.parseInt(imgItem),"img"));
             String imgSrc = Cell.xpath(cellImgXpath).getAttribute("src");
             imgSrc = imgSrc.split("image")[1];
-            String cellValidTillXpath = String.format(tblResult.getxPathOfCell(1, colValidTill, i + 1,null));
+            String cellValidTillXpath = String.format(tblResult.getxPathOfCell(1, colValidTill, Integer.parseInt(imgItem),null));
             String validTill = Cell.xpath(cellValidTillXpath).getText();
             Date dateTill = DateUtils.convertToDate(validTill,"dd-MM-YYYY");
             Date today = DateUtils.convertToDate(DateUtils.getDate(0,"dd-MM-YYYY", BOConstants.GMT_FOUR),"dd-MM-YYYY");

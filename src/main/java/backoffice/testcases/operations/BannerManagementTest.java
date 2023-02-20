@@ -414,16 +414,52 @@ public class BannerManagementTest extends BaseCaseMerito {
         page.logout();
 
         log("Step 3: Navigate to before login of FairExchange old view and observe banner show on Home before login");
+        memberLoginURL = "https://faqat.beatus88.com/x";
         loginMember(feMemberLoginId, feMemberLoginPwd, false, language, currency, false);
         log("Verify 3. Verify Banner show correctly with sequence set from BO");
-        List<String> lstMemberImgSrcBefore = landingPage.getListBanners();
+        List<String> lstMemberImgSrcBefore = landingPage.getListBanners("old view");
         for (int i = 0; i < lstMemberImgSrcBefore.size(); i++) {
             Assert.assertTrue(lstMemberImgSrcBefore.get(i).contains(lstImgSrc.get(i)));
         }
         log("Verify 4. Login to Home and observe banner");
         memberHomePage = landingPage.login(_brandname,feMemberLoginId, StringUtils.decrypt(feMemberLoginPwd),true);
         log("Verify 4. Verify Banner show correctly with sequence set from BO");
-        List<String> lstMemberImgSrcAfter = landingPage.getListBanners();
+        List<String> lstMemberImgSrcAfter = landingPage.getListBanners("old view");
+        for (int i = 0; i < lstMemberImgSrcAfter.size(); i++) {
+            Assert.assertTrue(lstMemberImgSrcAfter.get(i).contains(lstImgSrc.get(i)));
+        }
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "1648")
+    @Test(groups = {"regression"})
+    @Parameters({"feMemberLoginId", "feMemberLoginPwd", "language", "currency"})
+    public void BO_Operations_BannerManagement_1648(String feMemberLoginId, String feMemberLoginPwd, String language, String currency) throws Exception {
+        String expectedBrand = "FairExchange";
+        String status = BOConstants.Operations.BannerManagement.DDB_STATUS.get(1);
+        log("@title: Validate New View - FairExchange show correctly banner as sequence setting");
+        log("Step 1: Navigate Operations > Banner Management and get all active banner valid till today");
+        BannerManagementPage page = backofficeHomePage.navigateBannerManagement();
+
+        log("Step 2: Observe sequence setting for Old VIew, Type = Home, Brand = FairExchange, Status = Active");
+        page.switchView("New View");
+        page.filter("Home", expectedBrand, "All", status);
+        List<String> lstImgSrc = page.getListBanners(page.colBanner, page.colValidTill+2);
+        page.logout();
+
+        log("Step 3: Navigate to before login of FairExchange new view and observe banner show on Home before login");
+        memberLoginURL = "https://faqat.beatus88.com/plus";
+        loginMember(feMemberLoginId, feMemberLoginPwd, false, language, currency, false);
+        log("Verify 3. Verify Banner show correctly with sequence set from BO");
+        List<String> lstMemberImgSrcBefore = landingPage.getListBanners("new view");
+        for (int i = 0; i < lstMemberImgSrcBefore.size(); i++) {
+            Assert.assertTrue(lstMemberImgSrcBefore.get(i).contains(lstImgSrc.get(i)));
+        }
+        log("Verify 4. Login to Home and observe banner");
+        memberHomePage = landingPage.login(_brandname,feMemberLoginId, StringUtils.decrypt(feMemberLoginPwd),true);
+        log("Verify 4. Verify Banner show correctly with sequence set from BO");
+        List<String> lstMemberImgSrcAfter = landingPage.getListBanners("new view");
         for (int i = 0; i < lstMemberImgSrcAfter.size(); i++) {
             Assert.assertTrue(lstMemberImgSrcAfter.get(i).contains(lstImgSrc.get(i)));
         }
