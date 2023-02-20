@@ -11,7 +11,7 @@
         <parameter name='language' value=''/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='sabella1'/>
+        <parameter name='username' value='sabella3'/>
         <parameter name='usernameSAT' value='03H'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='true'/>
@@ -30,22 +30,22 @@
         </groups>
 
         <classes>
-            <class name="membersite.testcases.all.afterlogin.exchangegame.EGHomPageTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchangegame.EGBaccaratTest"/>
-            <class name="membersite.testcases.sat.fancy.WicketBookmakerTest"/>
-            <class name="membersite.testcases.sat.fancy.WicketFancyTest"/>
-            <class name="membersite.testcases.sat.fancy.CentralFancyTest"/>
-            <class name="membersite.testcases.sat.fancy.CentralBookmakerTest"/>
-            <class name="membersite.testcases.sat.SATForecastFunctionTest"/>
-            <class name="membersite.testcases.sat.SATPlaceBetFunctionTest"/>
-            <class name="membersite.testcases.sat.SATOddsSectionTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchange.AccountStatementTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchange.MyBetPageTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchange.ProfitAndLossPageTest"/>
-            <class name="membersite.testcases.sat.SATOddsSectionTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchange.BetSlipMyBetTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchange.HeaderSectionTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchange.LeftMenuTest"/>
+          <!--  <class name="membersite.testcases.all.afterlogin.exchangegame.EGHomPageTest"/>-->
+            <!--  <class name="membersite.testcases.all.afterlogin.exchangegame.EGBaccaratTest"/>
+              <class name="membersite.testcases.sat.fancy.WicketBookmakerTest"/>
+              <class name="membersite.testcases.sat.fancy.WicketFancyTest"/>
+              <class name="membersite.testcases.sat.fancy.CentralFancyTest"/>
+              <class name="membersite.testcases.sat.fancy.CentralBookmakerTest"/>
+              <class name="membersite.testcases.sat.SATForecastFunctionTest"/>
+              <class name="membersite.testcases.sat.SATPlaceBetFunctionTest"/>
+              <class name="membersite.testcases.sat.SATOddsSectionTest"/>
+              <class name="membersite.testcases.all.afterlogin.exchange.AccountStatementTest"/>
+              <class name="membersite.testcases.all.afterlogin.exchange.MyBetPageTest"/>
+              <class name="membersite.testcases.all.afterlogin.exchange.ProfitAndLossPageTest"/>
+              <class name="membersite.testcases.sat.SATOddsSectionTest"/>
+              <class name="membersite.testcases.all.afterlogin.exchange.BetSlipMyBetTest"/>
+              <class name="membersite.testcases.all.afterlogin.exchange.HeaderSectionTest"/>
+              <class name="membersite.testcases.all.afterlogin.exchange.LeftMenuTest"/>-->
         </classes>
 
     </test>

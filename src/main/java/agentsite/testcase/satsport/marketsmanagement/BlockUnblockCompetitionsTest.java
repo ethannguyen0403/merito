@@ -27,7 +27,7 @@ public class BlockUnblockCompetitionsTest extends BaseCaseMerito {
      * @expect:  1. Verify Block/Unblock Competition UI display correctly
      */
     @TestRails(id="777")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1"})
     public void Agent_MM_BlockUnblockCompetitions_TC002() {
         log("@title: Validate Block/Unblock Competition UI display correctly");
 

@@ -1,13 +1,13 @@
 package membersite.pages.components.header;
 
 import com.paltech.driver.DriverManager;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.Image;
-import com.paltech.element.common.Label;
+import com.paltech.element.common.*;
 import common.MemberConstants;
 import membersite.controls.DropDownMenu;
-import membersite.pages.all.tabexchange.AccountStatementPage;
-import membersite.pages.all.tabexchange.MyBetsPage;
+import membersite.pages.AccountStatementPage;
+import membersite.pages.MyBetsPage;
+import membersite.pages.popup.MyMarketPopup;
+import membersite.pages.all.tabexchangegame.EGHomePage;
 import membersite.pages.components.changepasswordpopup.FunsportChangePasswordPopup;
 import membersite.pages.components.loginform.FairenterLoginPopup;
 import membersite.pages.components.underagegamblingpopup.FairenterUnderageGamblingPopup;
@@ -18,9 +18,9 @@ public class FairenterHeader extends Header {
     private Label imgSpinner = Label.xpath("//div[@class=lds-spinner']");
     private Label lblTimezone = Label.xpath("//div[contains(@class,'time-contain') or contains(@class,'timer-contain')]");
     private Button btnLogin = Button.xpath("//input[contains(@class,'btn-login')]");
-
+    private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
     private DropDownMenu ddmAccount =DropDownMenu.xpath("//div[@id='my-account-dropdown']","","//ul[contains(@class,'dropdown-menu')]//li");
-
+    private Link lnkMyMarkets = Link.xpath("//span[@class='link mymarkets']");
     public FairenterLoginPopup clickConfirm() {
        clickLogin().clickConfirmation();
         return new FairenterLoginPopup();
@@ -49,26 +49,33 @@ public class FairenterHeader extends Header {
         return ddmAccount.isContainSubmenu(menu);
     }
 
-    public AccountStatementPage openAccountStatement(){
+    public membersite.pages.AccountStatementPage openAccountStatement(String type){
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"));
         DriverManager.getDriver().switchToWindow();
-        AccountStatementPage page = new AccountStatementPage();
-        page.btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT,5);
+        membersite.pages.AccountStatementPage page = new AccountStatementPage(type);
+        page.accountStatementContainer.waitLoadReport();
         return page;
     }
-
-    public MyBetsPage openMyBets(){
+    public membersite.pages.MyBetsPage openMyBets(String type){
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"));
         DriverManager.getDriver().switchToWindow();
-        MyBetsPage page = new MyBetsPage();
-        page.btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT,5);
-        page.lblTimezone.isTextDisplayed(MemberConstants.MyBetsPage.NOTES,5);
+        membersite.pages.MyBetsPage page = new MyBetsPage(type);
+        page.myBetsContainer.waitLoadReport();
         return page;
     }
 
     public FunsportChangePasswordPopup openChangePasswordPopup(){
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
         return new FunsportChangePasswordPopup();
+    }
+    public EGHomePage openExchangeGame(){
+        tabExchangeGames.click();
+        return new EGHomePage();
+    }
+    public void clickLogo(){imgLogo.click();}
+    public MyMarketPopup openMyMarketPopup(){
+        lnkMyMarkets.click();
+        return new MyMarketPopup();
     }
 
 }

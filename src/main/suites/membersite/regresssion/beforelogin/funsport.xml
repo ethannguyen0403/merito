@@ -30,7 +30,7 @@
         </groups>
 
         <classes>
-            <class name="membersite.testcases.enhance.LandingPageTest"/>
+            <class name="membersite.testcases.exchange.LandingPageTest"/>
         </classes>
 
     </test>

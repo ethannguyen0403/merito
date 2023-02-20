@@ -48,7 +48,7 @@ public class BannerManagementTest extends BaseCaseMerito{
      *           2. Items on Status dropdown-box are loaded correctly
      *           3. Column names on this table are correct
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     public void BO_Operations_BannerManagement_008(){
         log("@title: Validate that this page loading is successful");
         List<String> lstBrandNames = BannerManagementUtils.getBrandNames();
@@ -86,7 +86,7 @@ public class BannerManagementTest extends BaseCaseMerito{
      *          2. Select Home type,  Select SAT Sport and Status Active and click Search button
      * @expect:  1. Verify data in each rows in Brand column contains SAT Sport and Status is ACTIVE
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     public void BO_Operations_BannerManagement_003(){
         log("@title: Validate data display correctly when filter active banner for SAT Sport");
         String status = BOConstants.Operations.BannerManagement.DDB_STATUS.get(1);
@@ -114,7 +114,7 @@ public class BannerManagementTest extends BaseCaseMerito{
      *          2. Select Home type,  Select SAT Sport and Status Inactive and click Search button
      * @expect:  1. Verify data in each rows in Brand column contains SAT Sport and Status is INACTIVE
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     public void BO_Operations_BannerManagement_004(){
         log("@title: Validate data display correctly when filter Inactive banner for SAT Sport");
         String status = BOConstants.Operations.BannerManagement.DDB_STATUS.get(2);
@@ -147,7 +147,7 @@ public class BannerManagementTest extends BaseCaseMerito{
      *          2. Select Home type,  Select Word Exchange and Status Inactive and click Search button
      * @expect:  1. Verify data in each rows in Brand column contains World Exchange and Status is INACTIVE otherwise display No record found
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     public void BO_Operations_BannerManagement_005(){
         log("@title: Validate data display correctly when filter active banner for Word Exchange");
         String status = BOConstants.Operations.BannerManagement.DDB_STATUS.get(1);
@@ -188,7 +188,7 @@ public class BannerManagementTest extends BaseCaseMerito{
      *          3. A message "Banner Updated" display and click Ok button. Verify brand of banner is updated: Brand column display World Exchange and FairExchange
      *          4. A message "Banner Deleted " display. click Ok and the banner is deleted
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     @Parameters("username")
     public void BO_Operations_BannerManagement_006(String username) throws InterruptedException {
         log("@title: Validate data display correctly when filter active banner for Word Exchange");
@@ -250,7 +250,7 @@ public class BannerManagementTest extends BaseCaseMerito{
      *          3. Login JIO member site > Home page
      * @expect: 1. Verify the active banners is display correctly
      */
-    @Test (groups = {"smoke"})
+    @Test (groups = {"regression"})
     @Parameters({"satMemberLoginID","memberPassword"})
     public void BO_Operations_BannerManagement_007(String satMemberLoginID, String memberPassword) throws Exception {
         log("@title: Validate Home banner display correctly when login member site");

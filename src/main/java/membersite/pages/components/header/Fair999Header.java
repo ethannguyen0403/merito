@@ -1,15 +1,14 @@
 package membersite.pages.components.header;
 
 import com.paltech.driver.DriverManager;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.CheckBox;
-import com.paltech.element.common.Image;
-import com.paltech.element.common.TextBox;
+import com.paltech.element.common.*;
 import common.MemberConstants;
 import membersite.controls.DropDownMenu;
-import membersite.pages.all.tabexchange.AccountStatementPage;
-import membersite.pages.all.tabexchange.MyBetsPage;
-import membersite.pages.all.tabexchange.ProfitAndLossPage;
+import membersite.pages.AccountStatementPage;
+import membersite.pages.MyBetsPage;
+import membersite.pages.ProfitAndLossPage;
+import membersite.pages.popup.MyMarketPopup;
+import membersite.pages.all.tabexchangegame.EGHomePage;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
@@ -19,9 +18,12 @@ public class Fair999Header extends Header {
     public TextBox txtPassword = TextBox.name("password");
     private Button btnLogin = Button.xpath("//header//button[contains(@class,'btn-in-out')]");
     private Button btnJoinNow = Button.xpath("//header//button[contains(@class,'join-now')]");
-    Image imgLogo = Image.xpath("//span[@class='sprite-logos']");
+    Image imgLogo = Image.xpath("//a[contains(@class,'logo')]");
     CheckBox chkRememberMe = CheckBox.id("remember-me");
     private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[contains(@class,'account d-block')]","","//ul[contains(@class,'dropdown-menu')]//li");
+    private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
+    private Label imgSpinner = Label.xpath("//div[@class='lds-spinner']");
+    private Link lnkMyMarkets = Link.xpath("//span[@class='link mymarkets']");
 
     // Before Login
     public SATUnderageGamblingPopup clickLogin() {
@@ -42,6 +44,7 @@ public class Fair999Header extends Header {
         SATLoginPopup loginPopup = openLoginPopup();
         loginPopup.login(username, password,skipByDefault);
     }
+
     public String loginInvalid(String username, String password){
         SATLoginPopup loginPopup = openLoginPopup();
         loginPopup.login(username, password,false);
@@ -58,28 +61,27 @@ public class Fair999Header extends Header {
         return ddmAccount.isContainSubmenu(menu);
     }
 
-    public AccountStatementPage openAccountStatement(){
+    public membersite.pages.AccountStatementPage openAccountStatement(String type){
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"));
         DriverManager.getDriver().switchToWindow();
-        AccountStatementPage page = new AccountStatementPage();
-        page.btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT,5);
+        membersite.pages.AccountStatementPage page = new AccountStatementPage(type);
+        page.accountStatementContainer.waitLoadReport();
         return page;
     }
 
-    public MyBetsPage openMyBets(){
+    public membersite.pages.MyBetsPage openMyBets(String type){
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"));
         DriverManager.getDriver().switchToWindow();
-        MyBetsPage page = new MyBetsPage();
-        page.btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT,5);
-        page.lblTimezone.isTextDisplayed(MemberConstants.MyBetsPage.NOTES,5);
+        membersite.pages.MyBetsPage page = new MyBetsPage(type);
+        page.myBetsContainer.waitLoadReport();
         return page;
     }
 
-    public ProfitAndLossPage openProfitAndLoss(){
+    public membersite.pages.ProfitAndLossPage openProfitAndLoss(String type){
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Profit & Loss"));
         DriverManager.getDriver().switchToWindow();
-        ProfitAndLossPage page = new ProfitAndLossPage();
-        page.btnLoadReport.isTextDisplayed(MemberConstants.ProfitAndLossPage.LOAD_REPORT,5);
+        membersite.pages.ProfitAndLossPage page = new ProfitAndLossPage(type);
+        page.profitAndLossContainer.waitLoadReport();
         return page;
     }
 
@@ -88,6 +90,19 @@ public class Fair999Header extends Header {
         return new SATChangePasswordPopup();
     }
 
+    public EGHomePage openExchangeGame(){
+        tabExchangeGames.click();
+        return new EGHomePage();
+    }
+    public void clickLogo(){imgLogo.click();}
+    public void waitSpinLoad(){
+        imgSpinner.waitForControlInvisible(1,2);
+    }
+
+    public MyMarketPopup openMyMarketPopup(){
+        lnkMyMarkets.click();
+        return new MyMarketPopup();
+    }
 
 }
 

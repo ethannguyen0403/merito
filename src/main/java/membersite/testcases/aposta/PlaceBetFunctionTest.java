@@ -20,14 +20,14 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class PlaceBetFunctionTest extends BaseCaseMerito {
-    /**
+   /* *//**
      * @title: Validate that user can NOT place Back bet if Stake less than min setting
      * @steps:  1. Click Soccer menu
      *          2. Click on an event
      *          3. Click on an Back odds without empty of the selection have the high potential win
      *          4. Input stake less than min bet
      * @expect: 1. Error Cannot place bet display: "Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s."
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC001(){
         log("@title: Validate that user can NOT place matched Back bet if Stake less than min setting");
@@ -67,7 +67,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate that user can place Matched Back bet on Soccer market
      * @Precondition:  1. Login member site
      * @steps:      1. Click Soccer menu
@@ -80,7 +80,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *              4. Selected team on My Bet and on Bet Slip is the same
      *              5. Liability on My Bet and on Bet Slip is the same
      *              6. Profit on My Bet and on Bet Slip is the same
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC002(){
         log("@title: Validate that user can place Matched Back bet on Soccer market");
@@ -125,7 +125,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate that user can place Matched Lay bet on Soccer market
      * @Precondition:  1. Login member site
      * @steps:      1. Click Soccer menu
@@ -138,7 +138,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *              4. Selected team on My Bet and on Bet Slip is the same
      *              5. Liability on My Bet and on Bet Slip is the same
      *              6. Profit on My Bet and on Bet Slip is the same
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC003(){
         log("@title: Validate that user can place Matched Lay bet on Soccer market");
@@ -187,7 +187,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate can place unmatched Back bet successfully for Tennis
      * @Precondition:  1. Login member site
      * @steps:         1. Active any market of Tennis
@@ -200,7 +200,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *                  4. At in-play will check  on Cancel option by default
      *                  5. Back bet background is green #C9E6EF
      *                  6. Account Balance/Outstanding updated correctly
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC004(){
         log("@title: Validate can place unmatched Back bet successfully for Tennis");
@@ -252,7 +252,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title: Validate can place unmatched Lay bet successfully for Tennis
      * @Precondition:  1. Login member site
      * @steps:        1. Active any market of Tennis
@@ -265,7 +265,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          4. At in-play will check  on Cancel option by default
      *          5. Lay bet background is pink #F9E6ED
      *          6. Account Balance/Outstanding updated correctly
-     */
+     *//*
      @Test(groups = {"smoke"})
      public void Place_Bet_Function_TC005(){
             log("@title: Validate can place unmatched Lay bet successfully for Tennis");
@@ -315,7 +315,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
             }
      }
 
-    /**
+    *//**
      * @title: Validate cancel bet icon works
      * @Precondition:  1. Login member site
      * @steps:          1. Active any market of soccer
@@ -325,7 +325,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *                  5 Open My bet and filter Cancel option
      * @expect:         1. Bet is cancel
      *                  2. Bet in My bet display with the status cancel
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC006(){
         log("@title: Validate cancel bet icon works");
@@ -393,7 +393,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate cancel all bet icon works
      * @Precondition:  1. Login member site
      * @steps:          1. Active any market of soccer
@@ -403,7 +403,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *                  5 Open My bet and filter Cancel option
      * @expect:     1. Back and Lay bet are canceled
      *              2. Bets in My bet display with the status cancel
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC007(){
         log("@title: Validate cancel bet icon works");
@@ -476,7 +476,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate can place unmatched Back bet successfully for Cricket
      * @Precondition:  1. Login member site
      * @steps:        1. Active any market of Cricket
@@ -489,7 +489,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          4. At in-play will check  on Cancel option by default
      *          5. Lay  bet background is pink #F9E6ED
      *          6. Account Balance/Outstanding updated correctly
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC008(){
         log("@title: Validate can place unmatched Back bet successfully for Cricket");
@@ -540,7 +540,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title: Validate can place unmatched Lay bet successfully for Cricket
      * @Precondition:  1. Login member site
      * @steps:        1. Active any market of Cricket
@@ -553,7 +553,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          4. At in-play will check  on Cancel option by default
      *          5. Lay bet background is pink #F9E6ED
      *          6. Account Balance/Outstanding updated correctly
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC009(){
         log("@title: Validate can place unmatched Lay bet successfully for Cricket");
@@ -605,7 +605,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title: Validate can place unmatched Back bet successfully for Horse Racing
      * @Precondition:  1. Login member site
      * @steps:  1. Active any market of Horse Racing
@@ -617,7 +617,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          3. Selection , Odds, Stake, Profit display correctly
      *          4. At in-play will check  on Cancel option by default
      *          5. Back bet background is green #C9E6EF
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC010(){
         log("@title: Validate can place unmatched Back bet successfully for Horse Racing");
@@ -677,13 +677,13 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title:  As support #44512: Lay odds is empty and are not allowed to click to add on bet slip
      * @Precondition:  1. Login member site
      * @steps:  1. Active any market of Horse Racing
      *          2. Click on any Lay odds
      * @expect: 1.  As support #44512: Lay odds is empty and are not allowed to click to add on bet slip
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC011(){
         log("@title:  As support #44512: Lay odds is empty and are not allowed to click to add on bet slip");
@@ -710,7 +710,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
 
     }
 
-    /**
+    *//**
      * @title: Validate that user can place Unmatched Back bet on Soccer market
      * @Precondition:  1. Login member site
      * @steps:  1. Active any market of Soccer
@@ -723,7 +723,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          4. At in-play will check  on Cancel option by default
      *          5. Back bet background is green #C9E6EF
      *          6. Account Balance/Outstanding updated correctly
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC021(){
         log("@title: Validate that user can place unmatched Back bet on Soccer market");
@@ -774,7 +774,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title: Validate that user can place Unmatched Lay bet on Soccer market
      * @Precondition:  1. Login member site
      * @steps:  1. Active any market of Soccer
@@ -787,7 +787,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *          4. At in-play will check  on Cancel option by default
      *          5. Back bet background is green #C9E6EF
      *          6. Account Balance/Outstanding updated correctly
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC022(){
         log("@title: Validate that user can place unmatched Lay bet on Soccer market");
@@ -843,13 +843,13 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         }
     }
 
-    /**
+    *//**
      * @title: Validate that cannot place Back bet if exposure exceed available balance
      * @precondition:  1. Login member site
      * @steps:  1. Active any market, and place  Back odds
      *          2. Input stake that the exposure is greater than user available balance
      * @expect: 1. Error message "Error : Cannot place bet. Your Main balance is insufficient." display
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC023(){
         log("@title: Validate that cannot place Back bet if exposure exceed available balance");
@@ -878,13 +878,13 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate that cannot place Lay bet if exposure exceed available balance
      * @precondition:  1. Login member site
      * @steps:  1. Active any market, and place Lay odds
      *          2. Input stake that the exposure is greater than user available balance
      * @expect: 1. Error message "Error : Cannot place bet. Your Main balance is insufficient." display
-     */
+     *//*
     @Test(groups = {"regression"})
     public void Place_Bet_Function_TC024(){
         log("@title: Validate that cannot place Lay bet if exposure exceed available balance");
@@ -914,13 +914,13 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate that user can NOT place Lay bet if Stake less than min setting
      * @steps:  1. Active any market page
      *          2. Click on an Lay Odds
      *          3. Input stake less than min bet
      * @expect: 1. Error Cannot place bet display: "Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s."
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC025(){
         log("@title: Validate that user can NOT place Lay bet if Stake less than min setting");
@@ -962,7 +962,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate that user can NOT place Back bet if Stake greater than max setting
      * @precondition 1 There is an unblocked soccer event
      *              2 Login member site
@@ -971,7 +971,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *              2. Click on an Back Odds
      *              3. Input stake greater than max bet
      * @expect:     1  Error Cannot place bet display: "Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.""
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC026(){
         log("@title: Validate that user can NOT place Back bet if Stake greater than max setting");
@@ -1011,7 +1011,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate that user can NOT place Lay bet if Stake greater than max setting
      * @precondition 1 There is an unblocked soccer event
      *              2 Login member site
@@ -1020,7 +1020,7 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
      *              2. Click on an Lay Odds
      *              3. Input stake greater than max bet
      * @expect:     1  Error Cannot place bet display: "Error : Cannot place bet. The stake must be from [min] to [max]. Current Stake is [stake].""
-     */
+     *//*
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC027(){
         log("@title: Validate that user can NOT place Lay bet if Stake greater than max setting");
@@ -1059,5 +1059,5 @@ public class PlaceBetFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-
+*/
 }

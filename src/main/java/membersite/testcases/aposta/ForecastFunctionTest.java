@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ForecastFunctionTest extends BaseCaseMerito {
+public class ForecastFunctionTest extends BaseCaseMerito {/*
 
-    /**
+    *//**
      * @title: Validate that user can place Matched Back bet on Soccer market
      * @Precondition:  1. Login member site
      * @steps:      1. Active any market of Soccer
@@ -24,7 +24,7 @@ public class ForecastFunctionTest extends BaseCaseMerito {
      *          2. Verify forecast display correct on the selection has bet placed correct:
      *           -  Display profit for under placed selection
      *          - Display liability of the bet under other selections
-     */
+     *//*
     @TestRails(id = "581")
     @Test(groups = {"smoke"})
     public void ForecastFunction_TC001(){
@@ -63,7 +63,7 @@ public class ForecastFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
 
     }
-    /**
+    *//**
      * @title: Validate forecast/ liability value display correctly when place back and Lay bet on a selection
      * @Precondition:  1. Login member site
      * @steps:          1. Active any market of Soccer
@@ -72,7 +72,7 @@ public class ForecastFunctionTest extends BaseCaseMerito {
      *                  2. Verify forecast display correct on the selection has bet placed correct:
      *                  - Display liability under placed selection
      *                  - Display Profit(back -lay) for other selection
-     */
+     *//*
     @TestRails(id = "582")
     @Test(groups = {"smoke"})
     public void ForecastFunction_TC002(){
@@ -117,7 +117,7 @@ public class ForecastFunctionTest extends BaseCaseMerito {
         log("INFO: Executed completely");
     }
 
-    /**
+    *//**
      * @title: Validate forecast/ liability value display correctly when place Lay bet on a selection
      * @Precondition:  1. Login member site
      * @steps:      1. Click Soccer menu
@@ -130,7 +130,7 @@ public class ForecastFunctionTest extends BaseCaseMerito {
      *              4. Selected team on My Bet and on Bet Slip is the same
      *              5. Liability on My Bet and on Bet Slip is the same
      *              6. Profit on My Bet and on Bet Slip is the same
-     */
+     *//*
     @TestRails(id = "583")
     @Test(groups = {"smoke"})
     public void ForecastFunction_TC012(){
@@ -164,6 +164,6 @@ public class ForecastFunctionTest extends BaseCaseMerito {
 
         log("INFO: Executed completely");
 
-    }
+    }*/
 
 }

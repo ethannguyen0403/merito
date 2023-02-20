@@ -1,13 +1,38 @@
 package membersite.pages.components;
 
+import membersite.pages.components.betslipcontainer.BetsSlipContainer;
+import membersite.pages.components.betslipcontainer.NewUIBetsSlipContainer;
+import membersite.pages.components.highlightracecontainer.HighLightRaceContainer;
+import membersite.pages.components.marketcontainer.MarketContainerControl;
+import membersite.pages.components.accountstatement.AccountStatementContainer;
+import membersite.pages.components.accountstatement.NewUIAccountStatementContainer;
+import membersite.pages.components.accountstatement.NewViewAccountStatementContainer;
+import membersite.pages.components.accountstatement.OldUIAccountStatementContainer;
+import membersite.pages.components.eventcontainer.EventContainerControl;
+import membersite.pages.components.eventcontainer.NewUIEventContainerControl;
 import membersite.pages.components.footer.Footer;
 import membersite.pages.components.footer.FunFooter;
 import membersite.pages.components.footer.SatFooter;
 import membersite.pages.components.header.*;
+import membersite.pages.components.leftmneu.LeftMenu;
+import membersite.pages.components.leftmneu.NewUILeftMenu;
 import membersite.pages.components.loginform.FairenterLoginPopup;
 import membersite.pages.components.loginform.FunLoginPopup;
 import membersite.pages.components.loginform.LoginPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
+import membersite.pages.components.marketcontainer.NewUIMarketContainerControl;
+import membersite.pages.components.minimybetcontainer.MiniMyBetsContainer;
+import membersite.pages.components.minimybetcontainer.NewUIMiniMyBetsContainer;
+import membersite.pages.components.mybet.MyBetsContainer;
+import membersite.pages.components.mybet.NewUIMyBetsContainer;
+import membersite.pages.components.mybet.NewViewMyBetsContainer;
+import membersite.pages.components.mybet.OldUIMyBetsContainer;
+import membersite.pages.components.profitandloss.NewUIProfitAndLossContainer;
+import membersite.pages.components.profitandloss.NewViewProfitAndLossContainer;
+import membersite.pages.components.profitandloss.OldUIProfitAndLossContainer;
+import membersite.pages.components.profitandloss.ProfitAndLossContainer;
+import membersite.pages.components.racingcontainer.RacingContainer;
+import membersite.pages.components.racingmarketcontainer.RacingMarketContainer;
 import membersite.pages.components.underagegamblingpopup.FairenterUnderageGamblingPopup;
 import membersite.pages.components.underagegamblingpopup.FunsportUnderageGamblingPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
@@ -22,7 +47,6 @@ public class ComponentsFactory {
                 return new SatFooter();
         }
        }
-
     public static Header headerObject(String types){
         switch (types){
             case "funsport":
@@ -34,7 +58,6 @@ public class ComponentsFactory {
                 return new SatHeader();
         }
     }
-
     public static UnderageGamblingPopup underageGamblingPopupObject(String types){
         switch (types){
             case "funsport":
@@ -45,7 +68,48 @@ public class ComponentsFactory {
                 return new SATUnderageGamblingPopup();
         }
     }
-
+    public static AccountStatementContainer accountStatementContainerObject(String types){
+        switch (types){
+            case "funsport":
+                return new OldUIAccountStatementContainer();
+            case "fairenter":
+                return new OldUIAccountStatementContainer();
+            case "satsport":
+                return new NewUIAccountStatementContainer();
+            case "fairexchange":
+                return new NewUIAccountStatementContainer();
+            default:
+                return new NewViewAccountStatementContainer();
+        }
+    }
+    public static MyBetsContainer myBetsContainerObject(String types){
+        switch (types){
+            case "funsport":
+                return new OldUIMyBetsContainer();
+            case "fairenter":
+                return new OldUIMyBetsContainer();
+            case "satsport":
+                return new NewUIMyBetsContainer();
+            case "fairexchange":
+                return new NewUIMyBetsContainer();
+            default:
+                return new NewViewMyBetsContainer();
+        }
+    }
+    public static ProfitAndLossContainer profitAndLossContainerObject(String types){
+        switch (types){
+            case "funsport":
+                return new OldUIProfitAndLossContainer();
+            case "fairenter":
+                return new OldUIProfitAndLossContainer();
+            case "satsport":
+                return new NewUIProfitAndLossContainer();
+            case "fairexchange":
+                return new NewUIProfitAndLossContainer();
+            default:
+                return new NewViewProfitAndLossContainer();
+        }
+    }
     public static LoginPopup loginPopupObject(String types){
         switch (types){
             case "funsport":
@@ -56,7 +120,53 @@ public class ComponentsFactory {
                 return new SATLoginPopup();
         }
     }
+    public static EventContainerControl eventContainerControlObject(String types){
+        switch (types){
+            default:
+                return new NewUIEventContainerControl();
+        }
+    }
+    public static LeftMenu lefMenuObject(String types){
+        switch (types){
+            default:
+                return new NewUILeftMenu();
+        }
+    }
+    public static MarketContainerControl marketOddControlObject(String types) {
+        switch (types){
+            default:
+                return new NewUIMarketContainerControl();
+        }
+    }
+    public static BetsSlipContainer betsSlipContainerObject(String types){
+            switch (types){
 
-
-
+                default:
+                    return new NewUIBetsSlipContainer();
+            }
+    }
+    public static MiniMyBetsContainer miniMyBetsContainerObject(String types){
+        switch (types){
+            default:
+                return new NewUIMiniMyBetsContainer();
+        }
+    }
+    public static RacingMarketContainer racingMarketContainerObject(String types){
+        switch (types){
+            default:
+                return new RacingMarketContainer();
+        }
+    }
+    public static HighLightRaceContainer highLightRaceContainerObject(String types){
+        switch (types){
+            default:
+                return new HighLightRaceContainer();
+        }
+    }
+    public static RacingContainer racingContainerObject(String types){
+        switch (types){
+            default:
+                return new RacingContainer();
+        }
+    }
 }
