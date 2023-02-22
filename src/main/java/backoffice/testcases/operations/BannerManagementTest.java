@@ -282,7 +282,7 @@ public class BannerManagementTest extends BaseCaseMerito {
      * 2. Filter a brand name
      * @expect: 1. Values at Brand column are correct
      */
-    @Test(groups = {"regression_qc"})
+    @Test(groups = {"regression_invalid"})
     public void BO_Operations_BannerManagement_0012() {
         log("@title: Validate that data returned is correct after filtering Active status");
         List<String> lstBrandNames = BannerManagementUtils.getBrandNames();
