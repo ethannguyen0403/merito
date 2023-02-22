@@ -51,6 +51,7 @@ public class LeftMenu extends Header {
     Menu menuMarketManagement = Menu.id("market-management");
     SubMenu smFindBlockedMarket = SubMenu.name("find-blocked-market");
     SubMenu smEventMarketsStatus = SubMenu.name("events-markets-status");
+    SubMenu smEventMarketLog = SubMenu.name("event-market-log");
     SubMenu smBlockingSettings =SubMenu.name("blocking-settings");
     SubMenu smCompetitionBlocking =SubMenu.name("competition-blocking");
     SubMenu smLiquidityThresholdSettings = SubMenu.name("liquidity-threshold-settings");
@@ -506,6 +507,14 @@ public class LeftMenu extends Header {
         int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
         DriverManager.getDriver().switchToFrame(countIframesInPage-1);
         return new EventMarketStatusPage();
+    }
+    public EventMarketLogPage navigateEventMarketLog() {
+        smEventMarketLog.click();
+        // waiting for loading completely
+        smEventMarketLog.isInvisible(2);
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
+        return new EventMarketLogPage();
     }
     public FindBlockedMarketPage navigateFindBlockedMarket() {
         smFindBlockedMarket.click();

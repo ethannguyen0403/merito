@@ -1,13 +1,15 @@
 package membersite.pages;
 import com.paltech.driver.DriverManager;
+import com.paltech.element.common.Image;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.footer.Footer;
 import membersite.pages.components.header.Header;
 import membersite.pages.components.leftmneu.LeftMenu;
-import membersite.pages.components.loginform.LoginPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
-import org.openqa.selenium.support.PageFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class LandingPage extends BasePage{
@@ -62,6 +64,41 @@ public class LandingPage extends BasePage{
 
     public MyBetsPage openMyBet(){
         return header.openMyBets(this._type);
+    }
+
+    public List<String> getListBanners(String brandType) {
+        List<String> lstBannerSrc = new ArrayList<>();
+        int i = 1;
+        while(true) {
+            String imgSrc;
+            String xpathLocator;
+            Image imgLocator;
+            switch (brandType.toLowerCase()) {
+                case "old view":
+                    xpathLocator = String.format("//div[@class='carousel slide']//slide[%s]//a",i);
+                    imgLocator = Image.xpath(xpathLocator);
+                    if (!imgLocator.isDisplayedShort(2)){
+                        return lstBannerSrc;
+                    }
+                    imgSrc = imgLocator.getWebElement().getCssValue("background-image");
+                    imgSrc = imgSrc.split("img")[1];
+                    lstBannerSrc.add(imgSrc);
+                    break;
+                case "new view":
+                    xpathLocator = String.format("//div[@class='carousel slide']//slide[%s]//a//img",i);
+                    imgLocator = Image.xpath(xpathLocator);
+                    if (!imgLocator.isDisplayedShort(2)){
+                        return lstBannerSrc;
+                    }
+                    imgSrc = imgLocator.getWebElement().getAttribute("src");
+                    imgSrc = imgSrc.split("img")[1];
+                    lstBannerSrc.add(imgSrc);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + brandType.toLowerCase());
+            }
+            i+=1;
+        }
     }
 
 }
