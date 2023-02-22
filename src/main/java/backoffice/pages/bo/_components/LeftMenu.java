@@ -43,6 +43,7 @@ public class LeftMenu extends Header {
     SubMenu smWagerVoidUnvoid = SubMenu.name("wager-void-un-void");
     SubMenu smLiveStreamingManagement = SubMenu.name("live-streaming-management");
     SubMenu smAnnouncementManagement = SubMenu.name("announcement-management");
+    SubMenu smMixedPTConfiguration = SubMenu.name("mixed-pt-configuration");
     SubMenu smBannerManagement = SubMenu.name("banner-management");
     SubMenu smPerformance = SubMenu.name("performance");
 
@@ -50,6 +51,7 @@ public class LeftMenu extends Header {
     Menu menuMarketManagement = Menu.id("market-management");
     SubMenu smFindBlockedMarket = SubMenu.name("find-blocked-market");
     SubMenu smEventMarketsStatus = SubMenu.name("events-markets-status");
+    SubMenu smEventMarketLog = SubMenu.name("event-market-log");
     SubMenu smBlockingSettings =SubMenu.name("blocking-settings");
     SubMenu smCompetitionBlocking =SubMenu.name("competition-blocking");
     SubMenu smLiquidityThresholdSettings = SubMenu.name("liquidity-threshold-settings");
@@ -219,6 +221,15 @@ public class LeftMenu extends Header {
     /*************
      * Operations
      *************/
+    public MixedPTConfigurationPage navigateMixedPTConfiguration() {
+        smMixedPTConfiguration.click();
+        // waiting for loading completely
+        smMixedPTConfiguration.isInvisible(2);
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
+        smMixedPTConfiguration.isInvisible(2);
+        return new MixedPTConfigurationPage();
+    }
     public AnnouncementManagementPage navigateAnnouncementManagement() {
         smAnnouncementManagement.click();
         // waiting for loading completely
@@ -496,6 +507,14 @@ public class LeftMenu extends Header {
         int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
         DriverManager.getDriver().switchToFrame(countIframesInPage-1);
         return new EventMarketStatusPage();
+    }
+    public EventMarketLogPage navigateEventMarketLog() {
+        smEventMarketLog.click();
+        // waiting for loading completely
+        smEventMarketLog.isInvisible(2);
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
+        return new EventMarketLogPage();
     }
     public FindBlockedMarketPage navigateFindBlockedMarket() {
         smFindBlockedMarket.click();

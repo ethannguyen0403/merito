@@ -1,7 +1,6 @@
 package backoffice.testcases.operations;
 
-import com.paltech.constant.Helper;
-import com.paltech.driver.DriverManager;
+import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
 import backoffice.common.BOConstants;
 import com.paltech.utils.StringUtils;
@@ -11,15 +10,13 @@ import org.testng.annotations.Test;
 import backoffice.pages.bo.operations.BannerManagementPage;
 import backoffice.pages.bo.operations.component.BannerConfirmPopup;
 import backoffice.pages.bo.operations.component.NewBannerPopup;
-import baseTest.BaseCaseMerito;
 import backoffice.utils.operations.BannerManagementUtils;
 import util.testraildemo.TestRails;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BannerManagementTest extends BaseCaseMerito {
+public class BannerManagementTest extends BaseCaseTest {
     /**
      * @title: There is no http responded error returned
      * @pre-condition: 1. Log in successfully
@@ -282,7 +279,7 @@ public class BannerManagementTest extends BaseCaseMerito {
      * 2. Filter a brand name
      * @expect: 1. Values at Brand column are correct
      */
-    @Test(groups = {"regression_qc"})
+    @Test(groups = {"regression_invalid"})
     public void BO_Operations_BannerManagement_0012() {
         log("@title: Validate that data returned is correct after filtering Active status");
         List<String> lstBrandNames = BannerManagementUtils.getBrandNames();
@@ -422,7 +419,7 @@ public class BannerManagementTest extends BaseCaseMerito {
             Assert.assertTrue(lstMemberImgSrcBefore.get(i).contains(lstImgSrc.get(i)));
         }
         log("Verify 4. Login to Home and observe banner");
-        memberHomePage = landingPage.login(_brandname,feMemberLoginId, StringUtils.decrypt(feMemberLoginPwd),true);
+        memberHomePage = landingPage.login(feMemberLoginId, StringUtils.decrypt(feMemberLoginPwd),true);
         log("Verify 4. Verify Banner show correctly with sequence set from BO");
         List<String> lstMemberImgSrcAfter = landingPage.getListBanners("old view");
         for (int i = 0; i < lstMemberImgSrcAfter.size(); i++) {
@@ -457,7 +454,7 @@ public class BannerManagementTest extends BaseCaseMerito {
             Assert.assertTrue(lstMemberImgSrcBefore.get(i).contains(lstImgSrc.get(i)));
         }
         log("Verify 4. Login to Home and observe banner");
-        memberHomePage = landingPage.login(_brandname,feMemberLoginId, StringUtils.decrypt(feMemberLoginPwd),true);
+        memberHomePage = landingPage.login(feMemberLoginId, StringUtils.decrypt(feMemberLoginPwd),true);
         log("Verify 4. Verify Banner show correctly with sequence set from BO");
         List<String> lstMemberImgSrcAfter = landingPage.getListBanners("new view");
         for (int i = 0; i < lstMemberImgSrcAfter.size(); i++) {
