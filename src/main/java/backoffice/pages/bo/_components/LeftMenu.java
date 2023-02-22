@@ -43,6 +43,7 @@ public class LeftMenu extends Header {
     SubMenu smWagerVoidUnvoid = SubMenu.name("wager-void-un-void");
     SubMenu smLiveStreamingManagement = SubMenu.name("live-streaming-management");
     SubMenu smAnnouncementManagement = SubMenu.name("announcement-management");
+    SubMenu smMixedPTConfiguration = SubMenu.name("mixed-pt-configuration");
     SubMenu smBannerManagement = SubMenu.name("banner-management");
     SubMenu smPerformance = SubMenu.name("performance");
 
@@ -219,6 +220,15 @@ public class LeftMenu extends Header {
     /*************
      * Operations
      *************/
+    public MixedPTConfigurationPage navigateMixedPTConfiguration() {
+        smMixedPTConfiguration.click();
+        // waiting for loading completely
+        smMixedPTConfiguration.isInvisible(2);
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
+        smMixedPTConfiguration.isInvisible(2);
+        return new MixedPTConfigurationPage();
+    }
     public AnnouncementManagementPage navigateAnnouncementManagement() {
         smAnnouncementManagement.click();
         // waiting for loading completely

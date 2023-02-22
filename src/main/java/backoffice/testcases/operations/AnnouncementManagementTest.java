@@ -57,7 +57,7 @@ public class AnnouncementManagementTest extends BaseCaseMerito{
      *          4. Announcement message is update correctly
      *          5 Announcement is deleted
      */
-    @Test (groups = {"regression_qc"})
+    @Test (groups = {"regression_invalid"})
     public void BO_Operations_Announcement_Management_003(){
         log("@title: Validate can add Edit and Delete Announcement");
         log("Step 1. Access Operations > Announcement Management");
