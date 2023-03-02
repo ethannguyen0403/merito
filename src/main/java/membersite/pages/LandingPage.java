@@ -42,7 +42,7 @@ public class LandingPage extends BasePage{
         header.clickLogo();
     }
 
-    public void waitPageLoad(){}
+    public void waitPageLoad(){header.waitSpinLoad();}
 
     public MyMarketPopup openMyMarket(){
         return header.openMyMarketPopup();

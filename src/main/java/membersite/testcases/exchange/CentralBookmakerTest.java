@@ -1,12 +1,12 @@
 package membersite.testcases.exchange;
 
-import baseTest.BaseCaseMerito;
+import baseTest.BaseCaseTest;
 import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
 import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.Market;
-import membersite.pages.all.tabexchange.MarketPage;
-import membersite.pages.all.tabexchange.SportPage;
+import membersite.pages.MarketPage;
+import membersite.pages.SportPage;
 import membersite.utils.betplacement.BetUtils;
 import membersite.utils.betplacement.FancyUtils;
 import org.testng.Assert;
@@ -20,7 +20,7 @@ import java.util.Objects;
 
 import static common.MemberConstants.*;
 
-public class CentralBookmakerTest extends BaseCaseMerito {
+public class CentralBookmakerTest extends BaseCaseTest {
     /**
      * @title Validate can place bet on Central Bookmaker on Match odds market page
      * @Precondition:  1. Get the event that have Central Bookmaker market
@@ -36,10 +36,9 @@ public class CentralBookmakerTest extends BaseCaseMerito {
     public void CentralFancyTest_001(boolean isCredit){
         log("@title: Validate can place bet on Central Bookmaker on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
-        String stake = BetUtils.getMinBet(SportPage.Sports.CRICKET, SportPage.BetType.BACK);
-
+        String stake = BetUtils.getMinBet("CRICKET", "BACK");
         String sportName = "Cricket";
-        SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
         log("Step 2. Get Central Bookmaker market available");
         BookmakerMarket bmMarket = BetUtils.findOpenBookmakerMarket("4",CENTRAL_FANCY_CODE,"OPEN");
@@ -56,7 +55,7 @@ public class CentralBookmakerTest extends BaseCaseMerito {
 
         Market market = marketPage.getBookmakerMarketInfo(bmMarket,true);
         market.getBtnOdd().click();
-        marketPage.betSlipControlSAT.placeBet("",stake);
+        marketPage.betsSlipContainer.placeBet(stake);
         Wager expectedWager = marketPage.defineWager(market,true,Double.parseDouble(stake),0);
 
         log("Verify 1. Can place bet. Info in my bet is correct");
@@ -84,11 +83,11 @@ public class CentralBookmakerTest extends BaseCaseMerito {
     public void CentralFancyTest_003(boolean isCredit){
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
-        String minBet = BetUtils.getMinBet(SportPage.Sports.CRICKET, SportPage.BetType.BACK);
-        String maxBet = BetUtils.getMaxBet(SportPage.Sports.CRICKET, SportPage.BetType.LAY);
+        String minBet = BetUtils.getMinBet("CRICKET", "BACK");
+        String maxBet = BetUtils.getMinBet("CRICKET", "LAY");
         String stake = Integer.toString(Integer.parseInt(minBet)-1);
         String sportName = "Cricket";
-        SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
         log("Step 2 Get and click on the event that has Central Bookmaker market");
         String eventId = sportPage.getEventIDHasProductData(CENTRAL_BOOKMAKER_CODE);
@@ -108,10 +107,10 @@ public class CentralBookmakerTest extends BaseCaseMerito {
 
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket,true);
         market.getBtnOdd().click();
-        marketPage.betSlipControlSAT.placeBet("",stake);
+        marketPage.betsSlipContainer.placeBet(stake);
 
         log("Verify 1. Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
-        String actualError = marketPage.myBetControlSAT.getPlaceBetErrorMessage();
+        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
         String expectedError = String.format(BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%.2f",Double.parseDouble(stake)));
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
         log("INFO: Executed completely");
@@ -131,11 +130,11 @@ public class CentralBookmakerTest extends BaseCaseMerito {
     public void CentralFancyTest_004(){
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
-        String minBet = BetUtils.getMinBet(SportPage.Sports.CRICKET, SportPage.BetType.BACK);
-        String maxBet = BetUtils.getMaxBet(SportPage.Sports.CRICKET, SportPage.BetType.LAY);
+        String minBet = BetUtils.getMinBet("CRICKET", "BACK");
+        String maxBet = BetUtils.getMinBet("CRICKET", "LAY");
         String stake = Integer.toString(Integer.parseInt(maxBet)+1);
         String sportName = "Cricket";
-        SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
         log("Step 2 Get and click on the event that has Central Bookmaker market");
         String eventId = sportPage.getEventIDHasProductData(CENTRAL_BOOKMAKER_CODE);
@@ -155,10 +154,10 @@ public class CentralBookmakerTest extends BaseCaseMerito {
 
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket,false);
         market.getBtnOdd().click();
-        marketPage.betSlipControlSAT.placeBet("",stake);
+        marketPage.betsSlipContainer.placeBet(stake);
 
         log("Verify 1. Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
-        String actualError = marketPage.myBetControlSAT.getPlaceBetErrorMessage();
+        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
         String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake),Double.parseDouble(minBet),Double.parseDouble(maxBet),BetUtils.getUserBalance());
      //   String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%,.2f",Double.parseDouble(stake)));
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
@@ -182,7 +181,7 @@ public class CentralBookmakerTest extends BaseCaseMerito {
         AccountBalance balance = BetUtils.getUserBalance();
         String stake =String.format("%d",(int) (Double.valueOf(balance.getBalance().replaceAll(",", "").toString())+ 1));
         String sportName = "Cricket";
-        SportPage sportPage = memberHomePage.navigateSportMenu(sportName, SportPage.class);
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
         log("Step 2 Get and click on the event that has Central Bookmaker market");
         String eventId = sportPage.getEventIDHasProductData(CENTRAL_BOOKMAKER_CODE);
@@ -203,10 +202,10 @@ public class CentralBookmakerTest extends BaseCaseMerito {
         log("Step 5 Click on an odds of a Bookmaker market then place bet with the stake  greater than available balance");
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket,true);
         market.getBtnOdd().click();
-        marketPage.betSlipControlSAT.placeBet("",stake);
+        marketPage.betsSlipContainer.placeBet(stake);
 
         log("Verify 1. Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
-        String actualError = marketPage.myBetControlSAT.getPlaceBetErrorMessage();
+        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
         Assert.assertEquals(actualError, BetSlip.ERROR_INSUFFICIENT_BALANCE,String.format("ERROR! Expected error message is %s but found %s", BetSlip.ERROR_INSUFFICIENT_BALANCE,actualError));
 
         log("INFO: Executed completely");

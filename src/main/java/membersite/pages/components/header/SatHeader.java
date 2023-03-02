@@ -27,7 +27,7 @@ public class SatHeader extends Header {
     private TextBox txtPassword = TextBox.name("password");
     private Button btnLogin = Button.xpath("//header//button[contains(@class,'btn-in-out')]");
     private Button btnJoinNow = Button.xpath("//header//button[contains(@class,'join-now')]");
-    Image imgLogo = Image.xpath("//span[@class='sprite-logos']");
+    Image imgLogo = Image.xpath("//a[contains(@class,'logo')]");
     CheckBox chkRememberMe = CheckBox.id("remember-me");
     private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[contains(@class,'account d-block')]","","//ul[contains(@class,'dropdown-menu')]//li");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
@@ -36,7 +36,7 @@ public class SatHeader extends Header {
     private Menu menuSports = Menu.xpath("//app-sport-menu-bar//ul[@class='navbar-nav']//a");
     private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
     private String sportMenuOldUIXpath = "//a[contains(@data-sport-name,'%s')]";
-    private Link lnkMyMarkets = Link.xpath("//span[@class='link mymarkets']");
+    private Link lnkMyMarkets = Link.xpath("//div[contains(@class,'account d-none')]");
     private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='title']");
     private Label lblBalanceCurrency = Label.xpath("//app-top-panel//div[contains(@class,'header-content-info')]//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='bal-val'][1]");
     private Label lblBalance = Label.xpath("//app-top-panel//div[contains(@class,'header-content-info')]//div[contains(@class,'profit-group d-none')]//div[@class='balance'][2]//span[@class='bal-val']");

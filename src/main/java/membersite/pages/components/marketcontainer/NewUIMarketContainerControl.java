@@ -41,10 +41,10 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
 	private String lblSelectionName ="//div[contains(@class,'runner-name')]//span[2]";
 	private String lblOddListXPath = "//div[contains(@class,'cell-odds')]";
 	private String lblOddItem = "//div[contains(@class,'pending-odds')]";
-	private Tab tabWicketFancy =Tab.xpath(String.format("//span[text()='%s']", MemberConstants.WICKET_FANCY_TITILE));
-	private Tab tabCentralFancy =  Tab.xpath(String.format("//span[text()='%s']", MemberConstants.CENTRAL_FANCY_TITILE));
-	private Tab tabManualOdds = Tab.xpath(String.format("//span[text()='%s']", MemberConstants.CENTRAL_BOOKMAKER_TITLE));
-	private Tab tabWicketBookmaker = Tab.xpath(String.format("//span[text()='%s']", MemberConstants.WICKET_BOOKMAKER_TITLE));
+	private Tab tabWicketFancy =Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.WICKET_FANCY_TITILE));
+	private Tab tabCentralFancy =  Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.CENTRAL_FANCY_TITILE));
+	private Tab tabManualOdds = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.CENTRAL_BOOKMAKER_TITLE));
+	private Tab tabWicketBookmaker = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.WICKET_BOOKMAKER_TITLE));
 	private Tab tabFancy = Tab.xpath(String.format("//div[contains(@class,'fancy-container')]//span[text()='%s']", MemberConstants.FANCY_TITILE));
 	public Label oddsSpinIcon = Label.xpath("//div[@id='odds-content']//div[@class='snipper-content']");
 	public FancyContainerControl wcFancyContainerControl = FancyContainerControl.xpath("//span[text()='Wicket Fancy']//ancestor::div[contains(@class,'fancy-container')]");
