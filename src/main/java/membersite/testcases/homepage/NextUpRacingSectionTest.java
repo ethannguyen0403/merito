@@ -1,8 +1,6 @@
 package membersite.testcases.homepage;
 
 import baseTest.BaseCaseMerito;
-import com.paltech.utils.StringUtils;
-import membersite.pages.all.tabexchange.components.popups.ChangePasswordPopup;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;

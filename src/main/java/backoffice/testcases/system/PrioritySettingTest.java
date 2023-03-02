@@ -1,7 +1,5 @@
 package backoffice.testcases.system;
 
-import com.paltech.constant.Helper;
-import com.paltech.driver.DriverManager;
 import backoffice.common.BOConstants;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;

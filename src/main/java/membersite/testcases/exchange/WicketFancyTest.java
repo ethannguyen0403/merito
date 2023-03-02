@@ -1,6 +1,5 @@
 package membersite.testcases.exchange;
 
-import baseTest.BaseCaseMerito;
 import baseTest.BaseCaseTest;
 import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
@@ -31,8 +30,7 @@ public class WicketFancyTest extends BaseCaseTest {
      */
     @TestRails(id="611")
     @Test(groups = {"smoke"})
-    @Parameters({"isCredit"})
-    public void WicketFancyTest_001(boolean isCredit){
+    public void WicketFancyTest_611(){
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
@@ -79,7 +77,7 @@ public class WicketFancyTest extends BaseCaseTest {
      */
     @TestRails(id="613")
     @Test(groups = {"smoke"})
-    public void WicketFancyTest_002(){
+    public void WicketFancyTest_613(){
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
@@ -131,7 +129,7 @@ public class WicketFancyTest extends BaseCaseTest {
      * 4/ Click on an odds and place on Yes and No option
      * @Expected 1. Exposure kept correctly when place on No section
      */
-    @TestRails(id="613")
+    @TestRails(id="614")
     @Test(groups = {"smoke"})
     public void WicketFancyTest_003(){
         log("@title: Verify exposure is kept correctly when place on No");
@@ -249,7 +247,7 @@ public class WicketFancyTest extends BaseCaseTest {
      */
     @TestRails(id="615")
     @Test(groups = {"smoke"})
-    public void WicketFancyTest_005(){
+    public void WicketFancyTest_615(){
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
@@ -295,7 +293,7 @@ public class WicketFancyTest extends BaseCaseTest {
      */
     @TestRails(id="616")
     @Test(groups = {"smoke"})
-    public void WicketFancyTest_006(){
+    public void WicketFancyTest_616(){
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
         AccountBalance balance = BetUtils.getUserBalance();

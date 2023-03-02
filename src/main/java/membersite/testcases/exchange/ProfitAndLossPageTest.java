@@ -2,17 +2,9 @@ package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
-import common.MemberConstants;
 import membersite.pages.ProfitAndLossPage;
-import org.testng.Assert;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
-
-import java.util.List;
-
-import static common.MemberConstants.ProfitAndLossPage.*;
-import static common.MemberConstants.TIMEZONE_BRAND;
 
 public class ProfitAndLossPageTest extends BaseCaseTest {
 
