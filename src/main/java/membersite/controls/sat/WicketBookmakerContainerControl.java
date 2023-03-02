@@ -63,7 +63,6 @@ public class WicketBookmakerContainerControl extends BaseElement {
 			if(isRunnerSuspended(i)){
 				i = i+1;
 			}else{
-
 				runner = Label.xpath(String.format("%s%s", rowXpath, runnerNameXPath)).getText();
 				String backOrLay = isBack ? "back" : "lay";
 				String oddXPath = String.format(oddCellXpath, backOrLay);

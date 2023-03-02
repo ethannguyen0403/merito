@@ -38,34 +38,27 @@ public class WicketBookmakerTest extends BaseCaseTest {
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
-        log("Step 2 Get and click on the event that has Wicket Bookmaker market");
-        String eventId = sportPage.getEventIDHasProductData(WICKET_BOOKMAKER_CODE);
-        MarketPage marketPage = sportPage.clickOnEvent(eventId);
-        if(Objects.isNull(marketPage)){
-            Assert.assertTrue(true,"By passed as has no Central Bookmaker market on all available event");
-            return;
-        }
-
-        BookmakerMarket bmMarket = BetUtils.findOpenBookmakerMarket("4",WICKET_BOOKMAKER_CODE,"ONLINE");
-        if(Objects.isNull(bmMarket)){
+        log("Step 2 Get the event that has Wicket Bookmaker market");
+        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket("4",WICKET_BOOKMAKER_CODE,"ONLINE");
+        if(Objects.isNull(bookmakerMarket)){
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
-
-        log("Step 3. Get Wicket Bookmaker market available");
-        List<BookmakerMarket> lstFancy = FancyUtils.getListWicketBookmakerInEvent(eventId);
-        BookmakerMarket bookmakerMarket = lstFancy.get(0);
+        log("Step 3. Click on the event that has Wicket Bookmaker market");
+        MarketPage marketPage = sportPage.clickEventName(bookmakerMarket.getEventName());
 
         log("Step 4 Active Wicket Bookmaker tab");
         marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);
 
+        log("Step 5 Get Wicket Bookmaker market has runner available");
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket,true);
         if(Objects.isNull(marketPage)){
             log("DEBUG: Skip as have no event has Wicket Bookmaker market");
             Assert.assertFalse(true,"Cannot place on the market, please check market status");
             return;
         }
+
         market.getBtnOdd().click();
         marketPage.betsSlipContainer.placeBet("",stake);
         Wager expectedWager = marketPage.defineWager(market,true,Double.parseDouble(stake),0);
@@ -73,10 +66,11 @@ public class WicketBookmakerTest extends BaseCaseTest {
         log("Verify 1. Can place bet. Info in my bet is correct");
         List<ArrayList> lstFCBet = marketPage.getBookmakerMiniMyBet();
         Assert.assertTrue(Objects.nonNull(lstFCBet),"FAILED! FC my bet section does NOT display");
-        Assert.assertEquals(lstFCBet.get(0).get(0),expectedWager.getRunnerName(),"FAILED! Selection Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(0).get(1),String.format("%,.2f",Double.valueOf(expectedWager.getOdds())),"FAILED! Odd is incorrect");
-        Assert.assertEquals(lstFCBet.get(0).get(2),String.format("%,.2f",Double.valueOf(stake)),"FAILED! Stake is incorrect");
-        Assert.assertEquals(lstFCBet.get(0).get(3),String.format("%,.2f",expectedWager.getProfitWicketBookmakerWager()),"FAILED! Liability is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(0),market.getMarketName(),"FAILED! Selection Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(0),expectedWager.getRunnerName(),"FAILED! Selection Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(1),String.format("%,.f",Double.valueOf(expectedWager.getOdds())),"FAILED! Odd is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(2),String.format("%,.2f",Double.valueOf(stake)),"FAILED! Stake is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(3),String.format("%,.2f",expectedWager.getProfitWicketBookmakerWager()),"FAILED! Liability is incorrect");
         log("INFO: Executed completely");
     }
 
@@ -100,17 +94,15 @@ public class WicketBookmakerTest extends BaseCaseTest {
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
-        log("Step 2 Get and click on the event that has Wicket Bookmaker market");
-        String eventId = sportPage.getEventIDHasProductData(WICKET_BOOKMAKER_CODE);
-        MarketPage marketPage = sportPage.clickOnEvent(eventId);
-        if(Objects.isNull(marketPage)){
-            Assert.assertTrue(true,"By passed as has no Central Bookmaker market on all available event");
+        log("Step 2 Get the event that has Wicket Bookmaker market");
+        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket("4",WICKET_BOOKMAKER_CODE,"ONLINE");
+        if(Objects.isNull(bookmakerMarket)){
+            log("DEBUG: Skip as have no event has Fancy Wicket");
+            Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
-
-        log("Step 3. Get Wicket Bookmaker market available");
-        List<BookmakerMarket> lstFancy = FancyUtils.getListWicketBookmakerInEvent(eventId);
-        BookmakerMarket bookmakerMarket = lstFancy.get(0);
+        log("Step 3. Click on the event that has Wicket Bookmaker market");
+        MarketPage marketPage = sportPage.clickEventName(bookmakerMarket.getEventName());
 
         log("Step 4 Active Wicket Bookmaker tab");
         marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);
@@ -151,19 +143,15 @@ public class WicketBookmakerTest extends BaseCaseTest {
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
-        log("Step 2 Get and click on the event that has Wicket Bookmaker market");
-        String eventId = sportPage.getEventIDHasProductData(WICKET_BOOKMAKER_CODE);
-        MarketPage marketPage = sportPage.clickOnEvent(eventId);
-        if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Wicket Bookmaker market");
-            Assert.assertTrue(true,"By passed as has no Central Bookmaker market on all available event");
+        log("Step 2 Get the event that has Wicket Bookmaker market");
+        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket("4",WICKET_BOOKMAKER_CODE,"ONLINE");
+        if(Objects.isNull(bookmakerMarket)){
+            log("DEBUG: Skip as have no event has Fancy Wicket");
+            Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
-
-        log("Step 3 Get Wicket Bookmaker market available");
-        log("Step 3. Get Wicket Bookmaker market available");
-        List<BookmakerMarket> lsBookmaker = FancyUtils.getListWicketBookmakerInEvent(eventId);
-        BookmakerMarket bookmakerMarket = lsBookmaker.get(0);
+        log("Step 3. Click on the event that has Wicket Bookmaker market");
+        MarketPage marketPage = sportPage.clickEventName(bookmakerMarket.getEventName());
 
         log("Step 4 Active Wicket Bookmaker tab");
         marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);
@@ -202,18 +190,15 @@ public class WicketBookmakerTest extends BaseCaseTest {
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
-        log("Step 2 Get and click on the event that has Wicket Bookmaker market");
-        String eventId = sportPage.getEventIDHasProductData(WICKET_BOOKMAKER_CODE);
-        MarketPage marketPage = sportPage.clickOnEvent(eventId);
-        if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Wicket Bookmaker market");
-            Assert.assertTrue(true,"By passed as has no Wicket Bookmaker market on all available event");
+        log("Step 2 Get the event that has Wicket Bookmaker market");
+        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket("4",WICKET_BOOKMAKER_CODE,"ONLINE");
+        if(Objects.isNull(bookmakerMarket)){
+            log("DEBUG: Skip as have no event has Fancy Wicket");
+            Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
             return;
         }
-
-        log("Step 3. Get Wicket Bookmaker market available");
-        List<BookmakerMarket> lstFancy = FancyUtils.getListWicketBookmakerInEvent(eventId);
-        BookmakerMarket bookmakerMarket = lstFancy.get(0);
+        log("Step 3. Click on the event that has Wicket Bookmaker market");
+        MarketPage marketPage = sportPage.clickEventName(bookmakerMarket.getEventName());
 
         log("Step 4 Active Wicket Bookmaker tab");
         marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);

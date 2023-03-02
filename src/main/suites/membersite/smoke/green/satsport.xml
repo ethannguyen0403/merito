@@ -40,6 +40,8 @@
             <class name="membersite.testcases.exchangegame.EGHomPageTest"/>
             <class name="membersite.testcases.exchange.PlaceBetFunctionTest"/>
             <class name="membersite.testcases.exchange.WicketBookmakerTest"/>
+            <class name="membersite.testcases.exchange.WicketFancyTest"/>
+            <class name="membersite.testcases.exchange.CentralFancyTest"/>
         </classes>
 
     </test>

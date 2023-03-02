@@ -146,7 +146,7 @@ public class HeaderSectionTest extends BaseCaseTest {
                 "Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance");
         Assert.assertEquals(page.accountStatementContainer.getStartDate(), MemberConstants.AccountStatementPage.START_DATE, String.format("ERROR! Expected Start Date but found %s",page.accountStatementContainer.getStartDate()));
         Assert.assertEquals(page.accountStatementContainer.getEndDate(), MemberConstants.AccountStatementPage.END_DATE, String.format("ERROR! Expected End Date but found %s",page.accountStatementContainer.getEndDate()));
-        Assert.assertEquals(page.accountStatementContainer.getNote(), MemberConstants.AccountStatementPage.NOTES, String.format("ERROR! Current Note label shows %s",page.accountStatementContainer.getNote()));
+        Assert.assertEquals(page.accountStatementContainer.getNote(), String.format(MemberConstants.AccountStatementPage.NOTES,TIMEZONE_BRAND.get(_brandname)), String.format("ERROR! Current Note label shows %s",page.accountStatementContainer.getNote()));
         Assert.assertEquals(page.accountStatementContainer.getLoadReport(), MemberConstants.AccountStatementPage.LOAD_REPORT,String.format("ERROR! Expected Load Report but found %s",page.accountStatementContainer.getLoadReport()));
         List<String> tblHeaders = page.accountStatementContainer.getReportHeader();
         Assert.assertEquals(tblHeaders.size(), MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), String.format("ERROR: The expected no of columns is %s but found %s", MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(),tblHeaders.size()));
@@ -361,7 +361,7 @@ public class HeaderSectionTest extends BaseCaseTest {
         AccountBalance balanceAPI = BetUtils.getUserBalance();
 
         log("Step 2. Click Exchange Game Product");
-        if(!memberHomePage.header.isProductActive("Exchange Games")){
+        if(!memberHomePage.header.isProductActive("EXCH_GAMES")){
             log("SKIP! Exchange Games product is NOT active for this account");
             return;
         }

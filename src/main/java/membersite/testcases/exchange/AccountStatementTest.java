@@ -33,7 +33,7 @@ public class AccountStatementTest extends BaseCaseTest {
         String startDate = DateUtils.getDate(-4,"yyyy-MM-dd",TIMEZONE_BRAND.get(_brandname));
         String endDate = DateUtils.getDate(0,"yyyy-MM-dd",TIMEZONE_BRAND.get(_brandname));
         AccountStatementPage page = memberHomePage.header.openAccountStatement(_brandname);
-        List<ArrayList<String>> lstReport = page.getAPIReport(startDate,endDate,"+05:30");
+        List<ArrayList<String>> lstReport = page.getAPIReport(startDate,endDate,TIMEZONE_BRAND.get(_brandname));
 
         log("Step 2. Filter in a date range");
         page.filter(startDate,endDate);

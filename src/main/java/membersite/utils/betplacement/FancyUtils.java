@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.*;
+import static baseTest.BaseCaseTest.*;
 import static common.MemberConstants.WICKET_BOOKMAKER_CODE;
 
 public class FancyUtils {
@@ -475,11 +475,11 @@ public class FancyUtils {
     public static List<BookmakerMarket> getListWicketBookmakerInEvent(String eventID){
         List<BookmakerMarket> lstMarket = new ArrayList<>();
         JSONArray marketJSONArray =  getWicketBookMarkerJSON(eventID);
-        if(marketJSONArray.length()==0){
-            System.out.println("DEBUG: No data get fancy market api of event id" + eventID);
-            return null;
-        }
         if(Objects.nonNull(marketJSONArray)) {
+            if(marketJSONArray.length()==0){
+                System.out.println("DEBUG: No data get fancy market api of event id" + eventID);
+                return null;
+            }
             for (int i = 0; i < marketJSONArray.length(); i++) {
                 JSONObject eventObj = marketJSONArray.getJSONObject(i);
                 JSONArray marketArr = eventObj.getJSONArray("marketList");
@@ -496,7 +496,7 @@ public class FancyUtils {
             }
             return lstMarket;
         }
-        System.out.println("DEBUG: getGETJSONResponse is null" + marketJSONArray.toString());
+        System.out.println("Not get boomaker market in Event "+eventID+ "-DEBUG: getGETJSONResponse is null");
         return null;
     }
   /*  public static BookmakerMarket findOpenBookmakerMarket(String sportID, String providerFancyCode){

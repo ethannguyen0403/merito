@@ -16,7 +16,7 @@ import java.util.Random;
  * @author by isabella.huynh
  * created on 10/3/2020
  */
-public class NewUIEventContainerControl extends EventContainerControl {
+public class NewViewEventContainerControl extends EventContainerControl {
 //	private String _xpath = "//div[@class='container-event-info']";
 	private Label lblSportHeader = Label.xpath("//div[contains(@class,'sport-header')]/h2");
 	private String llblSuspendXPath = String.format("//div[contains(@class,'status-overlay')]");
@@ -217,24 +217,29 @@ public class NewUIEventContainerControl extends EventContainerControl {
 	{
 		event.getLinkEvent().click();
 	}
-	public MarketPage clickOnRowofEventName(String event)	{
+
+	public MarketPage clickOnRowofEventName(String eventName)	{
+		// On Highlight page, click on the event in input parameter
 		int i =1;
 		Link lnkEvent;
 		while (true){
-			lnkEvent =(Link) tblEvents.getControlOfCell(1,1,i,"span[contains(@class,'home-team')]");
+			lnkEvent =(Link) tblEvents.getControlOfCell(1,1,i,"div[contains(@class,'home-team-name')]");
 			if(!lnkEvent.isDisplayed()) {
 				System.out.println("Debug! Not found event to click");
 				return null;
 			}
-			String eventName = lnkEvent.getText().trim();
-			if(eventName.equalsIgnoreCase(event)){
+			String homnTeam = lnkEvent.getText().trim();
+			lnkEvent =(Link) tblEvents.getControlOfCell(1,1,i,"div[contains(@class,'away-team-name')]");
+			String awayTeam = lnkEvent.getText().trim();
+			String expectedName = String.format("%s v %s",homnTeam,awayTeam);
+			if(expectedName.equalsIgnoreCase(eventName)){
 				lnkEvent.click();
 				lnkEvent.isDisplayedShort(2);
 				return new MarketPage();
 			}
 			i++;
+			// check api tha has fany
 		}
-
 	}
 
 	private int getEventIndex(String eventName){
