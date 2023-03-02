@@ -15,8 +15,9 @@ import com.paltech.utils.WSUtils;
 import membersite.pages.all.tabexchange.SportPage;
 import java.util.*;
 
-import static baseTest.BaseCaseMerito.*;
-//import static baseTest.BaseCaseTest.domainURL;
+//import static baseTest.BaseCaseMerito.*;
+import static baseTest.BaseCaseTest.domainURL;
+import static baseTest.BaseCaseTest.memberMarketServiceURL;
 
 public class BetUtils {
 

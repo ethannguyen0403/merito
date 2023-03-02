@@ -23,7 +23,7 @@
         <parameter name='brandname' value='funsport'/>
         <groups>
             <run>
-                <include name="smoke" />
+                <include name="smoke1" />
             </run>
         </groups>
 

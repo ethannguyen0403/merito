@@ -1,22 +1,6 @@
 package membersite.testcases.exchange;
 
-import baseTest.BaseCaseMerito;
 import baseTest.BaseCaseTest;
-import com.paltech.element.common.Label;
-import com.paltech.utils.StringUtils;
-import common.MemberConstants;
-import membersite.objects.sat.Event;
-import membersite.objects.sat.Market;
-import membersite.objects.sat.Order;
-import membersite.pages.all.tabexchange.SportPage;
-import membersite.utils.betplacement.BetUtils;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-import util.testraildemo.TestRails;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 public class BetSlipMyBetTest extends BaseCaseTest {/*
     *//**

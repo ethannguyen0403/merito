@@ -1,23 +1,6 @@
 package membersite.testcases.all.afterlogin.exchange;
 
-import com.paltech.utils.StringUtils;
-import common.MemberConstants;
-import membersite.controls.sat.RacingMarketControl;
-import membersite.objects.AccountBalance;
-import membersite.objects.sat.*;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-import membersite.pages.all.tabexchange.MyBetsPage;
-import membersite.pages.all.tabexchange.SoccerPage;
-import membersite.pages.all.tabexchange.SportPage;
 import baseTest.BaseCaseMerito;
-import membersite.utils.betplacement.BetUtils;
-import util.testraildemo.TestRails;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
 public class PlaceBetFunctionTest extends BaseCaseMerito {
 /*

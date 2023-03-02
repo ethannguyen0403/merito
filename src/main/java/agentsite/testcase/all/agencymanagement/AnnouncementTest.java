@@ -1,12 +1,10 @@
 package agentsite.testcase.all.agencymanagement;
 
-import agentsite.controls.DateTimePickerOld;
 import com.paltech.utils.DateUtils;
 import org.testng.Assert; import baseTest.BaseCaseMerito;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.AnnoucementPage;
-import agentsite.pages.all.components.ConfirmPopup;
 import util.testraildemo.TestRails;
 
 import static agentsite.common.AGConstant.Announcement.ADD_ANNOUNCEMENT;

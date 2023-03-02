@@ -10,7 +10,6 @@ import membersite.pages.SportPage;
 import membersite.utils.betplacement.BetUtils;
 import membersite.utils.betplacement.FancyUtils;
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
@@ -32,7 +31,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
      */
     @TestRails(id="535")
     @Test(groups = {"smoke"})
-    public void WicketBookmakerTest_001(){
+    public void WicketBookmakerTest_535(){
         log("@title: Validate can place bet on Central Bookmaker on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
         String stake = BetUtils.getMinBet("CRICKET", "BACK");
@@ -92,8 +91,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
      */
     @TestRails(id="536")
     @Test(groups = {"smoke"})
-    @Parameters({"isCredit"})
-    public void WicketBookmakerTest_003(boolean isCredit){
+    public void WicketBookmakerTest_536(){
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
         String minBet = BetUtils.getMinBet("CRICKET", "BACK");
@@ -144,7 +142,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
      */
     @TestRails(id="537")
     @Test(groups = {"smoke"})
-    public void WicketBookmakerTest_004(){
+    public void WicketBookmakerTest_537(){
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
         String minBet = BetUtils.getMinBet("CRICKET", "BACK");
@@ -196,7 +194,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
      */
     @TestRails(id="538")
     @Test(groups = {"smoke"})
-    public void WicketBookmakerTest_005(){
+    public void WicketBookmakerTest_538(){
         log("@title: Verify Cannot place bet if stake less is greater than availablie balance");
         log("Step 1. Login member site and click on Cricket");
         AccountBalance balance = BetUtils.getUserBalance();
