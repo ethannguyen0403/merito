@@ -1,6 +1,6 @@
 package backoffice.testcases.operations;
 
-import com.paltech.driver.DriverManager;
+import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
 import backoffice.common.*;
 import org.testng.Assert;
@@ -9,10 +9,9 @@ import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo._components.AppConfirmPopup;
 import backoffice.pages.bo._components.StaticConfirmPopup;
 import backoffice.pages.bo.operations.AnnouncementManagementPage;
-import baseTest.BaseCaseMerito;
 import util.testraildemo.TestRails;
 
-public class AnnouncementManagementTest extends BaseCaseMerito{
+public class AnnouncementManagementTest extends BaseCaseTest {
 
     /**
      * @title: Validate error popup display when create announcement without input any data
@@ -57,7 +56,7 @@ public class AnnouncementManagementTest extends BaseCaseMerito{
      *          4. Announcement message is update correctly
      *          5 Announcement is deleted
      */
-    @Test (groups = {"regression_qc"})
+    @Test (groups = {"regression_invalid"})
     public void BO_Operations_Announcement_Management_003(){
         log("@title: Validate can add Edit and Delete Announcement");
         log("Step 1. Access Operations > Announcement Management");

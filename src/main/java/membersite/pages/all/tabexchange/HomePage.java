@@ -202,40 +202,4 @@ public class HomePage extends MainMenu {
         waitMenuLoading();
     }
 
-    public List<String> getListBanners(String brandType) {
-        List<String> lstBannerSrc = new ArrayList<>();
-        int i = 1;
-        while(true) {
-            String imgSrc;
-            String xpathLocator;
-            Image imgLocator;
-            switch (brandType.toLowerCase()) {
-                case "old view":
-                    xpathLocator = String.format("//div[@class='carousel slide']//slide[%s]//a",i);
-                    imgLocator = Image.xpath(xpathLocator);
-                    if (!imgLocator.isDisplayedShort(2)){
-                        return lstBannerSrc;
-                    }
-                    imgSrc = imgLocator.getWebElement().getCssValue("background-image");
-                    imgSrc = imgSrc.split("img")[1];
-                    lstBannerSrc.add(imgSrc);
-                    break;
-                case "new view":
-                    xpathLocator = String.format("//div[@class='carousel slide']//slide[%s]//a//img",i);
-                    imgLocator = Image.xpath(xpathLocator);
-                    if (!imgLocator.isDisplayedShort(2)){
-                        return lstBannerSrc;
-                    }
-                    imgSrc = imgLocator.getWebElement().getAttribute("src");
-                    imgSrc = imgSrc.split("img")[1];
-                    lstBannerSrc.add(imgSrc);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + brandType.toLowerCase());
-            }
-
-            i+=1;
-        }
-    }
-
 }
