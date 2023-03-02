@@ -16,7 +16,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import agentsite.pages.all.agentmanagement.DownLineListingPage;
 import agentsite.pages.all.agentmanagement.EditDownLinePage;
-import agentsite.pages.all.marketsmanagement.BlockUnblockEventPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import util.testraildemo.TestRails;

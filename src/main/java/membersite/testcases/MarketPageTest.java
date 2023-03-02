@@ -5,7 +5,6 @@ import membersite.objects.sat.Event;
 import membersite.pages.all.tabexchange.MarketPage;
 import membersite.pages.all.tabexchange.SportPage;
 import membersite.pages.all.tabexchange.components.popups.RulePopup;
-import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;

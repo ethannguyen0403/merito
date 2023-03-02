@@ -21,10 +21,8 @@
         <parameter name="isCloseBanner" value="true"/>
         <parameter name="isCredit" value="false"/>
         <parameter name="timeZone" value="GMT-04:00"/>
-
-        <parameter name='appname' value='backoffice'/>
+        <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='fairexchange'/>
-
         <groups>
             <run>
                 <include name="smoke1"/>

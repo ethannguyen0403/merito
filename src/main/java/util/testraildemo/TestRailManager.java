@@ -1,15 +1,11 @@
 package util.testraildemo;
 
-import com.relevantcodes.extentreports.ExtentReports;
-import org.json.simple.JSONObject;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class TestRailManager  {
+public class TestRailManager {
     public static String TEST_RUN_ID = "1";
     public static String TESTRAIL_USERNAME = "huonghuynh90@gmail.com";
     public static String TESTRAIL_PASSWORD = "P@l332211";

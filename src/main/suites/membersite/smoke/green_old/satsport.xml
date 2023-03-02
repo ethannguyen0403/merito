@@ -31,15 +31,21 @@
         </groups>
 
         <classes>
-            <class name="membersite.testcases.exchange.HeaderSectionTest"/>
-            <class name="membersite.testcases.exchange.AccountStatementTest"/>
-            <class name="membersite.testcases.exchange.MyBetPageTest"/>
-            <class name="membersite.testcases.exchange.ProfitAndLossPageTest"/>
-            <class name="membersite.testcases.exchange.ChangePasswordTest"/>
-            <class name="membersite.testcases.exchangegame.EGBaccaratTest"/>
-            <class name="membersite.testcases.exchangegame.EGHomPageTest"/>
-            <class name="membersite.testcases.exchange.PlaceBetFunctionTest"/>
-            <class name="membersite.testcases.exchange.WicketBookmakerTest"/>
+            <class name="membersite.testcases.all.afterlogin.exchangegame.EGBaccaratTest"/>
+            <class name="membersite.testcases.sat.fancy.WicketBookmakerTest"/>
+            <class name="membersite.testcases.sat.fancy.WicketFancyTest"/>
+            <class name="membersite.testcases.sat.fancy.CentralFancyTest"/>
+            <class name="membersite.testcases.sat.SATForecastFunctionTest"/>
+            <class name="membersite.testcases.sat.SATPlaceBetFunctionTest"/>
+            <class name="membersite.testcases.sat.SATOddsSectionTest"/>
+            <class name="membersite.testcases.all.afterlogin.exchange.AccountStatementTest"/>
+            <class name="membersite.testcases.all.afterlogin.exchange.MyBetPageTest"/>
+            <class name="membersite.testcases.all.afterlogin.exchange.ProfitAndLossPageTest"/>
+            <class name="membersite.testcases.sat.SATOddsSectionTest"/>
+            <class name="membersite.testcases.all.afterlogin.exchange.BetSlipMyBetTest"/>
+            <class name="membersite.testcases.all.afterlogin.exchange.HeaderSectionTest"/>
+            <class name="membersite.testcases.all.afterlogin.exchange.LeftMenuTest"/>
+            <class name="membersite.testcases.all.afterlogin.exchange.MyBetPageTest"/>
         </classes>
 
     </test>

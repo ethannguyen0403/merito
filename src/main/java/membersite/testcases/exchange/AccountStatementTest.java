@@ -4,7 +4,6 @@ import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
 import common.MemberConstants;
 import membersite.pages.AccountStatementPage;
-import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static common.MemberConstants.AccountStatementPage.*;
-import static common.MemberConstants.TIMEZONE;
 import static common.MemberConstants.TIMEZONE_BRAND;
 
 

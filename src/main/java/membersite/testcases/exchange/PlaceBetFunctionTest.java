@@ -3,7 +3,6 @@ package membersite.testcases.exchange;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
 import common.MemberConstants;
-import membersite.controls.sat.RacingMarketControl;
 import membersite.objects.AccountBalance;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
