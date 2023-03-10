@@ -1,10 +1,14 @@
 package backoffice.pages.bo.marketmanagement;
 
+import backoffice.controls.Table;
 import backoffice.pages.bo.home.HomePage;
-import com.paltech.element.common.Link;
-import com.paltech.element.common.TextBox;
+import backoffice.pages.bo.marketmanagement.components.BeforeLoginManagementPopup;
+import com.paltech.element.common.*;
 import backoffice.controls.bo.StaticTable;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class BeforeLoginManagementPage extends HomePage {
@@ -16,6 +20,17 @@ public class BeforeLoginManagementPage extends HomePage {
     public int colSport = 2;
     public int colMarketType = 2;
     public int colStatus = 5;
+    DropDownBox ddpType = DropDownBox.xpath("//div[text()='Type']/following-sibling::select");
+    public DropDownBox ddpBrand = DropDownBox.xpath("//div[text()='Brand']/following-sibling::select");
+    public DropDownBox ddpDomain = DropDownBox.xpath("//div[text()='Domain']/following-sibling::select");
+    public DropDownBox ddpStatus = DropDownBox.xpath("//div[text()='Status']/following-sibling::select");
+    public Button btnSubmit = Button.xpath("//button//span[text()='Submit']");
+    public DropDownBox ddpCurrency = DropDownBox.xpath("//h5[text()='Currency']/parent::div/following-sibling::select");
+    public DropDownBox ddpLanguage = DropDownBox.xpath("//h5[text()='Language']/parent::div/following-sibling::select");
+    public Button btnSave = Button.xpath("//button[text()='Save']");
+    public Button btnCreateMenu = Button.xpath("//button[text()='Create Menu']");
+    public Table tblHeaderMenu = Table.xpath("//table[@class='table']", 8);
+
 
     public void activeSport(String sportName, boolean isActive){
         List<String> lstSport = tblSport.getColumn(colSport,true);
@@ -61,5 +76,92 @@ public class BeforeLoginManagementPage extends HomePage {
         txtMarketType.sendKeys(marketType);
         txtMarketType.type(false, Keys.ENTER);
         tabActive.isTextDisplayed(marketType,2);
+    }
+
+    public void filter(String type, String brand, String domain, String status, boolean isSubmit) {
+        switch (type.toLowerCase()) {
+            case "header menu":
+                ddpType.selectByVisibleText(type);
+                if (!brand.isEmpty()) {
+                    ddpBrand.selectByVisibleText(brand);
+                }
+                if (!domain.isEmpty()) {
+                    ddpDomain.selectByVisibleText(domain);
+                }
+                if (!status.isEmpty()) {
+                    ddpStatus.selectByVisibleText(status);
+                }
+                if (isSubmit) {
+                    btnSubmit.click();
+                    tblHeaderMenu.isDisplayed();
+                }
+                break;
+            default:
+                ddpType.selectByVisibleText(type);
+                if (!brand.isEmpty()) {
+                    ddpBrand.selectByVisibleText(brand);
+                }
+                if (isSubmit) {
+                    btnSubmit.click();
+                    tblSport.isDisplayed();
+                }
+                break;
+        }
+    }
+    public boolean isUIDisplayCorrect(String type) {
+        switch (type.toLowerCase()) {
+            case "header menu":
+                try {
+                    ddpBrand.isDisplayed();
+                    ddpDomain.isDisplayed();
+                    ddpStatus.isDisplayed();
+                    btnSubmit.isDisplayed();
+                    ddpCurrency.isDisplayed();
+                    ddpLanguage.isDisplayed();
+                    btnSave.isDisplayed();
+                    tblHeaderMenu.isDisplayed();
+                    btnCreateMenu.isDisplayed();
+                    return true;
+
+                } catch (Exception e) {
+                    System.out.println("Control displays missing on page " + e.getMessage());
+                    return false;
+                }
+            default:
+                try {
+                    ddpBrand.isDisplayed();
+                    btnSubmit.isDisplayed();
+                    tblSport.isDisplayed();
+                    tblMarketType.isDisplayed();
+                    return true;
+
+                } catch (Exception e) {
+                    System.out.println("Control displays missing on page " + e.getMessage());
+                    return false;
+                }
+        }
+
+    }
+
+    public BeforeLoginManagementPopup openCreateHeaderMenu() {
+        btnCreateMenu.click();
+        return new BeforeLoginManagementPopup();
+    }
+
+    public List<List<String>> getListMenuSequence() {
+        List<WebElement> lblMenu = Label.xpath("//table[@class='table']//tbody[1]//tr//td[2]").getWebElements();
+        List<WebElement> lblSequence = Label.xpath("//table[@class='table']//tbody[1]//tr//td[3]").getWebElements();
+        List <String> lstMenu = new ArrayList<>();
+        List <String> lstSequence = new ArrayList<>();
+        List <List<String>> lstMenuSequence = new ArrayList<>();
+        for (WebElement element : lblMenu) {
+            lstMenu.add(element.getText().trim());
+        }
+        for (WebElement element : lblSequence) {
+            lstSequence.add(element.getText().trim());
+        }
+        lstMenuSequence.add(lstMenu);
+        lstMenuSequence.add(lstSequence);
+        return lstMenuSequence;
     }
 }

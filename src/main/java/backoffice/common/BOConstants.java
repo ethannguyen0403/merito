@@ -1,7 +1,9 @@
 package backoffice.common;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BOConstants {
     public final static String NO_RECORD_FOUND = "No record found";
@@ -136,6 +138,16 @@ public class BOConstants {
             public final static String UNBLOCK_STATUS ="Unblocked";
             public final static String BLOCK_STATUS ="Blocked";
         }
+        public static final Map<String, String> LANGUAGE = new HashMap<String, String>() {
+            {
+                put("Greek", "el_GR");
+                put("English", "en_US");
+                put("Indonesia", "id_ID");
+                put("Thailand", "th_TH");
+                put("Vietnamese", "vi_VN");
+                put("China", "zh_CN");
+            }
+        };
     }
 
     public static class Reports {
