@@ -56,6 +56,7 @@ public class LeftMenu extends Header {
     SubMenu smCompetitionBlocking =SubMenu.name("competition-blocking");
     SubMenu smLiquidityThresholdSettings = SubMenu.name("liquidity-threshold-settings");
     SubMenu smBeforeLoginManagement = SubMenu.name("before-login-management");
+    SubMenu smBlockUnblockEvent = SubMenu.name("block-unblock-events");
     SubMenu smLiquidityThresholdLog =SubMenu.name("liquidity-threshold-log");
 
     Menu menuFraudDetection = Menu.id("menu__fraud-detection");
@@ -473,6 +474,15 @@ public class LeftMenu extends Header {
     /*************
      * Market Management
      *************/
+    public BlockUnblockEventPage navigateBlockUnblockEvents() {
+        smBlockUnblockEvent.click();
+        // waiting for loading completely
+        smBlockUnblockEvent.isInvisible(2);
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
+        smBlockUnblockEvent.isInvisible(2);
+        return new BlockUnblockEventPage();
+    }
     public BeforeLoginManagementPage navigateBeforeLoginManagement() {
         smBeforeLoginManagement.click();
         // waiting for loading completely
