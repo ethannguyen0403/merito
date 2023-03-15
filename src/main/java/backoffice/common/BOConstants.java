@@ -148,6 +148,10 @@ public class BOConstants {
                 put("China", "zh_CN");
             }
         };
+        public static class BlockUnblockEvent {
+            public final static List<String> SPORTS = Arrays.asList("Soccer", "Tennis", "Horse Racing", "Greyhound Racing", "Esports","Basketball");
+            public final static List<String> FILTER_PERIOD = Arrays.asList("Old Events", "Today", "Tomorrow", "Future");
+        }
     }
 
     public static class Reports {
