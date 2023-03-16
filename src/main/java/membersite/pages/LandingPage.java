@@ -1,15 +1,21 @@
 package membersite.pages;
+import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Image;
+import com.paltech.element.common.Label;
+import com.paltech.utils.WSUtils;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.footer.Footer;
 import membersite.pages.components.header.Header;
 import membersite.pages.components.leftmneu.LeftMenu;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
+import org.json.JSONObject;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class LandingPage extends BasePage{
@@ -106,6 +112,27 @@ public class LandingPage extends BasePage{
             }
             i+=1;
         }
+    }
+
+    public List<String> getListHeaderMenu() {
+        List<WebElement> lblMenu = Label.xpath("//app-product-tab//ul[@class='h-100 overflow-auto text-nowrap navbar-nav']//li//a").getWebElements();
+        List<String> lstHeaderMenuText = new ArrayList<>();
+        for (WebElement element : lblMenu) {
+            lstHeaderMenuText.add(element.getText().trim());
+        }
+        return lstHeaderMenuText;
+    }
+
+    public List<String> getBeforeLoginConfig(String memberUrl) {
+        List <String> lst = new ArrayList<>();
+        String api = String.format("%s/member-service/menu-plus/before-login-config", memberUrl);
+        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+        if (Objects.nonNull(jsonObject)) {
+            lst.add(jsonObject.getString("currencyCode"));
+            lst.add(jsonObject.getString("language"));
+            lst.add(String.valueOf(jsonObject.getFloat("currencyRate")));
+        }
+        return lst;
     }
 
 }
