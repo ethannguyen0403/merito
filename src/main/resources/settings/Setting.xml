@@ -30,7 +30,18 @@
         <property name="executablePath" value="${DriverSetting.Window10.Local.Chrome.ExecutablePath}"/>
         <property name="elementWaitTimeOut" value="${DriverSetting.Window10.Local.Chrome.ElementWaitTimeOut}"/>
     </bean>
-    
+    <bean name="qat" class="objects.Environment" scope="prototype">
+        <property name="fairURL" value="${QAT.FAIRURL}"/>
+        <property name="satURL" value="${QAT.SATURL}"/>
+        <property name="funsportURL" value="${QAT.FUNSPORTURL}"/>
+        <property name="fairenterURL" value="${QAT.FAIRENTERURL}"/>
+        <property name="laser365URL" value="${QAT.LASER365URL}"/>
+        <property name="betclubURL" value="${QAT.BETCUBURL}"/>
+        <property name="backofficeURL" value="${QAT.BackofficeURL}"/>
+        <property name="securityCode" value="${QAT.SecurityCode}"/>
+        <property name="directusURL" value="${QAT.DriectusURL}"/>
+        <property name="apiURL" value="${QAT.APIURL}"/>
+    </bean>
     <bean name="stg" class="objects.Environment" scope="prototype">
         <property name="fairURL" value="${STG.FAIRURL}"/>
         <property name="satURL" value="${STG.SATURL}"/>

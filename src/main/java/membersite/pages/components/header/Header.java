@@ -16,6 +16,8 @@ public class Header {
 
     public void login(String username, String password,boolean skipByDefault){
     }
+    public void signin(String username, String password, String email, String currency, String phone){
+    }
     public String loginInvalid(String username, String password){
        return "";
     }

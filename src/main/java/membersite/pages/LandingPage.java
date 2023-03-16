@@ -30,6 +30,13 @@ public class LandingPage extends BasePage{
         return new HomePage(_type);
     }
 
+    public HomePage signin(String username, String password,String email, String currency, String phone){
+        header.signin(username,password,email,currency,phone);
+        HomePage homePage = new HomePage(_type);
+//        homePage.closeBannerPopup();
+        return new HomePage(_type);
+    }
+
     public String loginInvalid(String username, String password){
        return header.loginInvalid(username,password);
     }

@@ -9,6 +9,7 @@ import membersite.pages.AccountStatementPage;
 import membersite.pages.MyBetsPage;
 import membersite.pages.ProfitAndLossPage;
 import membersite.pages.SportPage;
+import membersite.pages.components.signinform.SATSignInPopup;
 import membersite.pages.exchangegames.EGHomePage;
 import membersite.pages.popup.MyMarketPopup;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
@@ -56,10 +57,19 @@ public class SatHeader extends Header {
         return satUnderageGamblingPopup.clickConfirmation();
     }
 
+    private SATSignInPopup openSignInPopup(){
+        btnJoinNow.click();
+        return new SATSignInPopup();
+    }
     @Override
     public void login(String username, String password, boolean skipByDefault){
         SATLoginPopup loginPopup = openLoginPopup();
         loginPopup.login(username, password,skipByDefault);
+    }
+
+    public void signin(String username, String password, String email, String currency, String phone){
+        SATSignInPopup signInPopup = openSignInPopup();
+        signInPopup.signin(username, password,email, currency, phone);
     }
     public String loginInvalid(String username, String password){
         SATLoginPopup loginPopup = openLoginPopup();
