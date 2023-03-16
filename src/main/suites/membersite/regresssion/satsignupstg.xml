@@ -7,7 +7,7 @@
 
     <test name="SAT_Interaction_Chrome">
         <parameter name='browser' value='window10.local.chrome'/>
-        <parameter name='env' value='qat'/>
+        <parameter name='env' value='stg'/>
         <parameter name='language' value=''/>
         <parameter name='isLogin' value='false'/>
         <parameter name='isProxy' value='false'/>
