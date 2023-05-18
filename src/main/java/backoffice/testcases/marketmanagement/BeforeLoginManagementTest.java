@@ -315,7 +315,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1659")
-    @Test (groups = {"regression1"})
+    @Test (groups = {"regression"})
     @Parameters({"feMemberLoginId","feMemberLoginPwd","language","currency"})
     public void BO_Operations_Before_Login_Management_1659(String feMemberLoginId, String feMemberLoginPwd, String language, String currency) throws Exception {
         Float rate;
@@ -346,7 +346,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1660")
-    @Test (groups = {"regression1"})
+    @Test (groups = {"regression"})
     @Parameters({"feMemberLoginId","feMemberLoginPwd","language","currency"})
     public void BO_Operations_Before_Login_Management_1660(String feMemberLoginId, String feMemberLoginPwd, String language, String currency) throws Exception {
         String type = "Header Menu";
