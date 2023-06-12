@@ -12,7 +12,6 @@ import backoffice.pages.bo.operations.component.BannerConfirmPopup;
 import backoffice.pages.bo.operations.component.NewBannerPopup;
 import backoffice.utils.operations.BannerManagementUtils;
 import util.testraildemo.TestRails;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -419,7 +418,7 @@ public class BannerManagementTest extends BaseCaseTest {
             Assert.assertTrue(lstMemberImgSrcBefore.get(i).contains(lstImgSrc.get(i)));
         }
         log("Verify 4. Login to Home and observe banner");
-        memberHomePage = landingPage.login(feMemberLoginId, StringUtils.decrypt(feMemberLoginPwd),true);
+        memberHomePage = landingPage.login(feMemberLoginId, StringUtils.decrypt(feMemberLoginPwd), true);
         log("Verify 4. Verify Banner show correctly with sequence set from BO");
         List<String> lstMemberImgSrcAfter = landingPage.getListBanners("old view");
         for (int i = 0; i < lstMemberImgSrcAfter.size(); i++) {
@@ -442,7 +441,7 @@ public class BannerManagementTest extends BaseCaseTest {
         log("Step 2: Observe sequence setting for Old VIew, Type = Home, Brand = FairExchange, Status = Active");
         page.switchView("New View");
         page.filter("Home", expectedBrand, "All", status);
-        List<String> lstImgSrc = page.getListBanners(page.colBanner, page.colValidTill+2);
+        List<String> lstImgSrc = page.getListBanners(page.colBanner, page.colValidTill + 2);
         page.logout();
 
         log("Step 3: Navigate to before login of FairExchange new view and observe banner show on Home before login");
@@ -454,7 +453,7 @@ public class BannerManagementTest extends BaseCaseTest {
             Assert.assertTrue(lstMemberImgSrcBefore.get(i).contains(lstImgSrc.get(i)));
         }
         log("Verify 4. Login to Home and observe banner");
-        memberHomePage = landingPage.login(feMemberLoginId, StringUtils.decrypt(feMemberLoginPwd),true);
+        memberHomePage = landingPage.login(feMemberLoginId, StringUtils.decrypt(feMemberLoginPwd), true);
         log("Verify 4. Verify Banner show correctly with sequence set from BO");
         List<String> lstMemberImgSrcAfter = landingPage.getListBanners("new view");
         for (int i = 0; i < lstMemberImgSrcAfter.size(); i++) {
