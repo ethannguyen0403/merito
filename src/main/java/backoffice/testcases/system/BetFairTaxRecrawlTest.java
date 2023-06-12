@@ -7,11 +7,11 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-public class BetFairTaxRecrawlTest extends BaseCaseMerito{
+public class BetFairTaxRecrawlTest extends BaseCaseMerito {
 
     @TestRails(id = "1640")
-    @Test (groups = {"regression"})
-    public void BO_System_BetFair_Tax_Recrawl_1640(){
+    @Test(groups = {"regression"})
+    public void BO_System_BetFair_Tax_Recrawl_1640() {
         log("@title: Validate can search and navigate to page correctly");
         log("Step 1. Access Tool > BetFair Tax Recrawl");
         BetFairTaxRecrawlPage page = backofficeHomePage.navigateBetFairTaxRecrawl();
@@ -22,11 +22,11 @@ public class BetFairTaxRecrawlTest extends BaseCaseMerito{
     }
 
     @TestRails(id = "1641")
-    @Test (groups = {"regression"})
-    public void BO_System_BetFair_Tax_Recrawl_1641(){
+    @Test(groups = {"regression"})
+    public void BO_System_BetFair_Tax_Recrawl_1641() {
         String accountBetfair = "TestMrt1";
-        String fromDate = String.format(DateUtils.getDate(-1,"yyyy/MM/dd","GMT +7"));
-        String toDate = String.format(DateUtils.getDate(-1,"yyyy/MM/dd","GMT +7"));
+        String fromDate = String.format(DateUtils.getDate(-1, "yyyy/MM/dd", "GMT +7"));
+        String toDate = String.format(DateUtils.getDate(-1, "yyyy/MM/dd", "GMT +7"));
         log("@title: Validate can select filter criteria and submit");
         log("Step 1. Access Tool > BetFair Tax Recrawl");
         BetFairTaxRecrawlPage page = backofficeHomePage.navigateBetFairTaxRecrawl();
