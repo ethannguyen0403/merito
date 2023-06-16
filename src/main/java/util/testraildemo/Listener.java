@@ -1,11 +1,11 @@
 package util.testraildemo;
 
-import baseTest.BaseCaseMerito;
+import baseTest.BaseCaseTest;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-public class Listener extends BaseCaseMerito implements ITestListener {
+public class Listener extends BaseCaseTest implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult iTestResult) {

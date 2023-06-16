@@ -365,7 +365,7 @@ public class HeaderSectionTest extends BaseCaseTest {
             log("SKIP! Exchange Games product is NOT active for this account");
             return;
         }
-        EGHomePage page = memberHomePage.header.openExchangeGame(_brandname);
+        EGHomePage page = memberHomePage.openExchangeGame();
 
         log("Verify 1: Left menu icon and Logo");
         String logoImgActual = page.header.getLogoSrc();

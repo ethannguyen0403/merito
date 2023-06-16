@@ -12,8 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.domainURL;
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.domainURL;
 
 public class BetSettingUtils {
     public static List<BetSetting> getEventList(String product, String userID, String sports) {

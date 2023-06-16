@@ -11,12 +11,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
+
 
 public class PlayerInfoUtils {
     public static List<String> getInfo(String loginID) {
         List<String> lst = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s",environment.getBackofficeURL(),loginID);
+        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s",backofficeUrl,loginID);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if(Objects.nonNull(jsonObject)){
             JSONObject infoObject =  jsonObject.getJSONObject("info");
@@ -58,7 +59,7 @@ public class PlayerInfoUtils {
     }
     public static List<ArrayList<String>> getActivities(String loginID) {
         List<ArrayList<String>> lst = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s",environment.getBackofficeURL(), loginID);
+        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s",backofficeUrl, loginID);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             JSONArray activitiesArray = jsonObject.getJSONArray("activities");
@@ -73,7 +74,7 @@ public class PlayerInfoUtils {
     }
 
     private static String getUserID(String loginID){
-        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s",environment.getBackofficeURL(),loginID);
+        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s",backofficeUrl,loginID);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString());
         if(Objects.nonNull(jsonObject)) {
             JSONObject infoObject = jsonObject.getJSONObject("info");
@@ -84,7 +85,7 @@ public class PlayerInfoUtils {
     public static List<ArrayList<String>> getUpline(String loginID) {
         String userID = getUserID(loginID);
         List<ArrayList<String>> lst = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/user-status-product?userId=%s",environment.getBackofficeURL(), userID);
+        String api = String.format("%s/system-manager/web/user-status-product?userId=%s",backofficeUrl, userID);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
 
         for(int i = 0; i<jsonArray.length(); i++){

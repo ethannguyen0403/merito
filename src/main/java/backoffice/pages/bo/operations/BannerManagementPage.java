@@ -47,26 +47,26 @@ public class BannerManagementPage extends HomePage {
     public Table tblResult = Table.xpath("//div[@class='container-fluid pb-4 table-responsive']", totalCols);
 
     public Object clickAction(Actions type, int row) {
-                Link lnk;
-                switch (type) {
-                    case UPDATE:
-                        lnk = (Link)tblBannerManagement.getControlOfCell(1, colAction, row, "i[contains(@class,'fa-pencil-alt')]");
-                        if (lnk == null) {
-                            System.err.println("ERROR: Cannot get Update button");
-                            return null;
-                        }
-                        lnk.click();
-                        return new NewBannerPopup();
-                    case ACTIVE:
-                        tblBannerManagement.getControlOfCell(1, colAction, row, "button[contains(@class, 'btn-ACTIVE')]").click();
-                        break;
-                    case INACTIVE:
-                        tblBannerManagement.getControlOfCell(1, colAction, row, "button[contains(@class, 'btn-INACTIVE')]").click();
-                        break;
-                    case DELETE:
-                        tblBannerManagement.getControlOfCell(1, colAction, row, "i[contains(@class,'fa-trash-alt')]").click();
-                        break;
+        Link lnk;
+        switch (type) {
+            case UPDATE:
+                lnk = (Link)tblBannerManagement.getControlOfCell(1, colAction, row, "i[contains(@class,'fa-pencil-alt')]");
+                if (lnk == null) {
+                    System.err.println("ERROR: Cannot get Update button");
+                    return null;
                 }
+                lnk.click();
+                return new NewBannerPopup();
+            case ACTIVE:
+                tblBannerManagement.getControlOfCell(1, colAction, row, "button[contains(@class, 'btn-ACTIVE')]").click();
+                break;
+            case INACTIVE:
+                tblBannerManagement.getControlOfCell(1, colAction, row, "button[contains(@class, 'btn-INACTIVE')]").click();
+                break;
+            case DELETE:
+                tblBannerManagement.getControlOfCell(1, colAction, row, "i[contains(@class,'fa-trash-alt')]").click();
+                break;
+        }
 
         return null;
     }
@@ -114,7 +114,7 @@ public class BannerManagementPage extends HomePage {
         for(int i = 0; i <lstBanner.size(); i++){
             String imgSrc = tblBannerManagement.getControlOfCell(1,colBanner,i+1,"img[@class='banner-image']").getAttribute("src");
             if(imgSrc.contains(bannerName)) {
-               return clickAction(type,i+1);
+                return clickAction(type,i+1);
             }
         }
         return null;
@@ -150,13 +150,13 @@ public class BannerManagementPage extends HomePage {
                     if(!actualData.equals(expected))
                         System.out.println(String.format("Expected Brands: %s and Actual Brands: %s",expected,actualData));
                 }
-               if(!validFrom.isEmpty()){
-                   actualData = tblBannerManagement.getControlOfCell(1,colValidFrom,i+1,null).getText();
-                   if(!actualData.equals(validFrom)){
-                       System.out.println(String.format("Expected Valid From: %s and Actual Valid From: %s",validFrom,actualData));
-                       return false;
-                   }
-               }
+                if(!validFrom.isEmpty()){
+                    actualData = tblBannerManagement.getControlOfCell(1,colValidFrom,i+1,null).getText();
+                    if(!actualData.equals(validFrom)){
+                        System.out.println(String.format("Expected Valid From: %s and Actual Valid From: %s",validFrom,actualData));
+                        return false;
+                    }
+                }
                 if(!validTo.isEmpty()){
                     actualData = tblBannerManagement.getControlOfCell(1,colValidTill,i+1,null).getText();
                     if(!actualData.equals(validTo)){
@@ -164,15 +164,15 @@ public class BannerManagementPage extends HomePage {
                         return false;
                     }
                 }
-               if(!createBy.isEmpty())
-               {
-                   actualData = tblBannerManagement.getControlOfCell(1,colCreateBy,i+1,null).getText();
-                   if(!actualData.equals(createBy)){
-                       System.out.println(String.format("Expected Create By: %s and Actual Create By: %s",createBy,actualData));
-                       return false;
-                   }
-               }
-               return true;
+                if(!createBy.isEmpty())
+                {
+                    actualData = tblBannerManagement.getControlOfCell(1,colCreateBy,i+1,null).getText();
+                    if(!actualData.equals(createBy)){
+                        System.out.println(String.format("Expected Create By: %s and Actual Create By: %s",createBy,actualData));
+                        return false;
+                    }
+                }
+                return true;
             }
         }
         return false;

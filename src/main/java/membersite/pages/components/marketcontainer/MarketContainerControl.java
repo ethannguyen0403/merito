@@ -1,5 +1,6 @@
 package membersite.pages.components.marketcontainer;
 
+import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import membersite.objects.funsport.Odd;
 import membersite.objects.sat.Event;
@@ -14,6 +15,7 @@ import java.util.List;
  * created on Nov/21/2019
  */
 public class MarketContainerControl {
+	public Label lblSuspend = Label.xpath("//div[contains(@class,'highlight-page market')]//span[contains(@class,'suspended-label')]");
 	public enum Team {HOME, DRAW, AWAY}
 	public enum Status {NA, IN_PLAY, COMING}
 	public String getEventName(){

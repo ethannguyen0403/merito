@@ -10,12 +10,12 @@ import org.json.JSONObject;
 
 import java.util.*;
 
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
 
 public class WinLossDetailUtils {
     public static List<String> getPortals() {
         List<String> lstUsers = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/sv/report/all-user-po",environment.getBackofficeURL());
+        String api = String.format("%s/system-manager/web/sv/report/all-user-po",backofficeUrl);
         JSONArray jsonArray = WSUtils.getGETJSONArrayResponse(api, null,Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for(int i=0; i<jsonArray.length(); i++) {
@@ -36,7 +36,7 @@ public class WinLossDetailUtils {
     public static WinLossDetail getWinLossReport(String fromDate, String toDate, String product) {
         product = product.equals("All") ? "EXCHANGE,EZUGI,DIGIENT,FAIR_FANCY,SUPER_SPADE,EXCH_GAMES,FOLLOWBET,VERONICA,WICKET_FANCY,WICKET_BOOKMAKER" : product;
         String filter = String.format("product=%s,&userId=0&fromDate=%s&toDate=%s&isBack=-1&loginUserId=0", product, fromDate, toDate);
-        String api = String.format("%s/system-manager/web/report/win-loss-detail?%s",environment.getBackofficeURL(), filter);
+        String api = String.format("%s/system-manager/web/report/win-loss-detail?%s",backofficeUrl, filter);
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_FORM_URLENCODED, null, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (jsonObject.has("report")) {
             JSONArray jsonArray = jsonObject.getJSONArray("report");
@@ -62,7 +62,7 @@ public class WinLossDetailUtils {
         List<ArrayList<String>> lstResult = new ArrayList<>();
         product = product.equals("All") ? "EXCHANGE,EZUGI,DIGIENT,FAIR_FANCY,SUPER_SPADE,EXCH_GAMES,FOLLOWBET" : product;
         String filter = String.format("product=%s,&userId=0&fromDate=%s&toDate=%s&isBack=-1&loginUserId=0", product, fromDate, toDate);
-        String api = String.format("%s/system-manager/web/report/win-loss-detail?%s",environment.getBackofficeURL(), filter);
+        String api = String.format("%s/system-manager/web/report/win-loss-detail?%s",backofficeUrl, filter);
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_FORM_URLENCODED, null,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (jsonObject.has("report")) {
             JSONArray jsonArray = jsonObject.getJSONArray("report");
@@ -91,7 +91,7 @@ public class WinLossDetailUtils {
         List<ArrayList<String>> lstResult = new ArrayList<>();
         product = product.equals("All") ? "EXCHANGE,EZUGI,DIGIENT,FAIR_FANCY,SUPER_SPADE,EXCH_GAMES,FOLLOWBET" : product;
         String filter = String.format("product=%s,&userId=0&fromDate=%s&toDate=%s&isBack=-1&loginUserId=0", product, fromDate, toDate);
-        String api = String.format("%s/system-manager/web/report/win-loss-detail?%s",environment.getBackofficeURL(), filter);
+        String api = String.format("%s/system-manager/web/report/win-loss-detail?%s",backofficeUrl, filter);
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_FORM_URLENCODED, null,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (jsonObject.has("report")) {
             JSONArray jsonArray = jsonObject.getJSONArray("report");

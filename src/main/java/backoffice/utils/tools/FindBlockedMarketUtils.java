@@ -12,13 +12,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
+
 
 public class FindBlockedMarketUtils {
     public static List<String> getMarketInfo(String username,String eventID, String marketID) {
         List<String> lstMarket = new ArrayList<>();
         String filter = String.format("username=%s&eventId=%s&market=%s", username, eventID,marketID);
-        String api = String.format("%s/system-manager/web/find-blocked-market/list?%s",environment.getBackofficeURL(), filter);
+        String api = String.format("%s/system-manager/web/find-blocked-market/list?%s",backofficeUrl, filter);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -42,7 +43,7 @@ public class FindBlockedMarketUtils {
     public static List<String> getEventInfo(String username,String eventID, String marketID) {
         List<String> lstEvent = new ArrayList<>();
         String filter = String.format("username=%s&eventId=%s&market=%s", username, eventID,marketID);
-        String api = String.format("%s/system-manager/web/find-blocked-market/list?%s",environment.getBackofficeURL(), filter);
+        String api = String.format("%s/system-manager/web/find-blocked-market/list?%s",backofficeUrl, filter);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -68,7 +69,7 @@ public class FindBlockedMarketUtils {
     public static List<ArrayList<String>> getUserLevel(String username,String eventID, String marketID) {
         List<ArrayList<String>>  lstLevels = new ArrayList<>();
         String filter = String.format("username=%s&eventId=%s&market=%s", username, eventID,marketID);
-        String api = String.format("%s/system-manager/web/find-blocked-market/list?%s",environment.getBackofficeURL(), filter);
+        String api = String.format("%s/system-manager/web/find-blocked-market/list?%s",backofficeUrl, filter);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for (int i = 0; i < jsonArray.length(); i++) {

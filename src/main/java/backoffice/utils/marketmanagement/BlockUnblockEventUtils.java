@@ -1,7 +1,6 @@
 package backoffice.utils.marketmanagement;
 
-import backoffice.objects.bo.system.Product;
-import baseTest.BaseCaseMerito;
+
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.WSUtils;
@@ -13,12 +12,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseTest.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
 
 public class BlockUnblockEventUtils {
     public static List<ArrayList<String>> getDownlineList(String userId) {
         List<ArrayList<String>> lstDownline = new ArrayList<>();
-        String api = String.format("%s/system-manager/block-unlock-event/child-po.sv?userId=%s&levelPT=SMA",environment.getBackofficeURL(), userId);
+        String api = String.format("%s/system-manager/block-unlock-event/child-po.sv?userId=%s&levelPT=SMA",backofficeUrl, userId);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -38,7 +37,7 @@ public class BlockUnblockEventUtils {
     }
     public static List<ArrayList<String>> getLeagueAndEventList(String userId, String sportId) {
         List<ArrayList<String>> lstReturn = new ArrayList<>();
-        String api = String.format("%s/system-manager/block-unlock-event/events.sv", environment.getBackofficeURL());
+        String api = String.format("%s/system-manager/block-unlock-event/events.sv", backofficeUrl);
         String jsn = String.format("{\n" +
                         "    \"userId\": %s,\n" +
                         "    \"sportId\": \"%s\",\n" +

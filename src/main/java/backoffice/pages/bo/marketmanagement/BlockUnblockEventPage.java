@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockUnblockEventPage extends HomePage {
-
     public DropDownBox ddbUplineUser = DropDownBox.xpath("//div[@class='row mx-0']/div[1]//select[1]");
     public DropDownBox ddbSport = DropDownBox.xpath("//div[@class='row mx-0']/div[2]//select[1]");
     public Label lblUplineUser = Label.xpath("//div[@class='row mx-0']/div[1]//select[1]");
@@ -169,13 +168,13 @@ public class BlockUnblockEventPage extends HomePage {
     }
     public boolean isDownlineCheckboxChecked() {
         List<WebElement> list = cbDownlineChecked.getWebElements();
-            for (WebElement webElement : list) {
-                String attribute = webElement.getAttribute("checked");
-                if (!attribute.equalsIgnoreCase("true")) {
-                    return false;
-                }
+        for (WebElement webElement : list) {
+            String attribute = webElement.getAttribute("checked");
+            if (!attribute.equalsIgnoreCase("true")) {
+                return false;
             }
-            return true;
+        }
+        return true;
     }
 
     public boolean isEventCheckboxChecked() {

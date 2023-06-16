@@ -2,6 +2,8 @@ package membersite.pages.components;
 
 import membersite.pages.components.betslipcontainer.BetsSlipContainer;
 import membersite.pages.components.betslipcontainer.NewUIBetsSlipContainer;
+import membersite.pages.components.eventcontainer.Fair999EventContainerControl;
+import membersite.pages.components.eventcontainer.NewViewEventContainerControl;
 import membersite.pages.components.highlightracecontainer.HighLightRaceContainer;
 import membersite.pages.components.marketcontainer.MarketContainerControl;
 import membersite.pages.components.accountstatement.AccountStatementContainer;
@@ -9,7 +11,7 @@ import membersite.pages.components.accountstatement.NewUIAccountStatementContain
 import membersite.pages.components.accountstatement.NewViewAccountStatementContainer;
 import membersite.pages.components.accountstatement.OldUIAccountStatementContainer;
 import membersite.pages.components.eventcontainer.EventContainerControl;
-import membersite.pages.components.eventcontainer.NewUIEventContainerControl;
+import membersite.pages.components.eventcontainer.SATEventContainerControl;
 import membersite.pages.components.footer.Footer;
 import membersite.pages.components.footer.FunFooter;
 import membersite.pages.components.footer.SatFooter;
@@ -53,7 +55,8 @@ public class ComponentsFactory {
                 return new FunHeader();
             case"fairenter":
                 return new FairenterHeader();
-              //  case "F"
+            case"fairexchange":
+                return new Fair999Header();
             default:
                 return new SatHeader();
         }
@@ -122,8 +125,12 @@ public class ComponentsFactory {
     }
     public static EventContainerControl eventContainerControlObject(String types){
         switch (types){
+            case "fairexchange":
+                return new Fair999EventContainerControl();
+            case"satsport":
+                return new SATEventContainerControl();
             default:
-                return new NewUIEventContainerControl();
+                return new NewViewEventContainerControl();
         }
     }
     public static LeftMenu lefMenuObject(String types){
@@ -140,7 +147,6 @@ public class ComponentsFactory {
     }
     public static BetsSlipContainer betsSlipContainerObject(String types){
             switch (types){
-
                 default:
                     return new NewUIBetsSlipContainer();
             }

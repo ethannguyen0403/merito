@@ -8,6 +8,7 @@ import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.footer.Footer;
 import membersite.pages.components.header.Header;
 import membersite.pages.components.leftmneu.LeftMenu;
+import membersite.pages.components.loginform.LoginPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
 import org.json.JSONObject;
@@ -23,11 +24,13 @@ public class LandingPage extends BasePage{
     public Footer footer;
     public Header header;
     public LeftMenu leftMenu;
+    private LoginPopup loginPopup;
     public LandingPage(String types){
         _type = types;
         footer = ComponentsFactory.footerObject(_type);
         header= ComponentsFactory.headerObject(_type);
         leftMenu = ComponentsFactory.lefMenuObject(_type);
+        loginPopup = ComponentsFactory.loginPopupObject(_type);
     }
     public HomePage login(String username, String password,boolean skipByDefault){
         header.login(username,password,skipByDefault);
@@ -43,6 +46,9 @@ public class LandingPage extends BasePage{
         return new HomePage(_type);
     }
 
+    public boolean isLoginDisplay(){
+        return loginPopup.isLoginDisplay();
+    }
     public String loginInvalid(String username, String password){
        return header.loginInvalid(username,password);
     }
@@ -133,6 +139,12 @@ public class LandingPage extends BasePage{
             lst.add(String.valueOf(jsonObject.getFloat("currencyRate")));
         }
         return lst;
+    }
+
+    public MarketPage clickMarketonLeftMenu(String marketName)
+    {
+        leftMenu.clickMarket(marketName);
+        return new MarketPage(_type);
     }
 
 }

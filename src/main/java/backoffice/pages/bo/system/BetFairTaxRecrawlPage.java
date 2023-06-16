@@ -7,7 +7,6 @@ import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 
-
 public class BetFairTaxRecrawlPage extends HomePage {
     public Label lblTitlePage = Label.id("bo-page-title");
     public DropDownBox dpAccountBetfair = DropDownBox.xpath("//div[@id='betfairTaxRecrawl']//select");

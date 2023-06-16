@@ -1,13 +1,13 @@
 package backoffice.testcases.system;
 
 import backoffice.pages.bo.system.BetFairTaxRecrawlPage;
-import baseTest.BaseCaseMerito;
+import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-public class BetFairTaxRecrawlTest extends BaseCaseMerito {
+public class BetFairTaxRecrawlTest extends BaseCaseTest {
 
     @TestRails(id = "1640")
     @Test(groups = {"regression"})

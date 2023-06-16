@@ -5,6 +5,7 @@ import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
+
 import java.util.List;
 
 public class MixedPTConfigurationTest extends BaseCaseTest {

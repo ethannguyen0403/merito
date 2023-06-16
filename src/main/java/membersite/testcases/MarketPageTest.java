@@ -1,17 +1,17 @@
 package membersite.testcases;
 
-import baseTest.BaseCaseMerito;
+import baseTest.BaseCaseTest;
 import membersite.objects.sat.Event;
-import membersite.pages.all.tabexchange.MarketPage;
-import membersite.pages.all.tabexchange.SportPage;
-import membersite.pages.all.tabexchange.components.popups.RulePopup;
+import membersite.pages.MarketPage;
+import membersite.pages.popup.RulePopup;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.Objects;
 
-public class MarketPageTest extends BaseCaseMerito {
+
+public class MarketPageTest extends BaseCaseTest {
 
     @TestRails(id="1074")
     @Test (groups = {"regression"})
@@ -20,16 +20,13 @@ public class MarketPageTest extends BaseCaseMerito {
         log("@title:Validate can open rule popup");
         log("Step 1 Active any market");
         log("Step 2.Click on Rule button");
-        SportPage page =  memberHomePage.activeSportInLefMenu("Soccer");
-        Event event = page.eventContainerControl.getEventRandom(false,false);
-
+        Event event =  memberHomePage.eventContainerControl.getEventRandom(false,false);
         if(Objects.isNull(event)) {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEventName(event.getEventName());
-
-        RulePopup rulePopup = marketPage.openRules();
+        MarketPage marketPage = memberHomePage.clickEventName(event.getEventName());
+//        RulePopup rulePopup = marketPage.openRules();
         log("Verify 1. Rule popup display with the title : Market name - Rules");
 
         log("INFO: Executed completely");

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.domainURL;
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.domainURL;
+import static baseTest.BaseCaseTest.environment;
 
 public class CurrentBlockingUtils {
 

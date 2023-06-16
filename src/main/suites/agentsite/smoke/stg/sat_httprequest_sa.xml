@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SAT_AG_STG_SMOKE_HTTP_Request" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="SAT_STG_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='true'/>
+        <parameter name='username' value='Auto.SAD1'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value='satsport'/>
+        <groups>
+            <run>
+                <include name="http_request" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
+            <class name="agentsite.testcase.reports.BigStakeConfigurationTest"/>
+            <class name="agentsite.testcase.reports.CancelledBetsTest"/>
+            <class name="agentsite.testcase.reports.ClientLegerTest"/>
+            <class name="agentsite.testcase.reports.PositionTakingReportTest"/>
+            <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
+            <class name="agentsite.testcase.reports.StatementReportTest"/>
+            <class name="agentsite.testcase.reports.TransactionHistoryTest"/>
+            <class name="agentsite.testcase.reports.TransferLogTest"/>
+            <class name="agentsite.testcase.reports.UnsettledBetTest"/>
+            <class name="agentsite.testcase.reports.ViewLogTest"/>
+            <class name="agentsite.testcase.reports.WinLossByEventTest"/>
+            <class name="agentsite.testcase.reports.WinLossBySportAndMarketTypeTest"/>
+            <class name="agentsite.testcase.reports.WinLossDetailTest"/>
+            <class name="agentsite.testcase.reports.WinLossSimpleTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
+        </classes>
+
+    </test>
+</suite>

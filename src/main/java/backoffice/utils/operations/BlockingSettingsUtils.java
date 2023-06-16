@@ -10,13 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
 
 public class BlockingSettingsUtils {
     public static List<ArrayList<String>> getBlockingSetting() {
         List<ArrayList<String>> lstBrands = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/blocking/list-config",environment.getBackofficeURL());
+        String api = String.format("%s/system-manager/web/blocking/list-config",backofficeUrl);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("users")) {

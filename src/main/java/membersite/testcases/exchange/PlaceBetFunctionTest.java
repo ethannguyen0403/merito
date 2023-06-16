@@ -153,7 +153,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id="558")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC004(){
+    public void Place_Bet_Function_TC004(){
         log("@title: Validate can place unmatched Back bet successfully for Tennis");
         String odds ="20.00";
         String minBet = BetUtils.getMinBet("TENNIS", "BACK");
@@ -201,7 +201,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id="559")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC005(){
+    public void Place_Bet_Function_TC005(){
         log("@title: Validate can place unmatched Lay bet successfully for Tennis");
         String odds ="1.01";
         AccountBalance balance = memberHomePage.header.getUserBalance();
@@ -251,7 +251,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id="560")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC006(){
+    public void Place_Bet_Function_TC006(){
         log("@title: Validate cancel bet icon works");
         String odds ="1.01";
         String sportName ="Soccer";
@@ -269,7 +269,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 2. Place an unmatched bet");
         Market market = marketPage.marketOddControl.getMarket(event,1,false);
         market.getBtnOdd().click();
-
+        marketPage.betsSlipContainer.placeBet(odds,minBet);
         Order wagers =marketPage.myBetsContainer.getOrder(false,false);
 
         log("Step 3. Open My Bet Page and get Wager info");
@@ -317,7 +317,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id="561")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC007(){
+    public void Place_Bet_Function_TC561(){
         log("@title: Validate cancel bet icon works");
         String oddsLay ="1.01";
         String oddsBack ="20";
@@ -386,7 +386,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id="562")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC008(){
+    public void Place_Bet_Function_TC562(){
         log("@title: Validate can place unmatched Back bet successfully for Cricket");
         String odds ="30";
         AccountBalance balance = memberHomePage.header.getUserBalance();
@@ -435,7 +435,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id="563")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC009(){
+    public void Place_Bet_Function_TC563(){
         log("@title: Validate can place unmatched Lay bet successfully for Cricket");
         String odds ="1.01";
         AccountBalance balance = memberHomePage.header.getUserBalance();
@@ -486,7 +486,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id="564")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC010(){
+    public void Place_Bet_Function_TC010(){
         log("@title: Validate can place unmatched Back bet successfully for Horse Racing");
         boolean isBack = true;
         String odds ="100.00";
@@ -546,7 +546,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id="565")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC011(){
+    public void Place_Bet_Function_TC011(){
         log("@title:  As support #44512: Lay odds is empty and are not allowed to click to add on bet slip");
         log("Step 1. Active any market of Horse Racing");
         RacingPage page = memberHomePage.header.navigateRacing("Horse Racing",_brandname);
@@ -570,7 +570,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id="566")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC021(){
+    public void Place_Bet_Function_TC021(){
         log("@title: Validate that user can place unmatched Back bet on Soccer market");
         String odds ="20.00";
         String minBet = BetUtils.getMinBet("SOCCER", "BACK");
@@ -617,7 +617,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id="567")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC022(){
+    public void Place_Bet_Function_TC022(){
         log("@title: Validate that user can place unmatched Lay bet on Soccer market");
         String odds ="1.01";
         AccountBalance balance = memberHomePage.header.getUserBalance();
@@ -626,7 +626,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         log("Step 1. Active any market of Soccer");
         SportPage page = memberHomePage.navigateSportHeaderMenu("Soccer");
-      
+
             Event event = page.eventContainerControl.getEventRandom(false,false);
             if(Objects.isNull(event)) {
                 log("DEBUG: There is no event available");
@@ -697,13 +697,13 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         //  String expectedError = FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE;
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
 
-      
+
         log("INFO: Executed completely");
     }
 
 
     @Test(groups = {"regression"})
-    public void FE_Place_Bet_Function_TC024(){
+    public void Place_Bet_Function_TC024(){
         log("@title: Validate that cannot place Lay bet if exposure exceed available balance");
         AccountBalance balance = BetUtils.getUserBalance();
         log("Step 1 Active any market, and place  Lay odds ");
@@ -730,8 +730,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
 
     @TestRails(id="584")
-    @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC025(){
+    @Test(groups = {"smoke3"})
+    public void Place_Bet_Function_TC025(){
         log("@title: Validate that user can NOT place Lay bet if Stake less than min setting");
         String odds ="1.01";
 
@@ -762,16 +762,16 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 3. Input stake and click submit");
         marketPage.betsSlipContainer.placeBet(odds,stake);
 
-        log("Verify 1. Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
-        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%.2f",Double.parseDouble(stake)));
+        log("Verify 1. Error Cannot place bet display: \"The stake must be from %s to %s. Current Stake is %s.");
+        String actualError = marketPage.betsSlipContainer.getBetSlipErrorMessage();
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID, minBet,maxBet,stake);
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
         log("INFO: Executed completely");
     }
 
     @TestRails(id="585")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC026(){
+    public void Place_Bet_Function_TC026(){
         log("@title: Validate that user can NOT place Back bet if Stake greater than max setting");
         String minBet = BetUtils.getMinBet("SOCCER", "BACK");
          String maxBet = BetUtils.getMaxBet("SOCCER", "BACK");
@@ -800,16 +800,16 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 3. Input stake greater than max bet");
         marketPage.betsSlipContainer.placeBet(stake);
 
-        log("Verify: 1  Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
-        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%,.2f",Double.parseDouble(stake)));
+        log("Verify: 1  Error Cannot place bet display: \"The stake must be from %s to %s. Current Stake is %s.");
+        String actualError = marketPage.betsSlipContainer.getBetSlipErrorMessage();
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID, minBet,maxBet,stake);
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
         log("INFO: Executed completely");
     }
 
     @TestRails(id="586")
     @Test(groups = {"smoke"})
-    public void FE_Place_Bet_Function_TC027(){
+    public void Place_Bet_Function_TC027(){
         log("@title: Validate that user can NOT place Lay bet if Stake greater than max setting");
         String odds ="1.01";
         String minBet = BetUtils.getMinBet("SOCCER", "LAY");
@@ -838,9 +838,9 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 3. Input stake greater than max bet");
         marketPage.betsSlipContainer.placeBet(odds,stake);
 
-        log("Verify: 1 Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from [min] to [max]. Current Stake is [stake].");
-        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%,.2f",Double.parseDouble(stake)));
+        log("Verify: 1 Error Cannot place bet display: \"The stake must be from [min] to [max]. Current Stake is [stake].");
+        String actualError = marketPage.betsSlipContainer.getBetSlipErrorMessage();
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID, minBet,maxBet,stake);
         Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
         log("INFO: Executed completely");
     }

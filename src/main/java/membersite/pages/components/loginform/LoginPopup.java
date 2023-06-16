@@ -5,5 +5,7 @@ public class LoginPopup {
 
     }
 
+    public boolean isLoginDisplay(){return false;}
+
 
 }

@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.environment;
+
+import static baseTest.BaseCaseTest.backofficeUrl;
 
 public class BetFairAccountInfoUtils {
     public static List<ArrayList<String>> getBetFairAccount() {
         List<ArrayList<String>> lstAccount = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/betfair-account.sv",environment.getBackofficeURL());
+        String api = String.format("%s/system-manager/web/betfair-account.sv",backofficeUrl);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         ArrayList<String> accountInfo = new ArrayList<>();
         if (Objects.nonNull(jsonArray)) {

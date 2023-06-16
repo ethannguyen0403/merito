@@ -2,8 +2,6 @@ package membersite.pages.components.highlightracecontainer;
 
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
-import membersite.pages.all.tabexchange.RacingMarketPage;
-import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +31,11 @@ public class OldUIHighLightRaceContainer extends HighLightRaceContainer {
 		raceInfoList.add(lnlRace.getAttribute("data-venue"));
 		return raceInfoList;
 	}
-	public RacingMarketPage clickCommingUpRace(int raceIndex){
-		Link lnlRace = Link.xpath(String.format("//div[@id='coming-up-race']//ul/li[%s]/a",raceIndex));
-		lnlRace.click();
-		return new RacingMarketPage();
-	}
+//	public RacingMarketPage clickCommingUpRace(int raceIndex){
+//		Link lnlRace = Link.xpath(String.format("//div[@id='coming-up-race']//ul/li[%s]/a",raceIndex));
+//		lnlRace.click();
+//		return new RacingMarketPage();
+//	}
 
 
 }

@@ -1,7 +1,7 @@
 package baseTest;
 
-import agentsite.pages.all.ChangePasswordPage;
-import agentsite.pages.all.home.SecurityCodePage;
+import agentsite.pages.ChangePasswordPage;
+import agentsite.pages.SecurityCodePage;
 import com.paltech.constant.Helper;
 import com.paltech.driver.DriverManager;
 import com.paltech.driver.DriverProperties;
@@ -45,11 +45,10 @@ public class BaseCaseTest {
     public static Environment environment;
     public static ExtentTest logger;
     public static ExtentReports report;
-    public static agentsite.pages.all.home.LoginPage agentLoginPage;
+    public static agentsite.pages.LoginPage agentLoginPage;
     public static backoffice.pages.bo.home.HomePage backofficeHomePage;
-    public static agentsite.pages.all.home.HomePage agentHomePage;
+    public static agentsite.pages.HomePage agentHomePage;
     public static membersite.pages.HomePage memberHomePage;
-    public static membersite.pages.all.home.ChangePasswordPage changePasswordPage;
     public static LandingPage landingPage;
     public static BrowserMobProxy browserMobProxy;
     public static String domainURL;
@@ -68,7 +67,7 @@ public class BaseCaseTest {
     public static String _brandname;
     public static String PROJECT_ID="1";
     public static APIClient client;
-    private static boolean isAddTestRailResult = true;
+    private static boolean isAddTestRailResult = false;
     private static  List<Long> lstCases= new ArrayList<>();
 
     @BeforeSuite(alwaysRun = true)
@@ -171,7 +170,7 @@ public class BaseCaseTest {
           agentHomePage = loginAgent(sosAgentURL,agentSecurityCodeURL,username,password,environment.getSecurityCode());
       }
       else {
-          agentLoginPage = new agentsite.pages.all.home.LoginPage();
+          agentLoginPage = new agentsite.pages.LoginPage(_brandname);
       }
   }
     public static void loginMember(String username, String password,boolean isLogin, String language,String currency,boolean isThrown) throws Exception {
@@ -190,6 +189,10 @@ public class BaseCaseTest {
          loginMember( username, password,true,"","",true);
         return new HomePage(_brandname);
     }
+    public static membersite.pages.HomePage loginMember(String brand,String username, String password) throws Exception {
+        loginMember( username, password,true,"","",true);
+        return new HomePage(brand);
+    }
     public static void loginBackoffice(String username, String password,boolean isLogin) throws Exception {
         createDriver(backofficeUrl);
         if(isLogin) {
@@ -201,25 +204,21 @@ public class BaseCaseTest {
                     Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl, username, password, true);
                 }
             }
-        }/*else {
-
-                }*/
+        }
     }
     public static SecurityCodePage loginAgentWithoutSecurityCode(String sosURL, String securityCodeUrl, String username, String password) throws Exception {
         Helper.loginAgentIgnoreCaptchaTest(sosURL, securityCodeUrl, username, password);
-        SecurityCodePage securityPage = new SecurityCodePage();
-        securityPage.waitingLoadingSpinner();
-        return securityPage;
+        return new SecurityCodePage(_brandname);
     }
-    public static agentsite.pages.all.home.HomePage loginAgent(String sosURL, String securityCodeUrl, String username, String password, String securityCode) throws Exception {
+    public static agentsite.pages.HomePage loginAgent(String sosURL, String securityCodeUrl, String username, String password, String securityCode) throws Exception {
         Helper.loginAgentIgnoreCaptchaTest(sosURL, securityCodeUrl, username, password);
-        SecurityCodePage securityCodePage = new SecurityCodePage();
+        SecurityCodePage securityCodePage = new SecurityCodePage(_brandname);
         securityCodePage.setSecurityCode(StringUtils.decrypt(securityCode), StringUtils.decrypt(securityCode));
-        ChangePasswordPage changePasswordPage = new ChangePasswordPage();
+        ChangePasswordPage changePasswordPage = new ChangePasswordPage(_brandname);
         changePasswordPage.changePassword(StringUtils.decrypt(password), StringUtils.decrypt(password), StringUtils.decrypt(password));
-        agentHomePage = new agentsite.pages.all.home.HomePage();
+        agentHomePage = new agentsite.pages.HomePage(_brandname);
         // Work arround after login show blank page
-        if (!agentHomePage.btnSignOut.isDisplayed()) {
+        if (!agentHomePage.header.isSignOutDisplay()) {
             DriverManager.getDriver().refresh();
             agentHomePage.waitingLoadingSpinner();
         }
@@ -228,12 +227,12 @@ public class BaseCaseTest {
      // this function for login new agent account
     public static void loginNewAccount(String sosURL, String loginURL,String username,String password, String securityCode)throws Exception{
         Helper.loginAgentIgnoreCaptchaTest(sosURL,loginURL, username,password);
-        SecurityCodePage securityPage = new SecurityCodePage();
+        SecurityCodePage securityPage = new SecurityCodePage(_brandname);
         securityPage.setSecurityCode(securityCode,securityCode);
-        ChangePasswordPage changePWPage = new ChangePasswordPage();
+        ChangePasswordPage changePWPage = new ChangePasswordPage(_brandname);
         String psDecrypt = StringUtils.decrypt(password);
         changePWPage.changePassword(psDecrypt,psDecrypt,psDecrypt);
-        agentHomePage = new agentsite.pages.all.home.HomePage();
+        agentHomePage = new agentsite.pages.HomePage(_brandname);
     }
 
     @AfterMethod(alwaysRun = true)
@@ -316,7 +315,7 @@ public class BaseCaseTest {
     /**********************
      * Private methods
      *******************/
-    private static void createDriver(String url) throws MalformedURLException, UnexpectedException {
+    protected static void createDriver(String url) throws MalformedURLException, UnexpectedException {
         int count = 3;
         DriverManager.quitAll();
         while (count-- > 0){
@@ -368,8 +367,8 @@ public class BaseCaseTest {
                 return environment.getFairenterURL() ;
             case "laser365":
                 return environment.getLaser365URL();
-          /*  case "backoffice":
-                return String.format("%s%s",environment.getBackofficeDomain(), MEMBER_URL_SUFFIX.get(brandName));*/
+            case "backoffice":
+                return String.format("%s%s",environment.getBackofficeURL(), MEMBER_URL_SUFFIX.get(brandName));
             default:
                 return "";
         }

@@ -8,13 +8,13 @@ import com.paltech.utils.DateUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BlockUnblockEventTest extends BaseCaseTest {
-
     @TestRails(id = "1661")
     @Test(groups = {"regression"})
     public void BO_Market_Management_BlockUnblock_Event_1661() {
@@ -368,5 +368,6 @@ public class BlockUnblockEventTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
 
 }

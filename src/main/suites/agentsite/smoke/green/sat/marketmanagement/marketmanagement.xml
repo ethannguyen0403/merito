@@ -27,11 +27,11 @@
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.satsport.marketsmanagement.BlockUnblockEventsTest"/>
-            <class name="agentsite.testcase.satsport.marketsmanagement.BlockUnblockCompetitionsTest"/>
-            <class name="agentsite.testcase.satsport.marketsmanagement.CurrentBlockingTest"/>
-            <class name="agentsite.testcase.satsport.marketsmanagement.BlockRacingTest"/>
-            <class name="agentsite.testcase.satsport.marketsmanagement.LiquidityThresholdTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockUnblockCompetitionsTest"/>
+            <class name="agentsite.testcase.marketsmanagement.CurrentBlockingTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockRacingTest"/>
+            <class name="agentsite.testcase.marketsmanagement.LiquidityThresholdTest"/>
         </classes>
 
     </test>

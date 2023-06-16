@@ -32,13 +32,13 @@
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.satsport.marketsmanagement.BlockUnblockEventsTest"/>
-            <class name="agentsite.testcase.all.marketsmanagement.LiquidityThresholdTest"/>
-            <class name="agentsite.testcase.all.reports.FollowBetsPerformanceTest"/>
-            <class name="agentsite.testcase.all.reports.BFVoidedDiscrepancyTest"/>
-            <class name="agentsite.testcase.all.riskmanagement.AnalysisOfRunningMarketsTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.FollowBetsTest"/>
-            <class name="agentsite.testcase.all.home.LeftMenuTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
+            <class name="agentsite.testcase.marketsmanagement.LiquidityThresholdTest"/>
+            <class name="agentsite.testcase.reports.FollowBetsPerformanceTest"/>
+            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
+            <class name="agentsite.testcase.riskmanagement.AnalysisOfRunningMarketsTest"/>
+            <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
+            <class name="agentsite.testcase.LeftMenuTest"/>
         </classes>
 
     </test>

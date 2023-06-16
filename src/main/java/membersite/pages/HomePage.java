@@ -8,7 +8,6 @@ import membersite.pages.components.betslipcontainer.BetsSlipContainer;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.eventcontainer.EventContainerControl;
 import membersite.pages.components.minimybetcontainer.MiniMyBetsContainer;
-import membersite.pages.components.mybet.MyBetsContainer;
 import membersite.pages.exchangegames.EGHomePage;
 import membersite.pages.popup.BannerPopup;
 import membersite.utils.betplacement.BetUtils;
@@ -39,9 +38,10 @@ public class HomePage extends LandingPage{
     public boolean isMyAccountContains(String menu){
         return header.isMyAccountContains(menu);
     }
-
+ 
     public EGHomePage openExchangeGame(){
-        EGHomePage exPage = header.openExchangeGame(this._type);
+        header.openExchangeGame();
+        EGHomePage exPage= new EGHomePage(_type);
         exPage.gcBaccarat.waitForControlInvisible(2,1);
         DriverManager.getDriver().switchToFrame(0);
         return exPage;
@@ -56,7 +56,10 @@ public class HomePage extends LandingPage{
         waitMenuLoading();
         return new MarketPage(this._type);
     }
+    public Event setEventLink(Event event){
+        return eventContainerControl.setEventLink(event);
 
+    }
     public void waitMenuLoading(){
         leftMenu.waitMenuLoading();
     }
@@ -65,6 +68,20 @@ public class HomePage extends LandingPage{
         double balanceDoub =Double.valueOf(balance.replaceAll(",", "").toString());
         double liabilityDoub =Double.valueOf(liability.replaceAll(",", "").toString());
         double balanceReturn = balanceDoub - liabilityDoub;
+        return String.format(Locale.getDefault(),"%,.2f",balanceReturn);
+    }
+    /**
+     * Recalulate balance after place on a market
+     * @param balance
+     * @param liabilityBeforePlaceBetOnMarket
+     * @param liabilityAfterPlaceOnMarket
+     * @return
+     */
+    public String calculateBalanceAfterPlaceBet(String balance, Double liabilityBeforePlaceBetOnMarket, Double liabilityAfterPlaceOnMarket) {
+        double balanceDoub =Double.valueOf(balance.replaceAll(",", "").toString());
+      /*  double liabilityDoubBefore =Double.valueOf(liabilityBeforePlaceBetOnMarket.replaceAll(",", "").toString());
+        double liabilityDoubAfter =Double.valueOf(liabilityAfterPlaceOnMarket.replaceAll(",", "").toString());*/
+        double balanceReturn = balanceDoub - liabilityBeforePlaceBetOnMarket + liabilityAfterPlaceOnMarket;
         return String.format(Locale.getDefault(),"%,.2f",balanceReturn);
     }
 
@@ -90,4 +107,15 @@ public class HomePage extends LandingPage{
         waitMenuLoading();
         return new MarketPage(_type);
     }
+
+    public MarketPage clickMenuIndex(int marketIndex){
+        leftMenu.clickMenuIndex(marketIndex);
+        return new MarketPage(_type);
+    }
+
+    public LandingPage logout(){
+        header.logout();
+        return new LandingPage(_type);
+    }
+
 }

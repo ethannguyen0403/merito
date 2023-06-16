@@ -3,7 +3,7 @@ package membersite.testcases.exchangegame;
 import baseTest.BaseCaseTest;
 import common.EGConstants;
 import membersite.objects.AccountBalance;
-import membersite.pages.all.tabexchange.SportPage;
+import membersite.pages.SportPage;
 import membersite.pages.exchangegames.BaccaratPage;
 import membersite.pages.exchangegames.EGHomePage;
 import membersite.utils.betplacement.BetUtils;
@@ -15,22 +15,21 @@ import util.testraildemo.TestRails;
 
 public class EGBaccaratTest extends BaseCaseTest {
         /**
-     * @title: Verify can place Baccarat Turbo game
+     * @title: 	Validate can place BACCARAT standard
      * @precondition: 1. Login member site
-     * @step: 1.Navigate to exchange game > Baccarat Turbo
+     * @step: 1.Navigate to exchange game > Baccarat Standar
      * 2. Place on any selection with Lay 1.02 and min stake
      * @expect: Verify can place bet
      */
     @TestRails(id="533")
     @Test(groups = {"smoke"})
-    @Parameters({"skinName"})
-    public void EG_Baccarat_TC001(String skinName){
-        log("@title:  Verify can place Baccarat Turbo game");
+    public void EG_Baccarat_TC001(){
+        log("@title: Validate can place BACCARAT standard");
         log("Step precondition. get min bet of Baccarat");
-        String minBet = GetDataUtils.getMinBet(EGConstants.BACCARAT, SportPage.BetType.BACK);
-        EGHomePage egHomePage = memberHomePage.openExchangeGame();
+        String minBet = GetDataUtils.getMinBet("BACCARAT", "BACK");
 
         log("Step 1. Navigate to exchange game  ");
+        EGHomePage egHomePage = memberHomePage.openExchangeGame();
         egHomePage.navigateGameFromMainMenu(EGConstants.BACCARAT);
         BaccaratPage baccaratPage = new BaccaratPage(_brandname);
 
@@ -55,7 +54,7 @@ public class EGBaccaratTest extends BaseCaseTest {
     public void EG_Baccarat_TC002(){
         log("@title: Validate can Not place BACCARAT if exceed available balance");
         AccountBalance balanceAPI = BetUtils.getUserBalance();
-        String minBet = GetDataUtils.getMinBet(EGConstants.BACCARAT, SportPage.BetType.BACK);
+        String minBet = GetDataUtils.getMinBet(EGConstants.BACCARAT, "BACK");
         String stake = String.format("%.0f",Double.max(Double.valueOf(balanceAPI.getBalance().replaceAll(",", ""))+ 1,Integer.valueOf(minBet)));
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
 

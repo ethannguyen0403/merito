@@ -6,14 +6,16 @@ import com.paltech.utils.WSUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
 
 public class FraudDetectionUtils {
     public static List<ArrayList<String>> getListSportHasPlace(String date, String status) {
         List<ArrayList<String>> lst = new ArrayList<>();
-        String api = String.format("%s/fraud-detection/event/list-sport-by-placeddate.json",environment.getBackofficeURL());
+        String api = String.format("%s/fraud-detection/event/list-sport-by-placeddate.json",backofficeUrl);
        String jsn = String.format("{\"placedDate\":\"%s\",\"status\":\"%s\"}",date,status);
        // WSUtils.getPOSTJSONObjectResponse(api, Configs.HEADER_FORM_URLENCODED,jsn);
         JSONArray jsonArray = WSUtils.getPOSTJSONArrayWithCookies(api, Configs.HEADER_JSON,jsn, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
@@ -32,7 +34,7 @@ public class FraudDetectionUtils {
     }
     public static List<ArrayList<String>> getListCompetition(String date, String sportId, String competitionId) {
         List<ArrayList<String>> lst = new ArrayList<>();
-        String api = String.format("%s/fraud-detection/event/list-competition.json",environment.getBackofficeURL());
+        String api = String.format("%s/fraud-detection/event/list-competition.json",backofficeUrl);
         String jsn = String.format("{\"matchDate\":\"%s\",\"sportId\":\"%s\",\"competitionId\":\"%s\"}",date,sportId,competitionId);
         JSONArray jsonArray = WSUtils.getPOSTJSONArrayWithCookies(api, Configs.HEADER_JSON,jsn,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if(!jsonArray.isEmpty()){

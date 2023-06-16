@@ -1,13 +1,12 @@
 package membersite.pages.components.leftmneu;
 
-import com.paltech.driver.DriverManager;
-import com.paltech.element.BaseElement;
-import com.paltech.element.common.*;
+import com.paltech.element.common.Button;
+import com.paltech.element.common.Image;
+import com.paltech.element.common.Label;
+import com.paltech.element.common.TextBox;
 import membersite.controls.DropDownBox;
 import membersite.controls.DropDownMenu;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.support.PageFactory;
 
 public class NewViewLeftMenu extends LeftMenu {
     public Image imgLoading = Image.xpath("//div[@class='loading-icon']/img");
@@ -38,21 +37,24 @@ public class NewViewLeftMenu extends LeftMenu {
         }
         return lblNoSearchResult;
     }
-
-
-
+    public void waitMenuLoading() {
+        imgLoading.waitForControlInvisible();
+    }
 
     public void clickBack(){
         btnBack.click();
         waitMenuLoading();
     }
+    public String getActiveEvent() {
+        waitMenuLoading();
+        return menuEvent.getText().trim();
+    }
+    public void clickMarket(String marketName) {
+        allSportMenu.clickSubMenu(marketName,false);
+    }
 /*
 
-    public <T> T clickLeftMenuItem(String pageName, Class<T> expectedPage) {
-        allSportMenu.clickSubMenu(pageName,false);
-        waitMenuLoading();
-        return PageFactory.initElements(DriverManager.getDriver(),expectedPage);
-    }
+
 
     public String getActiveEvent() {
         return menuEvent.getText().trim();

@@ -29,6 +29,6 @@ public class FunLoginPopup extends LoginPopup {
             }
         }
     }
-
+    public boolean isLoginDisplay(){return btnLogin.isDisplayed();}
 
 }

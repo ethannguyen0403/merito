@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.environment;
+
+import static baseTest.BaseCaseTest.backofficeUrl;
 
 public class WagerResettlementUltils {
     /**
@@ -22,7 +23,7 @@ public class WagerResettlementUltils {
      */
     public static List<String> getMarketInfo(String orderId, WagerResettlementPage.BetType type,String product) {
         List<String> lstMarket = new ArrayList<>();
-        String api = String.format("%s/backoffice-settlement/audit.json?orderId=%s&betTypeFilter=%s&productCode=%s&_=%s",environment.getBackofficeURL(), orderId,type,product, DateUtils.getMilliSeconds());
+        String api = String.format("%s/backoffice-settlement/audit.json?orderId=%s&betTypeFilter=%s&productCode=%s&_=%s",backofficeUrl, orderId,type,product, DateUtils.getMilliSeconds());
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, null, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             JSONObject marketObj = jsonObject.getJSONObject("market");
@@ -38,7 +39,7 @@ public class WagerResettlementUltils {
 
     public static List<String> getOrderInfo(String orderId, WagerResettlementPage.BetType type,String product) {
         List<String> lstOrders = new ArrayList<>();
-        String api = String.format("%s/backoffice-settlement/audit.json?orderId=%s&betTypeFilter=%s&productCode=%s&_=%s",environment.getBackofficeURL(), orderId,type,product, DateUtils.getMilliSeconds());
+        String api = String.format("%s/backoffice-settlement/audit.json?orderId=%s&betTypeFilter=%s&productCode=%s&_=%s",backofficeUrl, orderId,type,product, DateUtils.getMilliSeconds());
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, null,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             JSONArray orderArray = jsonObject.getJSONArray("order");

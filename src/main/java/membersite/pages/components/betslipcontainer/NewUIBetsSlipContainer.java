@@ -3,7 +3,7 @@ package membersite.pages.components.betslipcontainer;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
-import membersite.controls.sat.EditStakeControl;
+import membersite.controls.EditStakeControl;
 import membersite.objects.sat.Order;
 import org.openqa.selenium.WebElement;
 
@@ -16,7 +16,8 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
     private Button btnPlaceBet = Button.xpath("//button[contains(@class,'button-primary')]");
     private Button btnClearAll = Button.xpath("//button[contains(@class,'btn-cancel')]");
     private String lblSelectionNameXPath="//span[(@class='runner-market')]";
-    private Label lblSelection = Label.xpath(lblSelectionNameXPath);private Label lblClickOnOdds;
+    private Label lblSelection = Label.xpath(lblSelectionNameXPath);
+    private Label lblClickOnOdds;
     private Label lblAccepting = Label.xpath("//div[@class='loading-text']");
     private String iconRemoveBetXpath="//span[(@class='remove-bet')]";
     private String txtOddsXPath="//input[contains(@class,'odds')]";
@@ -29,9 +30,9 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
     private Label lblBetSlipTitle = Label.xpath("//ul[@class='nav nav-tabs row nav-bet-slip']");
     private Button btnQuickStakes = Button.xpath("//button[contains(@class,'fastbtn')]");
     public EditStakeControl editStakeControl = EditStakeControl.xpath("//div[contains(@class,'edit-stakes-body')]");
-    public Label lblSuspendedErrorMessage = Label.xpath("//div[@class='modal-body' and contains(text(), 'has been Suspended')]");
     public Label lblMinMaxStakeErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
     private Label lblProfitLiability = Label.xpath("//span[contains(@class,'bet-slip-profit')]");
+    Label lblBetSlipErrorMessage = Label.xpath("//div[contains(@class,'betslip-error')]");
 
     public void cancelAllSelections() {
         btnClearAll.click();
@@ -43,7 +44,7 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
         // waiting for loading completely
         btnPlaceBet.isInvisible(2);
     }
-
+    public String getBetSlipErrorMessage(){return lblBetSlipErrorMessage.getText();}
     /**
      * Place a  bet input odds or stake
      * @param odds
@@ -54,6 +55,7 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
             txtOdds.sendKeys(odds);
         }
         inputStake(stake);
+        lblSelection.click();
         btnPlaceBet.click();
         // waiting accepting label disappear
         lblAccepting.waitForControlInvisible(20,10);

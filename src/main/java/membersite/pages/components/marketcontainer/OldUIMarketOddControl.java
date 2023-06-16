@@ -5,7 +5,7 @@ import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import common.MemberConstants;
-import membersite.controls.funsport.OddPageControl;
+import membersite.controls.OddPageControl;
 import membersite.objects.funsport.Odd;
 import org.openqa.selenium.By;
 

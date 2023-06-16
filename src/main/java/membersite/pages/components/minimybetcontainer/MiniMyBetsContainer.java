@@ -12,6 +12,7 @@ public class MiniMyBetsContainer {
 
     public String getPlaceBetErrorMessage(){return "";
     }
+
     public List<Order> getOrder(boolean isMatched, boolean isBack, int limit){
         return null;
     }

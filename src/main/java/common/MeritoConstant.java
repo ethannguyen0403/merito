@@ -4,6 +4,8 @@ import java.util.*;
 
 public class MeritoConstant {
 
+    public enum BetType {BACK, LAY}
+    public enum Sports {SOCCER, BASKETBALL, TENNIS, CRICKET,OTHER,HORSERACING}
     public static final String FAIREXCHANGE ="fairexchange";
     public static final String SATSPORT ="satsport";
     public static final String FUNSPORT ="funsport";

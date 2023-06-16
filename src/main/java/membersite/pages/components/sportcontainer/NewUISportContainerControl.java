@@ -2,14 +2,12 @@ package membersite.pages.components.sportcontainer;
 
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
-import membersite.controls.funsport.OddPageControl;
-import membersite.controls.sat.BetSlipControl;
-import membersite.controls.sat.MyBetControl;
 import membersite.objects.funsport.Odd;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
-import membersite.pages.all.tabexchange.MarketPage;
-import membersite.utils.betplacement.BetUtils;
+import membersite.pages.exchangegames.controls.BetSlipControl;
+import membersite.pages.exchangegames.controls.MyBetControl;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -28,9 +26,6 @@ public class NewUISportContainerControl extends SportContainerControl {
 	private String removeFavoriteIconSportHighlight="//div[@class='sport-highlight-content']//ul/li[%s]//i[@class='multi-market add-multi-market glyphicon glyphicon-minus-sign'][1]";
 
 	public Label lblMarketName = Label.xpath("//div[@id='content-odds']//div[@class='runner-names-heading']");
-	public OddPageControl oddPageControl = OddPageControl.xpath("//div[@id='odds-content']//div[@class='sport-highlight-content']", false);
-	public OddPageControl oddPageControlSportHighlightCompetition = OddPageControl.xpath("//div[@id='odds-content']//div[@class='sport-highlight-content competition']", false);
-
 	public void clickOdd(Odd odd) {
 		System.out.println("Debug: Click on Odd of the event: "+ odd.getEventName() +"Selection "+odd.getSelectedTeam() +"Odd Type"+odd.getOdd().getAttribute(""));
 		odd.getOdd().click();
@@ -88,9 +83,6 @@ public class NewUISportContainerControl extends SportContainerControl {
 
 	public String getEventIDHasProductData(String product,String status){
 		return "";
-	}
-	public MarketPage clickOnEvent(String eventId){
-		return null;
 	}
 
 	public Event setEventLink(Event event){return null;	}

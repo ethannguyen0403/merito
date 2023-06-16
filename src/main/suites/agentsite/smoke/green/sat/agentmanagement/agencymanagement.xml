@@ -28,22 +28,22 @@
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.satsport.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.depositwithdrawal.DepositTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.depositwithdrawal.WithdrawalTest"/>
-           <!-- <class name="agentsite.testcase.all.agencymanagement.downlinelisting.DownlineListingTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.downlinelisting.EditUserTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.AnnouncementTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.BetSettingListingTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.CommissionSettingListingTest"/>
-           <class name="agentsite.testcase.satsport.agencymanagement.CreateDownlineAgentTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.CreateUserTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.EventBetSizeSettingsTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.FollowBetsTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.PositionTakingListingTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.SubUserListingTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.TaxSettingListingTest"/>-->
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
+           <!-- <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.AnnouncementTest"/>
+            <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
+           <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.EventBetSizeSettingsTest"/>
+            <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
+            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>-->
         </classes>
 
     </test>

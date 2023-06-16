@@ -8,14 +8,12 @@ import membersite.objects.AccountBalance;
 import membersite.objects.sat.Order;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import membersite.pages.all.tabexchange.SportPage;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.domainURL;
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.domainURL;
+
 
 public class MarketUtils {
 
@@ -26,43 +24,43 @@ public class MarketUtils {
         return "eventID";
     }
 
-    public static String getMinBet(SportPage.Sports sportName, SportPage.BetType betType) {
-        String api = String.format("%s/member-service/user/bdata?_=%s", domainURL, DateUtils.getMilliSeconds());
-        JSONObject jsonObject = WSUtils.getGETJSONResponse(api, null,Configs.HEADER_JSON);
-        if (Objects.nonNull(jsonObject)) {
-            if (jsonObject.has("betSettings")) {
-                JSONArray arraySports = jsonObject.getJSONArray("betSettings");
-                String betTypeName = betType.equals(SportPage.BetType.BACK) ? "backMinBet" : "layMinBet";
-                for (int i=0; i < arraySports.length(); i++) {
-                    JSONObject jsonSportSetting = arraySports.getJSONObject(i);
-                    if (jsonSportSetting.getString("sportGroup").equals(sportName.toString())) {
-                        return Integer.toString(jsonSportSetting.getInt(betTypeName));
-                    }
-                }
-            }
-        }
-        System.out.println("DEBUG: getGETJSONResponse is null");
-        return "-1";
-    }
-
-    public static String getMaxBet(SportPage.Sports sportName, SportPage.BetType betType) {
-        String api = String.format("%s/member-service/user/bdata?_=%s", domainURL, DateUtils.getMilliSeconds());
-        JSONObject jsonObject = WSUtils.getGETJSONResponse(api, null,Configs.HEADER_JSON);
-        if (Objects.nonNull(jsonObject)) {
-            if (jsonObject.has("betSettings")) {
-                JSONArray arraySports = jsonObject.getJSONArray("betSettings");
-                String betTypeName = betType.equals(SportPage.BetType.BACK) ? "backMaxBet" : "layMaxBet";
-                for (int i=0; i < arraySports.length(); i++) {
-                    JSONObject jsonSportSetting = arraySports.getJSONObject(i);
-                    if (jsonSportSetting.getString("sportGroup").equals(sportName.toString())) {
-                        return Integer.toString(jsonSportSetting.getInt(betTypeName));
-                    }
-                }
-            }
-        }
-        System.out.println("DEBUG: getGETJSONResponse is null");
-        return "-1";
-    }
+//    public static String getMinBet(SportPage.Sports sportName, SportPage.BetType betType) {
+//        String api = String.format("%s/member-service/user/bdata?_=%s", domainURL, DateUtils.getMilliSeconds());
+//        JSONObject jsonObject = WSUtils.getGETJSONResponse(api, null,Configs.HEADER_JSON);
+//        if (Objects.nonNull(jsonObject)) {
+//            if (jsonObject.has("betSettings")) {
+//                JSONArray arraySports = jsonObject.getJSONArray("betSettings");
+//                String betTypeName = betType.equals(SportPage.BetType.BACK) ? "backMinBet" : "layMinBet";
+//                for (int i=0; i < arraySports.length(); i++) {
+//                    JSONObject jsonSportSetting = arraySports.getJSONObject(i);
+//                    if (jsonSportSetting.getString("sportGroup").equals(sportName.toString())) {
+//                        return Integer.toString(jsonSportSetting.getInt(betTypeName));
+//                    }
+//                }
+//            }
+//        }
+//        System.out.println("DEBUG: getGETJSONResponse is null");
+//        return "-1";
+//    }
+//
+//    public static String getMaxBet(SportPage.Sports sportName, SportPage.BetType betType) {
+//        String api = String.format("%s/member-service/user/bdata?_=%s", domainURL, DateUtils.getMilliSeconds());
+//        JSONObject jsonObject = WSUtils.getGETJSONResponse(api, null,Configs.HEADER_JSON);
+//        if (Objects.nonNull(jsonObject)) {
+//            if (jsonObject.has("betSettings")) {
+//                JSONArray arraySports = jsonObject.getJSONArray("betSettings");
+//                String betTypeName = betType.equals(SportPage.BetType.BACK) ? "backMaxBet" : "layMaxBet";
+//                for (int i=0; i < arraySports.length(); i++) {
+//                    JSONObject jsonSportSetting = arraySports.getJSONObject(i);
+//                    if (jsonSportSetting.getString("sportGroup").equals(sportName.toString())) {
+//                        return Integer.toString(jsonSportSetting.getInt(betTypeName));
+//                    }
+//                }
+//            }
+//        }
+//        System.out.println("DEBUG: getGETJSONResponse is null");
+//        return "-1";
+//    }
 
     /**
      * To get placed order form api

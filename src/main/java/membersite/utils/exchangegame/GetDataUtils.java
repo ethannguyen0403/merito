@@ -3,7 +3,6 @@ package membersite.utils.exchangegame;
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.WSUtils;
-import membersite.pages.all.tabexchange.SportPage;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,12 +17,12 @@ public class GetDataUtils {
         return WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
     }
 
-    public static String getMinBet(String gameName, SportPage.BetType betType) {
+    public static String getMinBet(String gameName, String betType) {
         JSONObject jsonObject = getEGData();
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("betSettings")) {
                 JSONArray arraySports = jsonObject.getJSONArray("betSettings");
-                String betTypeName = betType.equals(SportPage.BetType.BACK) ? "backMinBet" : "layMinBet";
+                String betTypeName = betType.equals("BACK") ? "backMinBet" : "layMinBet";
                 for (int i=0; i < arraySports.length(); i++) {
                     JSONObject jsonSportSetting = arraySports.getJSONObject(i);
                     if (jsonSportSetting.getString("sportGroup").equals(gameName.toUpperCase())) {
@@ -35,15 +34,15 @@ public class GetDataUtils {
         System.out.println("DEBUG: getGETJSONResponse is null");
         return "-1";
     }
-    public static String getMaxBet(SportPage.Sports sportName, SportPage.BetType betType) {
+    public static String getMaxBet(String gameName, String betType) {
         JSONObject jsonObject = getEGData();
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("betSettings")) {
                 JSONArray arraySports = jsonObject.getJSONArray("betSettings");
-                String betTypeName = betType.equals(SportPage.BetType.BACK) ? "backMaxBet" : "layMaxBet";
+                String betTypeName = betType.equals("BACK") ? "backMaxBet" : "layMaxBet";
                 for (int i=0; i < arraySports.length(); i++) {
                     JSONObject jsonSportSetting = arraySports.getJSONObject(i);
-                    if (jsonSportSetting.getString("sportGroup").equals(sportName.toString())) {
+                    if (jsonSportSetting.getString("sportGroup").equals(gameName)) {
                         return Integer.toString(jsonSportSetting.getInt(betTypeName));
                     }
                 }

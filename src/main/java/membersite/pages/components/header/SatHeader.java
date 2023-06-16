@@ -40,9 +40,11 @@ public class SatHeader extends Header {
     private Link lnkMyMarkets = Link.xpath("//div[contains(@class,'account d-none')]");
     private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='title']");
     private Label lblBalanceCurrency = Label.xpath("//app-top-panel//div[contains(@class,'header-content-info')]//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='bal-val'][1]");
-    private Label lblBalance = Label.xpath("//app-top-panel//div[contains(@class,'header-content-info')]//div[contains(@class,'profit-group d-none')]//div[@class='balance'][2]//span[@class='bal-val']");
+    private Label lblBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance'][2]//span[@class='bal-val']");
     private Label lblLiabilityCurrency = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'lia-val')][1]");
     private Label lblLiability = Label.xpath("(//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')])[1]/span[@class='lia-val'][1]");
+    String productMenuXpath = "//div[@class='product-tab-wrapper' or @class='mod-main-navigation ']//a[text()=' %s ' or text() = '%s'] | .//div[text()=' %s ']";
+    Label lblMarquee = Label.xpath("//div[@class='marquee']");
     // Before Login
     public SATUnderageGamblingPopup clickLogin() {
         if(btnLogin.isDisplayed()){
@@ -116,9 +118,8 @@ public class SatHeader extends Header {
         return new SATChangePasswordPopup();
     }
 
-    public EGHomePage openExchangeGame(String brand){
+    public void openExchangeGame(){
         tabExchangeGames.click();
-        return new EGHomePage(brand);
     }
 
     public void clickLogo(){imgLogo.click();}
@@ -201,7 +202,32 @@ public class SatHeader extends Header {
         return String.format(Locale.getDefault(),"%,.2f",balanceReturn);
     }
 
+    public String getMarqueeMessage() {
+        String announcementMessage = "";
+        if(lblMarquee.isDisplayed()){
+            announcementMessage = lblMarquee.getText();
+        }
+        return announcementMessage;
+    }
 
+    public boolean isProductTabDisplay(String productName)
+    {
+        String productTab = productName;
+        if (!productName.equals(MemberConstants.HomePage.PRODUCTS.get("SUPER_SPADE")) && !productName.equals(MemberConstants.HomePage.PRODUCTS.get("EZUGI"))) {
+            if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("EXCHANGE"))) {
+                productTab = "Exchange";
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("DIGIENT"))) {
+                productTab = "Lottery & Slots";
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("EXCH_GAMES"))) {
+                productTab = "Exchange Games";
+            }
+        } else {
+            productTab = "Live Dealer";
+        }
+
+        return Tab.xpath(String.format(this.productMenuXpath, productTab, productTab, productTab)).isDisplayed();
+    }
+    public void logout(){ ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"));   }
 }
 
 

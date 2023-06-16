@@ -1,30 +1,29 @@
 package backoffice.testcases.accountmanagement;
 
-import baseTest.BaseCaseMerito;
+import backoffice.common.BOConstants;
+import backoffice.pages.bo._components.AlertMessageBox;
+import backoffice.pages.bo.accountmanagement.AtlanticAccessManagementPage;
+import baseTest.BaseCaseTest;
 import com.paltech.constant.Helper;
 import com.paltech.utils.StringUtils;
-import backoffice.common.BOConstants;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import backoffice.pages.bo._components.AlertMessageBox;
-import backoffice.pages.bo.accountmanagement.AtlanticAccessManagementPage;
 import util.testraildemo.TestRails;
 
-public class AtlanticAccessManagementTest extends BaseCaseMerito {
+public class AtlanticAccessManagementTest extends BaseCaseTest {
 
     /**
      * @title: Validate can not add account to Atlantic Access Management that not belonging to Fairenter brand
-     * @pre-condition:
-     *          2. Login BO
-     * @steps:  1. Access Admin Management > Atlantic Access Management
-     *          2. Input a player that not belonging to Fairenter and click Add button
+     * @pre-condition: 2. Login BO
+     * @steps: 1. Access Admin Management > Atlantic Access Management
+     * 2. Input a player that not belonging to Fairenter and click Add button
      * @expect: 1. Verify message display "User [account] is not in Fairenter brand"
      */
     @TestRails(id = "622")
-    @Test (groups = {"smoke"})
+    @Test(groups = {"smoke"})
     @Parameters("satMemberLoginID")
-    public void BO_Account_Management_Atlantic_Access_Management_001(String satMemberLoginID){
+    public void BO_Account_Management_Atlantic_Access_Management_001(String satMemberLoginID) {
         log("@title: Validate can not add account to Atlantic Access Management that not belonging to Fairenter brand");
         log("Step 1. Access Admin Management > Atlantic Access Management");
         AtlanticAccessManagementPage page = backofficeHomePage.navigateAtlanticAccessManagement();
@@ -35,7 +34,7 @@ public class AtlanticAccessManagementTest extends BaseCaseMerito {
         String actualMessage = messageBox.getErrorAlert();
 
         log("Verify 1. Verify message display \"User [account] is not in Fairenter brand\"");
-        Assert.assertTrue(actualMessage.contains(String.format(BOConstants.AdminManagement.AtlanticAccessManagement.FAILED_MSG,satMemberLoginID)),"FAILED! Error message is incorrect when add the account not belong to Funsport brand");
+        Assert.assertTrue(actualMessage.contains(String.format(BOConstants.AdminManagement.AtlanticAccessManagement.FAILED_MSG, satMemberLoginID)), "FAILED! Error message is incorrect when add the account not belong to Funsport brand");
 
         log("INFO: Executed completely");
 
@@ -43,22 +42,21 @@ public class AtlanticAccessManagementTest extends BaseCaseMerito {
 
     /**
      * @title: Validate can account is added/deleted to the list can access/unaccess Atlantic site
-     * @pre-condition:
-     *          1. Login BO
-     *          2. Pick a agent and his play  belonging to Fairenter brand
+     * @pre-condition: 1. Login BO
+     * 2. Pick a agent and his play  belonging to Fairenter brand
      * @steps: 1. Access Admin Management > Atlantic Access Management
-     *          2. Add a player
-     *          3. Access Atlantic site and login with the account above
-     *          4. Logout Atlantic site and relogin BO site and deleted the account
-     *          5. Relogin Atlantic
+     * 2. Add a player
+     * 3. Access Atlantic site and login with the account above
+     * 4. Logout Atlantic site and relogin BO site and deleted the account
+     * 5. Relogin Atlantic
      * @expect: 1. Verify message "Add user Atlantic success!" after add agent and agent is display in the list
-     *          2. Can login Atlantic site
-     *          3. Verify the message "Delete user Atlantic success!" and the agent is removed
-     *          4. Verify cannot login Atlantic site when account is deleted form Atlantic Access Management page
+     * 2. Can login Atlantic site
+     * 3. Verify the message "Delete user Atlantic success!" and the agent is removed
+     * 4. Verify cannot login Atlantic site when account is deleted form Atlantic Access Management page
      */
     @TestRails(id = "623")
-    @Test (groups = {"smoke"})
-    @Parameters({"username","password","atlanticAccount","memberPassword"})
+    @Test(groups = {"smoke"})
+    @Parameters({"username", "password", "atlanticAccount", "memberPassword"})
     public void BO_Account_Management_Atlantic_Access_Management_003(String username, String password, String atlanticAccount, String memberPassword) throws Exception {
         log("@title: Validate can account is added/deleted to the list can access/un-access Atlantic site");
         log("Step 1. Access Admin Management > Atlantic Access Management");
@@ -71,8 +69,8 @@ public class AtlanticAccessManagementTest extends BaseCaseMerito {
         String actualMsg = msgBox.getSuccessAlert();
 
         log("Verify 1. Verify message \"Add user Atlantic success!\" after add agent and agent is display in the list");
-        Assert.assertTrue(actualMsg.contains("Add user atlantic success!"),"FAILED! Success message after add Atlantic user is incorrect");
-        Assert.assertTrue(page.isAccountInList(atlanticAccount),String.format("FAILED! The account %s not display in the list after adding",atlanticAccount));
+        Assert.assertTrue(actualMsg.contains("Add user atlantic success!"), "FAILED! Success message after add Atlantic user is incorrect");
+        Assert.assertTrue(page.isAccountInList(atlanticAccount), String.format("FAILED! The account %s not display in the list after adding", atlanticAccount));
 
      /*   log("Step 3. Access Atlantic site and login with the account above");
         Helper.loginFairExchange(environment.getAtlanticSOSURL(),environment.getAtlanticDashboardURL(),atlanticAccount,memberPassword,true);
@@ -89,8 +87,8 @@ public class AtlanticAccessManagementTest extends BaseCaseMerito {
         actualMsg = msgBox.getSuccessAlert();
 
         log("Verify 3. Verify the message \"Delete user Atlantic success!\" and the agent is removed");
-        Assert.assertTrue(actualMsg.contains("Delete user atlantic success!"),"FAILED! Success message after delete Atlantic user is incorrect");
-        Assert.assertFalse(page.isAccountInList(atlanticAccount),String.format("FAILED! The account %s display in the list after removing",atlanticAccount));
+        Assert.assertTrue(actualMsg.contains("Delete user atlantic success!"), "FAILED! Success message after delete Atlantic user is incorrect");
+        Assert.assertFalse(page.isAccountInList(atlanticAccount), String.format("FAILED! The account %s display in the list after removing", atlanticAccount));
 
        /* log("Step 5. Relogin Atlantic");
         Helper.loginFairExchange(environment.getAtlanticSOSURL(),environment.getAtlanticDashboardURL(),atlanticAccount,memberPassword,false);
@@ -103,22 +101,21 @@ public class AtlanticAccessManagementTest extends BaseCaseMerito {
 
     /**
      * @title: Validate can/cannot login Fairenter if account is non-display/display in Atlantic site
-     * @pre-condition:
-     *          1. Login BO
-     *          2. Pick a agent and his play belonging to Fairenter brand
-     * @steps:  1. Access Admin Management > Atlantic Access Management
-     *          2. Add a player
-     *          3. Access FairEnter and login
-     *          3. Access FairEnter and login
-     *          4. Back to BO and deleted the account out Atlantic list
-     *          5. Login Fairenter again
+     * @pre-condition: 1. Login BO
+     * 2. Pick a agent and his play belonging to Fairenter brand
+     * @steps: 1. Access Admin Management > Atlantic Access Management
+     * 2. Add a player
+     * 3. Access FairEnter and login
+     * 3. Access FairEnter and login
+     * 4. Back to BO and deleted the account out Atlantic list
+     * 5. Login Fairenter again
      * @expect: 1. Verify cannot login Fairenter if account is added in Atlantic list
-     *          2. Can login Fairenter when the account is removed out Atlantice list
+     * 2. Can login Fairenter when the account is removed out Atlantice list
      */
     @TestRails(id = "624")
-    @Test (groups = {"smoke"})
-    @Parameters({"username","atlanticAccount","password","memberPassword"})
-    public void BO_Account_Management_Atlantic_Access_Management_004(String username,String atlanticAccount, String password,String memberPassword) throws Exception {
+    @Test(groups = {"smoke"})
+    @Parameters({"username", "atlanticAccount", "password", "memberPassword"})
+    public void BO_Account_Management_Atlantic_Access_Management_004(String username, String atlanticAccount, String password, String memberPassword) throws Exception {
         log("@title: Validate can/cannot login Fairenter if account is non-display/display in Atlantic site");
         log("Step 1. Access Admin Management > Atlantic Access Management");
         AtlanticAccessManagementPage page = backofficeHomePage.navigateAtlanticAccessManagement();
@@ -139,7 +136,7 @@ public class AtlanticAccessManagementTest extends BaseCaseMerito {
         Assert.assertTrue(loginPopup.btnLogin.isDisplayed(),String.format("FAILED! Can login Fairenter site when the account %s is added to Atlantic list",atlanticAccount));
 */
         log("Step 4. Back to BO and deleted the account out Atlantic list ");
-        Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl,username,password,true);
+        Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl, username, password, true);
         page = backofficeHomePage.navigateAtlanticAccessManagement();
         page.removePlayer(atlanticAccount).confirm();
       /*  page.logout();

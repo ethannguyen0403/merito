@@ -26,7 +26,7 @@ public class AccountStatementTest extends BaseCaseTest {
      * @expect: Data display correct at API
      */
     @TestRails(id="524")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smokeSAT"})
     public void AccountStatement_TC524(){
         log("@title: Validate data in account statement is correctly");
         log("Step 1. Click My Account > Account Statement");
