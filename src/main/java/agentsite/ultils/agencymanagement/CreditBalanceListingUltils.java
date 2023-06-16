@@ -1,19 +1,18 @@
 package agentsite.ultils.agencymanagement;
 
-import agentsite.common.AGConstant;
+import common.AGConstant;
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
 import com.paltech.utils.WSUtils;
 import membersite.objects.sat.Event;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.domainURL;
+import static baseTest.BaseCaseTest.domainURL;
 
 public class CreditBalanceListingUltils {
     public static List<Event> getEventList(String sportName, String userID, String time) {

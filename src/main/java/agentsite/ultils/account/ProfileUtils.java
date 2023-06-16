@@ -12,13 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static agentsite.common.AGConstant.SATSPORT_APP_NAME;
-import static baseTest.BaseCaseMerito.domainURL;
-import static baseTest.BaseCaseMerito.environment;
+import static common.AGConstant.SATSPORT_APP_NAME;
+import static baseTest.BaseCaseTest.domainURL;
 
 public class ProfileUtils {
     public static AccountInfo getProfile() {
-        String api = String.format("%s/agent-services/users/profile?%s",domainURL, DateUtils.getMilliSeconds());
+        String api = String.format("%s/agent-services/users/profile?%s", domainURL, DateUtils.getMilliSeconds());
       //  JSONObject jsonObject = WSUtils.getGETJSONResponse(api, Configs.HEADER_JSON_CHARSET,Configs.HEADER_JSON);//, DriverManager.getDriver().getCookies().toString(),true);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api,Configs.HEADER_JSON_CHARSET,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
 

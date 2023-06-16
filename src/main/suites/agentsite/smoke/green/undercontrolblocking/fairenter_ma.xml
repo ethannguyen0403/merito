@@ -32,7 +32,7 @@
 
         <classes>
              <!-- Start Market Management-->
-            <class name="agentsite.testcase.all.marketsmanagement.SuspendUnsuspendMarketsTest"/>
+            <class name="agentsite.testcase.marketsmanagement.SuspendUnsuspendMarketsTest"/>
             <!-- End Market Management-->
 
         </classes>

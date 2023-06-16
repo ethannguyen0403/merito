@@ -1,20 +1,10 @@
 package membersite.pages.components.leftmneu;
 
-import com.paltech.driver.DriverManager;
-import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
 import common.MemberConstants;
 import membersite.controls.DropDownBox;
 import membersite.controls.DropDownMenu;
-import membersite.pages.all.tabexchange.MarketPage;
-import membersite.pages.all.tabexchange.SportPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class NewUILeftMenu extends LeftMenu {
     public Image imgLoading = Image.xpath("//div[@class='loading-icon']/img");
@@ -67,6 +57,46 @@ public class NewUILeftMenu extends LeftMenu {
         btnBack.click();
         waitMenuLoading();
     }
+
+    public String getActiveEvent() {
+        waitMenuLoading();
+        return menuEvent.getText().trim();
+    }
+
+    public void clickMarket(String marketName) {
+        Label lb = Label.xpath(String.format(marketActiveXpath1, eventActiveXpath));
+        int fcMenuTotalMarket = lb.getWebElements().size();
+        Label lblFancyItem;
+        Link lnk;
+        for (int i = 0; i < fcMenuTotalMarket; i++) {
+            lblFancyItem = Label.xpath(String.format("(%s)[%d]/preceding::span[1]", String.format(marketActiveXpath1, eventActiveXpath), i + 1));
+            if (lblFancyItem.getText().trim().equalsIgnoreCase(marketName)) {
+                lnk = Link.xpath(String.format("(%s)[%d]", String.format(marketActiveXpath1, eventActiveXpath), i + 1));
+                lnk.click();
+                imgLoading.isInvisible(300);
+                return;
+            }
+        }
+        System.out.println(String.format("*** Debug: Cannot click on the market %s", marketName));
+    }
+    public void clickCompetition(String competition) {
+        if (menuSport.getOptionByIndex(0).equals(MemberConstants.HomePage.NO_EVENT_AVAILABLE)) {
+            System.out.println("Sport has no competition");
+            return;
+        }
+        menuSport.selectByVisibleText(competition, false);
+        imgLoading.isInvisible(300);
+    }
+
+    public void clickMenuIndex(int marketIndex) {
+       Link lnk = Link.xpath(String.format("(%s)[%d]", String.format(marketActiveXpath1, eventActiveXpath), marketIndex));
+        lnk.click();
+   }
+
+    public void clickSport(String sportName) {
+        menuSport.selectByVisibleText(sportName, false);
+    }
+
 
   /*  public String getActiveEvent() {
         return menuEvent.getText().trim();
@@ -134,14 +164,7 @@ public class NewUILeftMenu extends LeftMenu {
         menuAllMenu.selectByVisibleText(sportName, false);
     }
 
-    public void clickCompetition(String competition) {
-        if (menuSport.getOptionByIndex(0).equals(MemberConstants.HomePage.NO_EVENT_AVAILABLE)) {
-            System.out.println("Sport has no competition");
-            return;
-        }
-        menuSport.selectByVisibleText(competition, false);
-        imgLoading.isInvisible(300);
-    }
+
 
     public void clickSport(int sportIndex) {
         menuAllMenu.selectByIndex(sportIndex);
@@ -172,22 +195,7 @@ public class NewUILeftMenu extends LeftMenu {
         imgLoading.isInvisible(300);
     }
 
-    public void clickMarket(String marketName) {
-        Label lb = Label.xpath(String.format(marketActiveXpath1, eventActiveXpath));
-        int fcMenuTotalMarket = lb.getWebElements().size();
-        Label lblFancyItem;
-        Link lnk;
-        for (int i = 0; i < fcMenuTotalMarket; i++) {
-            lblFancyItem = Label.xpath(String.format("(%s)[%d]/preceding::span[1]", String.format(marketActiveXpath1, eventActiveXpath), i + 1));
-            if (lblFancyItem.getText().trim().equalsIgnoreCase(marketName)) {
-                lnk = Link.xpath(String.format("(%s)[%d]", String.format(marketActiveXpath1, eventActiveXpath), i + 1));
-                lnk.click();
-                imgLoading.isInvisible(300);
-                return;
-            }
-        }
-        System.out.println(String.format("*** Debug: Cannot click on the market %s", marketName));
-    }
+
 
     public List<String> getSports() {
         clickSportAll();
@@ -220,10 +228,7 @@ public class NewUILeftMenu extends LeftMenu {
         return lstFCMarket;
     }
 
-    public String getActiveEvent() {
-        //waitMenuLoading();
-        return menuEvent.getText().trim();
-    }
+
 
     public String getActiveSport() {
         waitMenuLoading();

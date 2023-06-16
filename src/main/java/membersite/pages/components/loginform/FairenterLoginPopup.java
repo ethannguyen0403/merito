@@ -1,11 +1,7 @@
 package membersite.pages.components.loginform;
 
 import com.paltech.element.common.*;
-import membersite.controls.DropDownBox;
-import membersite.pages.all.home.ChangePasswordPage;
-import membersite.pages.all.tabexchange.HomePage;
-import membersite.pages.components.header.Header;
-import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
+import membersite.pages.ChangePasswordPage;
 
 public class FairenterLoginPopup  extends LoginPopup {
     public Label lblTitle = Label.xpath("//div[@class='login-popup-content']//b");
@@ -35,6 +31,8 @@ public class FairenterLoginPopup  extends LoginPopup {
         }
 
     }
+
+    public boolean isLoginDisplay(){return btnLogin.isDisplayed();}
 
 }
 

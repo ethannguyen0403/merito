@@ -5,7 +5,6 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import controls.Table;
 import membersite.objects.sat.Event;
-import membersite.pages.all.tabexchange.MarketPage;
 import membersite.utils.betplacement.FancyUtils;
 
 import java.util.ArrayList;
@@ -218,7 +217,7 @@ public class NewViewEventContainerControl extends EventContainerControl {
 		event.getLinkEvent().click();
 	}
 
-	public MarketPage clickOnRowofEventName(String eventName)	{
+	public void clickOnRowofEventName(String eventName)	{
 		// On Highlight page, click on the event in input parameter
 		int i =1;
 		Link lnkEvent;
@@ -226,7 +225,7 @@ public class NewViewEventContainerControl extends EventContainerControl {
 			lnkEvent =(Link) tblEvents.getControlOfCell(1,1,i,"div[contains(@class,'home-team-name')]");
 			if(!lnkEvent.isDisplayed()) {
 				System.out.println("Debug! Not found event to click");
-				return null;
+				return ;
 			}
 			String homnTeam = lnkEvent.getText().trim();
 			lnkEvent =(Link) tblEvents.getControlOfCell(1,1,i,"div[contains(@class,'away-team-name')]");
@@ -235,7 +234,7 @@ public class NewViewEventContainerControl extends EventContainerControl {
 			if(expectedName.equalsIgnoreCase(eventName)){
 				lnkEvent.click();
 				lnkEvent.isDisplayedShort(2);
-				return new MarketPage();
+				return;
 			}
 			i++;
 			// check api tha has fany
@@ -322,8 +321,6 @@ public class NewViewEventContainerControl extends EventContainerControl {
 				return ;
 			if(lnkEvent.getAttribute("id").equalsIgnoreCase(eventID)){
 				lnkEvent.click();
-				MarketPage marketPage = new MarketPage();
-				marketPage.waitMenuLoading();
 				return;
 			}
 			i++;

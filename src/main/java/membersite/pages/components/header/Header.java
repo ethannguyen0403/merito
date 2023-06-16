@@ -1,5 +1,7 @@
 package membersite.pages.components.header;
 
+import com.paltech.element.common.Tab;
+import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.pages.*;
 import membersite.pages.exchangegames.EGHomePage;
@@ -50,7 +52,7 @@ public class Header {
        return new ChangePasswordPopup();
     }
 
-    public EGHomePage openExchangeGame(String brand){return new EGHomePage(brand);}
+    public void openExchangeGame(){return ;}
 
     public void clickLogo(){}
     public void waitSpinLoad(){
@@ -92,5 +94,16 @@ public class Header {
     public String calculateBalanceAfterPlaceBet(String balance, Double liabilityBeforePlaceBetOnMarket, Double liabilityAfterPlaceOnMarket) {
         return "";
     }
+
+    public String getMarqueeMessage() {
+       return "";
+    }
+
+    public boolean isProductTabDisplay(String productName)
+    {
+        return false;
+    }
+
+    public void logout(){return;    }
 
 }

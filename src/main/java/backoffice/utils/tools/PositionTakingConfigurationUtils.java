@@ -12,12 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
+
 
 public class PositionTakingConfigurationUtils {
     public static List<ArrayList<String>> getListPTAccount() {
         List<ArrayList<String>> lst = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/mixpt/listing?username=&page=0&row=20",environment.getBackofficeURL());
+        String api = String.format("%s/system-manager/web/mixpt/listing?username=&page=0&row=20",backofficeUrl);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api,null, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if(Objects.nonNull(jsonArray)){
             for(int i = 0; i< jsonArray.length() ; i++){

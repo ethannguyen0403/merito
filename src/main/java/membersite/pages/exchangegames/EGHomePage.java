@@ -1,7 +1,7 @@
 package membersite.pages.exchangegames;
 
 import com.paltech.element.common.Label;
-import membersite.pages.all.tabexchangegame.controls.GameControl;
+import membersite.pages.exchangegames.controls.GameControl;
 
 public class EGHomePage extends GamePage {
     public Label lblPanner = Label.xpath("//div[contains(@class,'banner')]");

@@ -1,17 +1,7 @@
 package membersite.pages;
 
-import com.paltech.element.common.Button;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.TextBox;
-import common.MemberConstants;
-import controls.DateTimePicker;
-import controls.Table;
-import membersite.controls.sat.FancyContainerControl;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.profitandloss.ProfitAndLossContainer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProfitAndLossPage extends HomePage {
 

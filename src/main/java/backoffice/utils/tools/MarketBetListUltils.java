@@ -12,12 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
+
 
 public class MarketBetListUltils {
     public static List<String> viewMarketInfo(String marketId) {
         List<String> lst = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/sv/markets/view-market-info?marketId=%s",environment.getBackofficeURL(),marketId);
+        String api = String.format("%s/system-manager/web/sv/markets/view-market-info?marketId=%s",backofficeUrl,marketId);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if(Objects.nonNull(jsonObject)){
             JSONArray infoArray = jsonObject.getJSONArray("marketInfo");
@@ -35,7 +36,7 @@ public class MarketBetListUltils {
         return lst;
     }
     private static String getEventID(String marketID) {
-        String api = String.format("%s/system-manager/web/sv/markets/view-market-info?marketId=%s",environment.getBackofficeURL(), marketID);
+        String api = String.format("%s/system-manager/web/sv/markets/view-market-info?marketId=%s",backofficeUrl, marketID);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             JSONArray infoArray = jsonObject.getJSONArray("marketInfo");
@@ -51,7 +52,7 @@ public class MarketBetListUltils {
     public static List<ArrayList<String>> viewMarketBetList(String marketId) {
         List<ArrayList<String>> lst = new ArrayList<>();
         String eventID = getEventID(marketId);
-        String api = String.format("%s/system-manager/web/sv/markets/view-market-bet-list?marketId=%s&eventId=%s&rp=20&page=1",environment.getBackofficeURL(),marketId,eventID);
+        String api = String.format("%s/system-manager/web/sv/markets/view-market-bet-list?marketId=%s&eventId=%s&rp=20&page=1",backofficeUrl,marketId,eventID);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             JSONArray infoArray = jsonObject.getJSONArray("records");

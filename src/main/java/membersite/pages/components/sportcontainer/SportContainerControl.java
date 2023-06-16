@@ -3,8 +3,7 @@ package membersite.pages.components.sportcontainer;
 import membersite.objects.funsport.Odd;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
-import membersite.pages.all.tabexchange.MarketPage;
-import membersite.utils.betplacement.BetUtils;
+import membersite.pages.MarketPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +31,6 @@ public class SportContainerControl {
 
     public String getEventIDHasProductData(String product,String status){
         return "";
-    }
-    public MarketPage clickOnEvent(String eventId){
-        return null;
     }
 
     public Event setEventLink(Event event){

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.*;
+import static baseTest.BaseCaseTest.*;
 import static membersite.utils.betplacement.BetUtils.getAllEventOfSport;
 
 

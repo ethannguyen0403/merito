@@ -37,6 +37,7 @@ public class SATLoginPopup extends LoginPopup {
             }
         }
     }
+    public boolean isLoginDisplay(){return btnLogin.isDisplayed();}
 }
 
 

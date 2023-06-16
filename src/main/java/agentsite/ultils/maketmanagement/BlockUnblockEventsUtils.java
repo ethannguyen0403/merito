@@ -1,6 +1,6 @@
 package agentsite.ultils.maketmanagement;
 
-import agentsite.common.AGConstant;
+import common.AGConstant;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.ultils.account.ProfileUtils;
 import com.paltech.constant.Configs;
@@ -17,8 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.domainURL;
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.domainURL;
 
 public class BlockUnblockEventsUtils {
 

@@ -7,7 +7,6 @@ import membersite.controls.DropDownMenu;
 import membersite.pages.AccountStatementPage;
 import membersite.pages.MyBetsPage;
 import membersite.pages.popup.MyMarketPopup;
-import membersite.pages.all.tabexchangegame.EGHomePage;
 import membersite.pages.components.changepasswordpopup.FunsportChangePasswordPopup;
 import membersite.pages.components.loginform.FairenterLoginPopup;
 import membersite.pages.components.underagegamblingpopup.FairenterUnderageGamblingPopup;
@@ -68,9 +67,8 @@ public class FairenterHeader extends Header {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
         return new FunsportChangePasswordPopup();
     }
-    public EGHomePage openExchangeGame(){
+    public void openExchangeGame(){
         tabExchangeGames.click();
-        return new EGHomePage();
     }
     public void clickLogo(){imgLogo.click();}
     public MyMarketPopup openMyMarketPopup(){

@@ -11,12 +11,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
 
 public class CompetitionBlockingUtils {
     public static List<ArrayList<String>> getSportList() {
         List<ArrayList<String>> lstSport = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/sv/competition/sport-list",environment.getBackofficeURL());
+        String api = String.format("%s/system-manager/web/sv/competition/sport-list",backofficeUrl);
         JSONArray jsnArray  = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsnArray)) {
         for (int i = 0; i < jsnArray.length(); i++) {
@@ -42,7 +42,7 @@ public class CompetitionBlockingUtils {
     }
     public static List<ArrayList<String>> getCompetitions(String sportID) {
         List<ArrayList<String>> lstCompetition = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/sv/competition/competition-list?sportId=%s",environment.getBackofficeURL(),sportID);
+        String api = String.format("%s/system-manager/web/sv/competition/competition-list?sportId=%s",backofficeUrl,sportID);
         JSONArray jsnArray  = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsnArray)) {
             for (int i = 0; i < jsnArray.length(); i++) {

@@ -1,8 +1,6 @@
 package membersite.pages.components.eventcontainer;
 
-import com.paltech.element.common.Link;
 import membersite.objects.sat.Event;
-import membersite.pages.all.tabexchange.MarketPage;
 
 import java.util.List;
 
@@ -49,13 +47,13 @@ public class EventContainerControl {
         event.getLinkEvent().click();
     }
 
-    public void clickOnRowofEventNameSAT(String event) {
+    public void clickOnRowofEventName(String event) {
 
     }
 
-    public MarketPage clickOnRowofEventName(String eventName) {
-        return new MarketPage();
-    }
+//    public MarketPage clickOnRowofEventName(String eventName) {
+//        return new MarketPage();
+//    }
 
     private int getEventIndex(String eventName) {
         return 0;

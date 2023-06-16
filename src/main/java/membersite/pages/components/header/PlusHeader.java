@@ -7,7 +7,6 @@ import membersite.controls.DropDownMenu;
 import membersite.pages.AccountStatementPage;
 import membersite.pages.MyBetsPage;
 import membersite.pages.ProfitAndLossPage;
-import membersite.pages.all.tabexchangegame.EGHomePage;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
@@ -85,13 +84,11 @@ public class PlusHeader extends Header {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
         return new SATChangePasswordPopup();
     }
-
-    public EGHomePage openExchangeGame(){
+    public void openExchangeGame(){
         tabExchangeGames.click();
-        return new EGHomePage();
     }
     public void clickLogo(){imgLogo.click();}
-
+    public void logout(){ ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"));   }
 }
 
 

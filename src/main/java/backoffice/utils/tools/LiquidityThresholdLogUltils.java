@@ -11,12 +11,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
+
 
 public class LiquidityThresholdLogUltils {
     public static List<ArrayList<String>> getLog(String username) {
         List<ArrayList<String>> lst = new ArrayList<>();
-        String api = String.format("%s/sport-manager/web/liquidity-threshold/log-list?userName=%s&page=1&pagerows=20",environment.getBackofficeURL(),username);
+        String api = String.format("%s/sport-manager/web/liquidity-threshold/log-list?userName=%s&page=1&pagerows=20",backofficeUrl,username);
         JSONArray jArray =  WSUtils.getGETJSONArrayWithCookies(api,Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if(Objects.nonNull(jArray)){
             for(int i =0; i< jArray.length(); i++){
@@ -41,7 +42,7 @@ public class LiquidityThresholdLogUltils {
     }
     public static List<ArrayList<String>> getLiquidityHistory(String username) {
         List<ArrayList<String>> lst = new ArrayList<>();
-        String api = String.format("%s/sport-manager/web/liquidity-threshold/getLiquidityHistory?userName=%s&page=1&pagerows=20",environment.getBackofficeURL(),username);
+        String api = String.format("%s/sport-manager/web/liquidity-threshold/getLiquidityHistory?userName=%s&page=1&pagerows=20",backofficeUrl,username);
         JSONArray jArray =  WSUtils.getGETJSONArrayWithCookies(api,Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if(Objects.nonNull(jArray)){
             for(int i =0; i< jArray.length(); i++){

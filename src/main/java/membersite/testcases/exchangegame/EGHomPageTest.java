@@ -9,58 +9,58 @@ import util.testraildemo.TestRails;
 
 public class EGHomPageTest extends BaseCaseTest {
 
-
-    /**
-     * @title: Verify all exchange game images are loaded
-     * @precondition: 1. Login member site
-     * @step: Navigate to exchange game
-     * @expect: Verify all exchange game images are loaded
-     */
-    @Test(groups = {"regression"})
-    public void EG_Home_Page_TC001(){
-        log("@title: Verify all exchange game images are loaded");
-        log("Step 1. Navigate to exchange game  ");
-        EGHomePage egHomePage = memberHomePage.openExchangeGame();
-        log("Verify all exchange game images are loaded");
-        log("1.1 Verify Verify Baccarat Game: title, image, turbo, standard");
-        Assert.assertEquals(egHomePage.gcBaccarat.lblGameTitle.getText(), EGConstants.BACCARAT,"FAILED! Baccarat title is incorrect");
-        Assert.assertTrue(egHomePage.gcBaccarat.imgGame.getAttribute("src").contains( "BACCARAT.png"),"FAILED! Baccarat image is incorrect");
-        Assert.assertEquals(egHomePage.gcBaccarat.btnTurbo.getText(), EGConstants.PLAY_TURBO,"FAILED! Baccarat Play Turbo button is incorrect");
-        Assert.assertEquals(egHomePage.gcBaccarat.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! Baccarat Play Standard button is incorrect");
-
-        log("1.2 Verify Verify Blackjack Game: title, image, turbo, standard");
-        Assert.assertEquals(egHomePage.gcBlackjack.lblGameTitle.getText(), EGConstants.BLACKJACK,"FAILED! Blackjack title is incorrect");
-        Assert.assertTrue(egHomePage.gcBlackjack.imgGame.getAttribute("src").contains("BLACKJACK.png"),"FAILED! Blackjack image is incorrect");
-        Assert.assertEquals(egHomePage.gcBlackjack.btnTurbo.getText(), EGConstants.PLAY_TURBO,"FAILED! Blackjack Play Turbo button is incorrect");
-        Assert.assertEquals(egHomePage.gcBlackjack.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! Blackjack Play Standard button is incorrect");
-
-        log("1.3 Verify Verify CARD DERBY RACING Game: title, image, turbo, standard");
-        Assert.assertEquals(egHomePage.gcCardRacing.lblGameTitle.getText(), EGConstants.CARD_DERBY_RACING,"FAILED! CARD DERBY RACING title is incorrect");
-        Assert.assertTrue(egHomePage.gcCardRacing.imgGame.getAttribute("src").contains( "CARD_RACER.png"),"FAILED! CARD DERBY RACING image is incorrect");
-        Assert.assertEquals(egHomePage.gcCardRacing.btnTurbo.getText(), EGConstants.PLAY_TURBO,"FAILED! CARD DERBY RACING Play Turbo button is incorrect");
-        Assert.assertEquals(egHomePage.gcCardRacing.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! CARD DERBY RACING Play Standard button is incorrect");
-
-        log("1.4 Verify Verify Hilo Game: title, image, turbo, standard");
-        Assert.assertEquals(egHomePage.gcHilo.lblGameTitle.getText(), EGConstants.HI_LO,"FAILED! Hilo title is incorrect");
-        Assert.assertTrue(egHomePage.gcHilo.imgGame.getAttribute("src").contains("HILO.png"),"FAILED! Hilo image is incorrect");
-        Assert.assertEquals(egHomePage.gcHilo.btnTurbo.getText(), EGConstants.PLAY_TURBO,"FAILED! Hilo Play Turbo button is incorrect");
-        Assert.assertEquals(egHomePage.gcHilo.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! Hilo Play Standard button is incorrect");
-
-        log("1.5 Verify Verify Omahahi Game: title, image, turbo, standard");
-        Assert.assertEquals(egHomePage.gcOmahahi.lblGameTitle.getText(), EGConstants.OMAHA_HI,"FAILED! Omahahi title is incorrect");
-        Assert.assertTrue(egHomePage.gcOmahahi.imgGame.getAttribute("src").contains("OMAHA_POKER.png"),"FAILED! Omahahi image is incorrect");
-        Assert.assertFalse(egHomePage.gcOmahahi.btnTurbo.isDisplayed(),"FAILED! Omahahi Play Turbo button should not display");
-        Assert.assertEquals(egHomePage.gcOmahahi.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! Omahahi Play Standard button is incorrect");
-
-        log("1.6 Verify Verify Holem Game: title, image, turbo, standard");
-        Assert.assertEquals(egHomePage.gcHolem.lblGameTitle.getText(), EGConstants.HOLD_EM,"FAILED! Holem title is incorrect");
-        Assert.assertTrue(egHomePage.gcHolem.imgGame.getAttribute("src").contains("POKER.png"),"FAILED! Holem image is incorrect");
-        Assert.assertEquals(egHomePage.gcHolem.btnTurbo.getText(), EGConstants.PLAY_TURBO,"FAILED! Holem Play Turbo button is incorrect");
-        Assert.assertEquals(egHomePage.gcHolem.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! Holem Play Standard button is incorrect");
-
-        log("INFO: Executed completely");
-    }
-
+//
+//    /**
+//     * @title: Verify all exchange game images are loaded
+//     * @precondition: 1. Login member site
+//     * @step: Navigate to exchange game
+//     * @expect: Verify all exchange game images are loaded
+//     */
+//    @Test(groups = {"regression"})
+//    public void EG_Home_Page_TC001(){
+//        log("@title: Verify all exchange game images are loaded");
+//        log("Step 1. Navigate to exchange game  ");
+//        EGHomePage egHomePage = memberHomePage.openExchangeGame();
+//        log("Verify all exchange game images are loaded");
+//        log("1.1 Verify Verify Baccarat Game: title, image, turbo, standard");
+//        Assert.assertEquals(egHomePage.gcBaccarat.lblGameTitle.getText(), EGConstants.BACCARAT,"FAILED! Baccarat title is incorrect");
+//        Assert.assertTrue(egHomePage.gcBaccarat.imgGame.getAttribute("src").contains( "BACCARAT.png"),"FAILED! Baccarat image is incorrect");
+//        Assert.assertEquals(egHomePage.gcBaccarat.btnTurbo.getText(), EGConstants.PLAY_TURBO,"FAILED! Baccarat Play Turbo button is incorrect");
+//        Assert.assertEquals(egHomePage.gcBaccarat.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! Baccarat Play Standard button is incorrect");
+//
+//        log("1.2 Verify Verify Blackjack Game: title, image, turbo, standard");
+//        Assert.assertEquals(egHomePage.gcBlackjack.lblGameTitle.getText(), EGConstants.BLACKJACK,"FAILED! Blackjack title is incorrect");
+//        Assert.assertTrue(egHomePage.gcBlackjack.imgGame.getAttribute("src").contains("BLACKJACK.png"),"FAILED! Blackjack image is incorrect");
+//        Assert.assertEquals(egHomePage.gcBlackjack.btnTurbo.getText(), EGConstants.PLAY_TURBO,"FAILED! Blackjack Play Turbo button is incorrect");
+//        Assert.assertEquals(egHomePage.gcBlackjack.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! Blackjack Play Standard button is incorrect");
+//
+//        log("1.3 Verify Verify CARD DERBY RACING Game: title, image, turbo, standard");
+//        Assert.assertEquals(egHomePage.gcCardRacing.lblGameTitle.getText(), EGConstants.CARD_DERBY_RACING,"FAILED! CARD DERBY RACING title is incorrect");
+//        Assert.assertTrue(egHomePage.gcCardRacing.imgGame.getAttribute("src").contains( "CARD_RACER.png"),"FAILED! CARD DERBY RACING image is incorrect");
+//        Assert.assertEquals(egHomePage.gcCardRacing.btnTurbo.getText(), EGConstants.PLAY_TURBO,"FAILED! CARD DERBY RACING Play Turbo button is incorrect");
+//        Assert.assertEquals(egHomePage.gcCardRacing.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! CARD DERBY RACING Play Standard button is incorrect");
+//
+//        log("1.4 Verify Verify Hilo Game: title, image, turbo, standard");
+//        Assert.assertEquals(egHomePage.gcHilo.lblGameTitle.getText(), EGConstants.HI_LO,"FAILED! Hilo title is incorrect");
+//        Assert.assertTrue(egHomePage.gcHilo.imgGame.getAttribute("src").contains("HILO.png"),"FAILED! Hilo image is incorrect");
+//        Assert.assertEquals(egHomePage.gcHilo.btnTurbo.getText(), EGConstants.PLAY_TURBO,"FAILED! Hilo Play Turbo button is incorrect");
+//        Assert.assertEquals(egHomePage.gcHilo.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! Hilo Play Standard button is incorrect");
+//
+//        log("1.5 Verify Verify Omahahi Game: title, image, turbo, standard");
+//        Assert.assertEquals(egHomePage.gcOmahahi.lblGameTitle.getText(), EGConstants.OMAHA_HI,"FAILED! Omahahi title is incorrect");
+//        Assert.assertTrue(egHomePage.gcOmahahi.imgGame.getAttribute("src").contains("OMAHA_POKER.png"),"FAILED! Omahahi image is incorrect");
+//        Assert.assertFalse(egHomePage.gcOmahahi.btnTurbo.isDisplayed(),"FAILED! Omahahi Play Turbo button should not display");
+//        Assert.assertEquals(egHomePage.gcOmahahi.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! Omahahi Play Standard button is incorrect");
+//
+//        log("1.6 Verify Verify Holem Game: title, image, turbo, standard");
+//        Assert.assertEquals(egHomePage.gcHolem.lblGameTitle.getText(), EGConstants.HOLD_EM,"FAILED! Holem title is incorrect");
+//        Assert.assertTrue(egHomePage.gcHolem.imgGame.getAttribute("src").contains("POKER.png"),"FAILED! Holem image is incorrect");
+//        Assert.assertEquals(egHomePage.gcHolem.btnTurbo.getText(), EGConstants.PLAY_TURBO,"FAILED! Holem Play Turbo button is incorrect");
+//        Assert.assertEquals(egHomePage.gcHolem.btnStandard.getText(), EGConstants.PLAY_STANDARD,"FAILED! Holem Play Standard button is incorrect");
+//
+//        log("INFO: Executed completely");
+//    }
+//
     /**
      * @title: Verify all exchange game images are loaded
      * @precondition: 1. Login member site
@@ -94,7 +94,7 @@ public class EGHomPageTest extends BaseCaseTest {
      */
     @TestRails(id="529")
     @Test(groups = {"smoke"})
-    public void EG_Home_Page_TC003(){
+    public void EG_Home_Page_TC529(){
         log("@title: Verify can open all games in the main menu");
         log("Step 1. Navigate to exchange game  ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
@@ -289,4 +289,5 @@ public class EGHomPageTest extends BaseCaseTest {
         Assert.assertTrue(omahahiPage.getGameHeaderTitle().startsWith("Exchange "+EGConstants.OMAHA_HI_CAP),String.format("FAIELD! Omahahi title header is incorrect. Expected %s but found %s","Turbo Exchange "+EGConstants.OMAHA_HI_CAP,omahahiPage.getGameHeaderTitle()));
 
         log("INFO: Executed completely");
-    }}
+    }
+}

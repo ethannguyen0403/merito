@@ -27,11 +27,11 @@
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.satsport.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.downlinelisting.EditUserTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.CreateDownlineAgentTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.CreateUserTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.SubUserListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
         </classes>
 
     </test>

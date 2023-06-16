@@ -1,20 +1,18 @@
 package membersite.pages.components.minimybetcontainer;
+
 import com.paltech.element.common.*;
-import common.MemberConstants;
-import controls.DateTimePicker;
-import controls.Table;
-import membersite.controls.sat.MiniMyBetControl;
+import membersite.controls.MiniMyBetControl;
 import membersite.objects.Wager;
 import membersite.objects.sat.Order;
 import membersite.utils.betplacement.BetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     private String xPathSelection="//div[contains(@class,'%s') and contains(@class,'row-open-bet')]";
-    private Label lblErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
+    private Label lblErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");//div[contains(@class,'betslip-error')]
+
     private Link lnkCancelAll = Link.xpath("//div[contains(@class,'cancel-all-bet')]//a");
     private CheckBox chkAverageOdds = CheckBox.xpath("//label[contains(@class,'chk-average-odds')]");
     private CheckBox chkOrderByMatchedDate = CheckBox.id("order-matched-date");
@@ -30,6 +28,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
         if(lnkCancelAll.isDisplayed())
             lnkCancelAll.click();
     }
+
     public String getPlaceBetErrorMessage(){
         return lblErrorMessage.getText();
     }

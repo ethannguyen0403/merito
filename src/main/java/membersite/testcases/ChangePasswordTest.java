@@ -1,15 +1,16 @@
 package membersite.testcases;
 
+import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
 import common.MemberConstants;
+import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import membersite.pages.all.tabexchange.components.popups.ChangePasswordPopup;
-import baseTest.BaseCaseMerito;
 import util.testraildemo.TestRails;
 
-public class ChangePasswordTest extends BaseCaseMerito {
+
+public class ChangePasswordTest extends BaseCaseTest {
 
     @Test (groups = {"smoke1"})
     @Parameters({"password","skinName"})
@@ -21,7 +22,7 @@ public class ChangePasswordTest extends BaseCaseMerito {
         log("Step 4. Click Save Change");
         String newPass ="test1234";
         String passDecrypt = StringUtils.decrypt(password);
-        ChangePasswordPopup popup = (ChangePasswordPopup) memberHomePage.openChangePasswordPopup(skinName);
+        ChangePasswordPopup popup = memberHomePage.header.openChangePasswordPopup();
         try{
             String successMsg = popup.changePassword(passDecrypt, newPass, newPass);
             popup.clickCancelBtn();
@@ -29,7 +30,7 @@ public class ChangePasswordTest extends BaseCaseMerito {
             Assert.assertEquals(successMsg, MemberConstants.ChangePasswordPopup.MSG_SUCCESS, String.format("ERROR! Expected success message is %s but found %s", MemberConstants.ChangePasswordPopup.MSG_SUCCESS,successMsg));
         }finally{
             log("Pos_condition: Re-update password");
-            popup = (ChangePasswordPopup)memberHomePage.openChangePasswordPopup(skinName);
+            popup =  memberHomePage.header.openChangePasswordPopup();
             popup.changePassword(newPass,passDecrypt,passDecrypt);
         }
         log("INFO: Executed completely");
@@ -43,11 +44,11 @@ public class ChangePasswordTest extends BaseCaseMerito {
         log("Step 1.Login member site");
         log("Step 2.Active My Account> Change Password");
         log("Step 3.Click close button");
-        ChangePasswordPopup popup = (ChangePasswordPopup) memberHomePage.openChangePasswordPopup(skinName);
+        ChangePasswordPopup popup =  memberHomePage.header.openChangePasswordPopup();
         popup.clickCancelBtn();
 
         log("Verify 1.Change password popup disappear");
-        Assert.assertFalse(popup.lblTitle.isDisplayed(),"Failed! The popup is display after click close button");
+        Assert.assertFalse(popup.isDisplayed(),"Failed! The popup is display after click close button");
 
         log("INFO: Executed completely");
     }
@@ -64,10 +65,10 @@ public class ChangePasswordTest extends BaseCaseMerito {
         log("Step 5. Click Save Change");
         String newPass ="test1234";
         String invalidCurrentPassword = "123qwe43";
-        ChangePasswordPopup popup = (ChangePasswordPopup) memberHomePage.openChangePasswordPopup(skinName);
+        ChangePasswordPopup popup = memberHomePage.header.openChangePasswordPopup();
         popup.changePassword(invalidCurrentPassword, newPass, newPass);
         log("Verify 1. Error message \"The password is incorrect. You will be logged out after 4 failed attempts.\"");
-        Assert.assertEquals(popup.getCurrentPasswordError(),"The password is incorrect. You will be logged out after 4 failed attempts.","Failed! The popup is display after click close button");
+        Assert.assertEquals(popup.getConfirmPasswordErrorMsg(),"The password is incorrect. You will be logged out after 4 failed attempts.","Failed! The popup is display after click close button");
 
         log("INFO: Executed completely");
     }
@@ -80,11 +81,11 @@ public class ChangePasswordTest extends BaseCaseMerito {
         log("Step 2.Select My Account > Change Password");
         log("Step 3. Input new password with incorrect format");
         String newPass ="1234";
-        ChangePasswordPopup popup = (ChangePasswordPopup) memberHomePage.openChangePasswordPopup(skinName);
+        ChangePasswordPopup popup =  memberHomePage.header.openChangePasswordPopup();
         popup.changePassword(StringUtils.decrypt(password), newPass, "1234qwer");
         log("Verify 1. Error message \" Please use between 8 and 15 alphanumeric character.\n" +
                 "Must have at least 1 letter and 1 number.\" display");
-        Assert.assertEquals(popup.getNewPasswordError()," Please use between 8 and 15 alphanumeric character.\n" +
+        Assert.assertEquals(popup.getConfirmPasswordErrorMsg()," Please use between 8 and 15 alphanumeric character.\n" +
                 "Must have at least 1 letter and 1 number.","Failed! The popup is display after click close button");
 
         log("INFO: Executed completely");
@@ -100,10 +101,10 @@ public class ChangePasswordTest extends BaseCaseMerito {
         log("Step 3.Input New password and confirm password not match with new password");
         String newPass ="test1234";
         String confirnNewPass ="test12341";
-        ChangePasswordPopup popup = (ChangePasswordPopup) memberHomePage.openChangePasswordPopup(skinName);
+        ChangePasswordPopup popup =  memberHomePage.header.openChangePasswordPopup();
         popup.changePassword(StringUtils.decrypt(password), newPass, confirnNewPass);
         log("Verify 1. Error message Confirm password is not correct display");
-        Assert.assertEquals(popup.getConfirmMessageError(),"  Confirm password is not correct","Failed! The popup is display after click close button");
+        Assert.assertEquals(popup.getConfirmPasswordErrorMsg(),"  Confirm password is not correct","Failed! The popup is display after click close button");
 
         log("INFO: Executed completely");
     }
@@ -117,10 +118,10 @@ public class ChangePasswordTest extends BaseCaseMerito {
         log("Step 2.Click on any Greyhound racing link");
         String newPass ="test1234";
         String confirnNewPass ="test12341";
-        ChangePasswordPopup popup = (ChangePasswordPopup) memberHomePage.openChangePasswordPopup(skinName);
+        ChangePasswordPopup popup =  memberHomePage.header.openChangePasswordPopup();
         popup.changePassword(StringUtils.decrypt(password), newPass, confirnNewPass);
         log("Verify 1. Racing market page display correctly. Country, market start time, market name is corrected");
-        Assert.assertEquals(popup.getConfirmMessageError(),"  Confirm password is not correct","Failed! The popup is display after click close button");
+        Assert.assertEquals(popup.getConfirmPasswordErrorMsg(),"  Confirm password is not correct","Failed! The popup is display after click close button");
 
         log("INFO: Executed completely");
     }
@@ -134,10 +135,10 @@ public class ChangePasswordTest extends BaseCaseMerito {
         log("Step 2.Click x icon to  close the popup");
         String newPass ="test1234";
         String confirnNewPass ="test12341";
-        ChangePasswordPopup popup = (ChangePasswordPopup) memberHomePage.openChangePasswordPopup(skinName);
+        ChangePasswordPopup popup =  memberHomePage.header.openChangePasswordPopup();
         popup.changePassword(StringUtils.decrypt(password), newPass, confirnNewPass);
         log("Verify 1.2.Popup is closed");
-        Assert.assertEquals(popup.getConfirmMessageError(),"  Confirm password is not correct","Failed! The popup is display after click close button");
+        Assert.assertEquals(popup.getConfirmPasswordErrorMsg(),"  Confirm password is not correct","Failed! The popup is display after click close button");
 
         log("INFO: Executed completely");
     }

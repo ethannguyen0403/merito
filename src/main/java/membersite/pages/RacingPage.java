@@ -2,17 +2,10 @@ package membersite.pages;
 
 
 import com.paltech.element.common.Label;
-import com.paltech.element.common.Link;
 import com.paltech.element.common.Tab;
-import membersite.controls.funsport.HighLightRaceControl;
-import membersite.controls.sat.RacingContainerControl;
-import membersite.controls.sat.RacingMarketControl;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.highlightracecontainer.HighLightRaceContainer;
 import membersite.pages.components.racingcontainer.RacingContainer;
-import membersite.pages.components.racingmarketcontainer.RacingMarketContainer;
-
-import java.util.List;
 
 public class RacingPage extends HomePage{
     public Label lblNextRace = Label.xpath("//div[@id='middle-content']//h1");

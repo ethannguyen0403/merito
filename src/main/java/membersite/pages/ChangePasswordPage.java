@@ -3,8 +3,6 @@ package membersite.pages;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
-import membersite.pages.all.components.Header;
-import membersite.pages.all.tabexchange.HomePage;
 
 public class ChangePasswordPage {
 

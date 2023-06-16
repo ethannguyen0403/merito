@@ -24,8 +24,8 @@ public class AnnouncementManagementPage extends HomePage {
 
     private void inputText(TextBox txt, String value, int iFrameIndex){
         WebElement e = DriverManager.getDriver().findElement(By.tagName("iframe"));
-       DriverManager.getDriver().switchToFrame(e);
-       // DriverManager.getDriver().findElements(By.tagName("iframe[contains(@class,'cke-wysiwyg-frame cke-reset')]"))
+        DriverManager.getDriver().switchToFrame(e);
+        // DriverManager.getDriver().findElements(By.tagName("iframe[contains(@class,'cke-wysiwyg-frame cke-reset')]"))
         txt.click();
         txt.sendKeys(value);
         com.paltech.driver.DriverManager.getDriver().switchToParentFrame();
@@ -40,7 +40,7 @@ public class AnnouncementManagementPage extends HomePage {
 
     public void add(String eMessage, String seenBy, String sequence){
         if(!eMessage.isEmpty()){
-       inputText(txtEnglish,eMessage,0);}
+            inputText(txtEnglish,eMessage,0);}
         if(!seenBy.isEmpty())
             ddbSeenBy.selectByVisibleText(seenBy);
         if(!sequence.isEmpty())
@@ -53,8 +53,8 @@ public class AnnouncementManagementPage extends HomePage {
         List<String> lstAnnouncementMsg = tblAnnouncementReport.getColumn(colEnglish,false);
         for(int i = 0; i<lstAnnouncementMsg.size(); i++) {
             if (lstAnnouncementMsg.get(i).equalsIgnoreCase(announcementMsg)) {
-               return tblAnnouncementReport.getControlOfCell(1, colInfo, i + 1, "div[contains(@class,'btn-edit')]//i[contains(@class,'fa-eye-slash')]").isDisplayed();
-               // return actualText.equals(BOConstants.Operations.AnnouncementManagement.BTN_SHOW);
+                return tblAnnouncementReport.getControlOfCell(1, colInfo, i + 1, "div[contains(@class,'btn-edit')]//i[contains(@class,'fa-eye-slash')]").isDisplayed();
+                // return actualText.equals(BOConstants.Operations.AnnouncementManagement.BTN_SHOW);
             }
         }
         return false;
@@ -76,7 +76,7 @@ public class AnnouncementManagementPage extends HomePage {
                         baseElement =tblAnnouncementReport.getControlOfCell(1, colInfo, i + 1, "div[contains(@class,'btn-edit')]//i[contains(@class,'fa-pencil-alt')]");
                         baseElement.scrollToThisControl(true);
                         baseElement.click();
-                       // tblAnnouncementReport.getControlOfCell(1, colInfo, i + 1, "div[contains(@class,'btn-edit')]//i[contains(@class,'fa-pencil-alt')]").click();
+                        // tblAnnouncementReport.getControlOfCell(1, colInfo, i + 1, "div[contains(@class,'btn-edit')]//i[contains(@class,'fa-pencil-alt')]").click();
                         if(!newAnnouncementMsg.isEmpty()){
                             add(newAnnouncementMsg,seenBy,sequence);
                         }

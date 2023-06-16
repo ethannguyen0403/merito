@@ -25,7 +25,7 @@
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.satsport.marketsmanagement.BlockUnblockEventsTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
         </classes>
 
     </test>

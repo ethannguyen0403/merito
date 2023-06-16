@@ -1,13 +1,7 @@
 package membersite.pages.components.leftmneu;
 
 import com.paltech.element.common.*;
-import common.MemberConstants;
-import membersite.controls.DropDownBox;
-import membersite.controls.MenuTree;
-import membersite.controls.aposta.APLeftMenuControl;
-import membersite.pages.all.components.Header;
-import membersite.pages.all.tabexchange.MarketPage;
-import membersite.pages.all.tabexchange.SportPage;
+import membersite.pages.MarketPage;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
@@ -25,6 +19,9 @@ public class LeftMenu {
 
     public Label searchEvent(String eventName) {
       return null;
+    }
+    public MarketPage searchEvent(String eventName, boolean isClick) {
+        return null;
     }
     public void clickBack(){
     }
@@ -52,6 +49,16 @@ public class LeftMenu {
         }
         return lstMenu;
     }
+    public String getActiveEvent() {
+        return "";
+    }
+    public void clickMarket(String marketName) {return;    }
+    public void clickMenuIndex(int index) {return;    }
+
+    public void clickCompetition(String competition) {    }
+
+    public void clickSport(String sportName) {   }
+
 /*
 
     public String getSportAll() {
@@ -62,9 +69,7 @@ public class LeftMenu {
         menuAllMenu.click();
     }
 
-    public void clickSport(String sportName) {
-        menuAllMenu.selectByVisibleText(sportName, false);
-    }
+
 
     public void clickCompetition(String competition) {
         if (menuSport.getOptionByIndex(0).equals(MemberConstants.HomePage.NO_EVENT_AVAILABLE)) {

@@ -5,8 +5,8 @@ import com.paltech.driver.DriverManager;
 import com.paltech.utils.WSUtils;
 import org.json.JSONObject;
 
-import static baseTest.BaseCaseMerito.domainURL;
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.domainURL;
+import static baseTest.BaseCaseTest.environment;
 
 public class TopGainerLoserUtils {
 

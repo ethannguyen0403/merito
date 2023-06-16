@@ -71,10 +71,10 @@ public class PunterPerformancePage extends HomePage {
             List<String> lstLelvel = tblReport.getColumn(colLevel,false);
             if (!lstLelvel.get(0).equals(level)) {
                 Link lnk = (Link)tblReport.getControlOfCell(1, colUsername, 1, "span[@class='downline']");
-                if(lnk.isDisplayed()){
-                    lnk.click();
-                    waitSpinIcon();
-                }
+                if(!lnk.isDisplayed())
+                    return;
+                lnk.click();
+                waitSpinIcon();
             }
             else{
                 return ;

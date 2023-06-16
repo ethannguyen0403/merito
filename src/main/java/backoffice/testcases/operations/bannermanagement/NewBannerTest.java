@@ -1,24 +1,23 @@
 package backoffice.testcases.operations.bannermanagement;
 
 import backoffice.common.BOConstants;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 import backoffice.pages.bo.operations.BannerManagementPage;
 import backoffice.pages.bo.operations.component.NewBannerPopup;
-import baseTest.BaseCaseMerito;
+import baseTest.BaseCaseTest;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-public class NewBannerTest extends BaseCaseMerito{
+public class NewBannerTest extends BaseCaseTest {
     /**
      * @title: Validate that this page loading is successful
-     * @pre-condition:
-     *           1. Log in successfully
-     * @steps:   1. Navigate Operations > Banner Management
-     *           2. Click Create Banner button
-     * @expect:  1. New Banner popup is displayed
-     *           2. Data displays correctly
+     * @pre-condition: 1. Log in successfully
+     * @steps: 1. Navigate Operations > Banner Management
+     * 2. Click Create Banner button
+     * @expect: 1. New Banner popup is displayed
+     * 2. Data displays correctly
      */
-    @Test (groups = {"regression"})
-    public void BO_Operations_BannerManagement_001(){
+    @Test(groups = {"regression"})
+    public void BO_Operations_BannerManagement_001() {
         log("@title: Validate that this page loading is successful");
         log("Step 1: Navigate Operations > Banner Management");
         BannerManagementPage page = backofficeHomePage.navigateBannerManagement();
@@ -41,15 +40,14 @@ public class NewBannerTest extends BaseCaseMerito{
 
     /**
      * @title: Validate that New Banner popup is closed when clicking Close button
-     * @pre-condition:
-     *           1. Log in successfully
-     * @steps:   1. Navigate Operations > Banner Management
-     *           2. Click Create Banner button
-     *           3. Click Close button
-     * @expect:  1. New Banner popup is closed successfully
+     * @pre-condition: 1. Log in successfully
+     * @steps: 1. Navigate Operations > Banner Management
+     * 2. Click Create Banner button
+     * 3. Click Close button
+     * @expect: 1. New Banner popup is closed successfully
      */
-    @Test (groups = {"regression"})
-    public void BO_Operations_BannerManagement_002(){
+    @Test(groups = {"regression"})
+    public void BO_Operations_BannerManagement_002() {
         log("@title: Validate that New Banner popup is closed when clicking Close button");
         log("Step 1: Navigate Operations > Banner Management");
         BannerManagementPage page = backofficeHomePage.navigateBannerManagement();

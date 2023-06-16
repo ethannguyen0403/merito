@@ -1,6 +1,6 @@
 package agentsite.ultils.agencymanagement;
 
-import agentsite.common.AGConstant;
+import common.AGConstant;
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.domainURL;
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.domainURL;
 
 public class EventBetSizeSettingUtils {
     public static List<Event> getEventList(String sportName, String userID, String time) {

@@ -2,9 +2,6 @@ package membersite.pages.popup;
 
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
-import membersite.controls.aposta.APHeaderControl;
-import membersite.pages.all.home.ChangePasswordPage;
-import membersite.pages.all.tabexchange.HomePage;
 import org.openqa.selenium.By;
 
 public class BannerPopup extends BaseElement {

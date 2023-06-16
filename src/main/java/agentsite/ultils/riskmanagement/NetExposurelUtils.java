@@ -11,7 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static baseTest.BaseCaseMerito.domainURL;
+import static baseTest.BaseCaseTest.domainURL;
 
 public class NetExposurelUtils {
 

@@ -27,7 +27,7 @@ public class GamePage extends LandingPage {
     }
     public void waitGameLoad(){
         if(icSpin.isDisplayed()){
-            icSpin.waitForControlInvisible(1,3);
+            icSpin.waitForControlInvisible(1,1);
         }
     }
     public Object navigateGameFromMainMenu(String pageName) {
@@ -73,7 +73,6 @@ public class GamePage extends LandingPage {
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-
         while(stopWatch.getElapsedTime() < 3000L) {
             try {
                 if(!lblGameStatus.isDisplayed()){

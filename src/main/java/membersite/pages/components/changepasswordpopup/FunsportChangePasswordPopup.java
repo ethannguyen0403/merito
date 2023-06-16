@@ -16,9 +16,9 @@ public class FunsportChangePasswordPopup extends ChangePasswordPopup{
     private TextBox txtConfirmPassword = TextBox.id("confirmNewPassword");
     private TextBox txtOldPassword = TextBox.id("oldPassword");
     public Label lblSuccessMsg = Label.xpath("//div[@class='successMsg']");
-    public Label lblErrorMsg = Label.xpath("//div[contains(@class,'oldPassword-container')]//label[@class='errorMsg']");
-    private Label lblValidateNewPasswordErrorMsg = Label.xpath("//div[contains(@class,'newPassword-container')]//label[@class='errorMsg']");
-    private Label lblConfirmPasswordErrorMsg = Label.xpath("//div[contains(@class,'confirmNewPassword-container')]//label[@class='errorMsg']");
+    public Label lblErrorMsg = Label.xpath("//div[@class='errorMsg']");
+    private Label lblValidateNewPasswordErrorMsg = Label.xpath("//input[@id='password-input']/following::div[@class='text-danger'][1]");
+    private Label lblConfirmPasswordErrorMsg = Label.xpath("//input[@id='password-confirmation-input']/following::div[@class='text-danger'][1]");
 
     public void clickCancelBtn(){
         btnCancel.click();

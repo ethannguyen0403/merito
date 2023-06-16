@@ -11,15 +11,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
 
 public class EventMarketStatusUtils {
     public static List<ArrayList<String>> getSport(String date, boolean open) {
         // date format in : 2020-10-26
         List<ArrayList<String>> lstSport = new ArrayList<>();
         String filter = String.format("eventDate=%s&open=%s", date, open);
-        String api = String.format("%s/market-tools/list-sport.json?%s",environment.getBackofficeURL(), filter);
-        //String api = String.format("%s/market-tools/list-sport.json?_=%s",environment.getBackofficeURL(), DateUtils.getMilliSeconds());
+        String api = String.format("%s/market-tools/list-sport.json?%s",backofficeUrl, filter);
+        //String api = String.format("%s/market-tools/list-sport.json?_=%s",backofficeUrl, DateUtils.getMilliSeconds());
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
 
         if (Objects.nonNull(jsonArray)) {
@@ -37,8 +37,8 @@ public class EventMarketStatusUtils {
         // date format in : 2020-10-26
         List<ArrayList<String>> lstCompetition = new ArrayList<>();
         String filter = String.format("eventDate=%s&open=%s&sportId=%s", date, open,sportId);
-        String api = String.format("%s/market-tools/list-comp.json?%s",environment.getBackofficeURL(), filter);
-        //String api = String.format("%s/market-tools/list-sport.json?_=%s",environment.getBackofficeURL(), DateUtils.getMilliSeconds());
+        String api = String.format("%s/market-tools/list-comp.json?%s",backofficeUrl, filter);
+        //String api = String.format("%s/market-tools/list-sport.json?_=%s",backofficeUrl, DateUtils.getMilliSeconds());
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
 
         if (Objects.nonNull(jsonArray)) {
@@ -55,7 +55,7 @@ public class EventMarketStatusUtils {
         // date format in : 2020-10-26
         List<ArrayList<String>> lstEvent = new ArrayList<>();
         String filter = String.format("eventDate=%s&open=%s&sportId=%s&compId=%s", date, open,sportId,compId);
-        String api = String.format("%s/market-tools/list-event.json?%s",environment.getBackofficeURL(), filter);
+        String api = String.format("%s/market-tools/list-event.json?%s",backofficeUrl, filter);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -74,7 +74,7 @@ public class EventMarketStatusUtils {
         // date format in : 2020-10-26
         List<ArrayList<String>> lstEvent = new ArrayList<>();
         String filter = String.format("eventDate=%s&open=%s&eventId=%s", date, open,eventId);
-        String api = String.format("%s/market-tools/list-market.json.json?%s",environment.getBackofficeURL(), filter);
+        String api = String.format("%s/market-tools/list-market.json.json?%s",backofficeUrl, filter);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for (int i = 0; i < jsonArray.length(); i++) {

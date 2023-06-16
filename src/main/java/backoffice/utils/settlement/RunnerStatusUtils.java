@@ -12,12 +12,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
 
 public class RunnerStatusUtils {
     public static List<ArrayList<String>> getSports(String date) {
         List<ArrayList<String>> lstSports = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/sv/runner/list-sport?eventDate=%s&_=%s",environment.getBackofficeURL(), date, DateUtils.getMilliSeconds());
+        String api = String.format("%s/system-manager/web/sv/runner/list-sport?eventDate=%s&_=%s",backofficeUrl, date, DateUtils.getMilliSeconds());
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for(int i=0; i<jsonArray.length(); i++) {
@@ -37,7 +37,7 @@ public class RunnerStatusUtils {
      */
     public static List<ArrayList<String>> getEvents(String sportID, String date) {
         List<ArrayList<String>> lstEvents = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/sv/runner/list-event?sportId=%s&eventDate=%s",environment.getBackofficeURL(), sportID,date);
+        String api = String.format("%s/system-manager/web/sv/runner/list-event?sportId=%s&eventDate=%s",backofficeUrl, sportID,date);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for(int i=0; i<jsonArray.length(); i++) {
@@ -52,7 +52,7 @@ public class RunnerStatusUtils {
 
     public static List<ArrayList<String>> getMarkets(String eventID) {
         List<ArrayList<String>> lstMarkets = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/sv/runner/list-market?eventId=%s",environment.getBackofficeURL(), eventID);
+        String api = String.format("%s/system-manager/web/sv/runner/list-market?eventId=%s",backofficeUrl, eventID);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for(int i=0; i<jsonArray.length(); i++) {
@@ -66,7 +66,7 @@ public class RunnerStatusUtils {
     }
     public static List<ArrayList<String>> getRunner(String eventID,String marketID) {
         List<ArrayList<String>> lstRunners = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/sv/runner/list-runner?eventId=%s&marketId=%s",environment.getBackofficeURL(), eventID, marketID);
+        String api = String.format("%s/system-manager/web/sv/runner/list-runner?eventId=%s&marketId=%s",backofficeUrl, eventID, marketID);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for(int i=0; i<jsonArray.length(); i++) {

@@ -1,21 +1,23 @@
 package backoffice.testcases.operations;
 
-import baseTest.BaseCaseTest;
-import com.paltech.utils.DateUtils;
 import backoffice.common.BOConstants;
-import com.paltech.utils.StringUtils;
-import org.testng.Assert;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
 import backoffice.pages.bo.operations.BannerManagementPage;
 import backoffice.pages.bo.operations.component.BannerConfirmPopup;
 import backoffice.pages.bo.operations.component.NewBannerPopup;
 import backoffice.utils.operations.BannerManagementUtils;
+import baseTest.BaseCaseTest;
+import com.paltech.utils.DateUtils;
+import com.paltech.utils.StringUtils;
+import org.testng.Assert;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class BannerManagementTest extends BaseCaseTest {
+
     /**
      * @title: There is no http responded error returned
      * @pre-condition: 1. Log in successfully

@@ -101,6 +101,9 @@ public class Environment {
     public static void setBetclubURL(String betclubURL) {
         Environment.betclubURL = betclubURL;
     }
+
+//    public String getMemberSiteURL() {
+//    }
 /* public String getBackofficeSOSUrl() {
         return backofficeSOSUrl;
     }

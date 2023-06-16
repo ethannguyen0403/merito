@@ -22,19 +22,19 @@
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.fraudetection.FraudDetectionTest"/>
-            <class name="agentsite.testcase.all.fraudetection.FraudPermissionTest"/>
-            <class name="agentsite.testcase.all.fraudetection.WagerOddsHistoryTest"/>
-            <class name="agentsite.testcase.all.reports.ViewLogTest"/>
-            <class name="agentsite.testcase.all.reports.ClientLegerTest"/>
-            <class name="agentsite.testcase.all.reports.FollowBetsPerformanceTest"/>
-            <class name="agentsite.testcase.all.marketsmanagement.LiquidityThresholdTest"/>
+            <class name="agentsite.testcase.fraudetection.FraudDetectionTest"/>
+            <class name="agentsite.testcase.fraudetection.FraudPermissionTest"/>
+            <class name="agentsite.testcase.fraudetection.WagerOddsHistoryTest"/>
+            <class name="agentsite.testcase.reports.ViewLogTest"/>
+            <class name="agentsite.testcase.reports.ClientLegerTest"/>
+            <class name="agentsite.testcase.reports.FollowBetsPerformanceTest"/>
+            <class name="agentsite.testcase.marketsmanagement.LiquidityThresholdTest"/>
 
-            <class name="agentsite.testcase.all.reports.BFVoidedDiscrepancyTest"/>
-            <class name="agentsite.testcase.satsport.report.AnalysisOfRunningMarketsTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.FollowBetsTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.PTPlayersListingTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.ShadowPlayersListingTest"/>
+            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
+            <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
+            <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
+            <class name="agentsite.testcase.agencymanagement.PTPlayersListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.ShadowPlayersListingTest"/>
 
         </classes>
 

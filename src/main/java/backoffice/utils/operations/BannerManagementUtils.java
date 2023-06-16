@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static baseTest.BaseCaseMerito.environment;
+import static baseTest.BaseCaseTest.backofficeUrl;
+
 
 public class BannerManagementUtils {
     public static List<Brand> getBrands() {
         List<Brand> lstBrands = new ArrayList<>();
-        String api = String.format("%s/banner-manager/web/sv/banner-management/banner-brands.sv",environment.getBackofficeURL());
+        String api = String.format("%s/banner-manager/web/sv/banner-management/banner-brands.sv",backofficeUrl);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for(int i=0; i<jsonArray.length(); i++) {

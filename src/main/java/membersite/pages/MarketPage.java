@@ -1,10 +1,11 @@
 package membersite.pages;
 
 
-import membersite.controls.funsport.OneClickBettingControl;
-import membersite.controls.sat.FancyContainerControl;
-import membersite.controls.sat.FancyContainerControlOldUI;
-import membersite.controls.sat.WicketBookmakerContainerControl;
+import com.paltech.element.common.Label;
+import membersite.controls.FancyContainerControl;
+import membersite.controls.FancyContainerControlOldUI;
+import membersite.controls.OneClickBettingControl;
+import membersite.controls.WicketBookmakerContainerControl;
 import membersite.objects.Wager;
 import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.FancyMarket;
@@ -23,10 +24,9 @@ public class MarketPage extends HomePage{
     public RacingMarketContainer racingMarketContainer;
     public OneClickBettingControl oneClickBettingControl ;
     public FancyContainerControl wcFancyContainerControl;
-    public FancyContainerControlOldUI odlUIFancyContainerControl;
     public FancyContainerControl centralFancyContainerControl ;
     public FancyContainerControl fancyContainerControl ;
-
+    public FancyContainerControlOldUI odlUIFancyContainerControl;
     public MarketPage(String types) {
         super(types);
         marketOddControl = ComponentsFactory.marketOddControlObject(types);
@@ -192,6 +192,40 @@ public class MarketPage extends HomePage{
     }
     public List<ArrayList> getFancyMiniMyBet(){
         return myBetsContainer.getMatchedFancyInMiniMyBet();
+    }
+
+    public boolean verifyOddsIsClickAbleAsBetableStaus(Market market, boolean isBetable){
+        market.getBtnOdd().click();
+        Label btnOdds = market.getBtnOdd();
+        if(isBetable){
+            if(btnOdds.isEnabled())
+                return true;
+            return false;
+        }
+        else {
+            if(!btnOdds.isEnabled())
+                return true;
+            return false;
+        }
+    }
+
+    public String getMinMaxLable(FancyMarket fcMarket){
+        switch (fcMarket.getMaketType()){
+            case "WICKET_FANCY":
+                return wcFancyContainerControl.getMinMaxOFFancyMarket(fcMarket);
+            case "CENTRAL_FANCY":
+                return centralFancyContainerControl.getMinMaxOFFancyMarket(fcMarket);
+            default:
+                return fancyContainerControl.getMinMaxOFFancyMarket(fcMarket);
+        }
+    }
+    public String getMinMaxOFFancyMarket(String minMax,boolean isMinStake){
+        //  String[] minMax = wcFancyContainerControl.getMinMaxOFFancyMarket(fcMarket);
+        String[] minMaxArr =  minMax.split("/");
+        if(isMinStake)
+            return minMaxArr[0].trim().replaceAll(",","");
+        return minMaxArr[1].trim().replaceAll(",","");
+
     }
 
 }

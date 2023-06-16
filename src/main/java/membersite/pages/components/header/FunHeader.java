@@ -6,7 +6,6 @@ import common.MemberConstants;
 import membersite.controls.DropDownMenu;
 import membersite.pages.MyBetsPage;
 import membersite.pages.popup.MyMarketPopup;
-import membersite.pages.all.tabexchangegame.EGHomePage;
 import membersite.pages.components.changepasswordpopup.FunsportChangePasswordPopup;
 import membersite.pages.components.loginform.FunLoginPopup;
 import membersite.pages.components.underagegamblingpopup.FunsportUnderageGamblingPopup;
@@ -78,9 +77,8 @@ public class FunHeader extends Header {
 
     }
 
-    public EGHomePage openExchangeGame(){
+    public void openExchangeGame(){
         tabExchangeGames.click();
-        return new EGHomePage();
     }
 
     public void clickLogo(){imgLogo.click();}
@@ -88,5 +86,6 @@ public class FunHeader extends Header {
         lnkMyMarkets.click();
         return new MyMarketPopup();
     }
+    public void logout(){ ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"));   }
 
 }

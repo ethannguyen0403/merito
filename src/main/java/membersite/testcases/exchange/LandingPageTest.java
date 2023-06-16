@@ -34,7 +34,7 @@ public class LandingPageTest extends BaseCaseTest {
     }
 
     @TestRails(id="1214")
-    @Test (groups = {"smoke1"})
+    @Test (groups = {"smoke"})
     @Parameters({"password"})
     public void Landing_Page_TC1214(String password) throws Exception {
         log("@title: Validate that user with invalid account cannot sign in successfully");
@@ -81,7 +81,7 @@ public class LandingPageTest extends BaseCaseTest {
     }
 
     @TestRails(id="1216")
-    @Test (groups = {"satsport1","funsport1","fairenter1"})// other whitelabel except Fair999
+    @Test (groups = {"satsport","funsport","fairenter"})// other whitelabel except Fair999
     public void Landing_Page_TC1217() throws Exception {
         log("@title: Validate Google page display when click on Exit");
         log("Step 1. Access member site");

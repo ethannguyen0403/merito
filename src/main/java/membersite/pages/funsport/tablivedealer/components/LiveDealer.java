@@ -1,7 +1,7 @@
 package membersite.pages.funsport.tablivedealer.components;
 
 import com.paltech.element.common.Tab;
-import membersite.pages.all.components.Header;
+import membersite.pages.components.header.Header;
 import membersite.pages.funsport.tablivedealer.AsianRoomPage;
 import membersite.pages.funsport.tablivedealer.EuropeanRoomPage;
 

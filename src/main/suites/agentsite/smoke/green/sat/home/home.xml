@@ -28,10 +28,10 @@
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.satsport.home.SATLoginTest"/>
-            <class name="agentsite.testcase.satsport.home.SATLogoutTest"/>
-            <class name="agentsite.testcase.satsport.home.SATHeaderTest"/>
-            <class name="agentsite.testcase.satsport.home.SATLeftMenuTest"/>
+            <class name="agentsite.testcase.LoginTest"/>
+            <class name="agentsite.testcase.LogoutTest"/>
+            <class name="agentsite.testcase.HeaderTest"/>
+            <class name="agentsite.testcase.LeftMenuTest"/>
         </classes>
 
     </test>

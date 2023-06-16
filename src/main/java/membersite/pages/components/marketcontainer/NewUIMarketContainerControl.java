@@ -6,13 +6,13 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.Tab;
 import com.paltech.utils.DateUtils;
 import common.MemberConstants;
-import membersite.controls.sat.FancyContainerControl;
-import membersite.controls.sat.FancyContainerControlOldUI;
+import membersite.controls.FancyContainerControl;
+import membersite.controls.FancyContainerControlOldUI;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.FancyMarket;
 import membersite.objects.sat.Market;
-import membersite.pages.all.beforelogin.popups.UnderageGamblingPopup;
-import membersite.pages.all.tabexchange.components.popups.RulePopup;
+import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
+import membersite.pages.popup.RulePopup;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;

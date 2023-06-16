@@ -1,31 +1,29 @@
 package backoffice.testcases.system;
 
+import backoffice.pages.bo.system.BetFairInfoPage;
+import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import backoffice.pages.bo.system.BetFairInfoPage;
-import baseTest.BaseCaseMerito;
 import util.testraildemo.TestRails;
 
-public class BetfairInformationTest extends BaseCaseMerito{
+public class BetfairInformationTest extends BaseCaseTest {
     /**
      * @title: Validate can search BF information according with Merito info
-     * @pre-condition:
-     *          1. Login BO
-     * @steps:   1. Access System>Betfair Information
-     *          2. Input merito bet id and select product Exchange
-     *          3. Click Search button
-     * @expect:  1. Verify Betfair Bet ID display according with merito bet id
+     * @pre-condition: 1. Login BO
+     * @steps: 1. Access System>Betfair Information
+     * 2. Input merito bet id and select product Exchange
+     * 3. Click Search button
+     * @expect: 1. Verify Betfair Bet ID display according with merito bet id
      */
     @TestRails(id = "658")
-    @Test (groups = {"smoke"})
+    @Test(groups = {"smoke"})
     @Parameters("env")
-    public void BO_System_Betfair_Information_001(String env){
+    public void BO_System_Betfair_Information_001(String env) {
         log("@title: Validate can search BF information according with Merito info");
         String meritoBetID = "61366";
-        String betFairBetID= "213840481572" ;
-        if(env.equalsIgnoreCase("green"))
-        {
+        String betFairBetID = "213840481572";
+        if (env.equalsIgnoreCase("green")) {
             meritoBetID = "30136697";
             betFairBetID = "213342416253";
         }
@@ -35,15 +33,14 @@ public class BetfairInformationTest extends BaseCaseMerito{
 
         log("Step 2. Input Merito bet id and select product Exchange");
         log("Step 3. Click Search button");
-        page.searchInfo(meritoBetID,"Exchange");
+        page.searchInfo(meritoBetID, "Exchange");
 
         log("Verify 1. Verify Betfair Bet ID display according with merito bet id");
-        Assert.assertEquals(page.lblMeritoBetID.getText(),meritoBetID,String.format("FAILED! Merito Bet ID not display as searching. Expected is %s but found %s",meritoBetID,page.lblMeritoBetID.getText()));
-        Assert.assertEquals(page.lblBetFairBetID.getText(),betFairBetID,String.format("FAILED! BetFair Bet ID is not correct. Expected is %s but found %s", betFairBetID, page.lblBetFairBetID.getText()));
+        Assert.assertEquals(page.lblMeritoBetID.getText(), meritoBetID, String.format("FAILED! Merito Bet ID not display as searching. Expected is %s but found %s", meritoBetID, page.lblMeritoBetID.getText()));
+        Assert.assertEquals(page.lblBetFairBetID.getText(), betFairBetID, String.format("FAILED! BetFair Bet ID is not correct. Expected is %s but found %s", betFairBetID, page.lblBetFairBetID.getText()));
 
         log("INFO: Executed completely");
     }
-
 
 
 }

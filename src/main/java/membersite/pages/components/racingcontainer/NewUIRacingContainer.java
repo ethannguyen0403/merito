@@ -1,9 +1,7 @@
 package membersite.pages.components.racingcontainer;
 
-import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
-import membersite.controls.sat.RacingMarketControl;
-import org.openqa.selenium.By;
+import membersite.controls.RacingMarketControl;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;

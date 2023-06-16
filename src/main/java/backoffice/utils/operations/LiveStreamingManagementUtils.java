@@ -11,7 +11,7 @@
     import java.util.List;
     import java.util.Objects;
 
-    import static baseTest.BaseCaseMerito.environment;
+    import static baseTest.BaseCaseTest.backofficeUrl;
 
     public class LiveStreamingManagementUtils {
 
@@ -21,7 +21,7 @@
     public static List<Event> getListEvent(String date, String leagueName, String eventName, String lcLeagueName, String lcEventNAme, String sport) {
         List<Event> lstEvent = new ArrayList<>();
         String filter = String.format("date=%s&leagueName=%s&eventName=%s&lcLeagueName=%s&lcEventName=%s&filter=true&unmap=true&mapped=true&sport=%s",date,leagueName,eventName,lcLeagueName,lcEventNAme,sport);
-        String api = String.format("%s/system-manager/web/sv/live-center/list?%s",environment.getBackofficeURL(), filter);
+        String api = String.format("%s/system-manager/web/sv/live-center/list?%s",backofficeUrl, filter);
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_FORM_URLENCODED, null, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("events")) {
@@ -49,7 +49,7 @@
     public static List<Event> getListLCEvent(String date, String leagueName, String eventName, String lcLeagueName, String lcEventNAme, String sport) {
         List<Event> lstEvent = new ArrayList<>();
         String filter = String.format("date=%s&leagueName=%s&eventName=%s&lcLeagueName=%s&lcEventName=%s&filter=true&unmap=true&mapped=true&sport=%s",date,leagueName,eventName,lcLeagueName,lcEventNAme,sport);
-        String api = String.format("%s/system-manager/web/sv/live-center/list?%s",environment.getBackofficeURL(), filter);
+        String api = String.format("%s/system-manager/web/sv/live-center/list?%s",backofficeUrl, filter);
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_FORM_URLENCODED, null,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("lcEvents")) {
@@ -73,7 +73,7 @@
 
     public static List<String> getSportLiveCenter(){
         List<String> lstSport = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/sv/live-center/sport",environment.getBackofficeURL());
+        String api = String.format("%s/system-manager/web/sv/live-center/sport",backofficeUrl);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, null,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for(int i=0; i<jsonArray.length(); i++) {
