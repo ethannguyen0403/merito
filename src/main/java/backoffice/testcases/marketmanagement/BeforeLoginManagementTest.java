@@ -269,7 +269,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         List<String> lstSequence = lstMenuHeader.get(1);
         lstMenu.sort(Comparator.comparingInt(lstSequence::indexOf));
         log("Step 4. Login to member site before login");
-        memberLoginURL = "https://" + domain + "/plus";
+        memberLoginURL = environment.getFairURL() + "/plus";
         loginMember(feMemberLoginId, feMemberLoginPwd, false, language, currency, false);
 
         log("Verify. Validate header menu show with active from BO with correct sequence");
@@ -300,8 +300,8 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         List<String> lstSequence = lstMenuHeader.get(1);
         lstMenu.sort(Comparator.comparingInt(lstSequence::indexOf));
         log("Step 4. Login to member site before login");
-        memberLoginURL = "https://" + domain + "/plus";
-        memberSOSUrl = "https://" + domain;
+        memberLoginURL = environment.getFairURL() + "/plus";
+        memberSOSUrl = environment.getFairURL() + "/member-service/login/login";
         loginMember(feMemberLoginId, feMemberLoginPwd, true, language, currency, true);
 
         log("Verify. Validate header menu show with active from BO with correct sequence");
@@ -314,7 +314,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1659")
-    @Test(groups = {"regression1"})
+    @Test(groups = {"regression"})
     @Parameters({"feMemberLoginId", "feMemberLoginPwd", "language", "currency"})
     public void BO_Operations_Before_Login_Management_1659(String feMemberLoginId, String feMemberLoginPwd, String language, String currency) throws Exception {
         Float rate;
@@ -329,11 +329,10 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         log("Step 3. Get currency of current branch filter");
         String currencySelected = page.ddpCurrency.getFirstSelectedOption();
         rate = CurrencyManagementUtils.getCurrencyRate(currencySelected);
-        memberLoginURL = "https://" + domain + "/plus";
-        memberSOSUrl = "https://" + domain;
+        memberLoginURL = environment.getFairURL() + "/plus";
         log("Step 4. Login to member site");
         loginMember(feMemberLoginId, feMemberLoginPwd, false, language, currency, true);
-        List<String> lst = landingPage.getBeforeLoginConfig(memberSOSUrl);
+        List<String> lst = landingPage.getBeforeLoginConfig(environment.getFairURL());
 
         log("Verify. Validate currency between BO site and Member site before login matched");
         Assert.assertEquals(currencySelected, lst.get(0), "FAILED! Currency between BO and Before Login member site does not match, BO: "
@@ -345,7 +344,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1660")
-    @Test(groups = {"regression1"})
+    @Test(groups = {"regression"})
     @Parameters({"feMemberLoginId", "feMemberLoginPwd", "language", "currency"})
     public void BO_Operations_Before_Login_Management_1660(String feMemberLoginId, String feMemberLoginPwd, String language, String currency) throws Exception {
         String type = "Header Menu";
@@ -358,11 +357,10 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         String domain = page.ddpDomain.getFirstSelectedOption();
         log("Step 3. Get currency of current branch filter");
         String languageSelected = page.ddpLanguage.getFirstSelectedOption();
-        memberLoginURL = "https://" + domain + "/plus";
-        memberSOSUrl = "https://" + domain;
+        memberLoginURL = environment.getFairURL() + "/plus";
         log("Step 4. Login to member site");
         loginMember(feMemberLoginId, feMemberLoginPwd, false, language, currency, true);
-        List<String> lst = landingPage.getBeforeLoginConfig(memberSOSUrl);
+        List<String> lst = landingPage.getBeforeLoginConfig(environment.getFairURL());
 
         log("Verify. Validate language between BO site and Member site before login matched");
         Assert.assertEquals(BOConstants.Operations.LANGUAGE.get(languageSelected), lst.get(1), "FAILED! Currency between BO and Before Login member site does not match, BO: "
