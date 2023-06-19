@@ -357,7 +357,7 @@ public class BaseCaseTest {
     }
     private static String getURL(String brandName){
         switch (brandName){
-            case "fairexchange":
+            case "fairexchange": case "fairexchangeplus":
                 return environment.getFairURL();
             case "satsport":
                 return environment.getSatURL();
