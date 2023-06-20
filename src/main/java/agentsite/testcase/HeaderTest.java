@@ -32,8 +32,9 @@ public class HeaderTest extends BaseCaseTest {
      * - Confirm Password + Textbox
      * Submit and Cancel icon
      */
+    @TestRails(id = "3455")
     @Test (groups = {"regression"})
-    public void Header_TC004() throws Exception {
+    public void Header_TC3455() throws Exception {
         log("@title: Validate Change Password popup display");
         log("Step 1: Click on menu icon and select Password");
         String securityCode = StringUtils.decrypt(environment.getSecurityCode());
@@ -66,8 +67,9 @@ public class HeaderTest extends BaseCaseTest {
      * *Consecutive are not allowed, for example: 123456, 456789.
      * *Back consecutive are not allowed, for example: 765432.
      */
+    @TestRails(id = "3456")
     @Test (groups = {"regression"})
-    public void Header_TC005() throws Exception {
+    public void Header_TC3456() throws Exception {
         log("@title: Validate Update Security Code page display");
         log("Step 1: Click on menu icon and select Security Code");
         String securityCode = StringUtils.decrypt(environment.getSecurityCode());
@@ -96,8 +98,9 @@ public class HeaderTest extends BaseCaseTest {
      * 2. Click on expand icon to expand/collapse the left menu
      * @expect: Can expand /collapse left menu
      */
+    @TestRails(id = "3457")
     @Test (groups = {"regression"})
-    public void Header_TC006(){
+    public void Header_TC3457(){
         log("@title: Validate can collapse /expand left menu");
         log("Step 1: Click on expand icon to expand/collapse the left menu");
         log("Verify 1: Left Menu expand by default");
@@ -125,8 +128,9 @@ public class HeaderTest extends BaseCaseTest {
      * Market Management
      * Fraud Detection (For the agent is PO level)
      */
+    @TestRails(id = "3459")
     @Test (groups = {"regression"})
-    public void Header_TC0010(){
+    public void Header_TC3459(){
         log("@title: Validate there are sub menu when hover on expand left menu icon");
         log("Step: 1 Collapse left menu");
         agentHomePage.header.iconLeftMenu.collapseLeftMenu();
@@ -152,8 +156,9 @@ public class HeaderTest extends BaseCaseTest {
      * Market Management
      * Fraud Detection (For the agent is PO level)
      */
+    @TestRails(id = "3887")
     @Test (groups = {"poregression"})
-    public void Header_TC0010_PO(){
+    public void Header_TC3887_PO(){
         log("@title: Validate there are sub menu when hover on expand left menu icon");
         log("Step: 1 Collapse left menu");
         agentHomePage.header.iconLeftMenu.collapseLeftMenu();
@@ -177,8 +182,9 @@ public class HeaderTest extends BaseCaseTest {
      * 2. left menu icon select Agency Management icon
      * @expect: Left menu is active Agency Management menu section
      */
+    @TestRails(id = "3460")
     @Test (groups = {"regression"})
-    public void Header_TC0011() {
+    public void Header_TC3460() {
         log("@title: Validate can expand Agent management section in left menu");
         log("Step: 1. Collapse left menu");
         agentHomePage.header.iconLeftMenu.collapseLeftMenu();
@@ -201,8 +207,9 @@ public class HeaderTest extends BaseCaseTest {
      * 2.Hover on left menu icon select Report icon
      * @expect: Left menu is active Report menu section
      */
+    @TestRails(id = "3461")
     @Test (groups = {"regression"})
-    public void Header_TC0012(){
+    public void Header_TC3461(){
         log("@title: Validate can expand Report section in left menu");
         log("Step: 1 Collapse left menu");
         agentHomePage.header.iconLeftMenu.collapseLeftMenu();
@@ -226,8 +233,9 @@ public class HeaderTest extends BaseCaseTest {
      * 2.Hover on left menu icon select Market Management icon
      * @expect: Left menu is active  Market Management menu section
      */
+    @TestRails(id = "3462")
     @Test (groups = {"regression"})
-    public void Header_TC0013(){
+    public void Header_TC3462(){
         log("@title: Validate can expand Market Management section in left menu");
         log("Step: 1 Collapse left menu");
         agentHomePage.header.iconLeftMenu.collapseLeftMenu();
@@ -251,8 +259,9 @@ public class HeaderTest extends BaseCaseTest {
      * 2.Hover on left menu icon select Fraud Detection icon
      * @expect: Left menu is active Fraud Detection menu section
      */
+    @TestRails(id = "3463")
     @Test (groups = {"poregression"})
-    public void Header_TC0014_PO(){
+    public void Header_TC3463_PO(){
         log("@title: Validate can expand Fraud Detection section in left menu");
         log("Step: 1 Collapse left menu");
         agentHomePage.header.iconLeftMenu.collapseLeftMenu();

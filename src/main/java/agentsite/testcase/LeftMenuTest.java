@@ -31,8 +31,9 @@ public class LeftMenuTest extends BaseCaseTest {
      * 1. Click on Quick Search button
      * @expect: 1 Textbox Username or Login ID with Submit button display
      */
-    @Test (groups = {"regression1"})
-    public void LeftMenu_TC002(){
+    @TestRails(id = "3464")
+    @Test (groups = {"regression"})
+    public void LeftMenu_TC3464(){
         log("@title: Validate can active Quick Search");
         log("Step 1: Click on Quick Search button");
         agentHomePage.leftMenu.switchQuickSearch();
@@ -49,8 +50,9 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect: 1. Main Menu, Quick Search
      * 2. A menu in Main menu display to verify Main menu is active by default
      */
-    @Test (groups = {"regression5"})
-    public void LeftMenu_TC003(){
+    @TestRails(id = "3465")
+    @Test (groups = {"regression"})
+    public void LeftMenu_TC3465(){
         log("@title: Validate Main Menu is active by default");
         log("Verify: 1. Main Menu, Quick Search");
         Assert.assertEquals(agentHomePage.leftMenu.tabMainMenu.getText(),MAIN_MENU,"Failed! Quick Search tab is incorrect displayed");
@@ -72,9 +74,10 @@ public class LeftMenuTest extends BaseCaseTest {
      * 1. Display Credit/Balance Listing, Transfer, and Risk Setting Listing menu
      * 2. Not display Deposit/Withdraw menu for credit account
      */
-    @Test (groups = {"newUI_credit_regression"})
-    public void LeftMenu_TC005(){
-        log("@title: Validate can expand/collapse Agency Management");
+    @TestRails(id = "3467")
+    @Test (groups = {"credit_regression"})
+    public void LeftMenu_TC3467(){
+        log("@title: Validate all items menu in Agency Management for Credit account");
         log("Step:1 Click on Agency Management collapse");
         List<String> lstSubReprotMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
         log("Verify:  1. Display Credit/Balance Listing, Transfer, and Risk Setting Listing menu");
@@ -106,9 +109,10 @@ public class LeftMenuTest extends BaseCaseTest {
      * 1. Display Credit/Balance Listing, Transfer, and Risk Setting Listing menu
      * 2. Not display Deposit/Withdraw menu for credit account
      */
-    @Test (groups = {"newUI_credit_regression"})
-    public void LeftMenu_TC005_CreditCash(){
-        log("@title: Validate can expand/collapse Agency Management");
+    @TestRails(id = "3889")
+    @Test (groups = {"creditcash_regression"})
+    public void LeftMenu_TC3889_CreditCash(){
+        log("@title: Validate all items menu in Agency Management for Credit Cash account");
         log("Step:1 Click on Agency Management collapse");
         List<String> lstSubReprotMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
         log("Verify:  1. Display Credit/Balance Listing, Transfer, and Risk Setting Listing menu");
@@ -139,8 +143,9 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect:
      * 1.Can Expand/Colapse and all menus display correctly
      */
+    @TestRails(id = "3466")
     @Test (groups = {"regression"})
-    public void LeftMenu_TC004(){
+    public void LeftMenu_TC3466(){
         log("@title: Validate can expand/collapse Agency Management");
         log("Step:1 Click on Agency Management collapse");
         agentHomePage.leftMenu.leftMenuList.collapsedMenu(AGENCY_MANAGEMENT);
@@ -165,8 +170,9 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect:
      * 1/ If the account is active  one  of the products: Live Dealer Europeans, Lottery & Slot, Live Dealer Asian display, Commission Setting Listing menu display
      */
+    @TestRails(id = "3468")
     @Test (groups = {"regression"})
-    public void LeftMenu_TC006(){
+    public void LeftMenu_TC3468(){
         log("@title: Validate can expand/collapse Agency Management");
         log("Step:1 Have an account that active the product Live Dealer Europeans, Lottery & Slot, Live Dealer Asian");
         log("Click on Agency Management collapse");
@@ -186,8 +192,9 @@ public class LeftMenuTest extends BaseCaseTest {
      * 1. Verify Report is expanded/collapse a halt and full
      * 2. Verify all menu items in Report is correctly
      */
+    @TestRails(id = "3469")
     @Test (groups = {"poregression"})
-    public void LeftMenu_TC007_PO(){
+    public void LeftMenu_TC3469_PO(){
         log("@title: Validate can expand/collapse Report and all item display correctly");
         log("Step:1 Expand the report");
         agentHomePage.leftMenu.leftMenuList.expandMenu(REPORT);
@@ -227,8 +234,9 @@ public class LeftMenuTest extends BaseCaseTest {
      * 1. Verify Report is expanded/collapse a halt and full
      * 2. Verify all menu items in Report is correctly
      */
+    @TestRails(id = "3888")
     @Test (groups = {"fairregression"})
-    public void LeftMenu_TC007(){
+    public void LeftMenu_TC3888(){
         log("@title: Validate can expand/collapse Report and all item display correctly");
         log("Step:1 Expand the report");
         agentHomePage.leftMenu.leftMenuList.expandMenu(REPORT);
@@ -266,8 +274,9 @@ public class LeftMenuTest extends BaseCaseTest {
      * 1. Verify Market Management is expanded/collapse correctly
      * 2. Verify all menu items in Market Management is correctly
      */
+    @TestRails(id = "3470")
     @Test (groups = {"regression"})
-    public void LeftMenu_TC008(){
+    public void LeftMenu_TC3470(){
         log("@title: Validate can expand/collapse  Market Management and all item display correctly");
         log("Step:1 Expand the Market Management");
         agentHomePage.leftMenu.leftMenuList.expandMenu(MARKET_MANAGEMENT);
@@ -304,9 +313,10 @@ public class LeftMenuTest extends BaseCaseTest {
      *        (2) Member  0GU0000003 (sabella1))
      * 2. Verify all report display : Balance, Unsettled Bet, Client Ledger, Settings, Login
      */
+    @TestRails(id = "3471")
     @Test (groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC009(String brandname){
+    public void LeftMenu_TC3471(String brandname){
         log("@title: Validate can search direct member account in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -339,9 +349,10 @@ public class LeftMenuTest extends BaseCaseTest {
      * 1 Verify account info and direct member agent account and member account display
      * 2. Verify all report display : Balance, Unsettled Bet, Client Ledger, Settings, Login
      */
+    @TestRails(id = "3472")
     @Test (groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC010(String brandname){
+    public void LeftMenu_TC3472(String brandname){
         log("@title: Validate can search indirect member account in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -376,9 +387,10 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect:
      * 1. Verify Balance Page displayed
      */
+    @TestRails(id = "3473")
     @Test (groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC011(String brandname){
+    public void LeftMenu_TC3473(String brandname){
         log("@title: Verify Balance button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -405,9 +417,10 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect:
      * 1. Verify Downline Listing page display
      */
+    @TestRails(id = "3474")
     @Test (groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC012(String brandname) throws Exception {
+    public void LeftMenu_TC3474(String brandname) throws Exception {
         log("@title: Downline Listing button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -435,9 +448,10 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect:
      * 1. Verify Profit & Loss page display
      */
+    @TestRails(id = "3475")
     @Test (groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC013(String brandname){
+    public void LeftMenu_TC3475(String brandname){
         log("@title: Verify Profit & Loss button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -464,9 +478,10 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect:
      * 1. Verify Client Ledger page display
      */
+    @TestRails(id = "3476")
     @Test (groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC014(String brandname){
+    public void LeftMenu_TC3476(String brandname){
         log("@title: Verify Client Ledger button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -493,9 +508,10 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect:
      * 1. Verify Setting section display
      */
+    @TestRails(id = "3478")
     @Test (groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC016(String brandname){
+    public void LeftMenu_TC3478(String brandname){
         log("@title: Verify Setting button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -521,9 +537,10 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect:
      * 1. Verify login info display
      */
+    @TestRails(id = "3477")
     @Test (groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC015(String brandname){
+    public void LeftMenu_TC3477(String brandname){
         log("@title: Verify Login button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -554,9 +571,10 @@ public class LeftMenuTest extends BaseCaseTest {
      * 2. Active downline setting page and search the acording account
      * 3. Status is updated
      */
+    @TestRails(id = "3479")
     @Test(groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC017(String brandname) throws Exception {
+    public void LeftMenu_TC3479(String brandname) throws Exception {
         log("@title: Verify can update account status in Quick Search");
         String userID = ProfileUtils.getProfile().getUserID();
         AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID,"PL","ACTIVE", brandname).get(0);
@@ -600,9 +618,10 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect:
      * 1. Verify sub menu item is correctly displayed
      */
+    @TestRails(id = "3480")
     @Test (groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC018(String brandname){
+    public void LeftMenu_TC3480(String brandname){
         log("@title: Verify all sub menu in Setting page work");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();

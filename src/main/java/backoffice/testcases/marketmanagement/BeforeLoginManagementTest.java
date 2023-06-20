@@ -14,6 +14,9 @@ import util.testraildemo.TestRails;
 import java.util.Comparator;
 import java.util.List;
 
+import static common.MeritoConstant.MEMBER_SOS_URL_SUFFIX;
+import static common.MeritoConstant.MEMBER_URL_SUFFIX;
+
 public class BeforeLoginManagementTest extends BaseCaseTest {
 
     /**
@@ -269,7 +272,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         List<String> lstSequence = lstMenuHeader.get(1);
         lstMenu.sort(Comparator.comparingInt(lstSequence::indexOf));
         log("Step 4. Login to member site before login");
-        memberLoginURL = environment.getFairURL() + "/plus";
+        memberLoginURL = defineURL("fairexchangeplus",MEMBER_URL_SUFFIX.get("fairexchangeplus"));
         loginMember(feMemberLoginId, feMemberLoginPwd, false, language, currency, false);
 
         log("Verify. Validate header menu show with active from BO with correct sequence");
@@ -300,8 +303,8 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         List<String> lstSequence = lstMenuHeader.get(1);
         lstMenu.sort(Comparator.comparingInt(lstSequence::indexOf));
         log("Step 4. Login to member site before login");
-        memberLoginURL = environment.getFairURL() + "/plus";
-        memberSOSUrl = environment.getFairURL() + "/member-service/login/login";
+        memberLoginURL = defineURL("fairexchangeplus",MEMBER_URL_SUFFIX.get("fairexchangeplus"));
+        memberSOSUrl = defineURL("fairexchangeplus",MEMBER_SOS_URL_SUFFIX);
         loginMember(feMemberLoginId, feMemberLoginPwd, true, language, currency, true);
 
         log("Verify. Validate header menu show with active from BO with correct sequence");
@@ -329,7 +332,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         log("Step 3. Get currency of current branch filter");
         String currencySelected = page.ddpCurrency.getFirstSelectedOption();
         rate = CurrencyManagementUtils.getCurrencyRate(currencySelected);
-        memberLoginURL = environment.getFairURL() + "/plus";
+        memberLoginURL = defineURL("fairexchangeplus",MEMBER_URL_SUFFIX.get("fairexchangeplus"));
         log("Step 4. Login to member site");
         loginMember(feMemberLoginId, feMemberLoginPwd, false, language, currency, true);
         List<String> lst = landingPage.getBeforeLoginConfig(environment.getFairURL());
@@ -357,7 +360,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         String domain = page.ddpDomain.getFirstSelectedOption();
         log("Step 3. Get currency of current branch filter");
         String languageSelected = page.ddpLanguage.getFirstSelectedOption();
-        memberLoginURL = environment.getFairURL() + "/plus";
+        memberLoginURL = defineURL("fairexchangeplus",MEMBER_URL_SUFFIX.get("fairexchangeplus"));
         log("Step 4. Login to member site");
         loginMember(feMemberLoginId, feMemberLoginPwd, false, language, currency, true);
         List<String> lst = landingPage.getBeforeLoginConfig(environment.getFairURL());
