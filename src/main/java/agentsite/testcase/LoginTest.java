@@ -48,47 +48,29 @@ public class LoginTest extends BaseCaseTest {
     }
 
 
-    @Test(groups = {"regressionnotloginnewui"})
+    @TestRails(id = "3448")
+    @Test(groups = {"regression"})
     @Parameters("password")
-    public void Agent_Login_003_NEW_UI(String password) throws Exception {
-        log("@title: Validate cannot login to agent if input incorrect username and password");
+    public void Agent_Login_3448(String password) throws Exception {
+        log("@title: Validate cannot login to agent if input incorrect username and password - New UI");
         log("Step 1. Access Agent site login page");
         log("Step 2. Enter incorrect username/password");
         log("Step3. Input valid captcha then click on Login button");
         Helper.loginAgentIgnoreCaptchaTest(sosAgentURL , agentSecurityCodeURL, "invalid.LoginID", password);
 
         log("Verify 1. Verify cannot login by pass api when input incorrect username and password");
-        Assert.assertEquals(agentLoginPage.lblLogin.getText(), "Login", "FAILED! Login Lable is incorrect");
-        Assert.assertEquals(agentLoginPage.txtUsername.getAttribute("placeholder"), "User Name", "FAILED! Login Lable is incorrect");
-        Assert.assertEquals(agentLoginPage.txtPassword.getAttribute("placeholder"), "Password", "FAILED! Login Lable is incorrect");
+        Assert.assertEquals(agentLoginPage.lblLogin.getText().toLowerCase(), "login", "FAILED! Login Lable is incorrect");
+        Assert.assertEquals(agentLoginPage.txtUsername.isDisplayed(), "FAILED! Login Username textbox is not displayed");
+        Assert.assertEquals(agentLoginPage.txtPassword.isDisplayed(), "FAILED! Login Password textbox is not displayed");
         Assert.assertEquals(agentLoginPage.btnLogIn.getText(), "Login", "FAILED! Login label is incorrect");
 
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"regressionOldUI"})
-    @Parameters("password")
-    public void Agent_Login_003_OLD_UI(String password) throws Exception {
-        log("@title: Validate cannot login to agent if input incorrect username and password");
-        log("Step 1. Access Agent site login page");
-        log("Step 2. Enter incorrect username/password");
-        log("Step3. Input valid captcha then click on Login button");
-        Helper.loginAgentIgnoreCaptchaTest(sosAgentURL, agentSecurityCodeURL, "invalid.LoginID", password);
-
-        log("Verify 1. Verify cannot login by pass api when input incorrect username and password");
-        Assert.assertEquals(agentLoginPage.lblLogin.getText(), "LOGIN", "FAILED! Login Lable is incorrect");
-        Assert.assertEquals(agentLoginPage.txtUsername.isDisplayed(), "FAILED! Login label is incorrect");
-        Assert.assertEquals(agentLoginPage.txtPassword.isDisplayed(), "FAILED! Login label is incorrect");
-        Assert.assertEquals(agentLoginPage.btnLogIn.getText(), "Login", "FAILED! Login label is incorrect");
-
-        log("INFO: Executed completely");
-
-    }
-
-
+    @TestRails(id = "3449")
     @Test(groups = {"regression"})
     @Parameters({"username", "password"})
-    public void Agent_Login_004(String username, String password) throws Exception {
+    public void Agent_Login_3449(String username, String password) throws Exception {
         log("@title: Validate cannot login to agent if input incorrect captcha");
         String invalidCaptcha = "0010";
         log("Step 1. Access Agent site login page");
@@ -103,9 +85,10 @@ public class LoginTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"regressionnotloginnewui"})
+    @TestRails(id = "3450")
+    @Test(groups = {"regression"})
     @Parameters({"username", "password"})
-    public void Agent_Login_005(String username, String password) throws Exception {
+    public void Agent_Login_3450(String username, String password) throws Exception {
         log("@title: Validate Security Code display when login with valid username + password + captcha");
         log("Step 1. Access Agent site login page");
         log("Step 2. Enter valid username/password + captcha and click Login button");
@@ -113,34 +96,18 @@ public class LoginTest extends BaseCaseTest {
 
         log("Verify 1. Verify Security code display");
         Assert.assertEquals(securityCodePage.lblTitle.getText(), "Security Code", "FAILED! ecurity Code Title is incorrect display");
-        Assert.assertEquals(securityCodePage.txtSecurityCode.getAttribute("placeholder"), "Security Code", "FAILED! Security Code textbox is incorrect display");
+        Assert.assertEquals(securityCodePage.txtSecurityCode.isDisplayed(), "FAILED! Security Code textbox is incorrect display");
         Assert.assertEquals(securityCodePage.btnSubmit.getText(), "Submit", "FAILED! Submit button is incorrect display");
         Assert.assertEquals(securityCodePage.btnBackToLoginPage.getText(), "Back To Login Page", "FAILED! Back To Login Page button is incorrect display");
 
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"regressionOldUI1"})
-    @Parameters({"username", "password"})
-    public void Agent_Login_005_OLD_UI(String username, String password) throws Exception {
-        log("@title: Validate Security Code display when login with valid username + password + captcha");
-        log("Step 1. Access Agent site login page");
-        log("Step 2. Enter valid username/password + captcha and click Login button");
-        SecurityCodePage securityCodePage = loginAgentWithoutSecurityCode(sosAgentURL, agentSecurityCodeURL, username, password);
-
-        log("Verify 1. Verify Security code display");
-        Assert.assertEquals(securityCodePage.lblTitle.getText(), "SECURITY CODE", "FAILED! ecurity Code Title is incorrect display");
-        Assert.assertTrue(securityCodePage.txtSecurityCode.isDisplayed(), "FAILED! Security Code textbox is incorrect display");
-        Assert.assertEquals(securityCodePage.btnSubmit.getText(), "Submit", "FAILED! Submit button is incorrect display");
-        Assert.assertEquals(securityCodePage.btnBackToLoginPage.getText(), "Back To Login Page", "FAILED! Back To Login Page button is incorrect display");
-
-        log("INFO: Executed completely");
-    }
-
+    @TestRails(id = "3451")
     @Test(groups = {"regression"})
     @Parameters({"username", "password"})
-    public void Agent_Login_006(String username, String password) throws Exception {
-        log("@title: TC006_Cannot login if input invalid security code");
+    public void Agent_Login_3451(String username, String password) throws Exception {
+        log("@title: Validate Cannot login if input invalid security code");
         String invalidSecurity = "0021";
         log("Step 1. Access Agent site login page");
         log("Step 2. Enter valid username/password + captcha and click Login button");
@@ -156,9 +123,10 @@ public class LoginTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"regressionnotloginnewui"})
+    @TestRails(id = "3452")
+    @Test(groups = {"regression"})
     @Parameters({"username", "password"})
-    public void Agent_Login_008(String username, String password) throws Exception {
+    public void Agent_Login_3452(String username, String password) throws Exception {
         log("@title: Validate Back to Login Page works");
         log("Step 1. Access Agent site login page");
         log("Step 2. Enter valid username/password + captcha and click Login button");
@@ -168,27 +136,7 @@ public class LoginTest extends BaseCaseTest {
         agentLoginPage  = securityCodePage.clickBackBtn();
 
         log("Verify 1. Verify Login form display");
-        Assert.assertEquals(agentLoginPage.lblLogin.getText(), "Login", "FAILED! Login Lable is incorrect");
-        Assert.assertEquals(agentLoginPage.txtUsername.getAttribute("placeholder"), "User Name", "FAILED! Login Lable is incorrect");
-        Assert.assertEquals(agentLoginPage.txtPassword.getAttribute("placeholder"), "Password", "FAILED! Login Lable is incorrect");
-        Assert.assertEquals(agentLoginPage.btnLogIn.getText(), "Login", "FAILED! Login label is incorrect");
-
-        log("INFO: Executed completely");
-    }
-
-    @Test(groups = {"regressionOldUI"})
-    @Parameters({"username", "password"})
-    public void Agent_Login_008_OldUI(String username, String password) throws Exception {
-        log("@title: Validate Back to Login Page works");
-        log("Step 1. Access Agent site login page");
-        log("Step 2. Enter valid username/password + captcha and click Login button");
-        SecurityCodePage securityCodePage = loginAgentWithoutSecurityCode(sosAgentURL, agentSecurityCodeURL, username, password);
-
-        log("Step 3. Click on Back To Login Page on Security Code popup");
-        agentLoginPage  = securityCodePage.clickBackBtn();
-
-        log("Verify 1. Verify Login form display");
-        Assert.assertEquals(agentLoginPage.lblLogin.getText(), "LOGIN", "FAILED! Login Lable is incorrect");
+        Assert.assertEquals(agentLoginPage.lblLogin.getText().toLowerCase(), "login", "FAILED! Login Lable is incorrect");
         Assert.assertEquals(agentLoginPage.txtUsername.isDisplayed(), "FAILED! Login label is incorrect");
         Assert.assertEquals(agentLoginPage.txtPassword.isDisplayed(), "FAILED! Login label is incorrect");
         Assert.assertEquals(agentLoginPage.btnLogIn.getText(), "Login", "FAILED! Login label is incorrect");

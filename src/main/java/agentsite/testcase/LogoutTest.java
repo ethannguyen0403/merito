@@ -36,8 +36,9 @@ public class LogoutTest extends BaseCaseTest {
      *           3. Click Back button on the browser
      * @expect:  1. Logout page is kept
      */
+    @TestRails(id = "3453")
     @Test (groups = {"regression"})
-    public void Agent_Logout_002(){
+    public void Agent_Logout_3453(){
         log("@title: Validate that Logout page is kept when clicking Back button on the browser");
         log("Step 1: Log in with a valid username and password");
         log("Step 2: Click Logout button");
