@@ -35,6 +35,8 @@ import membersite.pages.components.profitandloss.OldUIProfitAndLossContainer;
 import membersite.pages.components.profitandloss.ProfitAndLossContainer;
 import membersite.pages.components.racingcontainer.RacingContainer;
 import membersite.pages.components.racingmarketcontainer.RacingMarketContainer;
+import membersite.pages.components.signinform.SATSignInPopup;
+import membersite.pages.components.signinform.SignInPopup;
 import membersite.pages.components.underagegamblingpopup.FairenterUnderageGamblingPopup;
 import membersite.pages.components.underagegamblingpopup.FunsportUnderageGamblingPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
@@ -173,6 +175,12 @@ public class ComponentsFactory {
         switch (types){
             default:
                 return new RacingContainer();
+        }
+    }
+    public static SignInPopup signInPopupObject(String types){
+        switch (types){
+            default:
+                return new SATSignInPopup();
         }
     }
 }

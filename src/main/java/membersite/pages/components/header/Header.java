@@ -1,25 +1,23 @@
 package membersite.pages.components.header;
 
-import com.paltech.element.common.Tab;
-import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.pages.*;
-import membersite.pages.exchangegames.EGHomePage;
+import membersite.pages.components.signinform.SATSignInPopup;
+import membersite.pages.components.signinform.SignInPopup;
 import membersite.pages.popup.MyMarketPopup;
 import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
 
-import java.util.Locale;
-
-public class Header {
+public abstract class Header {
      public String getName(){
          return "This is header";
      }
 
-    public void login(String username, String password,boolean skipByDefault){
+    public void login(String username, String password, boolean skipByDefault){
     }
     public void signin(String username, String password, String email, String currency, String phone){
     }
+    public void openSignIn(){}
     public String loginInvalid(String username, String password){
        return "";
     }
@@ -105,5 +103,6 @@ public class Header {
     }
 
     public void logout(){return;    }
+
 
 }

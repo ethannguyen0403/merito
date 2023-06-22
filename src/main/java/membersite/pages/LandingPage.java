@@ -9,6 +9,7 @@ import membersite.pages.components.footer.Footer;
 import membersite.pages.components.header.Header;
 import membersite.pages.components.leftmneu.LeftMenu;
 import membersite.pages.components.loginform.LoginPopup;
+import membersite.pages.components.signinform.SignInPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
 import org.json.JSONObject;
@@ -25,12 +26,14 @@ public class LandingPage extends BasePage{
     public Header header;
     public LeftMenu leftMenu;
     private LoginPopup loginPopup;
+    public SignInPopup signInPopup;
     public LandingPage(String types){
         _type = types;
         footer = ComponentsFactory.footerObject(_type);
         header= ComponentsFactory.headerObject(_type);
         leftMenu = ComponentsFactory.lefMenuObject(_type);
         loginPopup = ComponentsFactory.loginPopupObject(_type);
+        signInPopup = ComponentsFactory.signInPopupObject(_type);
     }
     public HomePage login(String username, String password,boolean skipByDefault){
         header.login(username,password,skipByDefault);
@@ -39,12 +42,16 @@ public class LandingPage extends BasePage{
         return new HomePage(_type);
     }
 
-    public HomePage signin(String username, String password,String email, String currency, String phone){
+    public HomePage signin(String username, String password, String email, String currency, String phone){
         header.signin(username,password,email,currency,phone);
         HomePage homePage = new HomePage(_type);
 //        homePage.closeBannerPopup();
         return new HomePage(_type);
     }
+    public void openSignIn(){
+        header.openSignIn();
+    }
+
 
     public boolean isLoginDisplay(){
         return loginPopup.isLoginDisplay();
@@ -146,5 +153,6 @@ public class LandingPage extends BasePage{
         leftMenu.clickMarket(marketName);
         return new MarketPage(_type);
     }
+
 
 }

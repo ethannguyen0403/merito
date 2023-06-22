@@ -10,13 +10,12 @@ import membersite.pages.MyBetsPage;
 import membersite.pages.ProfitAndLossPage;
 import membersite.pages.SportPage;
 import membersite.pages.components.signinform.SATSignInPopup;
-import membersite.pages.exchangegames.EGHomePage;
+import membersite.pages.components.signinform.SignInPopup;
 import membersite.pages.popup.MyMarketPopup;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.utils.betplacement.BetUtils;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +58,12 @@ public class SatHeader extends Header {
         return satUnderageGamblingPopup.clickConfirmation();
     }
 
-    private SATSignInPopup openSignInPopup(){
+    @Override
+    public void openSignIn() {
+        openSigninPopup();
+    }
+
+    private SATSignInPopup openSigninPopup(){
         btnJoinNow.click();
         return new SATSignInPopup();
     }
@@ -68,11 +72,12 @@ public class SatHeader extends Header {
         SATLoginPopup loginPopup = openLoginPopup();
         loginPopup.login(username, password,skipByDefault);
     }
-
+    @Override
     public void signin(String username, String password, String email, String currency, String phone){
-        SATSignInPopup signInPopup = openSignInPopup();
+        SATSignInPopup signInPopup = openSigninPopup();
         signInPopup.signin(username, password,email, currency, phone);
     }
+
     public String loginInvalid(String username, String password){
         SATLoginPopup loginPopup = openLoginPopup();
         loginPopup.login(username, password,false);
@@ -228,6 +233,8 @@ public class SatHeader extends Header {
         return Tab.xpath(String.format(this.productMenuXpath, productTab, productTab, productTab)).isDisplayed();
     }
     public void logout(){ ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"));   }
+
+
 }
 
 
