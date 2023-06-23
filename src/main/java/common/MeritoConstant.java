@@ -15,6 +15,7 @@ public class MeritoConstant {
     public static final Map<String, String> MEMBER_URL_SUFFIX = new HashMap<String, String>() {
         {
             put("fairexchange", "/x");
+            put("fairexchangeplus", "/plus");
             put("satsport", "/x");
             put("funsport", "/xch");
             put("fairenter", "/xch");
