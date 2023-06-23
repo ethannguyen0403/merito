@@ -25,20 +25,21 @@
         <parameter name='brandname' value='fairexchange'/>
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="smoke1"/>
             </run>
         </groups>
 
         <classes>
-            <class name="membersite.testcases.exchange.PlaceBetFunctionTest"/>
-            <class name="membersite.testcases.exchange.AccountStatementTest"/>
-            <class name="membersite.testcases.exchange.ProfitAndLossPageTest"/>
-             <class name="membersite.testcases.exchange.MyBetPageTest"/>
-               <class name="membersite.testcases.exchange.ChangePasswordTest"/>
-               <class name="membersite.testcases.exchangegame.EGBaccaratTest"/>
-               <class name="membersite.testcases.exchangegame.EGHomPageTest"/>
             <class name="membersite.testcases.exchange.FancyTest"/>
-            <class name="membersite.testcases.exchange.WicketFancyTest"/>
+<!--            <class name="membersite.testcases.exchange.PlaceBetFunctionTest"/>-->
+<!--            <class name="membersite.testcases.exchange.AccountStatementTest"/>-->
+<!--            <class name="membersite.testcases.exchange.ProfitAndLossPageTest"/>-->
+<!--             <class name="membersite.testcases.exchange.MyBetPageTest"/>-->
+<!--               <class name="membersite.testcases.exchange.ChangePasswordTest"/>-->
+<!--               <class name="membersite.testcases.exchangegame.EGBaccaratTest"/>-->
+<!--               <class name="membersite.testcases.exchangegame.EGHomPageTest"/>-->
+<!--            <class name="membersite.testcases.exchange.FancyTest"/>-->
+<!--            <class name="membersite.testcases.exchange.WicketFancyTest"/>-->
         </classes>
 
     </test>

@@ -20,6 +20,7 @@ public class MeritoConstant {
             put("fairenter", "/xch");
             put("laser365", "/plus");
             put("betclub", "/plus");
+            put("fairexchange_plus","/plus");
         }
     };
 

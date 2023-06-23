@@ -34,7 +34,7 @@ public class AccountStatementPage extends HomePage {
         return accountStatementContainer.getTblReport();
     }
 
-    public void clickNarration(){
+    public void clickNarrationOnTheFirstRow(){
         accountStatementContainer.clickNarration();
     }
     public void waitLoadReport(){accountStatementContainer.waitLoadReport();}

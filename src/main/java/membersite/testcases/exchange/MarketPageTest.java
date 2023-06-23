@@ -1,8 +1,53 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
+import common.MemberConstants;
+import membersite.objects.sat.Event;
+import membersite.objects.sat.Market;
+import membersite.objects.sat.Order;
+import membersite.pages.MarketPage;
+import membersite.pages.SportPage;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
-public class BetSlipMyBetTest extends BaseCaseTest {/*
+import java.util.Objects;
+
+public class MarketPageTest extends BaseCaseTest {
+    @TestRails(id = "982")
+    @Test(groups = {"smoke"})
+    public void Market_Page_982() {
+        log("@title Validate odds remove out bet slip when double click on odds");
+        log("Step 1. Click on Soccer and click on any event");
+        log("Step 1. Click Soccer menu");
+        SportPage page = memberHomePage.navigateSportHeaderMenu("Soccer");
+        Event event = page.eventContainerControl.getEventRandom(false,false);
+        if(Objects.isNull(event)) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEvent(event);
+        Market market = marketPage.marketOddControl.getMarket(event,1,true);
+        log("Step 2. Click on any odds button in market page");
+        market.getBtnOdd().click();
+
+        log("Verify: 1. Odds is added to bet slip");
+        Order bet = marketPage.betsSlipContainer.getBet(0);
+        int countBet = marketPage.betsSlipContainer.getBet().size();
+        Assert.assertEquals(bet.getSelectionName(),market.getSelectionName(),String.format("ERROR: Expected selection name in bet slip is %s but found %s", market.getSelectionName(), bet.getSelectionName()));
+        Assert.assertEquals(bet.getOdds(),market.getBtnOdd().getText(),String.format("ERROR: Expected Odds in bet slip is %s but found %s", market.getBtnOdd().getText(), bet.getOdds()));
+        Assert.assertTrue(countBet==1, String.format("ERROR: There are some bets (%d) added. Expected is just one",countBet));
+
+        log("Step 3. Re-click on the odds in step 2");
+        market.getBtnOdd().click();
+
+        log("Verify: 2. Odds is removed out bet slip after re-clicking");
+        Assert.assertEquals(page.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",page.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
+
+        log("INFO: Executed Completely!");
+    }
+
+    /*
     *//**
      * @title Validate Odds display correct when clicking on the corresponding odds of all BAck selection
      * @Precondition:   1. Login member site
@@ -88,48 +133,7 @@ public class BetSlipMyBetTest extends BaseCaseTest {/*
         log("INFO: Executed completely");
     }
 
-    *//**
-     * @title Validate odds remove out bet slip when double click on odds
-     * @Precondition:   1. Login member site
-     * @Step            1. Click on Soccer and click on any event
-     *                  2. Click on any odds button in market page
-     *                  3. Re-click on the odds in step 2
-     * @Expected        1. Odds is added to bet slip
-     *                  2. Odds is removed out bet slip after re-clicking
-     *//*
-    @TestRails(id = "982")
-    @Test(groups = {"smoke"})
-    public void FE_BetSlipMyBet_005() {
-        log("@title Validate odds remove out bet slip when double click on odds");
-        log("Step 1. Click on Soccer and click on any event");
-        SportPage page =  memberHomePage.apLeftMenuControl.clickLeftMenuItem("Soccer",SportPage.class);
-        Event event = page.eventContainerControl.getEventRandom(false,false);
-        if(Objects.isNull(event)) {
-            log("DEBUG: There is no event available");
-            return;
-        }
-        page.clickEvent(event);
-        page.marketContainerControl.waitControlLoadCompletely(5);
 
-        log("Step 2. Click on any odds button in market page");
-        Market market = page.marketContainerControl.getMarket(event,1,false);
-        market.getBtnOdd().click();
-
-        log("Verify: 1. Odds is added to bet slip");
-        Order bet = page.betSlipControl.getBet(0);
-        int countBet = page.betSlipControl.getBet().size();
-        Assert.assertEquals(bet.getSelectionName(),market.getSelectionName(),String.format("ERROR: Expected selection name in bet slip is %s but found %s", market.getSelectionName(), bet.getSelectionName()));
-        Assert.assertEquals(bet.getOdds(),market.getBtnOdd().getText(),String.format("ERROR: Expected Odds in bet slip is %s but found %s", market.getBtnOdd().getText(), bet.getOdds()));
-        Assert.assertTrue(countBet==1, String.format("ERROR: There are some bets (%d) added. Expected is just one",countBet));
-
-        log("Step 3. Re-click on the odds in step 2");
-        market.getBtnOdd().click();
-
-        log("Verify: 2. Odds is removed out bet slip after re-clicking");
-        Assert.assertEquals(page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
-
-        log("INFO: Executed Completely!");
-    }
 
     *//**
      * @title Validate Clear All button works

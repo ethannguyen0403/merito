@@ -32,8 +32,7 @@ public class CentralBookmakerTest extends BaseCaseTest {
      */
     @TestRails(id="539")
     @Test(groups = {"smoke"})
-    @Parameters({"isCredit"})
-    public void CentralFancyTest_001(boolean isCredit){
+    public void CentralFancyTest_539(){
         log("@title: Validate can place bet on Central Bookmaker on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
         String stake = BetUtils.getMinBet("CRICKET", "BACK");
@@ -79,8 +78,7 @@ public class CentralBookmakerTest extends BaseCaseTest {
      */
     @TestRails(id="540")
     @Test(groups = {"smoke"})
-    @Parameters({"isCredit"})
-    public void CentralFancyTest_003(boolean isCredit){
+    public void CentralFancyTest_540(){
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
         String minBet = BetUtils.getMinBet("CRICKET", "BACK");
@@ -127,7 +125,7 @@ public class CentralBookmakerTest extends BaseCaseTest {
      */
     @TestRails(id="541")
     @Test(groups = {"smoke"})
-    public void CentralFancyTest_004(){
+    public void CentralFancyTest_541(){
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
         String minBet = BetUtils.getMinBet("CRICKET", "BACK");
@@ -175,7 +173,7 @@ public class CentralBookmakerTest extends BaseCaseTest {
      */
     @TestRails(id="542")
     @Test(groups = {"smoke"})
-    public void CentralFancyTest_005(){
+    public void CentralFancyTest_542(){
         log("@title: Verify Cannot place bet if stake less is greater than availablie balance");
         log("Step 1. Login member site and click on Cricket");
         AccountBalance balance = BetUtils.getUserBalance();

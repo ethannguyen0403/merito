@@ -1,13 +1,22 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
+import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
+import com.paltech.utils.FileUtils;
+import common.MemberConstants;
 import membersite.pages.ProfitAndLossPage;
+import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-public class ProfitAndLossPageTest extends BaseCaseTest {
+import java.io.IOException;
+import java.util.List;
 
+import static common.MemberConstants.ProfitAndLossPage.*;
+
+public class ProfitAndLossPageTest extends BaseCaseTest {
 
     /**
      * @title: Validate Data Profit display correctly
@@ -21,14 +30,15 @@ public class ProfitAndLossPageTest extends BaseCaseTest {
      */
     @TestRails(id="522")
     @Test(groups = {"smoke"})
-    public void FE_ProfitAndLossPage_TC001(){
+    @Parameters("timeZone")
+    public void ProfitAndLossPage_TC522(String timeZone){
         log("@title: Validate Product display correctly");
         log("Step 1. Active My Account> Profit and loss");
         ProfitAndLossPage page = memberHomePage.header.openProfitAndLoss(_brandname);
-        String startDate = DateUtils.getDate(-14,"yyyy-MM-dd","IST");
-        String endDate = DateUtils.getDate(0,"yyyy-MM-dd","IST");
+        String startDate = DateUtils.getDate(-14,"yyyy-MM-dd",timeZone);
+        String endDate = DateUtils.getDate(0,"yyyy-MM-dd",timeZone);
 
-        /*log("Step 2. Filter in a date range");
+        log("Step 2. Filter in a date range");
         log("Step 3. Click on Load report");
         page.filter(startDate,endDate);
         if(page.lblNoRecord.isDisplayed())
@@ -40,10 +50,10 @@ public class ProfitAndLossPageTest extends BaseCaseTest {
         log("Verify 1. Verify Total profit = sum profit of all sports");
         log("Verify 2. Profit of each sport match with when summary the details");
         int totalRow = page.tblSport.getNumberOfRows(false,false);
-        Assert.assertTrue(page.verifyProfitLostMatchedWithDetails(totalRow));*/
+        Assert.assertTrue(page.verifyProfitLostMatchedWithDetails(totalRow));
     }
 
-   /* *//**
+  /**
      * @title: Validate Table header when clicking on sport and market
      * @precondition: 1. Login member site
      * @step:   1. Active My Account> Profit and loss
@@ -52,17 +62,17 @@ public class ProfitAndLossPageTest extends BaseCaseTest {
      *          4. Click on a sport
      *          5. Click on a event
      * @expect: 1. Table header display correctly when clicking on sport> event
-     *
-     *//*
+     */
     @TestRails(id="523")
     @Test(groups = {"smoke"})
-    public void FE_ProfitAndLossPage_TC002(){
+    @Parameters("timeZone")
+    public void ProfitAndLossPage_TC523(String timeZone){
         log("@title: Validate Table header when clicking on sport and market");
-        String startDate = DateUtils.getDate(-14,"yyyy-MM-dd","IST");
-        String endDate = DateUtils.getDate(0,"yyyy-MM-dd","IST");
+        String startDate = DateUtils.getDate(-14,"yyyy-MM-dd",timeZone);
+        String endDate = DateUtils.getDate(0,"yyyy-MM-dd",timeZone);
 
         log("Step 1. Active My Account> Profit and loss");
-        ProfitAndLossPage page = memberHomePage.header.openProfitAndLoss();
+        ProfitAndLossPage page = memberHomePage.header.openProfitAndLoss(_brandname);
 
         log("Step 2. Filter in a date range");
         log("Step 3. Click on Load report");
@@ -93,20 +103,61 @@ public class ProfitAndLossPageTest extends BaseCaseTest {
         Assert.assertEquals(tblHeaders,TABLE_WAGER_HEADER,"ERROR! Wager header table not match as expected");
     }
 
-    *//**
-     * @title: Validate no console error when navigate to Profit and Loss page
-     * @precondition: 1. Login member site
-     * @step: 1. Click My Account > Profit & Loss
-     * @expect: 1. There is no console error display
-     *//*
-    @Test(groups = {"http_request"})
-    public void FE_ProfitAndLossPage_TC005(){
-        log("@title: Validate no console error when navigate to Profit and Loss page");
-        log("Step 1. Click My Account > Profit & Loss");
-        ProfitAndLossPage page =memberHomePage.header.openProfitAndLoss();
-        log("Verify 1. There is no console error display");
-        boolean isError = hasHTTPRespondedOK();
-        Assert.assertTrue(isError, "ERROR: There are some response request error when navigating to Account Statement page");
+    @TestRails(id="1109")
+    @Test(groups = {"regression"})
+    @Parameters("timeZone")
+    public void ProfitAndLossPage_TC1109(String timeZone){
+        log("@title: Validate Can export Profit and loss report");
+        String startDate = DateUtils.getDate(-14,"yyyy-MM-dd",timeZone);
+        String endDate = DateUtils.getDate(0,"yyyy-MM-dd",timeZone);
+
+        String fileName = String.format("Profit_n_Loss__%s_%s.csv", startDate,endDate);
+        String dowloadPath = DriverManager.getDriver().getDriverSetting().getDownloadPath() + fileName;
+        log("Step 1. Active My Account> Profit and loss");
+        ProfitAndLossPage page = memberHomePage.header.openProfitAndLoss(_brandname);
+
+        log("Step 2. Filter in a date range");
+        log("Step 3. Click on Load report");
+        page.filter(startDate,endDate);
+
+        log("Step 4. Click on export icon");
+        page.clickDownload();
+
+        log("Verify 1.Can export");
+        Assert.assertTrue(FileUtils.doesFileNameExist(dowloadPath), "Failed to download Expected document");
+
+        log("@Post-condition: delete download file");
+        try {
+            FileUtils.removeFile(dowloadPath);
+        } catch (IOException e) {
+            log(e.getMessage());
+        }
+
         log("INFO: Executed Completely!");
-    }*/
+    }
+
+    @TestRails(id="1110")
+    @Test(groups = {"regression"})
+    @Parameters("timeZone")
+    public void ProfitAndLossPage_TC1110(String timeZone){
+        log("@title: Validate Back button work Profit and Loss");
+        String startDate = DateUtils.getDate(-14,"yyyy-MM-dd",timeZone);
+        String endDate = DateUtils.getDate(0,"yyyy-MM-dd",timeZone);
+
+        log("Step 1. Active My Account> Profit and loss");
+        ProfitAndLossPage page = memberHomePage.header.openProfitAndLoss(_brandname);
+
+        log("Step 2. Filter in a date range");
+        log("Step 3. Click on Load report");
+        page.filter(startDate,endDate);
+
+        log("Step 4. Click on any sport then click back button");
+        page.clickFirstSport();
+        page.clickBackButton();
+        log("Verify 1.Report back to the summary page");
+        List<String> tblHeaders = page.tblSport.getColumnNamesOfTable(1);
+        Assert.assertEquals(tblHeaders, TABLE_SUMMARY_HEADER,"Failed! Sport table should display after clicking Back button");
+
+        log("INFO: Executed Completely!");
+    }
 }

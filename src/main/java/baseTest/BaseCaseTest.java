@@ -367,6 +367,8 @@ public class BaseCaseTest {
                 return environment.getFairenterURL() ;
             case "laser365":
                 return environment.getLaser365URL();
+            case "fairexchange_plus":
+                return environment.getFairURL();
             case "backoffice":
                 return String.format("%s%s",environment.getBackofficeURL(), MEMBER_URL_SUFFIX.get(brandName));
             default:

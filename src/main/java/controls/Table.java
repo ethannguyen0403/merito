@@ -55,6 +55,7 @@ public class Table extends BaseElement {
 	public List<ArrayList<String>> getRowsWithoutHeader(int limitedRow, boolean isMoved){
 		return this.getRows(limitedRow, false, isMoved);
 	}
+
 	/**
 	 * Getting column names of a table header
 	 * @return ArrayList column names
@@ -71,7 +72,30 @@ public class Table extends BaseElement {
 	public ArrayList<String> getRow(int index){
 		return getRow(1,index);
 	}
+	/**
+	 * Getting column names of a table that header contains more than 1 row
+	 * @return ArrayList column names
+	 * @author isabella.huynh
+	 */
+	public ArrayList<String> getHeaderNameOfRows(){
+		ArrayList<String> lstRow = new ArrayList<String>();
+		String xpath;
+		Row row;
+		int i = 1;
+		while(true) {
+			xpath = String.format("%s%s", this._xpathTable, String.format("/thead/tr[%s]",i));
+			row = Row.xpath(xpath);
+			if (!row.isDisplayedShort(2)) {
+				if (!row.isDisplayed()) {
+					return lstRow;
+				}
+			}else{
+				lstRow.addAll(row.getRow(this._columnNumber, true));
+				i++;
+			}
+		}
 
+	}
 	/**
 	 * Get info of expected tbody and row index.
 	 * @return []

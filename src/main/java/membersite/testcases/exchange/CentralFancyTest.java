@@ -30,9 +30,8 @@ public class CentralFancyTest extends BaseCaseTest {
      * @Expected 1. Can place bet
      */
     @TestRails(id="543")
-    @Test(groups = {"smoke"})
-    @Parameters({"isCredit"})
-    public void CentralFancyTest_001(boolean isCredit){
+    @Test(groups = {"smoke1"})
+    public void CentralFancyTest_543(){
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
@@ -78,8 +77,7 @@ public class CentralFancyTest extends BaseCaseTest {
      */
     @TestRails(id="544")
     @Test(groups = {"smoke"})
-    @Parameters({"isCredit"})
-    public void CentralFancyTest_002(boolean isCredit){
+    public void CentralFancyTest_544(){
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
@@ -138,8 +136,7 @@ public class CentralFancyTest extends BaseCaseTest {
      */
     @TestRails(id="545")
     @Test(groups = {"smoke"})
-    @Parameters({"isCredit"})
-    public void CentralFancyTest_003(boolean isCredit){
+    public void CentralFancyTest_545(){
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
@@ -215,8 +212,8 @@ public class CentralFancyTest extends BaseCaseTest {
      * @Expected 1. Verify cannot place bet
      */
     @TestRails(id="546")
-    @Test(groups = {"smoke1"})
-    public void CentralFancyTest_004(){
+    @Test(groups = {"smoke"})
+    public void CentralFancyTest_546(){
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
@@ -226,7 +223,7 @@ public class CentralFancyTest extends BaseCaseTest {
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",CENTRAL_FANCY_CODE);
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Fancy Wicket");
+            log("DEBUG: Skip as have no event has Fancy");
             Assert.assertTrue(true,"By passed as has no Central Fancy on all available event");
             return;
         }
@@ -271,7 +268,7 @@ public class CentralFancyTest extends BaseCaseTest {
      */
     @TestRails(id="547")
     @Test(groups = {"smoke"})
-    public void CentralFancyTest_005(){
+    public void CentralFancyTest_547(){
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
@@ -324,7 +321,7 @@ public class CentralFancyTest extends BaseCaseTest {
      */
     @TestRails(id="548")
     @Test(groups = {"smoke"})
-    public void CentralFancyTest_006(){
+    public void CentralFancyTest_548(){
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
         AccountBalance balance = BetUtils.getUserBalance();

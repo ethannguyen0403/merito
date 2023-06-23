@@ -1,7 +1,9 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
+import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
+import com.paltech.utils.FileUtils;
 import common.MemberConstants;
 import membersite.pages.MyBetsPage;
 import org.testng.Assert;
@@ -9,28 +11,21 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.io.IOException;
 import java.util.List;
 
 import static common.MemberConstants.MyBetsPage.*;
 
 public class MyBetPageTest extends BaseCaseTest {
-    /**
-     * @title: Validate Product display correctly
-     * @precondition: 1. Login member site
-     * @step:   1. Active My Account> My Bets
-     *          2. Selection product dropdown box
-     * @expect: 1. The Product label display accordingly
-     *          2. Controls display correctly
-     */
-
+    @TestRails(id="515")
     @Test(groups = {"regression"})
     @Parameters("timeZone")
-    public void MyBetPage_TC001(String timeZone){
-        log("@title: Validate Product display correctly");
+    public void MyBetPage_TC515(String timeZone){
+        log("@title: Validate control display correctly when select Exchange Product");
         log("Step 1. Active My Account> My Bets");
         log("Step 2. Selection product dropdown box");
         MyBetsPage page = memberHomePage.header.openMyBets(_brandname);
-        page.selectProduct(DDB_PRODUCT_FILTER.get("Exchange"));
+        page.filter(DDB_PRODUCT_FILTER.get("Exchange"),DDB_ORDER_TYPE_FILTER.get("SETTLED"));
 
         log("Verify 1. The Product label display accordingly");
         log("Verify 2. Controls display correctly");
@@ -223,4 +218,102 @@ public class MyBetPageTest extends BaseCaseTest {
         log("INFO: Executed Completely!");
     }
 
+    @TestRails(id="1104")
+    @Test(groups = {"regression"})
+    public void MyBetPage_TC1104() {
+        log("@title: Validate can export report");
+        log("Step 1. Active My Account> My Bets");
+        String dowloadPath = DriverManager.getDriver().getDriverSetting().getDownloadPath() + "My_Bets_EXCHANGE.csv";
+        MyBetsPage page = memberHomePage.header.openMyBets(_brandname);
+
+        log("Step 2.Select Exchange Bets , Order Type: Voided , Start and End Date, click Load Report");
+        page.filter(DDB_PRODUCT_FILTER.get("Exchange"),DDB_ORDER_TYPE_FILTER.get("VOIDED"));
+
+        log("Step 3.Click on export icon and save in the local");
+        page.clickDownload();
+
+        log("@Verify: User can export file successfully with exported file name: Bet_Settlement");
+        Assert.assertTrue(FileUtils.doesFileNameExist(dowloadPath), "Failed to download Expected document");
+
+        log("@Post-condition: delete download file");
+        try {
+            FileUtils.removeFile(dowloadPath);
+        } catch (IOException e) {
+            log(e.getMessage());
+        }
+        log("INFO: Executed Completely!");
+    }
+    @TestRails(id="1105")
+    @Test(groups = {"regression1"})
+    public void MyBetPage_TC1105() {
+        log("@title: Validate control display correctly when select Exchange Games");
+        log("Step 1. Active My Account> My Bets");
+        MyBetsPage page = memberHomePage.header.openMyBets(_brandname);
+
+        log("Step 2.Selection Exchange Game Bets");
+        page.filter(DDB_PRODUCT_FILTER.get("Exchange Games"),DDB_ORDER_TYPE_FILTER.get("SETTLED"));
+
+        log("@Verify1: Label : Exchange Game Bests  display");
+        Assert.assertEquals(page.myBetsContainer.getProduct(),DDB_PRODUCT_FILTER.get("Exchange Games"), "Failed! Product title is incorrect");
+        List<String> tblHeaders = page.getTableHeaders();
+        Assert.assertEquals(tblHeaders.size(),TABLE_HEADER_EG.size(), String.format("ERROR: The expected no of columns is %s but found %s", TABLE_HEADER.size(),tblHeaders.size()));
+        Assert.assertEquals(tblHeaders,TABLE_HEADER_EG,"ERROR! Header list not display as expected");
+        log("INFO: Executed Completely!");
+    }
+
+    @TestRails(id="1106")
+    @Test(groups = {"regression_INR"})
+    public void MyBetPage_TC1106() {
+        log("@title: Validate control display correctly when select Lottery and Slot");
+        log("Step 1. Active My Account> My Bets");
+        MyBetsPage page = memberHomePage.header.openMyBets(_brandname);
+
+        log("Step 2.Select Lottery & Slots Bets");
+        page.filter(DDB_PRODUCT_FILTER.get("Lottery & Slots"),DDB_ORDER_TYPE_FILTER.get("SETTLED"));
+
+        log("@Verify1: Label : Lottery & Slots Bets display");
+        Assert.assertEquals(page.getProduct(),DDB_PRODUCT_FILTER.get("Lottery & Slots"), "Failed! Product title is incorrect");
+        List<String> tblHeaders = page.getTableHeaders();
+        Assert.assertEquals(tblHeaders.size(),TABLE_HEADER_CASINO.size(), String.format("ERROR: The expected no of columns is %s but found %s", TABLE_HEADER.size(),tblHeaders.size()));
+        Assert.assertEquals(tblHeaders,TABLE_HEADER_CASINO,"ERROR! Header list not display as expected");
+        log("INFO: Executed Completely!");
+    }
+
+    @TestRails(id="1107")
+    @Test(groups = {"regression"})
+    public void MyBetPage_TC1107() {
+        log("@title: Validate control display correctly when select Live Dealer Asian Bets");
+        log("Step 1. Active My Account> My Bets");
+        MyBetsPage page = memberHomePage.header.openMyBets(_brandname);
+
+        log("Step 2.Select Live Dealer Asian Bets");
+        page.filter(DDB_PRODUCT_FILTER.get("Live Dealer Asian"),DDB_ORDER_TYPE_FILTER.get("SETTLED"));
+
+        log("@Verify1: Label : Live Dealer Asian Bets display");
+        Assert.assertEquals(page.getProduct(),DDB_PRODUCT_FILTER.get("Live Dealer Asian"), "Failed! Product title is incorrect");
+        List<String> tblHeaders = page.getTableHeaders();
+        Assert.assertEquals(tblHeaders.size(),TABLE_HEADER_CASINO.size(), String.format("ERROR: The expected no of columns is %s but found %s", TABLE_HEADER.size(),tblHeaders.size()));
+        Assert.assertEquals(tblHeaders,TABLE_HEADER_CASINO,"ERROR! Header list not display as expected");
+        log("INFO: Executed Completely!");
+    }
+
+    @TestRails(id="1108")
+    @Test(groups = {"regression"})
+    public void MyBetPage_TC1108() {
+        log("@title: Validate control display correctly when select Live Dealer European Bets");
+        log("Step 1. Active My Account> My Bets");
+        MyBetsPage page = memberHomePage.header.openMyBets(_brandname);
+
+        log("Step 2.Select Live Dealer European Bets");
+        page.filter(DDB_PRODUCT_FILTER.get("Live Dealer European"),DDB_ORDER_TYPE_FILTER.get("SETTLED"));
+
+        log("@Verify1: Label :Live Dealer European Bets display");
+        Assert.assertEquals(page.getProduct(),DDB_PRODUCT_FILTER.get("Live Dealer European"), "Failed! Product title is incorrect");
+
+        log("@Verify2: Label :Live Dealer European Bets display");
+        List<String> tblHeaders = page.getTableHeaders();
+        Assert.assertEquals(tblHeaders.size(),TABLE_HEADER_CASINO.size(), String.format("ERROR: The expected no of columns is %s but found %s", TABLE_HEADER.size(),tblHeaders.size()));
+        Assert.assertEquals(tblHeaders,TABLE_HEADER_CASINO,"ERROR! Header list not display as expected");
+        log("INFO: Executed Completely!");
+    }
 }
