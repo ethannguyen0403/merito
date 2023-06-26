@@ -59,6 +59,7 @@ public class OldUIAccountStatementContainer extends AccountStatementContainer{
     public int colProfitLost = 7;
     public int colStatus = 8;
     public Table tblDetailReport = Table.xpath("//div[@class='d-none d-lg-block']//table[@class='table table-striped table-hover table-sm']", totalDetailColumn);
+    private int colSettledDate = 2;
 
     public void filter(String startDate, String endDate)
     {

@@ -51,7 +51,7 @@
             <!-- End Market Management-->
 
             <!-- Start Report-->
-            <class name="agentsite.testcase.riskmanagement.AnalysisOfRunningMarketsTest"/>
+            <class name="agentsite.testcase.riskmanagement.AgentExposureTest"/>
             <class name="agentsite.testcase.reports.CancelledBetsTest"/>
             <class name="agentsite.testcase.reports.ClientLegerTest"/>
             <class name="agentsite.testcase.reports.FollowBetsPerformanceTest"/>

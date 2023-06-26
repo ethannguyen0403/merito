@@ -357,7 +357,7 @@ public class BaseCaseTest {
     }
     private static String getURL(String brandName){
         switch (brandName){
-            case "fairexchange": case "fairexchangeplus":
+            case "fairexchange":
                 return environment.getFairURL();
             case "satsport":
                 return environment.getSatURL();
@@ -367,6 +367,8 @@ public class BaseCaseTest {
                 return environment.getFairenterURL() ;
             case "laser365":
                 return environment.getLaser365URL();
+            case "fairexchangeplus":
+                return environment.getFairURL();
             case "backoffice":
                 return String.format("%s%s",environment.getBackofficeURL(), MEMBER_URL_SUFFIX.get(brandName));
             default:

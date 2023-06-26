@@ -12,7 +12,7 @@ public class OldUIMyBetsContainer extends MyBetsContainer {
     public Label lblOrderType = Label.xpath("//div[@class='row'][2]//select[contains(@class,'select-type-order')]//preceding::label[1]");
     public TextBox lblStartDate = TextBox.xpath(String.format("//label[text()='%s']", MemberConstants.MyBetsPage.START_DATE));
     public TextBox lblEndDate = TextBox.xpath(String.format("//label[text()='%s']", MemberConstants.MyBetsPage.END_DATE));
-    public Label lblProduct = Label.xpath("//div[@class='container-title row']//div[contains(@class,'title')]");
+    public Label lblProduct = Label.xpath("//div[@class='actions no-print']//h2");
     public Label lblNote = Label.xpath("//div[@class='container-title row']/div/span");
     public DropDownBox ddbProduct = DropDownBox.xpath("//div[@class='row'][1]//select[contains(@class,'select-type-order')]");
     public DropDownBox ddbOrderType = DropDownBox.xpath("//div[@class='row'][2]//select[contains(@class,'select-type-order')]");
@@ -38,7 +38,7 @@ public class OldUIMyBetsContainer extends MyBetsContainer {
     public DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
     public TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.END_DATE));
     public DateTimePicker dtpEndDate = DateTimePicker.xpath(txtEndDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
-
+    private Label lblProductTitle = Label.xpath("//div[@class='container-title row']//div[contains(@class,'title')]");
 /*
 
     public boolean verifyWagerDisplayInReport(String wagerID){

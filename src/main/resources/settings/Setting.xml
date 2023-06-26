@@ -29,6 +29,7 @@
         <property name="deviceName" value="${DriverSetting.Window10.Local.Chrome.DeviceName}"/>
         <property name="executablePath" value="${DriverSetting.Window10.Local.Chrome.ExecutablePath}"/>
         <property name="elementWaitTimeOut" value="${DriverSetting.Window10.Local.Chrome.ElementWaitTimeOut}"/>
+        <property name="downloadPath" value="${DriverSetting.Window10.Local.Chrome.DownloadPath}"/>
     </bean>
     <bean name="qat" class="objects.Environment" scope="prototype">
         <property name="fairURL" value="${QAT.FAIRURL}"/>

@@ -42,7 +42,7 @@ public class NewUIMyBetsContainer extends MyBetsContainer  {
     private DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
     private TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.END_DATE));
     private DateTimePicker dtpEndDate = DateTimePicker.xpath(txtEndDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
-
+    private Button btnDownload = Button.xpath("//i[contains(@class,'fas fa-download ico-export')]");
 
 /*
 
@@ -66,7 +66,7 @@ public class NewUIMyBetsContainer extends MyBetsContainer  {
         ddbProduct.isDisplayed();
         if(!ddbProduct.getFirstSelectedOption().contains(productName)) {
         ddbProduct.selectByVisibleContainsText(productName);
-    }
+         }
         ddbOrderType.selectByVisibleText(orderType);
 
         if(!startDate.isEmpty()){
@@ -146,7 +146,9 @@ public class NewUIMyBetsContainer extends MyBetsContainer  {
         return btnLoadReport.getText();
     }
 
-    public  List<String> getTableHeaders (){return tblReport.getColumnNamesOfTable(1);}
+    public  List<String> getTableHeaders (){
+        ArrayList<String> lstHeader =tblReport.getHeaderNameOfRows();
+        return      lstHeader;}
     public List<ArrayList<String>> getReportIndex(int index, boolean isMove){
         return tblReport.getRowsWithoutHeader(index,isMove);
     }
@@ -157,5 +159,8 @@ public class NewUIMyBetsContainer extends MyBetsContainer  {
         return "";
     }
 
+    public void clickDownload() {
+        btnDownload.click();
+    }
 
 }

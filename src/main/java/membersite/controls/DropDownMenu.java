@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DropDownMenu extends BaseElement {
 	protected String _xpathMenu= null;
@@ -72,14 +73,20 @@ public class DropDownMenu extends BaseElement {
 	}
 
 	public void clickSubMenu(String name,boolean isClick){
-		int index = findSubMenuIndex(name);
-		Label.xpath(String.format("%s[%s]", this.xpathLocatorItems,index)).click();
+//		int index = findSubMenuIndex(name);
+//		Label.xpath(String.format("%s[%s]", this.xpathLocatorItems,index)).click();
+		Label subMenu = getMenu(name);
+		if(!Objects.isNull(subMenu)){
+			subMenu.click();
+		}
 	}
 
-	private int findSubMenuIndex(String subMenuName){
+/*	private int findSubMenuIndex(String subMenuName){
 		int index = 1;
 		this.click();
-		Label subMenu;
+
+		Label subMenu ;
+
 		while (true){
 			subMenu = Label.xpath(String.format("%s[%s]", this.xpathLocatorItems,index));
 			if(!subMenu.isDisplayed()){
@@ -97,12 +104,27 @@ public class DropDownMenu extends BaseElement {
 			}
 			index += 1;
 		}
-	}
+	}*/
 
+	private Label getMenu(String name)
+	{
+		this.click();
+		Label subMenu = Label.xpath(String.format("%s//a[text()='%s']", this.xpathLocatorItems,name));
+		if(subMenu.isDisplayed())
+			return subMenu;
+		else {
+			System.out.println(String.format("The menu %s does not exist"));
+			return null;
+		}
+	}
 	public boolean isContainSubmenu(String subMenu){
-		int index = findSubMenuIndex(subMenu);
-		if (index!=0)
-			return true;
-		return false;
+		Label menuLbl= getMenu(subMenu);
+		if( Objects.isNull(menuLbl))
+			return false;
+		return true;
+		//int index = findSubMenuIndex(subMenu);
+	//	if (index!=0)
+//			return true;
+//		return false;
 	}
 }

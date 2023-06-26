@@ -38,7 +38,7 @@ public class NewViewMyBetsContainer extends MyBetsContainer {
     public DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
     public TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.END_DATE));
     public DateTimePicker dtpEndDate = DateTimePicker.xpath(txtEndDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
-
+    private Button btnDownload = Button.xpath("//em[contains(@class,'fas fa-download ico-export')]");
 /*
 
     public boolean verifyWagerDisplayInReport(String wagerID){
@@ -51,6 +51,7 @@ public class NewViewMyBetsContainer extends MyBetsContainer {
         return false;
     }
 */
+
 
     public void filter(String productName, String orderType){
         filter(productName, orderType,"", "");
@@ -119,5 +120,9 @@ public class NewViewMyBetsContainer extends MyBetsContainer {
 
     public void selectProduct(String product){
         ddbProduct.selectByVisibleText(product);
+    }
+
+    public void clickDownload() {
+        btnDownload.click();
     }
 }

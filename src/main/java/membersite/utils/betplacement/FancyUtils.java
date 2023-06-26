@@ -175,7 +175,7 @@ public class FancyUtils {
                 lstMarket.add( new FancyMarket.Builder()
                         .eventName(marketObj.getString("eventName"))
                         .marketID(Integer.toString(marketObj.getInt("marketId")))
-                        .marketName(marketName)
+                        .marketName(marketName.trim())
                         .eventID(eventID)
                         .status(marketObj.getString("status"))
                         .marketType(marketType)

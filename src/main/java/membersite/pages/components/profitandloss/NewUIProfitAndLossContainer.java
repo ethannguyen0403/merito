@@ -17,7 +17,6 @@ public class NewUIProfitAndLossContainer extends ProfitAndLossContainer{
     private Button btnExport = Button.xpath("//i[contains(@class,'fas fa-download ico-export')]");
     private Button btnLoadReport = Button.xpath("//button[contains(@class,'btn-report-search')]");
     private Button btnBack = Button.xpath("//i[contains(@class,'fas fa-arrow-left ico-export')]");
-    private Label lblNoRecord = Label.xpath("//table[contains(@class,'table-sm')]//tbody/tr[1]/td[@class='text-center']");
     private int colSumaryTotal =2;
     private int colSportGame = 1;
     private int colProfitLoss = 2;
