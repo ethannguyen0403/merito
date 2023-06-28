@@ -19,6 +19,7 @@ public class HomePage extends LandingPage{
     public EventContainerControl eventContainerControl;
     public BetsSlipContainer betsSlipContainer;
     public MiniMyBetsContainer myBetsContainer ;
+
     public HomePage(String types) {
         super(types);
         eventContainerControl= ComponentsFactory.eventContainerControlObject(types);

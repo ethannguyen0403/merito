@@ -20,7 +20,6 @@ public class ComponentsFactory {
         switch (types){
             case "satsport":
                 return new OldUIHeader();
-
             default:
                 return new NewUIHeader();
         }
