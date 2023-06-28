@@ -114,11 +114,13 @@ public class NewUILeftMenu extends LeftMenu {
 
     @Override
     public void navigatePS38SportsResultsPage() {
+
         clickSubMenu(AGENCY_MANAGEMENT,PS38_SPORTS_RESULTS);
     }
 
     @Override
     public boolean isDisplayPS38SportsResults() {
+
         return leftMenuList.isSubMenuDisplay(AGENCY_MANAGEMENT, PS38_SPORTS_RESULTS);
     }
 }

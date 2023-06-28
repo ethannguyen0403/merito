@@ -48,8 +48,10 @@ public class LeftMenu{
     }
 
     public void navigatePS38SportsResultsPage() {
+
     }
     public boolean isDisplayPS38SportsResults(){
+
        return true;
     }
 }

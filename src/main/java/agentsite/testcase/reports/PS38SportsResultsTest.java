@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 
 
 public class PS38SportsResultsTest extends BaseCaseTest {
+
+
     /**
      * @title: Validate can access the page from PO level
      * @pre-condition: 1. Log in PO level successfully
