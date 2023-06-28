@@ -31,7 +31,6 @@ import membersite.pages.components.mybet.NewViewMyBetsContainer;
 import membersite.pages.components.mybet.OldUIMyBetsContainer;
 import membersite.pages.components.profitandloss.NewUIProfitAndLossContainer;
 import membersite.pages.components.profitandloss.NewViewProfitAndLossContainer;
-import membersite.pages.components.profitandloss.OldUIProfitAndLossContainer;
 import membersite.pages.components.profitandloss.ProfitAndLossContainer;
 import membersite.pages.components.racingcontainer.RacingContainer;
 import membersite.pages.components.racingmarketcontainer.RacingMarketContainer;
@@ -101,10 +100,6 @@ public class ComponentsFactory {
     }
     public static ProfitAndLossContainer profitAndLossContainerObject(String types){
         switch (types){
-            case "funsport":
-                return new OldUIProfitAndLossContainer();
-            case "fairenter":
-                return new OldUIProfitAndLossContainer();
             case "satsport":
                 return new NewUIProfitAndLossContainer();
             case "fairexchange":
@@ -175,4 +170,5 @@ public class ComponentsFactory {
                 return new RacingContainer();
         }
     }
+
 }

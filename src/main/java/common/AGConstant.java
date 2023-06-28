@@ -186,6 +186,8 @@ public class AGConstant {
         public final static List<String> LST_QUICK_SEARCH_MENU = Arrays.asList("Balance", "Downline Listing", "Profit & Loss", "Client Ledger", "Settings", "Login");
         public final static List<String> LST_QUICK_SEARCH_LOGIN = Arrays.asList("Created Date", "Last Login Time", "Last Login IP");
         public final static List<String> LST_QUICK_SEARCH_SETTING_MENU = Arrays.asList("User Profile", "Product Status", "Position Taking", "Bet Settings", "Tax Settings", "Commission");
+        public final static String PS38_SPORTS_RESULTS = "PS38 Sports Results";
+
     }
 
     public static class SubUserListing {

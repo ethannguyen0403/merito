@@ -25,6 +25,7 @@ public class LandingPage extends BasePage{
     public Header header;
     public LeftMenu leftMenu;
     private LoginPopup loginPopup;
+
     public LandingPage(String types){
         _type = types;
         footer = ComponentsFactory.footerObject(_type);
@@ -39,7 +40,7 @@ public class LandingPage extends BasePage{
         return new HomePage(_type);
     }
 
-    public HomePage signin(String username, String password,String email, String currency, String phone){
+    public HomePage signin(String username, String password, String email, String currency, String phone){
         header.signin(username,password,email,currency,phone);
         HomePage homePage = new HomePage(_type);
 //        homePage.closeBannerPopup();

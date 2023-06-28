@@ -2,6 +2,7 @@ package membersite.pages.components.accountstatement;
 
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
+import com.paltech.element.common.Link;
 import com.paltech.element.common.TextBox;
 import com.paltech.utils.DateUtils;
 import common.MemberConstants;
@@ -158,7 +159,12 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer{
         btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT,5);
     }
     public void clickNarration(){
-        tblReport.getControlOfCell(1,colNarration,1,"span[@class='hover hyperlink']").click();
+        Link plofMarketLnk = (Link) tblReport.getControlOfCell(1,colNarration,1,"span[@class='hover hyperlink']");
+        if(!plofMarketLnk.isDisplayed()) {
+            System.out.println("The report has no event settled");
+            return;
+        }
+        plofMarketLnk.click();
     }
     public List<ArrayList<String>> getAPIReport(String startDate, String endDate, String timeZone){
         return BetUtils.getAccountStatement(startDate,endDate,timeZone);

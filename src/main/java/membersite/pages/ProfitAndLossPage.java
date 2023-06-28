@@ -1,10 +1,59 @@
 package membersite.pages;
 
+import com.paltech.element.common.Button;
+import com.paltech.element.common.Label;
+import com.paltech.element.common.TextBox;
+import common.MemberConstants;
+import controls.DateTimePicker;
+import controls.Table;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.profitandloss.ProfitAndLossContainer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProfitAndLossPage extends HomePage {
 
+    public Label lblNoRecord = Label.xpath("//table[contains(@class,'table-sm')]//tbody/tr[1]/td[@class='text-center']");
+    private Label lblStartDate = Label.xpath("//div[contains(@class,'custom-bsDatepicker')][1]//label");
+    private Label lblEndDate = Label.xpath("//div[contains(@class,'custom-bsDatepicker')][2]//label");
+    private Label lblNote = Label.xpath("//div[@class='container-title row']/div/span");
+    private Button btnExport = Button.xpath("//i[contains(@class,'fa-download')]");
+    private Button btnLoadReport = Button.xpath("//button[contains(@class,'btn-report-search')]");
+    private Button btnBack = Button.xpath("//i[contains(@class,'fa-arrow-left')]");
+    private int colSumaryTotal =2;
+    public int colSportGame = 1;
+    private int colProfitLoss = 2;
+    public Table tblSport = Table.xpath("//app-profit-group-sport//table", colSumaryTotal);
+
+    private int colMarketTableTotal =4;
+    private int colSettled = 1;
+    private int colMarketID = 2;
+    public int colMarketName = 3;
+    private int colDetailProfitLoss = 4;
+    private int colMarketTotal = 2;
+    public Table tblMarket = Table.xpath("//app-profit-group-market//table", colMarketTableTotal);
+
+    private int colWagerTotal = 10;
+    private int colBetID = 1;
+    private int colPlaceDate = 2;
+    private int colSelection = 3;
+    private int colMatchOdds = 4;
+    private int colStake = 5;
+    private int colType = 6;
+    private int colStatus = 7;
+    private int colWagerPL = 8;
+    private int colTax = 9;
+    private int colNet = 10;
+    private int colTotal = 1;
+    private int colWagerTotalPL =2 ;
+    private int colWagerTotalTax = 3;
+    private int colWagerTotalNet = 4;
+    public Table tblWager = Table.xpath("//app-profit-group-betdetail//table", colWagerTotal);
+    private TextBox txtStartDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.START_DATE));
+    private DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
+    private TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.END_DATE));
+    private DateTimePicker dtpEndDate = DateTimePicker.xpath(txtEndDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
     public ProfitAndLossContainer profitAndLossContainer;
     public ProfitAndLossPage(String types) {
 
@@ -12,7 +61,27 @@ public class ProfitAndLossPage extends HomePage {
         profitAndLossContainer = ComponentsFactory.profitAndLossContainerObject(types);
     }
 
-/*
+    public void clickDownload(){
+        btnExport.click();
+        // to wait file is download in 3 seconds
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickBackButton(){
+        btnBack.click();
+    }
+
+    public void clickFirstSport(){
+        if(lblNoRecord.isDisplayed()) {
+            System.out.println("Skip step as there is no data");
+            return;
+        }
+        tblSport.getControlOfCell(1,colSportGame,1,"span[@class='hover hyperlink']").click();
+    }
 
     public void filter(String startDate, String endDate)
     {
@@ -23,7 +92,6 @@ public class ProfitAndLossPage extends HomePage {
         btnLoadReport.click();
         btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT,5);
     }
-
     public boolean verifyProfitLostMatchedWithDetails(int rowIndex)
     {
         List<ArrayList<String>> lst = tblSport.getRowsWithoutHeader(rowIndex,false);
@@ -47,19 +115,18 @@ public class ProfitAndLossPage extends HomePage {
                 System.out.println(String.format("ERROR! Total PL in Sport table does not match with Market Table expected is % s but found",totalProfitLost,totalPLMarketTable));
                 return false;
             }
-           */
-/* if(!verifyMarketTableProfitLoss())
-            {
-                return false;
-            }*//*
+         if(!verifyMarketTableProfitLoss())
+                {
+                    return false;
+                }
 
-        }
-        double totalActual = Double.parseDouble(lst.get(totalSummaryRow-1).get(colProfitLoss-1));
-        if(!(total == totalActual)) {
-            System.out.println(String.format("ERROR! Sum Sport Profit/Los on Sport table does not match with the Total. Summay is %f bug display %f",total ,totalActual));
-            return false;
-        }
-        return true;
+            }
+            double totalActual = Double.parseDouble(lst.get(totalSummaryRow-1).get(colProfitLoss-1));
+            if(!(total == totalActual)) {
+                System.out.println(String.format("ERROR! Sum Sport Profit/Los on Sport table does not match with the Total. Summay is %f bug display %f",total ,totalActual));
+                return false;
+            }
+            return true;
     }
 
     private  boolean verifyMarketTableProfitLoss()
@@ -148,6 +215,6 @@ public class ProfitAndLossPage extends HomePage {
         return  String.format("%.2f", loss *(-1));
     }
 
-*/
+
 
 }

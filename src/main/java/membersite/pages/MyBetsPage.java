@@ -1,5 +1,7 @@
 package membersite.pages;
 
+import com.paltech.element.common.Button;
+import com.paltech.element.common.Label;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.mybet.MyBetsContainer;
 
@@ -8,11 +10,21 @@ import java.util.List;
 
 public class MyBetsPage extends HomePage {
 
+
     public MyBetsContainer myBetsContainer;
 
     public MyBetsPage(String types) {
         super(types);
         myBetsContainer = ComponentsFactory.myBetsContainerObject(types);
+    }
+    public void clickDownload(){
+        myBetsContainer.clickDownload();
+       // to wait file is download in 3 seconds
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getNoDataMesage(){
@@ -57,6 +69,7 @@ public class MyBetsPage extends HomePage {
 
     public void filter(String productName, String orderType) {
         myBetsContainer.filter(productName, orderType, "", "");
+        waitPageLoad();
     }
 
     public void filter(String productName, String orderType, String startDate, String endDate) {

@@ -255,7 +255,10 @@ public class MemberConstants {
         public final static String END_DATE = "End Date";
         public final static String NOTES ="Note : Date will be based on time zone %s";
         public final static List<String> TABLE_HEADER = Arrays.asList("Market Name","Bet ID","Event ID","Selection","Type","Odds","Turnover","Profit/Loss","Status","Placed Date","Settled Date","IP Address");
+        public final static List<String> TABLE_HEADER_EG= Arrays.asList("Game Name","Bet ID","Game ID","Selection","Type","Odds","Stake","Profit/Loss","Status","Placed Date","IP Address");
+        public final static List<String> TABLE_HEADER_CASINO= Arrays.asList("Game Name","Bet ID","Round ID","Selection","Stake","Profit/Loss","Status","Placed Date");
         public final static String LOAD_REPORT= "Load Report";
+
         public static final Map<String, String> DDB_PRODUCT_FILTER = new HashMap<String, String>()
         {
             {
@@ -264,6 +267,7 @@ public class MemberConstants {
                 put("Lottery & Slots", "Lottery & Slots Bets");
                 put("Live Dealer European", "Live Dealer European Bets");
                 put("Exchange Games", "Exchange Games Bets");
+
                 put("Supernowa Casino", "Supernowa Casino Bets");
             }
         };

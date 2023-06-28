@@ -31,7 +31,6 @@
         </groups>
 
         <classes>
-
             <class name="membersite.testcases.exchange.HeaderSectionTest"/>
             <class name="membersite.testcases.exchange.AccountStatementTest"/>
             <class name="membersite.testcases.exchange.MyBetPageTest"/>

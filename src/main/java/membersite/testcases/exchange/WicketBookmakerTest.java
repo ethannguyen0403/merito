@@ -32,7 +32,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
     @TestRails(id="535")
     @Test(groups = {"smoke"})
     public void WicketBookmakerTest_535(){
-        log("@title: Validate can place bet on Central Bookmaker on Match odds market page");
+        log("@title: Validate can place bet on Wicket Bookmaker on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
         String stake = BetUtils.getMinBet("CRICKET", "BACK");
         String sportName = "Cricket";

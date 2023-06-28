@@ -4,12 +4,16 @@ import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 
 import agentsite.pages.report.components.BetListPopup;
+import com.paltech.driver.Driver;
+import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
+import org.openqa.selenium.WebDriver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class AnalysisOfRunningMarketsPage extends HomePage {
     public Label lblNoRecord = Label.xpath("//a[contains(@class,'noRecord')]");

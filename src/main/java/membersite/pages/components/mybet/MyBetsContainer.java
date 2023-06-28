@@ -8,8 +8,6 @@ public class MyBetsContainer {
 
         return false;
     }
-
-
     public void filter(String productName, String orderType){
         filter(productName, orderType,"", "");
     }
@@ -59,5 +57,8 @@ public class MyBetsContainer {
 
     public String getNoRecord(){return "";}
 
+    public void clickDownload() {
+        return;
+    }
 
 }
