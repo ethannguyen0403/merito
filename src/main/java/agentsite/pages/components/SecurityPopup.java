@@ -28,8 +28,9 @@ public class SecurityPopup extends BaseElement {
     }
 
     public void submitSecurityCode(String securityCode) {
-        txtSecurityCode.isDisplayed();
-        txtSecurityCode.sendKeys(securityCode);
-        btnSubmit.click();
+        if(txtSecurityCode.isDisplayed()) {
+            txtSecurityCode.sendKeys(securityCode);
+            btnSubmit.click();
+        }
     }
 }

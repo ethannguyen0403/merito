@@ -34,6 +34,15 @@ public class HomePage extends LoginPage {
         waitingLoadingSpinner();
     }
 
+    public boolean isSecurityCodePopupDisplayed(String types) {
+        switch (types) {
+            case "satsport":
+                return securityPopup.isDisplayed();
+            default:
+                return securityPopup.isInvisible(2);
+        }
+    }
+
     public HomePage(String types) {
         super(types);
 //        footer = ComponentsFactory.footerObject(_type);
@@ -154,9 +163,11 @@ public class HomePage extends LoginPage {
         quickSearch.clickDownLineListing();
         return new DownLineListingPage(_type);
     }
-    public CreateDownLineAgentPage navigateCreateDownLineAgentPage() {
+    public CreateDownLineAgentPage navigateCreateDownLineAgentPage(String securityCode) {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, CREATE_DOWNLINE_AGENT);
-        return new CreateDownLineAgentPage(_type);
+        CreateDownLineAgentPage page = new CreateDownLineAgentPage(_type);
+        page.confirmSecurityCode(securityCode);
+        return page;
     }
     public BlockUnblockCompetitionPage navigateBlockUnblockCompetitionPage(){
         leftMenu.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_COMPETITION);
