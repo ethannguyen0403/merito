@@ -58,11 +58,6 @@ public class SatHeader extends Header {
         return satUnderageGamblingPopup.clickConfirmation();
     }
 
-    @Override
-    public void openSignIn() {
-        openSigninPopup();
-    }
-
     private SATSignInPopup openSigninPopup(){
         btnJoinNow.click();
         return new SATSignInPopup();
@@ -233,7 +228,6 @@ public class SatHeader extends Header {
         return Tab.xpath(String.format(this.productMenuXpath, productTab, productTab, productTab)).isDisplayed();
     }
     public void logout(){ ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"));   }
-
 
 }
 

@@ -1,7 +1,5 @@
 package agentsite.testcase.reports;
 
-import agentsite.pages.report.LastestBetsPage;
-import com.paltech.element.common.Label;
 import common.AGConstant;
 import agentsite.pages.report.AnalysisOfRunningMarketsPage;
 import baseTest.BaseCaseTest;
@@ -92,39 +90,4 @@ public class AnalysisOfRunningMarketsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Lastest Bets display correctly
-     * @pre-condition:
-     *           1. Log in successfully by PO level
-     * @steps:  1. Navigate Report > Analysis of Running Markets
-     *          2. Select a sport and click on the event
-     *          3. Click on Lastest Bets Button
-     ** @expect: 1. Lastest Bets display correctly
-     */
-    @Test (groups = {"smoke"})
-    public void Agent_Report_Analysis_Of_Running_Markets_004(){
-        log("@title: Can open bet list Lastest Bets Page");
-        log("Step 1. Navigate Report > Analysis of Running Markets");
-        AnalysisOfRunningMarketsPage page = agentHomePage.navigateAnalysisOfRunningMarketsPage();
-
-        log("Step 2. Select a sport and click on the event");
-        if(page.lblNoRecord.isDisplayed())
-        {
-            Assert.assertEquals(page.lblNoRecord.getText(), AGConstant.NO_RECORD_FOUND,"FAILED! Incorrect no record message");
-            return;
-        }
-        String sportName = page.getSport().get(0);
-        page.expandSport(sportName);
-        List<ArrayList<String>> lsMarket = page.getMarketInfo(sportName);
-        String competitionEventName = lsMarket.get(0).get(0);
-        String marketName = lsMarket.get(0).get(1);
-        String eventStarttime = lsMarket.get(0).get(2);
-        page.openMarketInfo(sportName,competitionEventName,marketName);
-
-        log("Step 3. Select a sport and click on the event");
-        LastestBetsPage lastestBetsPage = page.clickLastestBetsList();
-        log("Verify 1: Verify Lastest Bets List display");
-        Assert.assertTrue(lastestBetsPage.isDisplayedLastestBetsPage());
-        log("INFO: Executed completely");
-    }
 }

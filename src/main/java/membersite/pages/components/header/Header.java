@@ -8,7 +8,7 @@ import membersite.pages.popup.MyMarketPopup;
 import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
 
-public abstract class Header {
+public class Header {
      public String getName(){
          return "This is header";
      }
@@ -17,7 +17,6 @@ public abstract class Header {
     }
     public void signin(String username, String password, String email, String currency, String phone){
     }
-    public void openSignIn(){}
     public String loginInvalid(String username, String password){
        return "";
     }
@@ -103,6 +102,5 @@ public abstract class Header {
     }
 
     public void logout(){return;    }
-
 
 }

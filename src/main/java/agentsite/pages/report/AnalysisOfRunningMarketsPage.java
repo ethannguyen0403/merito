@@ -27,7 +27,6 @@ public class AnalysisOfRunningMarketsPage extends HomePage {
 
     public Table tblMarketInfo = Table.xpath("//table[contains(@class,'table detailodd d-table')]",9);
     public Table tblDownline = Table.xpath("//table[contains(@id,'table-1')]",5);
-    public Button btnLastestBetsList = Button.xpath("//button[text()='Latest Bets']");
 
     public AnalysisOfRunningMarketsPage(String types){
         super(types);
@@ -112,10 +111,5 @@ public class AnalysisOfRunningMarketsPage extends HomePage {
     }
 
 
-    public LastestBetsPage clickLastestBetsList() {
-        btnLastestBetsList.click();
-        switchToPreviousTab();
-        return new LastestBetsPage(_type);
-    }
 
 }
