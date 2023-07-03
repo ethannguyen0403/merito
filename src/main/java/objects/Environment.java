@@ -9,6 +9,9 @@ public class Environment {
     public static String betclubURL;
     public static String backofficeURL;
     private String securityCode;
+    public static String domainULR;
+    public String getDomainURL(){return domainULR;}
+    public void setDomainURL(String url){this.domainULR=url;}
 
  /*   private String loginAgentURL;
     public static String memberSOSUrl;
