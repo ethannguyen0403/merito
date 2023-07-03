@@ -29,6 +29,8 @@ import membersite.pages.components.mybet.MyBetsContainer;
 import membersite.pages.components.mybet.NewUIMyBetsContainer;
 import membersite.pages.components.mybet.NewViewMyBetsContainer;
 import membersite.pages.components.mybet.OldUIMyBetsContainer;
+import membersite.pages.components.nextupracingcontainer.NewUINextUpRacingContainer;
+import membersite.pages.components.nextupracingcontainer.NextUpRacingContainer;
 import membersite.pages.components.profitandloss.NewUIProfitAndLossContainer;
 import membersite.pages.components.profitandloss.NewViewProfitAndLossContainer;
 import membersite.pages.components.profitandloss.ProfitAndLossContainer;
@@ -48,6 +50,13 @@ public class ComponentsFactory {
                 return new SatFooter();
         }
        }
+    public static NextUpRacingContainer nextUpRacingContainerObject(String types)
+    {
+        switch (types){
+            default:
+                return new NewUINextUpRacingContainer();
+        }
+    }
     public static Header headerObject(String types){
         switch (types){
             case "funsport":

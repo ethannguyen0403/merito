@@ -5,6 +5,7 @@ import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
 import com.paltech.utils.WSUtils;
 import membersite.pages.components.ComponentsFactory;
+import membersite.pages.components.eventcontainer.EventContainerControl;
 import membersite.pages.components.footer.Footer;
 import membersite.pages.components.header.Header;
 import membersite.pages.components.leftmneu.LeftMenu;
@@ -25,12 +26,14 @@ public class LandingPage extends BasePage{
     public Header header;
     public LeftMenu leftMenu;
     private LoginPopup loginPopup;
+    public EventContainerControl eventContainerControl;
     public LandingPage(String types){
         _type = types;
         footer = ComponentsFactory.footerObject(_type);
         header= ComponentsFactory.headerObject(_type);
         leftMenu = ComponentsFactory.lefMenuObject(_type);
         loginPopup = ComponentsFactory.loginPopupObject(_type);
+        eventContainerControl= ComponentsFactory.eventContainerControlObject(types);
     }
     public HomePage login(String username, String password,boolean skipByDefault){
         header.login(username,password,skipByDefault);
@@ -146,5 +149,20 @@ public class LandingPage extends BasePage{
         leftMenu.clickMarket(marketName);
         return new MarketPage(_type);
     }
+
+    public void expandLeftMenu(){
+        if(!leftMenu.isLeftMenuDisplay())
+            header.clickLeftMenuIcon();
+    }
+    public void collapsedLeftMenu(){
+        if(!leftMenu.isLeftMenuDisplay())
+            header.clickLeftMenuIcon();
+    }
+
+    public boolean isLeftMenuDisplay(){
+        return leftMenu.isLeftMenuDisplay();
+    }
+
+    public String getSportHighlights(){return "";}
 
 }

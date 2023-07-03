@@ -53,12 +53,15 @@ public class Header {
     }
 
     public void openExchangeGame(){return ;}
-
+    public void clickProduct(String product){    }
+    public void clickMainMenu(String menu){}
     public void clickLogo(){}
     public void waitSpinLoad(){
     }
     public String getLogoSrc(){return "";}
     public boolean isLeftMenuIcondisplay(){return false;}
+
+    public void clickLeftMenuIcon(){}
 
     public SportPage navigateSportMenu(String pageName, String brand) {
          return new SportPage(brand);

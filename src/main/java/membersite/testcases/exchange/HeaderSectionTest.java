@@ -278,22 +278,22 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Display 3 tabs: Today (active by default), Tomorrow, Next date
      *          2. Racing list display
      */
-  /*  @TestRails(id="507")
-    @Test (groups = {"smoke"})
-    public void HeaderSection_TC507(){
-        log("@title: Validate can navigate to Horse Racing menu");
-        log("Step 1. Click on Horse Racing menu");
-
-        String sportName = "Horse Racing";
-        RacingPage page =  memberHomePage.header.navigateRacing(sportName,_brandname);
-        log("Verify: 1. Display 3 tabs: Today (active by default), Tomorrow, Next date");
-        Assert.assertEquals(page.racingContainer.tabToday.getText(),"Today", String.format("ERROR! Expected is Today tab but found %s",page.racingContainer.tabToday.getText()));
-        Assert.assertEquals(page.racingContainer.tabTomorrow.getText(),"Tomorrow", String.format("ERROR! Expected is Tomorrow tab but found %s",page.racingContainer.tabTomorrow.getText()));
-       Assert.assertEquals(page.racingContainer.tabNextTomorrow.getText(),DateUtils.getDate(2,"EEEE","IST"),
-               String.format("ERROR! Expected is %s tab but found %s",DateUtils.getDate(2,"EEEE","IST"),page.racingContainer.tabNextTomorrow.getText()));
-       Assert.assertEquals(page.leftMenu.getActiveSport(),sportName,String.format("ERROR! Sport active in the left menu not is Horse Racing but found %s",page.leftMenu.getActiveSport()));
-       log("INFO: Executed completely");
-    }*/
+//    @TestRails(id="507")
+//    @Test (groups = {"smoke"})
+//    public void HeaderSection_TC507(){
+//        log("@title: Validate can navigate to Horse Racing menu");
+//        log("Step 1. Click on Horse Racing menu");
+//
+//        String sportName = "Horse Racing";
+//        RacingPage page =  memberHomePage.header.navigateRacing(sportName,_brandname);
+//        log("Verify: 1. Display 3 tabs: Today (active by default), Tomorrow, Next date");
+//        Assert.assertEquals(page.racingContainer.tabToday.getText(),"Today", String.format("ERROR! Expected is Today tab but found %s",page.racingContainer.tabToday.getText()));
+//        Assert.assertEquals(page.racingContainer.tabTomorrow.getText(),"Tomorrow", String.format("ERROR! Expected is Tomorrow tab but found %s",page.racingContainer.tabTomorrow.getText()));
+//       Assert.assertEquals(page.racingContainer.tabNextTomorrow.getText(),DateUtils.getDate(2,"EEEE","IST"),
+//               String.format("ERROR! Expected is %s tab but found %s",DateUtils.getDate(2,"EEEE","IST"),page.racingContainer.tabNextTomorrow.getText()));
+//       Assert.assertEquals(page.leftMenu.getActiveSport(),sportName,String.format("ERROR! Sport active in the left menu not is Horse Racing but found %s",page.leftMenu.getActiveSport()));
+//       log("INFO: Executed completely");
+//    }
 
     /**
      * @title: Validate can navigate to Cricket menu
@@ -386,8 +386,7 @@ public class HeaderSectionTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-/*
-    */
+
 /**
      * @title: Validate no console error when active Exchange Game product
      * @precondition: 1. Exchange Game is active for the account

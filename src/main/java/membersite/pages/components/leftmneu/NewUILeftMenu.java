@@ -5,13 +5,16 @@ import common.MemberConstants;
 import membersite.controls.DropDownBox;
 import membersite.controls.DropDownMenu;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewUILeftMenu extends LeftMenu {
     public Image imgLoading = Image.xpath("//div[@class='loading-icon']/img");
     public TextBox txtSearch = TextBox.id("searchMarket");
     public Label lblResult = Label.xpath("//div[contains(@class,'completer-dropdown-holder')]//span[@class='completer-list-item']");
     public Label lblNoSearchResult = Label.xpath("//div[contains(@class,'completer-dropdown-holder')]//div[@class='completer-no-results']");
-    private Button btnBack = Button.xpath("//a[contains(@class,'up-menu-back-btn')]");
     private String menuSubItemsXpath = "%s/following::div[@class='downs-levels']/div";
     private String eventActiveXpath = "(//div[contains(@class,'up-levels')]/following::div[contains(@class,'up-levels')])[3]";
     private String marketActiveXpath = "%s/following::div[@class='downs-levels']//span";
@@ -26,6 +29,7 @@ public class NewUILeftMenu extends LeftMenu {
     public DropDownMenu allSportMenu = DropDownMenu.xpath("//div[contains(@class,'up-levels')]","//div[contains(@class,'active')]", String.format(menuSubItemsXpath, allMenuXpath));
     public DropDownMenu casinotMenu = DropDownMenu.xpath("//div[contains(@class,'level casino-menu')]","//div[contains(@class,'active')]//span", "//div[contains(@class,'casino-sub-menu')]//div");
     private String fancyMarketsXPath = "%s/following::div[@class='downs-levels']//a[contains(@href,'WICKET_FANCY')]";
+    private Label leftMenuLbl = Label.xpath("//div[@id='left-menu']");
 
    /* public MarketPage searchEvent(String eventName, boolean isClick) {
         Label lblResult = searchEvent(eventName);
@@ -42,27 +46,13 @@ public class NewUILeftMenu extends LeftMenu {
         }
         return lblNoSearchResult;
     }
-
-   /* public <T> T clickLeftMenuItem(String pageName, Class<T> expectedPage) {
-        allSportMenu.clickSubMenu(pageName,false);
-        waitMenuLoading();
-        return PageFactory.initElements(DriverManager.getDriver(),expectedPage);
-    }*/
-
    public void waitMenuLoading() {
        imgLoading.waitForControlInvisible();
    }
-
-    public void clickBack(){
-        btnBack.click();
-        waitMenuLoading();
-    }
-
     public String getActiveEvent() {
         waitMenuLoading();
         return menuEvent.getText().trim();
     }
-
     public void clickMarket(String marketName) {
         Label lb = Label.xpath(String.format(marketActiveXpath1, eventActiveXpath));
         int fcMenuTotalMarket = lb.getWebElements().size();
@@ -87,33 +77,48 @@ public class NewUILeftMenu extends LeftMenu {
         menuSport.selectByVisibleText(competition, false);
         imgLoading.isInvisible(300);
     }
-
     public void clickMenuIndex(int marketIndex) {
        Link lnk = Link.xpath(String.format("(%s)[%d]", String.format(marketActiveXpath1, eventActiveXpath), marketIndex));
         lnk.click();
    }
-
     public void clickSport(String sportName) {
         menuSport.selectByVisibleText(sportName, false);
     }
-
-
-  /*  public String getActiveEvent() {
-        return menuEvent.getText().trim();
+    public boolean isLeftMenuDisplay() {
+       return leftMenuLbl.isDisplayed();
     }
     public String getActiveSport() {
         waitMenuLoading();
         return menuSport.getText().trim();
     }
-    public void waitMenuLoading() {
-        imgLoading.waitForControlInvisible();
-    }
-    public void clickSport(String sportName) {
-        menuAllMenu.selectByVisibleText(sportName, false);
-    }
     public void clickEvent(int eventIndex) {
         menuCompetition.selectByIndex(eventIndex);
     }
+    public List<String> getLeftMenuList() {
+        List<WebElement> lblMenu = Label.xpath("//div[@class='up-levels']/following::div[contains(@class,'downs-levels')]/div").getWebElements();
+        List<String> lstMenu = new ArrayList<>();
+        for (WebElement element : lblMenu) {
+            lstMenu.add(element.getText().trim());
+        }
+        return lstMenu;
+    }
+    public void clickMenu(String menuName) {
+        List<WebElement> lblMenu = Label.xpath("//div[@class='up-levels']/following::div[contains(@class,'downs-levels')]/div").getWebElements();
+        for (WebElement element : lblMenu) {
+            if (element.getText().contains(menuName)) {
+                System.out.println(String.format("Menu item %s display in the left menu", menuName));
+                element.click();
+                waitMenuLoading();
+                break;
+            }
+        }
+        System.out.println(String.format("Menu item %s does NOT display in the left menu", menuName));
+    }
+
+  /*
+
+
+
     public void clickMarket(int marketIndex) {
         Link lnk = Link.xpath(String.format("(%s)[%d]", String.format(marketActiveXpath1, eventActiveXpath), marketIndex));
         lnk.click();

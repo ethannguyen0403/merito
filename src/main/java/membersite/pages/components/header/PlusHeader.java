@@ -20,7 +20,7 @@ public class PlusHeader extends Header {
     CheckBox chkRememberMe = CheckBox.id("remember-me");
     private DropDownMenu ddmAccount = DropDownMenu.xpath("//header/app-top-panel//span[contains(@class,'title dropdown-toggle')]","","//ul[contains(@class,'dropdown-menu')]//li");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
-
+    Image imgLeftMenu = Image.xpath("//div[@class='left-menu-icon']/img");
     // Before Login
     public SATUnderageGamblingPopup clickLogin() {
         if(btnLogin.isDisplayed()){
@@ -39,6 +39,9 @@ public class PlusHeader extends Header {
     public void login(String username, String password, boolean skipByDefault){
         SATLoginPopup loginPopup = openLoginPopup();
         loginPopup.login(username, password,skipByDefault);
+    }
+    public void clickLeftMenuIcon(){
+        imgLeftMenu.click();
     }
     public String loginInvalid(String username, String password){
         SATLoginPopup loginPopup = openLoginPopup();

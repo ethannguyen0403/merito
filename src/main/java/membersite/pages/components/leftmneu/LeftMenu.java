@@ -42,12 +42,7 @@ public class LeftMenu {
     }
 
     public List<String> getLeftMenuList() {
-        List<WebElement> lblMenu = Label.xpath("//div[@class='up-levels']/following::div[contains(@class,'downs-levels')]/div").getWebElements();
-        List<String> lstMenu = new ArrayList<>();
-        for (WebElement element : lblMenu) {
-            lstMenu.add(element.getText().trim());
-        }
-        return lstMenu;
+        return null;
     }
     public String getActiveEvent() {
         return "";
@@ -58,7 +53,9 @@ public class LeftMenu {
     public void clickCompetition(String competition) {    }
 
     public void clickSport(String sportName) {   }
-
+    public boolean isLeftMenuDisplay() {  return false;  }
+    public String getActiveSport() { return "";    }
+    public void clickEvent(int eventIndex) {}
 /*
 
     public String getSportAll() {
@@ -179,12 +176,7 @@ public class LeftMenu {
         //return menuEvent.getOptionByIndex(index);
     }
 
-    public void expandLeftMenu() {
-        if(imgLeftMenu.getAttribute("src").contains("/collapse-menu.svg")){
-            imgLeftMenu.click();
-        }
-        imgLeftMenu.isInvisible(2);
-    }
+
 
     public void collapseLeftMenu() {
         if(imgLeftMenu.getAttribute("src").contains("/menu.svg")){

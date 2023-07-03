@@ -8,12 +8,32 @@ import membersite.objects.sat.Order;
 import membersite.pages.MarketPage;
 import membersite.pages.SportPage;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.Objects;
 
 public class MarketPageTest extends BaseCaseTest {
+    @TestRails(id="1074")
+    @Test (groups = {"regression"})
+    @Parameters({"password"})
+    public void HomePage_1074() {
+        log("@title: Validate can open rule popup");
+        log("Step 1.Active any market");
+        memberHomePage.clickProduct(MemberConstants.EXCHANGE);
+
+        log("Step 2.Click on Rule button");
+        memberHomePage.header.clickMainMenu("Home");
+        MarketPage marketPage =memberHomePage.clickFristNextUpHR();
+
+
+        log("Verify 1. Racing market page display correctly. Country, market start time, market name is corrected");
+        Assert.assertEquals(marketPage.marketOddControl.getTitle(),"","Failed! Market page is incorrect");
+
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "982")
     @Test(groups = {"smoke"})
     public void Market_Page_982() {

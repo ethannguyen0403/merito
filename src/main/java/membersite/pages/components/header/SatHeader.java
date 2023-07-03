@@ -53,7 +53,9 @@ public class SatHeader extends Header {
         return new SATUnderageGamblingPopup();
 
     }
-
+    public void clickLeftMenuIcon(){
+        imgLeftMenu.click();
+    }
     private SATLoginPopup openLoginPopup(){
         SATUnderageGamblingPopup satUnderageGamblingPopup = clickLogin();
         return satUnderageGamblingPopup.clickConfirmation();
@@ -121,7 +123,14 @@ public class SatHeader extends Header {
     public void openExchangeGame(){
         tabExchangeGames.click();
     }
-
+    public void clickProduct(String product){
+        Tab productTab = Tab.xpath(String.format("//a[text()=' %s ']",product));
+        productTab.click();
+    }
+    public void clickMainMenu(String menu){
+        Label lblMenu = Label.xpath(String.format("//app-sport-menu-bar//ul[@class='navbar-nav']//a/*[text()=' %s ']"));
+        lblMenu.click();
+    }
     public void clickLogo(){imgLogo.click();}
 
     public void waitSpinLoad(){

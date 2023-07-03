@@ -27,7 +27,7 @@ public class NewViewLeftMenu extends LeftMenu {
     private DropDownBox menuCompetition = DropDownBox.xpath(competitionActiveXpath, String.format(menuSubItemsXpath, competitionActiveXpath));
     public DropDownMenu allSportMenu = DropDownMenu.xpath("//div[contains(@class,'up-levels')]","//div[contains(@class,'active')]", String.format(menuSubItemsXpath, allMenuXpath));
     public DropDownMenu casinotMenu = DropDownMenu.xpath("//div[contains(@class,'level casino-menu')]","//div[contains(@class,'active')]//span", "//div[contains(@class,'casino-sub-menu')]//div");
-
+    private Label leftMenuLbl = Label.xpath("//div[@id='left-menu']");
 
     public Label searchEvent(String eventName) {
         txtSearch.sendKeys(eventName);
@@ -51,6 +51,9 @@ public class NewViewLeftMenu extends LeftMenu {
     }
     public void clickMarket(String marketName) {
         allSportMenu.clickSubMenu(marketName,false);
+    }
+    public boolean isLeftMenuDisplay() {
+        return leftMenuLbl.isDisplayed();
     }
 /*
 

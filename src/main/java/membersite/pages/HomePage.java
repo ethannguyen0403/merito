@@ -8,6 +8,7 @@ import membersite.pages.components.betslipcontainer.BetsSlipContainer;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.eventcontainer.EventContainerControl;
 import membersite.pages.components.minimybetcontainer.MiniMyBetsContainer;
+import membersite.pages.components.nextupracingcontainer.NextUpRacingContainer;
 import membersite.pages.exchangegames.EGHomePage;
 import membersite.pages.popup.BannerPopup;
 import membersite.utils.betplacement.BetUtils;
@@ -16,14 +17,26 @@ import java.util.Locale;
 
 public class HomePage extends LandingPage{
     BannerPopup bannerPopup = BannerPopup.xpath("//div[@class='main-banner-popup-content']");
-    public EventContainerControl eventContainerControl;
     public BetsSlipContainer betsSlipContainer;
     public MiniMyBetsContainer myBetsContainer ;
+    public NextUpRacingContainer nextUpRacingContainer;
     public HomePage(String types) {
         super(types);
-        eventContainerControl= ComponentsFactory.eventContainerControlObject(types);
         betsSlipContainer = ComponentsFactory.betsSlipContainerObject(types);
         myBetsContainer = ComponentsFactory.miniMyBetsContainerObject(types);
+        nextUpRacingContainer= ComponentsFactory.nextUpRacingContainerObject(types);
+    }
+    public MarketPage clickFristNextUpHR(){
+        if(!nextUpRacingContainer.hasNextUpHR())
+            return null;
+        nextUpRacingContainer.clickFristHR();
+        return new MarketPage(_type);
+    }
+    public MarketPage clickFristNextUpGH(){
+        if(!nextUpRacingContainer.hasNextUpGR())
+            return null;
+        nextUpRacingContainer.clickFristGH();
+        return new MarketPage(_type);
     }
 
     public void closeBannerPopup(){
@@ -46,6 +59,9 @@ public class HomePage extends LandingPage{
         DriverManager.getDriver().switchToFrame(0);
         return exPage;
     }
+    public void clickProduct(String product){
+
+    }
 
     public MarketPage clickEvent(Event event)    {
         String appName = BetUtils.getAppName();
@@ -63,6 +79,7 @@ public class HomePage extends LandingPage{
     public void waitMenuLoading(){
         leftMenu.waitMenuLoading();
     }
+
 
     public String calculateBalance(String balance, String liability) {
         double balanceDoub =Double.valueOf(balance.replaceAll(",", "").toString());

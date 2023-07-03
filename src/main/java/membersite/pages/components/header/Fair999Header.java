@@ -31,6 +31,7 @@ public class Fair999Header extends Header {
     private Label lblLiabilityCurrency = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'lia-val')][1]");
     private Label lblLiability = Label.xpath("(//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')])[1]/span[@class='lia-val'][1]");
     private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
+    Image imgLeftMenu = Image.xpath("//div[@class='left-menu-icon']/img");
     // Before Login
     public SATUnderageGamblingPopup clickLogin() {
         if(btnLogin.isDisplayed()){
@@ -44,7 +45,9 @@ public class Fair999Header extends Header {
         SATUnderageGamblingPopup satUnderageGamblingPopup = clickLogin();
         return satUnderageGamblingPopup.clickConfirmation();
     }
-
+    public void clickLeftMenuIcon(){
+        imgLeftMenu.click();
+    }
     /**
      * This is open main sport menu with the corresponding page
      * @param pageName : ex: Soccer, Home, In-Play, Basketball, Cricket
@@ -110,6 +113,7 @@ public class Fair999Header extends Header {
         return new SATChangePasswordPopup();
     }
 
+
     public AccountBalance getUserBalance() {
         lblBalance.isDisplayed();
         return new AccountBalance.Builder()
@@ -120,6 +124,16 @@ public class Fair999Header extends Header {
     public void openExchangeGame(){
         tabExchangeGames.click();
     }
+    public void clickProduct(String product){
+        Tab productTab = Tab.xpath(String.format("//a[contains(text(),'%s')]",product));
+        productTab.click();
+    }
+
+    public void clickMainMenu(String menu){
+        Label lblMenu = Label.xpath(String.format("//app-sport-menu-bar//ul[@class='navbar-nav']//a/*[text()=' %s ']"));
+        lblMenu.click();
+    }
+
     public void clickLogo(){imgLogo.click();}
     public void waitSpinLoad(){
         imgSpinner.waitForControlInvisible(1,2);
