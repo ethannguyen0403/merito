@@ -123,7 +123,8 @@ public class WinLossDetailPage extends HomePage {
     }
 
     public void drillDown(String level){
-        while(true) {
+        int i = 1;
+        while(i<= 7) {
             List<String> lstLelvel = tblWinLossDetail.getColumn(colLevel,false);
             if (!lstLelvel.get(0).equals(level)) {
                 Link lnk = (Link)tblWinLossDetail.getControlOfCell(1, colUsername, 1, "span[@class='downline']");
@@ -135,6 +136,7 @@ public class WinLossDetailPage extends HomePage {
             else{
                 return ;
             }
+            i = i +1;
         }
     }
 
