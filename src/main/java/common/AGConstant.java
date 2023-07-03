@@ -1,6 +1,7 @@
 package common;
 
 import java.util.*;
+import static baseTest.BaseCaseTest._brandname;
 
 public class AGConstant {
     public final static String SATSPORT_APP_NAME = "satsport";
@@ -40,6 +41,33 @@ public class AGConstant {
             put("Senior Master Agent", "SMA");
             put("Master Agent", "MA");
             put("Member", "Member");
+        }
+    };
+
+    public static final Map<String, String> AG_LEVEL_NAMING_BRANDS = new HashMap<String, String>() {
+        {
+            switch (_brandname) {
+                case "satsport":
+                    put("Portal", "Portal");
+                    put("Company", "Company");
+                    put("Partner", "Partner");
+                    put("Corporator", "Senior Admin");
+                    put("Senior Master Agent", "Admin");
+                    put("Master Agent", "Senior Master Agent");
+                    put("Agent", "Master Agent");
+                    put("Member", "Member");
+                    break;
+                default:
+                    put("Portal", "Portal");
+                    put("Company", "Company");
+                    put("Partner", "Partner");
+                    put("Corporator", "Corporator");
+                    put("Senior Master Agent", "Senior Master Agent");
+                    put("Master Agent", "Master Agent");
+                    put("Agent", "Agent");
+                    put("Member", "Member");
+            }
+
         }
     };
     public static final String MEMBER = "Member";
@@ -158,6 +186,8 @@ public class AGConstant {
         public final static List<String> LST_QUICK_SEARCH_MENU = Arrays.asList("Balance", "Downline Listing", "Profit & Loss", "Client Ledger", "Settings", "Login");
         public final static List<String> LST_QUICK_SEARCH_LOGIN = Arrays.asList("Created Date", "Last Login Time", "Last Login IP");
         public final static List<String> LST_QUICK_SEARCH_SETTING_MENU = Arrays.asList("User Profile", "Product Status", "Position Taking", "Bet Settings", "Tax Settings", "Commission");
+        public final static String PS38_SPORTS_RESULTS = "PS38 Sports Results";
+
     }
 
     public static class SubUserListing {

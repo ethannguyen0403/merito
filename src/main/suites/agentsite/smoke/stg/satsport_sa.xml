@@ -23,7 +23,6 @@
         <parameter name='brandname' value='satsport'/>
         <groups>
             <run>
-                <include name="smoke" />
                 <include name="satsmoke"/>
             </run>
         </groups>

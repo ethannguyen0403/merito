@@ -141,4 +141,12 @@ public class LefMenuList extends BaseElement {
         lblSubmenu.click();
     }
 
+    public boolean isSubMenuDisplay(String menu, String submenu){
+
+        List<String> listSubmenu = getListSubMenu(menu);
+        if (listSubmenu.contains(submenu)){
+            return true;
+        }
+        return false;
+    }
 }

@@ -3,6 +3,14 @@ package agentsite.pages.agentmanagement;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.createdownlineagent.*;
+import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
+import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.BetSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.CashBalanceSection;
+import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.CreditBalanceSection;
+import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.ProductSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.RiskSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
+import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.SuccessPopup;
 import com.paltech.element.common.*;
@@ -20,10 +28,10 @@ public class CreateDownLineAgentPage extends HomePage {
     public TransferSettingSection transferSettingSection = TransferSettingSection.xpath("//div[@id='transfer-settings']");
 
     // Credit Balance Section
-    public CreditBalanceSection creditBalanceSection = CreditBalanceSection.xpath("//div[@id='credit-balance-setting']//app-credit-setting-exchange");
+    public agentsite.pages.agentmanagement.createdownlineagent.CreditBalanceSection creditBalanceSection = agentsite.pages.agentmanagement.createdownlineagent.CreditBalanceSection.xpath("//div[@id='credit-balance-setting']//app-credit-setting-exchange");
 
     // Cash Balance Section
-    public CashBalanceSection cashBalanceSection = CashBalanceSection.xpath("//div[@id='credit-balance-setting']//app-credit-setting-exchange");
+    public agentsite.pages.agentmanagement.createdownlineagent.CashBalanceSection cashBalanceSection = agentsite.pages.agentmanagement.createdownlineagent.CashBalanceSection.xpath("//div[@id='credit-balance-setting']//app-credit-setting-exchange");
 
     // Rate Setting Section
     public RateSettingSection rateSettingSection = RateSettingSection.xpath("//div[contains(@class,'ratesetting')]");
@@ -102,26 +110,61 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label  lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg']");
 
     public Label lblMessage = Label.xpath("//div[@class='modal-body modal-body-fit-with-content']");
+    public AccountInforSection accountInforSection;
+    public CreditBalanceSection creditBalanceInforSection;
+    public RiskSettingSection riskSettingInforSection;
+    public CashBalanceSection cashBalanceInforSection;
+    public agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.RateSettingSection rateSettingInforSection;
+    public ProductSettingSection productSettingInforSection;
+    public BetSettingSection betSettingInforSection;
+    public TaxSettingSection taxSettingInforSection;
+    public agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection.PositionTakingSection positionTakingInforSection;
+    protected String _type;
     public CreateDownLineAgentPage(String types) {
         super(types);
+        _type = types;
+        accountInforSection = ComponentsFactory.accInfoObject(_type);
+        creditBalanceInforSection = ComponentsFactory.creditBalanceInfoObject(_type);
+        riskSettingInforSection = ComponentsFactory.riskSettingInfoObject(_type);
+        cashBalanceInforSection = ComponentsFactory.cashBalanceInfoObject(_type);
+        rateSettingInforSection = ComponentsFactory.rateSettingInfoObject(_type);
+        productSettingInforSection = ComponentsFactory.productSettingInfoObject(_type);
+        betSettingInforSection = ComponentsFactory.betSettingInfoObject(_type);
+        taxSettingInforSection = ComponentsFactory.taxSettingInfoObject(_type);
+        positionTakingInforSection = ComponentsFactory.positionTakingInfoObject(_type);
+
     }
-    public String createDonwline( String password, String level) {
-        String username =accInfoSection.getUserName();
-        accInfoSection.txtPassword.sendKeys(password);
-        if(!level.isEmpty()){
-        accInfoSection.ddpLevel.selectByVisibleText(level);}
-        waitingLoadingSpinner();
-        btnSubmit.click();
-        waitingLoadingSpinner();
+
+//    public String createDownline(String password, String level) {
+//        String username = accountInforSection.getUserName();
+//        accountInforSection.inputInfo(password, level);
+//        waitingLoadingSpinner();
+//        btnSubmit.click();
+//        waitingLoadingSpinner();
+//        return username;
+//    }
+
+
+    public String createDownline(String loginID, String password, String accountStatus) {
+        String username = "";
+        switch (_type) {
+            case "satsport":
+                accountInforSection.inputInfo(loginID, password, accountStatus);
+//        accInfoSection.inputInfo(loginID, password, accountStatus);
+                btnSubmit.click();
+                waitingLoadingSpinner();
+                break;
+            default:
+                username = accountInforSection.getUserName();
+                accountInforSection.inputInfo(password, accountStatus);
+                waitingLoadingSpinner();
+                btnSubmit.click();
+                waitingLoadingSpinner();
+                return username;
+        }
         return username;
     }
 
-
-    public void createDonwline(String loginID, String password, String accountStatus) {
-        accInfoSection.inputInfo(loginID, password, accountStatus);
-        btnSubmit.click();
-        waitingLoadingSpinner();
-    }
 
     public String getMessageUpdate(boolean isClose) {
         String message = successPopup.getContentMessage();

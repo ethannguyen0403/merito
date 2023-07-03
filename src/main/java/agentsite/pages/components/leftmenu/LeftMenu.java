@@ -46,4 +46,11 @@ public class LeftMenu{
     private List<String> defineBalanceInfoCreditQuickSearch(){
         return null;
     }
+
+    public void navigatePS38SportsResultsPage() {
+
+    }
+    public boolean isDisplayPS38SportsResults(){
+       return true;
+    }
 }

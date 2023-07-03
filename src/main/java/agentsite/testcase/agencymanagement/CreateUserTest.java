@@ -22,11 +22,13 @@ import static common.AGConstant.HomePage.CREATE_USER;
 public class CreateUserTest extends BaseCaseTest {
 
 
-    @Test(groups = {"https_request"})
-    public void Agent_AM_CreateUser_011() throws Exception {
+    @TestRails(id = "3492")
+    @Test(groups = {"regression"})
+    public void Agent_AM_CreateUser_3492() throws Exception {
+        //Set isProxy = true
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Create User");
-        agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Verify 1. Create User page is displayed with down console error");
         Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error display when accessing the page");
@@ -34,11 +36,12 @@ public class CreateUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"regression2"})
-    public void Agent_AM_CreateUser_002() throws Exception {
+    @TestRails(id = "3493")
+    @Test(groups = {"regression"})
+    public void Agent_AM_CreateUser_3493() throws Exception {
         log("@title: Validate UI in Create User with Exchange Product setting for Credit Cash line");
         log("Step 1. Navigate Agency Management > Create User");
-        CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Verify1. Account info section\n" +
                 "- Login ID, Password, Account Status, First Name, Last Name, Mobile, and not display Level drop down\n" +
@@ -98,11 +101,12 @@ public class CreateUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3494")
     @Test(groups = {"regression"})
     public void Agent_AM_CreateUser_003() throws Exception {
         log("@title: Validate UI in Create User with Exchange Game Product setting");
         log("Step 1. Navigate Agency Management > Create User");
-        CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Step 2 Product Setting, select Exchange Game product ");
         page.productSettingsSection.mnProduct.clickMenu("Exchange Games");
@@ -132,11 +136,12 @@ public class CreateUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3495")
     @Test(groups = {"regression"})
     public void Agent_AM_CreateUser_005() throws Exception {
         log("@title: Validate can NOT Create User if not input Login ID");
         log("Step 1. Navigate Agency Management > Create User");
-        CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("2. Left Login ID empty and click on submit button");
         page.createUser("", "123rraqt");
@@ -147,12 +152,13 @@ public class CreateUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3496")
     @Test(groups = {"regression"})
     public void Agent_AM_CreateUser_006() throws Exception {
         log("@title: Validate can NOT Create User if not input Password");
         log("Step 1. Navigate Agency Management > Create User");
         String loginId = StringUtils.generateString("autoID.", 4);
-        CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("2. Left Password empty and click on submit button");
         page.createUser(loginId, "");
@@ -163,8 +169,9 @@ public class CreateUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3497")
     @Test(groups = {"poregression"})
-    public void Agent_AM_CreateUser_012() throws Exception {
+    public void Agent_AM_CreateUser_012() {
         log("@title: Validate cannot create user from PO level");
         log("Step Precondition 1. Log in successfully by PO level");
         log("1. Click on Agency Management");
@@ -174,6 +181,19 @@ public class CreateUserTest extends BaseCaseTest {
         log("Verify 1. Verify there is no Create User menu in the left menu");
         Assert.assertFalse(lstMenu.contains(CREATE_USER), "FAILED! Create User not display when login PO level");
 
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3498")
+    @Test(groups = {"regression"})
+    public void Agent_AM_CreateUser_3498() {
+        log("@title: Validate no Security poup display when access the page");
+        log("Step Precondition 1. Log in successfully by SAD/SMA level");
+        log("1. Navigate to Create User page");
+        agentHomePage.leftMenu.clickSubMenu(AGENCY_MANAGEMENT,CREATE_USER);
+
+        log("Verify 1. Validate there is no security popup display for SAT");
+        Assert.assertFalse(agentHomePage.isSecurityCodePopupDisplayed(_brandname),"FAILED! Security Popup is displayed");
         log("INFO: Executed completely");
     }
 
@@ -189,13 +209,13 @@ public class CreateUserTest extends BaseCaseTest {
     public void Agent_AM_CreateUser_007() throws Exception {
         log("@title: Validate if input incorrect Login ID format");
         log("Step 1. Navigate Agency Management > Create User");
-        CreateUserPage page =  agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        CreateUserPage page =  agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Step 2. Enter security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Step 2. Input incorrect Login ID format");
-        page.createDonwline("1234qwert","");
+        page.createDownline("","1234qwert","");
 
         log("Verified 1. Message \"Login ID is invalid.\" display next to Cancel button");
         Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_LOGINID_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_LOGINID_INVALID, page.lblErrorMsg.getText()));
@@ -217,7 +237,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("@title: Validate if input incorrect Change Password format");
         log("Step 1. Navigate Agency Management > Create User");
         String password = "p@ssword";
-        CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Step  Enter security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -246,7 +266,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("@title: Validate cannot create downline with the exist Login ID");
         log("Step 1. Navigate Agency Management > Create User");
         String password = "1234qwer";
-        CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Step  Enter security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -276,7 +296,7 @@ public class CreateUserTest extends BaseCaseTest {
     public void Agent_AM_CreateUser_010(String currency) throws Exception {
         log("@title: Validate cannot  create downline if input invalid Min Bet Setting");
         log("Step 1. Navigate Agency Management > Create User");
-       CreateUserPage page =  agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+       CreateUserPage page =  agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Step  Enter security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -319,7 +339,7 @@ public class CreateUserTest extends BaseCaseTest {
     public void Agent_AM_CreateUser_010_1(String currency) throws Exception {
         log("@title: Validate cannot  create downline if input invalid= -Max Bet Setting");
         log("Step 1. Navigate Agency Management > Create User");
-       CreateUserPage page =  agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+       CreateUserPage page =  agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Step  Enter security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -367,7 +387,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("@title: Validate cannot  create downline if  deposit/ update credit limit over the valid");
         log("Step 1. Navigate Agency Management > Create User");
         String password = "1234qwer";
-        CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Step  Enter security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -401,7 +421,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("@title: Validate can Create User successfully");
         log("Step 1. Navigate Agency Management > Create User");
         String passwordDecrypt =StringUtils.decrypt(password);
-        CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Step  Enter security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
@@ -449,8 +469,7 @@ public class CreateUserTest extends BaseCaseTest {
     public void Agent_AM_CreateUser_013() throws Exception {
         log("@title: Validate cannot  create downline if  deposit/ update credit limit over the valid");
         log("Step 1. Navigate Agency Management > Create User");
-        String password = "1234qwer";
-        CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Verified 1. Verify security popup display");
         Assert.assertTrue(page.securityPopup.isDisplayed(),"FAILED Security popup not display");

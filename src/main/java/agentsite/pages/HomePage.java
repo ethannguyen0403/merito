@@ -2,7 +2,6 @@ package agentsite.pages;
 
 import agentsite.controls.Table;
 import agentsite.pages.agentmanagement.*;
-import agentsite.pages.components.ChangePasswordPopup;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.report.*;
 import agentsite.pages.riskmanagement.AgentExposureLimitPage;
@@ -15,7 +14,6 @@ import agentsite.pages.riskmanagement.NetExposurePage;
 import agentsite.pages.riskmanagement.VolumeMonitorPage;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Icon;
-import com.paltech.utils.StringUtils;
 
 import static common.AGConstant.HomePage.*;
 
@@ -32,6 +30,15 @@ public class HomePage extends LoginPage {
     public void confirmSecurityCode(String securityCode) {
         securityPopup.submitSecurityCode(securityCode);
         waitingLoadingSpinner();
+    }
+
+    public boolean isSecurityCodePopupDisplayed(String types) {
+        switch (types) {
+            case "satsport":
+                return securityPopup.isDisplayed();
+            default:
+                return securityPopup.isInvisible(2);
+        }
     }
 
     public HomePage(String types) {
@@ -154,9 +161,11 @@ public class HomePage extends LoginPage {
         quickSearch.clickDownLineListing();
         return new DownLineListingPage(_type);
     }
-    public CreateDownLineAgentPage navigateCreateDownLineAgentPage() {
+    public CreateDownLineAgentPage navigateCreateDownLineAgentPage(String securityCode) {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, CREATE_DOWNLINE_AGENT);
-        return new CreateDownLineAgentPage(_type);
+        CreateDownLineAgentPage page = new CreateDownLineAgentPage(_type);
+        page.confirmSecurityCode(securityCode);
+        return page;
     }
     public BlockUnblockCompetitionPage navigateBlockUnblockCompetitionPage(){
         leftMenu.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_COMPETITION);
@@ -281,4 +290,11 @@ public class HomePage extends LoginPage {
         return new AccountBalancePage(_type);
     }
 
+    public PS38SportsResultsPage navigatePS38SportsResultsPage() {
+        leftMenu.navigatePS38SportsResultsPage();
+        return new PS38SportsResultsPage(_type);
+    }
+    public boolean isDisplayPS38SportsResults(){
+         return leftMenu.isDisplayPS38SportsResults();
+    }
 }

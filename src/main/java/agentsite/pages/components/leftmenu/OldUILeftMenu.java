@@ -1,5 +1,6 @@
 package agentsite.pages.components.leftmenu;
 
+import agentsite.testcase.reports.PS38SportsResultsTest;
 import agentsite.ultils.account.ProfileUtils;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Button;
@@ -115,5 +116,15 @@ public class OldUILeftMenu extends LeftMenu {
                 lst.add(String.format("Total %s A/C/S/I/B", level));
         }
         return lst;
+    }
+
+    public void navigatePS38SportsResultsPage() {
+
+        clickSubMenu(REPORT,PS38_SPORTS_RESULTS);
+    }
+
+    @Override
+    public boolean isDisplayPS38SportsResults() {
+        return leftMenuList.isSubMenuDisplay(REPORT, PS38_SPORTS_RESULTS);
     }
 }

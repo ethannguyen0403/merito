@@ -1,21 +1,23 @@
 package membersite.pages.components.signinform;
 
-import com.paltech.driver.Driver;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
-import org.openqa.selenium.WebDriver;
 
 public class SATSignInPopup extends SignInPopup {
     public Popup signInPopup = Popup.xpath("//div[@class='login-popup-content']");
-    TextBox txtusername = TextBox.name("newusername");
+    private TextBox txtusername = TextBox.name("newusername");
     TextBox txtpassword = TextBox.name("newpassword");
     TextBox txtconfirmPassword = TextBox.name("newcfPassword");
     TextBox txtEmail = TextBox.name("emailAddress");
     DropDownBox dddSelectCurrency = DropDownBox.name("currency");
-    TextBox txtPhoneNumber = TextBox.name("mobileNumber");
+    private TextBox txtPhoneNumber = TextBox.name("mobileNumber");
     CheckBox cbAgree = CheckBox.id("flexCheckDefault");
     Button btnJoinNow = Button.xpath("//button[contains(@class,'btn-join-now')]");
     CheckBox capthcarcb = CheckBox.xpath("//span[@id='recaptcha-anchor']");
+    private Label lblCountryCode = Label.xpath("//input[@value='+91']");
+    private Label errorPhoneNumber = Label.xpath("//span[contains(text(),'Please enter a valid Mobile Number!')]");
+
+
 
     public void signin(String username, String password, String email, String currency, String phone){
         txtusername.sendKeys(username);
@@ -45,6 +47,33 @@ public class SATSignInPopup extends SignInPopup {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
+    }
+
+    public boolean isCountryCodeEnable() {
+        return lblCountryCode.isEnabled();
+    }
+
+    public void inputToVerifyPhoneNumber(String phoneNumber) {
+        txtPhoneNumber.sendKeys(phoneNumber);
+        txtusername.click();
+    }
+
+    @Override
+    public boolean isPhoneNumberErrorMessage() {
+        if (errorPhoneNumber.isDisplayed()) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String getPhoneNumber() {
+       return txtPhoneNumber.getAttribute("value");
+    }
+
+    @Override
+    public String phoneNumberError() {
+        return errorPhoneNumber.getText();
     }
 }
 
