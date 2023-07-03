@@ -293,9 +293,8 @@ public class HomePage extends LoginPage {
     public PS38SportsResultsPage navigatePS38SportsResultsPage() {
         leftMenu.navigatePS38SportsResultsPage();
         return new PS38SportsResultsPage(_type);
-
     }
     public boolean isDisplayPS38SportsResults(){
-         return  leftMenu.isDisplayPS38SportsResults();
+         return leftMenu.isDisplayPS38SportsResults();
     }
 }

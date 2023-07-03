@@ -144,10 +144,8 @@ public class LefMenuList extends BaseElement {
     public boolean isSubMenuDisplay(String menu, String submenu){
 
         List<String> listSubmenu = getListSubMenu(menu);
-        for (String smenu : listSubmenu) {
-            if (smenu.contains(submenu)){
+        if (listSubmenu.contains(submenu)){
             return true;
-            }
         }
         return false;
     }

@@ -125,7 +125,6 @@ public class OldUILeftMenu extends LeftMenu {
 
     @Override
     public boolean isDisplayPS38SportsResults() {
-
         return leftMenuList.isSubMenuDisplay(REPORT, PS38_SPORTS_RESULTS);
     }
 }

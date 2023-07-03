@@ -4,6 +4,7 @@ import agentsite.pages.report.PS38SportsResultsPage;
 import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 
 public class PS38SportsResultsTest extends BaseCaseTest {
@@ -15,8 +16,9 @@ public class PS38SportsResultsTest extends BaseCaseTest {
      * @steps: 1. Navigate Report > PS38 Sports Results
      * @expect: 1. Verify can access the page from PO level
      */
-    @Test(groups = {"Regression"})
-    public void Agent_Report_Analysis_Of_Running_Markets_001(){
+    @TestRails(id = "3870")
+    @Test(groups = {"Regression","Pogression"})
+    public void Agent_Report_Analysis_Of_Running_Markets_3870(){
         log("@title: Validate can access the page from PO level");
         log("Step 1. Navigate Report > PS38 Sports Results");
         PS38SportsResultsPage ps38SportsResultsPage = agentHomePage.navigatePS38SportsResultsPage();
@@ -32,8 +34,9 @@ public class PS38SportsResultsTest extends BaseCaseTest {
      * @steps: 1. Navigate Report > PS38 Sports Results
      * @expect: 1. Verify can access the page from Agent level
      */
-    @Test(groups = {"Regression1"})
-    public void Agent_Report_Analysis_Of_Running_Markets_002(){
+    @TestRails(id = "3871")
+    @Test(groups = {"Regression","AgRegression"})
+    public void Agent_Report_Analysis_Of_Running_Markets_3871(){
         log("@title: Validate can access the page from PO level");
         log("Step 1. Navigate Report > PS38 Sports Results");
         PS38SportsResultsPage ps38SportsResultsPage = agentHomePage.navigatePS38SportsResultsPage();
@@ -49,8 +52,9 @@ public class PS38SportsResultsTest extends BaseCaseTest {
      * @steps:
      * @expect: 1. Verify can access the page from Agent level
      */
-    @Test(groups = {"Regression2"})
-    public void Agent_Report_Analysis_Of_Running_Markets_003(){
+    @TestRails(id = "3872")
+    @Test(groups = {"Regression","Ag1Regression"})
+    public void Agent_Report_Analysis_Of_Running_Markets_3872(){
         log("@title: Validate can NOT access the page from PO level");
         log("Verify 1: Verify can not access the page from Agent level");
         Assert.assertFalse(agentHomePage.isDisplayPS38SportsResults());
@@ -64,8 +68,9 @@ public class PS38SportsResultsTest extends BaseCaseTest {
      *          2. Select a date and a sport: Soccer
      * @expect: 1. Verify data display. If have no record, display the message : No records found
      */
+    @TestRails(id = "3873")
     @Test(groups = {"Regression"})
-    public void Agent_Report_Analysis_Of_Running_Markets_004(){
+    public void Agent_Report_Analysis_Of_Running_Markets_3873(){
         log("@title: Validate can search result");
         log("Step 1. Click on PS38 Sports Result");
         PS38SportsResultsPage ps38SportsResultsPage = agentHomePage.navigatePS38SportsResultsPage();
@@ -84,8 +89,9 @@ public class PS38SportsResultsTest extends BaseCaseTest {
      * @expect: 1. Verify Date textbox is display today
      *          2. The result display in today (verify no records founds)
      */
+    @TestRails(id = "3874")
     @Test(groups = {"Regression"})
-    public void Agent_Report_Analysis_Of_Running_Markets_005(){
+    public void Agent_Report_Analysis_Of_Running_Markets_3874(){
         log("@title: Validate can search result in today");
         log("Step 1. Click on PS38 Sports Result");
         PS38SportsResultsPage ps38SportsResultsPage = agentHomePage.navigatePS38SportsResultsPage();
@@ -106,8 +112,9 @@ public class PS38SportsResultsTest extends BaseCaseTest {
      * @expect: 1. Verify Date textbox is display Yesterday date
      *          2. The result display in Yesterday (verify no records founds)
      */
+    @TestRails(id = "3875")
     @Test(groups = {"Regression"})
-    public void Agent_Report_Analysis_Of_Running_Markets_006(){
+    public void Agent_Report_Analysis_Of_Running_Markets_3875(){
         log("@title: Validate can search result in Yesterday");
         log("Step 1. Click on PS38 Sports Result");
         PS38SportsResultsPage ps38SportsResultsPage = agentHomePage.navigatePS38SportsResultsPage();
