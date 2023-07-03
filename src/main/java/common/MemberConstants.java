@@ -28,6 +28,7 @@ public class MemberConstants {
     public static final String WICKET_BOOKMAKER_TITLE ="Wicket Bookmaker";
     public static final String FANCY_MARKET_TYPE_CODE ="WICKET_FANCY";
     public final static String NOTES_GMT4 ="Note : Date will be based on time zone GMT-04:00";
+    public final static String EXCHANGE ="Exchange";
     public static final Map<String, String> TIMEZONE_BRAND = new HashMap<String, String>()
     {
         {

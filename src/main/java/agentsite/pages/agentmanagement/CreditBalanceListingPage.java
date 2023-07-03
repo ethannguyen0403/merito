@@ -34,7 +34,7 @@ public class CreditBalanceListingPage extends HomePage {
         waitingLoadingSpinner();
     }
 
-    private int getRowIndexofUserName(String username){
+    public int getRowIndexofUserName(String username){
         int i =1;
         String xpath =  tblAccountList.getxPathOfCell(1,colUsername,i,null);
         Label lblUserName = Label.xpath(xpath);
