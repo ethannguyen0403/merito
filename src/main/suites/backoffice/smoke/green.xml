@@ -31,7 +31,7 @@
         <parameter name='brandname' value='backoffice'/>
         <groups>
             <run>
-                <include name="smoke" />
+                <include name="smoke"/>
             </run>
         </groups>
 

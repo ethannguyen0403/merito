@@ -1,4 +1,5 @@
 package api.objects.meritoAPI;
+
 public class Wager {
     private String _sportName;
     private String _eventId;
@@ -12,14 +13,46 @@ public class Wager {
     private String _betId;
     private String _placeDate;
     private String _placeType; //Back or Lay  
-     
-     public String getPlaceType() {
+
+    public Wager() {
+    }
+
+    public Wager(Wager wager) {
+        this._eventId = wager.getEventId();
+        this._eventName = wager.getMarketName();
+        this._marketId = wager.getMarketId();
+        this._marketName = wager.getMarketName();
+        this._selectionId = wager.getSelectionId();
+        this._selectionName = wager.getSelectionName();
+        this._odd = wager.getOdd();
+        this._stake = wager.getStake();
+        this._betId = wager.getBetId();
+        this._placeDate = wager.getPlacedDate();
+        this._placeType = wager.getPlaceType();
+    }
+
+    public Wager(String eventId, String eventName, String marketId, String marketName, String selectionId, String selectionName, String odd, double stake, String betId, String placeDate, String placeType) {
+        this._eventId = eventId;
+        this._eventName = eventName;
+        this._marketId = marketId;
+        this._marketName = marketName;
+        this._selectionId = selectionId;
+        this._selectionName = selectionName;
+        this._odd = odd;
+        this._stake = stake;
+        this._betId = betId;
+        this._placeDate = placeDate;
+        this._placeType = placeType;
+    }
+
+    public String getPlaceType() {
         return _placeType;
     }
-	
+
     public void setPlaceType(String placedType) {
         this._placeType = placedType;
     }
+
     public String getPlacedDate() {
         return _placeDate;
     }
@@ -27,13 +60,15 @@ public class Wager {
     public void setPlacedDate(String placedDate) {
         this._placeDate = placedDate;
     }
-      public String getSportName() {
+
+    public String getSportName() {
         return _sportName;
     }
 
     public void setSportName(String sportName) {
         this._sportName = sportName;
     }
+
     public String getEventId() {
         return _eventId;
     }
@@ -41,6 +76,7 @@ public class Wager {
     public void setEventId(String eventId) {
         this._eventId = eventId;
     }
+
     public String getEventName() {
         return _eventName;
     }
@@ -56,6 +92,7 @@ public class Wager {
     public void setMarketId(String marketId) {
         this._marketId = marketId;
     }
+
     public String getMarketName() {
         return _marketName;
     }
@@ -79,6 +116,7 @@ public class Wager {
     public void setSelectionName(String selectionName) {
         this._selectionName = selectionName;
     }
+
     public String getBetId() {
         return _betId;
     }
@@ -86,14 +124,15 @@ public class Wager {
     public void setBetId(String betId) {
         this._betId = betId;
     }
-     public double getStake() {
+
+    public double getStake() {
         return _stake;
     }
 
     public void setStake(double stake) {
         this._stake = stake;
     }
-    
+
     public String getOdd() {
         return _odd;
     }
@@ -101,37 +140,7 @@ public class Wager {
     public void setOdd(String odd) {
         this._odd = odd;
     }
-
-    public Wager(){}
-    
-    public Wager(Wager wager) {
-        this._eventId = wager.getEventId();
-        this._eventName = wager.getMarketName();        
-        this._marketId = wager.getMarketId();
-        this._marketName = wager.getMarketName();
-        this._selectionId = wager.getSelectionId();
-        this._selectionName = wager.getSelectionName();
-        this._odd = wager.getOdd();
-        this._stake = wager.getStake();
-        this._betId = wager.getBetId();
-        this._placeDate = wager.getPlacedDate();
-        this._placeType =wager.getPlaceType();       
-    }
-
-    public Wager(String eventId,String eventName, String marketId, String marketName, String selectionId, String selectionName, String odd, double stake, String betId,  String placeDate, String placeType) {       
-         this._eventId = eventId;
-        this._eventName = eventName;
-        this._marketId = marketId;
-        this._marketName = marketName;
-        this._selectionId = selectionId;
-        this._selectionName = selectionName;
-        this._odd = odd;
-        this._stake = stake;
-        this._betId = betId;
-        this._placeDate = placeDate;
-        this._placeType = placeType;        
-    }
- /*   *//********
+    /*   *//********
      * calculate liability of wager base on stake and odd
      * @return liability value
      *//*
@@ -181,5 +190,5 @@ public class Wager {
         return result;
     }
 */
-    
+
 }

@@ -12,14 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TransactionDetailsPopup  {
-    Popup popup = Popup.xpath("//div[contains(@class,'multiProductDialog'])");
-    Button btnFullScreen = Button.xpath("//div[@class='modal-header']/button[@class='fullScreen']");
-    Button btnClosePopup = Button.xpath("//div[contains(@class,'modal-header')]//button[@class='close']");
-    Button btnClose = Button.xpath("//button[contains(@class,'btn-cancel')]");
-    Label lblTitle = Label.xpath("//div[@class='otp-dialog ng-scope']//div[@class='modal-header']/div[@class='ng-binding']");
-    public int tblReportTotalCol =  18;
-    private int staticColTotal = 9;
+public class TransactionDetailsPopup {
+    public int tblReportTotalCol = 18;
     public int colUsername = 1;
     public int colLoginId = 2;
     public int colSettled = 3;
@@ -29,63 +23,59 @@ public class TransactionDetailsPopup  {
     public int colPlayerStake = 7;
     public int colStatus = 8;
     public int colProfitLossOriginal = 9;
-
+    public MenuTree productTabMenu = MenuTree.xpath("//app-pnl-transaction-detail//ul[contains(@class,'nav-tabs')]", "/li");
+    Popup popup = Popup.xpath("//div[contains(@class,'multiProductDialog'])");
+    Button btnFullScreen = Button.xpath("//div[@class='modal-header']/button[@class='fullScreen']");
+    Button btnClosePopup = Button.xpath("//div[contains(@class,'modal-header')]//button[@class='close']");
+    Button btnClose = Button.xpath("//button[contains(@class,'btn-cancel')]");
+    Label lblTitle = Label.xpath("//div[@class='otp-dialog ng-scope']//div[@class='modal-header']/div[@class='ng-binding']");
     String tblReportXpath = "//table[contains(@class,'ptable table-responsive report')]";
-    Table tblReport = Table.xpath(tblReportXpath,tblReportTotalCol);
+    Table tblReport = Table.xpath(tblReportXpath, tblReportTotalCol);
     Row taxRow = Row.xpath("//table[contains(@class,'table-responsive')]//tr[contains(@class,'TAX_INFO')]");
-
-    private int rowTotalCol =8;
     Row rowTotal = Row.xpath("//table[contains(@class,'ptable table-responsive report')]//tr[@class='ng-star-inserted']");
-
-
     Label lblExport = Label.id("export-title");
     Icon icExport = Icon.xpath("//span[@class='exportExcel enabled']");
     Label lblDisplayItem = Label.xpath("//div[contains(@class,'displaying-items')]");
+    private int staticColTotal = 9;
+    private int rowTotalCol = 8;
 
-    public MenuTree productTabMenu = MenuTree.xpath("//app-pnl-transaction-detail//ul[contains(@class,'nav-tabs')]","/li");
-    public void closePopup(){
+    public void closePopup() {
         btnClose.click();
     }
 
-    public void fullScreenPopup()
-    {
+    public void fullScreenPopup() {
         btnFullScreen.click();
     }
 
-    public ArrayList<String> getTotalRowData()
-    {
-        return rowTotal.getRow(rowTotalCol,false);
-    }
-    public List<String> getProductsListTab()
-    {
-       return productTabMenu.getListSubMenu().stream().sorted().collect(Collectors.toList());
+    public ArrayList<String> getTotalRowData() {
+        return rowTotal.getRow(rowTotalCol, false);
     }
 
-    public Table defineReportCol(List<String>levelList)
-    {
+    public List<String> getProductsListTab() {
+        return productTabMenu.getListSubMenu().stream().sorted().collect(Collectors.toList());
+    }
+
+    public Table defineReportCol(List<String> levelList) {
         int levelCount = levelList.size();
         tblReportTotalCol = staticColTotal + (levelCount * 3);
-        return Table.xpath(tblReportXpath,tblReportTotalCol);
+        return Table.xpath(tblReportXpath, tblReportTotalCol);
     }
 
-    public boolean isColumnDataMatchedWithTotal(String columnName, List<String> lstLevel)
-    {
-        Table table = defineReportCol(lstLevel) ;
-        int col = getColumnIndexByName(table, columnName) +1;// there is Cashout column is hide so need to inclue 1 more column
-        if(col == -1)
-        {
+    public boolean isColumnDataMatchedWithTotal(String columnName, List<String> lstLevel) {
+        Table table = defineReportCol(lstLevel);
+        int col = getColumnIndexByName(table, columnName) + 1;// there is Cashout column is hide so need to inclue 1 more column
+        if (col == -1) {
             System.out.println(String.format("Column name %s not be found in the table", columnName));
             return false;
         }
-        List<String> lstData = table.getColumn(col,true);
-        double memberResult= 0.00;
+        List<String> lstData = table.getColumn(col, true);
+        double memberResult = 0.00;
         int n = lstData.size();
         double totalResult = Double.parseDouble(getTotalRowData().get(col - 1 - staticColTotal));
         //double totalResult =Double.parseDouble(lstData.get(n));
-        for(int i = 0; i < n; i++)
-        {
+        for (int i = 0; i < n; i++) {
             String value = lstData.get(i);
-            if(value.contains("-"))
+            if (value.contains("-"))
                 continue;
             else
                 memberResult = Double.parseDouble(value) + memberResult;
@@ -97,24 +87,22 @@ public class TransactionDetailsPopup  {
         return totalResult == memberResult;
     }
 
-    private int getColumnIndexByName(Table table, String columnName){
+    private int getColumnIndexByName(Table table, String columnName) {
         fullScreenPopup();
         ArrayList<String> lstHeader = table.getHeaderNameOfRows();
-        for(int i = 0, n = lstHeader.size(); i<n; i++){
+        for (int i = 0, n = lstHeader.size(); i < n; i++) {
             if (lstHeader.get(i).equals(columnName))
                 return i + 1;
         }
         return -1;
     }
 
-    public double sumPlayerStake()
-    {
+    public double sumPlayerStake() {
         double totalPlayerStake = 0.0;
         List<ArrayList<String>> data = tblReport.getRowsWithoutHeader(false);
-        for (int i = 0; i<data.size()-2; i++)
-        {
-            String stake = data.get(i).get(colPlayerStake -1);
-            if(stake.contains("-"))
+        for (int i = 0; i < data.size() - 2; i++) {
+            String stake = data.get(i).get(colPlayerStake - 1);
+            if (stake.contains("-"))
                 continue;
             else
                 totalPlayerStake = totalPlayerStake + Double.parseDouble(stake);
@@ -128,6 +116,7 @@ public class TransactionDetailsPopup  {
 
     /**
      * This verify Transaction detail with Desciption column contain expected Sport and Market and Sum Turnover is correct
+     *
      * @param sport
      * @param lstSummaryMarketTurnoverAndWinLoss
      * @return
@@ -151,7 +140,7 @@ public class TransactionDetailsPopup  {
             String stake = data.get(i).get(colPlayerStake - 1);
             if (stake.contains("-"))
                 continue;
-         //   String stake = data.get(i).get(colPlayerStake - 1);
+            //   String stake = data.get(i).get(colPlayerStake - 1);
             totalPlayerStake = totalPlayerStake + Double.parseDouble(stake);
         }
         if (totalPlayerStake != turnoverSummary) {
@@ -162,11 +151,11 @@ public class TransactionDetailsPopup  {
         return true;
     }
 
-    public ArrayList<String> getMarketTax()
-    {
-        return taxRow.getRow(tblReportTotalCol,false) ;
+    public ArrayList<String> getMarketTax() {
+        return taxRow.getRow(tblReportTotalCol, false);
     }
-    public void clickCloseButton(){
+
+    public void clickCloseButton() {
         btnClose.click();
     }
 

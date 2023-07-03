@@ -1,10 +1,17 @@
 package api.objects.meritoAPI;
 
-public class Competition{
+public class Competition {
     private int _id;
-    private String _name;   
+    private String _name;
     private int _marketCount;
     private String _marketRegion;
+
+    public Competition(Builder builder) {
+        this._id = builder._id;
+        this._marketCount = builder._marketCount;
+        this._name = builder._name;
+        this._marketRegion = builder._marketRegion;
+    }
 
     public String getMarketRegion() {
         return _marketRegion;
@@ -28,7 +35,7 @@ public class Competition{
 
     public void setId(int id) {
         this._id = id;
-    }    
+    }
 
     public String getName() {
         return _name;
@@ -37,35 +44,38 @@ public class Competition{
     public void setName(String name) {
         this._name = name;
     }
+
     public static class Builder {
         private int _id;
         private String _name;
         private int _marketCount;
         private String _marketRegion;
 
-        public Builder(){}
-        public Builder id(int val){
-            _id =val;
+        public Builder() {
+        }
+
+        public Builder id(int val) {
+            _id = val;
             return this;
         }
-        public Builder name(String val){
-            _name =val;
+
+        public Builder name(String val) {
+            _name = val;
             return this;
         }
-        public Builder marketRegion(String val){
-            _marketRegion =val;
+
+        public Builder marketRegion(String val) {
+            _marketRegion = val;
             return this;
         }
-        public Builder marketCount(int val){
-            _marketCount =val;
+
+        public Builder marketCount(int val) {
+            _marketCount = val;
             return this;
         }
-        public Competition build() { return new Competition(this); }
-    }
-    public Competition(Builder builder){
-      this._id = builder._id;
-      this._marketCount = builder._marketCount;
-      this._name = builder._name;
-      this._marketRegion = builder._marketRegion;
+
+        public Competition build() {
+            return new Competition(this);
+        }
     }
 }

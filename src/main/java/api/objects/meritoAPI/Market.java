@@ -22,6 +22,25 @@ public class Market {
     private Event _event;
     private List<Selection> _selectionList = new ArrayList<Selection>();
 
+    public Market(Builder builder) {
+        this._marketId = builder._marketId;
+        this._marketName = builder._marketName;
+        this._status = builder._status;
+        this._betDelay = builder._betDelay;
+        this._inplay = builder._inplay;
+        this._marketStartTime = builder._marketStartTime;
+        this._totalMatch = builder._totalMatch;
+        this._numberOfRunners = builder._numberOfRunners;
+        this._numberOfWinners = builder._numberOfWinners;
+        this._numberOfActiveRunners = builder._numberOfActiveRunners;
+        this._competition = builder._competition;
+        this._event = builder._event;
+        this._eventType = builder._eventType;
+        this._totalAvailable = builder._totalAvailable;
+        this._marketDescription = builder._marketDescription;
+        this._selectionList = builder._selectionList;
+    }
+
     public String getMarketId() {
         return _marketId;
     }
@@ -45,9 +64,15 @@ public class Market {
     public void setMarketStartTime(String _marketStartTime) {
         this._marketStartTime = _marketStartTime;
     }
-    
-    public String getStatus(){return _status;}
-    public void setStatus(String val){_status = val;}
+
+    public String getStatus() {
+        return _status;
+    }
+
+    public void setStatus(String val) {
+        _status = val;
+    }
+
     public int getbetDelay() {
         return _betDelay;
     }
@@ -55,23 +80,55 @@ public class Market {
     public void setbetDelay(int _betDelay) {
         this._betDelay = _betDelay;
     }
-    public boolean getInplay(){return _inplay;}
-    public void setInPlay(boolean val){_inplay = val;}
-    
-    public int getNumberOfWinners(){return _numberOfWinners;}
-    public void setNumberOfWinners(int val){_numberOfWinners = val;}
 
-    public double getTotalMatch(){return _totalMatch;}
-    public void setTotalMatch(double val){_totalMatch = val;}
-    
-    public int getNumberOfRunner(){return _numberOfRunners;}
-    public void setNumbreOfRunner(int val){_numberOfRunners= val;}
-    public int getNumberOfActiveRunners(){return _numberOfActiveRunners;}
-    public void setNumberOfActiveRunners(int val){_numberOfActiveRunners= val;}
+    public boolean getInplay() {
+        return _inplay;
+    }
 
-    public double getTotalAvailable(){return _totalAvailable;}
-    public void gstTotalAvailable(double val){_totalAvailable = val;}
-    
+    public void setInPlay(boolean val) {
+        _inplay = val;
+    }
+
+    public int getNumberOfWinners() {
+        return _numberOfWinners;
+    }
+
+    public void setNumberOfWinners(int val) {
+        _numberOfWinners = val;
+    }
+
+    public double getTotalMatch() {
+        return _totalMatch;
+    }
+
+    public void setTotalMatch(double val) {
+        _totalMatch = val;
+    }
+
+    public int getNumberOfRunner() {
+        return _numberOfRunners;
+    }
+
+    public void setNumbreOfRunner(int val) {
+        _numberOfRunners = val;
+    }
+
+    public int getNumberOfActiveRunners() {
+        return _numberOfActiveRunners;
+    }
+
+    public void setNumberOfActiveRunners(int val) {
+        _numberOfActiveRunners = val;
+    }
+
+    public double getTotalAvailable() {
+        return _totalAvailable;
+    }
+
+    public void gstTotalAvailable(double val) {
+        _totalAvailable = val;
+    }
+
     public SportType getSportType() {
         return _eventType;
     }
@@ -129,92 +186,92 @@ public class Market {
         private Competition _competition;
         private Event _event;
         private List<Selection> _selectionList;
-        public Builder(){}
 
-        public Builder selectionList(List<Selection> val){
-            _selectionList =val;
+        public Builder() {
+        }
+
+        public Builder selectionList(List<Selection> val) {
+            _selectionList = val;
             return this;
         }
-        public Builder marketId(String val){
-            _marketId =val;
+
+        public Builder marketId(String val) {
+            _marketId = val;
             return this;
         }
-        public Builder marketName(String val){
-            _marketName =val;
+
+        public Builder marketName(String val) {
+            _marketName = val;
             return this;
         }
-        public Builder marketStartTime(String val){
-            _marketStartTime =val;
+
+        public Builder marketStartTime(String val) {
+            _marketStartTime = val;
             return this;
         }
-        public Builder status(String val){
-            _status =val;
+
+        public Builder status(String val) {
+            _status = val;
             return this;
         }
-        public Builder betDelay(int val){
-            _betDelay=val;
+
+        public Builder betDelay(int val) {
+            _betDelay = val;
             return this;
         }
-        public Builder inPlay(boolean val){
-            _inplay =val;
+
+        public Builder inPlay(boolean val) {
+            _inplay = val;
             return this;
         }
-        public Builder numberOfActiveRunners(int val){
-            _numberOfActiveRunners =val;
+
+        public Builder numberOfActiveRunners(int val) {
+            _numberOfActiveRunners = val;
             return this;
         }
-        public Builder numberOfWinners(int val){
-            _numberOfWinners =val;
+
+        public Builder numberOfWinners(int val) {
+            _numberOfWinners = val;
             return this;
         }
-        public Builder numberOfRunners(int val){
-            _numberOfRunners =val;
+
+        public Builder numberOfRunners(int val) {
+            _numberOfRunners = val;
             return this;
         }
-        public Builder totalMatch(double val){
-            _totalMatch =val;
+
+        public Builder totalMatch(double val) {
+            _totalMatch = val;
             return this;
         }
-        public Builder totalAvailable(double val){
-            _totalAvailable =val;
+
+        public Builder totalAvailable(double val) {
+            _totalAvailable = val;
             return this;
         }
-        public Builder eventType(SportType val){
-            _eventType =val;
+
+        public Builder eventType(SportType val) {
+            _eventType = val;
             return this;
         }
-        public Builder competition(Competition val){
-            _competition =val;
+
+        public Builder competition(Competition val) {
+            _competition = val;
             return this;
         }
-        public Builder event(Event val){
-            _event =val;
+
+        public Builder event(Event val) {
+            _event = val;
             return this;
         }
+
         public Builder marketDescription(MarketDescription val) {
             _marketDescription = val;
             return this;
         }
 
-        public Market build() { return new Market(this); }
-    }
-
-    public Market(Builder builder){
-      this._marketId =builder._marketId;
-      this._marketName = builder._marketName;
-      this._status = builder._status;
-      this._betDelay = builder._betDelay;
-      this._inplay = builder._inplay;
-      this._marketStartTime = builder._marketStartTime;
-      this._totalMatch = builder._totalMatch;
-      this._numberOfRunners = builder._numberOfRunners;
-      this._numberOfWinners = builder._numberOfWinners;
-      this._numberOfActiveRunners = builder._numberOfActiveRunners;
-      this._competition = builder._competition;
-      this._event = builder._event;
-      this._eventType = builder._eventType;
-      this._totalAvailable = builder._totalAvailable;
-      this._marketDescription = builder._marketDescription;
-      this._selectionList = builder._selectionList;
+        public Market build() {
+            return new Market(this);
+        }
     }
 }

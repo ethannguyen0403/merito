@@ -7,11 +7,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import java.io.IOException;
-
 public class B2BHelper extends Helper {
 
-    public HttpResponse sendPostRequestWithHeaders(String url, String contentType, String agentKey, String authorization, String json)  {
+    public HttpResponse sendPostRequestWithHeaders(String url, String contentType, String agentKey, String authorization, String json) {
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpPost post = new HttpPost(url);
@@ -20,7 +18,7 @@ public class B2BHelper extends Helper {
                 post.setEntity(stringEntity);
             }
 
-          //  post.setHeader("Cookie", cookies);
+            //  post.setHeader("Cookie", cookies);
             if (agentKey != null) {
                 post.setHeader("AgentKey", agentKey);
             }
@@ -37,7 +35,8 @@ public class B2BHelper extends Helper {
             return null;
         }
     }
-    public HttpResponse sendPostRequestWithTokenHeaders(String url, String contentType, String agentKey, String token, String json){
+
+    public HttpResponse sendPostRequestWithTokenHeaders(String url, String contentType, String agentKey, String token, String json) {
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpPost post = new HttpPost(url);
@@ -63,7 +62,8 @@ public class B2BHelper extends Helper {
             return null;
         }
     }
-    public HttpResponse sendPostRequestGetAuthenticate(String url, String contentType, String agentKey, String secretKey){
+
+    public HttpResponse sendPostRequestGetAuthenticate(String url, String contentType, String agentKey, String secretKey) {
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpPost post = new HttpPost(url);

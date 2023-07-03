@@ -25,13 +25,13 @@
 
         <groups>
             <run>
-                <include name="smoke" />
-<!--                <include name="satsport1" />-->
+                <include name="smoke"/>
+                <!--                <include name="satsport1" />-->
             </run>
         </groups>
 
         <classes>
-<!--            <class name="membersite.testcases.exchange.LandingPageTest"/>-->
+            <!--            <class name="membersite.testcases.exchange.LandingPageTest"/>-->
             <class name="membersite.testcases.cashsite.SignInPageTest"/>
         </classes>
 

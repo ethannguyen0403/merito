@@ -18,7 +18,7 @@ public class NewIPPopup {
         iconX.click();
     }
 
-    public boolean isDisplayed(){
+    public boolean isDisplayed() {
         popupNewBanner.isInvisible(1);
         return popupNewBanner.isDisplayed();
     }

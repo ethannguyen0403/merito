@@ -26,8 +26,8 @@
         <parameter name='brandname' value='betclub'/>
         <groups>
             <run>
-                 <include name="smoke" />
-                <include name="smokeNewUI" />
+                <include name="smoke"/>
+                <include name="smokeNewUI"/>
             </run>
         </groups>
 

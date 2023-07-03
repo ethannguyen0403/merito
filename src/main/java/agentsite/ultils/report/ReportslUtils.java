@@ -12,31 +12,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static baseTest.BaseCaseTest.domainURL;
-import static baseTest.BaseCaseTest.environment;
 
 public class ReportslUtils {
 
-    private static JSONObject getProductsActiveJSON(){
+    private static JSONObject getProductsActiveJSON() {
         String api = String.format("%s/agent-services/products/reports?%s", domainURL, DateUtils.getMilliSeconds());
-        return WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        return WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
     }
 
     public static List<String> getProductActive() {
         List<String> lstProductActive = new ArrayList<>();
         JSONObject productReportJSONOBJ = getProductsActiveJSON();
         JSONArray arrProducts;
-        if(productReportJSONOBJ.has("REPORT")){
+        if (productReportJSONOBJ.has("REPORT")) {
             arrProducts = productReportJSONOBJ.getJSONArray("REPORT");
-        }else{
-            if(productReportJSONOBJ.has("ALL")){
+        } else {
+            if (productReportJSONOBJ.has("ALL")) {
                 arrProducts = productReportJSONOBJ.getJSONArray("ALL");
             } else {
                 arrProducts = productReportJSONOBJ.getJSONArray("All");
             }
         }
-        for (int i=0;i< arrProducts.length();i++) {
-            JSONObject itemObj= arrProducts.getJSONObject(i);
-            if(itemObj.getString("status").equals("ACTIVE")){
+        for (int i = 0; i < arrProducts.length(); i++) {
+            JSONObject itemObj = arrProducts.getJSONObject(i);
+            if (itemObj.getString("status").equals("ACTIVE")) {
                 lstProductActive.add(itemObj.getString("productName"));
             }
         }

@@ -1,9 +1,9 @@
 package membersite.pages.components.loginform;
 
-import com.paltech.element.common.*;
+import com.paltech.element.common.Button;
+import com.paltech.element.common.Label;
+import com.paltech.element.common.TextBox;
 import membersite.pages.ChangePasswordPage;
-import membersite.pages.components.header.Header;
-import membersite.pages.components.underagegamblingpopup.FunsportUnderageGamblingPopup;
 
 public class FunLoginPopup extends LoginPopup {
     public TextBox txtUsername = TextBox.id("username");
@@ -11,24 +11,27 @@ public class FunLoginPopup extends LoginPopup {
     public Button btnLogin = Button.xpath("//button[@id='login-btn-popup']/span[1]");
     public Label lblErrorMessage = Label.xpath("//div[contains(@class,'message-error')]");
 
-    public void login(String username, String password, boolean skipByDefault){
+    public void login(String username, String password, boolean skipByDefault) {
         txtUsername.isDisplayed();
-        if(!username.isEmpty()){
+        if (!username.isEmpty()) {
             txtUsername.sendKeys(username);
         }
-        if(!password.isEmpty()){
+        if (!password.isEmpty()) {
             txtPassword.sendKeys(password);
         }
         btnLogin.click();
         btnLogin.isInvisible(2);
 
-        if(skipByDefault) {
+        if (skipByDefault) {
             ChangePasswordPage changePasswordPage = new ChangePasswordPage();
             if (changePasswordPage.btnChangePassword.isDisplayed()) {
                 changePasswordPage.skip();
             }
         }
     }
-    public boolean isLoginDisplay(){return btnLogin.isDisplayed();}
+
+    public boolean isLoginDisplay() {
+        return btnLogin.isDisplayed();
+    }
 
 }

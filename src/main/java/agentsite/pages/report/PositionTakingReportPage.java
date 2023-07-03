@@ -21,20 +21,22 @@ public class PositionTakingReportPage extends HomePage {
     public Button btnYesterday = Button.id("btn-yesterday");
     public Button btnLastWeek = Button.id("btn-last-week last-week");
     public Button btnSubmit = Button.id("btn-submit");
-    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
     public int tblReportTotalCol = 6;
     public int colCompetitionName = 2;
-    public  int colVolumn = 3;
-    public  int colPnL = 4;
-    public  int colTax = 5;
+    public int colVolumn = 3;
+    public int colPnL = 4;
+    public int colTax = 5;
     public int colDetail = 6;
-    public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]",tblReportTotalCol);
+    public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]", tblReportTotalCol);
     public String competitionRow = "//table[contains(@class,'ptable report')]//tbody/tr[contains(@ng-repeat,'competition')]";
     public Label lblNoRecord = Label.xpath("//td[contains(@class,'noRecord')]");
     public Label lblYouCanSeeReportData = Label.xpath("//span[@class='pinfo']/following-sibling::label");
-    public PositionTakingReportPage(String types){
+    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
+
+    public PositionTakingReportPage(String types) {
         super(types);
     }
+
     public void filter(String productName) {
         if (!productName.isEmpty()) {
             ddbProduct.selectByVisibleText(productName);
@@ -43,27 +45,26 @@ public class PositionTakingReportPage extends HomePage {
         waitingLoadingSpinner();
     }
 
-    public boolean verifyDataMatchWithDetail()
-    {
-        List<WebElement> lsCompetitionRow =Row.xpath(competitionRow).getWebElements();
+    public boolean verifyDataMatchWithDetail() {
+        List<WebElement> lsCompetitionRow = Row.xpath(competitionRow).getWebElements();
         List<String> dataObserve = new ArrayList<>();
         List<String> dataExpected = new ArrayList<>();
         int n = lsCompetitionRow.size();
-        for(int i = 0; i < n; i++){
-            Row r = Row.xpath(String.format("%s[%s]",competitionRow,i+1));
-            dataObserve  = r.getRow(tblReportTotalCol,false);
-            PositionTakingDetailPopup popup = openPositionTakingDetails(dataObserve.get(colCompetitionName -1));
-            dataExpected =popup.getTotalVolumnPnlTax();
-            if(!dataObserve.get(colVolumn -1).equals(dataExpected.get(0))) {
-                System.out.println(String.format("Total volumn is %s but sum in detail popup is %s",dataObserve.get(colVolumn -1),dataExpected.get(0)));
+        for (int i = 0; i < n; i++) {
+            Row r = Row.xpath(String.format("%s[%s]", competitionRow, i + 1));
+            dataObserve = r.getRow(tblReportTotalCol, false);
+            PositionTakingDetailPopup popup = openPositionTakingDetails(dataObserve.get(colCompetitionName - 1));
+            dataExpected = popup.getTotalVolumnPnlTax();
+            if (!dataObserve.get(colVolumn - 1).equals(dataExpected.get(0))) {
+                System.out.println(String.format("Total volumn is %s but sum in detail popup is %s", dataObserve.get(colVolumn - 1), dataExpected.get(0)));
                 return false;
             }
-            if(!dataObserve.get(colPnL-1).equals(dataExpected.get(1))) {
-                System.out.println(String.format("Total Pnl is %s but sum in detail popup is %s",dataObserve.get(colPnL -1),dataExpected.get(1)));
+            if (!dataObserve.get(colPnL - 1).equals(dataExpected.get(1))) {
+                System.out.println(String.format("Total Pnl is %s but sum in detail popup is %s", dataObserve.get(colPnL - 1), dataExpected.get(1)));
                 return false;
             }
-            if(!dataObserve.get(colTax-1).equals(dataExpected.get(2))) {
-                System.out.println(String.format("Total Tax is %s but sum in detail popup is %s",dataObserve.get(colTax -1),dataExpected.get(2)));
+            if (!dataObserve.get(colTax - 1).equals(dataExpected.get(2))) {
+                System.out.println(String.format("Total Tax is %s but sum in detail popup is %s", dataObserve.get(colTax - 1), dataExpected.get(2)));
                 return false;
             }
             popup.closePopup();
@@ -71,15 +72,14 @@ public class PositionTakingReportPage extends HomePage {
         return true;
     }
 
-    public PositionTakingDetailPopup openPositionTakingDetails(String competitionName)
-    {
-        List<WebElement> lsCompetitionRow =Row.xpath(competitionRow).getWebElements();
-        String detailIconXpath ="//td[6]/a";
+    public PositionTakingDetailPopup openPositionTakingDetails(String competitionName) {
+        List<WebElement> lsCompetitionRow = Row.xpath(competitionRow).getWebElements();
+        String detailIconXpath = "//td[6]/a";
         int n = lsCompetitionRow.size();
-        for(int i = 0; i < n; i++){
-            Row r = Row.xpath(String.format("%s[%s]",competitionRow,i+1));
-            if(r.getRow(tblReportTotalCol,false).get(colCompetitionName -1).equals(competitionName)){
-                Icon.xpath(String.format("%s[%s]%s",competitionRow,i+1,detailIconXpath)).click();
+        for (int i = 0; i < n; i++) {
+            Row r = Row.xpath(String.format("%s[%s]", competitionRow, i + 1));
+            if (r.getRow(tblReportTotalCol, false).get(colCompetitionName - 1).equals(competitionName)) {
+                Icon.xpath(String.format("%s[%s]%s", competitionRow, i + 1, detailIconXpath)).click();
                 waitingLoadingSpinner();
                 break;
             }
@@ -87,7 +87,7 @@ public class PositionTakingReportPage extends HomePage {
         return new PositionTakingDetailPopup();
     }
 
-    public void  waitingLoadingSpinner(){
-        iconLoadSpinner.waitForControlInvisible(1,1);
+    public void waitingLoadingSpinner() {
+        iconLoadSpinner.waitForControlInvisible(1, 1);
     }
 }

@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static common.AGConstant.SATSPORT_APP_NAME;
 import static baseTest.BaseCaseTest.domainURL;
+import static common.AGConstant.SATSPORT_APP_NAME;
 
 public class ProfileUtils {
     public static AccountInfo getProfile() {
         String api = String.format("%s/agent-services/users/profile?%s", domainURL, DateUtils.getMilliSeconds());
-      //  JSONObject jsonObject = WSUtils.getGETJSONResponse(api, Configs.HEADER_JSON_CHARSET,Configs.HEADER_JSON);//, DriverManager.getDriver().getCookies().toString(),true);
-        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api,Configs.HEADER_JSON_CHARSET,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        //  JSONObject jsonObject = WSUtils.getGETJSONResponse(api, Configs.HEADER_JSON_CHARSET,Configs.HEADER_JSON);//, DriverManager.getDriver().getCookies().toString(),true);
+        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
 
-       if (Objects.nonNull(jsonObject)) {
+        if (Objects.nonNull(jsonObject)) {
 
             if (jsonObject.has("profile")) {
                 JSONObject jsnProfile = jsonObject.getJSONObject("profile");
@@ -43,7 +43,7 @@ public class ProfileUtils {
 
     private static JSONObject balanceProductJson() {
         String api = String.format("%s/agent-services/balance-product?product=EXCHANGE&%s", domainURL, DateUtils.getMilliSeconds());
-        return WSUtils.getGETJSONObjectWithCookies(api,Configs.HEADER_JSON_CHARSET,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        return WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
     }
 
     private static JSONObject getAppConfig() {
@@ -71,7 +71,7 @@ public class ProfileUtils {
                     JSONObject item = accountExch.getJSONObject(i);
                     lstArray.add(Double.toString(item.getDouble("availableBalance")));
                     lstArray.add(Double.toString(item.getDouble("cashBalance")));
-                 //  lstArray.add(Double.toString(item.getJSONObject("createUsed")));
+                    //  lstArray.add(Double.toString(item.getJSONObject("createUsed")));
                     lstArray.add(Double.toString(item.getDouble("creditLimit")));
                     lstArray.add(Double.toString(item.getDouble("creditRefer")));
                     lstArray.add(Double.toString(item.getDouble("currency")));
@@ -89,16 +89,16 @@ public class ProfileUtils {
         return lstArray;
     }
 
-    public static List<ArrayList<String>> getDownlineBalanceInfo(){
+    public static List<ArrayList<String>> getDownlineBalanceInfo() {
         List<ArrayList<String>> lstAccountBalanceInfo = new ArrayList<>();
         JSONObject balanceObj = balanceProductJson();
-        if(Objects.nonNull(balanceObj)){
+        if (Objects.nonNull(balanceObj)) {
             if (balanceObj.has("DOWNLINE_EXCHANGE")) {
                 JSONArray accountExch = balanceObj.getJSONArray("DOWNLINE_EXCHANGE");
-                for (int i=0;i < accountExch.length();i++) {
+                for (int i = 0; i < accountExch.length(); i++) {
                     JSONObject item = accountExch.getJSONObject(i);
-                    ArrayList<String> lstArray= new ArrayList<>();
-                    lstArray.add( item.getString("level"));
+                    ArrayList<String> lstArray = new ArrayList<>();
+                    lstArray.add(item.getString("level"));
                     lstArray.add(Double.toString(item.getDouble("availableBalance")));
                     lstArray.add(Double.toString(item.getDouble("creditLimit")));
                     lstArray.add(Integer.toString(item.getInt("active")));
@@ -106,7 +106,7 @@ public class ProfileUtils {
                     lstArray.add(Integer.toString(item.getInt("suspended")));
                     lstArray.add(Integer.toString(item.getInt("inactive")));
                     lstArray.add(Integer.toString(item.getInt("block")));
-                   lstAccountBalanceInfo.add(i,lstArray);
+                    lstAccountBalanceInfo.add(i, lstArray);
                 }
             }
         }
@@ -114,14 +114,15 @@ public class ProfileUtils {
         return lstAccountBalanceInfo;
     }
 
-    public static String convertDownlineByBrand(String level, String brand){
-        if(!brand.equalsIgnoreCase(SATSPORT_APP_NAME))
+    public static String convertDownlineByBrand(String level, String brand) {
+        if (!brand.equalsIgnoreCase(SATSPORT_APP_NAME))
             return level;
         else {
             return changeLevel(level);
         }
     }
-    private static String changeLevel(String level){
+
+    private static String changeLevel(String level) {
         switch (level) {
             case "CORP":
                 return "SAD";

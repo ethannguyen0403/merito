@@ -6,56 +6,62 @@ import common.MemberConstants;
 import membersite.controls.DropDownMenu;
 import membersite.pages.AccountStatementPage;
 import membersite.pages.MyBetsPage;
-import membersite.pages.popup.MyMarketPopup;
 import membersite.pages.components.changepasswordpopup.FunsportChangePasswordPopup;
 import membersite.pages.components.loginform.FairenterLoginPopup;
 import membersite.pages.components.underagegamblingpopup.FairenterUnderageGamblingPopup;
+import membersite.pages.popup.MyMarketPopup;
 
-public class FairenterHeader extends Header {
-    private String _xpath ;
+public class FairenterHeader extends Header1 {
+    private String _xpath;
     private Image imgLogo = Image.xpath("//span[@class='sprite-logos']");
     private Label imgSpinner = Label.xpath("//div[@class=lds-spinner']");
     private Label lblTimezone = Label.xpath("//div[contains(@class,'time-contain') or contains(@class,'timer-contain')]");
     private Button btnLogin = Button.xpath("//input[contains(@class,'btn-login')]");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
-    private DropDownMenu ddmAccount =DropDownMenu.xpath("//div[@id='my-account-dropdown']","","//ul[contains(@class,'dropdown-menu')]//li");
+    private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[@id='my-account-dropdown']", "", "//ul[contains(@class,'dropdown-menu')]//li");
     private Link lnkMyMarkets = Link.xpath("//span[@class='link mymarkets']");
+
     public FairenterLoginPopup clickConfirm() {
-       clickLogin().clickConfirmation();
+        clickLogin().clickConfirmation();
         return new FairenterLoginPopup();
     }
+
     public FairenterUnderageGamblingPopup clickLogin() {
         // there is no Login button, Gamnling is display in landing page
         return new FairenterUnderageGamblingPopup();
 
     }
+
     @Override
-    public void login(String username, String password, boolean skipByDefault){
+    public void login(String username, String password, boolean skipByDefault) {
         FairenterLoginPopup fairenterLoginPopup = clickConfirm();
-        fairenterLoginPopup.login(username,password,skipByDefault);
+        fairenterLoginPopup.login(username, password, skipByDefault);
     }
-    public String loginInvalid(String username, String password){
+
+    public String loginInvalid(String username, String password) {
         FairenterLoginPopup fairenterLoginPopup = clickConfirm();
-        fairenterLoginPopup.login(username,password,false);
+        fairenterLoginPopup.login(username, password, false);
         return fairenterLoginPopup.lblErrorMessage.getText();
     }
+
     @Override
-    public boolean isMyAccountDisplay(){
+    public boolean isMyAccountDisplay() {
         return ddmAccount.isDisplayed();
     }
 
-    public boolean isMyAccountContains(String menu){
+    public boolean isMyAccountContains(String menu) {
         return ddmAccount.isContainSubmenu(menu);
     }
 
-    public membersite.pages.AccountStatementPage openAccountStatement(String type){
+    public membersite.pages.AccountStatementPage openAccountStatement(String type) {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"));
         DriverManager.getDriver().switchToWindow();
         membersite.pages.AccountStatementPage page = new AccountStatementPage(type);
         page.accountStatementContainer.waitLoadReport();
         return page;
     }
-    public membersite.pages.MyBetsPage openMyBets(String type){
+
+    public membersite.pages.MyBetsPage openMyBets(String type) {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Bets"));
         DriverManager.getDriver().switchToWindow();
         membersite.pages.MyBetsPage page = new MyBetsPage(type);
@@ -63,15 +69,20 @@ public class FairenterHeader extends Header {
         return page;
     }
 
-    public FunsportChangePasswordPopup openChangePasswordPopup(){
+    public FunsportChangePasswordPopup openChangePasswordPopup() {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
         return new FunsportChangePasswordPopup();
     }
-    public void openExchangeGame(){
+
+    public void openExchangeGame() {
         tabExchangeGames.click();
     }
-    public void clickLogo(){imgLogo.click();}
-    public MyMarketPopup openMyMarketPopup(){
+
+    public void clickLogo() {
+        imgLogo.click();
+    }
+
+    public MyMarketPopup openMyMarketPopup() {
         lnkMyMarkets.click();
         return new MyMarketPopup();
     }

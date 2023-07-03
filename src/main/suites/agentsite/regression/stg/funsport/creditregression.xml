@@ -14,8 +14,8 @@
         <parameter name='username' value='FS0'/>
         <parameter name='levelLogin' value='Company'/>
         <parameter name='downlineAccount' value='30H00'/>
-        <parameter name ='portalSubAccount' value ='FSSUBIS'/>
-        <parameter name ='memberAccount' value ='30H0000000'/>
+        <parameter name='portalSubAccount' value='FSSUBIS'/>
+        <parameter name='memberAccount' value='30H0000000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
@@ -23,15 +23,13 @@
         <parameter name='level' value='SMA'/>
         <groups>
             <run>
-                <include name="credit_regression" />
+                <include name="credit_regression"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.home.HeaderTest"/>
-            <class name="agentsite.testcase.satsport.home.SATHeaderTest"/>
-            <class name="agentsite.testcase.oldUI.home.OldUILeftMenuTest"/>
-            <class name="agentsite.testcase.all.home.LeftMenuTest"/>
+            <class name="agentsite.testcase.HeaderTest"/>
+            <class name="agentsite.testcase.LeftMenuTest"/>
         </classes>
 
     </test>

@@ -9,5 +9,7 @@ public class BetSettingSection {
         iconLoadSpinner.waitForControlInvisible(2, 2);
     }
 
-    public String getBetSettingSectionTitle() {return ""; }
+    public String getBetSettingSectionTitle() {
+        return "";
+    }
 }

@@ -18,6 +18,25 @@ public class Order {
     private String errorMessage;
     private String orderStatus;// API Status: EXCUTABLE
 
+    public Order(Builder builder) {
+        this.eventId = builder.eventId;
+        this.marketId = builder.marketId;
+        this.selectionId = builder.selectionId;
+        this.side = builder.side;
+        this.orderType = builder.orderType;
+        this.handicap = builder.handicap;
+        this.size = builder.size;
+        this.price = builder.price;
+        this.persistenceType = builder.persistenceType;
+        this.sizeMatched = builder.sizeMatched;
+        this.priceMatched = builder.priceMatched;
+        this.betId = builder.betId;
+        this.placedDate = builder.placedDate;
+        this.matchedDate = builder.matchedDate;
+        this.errorMessage = builder.errorMessage;
+        this.orderStatus = builder.orderStatus;
+    }
+
     public String getPlacedDate() {
         return placedDate;
     }
@@ -164,90 +183,92 @@ public class Order {
         private String errorMessage;
         private String orderStatus;// API Status: EXCUTABLE
 
-        public Builder(){}
-        public Builder eventId(int val){
+        public Builder() {
+        }
+
+        public Builder eventId(int val) {
             eventId = val;
             return this;
         }
-        public Builder selectionId(int val){
+
+        public Builder selectionId(int val) {
             selectionId = val;
             return this;
         }
-        public Builder marketId (String val){
+
+        public Builder marketId(String val) {
             marketId = val;
             return this;
         }
-        public Builder side(String val){
+
+        public Builder side(String val) {
             side = val;
             return this;
         }
-        public Builder handicap(Double val){
+
+        public Builder handicap(Double val) {
             handicap = val;
             return this;
         }
-        public Builder price(double val){
+
+        public Builder price(double val) {
             price = val;
             return this;
         }
-        public Builder size(double val){
+
+        public Builder size(double val) {
             size = val;
             return this;
         }
-        public Builder sizeMatched(double val){
+
+        public Builder sizeMatched(double val) {
             sizeMatched = val;
             return this;
         }
-        public Builder priceMatched(double val){
+
+        public Builder priceMatched(double val) {
             priceMatched = val;
             return this;
         }
-        public Builder persistenceType(String val){
+
+        public Builder persistenceType(String val) {
             persistenceType = val;
             return this;
         }
-        public Builder betId(int val){
+
+        public Builder betId(int val) {
             betId = val;
             return this;
         }
-        public Builder placedDate(String val){
+
+        public Builder placedDate(String val) {
             placedDate = val;
             return this;
         }
-        public Builder matchedDate(String val){
+
+        public Builder matchedDate(String val) {
             matchedDate = val;
             return this;
         }
-        public Builder errorMessage(String val){
+
+        public Builder errorMessage(String val) {
             errorMessage = val;
             return this;
         }
-        public Builder orderStatus(String val){
+
+        public Builder orderStatus(String val) {
             orderStatus = val;
             return this;
         }
-        public Builder orderType(String val){
+
+        public Builder orderType(String val) {
             orderType = val;
             return this;
         }
-        public Order build() { return new Order(this); }
-    }
-    public Order(Builder builder){
-        this.eventId =builder.eventId;
-        this.marketId =builder.marketId;
-        this.selectionId = builder.selectionId;
-        this.side = builder.side;
-        this.orderType= builder.orderType;
-        this.handicap = builder.handicap;
-        this.size = builder.size;
-        this.price = builder.price;
-        this.persistenceType = builder.persistenceType;
-        this.sizeMatched = builder.sizeMatched;
-        this.priceMatched =builder.priceMatched;
-        this.betId = builder.betId;
-        this.placedDate = builder.placedDate;
-        this.matchedDate = builder.matchedDate;
-        this.errorMessage = builder.errorMessage;
-        this.orderStatus = builder.orderStatus;
+
+        public Order build() {
+            return new Order(this);
+        }
     }
 
 }

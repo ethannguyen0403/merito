@@ -6,6 +6,7 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 
 public class EditCreditSettingPopup extends ConfirmPopup {
+    Button btnSubmit = Button.id("submitBtn");
     private Label lblCreditGiven = Label.xpath("//app-edit-credit-dialog//table//tr[1]//td[1]");
     private Label lblMaxCredit = Label.xpath("//app-edit-credit-dialog//table//tr[2]//td[1]");
     private Label lblMemberMaxCredit = Label.xpath("//app-edit-credit-dialog//table//tr[3]//td[1]");
@@ -14,17 +15,16 @@ public class EditCreditSettingPopup extends ConfirmPopup {
     private TextBox txtMemberMaxCredit = TextBox.xpath("//app-edit-credit-dialog//table//tr[3]//td[2]//input");
     private Label lblCreditGivenLimit = Label.xpath("//app-edit-credit-dialog//table//tr[1]//td[3]");
     private Label lblMaxCreditLimit = Label.xpath("//app-edit-credit-dialog//table//tr[2]//td[3]");
-    private Label lblMemberMaxCreditLimit= Label.xpath("//app-edit-credit-dialog//table//tr[3]//td[3]");
-    Button btnSubmit = Button.id("submitBtn");
+    private Label lblMemberMaxCreditLimit = Label.xpath("//app-edit-credit-dialog//table//tr[3]//td[3]");
 
-    public void editCreditSetting(String creditGiven, String maxCredit, String memberMaxCredit){
-        if(!creditGiven.isEmpty()){
+    public void editCreditSetting(String creditGiven, String maxCredit, String memberMaxCredit) {
+        if (!creditGiven.isEmpty()) {
             txtCreditGiven.type(creditGiven);
         }
-        if(!maxCredit.isEmpty()){
+        if (!maxCredit.isEmpty()) {
             txtMaxCredit.sendKeys(maxCredit);
         }
-        if(! memberMaxCredit.isEmpty()){
+        if (!memberMaxCredit.isEmpty()) {
             txtMemberMaxCredit.sendKeys(memberMaxCredit);
         }
         btnSubmit.click();

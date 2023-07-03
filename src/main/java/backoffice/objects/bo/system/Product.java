@@ -10,6 +10,13 @@ public class Product {
     private String _status;
     private int _productId;
 
+    private Product(Builder builder) {
+        this._productName = builder._productName;
+        this._productCode = builder._productCode;
+        this._status = builder._status;
+        this._productId = builder._productId;
+    }
+
     public String getProductName() {
         return _productName;
     }
@@ -33,36 +40,32 @@ public class Product {
         private String _status = "";
         private int _productId = 0;
 
-        public Builder(){}
+        public Builder() {
+        }
 
-        public Builder productName(String val){
+        public Builder productName(String val) {
             _productName = val;
             return this;
         }
 
-        public Builder productCode(String val){
+        public Builder productCode(String val) {
             _productCode = val;
             return this;
         }
 
-        public Builder status(String val){
+        public Builder status(String val) {
             _status = val;
             return this;
         }
 
-        public Builder productId(int val){
+        public Builder productId(int val) {
             _productId = val;
             return this;
         }
 
-        public Product build() { return new Product(this); }
+        public Product build() {
+            return new Product(this);
+        }
 
-    }
-
-    private Product(Builder builder){
-        this._productName = builder._productName;
-        this._productCode = builder._productCode;
-        this._status = builder._status;
-        this._productId = builder._productId;
     }
 }

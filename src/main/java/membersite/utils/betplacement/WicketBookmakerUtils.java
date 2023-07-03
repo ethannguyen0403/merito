@@ -1,20 +1,5 @@
 package membersite.utils.betplacement;
 
-import com.paltech.constant.Configs;
-import com.paltech.driver.DriverManager;
-import com.paltech.utils.WSUtils;
-import membersite.objects.sat.*;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import static baseTest.BaseCaseTest.*;
-import static membersite.utils.betplacement.BetUtils.getAllEventOfSport;
-
-
 public class WicketBookmakerUtils {
 
   /*  private static JSONArray getFancyJSONByProvider(String eventID, String provider){
@@ -190,7 +175,7 @@ public class WicketBookmakerUtils {
         }
         return null;
     }*//*
-    *//**
+     *//**
      * This action get all fancy market from api with the corresponding event
      * @param eventID
      * @return

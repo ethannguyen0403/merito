@@ -15,62 +15,68 @@ import java.util.List;
  * created on Nov/21/2019
  */
 public class MarketContainerControl {
-	public Label lblSuspend = Label.xpath("//div[contains(@class,'highlight-page market')]//span[contains(@class,'suspended-label')]");
-	public enum Team {HOME, DRAW, AWAY}
-	public enum Status {NA, IN_PLAY, COMING}
-	public String getEventName(){
-		return "";
-	}
+    public Label lblSuspend = Label.xpath("//div[contains(@class,'highlight-page market')]//span[contains(@class,'suspended-label')]");
 
-	public boolean isViewColumnEnable(){
-		return false;
-	}
+    public String getEventName() {
+        return "";
+    }
 
-	public boolean isLineViewEnable(){
-		return false;
-	}
+    public boolean isViewColumnEnable() {
+        return false;
+    }
 
-	public Odd getMatchOdds(Team team, boolean isBack) {
-			return null;
-	}
+    public boolean isLineViewEnable() {
+        return false;
+    }
 
-	public Odd getSelectionOdds(int selectionIndex, boolean isBack) {
-		return null;
-	}
+    public Odd getMatchOdds(Team team, boolean isBack) {
+        return null;
+    }
 
-	public List<ArrayList<String>>  getUIForeCast(){
-		return null;
-	}
+    public Odd getSelectionOdds(int selectionIndex, boolean isBack) {
+        return null;
+    }
 
-	public List<String> getMarketInfo(){return null;
-	}
-	public List<String> getListSelection(){return null;
-	}
+    public List<ArrayList<String>> getUIForeCast() {
+        return null;
+    }
 
-	private Odd getOdd (Link lnkSelectedOdd, String oddRate,String marketName, boolean isInPlay, String selectedTeam, int eventIndex) {
-		return null;
-	}
+    public List<String> getMarketInfo() {
+        return null;
+    }
 
-	private Odd getOdd (Link lnkSelectedOdd, String oddRate,String homeTeam, String awayTeam, boolean isInPlay, String selectedTeam, int eventIndex) {
-		return null;
-	}
+    public List<String> getListSelection() {
+        return null;
+    }
 
-	public String getTitle()
-	{
-		return "";
-	}
+    private Odd getOdd(Link lnkSelectedOdd, String oddRate, String marketName, boolean isInPlay, String selectedTeam, int eventIndex) {
+        return null;
+    }
 
-	public Market getMarket(Event event, int selectionIndex, boolean isBack)
-	{
-		return null;
-	}
-	public int getSelectionHaveMinOdds(boolean isBack)
-	{
-		return 0;
-	}
+    private Odd getOdd(Link lnkSelectedOdd, String oddRate, String homeTeam, String awayTeam, boolean isInPlay, String selectedTeam, int eventIndex) {
+        return null;
+    }
 
-	public void activeProduct(String products){}
-	public FancyMarket getFancyMarketInfo(FancyMarket fcMarket){
-		return null;
-	}
+    public String getTitle() {
+        return "";
+    }
+
+    public Market getMarket(Event event, int selectionIndex, boolean isBack) {
+        return null;
+    }
+
+    public int getSelectionHaveMinOdds(boolean isBack) {
+        return 0;
+    }
+
+    public void activeProduct(String products) {
+    }
+
+    public FancyMarket getFancyMarketInfo(FancyMarket fcMarket) {
+        return null;
+    }
+
+    public enum Team {HOME, DRAW, AWAY}
+
+    public enum Status {NA, IN_PLAY, COMING}
 }

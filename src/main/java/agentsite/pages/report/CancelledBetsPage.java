@@ -3,10 +3,7 @@ package agentsite.pages.report;
 import agentsite.controls.DateTimePicker;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
-
 import com.paltech.element.common.*;
-
-import java.util.HashMap;
 
 public class CancelledBetsPage extends HomePage {
     public Label lblNoRecord = Label.xpath("//td[contains(@class,'no-record')]");
@@ -15,14 +12,13 @@ public class CancelledBetsPage extends HomePage {
     public DateTimePicker dpFrom = DateTimePicker.xpath(txtSearchFrom, "//bs-days-calendar-view");
     public DateTimePicker dpTo = DateTimePicker.xpath(txtSearchTo, "//bs-days-calendar-view");
     public Button btnToday = Button.id("btn-today");
-    public Button btnYesterday =  Button.id("btn-yesterday");
+    public Button btnYesterday = Button.id("btn-yesterday");
     public Button btnLastWeek = Button.id("btn-submit");
     public Button btnSubmit = Button.xpath("//button[text()='Submit']");
-    public DropDownBox ddbStatus=  DropDownBox.id("select-status");
+    public DropDownBox ddbStatus = DropDownBox.id("select-status");
     public TextBox txtUserName = TextBox.id("username");
-    public DropDownBox ddbProduct=  DropDownBox.id("select-product");
+    public DropDownBox ddbProduct = DropDownBox.id("select-product");
     public Label lblInfo = Label.xpath("//span[@class='info-statement-report-guide']");
-    private Icon iconLoadSpinner = Icon.xpath("//d  iv[contains(@class,'la-ball-clip-rotate')]");
     public int tblReportTotalCol = 10;
     public int colNo = 1;
     public int colUsername = 2;
@@ -34,14 +30,17 @@ public class CancelledBetsPage extends HomePage {
     public int colStake = 8;
     public int colStatus = 9;
     public int colRemark = 10;
-    public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]",tblReportTotalCol);
-    public CancelledBetsPage(String types){
+    public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]", tblReportTotalCol);
+    private Icon iconLoadSpinner = Icon.xpath("//d  iv[contains(@class,'la-ball-clip-rotate')]");
+
+    public CancelledBetsPage(String types) {
         super(types);
     }
-    public void filter(String status, String username,String productName) {
-        if(!status.isEmpty())
+
+    public void filter(String status, String username, String productName) {
+        if (!status.isEmpty())
             ddbStatus.selectByVisibleText(status);
-        if(!username.isEmpty())
+        if (!username.isEmpty())
             txtUserName.sendKeys(username);
         if (!productName.isEmpty()) {
             ddbProduct.selectByVisibleText(productName);
@@ -49,8 +48,9 @@ public class CancelledBetsPage extends HomePage {
         btnSubmit.click();
         waitingLoadingSpinner();
     }
-    public void  waitingLoadingSpinner(){
-        iconLoadSpinner.waitForControlInvisible(1,1);
+
+    public void waitingLoadingSpinner() {
+        iconLoadSpinner.waitForControlInvisible(1, 1);
     }
 
 

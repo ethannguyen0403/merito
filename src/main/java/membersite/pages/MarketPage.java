@@ -10,8 +10,8 @@ import membersite.objects.Wager;
 import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.FancyMarket;
 import membersite.objects.sat.Market;
-import membersite.pages.components.marketcontainer.MarketContainerControl;
 import membersite.pages.components.ComponentsFactory;
+import membersite.pages.components.marketcontainer.MarketContainerControl;
 import membersite.pages.components.racingmarketcontainer.RacingMarketContainer;
 
 import java.util.ArrayList;
@@ -19,14 +19,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class MarketPage extends HomePage{
-    public MarketContainerControl marketOddControl ;
+public class MarketPage extends HomePage {
+    public MarketContainerControl marketOddControl;
     public RacingMarketContainer racingMarketContainer;
-    public OneClickBettingControl oneClickBettingControl ;
+    public OneClickBettingControl oneClickBettingControl;
     public FancyContainerControl wcFancyContainerControl;
-    public FancyContainerControl centralFancyContainerControl ;
-    public FancyContainerControl fancyContainerControl ;
+    public FancyContainerControl centralFancyContainerControl;
+    public FancyContainerControl fancyContainerControl;
     public FancyContainerControlOldUI odlUIFancyContainerControl;
+
     public MarketPage(String types) {
         super(types);
         marketOddControl = ComponentsFactory.marketOddControlObject(types);
@@ -37,56 +38,56 @@ public class MarketPage extends HomePage{
         centralFancyContainerControl = FancyContainerControl.xpath("//span[text()='Central Fancy']//ancestor::div[contains(@class,'fancy-container')]");
         fancyContainerControl = FancyContainerControl.xpath("//span[text()='Fancy']//ancestor::div[contains(@class,'fancy-container')]");
     }
-    public void activeProduct(String products){
+
+    public void activeProduct(String products) {
         marketOddControl.activeProduct(products);
     }
 
-    public Market getBookmakerMarketInfo(BookmakerMarket bookmakerMarket, boolean isBack){
+    public Market getBookmakerMarketInfo(BookmakerMarket bookmakerMarket, boolean isBack) {
         WicketBookmakerContainerControl wcBookmakerContainerControl;
-        switch (bookmakerMarket.getMaketType()){
+        switch (bookmakerMarket.getMaketType()) {
             case "WICKET_BOOKMAKER":
                 wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//span[text()='Wicket Bookmaker']//ancestor::div[contains(@class,'fancy-container')]//wicket-bookmarker-odds//div[contains(@class,'table-odds')]");
-                return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket,isBack);
-            default :
+                return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket, isBack);
+            default:
                 wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//span[text()='Manual Odds']//ancestor::div[contains(@class,'fancy-container')]//central-bookmarker-odds//div[contains(@class,'table-odds')]");
-                return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket,isBack);
+                return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket, isBack);
         }
     }
 
-    public List<ArrayList> getBookmakerMiniMyBet(){
+    public List<ArrayList> getBookmakerMiniMyBet() {
         return myBetsContainer.getBookmakerMatchBets();
     }
 
-    public FancyMarket getFancyMarketInfo(FancyMarket fcMarket){
-       return marketOddControl.getFancyMarketInfo(fcMarket);
+    public FancyMarket getFancyMarketInfo(FancyMarket fcMarket) {
+        return marketOddControl.getFancyMarketInfo(fcMarket);
     }
 
-    public void addFancyOdds(FancyMarket fcMarket, boolean isBack){
-        switch (fcMarket.getMaketType()){
+    public void addFancyOdds(FancyMarket fcMarket, boolean isBack) {
+        switch (fcMarket.getMaketType()) {
             case "WICKET_FANCY":
-                wcFancyContainerControl.clickFancyOdds(fcMarket,isBack);
+                wcFancyContainerControl.clickFancyOdds(fcMarket, isBack);
                 return;
             case "CENTRAL_FANCY":
-                centralFancyContainerControl.clickFancyOdds(fcMarket,isBack);
+                centralFancyContainerControl.clickFancyOdds(fcMarket, isBack);
                 return;
             default:
-                fancyContainerControl.clickFancyOdds(fcMarket,isBack);
+                fancyContainerControl.clickFancyOdds(fcMarket, isBack);
                 return;
         }
 
     }
 
-    public void placeFancy(FancyMarket fancyMarket, boolean isBack, String stake){
-        addFancyOdds(fancyMarket,isBack);
+    public void placeFancy(FancyMarket fancyMarket, boolean isBack, String stake) {
+        addFancyOdds(fancyMarket, isBack);
         betsSlipContainer.placeBet(stake);
     }
 
-    public Wager defineFamcyWager(FancyMarket fcMarket,boolean isBack,double stake)
-    {
-        String betType = isBack?"BACK":"LAY";
-        double odds = isBack ? fcMarket.getOddsYes(): fcMarket.getOddsNo();
-        int payout = isBack? fcMarket.getRateYes(): fcMarket.getRateNo();
-        String runnerName = isBack?"Yes [L]" : "No [K]";
+    public Wager defineFamcyWager(FancyMarket fcMarket, boolean isBack, double stake) {
+        String betType = isBack ? "BACK" : "LAY";
+        double odds = isBack ? fcMarket.getOddsYes() : fcMarket.getOddsNo();
+        int payout = isBack ? fcMarket.getRateYes() : fcMarket.getRateNo();
+        String runnerName = isBack ? "Yes [L]" : "No [K]";
         return new Wager.Builder()
                 .betType(betType)
                 .marketName(fcMarket.getMarketName())
@@ -97,11 +98,10 @@ public class MarketPage extends HomePage{
                 .build();
     }
 
-    public Wager defineWager(Market market,boolean isBack,double stake, double handicap)
-    {
-        String betType = isBack?"BACK":"LAY";
-        double odds =  Double.parseDouble(market.getOdds());
-        String runnerName =market.getSelectionName().trim();
+    public Wager defineWager(Market market, boolean isBack, double stake, double handicap) {
+        String betType = isBack ? "BACK" : "LAY";
+        double odds = Double.parseDouble(market.getOdds());
+        String runnerName = market.getSelectionName().trim();
         return new Wager.Builder()
                 .betType(betType)
                 .marketName(market.getMarketName())
@@ -113,59 +113,58 @@ public class MarketPage extends HomePage{
                 .build();
     }
 
-    public double liabilityExchangeMarket(List<Wager> normalMarket){
-        if(Objects.isNull(normalMarket))
+    public double liabilityExchangeMarket(List<Wager> normalMarket) {
+        if (Objects.isNull(normalMarket))
             return 0;
         List<Integer> oddsRange = oddRange(normalMarket);
         List<Double> lstForecastAWager = getForeCastOnWager(normalMarket.get(0), oddsRange);
-        if(normalMarket.size()>1){
-            for(int i = 1; i< normalMarket.size();i++){
-                lstForecastAWager = sumData(lstForecastAWager , getForeCastOnWager(normalMarket.get(i), oddsRange));
+        if (normalMarket.size() > 1) {
+            for (int i = 1; i < normalMarket.size(); i++) {
+                lstForecastAWager = sumData(lstForecastAWager, getForeCastOnWager(normalMarket.get(i), oddsRange));
             }
         }
-        return Collections.max(lstForecastAWager) ;
+        return Collections.max(lstForecastAWager);
     }
 
-    public double liabilityFCMarket(List<Wager> fcWagerList){
-        if(Objects.isNull(fcWagerList))
+    public double liabilityFCMarket(List<Wager> fcWagerList) {
+        if (Objects.isNull(fcWagerList))
             return 0;
         List<Integer> oddsRange = oddRange(fcWagerList);
         List<Double> lstForecastAWager = getForeCastOnWager(fcWagerList.get(0), oddsRange);
         List<Double> lstLiability = new ArrayList<>();
-        if(fcWagerList.size()>1){
-            for(int i = 1; i< fcWagerList.size();i++){
-                lstLiability = sumData(lstForecastAWager , getForeCastOnWager(fcWagerList.get(i), oddsRange));
+        if (fcWagerList.size() > 1) {
+            for (int i = 1; i < fcWagerList.size(); i++) {
+                lstLiability = sumData(lstForecastAWager, getForeCastOnWager(fcWagerList.get(i), oddsRange));
             }
         }
         /* return Collections.max(lstLiability);*/
         double liability = Collections.max(lstLiability);
-        if(Collections.max(lstForecastAWager)!=0)
-            return liability *(-1);
+        if (Collections.max(lstForecastAWager) != 0)
+            return liability * (-1);
         return liability;
     }
 
-    private List<Double> sumData(List<Double> lst1, List<Double> lst2){
+    private List<Double> sumData(List<Double> lst1, List<Double> lst2) {
         List<Double> lstResult = new ArrayList<>();
-        for(int i = 0; i < lst1.size(); i++){
+        for (int i = 0; i < lst1.size(); i++) {
             lstResult.add(lst1.get(i) + lst2.get(i));
         }
         return lstResult;
     }
 
-    private List<Double> getForeCastOnWager(Wager wg, List<Integer> range){
+    private List<Double> getForeCastOnWager(Wager wg, List<Integer> range) {
         List<Double> lstLiabilityFCForecast = new ArrayList<>();
         wg.getOdds();
         wg.getPayout();
         wg.getStake();
         //TODO: Incase payout is not 100 -> forecast is incorrect -> handle script in this case
-        for (int odds: range){
-            if(wg.getBetType().equalsIgnoreCase("BACK")) {
+        for (int odds : range) {
+            if (wg.getBetType().equalsIgnoreCase("BACK")) {
                 if (odds >= wg.getOdds())
                     lstLiabilityFCForecast.add(wg.getProfit());
                 else
-                    lstLiabilityFCForecast.add(wg.getLiability() );
-            }
-            else {
+                    lstLiabilityFCForecast.add(wg.getLiability());
+            } else {
                 if (odds >= wg.getOdds())
                     lstLiabilityFCForecast.add(wg.getLiability());
                 else
@@ -174,43 +173,44 @@ public class MarketPage extends HomePage{
         }
         return lstLiabilityFCForecast;
     }
-    private List<Integer> oddRange(List<Wager> fcWagerList){
+
+    private List<Integer> oddRange(List<Wager> fcWagerList) {
         List<Integer> oddsRangeLst = new ArrayList<>();
         int maxIndex = fcWagerList.size();
         oddsRangeLst.add(0);
-        for(Wager wg : fcWagerList){
-            oddsRangeLst.add((int)wg.getOdds());
+        for (Wager wg : fcWagerList) {
+            oddsRangeLst.add((int) wg.getOdds());
         }
-        oddsRangeLst.add(fcWagerList.size()-1,9999);
+        oddsRangeLst.add(fcWagerList.size() - 1, 9999);
 
         Collections.sort(oddsRangeLst);
-        int min = oddsRangeLst.get(0) -1;
-        int max = oddsRangeLst.get(maxIndex)+1;
+        int min = oddsRangeLst.get(0) - 1;
+        int max = oddsRangeLst.get(maxIndex) + 1;
         oddsRangeLst.set(0, min);
         oddsRangeLst.set(maxIndex, max);
         return oddsRangeLst;
     }
-    public List<ArrayList> getFancyMiniMyBet(){
+
+    public List<ArrayList> getFancyMiniMyBet() {
         return myBetsContainer.getMatchedFancyInMiniMyBet();
     }
 
-    public boolean verifyOddsIsClickAbleAsBetableStaus(Market market, boolean isBetable){
+    public boolean verifyOddsIsClickAbleAsBetableStaus(Market market, boolean isBetable) {
         market.getBtnOdd().click();
         Label btnOdds = market.getBtnOdd();
-        if(isBetable){
-            if(btnOdds.isEnabled())
+        if (isBetable) {
+            if (btnOdds.isEnabled())
                 return true;
             return false;
-        }
-        else {
-            if(!btnOdds.isEnabled())
+        } else {
+            if (!btnOdds.isEnabled())
                 return true;
             return false;
         }
     }
 
-    public String getMinMaxLable(FancyMarket fcMarket){
-        switch (fcMarket.getMaketType()){
+    public String getMinMaxLable(FancyMarket fcMarket) {
+        switch (fcMarket.getMaketType()) {
             case "WICKET_FANCY":
                 return wcFancyContainerControl.getMinMaxOFFancyMarket(fcMarket);
             case "CENTRAL_FANCY":
@@ -219,12 +219,13 @@ public class MarketPage extends HomePage{
                 return fancyContainerControl.getMinMaxOFFancyMarket(fcMarket);
         }
     }
-    public String getMinMaxOFFancyMarket(String minMax,boolean isMinStake){
+
+    public String getMinMaxOFFancyMarket(String minMax, boolean isMinStake) {
         //  String[] minMax = wcFancyContainerControl.getMinMaxOFFancyMarket(fcMarket);
-        String[] minMaxArr =  minMax.split("/");
-        if(isMinStake)
-            return minMaxArr[0].trim().replaceAll(",","");
-        return minMaxArr[1].trim().replaceAll(",","");
+        String[] minMaxArr = minMax.split("/");
+        if (isMinStake)
+            return minMaxArr[0].trim().replaceAll(",", "");
+        return minMaxArr[1].trim().replaceAll(",", "");
 
     }
 

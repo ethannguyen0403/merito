@@ -6,18 +6,10 @@ import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
-import membersite.pages.components.ComponentsFactory;
-import membersite.pages.components.footer.Footer;
-import membersite.pages.components.header.Header;
-import membersite.pages.components.leftmneu.LeftMenu;
 
 import java.util.List;
 
 public class LoginPage extends BasePage {
-    protected String _type;
-    public LoginPage(String types){
-        _type = types;
-    }
     public Icon iconLogo = Icon.xpath("//span[@class='applogo']");
     public Label lblLogin = Label.xpath("//app-login//div[contains(@class,'login-title')]");
     public TextBox txtUsername = TextBox.xpath("//app-login//input[@name='username']");
@@ -25,6 +17,10 @@ public class LoginPage extends BasePage {
     public Button btnLogIn = Button.xpath("//app-login//button[contains(@class,'btn-login')]");
     public TextBox txtCaptcha = TextBox.id("//app-login//input[contains(@class,'captcha')]");
     public Table tblFormLogin = Table.xpath("//app-login//table", 2);
+    protected String _type;
+    public LoginPage(String types) {
+        _type = types;
+    }
 
     public void fillLoginForm(String userName, String password, String captcha, boolean isSubmit) {
         if (!userName.isEmpty())

@@ -1,14 +1,25 @@
 package api.objects.meritoAPI;
 
 
-public class Selection{
+public class Selection {
     private int _id;
-    private String _name;   
+    private String _name;
     private double _handicap;
-    private int _sortPriority;  
+    private int _sortPriority;
     private String _status;
     private Double _availableBack;
     private Double _availableLay;
+
+    public Selection(Builder builder) {
+        this._id = builder._id;
+        this._name = builder._name;
+        this._handicap = builder._handicap;
+        this._sortPriority = builder._sortPriority;
+        this._status = builder._status;
+        this._availableBack = builder._availableBack;
+        this._availableLay = builder._availableLay;
+
+    }
 
     public Double get_availableBack() {
         return _availableBack;
@@ -25,7 +36,6 @@ public class Selection{
     public void set_availableLay(Double _availableLay) {
         this._availableLay = _availableLay;
     }
-
 
     public int getid() {
         return _id;
@@ -66,6 +76,7 @@ public class Selection{
     public void setstatus(String _status) {
         this._status = _status;
     }
+
     public static class Builder {
         private int _id;
         private String _name;
@@ -75,50 +86,47 @@ public class Selection{
         private Double _availableBack;
         private Double _availableLay;
 
-        public Builder(){}
+        public Builder() {
+        }
 
-        public Builder id(int val){
-            _id =val;
-            return this;
-        }
-        public Builder name(String val){
-            _name =val;
-            return this;
-        }
-        public Builder handicap(double val){
-            _handicap =val;
-            return this;
-        }
-        public Builder sortPriority(int val){
-            _sortPriority =val;
+        public Builder id(int val) {
+            _id = val;
             return this;
         }
 
-        public Builder status(String val){
-            _status =val;
-            return this;
-        }
-        public Builder availableLay(Double val){
-            _availableLay =val;
-            return this;
-        }
-        public Builder availableBack(Double val){
-            _availableBack =val;
+        public Builder name(String val) {
+            _name = val;
             return this;
         }
 
-        public Selection build() { return new Selection(this); }
+        public Builder handicap(double val) {
+            _handicap = val;
+            return this;
+        }
+
+        public Builder sortPriority(int val) {
+            _sortPriority = val;
+            return this;
+        }
+
+        public Builder status(String val) {
+            _status = val;
+            return this;
+        }
+
+        public Builder availableLay(Double val) {
+            _availableLay = val;
+            return this;
+        }
+
+        public Builder availableBack(Double val) {
+            _availableBack = val;
+            return this;
+        }
+
+        public Selection build() {
+            return new Selection(this);
+        }
     }
 
-    public Selection(Builder builder){
-        this._id = builder._id;
-        this._name = builder._name;
-        this._handicap = builder._handicap;
-        this._sortPriority = builder._sortPriority;
-        this._status = builder._status;
-        this._availableBack = builder._availableBack;
-        this._availableLay = builder._availableLay;
-
-    }
-    
 }

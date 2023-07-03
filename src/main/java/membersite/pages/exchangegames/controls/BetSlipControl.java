@@ -17,8 +17,8 @@ public class BetSlipControl extends BaseElement {
     public Label lblClickOnOdds;
     public Label lblErrorMessage;
     private String xPathDynamicOdds = "%s//div[contains(@class,'%s ng-star-inserted')]//span[contains(@class,'oddsladder')]//input";
-    private String xPathDynamicStake ="%s//div[contains(@class,'%s ng-star-inserted')]//span[3]//input";
-    private String xPathDynamicProfitOrLiability ="%s//div[contains(@class,'%s ng-star-inserted')]//span[contains(@class,'bet-slip-profit')]";
+    private String xPathDynamicStake = "%s//div[contains(@class,'%s ng-star-inserted')]//span[3]//input";
+    private String xPathDynamicProfitOrLiability = "%s//div[contains(@class,'%s ng-star-inserted')]//span[contains(@class,'bet-slip-profit')]";
     private CheckBox chkConfirm;
     private Table tblStake;
     private Table tblSelectedOdds;
@@ -31,7 +31,7 @@ public class BetSlipControl extends BaseElement {
     private BetSlipControl(By locator, String xpath) {
         super(locator);
         _xpath = xpath;
-        lblErrorMessage = Label.xpath(String.format("%s//div[contains(@class,'bet-info error')]//span",_xpath));
+        lblErrorMessage = Label.xpath(String.format("%s//div[contains(@class,'bet-info error')]//span", _xpath));
         btnPlaceBet = Button.xpath(String.format("%s//button[@class='btn button-primary btn-sm' and text()='Place bets']", _xpath));
         btnConfirm = Button.xpath(String.format("%s//div[contains(@class,'betslip-bottom')]/div/span[3]/button[@class='btn button-primary btn-sm']", _xpath));
         btnCancelAllSelections = Button.xpath(String.format("%s//button[@class='btn btn-sm btn-default btn-cancel']", _xpath));
@@ -42,7 +42,7 @@ public class BetSlipControl extends BaseElement {
         lblTotalLiability = Label.xpath(String.format("%s//div[@class='footer']//span[@class='total-liability']", _xpath));
         lblPleaseWaitWhilst = Label.xpath(String.format("%s//div[@id='betslip']//p[@class='pleasewait']", _xpath));
         lblMiddleContent = Label.id("middle-content");
-        lblNodata = Label.xpath(String.format("%s//div[@id='place-bets']/p",_xpath));
+        lblNodata = Label.xpath(String.format("%s//div[@id='place-bets']/p", _xpath));
 
     }
 
@@ -50,16 +50,15 @@ public class BetSlipControl extends BaseElement {
         return new BetSlipControl(By.xpath(xpathExpression), xpathExpression);
     }
 
-    public void inputdata(boolean isBack,String odds, String stake){
-        String type = isBack?"back":"lay";
-        TextBox txtStake = TextBox.xpath(String.format(xPathDynamicStake, _xpath,type));
-        TextBox txtOdds = TextBox.xpath(String.format(xPathDynamicOdds, _xpath,type));
-        if(!odds.isEmpty())
+    public void inputdata(boolean isBack, String odds, String stake) {
+        String type = isBack ? "back" : "lay";
+        TextBox txtStake = TextBox.xpath(String.format(xPathDynamicStake, _xpath, type));
+        TextBox txtOdds = TextBox.xpath(String.format(xPathDynamicOdds, _xpath, type));
+        if (!odds.isEmpty())
             txtOdds.sendKeys(odds);
-        if(!stake.isEmpty())
+        if (!stake.isEmpty())
             txtStake.sendKeys(stake);
     }
-
 
 
 }

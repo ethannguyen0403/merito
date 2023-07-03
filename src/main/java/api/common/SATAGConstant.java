@@ -1,4 +1,5 @@
 package api.common;
+
 public class SATAGConstant {
 
     public static class LoginPage {

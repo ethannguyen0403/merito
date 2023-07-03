@@ -3,12 +3,12 @@ package api.testcases.MeritoAPI;
 import api.testcases.BaseCaseAPI;
 
 public class MA002_KeepAliveMemberTest extends BaseCaseAPI {
-  /*
-    *//**
+    /*
+     *//**
      * @title: Validate that can keep alive
-     * @steps:   1/ Access api url for merito
+     * @steps: 1/ Access api url for merito
      * 2/ Login with valid username and password
-     * @expect:  1/ Verify can login success
+     * @expect: 1/ Verify can login success
      *//*
     @Parameters({"username", "password"})
     @Test(groups = {"smoke"})

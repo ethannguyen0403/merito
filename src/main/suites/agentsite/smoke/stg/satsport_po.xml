@@ -13,10 +13,10 @@
         <parameter name='isProxy' value='false'/>
         <parameter name='username' value='SASUBAT'/>
         <parameter name='downlineAccount' value='auto.part1'/>
-        <parameter name ='controlBlockingAccount' value ='Auto.SAD1'/>
-        <parameter name ='memberAccount' value ='auto.pl02'/>
-        <parameter name ='controlBlockingLevel' value ='CORP'/>
-        <parameter name ='accountToBet' value ='SAL0000001 (follow.pl1)'/>
+        <parameter name='controlBlockingAccount' value='Auto.SAD1'/>
+        <parameter name='memberAccount' value='auto.pl02'/>
+        <parameter name='controlBlockingLevel' value='CORP'/>
+        <parameter name='accountToBet' value='SAL0000001 (follow.pl1)'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name="passwordNonePO" value="5pjguoEh1fnSILpykWt1vQ=="/>
         <parameter name='isThrown' value='false'/>
@@ -26,8 +26,8 @@
 
         <groups>
             <run>
-           <include name="smokePO" />
-           <!--     <include name="regression" /> -->
+                <include name="smokePO"/>
+                <!--     <include name="regression" /> -->
             </run>
         </groups>
 
@@ -36,8 +36,8 @@
             <class name="agentsite.testcase.marketsmanagement.LiquidityThresholdTest"/>
             <class name="agentsite.testcase.reports.FollowBetsPerformanceTest"/>
             <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
-            <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest" />
-            <class name="agentsite.testcase.agencymanagement.FollowBetsTest" />
+            <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
+            <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
             <class name="agentsite.testcase.LeftMenuTest"/>
         </classes>
 

@@ -1,6 +1,5 @@
 package agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection;
 
-import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.RiskSettingSection;
 import com.paltech.element.common.Label;
 
 public class NewUITaxSettingSection extends TaxSettingSection {

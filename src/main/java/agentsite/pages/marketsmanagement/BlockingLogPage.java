@@ -21,6 +21,7 @@ public class BlockingLogPage extends HomePage {
     public TextBox txtSearchEventID = TextBox.xpath("//div[@class='event-container']//div[contains(@class,'header row')]/div[1]//input");
     public TextBox txtSearchEventName = TextBox.xpath("//div[@class='event-container']//div[contains(@class,'header row')]/div[2]//input");
     public TextBox txtSearchStatus = TextBox.xpath("//div[@class='event-container']//div[contains(@class,'header row')]/div[3]//input");
+
     public BlockingLogPage(String types) {
         super(types);
 

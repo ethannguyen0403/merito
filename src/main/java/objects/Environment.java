@@ -1,42 +1,31 @@
 package objects;
 
 public class Environment {
-    private String fairURL;
     public static String satURL;
     public static String funsportURL;
     public static String fairenterURL;
     public static String laser365URL;
     public static String betclubURL;
     public static String backofficeURL;
-    private String securityCode;
     public static String domainULR;
-    public String getDomainURL(){return domainULR;}
-    public void setDomainURL(String url){this.domainULR=url;}
+    /*   private String loginAgentURL;
+       public static String memberSOSUrl;
+       public static String sosAgentURL;
+       public static String sosValidationAgentURL;
+       public static String backofficeSOSUrl;
+       public static String backofficeDashboardUrl;
+       private String loginNewAccAgentURL;
+       private String securityCodeAgentUrl;
+       private String dashboardAgentURL;
 
- /*   private String loginAgentURL;
-    public static String memberSOSUrl;
-    public static String sosAgentURL;
-    public static String sosValidationAgentURL;
-    public static String backofficeSOSUrl;
-    public static String backofficeDashboardUrl;
-    private String loginNewAccAgentURL;
-    private String securityCodeAgentUrl;
-    private String dashboardAgentURL;
-
-    private String domainAgentMemberULR;
-    private String memberSiteURL;
-    private String memberDashboardUrl;
-    private String backofficeDomain;*/
+       private String domainAgentMemberULR;
+       private String memberSiteURL;
+       private String memberDashboardUrl;
+       private String backofficeDomain;*/
     public static String directusURL;
+    private String fairURL;
+    private String securityCode;
     private String apiURL;
-
-    public String getFairURL() {
-        return fairURL;
-    }
-
-    public void setFairURL(String fairURL) {
-        this.fairURL = fairURL;
-    }
 
     public static String getSatURL() {
         return satURL;
@@ -70,6 +59,30 @@ public class Environment {
         Environment.laser365URL = laser365URL;
     }
 
+    public static String getBetclubURL() {
+        return betclubURL;
+    }
+
+    public static void setBetclubURL(String betclubURL) {
+        Environment.betclubURL = betclubURL;
+    }
+
+    public String getDomainURL() {
+        return domainULR;
+    }
+
+    public void setDomainURL(String url) {
+        this.domainULR = url;
+    }
+
+    public String getFairURL() {
+        return fairURL;
+    }
+
+    public void setFairURL(String fairURL) {
+        this.fairURL = fairURL;
+    }
+
     public String getBackofficeURL() {
         return backofficeURL;
     }
@@ -78,13 +91,18 @@ public class Environment {
         this.backofficeURL = backofficeURL;
     }
 
-    public String getApiURL(){return apiURL;}
+    public String getApiURL() {
+        return apiURL;
+    }
 
-    public void setApiURL(String apiURL){this.apiURL = apiURL;}
+    public void setApiURL(String apiURL) {
+        this.apiURL = apiURL;
+    }
 
-    public  String getDirectusURL() {
+    public String getDirectusURL() {
         return directusURL;
     }
+
     public void setDirectusURL(String val) {
         directusURL = val;
     }
@@ -95,14 +113,6 @@ public class Environment {
 
     public void setSecurityCode(String val) {
         this.securityCode = val;
-    }
-
-    public static String getBetclubURL() {
-        return betclubURL;
-    }
-
-    public static void setBetclubURL(String betclubURL) {
-        Environment.betclubURL = betclubURL;
     }
 
 //    public String getMemberSiteURL() {

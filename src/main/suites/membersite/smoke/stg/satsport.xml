@@ -25,8 +25,8 @@
 
         <groups>
             <run>
-                <include name="smoke" />
-                <include name="smokeSAT" />
+                <include name="smoke"/>
+                <include name="smokeSAT"/>
             </run>
         </groups>
 

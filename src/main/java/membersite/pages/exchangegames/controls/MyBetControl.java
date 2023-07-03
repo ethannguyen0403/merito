@@ -9,19 +9,19 @@ import org.openqa.selenium.By;
  */
 public class MyBetControl extends BaseElement {
 
-	static String _xpath;
-	public UnmatchedBetControl unmatchedBetControl;
+    static String _xpath;
+    public UnmatchedBetControl unmatchedBetControl;
 
-	private MyBetControl(By locator, String xpath) {
-		super(locator);
-		_xpath = xpath;
-		unmatchedBetControl = UnmatchedBetControl.xpath(String.format("%s//div[@class='unmatched']", _xpath));
+    private MyBetControl(By locator, String xpath) {
+        super(locator);
+        _xpath = xpath;
+        unmatchedBetControl = UnmatchedBetControl.xpath(String.format("%s//div[@class='unmatched']", _xpath));
 
-	}
-	
-	public static MyBetControl xpath(String xpathExpression) {
-		return new MyBetControl(By.xpath(xpathExpression), xpathExpression);
-	}
+    }
+
+    public static MyBetControl xpath(String xpathExpression) {
+        return new MyBetControl(By.xpath(xpathExpression), xpathExpression);
+    }
 
 
 }

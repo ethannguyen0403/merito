@@ -1,8 +1,6 @@
 package membersite.objects.sat;
 
-import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
-import com.paltech.element.common.Link;
 
 /**
  * @author isabella.huynh
@@ -18,11 +16,25 @@ public class Market {
     private String _odds;
     private Label _btnOdds;
     private String _marketType;
+    private String _marketStartTime;
+    private String _marketStatus;
+    private Market(Builder builder) {
+        this._eventName = builder._eventName;
+        this._eventID = builder._eventID;
+        this._marketName = builder._marketName;
+        this._selectionName = builder._selectionName;
+        this._isBack = builder._isBack;
+        this._btnOdds = builder._btnOdds;
+        this._odds = builder._odds;
+        this._marketType = builder._marketType;
+        this._marketID = builder._marketID;
+        this._marketStatus = builder._marketStatus;
+        this._marketStartTime = builder._marketStartTime;
+    }
+
     public String getMarketType() {
         return _marketType;
     }
-    private String _marketStartTime;
-    private String _marketStatus;
 
     public void setMarketType(String _marketType) {
         this._marketType = _marketType;
@@ -59,30 +71,43 @@ public class Market {
     public void setOdds(String _odds) {
         this._odds = _odds;
     }
+
     public Label getBtnOdd() {
         return _btnOdds;
     }
+
     public void setBtnOdd(Label btnOdd) {
         _btnOdds = btnOdd;
     }
+
     public String getEventName() {
         return _eventName;
     }
 
-    public void setEventNamE(String val){ _eventName = val;}
+    public void setEventNamE(String val) {
+        _eventName = val;
+    }
 
     public String getEventID() {
         return _eventID;
     }
 
-    public void setEventID(String val){ _eventID = val;}
+    public void setEventID(String val) {
+        _eventID = val;
+    }
 
-    public String getMarketName(){return _marketName;}
-    public void setMarketName(String val){ _marketName = val;}
+    public String getMarketName() {
+        return _marketName;
+    }
+
+    public void setMarketName(String val) {
+        _marketName = val;
+    }
 
     public String getSelectionName() {
         return _selectionName;
     }
+
     public void setselectionName(String val) {
         _selectionName = val;
     }
@@ -90,6 +115,7 @@ public class Market {
     public boolean getIsBack() {
         return _isBack;
     }
+
     public void setIsBAck(boolean val) {
         _isBack = val;
     }
@@ -109,35 +135,40 @@ public class Market {
         private String _marketStatus;
 
 
-        public Builder(){}
+        public Builder() {
+        }
 
-        public Builder eventName(String val){
+        public Builder eventName(String val) {
             _eventName = val;
             return this;
         }
-        public Builder eventID(String val){
+
+        public Builder eventID(String val) {
             _eventID = val;
             return this;
         }
-        public Builder marketID(String val){
+
+        public Builder marketID(String val) {
             _marketID = val;
             return this;
         }
-        public Builder marketName(String val){
+
+        public Builder marketName(String val) {
             _marketName = val;
             return this;
         }
 
-        public Builder selectionName(String val){
+        public Builder selectionName(String val) {
             _selectionName = val;
             return this;
         }
-        public Builder odds(String val){
+
+        public Builder odds(String val) {
             _odds = val;
             return this;
         }
 
-        public Builder isBack(boolean val){
+        public Builder isBack(boolean val) {
             _isBack = val;
             return this;
         }
@@ -146,33 +177,25 @@ public class Market {
             _marketType = val;
             return this;
         }
-        public Market.Builder btnOdds(Label val){
+
+        public Market.Builder btnOdds(Label val) {
             _btnOdds = val;
             return this;
         }
+
         public Builder marketStartTime(String val) {
             _marketStartTime = val;
             return this;
         }
+
         public Builder marketStatus(String val) {
             _marketStatus = val;
             return this;
         }
-        public Market build() { return new Market(this); }
 
-    }
+        public Market build() {
+            return new Market(this);
+        }
 
-    private Market(Builder builder){
-        this._eventName = builder._eventName;
-        this._eventID =builder._eventID;
-        this._marketName = builder._marketName;
-        this._selectionName = builder._selectionName;
-        this._isBack = builder._isBack;
-        this._btnOdds = builder._btnOdds;
-        this._odds =builder._odds;
-        this._marketType = builder._marketType;
-        this._marketID = builder._marketID;
-        this._marketStatus =builder._marketStatus;
-        this._marketStartTime = builder._marketStartTime;
     }
 }

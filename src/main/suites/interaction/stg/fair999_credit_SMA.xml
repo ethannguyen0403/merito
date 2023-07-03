@@ -14,8 +14,8 @@
         <parameter name='username' value='03I'/>
         <parameter name='levelLogin' value='Agent'/>
         <parameter name='downlineAccount' value='03I00'/>
-        <parameter name ='portalSubAccount' value ='ANSUBIS'/>
-        <parameter name ='memberAccount' value ='FEIDRISA'/>
+        <parameter name='portalSubAccount' value='ANSUBIS'/>
+        <parameter name='memberAccount' value='FEIDRISA'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
@@ -23,15 +23,15 @@
         <parameter name='brandname' value='fairexchange'/>
         <groups>
             <run>
-                <include name="interaction5" />
+                <include name="interaction5"/>
             </run>
         </groups>
 
         <classes>
-<!--            <class name="agentsite.testcase.all.agencymanagement.CreditBalanceListingTest"/>-->
-<!--            <class name="agentsite.testcase.all.agencymanagement.TransferTest"/>-->
-<!--            <class name="agentsite.testcase.all.agencymanagement.depositwithdrawal.DepositTest"/>-->
-            <class name="agentsite.testcase.all.marketsmanagement.blockunblockevents.BlockUnblockEventsTest"/>
+            <!--            <class name="agentsite.testcase.agencymanagement.CreditBalanceListingTest"/>-->
+            <!--            <class name="agentsite.testcase.agencymanagement.TransferTest"/>-->
+            <!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>-->
+            <class name="agentsite.testcase.marketsmanagement.blockunblockevents.BlockUnblockEventsTest"/>
 
         </classes>
 

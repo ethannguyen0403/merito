@@ -127,9 +127,9 @@ public class ProviderCurrencyMappingTest extends BaseCaseTest {
      * @title: Validate product list display correctly in Product dropdown
      * @pre-condition: 1.Login BO
      * @steps: 1. Access Provider Currency Mapping Page
-     *         2. Observer the list provider in Product dropdown
+     * 2. Observer the list provider in Product dropdown
      * @expect: 1. verify the list product is correctly display and with the format "product-name (provider name)"
-     *              e.g. CMD Sportsbook (CMD Sportsbook) …
+     * e.g. CMD Sportsbook (CMD Sportsbook) …
      */
     @TestRails(id = "3868")
     @Test(groups = {"Regression"})
@@ -137,11 +137,11 @@ public class ProviderCurrencyMappingTest extends BaseCaseTest {
         log("@title: Validate product list display correctly in Product dropdown");
         log("Step 1. Access Provider Currency Mapping Page");
         ProviderCurrencyMappingPage page = backofficeHomePage.navigateProviderCurrencyMapping();
-        String productName= "PS38 Sports";
-        String providerName= "Pinnacle Sportsbook";
+        String productName = "PS38 Sports";
+        String providerName = "Pinnacle Sportsbook";
         log("Step 2. Observer the list provider in Product dropdown");
         page.ddnProduct.selectByVisibleContainsText(productName);
         log("Verify 1: the list product is correctly display and with the format \"product-name (provider name)");
-        Assert.assertEquals(page.getProductIntoDropdown(productName),productName+" ("+providerName+")");
+        Assert.assertEquals(page.getProductIntoDropdown(productName), productName + " (" + providerName + ")");
     }
 }

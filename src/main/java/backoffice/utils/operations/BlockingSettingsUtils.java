@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
 import static baseTest.BaseCaseTest.backofficeUrl;
 
 public class BlockingSettingsUtils {
     public static List<ArrayList<String>> getBlockingSetting() {
         List<ArrayList<String>> lstBrands = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/blocking/list-config",backofficeUrl);
-        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        String api = String.format("%s/system-manager/web/blocking/list-config", backofficeUrl);
+        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("users")) {
                 JSONArray jsnArray = jsonObject.getJSONArray("users");
@@ -24,14 +25,14 @@ public class BlockingSettingsUtils {
                     for (int i = 0; i < jsnArray.length(); i++) {
                         JSONObject jsonArrayObject = jsnArray.getJSONObject(i);
                         lstBrands.add(i, new ArrayList<String>(
-                        Arrays.asList(
-                                jsonArrayObject.getString("userCode"),
-                                jsonArrayObject.getString("brand"),
-                                jsonArrayObject.getString("sportNames"),
-                                jsonArrayObject.getString("marketNames"),
-                                Boolean.toString(jsonArrayObject.getBoolean("blocked")),
-                                jsonArrayObject.getString("levelName"),
-                                Integer.toString(jsonArrayObject.getInt("betBeforeStart")))));
+                                Arrays.asList(
+                                        jsonArrayObject.getString("userCode"),
+                                        jsonArrayObject.getString("brand"),
+                                        jsonArrayObject.getString("sportNames"),
+                                        jsonArrayObject.getString("marketNames"),
+                                        Boolean.toString(jsonArrayObject.getBoolean("blocked")),
+                                        jsonArrayObject.getString("levelName"),
+                                        Integer.toString(jsonArrayObject.getInt("betBeforeStart")))));
                     }
                 }
             }

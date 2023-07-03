@@ -1,12 +1,6 @@
 package backoffice.pages.bo.system.productmaintenance;
 
-import com.paltech.element.common.Button;
-import com.paltech.element.common.DropDownBox;
-import com.paltech.element.common.Icon;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.Popup;
-import com.paltech.element.common.TextArea;
-import com.paltech.element.common.TextBox;
+import com.paltech.element.common.*;
 
 public class MaintenanceDetailsPopup {
     public Popup popupMaintenanceDetails = Popup.xpath("//div[contains(@class, 'maintenance-detail')]");
@@ -20,10 +14,10 @@ public class MaintenanceDetailsPopup {
     private Button btnConfirm = Button.xpath("//div[@class='modal-footer']/button[contains(@class,'btn-core')]");
 
     public void maintain(String status, String message) {
-        if(!status.isEmpty()) {
+        if (!status.isEmpty()) {
             ddbStatus.selectByVisibleText(status);
         }
-        if(!message.isEmpty() && !status.toLowerCase().equals("active")) {
+        if (!message.isEmpty() && !status.toLowerCase().equals("active")) {
             txtMaintenanceMessage.sendInnerText(message);
         }
         btnConfirm.click();

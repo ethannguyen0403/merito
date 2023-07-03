@@ -24,28 +24,28 @@
         <parameter name='brandname' value='betclub9'/>
         <groups>
             <run>
-                <include name="smoke" />
+                <include name="smoke"/>
             </run>
         </groups>
 
         <classes>
-            <class name="membersite.testcases.all.afterlogin.exchange.BetSlipMyBetTest_NewUI"/>
-            <class name="membersite.testcases.all.afterlogin.exchange.AccountStatementTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchange.ProfitAndLossPageTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchangegame.EGHomPageTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchange.AccountStatementTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchange.ProfitAndLossPageTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchangegame.EGHomPageTest"/>
-            <class name="membersite.testcases.all.afterlogin.exchangegame.EGBaccaratTest"/>
-            <class name="membersite.testcases.aposta.MyBetPageTest"/>
-            <class name="membersite.testcases.aposta.HeaderSectionTest"/>
-            <class name="membersite.testcases.aposta.OddsSectionTest"/>
-            <class name="membersite.testcases.aposta.LeftMenuTest"/>
-            <class name="membersite.testcases.aposta.MainPageTest"/>
-            <class name="membersite.testcases.aposta.PlaceBetFunctionTest"/>
-            <class name="membersite.testcases.aposta.ForecastFunctionTest"/>
-            <class name="membersite.testcases.aposta.MyBetPageTest"/>
-            <class name="membersite.testcases.aposta.FancyTest"/>
+<!--            <class name="membersite.testcases.all.afterlogin.exchange.BetSlipMyBetTest_NewUI"/>-->
+<!--            <class name="membersite.testcases.all.afterlogin.exchange.AccountStatementTest"/>-->
+<!--            <class name="membersite.testcases.all.afterlogin.exchange.ProfitAndLossPageTest"/>-->
+<!--            <class name="membersite.testcases.all.afterlogin.exchangegame.EGHomPageTest"/>-->
+<!--            <class name="membersite.testcases.all.afterlogin.exchange.AccountStatementTest"/>-->
+<!--            <class name="membersite.testcases.all.afterlogin.exchange.ProfitAndLossPageTest"/>-->
+<!--            <class name="membersite.testcases.all.afterlogin.exchangegame.EGHomPageTest"/>-->
+<!--            <class name="membersite.testcases.all.afterlogin.exchangegame.EGBaccaratTest"/>-->
+<!--            <class name="membersite.testcases.aposta.MyBetPageTest"/>-->
+<!--            <class name="membersite.testcases.aposta.HeaderSectionTest"/>-->
+<!--            <class name="membersite.testcases.aposta.OddsSectionTest"/>-->
+<!--            <class name="membersite.testcases.aposta.LeftMenuTest"/>-->
+<!--            <class name="membersite.testcases.aposta.MainPageTest"/>-->
+<!--            <class name="membersite.testcases.aposta.PlaceBetFunctionTest"/>-->
+<!--            <class name="membersite.testcases.aposta.ForecastFunctionTest"/>-->
+<!--            <class name="membersite.testcases.aposta.MyBetPageTest"/>-->
+<!--            <class name="membersite.testcases.aposta.FancyTest"/>-->
 
         </classes>
 

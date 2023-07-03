@@ -3,7 +3,7 @@
 <suite name="PRO_B2B_API_SMOKE" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
-<!--        <listener class-name="utils.testraildemo.Listener"/>-->
+        <!--        <listener class-name="utils.testraildemo.Listener"/>-->
     </listeners>
 
     <test name="B2B API Smoke Green">
@@ -23,7 +23,7 @@
 
         <groups>
             <run>
-                <include name="smoke" />
+                <include name="smoke"/>
             </run>
         </groups>
 

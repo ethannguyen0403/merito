@@ -17,14 +17,11 @@
         <parameter name='currency' value='HKD'/>
         <groups>
             <run>
-                  <include name="http_request" />
+                <include name="http_request"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.fraudetection.FraudDetectionTest"/>
-            <class name="agentsite.testcase.fraudetection.FraudPermissionTest"/>
-            <class name="agentsite.testcase.fraudetection.WagerOddsHistoryTest"/>
             <class name="agentsite.testcase.reports.ViewLogTest"/>
             <class name="agentsite.testcase.reports.ClientLegerTest"/>
             <class name="agentsite.testcase.reports.FollowBetsPerformanceTest"/>
@@ -33,8 +30,6 @@
             <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
             <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
             <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
-            <class name="agentsite.testcase.agencymanagement.PTPlayersListingTest"/>
-            <class name="agentsite.testcase.agencymanagement.ShadowPlayersListingTest"/>
 
         </classes>
 

@@ -1,9 +1,9 @@
 package api.utils.MeritoAPI;
 
-import com.paltech.constant.Configs;
-import com.paltech.utils.WSUtils;
 import api.objects.meritoAPI.*;
 import api.objects.meritoAPI.result.MarketResult;
+import com.paltech.constant.Configs;
+import com.paltech.utils.WSUtils;
 import objects.Environment;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,17 +13,19 @@ import java.util.List;
 import java.util.Objects;
 
 public class GetMarketCatalogUtils {
-    private static JSONObject getMarketCatalogAPIJson(String token,String eventTypeId,String eventId, String competitionId,String marketId, String sort){
+    private static JSONObject getMarketCatalogAPIJson(String token, String eventTypeId, String eventId, String competitionId, String marketId, String sort) {
         String api = String.format("%sbetting-api/sport/market/list/marketCatalogue", Environment.domainULR);
-        String jsn = String.format("{\"filter\":{\"eventTypeIds\":[\"%s\"],\"eventIds\":[\"%s\"],\"competitionIds\":[\"%s\"],\"marketIds\":[\"%s\"]},\"sort\":\"%s\"}",eventTypeId,eventId,competitionId,marketId,sort);
-        return WSUtils.getPOSTJSONObjectWithCookiesHasHeader(api, Configs.HEADER_JSON,jsn, "",Configs.HEADER_JSON,"token",token);
+        String jsn = String.format("{\"filter\":{\"eventTypeIds\":[\"%s\"],\"eventIds\":[\"%s\"],\"competitionIds\":[\"%s\"],\"marketIds\":[\"%s\"]},\"sort\":\"%s\"}", eventTypeId, eventId, competitionId, marketId, sort);
+        return WSUtils.getPOSTJSONObjectWithCookiesHasHeader(api, Configs.HEADER_JSON, jsn, "", Configs.HEADER_JSON, "token", token);
     }
-    private static JSONObject getMarketCatalogV2APIJson(String token,String eventTypeId,String eventId, String competitionId,String marketId, String sort){
+
+    private static JSONObject getMarketCatalogV2APIJson(String token, String eventTypeId, String eventId, String competitionId, String marketId, String sort) {
         String api = String.format("%sbetting-api/v2/sport/market/list/marketCatalogue", Environment.domainULR);
-        String jsn = String.format("{\"eventTypeIds\":[\"%s\"],\"eventIds\":[\"%s\"],\"competitionIds\":[\"%s\"],\"marketIds\":[\"%s\"],\"sort\":\"%s\"}",eventTypeId,eventId,competitionId,marketId,sort);
-        return WSUtils.getPOSTJSONObjectWithCookiesHasHeader(api, Configs.HEADER_JSON,jsn, "",Configs.HEADER_JSON,"token",token);
+        String jsn = String.format("{\"eventTypeIds\":[\"%s\"],\"eventIds\":[\"%s\"],\"competitionIds\":[\"%s\"],\"marketIds\":[\"%s\"],\"sort\":\"%s\"}", eventTypeId, eventId, competitionId, marketId, sort);
+        return WSUtils.getPOSTJSONObjectWithCookiesHasHeader(api, Configs.HEADER_JSON, jsn, "", Configs.HEADER_JSON, "token", token);
     }
-    private static JSONObject getMarketCatalogV2APIJson1(String token,String eventTypeId,String eventId, String competitionId,String marketId, String sort){
+
+    private static JSONObject getMarketCatalogV2APIJson1(String token, String eventTypeId, String eventId, String competitionId, String marketId, String sort) {
 //        String api = String.format("%sbetting-api/v2/sport/market/list/marketCatalogue", Environment.domainULR);
         String api = String.format("%sbetting-api/sport/market/list/marketCatalogue", Environment.domainULR);
 //        https://apistg.beatus88.com/betting-api/sport/market/list/marketCatalogue
@@ -32,31 +34,33 @@ public class GetMarketCatalogUtils {
                         "    },\n" +
                         "    \"sort\": \"FIRST_TO_START\"\n" +
                         "}"
-                ,eventTypeId,eventId,competitionId,marketId,sort);
-        return WSUtils.getPOSTJSONObjectWithCookiesHasHeader(api, Configs.HEADER_JSON,jsn, "",Configs.HEADER_JSON,"token",token);
+                , eventTypeId, eventId, competitionId, marketId, sort);
+        return WSUtils.getPOSTJSONObjectWithCookiesHasHeader(api, Configs.HEADER_JSON, jsn, "", Configs.HEADER_JSON, "token", token);
     }
 
-    public static MarketResult getMarketCatalogAPI (String token, String eventTypeId, String eventId, String competitionId,String marketId, String sort){
-        JSONObject jsonObject = getMarketCatalogAPIJson(token,eventTypeId,eventId,competitionId,marketId,sort);
-       return getMarketCatalog(jsonObject);
-    }
-    public static MarketResult getMarketCatalogV2API1 (String token, String eventTypeId, String eventId, String competitionId,String marketId, String sort){
-        JSONObject jsonObject = getMarketCatalogV2APIJson1(token,eventTypeId,eventId,competitionId,marketId,sort);
-        return getMarketCatalog(jsonObject);
-    }
-    public static MarketResult getMarketCatalogV2API (String token, String eventTypeId, String eventId, String competitionId,String marketId, String sort){
-        JSONObject jsonObject = getMarketCatalogV2APIJson(token,eventTypeId,eventId,competitionId,marketId,sort);
+    public static MarketResult getMarketCatalogAPI(String token, String eventTypeId, String eventId, String competitionId, String marketId, String sort) {
+        JSONObject jsonObject = getMarketCatalogAPIJson(token, eventTypeId, eventId, competitionId, marketId, sort);
         return getMarketCatalog(jsonObject);
     }
 
-    private static MarketResult getMarketCatalog( JSONObject jsonObject){
-        List<Market> lst  = new ArrayList<>();
+    public static MarketResult getMarketCatalogV2API1(String token, String eventTypeId, String eventId, String competitionId, String marketId, String sort) {
+        JSONObject jsonObject = getMarketCatalogV2APIJson1(token, eventTypeId, eventId, competitionId, marketId, sort);
+        return getMarketCatalog(jsonObject);
+    }
+
+    public static MarketResult getMarketCatalogV2API(String token, String eventTypeId, String eventId, String competitionId, String marketId, String sort) {
+        JSONObject jsonObject = getMarketCatalogV2APIJson(token, eventTypeId, eventId, competitionId, marketId, sort);
+        return getMarketCatalog(jsonObject);
+    }
+
+    private static MarketResult getMarketCatalog(JSONObject jsonObject) {
+        List<Market> lst = new ArrayList<>();
         Market market;
         JSONObject resultObj;
         if (Objects.nonNull(jsonObject)) {
             boolean isSuccess = jsonObject.getBoolean("isSuccess");
             JSONArray resultArr = jsonObject.getJSONArray("result");
-            for(int i = 0; i< resultArr.length(); i++){
+            for (int i = 0; i < resultArr.length(); i++) {
                 resultObj = resultArr.getJSONObject(i);
                 market = getMarket(resultObj);
                 lst.add(market);
@@ -68,7 +72,8 @@ public class GetMarketCatalogUtils {
         }
         return null;
     }
-    private static Market getMarket(JSONObject resultObj){
+
+    private static Market getMarket(JSONObject resultObj) {
         return new Market.Builder()
                 .marketId(resultObj.getString("marketId"))
                 .marketName(resultObj.getString("marketName"))
@@ -81,7 +86,8 @@ public class GetMarketCatalogUtils {
                 .selectionList(getListRunner(resultObj))
                 .build();
     }
-    private static Event getEvent(JSONObject jsObj){
+
+    private static Event getEvent(JSONObject jsObj) {
         return new Event.Builder()
                 .id(jsObj.getInt("id"))
                 .name(jsObj.getString("name"))
@@ -90,19 +96,22 @@ public class GetMarketCatalogUtils {
                 .openDate(jsObj.getString("openDate"))
                 .build();
     }
-    private static SportType getEventType(JSONObject jsObj){
+
+    private static SportType getEventType(JSONObject jsObj) {
         return new SportType.Builder()
                 .id(jsObj.getInt("id"))
                 .name(jsObj.getString("name"))
                 .build();
     }
-    private static Competition getCompetition(JSONObject jsObj){
+
+    private static Competition getCompetition(JSONObject jsObj) {
         return new Competition.Builder()
                 .id(jsObj.getInt("id"))
                 .name(jsObj.getString("name"))
                 .build();
     }
-    private static MarketDescription getMarketDescription(JSONObject jsObj){
+
+    private static MarketDescription getMarketDescription(JSONObject jsObj) {
         return new MarketDescription.Builder()
                 .persistenceEnabled(jsObj.getBoolean("persistenceEnabled"))
                 .marketTime(jsObj.getString("marketTime"))
@@ -129,15 +138,16 @@ public class GetMarketCatalogUtils {
                 .build();
 
     }
-    private static List<Selection> getListRunner(JSONObject jsObj){
+
+    private static List<Selection> getListRunner(JSONObject jsObj) {
         JSONArray resultArr = jsObj.getJSONArray("runners");
         JSONObject runnertObj;
         List<Selection> lst = new ArrayList<>();
-        for(int i = 0; i< resultArr.length(); i++){
+        for (int i = 0; i < resultArr.length(); i++) {
             runnertObj = resultArr.getJSONObject(i);
             lst.add(getRunner(runnertObj));
         }
         return lst;
     }
-    
+
 }

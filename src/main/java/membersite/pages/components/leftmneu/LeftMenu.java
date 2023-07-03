@@ -1,11 +1,9 @@
 package membersite.pages.components.leftmneu;
 
-import com.paltech.element.common.*;
+import com.paltech.element.common.Label;
 import membersite.pages.MarketPage;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LeftMenu {
@@ -18,13 +16,16 @@ public class LeftMenu {
     }*/
 
     public Label searchEvent(String eventName) {
-      return null;
+        return null;
     }
+
     public MarketPage searchEvent(String eventName, boolean isClick) {
         return null;
     }
-    public void clickBack(){
+
+    public void clickBack() {
     }
+
     public void waitMenuLoading() {
     }
 
@@ -44,18 +45,35 @@ public class LeftMenu {
     public List<String> getLeftMenuList() {
         return null;
     }
+
     public String getActiveEvent() {
         return "";
     }
-    public void clickMarket(String marketName) {return;    }
-    public void clickMenuIndex(int index) {return;    }
 
-    public void clickCompetition(String competition) {    }
+    public void clickMarket(String marketName) {
+        return;
+    }
 
-    public void clickSport(String sportName) {   }
-    public boolean isLeftMenuDisplay() {  return false;  }
-    public String getActiveSport() { return "";    }
-    public void clickEvent(int eventIndex) {}
+    public void clickMenuIndex(int index) {
+        return;
+    }
+
+    public void clickCompetition(String competition) {
+    }
+
+    public void clickSport(String sportName) {
+    }
+
+    public boolean isLeftMenuDisplay() {
+        return false;
+    }
+
+    public String getActiveSport() {
+        return "";
+    }
+
+    public void clickEvent(int eventIndex) {
+    }
 /*
 
     public String getSportAll() {

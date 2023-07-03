@@ -8,6 +8,15 @@ public class AccountStatement {
     private String settlementDate;
     private String orderPlaceTime;
 
+    public AccountStatement(Builder builder) {
+        this.betId = builder.betId;
+        this.amount = builder.amount;
+        this.balance = builder.balance;
+        this.marketId = builder.marketId;
+        this.settlementDate = builder.settlementDate;
+        this.orderPlaceTime = builder.orderPlaceTime;
+    }
+
     public int getBetId() {
         return betId;
     }
@@ -63,40 +72,43 @@ public class AccountStatement {
         private int marketId;
         private String settlementDate;
         private String orderPlaceTime;
-        public Builder(){}
-        public Builder betId(int val){
+
+        public Builder() {
+        }
+
+        public Builder betId(int val) {
             betId = val;
             return this;
         }
-        public Builder amount(double val){
+
+        public Builder amount(double val) {
             amount = val;
             return this;
         }
-        public Builder balance (double val){
+
+        public Builder balance(double val) {
             balance = val;
             return this;
         }
-        public Builder marketId(int val){
+
+        public Builder marketId(int val) {
             marketId = val;
             return this;
         }
-        public Builder settlementDate(String val){
+
+        public Builder settlementDate(String val) {
             settlementDate = val;
             return this;
         }
-        public Builder orderPlaceTime(String val){
+
+        public Builder orderPlaceTime(String val) {
             orderPlaceTime = val;
             return this;
         }
-        public AccountStatement build() { return new AccountStatement(this); }
+
+        public AccountStatement build() {
+            return new AccountStatement(this);
+        }
     }
-    public AccountStatement(Builder builder){
-      this.betId = builder.betId;
-      this.amount = builder.amount;
-      this.balance = builder.balance;
-      this.marketId = builder.marketId;
-      this.settlementDate = builder.settlementDate;
-      this.orderPlaceTime = builder.orderPlaceTime;
-    }
-    
+
 }

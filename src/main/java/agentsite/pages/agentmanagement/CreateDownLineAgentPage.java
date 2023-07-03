@@ -22,7 +22,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public SuccessPopup successPopup = SuccessPopup.xpath("//app-alert");
 
     // Info section
-    public AccountInfoSection accInfoSection= AccountInfoSection.xpath("//div[@id='account']//app-agency-account-ui");
+    public AccountInfoSection accInfoSection = AccountInfoSection.xpath("//div[@id='account']//app-agency-account-ui");
 
     //Transer Setting Section
     public TransferSettingSection transferSettingSection = TransferSettingSection.xpath("//div[@id='transfer-settings']");
@@ -74,41 +74,21 @@ public class CreateDownLineAgentPage extends HomePage {
     public Tab chbLiveDealerEuropean = Tab.xpath("//tabset[@id='productSetting']//span[text()='Live Dealer European']//preceding::input[@type='checkbox'][1]");
 
     // tottal column of tblSportSetting is dynamic. It's based on the active sport from upline or from BO setting
-    public Table tblSportSetting = Table.xpath("//div[@class='marketSettingWrapper']//table[contains(@class,'info ptable sportTable')]",1);
+    public Table tblSportSetting = Table.xpath("//div[@class='marketSettingWrapper']//table[contains(@class,'info ptable sportTable')]", 1);
 
     //Exchange Product - Bet Settings
 
     public Label lblBetSettings = Label.xpath("//div[@id='EXCHANGE-bet-settings']/div[@class='psection']");
     public Label lblEGBetSettings = Label.xpath("//div[@id='EXCH_GAMES-bet-settings']/div[@class='psection']");
-
-    private int totalBetSettingsColumns = 7;
-    private int totalEGBetSettingColumns = 8;
-    public Table tblBetSettings = Table.xpath("//div[@id='EXCHANGE-bet-settings']//table[contains(@class,'betTable')]",totalBetSettingsColumns);
-    public Table tblEGBetSettings = Table.xpath("//div[@id='EXCH_GAMES-bet-settings']//table[contains(@class,'betTable')]",totalEGBetSettingColumns);
-
-
-    //Exchange Product - Tax Settings
-    private int totalTaxSettingsColumns = 6;
-
     public Label lblTaxSettings = Label.xpath("//div[@id='EXCHANGE-tax-settings']/div[@class='psection']");
     public Label lblEGTaxSettings = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']/div[@class='psection']");
-    public Table tblTaxSettings = Table.xpath("//div[@id='EXCHANGE-tax-settings']//table[contains(@class,'betTable')]",totalTaxSettingsColumns);
-    public Table tblEGTaxSettings = Table.xpath("//div[@id='EXCH_GAMES-tax-settings']//table[contains(@class,'betTable')]",totalEGBetSettingColumns);
-
-    //Exchange Product - Position Taking
-    private int totalPositionTakingColumns = 7;
     public Label lblPositionTakingListing = Label.xpath("//div[@id='EXCHANGE-position-taking']/div[@class='psection']");
     public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[@class='psection']");
-    public Table tblPositionTakingListing = Table.xpath("//div[@id='EXCHANGE-position-taking']//table[contains(@class,'ptable info betTable')]",totalPositionTakingColumns);
-    public Table tblEGPositionTakingListing = Table.xpath("//div[@id='EXCH_GAMES-position-taking']//table[contains(@class,'ptable info betTable')]",totalEGBetSettingColumns);
-
     public CheckBox chbLive = CheckBox.id("live");
     public CheckBox chbNonLive = CheckBox.id("nonlive");
-
     public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
     public Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
-    public Label  lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg']");
-
+    public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg']");
     public Label lblMessage = Label.xpath("//div[@class='modal-body modal-body-fit-with-content']");
     public AccountInforSection accountInforSection;
     public CreditBalanceSection creditBalanceInforSection;
@@ -120,6 +100,19 @@ public class CreateDownLineAgentPage extends HomePage {
     public TaxSettingSection taxSettingInforSection;
     public agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection.PositionTakingSection positionTakingInforSection;
     protected String _type;
+    private int totalBetSettingsColumns = 7;
+    public Table tblBetSettings = Table.xpath("//div[@id='EXCHANGE-bet-settings']//table[contains(@class,'betTable')]", totalBetSettingsColumns);
+    private int totalEGBetSettingColumns = 8;
+    public Table tblEGBetSettings = Table.xpath("//div[@id='EXCH_GAMES-bet-settings']//table[contains(@class,'betTable')]", totalEGBetSettingColumns);
+    public Table tblEGTaxSettings = Table.xpath("//div[@id='EXCH_GAMES-tax-settings']//table[contains(@class,'betTable')]", totalEGBetSettingColumns);
+    public Table tblEGPositionTakingListing = Table.xpath("//div[@id='EXCH_GAMES-position-taking']//table[contains(@class,'ptable info betTable')]", totalEGBetSettingColumns);
+    //Exchange Product - Tax Settings
+    private int totalTaxSettingsColumns = 6;
+    public Table tblTaxSettings = Table.xpath("//div[@id='EXCHANGE-tax-settings']//table[contains(@class,'betTable')]", totalTaxSettingsColumns);
+    //Exchange Product - Position Taking
+    private int totalPositionTakingColumns = 7;
+    public Table tblPositionTakingListing = Table.xpath("//div[@id='EXCHANGE-position-taking']//table[contains(@class,'ptable info betTable')]", totalPositionTakingColumns);
+
     public CreateDownLineAgentPage(String types) {
         super(types);
         _type = types;
@@ -174,8 +167,8 @@ public class CreateDownLineAgentPage extends HomePage {
         return message;
     }
 
-    public String activeProduct(String productName,boolean isClose){
+    public String activeProduct(String productName, boolean isClose) {
         productSettingsSection.activeProduct(productName);
-       return getMessageUpdate(isClose);
+        return getMessageUpdate(isClose);
     }
 }

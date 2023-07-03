@@ -3,7 +3,7 @@
 <suite name="STG_API_SMOKE" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
-<!--        <listener class-name="utils.testraildemo.Listener"/>-->
+        <!--        <listener class-name="utils.testraildemo.Listener"/>-->
     </listeners>
 
     <test name="SMOKE_Chrome">
@@ -19,12 +19,12 @@
 
         <groups>
             <run>
-                <include name="smoke" />
+                <include name="smoke"/>
             </run>
         </groups>
 
         <classes>
-<!--            <class name="api.testcases.MeritoAPI.MA008_PlaceOrderTest"/>-->
+            <!--            <class name="api.testcases.MeritoAPI.MA008_PlaceOrderTest"/>-->
             <class name="api.testcases.MeritoAPI.MA0015_GetMemberInfoTest"/>
             <class name="api.testcases.MeritoAPI.MA001_LoginMemberTest"/>
             <class name="api.testcases.MeritoAPI.MA0016_GetAccountBalanceTest"/>

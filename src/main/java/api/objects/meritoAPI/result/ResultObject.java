@@ -9,6 +9,17 @@ public class ResultObject {
     public int _itemCount = 0;
     private List<Object> _objLst;
 
+    public ResultObject() {
+    }
+
+    public ResultObject(Builder builder) {
+        this._isSuccess = builder._isSuccess;
+        this._message = builder._message;
+        this._code = builder._code;
+        this._itemCount = builder._itemCount;
+        this._objLst = builder._objLst;
+    }
+
     public Boolean getIsSuccess() {
         return _isSuccess;
     }
@@ -41,10 +52,14 @@ public class ResultObject {
         this._itemCount = itemCount;
     }
 
-    public List<Object> getObj(){return _objLst;}
-    public void getObj(List<Object> val){_objLst = val;}
-    public ResultObject() {
+    public List<Object> getObj() {
+        return _objLst;
     }
+
+    public void getObj(List<Object> val) {
+        _objLst = val;
+    }
+
     public static class Builder {
         // Optional parameters;
         private Boolean _isSuccess;
@@ -53,36 +68,37 @@ public class ResultObject {
         private int _itemCount = 0;
         private List<Object> _objLst;
 
-        public Builder(){}
-        public Builder isSuccess(Boolean val){
+        public Builder() {
+        }
+
+        public Builder isSuccess(Boolean val) {
             _isSuccess = val;
             return this;
         }
-        public Builder message(String val){
+
+        public Builder message(String val) {
             _message = val;
             return this;
         }
-        public Builder code(String val){
+
+        public Builder code(String val) {
             _code = val;
             return this;
         }
-        public Builder itemCount(int val){
+
+        public Builder itemCount(int val) {
             _itemCount = val;
             return this;
         }
-        public Builder obj(List<Object> val){
+
+        public Builder obj(List<Object> val) {
             _objLst = val;
             return this;
         }
-        public ResultObject build() { return new ResultObject(this); }
-    }
 
-    public ResultObject(Builder builder){
-        this._isSuccess = builder._isSuccess;
-        this._message = builder._message;
-        this._code = builder._code;
-        this._itemCount = builder._itemCount;
-        this._objLst = builder._objLst;
+        public ResultObject build() {
+            return new ResultObject(this);
+        }
     }
 
 }

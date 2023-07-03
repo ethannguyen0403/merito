@@ -4,14 +4,10 @@ import baseTest.BaseCaseTest;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.util.List;
-
-import static baseTest.BaseCaseTest.memberHomePage;
-
 public class InplayPageTest extends BaseCaseTest {
 
-    @TestRails(id="1010")
-    @Test (groups = {"regression"})
+    @TestRails(id = "1010")
+    @Test(groups = {"regression"})
     public void FE_InPlay_TC1010() {
 //        log("@title: Validate site load markets as user selected correctly");
 //        log("Step 1. Navigate to In-Play page");

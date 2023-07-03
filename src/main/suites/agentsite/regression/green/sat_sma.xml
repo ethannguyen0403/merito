@@ -16,8 +16,8 @@
         <parameter name='level' value='SMA'/>
         <parameter name='donwlineLevel' value='SAD'/>
         <parameter name='downlineAccount' value='QAAT.AD'/>
-        <parameter name ='portalSubAccount' value ='SASUBBA'/>
-        <parameter name ='memberAccount' value ='QAAT.PL01'/>
+        <parameter name='portalSubAccount' value='SASUBBA'/>
+        <parameter name='memberAccount' value='QAAT.PL01'/>
         <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
@@ -29,9 +29,9 @@
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.home.LeftMenuTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.downlinelisting.EditUserTest"/>
-            <class name="agentsite.testcase.satsport.agencymanagement.EventBetSizeSettingsTest"/>
+            <class name="agentsite.testcase.LeftMenuTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.EventBetSizeSettingsTest"/>
         </classes>
 
     </test>

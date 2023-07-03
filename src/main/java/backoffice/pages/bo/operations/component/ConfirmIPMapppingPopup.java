@@ -11,23 +11,23 @@ public class ConfirmIPMapppingPopup {
     Button btnClose = Button.xpath("//app-ip-comfim-dialog//button[contains(@class,'btn-outline-secondary')]");
     Button btnConfirm = Button.xpath("//app-ip-comfim-dialog//button[contains(@class,'btn-core')]");
 
-    public void clickCloseBtn(){
+    public void clickCloseBtn() {
         btnClose.click();
     }
 
-    public void confirm(){
+    public void confirm() {
         btnConfirm.click();
     }
 
-    public String getContent(){
+    public String getContent() {
         return lblContent.getText();
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return lblTitle.getText();
     }
 
-    public boolean isDisplayed(){
+    public boolean isDisplayed() {
         popupNotification.isInvisible(2);
         return popupNotification.isDisplayed();
     }

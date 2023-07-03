@@ -462,7 +462,7 @@ public class DownlineListingTest extends BaseCaseTest {
      * 2. Input a Username exist indirect/direct downline
      * @expect: 1. Corresponding account display in the list
      */
-    @TestRails(id="694")
+    @TestRails(id = "694")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_AM_Downline_Listing_006(String brandname) {
@@ -488,24 +488,23 @@ public class DownlineListingTest extends BaseCaseTest {
 
     /**
      * @title: Validate can change password from the table
-     * @pre-condition:
-     *           1. Log in successfully
+     * @pre-condition: 1. Log in successfully
      * @steps: 1. Navigate Agency Management > Downline Listing
-     *         2. Select agent account in any level
-     *         3. Click change password icon
-     *         4. Update password
+     * 2. Select agent account in any level
+     * 3. Click change password icon
+     * 4. Update password
      * @expect: 1. Verify can change password successfully
      */
-    @TestRails(id="695")
-    @Test (groups = {"smoke"})
-    @Parameters({"level","password"})
-    public void Agent_AM_Downline_Listing_020(String level,String password) throws Exception {
+    @TestRails(id = "695")
+    @Test(groups = {"smoke"})
+    @Parameters({"level", "password"})
+    public void Agent_AM_Downline_Listing_020(String level, String password) throws Exception {
         log("@title: Validate can change password from the table");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,level,_brandname);
-        String loginID =listAccount.get(0).getUserCode();
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, _brandname);
+        String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Select agent account in any level");
         log("Step 3. Click change password icon");
@@ -515,7 +514,7 @@ public class DownlineListingTest extends BaseCaseTest {
             log("Verify 1. Verify can change password successfully");
             Assert.assertEquals(message, AgencyManagement.DownlineListing.MSG_CHANGE_PASSWORD_SUCCESS, "FAILED, Success message is incorrect when updating password");
             log("INFO: Executed completely");
-        }finally {
+        } finally {
             log("Post Condition: Re-change to old pw");
             page.changePassword(loginID, StringUtils.decrypt(password));
         }

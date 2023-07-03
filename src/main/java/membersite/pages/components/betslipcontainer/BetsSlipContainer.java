@@ -9,16 +9,22 @@ import java.util.List;
 public class BetsSlipContainer {
     public Label lblSuspendedErrorMessage = Label.xpath("//div[@class='modal-body' and contains(text(), 'has been Suspended')]");
     public Label lblMinMaxStakeErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
+
     public void cancelAllSelections() {
 
     }
-    public String getBetSlipErrorMessage(){return "";}
-    public void inputStake (String stake) {
+
+    public String getBetSlipErrorMessage() {
+        return "";
+    }
+
+    public void inputStake(String stake) {
 
     }
 
     /**
      * Place a  bet input odds or stake
+     *
      * @param odds
      * @param stake
      */
@@ -27,50 +33,50 @@ public class BetsSlipContainer {
 
     // Just input stake after click on odds then place bet
     public void placeBet(String stake) {
-        placeBet("",stake);
+        placeBet("", stake);
     }
 
     /**
      * Get all bets added to bet slips
+     *
      * @return the list of bet
      */
-    public List<Order> getBet(){
+    public List<Order> getBet() {
         return null;
     }
 
     /**
      * Get bet added in bet slip  by expected index
+     *
      * @param index
      * @return Bet info (Selection name, odds, stake, profit&Loss)
      */
-    public Order  getBet(int index){
-       return null;
+    public Order getBet(int index) {
+        return null;
 
     }
 
-    public void clearAll(){
+    public void clearAll() {
 
     }
 
-    public String getEmptyBetMessage()
-    {
+    public String getEmptyBetMessage() {
         return "";
     }
 
-    public EditStakeControl openEditStake(){return null;
+    public EditStakeControl openEditStake() {
+        return null;
     }
 
-    public List<String> getListFastButton()
-    {
+    public List<String> getListFastButton() {
         return null;
     }
 
     public boolean isEditStakeControlDisplay() {
-      return false;
+        return false;
     }
 
-    public boolean isStakeDisplayAsClickingOnFastButton()
-    {
+    public boolean isStakeDisplayAsClickingOnFastButton() {
         return false;
     }
 
