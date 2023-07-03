@@ -51,7 +51,6 @@ public class LeftMenu{
 
     }
     public boolean isDisplayPS38SportsResults(){
-
        return true;
     }
 }
