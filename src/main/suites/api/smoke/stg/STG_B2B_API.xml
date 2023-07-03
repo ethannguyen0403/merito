@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="STG_B2B_API_SMOKE" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="SMOKE">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='agentKey' value='df41eab74726468881ba49d51043a4bd'/>
+        <parameter name='secretKey' value='998ba8ee0ba3488b9eb0d659f6ea51a6'/>
+        <parameter name="authorization" value="gite+wozKEaYVSb74NXXLBLikZfiBSBJjP3v643pKdPhkuuI5rRghUHXXG5OgeEk"/>
+        <parameter name="userId" value="isatest13"/>
+        <parameter name="username" value="11T000000D"/>
+        <parameter name="password" value=""/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='INR'/>
+
+        <groups>
+            <run>
+                <include name="smoke1" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="api.testcases.B2B.GetTokenTest"/>
+            <class name="api.testcases.B2B.PlayerLoginTest"/>
+            <class name="api.testcases.B2B.PlayerInfoTest"/>
+            <class name="api.testcases.B2B.PlayerStatusUpdateTest"/>
+            <class name="api.testcases.B2B.AdjustBalanceTest"/>
+            <class name="api.testcases.B2B.ReportSettledVoidWagersTest"/>
+            <class name="api.testcases.B2B.ReportMatchUnMatchWagersTest"/>
+            <class name="api.testcases.B2B.PlayerInfoListTest"/>
+
+
+        </classes>
+
+    </test>
+</suite>
