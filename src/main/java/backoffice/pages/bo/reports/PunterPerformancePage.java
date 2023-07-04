@@ -16,22 +16,28 @@ public class PunterPerformancePage extends HomePage {
     public TextBox txtDateTo = TextBox.name("to-date");
     public DateTimePicker dpFrom = DateTimePicker.xpath(txtDateFrom, "//div[contains(@class,'bs-calendar-container')]");
     public DateTimePicker dpTo = DateTimePicker.xpath(txtDateTo, "//div[contains(@class,'bs-calendar-container')]");
-    Button btnSubmit = Button.name("submit");
+    public Button btnSubmit = Button.name("submit");
 
     public com.paltech.element.common.DropDownBox ddbTypeCurrency = com.paltech.element.common.DropDownBox.xpath("//div[contains(@class,'currency')]//select");
     public DropDownBox ddbProduct = DropDownBox.xpath("//div[contains(@class,'product')]//div[@class='selected-list']", "//div[contains(@class,'product')]//div[contains(@class,'dropdown-list')]//li/label");
     public Label lblProductError = Label.xpath("//div[contains(@class, 'search-region')]//div[@class='error-message'][2]");
     public DropDownBox ddbPortal = DropDownBox.xpath("//div[contains(@class,'portal')]//div[@class='selected-list']", "//div[contains(@class,'portal')]//div[contains(@class,'dropdown-list')]//li/label");
+    private String lblSelectOrUnselect = "//span[text()='%s']";
+    private String ddnSelectOrUnselect = "//div[contains(@class,'%s')]//div[@class='selected-list']";
     public Label lblPortalError = Label.xpath("//div[contains(@class, 'search-region')]//div[@class='error-message'][3]");
     private Label lblRangeDate = Label.xpath("//table[@class='ptable report']//span[@class='ml-5']");
 
     public int colUsername = 1;
-    public int colLevel = 2;
+    public int colLevel = 3;
     public int colTotalWager = 4;
 
     public Table tblReport = Table.xpath("//table[@class='ptable report']", 17);
-
-
+    public Label lblNoRecordsFound = Label.xpath("//tbody//td[contains(text(),'No records found.')]");
+    public Label lblAtLeast1 = Label.xpath("//div[contains(text(),'Please select at least 1')]");
+    public Label lblYouCanSeeReport = Label.xpath("//label[contains(text(),'You can see report data up to 6 months.')]");
+    String lblTableHeader = "//thead//th[text()='%s']";
+    public Label lblDateRange = Label.xpath("//span[text()='Punter Perfomance']/parent::span/following-sibling::span");
+    public Button btnHome = Button.xpath("//table//span[text()='Home']");
     public void filter(String from, String to, String product, String portal, String typeCurrency) {
         if(!from.isEmpty())
         {
@@ -108,5 +114,16 @@ public class PunterPerformancePage extends HomePage {
         }
         System.out.println(String.format("The username %s does not display in the table",username));
         return null;
+    }
+
+    public void clickSelectAllOrUnSelect(String productOrPortal, String selectOrUnselect){
+        Button ddnButton = Button.xpath(String.format(ddnSelectOrUnselect, productOrPortal));
+        ddnButton.click();
+        Button select = Button.xpath(String.format(lblSelectOrUnselect, selectOrUnselect));
+        select.click();
+    }
+
+    public String isTableHeaderByName(String name){
+        return Label.xpath(String.format(lblTableHeader, name)).getText();
     }
 }
