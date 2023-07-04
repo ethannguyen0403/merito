@@ -43,7 +43,7 @@ public class AdjustBalanceTest extends BaseCaseAPI {
         Assert.assertEquals(result.getUserId(), userId, "FAILED! Incorrect User Id");
         Assert.assertEquals(result.getAmount(), amount, "FAILED! Amount is incorrect");
         Assert.assertEquals(result.getBalanceBefore(), balanceBeforeDeposit, "FAILED! Balance Before deposit is incorrect");
-        Assert.assertEquals(result.getBalanceAfter(), balanceAfterDeposit, "FAILED! Balance after deposit is incorrect");
+        Assert.assertEquals(result.getBalanceAfter(), DoubleUtils.roundUpWithTwoPlaces(balanceAfterDeposit), "FAILED! Balance after deposit is incorrect");
         Assert.assertEquals(result.getTransactionId(), Long.parseLong(transactionIdRandome), "FAILED! Incorrect User Id");
 
         log(String.format("Verify 2 Validate balance in Player info is correct %.2f", balanceAfterDeposit));
@@ -80,7 +80,7 @@ public class AdjustBalanceTest extends BaseCaseAPI {
         Assert.assertEquals(result.getUserId(), userId, "FAILED! Incorrect User Id");
         Assert.assertEquals(result.getAmount(), amount, "FAILED! Amount is incorrect");
         Assert.assertEquals(result.getBalanceBefore(), balanceBeforeWithdraw, "FAILED! Balance Before Withdraw is incorrect");
-        Assert.assertEquals(result.getBalanceAfter(), balanceAfterWithdraw, "FAILED! Balance after Withdraw is incorrect");
+        Assert.assertEquals(result.getBalanceAfter(), DoubleUtils.roundUpWithTwoPlaces(balanceAfterWithdraw), "FAILED! Balance after Withdraw is incorrect");
         Assert.assertEquals(result.getTransactionId(), Long.parseLong(transactionIdRandome), "FAILED! Incorrect User Id");
 
         log(String.format("Verify 2 Validate balance in Player info is correct %.2f", balanceAfterWithdraw));
