@@ -19,33 +19,33 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      * @Verify: 1. Verify Agent is added in the list with correct data as added
      */
     @TestRails(id = "16")
-    @Test(groups = {"Regression1"})
-    public void BO_System_Small_Bets_Configuration_016() {
+    @Test(groups = {"Regression"})
+    @Parameters({"agentNotAdd"})
+    public void BO_System_Small_Bets_Configuration_016(String agentNotAdd) {
         log("@title: Validate can add small bets setting for an agent in Small Bet Configuration in Backoffice");
         log("pre-condition 1: Log in BO");
         log("pre-condition 2: Active Small Bets Configuration Page");
         SmallBetConfigurationPage smallBetConfigurationPage = backofficeHomePage.navigateSmallBetConfiguration();
         log("pre-condition 3: Have an agent that has not added in the list");
-        String newAgent = "08D0000";
         String statusAgent = "true";
         String stakeValue = "12";
         String acceptOfPricingValue = "8";
         String rejectBackValue = "5";
         String rejectLayValue = "5";
         log("Step 1. Input the agent in precondition into the Agent Textbox and click Add button");
-        smallBetConfigurationPage.inputAgentTextBox(newAgent);
+        smallBetConfigurationPage.inputAgentTextBox(agentNotAdd);
         smallBetConfigurationPage.btnAdd.click();
         log("Step 2. Input valid data and click Submit");
         smallBetConfigurationPage.inputConfigurationSmallBetsForNewAgent(statusAgent, stakeValue, acceptOfPricingValue, rejectBackValue, rejectLayValue);
         smallBetConfigurationPage.btnSubmitOnConfigurationPopup.click();
         log("Verify 1: Verify Agent is added in the list with correct data as added");
         Assert.assertEquals(smallBetConfigurationPage.lblAddSucceed.getText(),"Add Succeed");
-        Assert.assertEquals(smallBetConfigurationPage.getAgentIDAdded(newAgent), newAgent);
-        Assert.assertEquals(smallBetConfigurationPage.getStatusByAgentID(newAgent), statusAgent);
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Stake", newAgent),stakeValue);
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Accept % of Pricing", newAgent),acceptOfPricingValue);
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Back if Potential Winning", newAgent),rejectBackValue);
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Lay if Potential Liability", newAgent),rejectLayValue);
+        Assert.assertEquals(smallBetConfigurationPage.getAgentIDAdded(agentNotAdd), agentNotAdd);
+        Assert.assertEquals(smallBetConfigurationPage.getStatusByAgentID(agentNotAdd), statusAgent);
+        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Stake", agentNotAdd),stakeValue);
+        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Accept % of Pricing", agentNotAdd),acceptOfPricingValue);
+        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Back if Potential Winning", agentNotAdd),rejectBackValue);
+        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Lay if Potential Liability", agentNotAdd),rejectLayValue);
         log("INFO: Executed completely");
     }
 
@@ -61,23 +61,23 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      *          2. Agent is remove out the list
      */
     @TestRails(id = "17")
-    @Test(groups = {"Regression1"})
-    public void BO_System_Small_Bets_Configuration_017() {
+    @Test(groups = {"Regression"})
+    @Parameters({"agentNotAdd"})
+    public void BO_System_Small_Bets_Configuration_017(String agentNotAdd) {
         log("@title: Validate can add small bets setting for an agent in Small Bet Configuration in Backoffice");
         log("pre-condition 1: Log in BO");
         log("pre-condition 2: Active Small Bets Configuration Page");
         SmallBetConfigurationPage smallBetConfigurationPage = backofficeHomePage.navigateSmallBetConfiguration();
         log("pre-condition 3: Have an agent added small bet setting");
-        String newAgent = "08D0000";
         log("Step 1. Select the agent in the list");
         log("Step 2. Click on Remove icon the last column");
-        smallBetConfigurationPage.clickToRemove(newAgent);
+        smallBetConfigurationPage.clickToRemove(agentNotAdd);
         log("Verify 1: Verify a correct message display when click on Remove icon");
         Assert.assertEquals(smallBetConfigurationPage.lblConfirmation.getText(), "Confirmation");
         log("Step 3. A confirm message display then click Yes button");
         smallBetConfigurationPage.btnYes.click();
         log("Verify 2: Agent is remove out the list");
-        Assert.assertTrue(smallBetConfigurationPage.isRemovedAgentByAgentID(newAgent));
+        Assert.assertTrue(smallBetConfigurationPage.isRemovedAgentByAgentID(agentNotAdd));
         log("INFO: Executed completely");
     }
 

@@ -17,7 +17,7 @@ public class LiquidityThresholdLogPage extends HomePage {
     public int colHistory = 11;
     public StaticTable tblLog = StaticTable.xpath("//app-liquidity-threshold-log//div[contains(@class,'table-wrapper')]","div[contains(@class,'custom-table-body')]","div[contains(@class,'custom-table-row')]","div[contains(@class,'custom-table-cell')]",totalColumn);
     public Label lblNoRecord = Label.xpath("//div[contains(@class,'no-record')]//div[contains(@class,'text-center')]");
-
+    String btnViewLog = "//div[contains(text(),'%s')]//parent::div[contains(@class,'custom-table-row')]//i";
     public void search(String username){
         btnSearch.isDisplayed();
         txtUsername.sendKeys(username);
@@ -26,16 +26,18 @@ public class LiquidityThresholdLogPage extends HomePage {
     }
 
     public LiquidityThresholdLogPopup openViewLog(String username){
-        List<String> lstAccount = tblLog.getColumn(colLoginID, false);
-        for(int i =0 ; i< lstAccount.size();i++){
-            if(lstAccount.get(i).equals(username)){
-                tblLog.getControlOfCell(1,colHistory, i+1,"i[contains(@class,'far fa-eye')]").click();
-                LiquidityThresholdLogPopup popup = new LiquidityThresholdLogPopup();
-                popup.tblLog.isDisplayed(1);
-                return popup;
-            }
-        }
+        Button button = Button.xpath(String.format(btnViewLog,username));
+        button.click();
+//        List<String> lstAccount = tblLog.getColumn(colLoginID, false);
+//        for(int i =0 ; i< lstAccount.size();i++){
+//            if(lstAccount.get(i).equals(username)){
+//                tblLog.getControlOfCell(1,colHistory, i+1,"i[contains(@class,'far fa-eye')]").click();
+//                LiquidityThresholdLogPopup popup = new LiquidityThresholdLogPopup();
+//                popup.tblLog.isDisplayed(1);
+//                return popup;
+//            }
+//        }
         System.out.println("Does not found the account "+ username);
-        return null;
+        return new LiquidityThresholdLogPopup();
     }
 }

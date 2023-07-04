@@ -2,9 +2,9 @@ package backoffice.pages.bo.system;
 
 
 import com.paltech.element.common.Button;
+import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
-import backoffice.controls.DropDownBox;
 import backoffice.controls.bo.ATable;
 import backoffice.controls.bo.StaticTable;
 import org.openqa.selenium.Keys;
@@ -14,9 +14,9 @@ import java.util.List;
 
 public class PrioritySettingsPage extends LeftMenu {
     public enum TYPE {SPORT, COMPETITION, MARKET,COUNTRYRACES}
-    public com.paltech.element.common.DropDownBox ddbType = com.paltech.element.common.DropDownBox.xpath("//app-priority-setting//select[@name='types']");
+    public DropDownBox ddbType = DropDownBox.xpath("//app-priority-setting//select[@name='types']");
     public Button btnSubmit = Button.name("submit");
-    public DropDownBox ddbBrand = DropDownBox.xpath("//angular2-multiselect[@name='brands']//div[@class='cuppa-dropdown']","//ul[contains(@class,'lazyContainer')]//label");
+    public backoffice.controls.DropDownBox ddbBrand = backoffice.controls.DropDownBox.xpath("//angular2-multiselect[@name='brands']//div[@class='cuppa-dropdown']","//ul[contains(@class,'lazyContainer')]//label");
    /* public RadioButton rbSport = RadioButton.id("sport");
     public RadioButton rbCompetition = RadioButton.id("competition");
     public RadioButton rbMarket = RadioButton.id("market");

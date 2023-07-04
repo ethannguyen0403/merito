@@ -23,7 +23,7 @@ public class BetFairAccountInfoTest extends BaseCaseTest {
      */
     @TestRails(id = "648")
     @Test(groups = {"smoke"})
-    public void BO_System_BetFair_Account_Info_001() {
+    public void BO_System_BetFair_Account_Info_648() {
         log("@title: Validate Betfair account info is display correctly");
         log("Step 1. Access Tool > BetFair Account Info");
         BetFairAccountInfoPage page = backofficeHomePage.navigateBetFairAccountInfo();
@@ -51,7 +51,7 @@ public class BetFairAccountInfoTest extends BaseCaseTest {
      **/
     @TestRails(id = "649")
     @Test(groups = {"smoke"})
-    public void BO_System_BetFair_Account_Info_002() {
+    public void BO_System_BetFair_Account_Info_649() {
         log("@title: Validate can view Log of exchange and exchange game");
         log("Step 1. Access Tool > BetFair Account Info");
         BetFairAccountInfoPage page = backofficeHomePage.navigateBetFairAccountInfo();
