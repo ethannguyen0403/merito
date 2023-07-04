@@ -45,7 +45,7 @@ public class ResettlementLogPage extends HomePage {
             waitSpinIcon();
         }
         if (!sport.isEmpty())
-            ddbSport.selectByVisibleText(sport);
+            ddbSport.selectByVisibleContainsText(sport);
         if (!event.isEmpty())
             ddbEvent.selectByVisibleText(event);
         if (!market.isEmpty())

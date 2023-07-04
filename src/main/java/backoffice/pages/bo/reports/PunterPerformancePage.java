@@ -24,11 +24,19 @@ public class PunterPerformancePage extends HomePage {
     public DropDownBox ddbPortal = DropDownBox.xpath("//div[contains(@class,'portal')]//div[@class='selected-list']", "//div[contains(@class,'portal')]//div[contains(@class,'dropdown-list')]//li/label");
     public Label lblPortalError = Label.xpath("//div[contains(@class, 'search-region')]//div[@class='error-message'][3]");
     public int colUsername = 1;
-    public int colLevel = 2;
+    public int colLevel = 3;
     public int colTotalWager = 4;
     public Table tblReport = Table.xpath("//table[@class='ptable report']", 17);
-    Button btnSubmit = Button.name("submit");
+    public Button btnSubmit = Button.name("submit");
     private Label lblRangeDate = Label.xpath("//table[@class='ptable report']//span[@class='ml-5']");
+    private String lblSelectOrUnselect = "//span[text()='%s']";
+    private String ddnSelectOrUnselect = "//div[contains(@class,'%s')]//div[@class='selected-list']";
+    public Label lblNoRecordsFound = Label.xpath("//tbody//td[contains(text(),'No records found.')]");
+    public Label lblAtLeast1 = Label.xpath("//div[contains(text(),'Please select at least 1')]");
+    public Label lblYouCanSeeReport = Label.xpath("//label[contains(text(),'You can see report data up to 6 months.')]");
+    String lblTableHeader = "//thead//th[text()='%s']";
+    public Label lblDateRange = Label.xpath("//span[text()='Punter Perfomance']/parent::span/following-sibling::span");
+    public Button btnHome = Button.xpath("//table//span[text()='Home']");
 
     public void filter(String from, String to, String product, String portal, String typeCurrency) {
         if (!from.isEmpty()) {
@@ -106,4 +114,15 @@ public class PunterPerformancePage extends HomePage {
     }
 
     public enum Product {ALL, EXCHANGE}
+
+    public void clickSelectAllOrUnSelect(String productOrPortal, String selectOrUnselect){
+        Button ddnButton = Button.xpath(String.format(ddnSelectOrUnselect, productOrPortal));
+        ddnButton.click();
+        Button select = Button.xpath(String.format(lblSelectOrUnselect, selectOrUnselect));
+        select.click();
+    }
+
+    public String isTableHeaderByName(String name){
+        return Label.xpath(String.format(lblTableHeader, name)).getText();
+    }
 }
