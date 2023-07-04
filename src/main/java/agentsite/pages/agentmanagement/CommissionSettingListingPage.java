@@ -1,10 +1,10 @@
 package agentsite.pages.agentmanagement;
 
-import common.AGConstant;
 import agentsite.controls.Row;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import com.paltech.element.common.*;
+import common.AGConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,47 +15,44 @@ public class CommissionSettingListingPage extends HomePage {
     public DropDownBox ddbProduct = DropDownBox.id("product");
     public DropDownBox ddbLevel = DropDownBox.id("level");
     public Button btnSearch = Button.xpath("//button[@class='pbtn search']");
-
-    private Label iconLoadSpinner = Label.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
-
     public TextBox txtMinBet = TextBox.xpath("(//table[@class='ptable info']//input)[1]");
     public TextBox txtMaxBet = TextBox.xpath("(//table[@class='ptable info']//input)[2]");
     public TextBox txtMaxLiabilityPerMarket = TextBox.xpath("(//table[@class='ptable info']//input)[3]");
     public TextBox txtMaxWinPerMarket = TextBox.xpath("(//table[@class='ptable info']//input)[4]");
-
     public Label lblBreadcrumb = Label.xpath("//div[@class='downline-bar']");
     public Label lblAdminBreadcrumb = Label.xpath("(//div[@class='psection'])[1]");
     public Button btnUpdate = Button.xpath("//button[contains(@class,'directDownline')]");
     public Label lblMemberBreadcrumb = Label.xpath("//div[@id='commission-member']/div[@class='psection']");
-    private String ddbGameXpath = "//label[@for='%s']/following::select[1]";
-
-    public int colUsername =2;
-    public int colLoginID =2;
+    public int colUsername = 2;
+    public int colLoginID = 2;
     public int chbCol = 5;
     public int agentUpdateStatusCol = 19;
     public int tblAgentCommissionTotalCol = 19;
-    public Table tblAgentCommission = Table.xpath("//div[@class='downline-listings']//table",tblAgentCommissionTotalCol);
-    public DropDownBox ddbAgentPagination =DropDownBox.xpath("//div[@class='downline-listings']//app-custom-pagination//select[contains(@class,'custom-select')]");
-
+    public Table tblAgentCommission = Table.xpath("//div[@class='downline-listings']//table", tblAgentCommissionTotalCol);
+    public DropDownBox ddbAgentPagination = DropDownBox.xpath("//div[@class='downline-listings']//app-custom-pagination//select[contains(@class,'custom-select')]");
     public int tblMemberCommissionTotalCol = 25;
     public int colMemberUpdateStatusCol = 25;
-    public Table tblMemberCommission = Table.xpath("//div[@class='downline-listings agencyCommission']//table",tblMemberCommissionTotalCol);
-    public DropDownBox ddbMemberPagination =DropDownBox.xpath("//div[@class='downline-listings agencyCommission']//app-custom-pagination//select[contains(@class,'custom-select')]");
+    public Table tblMemberCommission = Table.xpath("//div[@class='downline-listings agencyCommission']//table", tblMemberCommissionTotalCol);
+    public DropDownBox ddbMemberPagination = DropDownBox.xpath("//div[@class='downline-listings agencyCommission']//app-custom-pagination//select[contains(@class,'custom-select')]");
+    private Label iconLoadSpinner = Label.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
+    private String ddbGameXpath = "//label[@for='%s']/following::select[1]";
     private String successIcon = "//span[contains(@class,'psuccess')]";
     private String errorIcon = "//span[contains(@class,'perror')]";
+
     public CommissionSettingListingPage(String types) {
         super(types);
     }
-    public void search(String username, String level, String accountStatus, String product){
-        if(!username.isEmpty())
+
+    public void search(String username, String level, String accountStatus, String product) {
+        if (!username.isEmpty())
             txtUsername.sendKeys(username);
-        if(!accountStatus.isEmpty())
+        if (!accountStatus.isEmpty())
             ddbAccountStatus.selectByVisibleText(accountStatus);
-        if(!product.isEmpty()) {
+        if (!product.isEmpty()) {
             ddbProduct.selectByVisibleText(product);
             waitingLoadingSpinner();
         }
-        if(!level.isEmpty()) {
+        if (!level.isEmpty()) {
             ddbLevel.selectByVisibleText(level);
             waitingLoadingSpinner();
         }
@@ -63,16 +60,14 @@ public class CommissionSettingListingPage extends HomePage {
         waitingLoadingSpinner();
     }
 
-    public boolean isGameDropdownExist(List<String> gameName)
-    {
-        DropDownBox ddpGame ;
-        int totalGame =gameName.size();
-        for(int i = 0; i < totalGame; i++) {
+    public boolean isGameDropdownExist(List<String> gameName) {
+        DropDownBox ddpGame;
+        int totalGame = gameName.size();
+        for (int i = 0; i < totalGame; i++) {
 
             String game = gameName.get(i);
             ddpGame = DropDownBox.xpath(String.format(ddbGameXpath, game));
-            if(!ddpGame.isDisplayed())
-            {
+            if (!ddpGame.isDisplayed()) {
                 System.out.println(String.format("Failed! %s dropdown not display"));
                 return false;
             }
@@ -81,33 +76,31 @@ public class CommissionSettingListingPage extends HomePage {
     }
 
 
-    public void updateCommissiongSetting(String loginID,boolean accountIsAgentlevel,String product, List<Double> lstGameCommission){
+    public void updateCommissiongSetting(String loginID, boolean accountIsAgentlevel, String product, List<Double> lstGameCommission) {
         // select the checkbox with corresponding loginID
-        String chbDownlinexPath ;
-        if(accountIsAgentlevel)
-            chbDownlinexPath = tblAgentCommission.getControlxPathBasedValueOfDifferentColumnOnRow(loginID,1, colUsername,1,null,chbCol,"input",false,false);
+        String chbDownlinexPath;
+        if (accountIsAgentlevel)
+            chbDownlinexPath = tblAgentCommission.getControlxPathBasedValueOfDifferentColumnOnRow(loginID, 1, colUsername, 1, null, chbCol, "input", false, false);
         else
-            chbDownlinexPath = tblMemberCommission.getControlxPathBasedValueOfDifferentColumnOnRow(loginID,1, colUsername,1,null,chbCol,"input",false,false);
+            chbDownlinexPath = tblMemberCommission.getControlxPathBasedValueOfDifferentColumnOnRow(loginID, 1, colUsername, 1, null, chbCol, "input", false, false);
         CheckBox chb = CheckBox.xpath(chbDownlinexPath);
-        if(!chb.isDisplayed())
-        {
+        if (!chb.isDisplayed()) {
             System.out.println(String.format("Not found the element %s", chbDownlinexPath));
             return;
         }
         chb.click();
 
         //based on selected product, input the corresponding commission
-        inputCommission(lstGameCommission,product);
+        inputCommission(lstGameCommission, product);
 
         //Click update
         btnUpdate.click();
         waitingLoadingSpinner();
     }
 
-    public void inputCommission (List<Double> lstGameCommission, String productName)
-    {
+    public void inputCommission(List<Double> lstGameCommission, String productName) {
         List<String> lstGameListLabel;
-        switch (productName){
+        switch (productName) {
             case AGConstant.LIVE_DEALER_ASIAN:
                 lstGameListLabel = AGConstant.AgencyManagement.CommissionSettingListing.LST_LIVE_DEALER_ASIAN_GAMES;
                 break;
@@ -117,56 +110,49 @@ public class CommissionSettingListingPage extends HomePage {
             default: // Lottery & Slot
                 lstGameListLabel = AGConstant.AgencyManagement.CommissionSettingListing.LST_LOTTERY_SLOT_GAMES;
         }
-        DropDownBox ddpGame ;
-        for(int i = 0; i < lstGameCommission.size() ; i++)
-        {
+        DropDownBox ddpGame;
+        for (int i = 0; i < lstGameCommission.size(); i++) {
             String game = lstGameListLabel.get(i);
-            ddpGame = DropDownBox.xpath(String.format(ddbGameXpath,game));
-            if(!ddpGame.isDisplayed(1))
-            {
+            ddpGame = DropDownBox.xpath(String.format(ddbGameXpath, game));
+            if (!ddpGame.isDisplayed(1)) {
                 System.out.println(String.format("Not found the element %s", ddpGame.getLocator()));
                 return;
             }
-            ddpGame.selectByVisibleText(String.format("%.2f",lstGameCommission.get(i)));
+            ddpGame.selectByVisibleText(String.format("%.2f", lstGameCommission.get(i)));
         }
     }
 
-    public boolean veifyComissionUpdate(List<ArrayList<String>> expectedData, boolean isAgentSection, boolean isSuccessStatus)
-    {
-        List<ArrayList<String>> listActualInfo =  new ArrayList<ArrayList<String>>();
-        String rowXpath ;
-        String cellxPath ;
+    public boolean veifyComissionUpdate(List<ArrayList<String>> expectedData, boolean isAgentSection, boolean isSuccessStatus) {
+        List<ArrayList<String>> listActualInfo = new ArrayList<ArrayList<String>>();
+        String rowXpath;
+        String cellxPath;
         int totalColumn;
         Row row;
-        if(isAgentSection){
+        if (isAgentSection) {
             totalColumn = tblAgentCommissionTotalCol;
-            rowXpath = String.format("%s%s", this.tblAgentCommission.getLocator().toString().replace("By.xpath: ",""), "//tbody/tr[%s]");
-            cellxPath = String.format("%s//tr[%s]//td[%s]",this.tblAgentCommission.getLocator().toString().replace("By.xpath: ",""), "%s", agentUpdateStatusCol);
-        }
-        else
-        {
+            rowXpath = String.format("%s%s", this.tblAgentCommission.getLocator().toString().replace("By.xpath: ", ""), "//tbody/tr[%s]");
+            cellxPath = String.format("%s//tr[%s]//td[%s]", this.tblAgentCommission.getLocator().toString().replace("By.xpath: ", ""), "%s", agentUpdateStatusCol);
+        } else {
             totalColumn = tblMemberCommissionTotalCol;
-            rowXpath = String.format("%s%s", this.tblMemberCommission.getLocator().toString().replace("By.xpath: ",""), "//tbody/tr[%s]");
-            cellxPath = String.format("%s//tr[%s]//td[%s]", this.tblMemberCommission.getLocator().toString().replace("By.xpath: ",""), "%s", colMemberUpdateStatusCol);
+            rowXpath = String.format("%s%s", this.tblMemberCommission.getLocator().toString().replace("By.xpath: ", ""), "//tbody/tr[%s]");
+            cellxPath = String.format("%s//tr[%s]//td[%s]", this.tblMemberCommission.getLocator().toString().replace("By.xpath: ", ""), "%s", colMemberUpdateStatusCol);
         }
-        for(int i = 0, n = expectedData.size(); i<n; i++)
-        {
-            row = Row.xpath(String.format(rowXpath,i+1));
-            listActualInfo.add(i, row.getRow(totalColumn,false));
+        for (int i = 0, n = expectedData.size(); i < n; i++) {
+            row = Row.xpath(String.format(rowXpath, i + 1));
+            listActualInfo.add(i, row.getRow(totalColumn, false));
             Label lblIcon;
             if (isSuccessStatus) {
-                lblIcon = Label.xpath(String.format("%s%s", String.format(cellxPath,i+1), successIcon));
+                lblIcon = Label.xpath(String.format("%s%s", String.format(cellxPath, i + 1), successIcon));
             } else {
-                lblIcon = Label.xpath(String.format("%s%s",  String.format(cellxPath,i+1), errorIcon));
+                lblIcon = Label.xpath(String.format("%s%s", String.format(cellxPath, i + 1), errorIcon));
             }
-            if(!lblIcon.isDisplayed())
+            if (!lblIcon.isDisplayed())
                 return false;
         }
         return expectedData.equals(listActualInfo);
     }
 
-    public void waitingLoadingSpinner()
-    {
-        iconLoadSpinner.waitForControlInvisible(1,1);
+    public void waitingLoadingSpinner() {
+        iconLoadSpinner.waitForControlInvisible(1, 1);
     }
 }

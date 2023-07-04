@@ -1,9 +1,9 @@
 package agentsite.pages.components;
 
+import agentsite.controls.MenuTree;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
-import agentsite.controls.MenuTree;
 
 public class QuickSetting extends QuickSearch {
     public Label lblAccStatus = Label.xpath("//div[contains(@class,'quickSettings')]//div[@class='setting-acc-status']//span");
@@ -17,7 +17,7 @@ public class QuickSetting extends QuickSearch {
         return SuccessPopup.xpath("//app-alert");
     }
 
-    public UserProfilePopup openUserProfile(){
+    public UserProfilePopup openUserProfile() {
         mtSettingMenu.clickMenu("User Profile");
         return new UserProfilePopup();
     }

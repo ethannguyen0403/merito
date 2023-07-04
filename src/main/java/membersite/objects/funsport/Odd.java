@@ -23,9 +23,27 @@ public class Odd {
     private Icon _icFavorite;
     private String _dataEventName;
 
+    private Odd(Builder builder) {
+        this._eventName = builder._eventName;
+        this._dataEventName = builder._dataEventName;
+        this._matchScore = builder._matchScore;
+        this._inPlay = builder._inPlay;
+        this._isInPlay = builder._isInPlay;
+        this._selectedTeam = builder._selectedTeam;
+        this._oddRate = builder._oddRate;
+        this._lnkOdd = builder._lnkOdd;
+        this._stake = builder._stake;
+        this._liability = builder._liability;
+        this._profit = builder._profit;
+        this._currency = builder._currency;
+        this._eventIndex = builder._eventIndex;
+        this._icFavorite = builder._icFavorite;
+    }
+
     public String getEventName() {
         return _eventName;
     }
+
     public String getDataEventName() {
         return _dataEventName;
     }
@@ -53,6 +71,7 @@ public class Odd {
     public Link getOdd() {
         return _lnkOdd;
     }
+
     public Icon getCcFavorite() {
         return _icFavorite;
     }
@@ -60,25 +79,27 @@ public class Odd {
     public String getStake() {
         return _stake;
     }
-    public String getProfit() {
-        return _profit;
-    }
 
     public void setStake(String val) {
         _stake = val;
     }
 
-    public String getLiability() {
-        return _liability;
+    public String getProfit() {
+        return _profit;
     }
 
     public void setProfit(String val) {
         _profit = val;
     }
 
+    public String getLiability() {
+        return _liability;
+    }
+
     public String getCurrency() {
         return _currency;
     }
+
     public int getEventIndex() {
         return _eventIndex;
     }
@@ -99,91 +120,83 @@ public class Odd {
         private String _currency = "";
         private int _eventIndex = 0;
         private String _dataEventName = "";
-        public Builder(){}
 
-        public Builder eventName(String val){
+        public Builder() {
+        }
+
+        public Builder eventName(String val) {
             _eventName = val;
             return this;
         }
 
-        public Builder dataEventName(String val){
+        public Builder dataEventName(String val) {
             _dataEventName = val;
             return this;
         }
 
-        public Builder matchScore(String val){
+        public Builder matchScore(String val) {
             _matchScore = val;
             return this;
         }
 
-        public Builder inPlay(String val){
+        public Builder inPlay(String val) {
             _inPlay = val;
             return this;
         }
 
-        public Builder isInPlay(boolean val){
+        public Builder isInPlay(boolean val) {
             _isInPlay = val;
             return this;
         }
 
-        public Builder selectedTeam(String val){
+        public Builder selectedTeam(String val) {
             _selectedTeam = val;
             return this;
         }
 
-        public Builder oddRate(String val){
+        public Builder oddRate(String val) {
             _oddRate = val;
             return this;
         }
 
-        public Builder lnkOdd(Link val){
+        public Builder lnkOdd(Link val) {
             _lnkOdd = val;
             return this;
         }
-        public Builder icFavorite(Icon val){
+
+        public Builder icFavorite(Icon val) {
             _icFavorite = val;
             return this;
         }
 
-        public Builder stake(String val){
+        public Builder stake(String val) {
             _stake = val;
             return this;
         }
-        public Builder liability(String val){
+
+        public Builder liability(String val) {
             _liability = val;
             return this;
         }
-        public Builder profit(String val){
+
+        public Builder profit(String val) {
             _profit = val;
             return this;
         }
-        public Builder currency(String val){
+
+        public Builder currency(String val) {
             _currency = val;
             return this;
         }
-        public Builder eventIndex(int val){
+
+        public Builder eventIndex(int val) {
             _eventIndex = val;
             return this;
         }
 
-        public Odd build() { return new Odd(this); }
+        public Odd build() {
+            return new Odd(this);
+        }
 
-    }
-
-    private Odd(Builder builder){
-        this._eventName = builder._eventName;
-        this._dataEventName = builder._dataEventName;
-        this._matchScore = builder._matchScore;
-        this._inPlay = builder._inPlay;
-        this._isInPlay = builder._isInPlay;
-        this._selectedTeam = builder._selectedTeam;
-        this._oddRate = builder._oddRate;
-        this._lnkOdd = builder._lnkOdd;
-        this._stake = builder._stake;
-        this._liability = builder._liability;
-        this._profit = builder._profit;
-        this._currency = builder._currency;
-        this._eventIndex = builder._eventIndex;
-        this._icFavorite = builder._icFavorite;
     }
 }

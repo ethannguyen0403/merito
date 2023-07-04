@@ -1,6 +1,5 @@
 package agentsite.testcase.reports;
 
-import common.AGConstant;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.report.TransactionHistoryPage;
 import agentsite.pages.report.WinLossDetailPage;
@@ -10,6 +9,7 @@ import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import agentsite.ultils.report.ReportslUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
+import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -29,7 +29,7 @@ public class TransactionHistoryTest extends BaseCaseTest {
      * @expect: 1. There is no http responded error returned
      */
     @Test(groups = {"http_request"})
-    public void Agent_Report_Transaction_History_001(){
+    public void Agent_Report_Transaction_History_001() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report> Transaction history");
         agentHomePage.navigateTransactionHistoryPage();
@@ -40,73 +40,72 @@ public class TransactionHistoryTest extends BaseCaseTest {
 
     /**
      * @title: Validate data on Transaction History display correctly
-     * @pre-condition:
-     *          1. Log in successfully by SAD
-     * @steps:  1. Navigate Report> Transaction history
-     *          2. Search Exchange Product and the date range has data
+     * @pre-condition: 1. Log in successfully by SAD
+     * @steps: 1. Navigate Report> Transaction history
+     * 2. Search Exchange Product and the date range has data
      * @expect: 1. Verify data of each competition display correctly
      */
-    @Test (groups = {"smoke"})
-    public void  Agent_Report_Transaction_History_003 (){
+    @Test(groups = {"smoke"})
+    public void Agent_Report_Transaction_History_003() {
         log("@title: Validate data on Transaction History display correctly y");
         log("Step 1. Navigate Report >  Transaction History");
         TransactionHistoryPage page = agentHomePage.navigateTransactionHistoryPage();
 
         log("Step 2. Search Exchange Product and the date range has data");
-        page.dpFrom.previousMonthWithDate(0,"1");
+        page.dpFrom.previousMonthWithDate(0, "1");
         page.filter("Exchange");
 
         log("Verify 1. Verify data of each competition display correctly");
-        if(page.lblNoRecord.isDisplayed())
-        {
-            Assert.assertEquals(page.lblNoRecord.getText(), "No records found.","FAILED! Incorrect text when have no record");
+        if (page.lblNoRecord.isDisplayed()) {
+            Assert.assertEquals(page.lblNoRecord.getText(), "No records found.", "FAILED! Incorrect text when have no record");
             return;
         }
-        Assert.assertTrue(page.verifyVolumePnLTaxMatchWithDetail(),"FAILED! Summary data not match with Transaction Detail");
+        Assert.assertTrue(page.verifyVolumePnLTaxMatchWithDetail(), "FAILED! Summary data not match with Transaction Detail");
         log("INFO: Executed completely");
     }
 
-    @Test (groups = {"regression1"})
-    public void  Agent_Report_Transaction_History_002 (){
+    @Test(groups = {"regression1"})
+    public void Agent_Report_Transaction_History_002() {
         log("@title: Validate data on Transaction History display correctly y");
         log("Step 1. Navigate Report >  Transaction History");
-        String today = DateUtils.getDate(0,"dd/MM/yyyy","GMT-4:00");
+        String today = DateUtils.getDate(0, "dd/MM/yyyy", "GMT-4:00");
         TransactionHistoryPage page = agentHomePage.navigateTransactionHistoryPage();
 
         log("Verify 1. Verify Transaction History display correctly");
-        Assert.assertEquals(page.header.lblPageTitle.getText(),TRANSACTION_HISTORY,"Failed! Page title is incorrect");
-        Assert.assertEquals(page.lblFrom.getText(),LBL_FROM,"Failed! Today button is incorrect");
-        Assert.assertEquals(page.lblTo.getText(),LBL_TO,"Failed! Today button is incorrect");
-        Assert.assertEquals(page.lblProduct.getText(),LBL_PRODUCT,"Failed! Today button is incorrect");
-        Assert.assertEquals(page.txtSearchFrom.getAttribute("value"),today,"Failed! Today button is incorrect");
-        Assert.assertEquals(page.txtSearchFrom.getAttribute("value"),today,"Failed! Today button is incorrect");
-        Assert.assertEquals(page.btnYesterday.getText(),BTN_YESTERDAY,"Failed! Yesterday button is incorrect");
-        Assert.assertEquals(page.btnLastWeek.getText(), LAST_WEEK,"Failed! Last Week button is incorrect");
-        Assert.assertEquals(page.btnSubmit.getText(),BTN_SUBMIT,"Failed! Submit button is incorrect");
-        Assert.assertEquals(page.lblInfo.getText(),LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS,"FAILED! Note message is incorrect displayed");
-        Assert.assertEquals(page.tblReport.getColumnNamesOfTable(),TABLE_HEADER,"FAILED! Header title is incorrect");
+        Assert.assertEquals(page.header.lblPageTitle.getText(), TRANSACTION_HISTORY, "Failed! Page title is incorrect");
+        Assert.assertEquals(page.lblFrom.getText(), LBL_FROM, "Failed! Today button is incorrect");
+        Assert.assertEquals(page.lblTo.getText(), LBL_TO, "Failed! Today button is incorrect");
+        Assert.assertEquals(page.lblProduct.getText(), LBL_PRODUCT, "Failed! Today button is incorrect");
+        Assert.assertEquals(page.txtSearchFrom.getAttribute("value"), today, "Failed! Today button is incorrect");
+        Assert.assertEquals(page.txtSearchFrom.getAttribute("value"), today, "Failed! Today button is incorrect");
+        Assert.assertEquals(page.btnYesterday.getText(), BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
+        Assert.assertEquals(page.btnLastWeek.getText(), LAST_WEEK, "Failed! Last Week button is incorrect");
+        Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "Failed! Submit button is incorrect");
+        Assert.assertEquals(page.lblInfo.getText(), LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS, "FAILED! Note message is incorrect displayed");
+        Assert.assertEquals(page.tblReport.getColumnNamesOfTable(), TABLE_HEADER, "FAILED! Header title is incorrect");
 
         log("INFO: Executed completely");
     }
 
-    @Test (groups = {"regression"})
-    public void Agent_Report_Transaction_History_004(){
+    @Test(groups = {"regression"})
+    public void Agent_Report_Transaction_History_004() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Transaction History");
-        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(),LIST_EXTRA_RPODUCTS);
+        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-        String winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(),ProfileUtils.getAppName()));
+        String winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
         WinLossDetailPage page = agentHomePage.navigateWinLossDetailPage();
 
         log("Step 2: Get all products in dropdown");
         List<String> lstProduct = page.ddbProduct.getAllOption(true);
 
         log("Verify 1: Products display correct");
-        Assert.assertEquals(lstProduct,lstAllProductsExpected,"FAILED! List product is incorrect");
+        Assert.assertEquals(lstProduct, lstAllProductsExpected, "FAILED! List product is incorrect");
         log("INFO: Executed completely");
     }
-    @Test (groups = {"regression"})
-    public void Agent_Report_Transaction_History_005(){
+
+    @Test(groups = {"regression"})
+    public void Agent_Report_Transaction_History_005() {
         log("@title: Validate that an error message is displayed when filtering without any product");
         log("Step 1: Navigate Report > Transaction History");
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();

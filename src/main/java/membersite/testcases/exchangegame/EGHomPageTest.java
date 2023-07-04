@@ -61,26 +61,27 @@ public class EGHomPageTest extends BaseCaseTest {
 //        log("INFO: Executed completely");
 //    }
 //
+
     /**
      * @title: Verify all exchange game images are loaded
      * @precondition: 1. Login member site
      * @step: Navigate to exchange game
      * @expect: 1/ Verify the menu is loaded correctly
      */
-    @TestRails(id="527")
+    @TestRails(id = "527")
     @Test(groups = {"smoke"})
-    public void EG_Home_Page_TC527(){
+    public void EG_Home_Page_TC527() {
         log("@title: Verify all exchange game images are loaded");
         log("Step 1. Navigate to exchange game  ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
         log("Verify the menu is loaded correctly");
-        Assert.assertTrue(egHomePage.icHomeMenu.isDisplayed(),"FAILED! EG Home menu does not display");
-        Assert.assertEquals(egHomePage.menuBaccarat.getText().trim(), EGConstants.BACCARAT_CAP,"FAILED! EG Baccarat menu does not display");
-        Assert.assertEquals(egHomePage.menuBlackjack.getText().trim(),EGConstants.BLACKJACK_CAP,"FAILED! EG Blackjack menu does not display");
-        Assert.assertEquals(egHomePage.menuCardDerbyRacing.getText().trim(), EGConstants.CARD_DERBY_RACING_CAP,"FAILED! EG Card Derby Racing menu does not display");
-        Assert.assertEquals(egHomePage.menuHiLo.getText().trim(), EGConstants.HI_LO_CAP,"FAILED! EG Hi lo menu does not display");
-        Assert.assertEquals(egHomePage.menuOmahaHi.getText().trim(), EGConstants.OMAHA_HI_CAP,"FAILED! EG Oma ha hi menu does not display");
-        Assert.assertEquals(egHomePage.menuHoldEm.getText().trim(), EGConstants.HOLD_EM_CAP,"FAILED! EG Omahahi menu does not display");
+        Assert.assertTrue(egHomePage.icHomeMenu.isDisplayed(), "FAILED! EG Home menu does not display");
+        Assert.assertEquals(egHomePage.menuBaccarat.getText().trim(), EGConstants.BACCARAT_CAP, "FAILED! EG Baccarat menu does not display");
+        Assert.assertEquals(egHomePage.menuBlackjack.getText().trim(), EGConstants.BLACKJACK_CAP, "FAILED! EG Blackjack menu does not display");
+        Assert.assertEquals(egHomePage.menuCardDerbyRacing.getText().trim(), EGConstants.CARD_DERBY_RACING_CAP, "FAILED! EG Card Derby Racing menu does not display");
+        Assert.assertEquals(egHomePage.menuHiLo.getText().trim(), EGConstants.HI_LO_CAP, "FAILED! EG Hi lo menu does not display");
+        Assert.assertEquals(egHomePage.menuOmahaHi.getText().trim(), EGConstants.OMAHA_HI_CAP, "FAILED! EG Oma ha hi menu does not display");
+        Assert.assertEquals(egHomePage.menuHoldEm.getText().trim(), EGConstants.HOLD_EM_CAP, "FAILED! EG Omahahi menu does not display");
 
         log("INFO: Executed completely");
     }
@@ -92,35 +93,35 @@ public class EGHomPageTest extends BaseCaseTest {
      * Baccarat, Blackjace, Racing, Hilo, Omahahi, Holdem
      * @expect: Verify the corresponding page is displayed
      */
-    @TestRails(id="529")
+    @TestRails(id = "529")
     @Test(groups = {"smoke"})
-    public void EG_Home_Page_TC529(){
+    public void EG_Home_Page_TC529() {
         log("@title: Verify can open all games in the main menu");
         log("Step 1. Navigate to exchange game  ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
 
         log("Verify the corresponding page is displayed when clicking on main menu");
-        BaccaratPage baccaratPage = (BaccaratPage)egHomePage.navigateGameFromMainMenu(EGConstants.BACCARAT);
-        Assert.assertTrue(baccaratPage.getGameHeaderTitle().startsWith("Turbo Exchange Baccarat"),String.format("FAIELD! Baccarat title header is incorrect. Expected %s but found %s","Turbo Exchange Baccarat",baccaratPage.getGameHeaderTitle()));
+        BaccaratPage baccaratPage = (BaccaratPage) egHomePage.navigateGameFromMainMenu(EGConstants.BACCARAT);
+        Assert.assertTrue(baccaratPage.getGameHeaderTitle().startsWith("Turbo Exchange Baccarat"), String.format("FAIELD! Baccarat title header is incorrect. Expected %s but found %s", "Turbo Exchange Baccarat", baccaratPage.getGameHeaderTitle()));
 
-        BlackJackPage blcBlackJackPage= (BlackJackPage) egHomePage.navigateGameFromMainMenu(EGConstants.BLACKJACK);
-        Assert.assertTrue(blcBlackJackPage.getGameHeaderTitle().startsWith("Turbo Exchange BlackJack"),String.format("FAIELD! Blackjack title header is incorrect. Expected %s but found %s","Turbo Exchange BlackJack",blcBlackJackPage.getGameHeaderTitle()));
+        BlackJackPage blcBlackJackPage = (BlackJackPage) egHomePage.navigateGameFromMainMenu(EGConstants.BLACKJACK);
+        Assert.assertTrue(blcBlackJackPage.getGameHeaderTitle().startsWith("Turbo Exchange BlackJack"), String.format("FAIELD! Blackjack title header is incorrect. Expected %s but found %s", "Turbo Exchange BlackJack", blcBlackJackPage.getGameHeaderTitle()));
 
         HiloPage hiloPage = (HiloPage) egHomePage.navigateGameFromMainMenu(EGConstants.HI_LO);
-        Assert.assertTrue(hiloPage.getGameHeaderTitle().startsWith("Turbo Exchange Hi Lo"),String.format("FAIELD! Hi Lo title header is incorrect. Expected %s but found %s","Turbo Exchange Hi Lo",hiloPage.getGameHeaderTitle()));
+        Assert.assertTrue(hiloPage.getGameHeaderTitle().startsWith("Turbo Exchange Hi Lo"), String.format("FAIELD! Hi Lo title header is incorrect. Expected %s but found %s", "Turbo Exchange Hi Lo", hiloPage.getGameHeaderTitle()));
 
         HoldemPage holdemPage = (HoldemPage) egHomePage.navigateGameFromMainMenu(EGConstants.HOLD_EM);
-        Assert.assertTrue(holdemPage.getGameHeaderTitle().startsWith("Turbo Exchange Hold'em"),String.format("FAIELD! Omahahi title header is incorrect. Expected %s but found %s","Turbo Exchange Omahahi",holdemPage.getGameHeaderTitle()));
+        Assert.assertTrue(holdemPage.getGameHeaderTitle().startsWith("Turbo Exchange Hold'em"), String.format("FAIELD! Omahahi title header is incorrect. Expected %s but found %s", "Turbo Exchange Omahahi", holdemPage.getGameHeaderTitle()));
 
         OmahahiPage omahahiPage = (OmahahiPage) egHomePage.navigateGameFromMainMenu(EGConstants.OMAHA_HI);
-        Assert.assertTrue(omahahiPage.getGameHeaderTitle().startsWith("Exchange Omaha Hi"),String.format("FAIELD! Omaha Hi title header is incorrect. Expected %s but found %s","Exchange Omaha Hi",omahahiPage.getGameHeaderTitle()));
+        Assert.assertTrue(omahahiPage.getGameHeaderTitle().startsWith("Exchange Omaha Hi"), String.format("FAIELD! Omaha Hi title header is incorrect. Expected %s but found %s", "Exchange Omaha Hi", omahahiPage.getGameHeaderTitle()));
 
-        CardDerbyRacingPage cardDerbyRacingPage =(CardDerbyRacingPage) egHomePage.navigateGameFromMainMenu(EGConstants.CARD_DERBY_RACING);
-        Assert.assertEquals(cardDerbyRacingPage.getGameHeaderTitle(),EGConstants.CARD_DERBY_RACING_CAP,String.format("FAIELD!Card Derby Racing title header is incorrect. Expected %s but found %s",EGConstants.CARD_DERBY_RACING_CAP,cardDerbyRacingPage.getGameHeaderTitle()));
+        CardDerbyRacingPage cardDerbyRacingPage = (CardDerbyRacingPage) egHomePage.navigateGameFromMainMenu(EGConstants.CARD_DERBY_RACING);
+        Assert.assertEquals(cardDerbyRacingPage.getGameHeaderTitle(), EGConstants.CARD_DERBY_RACING_CAP, String.format("FAIELD!Card Derby Racing title header is incorrect. Expected %s but found %s", EGConstants.CARD_DERBY_RACING_CAP, cardDerbyRacingPage.getGameHeaderTitle()));
 
-        egHomePage  = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
-        Assert.assertTrue(egHomePage.gcBaccarat.isDisplayed(),"FAIELD!Home page is not display");
-        Assert.assertTrue(egHomePage.lblPanner.isDisplayed(),"FAIELD! EG Home page banner is not display");
+        egHomePage = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
+        Assert.assertTrue(egHomePage.gcBaccarat.isDisplayed(), "FAIELD!Home page is not display");
+        Assert.assertTrue(egHomePage.lblPanner.isDisplayed(), "FAIELD! EG Home page banner is not display");
 
         log("INFO: Executed completely");
     }
@@ -132,36 +133,36 @@ public class EGHomPageTest extends BaseCaseTest {
      * Baccarat, Blackjace, Racing, Hilo, Omahahi, Holdem
      * @expect: Verify can open all game by when click on the image
      */
-    @TestRails(id="530")
+    @TestRails(id = "530")
     @Test(groups = {"smoke"})
-    public void EG_Home_Page_TC530(){
+    public void EG_Home_Page_TC530() {
         log("@title: Verify can open all game by when click on the image");
         log("Step 1. Navigate to exchange game ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
 
         log("Verify the corresponding page is displayed when clicking on main menu");
-        BaccaratPage baccaratPage = (BaccaratPage)egHomePage.navigateGameFromImage(EGConstants.BACCARAT);
-        Assert.assertTrue(baccaratPage.getGameHeaderTitle().startsWith("Turbo Exchange Baccarat"),String.format("FAIELD! Baccarat title header is incorrect. Expected %s but found %s","Turbo Exchange Baccarat",baccaratPage.getGameHeaderTitle()));
+        BaccaratPage baccaratPage = (BaccaratPage) egHomePage.navigateGameFromImage(EGConstants.BACCARAT);
+        Assert.assertTrue(baccaratPage.getGameHeaderTitle().startsWith("Turbo Exchange Baccarat"), String.format("FAIELD! Baccarat title header is incorrect. Expected %s but found %s", "Turbo Exchange Baccarat", baccaratPage.getGameHeaderTitle()));
 
-        egHomePage  = (EGHomePage)egHomePage.navigateGameFromMainMenu("Home");
-        BlackJackPage blcBlackJackPage= (BlackJackPage) egHomePage.navigateGameFromImage(EGConstants.BLACKJACK);
-        Assert.assertTrue(blcBlackJackPage.getGameHeaderTitle().contains("Turbo Exchange BlackJack - Game ID:"),String.format("FAIELD! Blackjack title header is incorrect. Expected %s but found %s","Turbo Exchange BlackJack",blcBlackJackPage.getGameHeaderTitle()));
+        egHomePage = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
+        BlackJackPage blcBlackJackPage = (BlackJackPage) egHomePage.navigateGameFromImage(EGConstants.BLACKJACK);
+        Assert.assertTrue(blcBlackJackPage.getGameHeaderTitle().contains("Turbo Exchange BlackJack - Game ID:"), String.format("FAIELD! Blackjack title header is incorrect. Expected %s but found %s", "Turbo Exchange BlackJack", blcBlackJackPage.getGameHeaderTitle()));
 
-        egHomePage  = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
+        egHomePage = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
         HiloPage hiloPage = (HiloPage) egHomePage.navigateGameFromImage(EGConstants.HI_LO);
-        Assert.assertTrue(hiloPage.getGameHeaderTitle().contains("Turbo Exchange Hi Lo"),String.format("FAIELD! Hi Lo title header is incorrect. Expected %s but found %s","Turbo Exchange Hi Lo",hiloPage.getGameHeaderTitle()));
+        Assert.assertTrue(hiloPage.getGameHeaderTitle().contains("Turbo Exchange Hi Lo"), String.format("FAIELD! Hi Lo title header is incorrect. Expected %s but found %s", "Turbo Exchange Hi Lo", hiloPage.getGameHeaderTitle()));
 
-        egHomePage  = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
-        HoldemPage holdemPage =(HoldemPage) egHomePage.navigateGameFromImage(EGConstants.HOLD_EM);
-        Assert.assertTrue(holdemPage.getGameHeaderTitle().contains("Turbo Exchange Hold'em"),String.format("FAIELD! Holdem title header is incorrect. Expected %s but found %s","Turbo Exchange Hold'em",holdemPage.getGameHeaderTitle()));
+        egHomePage = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
+        HoldemPage holdemPage = (HoldemPage) egHomePage.navigateGameFromImage(EGConstants.HOLD_EM);
+        Assert.assertTrue(holdemPage.getGameHeaderTitle().contains("Turbo Exchange Hold'em"), String.format("FAIELD! Holdem title header is incorrect. Expected %s but found %s", "Turbo Exchange Hold'em", holdemPage.getGameHeaderTitle()));
 
-        egHomePage  = (EGHomePage)egHomePage.navigateGameFromMainMenu("Home");
+        egHomePage = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
         OmahahiPage omahahiPage = (OmahahiPage) egHomePage.navigateGameFromImage(EGConstants.OMAHA_HI);
-        Assert.assertTrue(omahahiPage.getGameHeaderTitle().contains("Exchange Omaha Hi"),String.format("FAIELD! Omaha Hi title header is incorrect. Expected %s but found %s","Exchange Omaha Hi",omahahiPage.getGameHeaderTitle()));
+        Assert.assertTrue(omahahiPage.getGameHeaderTitle().contains("Exchange Omaha Hi"), String.format("FAIELD! Omaha Hi title header is incorrect. Expected %s but found %s", "Exchange Omaha Hi", omahahiPage.getGameHeaderTitle()));
 
-        egHomePage  = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
+        egHomePage = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
         CardDerbyRacingPage cardDerbyRacingPage = (CardDerbyRacingPage) egHomePage.navigateGameFromImage(EGConstants.CARD_DERBY_RACING);
-        Assert.assertEquals(cardDerbyRacingPage.getGameHeaderTitle(),EGConstants.CARD_DERBY_RACING_CAP,String.format("FAIELD!Card Derby Racing title header is incorrect. Expected %s but found %s",EGConstants.CARD_DERBY_RACING_CAP,cardDerbyRacingPage.getGameHeaderTitle()));
+        Assert.assertEquals(cardDerbyRacingPage.getGameHeaderTitle(), EGConstants.CARD_DERBY_RACING_CAP, String.format("FAIELD!Card Derby Racing title header is incorrect. Expected %s but found %s", EGConstants.CARD_DERBY_RACING_CAP, cardDerbyRacingPage.getGameHeaderTitle()));
 
         log("INFO: Executed completely");
     }
@@ -172,9 +173,9 @@ public class EGHomPageTest extends BaseCaseTest {
      * @step: 1.  Click Play Standard of Baccarat
      * @expect: Play Standard baccarat page is correct ly display
      */
-    @TestRails(id="532")
+    @TestRails(id = "532")
     @Test(groups = {"smoke"})
-    public void EG_Home_Page_TC533(){
+    public void EG_Home_Page_TC533() {
         log("@title: Verify can open BACCARAT by when click Play Standard");
         log("Step 1. Navigate to exchange game ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
@@ -183,11 +184,12 @@ public class EGHomPageTest extends BaseCaseTest {
         egHomePage.navigateStandarGame(EGConstants.BACCARAT);
         BaccaratPage baccaratPage = new BaccaratPage(_brandname);
 
-                log("Verify 1 Play Standard baccarat page is correctly display ");
-        Assert.assertTrue(baccaratPage.getGameHeaderTitle().startsWith("Exchange Baccarat"),String.format("FAIELD! Baccarat title header is incorrect. Expected %s but found %s","Turbo Exchange Baccarat",baccaratPage.getGameHeaderTitle()));
+        log("Verify 1 Play Standard baccarat page is correctly display ");
+        Assert.assertTrue(baccaratPage.getGameHeaderTitle().startsWith("Exchange Baccarat"), String.format("FAIELD! Baccarat title header is incorrect. Expected %s but found %s", "Turbo Exchange Baccarat", baccaratPage.getGameHeaderTitle()));
 
         log("INFO: Executed completely");
     }
+
     /**
      * @title: Verify can open BACCARAT by when click Play turbo
      * @precondition: 1. Login member site > Active Exchange Game
@@ -195,9 +197,9 @@ public class EGHomPageTest extends BaseCaseTest {
      * @expect: Play Turbo Caccarat page is correct ly display
      */
 
-    @TestRails(id="531")
+    @TestRails(id = "531")
     @Test(groups = {"smoke"})
-    public void EG_Home_Page_TC531(){
+    public void EG_Home_Page_TC531() {
         log("@title: Verify can open BACCARAT by when click Play turbo");
         log("Step 1. Navigate to exchange game ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
@@ -206,10 +208,11 @@ public class EGHomPageTest extends BaseCaseTest {
         BaccaratPage baccaratPage = (BaccaratPage) egHomePage.navigateTurboGame(EGConstants.BACCARAT);
 
         log("Verify 1 Play Turbo Baccarat page is correctly display ");
-        Assert.assertTrue(baccaratPage.getGameHeaderTitle().startsWith("Turbo Exchange Baccarat"),String.format("FAIELD! Baccarat title header is incorrect. Expected %s but found %s","Turbo Exchange Baccarat",baccaratPage.getGameHeaderTitle()));
+        Assert.assertTrue(baccaratPage.getGameHeaderTitle().startsWith("Turbo Exchange Baccarat"), String.format("FAIELD! Baccarat title header is incorrect. Expected %s but found %s", "Turbo Exchange Baccarat", baccaratPage.getGameHeaderTitle()));
 
         log("INFO: Executed completely");
     }
+
     /**
      * @title: Verify can open Blackjack by when click Play Standard
      * @precondition: 1. Login member site > Active Exchange Game
@@ -217,7 +220,7 @@ public class EGHomPageTest extends BaseCaseTest {
      * @expect: Play Standard Blackjack page is correct ly display
      */
     @Test(groups = {"regression"})
-    public void EG_Home_Page_TC007(){
+    public void EG_Home_Page_TC007() {
         log("@title: Verify can open Blackjack by when click Play Standard");
         log("Step 1. Navigate to exchange game ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
@@ -226,10 +229,11 @@ public class EGHomPageTest extends BaseCaseTest {
         BlackJackPage blackJackPage = (BlackJackPage) egHomePage.navigateStandarGame(EGConstants.BLACKJACK);
 
         log("Verify 1 Play Standard Blackjack page is correctly display ");
-        Assert.assertTrue(blackJackPage.getGameHeaderTitle().startsWith("Exchange "+EGConstants.BLACKJACK_CAP),String.format("FAIELD! Blackjack title header is incorrect. Expected %s but found %s","Turbo Exchange Baccarat",blackJackPage.getGameHeaderTitle()));
+        Assert.assertTrue(blackJackPage.getGameHeaderTitle().startsWith("Exchange " + EGConstants.BLACKJACK_CAP), String.format("FAIELD! Blackjack title header is incorrect. Expected %s but found %s", "Turbo Exchange Baccarat", blackJackPage.getGameHeaderTitle()));
 
         log("INFO: Executed completely");
     }
+
     /**
      * @title: Verify can open Hi lo by when click Play Standard
      * @precondition: 1. Login member site > Active Exchange Game
@@ -237,7 +241,7 @@ public class EGHomPageTest extends BaseCaseTest {
      * @expect: Play Standard baccarat page is correct ly display
      */
     @Test(groups = {"regression"})
-    public void EG_Home_Page_TC008(){
+    public void EG_Home_Page_TC008() {
         log("@title: Verify can open Hilo by when click Play Standard");
         log("Step 1. Navigate to exchange game ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
@@ -246,10 +250,11 @@ public class EGHomPageTest extends BaseCaseTest {
         HiloPage hiloPage = (HiloPage) egHomePage.navigateStandarGame(EGConstants.HI_LO);
 
         log("Verify 1 Play Standard Hi Lo page is correctly display ");
-        Assert.assertTrue(hiloPage.getGameHeaderTitle().startsWith("Exchange "+EGConstants.HI_LO_CAP),String.format("FAIELD! Hilo title header is incorrect. Expected %s but found %s","Turbo Exchange Hilo",hiloPage.getGameHeaderTitle()));
+        Assert.assertTrue(hiloPage.getGameHeaderTitle().startsWith("Exchange " + EGConstants.HI_LO_CAP), String.format("FAIELD! Hilo title header is incorrect. Expected %s but found %s", "Turbo Exchange Hilo", hiloPage.getGameHeaderTitle()));
 
         log("INFO: Executed completely");
     }
+
     /**
      * @title: Verify can open Omahahi by when click Play Standard
      * @precondition: 1. Login member site > Active Exchange Game
@@ -257,19 +262,20 @@ public class EGHomPageTest extends BaseCaseTest {
      * @expect: Play Standard Omahahi page is correct ly display
      */
     @Test(groups = {"regression"})
-    public void EG_Home_Page_TC009(){
+    public void EG_Home_Page_TC009() {
         log("@title: Verify can open Omahahi by when click Play Standard");
         log("Step 1. Navigate to exchange game ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
 
         log("Step 2. Click Play Standard of Omahahi");
-        HoldemPage holdemPage = (HoldemPage)egHomePage.navigateStandarGame(EGConstants.HOLD_EM);
+        HoldemPage holdemPage = (HoldemPage) egHomePage.navigateStandarGame(EGConstants.HOLD_EM);
 
         log("Verify 1 Play Standard Omahahi page is correctly display ");
-        Assert.assertTrue(holdemPage.getGameHeaderTitle().startsWith("Exchange "+EGConstants.HOLD_EM_CAP),String.format("FAIELD! Omahahi title header is incorrect. Expected %s but found %s","Turbo Exchange "+EGConstants.HOLD_EM_CAP,holdemPage.getGameHeaderTitle()));
+        Assert.assertTrue(holdemPage.getGameHeaderTitle().startsWith("Exchange " + EGConstants.HOLD_EM_CAP), String.format("FAIELD! Omahahi title header is incorrect. Expected %s but found %s", "Turbo Exchange " + EGConstants.HOLD_EM_CAP, holdemPage.getGameHeaderTitle()));
 
         log("INFO: Executed completely");
     }
+
     /**
      * @title: Verify can open Omahahi by when click Play Standard
      * @precondition: 1. Login member site > Active Exchange Game
@@ -277,16 +283,16 @@ public class EGHomPageTest extends BaseCaseTest {
      * @expect: Play Standard Omahahi page is correct ly display
      */
     @Test(groups = {"regression"})
-    public void EG_Home_Page_TC010(){
+    public void EG_Home_Page_TC010() {
         log("@title: Verify can open Omahahi by when click Play Standard");
         log("Step 1. Navigate to exchange game ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
 
         log("Step 2. Click Play Standard of Omahahi");
-        OmahahiPage omahahiPage = (OmahahiPage)egHomePage.navigateStandarGame(EGConstants.OMAHA_HI);
+        OmahahiPage omahahiPage = (OmahahiPage) egHomePage.navigateStandarGame(EGConstants.OMAHA_HI);
 
         log("Verify 1 Play Standard Omahahi page is correctly display ");
-        Assert.assertTrue(omahahiPage.getGameHeaderTitle().startsWith("Exchange "+EGConstants.OMAHA_HI_CAP),String.format("FAIELD! Omahahi title header is incorrect. Expected %s but found %s","Turbo Exchange "+EGConstants.OMAHA_HI_CAP,omahahiPage.getGameHeaderTitle()));
+        Assert.assertTrue(omahahiPage.getGameHeaderTitle().startsWith("Exchange " + EGConstants.OMAHA_HI_CAP), String.format("FAIELD! Omahahi title header is incorrect. Expected %s but found %s", "Turbo Exchange " + EGConstants.OMAHA_HI_CAP, omahahiPage.getGameHeaderTitle()));
 
         log("INFO: Executed completely");
     }

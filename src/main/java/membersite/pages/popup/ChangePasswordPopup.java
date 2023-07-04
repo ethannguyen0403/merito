@@ -20,45 +20,45 @@ public class ChangePasswordPopup {
     private Label lblValidateNewPasswordErrorMsg = Label.xpath("//input[@id='password-input']/following::div[@class='text-danger'][1]");
     private Label lblConfirmPasswordErrorMsg = Label.xpath("//input[@id='password-confirmation-input']/following::div[@class='text-danger'][1]");
 
-    public void clickCancelBtn(){
+    public void clickCancelBtn() {
         btnCancel.click();
         btnCancel.isInvisible(1);
     }
-    public void clickSaveChangeBtn(){
+
+    public void clickSaveChangeBtn() {
         btnSaveChange.click();
     }
 
-    public String changePassword(String oldPassword, String newPassword, String confirmPassword){
-       inputChangePassword(oldPassword,newPassword,confirmPassword);
-       clickSaveChangeBtn();
-       lblSuccessMsg.isTextDisplayed(MemberConstants.ChangePasswordPopup.MSG_SUCCESS,3);
-       return lblSuccessMsg.getText();
+    public String changePassword(String oldPassword, String newPassword, String confirmPassword) {
+        inputChangePassword(oldPassword, newPassword, confirmPassword);
+        clickSaveChangeBtn();
+        lblSuccessMsg.isTextDisplayed(MemberConstants.ChangePasswordPopup.MSG_SUCCESS, 3);
+        return lblSuccessMsg.getText();
     }
-    public void inputChangePassword(String oldPassword, String newPassword, String confirmPassword){
+
+    public void inputChangePassword(String oldPassword, String newPassword, String confirmPassword) {
         txtNewPassword.type(newPassword);
         txtConfirmPassword.type(confirmPassword);
         txtOldPassword.type(oldPassword);
     }
 
-    public String getErrorMsg ()
-    {
+    public String getErrorMsg() {
         return lblErrorMsg.getText();
     }
 
-    public String getNewPasswordErrorMsg ()
-    {
+    public String getNewPasswordErrorMsg() {
         return lblValidateNewPasswordErrorMsg.getText();
     }
-    public String getConfirmPasswordErrorMsg ()
-    {
+
+    public String getConfirmPasswordErrorMsg() {
         return lblConfirmPasswordErrorMsg.getText();
     }
 
-    public void closePopup(){
+    public void closePopup() {
         btnClose.click();
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return lblTitle.getText();
     }
 }

@@ -15,8 +15,8 @@
         <parameter name='level' value='AD'/>
         <parameter name='levelLogin' value='Admin'/>
         <parameter name='downlineAccount' value='auto.part1'/>
-        <parameter name ='portalSubAccount' value ='SASUBBA'/>
-        <parameter name ='memberAccount' value ='sabella1'/>
+        <parameter name='portalSubAccount' value='SASUBBA'/>
+        <parameter name='memberAccount' value='sabella1'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
@@ -24,14 +24,14 @@
         <parameter name='brandname' value='satsport'/>
         <groups>
             <run>
-<!--                <include name="precondition" />-->
-                <include name="interaction1" />
+                <!--                <include name="precondition" />-->
+                <include name="interaction1"/>
             </run>
         </groups>
 
         <classes>
 
-            <class name="agentsite.testcase.all.marketsmanagement.SuspendUnsuspendMarketsTest"/>
+<!--            <class name="agentsite.testcase.marketsmanagement.SuspendUnsuspendMarketsTest"/>-->
         </classes>
 
     </test>

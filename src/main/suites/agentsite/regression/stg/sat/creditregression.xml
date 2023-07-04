@@ -15,23 +15,21 @@
         <parameter name='levelLogin' value='Senior Admin'/>
         <parameter name='level' value='SAD'/>
         <parameter name='downlineAccount' value='auto.part1'/>
-        <parameter name ='portalSubAccount' value ='SASUBIS'/>
-        <parameter name ='memberAccount' value ='auto.pl02'/>
+        <parameter name='portalSubAccount' value='SASUBIS'/>
+        <parameter name='memberAccount' value='auto.pl02'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
         <parameter name="isCredit" value="false"/>
         <groups>
             <run>
-                <include name="credit_regression" />
+                <include name="credit_regression"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.home.HeaderTest"/>
-            <class name="agentsite.testcase.all.home.LeftMenuTest"/>
-            <class name="agentsite.testcase.satsport.home.SATHeaderTest"/>
-            <class name="agentsite.testcase.satsport.home.SATLeftMenuTest"/>
+            <class name="agentsite.testcase.HeaderTest"/>
+            <class name="agentsite.testcase.LeftMenuTest"/>
         </classes>
 
     </test>

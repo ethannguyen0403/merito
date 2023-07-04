@@ -1,16 +1,16 @@
 package membersite.pages.components.mybet;
+
 import com.paltech.element.common.*;
 import common.MemberConstants;
 import controls.DateTimePicker;
 import controls.Table;
-import membersite.objects.sat.Order;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class NewUIMyBetsContainer extends MyBetsContainer  {
-    private String xPathSelection="//div[contains(@class,'%s') and contains(@class,'row-open-bet')]";
+public class NewUIMyBetsContainer extends MyBetsContainer {
+    private String xPathSelection = "//div[contains(@class,'%s') and contains(@class,'row-open-bet')]";
     private Label lblOrderType = Label.xpath("//div[@class='row'][2]//select[contains(@class,'select-type-order')]//preceding::label[1]");
     private TextBox lblStartDate = TextBox.xpath(String.format("//label[text()='%s']", MemberConstants.MyBetsPage.START_DATE));
     private TextBox lblEndDate = TextBox.xpath(String.format("//label[text()='%s']", MemberConstants.MyBetsPage.END_DATE));
@@ -34,14 +34,14 @@ public class NewUIMyBetsContainer extends MyBetsContainer  {
     private int colPlaceDate = 10;
     private int colIPAddress = 11;
 
-    private Table tblReport = Table.xpath("//table[@class='table table-sm']",colTotal);
+    private Table tblReport = Table.xpath("//table[@class='table table-sm']", colTotal);
     private Link lnkPagination = Link.xpath("//ul[@class='pagination']//li");
     private Label lblNoRecord = Label.xpath("//table[@class='table table-sm']/tbody/tr[1]/td[@class='text-center']");
 
     private TextBox txtStartDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.START_DATE));
-    private DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
+    private DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate, "//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
     private TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.END_DATE));
-    private DateTimePicker dtpEndDate = DateTimePicker.xpath(txtEndDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
+    private DateTimePicker dtpEndDate = DateTimePicker.xpath(txtEndDate, "//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
     private Button btnDownload = Button.xpath("//i[contains(@class,'fas fa-download ico-export')]");
 
 /*
@@ -57,104 +57,105 @@ public class NewUIMyBetsContainer extends MyBetsContainer  {
     }
 */
 
-    public void filter(String productName, String orderType){
-        filter(productName, orderType,"", "");
+    public void filter(String productName, String orderType) {
+        filter(productName, orderType, "", "");
     }
 
-    public void filter(String productName, String orderType, String startDate, String endDate)
-    {
+    public void filter(String productName, String orderType, String startDate, String endDate) {
         ddbProduct.isDisplayed();
-        if(!ddbProduct.getFirstSelectedOption().contains(productName)) {
-        ddbProduct.selectByVisibleContainsText(productName);
-         }
+        if (!ddbProduct.getFirstSelectedOption().contains(productName)) {
+            ddbProduct.selectByVisibleContainsText(productName);
+        }
         ddbOrderType.selectByVisibleText(orderType);
 
-        if(!startDate.isEmpty()){
-            dtpStartDate.selectDate(startDate,"yyyy-MM-dd");
+        if (!startDate.isEmpty()) {
+            dtpStartDate.selectDate(startDate, "yyyy-MM-dd");
         }
-        if(!endDate.isEmpty()){
-            dtpEndDate.selectDate(endDate,"yyyy-MM-dd");
+        if (!endDate.isEmpty()) {
+            dtpEndDate.selectDate(endDate, "yyyy-MM-dd");
         }
 
         btnLoadReport.click();
-        btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT,10);
+        btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT, 10);
     }
 
-    public boolean validateFilterStatus(String status)
-    {
-        List<String> lst = tblReport.getColumn("/tbody[%s]//",colStatus,false);
-        for (String sts:lst){
-            if(status.equalsIgnoreCase("Settled"))
-            {
-                if(!sts.equalsIgnoreCase("Won")){
-                    if(!sts.equalsIgnoreCase("Lost")){
+    public boolean validateFilterStatus(String status) {
+        List<String> lst = tblReport.getColumn("/tbody[%s]//", colStatus, false);
+        for (String sts : lst) {
+            if (status.equalsIgnoreCase("Settled")) {
+                if (!sts.equalsIgnoreCase("Won")) {
+                    if (!sts.equalsIgnoreCase("Lost")) {
                         System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
                         return false;
                     }
 
                 }
-            }else{
-            if (!sts.equals(status)) {
-                System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
-                return false;
-            }
+            } else {
+                if (!sts.equals(status)) {
+                    System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
+                    return false;
+                }
             }
         }
         return true;
     }
 
-    public List<String> translateProductsActive(List<String> productCode)
-    {
-        if(Objects.nonNull(productCode))
-        {
+    public List<String> translateProductsActive(List<String> productCode) {
+        if (Objects.nonNull(productCode)) {
             List<String> productTranslate = new ArrayList<>();
-            for(int i=0, n = productCode.size(); i<n; i++)
-            {
+            for (int i = 0, n = productCode.size(); i < n; i++) {
                 productTranslate.add(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get(productCode.get(i)));
             }
             return productTranslate;
-        }else{
+        } else {
             System.out.println("There is no product active!");
             return null;
         }
     }
 
-    public void waitLoadReport(){
-        btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT,5);
+    public void waitLoadReport() {
+        btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT, 5);
     }
-    public void selectProduct(String product){
+
+    public void selectProduct(String product) {
         ddbProduct.selectByVisibleText(product);
     }
 
-    public String getNote(){
+    public String getNote() {
         return lblNote.getText();
     }
-    public String getProduct(){
+
+    public String getProduct() {
         return lblProduct.getText();
     }
-    public String getOrderType(){
+
+    public String getOrderType() {
         return lblOrderType.getText();
     }
-    public String getStartDate(){
+
+    public String getStartDate() {
         return lblStartDate.getText();
     }
-    public String getEndDate(){
+
+    public String getEndDate() {
         return lblEndDate.getText();
     }
 
-    public String getLoadReport(){
+    public String getLoadReport() {
         return btnLoadReport.getText();
     }
 
-    public  List<String> getTableHeaders (){
-        ArrayList<String> lstHeader =tblReport.getHeaderNameOfRows();
-        return      lstHeader;}
-    public List<ArrayList<String>> getReportIndex(int index, boolean isMove){
-        return tblReport.getRowsWithoutHeader(index,isMove);
+    public List<String> getTableHeaders() {
+        ArrayList<String> lstHeader = tblReport.getHeaderNameOfRows();
+        return lstHeader;
     }
 
-    public String getNoRecord(){
-        if(lblNoRecord.isDisplayed())
+    public List<ArrayList<String>> getReportIndex(int index, boolean isMove) {
+        return tblReport.getRowsWithoutHeader(index, isMove);
+    }
+
+    public String getNoRecord() {
+        if (lblNoRecord.isDisplayed())
             return lblNoRecord.getText();
         return "";
     }

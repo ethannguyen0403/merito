@@ -19,6 +19,21 @@ public class Event {
     private String _awayBack;
     private String _awayLay;
 
+    private Event(Builder builder) {
+        this._eventName = builder._eventName;
+        this._matchScore = builder._matchScore;
+        this._home = builder._home;
+        this._homeBack = builder._homeBack;
+        this._homeLay = builder._homeLay;
+        this._away = builder._away;
+        this._awayBack = builder._awayBack;
+        this._awayLay = builder._awayLay;
+        this._draw = builder._draw;
+        this._drawBack = builder._drawBack;
+        this._drawLay = builder._drawLay;
+        this._isSuspend = builder._isSuspend;
+    }
+
     public String getEventName() {
         return _eventName;
     }
@@ -55,25 +70,30 @@ public class Event {
         _homeLay = val;
     }
 
-
     public String getAway() {
         return _away;
     }
+
     public String getAwayBack() {
         return _awayBack;
     }
+
     public String getAwayLay() {
         return _awayLay;
     }
+
     public String getRaw() {
         return _draw;
     }
+
     public String getRawBack() {
         return _drawBack;
     }
+
     public String getRawLay() {
         return _drawLay;
     }
+
     public boolean getSuspend() {
         return _isSuspend;
     }
@@ -94,82 +114,77 @@ public class Event {
         private String _drawLay = "";
         private boolean _isSuspend = false;
 
-        public Builder(){}
+        public Builder() {
+        }
 
-        public Builder eventName(String val){
+        public Builder eventName(String val) {
             _eventName = val;
             return this;
         }
 
-        public Builder matchScore(String val){
+        public Builder matchScore(String val) {
             _matchScore = val;
             return this;
         }
 
-        public Builder inPlay(String val){
+        public Builder inPlay(String val) {
             _inPlay = val;
             return this;
         }
 
-        public Builder home(String val){
+        public Builder home(String val) {
             _home = val;
             return this;
         }
 
-        public Builder homeBack(String val){
+        public Builder homeBack(String val) {
             _homeBack = val;
             return this;
         }
 
-        public Builder homeLay(String val){
+        public Builder homeLay(String val) {
             _homeLay = val;
             return this;
         }
-        public Builder away(String val){
+
+        public Builder away(String val) {
             _away = val;
             return this;
         }
-        public Builder awayBack(String val){
+
+        public Builder awayBack(String val) {
             _awayBack = val;
             return this;
         }
-        public Builder awayLay(String val){
+
+        public Builder awayLay(String val) {
             _awayLay = val;
             return this;
         }
-        public Builder drawBack(String val){
+
+        public Builder drawBack(String val) {
             _drawBack = val;
             return this;
         }
-        public Builder drawLay(String val){
+
+        public Builder drawLay(String val) {
             _drawLay = val;
             return this;
         }
-        public Builder draw(String val){
+
+        public Builder draw(String val) {
             _draw = val;
             return this;
         }
-        public Builder isSuspend(boolean val){
+
+        public Builder isSuspend(boolean val) {
             _isSuspend = val;
             return this;
         }
 
-        public Event build() { return new Event(this); }
+        public Event build() {
+            return new Event(this);
+        }
 
-    }
-
-    private Event(Builder builder){
-        this._eventName = builder._eventName;
-        this._matchScore = builder._matchScore;
-        this._home = builder._home;
-        this._homeBack = builder._homeBack;
-        this._homeLay = builder._homeLay;
-        this._away = builder._away;
-        this._awayBack = builder._awayBack;
-        this._awayLay = builder._awayLay;
-        this._draw = builder._draw;
-        this._drawBack = builder._drawBack;
-        this._drawLay = builder._drawLay;
-        this._isSuspend = builder._isSuspend;
     }
 }

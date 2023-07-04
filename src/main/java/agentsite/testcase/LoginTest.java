@@ -1,11 +1,11 @@
 package agentsite.testcase;
 
-import agentsite.pages.components.ConfirmPopup;
-import common.AGConstant;
 import agentsite.pages.SecurityCodePage;
+import agentsite.pages.components.ConfirmPopup;
 import baseTest.BaseCaseTest;
 import com.paltech.constant.Helper;
 import com.paltech.utils.StringUtils;
+import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -14,12 +14,12 @@ import util.testraildemo.TestRails;
 public class LoginTest extends BaseCaseTest {
     /**
      * @title: There is no http responded error returned
-     * @steps:   1. Log in with a valid username and password
-     * @expect:  1. Home page is displayed
+     * @steps: 1. Log in with a valid username and password
+     * @expect: 1. Home page is displayed
      */
     @TestRails(id = "870")
-    @Test (groups = {"http_request"})
-    public void Agent_Login_001(){
+    @Test(groups = {"http_request"})
+    public void Agent_Login_001() {
         log("@title: There is no http responded error returned");
         log("Step 1: Log in with a valid username and password");
         log("Verify: There is no http requests error");
@@ -29,13 +29,13 @@ public class LoginTest extends BaseCaseTest {
 
     /**
      * @title: Validate that user can sign in successfully
-     * @steps:   1. Log in with a valid information(username, password, captcha, security code)
-     * @expect:  1. Home page is displayed
+     * @steps: 1. Log in with a valid information(username, password, captcha, security code)
+     * @expect: 1. Home page is displayed
      */
     @TestRails(id = "671")
-    @Test (groups = {"smokeNewUI"})
+    @Test(groups = {"smokeNewUI"})
     @Parameters({"username"})
-    public void Agent_Login_002(String username){
+    public void Agent_Login_002(String username) {
         log("@title: Validate that user can sign in successfully");
         log("Step 1: Log in with a valid information(username, password, captcha, security code)");
         log("Verify 1: Logout button is displayed");
@@ -56,7 +56,7 @@ public class LoginTest extends BaseCaseTest {
         log("Step 1. Access Agent site login page");
         log("Step 2. Enter incorrect username/password");
         log("Step3. Input valid captcha then click on Login button");
-        Helper.loginAgentIgnoreCaptchaTest(sosAgentURL , agentSecurityCodeURL, "invalid.LoginID", password);
+        Helper.loginAgentIgnoreCaptchaTest(sosAgentURL, agentSecurityCodeURL, "invalid.LoginID", password);
 
         log("Verify 1. Verify cannot login by pass api when input incorrect username and password");
         Assert.assertEquals(agentLoginPage.lblLogin.getText().toLowerCase(), "login", "FAILED! Login Lable is incorrect");
@@ -75,7 +75,7 @@ public class LoginTest extends BaseCaseTest {
         String invalidCaptcha = "0010";
         log("Step 1. Access Agent site login page");
         log("Step 2. Enter valid username/password");
-        log("Step 3. Input invalid captcha then click on Login button"); 
+        log("Step 3. Input invalid captcha then click on Login button");
         ConfirmPopup popup = agentLoginPage.loginWitInvalidInfo(username, StringUtils.decrypt(password), invalidCaptcha, true);
 
         log("Verify 1.Verify cannot login agent site. Message \"Invalid captcha.\" displayed");
@@ -133,7 +133,7 @@ public class LoginTest extends BaseCaseTest {
         SecurityCodePage securityCodePage = loginAgentWithoutSecurityCode(sosAgentURL, agentSecurityCodeURL, username, password);
 
         log("Step 3. Click on Back To Login Page on Security Code popup");
-        agentLoginPage  = securityCodePage.clickBackBtn();
+        agentLoginPage = securityCodePage.clickBackBtn();
 
         log("Verify 1. Verify Login form display");
         Assert.assertEquals(agentLoginPage.lblLogin.getText().toLowerCase(), "login", "FAILED! Login Lable is incorrect");
@@ -155,7 +155,7 @@ public class LoginTest extends BaseCaseTest {
     public void Agent_Login_Old_UI_002() {
         log("@title: Validate that CONFIGURE OTP display after login");
         log("Verify 1: Check CONFIGURE OTP label displays");
-        Assert.assertEquals(agentHomePage.leftMenu.getConfigureOTP(), AGConstant.HomePage.CONFIGURE_OTP,"Failed!, My Account button not displayed");
+        Assert.assertEquals(agentHomePage.leftMenu.getConfigureOTP(), AGConstant.HomePage.CONFIGURE_OTP, "Failed!, My Account button not displayed");
         log("INFO: Executed completely");
     }
 

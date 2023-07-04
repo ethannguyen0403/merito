@@ -9,7 +9,7 @@ import membersite.pages.exchangegames.controls.MyBetControl;
 import java.util.List;
 
 public class BaccaratPage extends GamePage {
-    public Table tbtOdds = Table.xpath("//app-game-odds//table[contains(@class,'tb-game-odds')]",8);
+    public Table tbtOdds = Table.xpath("//app-game-odds//table[contains(@class,'tb-game-odds')]", 8);
     public Label lblMyBetsTab = Label.xpath("//app-bet-slip//ul[contains(@class,'nav-tabs ')]/li[2]");
     public BetSlipControl betSlipControl = BetSlipControl.xpath("//app-bet-slip");
     public MyBetControl myBetControl = MyBetControl.xpath("//div[@class='open-bets']");
@@ -21,7 +21,7 @@ public class BaccaratPage extends GamePage {
         super(types);
     }
 
-    public boolean clickOdd(String selection,boolean isBack) {
+    public boolean clickOdd(String selection, boolean isBack) {
         List<String> lstSelection = tbtOdds.getColumn(selectionCol, false);
         Link lnk;
         for (int i = 0; i < lstSelection.size(); i++) {
@@ -31,11 +31,10 @@ public class BaccaratPage extends GamePage {
                 } else {
                     lnk = (Link) tbtOdds.getControlOfCell(1, laycolumn, i + 1, "div[contains(@class,'price')]");
                 }
-                try{
+                try {
                     waitUntilGameAvailable();
                     lnk.click();
-                }catch (NullPointerException ex)
-                {
+                } catch (NullPointerException ex) {
                     System.out.println("--------DEBUG! Try click odd again-------");
                     waitUntilGameAvailable();
                     lnk.click();
@@ -44,30 +43,30 @@ public class BaccaratPage extends GamePage {
 
             }
         }
-            return false;
-        }
+        return false;
+    }
 
-    public void placebet(String selection, boolean isBack,String odds, String stake){
-       addOddToBetSlip(selection,isBack,odds,stake);
-       betSlipControl.btnPlaceBet.click();
-        if(betSlipControl.btnConfirm.isDisplayed(2)){
+    public void placebet(String selection, boolean isBack, String odds, String stake) {
+        addOddToBetSlip(selection, isBack, odds, stake);
+        betSlipControl.btnPlaceBet.click();
+        if (betSlipControl.btnConfirm.isDisplayed(2)) {
             betSlipControl.btnConfirm.click();
         }
     }
 
-    public void addOddToBetSlip(String selection, boolean isBack,String odds, String stake){
+    public void addOddToBetSlip(String selection, boolean isBack, String odds, String stake) {
         if (!clickOdd(selection, isBack)) {
             System.out.println("DEBUG! Cannot click on Odds!");
         }
-        betSlipControl.inputdata(isBack,odds,stake);
+        betSlipControl.inputdata(isBack, odds, stake);
     }
 
-    public String getUmatchedBetId(){
-        MyBetControl myBetControl1= activeMyBet();
+    public String getUmatchedBetId() {
+        MyBetControl myBetControl1 = activeMyBet();
         return myBetControl1.unmatchedBetControl.getBetId();
     }
 
-    public MyBetControl activeMyBet(){
+    public MyBetControl activeMyBet() {
         lblMyBetsTab.click();
         return MyBetControl.xpath("//div[@class='open-bets']");
     }

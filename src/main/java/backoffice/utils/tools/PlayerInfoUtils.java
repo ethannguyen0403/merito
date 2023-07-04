@@ -17,10 +17,10 @@ import static baseTest.BaseCaseTest.backofficeUrl;
 public class PlayerInfoUtils {
     public static List<String> getInfo(String loginID) {
         List<String> lst = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s",backofficeUrl,loginID);
-        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
-        if(Objects.nonNull(jsonObject)){
-            JSONObject infoObject =  jsonObject.getJSONObject("info");
+        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s", backofficeUrl, loginID);
+        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+        if (Objects.nonNull(jsonObject)) {
+            JSONObject infoObject = jsonObject.getJSONObject("info");
             lst.add(infoObject.getString("loginId"));
             lst.add(infoObject.getString("userCode"));
             lst.add(Boolean.toString(infoObject.getBoolean("loginViaEmail")));
@@ -57,41 +57,43 @@ public class PlayerInfoUtils {
         }
         return lst;
     }
+
     public static List<ArrayList<String>> getActivities(String loginID) {
         List<ArrayList<String>> lst = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s",backofficeUrl, loginID);
-        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s", backofficeUrl, loginID);
+        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             JSONArray activitiesArray = jsonObject.getJSONArray("activities");
-            for(int i = 0; i<activitiesArray.length(); i++){
+            for (int i = 0; i < activitiesArray.length(); i++) {
                 JSONObject activitiesInfo = activitiesArray.getJSONObject(i);
-                if(Objects.nonNull(activitiesInfo))
+                if (Objects.nonNull(activitiesInfo))
                     lst.add(i, new ArrayList<String>(
-                            Arrays.asList(Long.toString(jsonObject.getLong("logDate")),jsonObject.getString("ipAddress"),jsonObject.getString("userAgent"),jsonObject.getString("browserType"))));
+                            Arrays.asList(Long.toString(jsonObject.getLong("logDate")), jsonObject.getString("ipAddress"), jsonObject.getString("userAgent"), jsonObject.getString("browserType"))));
             }
         }
         return lst;
     }
 
-    private static String getUserID(String loginID){
-        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s",backofficeUrl,loginID);
+    private static String getUserID(String loginID) {
+        String api = String.format("%s/system-manager/web/view-info.sv?userId=%s", backofficeUrl, loginID);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString());
-        if(Objects.nonNull(jsonObject)) {
+        if (Objects.nonNull(jsonObject)) {
             JSONObject infoObject = jsonObject.getJSONObject("info");
             return Integer.toString(infoObject.getInt("userId"));
         }
         return null;
     }
+
     public static List<ArrayList<String>> getUpline(String loginID) {
         String userID = getUserID(loginID);
         List<ArrayList<String>> lst = new ArrayList<>();
-        String api = String.format("%s/system-manager/web/user-status-product?userId=%s",backofficeUrl, userID);
-        JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        String api = String.format("%s/system-manager/web/user-status-product?userId=%s", backofficeUrl, userID);
+        JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
 
-        for(int i = 0; i<jsonArray.length(); i++){
+        for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject rowObject = jsonArray.getJSONObject(i);
             ArrayList<String> levelInfo = new ArrayList<>();
-            if(Objects.nonNull(rowObject)) {
+            if (Objects.nonNull(rowObject)) {
                 levelInfo = new ArrayList<String>(
                         Arrays.asList(Integer.toString(rowObject.getInt("userId")),
                                 rowObject.getString("level"),
@@ -106,29 +108,29 @@ public class PlayerInfoUtils {
                     for (int j = 0; j < productArray.length(); j++) {
                         JSONObject productObject = productArray.getJSONObject(j);
                         String product = productObject.getString("productName");
-                        for(int b = 0; b<=j; b++){
-                            if(product.equals("Exchange")){
+                        for (int b = 0; b <= j; b++) {
+                            if (product.equals("Exchange")) {
                                 levelInfo.add(productObject.getString("status"));
                                 break;
                             }
-                            if(product.equals("Live Dealer European")){
+                            if (product.equals("Live Dealer European")) {
                                 levelInfo.add(productObject.getString("status"));
                                 break;
                             }
 
-                            if(product.equals("Lottery & Slots")) {
+                            if (product.equals("Lottery & Slots")) {
                                 levelInfo.add(productObject.getString("status"));
                                 break;
                             }
-                            if(product.equals("Live Dealer Asian")) {
+                            if (product.equals("Live Dealer Asian")) {
                                 levelInfo.add(productObject.getString("status"));
                                 break;
                             }
-                            if(product.equals("Exchange Games")) {
+                            if (product.equals("Exchange Games")) {
                                 levelInfo.add(productObject.getString("status"));
                                 break;
                             }
-                            if(product.equals("Veronica Casino")) {
+                            if (product.equals("Veronica Casino")) {
                                 levelInfo.add(productObject.getString("status"));
                                 break;
                             }

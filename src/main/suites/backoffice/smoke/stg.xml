@@ -31,7 +31,7 @@
         <parameter name='brandname' value='satsport'/>
         <groups>
             <run>
-                <include name="smoke" />
+                <include name="smoke"/>
             </run>
         </groups>
 
@@ -72,12 +72,12 @@
             <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
             <class name="backoffice.testcases.operations.BannerManagementTest"/>
 
-             <class name="backoffice.testcases.adminmanagement.RoleManagementTest"/>
+            <class name="backoffice.testcases.adminmanagement.RoleManagementTest"/>
             <class name="backoffice.testcases.adminmanagement.AdminUserManagementTest"/>
-             <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
-             <class name="backoffice.testcases.operations.BannerManagementTest"/>
-             <class name="backoffice.testcases.operations.bannermanagement.UpdateBannerTest"/>
-             <class name="backoffice.testcases.operations.bannermanagement.NewBannerTest"/>
+            <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
+            <class name="backoffice.testcases.operations.BannerManagementTest"/>
+            <class name="backoffice.testcases.operations.bannermanagement.UpdateBannerTest"/>
+            <class name="backoffice.testcases.operations.bannermanagement.NewBannerTest"/>
             <class name="backoffice.testcases.operations.bannermanagement.NewBannerTest"/>
             <class name="backoffice.testcases.operations.bannermanagement.UpdateBannerTest"/>
 

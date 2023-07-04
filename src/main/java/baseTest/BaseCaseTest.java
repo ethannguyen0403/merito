@@ -40,7 +40,6 @@ import java.util.concurrent.TimeUnit;
 import static common.MeritoConstant.*;
 
 public class BaseCaseTest {
-    private static ApplicationContext context;
     public static DriverProperties driverProperties;
     public static Environment environment;
     public static ExtentTest logger;
@@ -65,22 +64,23 @@ public class BaseCaseTest {
     public static String userCurrency;
     public static String memberMarketServiceURL;
     public static String _brandname;
-    public static String PROJECT_ID="1";
+    public static String PROJECT_ID = "1";
     public static APIClient client;
+    private static ApplicationContext context;
     private static boolean isAddTestRailResult = false;
-    private static  List<Long> lstCases= new ArrayList<>();
+    private static List<Long> lstCases = new ArrayList<>();
 
     @BeforeSuite(alwaysRun = true)
     public static void beforeSuite(ITestContext ctx) throws APIException, IOException {
-        try{
+        try {
             context = new ClassPathXmlApplicationContext("resources/settings/Setting.xml");
             report = new ExtentReports("", true);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             throw new NullPointerException(String.format("ERROR: Exception occurs beforeSuite by '%s'", ex.getMessage()));
         }
         // Create Test Run in Test Rails
         ctx.getName();
-        if(isAddTestRailResult) {
+        if (isAddTestRailResult) {
             System.out.println("Add New Test Run in TestRails");
             client = new APIClient("https://paltech.testrail.io/");
             client.setUser("isabella.huynh@pal.net.vn");
@@ -98,86 +98,53 @@ public class BaseCaseTest {
         }
     }
 
-    @Parameters({"browser", "env", "language","brandname"})
-    @BeforeClass(alwaysRun = true)
-    public void beforeClass(String browser, String env, String language,String brandname) {
-        System.out.println("BrandName at Before Class"+ brandname);
-        _brandname = brandname;
-        try{
-            environment = (Environment) context.getBean(env);
-            driverProperties = (DriverProperties) context.getBean(browser);
-            memberMarketServiceURL = defineMemberService(brandname);
-
-            domainURL = defineURL(brandname,"");
-           // Define Member Site URL
-            memberLoginURL = defineURL(brandname,MEMBER_URL_SUFFIX.get(brandname));
-            memberSOSUrl = defineURL(brandname,MEMBER_SOS_URL_SUFFIX);
-
-            // define Agent site URLs
-            agentLoginURL = defineURL(brandname,"/agent");
-            sosAgentURL = defineURL(brandname,AGENT_SOS_URL_SUFFIX);
-            sosValidationAgentURL = defineURL(brandname,AGENT_SOS_BY_PASS_CAPTCHA_URL_SUFFIX);
-            agentSecurityCodeURL = defineURL(brandname, AGENT_SECURITY_CODE_URL_SUFFIX.get(brandname));
-            agentNewAccURL = defineURL(brandname,LOGIN_NEW_ACC_AGENT_URL_SUFFIX.get(brandname));
-
-            // define Backoffice url: Login url, loginByPassCaptcha URL, Dashboard url
-            backofficeUrl = environment.getBackofficeURL();
-            backofficeSOSUrl = String.format("%s%s",environment.getBackofficeURL(),BACKOFFICE_SOS_URL);
-            backofficeDashboardUrl = String.format("%s%s",environment.getBackofficeURL(),BACKOFFICE_DASHBOARD_URL);
-        } catch(Exception ex) {
-            throw new NullPointerException(String.format("ERROR: Exception occurs beforeClass by '%s'", ex.getMessage()));
-        }
-
-    }
-
-    @Parameters({"appname","username", "password", "language", "isLogin", "isProxy", "isThrown", "currency",})
+    @Parameters({"appname", "username", "password", "language", "isLogin", "isProxy", "isThrown", "currency",})
     @BeforeMethod(alwaysRun = true)
-    public static void beforeMethod(String appname,String username, String password, String language, boolean isLogin, boolean isProxy, boolean isThrown, String currency, Method method, ITestResult result,ITestContext ctx) throws Exception {
+    public static void beforeMethod(String appname, String username, String password, String language, boolean isLogin, boolean isProxy, boolean isThrown, String currency, Method method, ITestResult result, ITestContext ctx) throws Exception {
         System.out.println("*** Map test case in script with test case in TestRail ***");
-        if(isAddTestRailResult){
+        if (isAddTestRailResult) {
             Method m = method;
             if (m.isAnnotationPresent(TestRails.class)) {
                 TestRails ta = m.getAnnotation(TestRails.class);
                 String caseId = ta.id();
-                ctx.setAttribute("caseId",caseId);
+                ctx.setAttribute("caseId", caseId);
 
             }
         }
-        System.out.println("***************************Beginning TC's " + method.getName() +"*******************************");
+        System.out.println("***************************Beginning TC's " + method.getName() + "*******************************");
         logger = report.startTest(method.getName(), method.getClass().getName());
         driverProperties.setMethodName(method.getName());
         driverProperties.setIsProxy(isProxy);
-        switch (appname){
+        switch (appname) {
             case "agentsite":
-            loginAgent(username,password,isLogin);
-            break;
+                loginAgent(username, password, isLogin);
+                break;
             case "membersite":
-              loginMember(username,password,isLogin,language,currency,isThrown);
-              break;
+                loginMember(username, password, isLogin, language, currency, isThrown);
+                break;
             default:
-               loginBackoffice(username,password,isLogin);
-               break;
+                loginBackoffice(username, password, isLogin);
+                break;
         }
-        if (isProxy){
+        if (isProxy) {
             browserMobProxy = driverProperties.getBrowserMobProxy();
         }
     }
 
-    public static void loginAgent(String username, String password,boolean isLogin) throws Exception {
-      createDriver(agentLoginURL);
-      if(isLogin)
-      {
-          agentHomePage = loginAgent(sosAgentURL,agentSecurityCodeURL,username,password,environment.getSecurityCode());
-      }
-      else {
-          agentLoginPage = new agentsite.pages.LoginPage(_brandname);
-      }
-  }
-    public static void loginMember(String username, String password,boolean isLogin, String language,String currency,boolean isThrown) throws Exception {
+    public static void loginAgent(String username, String password, boolean isLogin) throws Exception {
+        createDriver(agentLoginURL);
+        if (isLogin) {
+            agentHomePage = loginAgent(sosAgentURL, agentSecurityCodeURL, username, password, environment.getSecurityCode());
+        } else {
+            agentLoginPage = new agentsite.pages.LoginPage(_brandname);
+        }
+    }
+
+    public static void loginMember(String username, String password, boolean isLogin, String language, String currency, boolean isThrown) throws Exception {
         createDriver(memberLoginURL);
-        if (isLogin){
+        if (isLogin) {
             log("@Step Precondition: Login Member site");
-            Helper.loginFairExchange(memberSOSUrl,memberLoginURL, username, password, isThrown);
+            Helper.loginFairExchange(memberSOSUrl, memberLoginURL, username, password, isThrown);
             userCurrency = currency;
             memberHomePage = new HomePage(_brandname);
 
@@ -185,20 +152,23 @@ public class BaseCaseTest {
             landingPage = new LandingPage(_brandname);
         }
     }
+
     public static membersite.pages.HomePage loginMember(String username, String password) throws Exception {
-         loginMember( username, password,true,"","",true);
+        loginMember(username, password, true, "", "", true);
         return new HomePage(_brandname);
     }
-    public static membersite.pages.HomePage loginMember(String brand,String username, String password) throws Exception {
-        loginMember( username, password,true,"","",true);
+
+    public static membersite.pages.HomePage loginMember(String brand, String username, String password) throws Exception {
+        loginMember(username, password, true, "", "", true);
         return new HomePage(brand);
     }
-    public static void loginBackoffice(String username, String password,boolean isLogin) throws Exception {
+
+    public static void loginBackoffice(String username, String password, boolean isLogin) throws Exception {
         createDriver(backofficeUrl);
-        if(isLogin) {
+        if (isLogin) {
             Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl, username, password, true);
             backofficeHomePage = new backoffice.pages.bo.home.HomePage();
-            if(!backofficeHomePage.smProductMaintenance.isDisplayed(1)) {
+            if (!backofficeHomePage.smProductMaintenance.isDisplayed(1)) {
                 backofficeHomePage.refresh();
                 if (!backofficeHomePage.btnLogOut.isDisplayed(5)) {
                     Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl, username, password, true);
@@ -206,10 +176,12 @@ public class BaseCaseTest {
             }
         }
     }
+
     public static SecurityCodePage loginAgentWithoutSecurityCode(String sosURL, String securityCodeUrl, String username, String password) throws Exception {
         Helper.loginAgentIgnoreCaptchaTest(sosURL, securityCodeUrl, username, password);
         return new SecurityCodePage(_brandname);
     }
+
     public static agentsite.pages.HomePage loginAgent(String sosURL, String securityCodeUrl, String username, String password, String securityCode) throws Exception {
         Helper.loginAgentIgnoreCaptchaTest(sosURL, securityCodeUrl, username, password);
         SecurityCodePage securityCodePage = new SecurityCodePage(_brandname);
@@ -224,40 +196,41 @@ public class BaseCaseTest {
         }
         return agentHomePage;
     }
-     // this function for login new agent account
-    public static void loginNewAccount(String sosURL, String loginURL,String username,String password, String securityCode)throws Exception{
-        Helper.loginAgentIgnoreCaptchaTest(sosURL,loginURL, username,password);
+
+    // this function for login new agent account
+    public static void loginNewAccount(String sosURL, String loginURL, String username, String password, String securityCode) throws Exception {
+        Helper.loginAgentIgnoreCaptchaTest(sosURL, loginURL, username, password);
         SecurityCodePage securityPage = new SecurityCodePage(_brandname);
-        securityPage.setSecurityCode(securityCode,securityCode);
+        securityPage.setSecurityCode(securityCode, securityCode);
         ChangePasswordPage changePWPage = new ChangePasswordPage(_brandname);
         String psDecrypt = StringUtils.decrypt(password);
-        changePWPage.changePassword(psDecrypt,psDecrypt,psDecrypt);
+        changePWPage.changePassword(psDecrypt, psDecrypt, psDecrypt);
         agentHomePage = new agentsite.pages.HomePage(_brandname);
     }
 
     @AfterMethod(alwaysRun = true)
-    public static void afterMethod(ITestResult result,ITestContext ctx) throws APIException, IOException {
+    public static void afterMethod(ITestResult result, ITestContext ctx) throws APIException, IOException {
         String testResult = "PASSED";
-        if(!result.isSuccess()) {
+        if (!result.isSuccess()) {
             String srcBase64 = ScreenShotUtils.captureScreenshotWithBase64(DriverManager.getDriver().getWebDriver());
             result.setAttribute(result.getMethod().getMethodName(), srcBase64);
             testResult = "FAILED";
-         //   System.err.println(result.getThrowable().getMessage());
+            //   System.err.println(result.getThrowable().getMessage());
         }
-        if (driverProperties.isProxy()){
+        if (driverProperties.isProxy()) {
             log("INFO: Quitting BrowserMobProxy's port is " + browserMobProxy.getPort());
             browserMobProxy.stop();
         }
         DriverManager.quitAll();
         System.out.println("****************************Ending TC's name: " + result.getMethod().getMethodName() + " is " + testResult + " **********************");
         System.out.println("*** Add result to TestRails");
-        if(isAddTestRailResult) {
+        if (isAddTestRailResult) {
             String caseId = (String) ctx.getAttribute("caseId");
             Long suiteId = (Long) ctx.getAttribute("suiteId");
             Map data1 = new HashMap();
             // add test case for test run
             lstCases.add(Long.parseLong(caseId));
-            data1.put("case_ids",lstCases);
+            data1.put("case_ids", lstCases);
             client.sendPost("update_run/" + suiteId, data1);
             //end add test case for test run
             //start add result for a test case
@@ -276,7 +249,7 @@ public class BaseCaseTest {
 
     @AfterSuite
     public static void tearDownSuite(ITestContext ctx) throws APIException, IOException {
-        client.sendPost("close_run/" + ctx.getAttribute("suiteId"),null);
+        client.sendPost("close_run/" + ctx.getAttribute("suiteId"), null);
         report.endTest(logger);
         report.flush();
         report.close();
@@ -295,34 +268,17 @@ public class BaseCaseTest {
         Reporter.log(message);
     }
 
-    protected boolean hasHTTPRespondedOK(){
-        browserMobProxy.waitForQuiescence(1, 5, TimeUnit.SECONDS);
-        List<HarEntry> entries = browserMobProxy.getHar().getLog().getEntries();
-        for (HarEntry entry : entries) {
-            // skip 423 status due to sending a request in too short time
-            // skip 429 status due to a user's sending too many requests
-            if(entry.getResponse().getStatus() >= 400 && entry.getResponse().getStatus() != 423
-                    && entry.getResponse().getStatus() != 429
-                    && !entry.getRequest().getUrl().contains("aws.cloud.es.io/intake/v2/rum/events")
-                    && !entry.getRequest().getUrl().contains("mewebsocket/mews")) {
-                log(String.format("ERROR URL: %s - STATUS CODE: %s", entry.getRequest().getUrl(), entry.getResponse().getStatus()));
-                return false;
-            }
-        }
-        return true;
-    }
-
     /**********************
      * Private methods
      *******************/
     protected static void createDriver(String url) throws MalformedURLException, UnexpectedException {
         int count = 3;
         DriverManager.quitAll();
-        while (count-- > 0){
+        while (count-- > 0) {
             DriverManager.createWebDriver(driverProperties);
             DriverManager.getDriver().setLoadingTimeOut(100);
             DriverManager.getDriver().maximize();
-            if (DriverManager.getDriver().getToAvoidTimeOut(url) || count==0) {
+            if (DriverManager.getDriver().getToAvoidTimeOut(url) || count == 0) {
                 log(String.format("RUNNING under the link %s", url));
                 log(String.format("DEBUG: CREATED DRIVER SUCCESSFULLY with COUNT %s and Map Size %s", count, DriverManager.driverMap.size()));
                 System.out.print(String.format("Width x Height is %sx%s", DriverManager.getDriver().getWidth(), DriverManager.getDriver().getHeight()));
@@ -334,10 +290,11 @@ public class BaseCaseTest {
         }
     }
 
-    public static String defineURL(String brandName,String suffix){
-        return String.format("%s%s",getURL(brandName), suffix);
+    public static String defineURL(String brandName, String suffix) {
+        return String.format("%s%s", getURL(brandName), suffix);
     }
-    private static String defineMemberService(String brandName){
+
+    private static String defineMemberService(String brandName) {
         switch (brandName) {
             case "satsport":
                 return String.format("%s%s", getURL(brandName), "/market-service");
@@ -346,17 +303,20 @@ public class BaseCaseTest {
         }
     }
 
-    private static String defineMemberSiteURL(String brandName){
-        return String.format("%s%s",getURL(brandName), MEMBER_URL_SUFFIX.get(brandName));
+    private static String defineMemberSiteURL(String brandName) {
+        return String.format("%s%s", getURL(brandName), MEMBER_URL_SUFFIX.get(brandName));
     }
-    private static String defineAgentSecurityCodeURL(String brandName){
-        return String.format("%s%s",getURL(brandName), AGENT_SECURITY_CODE_URL_SUFFIX.get(brandName));
+
+    private static String defineAgentSecurityCodeURL(String brandName) {
+        return String.format("%s%s", getURL(brandName), AGENT_SECURITY_CODE_URL_SUFFIX.get(brandName));
     }
-    public static String defineAgentSiteURL(String brandName){
-        return  String.format("%s/agent",getURL(brandName));
+
+    public static String defineAgentSiteURL(String brandName) {
+        return String.format("%s/agent", getURL(brandName));
     }
-    private static String getURL(String brandName){
-        switch (brandName){
+
+    private static String getURL(String brandName) {
+        switch (brandName) {
             case "fairexchange":
                 return environment.getFairURL();
             case "satsport":
@@ -364,16 +324,65 @@ public class BaseCaseTest {
             case "funsport":
                 return environment.getFunsportURL();
             case "fairenter":
-                return environment.getFairenterURL() ;
+                return environment.getFairenterURL();
             case "laser365":
                 return environment.getLaser365URL();
             case "fairexchangeplus":
                 return environment.getFairURL();
             case "backoffice":
-                return String.format("%s%s",environment.getBackofficeURL(), MEMBER_URL_SUFFIX.get(brandName));
+                return String.format("%s%s", environment.getBackofficeURL(), MEMBER_URL_SUFFIX.get(brandName));
             default:
                 return "";
         }
+    }
+
+    @Parameters({"browser", "env", "language", "brandname"})
+    @BeforeClass(alwaysRun = true)
+    public void beforeClass(String browser, String env, String language, String brandname) {
+        System.out.println("BrandName at Before Class" + brandname);
+        _brandname = brandname;
+        try {
+            environment = (Environment) context.getBean(env);
+            driverProperties = (DriverProperties) context.getBean(browser);
+            memberMarketServiceURL = defineMemberService(brandname);
+
+            domainURL = defineURL(brandname, "");
+            // Define Member Site URL
+            memberLoginURL = defineURL(brandname, MEMBER_URL_SUFFIX.get(brandname));
+            memberSOSUrl = defineURL(brandname, MEMBER_SOS_URL_SUFFIX);
+
+            // define Agent site URLs
+            agentLoginURL = defineURL(brandname, "/agent");
+            sosAgentURL = defineURL(brandname, AGENT_SOS_URL_SUFFIX);
+            sosValidationAgentURL = defineURL(brandname, AGENT_SOS_BY_PASS_CAPTCHA_URL_SUFFIX);
+            agentSecurityCodeURL = defineURL(brandname, AGENT_SECURITY_CODE_URL_SUFFIX.get(brandname));
+            agentNewAccURL = defineURL(brandname, LOGIN_NEW_ACC_AGENT_URL_SUFFIX.get(brandname));
+
+            // define Backoffice url: Login url, loginByPassCaptcha URL, Dashboard url
+            backofficeUrl = environment.getBackofficeURL();
+            backofficeSOSUrl = String.format("%s%s", environment.getBackofficeURL(), BACKOFFICE_SOS_URL);
+            backofficeDashboardUrl = String.format("%s%s", environment.getBackofficeURL(), BACKOFFICE_DASHBOARD_URL);
+        } catch (Exception ex) {
+            throw new NullPointerException(String.format("ERROR: Exception occurs beforeClass by '%s'", ex.getMessage()));
+        }
+
+    }
+
+    protected boolean hasHTTPRespondedOK() {
+        browserMobProxy.waitForQuiescence(1, 5, TimeUnit.SECONDS);
+        List<HarEntry> entries = browserMobProxy.getHar().getLog().getEntries();
+        for (HarEntry entry : entries) {
+            // skip 423 status due to sending a request in too short time
+            // skip 429 status due to a user's sending too many requests
+            if (entry.getResponse().getStatus() >= 400 && entry.getResponse().getStatus() != 423
+                    && entry.getResponse().getStatus() != 429
+                    && !entry.getRequest().getUrl().contains("aws.cloud.es.io/intake/v2/rum/events")
+                    && !entry.getRequest().getUrl().contains("mewebsocket/mews")) {
+                log(String.format("ERROR URL: %s - STATUS CODE: %s", entry.getRequest().getUrl(), entry.getResponse().getStatus()));
+                return false;
+            }
+        }
+        return true;
     }
 
 }

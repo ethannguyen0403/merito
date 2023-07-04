@@ -13,14 +13,14 @@
         <parameter name='isProxy' value='false'/>
         <parameter name='username' value='SASUBBA'/>
         <parameter name='password' value='v+18qgA8nyoUHEW9394RTw=='/>
-        <parameter name ='controlBlockingAccount' value ='QAAT.SAD'/>
+        <parameter name='controlBlockingAccount' value='QAAT.SAD'/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='satsport'/>
         <groups>
             <run>
-                <include name="precondition" />
+                <include name="precondition"/>
             </run>
         </groups>
 

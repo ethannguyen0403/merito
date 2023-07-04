@@ -29,9 +29,9 @@
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.agencymanagement.CreateDownlineAgentTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.CreateUserTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.downlinelisting.DownlineListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
         </classes>
 
     </test>

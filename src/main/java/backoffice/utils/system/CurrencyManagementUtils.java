@@ -5,10 +5,10 @@ import com.paltech.driver.DriverManager;
 import com.paltech.utils.WSUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.Objects;
 
 import static baseTest.BaseCaseTest.backofficeUrl;
-import static baseTest.BaseCaseTest.environment;
 
 public class CurrencyManagementUtils {
     public static Float getCurrencyRate(String fromCurrency) {

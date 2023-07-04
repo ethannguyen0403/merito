@@ -1,6 +1,9 @@
 package agentsite.pages.components;
 
-import com.paltech.element.common.*;
+import com.paltech.element.common.Button;
+import com.paltech.element.common.Icon;
+import com.paltech.element.common.Label;
+import com.paltech.element.common.TextBox;
 
 public class UserProfilePopup {
     public Label lblTitle = Label.xpath("//app-user-profile//div[contains(@class,'modal-header')]/div");
@@ -23,24 +26,24 @@ public class UserProfilePopup {
     public Button btnCancle = Button.xpath("//app-user-profile//button[contains(@class,'btn-cancle')]");
     public Label lblMessageUpdate = Label.xpath("//app-user-profile//div[@class='setting-user-profile']//div[contains(@class,'form-group')][8]//p");
 
-    public String updateProfile(String newPassword, String confirmPassword, String firstName, String lastName, String mobile, String phone, String fax,boolean isClose){
-        if(!newPassword.isEmpty())
+    public String updateProfile(String newPassword, String confirmPassword, String firstName, String lastName, String mobile, String phone, String fax, boolean isClose) {
+        if (!newPassword.isEmpty())
             txtNewPassword.sendKeys(newPassword);
-        if(!confirmPassword.isEmpty())
+        if (!confirmPassword.isEmpty())
             txtConfirmPassword.sendKeys(confirmPassword);
-        if(!firstName.isEmpty())
+        if (!firstName.isEmpty())
             txtFirstName.sendKeys(firstName);
-        if(!lastName.isEmpty())
+        if (!lastName.isEmpty())
             txtLastName.sendKeys(lastName);
-        if(!mobile.isEmpty())
+        if (!mobile.isEmpty())
             txtMobile.sendKeys(mobile);
-        if(!phone.isEmpty())
+        if (!phone.isEmpty())
             txtPhone.sendKeys(phone);
-        if(!fax.isEmpty())
+        if (!fax.isEmpty())
             txtFax.sendKeys();
         btnSave.click();
         String message = lblMessageUpdate.getText();
-        if(isClose){
+        if (isClose) {
             icClose.click();
         }
         return message;

@@ -29,7 +29,7 @@
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.home.LoginTest"/>
+            <class name="agentsite.testcase.LoginTest"/>
         </classes>
 
     </test>

@@ -4,14 +4,14 @@ import baseTest.BaseCaseTest;
 
 public class OddsSectionTest extends BaseCaseTest {/*
 
-    *//**
-     * @title: Validate Market page UI
-     * @precondition: 1. Login member site
-     * @step: 1. Active any market non-in-play of soccer
-     * @expect: 1. Validate Title display correctly : Event name/ Market Name
-     * 2. Validate Start time display, There is no in-play label
-     * 3. Validate Selection list and odds list display
-     *//*
+ *//**
+ * @title: Validate Market page UI
+ * @precondition: 1. Login member site
+ * @step: 1. Active any market non-in-play of soccer
+ * @expect: 1. Validate Title display correctly : Event name/ Market Name
+ * 2. Validate Start time display, There is no in-play label
+ * 3. Validate Selection list and odds list display
+ *//*
     @Test(groups = {"smoke"})
     public void OddsSection_TC003() {
         log("@title: Validate Market page UI");
@@ -46,12 +46,12 @@ public class OddsSectionTest extends BaseCaseTest {/*
     }
 
     *//**
-     * @title: Validate event link work
-     * @precondition: 1. Sports should unblock some events
-     * 2. Login member site
-     * @step: 1. Click on any event
-     * @expect: 1. Market page display, Match Odds market is active by default
-     *//*
+ * @title: Validate event link work
+ * @precondition: 1. Sports should unblock some events
+ * 2. Login member site
+ * @step: 1. Click on any event
+ * @expect: 1. Market page display, Match Odds market is active by default
+ *//*
     @Test(groups = {"smoke"})
     public void OddsSection_TC007() {
         log("@title: Validate event link work");
@@ -73,13 +73,13 @@ public class OddsSectionTest extends BaseCaseTest {/*
     }
 
     *//**
-     * @title: Validate Event has match odds market type are displayed in the list
-     * @precondition: 1. Sports should unblock some events
-     * 2. Login member site
-     * @step: 1. Click on the event in the list
-     * 2. Back to Home page and click on all event and check match odds market type is active by default
-     * @expect: 1. All market active is MATCH_ODDS market type
-     *//*
+ * @title: Validate Event has match odds market type are displayed in the list
+ * @precondition: 1. Sports should unblock some events
+ * 2. Login member site
+ * @step: 1. Click on the event in the list
+ * 2. Back to Home page and click on all event and check match odds market type is active by default
+ * @expect: 1. All market active is MATCH_ODDS market type
+ *//*
     @Test(groups = {"smoke"})
     public void OddsSection_TC008() {
         log("@title: Validate Event has match odds market type are displayed in the list");
@@ -103,12 +103,12 @@ public class OddsSectionTest extends BaseCaseTest {/*
     }
 
     *//**
-     * @title: Validate Horse Racing link works
-     * @precondition: 1. Login member Site
-     * @step: 1. In home page - Next Up Racing section
-     * 2. Click on any Horse racing link
-     * @expect: 1. Racing market page display correctly. Country, market start time, market name is corrected
-     *//*
+ * @title: Validate Horse Racing link works
+ * @precondition: 1. Login member Site
+ * @step: 1. In home page - Next Up Racing section
+ * 2. Click on any Horse racing link
+ * @expect: 1. Racing market page display correctly. Country, market start time, market name is corrected
+ *//*
     @Test(groups = {"smoke"})
     public void OddsSection_TC015() {
         log("@title: Validate Horse Racing link works");

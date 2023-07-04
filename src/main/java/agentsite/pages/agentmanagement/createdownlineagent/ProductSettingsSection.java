@@ -31,26 +31,25 @@ public class ProductSettingsSection extends BaseElement {
         return productStatusSettingsSection.tblSportTable.getHeaderNameOfRows();
     }
 
-    public void activeProduct(String productName){
-    //tabset[@id='productSetting']/ul
-           int i = 1;
-        Label lblProduct = Label.xpath(String.format("//tabset[@id='productSetting']/ul/li[%s]",i));
+    public void activeProduct(String productName) {
+        //tabset[@id='productSetting']/ul
+        int i = 1;
+        Label lblProduct = Label.xpath(String.format("//tabset[@id='productSetting']/ul/li[%s]", i));
         CheckBox cbox;
-        while (true)
-        {
-            if(!lblProduct.isDisplayed()) {
-                System.out.println("Cannot found product name: "+ productName);
+        while (true) {
+            if (!lblProduct.isDisplayed()) {
+                System.out.println("Cannot found product name: " + productName);
                 return;
             }
-            if(lblProduct.getText().trim().equalsIgnoreCase(productName)){
-                cbox = CheckBox.xpath(String.format("//tabset[@id='productSetting']/ul/li[%s]//input",i));
-                if(cbox.isSelected()){
+            if (lblProduct.getText().trim().equalsIgnoreCase(productName)) {
+                cbox = CheckBox.xpath(String.format("//tabset[@id='productSetting']/ul/li[%s]//input", i));
+                if (cbox.isSelected()) {
                     cbox.click();
                 }
-                System.out.println("Product "+ productName+" is active");
+                System.out.println("Product " + productName + " is active");
                 return;
             }
-             i= i+1;
+            i = i + 1;
 
         }
 

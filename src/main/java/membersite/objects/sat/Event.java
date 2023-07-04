@@ -30,9 +30,32 @@ public class Event {
     private String _countryCode;
     private String _countryName;
 
+    private Event(Builder builder) {
+        this._id = builder._id;
+        this._eventName = builder._eventName;
+        this._competitionName = builder._competitionName;
+        this._matchScore = builder._matchScore;
+        this._home = builder._home;
+        this._homeBack = builder._homeBack;
+        this._homeLay = builder._homeLay;
+        this._away = builder._away;
+        this._awayBack = builder._awayBack;
+        this._awayLay = builder._awayLay;
+        this._draw = builder._draw;
+        this._drawBack = builder._drawBack;
+        this._drawLay = builder._drawLay;
+        this._isSuspend = builder._isSuspend;
+        this._lnkEvent = builder._lnkEvent;
+        this._startTime = builder._startTime;
+        this._listMarket = builder._listMarket;
+        this._countryCode = builder._countryCode;
+        this._countryName = builder._countryName;
+    }
+
     public String getID() {
         return _id;
     }
+
     public void setID(String val) {
         _id = val;
     }
@@ -44,14 +67,17 @@ public class Event {
     public List<Market> getListMarkets() {
         return _listMarket;
     }
+
     public void setListMarkets(List<Market> val) {
-        _listMarket=val;
+        _listMarket = val;
     }
+
     public String getCompetitionName() {
         return _competitionName;
     }
+
     public void setCompetitionName(String val) {
-        _competitionName=val;
+        _competitionName = val;
     }
 
     public String getMatchScore() {
@@ -97,21 +123,27 @@ public class Event {
     public String getAway() {
         return _away;
     }
+
     public String getAwayBack() {
         return _awayBack;
     }
+
     public String getAwayLay() {
         return _awayLay;
     }
+
     public String getRaw() {
         return _draw;
     }
+
     public String getRawBack() {
         return _drawBack;
     }
+
     public String getRawLay() {
         return _drawLay;
     }
+
     public boolean getSuspend() {
         return _isSuspend;
     }
@@ -119,8 +151,9 @@ public class Event {
     public Link getLinkEvent() {
         return _lnkEvent;
     }
-    public void setLinkEvent( Link val) {
-       _lnkEvent = val;
+
+    public void setLinkEvent(Link val) {
+        _lnkEvent = val;
     }
 
     public String getCountryCode() {
@@ -157,13 +190,15 @@ public class Event {
         private String _drawLay = "";
         private boolean _isSuspend = false;
         private Link _lnkEvent;
-        private String _startTime="";
+        private String _startTime = "";
         private List<Market> _listMarket;
-        private String _countryCode="";
-        private String _countryName="";
-        public Builder(){}
+        private String _countryCode = "";
+        private String _countryName = "";
 
-        public Builder listMarket(List<Market> val){
+        public Builder() {
+        }
+
+        public Builder listMarket(List<Market> val) {
             _listMarket = val;
             return this;
         }
@@ -171,112 +206,104 @@ public class Event {
         public Link lnkEvent() {
             return _lnkEvent;
         }
-        public Builder id(String val){
+
+        public Builder id(String val) {
             _id = val;
             return this;
         }
-        public Builder eventName(String val){
+
+        public Builder eventName(String val) {
             _eventName = val;
             return this;
         }
-        public Builder competitionName(String val){
+
+        public Builder competitionName(String val) {
             _competitionName = val;
             return this;
         }
 
-        public Builder matchScore(String val){
+        public Builder matchScore(String val) {
             _matchScore = val;
             return this;
         }
-        public Builder startTime(String val){
+
+        public Builder startTime(String val) {
             _startTime = val;
             return this;
         }
 
-        public Builder inPlay(boolean val){
+        public Builder inPlay(boolean val) {
             _inPlay = val;
             return this;
         }
 
-        public Builder home(String val){
+        public Builder home(String val) {
             _home = val;
             return this;
         }
 
-        public Builder homeBack(String val){
+        public Builder homeBack(String val) {
             _homeBack = val;
             return this;
         }
 
-        public Builder homeLay(String val){
+        public Builder homeLay(String val) {
             _homeLay = val;
             return this;
         }
-        public Builder away(String val){
+
+        public Builder away(String val) {
             _away = val;
             return this;
         }
-        public Builder awayBack(String val){
+
+        public Builder awayBack(String val) {
             _awayBack = val;
             return this;
         }
-        public Builder awayLay(String val){
+
+        public Builder awayLay(String val) {
             _awayLay = val;
             return this;
         }
-        public Builder drawBack(String val){
+
+        public Builder drawBack(String val) {
             _drawBack = val;
             return this;
         }
-        public Builder drawLay(String val){
+
+        public Builder drawLay(String val) {
             _drawLay = val;
             return this;
         }
-        public Builder draw(String val){
+
+        public Builder draw(String val) {
             _draw = val;
             return this;
         }
-        public Builder isSuspend(boolean val){
+
+        public Builder isSuspend(boolean val) {
             _isSuspend = val;
             return this;
         }
 
-        public Builder lnkEvent(Link val){
+        public Builder lnkEvent(Link val) {
             _lnkEvent = val;
             return this;
         }
 
-        public Builder countryName(String val){
+        public Builder countryName(String val) {
             _countryName = val;
             return this;
         }
 
-        public Builder countryCode(String val){
+        public Builder countryCode(String val) {
             _countryCode = val;
             return this;
         }
-        public Event build() { return new Event(this); }
-    }
 
-    private Event(Builder builder){
-        this._id = builder._id;
-        this._eventName = builder._eventName;
-        this._competitionName = builder._competitionName;
-        this._matchScore = builder._matchScore;
-        this._home = builder._home;
-        this._homeBack = builder._homeBack;
-        this._homeLay = builder._homeLay;
-        this._away = builder._away;
-        this._awayBack = builder._awayBack;
-        this._awayLay = builder._awayLay;
-        this._draw = builder._draw;
-        this._drawBack = builder._drawBack;
-        this._drawLay = builder._drawLay;
-        this._isSuspend = builder._isSuspend;
-        this._lnkEvent = builder._lnkEvent;
-        this._startTime = builder._startTime;
-        this._listMarket = builder._listMarket;
-        this._countryCode = builder._countryCode;
-        this._countryName = builder._countryName;
+        public Event build() {
+            return new Event(this);
+        }
     }
 }

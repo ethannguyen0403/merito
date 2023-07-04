@@ -3,11 +3,9 @@ package membersite.pages.components.underagegamblingpopup;
 
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
-import com.paltech.element.common.Popup;
-import membersite.pages.components.loginform.LoginPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 
-public class SATUnderageGamblingPopup extends UnderageGamblingPopup{
+public class SATUnderageGamblingPopup extends UnderageGamblingPopup {
     private Label lblTitle = Label.xpath("//div[@class='confirm-container']//div[@class='text1']");
     private Label lblContent = Label.xpath("//div[@class='confirm-container']//div[@class='text2']");
     private Button btnConfirm = Button.xpath("//button[contains(@class,'btn-verification btn-confirm')]");
@@ -18,13 +16,17 @@ public class SATUnderageGamblingPopup extends UnderageGamblingPopup{
         return new SATLoginPopup();
     }
 
-    public String getContent(){
+    public String getContent() {
         return lblContent.getText();
     }
-    public String getTitle(){
+
+    public String getTitle() {
         return lblTitle.getText();
     }
-    public void clickExit() {btnExit.click(); }
+
+    public void clickExit() {
+        btnExit.click();
+    }
 
 
 }

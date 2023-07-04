@@ -22,12 +22,12 @@
         <parameter name='feMemberLoginPwd' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <groups>
             <run>
-                <include name="regression" />
+                <include name="regression"/>
             </run>
         </groups>
 
         <classes>
-             <class name="backoffice.testcases.system.BetFairTaxRecrawlTest"/>
+            <class name="backoffice.testcases.system.BetFairTaxRecrawlTest"/>
             <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
             <class name="backoffice.testcases.operations.BannerManagementTest"/>
             <class name="backoffice.testcases.operations.MixedPTConfigurationTest"/>

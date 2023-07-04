@@ -9,6 +9,12 @@ public class Brand {
     private String _displayName;
     private int _brandId;
 
+    private Brand(Builder builder) {
+        this._brandName = builder._brandName;
+        this._displayName = builder._displayName;
+        this._brandId = builder._brandId;
+    }
+
     public String getBrandName() {
         return _brandName;
     }
@@ -27,29 +33,26 @@ public class Brand {
         private String _displayName = "";
         private int _brandId = 0;
 
-        public Builder(){}
+        public Builder() {
+        }
 
-        public Builder brandName(String val){
+        public Builder brandName(String val) {
             _brandName = val;
             return this;
         }
 
-        public Builder displayName(String val){
+        public Builder displayName(String val) {
             _displayName = val;
             return this;
         }
 
-        public Builder brandId(int val){
+        public Builder brandId(int val) {
             _brandId = val;
             return this;
         }
 
-        public Brand build() { return new Brand(this); }
-    }
-
-    private Brand(Builder builder){
-        this._brandName = builder._brandName;
-        this._displayName = builder._displayName;
-        this._brandId = builder._brandId;
+        public Brand build() {
+            return new Brand(this);
+        }
     }
 }

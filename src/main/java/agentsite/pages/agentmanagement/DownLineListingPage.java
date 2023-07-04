@@ -28,8 +28,6 @@ public class DownLineListingPage extends HomePage {
     public Label lblLoginId = Label.xpath("//label[@for='username']");
     public Label lblAccountStatus = Label.xpath("//label[@for='status']");
     public Label lblLevel = Label.xpath("//label[@for='userLevel']");
-    private Image imgSpin = Image.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
-    private int totalColumn = 19;
     public int userCodeCol = 2;
     public int loginIDCol = 3;
     public int creditInitiation = 6;
@@ -38,20 +36,24 @@ public class DownLineListingPage extends HomePage {
     public int levelCol = 7;
     public int delayBetCol = 8;
     public int accountStatusCol = 7;
-    public Table tblDowlineListing = Table.xpath("//table[contains(@class,'ptable report')]", totalColumn);
     public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@id='error-msg']");
     public Label lblNoRecord = Label.xpath("//table[contains(@class,'ptable report')]//span[contains(@class,'no-record')]");
     // Cash Balance Section
     public CashBalanceSection cashBalanceSection = CashBalanceSection.xpath("//div[@id='credit-balance-setting']//app-credit-setting-exchange");
+    private Image imgSpin = Image.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
+    private int totalColumn = 19;
+    public Table tblDowlineListing = Table.xpath("//table[contains(@class,'ptable report')]", totalColumn);
+
     public DownLineListingPage(String types) {
         super(types);
     }
-   public void searchDownline(String loginId, String accountStatus, String level) {
-        if(!loginId.isEmpty())
+
+    public void searchDownline(String loginId, String accountStatus, String level) {
+        if (!loginId.isEmpty())
             txtLoginID.sendKeys(loginId);
-        if(!accountStatus.isEmpty())
+        if (!accountStatus.isEmpty())
             ddbAccountStatus.selectByVisibleText(accountStatus);
-        if(!level.isEmpty())
+        if (!level.isEmpty())
             ddbLevel.selectByVisibleText(level);
         btnSearch.click();
         waitingLoadingSpinner();
@@ -82,13 +84,13 @@ public class DownLineListingPage extends HomePage {
         return null;
     }
 
-    public EditDownLinePage clickEditIcon(String loginID, boolean inputSecurityCode){
+    public EditDownLinePage clickEditIcon(String loginID, boolean inputSecurityCode) {
         editCol = getHeaderIndexValue("Edit");
         Link lnkEdit = (Link) tblDowlineListing.getControlBasedValueOfDifferentColumnOnRow(loginID, 1, userCodeCol, 1, null, editCol, "a[contains(@class,'pedit')]", false, false);
         if (lnkEdit.isClickable(1)) {
             lnkEdit.click();
         }
-        if(inputSecurityCode){
+        if (inputSecurityCode) {
             try {
                 confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
             } catch (Exception e) {
@@ -98,8 +100,9 @@ public class DownLineListingPage extends HomePage {
         waitingLoadingSpinner();
         return new EditDownLinePage(_type);
     }
+
     public EditDownLinePage clickEditIcon(String loginID) throws Exception {
-        return clickEditIcon(loginID,false);
+        return clickEditIcon(loginID, false);
     }
 
     public void clickUserName(String userName) {
@@ -119,7 +122,7 @@ public class DownLineListingPage extends HomePage {
         DropDownBox ddpAccountStatus = DropDownBox.xpath(
                 tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(
                         userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, "select[contains(@class,'com-status')]", false, false));
-        if(ddpAccountStatus.isDisplayed())
+        if (ddpAccountStatus.isDisplayed())
             return ddpAccountStatus.getFirstSelectedOption().trim();
         else
             return Label.xpath(tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, null, false, false)).getText().trim();
@@ -127,7 +130,7 @@ public class DownLineListingPage extends HomePage {
     }
 
     public void submitEditDownline() {
-        if(editDownlinePopup.isDisplayed()) {
+        if (editDownlinePopup.isDisplayed()) {
             editDownlinePopup.btnSubmit.click();
             waitingLoadingSpinner();
         } else {
@@ -136,28 +139,28 @@ public class DownLineListingPage extends HomePage {
             waitingLoadingSpinner();
         }
     }
-    public void confirmSecurityCode(String securityCode){
+
+    public void confirmSecurityCode(String securityCode) {
         if (securityPopup.isDisplayed()) {
-            if(!securityCode.isEmpty()) {
+            if (!securityCode.isEmpty()) {
                 securityPopup.submitSecurityCode(securityCode);
             }
         }
     }
 
-    public String getMessageUpdate(boolean isClose)
-    {
+    public String getMessageUpdate(boolean isClose) {
         String message = successPopup.getContentMessage();
-        if(isClose) {
+        if (isClose) {
             successPopup.close();
         }
-        return  message;
+        return message;
     }
 
-    public Object clickEditIconOldUI(String loginID, String securityCode){
+    public Object clickEditIconOldUI(String loginID, String securityCode) {
 
-        Link lnkEdit = (Link) tblDowlineListing.getControlBasedValueOfDifferentColumnOnRow(loginID,1,userCodeCol,1,null,editCol,"a[contains(@class,'pedit')]",false,false);
-        if(lnkEdit.isClickable(1)){
-            if(securityCode.isEmpty()){
+        Link lnkEdit = (Link) tblDowlineListing.getControlBasedValueOfDifferentColumnOnRow(loginID, 1, userCodeCol, 1, null, editCol, "a[contains(@class,'pedit')]", false, false);
+        if (lnkEdit.isClickable(1)) {
+            if (securityCode.isEmpty()) {
                 return securityPopup;
             }
             lnkEdit.click();
@@ -234,7 +237,7 @@ public class DownLineListingPage extends HomePage {
         }
     }
 
-    public boolean checkDowlineAccountStatusIsUpdateAccordingly(String status){
+    public boolean checkDowlineAccountStatusIsUpdateAccordingly(String status) {
         List<String> lstDownlineStatus = getAccountStatus();
 
         return false;
@@ -257,7 +260,7 @@ public class DownLineListingPage extends HomePage {
     private int getHeaderIndexValue(String headerName) {
         int cellIndex = 0;
         List<String> lstHeaderList = tblDowlineListing.getHeaderList();
-        for(int i = 0; i < lstHeaderList.size(); i++) {
+        for (int i = 0; i < lstHeaderList.size(); i++) {
             if (headerName.equals(lstHeaderList.get(i))) {
                 cellIndex = i + 1;
                 return cellIndex;
@@ -267,7 +270,7 @@ public class DownLineListingPage extends HomePage {
     }
 
     public void closeSubmitEditDownlinePopup() {
-        if(btnOK.isClickable(1)) {
+        if (btnOK.isClickable(1)) {
             btnOK.click();
         }
         waitingLoadingSpinner();

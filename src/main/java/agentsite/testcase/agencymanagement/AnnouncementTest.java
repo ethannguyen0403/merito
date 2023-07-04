@@ -13,7 +13,7 @@ import static common.AGConstant.Announcement.INFO;
 import static common.AGConstant.HomePage.ANNOUNCEMENT;
 
 public class AnnouncementTest extends BaseCaseTest {
-    @TestRails(id="752")
+    @TestRails(id = "752")
     @Test(groups = {"http_request"})
     public void Agent_AM_Announcement_001() {
         log("@title: There is no http responded error returned");
@@ -26,7 +26,7 @@ public class AnnouncementTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id="753")
+    @TestRails(id = "753")
     @Test(groups = {"smoke"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_002(String username, String memberAccount, String password) throws Exception {
@@ -42,7 +42,7 @@ public class AnnouncementTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id="754")
+    @TestRails(id = "754")
     @Test(groups = {"smoke"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_003(String username, String memberAccount, String password) throws Exception {
@@ -65,7 +65,7 @@ public class AnnouncementTest extends BaseCaseTest {
         Assert.assertTrue(page.isAnnouncementDisplay(announcementMsg), "FAILED! announcement does not display");
 
         log("Step 5.Delete announcement");
-        String confirmMessage = page.deleteAnnouncement(announcementMsg,true);
+        String confirmMessage = page.deleteAnnouncement(announcementMsg, true);
 
         log("Verify 3. Verify a confirm message display and announcement is deleted after click on button");
         Assert.assertEquals(confirmMessage, "Are you sure you want to delete this announcement?", "FAILED! Confirm message not display correctly");
@@ -81,26 +81,26 @@ public class AnnouncementTest extends BaseCaseTest {
         log("@title: Member display announcement when agent set for a Specific player");
         log("Step 1. Navigate Agency Management >Announcement");
         //String announcementMsg = "This is announcement is created by auto scrips " + DateUtils.getMilliSeconds();
-        String announcementMsg= "This is announcement is created by auto scrips 1665731123774";
+        String announcementMsg = "This is announcement is created by auto scrips 1665731123774";
         AnnoucementPage page = agentHomePage.navigateAnnoucementPage();
-        String todate = DateUtils.getDate(2,"d/MMM/YYYY hh:mm","GMT-4");
+        String todate = DateUtils.getDate(2, "d/MMM/YYYY hh:mm", "GMT-4");
         try {
             log("Step 2. Add annoucement, active and set for a specific player and set available in today");
             page.addAnnouncement(announcementMsg);
-            page.updateAnnoucement(announcementMsg,true,"","",todate,memberAccount);
+            page.updateAnnoucement(announcementMsg, true, "", "", todate, memberAccount);
 
             log("Step 3 Login member site (SAT and /plus UI)");
-            loginMember(memberAccount,password);
+            loginMember(memberAccount, password);
             memberHomePage.header.getMarqueeMessage();
 
             log("Verify 1 the announcement message display in marquee bar");
-            Assert.assertEquals(memberHomePage.header.getMarqueeMessage(),announcementMsg,"Failed! Announcement message is incorrect display in member site");
+            Assert.assertEquals(memberHomePage.header.getMarqueeMessage(), announcementMsg, "Failed! Announcement message is incorrect display in member site");
 
-        }finally {
-            loginAgent(username,password,true);
+        } finally {
+            loginAgent(username, password, true);
             page = agentHomePage.navigateAnnoucementPage();
             log("Step Postcondition: Delete announcement");
-            page.deleteAnnouncement(announcementMsg,true);
+            page.deleteAnnouncement(announcementMsg, true);
         }
 
         log("INFO: Executed completely");
@@ -113,23 +113,24 @@ public class AnnouncementTest extends BaseCaseTest {
         log("Step 1. Navigate Agency Management >Announcement");
         String announcementMsg = "This is announcement is created by auto scrips " + DateUtils.getMilliSeconds();
         AnnoucementPage page = agentHomePage.navigateAnnoucementPage();
-        String todate = DateUtils.getDate(2,"d/MMM/YYYY hh:mm","GMT-4");
-        try {log("Step 2. Add announcement, set for a specific player and set from and to in today and inactive status");
+        String todate = DateUtils.getDate(2, "d/MMM/YYYY hh:mm", "GMT-4");
+        try {
+            log("Step 2. Add announcement, set for a specific player and set from and to in today and inactive status");
             page.addAnnouncement(announcementMsg);
-            page.updateAnnoucement(announcementMsg,false,"","",todate,memberAccount);
+            page.updateAnnoucement(announcementMsg, false, "", "", todate, memberAccount);
 
             log("Step 3 Login member site (SAT and /plus UI)");
-            loginMember(memberAccount,password);
+            loginMember(memberAccount, password);
             memberHomePage.header.getMarqueeMessage();
 
             log("Verify 1.The announcement message not display");
-            Assert.assertFalse(memberHomePage.header.getMarqueeMessage().contains(announcementMsg),"Failed! Announcement message is incorrect display in member site");
+            Assert.assertFalse(memberHomePage.header.getMarqueeMessage().contains(announcementMsg), "Failed! Announcement message is incorrect display in member site");
 
-        }finally {
-            loginAgent(username,password,true);
+        } finally {
+            loginAgent(username, password, true);
             page = agentHomePage.navigateAnnoucementPage();
             log("Step Post-condition: Delete announcement");
-            page.deleteAnnouncement(announcementMsg,true);
+            page.deleteAnnouncement(announcementMsg, true);
         }
 
         log("INFO: Executed completely");
@@ -142,24 +143,24 @@ public class AnnouncementTest extends BaseCaseTest {
         log("Step 1. Navigate Agency Management >Announcement");
         String announcementMsg = "This is announcement is created by auto scrips " + DateUtils.getMilliSeconds();
         AnnoucementPage page = agentHomePage.navigateAnnoucementPage();
-        String yesterday = DateUtils.getDate(-1,"d/MMM/YYYY hh:mm","GMT-4");
+        String yesterday = DateUtils.getDate(-1, "d/MMM/YYYY hh:mm", "GMT-4");
         try {
             log("Step 2. Add announcement, active and set for a specific player and set from and to in yesterday");
             page.addAnnouncement(announcementMsg);
-            page.updateAnnoucement(announcementMsg,true,"",yesterday,yesterday,memberAccount);
+            page.updateAnnoucement(announcementMsg, true, "", yesterday, yesterday, memberAccount);
 
             log("Step 3 Login member site (SAT and /plus UI)");
-            loginMember(memberAccount,password);
+            loginMember(memberAccount, password);
             memberHomePage.header.getMarqueeMessage();
 
             log("Verify 1 the announcement message not display");
-            Assert.assertFalse(memberHomePage.header.getMarqueeMessage().contains(announcementMsg),"Failed! Announcement message is incorrect display in member site");
+            Assert.assertFalse(memberHomePage.header.getMarqueeMessage().contains(announcementMsg), "Failed! Announcement message is incorrect display in member site");
 
-        }finally {
-            loginAgent(username,password,true);
+        } finally {
+            loginAgent(username, password, true);
             page = agentHomePage.navigateAnnoucementPage();
             log("Step Postcondition: Delete announcement");
-            page.deleteAnnouncement(announcementMsg,true);
+            page.deleteAnnouncement(announcementMsg, true);
         }
 
         log("INFO: Executed completely");

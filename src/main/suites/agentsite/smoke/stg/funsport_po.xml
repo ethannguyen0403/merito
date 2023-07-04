@@ -14,8 +14,8 @@
         <parameter name='username' value='fssubis'/>
         <parameter name='levelLogin' value='Senior Master Agent'/>
         <parameter name='downlineAccount' value='03H00'/>
-        <parameter name ='portalSubAccount' value ='FBSUBVN'/>
-        <parameter name ='memberAccount' value ='03H0000000'/>
+        <parameter name='portalSubAccount' value='FBSUBVN'/>
+        <parameter name='memberAccount' value='03H0000000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
@@ -23,8 +23,8 @@
         <parameter name='brandname' value='funsport'/>
         <groups>
             <run>
-                <include name="smoke" />
-                <include name="smokeNewUI" />
+                <include name="smoke"/>
+                <include name="smokeNewUI"/>
             </run>
         </groups>
 

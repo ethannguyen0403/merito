@@ -14,16 +14,16 @@
         <parameter name='username' value='QAAT.SAD'/>
         <parameter name='levelLogin' value='Senior Admin'/>
         <parameter name='downlineAccount' value='QAAT.AD'/>
-        <parameter name ='portalSubAccount' value ='SASUBBA'/>
-        <parameter name ='memberAccount' value ='QAAT.PL01'/>
+        <parameter name='portalSubAccount' value='SASUBBA'/>
+        <parameter name='memberAccount' value='QAAT.PL01'/>
         <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
 
         <groups>
             <run>
-                <include name="smoke" />
-                <include name="satsmoke" />
+                <include name="smoke"/>
+                <include name="satsmoke"/>
             </run>
         </groups>
 

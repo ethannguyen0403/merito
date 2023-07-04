@@ -44,7 +44,7 @@ public class DepositToPopup extends DepositPopup {
         return Double.parseDouble(newCashBalance);
     }
 
-    public String getMessage (){
+    public String getMessage() {
         return lblMessage.getText().trim();
     }
 

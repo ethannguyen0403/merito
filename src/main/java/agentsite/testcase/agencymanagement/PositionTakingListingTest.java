@@ -39,9 +39,9 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Verify 1. Verify UI on Position Taking Listing display correctly");
         Assert.assertTrue(page.txtUsername.isDisplayed(), "FAILED! Username textbox not display");
-        Assert.assertTrue(page.ddbAccountStatus.isDisplayed(),"FAILED! Account Status dropdown box not display");
-        Assert.assertTrue(page.ddbProduct.isDisplayed(),"FAILED! Product dropdown not display");
-        Assert.assertTrue(page.ddbLevel.isDisplayed(),"FAILED! Level dropdown not display");
+        Assert.assertTrue(page.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box not display");
+        Assert.assertTrue(page.ddbProduct.isDisplayed(), "FAILED! Product dropdown not display");
+        Assert.assertTrue(page.ddbLevel.isDisplayed(), "FAILED! Level dropdown not display");
         List<String> lstHeader = page.tblDownline.getHeaderNameOfRows();
         Assert.assertEquals(lstHeader, AgencyManagement.PositionTakingListing.TABLE_PT_HEADER, "FAILED! Header table not match");
         Assert.assertTrue(page.lblUsername.isDisplayed(), "FAILED! Username level does not correct");
@@ -59,7 +59,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname,"",userID);
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname, "", userID);
         String downlineUserName = listAccount.get(0).getUserCode();
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
@@ -80,7 +80,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("@title:Verify can search by Login ID ");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname,"",userID);
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname, "", userID);
         String downlineLoginID = listAccount.get(0).getLoginID();
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
@@ -419,23 +419,23 @@ public class PositionTakingListingTest extends BaseCaseTest {
         HashMap<String, Boolean> sport = new HashMap<String, Boolean>() {
             {
                 put("Soccer", true);
-                put("Cricket",false);
-                put("Fancy",false);
-                put("Tennis",false);
-                put("Basketball",false);
+                put("Cricket", false);
+                put("Fancy", false);
+                put("Tennis", false);
+                put("Basketball", false);
                 put("Horse Racing", false);
                 put("Greyhound Racing", false);
                 put("Other", false);
             }
         };
         log("Step 3. Update SAD Preset and click update button");
-        page.updatePT(downline,PT,sport);
+        page.updatePT(downline, PT, sport);
 
         log("Verify 1. Verify Login ID displays");
         page.enableSport(sport);
         List<String> lstPTInfo = page.getPTofAccount(downline);
-        Assert.assertEquals(lstPTInfo,lstPTInfoBeforeUpdate,"FAILED! Position Taking Listing Data does not match");
-        Assert.assertTrue(page.verifyUpdateStatus(downline,true),"FAILED! Update Status not display green check");
+        Assert.assertEquals(lstPTInfo, lstPTInfoBeforeUpdate, "FAILED! Position Taking Listing Data does not match");
+        Assert.assertTrue(page.verifyUpdateStatus(downline, true), "FAILED! Update Status not display green check");
         log("INFO: Executed completely");
     }
 

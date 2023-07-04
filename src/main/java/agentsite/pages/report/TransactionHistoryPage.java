@@ -5,7 +5,6 @@ import agentsite.controls.DateTimePicker;
 import agentsite.controls.Row;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
-
 import agentsite.pages.report.components.TransactionDetailsPopup;
 import com.paltech.element.common.*;
 
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionHistoryPage extends HomePage {
+    public static int tblReportTotalCol = 6;
     public Label lblNoRecord = Label.xpath("//td[contains(@class,'align_center')]");
     public TextBox txtSearchFrom = TextBox.id("fromDate");
     public TextBox txtSearchTo = TextBox.xpath("//input[contains(@ng-model,'toSearchDate')]");
@@ -21,30 +21,29 @@ public class TransactionHistoryPage extends HomePage {
     public Label lblFrom = Label.xpath("//div[@id='search-region']//table//tr[1]/td[1]");
     public Label lblTo = Label.xpath("//div[@id='search-region']//table//tr[1]/td[3]");
     public Label lblProduct = Label.xpath("//div[@id='search-region']//table//tr[1]/td[5]");
-    public DropDownBox ddbProduct = DropDownBox.id("select-product");
     //public DropDownBox ddbSport = DropDownBox.xpath("//label[text()='Sport']/following::select[1]");
     //public DropDownBox ddbCompetition = DropDownBox.xpath("//label[text()='Competition']/following::select[1]");
-
+    public DropDownBox ddbProduct = DropDownBox.id("select-product");
     public Button btnToday = Button.name("today");
     public Button btnYesterday = Button.name("yesterday");
     public Button btnLastWeek = Button.name("lastWeek");
     public Button btnSubmit = Button.name("search");
     public Label lblInfo = Label.xpath("//span[@class='pinfo']/following-sibling::label");
-    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
-
-    public static int tblReportTotalCol = 6;
     public int colCompetitionName = 2;
     public int colVolume = 3;
     public int colPnL = 4;
     public int colTax = 5;
     public int colDetails = 6;
     public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]", tblReportTotalCol);
+    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
     private String sportRows = "//td[contains(@class,'sportName')]";
     //private String competitionRow = "//tr[contains(@ng-repeat,'sport.competitions')]";
     private String competitionRow = "//tr[contains(@class,'ng-star-inserted')]";
-    public TransactionHistoryPage(String types){
+
+    public TransactionHistoryPage(String types) {
         super(types);
     }
+
     public void filter(String product) {
         if (!product.isEmpty())
             ddbProduct.selectByVisibleText(product);
@@ -60,7 +59,8 @@ public class TransactionHistoryPage extends HomePage {
         }
         return lstSport;
     }
-      public boolean verifyVolumePnLTaxMatchWithDetail() {
+
+    public boolean verifyVolumePnLTaxMatchWithDetail() {
         String competition;
         String volume;
         String pnl;
@@ -69,8 +69,8 @@ public class TransactionHistoryPage extends HomePage {
         Row rowElement;
         for (int i = 0; i < row; i++) {
 
-            rowElement = Row.xpath(String.format("%s[%s]%s", competitionRow, i + 1,sportRows));
-            if(rowElement.isDisplayed())
+            rowElement = Row.xpath(String.format("%s[%s]%s", competitionRow, i + 1, sportRows));
+            if (rowElement.isDisplayed())
                 continue;
             rowElement = Row.xpath(String.format("%s[%s]", competitionRow, i + 1));
             if (rowElement.isDisplayed()) {
@@ -85,27 +85,24 @@ public class TransactionHistoryPage extends HomePage {
                 double sumPlayerStake = popup.sumPlayerStake();
                 String getTotalPnlLoginLevel = popup.getTotalRowData().get(1);
                 String getTotalTaxLoginLevel = popup.getMarketTax().get(11);
-                if (!String.format("%.2f", sumPlayerStake).equals(volume))
-                {
+                if (!String.format("%.2f", sumPlayerStake).equals(volume)) {
                     System.err.println(String.format("FAILED! Volume in summary of competition %s is %s but sum total player stake in transaction detail is %s",
-                            competition,volume,String.format("%.2f", sumPlayerStake)));
+                            competition, volume, String.format("%.2f", sumPlayerStake)));
                     return false;
                 }
-                if (! getTotalPnlLoginLevel.equals(pnl))
-                {
+                if (!getTotalPnlLoginLevel.equals(pnl)) {
                     System.err.println(String.format("FAILED! Pnl in summary of competition %s is %s but Total Pnl of login account column in transaction detail is %s",
-                            competition,volume,getTotalPnlLoginLevel));
+                            competition, volume, getTotalPnlLoginLevel));
                     return false;
                 }
                 // 11 is the login column resut: SAD Result
-                if (! getTotalTaxLoginLevel.equals(tax))
-                {
+                if (!getTotalTaxLoginLevel.equals(tax)) {
                     System.err.println(String.format("FAILED! Tax in summary of competition %s is %s but Total tax of market at login account column in transaction detail is %s",
-                            competition,volume,getTotalTaxLoginLevel));
+                            competition, volume, getTotalTaxLoginLevel));
                     return false;
                 }
                 popup.clickCloseButton();
-            }else
+            } else
                 break;
         }
         return true;
@@ -158,8 +155,8 @@ public class TransactionHistoryPage extends HomePage {
         return true;
     }*/
 
-    public void  waitingLoadingSpinner(){
-        iconLoadSpinner.waitForControlInvisible(1,1);
+    public void waitingLoadingSpinner() {
+        iconLoadSpinner.waitForControlInvisible(1, 1);
     }
 
 

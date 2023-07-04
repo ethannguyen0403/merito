@@ -3,7 +3,6 @@ package agentsite.pages.report;
 import agentsite.controls.DateTimePicker;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
-
 import com.paltech.element.common.Button;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
@@ -25,28 +24,29 @@ public class ClientLedgerPage extends HomePage {
     public DropDownBox ddbType = DropDownBox.xpath("//div[@id='search-region']/table[1]//tr[2]//td[3]//select");
     public DropDownBox ddbMode = DropDownBox.xpath("//div[@id='search-region']/table[2]//tr[2]//td[2]//select");
     public DropDownBox ddbProduct = DropDownBox.xpath("//div[@id='search-region']/table[2]//tr[2]//td[3]//select");
+    public int colUsername = 1;
+    public int colLoginID = 2;
+    public int colProfitAndLoss = 3;
+    public int colTransfer = 4;
     Button btnToday = Button.name("today");
     Button btnYesterday = Button.name("yesterday");
     Button btnLastWeek = Button.name("lastWeek");
     Button btnSubmit = Button.name("search");
     Label lblTimeRange = Label.xpath("//div[@class='downline-bar']//span[@class='my-breadcrumb']//span[@class='extension']");
     Label lblBreadcrumb = Label.xpath("//div[@class='downline-bar']//span[@class='my-breadcrumb']");
-
     int totalCol = 8;
-    public int colUsername = 1;
-    public int colLoginID = 2;
-    public int colProfitAndLoss = 3;
-    public int colTransfer = 4;
     public Table tblClientLedger = Table.xpath("(//table[contains(@class, 'ptable report')])", totalCol);
-    public ClientLedgerPage(String types){
+
+    public ClientLedgerPage(String types) {
         super(types);
     }
-    public void filter(String from, String to , String type, String userName, String mode, String product) {
+
+    public void filter(String from, String to, String type, String userName, String mode, String product) {
         if (!from.isEmpty()) {
-            dpFrom.selectDate(from,"dd/MM/yyyy");
+            dpFrom.selectDate(from, "dd/MM/yyyy");
         }
         if (!to.isEmpty()) {
-            dpTo.selectDate(from,"dd/MM/yyyy");
+            dpTo.selectDate(from, "dd/MM/yyyy");
         }
         if (!type.isEmpty()) {
             ddbType.selectByVisibleText(type);

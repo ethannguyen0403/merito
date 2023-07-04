@@ -14,9 +14,11 @@ public class SecurityCodePage extends LoginPage {
     public Button btnBackToLoginPage = Button.xpath("//table[contains(@class,'login-table')]//span[text()='Back To Login Page']");
     public Label lblTitle = Label.xpath("//*[contains(@class,'login-title')]");
     private Image imgSpin = Image.xpath("//div[@id='spinDiv']");
+
     public SecurityCodePage(String types) {
         super(types);
     }
+
     public ConfirmPopup setInvalidSecurityCode(String securityCode) {
         setSecurityCode(securityCode, securityCode);
         return new ConfirmPopup();

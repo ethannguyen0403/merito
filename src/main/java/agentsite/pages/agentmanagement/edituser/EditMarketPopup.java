@@ -7,42 +7,42 @@ import com.paltech.element.common.TextBox;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
-public class EditMarketPopup extends BaseElement  {
-    private String _xPath ; //app-blocking-setting
-    public TextBox txtSearchMarket  ;
-
-    public Table tblMarket  ;
-    public Button btnOK ;
-    public Button btnCancle ;
+public class EditMarketPopup extends BaseElement {
+    public TextBox txtSearchMarket;
+    public Table tblMarket;
+    public Button btnOK;
+    public Button btnCancle;
+    private String _xPath; //app-blocking-setting
 
     public EditMarketPopup(By locator, String xpathExpression) {
         super(locator);
         this._xPath = xpathExpression;
-        txtSearchMarket =TextBox.xpath(String.format("%s//div[@class='content'][1]//input",_xPath));
-        tblMarket = Table.xpath(String.format("%s//perfect-scrollbar[contains(@class,'content-market')]//table",_xPath),2);
-        btnOK = Button.xpath(String.format("%s//button[@class='pbtn']",_xPath));
-        btnCancle = Button.xpath(String.format("%s//button[@class='cancel']",_xPath));
+        txtSearchMarket = TextBox.xpath(String.format("%s//div[@class='content'][1]//input", _xPath));
+        tblMarket = Table.xpath(String.format("%s//perfect-scrollbar[contains(@class,'content-market')]//table", _xPath), 2);
+        btnOK = Button.xpath(String.format("%s//button[@class='pbtn']", _xPath));
+        btnCancle = Button.xpath(String.format("%s//button[@class='cancel']", _xPath));
     }
 
     public static EditMarketPopup xpath(String xpathExpression) {
         return new EditMarketPopup(By.xpath(xpathExpression), xpathExpression);
     }
 
-    public void searchMarket (String marketName){
+    public void searchMarket(String marketName) {
         txtSearchMarket.sendKeys(marketName);
         txtSearchMarket.type(false, Keys.ENTER);
     }
-    public void activeMarket(String marketName,boolean isActive){
-        BaseElement element = tblMarket.getControlBasedValueOfDifferentColumnOnRow(marketName,1,1,1,null,2,"input",true,false);
+
+    public void activeMarket(String marketName, boolean isActive) {
+        BaseElement element = tblMarket.getControlBasedValueOfDifferentColumnOnRow(marketName, 1, 1, 1, null, 2, "input", true, false);
         boolean ischecked = element.isSelected();
-        if(ischecked != isActive){
+        if (ischecked != isActive) {
             element.click();
         }
         btnOK.click();
     }
 
-    public boolean isMarketActive(String marketName){
-        BaseElement element = tblMarket.getControlBasedValueOfDifferentColumnOnRow(marketName,1,1,1,null,2,"input",true,false);
-       return element.isSelected();
+    public boolean isMarketActive(String marketName) {
+        BaseElement element = tblMarket.getControlBasedValueOfDifferentColumnOnRow(marketName, 1, 1, 1, null, 2, "input", true, false);
+        return element.isSelected();
     }
 }

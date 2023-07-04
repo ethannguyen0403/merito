@@ -3,7 +3,6 @@ package backoffice.pages.bo.operations.component;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Popup;
-import backoffice.controls.bo.ATable;
 
 
 public class BannerConfirmPopup {
@@ -12,22 +11,24 @@ public class BannerConfirmPopup {
     private Button btnCancel = Button.xpath("//app-banner-confirm-dialog//button[contains(@class,'btn-cancel')]");
     private Label lblContent = Label.xpath("//app-banner-confirm-dialog//div[contains(@class,'dialog-body')]/div");
     private Button btnOk = Button.xpath("//app-banner-confirm-dialog//button[contains(@class,'btn-confirm')]");
-    public String getTitle(){
+
+    public String getTitle() {
         return lblTitle.getText();
     }
 
-    public void clickCancelBtn()
-    {
+    public void clickCancelBtn() {
         btnCancel.click();
     }
 
-    public void clickOK(){
+    public void clickOK() {
         btnOk.click();
     }
 
-    public String getContentMessage(){return lblContent.getText();}
+    public String getContentMessage() {
+        return lblContent.getText();
+    }
 
-    public boolean isDisplayed(){
+    public boolean isDisplayed() {
         popup.isInvisible(2);
         return popup.isDisplayed();
     }

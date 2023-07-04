@@ -1,8 +1,8 @@
 package backoffice.controls.bo;
 
+import backoffice.controls.Cell;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Link;
-import backoffice.controls.Cell;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -20,209 +20,216 @@ public class ScrollTable extends BaseElement {
     private int _numberOfTotalPage = 0;
     private String _header = "";
     private String _json = "";
-	private int timeOutInSecond = 5;
-	private int timeOutShort = 2;
+    private int timeOutInSecond = 5;
+    private int timeOutShort = 2;
 
     private ScrollTable(By locator, String xpathExpression, String url, int columnNumber, String header, String json) {
-		super(locator);
-		this._xpathTable = xpathExpression;
-		this._url = url;
-		this._columnNumber = columnNumber;
-		this._header = header;
-		this._json = json;
-		if(url != null && url.isEmpty()){
-			this._numberOfTotalPage = 0;
-		}
-	}
+        super(locator);
+        this._xpathTable = xpathExpression;
+        this._url = url;
+        this._columnNumber = columnNumber;
+        this._header = header;
+        this._json = json;
+        if (url != null && url.isEmpty()) {
+            this._numberOfTotalPage = 0;
+        }
+    }
 
-	public static ScrollTable xpath(String xpathExpression, int columnNumber) {
-		return new ScrollTable(By.xpath(xpathExpression), xpathExpression, null, columnNumber, null, null);
-	}
+    public static ScrollTable xpath(String xpathExpression, int columnNumber) {
+        return new ScrollTable(By.xpath(xpathExpression), xpathExpression, null, columnNumber, null, null);
+    }
 
-	/**
-	 * Get values of rows within a table. Specially, you can get all rows in a table as well as a limit number of rows you want to get
-	 * @param limitedRow a number of rows are limited to be got
-	 * @param isMoved yes if you want to move down in a distance in order that the invisible column can be displayed
-	 * @return [[],[],[]]
-	 */
-	public List<ArrayList<String>> getRows(int limitedRow, boolean isMoved){
-		return this.getRows(limitedRow, true, isMoved);
-	}
+    /**
+     * Get values of rows within a table. Specially, you can get all rows in a table as well as a limit number of rows you want to get
+     *
+     * @param limitedRow a number of rows are limited to be got
+     * @param isMoved    yes if you want to move down in a distance in order that the invisible column can be displayed
+     * @return [[], [], []]
+     */
+    public List<ArrayList<String>> getRows(int limitedRow, boolean isMoved) {
+        return this.getRows(limitedRow, true, isMoved);
+    }
 
-	public List<ArrayList<String>> getRowsWithoutHeader(int limitedRow, boolean isMoved){
-		return this.getRows(limitedRow, false, isMoved);
-	}
+    public List<ArrayList<String>> getRowsWithoutHeader(int limitedRow, boolean isMoved) {
+        return this.getRows(limitedRow, false, isMoved);
+    }
 
-	/**
-	 * Get all values of rows within a table containing header names.
-	 * @param isMoved yes if you want to move down in a distance in order that the invisible column can be displayed
-	 * @return [[],[],[]]
-	 */
-	public List<ArrayList<String>> getRows(boolean isMoved){
-		List<ArrayList<String>> lst = new ArrayList<ArrayList<String>>();
+    /**
+     * Get all values of rows within a table containing header names.
+     *
+     * @param isMoved yes if you want to move down in a distance in order that the invisible column can be displayed
+     * @return [[], [], []]
+     */
+    public List<ArrayList<String>> getRows(boolean isMoved) {
+        List<ArrayList<String>> lst = new ArrayList<ArrayList<String>>();
 
-		// adding column names of this table
-		lst.add(getColumnNamesOfTable());
+        // adding column names of this table
+        lst.add(getColumnNamesOfTable());
 
-		// adding value of each row into list
-		String rowXpath = String.format("%s%s", this._xpathTable, "/div[contains(@class,'custom-scrollbar')]/div[contains(@class,'tr')][%s]/div[contains(@class,'row')]");
-		int i = 1;
-		while(true) {
-			ARow row = ARow.xpath(String.format(rowXpath, i));
-			if(!row.isDisplayedShort(timeOutShort)){
-				return lst;
-			}
-			lst.add(row.getRow(this._columnNumber, false));
+        // adding value of each row into list
+        String rowXpath = String.format("%s%s", this._xpathTable, "/div[contains(@class,'custom-scrollbar')]/div[contains(@class,'tr')][%s]/div[contains(@class,'row')]");
+        int i = 1;
+        while (true) {
+            ARow row = ARow.xpath(String.format(rowXpath, i));
+            if (!row.isDisplayedShort(timeOutShort)) {
+                return lst;
+            }
+            lst.add(row.getRow(this._columnNumber, false));
 
-			// moving to next row after getting the row in case row of this table are hidden visible view
-			if (isMoved){
-				row.scrollDownInDistance();
-			}
-			i += 1;
-		}
-	}
+            // moving to next row after getting the row in case row of this table are hidden visible view
+            if (isMoved) {
+                row.scrollDownInDistance();
+            }
+            i += 1;
+        }
+    }
 
-	/**
-	 * Get all values of a column if you want
-	 * @param columnOrder The 1st column of a table starts 1
-	 * @param isMoved if true, it moving down after getting value of a cell
-	 * @return all values of a column
-	 */
-	public List<String> getColumn(int columnOrder, boolean isMoved){
-		return getColumn(columnOrder, -1, isMoved);
-	}
+    /**
+     * Get all values of a column if you want
+     *
+     * @param columnOrder The 1st column of a table starts 1
+     * @param isMoved     if true, it moving down after getting value of a cell
+     * @return all values of a column
+     */
+    public List<String> getColumn(int columnOrder, boolean isMoved) {
+        return getColumn(columnOrder, -1, isMoved);
+    }
 
-	public List<String> getColumn(int columnOrder, int limit, boolean isMoved){
-		List<String> lst = new ArrayList<String>();
-		if (columnOrder < 1){
-			System.out.println(String.format("Error: columnOrder %s is to be more than or equal to 1", columnOrder));
-			return lst;
-		}
-		int i = 1;
-		String cellXpath = String.format("%s%s%s", this._xpathTable, "/div[contains(@class,'custom-scrollbar')]/div[contains(@class,'tr')][%s]/div[contains(@class,'row')]/", String.format("div[%s]", columnOrder));
-		while(true) {
-			Cell cell = Cell.xpath(String.format(cellXpath, i));
-			if (!cell.isDisplayedShort(timeOutShort)){
-				return lst;
-			}
-			lst.add(cell.getText(timeOutShort));
-			if(lst.size()==limit) {
-				return lst;
-			}
-			if (isMoved){
-				cell.scrollDownInDistance();
-			}
-			i += 1;
-		}
-	}
+    public List<String> getColumn(int columnOrder, int limit, boolean isMoved) {
+        List<String> lst = new ArrayList<String>();
+        if (columnOrder < 1) {
+            System.out.println(String.format("Error: columnOrder %s is to be more than or equal to 1", columnOrder));
+            return lst;
+        }
+        int i = 1;
+        String cellXpath = String.format("%s%s%s", this._xpathTable, "/div[contains(@class,'custom-scrollbar')]/div[contains(@class,'tr')][%s]/div[contains(@class,'row')]/", String.format("div[%s]", columnOrder));
+        while (true) {
+            Cell cell = Cell.xpath(String.format(cellXpath, i));
+            if (!cell.isDisplayedShort(timeOutShort)) {
+                return lst;
+            }
+            lst.add(cell.getText(timeOutShort));
+            if (lst.size() == limit) {
+                return lst;
+            }
+            if (isMoved) {
+                cell.scrollDownInDistance();
+            }
+            i += 1;
+        }
+    }
 
 
-	/**
-	 * Getting column names of a table header
-	 * @return ArrayList column names
-	 */
-	public ArrayList<String> getColumnNamesOfTable(){
-		String xpath = String.format("%s%s", this._xpathTable, "//div[contains(@class,'header')]");
-		ARow row = ARow.xpath(xpath);
-		return row.getRow(this._columnNumber, true);
-	}
+    /**
+     * Getting column names of a table header
+     *
+     * @return ArrayList column names
+     */
+    public ArrayList<String> getColumnNamesOfTable() {
+        String xpath = String.format("%s%s", this._xpathTable, "//div[contains(@class,'header')]");
+        ARow row = ARow.xpath(xpath);
+        return row.getRow(this._columnNumber, true);
+    }
 
-	/**
-	 * Getting list of WebElements within a cell of a column of a table
-	 * @param columnOrder Column order within a table and the 1st column is 1
-	 * @param rowNumber ARow order within a table and the header order is 0
-	 * @param tagName within a cell of a table, there are usually a tag name after td tag such as p or span
-	 * @param isHeader true if it is header
-	 * @param isScrolled if true, be allow to scroll up/down this control
-	 * @param isAlignedToTop if true, the top of the element will be aligned to the top of the visible area of the scrollable ancestor
-	 *                       if false, the bottom of the element will be aligned to the bottom of the visible area of the scrollable ancestor.
-	 *                       Default is true
-	 * @return a list of WebElements of a cell
-	 */
-	public List<WebElement> getWebElementsOfCell(int columnOrder, int rowNumber, String tagName, boolean isHeader, boolean isScrolled , boolean isAlignedToTop){
-		if(columnOrder < 1){
-			System.out.println(String.format("Error: columnOrder %s is to be more than or equal to 1", columnOrder));
-			return null;
-		}
-		if (isScrolled){
-			this.scrollToThisControl(isAlignedToTop);
-		}
+    /**
+     * Getting list of WebElements within a cell of a column of a table
+     *
+     * @param columnOrder    Column order within a table and the 1st column is 1
+     * @param rowNumber      ARow order within a table and the header order is 0
+     * @param tagName        within a cell of a table, there are usually a tag name after td tag such as p or span
+     * @param isHeader       true if it is header
+     * @param isScrolled     if true, be allow to scroll up/down this control
+     * @param isAlignedToTop if true, the top of the element will be aligned to the top of the visible area of the scrollable ancestor
+     *                       if false, the bottom of the element will be aligned to the bottom of the visible area of the scrollable ancestor.
+     *                       Default is true
+     * @return a list of WebElements of a cell
+     */
+    public List<WebElement> getWebElementsOfCell(int columnOrder, int rowNumber, String tagName, boolean isHeader, boolean isScrolled, boolean isAlignedToTop) {
+        if (columnOrder < 1) {
+            System.out.println(String.format("Error: columnOrder %s is to be more than or equal to 1", columnOrder));
+            return null;
+        }
+        if (isScrolled) {
+            this.scrollToThisControl(isAlignedToTop);
+        }
 
-		// creating a row
-		ARow row;
-		String rowXpath;
-		if (isHeader) {
-			rowXpath = String.format("%s%s", this._xpathTable, "/div[contains(@class,'header')]/div");
-			row = ARow.xpath(rowXpath);
-		} else {
-			rowXpath = String.format("%s%s", this._xpathTable, "/div[contains(@class,'custom-scrollbar')]/div[%s]");
-			row = ARow.xpath(String.format(rowXpath, rowNumber));
-		}
+        // creating a row
+        ARow row;
+        String rowXpath;
+        if (isHeader) {
+            rowXpath = String.format("%s%s", this._xpathTable, "/div[contains(@class,'header')]/div");
+            row = ARow.xpath(rowXpath);
+        } else {
+            rowXpath = String.format("%s%s", this._xpathTable, "/div[contains(@class,'custom-scrollbar')]/div[%s]");
+            row = ARow.xpath(String.format(rowXpath, rowNumber));
+        }
 
-		// verifying during 2 seconds if the row doesn't exist it will return a dictionary
-		if (!row.isDisplayedShort(2)){
-			return null;
-		}
-		return row.getWebElementsOfCell(columnOrder, isHeader, tagName);
-	}
+        // verifying during 2 seconds if the row doesn't exist it will return a dictionary
+        if (!row.isDisplayedShort(2)) {
+            return null;
+        }
+        return row.getWebElementsOfCell(columnOrder, isHeader, tagName);
+    }
 
-	/**
-	 * getting a control at column and row
-	 * @param tBodyOrder beginning value is 1
-	 * @param columnOrder beginning value is 1
-	 * @param rowOrder beginning value is 1
-	 * @param subTag span | a etc.
-	 * @return BaseElement
-	 */
-	public BaseElement getControlOfCell(int tBodyOrder, int columnOrder, int rowOrder, String subTag){
-		if(columnOrder < 1 || rowOrder < 1){
-			System.out.println(String.format("Error: columnOrder or rowOrder is  %s or %s to be more than or equal to 1", columnOrder, rowOrder));
-			return null;
-		}
+    /**
+     * getting a control at column and row
+     *
+     * @param tBodyOrder  beginning value is 1
+     * @param columnOrder beginning value is 1
+     * @param rowOrder    beginning value is 1
+     * @param subTag      span | a etc.
+     * @return BaseElement
+     */
+    public BaseElement getControlOfCell(int tBodyOrder, int columnOrder, int rowOrder, String subTag) {
+        if (columnOrder < 1 || rowOrder < 1) {
+            System.out.println(String.format("Error: columnOrder or rowOrder is  %s or %s to be more than or equal to 1", columnOrder, rowOrder));
+            return null;
+        }
 
-		String cellXpath;
-		if (subTag == null){
-			cellXpath = String.format("%s%s%s", this._xpathTable, String.format("/div[contains(@class,'custom-scrollbar')][%s]/div[contains(@class,'tr')][%s]/div[contains(@class,'row')]/", tBodyOrder, rowOrder), String.format("div[%s]", columnOrder));
-		} else {
-			cellXpath = String.format("%s%s%s//%s", this._xpathTable, String.format("/div[contains(@class,'custom-scrollbar')][%s]/div[contains(@class,'tr')][%s]/div[contains(@class,'row')]/", tBodyOrder, rowOrder), String.format("div[%s]", columnOrder), subTag);
-		}
-		return Link.xpath(cellXpath);
-	}
+        String cellXpath;
+        if (subTag == null) {
+            cellXpath = String.format("%s%s%s", this._xpathTable, String.format("/div[contains(@class,'custom-scrollbar')][%s]/div[contains(@class,'tr')][%s]/div[contains(@class,'row')]/", tBodyOrder, rowOrder), String.format("div[%s]", columnOrder));
+        } else {
+            cellXpath = String.format("%s%s%s//%s", this._xpathTable, String.format("/div[contains(@class,'custom-scrollbar')][%s]/div[contains(@class,'tr')][%s]/div[contains(@class,'row')]/", tBodyOrder, rowOrder), String.format("div[%s]", columnOrder), subTag);
+        }
+        return Link.xpath(cellXpath);
+    }
 
-	/**
-	 * description: header is a row #1, row number 2 and next rows contain data of table.
-	 * @param isMoving moving down if isMoving is true
-	 * @return a number of rows
-	 */
-	public int getNumberOfRows(boolean isMoving){
-		return getNumberOfRows(true, isMoving);
-	}
+    /**
+     * description: header is a row #1, row number 2 and next rows contain data of table.
+     *
+     * @param isMoving moving down if isMoving is true
+     * @return a number of rows
+     */
+    public int getNumberOfRows(boolean isMoving) {
+        return getNumberOfRows(true, isMoving);
+    }
 
-	public int getNumberOfRows(boolean isCountHeaderRow, boolean isMoving){
-		int numberRows = 0;
-		if(isCountHeaderRow){
-			ARow row = ARow.xpath(String.format("%s%s", this._xpathTable, "/div[contains(@class,'header')]/div[1]"));
-			if (row.isDisplayed(3)){
-				numberRows +=1;
-			} else {
-				return numberRows;
-			}
-		}
-		String rowXpath = String.format("%s%s", this._xpathTable, "/div[contains(@class,'custom-scrollbar')]/div[%d]");
-		int i = 1;
-		while (true){
-			ARow iRow = ARow.xpath(String.format(rowXpath, i));
-			if (!iRow.isDisplayedShort(3)){
-				return numberRows;
-			} else{
-				numberRows +=1;
-				i++;
-				if (isMoving) {
-					iRow.scrollDownInDistance();
-				}
-			}
-		}
-	}
+    public int getNumberOfRows(boolean isCountHeaderRow, boolean isMoving) {
+        int numberRows = 0;
+        if (isCountHeaderRow) {
+            ARow row = ARow.xpath(String.format("%s%s", this._xpathTable, "/div[contains(@class,'header')]/div[1]"));
+            if (row.isDisplayed(3)) {
+                numberRows += 1;
+            } else {
+                return numberRows;
+            }
+        }
+        String rowXpath = String.format("%s%s", this._xpathTable, "/div[contains(@class,'custom-scrollbar')]/div[%d]");
+        int i = 1;
+        while (true) {
+            ARow iRow = ARow.xpath(String.format(rowXpath, i));
+            if (!iRow.isDisplayedShort(3)) {
+                return numberRows;
+            } else {
+                numberRows += 1;
+                i++;
+                if (isMoving) {
+                    iRow.scrollDownInDistance();
+                }
+            }
+        }
+    }
 
 //	/**
 //	 * Getting the 1st control of a row by a same text. It will return the 1st control on a row you input
@@ -293,9 +300,9 @@ public class ScrollTable extends BaseElement {
 //		}
 //	}
 
-	/******
-	 * Private methods
-	 */
+    /******
+     * Private methods
+     */
 //	private BaseElement getControlOnRow(String value, int tbodyOrder, int beginColumn, int rowOrder, String subTag, boolean isMoved, boolean isDifferentText){
 //		if (beginColumn < 1 && rowOrder < 1 &&  beginColumn > _columnNumber){
 //			System.out.println(String.format("Error: beginColumn %s and rowOrder %s is to be more than or equal to 1. In addition, beginColumn %s <= _columnNumber %s",
@@ -333,42 +340,41 @@ public class ScrollTable extends BaseElement {
 //			i += 1;
 //		}
 //	}
+    private List<ArrayList<String>> getRows(int limitedRow, boolean isHeaderGot, boolean isMoved) {
+        List<ArrayList<String>> lst = new ArrayList<ArrayList<String>>();
+        if (limitedRow < 1) {
+            System.out.println("There is no row returned");
+            return lst;
+        }
+        // adding column names of this table into list
+        if (isHeaderGot) {
+            lst.add(getColumnNamesOfTable());
+        }
+        // adding values of each row into list
+        String rowXpath = String.format("%s%s", this._xpathTable, "/div[contains(@class,'custom-scrollbar')]/div[%s]");
+        int i = 1;
+        while (true) {
+            ARow row = ARow.xpath(String.format(rowXpath, i));
+            if (!row.isDisplayedShort(timeOutShort)) {
+                if (!row.isPresent()) {
+                    return lst;
+                }
+                i += 1;
+                continue;
+            }
+            lst.add(row.getRow(this._columnNumber, false));
+            // how many rows you want to get; you don't want to get all rows within a table
+            if (limitedRow <= i) {
+                return lst;
+            }
 
-	private List<ArrayList<String>> getRows(int limitedRow, boolean isHeaderGot, boolean isMoved){
-		List<ArrayList<String>> lst = new ArrayList<ArrayList<String>>();
-		if(limitedRow < 1){
-			System.out.println("There is no row returned");
-			return lst;
-		}
-		// adding column names of this table into list
-		if (isHeaderGot){
-			lst.add(getColumnNamesOfTable());
-		}
-		// adding values of each row into list
-		String rowXpath = String.format("%s%s", this._xpathTable, "/div[contains(@class,'custom-scrollbar')]/div[%s]");
-		int i = 1;
-		while(true){
-			ARow row = ARow.xpath(String.format(rowXpath, i));
-			if(!row.isDisplayedShort(timeOutShort)){
-				if (!row.isPresent()){
-					return lst;
-				}
-				i += 1;
-				continue;
-			}
-			lst.add(row.getRow(this._columnNumber, false));
-			// how many rows you want to get; you don't want to get all rows within a table
-			if (limitedRow <= i){
-				return lst;
-			}
-
-			// moving to next row after getting the row in case row of this table are hidden visible view
-			if (isMoved){
-				row.scrollDownInDistance();
-			}
-			i += 1;
-		}
-	}
+            // moving to next row after getting the row in case row of this table are hidden visible view
+            if (isMoved) {
+                row.scrollDownInDistance();
+            }
+            i += 1;
+        }
+    }
 
 //	public Cell getCellByName(String name, boolean isMoved){
 //		if(name.isEmpty()){

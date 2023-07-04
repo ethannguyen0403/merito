@@ -1,4 +1,5 @@
 package membersite.pages.components.mybet;
+
 import com.paltech.element.common.*;
 import common.MemberConstants;
 import controls.DateTimePicker;
@@ -17,7 +18,6 @@ public class NewViewMyBetsContainer extends MyBetsContainer {
     public DropDownBox ddbProduct = DropDownBox.xpath("//div[@class='row'][1]//select[contains(@class,'select-type-order')]");
     public DropDownBox ddbOrderType = DropDownBox.xpath("//div[@class='row'][2]//select[contains(@class,'select-type-order')]");
     public Button btnLoadReport = Button.xpath("//button[contains(@class,'form-control btn btn-warning btn-report-search')]");
-    private int colTotal = 12;
     public int colStatus = 9;
     public int colMarketName = 1;
     public int colBetID = 2;
@@ -29,15 +29,14 @@ public class NewViewMyBetsContainer extends MyBetsContainer {
     public int colProfitLoss = 8;
     public int colPlaceDate = 10;
     public int colIPAddress = 11;
-
-    public Table tblReport = Table.xpath("//table[@class='table table-sm']",colTotal);
     public Link lnkPagination = Link.xpath("//ul[@class='pagination']//li");
     public Label lblNoRecord = Label.xpath("//table[@class='table table-sm']/tbody/tr[1]/td[@class='text-center']");
-
     public TextBox txtStartDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.START_DATE));
-    public DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
+    public DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate, "//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
     public TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.END_DATE));
-    public DateTimePicker dtpEndDate = DateTimePicker.xpath(txtEndDate,"//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
+    public DateTimePicker dtpEndDate = DateTimePicker.xpath(txtEndDate, "//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
+    private int colTotal = 12;
+    public Table tblReport = Table.xpath("//table[@class='table table-sm']", colTotal);
     private Button btnDownload = Button.xpath("//em[contains(@class,'fas fa-download ico-export')]");
 /*
 
@@ -53,72 +52,67 @@ public class NewViewMyBetsContainer extends MyBetsContainer {
 */
 
 
-    public void filter(String productName, String orderType){
-        filter(productName, orderType,"", "");
+    public void filter(String productName, String orderType) {
+        filter(productName, orderType, "", "");
     }
 
-    public void filter(String productName, String orderType, String startDate, String endDate)
-    {
+    public void filter(String productName, String orderType, String startDate, String endDate) {
         ddbProduct.isDisplayed();
-        if(!ddbProduct.getFirstSelectedOption().contains(productName)) {
-        ddbProduct.selectByVisibleContainsText(productName);
-    }
+        if (!ddbProduct.getFirstSelectedOption().contains(productName)) {
+            ddbProduct.selectByVisibleContainsText(productName);
+        }
         ddbOrderType.selectByVisibleText(orderType);
 
-        if(!startDate.isEmpty()){
-            dtpStartDate.selectDate(startDate,"yyyy-MM-dd");
+        if (!startDate.isEmpty()) {
+            dtpStartDate.selectDate(startDate, "yyyy-MM-dd");
         }
-        if(!endDate.isEmpty()){
-            dtpEndDate.selectDate(endDate,"yyyy-MM-dd");
+        if (!endDate.isEmpty()) {
+            dtpEndDate.selectDate(endDate, "yyyy-MM-dd");
         }
 
         btnLoadReport.click();
-        btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT,10);
+        btnLoadReport.isTextDisplayed(MemberConstants.MyBetsPage.LOAD_REPORT, 10);
     }
 
-    public boolean validateFilterStatus(String status)
-    {
-        List<String> lst = tblReport.getColumn("/tbody[%s]//",colStatus,false);
-        for (String sts:lst){
-            if(status.equalsIgnoreCase("Settled"))
-            {
-                if(!sts.equalsIgnoreCase("Won")){
-                    if(!sts.equalsIgnoreCase("Lost")){
+    public boolean validateFilterStatus(String status) {
+        List<String> lst = tblReport.getColumn("/tbody[%s]//", colStatus, false);
+        for (String sts : lst) {
+            if (status.equalsIgnoreCase("Settled")) {
+                if (!sts.equalsIgnoreCase("Won")) {
+                    if (!sts.equalsIgnoreCase("Lost")) {
                         System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
                         return false;
                     }
 
                 }
-            }else{
-            if (!sts.equals(status)) {
-                System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
-                return false;
-            }
+            } else {
+                if (!sts.equals(status)) {
+                    System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
+                    return false;
+                }
             }
         }
         return true;
     }
 
-    public List<String> translateProductsActive(List<String> productCode)
-    {
-        if(Objects.nonNull(productCode))
-        {
+    public List<String> translateProductsActive(List<String> productCode) {
+        if (Objects.nonNull(productCode)) {
             List<String> productTranslate = new ArrayList<>();
-            for(int i=0, n = productCode.size(); i<n; i++)
-            {
+            for (int i = 0, n = productCode.size(); i < n; i++) {
                 productTranslate.add(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get(productCode.get(i)));
             }
             return productTranslate;
-        }else{
+        } else {
             System.out.println("There is no product active!");
             return null;
         }
     }
-    public void waitLoadReport(){
-        btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT,5);
+
+    public void waitLoadReport() {
+        btnLoadReport.isTextDisplayed(MemberConstants.AccountStatementPage.LOAD_REPORT, 5);
     }
 
-    public void selectProduct(String product){
+    public void selectProduct(String product) {
         ddbProduct.selectByVisibleText(product);
     }
 

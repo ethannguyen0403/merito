@@ -18,12 +18,12 @@ public class VoidUnvoidPopup {
         iconX.click();
     }
 
-    public void confirm(String remark){
+    public void confirm(String remark) {
         txtRemark.sendKeys(remark);
         btnVoidUnvoid.click();
     }
 
-    public boolean isDisplayed(){
+    public boolean isDisplayed() {
         popup.isInvisible(1);
         return popup.isDisplayed();
     }

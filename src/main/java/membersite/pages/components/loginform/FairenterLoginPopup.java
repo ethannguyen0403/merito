@@ -1,9 +1,12 @@
 package membersite.pages.components.loginform;
 
-import com.paltech.element.common.*;
+import com.paltech.element.common.Button;
+import com.paltech.element.common.CheckBox;
+import com.paltech.element.common.Label;
+import com.paltech.element.common.TextBox;
 import membersite.pages.ChangePasswordPage;
 
-public class FairenterLoginPopup  extends LoginPopup {
+public class FairenterLoginPopup extends LoginPopup {
     public Label lblTitle = Label.xpath("//div[@class='login-popup-content']//b");
     public Label lblErrorMessage = Label.xpath("//div[contains(@class,'message-error')]");
     public Label lblRememberMe = Label.xpath("//label[@for='frmLoginRemember']");
@@ -12,7 +15,7 @@ public class FairenterLoginPopup  extends LoginPopup {
     public TextBox txtPassword = TextBox.name("password");
     public Button btnLogin = Button.xpath("//button[contains(@class,'btn-login')] | //input[@value='Login']");
 
-    public void login(String username, String password, boolean skipByDefault){
+    public void login(String username, String password, boolean skipByDefault) {
         txtUsername.isDisplayed();
         if (!username.isEmpty()) {
             txtUsername.sendKeys(username);
@@ -23,7 +26,7 @@ public class FairenterLoginPopup  extends LoginPopup {
         btnLogin.click();
         // waiting for loading
         btnLogin.isInvisible(2);
-        if(skipByDefault) {
+        if (skipByDefault) {
             ChangePasswordPage changePasswordPage = new ChangePasswordPage();
             if (changePasswordPage.btnChangePassword.isDisplayed()) {
                 changePasswordPage.skip();
@@ -32,7 +35,9 @@ public class FairenterLoginPopup  extends LoginPopup {
 
     }
 
-    public boolean isLoginDisplay(){return btnLogin.isDisplayed();}
+    public boolean isLoginDisplay() {
+        return btnLogin.isDisplayed();
+    }
 
 }
 

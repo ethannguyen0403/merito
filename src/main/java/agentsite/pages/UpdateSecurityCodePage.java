@@ -10,8 +10,9 @@ public class UpdateSecurityCodePage extends HomePage {
     public TextBox txtSecurityCode = TextBox.xpath("//input[@id='newSecurityCode']");
     public TextBox txtConfrimSecurityCode = TextBox.xpath("//input[@id='confirmSecurityCode']");
     public Button btnSubmit = Button.xpath("//button[@id='changeSecurityCode']");
-    public Table tblForm = Table.xpath("//div[contains(@class,'security-code')]//table",2);
+    public Table tblForm = Table.xpath("//div[contains(@class,'security-code')]//table", 2);
     public Label lblGuide = Label.xpath("//div[contains(@class,'instructions')]");
+
     public UpdateSecurityCodePage(String types) {
         super(types);
     }
