@@ -4,8 +4,6 @@ import com.paltech.element.BaseElement;
 import com.paltech.element.common.Label;
 import org.openqa.selenium.By;
 
-import java.util.List;
-
 
 public class RadioControl extends BaseElement {
     String _xPath;
@@ -14,7 +12,7 @@ public class RadioControl extends BaseElement {
     public RadioControl(By locator, String xpathExpression) {
         super(locator);
         this._xPath = xpathExpression;
-        this._label= Label.xpath(String.format("%s/label",_xPath));
+        this._label = Label.xpath(String.format("%s/label", _xPath));
 
     }
 
@@ -22,12 +20,9 @@ public class RadioControl extends BaseElement {
         return new RadioControl(By.xpath(xpathExpression), xpathExpression);
     }
 
-    public String getLabel(){
+    public String getLabel() {
         return _label.getText();
     }
-
-
-
 
 
 }

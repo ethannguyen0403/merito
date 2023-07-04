@@ -8,12 +8,32 @@ import membersite.objects.sat.Order;
 import membersite.pages.MarketPage;
 import membersite.pages.SportPage;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.Objects;
 
 public class MarketPageTest extends BaseCaseTest {
+    @TestRails(id = "1074")
+    @Test(groups = {"regression"})
+    @Parameters({"password"})
+    public void HomePage_1074() {
+        log("@title: Validate can open rule popup");
+        log("Step 1.Active any market");
+        memberHomePage.clickProduct(MemberConstants.EXCHANGE);
+
+        log("Step 2.Click on Rule button");
+        memberHomePage.header.clickMainMenu("Home");
+        MarketPage marketPage = memberHomePage.clickFristNextUpHR();
+
+
+        log("Verify 1. Racing market page display correctly. Country, market start time, market name is corrected");
+        Assert.assertEquals(marketPage.marketOddControl.getTitle(), "", "Failed! Market page is incorrect");
+
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "982")
     @Test(groups = {"smoke"})
     public void Market_Page_982() {
@@ -21,39 +41,39 @@ public class MarketPageTest extends BaseCaseTest {
         log("Step 1. Click on Soccer and click on any event");
         log("Step 1. Click Soccer menu");
         SportPage page = memberHomePage.navigateSportHeaderMenu("Soccer");
-        Event event = page.eventContainerControl.getEventRandom(false,false);
-        if(Objects.isNull(event)) {
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
             log("DEBUG: There is no event available");
             return;
         }
         MarketPage marketPage = page.clickEvent(event);
-        Market market = marketPage.marketOddControl.getMarket(event,1,true);
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         log("Step 2. Click on any odds button in market page");
         market.getBtnOdd().click();
 
         log("Verify: 1. Odds is added to bet slip");
         Order bet = marketPage.betsSlipContainer.getBet(0);
         int countBet = marketPage.betsSlipContainer.getBet().size();
-        Assert.assertEquals(bet.getSelectionName(),market.getSelectionName(),String.format("ERROR: Expected selection name in bet slip is %s but found %s", market.getSelectionName(), bet.getSelectionName()));
-        Assert.assertEquals(bet.getOdds(),market.getBtnOdd().getText(),String.format("ERROR: Expected Odds in bet slip is %s but found %s", market.getBtnOdd().getText(), bet.getOdds()));
-        Assert.assertTrue(countBet==1, String.format("ERROR: There are some bets (%d) added. Expected is just one",countBet));
+        Assert.assertEquals(bet.getSelectionName(), market.getSelectionName(), String.format("ERROR: Expected selection name in bet slip is %s but found %s", market.getSelectionName(), bet.getSelectionName()));
+        Assert.assertEquals(bet.getOdds(), market.getBtnOdd().getText(), String.format("ERROR: Expected Odds in bet slip is %s but found %s", market.getBtnOdd().getText(), bet.getOdds()));
+        Assert.assertTrue(countBet == 1, String.format("ERROR: There are some bets (%d) added. Expected is just one", countBet));
 
         log("Step 3. Re-click on the odds in step 2");
         market.getBtnOdd().click();
 
         log("Verify: 2. Odds is removed out bet slip after re-clicking");
-        Assert.assertEquals(page.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",page.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
+        Assert.assertEquals(page.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY, String.format("ERROR: Expected empty bet slip display %s but found %s", page.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
 
         log("INFO: Executed Completely!");
     }
 
     /*
-    *//**
+     *//**
      * @title Validate Odds display correct when clicking on the corresponding odds of all BAck selection
-     * @Precondition:   1. Login member site
-     * @Step            1. Click on Home page and click on any event
+     * @Precondition: 1. Login member site
+     * @Step 1. Click on Home page and click on any event
      *                  2. Click on All Back Odds button of all selections
-     * @Expected        1. Selection will be added in bet slip and Back odds value is corresponding updated
+     * @Expected 1. Selection will be added in bet slip and Back odds value is corresponding updated
      *//*
     @TestRails(id = "980")
     @Test(groups = {"smoke"})
@@ -92,10 +112,10 @@ public class MarketPageTest extends BaseCaseTest {
 
     *//**
      * @title Validate Odds display correct when clicking on the corresponding odds of all Lay selections
-     * @Precondition:   1. Login member site
-     * @Step            1. Click on Home page and click on any event
+     * @Precondition: 1. Login member site
+     * @Step 1. Click on Home page and click on any event
      *                  2. Click on All Lay Odds button of all selections
-     * @Expected        1. Selection will be added in bet slip and Lay odds is corresponding updated
+     * @Expected 1. Selection will be added in bet slip and Lay odds is corresponding updated
      *//*
     @TestRails(id = "981")
     @Test(groups = {"smoke"})
@@ -137,10 +157,10 @@ public class MarketPageTest extends BaseCaseTest {
 
     *//**
      * @title Validate Clear All button works
-     * @Precondition:   1. Login member site
-     * @Step            1. Click on any event and click on any odds
+     * @Precondition: 1. Login member site
+     * @Step 1. Click on any event and click on any odds
      *                  2. Click on Clear all button
-     * @Expected        1. All bet in bet slip is cleared
+     * @Expected 1. All bet in bet slip is cleared
      *//*
     @TestRails(id = "983")
     @Test(groups = {"smoke"})
@@ -167,9 +187,9 @@ public class MarketPageTest extends BaseCaseTest {
 
     *//**
      * @title Validate default message display when there is no bet
-     * @Precondition:  1. Login member site
-     * @Step           1. Click on any event to open market page
-     * @Expected       1. Bet Slip display the message "Click on the odds to add selection to the Bet Slip."
+     * @Precondition: 1. Login member site
+     * @Step 1. Click on any event to open market page
+     * @Expected 1. Bet Slip display the message "Click on the odds to add selection to the Bet Slip."
      *//*
     @TestRails(id = "984")
     @Test(groups = {"smoke"})
@@ -194,12 +214,12 @@ public class MarketPageTest extends BaseCaseTest {
 
     *//**
      * @title Validate can update fast button
-     * @Precondition:  1. Login member site
-     * @Step           1. Active any market page
+     * @Precondition: 1. Login member site
+     * @Step 1. Active any market page
      *                 2. Update stake with valid value in range [min, max]
      *                 3. Click Save button
      *                 4. Click on any odds button
-     * @Expected        1. Edit stake is disappear when successfully save
+     * @Expected 1. Edit stake is disappear when successfully save
      *                  2. Fast  button in bet slip display as expected
      *//*
     @TestRails(id = "985")
@@ -268,11 +288,11 @@ public class MarketPageTest extends BaseCaseTest {
 
     *//**
      * @title Validate Cancel button in Edit Stake popup work
-     * @Precondition:  1. Login member site
-     * @Step           1. Active any market page
+     * @Precondition: 1. Login member site
+     * @Step 1. Active any market page
      *                 2. Click on Edit Stake button
      *                 3. Click Cancel button
-     * @Expected       1. Edit stake popup is disappear
+     * @Expected 1. Edit stake popup is disappear
      *//*
     @TestRails(id = "987")
     @Test(groups = {"smoke"})

@@ -1,6 +1,5 @@
 package agentsite.pages.components.leftmenu;
 
-import agentsite.testcase.reports.PS38SportsResultsTest;
 import agentsite.ultils.account.ProfileUtils;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Button;
@@ -32,24 +31,30 @@ public class OldUILeftMenu extends LeftMenu {
     String menuXpath = "//div[@class='leftmenu']//div[contains(@page-title,'%s')]/a";
 
 
-    public String getConfigureOTP(){return lnkConfigureOTP.getText();}
-    public String getQuickSearch(){return tabQuickSearch.getText();}
+    public String getConfigureOTP() {
+        return lnkConfigureOTP.getText();
+    }
+
+    public String getQuickSearch() {
+        return tabQuickSearch.getText();
+    }
+
     public <T> T clickSubMenu(String menu, String submenu, Class<T> expectedPage) {
         leftMenuList.clickSubMenu(menu, submenu);
         return PageFactory.initElements(DriverManager.getDriver(), expectedPage);
     }
 
     public void navigateAnalysisOfRunningMarketsPage() {
-       clickSubMenu(REPORT, ANALYSIS_OF_RUNNING_MARKETS);
+        clickSubMenu(REPORT, ANALYSIS_OF_RUNNING_MARKETS);
     }
 
-    public List<String> defineBalanceInfoQuickSearch(boolean isCredit){
-        if(isCredit)
+    public List<String> defineBalanceInfoQuickSearch(boolean isCredit) {
+        if (isCredit)
             return defineBalanceInfoCreditQuickSearch();
         return defineBalanceInfoCreditCashQuickSearch();
     }
 
-    private List<String> defineBalanceInfoCreditCashQuickSearch(){
+    private List<String> defineBalanceInfoCreditCashQuickSearch() {
         List<ArrayList<String>> lstDownlineInfo = ProfileUtils.getDownlineBalanceInfo();
         String level;
         List<String> lst = new LinkedList<String>(Arrays.asList(
@@ -60,29 +65,28 @@ public class OldUILeftMenu extends LeftMenu {
                 "Yesterday Win Loss"
         ));
         // define downline Credit Used
-        for(int i = 0; i < lstDownlineInfo.size(); i++)
-        {
+        for (int i = 0; i < lstDownlineInfo.size(); i++) {
             level = lstDownlineInfo.get(i).get(0);
-            if(level.equalsIgnoreCase("PL")) {
+            if (level.equalsIgnoreCase("PL")) {
                 lst.add(String.format("Total Member Available Balance"));
-            }else {
+            } else {
                 lst.add(String.format("Total %s Available Balance", level));
             }
 
         }
         // define downline Account Active/Closed/Suspended/Inactive/Blocked
-        for(int i = 0; i < lstDownlineInfo.size(); i++)
-        {
+        for (int i = 0; i < lstDownlineInfo.size(); i++) {
             level = lstDownlineInfo.get(i).get(0);
 
-            if(level.equalsIgnoreCase("PL")){
+            if (level.equalsIgnoreCase("PL")) {
                 lst.add(String.format("Total Member A/C/S/I", level));
-            }else
+            } else
                 lst.add(String.format("Total %s A/C/S/I/B", level));
         }
         return lst;
     }
-    private List<String> defineBalanceInfoCreditQuickSearch(){
+
+    private List<String> defineBalanceInfoCreditQuickSearch() {
         List<ArrayList<String>> lstDownlineInfo = ProfileUtils.getDownlineBalanceInfo();
         String level;
         List<String> lst = new LinkedList<String>(Arrays.asList(
@@ -97,22 +101,20 @@ public class OldUILeftMenu extends LeftMenu {
                 "My Credit"
         ));
         // define downline Credit Used
-        for(int i = 0; i < lstDownlineInfo.size(); i++)
-        {
+        for (int i = 0; i < lstDownlineInfo.size(); i++) {
             level = lstDownlineInfo.get(i).get(0);
-            if(level.equalsIgnoreCase("PL")) {
+            if (level.equalsIgnoreCase("PL")) {
                 lst.add(String.format("Total Member Credit Used"));
-            }else {
+            } else {
                 lst.add(String.format("Total %s Credit Used", level));
             }
         }
         // define downline Account Active/Closed/Suspended/Inactive/Blocked
-        for(int i = 0; i < lstDownlineInfo.size(); i++)
-        {
+        for (int i = 0; i < lstDownlineInfo.size(); i++) {
             level = lstDownlineInfo.get(i).get(0);
-            if(level.equalsIgnoreCase("PL")){
+            if (level.equalsIgnoreCase("PL")) {
                 lst.add(String.format("Total Member A/C/S/I", level));
-            }else
+            } else
                 lst.add(String.format("Total %s A/C/S/I/B", level));
         }
         return lst;
@@ -120,12 +122,11 @@ public class OldUILeftMenu extends LeftMenu {
 
     public void navigatePS38SportsResultsPage() {
 
-        clickSubMenu(REPORT,PS38_SPORTS_RESULTS);
+        clickSubMenu(REPORT, PS38_SPORTS_RESULTS);
     }
 
     @Override
     public boolean isDisplayPS38SportsResults() {
-
         return leftMenuList.isSubMenuDisplay(REPORT, PS38_SPORTS_RESULTS);
     }
 }

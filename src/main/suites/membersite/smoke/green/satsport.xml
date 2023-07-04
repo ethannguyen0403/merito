@@ -25,8 +25,8 @@
         <parameter name='brandname' value='satsport'/>
         <groups>
             <run>
-                <include name="smoke" />
-                <include name="satsport" />
+                <include name="smoke"/>
+                <include name="satsport"/>
             </run>
         </groups>
 
@@ -35,7 +35,7 @@
             <class name="membersite.testcases.exchange.AccountStatementTest"/>
             <class name="membersite.testcases.exchange.MyBetPageTest"/>
             <class name="membersite.testcases.exchange.ProfitAndLossPageTest"/>
-<!--            <class name="membersite.testcases.exchange.ChangePasswordTest"/>-->
+            <!--            <class name="membersite.testcases.exchange.ChangePasswordTest"/>-->
             <class name="membersite.testcases.exchangegame.EGBaccaratTest"/>
             <class name="membersite.testcases.exchangegame.EGHomPageTest"/>
             <class name="membersite.testcases.exchange.PlaceBetFunctionTest"/>

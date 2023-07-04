@@ -14,7 +14,7 @@ public class AccountInfo {
     private String _currencyCode;
     private String _status;
     private String _level;
-    private  int _creditGiven;
+    private int _creditGiven;
     private int _maxCredit;
     private int _memberMaxCredit;
     private double _availableBalance;
@@ -29,6 +29,33 @@ public class AccountInfo {
     private double _totalOustanding;
     private double _todayWinLoss;
     private double _yesterdayWinLoss;
+
+    private AccountInfo(Builder builder) {
+        this._userID = builder._userID;
+        this._userCode = builder._userCode;
+        this._loginID = builder._loginID;
+        this._parentID = builder._parentID;
+        this._cashBalance = builder._cashBalance;
+        this._totalRecord = builder._totalRecord;
+        this._currencyCode = builder._currencyCode;
+        this._status = builder._status;
+        this._level = builder._level;
+        this._creditGiven = builder._creditGiven;
+        this._maxCredit = builder._maxCredit;
+        this._availableBalance = builder._availableBalance;
+        this._memberMaxCredit = builder._memberMaxCredit;
+        this._creditUsed = builder._creditUsed;
+        this._transferableBalance = builder._transferableBalance;
+        this._retainAmount = builder._retainAmount;
+        this._totalBalance = builder._totalBalance;
+        this._yesterdayDownlineBalance = builder._yesterdayDownlineBalance;
+        this._downlineBalance = builder._downlineBalance;
+        this._myOutstanding = builder._myOutstanding;
+        this._totalOustanding = builder._totalOustanding;
+        this._yesterdayWinLoss = builder._yesterdayWinLoss;
+        this._todayWinLoss = builder._todayWinLoss;
+
+    }
 
     public double getMyOutstanding() {
         return _myOutstanding;
@@ -67,10 +94,8 @@ public class AccountInfo {
     }
 
     public void setYesterdayDownlineBalance(double val) {
-        this._yesterdayDownlineBalance =val;
+        this._yesterdayDownlineBalance = val;
     }
-
-
 
     public double getTransferableBalance() {
         return _transferableBalance;
@@ -152,7 +177,6 @@ public class AccountInfo {
         this._availableBalance = val;
     }
 
-
     public String getUserID() {
         return _userID;
     }
@@ -161,7 +185,9 @@ public class AccountInfo {
         return _userCode;
     }
 
-    public String getLoginID(){ return _loginID;}
+    public String getLoginID() {
+        return _loginID;
+    }
 
     public String getParentID() {
         return _parentID;
@@ -187,18 +213,45 @@ public class AccountInfo {
         return _level;
     }
 
+    public String getUserCodeAndLoginID() {
+        if (getUserCode().equalsIgnoreCase(getLoginID())) {
+            return getUserCode();
+        }
+        if (getLoginID().equals(""))
+            return getUserCode();
+        return String.format("%s (%s)", getUserCode(), getLoginID());
+    }
+
+    public String getUserCodeAndLoginID(String template) {
+        if (getUserCode().equalsIgnoreCase(getLoginID())) {
+            return getUserCode();
+        }
+        if (getLoginID().equals(""))
+            return getUserCode();
+        return String.format(template, getUserCode(), getLoginID());
+    }
+
+    public String getMemberSiteLoginID() {
+        String[] userCodeAndLoginID = getUserCodeAndLoginID("%s( %s)").split("\\s+");
+        if (userCodeAndLoginID.length > 1) {
+            return userCodeAndLoginID[1];
+        } else {
+            return userCodeAndLoginID[0];
+        }
+    }
+
     public static class Builder {
         // Optional parameters
         private String _userID = "";
         private String _userCode = "";
-        private String _loginID= "";
+        private String _loginID = "";
         private String _parentID = "";
         private double _cashBalance = 0;
         private String _totalRecord = "";
         private String _currencyCode = "";
         private String _status = "";
         private String _level = "";
-        private  int _creditGiven;
+        private int _creditGiven;
         private int _maxCredit;
         private int _memberMaxCredit;
         private double _availableBalance;
@@ -215,170 +268,133 @@ public class AccountInfo {
         private double _yesterdayWinLoss;
 
 
-        public Builder(){}
-        public Builder myOutstanding(double val){
+        public Builder() {
+        }
+
+        public Builder myOutstanding(double val) {
             _myOutstanding = val;
             return this;
         }
-        public Builder totalOustanding(double val){
+
+        public Builder totalOustanding(double val) {
             _totalOustanding = val;
             return this;
         }
-        public Builder todayWinLoss(double val){
+
+        public Builder todayWinLoss(double val) {
             _todayWinLoss = val;
             return this;
         }
-        public Builder yesterdayWinLoss(double val){
+
+        public Builder yesterdayWinLoss(double val) {
             _yesterdayWinLoss = val;
             return this;
         }
-        public Builder yesterdayDownlineBalance(double val){
+
+        public Builder yesterdayDownlineBalance(double val) {
             _yesterdayDownlineBalance = val;
             return this;
         }
-        public Builder transferableBalance(double val){
+
+        public Builder transferableBalance(double val) {
             _transferableBalance = val;
             return this;
         }
-        public Builder retainAmount(double val){
+
+        public Builder retainAmount(double val) {
             _retainAmount = val;
             return this;
         }
-        public Builder totalBalance(double val){
+
+        public Builder totalBalance(double val) {
             _totalBalance = val;
             return this;
         }
-        public Builder downlineBalance(double val){
+
+        public Builder downlineBalance(double val) {
             _downlineBalance = val;
             return this;
         }
-        public Builder totalPlayerOutstanding(double val){
+
+        public Builder totalPlayerOutstanding(double val) {
             _totalPlayerOutstanding = val;
             return this;
         }
-        public Builder creditUsed(double val){
+
+        public Builder creditUsed(double val) {
             _creditUsed = val;
             return this;
         }
 
-        public Builder creditGiven(int val){
+        public Builder creditGiven(int val) {
             _creditGiven = val;
             return this;
         }
-        public Builder maxCredit(int val){
+
+        public Builder maxCredit(int val) {
             _maxCredit = val;
             return this;
         }
-        public Builder memberMaxCredit(int val){
+
+        public Builder memberMaxCredit(int val) {
             _memberMaxCredit = val;
             return this;
         }
-        public Builder availableBalance(int val){
+
+        public Builder availableBalance(int val) {
             _availableBalance = val;
             return this;
         }
 
-        public Builder userID(String val){
+        public Builder userID(String val) {
             _userID = val;
             return this;
         }
 
-        public Builder userCode(String val){
+        public Builder userCode(String val) {
             _userCode = val;
             return this;
         }
 
-        public Builder loginID (String val){
+        public Builder loginID(String val) {
             _loginID = val;
             return this;
         }
 
-        public Builder parentID(String val){
+        public Builder parentID(String val) {
             _parentID = val;
             return this;
         }
 
-        public Builder cashBalance(double val){
+        public Builder cashBalance(double val) {
             _cashBalance = val;
             return this;
         }
 
-        public Builder totalRecord(String val){
+        public Builder totalRecord(String val) {
             _totalRecord = val;
             return this;
         }
 
-        public Builder currencyCode(String val){
+        public Builder currencyCode(String val) {
             _currencyCode = val;
             return this;
         }
 
-        public Builder status(String val){
+        public Builder status(String val) {
             _status = val;
             return this;
         }
 
-        public Builder level(String val){
+        public Builder level(String val) {
             _level = val;
             return this;
         }
 
-        public AccountInfo build() { return new AccountInfo (this); }
-
-    }
-
-    private AccountInfo(Builder builder){
-        this._userID = builder._userID;
-        this._userCode = builder._userCode;
-        this._loginID= builder._loginID;
-        this._parentID = builder._parentID;
-        this._cashBalance = builder._cashBalance;
-        this._totalRecord = builder._totalRecord;
-        this._currencyCode = builder._currencyCode;
-        this._status = builder._status;
-        this._level = builder._level;
-        this._creditGiven = builder._creditGiven;
-        this._maxCredit = builder._maxCredit;
-        this._availableBalance = builder._availableBalance;
-        this._memberMaxCredit = builder._memberMaxCredit;
-        this._creditUsed= builder._creditUsed;
-        this._transferableBalance = builder._transferableBalance;
-        this._retainAmount = builder._retainAmount;
-        this._totalBalance = builder._totalBalance;
-        this._yesterdayDownlineBalance = builder._yesterdayDownlineBalance;
-        this._downlineBalance = builder._downlineBalance;
-        this._myOutstanding = builder._myOutstanding;
-        this._totalOustanding = builder._totalOustanding;
-        this._yesterdayWinLoss = builder._yesterdayWinLoss;
-        this._todayWinLoss = builder._todayWinLoss;
-
-    }
-
-    public String getUserCodeAndLoginID(){
-        if(getUserCode().equalsIgnoreCase(getLoginID())){
-            return getUserCode();
+        public AccountInfo build() {
+            return new AccountInfo(this);
         }
-        if(getLoginID().equals(""))
-            return getUserCode();
-        return String.format("%s (%s)",getUserCode(),getLoginID());
-    }
 
-    public String getUserCodeAndLoginID(String template){
-        if(getUserCode().equalsIgnoreCase(getLoginID())){
-            return getUserCode();
-        }
-        if(getLoginID().equals(""))
-            return getUserCode();
-        return String.format(template,getUserCode(),getLoginID());
-    }
-
-    public String getMemberSiteLoginID() {
-        String [] userCodeAndLoginID = getUserCodeAndLoginID("%s( %s)").split("\\s+");
-        if (userCodeAndLoginID.length > 1) {
-            return userCodeAndLoginID[1];
-        } else {
-            return userCodeAndLoginID[0];
-        }
     }
 
 }

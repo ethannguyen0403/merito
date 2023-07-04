@@ -1,6 +1,7 @@
 package membersite.pages.exchangegames;
 
 import com.paltech.element.common.Label;
+
 public class CardDerbyRacingPage extends GamePage {
     private Label tblHeaderTitle = Label.xpath("//app-ex-card-derby-racing//div[@class='header-name']");
 
@@ -8,7 +9,7 @@ public class CardDerbyRacingPage extends GamePage {
         super(types);
     }
 
-    public String getGameHeaderTitle(){
+    public String getGameHeaderTitle() {
         return tblHeaderTitle.getText().trim();
     }
 }

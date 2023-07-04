@@ -16,19 +16,18 @@ public class ConfirmPopup {
 
     public String getContentMessage() {
         lblContent.isDisplayed();
-       return lblContent.getText();
+        return lblContent.getText();
     }
 
-    public boolean isPopupDisplay()
-    {
+    public boolean isPopupDisplay() {
         return popup.isDisplayed();
     }
 
-    public void confirm(){
+    public void confirm() {
         btnOK.click();
     }
 
-    public void cancel(){
+    public void cancel() {
         btnCancel.click();
     }
 

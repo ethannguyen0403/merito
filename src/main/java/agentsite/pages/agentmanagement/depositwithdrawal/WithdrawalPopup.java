@@ -8,12 +8,13 @@ public class WithdrawalPopup extends DepositToPopup {
     private TextBox txtWithdrawalToAmount = TextBox.xpath("//div[@class='comp']//input");
 
     public void withdraw(String amount, String remark) {
-        withdraw(amount,remark,true,false);
+        withdraw(amount, remark, true, false);
     }
 
     public void fillWithdrawInfo(String amount, String remark, boolean isCreditUpdate) {
-       withdraw(amount,remark,isCreditUpdate,false);
+        withdraw(amount, remark, isCreditUpdate, false);
     }
+
     public void withdraw(String amount, String remark, boolean isCreditUpdate, boolean isSubmit) {
         // waiting for loading
         btnSubmit.isInvisible(2);
@@ -23,13 +24,11 @@ public class WithdrawalPopup extends DepositToPopup {
         if (!remark.isEmpty()) {
             txtRemark.sendKeys(remark);
         }
-        if(rbtnCreditUpdate.isDisplayed()){
-        if(!isCreditUpdate)
-        {
-            rbtnWinLossSettle.click();
-        }
-        else
-            rbtnCreditUpdate.click();
+        if (rbtnCreditUpdate.isDisplayed()) {
+            if (!isCreditUpdate) {
+                rbtnWinLossSettle.click();
+            } else
+                rbtnCreditUpdate.click();
         }
         if (isSubmit) {
             btnSubmit.click();

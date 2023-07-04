@@ -14,8 +14,8 @@
         <parameter name='username' value='30H'/>
         <parameter name='levelLogin' value='Senior Master Agent'/>
         <parameter name='downlineAccount' value='30H00'/>
-        <parameter name ='portalSubAccount' value ='FSSUBIS'/>
-        <parameter name ='memberAccount' value ='30H0000000'/>
+        <parameter name='portalSubAccount' value='FSSUBIS'/>
+        <parameter name='memberAccount' value='30H0000000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
@@ -23,16 +23,15 @@
         <parameter name='level' value='SMA'/>
         <groups>
             <run>
-                <include name="regression" />
+                <include name="regression"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.home.HeaderTest"/>
-            <class name="agentsite.testcase.satsport.home.SATHeaderTest"/>
-            <class name="agentsite.testcase.all.home.LeftMenuTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.PositionTakingListingTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.SubUserListingTest"/>
+            <class name="agentsite.testcase.HeaderTest"/>
+            <class name="agentsite.testcase.LeftMenuTest"/>
+            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
         </classes>
 
     </test>

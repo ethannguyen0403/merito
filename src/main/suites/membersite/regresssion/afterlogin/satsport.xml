@@ -25,9 +25,9 @@
 
         <groups>
             <run>
-                <include name="smoke2" />
-                <include name="satsport1" />
-                <include name="regression3" />
+                <include name="smoke2"/>
+                <include name="satsport1"/>
+                <include name="regression3"/>
             </run>
         </groups>
 

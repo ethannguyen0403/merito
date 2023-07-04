@@ -14,64 +14,59 @@ public class MyMarketPopup {
     public Label lblTitle = Label.xpath("//div[contains(@class,'my-market-header')]/h4");
     public Button btnCancel = Button.xpath("//div[contains(@class,'my-market-header')]/button");
     public Label lblNote = Label.xpath("//td[@id='noteGMT4']");
-    private int totalColMyMarkets = 4;
     public int colMarketID = 1;
     public int colMarketStartTime = 2;
     public int colMarketName = 3;
     public int colLiability = 4;
     public Label lblNoRecord = Label.xpath("//td[@class='text-center']/strong");
-    public Table tbMyMarkets = Table.xpath("//table[@class='table table-hover table-bordered table-sm']",totalColMyMarkets);
+    private int totalColMyMarkets = 4;
+    public Table tbMyMarkets = Table.xpath("//table[@class='table table-hover table-bordered table-sm']", totalColMyMarkets);
 
-    public void clickCancelBtn(){
+    public void clickCancelBtn() {
         btnCancel.click();
     }
 
-    public void navigateToMarket(String marketName)
-    {
+    public void navigateToMarket(String marketName) {
         int index = getRowMatch(marketName);
-        tbMyMarkets.getControlOfCell(1,colMarketName,index,"a").click();
+        tbMyMarkets.getControlOfCell(1, colMarketName, index, "a").click();
     }
 
-    public List<String> getMarketInfo(int index){
-        return tbMyMarkets.getRowsWithoutHeader(index,false).get(index-1);
+    public List<String> getMarketInfo(int index) {
+        return tbMyMarkets.getRowsWithoutHeader(index, false).get(index - 1);
     }
 
-    public List<String> getMarketInfo(String marketName){
-        int index = getRowMatch(marketName)+1;
+    public List<String> getMarketInfo(String marketName) {
+        int index = getRowMatch(marketName) + 1;
         return getMarketInfo(index);
     }
 
-    public String getMarketURL(int index)
-    {
-        return tbMyMarkets.getControlOfCell(1,colMarketName,index,"a").getAttribute("href");
-    }
-    public String getMarketURL(String marketName)
-    {
-        int index = getRowMatch(marketName)+1;
-        if(index <1){
-            System.out.println(String.format("There is no row contain market name %s",marketName));
-            return null;
-        }
-        return tbMyMarkets.getControlOfCell(1,colMarketName,index,"a").getAttribute("href");
+    public String getMarketURL(int index) {
+        return tbMyMarkets.getControlOfCell(1, colMarketName, index, "a").getAttribute("href");
     }
 
-    private int getRowMatch(String marketName)
-    {
-        for(int i = 0, n=tbMyMarkets.getNumberOfRows(false); i<n ;i++)
-        {
-            if(tbMyMarkets.getControlOfCell(1,colMarketName,i+1,"a").getText().contains(marketName))
-            {
-                return i+1;
+    public String getMarketURL(String marketName) {
+        int index = getRowMatch(marketName) + 1;
+        if (index < 1) {
+            System.out.println(String.format("There is no row contain market name %s", marketName));
+            return null;
+        }
+        return tbMyMarkets.getControlOfCell(1, colMarketName, index, "a").getAttribute("href");
+    }
+
+    private int getRowMatch(String marketName) {
+        for (int i = 0, n = tbMyMarkets.getNumberOfRows(false); i < n; i++) {
+            if (tbMyMarkets.getControlOfCell(1, colMarketName, i + 1, "a").getText().contains(marketName)) {
+                return i + 1;
             }
         }
         System.out.println("There is no market display in the popup ");
         return -1;
     }
 
-    public String totalLiability(){
+    public String totalLiability() {
         String total = "0.00";
         int numberOfRow = tbMyMarkets.getNumberOfRows(false);
-        List<ArrayList<String>> lstRecords = tbMyMarkets.getRowsWithoutHeader(numberOfRow,false);
+        List<ArrayList<String>> lstRecords = tbMyMarkets.getRowsWithoutHeader(numberOfRow, false);
         if (lstRecords.get(0).get(0).trim().equals(MemberConstants.MyMarketsPopup.NO_RECORD_FOUNDS)) {
             return total;
         } else {
@@ -82,12 +77,11 @@ public class MyMarketPopup {
         return total;
     }
 
-    public void close(){
+    public void close() {
         btnCancel.click();
         popupSportSetting.waitForControlInvisible();
 
     }
-
 
 
 }

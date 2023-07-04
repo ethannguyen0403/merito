@@ -21,47 +21,47 @@ import static common.MemberConstants.*;
 public class WicketFancyTest extends BaseCaseTest {
     /**
      * @title Validate can place bet on Fancy on Match odds market page
-     * @Precondition:  1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      * 2/ Active the event that have Fancy market
      * 3/ Click Match odds
      * 4/ Click on an odds of a fancy market then place bet
      * @Expected 1. Can place bet
      */
-    @TestRails(id="611")
+    @TestRails(id = "611")
     @Test(groups = {"smoke1"})
-    public void WicketFancyTest_611(){
+    public void WicketFancyTest_611() {
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
         log("Step 2 Get and click on the event that has wicket Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
-        if(Objects.isNull(fcMarket)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4", WICKET_FANCY_CODE);
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
-            Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
+            Assert.assertTrue(true, "By passed as has no Fancy Wicket on all available event");
             return;
         }
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
-        fcMarket =  marketPage.getFancyMarketInfo(fcMarket);
-        String minStake=  String.valueOf(fcMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fcMarket,true,Double.parseDouble(minStake));
+        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
+        String minStake = String.valueOf(fcMarket.getMinSetting());
+        Wager expectedWager = marketPage.defineFamcyWager(fcMarket, true, Double.parseDouble(minStake));
 
-        log(String.format("Step 5: On market %s Place on Back odds with stake %s ",fcMarket.getMarketID(),minStake));
-        marketPage.placeFancy(fcMarket,true,minStake);
+        log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
+        marketPage.placeFancy(fcMarket, true, minStake);
 
         log("Verify 1. Can place bet");
         List<ArrayList> lstFCBet = marketPage.getFancyMiniMyBet();
-        Assert.assertTrue(Objects.nonNull(lstFCBet),"FAILED! FC my bet section does NOT display");
-        Assert.assertEquals(lstFCBet.get(0).get(0),expectedWager.getMarketName(),"FAILED! FC Market Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(0),expectedWager.getRunnerName(),"FAILED! Market Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(1),expectedWager.displayFancyOdds(),"FAILED! Odds is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(2),String.format("%.2f",(double)fcMarket.getMinSetting()),"FAILED! Stake is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(3),String.format("%.2f",expectedWager.getLiabilityFancyWager()),"FAILED! Liability is incorrect");
+        Assert.assertTrue(Objects.nonNull(lstFCBet), "FAILED! FC my bet section does NOT display");
+        Assert.assertEquals(lstFCBet.get(0).get(0), expectedWager.getMarketName(), "FAILED! FC Market Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(0), expectedWager.getRunnerName(), "FAILED! Market Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(1), expectedWager.displayFancyOdds(), "FAILED! Odds is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(2), String.format("%.2f", (double) fcMarket.getMinSetting()), "FAILED! Stake is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(3), String.format("%.2f", expectedWager.getLiabilityFancyWager()), "FAILED! Liability is incorrect");
 
         log("INFO: Executed completely");
     }
@@ -75,47 +75,47 @@ public class WicketFancyTest extends BaseCaseTest {
      * 4/ Click on an odds of a fancy market then place bet
      * @Expected 1. Exposure kept correctly when place on No section
      */
-    @TestRails(id="613")
+    @TestRails(id = "613")
     @Test(groups = {"smoke"})
-    public void WicketFancyTest_613(){
+    public void WicketFancyTest_613() {
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
         log("Step 2 Get and click on the event that has wicket Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
-        if(Objects.isNull(fcMarket)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4", WICKET_FANCY_CODE);
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
-            Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
+            Assert.assertTrue(true, "By passed as has no Fancy Wicket on all available event");
             return;
         }
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
-        fcMarket =  marketPage.getFancyMarketInfo(fcMarket);
+        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 3. Active Wicket Fancy Market int the left menu");
 //        marketPage = marketPage.leftMenu.clickLeftMenuItem(fcMarket.getMarketName(),MarketPage.class);
 
         log("Step 4 Active Wicket Fancy tab");
-        FancyMarket fancyMarket =  marketPage.getFancyMarketInfo(fcMarket);
-        String minStake=  String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket,false,Double.parseDouble(minStake));
+        FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
+        String minStake = String.valueOf(fancyMarket.getMinSetting());
+        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, false, Double.parseDouble(minStake));
 
 
-        log(String.format("Step 5: On market %s Place on No odds with stake %s ",fcMarket.getMarketID(),minStake));
-        marketPage.placeFancy(fancyMarket,false,minStake);
+        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
+        marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Verify 1. Can place bet");
         List<ArrayList> lstFCBet = marketPage.getFancyMiniMyBet();
-        Assert.assertTrue(Objects.nonNull(lstFCBet),"FAILED! FC my bet section does NOT display");
-        Assert.assertEquals(lstFCBet.get(0).get(0),expectedWager.getMarketName(),"FAILED! FC Market Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(0),expectedWager.getRunnerName(),"FAILED! Market Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(1),expectedWager.displayFancyOdds(),"FAILED! Odd is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(2),String.format("%.2f",(double)fancyMarket.getMinSetting()),"FAILED! Stake is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(3),String.format("%.2f",expectedWager.getLiabilityFancyWager()),"FAILED! Liability is incorrect");
+        Assert.assertTrue(Objects.nonNull(lstFCBet), "FAILED! FC my bet section does NOT display");
+        Assert.assertEquals(lstFCBet.get(0).get(0), expectedWager.getMarketName(), "FAILED! FC Market Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(0), expectedWager.getRunnerName(), "FAILED! Market Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(1), expectedWager.displayFancyOdds(), "FAILED! Odd is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(2), String.format("%.2f", (double) fancyMarket.getMinSetting()), "FAILED! Stake is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(3), String.format("%.2f", expectedWager.getLiabilityFancyWager()), "FAILED! Liability is incorrect");
 
         log("INFO: Executed completely");
     }
@@ -129,9 +129,9 @@ public class WicketFancyTest extends BaseCaseTest {
      * 4/ Click on an odds and place on Yes and No option
      * @Expected 1. Exposure kept correctly when place on No section
      */
-    @TestRails(id="614")
+    @TestRails(id = "614")
     @Test(groups = {"smoke"})
-    public void WicketFancyTest_003(){
+    public void WicketFancyTest_003() {
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
@@ -139,202 +139,202 @@ public class WicketFancyTest extends BaseCaseTest {
         AccountBalance balance = sportPage.header.getUserBalance();
 
         log("Step 2 Get and click on the event that has wicket Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
-        if(Objects.isNull(fcMarket)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4", WICKET_FANCY_CODE);
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
-            Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
+            Assert.assertTrue(true, "By passed as has no Fancy Wicket on all available event");
             return;
         }
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 3. Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
-        fcMarket =  marketPage.getFancyMarketInfo(fcMarket);
+        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 4 Get Wicket Fancy available");
-        FancyMarket fancyMarket =  marketPage.getFancyMarketInfo(fcMarket);
-        List<Wager> lstMatchedBets = BetUtils.getMatchedOpenBet("4",fancyMarket.getEventID(),fancyMarket.getMarketID(),"WICKET_FANCY");
+        FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
+        List<Wager> lstMatchedBets = BetUtils.getMatchedOpenBet("4", fancyMarket.getEventID(), fancyMarket.getMarketID(), "WICKET_FANCY");
         Double liabilityBeforePlaceBet = marketPage.liabilityFCMarket(lstMatchedBets);
 
-        String minStake=  String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket,true,Double.parseDouble(minStake));
-        Wager expectedWager2 = marketPage.defineFamcyWager(fancyMarket,false,Double.parseDouble(minStake));
+        String minStake = String.valueOf(fancyMarket.getMinSetting());
+        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, true, Double.parseDouble(minStake));
+        Wager expectedWager2 = marketPage.defineFamcyWager(fancyMarket, false, Double.parseDouble(minStake));
 
-        log(String.format("Step 5: On market %s Place on Back odds with stake %s ",fcMarket.getMarketID(),minStake));
-        marketPage.placeFancy(fancyMarket,true,minStake);
-        marketPage.placeFancy(fancyMarket,false,minStake);
+        log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
+        marketPage.placeFancy(fancyMarket, true, minStake);
+        marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Verify 1. Can place bet");
-       List<ArrayList> lstFCBet = marketPage.getFancyMiniMyBet();
-        Assert.assertTrue(Objects.nonNull(lstFCBet),"FAILED! FC my bet section does NOT display");
-        Assert.assertEquals(lstFCBet.get(0).get(0),expectedWager2.getMarketName(),"FAILED! FC Market Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(0),expectedWager2.getRunnerName(),"FAILED! Market Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(1),expectedWager2.displayFancyOdds(),"FAILED! Odd is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(2),String.format("%.2f",(double)fancyMarket.getMinSetting()),"FAILED! Stake is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(3),expectedWager2.getLiabilityFancyWager(),"FAILED! Liability is incorrect");
-        Assert.assertEquals(lstFCBet.get(2).get(0),expectedWager.getMarketName(),"FAILED! FC Market Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(3).get(0),expectedWager.getRunnerName(),"FAILED! Market Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(3).get(1),expectedWager2.displayFancyOdds(),"FAILED! Odd is incorrect");
-        Assert.assertEquals(lstFCBet.get(3).get(2),String.format("%.2f",(double)fancyMarket.getMinSetting()),"FAILED! Stake is incorrect");
-        Assert.assertEquals(lstFCBet.get(3).get(3),expectedWager.getLiabilityFancyWager(),"FAILED! Liability is incorrect");
+        List<ArrayList> lstFCBet = marketPage.getFancyMiniMyBet();
+        Assert.assertTrue(Objects.nonNull(lstFCBet), "FAILED! FC my bet section does NOT display");
+        Assert.assertEquals(lstFCBet.get(0).get(0), expectedWager2.getMarketName(), "FAILED! FC Market Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(0), expectedWager2.getRunnerName(), "FAILED! Market Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(1), expectedWager2.displayFancyOdds(), "FAILED! Odd is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(2), String.format("%.2f", (double) fancyMarket.getMinSetting()), "FAILED! Stake is incorrect");
+        Assert.assertEquals(lstFCBet.get(1).get(3), expectedWager2.getLiabilityFancyWager(), "FAILED! Liability is incorrect");
+        Assert.assertEquals(lstFCBet.get(2).get(0), expectedWager.getMarketName(), "FAILED! FC Market Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(3).get(0), expectedWager.getRunnerName(), "FAILED! Market Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(3).get(1), expectedWager2.displayFancyOdds(), "FAILED! Odd is incorrect");
+        Assert.assertEquals(lstFCBet.get(3).get(2), String.format("%.2f", (double) fancyMarket.getMinSetting()), "FAILED! Stake is incorrect");
+        Assert.assertEquals(lstFCBet.get(3).get(3), expectedWager.getLiabilityFancyWager(), "FAILED! Liability is incorrect");
 
-       fancyMarket =  marketPage.getFancyMarketInfo(fcMarket);
-       Double liabilityAfterPlaceBet = marketPage.liabilityFCMarket(lstMatchedBets);
-       Assert.assertEquals(fancyMarket.getMarketLiability(),liabilityAfterPlaceBet,"FAILED! Market Liability is incorrect");
-       String expectedBalance = marketPage.header.calculateBalanceAfterPlaceBet(balance.getBalance(),liabilityBeforePlaceBet,liabilityAfterPlaceBet);
+        fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
+        Double liabilityAfterPlaceBet = marketPage.liabilityFCMarket(lstMatchedBets);
+        Assert.assertEquals(fancyMarket.getMarketLiability(), liabilityAfterPlaceBet, "FAILED! Market Liability is incorrect");
+        String expectedBalance = marketPage.header.calculateBalanceAfterPlaceBet(balance.getBalance(), liabilityBeforePlaceBet, liabilityAfterPlaceBet);
 
-       String balanceActual = marketPage.header.getUserBalance().getBalance();
-       Assert.assertEquals(balanceActual,expectedBalance,"FAILED! Balance is incorrect");
+        String balanceActual = marketPage.header.getUserBalance().getBalance();
+        Assert.assertEquals(balanceActual, expectedBalance, "FAILED! Balance is incorrect");
 
         log("INFO: Executed completely");
     }
 
     /**
      * @title Verify Cannot place bet if stake less than min bet
-     * @Precondition:  1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      * 2/ Active the event that have Fancy market
      * 3/ Click on a Fancy market
      * 4/ Click on an odds of a fancy market then place bet with the stake less than min bet
      * @Expected 1. Verify cannot place bet
      */
-    @TestRails(id="614")
+    @TestRails(id = "614")
     @Test(groups = {"smoke"})
     @Parameters({"isCredit"})
-    public void WicketFancyTest_004(boolean isCredit){
+    public void WicketFancyTest_004(boolean isCredit) {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
         log("Step 2 Get and click on the event that has wicket Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
-        if(Objects.isNull(fcMarket)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4", WICKET_FANCY_CODE);
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
-            Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
+            Assert.assertTrue(true, "By passed as has no Fancy Wicket on all available event");
             return;
         }
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
-        fcMarket =  marketPage.getFancyMarketInfo(fcMarket);
+        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
-        fcMarket =  marketPage.getFancyMarketInfo(fcMarket);
-        String stake  = Double.toString( Double.valueOf(fcMarket.getMinSetting()) -1);
-        String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake),fcMarket.getMinSetting(),fcMarket.getMaxSetting(),BetUtils.getUserBalance());
+        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
+        String stake = Double.toString(Double.valueOf(fcMarket.getMinSetting()) - 1);
+        String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake), fcMarket.getMinSetting(), fcMarket.getMaxSetting(), BetUtils.getUserBalance());
 
-        log(String.format("Step 5: On market %s Place on Back odds with stake %s ",fcMarket.getMarketID(),stake));
-        marketPage.placeFancy(fcMarket,true,stake);
+        log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
+        marketPage.placeFancy(fcMarket, true, stake);
 
         log("Verify 1. Can NOT place bet");
         String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
+        Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
 
         log("INFO: Executed completely");
     }
 
     /**
      * @title Verify Cannot place bet if stake greater than max bet
-     * @Precondition:  1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      * 2/ Active the event that have Fancy market
      * 3/ Click on a Fancy market
      * 4/ Click on an odds of a fancy market then place bet with the stake  greater than available balance
      * @Expected 1. Verify cannot place bet
      */
-    @TestRails(id="615")
+    @TestRails(id = "615")
     @Test(groups = {"smoke"})
-    public void WicketFancyTest_615(){
+    public void WicketFancyTest_615() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
         log("Step 2 Get and click on the event that has wicket Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
-        if(Objects.isNull(fcMarket)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4", WICKET_FANCY_CODE);
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
-            Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
+            Assert.assertTrue(true, "By passed as has no Fancy Wicket on all available event");
             return;
         }
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
-        fcMarket =  marketPage.getFancyMarketInfo(fcMarket);
+        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
-        fcMarket =  marketPage.getFancyMarketInfo(fcMarket);
-        String stake  = Double.toString( Double.valueOf(fcMarket.getMaxSetting()) +1);
-        String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake),fcMarket.getMinSetting(),fcMarket.getMaxSetting(),BetUtils.getUserBalance());
+        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
+        String stake = Double.toString(Double.valueOf(fcMarket.getMaxSetting()) + 1);
+        String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake), fcMarket.getMinSetting(), fcMarket.getMaxSetting(), BetUtils.getUserBalance());
 
-        log(String.format("Step 5: On market %s Place on Back odds with stake %s ",fcMarket.getMarketID(),stake));
-        marketPage.placeFancy(fcMarket,true,stake);
+        log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
+        marketPage.placeFancy(fcMarket, true, stake);
 
         log("Verify 1. Can NOT place bet");
         String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
+        Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
 
         log("INFO: Executed completely");
     }
 
     /**
      * @title Verify Cannot place bet if stake less is greater than available balance
-     * @Precondition:  1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      * 2/ Active the event that have Fancy market
      * 3/ Click on a Fancy market
      * 4/ Click on an odds of a fancy market then place bet with the stake  greater than available balance
      * @Expected 1. Verify cannot place bet
      */
-    @TestRails(id="616")
+    @TestRails(id = "616")
     @Test(groups = {"smoke"})
-    public void WicketFancyTest_616(){
+    public void WicketFancyTest_616() {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
         AccountBalance balance = BetUtils.getUserBalance();
-        String stake =String.format("%d",(int) (Double.valueOf(balance.getBalance().replaceAll(",", "").toString())+ 1));
-        
+        String stake = String.format("%d", (int) (Double.valueOf(balance.getBalance().replaceAll(",", "").toString()) + 1));
+
         log("Step 2/ Active the event that have Fancy market");
         log("Step Debug Click Cricket menu");
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
 
         log("Step 2 Get and click on the event that has wicket Fanyc");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4",WICKET_FANCY_CODE);
-        if(Objects.isNull(fcMarket)){
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4", WICKET_FANCY_CODE);
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
-            Assert.assertTrue(true,"By passed as has no Fancy Wicket on all available event");
+            Assert.assertTrue(true, "By passed as has no Fancy Wicket on all available event");
             return;
         }
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
-        fcMarket =  marketPage.getFancyMarketInfo(fcMarket);
+        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
-        fcMarket =  marketPage.getFancyMarketInfo(fcMarket);
+        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
-        log(String.format("Step 5: On market %s Place on Back odds with stake %s ",fcMarket.getMarketID(),stake));
-        marketPage.placeFancy(fcMarket,true,stake);
+        log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
+        marketPage.placeFancy(fcMarket, true, stake);
 
         log("Verify 1. Can NOT place bet");
         String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        Assert.assertEquals(actualError, BetSlip.ERROR_INSUFFICIENT_BALANCE,String.format("ERROR! Expected error message is %s but found %s", BetSlip.ERROR_INSUFFICIENT_BALANCE,actualError));
+        Assert.assertEquals(actualError, BetSlip.ERROR_INSUFFICIENT_BALANCE, String.format("ERROR! Expected error message is %s but found %s", BetSlip.ERROR_INSUFFICIENT_BALANCE, actualError));
 
         log("INFO: Executed completely");
     }
 
-   /* *//**
+    /* *//**
      * @title Verify Wicket Fancy display in the left menu
-     * @Precondition:   1. Get the event that have Fancy market
-     * @Step    1/ Login member site
+     * @Precondition: 1. Get the event that have Fancy market
+     * @Step 1/ Login member site
      *          2/ Active the event that have Fancy market
      *          3/ Observe the left menu
      * @Expected 1. Fancy market display in the left menu match with the api
@@ -378,8 +378,8 @@ public class WicketFancyTest extends BaseCaseTest {
 
     *//**
      * @title Verify Cannot place bet if stake less than min bet
-     * @Precondition:   1. Get the event that have Fancy market
-     * @Step    1/ Login member site
+     * @Precondition: 1. Get the event that have Fancy market
+     * @Step 1/ Login member site
      *          2/ Active the event that have Fancy market
      *          3/ Click Match odds
      * @Expected 1. Wicket Fancy market display under match odds market matched with the api
@@ -427,7 +427,7 @@ public class WicketFancyTest extends BaseCaseTest {
 
     *//**
      * @title Validate can place bet on Fancy on Match odds market page
-     * @Precondition:   1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      * 2/ Active the event that have Fancy market
      * 3/ Click Match odds
@@ -480,7 +480,7 @@ public class WicketFancyTest extends BaseCaseTest {
 
     *//**
      * @title Validate can place bet on Fancy market page
-     * @Precondition:   1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      * 2/ Active the event that have Fancy market
      * 3/ Click on a Fancy market
@@ -530,7 +530,7 @@ public class WicketFancyTest extends BaseCaseTest {
 
     *//**
      * @title Verify exposure is kept correctly when place on No
-     * @Precondition:   1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      * 2/ Active the event that have Fancy market
      * 3/ Click on a Fancy market
@@ -576,7 +576,7 @@ public class WicketFancyTest extends BaseCaseTest {
 
     *//**
      * @title Verify exposure is kept correctly when place on Yes
-     * @Precondition:   1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      * 2/ Active the event that have Fancy market
      * 3/ Click on a Fancy market
@@ -622,7 +622,7 @@ public class WicketFancyTest extends BaseCaseTest {
 
     *//**
      * @title Verify exposure is kept correctly when place on Yes and No
-     * @Precondition:   1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      * 2/ Active the event that have Fancy market
      * 3/ Click on a Fancy market
@@ -668,7 +668,7 @@ public class WicketFancyTest extends BaseCaseTest {
 
     *//**
      * @title Verify Cannot place bet if stake less than min bet
-     * @Precondition:   1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      *      * 2/ Active the event that have Fancy market
      *      * 3/ Click on a Fancy market
@@ -720,7 +720,7 @@ public class WicketFancyTest extends BaseCaseTest {
 
     *//**
      * @title Verify Cannot place bet if stake greater than max bet
-     * @Precondition:   1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      * 2/ Active the event that have Fancy market
      * 3/ Click on a Fancy market
@@ -772,7 +772,7 @@ public class WicketFancyTest extends BaseCaseTest {
 
     *//**
      * @title Verify Cannot place bet if stake less is greater than available balance
-     * @Precondition:   1. Get the event that have Fancy market
+     * @Precondition: 1. Get the event that have Fancy market
      * @Step 1/ Login member site
      * 2/ Active the event that have Fancy market
      * 3/ Click on a Fancy market

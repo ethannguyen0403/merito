@@ -26,8 +26,8 @@
         <parameter name='brandname' value='betclub'/>
         <groups>
             <run>
-                <include name="precondition1" />
-<!--                <include name="smokePO" />-->
+                <include name="precondition1"/>
+                <!--                <include name="smokePO" />-->
             </run>
         </groups>
 

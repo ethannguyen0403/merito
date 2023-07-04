@@ -7,8 +7,6 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import java.util.List;
-
 public class LiquidityThresholdTest extends BaseCaseTest {
     /**
      * @title: Validate there is no http responded error returned
@@ -31,16 +29,15 @@ public class LiquidityThresholdTest extends BaseCaseTest {
 
     /**
      * @title: Can Active/Inactive Liquidity Threshold Status
-     * @pre-condition:
-     *           1. Log in successfully from PO level
-     * @steps:   1. Navigate Markets Management >Liquidity Threshold
-     *           2. Search a CO account and active threshold
-     *           3. Click deactive liquidity threshold
+     * @pre-condition: 1. Log in successfully from PO level
+     * @steps: 1. Navigate Markets Management >Liquidity Threshold
+     * 2. Search a CO account and active threshold
+     * 3. Click deactive liquidity threshold
      * @expect: 1. Can active Liquidity Threshold, the column Last Update Time, Last Update By, History is empty
-     *          2. Can inactive Liquidity Threshold and show log in Last Update Time, Last Update By and View link
+     * 2. Can inactive Liquidity Threshold and show log in Last Update Time, Last Update By and View link
      */
     @Test(groups = {"smokePO"})
-    @Parameters({"username","controlBlockingAccount"})
+    @Parameters({"username", "controlBlockingAccount"})
     public void Agent_MM_Liquidity_Threshold_TC005(String controlBlockingAccount) {
         log("@title: Can Active/Inactive Liquidity Threshold Status");
 
@@ -51,51 +48,50 @@ public class LiquidityThresholdTest extends BaseCaseTest {
         page.search(controlBlockingAccount);
 
         log("Step 3. Click active liquidity threshold");
-        page.setLiquidityThreshold(controlBlockingAccount,true);
+        page.setLiquidityThreshold(controlBlockingAccount, true);
 
         log("Verify 1. Liquidity is active");
-        Assert.assertTrue(page.isLiquidityStatusAsExpected(controlBlockingAccount,true));
+        Assert.assertTrue(page.isLiquidityStatusAsExpected(controlBlockingAccount, true));
 
         log("Step 3. Deactive liquidity threshold");
-        page.setLiquidityThreshold(controlBlockingAccount,false);
+        page.setLiquidityThreshold(controlBlockingAccount, false);
 
         log("Verify 2. Can inactive Liquidity Threshold and show log in Last Update Time, Last Update By and View link");
-        Assert.assertTrue(page.isLiquidityStatusAsExpected(controlBlockingAccount,false));
+        Assert.assertTrue(page.isLiquidityStatusAsExpected(controlBlockingAccount, false));
 
         log("INFO: Executed completely");
     }
 
     /**
-     * @title:  Can not active for downline when upline is inactive
-     * @pre-condition:
-     *           1. Log in successfully from PO level
-     * @steps:   1. Navigate Markets Management >Liquidity Threshold
-     *           2. Search an account that upline is inactive liquidity Threshold
-     *           3. Click Active liquidity threshold
+     * @title: Can not active for downline when upline is inactive
+     * @pre-condition: 1. Log in successfully from PO level
+     * @steps: 1. Navigate Markets Management >Liquidity Threshold
+     * 2. Search an account that upline is inactive liquidity Threshold
+     * 3. Click Active liquidity threshold
      * @expect: 1.  Can not active for downline when upline is inactive
      */
     @Test(groups = {"smokePO"})
-    @Parameters({"controlBlockingAccount","downlineAccount"})
-    public void Agent_MM_Liquidity_Threshold_TC008(String controlBlockingAccount,String downlineAccount) {
+    @Parameters({"controlBlockingAccount", "downlineAccount"})
+    public void Agent_MM_Liquidity_Threshold_TC008(String controlBlockingAccount, String downlineAccount) {
         log("@title: Can Active/Inactive Liquidity Threshold Status");
         log("Step 1. Navigate Markets Management >Liquidity Threshold");
         LiquidityThresholdPage page = agentHomePage.navigateLiquidityThresholdPage();
 
-        log(String.format("Step 2. Search the account %S",controlBlockingAccount));
+        log(String.format("Step 2. Search the account %S", controlBlockingAccount));
         page.search(controlBlockingAccount);
 
-        log(String.format("Step 3. Click inactive liquidity threshold of %s",controlBlockingAccount));
-        page.setLiquidityThreshold(controlBlockingAccount,false);
+        log(String.format("Step 3. Click inactive liquidity threshold of %s", controlBlockingAccount));
+        page.setLiquidityThreshold(controlBlockingAccount, false);
 
-        log(String.format("Step 4 Search the downline %s of the account: %s",downlineAccount, controlBlockingAccount));
+        log(String.format("Step 4 Search the downline %s of the account: %s", downlineAccount, controlBlockingAccount));
         page.search(downlineAccount);
 
-        log(String.format("Step 5 Active liquidity threshold of %s",downlineAccount));
-        page.setLiquidityThreshold(downlineAccount,true);
+        log(String.format("Step 5 Active liquidity threshold of %s", downlineAccount));
+        page.setLiquidityThreshold(downlineAccount, true);
 
         log("Verify 1. Can not active for downline when upline is inactive");
         ConfirmPopup popup = new ConfirmPopup();
-        Assert.assertEquals(popup.getContentMessage(),String.format("Upline %s of %s is OFF. Please help to ON it first.",controlBlockingAccount,downlineAccount),
+        Assert.assertEquals(popup.getContentMessage(), String.format("Upline %s of %s is OFF. Please help to ON it first.", controlBlockingAccount, downlineAccount),
                 "FAILED! Error message not display when acitve downline has update inacive liquidity");
 
         log("INFO: Executed completely");

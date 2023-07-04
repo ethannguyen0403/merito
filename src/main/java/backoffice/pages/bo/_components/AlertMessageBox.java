@@ -10,19 +10,20 @@ public class AlertMessageBox {
     Label lblErrorAlertContent = Label.xpath(" //div[contains(@class,'alert-danger')]");
     Button btnClose = Button.xpath("//button[contains(@class,'close')]");
 
-    public void clickCloseBtn(){
+    public void clickCloseBtn() {
         btnClose.click();
     }
 
-    public String getSuccessAlert(){
+    public String getSuccessAlert() {
         return lblSuccessAlertContent.getText();
     }
-    public String getErrorAlert(){
+
+    public String getErrorAlert() {
         return lblErrorAlertContent.getText();
     }
 
 
-    public boolean isDisplayed(){
+    public boolean isDisplayed() {
         popup.isInvisible(2);
         return popup.isDisplayed();
     }

@@ -23,7 +23,7 @@
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
         </classes>
 
     </test>

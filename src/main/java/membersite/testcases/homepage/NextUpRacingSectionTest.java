@@ -8,10 +8,10 @@ import util.testraildemo.TestRails;
 
 public class NextUpRacingSectionTest extends BaseCaseTest {
 
-    @TestRails(id="1075")
-    @Test (groups = {"regression"})
-    @Parameters({"password","skinName"})
-    public void MB_Change_Password_TC1075(String password,String skinName) throws Exception {
+    @TestRails(id = "1075")
+    @Test(groups = {"regression"})
+    @Parameters({"password", "skinName"})
+    public void MB_Change_Password_TC1075(String password, String skinName) throws Exception {
         log("@title:Validate Greyhound Racing link works");
         log("Step 1.In home page - Next Up Racing section");
         log("Step 2.Click on any Greyhound racing link");

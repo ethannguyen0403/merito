@@ -1,8 +1,8 @@
 package agentsite.pages.components;
 
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
-import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.OldUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.NewUIAccountInforSection;
+import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.OldUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.BetSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.NewUIBetSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.OldUIBetSettingSection;
@@ -35,16 +35,17 @@ import agentsite.pages.components.leftmenu.NewUILeftMenu;
 import agentsite.pages.components.leftmenu.OldUILeftMenu;
 
 public class ComponentsFactory {
-    public static LeftMenu leftMenuObject(String types){
-        switch (types){
+    public static LeftMenu leftMenuObject(String types) {
+        switch (types) {
             case "funsport":
                 return new NewUILeftMenu();
             default:
                 return new OldUILeftMenu();
         }
-       }
-    public static Header headerObject(String types){
-        switch (types){
+    }
+
+    public static Header headerObject(String types) {
+        switch (types) {
             case "satsport":
                 return new OldUIHeader();
             default:
@@ -52,16 +53,17 @@ public class ComponentsFactory {
         }
     }
 
-    public static AccountInforSection accInfoObject(String types){
-        switch (types){
+    public static AccountInforSection accInfoObject(String types) {
+        switch (types) {
             case "satsport":
                 return new OldUIAccountInforSection();
             default:
                 return new NewUIAccountInforSection();
         }
     }
-    public static CreditBalanceSection creditBalanceInfoObject(String types){
-        switch (types){
+
+    public static CreditBalanceSection creditBalanceInfoObject(String types) {
+        switch (types) {
             case "satsport":
                 return new OldUICreditBalanceSection();
             default:
@@ -69,8 +71,8 @@ public class ComponentsFactory {
         }
     }
 
-    public static RiskSettingSection riskSettingInfoObject(String types){
-        switch (types){
+    public static RiskSettingSection riskSettingInfoObject(String types) {
+        switch (types) {
             case "satsport":
                 return new OldUIRiskSettingSection();
             default:
@@ -78,8 +80,8 @@ public class ComponentsFactory {
         }
     }
 
-    public static CashBalanceSection cashBalanceInfoObject(String types){
-        switch (types){
+    public static CashBalanceSection cashBalanceInfoObject(String types) {
+        switch (types) {
             case "satsport":
                 return new OldUICashBalanceSection();
             default:
@@ -87,8 +89,8 @@ public class ComponentsFactory {
         }
     }
 
-    public static RateSettingSection rateSettingInfoObject(String types){
-        switch (types){
+    public static RateSettingSection rateSettingInfoObject(String types) {
+        switch (types) {
             case "satsport":
                 return new OldUIRateSettingSection();
             default:
@@ -96,8 +98,8 @@ public class ComponentsFactory {
         }
     }
 
-    public static ProductSettingSection productSettingInfoObject(String types){
-        switch (types){
+    public static ProductSettingSection productSettingInfoObject(String types) {
+        switch (types) {
             case "satsport":
                 return new OldUIProductSettingSection();
             default:
@@ -105,8 +107,8 @@ public class ComponentsFactory {
         }
     }
 
-    public static BetSettingSection betSettingInfoObject(String types){
-        switch (types){
+    public static BetSettingSection betSettingInfoObject(String types) {
+        switch (types) {
             case "satsport":
                 return new OldUIBetSettingSection();
             default:
@@ -114,8 +116,8 @@ public class ComponentsFactory {
         }
     }
 
-    public static TaxSettingSection taxSettingInfoObject(String types){
-        switch (types){
+    public static TaxSettingSection taxSettingInfoObject(String types) {
+        switch (types) {
             case "satsport":
                 return new OldUITaxSettingSection();
             default:
@@ -123,8 +125,8 @@ public class ComponentsFactory {
         }
     }
 
-    public static PositionTakingSection positionTakingInfoObject(String types){
-        switch (types){
+    public static PositionTakingSection positionTakingInfoObject(String types) {
+        switch (types) {
             case "satsport":
                 return new OldUIPositionTakingSection();
             default:

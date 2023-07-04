@@ -26,7 +26,7 @@
         <parameter name='brandname' value='fairsport567'/>
         <groups>
             <run>
-                <include name="smokePO" />
+                <include name="smokePO"/>
             </run>
         </groups>
 

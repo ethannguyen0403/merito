@@ -5,40 +5,37 @@ import membersite.pages.MarketPage;
 import java.util.List;
 
 
-public class RacingContainer  {
+public class RacingContainer {
 
-    public String getCountry(int index)
-    {
+    public String getCountry(int index) {
         return getAllCountry().get(index);
     }
 
-    public List<String>  getAllCountry()
-    {
+    public List<String> getAllCountry() {
 
         return null;
     }
 
-    public void expandAllCountrry()
-    {
+    public void expandAllCountrry() {
 
     }
-    public void collapseAllCountry(){
+
+    public void collapseAllCountry() {
     }
 
-    public List<String> getAllTrackName(String country)
-    {
+    public List<String> getAllTrackName(String country) {
         return null;
     }
 
-    public List<String> getAllRacingList(String country, String trackName){
-              return null;
+    public List<String> getAllRacingList(String country, String trackName) {
+        return null;
     }
 
-    public MarketPage clickRacing(String country, String trackName, String race,String brand)
-    {
+    public MarketPage clickRacing(String country, String trackName, String race, String brand) {
         return new MarketPage(brand);
     }
-    public boolean isNoRace(){
+
+    public boolean isNoRace() {
         return false;
     }
 

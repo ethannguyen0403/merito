@@ -14,10 +14,10 @@
         <parameter name='username' value='SASUBAT'/>
         <parameter name='levelLogin' value='Portal'/>
         <parameter name='downlineAccount' value='auto.part1'/>
-        <parameter name ='controlBlockingAccount' value ='Auto.SAD1'/>
-        <parameter name ='memberAccount' value ='auto.pl02'/>
-        <parameter name ='controlBlockingLevel' value ='CORP'/>
-        <parameter name ='accountToBet' value ='SAL0000001 (follow.pl1)'/>
+        <parameter name='controlBlockingAccount' value='Auto.SAD1'/>
+        <parameter name='memberAccount' value='auto.pl02'/>
+        <parameter name='controlBlockingLevel' value='CORP'/>
+        <parameter name='accountToBet' value='SAL0000001 (follow.pl1)'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name="passwordNonePO" value="5pjguoEh1fnSILpykWt1vQ=="/>
         <parameter name='isThrown' value='false'/>
@@ -25,7 +25,7 @@
         <parameter name="isCredit" value="false"/>
         <groups>
             <run>
-                <include name="poregression" />
+                <include name="poregression"/>
             </run>
         </groups>
 

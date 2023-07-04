@@ -14,10 +14,10 @@
         <parameter name='username' value='SASUBAT'/>
         <parameter name='levelLogin' value='Portal'/>
         <parameter name='downlineAccount' value='auto.part1'/>
-        <parameter name ='controlBlockingAccount' value ='Auto.SAD1'/>
-        <parameter name ='memberAccount' value ='auto.pl02'/>
-        <parameter name ='controlBlockingLevel' value ='CORP'/>
-        <parameter name ='accountToBet' value ='SAL0000001 (follow.pl1)'/>
+        <parameter name='controlBlockingAccount' value='Auto.SAD1'/>
+        <parameter name='memberAccount' value='auto.pl02'/>
+        <parameter name='controlBlockingLevel' value='CORP'/>
+        <parameter name='accountToBet' value='SAL0000001 (follow.pl1)'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name="passwordNonePO" value="5pjguoEh1fnSILpykWt1vQ=="/>
         <parameter name='isThrown' value='false'/>
@@ -25,20 +25,20 @@
         <parameter name="isCredit" value="false"/>
         <groups>
             <run>
-                <include name="poregression" />
+                <include name="poregression"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.reports.StatementReportTest"/>
+            <class name="agentsite.testcase.reports.StatementReportTest"/>
 
-        <!--
-            <class name="agentsite.testcase.all.reports.UnsettledBetTest"/>
-            <class name="agentsite.testcase.all.marketsmanagement.blockunblockevents.BlockUnblockEventsTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.CreateDownlineAgentTest"/>-->
-            <!--            <class name="agentsite.testcase.all.home.HeaderTest"/>-->
-            <!--            <class name="agentsite.testcase.all.home.LeftMenuTest"/>-->
-            <!--            <class name="agentsite.testcase.satsport.home.SATHeaderTest"/>-->
+            <!--
+                <class name="agentsite.testcase.reports.UnsettledBetTest"/>
+                <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
+                <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>-->
+            <!--            <class name="agentsite.testcase.HeaderTest"/>-->
+            <!--            <class name="agentsite.testcase.LeftMenuTest"/>-->
+            <!--            <class name="agentsite.testcase.satsport.SATHeaderTest"/>-->
         </classes>
 
     </test>

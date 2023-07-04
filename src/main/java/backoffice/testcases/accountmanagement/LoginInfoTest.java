@@ -34,19 +34,19 @@ public class LoginInfoTest extends BaseCaseTest {
                 "  1. Have an member account place bet\n" +
                 "   2. Login BO");
         BaseCaseTest.loginMember(satMemberLoginID, StringUtils.decrypt(memberPassword));
-        String odds ="30";
+        String odds = "30";
         String minBet = "2";
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu("Cricket");
-        Event event = sportPage.eventContainerControl.getEvent(false,false,3,1);
-        if(Objects.isNull(event)) {
+        Event event = sportPage.eventContainerControl.getEvent(false, false, 3, 1);
+        if (Objects.isNull(event)) {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage =sportPage.clickEvent(event);
+        MarketPage marketPage = sportPage.clickEvent(event);
         sportPage.waitMenuLoading();
-        Market market = marketPage.marketOddControl.getMarket(event,1,true);
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
-        marketPage.betsSlipContainer.placeBet(odds,minBet);
+        marketPage.betsSlipContainer.placeBet(odds, minBet);
         log("Step 1. Access Member Management > Login Info");
         DriverManager.getDriver().get(backofficeUrl);
         LoginInfoPage page = backofficeHomePage.navigateLoginInfo();
@@ -104,11 +104,11 @@ public class LoginInfoTest extends BaseCaseTest {
     public void BO_MM_Login_Info_003(String satMemberLoginID, String username, String password) throws Exception {
         log("@title:Validate display activity log when account login failed");
         log("@pre-condition: 1. Have an member account just login failed");
-        BaseCaseTest.loginMember("satsport",satMemberLoginID,"incorrectps12");
+        BaseCaseTest.loginMember("satsport", satMemberLoginID, "incorrectps12");
 
         log("Step 1. Access Member Management > Login Info");
         DriverManager.getDriver().get(backofficeUrl);
-        BaseCaseTest.loginBackoffice(username,password,true);
+        BaseCaseTest.loginBackoffice(username, password, true);
         LoginInfoPage page = backofficeHomePage.navigateLoginInfo();
 
         log("Step 2. Select Type: Log");

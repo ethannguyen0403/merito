@@ -5,21 +5,20 @@ import com.paltech.element.common.*;
 
 public class SATSignInPopup extends SignInPopup {
     public Popup signInPopup = Popup.xpath("//div[@class='login-popup-content']");
-    private TextBox txtusername = TextBox.name("newusername");
     TextBox txtpassword = TextBox.name("newpassword");
     TextBox txtconfirmPassword = TextBox.name("newcfPassword");
     TextBox txtEmail = TextBox.name("emailAddress");
     DropDownBox dddSelectCurrency = DropDownBox.name("currency");
-    private TextBox txtPhoneNumber = TextBox.name("mobileNumber");
     CheckBox cbAgree = CheckBox.id("flexCheckDefault");
     Button btnJoinNow = Button.xpath("//button[contains(@class,'btn-join-now')]");
     CheckBox capthcarcb = CheckBox.xpath("//span[@id='recaptcha-anchor']");
+    private TextBox txtusername = TextBox.name("newusername");
+    private TextBox txtPhoneNumber = TextBox.name("mobileNumber");
     private Label lblCountryCode = Label.xpath("//input[@value='+91']");
     private Label errorPhoneNumber = Label.xpath("//span[contains(text(),'Please enter a valid Mobile Number!')]");
 
 
-
-    public void signin(String username, String password, String email, String currency, String phone){
+    public void signin(String username, String password, String email, String currency, String phone) {
         txtusername.sendKeys(username);
         txtpassword.sendKeys(password);
         txtconfirmPassword.sendKeys(password);
@@ -68,7 +67,7 @@ public class SATSignInPopup extends SignInPopup {
 
     @Override
     public String getPhoneNumber() {
-       return txtPhoneNumber.getAttribute("value");
+        return txtPhoneNumber.getAttribute("value");
     }
 
     @Override

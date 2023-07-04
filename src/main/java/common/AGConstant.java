@@ -1,6 +1,7 @@
 package common;
 
 import java.util.*;
+
 import static baseTest.BaseCaseTest._brandname;
 
 public class AGConstant {
@@ -163,7 +164,7 @@ public class AGConstant {
         public final static String SUSPEND_UNSUSPEND_MARKETS = "Suspend/Unsuspend Markets";
         public final static String VOLUME_MONITOR = "Volume Monitor";
         public final static String NET_EXPOSURE = "Net Exposure";
-        public final static String AGENT_EXPOSURE_LIMIT= "Agent Exposure Limit";
+        public final static String AGENT_EXPOSURE_LIMIT = "Agent Exposure Limit";
         public final static String BIG_STAKE_CONFIGURATION = "Big Stake Configuration";
         public final static String CANCELLED_BETS = "Cancelled Bets";
         public final static String FOLLOW_BETS_PERFORMANCE = "Follow Bets Performance";
@@ -443,6 +444,7 @@ public class AGConstant {
             public final static List<String> TABLE_HEADER_PO = Arrays.asList("Competition Name", "Event Name", "Event ID", "Min - Max (F)", "Fancy Min - Max", "Bookmaker Min - Max (F)");
         }
     }
+
     public static class RiskManagement {
         public static class VolumeMonitor {
             public final static String LBL_FROM = "From";
@@ -452,26 +454,29 @@ public class AGConstant {
             public final static String BTN_TODAY = "Today";
             public final static String BTN_YESTERDAY = "Yesterday";
             public final static String BTN_LAST_WEEK = "Last 7 Days";
-            public final static String BTN_SUBMIT="Submit";
+            public final static String BTN_SUBMIT = "Submit";
             public final static String NOTE = "You can see report data in range of 1 month";
             public final static List<String> LIST_BET_TYPES = Arrays.asList("Select All", "Matched", "Un-matched", "Settled", "Voided", "Lapsed");
-            public final static List<String> TABLE_HEADER = Arrays.asList("No.","Username","Nickname","First Name","Level","Currency","Matched Volume","Unmatched Volume","Liability","Back","Lay","Tax","Total","Bet History","Settled Turnover","Settled P&L","Settled Turnover","Settled P&L");
-            public final static List<String> BET_HISTORY_TABLE_HEADER = Arrays.asList("No.","Username","Nickname","Bet ID","Order ID","Time","Description","Type","Odds","Stake","Status","IP Address");
+            public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Username", "Nickname", "First Name", "Level", "Currency", "Matched Volume", "Unmatched Volume", "Liability", "Back", "Lay", "Tax", "Total", "Bet History", "Settled Turnover", "Settled P&L", "Settled Turnover", "Settled P&L");
+            public final static List<String> BET_HISTORY_TABLE_HEADER = Arrays.asList("No.", "Username", "Nickname", "Bet ID", "Order ID", "Time", "Description", "Type", "Odds", "Stake", "Status", "IP Address");
         }
+
         public static class NetExposure {
             public final static String LBL_MYPT = "My PT";
             public final static String LBL_TOTAL_BOOK = "Total Book";
             public final static String LBL_IN_PLAY = "In-Play";
             public final static String LBL_SPORT_SELECTION = "2-3 Selection:Sport:";
             public final static String LBL_MULTI_SPORT_SELECTION = "Multiple Selection:Sport:\n";
-            public final static String LBL_NO_RECORD="The bets under selected sport(s) are being settled or market exposure is not greater than min exposure limit.";
-            public final static List<String> RESULT_TABLE_HEADER = Arrays.asList("","Unmatched Stake","Matched Stake","1","X","2","Unmatched Stake","Matched Stake","Over/Yes","Under/No");
-            public final static List<String> BET_LIST_HEADER_TBL = Arrays.asList("Member","Currency","Placed","Selection","Bet ID","In Play","Type","Odds","Stake [L]","Stake [F]","Potential Profit[L]","Potential Profit[F]","Liabilit [L]","Liability [f]"
-            ,"AG PT","MA PT", "SMA PT","CORP PT","CO PT","PO PT");
+            public final static String LBL_NO_RECORD = "The bets under selected sport(s) are being settled or market exposure is not greater than min exposure limit.";
+            public final static List<String> RESULT_TABLE_HEADER = Arrays.asList("", "Unmatched Stake", "Matched Stake", "1", "X", "2", "Unmatched Stake", "Matched Stake", "Over/Yes", "Under/No");
+            public final static List<String> BET_LIST_HEADER_TBL = Arrays.asList("Member", "Currency", "Placed", "Selection", "Bet ID", "In Play", "Type", "Odds", "Stake [L]", "Stake [F]", "Potential Profit[L]", "Potential Profit[F]", "Liabilit [L]", "Liability [f]"
+                    , "AG PT", "MA PT", "SMA PT", "CORP PT", "CO PT", "PO PT");
 
         }
+
         public static class AgentExposureLimit {
-            public final static List<String> DOWNLINE_TABLE_HEADER = Arrays.asList("No.","Username","Nickname","Level","Currency","Max Exposure","Exposure","Exposure Available");}
+            public final static List<String> DOWNLINE_TABLE_HEADER = Arrays.asList("No.", "Username", "Nickname", "Level", "Currency", "Max Exposure", "Exposure", "Exposure Available");
+        }
     }
 
     public static class Report {
@@ -480,30 +485,33 @@ public class AGConstant {
         public final static String BTN_TODAY = "Today";
         public final static String BTN_YESTERDAY = "Yesterday";
         public final static String LAST_WEEK = "Last Week";
-        public final static String LAST_BUSINESS_WEEK="Last Business Week";
+        public final static String LAST_BUSINESS_WEEK = "Last Business Week";
         public final static String ERROR_PRODUCT = "Please select at least 1 product.";
         public final static String ERROR_DATE_RANGE = "End date cannot earlier than start date. Please redefine the search criteria";
-        public final static List<String> LIST_EXTRA_RPODUCTS_PO =Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Central Fancy", "Central Bookmaker", "Follow Bets");
-        public final static List<String> LIST_EXTRA_RPODUCTS =Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Central Fancy", "Central Bookmaker");
+        public final static List<String> LIST_EXTRA_RPODUCTS_PO = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Central Fancy", "Central Bookmaker", "Follow Bets");
+        public final static List<String> LIST_EXTRA_RPODUCTS = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Central Fancy", "Central Bookmaker");
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS = "You can see report data up to 6 months";
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_1_TO_6 = "You can see report data up to 1 month and back to previous 6 months.";
         public final static String LBL_PRODUCT = "Product";
+
         public static class WinLossSimple {
             public final static String HOME_TITLE = "Senior Master Agent:";
             public final static List<String> DDB_PRODUCT = Arrays.asList("Exchange", "Live Dealer European", "Fancy", "Live Dealer Asian", "Exchange Games");
             public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Username", "Nickname", "Upline", "Currency", "Win/Loss", "Total Tax/Comm");
 
         }
+
         public static class UnsettleBet {
             public final static List<String> MODE_LIST = Arrays.asList("Last Bets Mode", "Sport Mode", "Hierarchy Mode");
             public final static String LAST_BETS_MODE = "Last Bets Mode";
             public final static String SPORT_MODE = "Sport Mode";
             public final static String HIERARCHY_MODE = "Hierarchy Mode";
             public final static List<String> LIST_BET_TYPE_RADIO_BUTTON = Arrays.asList("All", "Matched", "Un-matched", "Cancelled", "Voided", "Lapsed");
-            public final static String HINT_MESSAGE ="You can see report data in range of 1 month";
-            public final static List<String> LAST_BETS_MODE_TABLE_HEADER =Arrays.asList("No.", "UserName", "Login ID", "Bet ID", "Time", "Description", "Type","Odds","Stake","Status","IP Address","Browser Detail");
-            public final static List<String> HIERARCHY_MODE_PO_TABLE_HEADER =Arrays.asList("No.", "UserName", "Login ID", "Level", "Member Total", "AG Liability", "MA Liability","SMA Liability","CORP Liability","PART Liability","CO Liability");
+            public final static String HINT_MESSAGE = "You can see report data in range of 1 month";
+            public final static List<String> LAST_BETS_MODE_TABLE_HEADER = Arrays.asList("No.", "UserName", "Login ID", "Bet ID", "Time", "Description", "Type", "Odds", "Stake", "Status", "IP Address", "Browser Detail");
+            public final static List<String> HIERARCHY_MODE_PO_TABLE_HEADER = Arrays.asList("No.", "UserName", "Login ID", "Level", "Member Total", "AG Liability", "MA Liability", "SMA Liability", "CORP Liability", "PART Liability", "CO Liability");
         }
+
         public static class WinLossDetails {
             public final static String TITLE = "%s Win Loss Details";
             public final static String LBL_SHOW_TOTAL = "Show total only";
@@ -511,23 +519,26 @@ public class AGConstant {
             public final static List<String> TABLE = Arrays.asList("Exchange", "Live Dealer European", "Fancy", "Live Dealer Asian", "Exchange Games");
             public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Username", "Nickname", "Upline", "Currency", "Win/Loss", "Total Tax/Comm");
         }
+
         public static class ProfitAndLoss {
             public final static String TITLE = "Profit And Loss";
             public final static String LBL_TIMEZONE = "Timezone";
             public final static String LBL_REPORT_AVAILABLE_IST = "For IST timezone, report data is only available from June 27, 2019";
-            public final static String LBL_UPLINE_PROFIT_AND_LOST ="Upline Profit And Loss";
-            public final static String LBL_DOWNLINE_PROFIT_AND_LOST ="Downline Profit And Loss";
-            public final static String LBL_UPLINE_PROFIT_AND_LOST_PO ="Downline Profit And Loss Currency HKD";
-            public final static String LBL_DOWNLINE_PROFIT_AND_LOST_PO ="Downline Profit And Loss Currency HKD";
-            public final static String LBL_PLEASE_SELECT_PRODUCT ="Please select at least 1 product.";
+            public final static String LBL_UPLINE_PROFIT_AND_LOST = "Upline Profit And Loss";
+            public final static String LBL_DOWNLINE_PROFIT_AND_LOST = "Downline Profit And Loss";
+            public final static String LBL_UPLINE_PROFIT_AND_LOST_PO = "Downline Profit And Loss Currency HKD";
+            public final static String LBL_DOWNLINE_PROFIT_AND_LOST_PO = "Downline Profit And Loss Currency HKD";
+            public final static String LBL_PLEASE_SELECT_PRODUCT = "Please select at least 1 product.";
             public final static List<String> TIMEZONE_LIST = Arrays.asList("ET (GMT -4:00)", "IST(GMT + 5:30)");
-            public final static List<String> TBL_UPLINE_TABLE = Arrays.asList("Name", "Back", "Lay", "Total Tax", "Total Pay","Turnover","Pnl","Turnover","Pnl");
-            public final static List<String> TBL_DOWNLINE_TABLE = Arrays.asList("No.", "Username", "Login ID", "First Name", "Level", "Back", "Lay","Total Tax", "Balance","Turnover","Pnl","Turnover","Pnl");
+            public final static List<String> TBL_UPLINE_TABLE = Arrays.asList("Name", "Back", "Lay", "Total Tax", "Total Pay", "Turnover", "Pnl", "Turnover", "Pnl");
+            public final static List<String> TBL_DOWNLINE_TABLE = Arrays.asList("No.", "Username", "Login ID", "First Name", "Level", "Back", "Lay", "Total Tax", "Balance", "Turnover", "Pnl", "Turnover", "Pnl");
         }
+
         public static class PositionTakingReport {
             public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Competition Name", "Volume", "Pnl", "Tax");
 
         }
+
         public static class FollowAndSmallBetsPerformance {
             public final static String TITLE = "Follow Bets Performance";
             public final static String INFO = "You can see report data up to 3 months and back to previous 1 year.";
@@ -544,18 +555,19 @@ public class AGConstant {
         public static class StatementReport {
 
             public final static List<String> TABLE_HEADER = Arrays.asList("Username", "Nickname");
-            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER = Arrays.asList("Sport/Game", "Credit","Profit & Loss","Tax/Commission","Available Balance");
+            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER = Arrays.asList("Sport/Game", "Credit", "Profit & Loss", "Tax/Commission", "Available Balance");
             public final static String LBL_STATEMENT_REPORT_SEARCH_TITLE = "Statement Report from %s to %s";
         }
+
         public static class ClientLedger {
-            public final static List<String> TABLE_HEADER_BETTING_PO = Arrays.asList("Username","Currency", "Login ID","Credit","Debit","Balance");
-            public final static List<String> TABLE_HEADER_ALL_PO = Arrays.asList("Username","Currency", "Login ID","Credit", "Profit & Loss","Transfer","Outstanding","Available Balance");
-            public final static List<String> TABLE_HEADER_BETTING = Arrays.asList("Username", "Login ID","Credit","Debit","Balance","");
-            public final static List<String> TABLE_HEADER_ALL = Arrays.asList("Username", "Login ID", "Profit And Loss","Transfer","Outstanding","Available Balance","");
+            public final static List<String> TABLE_HEADER_BETTING_PO = Arrays.asList("Username", "Currency", "Login ID", "Credit", "Debit", "Balance");
+            public final static List<String> TABLE_HEADER_ALL_PO = Arrays.asList("Username", "Currency", "Login ID", "Credit", "Profit & Loss", "Transfer", "Outstanding", "Available Balance");
+            public final static List<String> TABLE_HEADER_BETTING = Arrays.asList("Username", "Login ID", "Credit", "Debit", "Balance", "");
+            public final static List<String> TABLE_HEADER_ALL = Arrays.asList("Username", "Login ID", "Profit And Loss", "Transfer", "Outstanding", "Available Balance", "");
             public final static String LBL_STATEMENT_REPORT_SEARCH_TITLE = "Client Ledger %s - %s";
         }
 
-        public static class TransactionHistory{
+        public static class TransactionHistory {
             public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Competition Name", "Volume", "PnL", "Tax", " ");
         }
 
@@ -610,17 +622,18 @@ public class AGConstant {
         public static class SuspendUnsuspendMarket {
             public final static String TITLE_PAGE = "Suspend/Unsuspend Markets";
             public final static List<String> TABLE_EVENT = Arrays.asList("Competition Name", "Event Name", "Market");
-            public final static String MARKET_DETAIL ="Market Details";
-            public final static String MARKET_NAME ="Market Name";
-            public final static String COMPETITION_NAME ="Competition Name";
-            public final static String EVENT_NAME ="Event Name";
+            public final static String MARKET_DETAIL = "Market Details";
+            public final static String MARKET_NAME = "Market Name";
+            public final static String COMPETITION_NAME = "Competition Name";
+            public final static String EVENT_NAME = "Event Name";
             public final static String NOTE = "Only line markets are shown to suspend/unsuspend";
             public final static String SUSPEND = "Suspend";
             public final static String UNSUSPEND = "Unsuspend";
-            public final static List<String> MARKET_TABLE_HEADER = Arrays.asList("Market Name", "Status", "Last Update By", "Last Update Date","");
+            public final static List<String> MARKET_TABLE_HEADER = Arrays.asList("Market Name", "Status", "Last Update By", "Last Update Date", "");
         }
+
         public static class BlockUnblockEvent {
-            public final static String UNBLOCK_NOW ="Unblock Now";
+            public final static String UNBLOCK_NOW = "Unblock Now";
             public final static String TITLE_PAGE = "Block/Unblock Events";
             public final static String TIME_TO_BET = "25 minutes";
             public final static List<String> TAB_DAYS = Arrays.asList("Old Events", "Today", "Tomorrow", "Future");

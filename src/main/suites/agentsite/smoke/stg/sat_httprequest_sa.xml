@@ -19,7 +19,7 @@
         <parameter name='brandname' value='satsport'/>
         <groups>
             <run>
-                <include name="http_request" />
+                <include name="http_request"/>
             </run>
         </groups>
 

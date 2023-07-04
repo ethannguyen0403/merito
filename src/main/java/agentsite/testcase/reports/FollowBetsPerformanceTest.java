@@ -1,9 +1,9 @@
 package agentsite.testcase.reports;
 
-import common.AGConstant;
 import agentsite.pages.report.FollowBetPerformancePage;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
+import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,7 +15,7 @@ public class FollowBetsPerformanceTest extends BaseCaseTest {
      * @expect: 1. Verify Follow Bets Performance UI display correctly
      */
     @Test(groups = {"smokePO"})
-    public void Agent_Report_Follow_Small_Bets_Performance_002(){
+    public void Agent_Report_Follow_Small_Bets_Performance_002() {
         log("@title: Validate Follow & Small Bets Performance display correctly");
         log("Step  1. Navigate Report >Follow Bets Performance");
         FollowBetPerformancePage page = agentHomePage.navigateFollowBetPerformancePage();
@@ -32,25 +32,24 @@ public class FollowBetsPerformanceTest extends BaseCaseTest {
 
     /**
      * @title: Validate can filter follow bet
-     * @pre-condition:
-     *           1. Log in successfully by PO level
+     * @pre-condition: 1. Log in successfully by PO level
      * @steps: 1. Navigate Report >Follow & Small Bets Performance
-     *         2. Select follow Bets
-     *         3. Enter username or Login ID and select account to bet then click Submit button
-     * @expect:  1. Verify Follow Bets info display
+     * 2. Select follow Bets
+     * 3. Enter username or Login ID and select account to bet then click Submit button
+     * @expect: 1. Verify Follow Bets info display
      */
-    @Test (groups = {"http_request"})
-    public void Agent_Report_Follow_Small_Bets_Performance_001(){
+    @Test(groups = {"http_request"})
+    public void Agent_Report_Follow_Small_Bets_Performance_001() {
         log("@title: Validate can filter follow bet");
         log("Step 1. Navigate Report >Follow & Small Bets Performance");
         FollowBetPerformancePage page = agentHomePage.navigateFollowBetPerformancePage();
         String startDate = DateUtils.getDate(85, "MM/dd/yyyy", "GMT-4");
-        String endDate = DateUtils.getDate(0,"MM/dd/yyyy","GMT-4");
+        String endDate = DateUtils.getDate(0, "MM/dd/yyyy", "GMT-4");
 
 
         log("Step 2. Select follow Bets");
         log("Step  3. Enter username or Login ID and select account to bet then click Submit button");
-        page.searchFollowBet("","",startDate,endDate);
+        page.searchFollowBet("", "", startDate, endDate);
 
         log("Verify 1. Verify Follow Bets info display");
         Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");

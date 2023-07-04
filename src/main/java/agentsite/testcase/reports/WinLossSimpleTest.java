@@ -1,9 +1,9 @@
 package agentsite.testcase.reports;
 
-import common.AGConstant;
 import agentsite.pages.report.WinLossSimplePage;
 import agentsite.ultils.report.ReportslUtils;
 import baseTest.BaseCaseTest;
+import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -19,7 +19,7 @@ import static common.AGConstant.Report.WinLossSimple.TABLE_HEADER;
 public class WinLossSimpleTest extends BaseCaseTest {
 
     @Test(groups = {"http_request"})
-    public void Agent_Report_WinLossSimple_001(){
+    public void Agent_Report_WinLossSimple_001() {
         log("@title: There is no http responded error returned");
         log("Step 1: Navigate Report > Win Loss Simple");
         agentHomePage.navigateWinLossSimplePage();
@@ -30,37 +30,36 @@ public class WinLossSimpleTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test (groups = {"regression"})
+    @Test(groups = {"regression"})
     @Parameters("memberAccount")
-    public void Agent_Report_WinLossSimple_002(){
+    public void Agent_Report_WinLossSimple_002() {
         log("@title: Validate Win Loss Simple UI display correctly");
         log("Step 1: Navigate Report > Win Loss Simple");
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
 
         log("Step 1. Verify Win Loss Simple UI display correctly");
-        Assert.assertEquals(page.header.lblPageTitle.getText(),WIN_LOSS_SIMPLE,"Failed! Page title is incorrect");
-        Assert.assertEquals(page.btnToday.getText(),BTN_TODAY,"Failed! Today button is incorrect");
-        Assert.assertEquals(page.btnYesterday.getText(),BTN_YESTERDAY,"Failed! Yesterday button is incorrect");
-        Assert.assertEquals(page.btnLastWeek.getText(), LAST_WEEK,"Failed! Last Week button is incorrect");
-        Assert.assertEquals(page.btnSubmit.getText(),BTN_SUBMIT,"Failed! Submit button is incorrect");
-        Assert.assertEquals(page.lblYouCanSeeReportData.getText(), LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS,"Failed! Submit button is incorrect");
-        Assert.assertEquals(page.tblSMA.getColumnNamesOfTable(),TABLE_HEADER,"FAILED! Header title is incorrect");
+        Assert.assertEquals(page.header.lblPageTitle.getText(), WIN_LOSS_SIMPLE, "Failed! Page title is incorrect");
+        Assert.assertEquals(page.btnToday.getText(), BTN_TODAY, "Failed! Today button is incorrect");
+        Assert.assertEquals(page.btnYesterday.getText(), BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
+        Assert.assertEquals(page.btnLastWeek.getText(), LAST_WEEK, "Failed! Last Week button is incorrect");
+        Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "Failed! Submit button is incorrect");
+        Assert.assertEquals(page.lblYouCanSeeReportData.getText(), LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS, "Failed! Submit button is incorrect");
+        Assert.assertEquals(page.tblSMA.getColumnNamesOfTable(), TABLE_HEADER, "FAILED! Header title is incorrect");
 
         log("INFO: Executed completely");
     }
 
     /**
      * @title: Valid can filter Win Loss Simple report
-     * @pre-condition:
-     *           1. Log in successfully by SAD
-     * @steps:   1. Navigate Report > Win Loss Simple
-     *           2. Select data range that have data and Exchange product
-     * @expect:  1. Win Loss Simple Report display correctly
+     * @pre-condition: 1. Log in successfully by SAD
+     * @steps: 1. Navigate Report > Win Loss Simple
+     * 2. Select data range that have data and Exchange product
+     * @expect: 1. Win Loss Simple Report display correctly
      */
-    @TestRails(id="791")
-    @Test (groups = {"smoke"})
+    @TestRails(id = "791")
+    @Test(groups = {"smoke"})
     @Parameters("memberAccount")
-    public void Agent_Report_WinLossSimple_003(String memberAccount){
+    public void Agent_Report_WinLossSimple_003(String memberAccount) {
         log("@title: Valid can filter Win Loss Simple report");
         log("Step 1: Navigate Report > Win Loss Simple");
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
@@ -70,10 +69,10 @@ public class WinLossSimpleTest extends BaseCaseTest {
 
         log("Step 3: Click Submit button");
         page.filter("Exchange");
-        List<String> lstAccount = page.tblSMA.getColumn(page.colNickname,1, false);
+        List<String> lstAccount = page.tblSMA.getColumn(page.colNickname, 1, false);
 
         log("Verify 1. Win Loss Simple Report display correctly");
-        for(String observed : lstAccount) {
+        for (String observed : lstAccount) {
             Assert.assertEquals(memberAccount, observed, String.format("ERROR: The expected account display is '%s' but found '%s'", memberAccount, observed));
         }
         log("INFO: Executed completely");
@@ -81,16 +80,15 @@ public class WinLossSimpleTest extends BaseCaseTest {
 
     /**
      * @title: Validate that an error message is displayed when filtering without any product
-     * @pre-condition:
-     *           1. Log in successfully
-     * @steps:   1. Navigate Report > Win Loss Simple
-     *           2. Uncheck Product ddb
-     *           3. Click Submit button
-     * @expect:  1. An error message is displayed if product is unchecked
+     * @pre-condition: 1. Log in successfully
+     * @steps: 1. Navigate Report > Win Loss Simple
+     * 2. Uncheck Product ddb
+     * 3. Click Submit button
+     * @expect: 1. An error message is displayed if product is unchecked
      */
-    @TestRails(id="792")
-    @Test (groups = {"smoke"})
-    public void Agent_Report_WinLossSimple_004(){
+    @TestRails(id = "792")
+    @Test(groups = {"smoke"})
+    public void Agent_Report_WinLossSimple_004() {
         log("@title: Validate that an error message is displayed when filtering without any product");
         log("Step 1: Navigate Report > Win Loss Simple");
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
@@ -105,19 +103,19 @@ public class WinLossSimpleTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id="793")
-    @Test (groups = {"smoke"})
-    public void Agent_Report_WinLossSimple_005(){
+    @TestRails(id = "793")
+    @Test(groups = {"smoke"})
+    public void Agent_Report_WinLossSimple_005() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Simple");
-        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(),LIST_EXTRA_RPODUCTS);
+        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
 
         log("Step 2: Get all products in dropdown");
         List<String> lstProduct = page.ddbProduct.getAllOption(true);
 
         log("Verify 1: Products display correct");
-        Assert.assertEquals(lstProduct,lstAllProductsExpected,"FAILED! List product is incorrect");
+        Assert.assertEquals(lstProduct, lstAllProductsExpected, "FAILED! List product is incorrect");
         log("INFO: Executed completely");
     }
 

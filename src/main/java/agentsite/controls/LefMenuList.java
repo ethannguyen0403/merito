@@ -12,22 +12,24 @@ public class LefMenuList extends BaseElement {
     private String groupMenuXpath = "//div[contains(@class,'asia-menu-group')]";
     private String groupMenuTitleXpath = "//div[contains(@class,'asia-menu-title')]";
     private String subMenuXpath = "//div[@class='submenu']//div[contains(@class,'menu-item')]";
-    private String collapseSubMenuXpath ="//div[contains(@class,'icon')]";
+    private String collapseSubMenuXpath = "//div[contains(@class,'icon')]";
+
     public LefMenuList(By locator, String xpathExpression) {
         super(locator);
         this._xPath = xpathExpression;
     }
+
     public static LefMenuList xpath(String xpathExpression) {
         return new LefMenuList(By.xpath(xpathExpression), xpathExpression);
     }
 
-    private int getMenuIndex(String menu){
+    private int getMenuIndex(String menu) {
         int i = 1;
         Label lblMenu;
-        while (true){
+        while (true) {
             lblMenu = Label.xpath(String.format("(%s%s)[%s]//span[2]", _xPath, groupMenuXpath, i));
-            if(!lblMenu.isDisplayed()){
-                System.out.println("Debug: Not found the menu "+menu);
+            if (!lblMenu.isDisplayed()) {
+                System.out.println("Debug: Not found the menu " + menu);
                 return 0;
             }
             if (lblMenu.getText().equalsIgnoreCase(menu)) {
@@ -55,61 +57,62 @@ public class LefMenuList extends BaseElement {
         return Label.xpath(String.format("%s%s[%s]", _xPath, groupMenuXpath, index)).getAttribute(attributeName);
     }
 
-    public List<String> getListSubMenu(String menu){
+    public List<String> getListSubMenu(String menu) {
         List<String> lstSubMenu = new ArrayList<>();
         // find
         int menuIndex = getMenuIndex(menu);
-        String rootMenuXpath = String.format("(%s%s)[%s]",_xPath,groupMenuXpath,menuIndex);
+        String rootMenuXpath = String.format("(%s%s)[%s]", _xPath, groupMenuXpath, menuIndex);
         int i = 1;
         Label lblSubMenu;
         Label lblExpandSubMenu;
         // expand the root menu
-        lblSubMenu = Label.xpath(String.format("(%s%s)[%s]",rootMenuXpath,subMenuXpath,i));
-        if(!lblSubMenu.isDisplayed())
+        lblSubMenu = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i));
+        if (!lblSubMenu.isDisplayed())
             Label.xpath(rootMenuXpath).click();
-        while (true){
-            lblSubMenu = Label.xpath(String.format("(%s%s)[%s]",rootMenuXpath,subMenuXpath,i));
-            lblExpandSubMenu = Label.xpath(String.format("%s%s[%s]%s",rootMenuXpath,subMenuXpath,i,collapseSubMenuXpath));
-            if(!lblSubMenu.isDisplayed()){
-                if(!lblExpandSubMenu.isDisplayed()){
+        while (true) {
+            lblSubMenu = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i));
+            lblExpandSubMenu = Label.xpath(String.format("%s%s[%s]%s", rootMenuXpath, subMenuXpath, i, collapseSubMenuXpath));
+            if (!lblSubMenu.isDisplayed()) {
+                if (!lblExpandSubMenu.isDisplayed()) {
                     return lstSubMenu;
-                }else
-                {
+                } else {
                     lblExpandSubMenu.click();
-                    i = i+1; continue;
+                    i = i + 1;
+                    continue;
                 }
             }
             lstSubMenu.add(lblSubMenu.getText().trim());
-            i = i+1;
+            i = i + 1;
         }
     }
 
-    public void expandMenu(String menu){
-        int index= getMenuIndex(menu);
-        Label lblMenu = Label.xpath(String.format("(%s%s)[%s]",_xPath,groupMenuXpath,index));
+    public void expandMenu(String menu) {
+        int index = getMenuIndex(menu);
+        Label lblMenu = Label.xpath(String.format("(%s%s)[%s]", _xPath, groupMenuXpath, index));
         String attribute = lblMenu.getAttribute("class");
-        if(!attribute.contains("active")){
-            Label.xpath(String.format("(%s%s)[%s]//div[@class='icon']",_xPath,groupMenuXpath,index)).click();
-        }
-    }
-    public void collapsedMenu(String menu){
-        int index= getMenuIndex(menu);
-        Label lblMenu = Label.xpath(String.format("(%s%s)[%s]",_xPath,groupMenuXpath,index));
-        String attribute = lblMenu.getAttribute("class");
-        if(attribute.contains("active")){
-            Label.xpath(String.format("(%s%s)[%s]//div[@class='icon']",_xPath,groupMenuXpath,index)).click();
+        if (!attribute.contains("active")) {
+            Label.xpath(String.format("(%s%s)[%s]//div[@class='icon']", _xPath, groupMenuXpath, index)).click();
         }
     }
 
-    public Label getSubMenuControl(String menu,String subMenu){
+    public void collapsedMenu(String menu) {
+        int index = getMenuIndex(menu);
+        Label lblMenu = Label.xpath(String.format("(%s%s)[%s]", _xPath, groupMenuXpath, index));
+        String attribute = lblMenu.getAttribute("class");
+        if (attribute.contains("active")) {
+            Label.xpath(String.format("(%s%s)[%s]//div[@class='icon']", _xPath, groupMenuXpath, index)).click();
+        }
+    }
+
+    public Label getSubMenuControl(String menu, String subMenu) {
         int menuIndex = getMenuIndex(menu);
         // expand menu
         expandMenu(menu);
-        String rootMenuXpath = String.format("(%s%s)[%s]",_xPath,groupMenuXpath,menuIndex);
+        String rootMenuXpath = String.format("(%s%s)[%s]", _xPath, groupMenuXpath, menuIndex);
         int i = 1;
         Label lblSubMenu = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i));
         // expand the root menu when not found the sub list
-        if(!lblSubMenu.isDisplayed()){
+        if (!lblSubMenu.isDisplayed()) {
             Label.xpath(rootMenuXpath).click();
         }
         Label lblExpandSubMenu;
@@ -141,13 +144,11 @@ public class LefMenuList extends BaseElement {
         lblSubmenu.click();
     }
 
-    public boolean isSubMenuDisplay(String menu, String submenu){
+    public boolean isSubMenuDisplay(String menu, String submenu) {
 
         List<String> listSubmenu = getListSubMenu(menu);
-        for (String smenu : listSubmenu) {
-            if (smenu.contains(submenu)){
+        if (listSubmenu.contains(submenu)) {
             return true;
-            }
         }
         return false;
     }

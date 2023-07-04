@@ -17,7 +17,7 @@ public class EGHomePage extends GamePage {
     }
 
     public Object navigateGameFromImage(String pageName) {
-        switch (pageName){
+        switch (pageName) {
             case "BACCARAT":
                 gcBaccarat.imgGame.click();
                 waitGameLoad();
@@ -46,8 +46,9 @@ public class EGHomePage extends GamePage {
                 return this;
         }
     }
+
     public Object navigateTurboGame(String pageName) {
-        switch (pageName){
+        switch (pageName) {
             case "BACCARAT":
                 gcBaccarat.btnTurbo.click();
                 waitGameLoad();
@@ -76,8 +77,9 @@ public class EGHomePage extends GamePage {
                 return this;
         }
     }
+
     public Object navigateStandarGame(String pageName) {
-        switch (pageName){
+        switch (pageName) {
             case "BACCARAT":
                 gcBaccarat.btnStandard.click();
                 waitGameLoad();

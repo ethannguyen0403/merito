@@ -12,32 +12,6 @@ public class BookmakerEvent {
     private String _competitionName;
     private List<BookmakerMarket1> _bmMarket;
 
-    public String getEventName() {
-        return _eventName;
-    }
-    public String getEventID(){return _eventId;}
-    public String getCompetitionName(){return _competitionName;}
-    public List<BookmakerMarket1>  getBMMarket(){return _bmMarket;}
-    public void setEventNam(String val){ _eventName = val;}
-    public void setEventID(String val){_eventId = val;}
-    public void setCompetitionName(String val){_competitionName = val;}
-    public void setBMMarket(List<BookmakerMarket1> val){_bmMarket = val;}
-
-    public static class Builder {
-        // Optional parameters
-        private String _eventName = "";
-        private String _eventId= "";
-        private String _competitionName ="";
-        private List<BookmakerMarket1> _bmMarket;
-
-        public Builder(){}
-        public Builder eventID(String val){_eventId = val; return this;}
-        public Builder competitionNAme(String val){_competitionName = val; return this;}
-        public Builder eventName(String val){_eventName= val; return this;}
-        public Builder bmMarket(List<BookmakerMarket1>  val){_bmMarket= val; return this;}
-        public BookmakerEvent build() { return new BookmakerEvent(this); }
-    }
-
     public BookmakerEvent(Builder builder) {
 
         this._eventName = builder._eventName;
@@ -46,14 +20,80 @@ public class BookmakerEvent {
         this._bmMarket = builder._bmMarket;
     }
 
-    public BookmakerMarket1 getMarketStatus(String status)
-    {
+    public String getEventName() {
+        return _eventName;
+    }
+
+    public String getEventID() {
+        return _eventId;
+    }
+
+    public void setEventID(String val) {
+        _eventId = val;
+    }
+
+    public String getCompetitionName() {
+        return _competitionName;
+    }
+
+    public void setCompetitionName(String val) {
+        _competitionName = val;
+    }
+
+    public List<BookmakerMarket1> getBMMarket() {
+        return _bmMarket;
+    }
+
+    public void setBMMarket(List<BookmakerMarket1> val) {
+        _bmMarket = val;
+    }
+
+    public void setEventNam(String val) {
+        _eventName = val;
+    }
+
+    public BookmakerMarket1 getMarketStatus(String status) {
         List<BookmakerMarket1> lstBMMarket = this.getBMMarket();
-        for(int i = 0; i < lstBMMarket.size(); i++){
-            if(lstBMMarket.get(i).getMarketStatus().equalsIgnoreCase(status))
+        for (int i = 0; i < lstBMMarket.size(); i++) {
+            if (lstBMMarket.get(i).getMarketStatus().equalsIgnoreCase(status))
                 return lstBMMarket.get(i);
         }
         System.out.println(String.format("The event %s has no Bookmaker market available as status %s", this.getEventName(), status));
         return null;
+    }
+
+    public static class Builder {
+        // Optional parameters
+        private String _eventName = "";
+        private String _eventId = "";
+        private String _competitionName = "";
+        private List<BookmakerMarket1> _bmMarket;
+
+        public Builder() {
+        }
+
+        public Builder eventID(String val) {
+            _eventId = val;
+            return this;
+        }
+
+        public Builder competitionNAme(String val) {
+            _competitionName = val;
+            return this;
+        }
+
+        public Builder eventName(String val) {
+            _eventName = val;
+            return this;
+        }
+
+        public Builder bmMarket(List<BookmakerMarket1> val) {
+            _bmMarket = val;
+            return this;
+        }
+
+        public BookmakerEvent build() {
+            return new BookmakerEvent(this);
+        }
     }
 }

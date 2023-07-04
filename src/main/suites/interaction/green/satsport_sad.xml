@@ -15,8 +15,8 @@
         <parameter name='level' value='SMA'/>
         <parameter name='levelLogin' value='Senior Admin'/>
         <parameter name='downlineAccount' value='smaag1'/>
-        <parameter name ='portalSubAccount' value ='SASUBBA'/>
-        <parameter name ='memberAccount' value ='sabella1'/>
+        <parameter name='portalSubAccount' value='SASUBBA'/>
+        <parameter name='memberAccount' value='sabella1'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
@@ -26,16 +26,16 @@
         <parameter name='bopassword' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <groups>
             <run>
-<!--                <include name="precondition" />-->
-                <include name="smoke1" />
+                <!--                <include name="precondition" />-->
+                <include name="smoke1"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.agencymanagement.AnnouncementTest"/>
+            <class name="agentsite.testcase.agencymanagement.AnnouncementTest"/>
             <class name="agentsite.testcase.satsport.agencymanagement.EventBetSizeSettingsTest"/>
-            <class name="agentsite.testcase.all.marketsmanagement.blockunblockevents.BlockUnblockEventsTest"/>
-            <class name="agentsite.testcase.all.marketsmanagement.SuspendUnsuspendMarketsTest"/>
+            <class name="agentsite.testcase.marketsmanagement.blockunblockevents.BlockUnblockEventsTest"/>
+            <class name="agentsite.testcase.marketsmanagement.SuspendUnsuspendMarketsTest"/>
         </classes>
 
     </test>

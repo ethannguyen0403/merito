@@ -23,7 +23,6 @@ import static agentsite.pages.agentmanagement.DepositWithdrawalPage.Actions.WITH
 public class DepositWithdrawalPage extends HomePage {
     public Popup popupSecurityCode = Popup.xpath("//div[@class='otp-dialog ng-scope']");
     public Label lblDownlineBar = Label.xpath("//span[@class='my-breadcrumb']");
-    public enum Actions {DEPOSIT, WITHDRAWAL, CHECK, USERNAME, SUCCESS_ICON, FAILURE_ICON,VIEW_LOG}
     public Label lblLoginAccountAvailableBalance = Label.xpath("//span[@class='creditBalanceextension']");
     public TextBox txtUsername = TextBox.xpath("//th[contains(@class,'nick-name-field')]//input | //input[@id='userName']");
     public Label lblUsername = Label.xpath("//label[@for='userName']");
@@ -35,46 +34,46 @@ public class DepositWithdrawalPage extends HomePage {
     public CheckBox chkAll = CheckBox.id("cAll");
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     public int colNo = 1;
-    private  int colUsername = 2;
     public int colNickname = 3;
     public int colClientName = 4;
-    private  int colCheckAll = 5;
     public int colAccountStatus = 6;
     public int colLevel = 7;
     public int colCurrency = 8;
     public int colTotalPlayerOutStanding = 9;
     public int colRetainAmount = 10;
     public int colAvailableBalance = 11;
-    private  int colTransfer = 12;
-    private  int colUpdateStatus = 13;
     public String downlineXPath = "//span[text()='%s']";
     public Label lblNoRecord = Label.xpath("//span[contains(@class,'no-record')]");
     public DropDownBox ddpPage = DropDownBox.xpath("//div[contains(@class,'item-per-page')]//select");
-    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'spin')]");
-    private Label lblAvailableBalance = Label.xpath("//span[@class='creditBalanceextension']");
-    private  int totalCol = 13;
-    public  Table tblWithdrawalDeposit = Table.xpath("//table[contains(@class,'ptable report table-responsive')]", totalCol);
-    public DropDownBox ddbAccountStatus = DropDownBox.xpath("(//table[contains(@class,'ptable report table-responsive')])//th["+colAccountStatus+"]//select");
-    public DropDownBox ddbLevel = DropDownBox.xpath("(//table[contains(@class,'ptable report table-responsive')])//th["+colLevel+"]//select");
-    private int colLoginID = 3;
+    public DropDownBox ddbAccountStatus = DropDownBox.xpath("(//table[contains(@class,'ptable report table-responsive')])//th[" + colAccountStatus + "]//select");
+    public DropDownBox ddbLevel = DropDownBox.xpath("(//table[contains(@class,'ptable report table-responsive')])//th[" + colLevel + "]//select");
     public int colCreditInitiation = 8;
-    public int colTotalBalance =9;
+    public int colTotalBalance = 9;
     public int colSubBalance = 1;
     public int colWinloss = 12;
     public int colExposure = 13;
-    private int colLog=15;
-    private int totalColAccountBalanceTable = 4;
     public int colMyCreditHeader = 1;
     public int colTotalBalanceHeader = 2;
     public int colSubBalanceHeader = 3;
-    public int   colMainAvailableBalance = 4;
-    public Table tblAccountBalance = Table.xpath("(//table[@class='ptable report'])[1]",totalColAccountBalanceTable);
+    public int colMainAvailableBalance = 4;
+    private int colUsername = 2;
+    private int colCheckAll = 5;
+    private int colTransfer = 12;
+    private int colUpdateStatus = 13;
+    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'spin')]");
+    private Label lblAvailableBalance = Label.xpath("//span[@class='creditBalanceextension']");
+    private int totalCol = 13;
+    public Table tblWithdrawalDeposit = Table.xpath("//table[contains(@class,'ptable report table-responsive')]", totalCol);
+    private int colLoginID = 3;
+    private int colLog = 15;
+    private int totalColAccountBalanceTable = 4;
+    public Table tblAccountBalance = Table.xpath("(//table[@class='ptable report'])[1]", totalColAccountBalanceTable);
     public DepositWithdrawalPage(String types) {
         super(types);
     }
-    public List<ArrayList<String>> getLoginAccountBalanceInfo()
-    {
-        return tblAccountBalance.getRowsWithoutHeader(1,false);
+
+    public List<ArrayList<String>> getLoginAccountBalanceInfo() {
+        return tblAccountBalance.getRowsWithoutHeader(1, false);
     }
 
     public String getBreadcrumb() {
@@ -90,7 +89,6 @@ public class DepositWithdrawalPage extends HomePage {
         }
         return breadcrumb.trim();
     }
-
 
     public void clickDownline(String downlineAcount) {
         Label.xpath(String.format(downlineXPath, downlineAcount)).click();
@@ -111,7 +109,7 @@ public class DepositWithdrawalPage extends HomePage {
         waitingLoadingSpinner();
     }
 
-    public  int getRowIndex(String usercode) {
+    public int getRowIndex(String usercode) {
         List<String> lstUsername = tblWithdrawalDeposit.getColumn(colUsername, false);
         for (int i = 0; i < lstUsername.size(); i++) {
             if (lstUsername.get(i).equals(usercode)) {
@@ -122,13 +120,13 @@ public class DepositWithdrawalPage extends HomePage {
         return 0;
     }
 
-    public  Object action(Actions type, String username) {
+    public Object action(Actions type, String username) {
         int rowIndex = getRowIndex(username);
         return action(type, rowIndex);
     }
 
-    public double getDataByColumn(String username, int columnIndex){
-        String value =tblWithdrawalDeposit.getControlBasedValueOfDifferentColumnOnRow(username,1,colUsername,1,null,columnIndex,null,true,false).getText();
+    public double getDataByColumn(String username, int columnIndex) {
+        String value = tblWithdrawalDeposit.getControlBasedValueOfDifferentColumnOnRow(username, 1, colUsername, 1, null, columnIndex, null, true, false).getText();
         double returnValue = 0;
         try {
             returnValue = DecimalFormat.getNumberInstance().parse(value).doubleValue();
@@ -138,11 +136,11 @@ public class DepositWithdrawalPage extends HomePage {
         return returnValue;
     }
 
-    public int defineDepositWithdrawTableColumn(String colName){
+    public int defineDepositWithdrawTableColumn(String colName) {
         String level = ProfileUtils.getProfile().getLevel();
-        if(level.equalsIgnoreCase("PO")){
-            colUsername = colLog +1;
-            colTransfer = colTransfer +1;
+        if (level.equalsIgnoreCase("PO")) {
+            colUsername = colLog + 1;
+            colTransfer = colTransfer + 1;
         }
         switch (colName) {
             case "User Name":
@@ -156,14 +154,16 @@ public class DepositWithdrawalPage extends HomePage {
         }
         return 0;
     }
-    public void selectUser(String userName){
-        String cbCheck = tblWithdrawalDeposit.getControlxPathBasedValueOfDifferentColumnOnRow(userName,1,colUsername,1,null,colCheckAll,"input",false,false);
-        if(CheckBox.xpath(cbCheck).isDisplayed()){
-            System.out.println("Select username: "+ userName);
+
+    public void selectUser(String userName) {
+        String cbCheck = tblWithdrawalDeposit.getControlxPathBasedValueOfDifferentColumnOnRow(userName, 1, colUsername, 1, null, colCheckAll, "input", false, false);
+        if (CheckBox.xpath(cbCheck).isDisplayed()) {
+            System.out.println("Select username: " + userName);
             CheckBox.xpath(cbCheck).click();
         }
     }
-    public  Object action(Actions type, int rowIndex) {
+
+    public Object action(Actions type, int rowIndex) {
         if (rowIndex == 0)
             return null;
         Link lnk;
@@ -273,8 +273,6 @@ public class DepositWithdrawalPage extends HomePage {
         return tblWithdrawalDeposit.getRowsWithoutHeader(memberNumber, false);
     }
 
-
-
     public List<String> getRowContainsUsercode(String usercode) {
         List<ArrayList<String>> lstData = tblWithdrawalDeposit.getRowsWithoutHeader(false);
         for (int i = 0; i < lstData.size(); i++)
@@ -284,6 +282,7 @@ public class DepositWithdrawalPage extends HomePage {
         return null;
 
     }
+
     public List<ArrayList<String>> calculateMainAccountInfo(List<ArrayList<String>> lstBalanceInfo, double totalAmount, boolean isDeposit) {
         try {
             List<ArrayList<String>> newList = lstBalanceInfo;
@@ -294,11 +293,11 @@ public class DepositWithdrawalPage extends HomePage {
                 subBalance = subBalance + totalAmount;
                 availableBalance = availableBalance - totalAmount;
             } else {
-                subBalance = subBalance- totalAmount;//Double.parseDouble(newList.get(0).get(colSubBalanceHeader - 1)) - totalAmount;
-                availableBalance =  availableBalance+ totalAmount;//Double.parseDouble(newList.get(0).get(colMainAvailableBalance - 1)) + totalAmount;
+                subBalance = subBalance - totalAmount;//Double.parseDouble(newList.get(0).get(colSubBalanceHeader - 1)) - totalAmount;
+                availableBalance = availableBalance + totalAmount;//Double.parseDouble(newList.get(0).get(colMainAvailableBalance - 1)) + totalAmount;
             }
             newList.get(0).set(colSubBalanceHeader - 1, String.format(Locale.getDefault(), "%,.2f", subBalance));
-            newList.get(0).set(colMainAvailableBalance - 1,  String.format(Locale.getDefault(), "%,.2f", availableBalance));
+            newList.get(0).set(colMainAvailableBalance - 1, String.format(Locale.getDefault(), "%,.2f", availableBalance));
             return newList;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -337,11 +336,11 @@ public class DepositWithdrawalPage extends HomePage {
                 else
                     winloss = winloss - amount;
             }
-            newList.get(i).set(colCreditInitiation - 1, String.format("%.2f",creditInitiation));
-            newList.get(i).set(colTotalBalance - 1,String.format("%.2f",totalBalance)  );
-            newList.get(i).set(colAvailableBalance - 1,String.format("%.2f",availableBalance));
-            newList.get(i).set(colWinloss - 1,String.format("%.2f",winloss));
-            newList.get(i).set(colExposure - 1,String.format("%.2f",exposure));
+            newList.get(i).set(colCreditInitiation - 1, String.format("%.2f", creditInitiation));
+            newList.get(i).set(colTotalBalance - 1, String.format("%.2f", totalBalance));
+            newList.get(i).set(colAvailableBalance - 1, String.format("%.2f", availableBalance));
+            newList.get(i).set(colWinloss - 1, String.format("%.2f", winloss));
+            newList.get(i).set(colExposure - 1, String.format("%.2f", exposure));
 
         }
         return newList;
@@ -361,6 +360,7 @@ public class DepositWithdrawalPage extends HomePage {
         }
         return false;
     }
+
     public boolean verifyBalanceUpdated(double amount, double mainBlance, List<ArrayList<String>> lstDownlineBefore, List<ArrayList<String>> lstDownlineAfter, boolean isDeposit, Actions statusType) {
         double expectedMainBalance;
         double expecteddownlineBalance;
@@ -369,7 +369,7 @@ public class DepositWithdrawalPage extends HomePage {
         double totalAmountDeposit = totalDownline * amount;
         // Calculate main balance after deposit
         if (isDeposit) {
-            expectedMainBalance = DoubleUtils.roundUpWithTwoPlaces(mainBlance)  - totalAmountDeposit;
+            expectedMainBalance = DoubleUtils.roundUpWithTwoPlaces(mainBlance) - totalAmountDeposit;
         } else {
             expectedMainBalance = DoubleUtils.roundUpWithTwoPlaces(mainBlance) + totalAmountDeposit;
         }
@@ -399,14 +399,16 @@ public class DepositWithdrawalPage extends HomePage {
             if (Objects.nonNull(statusType)) {
                 switch (statusType) {
                     case SUCCESS_ICON:
-                        if (!(boolean) action(Actions.SUCCESS_ICON, lstDownlineBefore.get(i).get(colUsername - 1))){
+                        if (!(boolean) action(Actions.SUCCESS_ICON, lstDownlineBefore.get(i).get(colUsername - 1))) {
                             System.out.println(String.format("FAILED! Expected update status of username %s not show Success as expected ", lstDownlineBefore.get(i).get(colUsername - 1)));
-                        return false;}
+                            return false;
+                        }
                         break;
                     case FAILURE_ICON:
-                        if (!(boolean) action(Actions.FAILURE_ICON, lstDownlineBefore.get(i).get(colUsername - 1))){
+                        if (!(boolean) action(Actions.FAILURE_ICON, lstDownlineBefore.get(i).get(colUsername - 1))) {
                             System.out.println(String.format("FAILED! Expected update status of username %s not show Error as expected ", lstDownlineBefore.get(i).get(colUsername - 1)));
-                        return false;}
+                            return false;
+                        }
                         break;
                 }
             }
@@ -425,8 +427,8 @@ public class DepositWithdrawalPage extends HomePage {
         return true;
     }
 
-    public boolean isUpdateStatusSuccess(String username){
-        boolean result =  (boolean) action(Actions.SUCCESS_ICON, username);
+    public boolean isUpdateStatusSuccess(String username) {
+        boolean result = (boolean) action(Actions.SUCCESS_ICON, username);
         System.out.println(String.format("Update status of username %s is %s", username, result));
         return result;
     }
@@ -458,18 +460,19 @@ public class DepositWithdrawalPage extends HomePage {
         return result;
     }
 
-    public  String deposit(String usercode, String amount, String remark, boolean isCreditUpdate,boolean isClose){
-        DepositToPopup popup =  (DepositToPopup)action(Actions.DEPOSIT, usercode);
-        popup.deposit(amount, remark,isCreditUpdate,true);
-        String messsage = popup.lblMessage.getText().trim();;
-        if(isClose)
+    public String deposit(String usercode, String amount, String remark, boolean isCreditUpdate, boolean isClose) {
+        DepositToPopup popup = (DepositToPopup) action(Actions.DEPOSIT, usercode);
+        popup.deposit(amount, remark, isCreditUpdate, true);
+        String messsage = popup.lblMessage.getText().trim();
+        ;
+        if (isClose)
             popup.clickXIcon();
         return messsage;
     }
 
     public String withdraw(String usercode, String amount, String remark, boolean isCreditUpdate, boolean isClose) {
         WithdrawalPopup popup = (WithdrawalPopup) action(WITHDRAWAL, usercode);
-        popup.withdraw(amount, remark, isCreditUpdate,true);
+        popup.withdraw(amount, remark, isCreditUpdate, true);
         String messsage = popup.lblMessage.getText().trim();
         if (isClose)
             popup.clickXIcon();
@@ -481,5 +484,7 @@ public class DepositWithdrawalPage extends HomePage {
         return String.format("%s", (int) Double.parseDouble(creditInitiation));
 
     }
+
+    public enum Actions {DEPOSIT, WITHDRAWAL, CHECK, USERNAME, SUCCESS_ICON, FAILURE_ICON, VIEW_LOG}
 
 }

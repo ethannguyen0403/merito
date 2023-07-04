@@ -14,8 +14,8 @@
         <parameter name='username' value='048'/>
         <parameter name='levelLogin' value='Parter'/>
         <parameter name='downlineAccount' value='03H00'/>
-        <parameter name ='portalSubAccount' value ='ANSUBCT'/>
-        <parameter name ='memberAccount' value ='03H0000000'/>
+        <parameter name='portalSubAccount' value='ANSUBCT'/>
+        <parameter name='memberAccount' value='03H0000000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='isThrown' value='false'/>
@@ -24,12 +24,12 @@
         <parameter name='level' value='SMA'/>
         <groups>
             <run>
-                <include name="newUI_credit_regression" />
+                <include name="newUI_credit_regression"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.home.HeaderTest"></class>
+            <class name="agentsite.testcase.HeaderTest"></class>
         </classes>
 
     </test>

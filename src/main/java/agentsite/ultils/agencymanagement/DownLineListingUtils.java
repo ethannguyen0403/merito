@@ -1,14 +1,14 @@
 package agentsite.ultils.agencymanagement;
 
+import agentsite.objects.agent.account.AccountInfo;
+import agentsite.ultils.account.ProfileUtils;
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
 import com.paltech.utils.DoubleUtils;
 import com.paltech.utils.WSUtils;
-import agentsite.objects.agent.account.AccountInfo;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import agentsite.ultils.account.ProfileUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,8 @@ import static baseTest.BaseCaseTest.domainURL;
 
 
 public class DownLineListingUtils {
-    private static String defineAPIUrl(String brandName){
-        switch (brandName){
+    private static String defineAPIUrl(String brandName) {
+        switch (brandName) {
             case "satsport":
                 return String.format("%s/agent-services/user/sad-downline-list", domainURL);
             default:
@@ -28,23 +28,23 @@ public class DownLineListingUtils {
 
     }
 
-    private static JSONObject getDownLineJson(String brandName,String userName,String loginID){
+    private static JSONObject getDownLineJson(String brandName, String userName, String loginID) {
         String api = defineAPIUrl(brandName);
         //String jsn = String.format("{\"userName\":%s,\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", userName,loginID, DateUtils.getMilliSeconds());
-        String jsn = String.format("{\"userName\":\"%s\",\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":20,\"sortBy\":1,\"sortAsc\":true}",userName,loginID,DateUtils.getMilliSeconds());
-           return WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+        String jsn = String.format("{\"userName\":\"%s\",\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":20,\"sortBy\":1,\"sortAsc\":true}", userName, loginID, DateUtils.getMilliSeconds());
+        return WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
     }
 
     public static List<String> getDownLineUsers(String loginID) {
         List<String> lstUsers = new ArrayList<>();
         String api = String.format("%s/agent-services/user/sad-downline-list", domainURL);
-        String jsn = String.format("{\"userName\":\"%s\",\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":20}", loginID,DateUtils.getMilliSeconds());
-        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        String jsn = String.format("{\"userName\":\"%s\",\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":20}", loginID, DateUtils.getMilliSeconds());
+        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("pageInfo")) {
                 JSONObject jsnPageInfo = jsonObject.getJSONObject("pageInfo");
                 JSONArray arrItems = jsnPageInfo.getJSONArray("items");
-                for (int i=0;i<arrItems.length();i++) {
+                for (int i = 0; i < arrItems.length(); i++) {
                     JSONObject item = arrItems.getJSONObject(i);
                     lstUsers.add(item.getString("userCode"));
                 }
@@ -54,21 +54,20 @@ public class DownLineListingUtils {
     }
 
     public static List<AccountInfo> getDownLineUsers(String loginID, String level, String brandname) {
-        return getDownLineUsers(loginID,level,"ACTIVE",brandname);
+        return getDownLineUsers(loginID, level, "ACTIVE", brandname);
     }
 
 
     public static List<AccountInfo> getDownLineUsers(String loginID, String level, String status, String brandname) {
         List<AccountInfo> lstUsersFilter = new ArrayList<>();
-        List<AccountInfo> lstUsers = getAllDownLineUsers(brandname,"",loginID) ;
-        for(int i = 0; i< lstUsers.size(); i++){
-            if(!level.isEmpty())
-            {
-                if(lstUsers.get(i).getLevel().equalsIgnoreCase(level) && lstUsers.get(i).getStatus().equalsIgnoreCase(status)) {
+        List<AccountInfo> lstUsers = getAllDownLineUsers(brandname, "", loginID);
+        for (int i = 0; i < lstUsers.size(); i++) {
+            if (!level.isEmpty()) {
+                if (lstUsers.get(i).getLevel().equalsIgnoreCase(level) && lstUsers.get(i).getStatus().equalsIgnoreCase(status)) {
                     lstUsersFilter.add(lstUsers.get(i));
                 }
-            }else {
-                if(lstUsers.get(i).getStatus().equalsIgnoreCase(status)) {
+            } else {
+                if (lstUsers.get(i).getStatus().equalsIgnoreCase(status)) {
                     lstUsersFilter.add(lstUsers.get(i));
                 }
             }
@@ -76,10 +75,10 @@ public class DownLineListingUtils {
         return lstUsersFilter;
     }
 
-    public static List<AccountInfo> getAllDownLineUsers(String brandName,String userName, String loginID) {
-       // String api = defineAPIUrl(brandName);
+    public static List<AccountInfo> getAllDownLineUsers(String brandName, String userName, String loginID) {
+        // String api = defineAPIUrl(brandName);
         List<AccountInfo> lstUsers = new ArrayList<>();
-        JSONObject jsonObject = getDownLineJson(brandName,userName,loginID);
+        JSONObject jsonObject = getDownLineJson(brandName, userName, loginID);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("pageInfo")) {
                 JSONObject jsnPageInfo = jsonObject.getJSONObject("pageInfo");
@@ -102,16 +101,16 @@ public class DownLineListingUtils {
         return lstUsers;
     }
 
-    public static List<AccountInfo> getAllDriectMember(String brandName,String loginID) {
+    public static List<AccountInfo> getAllDriectMember(String brandName, String loginID) {
         List<AccountInfo> lstUsers = new ArrayList<>();
         String api = defineAPIUrl(brandName);
-        String jsn = String.format("{\"userName\":\"\",\"loginId\":%s,\"isAgentOnly\":false,\"accStatus\":\"ACTIVE\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}",loginID, DateUtils.getMilliSeconds());
-        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn,DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+        String jsn = String.format("{\"userName\":\"\",\"loginId\":%s,\"isAgentOnly\":false,\"accStatus\":\"ACTIVE\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", loginID, DateUtils.getMilliSeconds());
+        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("pageInfo")) {
                 JSONObject jsnPageInfo = jsonObject.getJSONObject("pageInfo");
                 JSONArray arrItems = jsnPageInfo.getJSONArray("items");
-                for (int i=0;i<arrItems.length();i++) {
+                for (int i = 0; i < arrItems.length(); i++) {
                     JSONObject item = arrItems.getJSONObject(i);
                     AccountInfo a = new AccountInfo.Builder()
                             .userID(Integer.toString(item.getInt("userId")))
@@ -129,21 +128,22 @@ public class DownLineListingUtils {
         return lstUsers;
     }
 
-    public static AccountInfo getAccountInfoInList(List<AccountInfo> lstAccount,String userName){
-        for (AccountInfo acc: lstAccount) {
-            if(acc.getLoginID().equalsIgnoreCase(userName) || acc.getUserCode().equalsIgnoreCase(userName))
+    public static AccountInfo getAccountInfoInList(List<AccountInfo> lstAccount, String userName) {
+        for (AccountInfo acc : lstAccount) {
+            if (acc.getLoginID().equalsIgnoreCase(userName) || acc.getUserCode().equalsIgnoreCase(userName))
                 return acc;
         }
-        System.out.println("Account "+ userName +" does not exist in the list");
+        System.out.println("Account " + userName + " does not exist in the list");
         return null;
     }
-    private static JSONObject getListingCreditCashBalance(){
+
+    private static JSONObject getListingCreditCashBalance() {
         String api = String.format("%s/agent-services/user/getListingCreditCashBalance", domainURL);
         String jsn = String.format("{\"currentPage\":1,\"numOfRows\":50,\"products\":\"EXCHANGE\",\"filter\":{\"userName\":\"\",\"status\":\"\",\"levelSearch\":\"ALL\",\"userId\":%s}}", ProfileUtils.getProfile().getUserID());
-        return  WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);//,DriverManager.getDriver().getCookies().toString());
+        return WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);//,DriverManager.getDriver().getCookies().toString());
     }
 
-    public static JSONObject getBalanceInfoJSONObj(){
+    public static JSONObject getBalanceInfoJSONObj() {
         JSONObject jsonObject = getListingCreditCashBalance();
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("extraInfo")) {
@@ -164,7 +164,7 @@ public class DownLineListingUtils {
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("contentList")) {
                 JSONArray jsnList = jsonObject.getJSONArray("contentList");
-                for (int i=0;i<jsnList.length();i++) {
+                for (int i = 0; i < jsnList.length(); i++) {
                     JSONObject item = jsnList.getJSONObject(i);
                     double cashBalance = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("cashBalance"));
                     double pnl = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("pnl"));
@@ -186,8 +186,8 @@ public class DownLineListingUtils {
             }
             if (jsonObject.has("extraInfo")) {
                 JSONObject item = jsonObject.getJSONObject("extraInfo");
-                double yourCreditCash =  DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("myCreditBalance"));
-                if (item.has("lineInfo")){
+                double yourCreditCash = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("myCreditBalance"));
+                if (item.has("lineInfo")) {
                     JSONObject accountInfo = item.getJSONArray("lineInfo").getJSONObject(0);
                     lstUsers.add(new AccountInfo.Builder()
                             .userID(Integer.toString(accountInfo.getInt("userId")))
@@ -205,13 +205,13 @@ public class DownLineListingUtils {
         return lstUsers;
     }
 
-    public static Double getMyCreditBalance(){
+    public static Double getMyCreditBalance() {
         JSONObject jsonObject = getListingCreditCashBalance();
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("extraInfo")) {
                 JSONObject jsnExtraInfo = jsonObject.getJSONObject("extraInfo");
                 if (Objects.nonNull(jsnExtraInfo)) {
-                    return   jsnExtraInfo.getDouble("myCreditBalance");
+                    return jsnExtraInfo.getDouble("myCreditBalance");
                 }
             }
         }

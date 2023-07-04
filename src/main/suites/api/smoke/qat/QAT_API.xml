@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="STG_API_SMOKE" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+        <!--        <listener class-name="utils.testraildemo.Listener"/>-->
+    </listeners>
+
+    <test name="SMOKE_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='qat'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='qatisainr2'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='INR'/>
+
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+
+        <classes>
+            <!--            <class name="api.testcases.MeritoAPI.MA008_PlaceOrderTest"/>-->
+            <class name="api.testcases.MeritoAPI.MA0015_GetMemberInfoTest"/>
+            <class name="api.testcases.MeritoAPI.MA001_LoginMemberTest"/>
+            <class name="api.testcases.MeritoAPI.MA0016_GetAccountBalanceTest"/>
+            <class name="api.testcases.MeritoAPI.MA003_GetListEventTypesTest"/>
+            <class name="api.testcases.MeritoAPI.MA004_GetListEventCompetitionTest"/>
+            <class name="api.testcases.MeritoAPI.MA005_GetListEventsTest"/>
+            <class name="api.testcases.MeritoAPI.MA006_GetMarketCatalogTest"/>
+            <class name="api.testcases.MeritoAPI.MA007_GetMarketBookTest"/>
+            <class name="api.testcases.MeritoAPI.MA008_PlaceOrderTest"/>
+            <class name="api.testcases.MeritoAPI.MA009_CancelOrderTest"/>
+            <class name="api.testcases.MeritoAPI.MA010_UpdateOrderTest"/>
+            <class name="api.testcases.MeritoAPI.MA011_GetListCurrentOrdersTest"/>
+            <class name="api.testcases.MeritoAPI.MA012_GetListClearedOrdersTest"/>
+            <class name="api.testcases.MeritoAPI.MA013_GetMarketChangeTest"/>
+            <class name="api.testcases.MeritoAPI.MA014_GetAccountStatementTest"/>
+        </classes>
+
+    </test>
+</suite>

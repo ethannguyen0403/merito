@@ -12,6 +12,7 @@ public class FraudDetectionPage extends HomePage {
     public RadioButton rbEventDate = RadioButton.xpath("//input[@value='BY_PLACED_DATE']");
     public Button btnSubmitPlaceDate = Button.xpath("//button[@id='searchByPlacedDate']");
     public TextBox taContent = TextBox.xpath("//textarea[contains(@class,'form-control')]");
+
     public FraudDetectionPage(String types) {
         super(types);
     }

@@ -1,14 +1,24 @@
 package backoffice.pages.bo.system;
 
-import backoffice.controls.Table;
 import backoffice.controls.bo.StaticTable;
 import backoffice.pages.bo.home.HomePage;
+import com.paltech.element.common.Button;
+import com.paltech.element.common.DropDownBox;
+import com.paltech.element.common.Label;
 
 public class ProviderCurrencyMappingPage extends HomePage {
-    private int totalColumn=3;
-    public StaticTable tblEzugi = StaticTable.xpath("//app-currency-mapping//span[contains(text(),'Live Dealer European')]//following::div[@class='custom-table'][1]","div[contains(@class,'custom-table-body')]","div[contains(@class,'custom-table-row')]","div[contains(@class,'custom-table-cell')]",totalColumn);
-    public StaticTable tblFancy = StaticTable.xpath("//app-currency-mapping//div[contains(text(),'27 Fancy')]//following::div[@class='custom-table'][1]","div[contains(@class,'custom-table-body')]","div[contains(@class,'custom-table-row')]","div[contains(@class,'custom-table-cell')]",totalColumn);
-    public StaticTable tblSuperspade = StaticTable.xpath("//app-currency-mapping//div[contains(text(),'Superspade')]//following::div[@class='custom-table'][1]","div[contains(@class,'custom-table-body')]","div[contains(@class,'custom-table-row')]","div[contains(@class,'custom-table-cell')]",totalColumn);
-    public StaticTable tblDigient = StaticTable.xpath("//app-currency-mapping//div[contains(text(),'Digient')]//following::div[@class='custom-table'][1]","div[contains(@class,'custom-table-body')]","div[contains(@class,'custom-table-row')]","div[contains(@class,'custom-table-cell')]",totalColumn);
-    public StaticTable tblSupernowa = StaticTable.xpath("//app-currency-mapping//div[contains(text(),'Supernowa')]//following::div[@class='custom-table'][1]","div[contains(@class,'custom-table-body')]","div[contains(@class,'custom-table-row')]","div[contains(@class,'custom-table-cell')]",totalColumn);
+    public DropDownBox ddnProduct = DropDownBox.xpath("//select");
+    public Button btnSubmit = Button.xpath("//button[text()='Submit']");
+    private int totalColumn = 3;
+    public StaticTable tblEzugi = StaticTable.xpath("//app-currency-mapping", "div[contains(@class,'custom-table-body')]", "div[contains(@class,'custom-table-row')]", "div[contains(@class,'custom-table-cell')]", totalColumn);
+    public StaticTable tblFancy = StaticTable.xpath("//app-currency-mapping", "div[contains(@class,'custom-table-body')]", "div[contains(@class,'custom-table-row')]", "div[contains(@class,'custom-table-cell')]", totalColumn);
+    public StaticTable tblSuperspade = StaticTable.xpath("//app-currency-mapping", "div[contains(@class,'custom-table-body')]", "div[contains(@class,'custom-table-row')]", "div[contains(@class,'custom-table-cell')]", totalColumn);
+    public StaticTable tblDigient = StaticTable.xpath("//app-currency-mapping", "div[contains(@class,'custom-table-body')]", "div[contains(@class,'custom-table-row')]", "div[contains(@class,'custom-table-cell')]", totalColumn);
+    public StaticTable tblSupernowa = StaticTable.xpath("//app-currency-mapping", "div[contains(@class,'custom-table-body')]", "div[contains(@class,'custom-table-row')]", "div[contains(@class,'custom-table-cell')]", totalColumn);
+    private String productIntoDropdown = "//option[contains(text(),'%s')]";
+
+    public String getProductIntoDropdown(String productName) {
+        return Label.xpath(String.format(productIntoDropdown, productName)).getText();
+    }
+
 }

@@ -6,62 +6,63 @@ import com.paltech.element.common.Popup;
 import com.paltech.element.common.TextBox;
 import common.MemberConstants;
 
-public class FunsportChangePasswordPopup extends ChangePasswordPopup{
+public class FunsportChangePasswordPopup extends ChangePasswordPopup {
     public Popup popupChangePassword = Popup.xpath("//div[@id='my-change-pass']");
     public Label lblTitle = Label.xpath("//div[@class='dialog-header']//span[@class='title']");
+    public Label lblSuccessMsg = Label.xpath("//div[@class='successMsg']");
+    public Label lblErrorMsg = Label.xpath("//div[@class='errorMsg']");
     private Button btnClose = Button.xpath("//div[@class='dialog-header']//span[@class='close-dialog']");
     private Button btnCancel = Button.xpath("//div[@id='my-change-pass']//button[@id='cancel-edit-about-you']");
     private Button btnSaveChange = Button.xpath("//div[@id='my-change-pass']//button[@id='save-edit-about-you']");
     private TextBox txtNewPassword = TextBox.id("newPassword");
     private TextBox txtConfirmPassword = TextBox.id("confirmNewPassword");
     private TextBox txtOldPassword = TextBox.id("oldPassword");
-    public Label lblSuccessMsg = Label.xpath("//div[@class='successMsg']");
-    public Label lblErrorMsg = Label.xpath("//div[@class='errorMsg']");
     private Label lblValidateNewPasswordErrorMsg = Label.xpath("//input[@id='password-input']/following::div[@class='text-danger'][1]");
     private Label lblConfirmPasswordErrorMsg = Label.xpath("//input[@id='password-confirmation-input']/following::div[@class='text-danger'][1]");
 
-    public void clickCancelBtn(){
+    public void clickCancelBtn() {
         btnCancel.click();
         btnCancel.isInvisible(1);
     }
-    public void clickSaveChangeBtn(){
+
+    public void clickSaveChangeBtn() {
         btnSaveChange.click();
     }
 
-    public String changePassword(String oldPassword, String newPassword, String confirmPassword){
-       inputChangePassword(oldPassword,newPassword,confirmPassword);
-       clickSaveChangeBtn();
-       lblSuccessMsg.isTextDisplayed(MemberConstants.ChangePasswordPopup.MSG_SUCCESS,3);
-       return lblSuccessMsg.getText();
+    public String changePassword(String oldPassword, String newPassword, String confirmPassword) {
+        inputChangePassword(oldPassword, newPassword, confirmPassword);
+        clickSaveChangeBtn();
+        lblSuccessMsg.isTextDisplayed(MemberConstants.ChangePasswordPopup.MSG_SUCCESS, 3);
+        return lblSuccessMsg.getText();
     }
-    public void inputChangePassword( String newPassword, String confirmPassword,String oldPassword){
+
+    public void inputChangePassword(String newPassword, String confirmPassword, String oldPassword) {
         txtNewPassword.type(newPassword);
         txtConfirmPassword.type(confirmPassword);
         txtOldPassword.type(oldPassword);
     }
 
-    public String getErrorMsg ()
-    {
+    public String getErrorMsg() {
         return lblErrorMsg.getText();
     }
 
-    public String getNewPasswordErrorMsg ()
-    {
+    public String getNewPasswordErrorMsg() {
         return lblValidateNewPasswordErrorMsg.getText();
     }
-    public String getConfirmPasswordErrorMsg ()
-    {
+
+    public String getConfirmPasswordErrorMsg() {
         return lblConfirmPasswordErrorMsg.getText();
     }
 
-    public void closePopup(){
+    public void closePopup() {
         btnClose.click();
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return lblTitle.getText();
     }
-    public boolean isDisplayed(){
+
+    public boolean isDisplayed() {
         return lblTitle.isDisplayed();
     }
 }

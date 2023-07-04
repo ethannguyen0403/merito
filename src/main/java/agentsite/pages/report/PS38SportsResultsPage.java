@@ -16,19 +16,20 @@ public class PS38SportsResultsPage extends HomePage {
 
     public Label lblPS38SportsResults = Label.xpath("//label[text()='PS38 Sports Results']");
     public TextBox txtDate = TextBox.cssSelector("div.filter-match-date input");
-    private DateTimePicker txtDateTime = DateTimePicker.xpath(txtDate, "//bs-days-calendar-view");
-    private DropDownBox ddnSports = DropDownBox.id("select-sport");
-    private Button btnSearch = Button.name("search");
     public Label lblNoRecordFound = Label.cssSelector("td.no-record");
     public Button btnToday = Button.name("today");
     public Button btnYesterday = Button.name("yesterday");
-    public PS38SportsResultsPage(String types){
+    private DateTimePicker txtDateTime = DateTimePicker.xpath(txtDate, "//bs-days-calendar-view");
+    private DropDownBox ddnSports = DropDownBox.id("select-sport");
+    private Button btnSearch = Button.name("search");
+
+    public PS38SportsResultsPage(String types) {
         super(types);
     }
 
 
     public void searchByDateAndSports(String date, String sports) {
-        txtDateTime.selectDate(date,"dd/MM/yyyy");
+        txtDateTime.selectDate(date, "dd/MM/yyyy");
         ddnSports.selectByVisibleContainsText(sports);
         btnSearch.click();
     }
@@ -38,7 +39,7 @@ public class PS38SportsResultsPage extends HomePage {
         btnToday.click();
     }
 
-    public String getTodayDate(){
+    public String getTodayDate() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
         dateFormat.format(cal.getTime());

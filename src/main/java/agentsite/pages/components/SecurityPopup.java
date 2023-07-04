@@ -7,20 +7,21 @@ import com.paltech.element.common.TextBox;
 import org.openqa.selenium.By;
 
 public class SecurityPopup extends BaseElement {
-    private String _xPath;
-    Label lblTitle ;
+    Label lblTitle;
     Label lblContent;
     TextBox txtSecurityCode;
-    Button btnSubmit ;
-    Button btnCancel ;
+    Button btnSubmit;
+    Button btnCancel;
+    private String _xPath;
+
     public SecurityPopup(By locator, String xpathExpression) {
         super(locator);
         this._xPath = xpathExpression;
-        lblTitle = Label.xpath(String.format("%s//div[@class='modal-header']/div",this._xPath));
-        lblContent =Label.xpath(String.format("%s//div[@id='validatePin']/div",this._xPath));
-        txtSecurityCode =TextBox.xpath(String.format("%s//input[@id='pin']",this._xPath));
-        btnSubmit= Button.xpath(String.format("%s//div[@class='modal-footer']/button[@class='pbtn']",this._xPath));
-        btnCancel = Button.xpath(String.format("%s//div[@class='modal-footer']/button[@class='cancel']",this._xPath));
+        lblTitle = Label.xpath(String.format("%s//div[@class='modal-header']/div", this._xPath));
+        lblContent = Label.xpath(String.format("%s//div[@id='validatePin']/div", this._xPath));
+        txtSecurityCode = TextBox.xpath(String.format("%s//input[@id='pin']", this._xPath));
+        btnSubmit = Button.xpath(String.format("%s//div[@class='modal-footer']/button[@class='pbtn']", this._xPath));
+        btnCancel = Button.xpath(String.format("%s//div[@class='modal-footer']/button[@class='cancel']", this._xPath));
     }
 
     public static SecurityPopup xpath(String xpathExpression) {
@@ -28,7 +29,7 @@ public class SecurityPopup extends BaseElement {
     }
 
     public void submitSecurityCode(String securityCode) {
-        if(txtSecurityCode.isDisplayed()) {
+        if (txtSecurityCode.isDisplayed()) {
             txtSecurityCode.sendKeys(securityCode);
             btnSubmit.click();
         }

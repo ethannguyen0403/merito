@@ -1,11 +1,11 @@
 package backoffice.pages.bo.marketmanagement;
 
-import com.paltech.element.common.CheckBox;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.TextBox;
 import backoffice.controls.DateTimePicker;
 import backoffice.controls.Table;
 import backoffice.pages.bo.home.HomePage;
+import com.paltech.element.common.CheckBox;
+import com.paltech.element.common.Label;
+import com.paltech.element.common.TextBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 public class EventMarketStatusPage extends HomePage {
 
     public TextBox txtEventDate = TextBox.xpath("//input[contains(@class,'txt-event-date')]");
-    public DateTimePicker dtpEventDate = DateTimePicker.xpath(txtEventDate,"//div[contains(@class,'datepicker-open')]");
+    public DateTimePicker dtpEventDate = DateTimePicker.xpath(txtEventDate, "//div[contains(@class,'datepicker-open')]");
     public CheckBox cbOpenOnly = CheckBox.name("open");
     public TextBox txtSearchSport = TextBox.name("search-sport");
     public TextBox txtSearchCompetition = TextBox.name("search-competition");
@@ -61,7 +61,7 @@ public class EventMarketStatusPage extends HomePage {
             txtSearchMarketType.sendKeys(marketType);
         if (!marketStatus.isEmpty()) {
             txtSearchMarketStatus.sendKeys(marketStatus);
-            lblNoMarket.waitForControlInvisible(1,1);
+            lblNoMarket.waitForControlInvisible(1, 1);
         }
 
     }
@@ -83,7 +83,7 @@ public class EventMarketStatusPage extends HomePage {
         List<String> lstCompetition = tblCompetition.getColumn(1, true);
         for (int i = 0; i < lstCompetition.size(); i++) {
             if (lstCompetition.get(i).contains(competition)) {
-                if (isSelect){
+                if (isSelect) {
                     tblCompetition.getControlOfCell(1, 1, i + 1, null).click();
                     waitSpinIcon();
                 }
@@ -145,7 +145,7 @@ public class EventMarketStatusPage extends HomePage {
     public boolean verifyEventsStatus(String status) {
         List<String> lstEventStatus = tblEvent.getColumn(colEventStatus, false);
         for (int i = 0; i < lstEventStatus.size(); i++) {
-            if (!lstEventStatus.get(i).equalsIgnoreCase(status)){
+            if (!lstEventStatus.get(i).equalsIgnoreCase(status)) {
                 System.out.println(String.format("The Event Name %s not exist in the list", status));
                 return false;
             }
@@ -164,29 +164,29 @@ public class EventMarketStatusPage extends HomePage {
         return true;
     }
 
-    public boolean isMarketDisplay(String marketID, String marketName, boolean isSelect){
+    public boolean isMarketDisplay(String marketID, String marketName, boolean isSelect) {
         List<String> lstMarket = new ArrayList<>();
-        if(!marketID.isEmpty()) {
+        if (!marketID.isEmpty()) {
             lstMarket = tblMarket.getColumn(colMarketID, false);
             for (int i = 0; i < lstMarket.size(); i++) {
-                if(lstMarket.get(i).contains(marketID)){
-                    if(isSelect)
-                        tblMarket.getControlOfCell(1,colMarketID,i+1,null).click();
+                if (lstMarket.get(i).contains(marketID)) {
+                    if (isSelect)
+                        tblMarket.getControlOfCell(1, colMarketID, i + 1, null).click();
                     return true;
                 }
             }
         }
-        if(!marketName.isEmpty()){
+        if (!marketName.isEmpty()) {
             lstMarket = tblMarket.getColumn(colMarketName, false);
             for (int i = 0; i < lstMarket.size(); i++) {
-                if(lstMarket.get(i).contains(marketName)){
-                    if(isSelect)
-                        tblMarket.getControlOfCell(1,colMarketName,i+1,null).click();
+                if (lstMarket.get(i).contains(marketName)) {
+                    if (isSelect)
+                        tblMarket.getControlOfCell(1, colMarketName, i + 1, null).click();
                     return true;
                 }
             }
         }
-        System.out.println(String.format("The Event ID or Event Name %s %s not exist in the list",marketID, marketName));
+        System.out.println(String.format("The Event ID or Event Name %s %s not exist in the list", marketID, marketName));
         return false;
     }
 }
