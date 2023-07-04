@@ -38,6 +38,7 @@ public class LeftMenu extends Header {
     SubMenu smBetFairTaxRecrawl = SubMenu.name("betfair-tax-re-crawl");
     SubMenu smProviderCurrencyMapping = SubMenu.name("provider-currency-mapping");
     SubMenu smFollowBetToThirdParty =SubMenu.name("follow-bets-to-3rd-party");
+    SubMenu smSmallBetConfiguration = SubMenu.name("small-bet-configuration");
 
     Menu menuOperation = Menu.name("operations");
     SubMenu smWagerVoidUnvoid = SubMenu.name("wager-void-un-void");
@@ -607,6 +608,13 @@ public class LeftMenu extends Header {
         lblOverLay.isDisplayedShort(4);
 //        lblOverLay.isInvisible(7);
         return new LoginActivityPage();
+    }
+    public SmallBetConfigurationPage navigateSmallBetConfiguration() {
+        smSmallBetConfiguration.click();
+        smSmallBetConfiguration.isInvisible(2);
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
+        return new SmallBetConfigurationPage();
     }
 
 }
