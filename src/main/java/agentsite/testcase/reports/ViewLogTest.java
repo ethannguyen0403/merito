@@ -13,9 +13,9 @@ public class ViewLogTest extends BaseCaseTest {
      * @steps: 1. Navigate Report > View Log
      * @expect: 1. Win Loss Simple page is displayed
      */
-    @TestRails(id="815")
+    @TestRails(id = "815")
     @Test(groups = {"http_request"})
-    public void Agent_Report_View_Log_001(){
+    public void Agent_Report_View_Log_001() {
         log("@title: There is no http responded error returned");
         log("Step 1: Navigate Report > View Log");
         ViewLogPage page = agentHomePage.navigateViewLogPage();
@@ -31,15 +31,15 @@ public class ViewLogTest extends BaseCaseTest {
      * @steps: 1. Navigate Report > View Log
      * @expect: 1.Validate View Log UI display correctly
      */
-    @TestRails(id="816")
+    @TestRails(id = "816")
     @Test(groups = {"smoke"})
-    public void Agent_Report_View_Log_002(){
+    public void Agent_Report_View_Log_002() {
         log("@title: Validate View Log UI display correctly");
         log("Step 1: Navigate Report > View Log");
         ViewLogPage page = agentHomePage.navigateViewLogPage();
 
         log("Verify: Validate View Log UI display correctly");
-       Assert.assertEquals( page.header.lblPageTitle.getText(),"View Log","FAILED! Page title is incorrect");
+        Assert.assertEquals(page.header.lblPageTitle.getText(), "View Log", "FAILED! Page title is incorrect");
         log("INFO: Executed completely");
     }
 

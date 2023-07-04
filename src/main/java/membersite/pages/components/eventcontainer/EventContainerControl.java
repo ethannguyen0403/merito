@@ -65,14 +65,14 @@ public class EventContainerControl {
 
     /**
      * To get the event that has Wicket Fancy and and click on that event
+     *
      * @return
      */
-    public String getEventIDHasMarketData(String product){
-       return "";
+    public String getEventIDHasMarketData(String product) {
+        return "";
     }
 
-    public void clickOnRowofEventID(String eventID)
-    {
+    public void clickOnRowofEventID(String eventID) {
 
     }
 

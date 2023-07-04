@@ -17,12 +17,12 @@ import static baseTest.BaseCaseTest.backofficeUrl;
 public class BlockUnblockEventUtils {
     public static List<ArrayList<String>> getDownlineList(String userId) {
         List<ArrayList<String>> lstDownline = new ArrayList<>();
-        String api = String.format("%s/system-manager/block-unlock-event/child-po.sv?userId=%s&levelPT=SMA",backofficeUrl, userId);
-        JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        String api = String.format("%s/system-manager/block-unlock-event/child-po.sv?userId=%s&levelPT=SMA", backofficeUrl, userId);
+        JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonArrayObject = jsonArray.getJSONObject(i);
-                        lstDownline.add(i, new ArrayList<String>(
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonArrayObject = jsonArray.getJSONObject(i);
+                lstDownline.add(i, new ArrayList<String>(
                         Arrays.asList(
                                 Integer.toString(jsonArrayObject.getInt("isFav")),
                                 jsonArrayObject.getString("levelName"),
@@ -31,10 +31,11 @@ public class BlockUnblockEventUtils {
                                 jsonArrayObject.getString("userCode"),
                                 Integer.toString(jsonArrayObject.getInt("userId"))
                         )));
-                    }
-                }
+            }
+        }
         return lstDownline;
     }
+
     public static List<ArrayList<String>> getLeagueAndEventList(String userId, String sportId) {
         List<ArrayList<String>> lstReturn = new ArrayList<>();
         String api = String.format("%s/system-manager/block-unlock-event/events.sv", backofficeUrl);
@@ -48,7 +49,7 @@ public class BlockUnblockEventUtils {
                         "    \"eventNameFilter\": \"\" \n" +
                         "  }\n"
                 , userId, sportId);
-        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, jsn, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON  );
+        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("data")) {
                 JSONArray jsnArray = jsonObject.getJSONArray("data");

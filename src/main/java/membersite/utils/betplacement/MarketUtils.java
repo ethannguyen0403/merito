@@ -8,6 +8,7 @@ import membersite.objects.AccountBalance;
 import membersite.objects.sat.Order;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,9 +18,8 @@ import static baseTest.BaseCaseTest.domainURL;
 
 public class MarketUtils {
 
-    public static String getEvent(String sport)
-    {
-       // String api = String.format()
+    public static String getEvent(String sport) {
+        // String api = String.format()
 
         return "eventID";
     }
@@ -64,20 +64,21 @@ public class MarketUtils {
 
     /**
      * To get placed order form api
+     *
      * @author isabella.huynh
      * @created 10/3/2020
      */
-    public static List<Order> getOrder(){
+    public static List<Order> getOrder() {
         List<Order> wagers = new ArrayList<>();
-        String api = String.format("%s/member-service/order/place-bets?ofs=-420",domainURL);
-        JSONObject jsonObject = WSUtils.getGETJSONResponse(api, "null",Configs.HEADER_JSON);
+        String api = String.format("%s/member-service/order/place-bets?ofs=-420", domainURL);
+        JSONObject jsonObject = WSUtils.getGETJSONResponse(api, "null", Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("selections")) {
                 JSONArray arraySports = jsonObject.getJSONArray("selections");
-                for (int i=0; i < arraySports.length(); i++) {
+                for (int i = 0; i < arraySports.length(); i++) {
                     JSONObject jsonSportSetting = arraySports.getJSONObject(i);
-                    boolean isBack = jsonSportSetting.getString("side").equalsIgnoreCase("BACK")?true:false;
-                    Order wager =new Order.Builder()
+                    boolean isBack = jsonSportSetting.getString("side").equalsIgnoreCase("BACK") ? true : false;
+                    Order wager = new Order.Builder()
                             .eventID(jsonSportSetting.getString("eventId"))
                             .isBack(isBack)
                             .stake(jsonSportSetting.getString("stake"))
@@ -99,21 +100,20 @@ public class MarketUtils {
         return wagers;
     }
 
-    public static AccountBalance getUserBalance(){
+    public static AccountBalance getUserBalance() {
         String api = String.format("%s/member-service/user/balance?_t=%s", domainURL, DateUtils.getMilliSeconds());
-        JSONArray jsonArray = WSUtils.getGETJSONArrayResponse(api,Configs.HEADER_JSON_CHARSET,Configs.HEADER_JSON);
+        JSONArray jsonArray = WSUtils.getGETJSONArrayResponse(api, Configs.HEADER_JSON_CHARSET, Configs.HEADER_JSON);
         JSONObject jsonBalance = jsonArray.getJSONObject(0);
-        if(Objects.nonNull(jsonBalance)){
+        if (Objects.nonNull(jsonBalance)) {
             return new AccountBalance.Builder()
-                    .balance(String.format("%.2f",DoubleUtils.roundUpWithTwoPlaces(jsonBalance.getDouble("cashBalance")+jsonBalance.getDouble("outstanding")+jsonBalance.getDouble("givenCredit"))))
-                    .exposure(String.format("%.2f",DoubleUtils.roundUpWithTwoPlaces(jsonBalance.getDouble("outstanding"))))
-                    .creditRefer(String.format("%.2f",jsonBalance.getDouble("givenCredit")))
+                    .balance(String.format("%.2f", DoubleUtils.roundUpWithTwoPlaces(jsonBalance.getDouble("cashBalance") + jsonBalance.getDouble("outstanding") + jsonBalance.getDouble("givenCredit"))))
+                    .exposure(String.format("%.2f", DoubleUtils.roundUpWithTwoPlaces(jsonBalance.getDouble("outstanding"))))
+                    .creditRefer(String.format("%.2f", jsonBalance.getDouble("givenCredit")))
                     .build();
         }
         System.out.println("DEBUG: getGETJSONResponse is null");
         return null;
     }
-
 
 
 }

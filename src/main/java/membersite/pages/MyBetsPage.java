@@ -1,7 +1,5 @@
 package membersite.pages;
 
-import com.paltech.element.common.Button;
-import com.paltech.element.common.Label;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.mybet.MyBetsContainer;
 
@@ -17,9 +15,10 @@ public class MyBetsPage extends HomePage {
         super(types);
         myBetsContainer = ComponentsFactory.myBetsContainerObject(types);
     }
-    public void clickDownload(){
+
+    public void clickDownload() {
         myBetsContainer.clickDownload();
-       // to wait file is download in 3 seconds
+        // to wait file is download in 3 seconds
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -27,7 +26,7 @@ public class MyBetsPage extends HomePage {
         }
     }
 
-    public String getNoDataMesage(){
+    public String getNoDataMesage() {
         return myBetsContainer.getNoRecord();
     }
 
@@ -60,7 +59,7 @@ public class MyBetsPage extends HomePage {
     }
 
     public List<String> getTableHeaders() {
-       return myBetsContainer.getTableHeaders();
+        return myBetsContainer.getTableHeaders();
     }
 
     public boolean verifyWagerDisplayInReport(String wagerID) {
@@ -84,8 +83,7 @@ public class MyBetsPage extends HomePage {
         return myBetsContainer.translateProductsActive(productCode);
     }
 
-    public List<ArrayList<String>> getReportIndex(int index, boolean isMove)
-    {
-        return myBetsContainer.getReportIndex(index,isMove);
+    public List<ArrayList<String>> getReportIndex(int index, boolean isMove) {
+        return myBetsContainer.getReportIndex(index, isMove);
     }
 }

@@ -8,10 +8,11 @@ public class NotificationPopup {
     private Label lblContent = Label.xpath("//div[@class='ui-pnotify-text']");
     private Label lblTitle = Label.xpath("//div[@class='ui-pnotify-title']");
 
-    public String getMessage(){
+    public String getMessage() {
         return lblContent.getText();
     }
-    public String getTitle (){
+
+    public String getTitle() {
         return lblTitle.getText();
     }
 }

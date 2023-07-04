@@ -7,6 +7,7 @@ public class OldUICashBalanceSection extends CashBalanceSection {
     private Label lblCashBalanceTitle = Label.xpath("//div[@class='psection' and text()='Cash Balance']");
     private TextBox txtCreditInitiation = TextBox.xpath("//input[@name='CreditReference']");
     private TextBox txtMaxPlayerCredit = TextBox.xpath("//input[@name='playerMaxCredit']");
+
     public String getCashSectionTitle() {
         return lblCashBalanceTitle.getText();
     }

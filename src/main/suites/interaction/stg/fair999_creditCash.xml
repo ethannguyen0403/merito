@@ -13,7 +13,7 @@
         <parameter name='isProxy' value='false'/>
         <parameter name='username' value='0210000'/>
         <parameter name='levelLogin' value='Agent'/>
-        <parameter name ='memberAccount' value ='FEINRISA'/>
+        <parameter name='memberAccount' value='FEINRISA'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
@@ -21,12 +21,12 @@
         <parameter name='brandname' value='fairexchange'/>
         <groups>
             <run>
-                <include name="interaction" />
+                <include name="interaction"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.all.agencymanagement.depositwithdrawal.DepositTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
         </classes>
 
     </test>

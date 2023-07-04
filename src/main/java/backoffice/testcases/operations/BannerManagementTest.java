@@ -412,7 +412,7 @@ public class BannerManagementTest extends BaseCaseTest {
         page.filter("Home", expectedBrand, status);
         List<String> lstImgSrc = page.getListBanners(page.colBanner, page.colValidTill);
         page.logout();
-        memberLoginURL = defineURL("fairexchange",MEMBER_URL_SUFFIX.get("fairexchange"));
+        memberLoginURL = defineURL("fairexchange", MEMBER_URL_SUFFIX.get("fairexchange"));
         log("Step 3: Navigate to before login of FairExchange old view and observe banner show on Home before login");
         loginMember(feMemberLoginId, feMemberLoginPwd, false, language, currency, false);
         log("Verify 3. Verify Banner show correctly with sequence set from BO");
@@ -448,7 +448,7 @@ public class BannerManagementTest extends BaseCaseTest {
         page.logout();
 
         log("Step 3: Navigate to before login of FairExchange new view and observe banner show on Home before login");
-        memberLoginURL = defineURL("fairexchangeplus",MEMBER_URL_SUFFIX.get("fairexchangeplus"));
+        memberLoginURL = defineURL("fairexchangeplus", MEMBER_URL_SUFFIX.get("fairexchangeplus"));
         loginMember(feMemberLoginId, feMemberLoginPwd, false, language, currency, false);
         log("Verify 3. Verify Banner show correctly with sequence set from BO");
         List<String> lstMemberImgSrcBefore = landingPage.getListBanners("new view");

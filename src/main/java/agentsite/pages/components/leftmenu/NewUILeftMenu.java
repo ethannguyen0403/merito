@@ -10,7 +10,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static common.AGConstant.HomePage.*;
+import static common.AGConstant.HomePage.AGENCY_MANAGEMENT;
+import static common.AGConstant.HomePage.PS38_SPORTS_RESULTS;
 
 public class NewUILeftMenu extends LeftMenu {
     Icon iconHome = Icon.xpath("//span[@class='action-icon home']");
@@ -36,14 +37,13 @@ public class NewUILeftMenu extends LeftMenu {
 //    }
 
 
-
-    public List<String> defineBalanceInfoQuickSearch(boolean isCredit){
-        if(isCredit)
+    public List<String> defineBalanceInfoQuickSearch(boolean isCredit) {
+        if (isCredit)
             return defineBalanceInfoCreditQuickSearch();
         return defineBalanceInfoCreditCashQuickSearch();
     }
 
-    private List<String> defineBalanceInfoCreditCashQuickSearch(){
+    private List<String> defineBalanceInfoCreditCashQuickSearch() {
         List<ArrayList<String>> lstDownlineInfo = ProfileUtils.getDownlineBalanceInfo();
         String level;
         List<String> lst = new LinkedList<String>(Arrays.asList(
@@ -54,29 +54,28 @@ public class NewUILeftMenu extends LeftMenu {
                 "Yesterday Win Loss"
         ));
         // define downline Credit Used
-        for(int i = 0; i < lstDownlineInfo.size(); i++)
-        {
+        for (int i = 0; i < lstDownlineInfo.size(); i++) {
             level = lstDownlineInfo.get(i).get(0);
-            if(level.equalsIgnoreCase("PL")) {
+            if (level.equalsIgnoreCase("PL")) {
                 lst.add(String.format("Total Member Available Balance"));
-            }else {
+            } else {
                 lst.add(String.format("Total %s Available Balance", level));
             }
 
         }
         // define downline Account Active/Closed/Suspended/Inactive/Blocked
-        for(int i = 0; i < lstDownlineInfo.size(); i++)
-        {
+        for (int i = 0; i < lstDownlineInfo.size(); i++) {
             level = lstDownlineInfo.get(i).get(0);
 
-            if(level.equalsIgnoreCase("PL")){
+            if (level.equalsIgnoreCase("PL")) {
                 lst.add(String.format("Total Member A/C/S/I", level));
-            }else
+            } else
                 lst.add(String.format("Total %s A/C/S/I/B", level));
         }
         return lst;
     }
-    private List<String> defineBalanceInfoCreditQuickSearch(){
+
+    private List<String> defineBalanceInfoCreditQuickSearch() {
         List<ArrayList<String>> lstDownlineInfo = ProfileUtils.getDownlineBalanceInfo();
         String level;
         List<String> lst = new LinkedList<String>(Arrays.asList(
@@ -91,22 +90,20 @@ public class NewUILeftMenu extends LeftMenu {
                 "My Credit"
         ));
         // define downline Credit Used
-        for(int i = 0; i < lstDownlineInfo.size(); i++)
-        {
+        for (int i = 0; i < lstDownlineInfo.size(); i++) {
             level = lstDownlineInfo.get(i).get(0);
-            if(level.equalsIgnoreCase("PL")) {
+            if (level.equalsIgnoreCase("PL")) {
                 lst.add(String.format("Total Member Credit Used"));
-            }else {
+            } else {
                 lst.add(String.format("Total %s Credit Used", level));
             }
         }
         // define downline Account Active/Closed/Suspended/Inactive/Blocked
-        for(int i = 0; i < lstDownlineInfo.size(); i++)
-        {
+        for (int i = 0; i < lstDownlineInfo.size(); i++) {
             level = lstDownlineInfo.get(i).get(0);
-            if(level.equalsIgnoreCase("PL")){
+            if (level.equalsIgnoreCase("PL")) {
                 lst.add(String.format("Total Member A/C/S/I", level));
-            }else
+            } else
                 lst.add(String.format("Total %s A/C/S/I/B", level));
         }
         return lst;
@@ -114,7 +111,7 @@ public class NewUILeftMenu extends LeftMenu {
 
     @Override
     public void navigatePS38SportsResultsPage() {
-        clickSubMenu(AGENCY_MANAGEMENT,PS38_SPORTS_RESULTS);
+        clickSubMenu(AGENCY_MANAGEMENT, PS38_SPORTS_RESULTS);
     }
 
     @Override

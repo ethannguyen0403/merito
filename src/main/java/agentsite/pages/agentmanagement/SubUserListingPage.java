@@ -16,7 +16,6 @@ import static common.AGConstant.AgencyManagement.SubUserListing.PERMISSIONS_ALL;
 
 public class SubUserListingPage extends HomePage {
     public Button btnCreate = Button.id("btnCreateSubUser");
-    private Label iconLoadSpinner = Label.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
     public int tblSubUserTotalCol = 14;
     public int colUsername = 2;
     public int colCreateAccount = 7;
@@ -26,12 +25,14 @@ public class SubUserListingPage extends HomePage {
     public int colTransferDepositWithdraw = 11;
     public int colAccountBalance = 12;
     public int colMarketsManagement = 13;
-
     public Table tblSubUSer = Table.xpath("//table[contains(@class,'ptable report')]", tblSubUserTotalCol);
+    private Label iconLoadSpinner = Label.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
     private String successIcon = "//span[contains(@class,'psuccess')]";
+
     public SubUserListingPage(String types) {
         super(types);
     }
+
     public String createSubUser(String username, String password, String status, String firstName, String lastName, HashMap<String, Boolean> permissions) {
         SubUserPopup popup = openCreateUserPopup();
         String returnUsername = popup.createSubUser(username, password, status, firstName, lastName, permissions);

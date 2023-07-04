@@ -13,10 +13,10 @@
         <parameter name='isProxy' value='false'/>
         <parameter name='username' value='SASUBBA'/>
         <parameter name='downlineAccount' value='QAAT.AD'/>
-        <parameter name ='controlBlockingAccount' value ='QAAT.SAD'/>
-        <parameter name ='memberAccount' value ='QAAT.PL01'/>
-        <parameter name ='controlBlockingLevel' value ='CORP'/>
-        <parameter name ='accountToBet' value ='SAF0000001'/>
+        <parameter name='controlBlockingAccount' value='QAAT.SAD'/>
+        <parameter name='memberAccount' value='QAAT.PL01'/>
+        <parameter name='controlBlockingLevel' value='CORP'/>
+        <parameter name='accountToBet' value='SAF0000001'/>
         <parameter name='password' value='v+18qgA8nyoUHEW9394RTw=='/>
         <parameter name="passwordNonePO" value="p8PEjV0gJOnWf9U0aEgGEA=="/>
         <parameter name='isThrown' value='false'/>
@@ -25,7 +25,7 @@
         <parameter name='brandname' value='satsport'/>
         <groups>
             <run>
-                <include name="smokePO" />
+                <include name="smokePO"/>
             </run>
         </groups>
 

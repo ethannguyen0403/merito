@@ -10,24 +10,32 @@ public class AccountBalance {
     private String _creditRefer;
 
 
+    private AccountBalance(Builder builder) {
+        this._balance = builder._balance;
+        this._exposure = builder._exposure;
+        this._creditRefer = builder._creditRefer;
+    }
+
     public String getBalance() {
         return _balance;
+    }
+
+    public void setBalance(String balance) {
+        this._balance = balance;
     }
 
     public String getExposure() {
         return _exposure;
     }
 
+    public void setExposure(String exposure) {
+        this._exposure = exposure;
+    }
+
     public String getCreditRefer() {
         return _creditRefer;
     }
 
-    public void setBalance(String balance) {
-        this._balance = balance;
-    }
-    public void setExposure(String exposure) {
-        this._exposure = exposure;
-    }
     public void setCreditRefer(String creditRefer) {
         this._creditRefer = creditRefer;
     }
@@ -48,29 +56,27 @@ public class AccountBalance {
         status
         */
 
-        public Builder(){}
+        public Builder() {
+        }
 
-        public Builder exposure(String val){
+        public Builder exposure(String val) {
             _exposure = val;
             return this;
         }
 
-        public Builder balance(String val){
+        public Builder balance(String val) {
             _balance = val;
             return this;
         }
 
-        public Builder creditRefer(String val){
+        public Builder creditRefer(String val) {
             _creditRefer = val;
             return this;
         }
-        public AccountBalance build() { return new AccountBalance(this); }
 
-    }
+        public AccountBalance build() {
+            return new AccountBalance(this);
+        }
 
-    private AccountBalance(Builder builder){
-        this._balance = builder._balance;
-        this._exposure = builder._exposure;
-        this._creditRefer = builder._creditRefer;
     }
 }

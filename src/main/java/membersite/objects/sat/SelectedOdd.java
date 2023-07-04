@@ -5,7 +5,7 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 
 /**
- * @author  isabella.huynh
+ * @author isabella.huynh
  * @created Nov/26/2019
  */
 public class SelectedOdd {
@@ -28,6 +28,27 @@ public class SelectedOdd {
     private String _currency;
     private boolean _isUnmatched;
 
+    private SelectedOdd(Builder builder) {
+        this._eventName = builder._eventName;
+        this._matchScore = builder._matchScore;
+        this._inPlay = builder._inPlay;
+        this._isInPlay = builder._isInPlay;
+        this._isBack = builder._isBack;
+        this._isUnmatched = builder._isUnmatched;
+        this._selectedTeam = builder._selectedTeam;
+        this._marketName = builder._marketName;
+        this._oddRate = builder._oddRate;
+        this._iconRemove = builder._iconRemove;
+        this._txtOdd = builder._txtOdd;
+        this._stake = builder._stake;
+        this._txtStake = builder._txtStake;
+        this._lblProfit = builder._lblProfit;
+        this._lblLiability = builder._lblLiability;
+        this._liability = builder._liability;
+        this._profit = builder._profit;
+        this._currency = builder._currency;
+    }
+
     public String getEventName() {
         return _eventName;
     }
@@ -47,6 +68,7 @@ public class SelectedOdd {
     public boolean getIsBack() {
         return _isBack;
     }
+
     public boolean getIsUnmatched() {
         return _isUnmatched;
     }
@@ -75,12 +97,20 @@ public class SelectedOdd {
         return _stake;
     }
 
+    public void setStake(String val) {
+        _stake = val;
+    }
+
     public TextBox getTxtStake() {
         return _txtStake;
     }
 
     public double getProfit() {
         return _profit;
+    }
+
+    public void setProfit(double val) {
+        _profit = val;
     }
 
     public Label getLblLiability() {
@@ -91,20 +121,12 @@ public class SelectedOdd {
         return _lblProfit;
     }
 
-    public void setStake(String val) {
-        _stake = val;
-    }
-
     public double getLiability() {
         return _liability;
     }
 
     public void setLiability(double val) {
         _liability = val;
-    }
-
-    public void setProfit(double val) {
-        _profit = val;
     }
 
     public String getCurrency() {
@@ -132,114 +154,102 @@ public class SelectedOdd {
         private double _profit = -1;
         private String _currency = "";
 
-        public Builder(){}
+        public Builder() {
+        }
 
-        public Builder eventName(String val){
+        public Builder eventName(String val) {
             _eventName = val;
             return this;
         }
 
-        public Builder matchScore(String val){
+        public Builder matchScore(String val) {
             _matchScore = val;
             return this;
         }
 
-        public Builder inPlay(String val){
+        public Builder inPlay(String val) {
             _inPlay = val;
             return this;
         }
 
-        public Builder isInPlay(boolean val){
+        public Builder isInPlay(boolean val) {
             _isInPlay = val;
             return this;
         }
 
-        public Builder isUnmatched(boolean val){
+        public Builder isUnmatched(boolean val) {
             _isUnmatched = val;
             return this;
         }
 
-        public Builder isBack(boolean val){
+        public Builder isBack(boolean val) {
             _isBack = val;
             return this;
         }
 
-        public Builder selectedTeam(String val){
+        public Builder selectedTeam(String val) {
             _selectedTeam = val;
             return this;
         }
 
-        public Builder marketName(String val){
+        public Builder marketName(String val) {
             _marketName = val;
             return this;
         }
 
-        public Builder oddRate(double val){
+        public Builder oddRate(double val) {
             _oddRate = val;
             return this;
         }
 
-        public Builder txtOdd(TextBox val){
+        public Builder txtOdd(TextBox val) {
             _txtOdd = val;
             return this;
         }
-        public Builder lblLiability(Label val){
+
+        public Builder lblLiability(Label val) {
             _lblLiability = val;
             return this;
         }
-        public Builder lblProfit(Label val){
+
+        public Builder lblProfit(Label val) {
             _lblProfit = val;
             return this;
         }
-        public Builder iconRemove(Icon val){
+
+        public Builder iconRemove(Icon val) {
             _iconRemove = val;
             return this;
         }
 
-        public Builder stake(String val){
+        public Builder stake(String val) {
             _stake = val;
             return this;
         }
 
-        public Builder txtStake(TextBox val){
+        public Builder txtStake(TextBox val) {
             _txtStake = val;
             return this;
         }
-        public Builder liability(double val){
+
+        public Builder liability(double val) {
             _liability = val;
             return this;
         }
-        public Builder profit(double val){
+
+        public Builder profit(double val) {
             _profit = val;
             return this;
         }
-        public Builder currency(String val){
+
+        public Builder currency(String val) {
             _currency = val;
             return this;
         }
 
-        public SelectedOdd build() { return new SelectedOdd(this); }
+        public SelectedOdd build() {
+            return new SelectedOdd(this);
+        }
 
-    }
-
-    private SelectedOdd(Builder builder){
-        this._eventName = builder._eventName;
-        this._matchScore = builder._matchScore;
-        this._inPlay = builder._inPlay;
-        this._isInPlay = builder._isInPlay;
-        this._isBack = builder._isBack;
-        this._isUnmatched = builder._isUnmatched;
-        this._selectedTeam = builder._selectedTeam;
-        this._marketName = builder._marketName;
-        this._oddRate = builder._oddRate;
-        this._iconRemove = builder._iconRemove;
-        this._txtOdd = builder._txtOdd;
-        this._stake = builder._stake;
-        this._txtStake = builder._txtStake;
-        this._lblProfit = builder._lblProfit;
-        this._lblLiability = builder._lblLiability;
-        this._liability = builder._liability;
-        this._profit = builder._profit;
-        this._currency = builder._currency;
     }
 }

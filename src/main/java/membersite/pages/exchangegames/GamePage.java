@@ -1,17 +1,12 @@
 package membersite.pages.exchangegames;
 
 import com.paltech.constant.StopWatch;
-import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Menu;
 import membersite.pages.LandingPage;
-import org.openqa.selenium.support.PageFactory;
-
-import java.lang.reflect.Constructor;
 
 public class GamePage extends LandingPage {
-    private Label tblHeaderTitle = Label.xpath("//app-game-header//table[@class='head-table']//tr[1]/td");
     public Label lblGameStatus = Label.xpath("//div[contains(@class,'game-status')]//span[@class='mx-auto']");
     public Icon icHomeMenu = Icon.xpath("//ul[@class='navbar-nav']//li[1]");
     public Menu menuBaccarat = Menu.xpath("//ul[@class='navbar-nav']//a[contains(@href,'baccarat')]");
@@ -22,16 +17,20 @@ public class GamePage extends LandingPage {
     public Menu menuOmahaHi = Menu.xpath("//ul[@class='navbar-nav']//a[contains(@href,'omaha-hi')]");
     public Menu menuHoldEm = Menu.xpath("//ul[@class='navbar-nav']//a[contains(@href,'hold-em')]");
     public Icon icSpin = Icon.xpath("//ngx-spinner[@type='ball-clip-rotate']//div[contains(@class,'overlay')]");
+    private Label tblHeaderTitle = Label.xpath("//app-game-header//table[@class='head-table']//tr[1]/td");
+
     public GamePage(String types) {
         super(types);
     }
-    public void waitGameLoad(){
-        if(icSpin.isDisplayed()){
-            icSpin.waitForControlInvisible(1,1);
+
+    public void waitGameLoad() {
+        if (icSpin.isDisplayed()) {
+            icSpin.waitForControlInvisible(1, 1);
         }
     }
+
     public Object navigateGameFromMainMenu(String pageName) {
-        switch (pageName){
+        switch (pageName) {
             case "BACCARAT":
                 menuBaccarat.click();
                 waitGameLoad();
@@ -65,20 +64,20 @@ public class GamePage extends LandingPage {
     }
 
 
-    public String getGameHeaderTitle(){
+    public String getGameHeaderTitle() {
         return tblHeaderTitle.getText().trim();
     }
 
-    public void waitUntilGameAvailable(){
+    public void waitUntilGameAvailable() {
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        while(stopWatch.getElapsedTime() < 3000L) {
+        while (stopWatch.getElapsedTime() < 3000L) {
             try {
-                if(!lblGameStatus.isDisplayed()){
+                if (!lblGameStatus.isDisplayed()) {
                     return;
                 }
-                System.out.println("Bet Slip waiting status disable in "+ stopWatch.getElapsedTime());
+                System.out.println("Bet Slip waiting status disable in " + stopWatch.getElapsedTime());
                 //lblGameStatus.isInvisible(1);
             } catch (Exception var4) {
 

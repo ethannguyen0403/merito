@@ -16,7 +16,7 @@ public class ChangePasswordPopup {
         txtNewPassword.isDisplayed(5);
         if (!newPassword.isEmpty())
             txtNewPassword.sendKeys(newPassword);
-        if(!confirmPassword.isEmpty())
+        if (!confirmPassword.isEmpty())
             txtConfirmPassword.sendKeys(confirmPassword);
         btnSubmit.click();
         //waitingLoadingSpinner();

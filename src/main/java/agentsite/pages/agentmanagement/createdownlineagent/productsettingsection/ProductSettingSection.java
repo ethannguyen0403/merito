@@ -9,5 +9,7 @@ public class ProductSettingSection {
         iconLoadSpinner.waitForControlInvisible(2, 2);
     }
 
-    public String getProductSettingSectionTitle() {return "";}
+    public String getProductSettingSectionTitle() {
+        return "";
+    }
 }

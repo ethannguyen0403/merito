@@ -6,14 +6,15 @@ import java.util.Map;
 
 
 public class TestRailManager {
+    public static final int TEST_CASE_PASSED_STATUS = 1;
+    public static final int TEST_CASE_FAILED_STATUS = 5;
+    public final static String PROJECT_ID = "1";
     public static String TEST_RUN_ID = "1";
     public static String TESTRAIL_USERNAME = "huonghuynh90@gmail.com";
     public static String TESTRAIL_PASSWORD = "P@l332211";
     public static String RAILS_ENGINE_URL = "https://merito1.testrail.io/";
-    public static final int TEST_CASE_PASSED_STATUS = 1;
-    public static final int TEST_CASE_FAILED_STATUS = 5;
     public static APIClient client;
-    public final static String PROJECT_ID="1";
+
     public static void addRun() throws APIException, IOException {
        /* client  = new APIClient(RAILS_ENGINE_URL);
         client.setUser(TESTRAIL_USERNAME);
@@ -40,9 +41,9 @@ public class TestRailManager {
         client.setUser(TESTRAIL_USERNAME);
         client.setPassword(TESTRAIL_PASSWORD);
         Map data = new HashMap();
-        data.put("status_id",status);
-        data.put("comment","Test Executed - Status update automatically form Selenium test automation tool");
-        client.sendPost("add_result_for_case/"+testRunId+"/"+testCaseID+"",data);
+        data.put("status_id", status);
+        data.put("comment", "Test Executed - Status update automatically form Selenium test automation tool");
+        client.sendPost("add_result_for_case/" + testRunId + "/" + testCaseID + "", data);
 
     }
 }

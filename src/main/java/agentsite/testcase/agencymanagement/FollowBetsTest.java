@@ -1,11 +1,11 @@
 package agentsite.testcase.agencymanagement;
 
-import common.AGConstant;
 import agentsite.pages.agentmanagement.FollowBetsPage;
 import agentsite.pages.agentmanagement.followbets.GroupDetailsPopup;
 import agentsite.pages.components.ConfirmPopup;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
+import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -21,7 +21,7 @@ public class FollowBetsTest extends BaseCaseTest {
      * @expect: 1. There is no http requests error
      */
     @Test(groups = {"http_request"})
-    public void Agent_AM_Follow_Bets_001(){
+    public void Agent_AM_Follow_Bets_001() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Follow Bet");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
@@ -33,22 +33,21 @@ public class FollowBetsTest extends BaseCaseTest {
 
     /**
      * @title: Verify can Add, Edit, Deleted, group for Exchange product
-     * @pre-condition:
-     *           1. Log in successfully
+     * @pre-condition: 1. Log in successfully
      * @steps: 1. Navigate Agency Management >  Follow Bets
-     *          2. Select By Group
-     *          3. Click Add Group
-     *          4. Input the required field with valid value and select check on Follow All Bets and click Save button
-     *          5. Click on Edit button and update  group name, Follow status, group color, Additional Stake, Additional Odds Range %, Product, Stake %, Uncheck Follow All Bets, only check Match odds for all sport and Win for HR and click Save button
-     *          6. Click Deleted button
+     * 2. Select By Group
+     * 3. Click Add Group
+     * 4. Input the required field with valid value and select check on Follow All Bets and click Save button
+     * 5. Click on Edit button and update  group name, Follow status, group color, Additional Stake, Additional Odds Range %, Product, Stake %, Uncheck Follow All Bets, only check Match odds for all sport and Win for HR and click Save button
+     * 6. Click Deleted button
      * @expect: 1. The group is added into Group List with correct info
-     *          2. The group info is updated as step 5
-     *          3. A confirm message display to confirm deleted group and click OK to confirm.
-     *          - Verify Group is remove out the group list table
+     * 2. The group info is updated as step 5
+     * 3. A confirm message display to confirm deleted group and click OK to confirm.
+     * - Verify Group is remove out the group list table
      */
-    @Test (groups = {"smokePO"})
-    @Parameters({"accountToBet","username"})
-    public void Agent_AM_Follow_Bets_007(String accountToBet,String username){
+    @Test(groups = {"smokePO"})
+    @Parameters({"accountToBet", "username"})
+    public void Agent_AM_Follow_Bets_007(String accountToBet, String username) {
         log("@title: Verify can Add, Edit, Deleted, group for Exchange product");
         log("Step 1. Navigate Agency Management >  Follow Bets");
         String groupName = String.format("%s%s", "Auto Group", StringUtils.generateAlphabetic(4));
@@ -57,49 +56,48 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 2. Select By Group");
         log("Step 3. Click Add Group");
         log("Step 4. Input the required field with valid value and select check on Follow All Bets and click Save button");
-        GroupDetailsPopup popup =page.clickAddGroup("By Group".toUpperCase());
-        popup.createNewGroup(groupName,"Yes",accountToBet,"1","2","Exchange","11",true);
+        GroupDetailsPopup popup = page.clickAddGroup("By Group".toUpperCase());
+        popup.createNewGroup(groupName, "Yes", accountToBet, "1", "2", "Exchange", "11", true);
 
         log("Verify 1. The group is added into Group List with correct info  ");
-        Assert.assertTrue(page.verifyByGroupInfo(groupName,"Yes","11.00","0.00","1.00","2.00",accountToBet,username,""));
+        Assert.assertTrue(page.verifyByGroupInfo(groupName, "Yes", "11.00", "0.00", "1.00", "2.00", accountToBet, username, ""));
 
         log("Step 5. Click on Edit button and update  group name, Follow status, group color, Additional Stake, Additional Odds Range %, Product, Stake %, Uncheck Follow All Bets, only check Match odds for all sport and Win for HR and click Save button");
-        popup = (GroupDetailsPopup) page.clickAction(groupName,"Edit");
-        popup.createNewGroup(groupName,"No",accountToBet,"2","3","Exchange","9",true);
+        popup = (GroupDetailsPopup) page.clickAction(groupName, "Edit");
+        popup.createNewGroup(groupName, "No", accountToBet, "2", "3", "Exchange", "9", true);
 
         log("Verify 2. The group info is updated as step 5");
-        Assert.assertTrue(page.verifyByGroupInfo(groupName,"No","--","--","--","--","--",username,""));
+        Assert.assertTrue(page.verifyByGroupInfo(groupName, "No", "--", "--", "--", "--", "--", username, ""));
 
         log("Step 6. Click Deleted button");
-        ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction(groupName,"Delete");
+        ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction(groupName, "Delete");
         String confirmMsg = confirmPopup.getContentMessage();
         confirmPopup.confirm();
 
         log("Verify 3. A confirm message display to confirm deleted group and click OK to confirm.\n" +
                 "     *          - Verify Group is remove out the group list table");
 
-        Assert.assertEquals(confirmMsg,"Are you sure to delete this group?", "FAILED! Confirm delete group message are incorrect");
-        Assert.assertFalse(page.verifyByGroupInfo(groupName,"No","--","--","--","--","--",username,""));
+        Assert.assertEquals(confirmMsg, "Are you sure to delete this group?", "FAILED! Confirm delete group message are incorrect");
+        Assert.assertFalse(page.verifyByGroupInfo(groupName, "No", "--", "--", "--", "--", "--", username, ""));
 
         log("INFO: Executed completely");
     }
 
     /**
      * @title: Verify can add, remove agent for a group
-     * @pre-condition:
-     *           1. Log in successfully by PO
-     *           2. Have a group created
+     * @pre-condition: 1. Log in successfully by PO
+     * 2. Have a group created
      * @steps: 1. Navigate Agency Management >  Follow Bets
-     *          2. Select By Group
-     *          3. Select a group in group list
-     *          4. Enter a valid agent account
-     *      5. Remove the agent out the group
+     * 2. Select By Group
+     * 3. Select a group in group list
+     * 4. Enter a valid agent account
+     * 5. Remove the agent out the group
      * @expect: 1.Verify can add agent into the group
-     *          2. Verify can agent player out the group
+     * 2. Verify can agent player out the group
      */
-    @Test (groups = {"smokePO"})
-    @Parameters({"accountToBet","controlBlockingAccount"})
-    public void Agent_AM_Follow_Bets_009(String accountToBet,String controlBlockingAccount){
+    @Test(groups = {"smokePO"})
+    @Parameters({"accountToBet", "controlBlockingAccount"})
+    public void Agent_AM_Follow_Bets_009(String accountToBet, String controlBlockingAccount) {
         log("@title: Verify can Add, Edit, Deleted, group for Exchange product");
         log("Step 1. Navigate Agency Management >  Follow Bets");
         String groupName = String.format("%s%s", "Auto Group", StringUtils.generateAlphabetic(4));
@@ -128,11 +126,11 @@ public class FollowBetsTest extends BaseCaseTest {
             page.waitingLoadingSpinner();
 
             log("Verify 2. Verify can remove agent out the group");
-            Assert.assertEquals(confirmMsg, String.format("Confirm to remove user %s from %s.", addAgentPlayerLst.get(0).get(page.colUsername-1),groupName), "FAILED! Confirm remove agent/player is incorrect");
+            Assert.assertEquals(confirmMsg, String.format("Confirm to remove user %s from %s.", addAgentPlayerLst.get(0).get(page.colUsername - 1), groupName), "FAILED! Confirm remove agent/player is incorrect");
             Assert.assertTrue(page.tblAddAgentPlayer.getColumn(1, 1, false).get(0).equalsIgnoreCase(AGConstant.NO_RECORD_FOUND), "FAILED! Agent has not removed yet");
-        }finally {
+        } finally {
             log("Step PostCondition: Delete group");
-            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction(groupName,"Delete");
+            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction(groupName, "Delete");
             confirmPopup.confirm();
         }
         log("INFO: Executed completely");

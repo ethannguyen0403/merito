@@ -6,11 +6,11 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 
 public class BeforeLoginManagementPopup {
+    public DropDownBox ddpSubMenu = DropDownBox.xpath("//p[text()='Sub-Menu']//following-sibling::select");
     private TextBox txtMenuName = TextBox.xpath("//p[text()='Menu Name']//following-sibling::input");
     private TextBox txtSequence = TextBox.xpath("//p[text()='Sequence']//following-sibling::input");
     private TextBox txtMenuLink = TextBox.xpath("//p[text()='Menu Link']//following-sibling::div//input");
     private DropDownBox ddpMenuStatus = DropDownBox.xpath("//p[text()='Menu Status']//following-sibling::select");
-    public DropDownBox ddpSubMenu = DropDownBox.xpath("//p[text()='Sub-Menu']//following-sibling::select");
     private TextBox txtSubMenu1Name = TextBox.xpath("//p[text()='Sub-Menu 1 Name: ']//following-sibling::input");
     private TextBox txtSubMenu1Link = TextBox.xpath("//p[text()='Sub-Menu 1 Link: ']//following-sibling::input");
     private TextBox txtSubMenu1Sequence = TextBox.xpath("//p[text()='Sub-Menu 1 Sequence: ']//following-sibling::input");

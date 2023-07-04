@@ -12,36 +12,36 @@ import util.testraildemo.TestRails;
 
 public class LandingPageTest extends BaseCaseTest {
 
-    @TestRails(id="1213")
-    @Test (groups = {"smoke"})
-    @Parameters({"username","password"})
+    @TestRails(id = "1213")
+    @Test(groups = {"smoke"})
+    @Parameters({"username", "password"})
     public void Landing_Page_TC1213(String username, String password) throws Exception {
         log("@title:Validate that user can sign in successfully");
         log("@Step 1 Navigate to  login page");
         log("@Step 2 Click login button to open login popup or underage gambling popup");
         log("@Step 3 Log in with a valid username and password");
         String passwordDecrypt = StringUtils.decrypt(password);
-        HomePage homePage = landingPage.login(username,passwordDecrypt,true);
+        HomePage homePage = landingPage.login(username, passwordDecrypt, true);
 
         log("@Verify 1  Home page display with My account dropdown box");
-        Assert.assertTrue(homePage.isMyAccountDisplay(),"Failed! My Account does not display after login");
+        Assert.assertTrue(homePage.isMyAccountDisplay(), "Failed! My Account does not display after login");
 
         log("@Verify 2 in My Account dropdown box display Username correctly");
-        Assert.assertTrue(homePage.isMyAccountContains(username),"Failed! My Account does not display after login");
+        Assert.assertTrue(homePage.isMyAccountContains(username), "Failed! My Account does not display after login");
 
         log("INFO: Executed completely");
 
     }
 
-    @TestRails(id="1214")
-    @Test (groups = {"smoke"})
+    @TestRails(id = "1214")
+    @Test(groups = {"smoke"})
     @Parameters({"password"})
     public void Landing_Page_TC1214(String password) throws Exception {
         log("@title: Validate that user with invalid account cannot sign in successfully");
         log("Step 1: Navigate to login page");
         log("Step 2: Click Login button and confirm more than 18 years old");
         log("Step 3: Log in with an invalid username and correct password");
-        String errorMessage = landingPage.loginInvalid("inavlid",StringUtils.decrypt(password));
+        String errorMessage = landingPage.loginInvalid("inavlid", StringUtils.decrypt(password));
 
         log("Verify 1: Verity the error message is display");
         Assert.assertEquals(errorMessage, MemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
@@ -49,15 +49,15 @@ public class LandingPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id="1215")
-    @Test (groups = {"smoke"})
+    @TestRails(id = "1215")
+    @Test(groups = {"smoke"})
     @Parameters({"username"})
-    public void Landing_Page_TC1215(String username){
+    public void Landing_Page_TC1215(String username) {
         log("@title: Validate that user cannot login with incorrect username");
         log("Step 1: Navigate to login page");
         log("Step 2: Click Login button and confirm more than 18 years old");
         log("Step 3: 3 Log in with an valid username and invalid password");
-        String errorMessage = landingPage.loginInvalid(username,"invalid");
+        String errorMessage = landingPage.loginInvalid(username, "invalid");
 
         log("Verify 1: Verity the error message is display");
         Assert.assertEquals(errorMessage, MemberConstants.LoginPage.MSG_LOGIN_FAIL, String.format("ERROR: The expected error message is '%s' but found '%s'", MemberConstants.LoginPage.MSG_LOGIN_FAIL, errorMessage));
@@ -65,9 +65,9 @@ public class LandingPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id="1216")
+    @TestRails(id = "1216")
     @Parameters({"brandname"})
-    @Test (groups = {"satsport","funsport","fairenter"})// other whitelabel except Fair999
+    @Test(groups = {"satsport", "funsport", "fairenter"})// other whitelabel except Fair999
     public void Landing_Page_TC1216(String brandname) throws Exception {
         log("@title: Validate Underage gambling is prohibited popup");
         log("Step 1. Access member site");
@@ -75,13 +75,13 @@ public class LandingPageTest extends BaseCaseTest {
         UnderageGamblingPopup underageGamblingPopup = landingPage.clickLogin();
 
         log("Verify 1. Validate Underage gambling is prohibited popup UI");
-        Assert.assertEquals(underageGamblingPopup.getTitle(),MemberConstants.LoginPage.LBL_UNDERGAMLING_TITLE_MAP.get(brandname),"Failed! Underage Gambling title is mismatched");
-        Assert.assertEquals(underageGamblingPopup.getContent(),MemberConstants.LoginPage.LBL_UNDERGAMLING_CONTENT_MAP.get(brandname),"Failed! Underage Gambling sub-text is mismatched");
+        Assert.assertEquals(underageGamblingPopup.getTitle(), MemberConstants.LoginPage.LBL_UNDERGAMLING_TITLE_MAP.get(brandname), "Failed! Underage Gambling title is mismatched");
+        Assert.assertEquals(underageGamblingPopup.getContent(), MemberConstants.LoginPage.LBL_UNDERGAMLING_CONTENT_MAP.get(brandname), "Failed! Underage Gambling sub-text is mismatched");
         log("INFO: Executed completely");
     }
 
-    @TestRails(id="1216")
-    @Test (groups = {"satsport","funsport","fairenter"})// other whitelabel except Fair999
+    @TestRails(id = "1216")
+    @Test(groups = {"satsport", "funsport", "fairenter"})// other whitelabel except Fair999
     public void Landing_Page_TC1217() throws Exception {
         log("@title: Validate Google page display when click on Exit");
         log("Step 1. Access member site");
@@ -90,7 +90,7 @@ public class LandingPageTest extends BaseCaseTest {
         underageGamblingPopup.clickExit();
 
         log("Verify 1. Validate Underage gambling is prohibited popup UI");
-        Assert.assertEquals( landingPage.getPageUrl(),"https://www.google.com/","Failed! Google page is dispplay after clicking on Exit");
+        Assert.assertEquals(landingPage.getPageUrl(), "https://www.google.com/", "Failed! Google page is dispplay after clicking on Exit");
         log("INFO: Executed completely");
     }
 /*

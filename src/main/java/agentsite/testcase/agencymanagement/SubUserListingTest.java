@@ -17,18 +17,17 @@ import static common.AGConstant.HomePage.*;
 import static common.AGConstant.SubUserListing.*;
 
 public class SubUserListingTest extends BaseCaseTest {
-      /**
+    /**
      * @title: Can create Sub user successfully with full permissions
-     * @pre-condition:
-     *           1. Log in successfully by SAD
+     * @pre-condition: 1. Log in successfully by SAD
      * @steps: 1. Navigate Agency Management > Sub User Listing
-     *         2. Click on Create button
-     *         3. Input all info and check all permission
-     *         4. Click Submit
+     * 2. Click on Create button
+     * 3. Input all info and check all permission
+     * 4. Click Submit
      * @expect: 1. Verify Sub user is created with all permission
-     *          2. Verify can login agent with new sub account
+     * 2. Verify can login agent with new sub account
      */
-    @Test (groups = {"smoke"})
+    @Test(groups = {"smoke"})
     @Parameters("password")
     public void Agent_AM_Sub_User_Listing_0004(String password) throws Exception {
         log("@title: Verify can search downline by Login ID");
@@ -36,14 +35,15 @@ public class SubUserListingTest extends BaseCaseTest {
         String pwDecrypt = StringUtils.decrypt(password);
 
         SubUserListingPage page = agentHomePage.navigateSubUserListingPage();
-        HashMap<String, Boolean> permissions = new HashMap<String, Boolean>(){
+        HashMap<String, Boolean> permissions = new HashMap<String, Boolean>() {
             {
                 put("Create Account", true);
-                put("Update Account",true);
-                put("View Account",true);
-                put("Report",true);
-                put("Transfer & Deposit/Withdraw",true);
-                put("Account Balance", true);        }
+                put("Update Account", true);
+                put("View Account", true);
+                put("Report", true);
+                put("Transfer & Deposit/Withdraw", true);
+                put("Account Balance", true);
+            }
         };
 
         log("Step 2. Click on Create button");

@@ -1,10 +1,10 @@
 package agentsite.pages.agentmanagement;
 
-import common.AGConstant;
 import agentsite.controls.Cell;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import com.paltech.element.common.*;
+import common.AGConstant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,16 +33,12 @@ public class PositionTakingListingPage extends HomePage {
     public int updateStatusCol = 16;
     public Table tblDownline = Table.xpath("//app-exchange-pt-table//table[contains(@class,'directDownline table-responsive')]", totalColum);
     public DropDownBox ddbLevelPreset = DropDownBox.xpath("//table[contains(@class,'selectionTable')]//td[contains(text(),'Preset')]/select");
-    private Label iconLoadSpinner = Label.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
     public Label lblUsername = Label.xpath(String.format("//td[text()='%s']", AGConstant.AgencyManagement.PositionTakingListing.LBL_USERNAME));
     public Label lblAccountStatus = Label.xpath(String.format("//td[text()='%s']", AGConstant.AgencyManagement.PositionTakingListing.LBL_ACCOUNTSTATUS));
     public Label lblLevel = Label.xpath(String.format("//span[text()='%s']", AGConstant.AgencyManagement.PositionTakingListing.LBL_LEVEL));
     public Label lblProduct = Label.xpath(String.format("//td[text()='%s']", AGConstant.AgencyManagement.PositionTakingListing.LBL_PRODUCT));
     public Label lblBreadcrumb = Label.xpath("//span[@class='downline']");
     public Button btnUpdate = Button.xpath("//div[contains(@class,'paction2')]//button[contains(@class,'pbtn')]");
-    private String xPathSport = "//span[contains(text(),'%s')]/preceding::input[1]";
-    private String successIcon = "//span[contains(@class,'psuccess')]";
-    private String errorIcon = "//span[contains(@class,'perror')]";
     public Label lblNoRecord = Label.xpath("//td[@class='no-record']");
     public CheckBox cbAll = CheckBox.xpath("//span[contains(text(),'Select All')]/preceding::input[1]");
     public CheckBox cbSoccer = CheckBox.xpath("//input[@id='SOCCER']");
@@ -53,9 +49,15 @@ public class PositionTakingListingPage extends HomePage {
     public CheckBox cbHorseRacing = CheckBox.xpath("//input[@id='HORSE']");
     public CheckBox cbGreyhoundRacing = CheckBox.xpath("//input[@id='GREYHOUND']");
     public CheckBox cbOther = CheckBox.xpath("//input[@id='OTHER']");
+    private Label iconLoadSpinner = Label.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
+    private String xPathSport = "//span[contains(text(),'%s')]/preceding::input[1]";
+    private String successIcon = "//span[contains(@class,'psuccess')]";
+    private String errorIcon = "//span[contains(@class,'perror')]";
+
     public PositionTakingListingPage(String types) {
         super(types);
     }
+
     private CheckBox defineCheckbox(String sport) {
         switch (sport) {
             case "Soccer":
@@ -130,19 +132,18 @@ public class PositionTakingListingPage extends HomePage {
 
     }
 
-    public ArrayList<String> getPTofAccount(String loginID)
-    {
-        ArrayList<String> info =  new ArrayList<String>();
+    public ArrayList<String> getPTofAccount(String loginID) {
+        ArrayList<String> info = new ArrayList<String>();
         int rowindex = getRowIndexofAccount(loginID);
-        if(rowindex == -1) {
+        if (rowindex == -1) {
             System.out.println(String.format("There is no account % in the list", loginID));
             return info;
         }
-        String cell_xpath = String.format("%s%s//td", tblDownline.getLocator().toString().replace("By.xpath: ",""),String.format("//tbody[%s]",rowindex + 1));
+        String cell_xpath = String.format("%s%s//td", tblDownline.getLocator().toString().replace("By.xpath: ", ""), String.format("//tbody[%s]", rowindex + 1));
 
-        for (int i=1; i <= totalColum + 1; i++){
-            Cell cell = Cell.xpath(String.format("(%s)[%s]",cell_xpath, i));
-            if(!cell.isDisplayed(timeOutShortInSeconds)){
+        for (int i = 1; i <= totalColum + 1; i++) {
+            Cell cell = Cell.xpath(String.format("(%s)[%s]", cell_xpath, i));
+            if (!cell.isDisplayed(timeOutShortInSeconds)) {
                 return info;
             }
             info.add(cell.getText(1));
@@ -150,10 +151,9 @@ public class PositionTakingListingPage extends HomePage {
         return info;
     }
 
-    public boolean verifyUpdateStatus(String loginID,boolean isSuccess)
-    {
+    public boolean verifyUpdateStatus(String loginID, boolean isSuccess) {
         int rowindex = getRowIndexofAccount(loginID);
-        if(rowindex == -1) {
+        if (rowindex == -1) {
             System.out.println(String.format("There is no account % in the list", loginID));
             return false;
         }
@@ -187,47 +187,39 @@ public class PositionTakingListingPage extends HomePage {
         }
         return -1;
     }
-    public void enableSport(HashMap<String, Boolean> map)
-    {
-        CheckBox chb =CheckBox.xpath(String.format(xPathSport,"Soccer"));
-        if(!map.get("Soccer"))
-        {
+
+    public void enableSport(HashMap<String, Boolean> map) {
+        CheckBox chb = CheckBox.xpath(String.format(xPathSport, "Soccer"));
+        if (!map.get("Soccer")) {
             chb.click();
         }
-        chb =CheckBox.xpath(String.format(xPathSport,"Cricket"));
-        if(!map.get("Cricket"))
-        {
+        chb = CheckBox.xpath(String.format(xPathSport, "Cricket"));
+        if (!map.get("Cricket")) {
             chb.click();
         }
-        chb =CheckBox.xpath(String.format(xPathSport,"Fancy"));
-        if(!map.get("Fancy"))
-        {
+        chb = CheckBox.xpath(String.format(xPathSport, "Fancy"));
+        if (!map.get("Fancy")) {
             chb.click();
         }
-        chb =CheckBox.xpath(String.format(xPathSport,"Tennis"));
-        if(!map.get("Tennis"))
-        {
+        chb = CheckBox.xpath(String.format(xPathSport, "Tennis"));
+        if (!map.get("Tennis")) {
             chb.click();
         }
-        chb =CheckBox.xpath(String.format(xPathSport,"Basketball"));
-        if(!map.get("Basketball"))
-        {
+        chb = CheckBox.xpath(String.format(xPathSport, "Basketball"));
+        if (!map.get("Basketball")) {
             chb.click();
         }
-        chb =CheckBox.xpath(String.format(xPathSport,"Horse Racing"));
-        if(!map.get("Horse Racing"))
-        {
+        chb = CheckBox.xpath(String.format(xPathSport, "Horse Racing"));
+        if (!map.get("Horse Racing")) {
             chb.click();
         }
-        chb =CheckBox.xpath(String.format(xPathSport,"Other"));
-        if(!map.get("Other"))
-        {
+        chb = CheckBox.xpath(String.format(xPathSport, "Other"));
+        if (!map.get("Other")) {
             chb.click();
         }
     }
 
-    public void waitingLoadingSpinner()
-    {
-        iconLoadSpinner.waitForControlInvisible(1,1);
+    public void waitingLoadingSpinner() {
+        iconLoadSpinner.waitForControlInvisible(1, 1);
     }
 }

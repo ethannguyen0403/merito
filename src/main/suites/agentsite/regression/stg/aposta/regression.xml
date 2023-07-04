@@ -14,8 +14,8 @@
         <parameter name='username' value='50H'/>
         <parameter name='levelLogin' value='Parter'/>
         <parameter name='downlineAccount' value='50H00'/>
-        <parameter name ='portalSubAccount' value ='APSUBIS'/>
-        <parameter name ='memberAccount' value ='50H0000000'/>
+        <parameter name='portalSubAccount' value='APSUBIS'/>
+        <parameter name='memberAccount' value='50H0000000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
@@ -23,19 +23,18 @@
         <parameter name='level' value='SMA'/>
         <groups>
             <run>
-                <include name="regression" />
+                <include name="regression"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.oldUI.home.HeaderTest"/>
-            <class name="agentsite.testcase.all.home.HeaderTest"></class>
-            <class name="agentsite.testcase.all.home.LeftMenuTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.PositionTakingListingTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.depositwithdrawal.DepositTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.depositwithdrawal.WithdrawalTest"/>
-            <class name="agentsite.testcase.all.agencymanagement.SubUserListingTest"/>
+            <class name="agentsite.testcase.HeaderTest"></class>
+            <class name="agentsite.testcase.LeftMenuTest"/>
+            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
+            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
         </classes>
 
     </test>

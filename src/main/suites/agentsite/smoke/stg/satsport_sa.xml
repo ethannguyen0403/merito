@@ -14,8 +14,8 @@
         <parameter name='username' value='corpinr2'/>
         <parameter name='levelLogin' value='Senior Admin'/>
         <parameter name='downlineAccount' value='smaag1'/>
-        <parameter name ='portalSubAccount' value ='SASUBIS'/>
-        <parameter name ='memberAccount' value ='sabella1'/>
+        <parameter name='portalSubAccount' value='SASUBIS'/>
+        <parameter name='memberAccount' value='sabella1'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='INR'/>

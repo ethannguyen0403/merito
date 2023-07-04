@@ -4,7 +4,6 @@ import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
 import com.paltech.utils.WSUtils;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 

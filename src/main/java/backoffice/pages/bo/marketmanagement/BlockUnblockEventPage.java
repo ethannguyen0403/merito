@@ -31,6 +31,7 @@ public class BlockUnblockEventPage extends HomePage {
     CheckBox cbDownlineChecked = CheckBox.xpath("//div[@class='child-item d-flex justify-content-between align-items-center ng-star-inserted active']//div[@class='pl-2']//following-sibling::input");
 
     CheckBox cbSeletAllEvent = CheckBox.xpath("//table[@aria-describedby='block-unblock-table']//span[text()='Event']//..//..//input");
+
     public void filter(String userUpline, String sport, String filterPeriod) {
         if (!userUpline.isEmpty()) {
             ddbUplineUser.selectByVisibleText(userUpline);
@@ -62,7 +63,7 @@ public class BlockUnblockEventPage extends HomePage {
     public List<String> getListDownlineUsers() {
         List<String> lstUsers = new ArrayList<>();
         for (int i = 1; i <= lblDownlineUsers.getWebElements().size(); i++) {
-            String xpath = String.format("//table[@aria-describedby='block-unblock-table']//div[@class='ps-content']//div//div[%s]//span[2]", i+2);
+            String xpath = String.format("//table[@aria-describedby='block-unblock-table']//div[@class='ps-content']//div//div[%s]//span[2]", i + 2);
             Label lblUserDownline = Label.xpath(xpath);
             lblUserDownline.scrollToThisControl(true);
             lstUsers.add(lblUserDownline.getText());
@@ -127,10 +128,10 @@ public class BlockUnblockEventPage extends HomePage {
 
     public void clickFavouriteIcon(String userName) {
         for (int i = 1; i <= lblDownlineUsers.getWebElements().size(); i++) {
-            String xpath = String.format("//table[@aria-describedby='block-unblock-table']//div[@class='ps-content']//div//div[%s]//span[2]", i+2);
+            String xpath = String.format("//table[@aria-describedby='block-unblock-table']//div[@class='ps-content']//div//div[%s]//span[2]", i + 2);
             Label lblUserDownline = Label.xpath(xpath);
             if (lblUserDownline.getText().equalsIgnoreCase(userName)) {
-                String xpathFavorite = String.format("//table[@aria-describedby='block-unblock-table']//div[@class='ps-content']//div//div[%s]//i", i+2);
+                String xpathFavorite = String.format("//table[@aria-describedby='block-unblock-table']//div[@class='ps-content']//div//div[%s]//i", i + 2);
                 Icon favoriteIcon = Icon.xpath(xpathFavorite);
                 favoriteIcon.click();
             }
@@ -166,6 +167,7 @@ public class BlockUnblockEventPage extends HomePage {
     public void clickSelectAllEvent() {
         cbSeletAllEvent.click();
     }
+
     public boolean isDownlineCheckboxChecked() {
         List<WebElement> list = cbDownlineChecked.getWebElements();
         for (WebElement webElement : list) {

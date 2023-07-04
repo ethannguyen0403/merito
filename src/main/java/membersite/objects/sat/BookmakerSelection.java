@@ -13,19 +13,53 @@ public class BookmakerSelection {
     private int _layOdds;
 
 
+    public BookmakerSelection(Builder builder) {
+        this._selectionId = builder._selectionId;
+        this._selectionName = builder._selectionName;
+        this._backOdds = builder._backOdds;
+        this._layOdds = builder._layOdds;
+        this._selectionStatus = builder._selectionStatus;
+    }
+
     public String getSlectionStatus() {
         return _selectionStatus;
     }
-    public String getSelectionName(){return _selectionName;}
-    public int getSelectionId(){return  _selectionId;}
-    public int getBackOdds(){return _backOdds;}
-    public int getLayOdds(){return  _layOdds;}
 
-    public void setSelectionStatus(String val){ _selectionStatus = val;}
-    public void setSelectionName(String val){_selectionName = val;}
-    public void setSelectinID(int val){_selectionId = val;}
-    public void setBackOdds(int val){_backOdds = val;}
-    public void setLayOdds(int val){_layOdds = val;}
+    public String getSelectionName() {
+        return _selectionName;
+    }
+
+    public void setSelectionName(String val) {
+        _selectionName = val;
+    }
+
+    public int getSelectionId() {
+        return _selectionId;
+    }
+
+    public int getBackOdds() {
+        return _backOdds;
+    }
+
+    public void setBackOdds(int val) {
+        _backOdds = val;
+    }
+
+    public int getLayOdds() {
+        return _layOdds;
+    }
+
+    public void setLayOdds(int val) {
+        _layOdds = val;
+    }
+
+    public void setSelectionStatus(String val) {
+        _selectionStatus = val;
+    }
+
+    public void setSelectinID(int val) {
+        _selectionId = val;
+    }
 
     public static class Builder {
         // Optional parameters
@@ -35,20 +69,36 @@ public class BookmakerSelection {
         private String _selectionName;
         private int _layOdds;
 
-        public Builder(){}
-        public Builder selectionName(String val){_selectionName = val; return this;}
-        public Builder selectionStatus(String val){_selectionStatus = val; return this;}
-        public Builder backOdds(int val){_backOdds= val; return this;}
-        public Builder layOdds(int val){_layOdds= val; return this;}
-        public Builder selectionID(int val){_selectionId= val; return this;}
-        public BookmakerSelection build() { return new BookmakerSelection(this); }
-    }
+        public Builder() {
+        }
 
-    public BookmakerSelection(Builder builder) {
-        this._selectionId = builder._selectionId;
-        this._selectionName = builder._selectionName;
-        this._backOdds =  builder._backOdds;
-        this._layOdds = builder._layOdds;
-        this._selectionStatus =builder._selectionStatus;
+        public Builder selectionName(String val) {
+            _selectionName = val;
+            return this;
+        }
+
+        public Builder selectionStatus(String val) {
+            _selectionStatus = val;
+            return this;
+        }
+
+        public Builder backOdds(int val) {
+            _backOdds = val;
+            return this;
+        }
+
+        public Builder layOdds(int val) {
+            _layOdds = val;
+            return this;
+        }
+
+        public Builder selectionID(int val) {
+            _selectionId = val;
+            return this;
+        }
+
+        public BookmakerSelection build() {
+            return new BookmakerSelection(this);
+        }
     }
 }
