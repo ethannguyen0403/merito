@@ -7,7 +7,7 @@ import com.paltech.element.common.TextBox;
 
 public class AccountInforSection {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
-    public Label createDownlineAgent = Label.xpath("//label[text()='Create Downline Agent']");
+    public Label lblTitlePage = Label.xpath("//div[@class='title']//label");
     public TextBox txtPassword = TextBox.xpath("//input[@name='password']");
     public DropDownBox ddrAccountStatus = DropDownBox.xpath("//select[@name='status']");
     public void selectAgentLevel(String levelName) {
@@ -22,5 +22,5 @@ public class AccountInforSection {
     public void inputInfo(String password, String accountStatus) {}
 
     public String getUserName() {return "";}
-    public String getAccountInforSectionTitle() { return createDownlineAgent.getText();}
+    public String getAccountInforSectionTitle() { return lblTitlePage.getText();}
 }

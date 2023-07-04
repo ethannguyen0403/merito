@@ -55,33 +55,43 @@ public class CreateUserPage extends CreateDownLineAgentPage {
 public CreateUserPage(String types) {
     super(types);
 }
-    public String createUser( String password) {
-        String username =accInfoSection.getUserName();
-        accInfoSection.txtPassword.sendKeys(password);
-        waitingLoadingSpinner();
-        btnSubmit.click();
-        waitingLoadingSpinner();
-        return username;
-    }
-    public void createUser(String loginID, String password) {
-        accInfoSection.txtLoginID.sendKeys(loginID);
-        accInfoSection.txtPassword.sendKeys(password);
-        btnSubmit.click();
-    }
-    public void createUser( String password, String creditLimit,String firsTimeDeposit) {
-        accInfoSection.inputInfo("",password,"");
-        if(!creditLimit.isEmpty())
-            cashBalanceSection.txtCreditLimit.sendKeys(creditLimit);
-        if(!firsTimeDeposit.isEmpty())
-            cashBalanceSection.txtFirstTimeDeposit.sendKeys(firsTimeDeposit);
+
+//    public String createUser( String password) {
+//        String username = accountInforSection.getUserName();
+//        accountInforSection.txtPassword.sendKeys(password);
+//        waitingLoadingSpinner();
+//        btnSubmit.click();
+//        waitingLoadingSpinner();
+//        return username;
+//    }
+//    public void createUser(String loginID, String password) {
+//        accountInforSection.inputInfo(loginID, password, "Active");
+//        btnSubmit.click();
+//        waitingLoadingSpinner();
+//    }
+    public void createUserWithDeposit(String password, String creditLimit, String firsTimeDeposit) {
+        accountInforSection.inputInfo("",password,"");
+        cashBalanceInforSection.inputCashBalanceInfo(creditLimit, firsTimeDeposit);
         btnSubmit.click();
     }
-    public void createUser(String loginID, String password, String creditLimit,String firsTimeDeposit) {
-        accInfoSection.inputInfo(loginID,password,"");
-        if(!creditLimit.isEmpty())
-            creditBalanceSection.txtCreditLimit.sendKeys(creditLimit);
-        if(!firsTimeDeposit.isEmpty())
-            cashBalanceSection.txtFirstTimeDeposit.sendKeys(firsTimeDeposit);
-        btnSubmit.click();
-    }
+
+    public String createUser(String loginId, String password) {
+        String username = "";
+        switch (_type) {
+            case "satsport":
+                accountInforSection.inputInfo(loginId, password, "Active");
+                btnSubmit.click();
+                waitingLoadingSpinner();
+                break;
+            default:
+                username = accountInforSection.getUserName();
+                accountInforSection.txtPassword.sendKeys(password);
+                waitingLoadingSpinner();
+                btnSubmit.click();
+                waitingLoadingSpinner();
+                return username;
+            }
+            return username;
+        }
+
 }

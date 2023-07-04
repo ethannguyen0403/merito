@@ -324,7 +324,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3486")
-    @Test(groups = {"satregression"})
+    @Test(groups = {"regression_sat"})
     @Parameters({"password"})
     public void Agent_AM_CreateDownline_Agent_3486(String password) throws Exception {
         //Run for SAT only
@@ -356,7 +356,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3488")
-    @Test(groups = {"satregression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_CreateDownline_Agent_3488() {
         log("@title:Validate there is no security popup display when active Create Downline Agent");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
@@ -369,7 +369,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3489")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void Agent_AM_CreateDownline_Agent_3489() {
         log("@title:Validate cannot access Create Downline Agent from the left menu");
         log("Step 1. Expand Agency Management ");
@@ -383,7 +383,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3490")
-    @Test(groups = {"agregression"})
+    @Test(groups = {"regression_ag"})
     public void Agent_AM_CreateDownline_Agent_3490() {
         //login with level = AG
         log("@title:Validate there is no Create Downline Agent when login by lowest agent level");
@@ -398,7 +398,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3491")
-    @Test (groups = {"satregression"})
+    @Test (groups = {"regression_sat"})
     public void Agent_AM_CreateDownline_Agent_016() throws Exception {
         //SAT + login level SMA Cash only
         log("@title: Validate UI when access the page by the levels under SAD");
@@ -413,9 +413,9 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
         Assert.assertEquals(page.rateSettingInforSection.getRateSettingSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_RATE_SETTING,"FAILED! Rate Setting Section display incorrect");
         Assert.assertEquals(page.productSettingInforSection.getProductSettingSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
-        Assert.assertEquals(page.betSettingInforSection.getBetSettingSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_BET_SETTING,"FAILED! Bet Setting Section display incorrect");
-        Assert.assertFalse(page.taxSettingInforSection.tblTaxSetting.isDisplayed(),"FAILED! Tax Setting Section is displayed");
-        Assert.assertFalse(page.positionTakingInforSection.tblPositionTaking.isDisplayed(),"FAILED! Position Taking Section is displayed");
+        Assert.assertEquals(page.betSettingInforSection.getBetSettingSectionTitle(AGConstant.EXCHANGE),AGConstant.AgencyManagement.CreateAccount.LBL_BET_SETTING,"FAILED! Bet Setting Section display incorrect");
+        Assert.assertFalse(page.taxSettingInforSection.tblTaxSettingEX.isDisplayed(),"FAILED! Tax Setting Section is displayed");
+        Assert.assertFalse(page.positionTakingInforSection.tblPositionTakingEX.isDisplayed(),"FAILED! Position Taking Section is displayed");
         log("INFO: Executed completely");
     }
 
@@ -432,7 +432,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      *      3. There is no cash Balance section display
      */
     @TestRails(id = "680")
-    @Test (groups = {"credit_regression"})
+    @Test (groups = {"regression_credit"})
     public void Agent_AM_CreateDownline_Agent_680() throws Exception {
         //level login = CORP
         log("@title: Validate display Credit Balance and Risk Setting for Credit account");
@@ -447,13 +447,13 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3484")
-    @Test (groups = {"credit_regression"})
+    @Test (groups = {"regression_corp","regression_credit"})
     public void Agent_AM_CreateDownline_Agent_3484() throws Exception {
         //level login = CORP
         log("@title: Validate display Credit Balance and Risk Setting for Credit account");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
-        page.accountInforSection.selectAgentLevel(AGConstant.AG_LEVEL_NAMING_BRANDS.get("Senior Master Agent"));
+        page.accountInforSection.selectAgentLevel(AGConstant.AG_LEVEL_NAMING_BRANDS.get("SMA"));
 
         log("Verify 1. Credit Balance section display");
         Assert.assertEquals(page.creditBalanceInforSection.getCreditSectionTitle().trim(),AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_BALANCE,"FAILED! Credit Balance Section display incorrect");
@@ -464,7 +464,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3485")
-    @Test (groups = {"credit_regression"})
+    @Test (groups = {"regression_corp","regression_credit"})
     public void Agent_AM_CreateDownline_Agent_3485() throws Exception {
         //level login = CORP
         log("@title: Validate display Credit Balance and Risk Setting for Credit account");
@@ -478,7 +478,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3483")
-    @Test (groups = {"regression"})
+    @Test (groups = {"regression","http_request"})
     public void Agent_AM_CreateDownline_Agent_3483() throws Exception {
         //Set isProxy = true
         log("@title: Validate There is no http responded error returned");

@@ -12,4 +12,5 @@ public class CashBalanceSection {
     }
 
     public String getCashSectionTitle() {return ""; }
+    public void inputCashBalanceInfo(String creditInit, String firstTimeDeposit) {}
 }
