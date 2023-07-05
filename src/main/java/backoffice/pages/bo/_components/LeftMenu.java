@@ -37,7 +37,7 @@ public class LeftMenu extends Header {
     SubMenu smBetFairAccountInfo = SubMenu.name("betfair-account-info");
     SubMenu smBetFairTaxRecrawl = SubMenu.name("betfair-tax-re-crawl");
     SubMenu smProviderCurrencyMapping = SubMenu.name("provider-currency-mapping");
-    SubMenu smFollowBetToThirdParty =SubMenu.name("follow-bets-to-3rd-party");
+    SubMenu smFollowBetToThirdParty = SubMenu.xpath("//span[contains(text(),'follow-bets-to-3rd-party')]");
     SubMenu smSmallBetConfiguration = SubMenu.name("small-bet-configuration");
 
     Menu menuOperation = Menu.name("operations");
@@ -179,6 +179,7 @@ public class LeftMenu extends Header {
         return new CurrencyManagementPage();
     }
     public FollowBetToThirdPartyPage navigateFollowBetToThirdParty() {
+        waitSpinIcon();
         smFollowBetToThirdParty.click();
         // waiting for loading completely
         smFollowBetToThirdParty.isInvisible(2);

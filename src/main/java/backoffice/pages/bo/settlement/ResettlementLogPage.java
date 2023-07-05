@@ -39,7 +39,6 @@ public class ResettlementLogPage extends HomePage {
 
     public void searchByEventMarket(String eventDate, String sport, String event, String market) {
         rbSearchByEventMarket.click();
-        waitSpinIcon();
         if (!eventDate.isEmpty()) {
             dtpEventDate.selectDate(eventDate, "yyyy/MM/dd");
             waitSpinIcon();
@@ -47,9 +46,9 @@ public class ResettlementLogPage extends HomePage {
         if (!sport.isEmpty())
             ddbSport.selectByVisibleContainsText(sport);
         if (!event.isEmpty())
-            ddbEvent.selectByVisibleText(event);
+            ddbEvent.selectByVisibleContainsText(event);
         if (!market.isEmpty())
-            ddbMarket.selectByVisibleText(market);
+            ddbMarket.selectByVisibleContainsText(market);
         btnSearch.click();
         waitSpinIcon();
     }

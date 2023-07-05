@@ -53,6 +53,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
         log("Step 2. Leave all as default value and Click Submit button");
         page.btnSubmit.click();
         log("Verify 1. There is data display. If no data display the message No record found");
+        Assert.assertTrue(page.isUsernameAsHyperlink("Portal"),"There is not data display");
         Assert.assertTrue(page.lblNoRecordsFound.isInvisible(2), "No records found.");
         log("INFO: Executed completely");
     }
@@ -71,7 +72,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
         log("Step 1. Access Reports > Punter Performance");
         PunterPerformancePage page = backofficeHomePage.navigatePunterPerformance();
         log("Step 2. Unselect any portal");
-        page.clickSelectAllOrUnSelect("portal","UnSelect");
+        page.ddbPortal.deSelectAll(true);
         log("Verify 1. Verify the message \"Please select at least 1 portal\" display and Submit button is disable");
         Assert.assertEquals(page.lblAtLeast1.getText(),"Please select at least 1 portal");
         Assert.assertFalse(page.btnSubmit.isEnabled());
@@ -92,7 +93,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
         log("Step 1. Access Reports > Punter Performance");
         PunterPerformancePage page = backofficeHomePage.navigatePunterPerformance();
         log("Step 2. Unselect any product");
-        page.clickSelectAllOrUnSelect("product","UnSelect All");
+        page.ddbProduct.deSelectAll(true);
         log("Verify 1. Verify the message \"Please select at least 1 product\" display and Submit button is disable");
         Assert.assertEquals(page.lblAtLeast1.getText(),"Please select at least 1 product");
         Assert.assertFalse(page.btnSubmit.isEnabled());
@@ -100,7 +101,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
     }
 
     /**
-     * @title: Validate message display when no product selected
+     * @title: Validate UI display correctly
      * @pre-condition: 1. Login BO
      * @steps:  1. Access Reports > Punter Performance
      * @expect: 1. Verify UI display correctly:
@@ -111,11 +112,11 @@ public class PunterPerformanceTest extends BaseCaseTest {
     @TestRails(id = "3879")
     @Test(groups = {"Regression"})
     public void BO_Report_Punter_Performance_3879() {
-        log("@title: Validate message display when no product selected");
+        log("@title: Validate UI display correctly");
         log("Step 1. Access Reports > Punter Performance");
         PunterPerformancePage page = backofficeHomePage.navigatePunterPerformance();
         log("Verify 1. Verify UI display correctly");
-        Assert.assertTrue(page.txtDateFrom.isEnabled());
+        Assert.assertTrue(page.txtDateFrom.isDisplayed());
         Assert.assertTrue(page.txtDateTo.isEnabled());
         Assert.assertTrue(page.ddbTypeCurrency.isEnabled());
         Assert.assertTrue(page.btnSubmit.isEnabled());

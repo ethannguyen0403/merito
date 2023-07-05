@@ -22,9 +22,9 @@ public class FollowBetToThirdPartyTest extends BaseCaseTest {
      * 2. Confirm remove user is display and  message "Remove user success" display after that then account is removed out the list
      */
     @TestRails(id = "647")
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"deprecated"})
     @Parameters({"followBetAccount"})
-    public void BO_System_Follow_Bet_To_Third_Party_002(String followBetAccount) {
+    public void BO_System_Follow_Bet_To_Third_Party_647(String followBetAccount) {
         log("@title: Validate can add/ remove the player it hi is added in to Group/Player in follow bet in agent site");
         log("Step 1. Access System > Follow Bets to 3rd Party");
         String player = followBetAccount;

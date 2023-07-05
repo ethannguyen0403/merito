@@ -2,6 +2,7 @@ package backoffice.pages.bo.reports;
 
 import backoffice.controls.DateTimePicker;
 import backoffice.controls.DropDownBox;
+import backoffice.controls.Row;
 import backoffice.controls.Table;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.pages.bo.reports.component.TransactionDetailsPopup;
@@ -29,8 +30,6 @@ public class PunterPerformancePage extends HomePage {
     public Table tblReport = Table.xpath("//table[@class='ptable report']", 17);
     public Button btnSubmit = Button.name("submit");
     private Label lblRangeDate = Label.xpath("//table[@class='ptable report']//span[@class='ml-5']");
-    private String lblSelectOrUnselect = "//span[text()='%s']";
-    private String ddnSelectOrUnselect = "//div[contains(@class,'%s')]//div[@class='selected-list']";
     public Label lblNoRecordsFound = Label.xpath("//tbody//td[contains(text(),'No records found.')]");
     public Label lblAtLeast1 = Label.xpath("//div[contains(text(),'Please select at least 1')]");
     public Label lblYouCanSeeReport = Label.xpath("//label[contains(text(),'You can see report data up to 6 months.')]");
@@ -114,13 +113,6 @@ public class PunterPerformancePage extends HomePage {
     }
 
     public enum Product {ALL, EXCHANGE}
-
-    public void clickSelectAllOrUnSelect(String productOrPortal, String selectOrUnselect){
-        Button ddnButton = Button.xpath(String.format(ddnSelectOrUnselect, productOrPortal));
-        ddnButton.click();
-        Button select = Button.xpath(String.format(lblSelectOrUnselect, selectOrUnselect));
-        select.click();
-    }
 
     public String isTableHeaderByName(String name){
         return Label.xpath(String.format(lblTableHeader, name)).getText();
