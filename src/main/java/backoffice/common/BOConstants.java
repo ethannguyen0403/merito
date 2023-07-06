@@ -57,6 +57,10 @@ public class BOConstants {
             public final static String SEARCH_COUNTRY_RACES = "Search country";
             public final static List<String> DDB_SPORT_COUNTRY_RACES = Arrays.asList("Horse Racing", "Horse Racing - Antepost", "Greyhound Racing", "Greyhound Racing - Antepost");
         }
+
+        public static class SmallBetConfiguration {
+            public final static List<String> TABLE_HEADER = Arrays.asList("Agent","Status","Stake","Accept % of Pricing","Reject Back if Potential Winning","Reject Lay if Potential Liability","Action");
+        }
     }
 
     public static class Settlement {

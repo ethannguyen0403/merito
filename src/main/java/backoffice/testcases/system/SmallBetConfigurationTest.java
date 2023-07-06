@@ -1,11 +1,14 @@
 package backoffice.testcases.system;
 
+import backoffice.common.BOConstants;
 import backoffice.pages.bo.system.SmallBetConfigurationPage;
 import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
+
+import java.util.List;
 
 public class SmallBetConfigurationTest extends BaseCaseTest {
 
@@ -46,6 +49,13 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Accept % of Pricing", agentNotAdd),acceptOfPricingValue);
         Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Back if Potential Winning", agentNotAdd),rejectBackValue);
         Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Lay if Potential Liability", agentNotAdd),rejectLayValue);
+        try {
+            smallBetConfigurationPage.clickToRemove(agentNotAdd);
+            smallBetConfigurationPage.btnYes.click();
+        } finally {
+            System.out.println("Remove Agent");
+        }
+
         log("INFO: Executed completely");
     }
 
@@ -66,8 +76,12 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
     public void BO_System_Small_Bets_Configuration_017(String agentNotAdd) {
         log("@title: Validate can add small bets setting for an agent in Small Bet Configuration in Backoffice");
         log("pre-condition 1: Log in BO");
-        log("pre-condition 2: Active Small Bets Configuration Page");
         SmallBetConfigurationPage smallBetConfigurationPage = backofficeHomePage.navigateSmallBetConfiguration();
+        log("pre-condition 2: Active Small Bets Configuration Page");
+        smallBetConfigurationPage.inputAgentTextBox(agentNotAdd);
+        smallBetConfigurationPage.btnAdd.click();
+        smallBetConfigurationPage.inputConfigurationSmallBetsForNewAgent("true", "5", "5", "", "");
+        smallBetConfigurationPage.btnSubmitOnConfigurationPopup.click();
         log("pre-condition 3: Have an agent added small bet setting");
         log("Step 1. Select the agent in the list");
         log("Step 2. Click on Remove icon the last column");
@@ -127,12 +141,10 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         Assert.assertEquals(smallBetConfigurationPage.lblAgent.getText(), "Agent:");
         Assert.assertTrue(smallBetConfigurationPage.txbSearchAgentID.isDisplayed());
         Assert.assertFalse(smallBetConfigurationPage.btnAdd.isEnabled());
-        Assert.assertEquals(smallBetConfigurationPage.getLabelTableHeader("Agent"),"Agent");
-        Assert.assertEquals(smallBetConfigurationPage.getLabelTableHeader("Stake"),"Stake");
-        Assert.assertEquals(smallBetConfigurationPage.getLabelTableHeader("Accept % of Pricing"),"Accept % of Pricing");
-        Assert.assertEquals(smallBetConfigurationPage.getLabelTableHeader("Reject Back if Potential Winning"),"Reject Back if Potential Winning");
-        Assert.assertEquals(smallBetConfigurationPage.getLabelTableHeader("Reject Lay if Potential Liability"),"Reject Lay if Potential Liability");
-        Assert.assertEquals(smallBetConfigurationPage.getLabelTableHeader("Action"),"Action");
+
+        List<String> lstHeaderName = smallBetConfigurationPage.getHeaderNameOfRows();
+        Assert.assertEquals(lstHeaderName, BOConstants.System.SmallBetConfiguration.TABLE_HEADER);
+
         Assert.assertEquals(smallBetConfigurationPage.lblmessageShouldNotBeAdd.getText(),"Agent code under Fairenter, Funsport and Laystars should not be added.");
         log("INFO: Executed completely");
     }

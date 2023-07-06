@@ -1,11 +1,14 @@
 package backoffice.pages.bo.system;
 
+import backoffice.controls.Row;
 import backoffice.pages.bo.home.HomePage;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.RadioButton;
-import com.paltech.element.common.TextBox;
-import net.bytebuddy.asm.Advice;
+import com.paltech.driver.DriverManager;
+import com.paltech.element.common.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SmallBetConfigurationPage extends HomePage {
     String agentRowByAgentID = "//div[contains(text(),'%s')]";
@@ -33,7 +36,7 @@ public class SmallBetConfigurationPage extends HomePage {
     String btnRemoveAgentByAgentID = "//div[contains(text(),'%s')]/parent::div//a[text()='Remove']";
     String agentIDIsAlreadyAdded = "//span[text()='Agent %s is already added!']";
     public Label lblAgent = Label.xpath("//div[text()='Agent:']");
-    String tableHeader = "//span[text()='%s']";
+    List<WebElement> lstHeaderName = DriverManager.getDriver().findElements(By.xpath("//div[@class='custom-table-header']//div/div/span"));
     String configurationColums = "//div[contains(text(),'%s')]";
     public Label lblmessageShouldNotBeAdd = Label.xpath("//label[text()='Agent code under Fairenter, Funsport and Laystars should not be added.']");
     public Label lblConfigurationSmallBetOnPopup = Label.cssSelector("h5");
@@ -126,8 +129,12 @@ public class SmallBetConfigurationPage extends HomePage {
     public Label isAgentIDIsAlreadyAdded(String agentID) {
         return Label.xpath(String.format(agentIDIsAlreadyAdded, agentID));
     }
-    public String getLabelTableHeader(String headerTable){
-        return Label.xpath(String.format(tableHeader, headerTable)).getText();
+    public ArrayList<String> getHeaderNameOfRows() {
+        ArrayList<String> lstHeader = new ArrayList<String>();
+        for (int i = 0; lstHeaderName.size() > i ; i++){
+           lstHeader.add(lstHeaderName.get(i).getText());
+        }
+        return lstHeader;
     }
     public String getTitleOnConfigurationColumByName(String name){
         return Label.xpath(String.format(configurationColums, name)).getText();
