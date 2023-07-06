@@ -28,6 +28,7 @@ public class PunterPerformancePage extends HomePage {
     public int colLevel = 3;
     public int colTotalWager = 4;
     public Table tblReport = Table.xpath("//table[@class='ptable report']", 17);
+//    public Table tblHeader = Table.xpath("//table[@class='ptable report']/thead",20);
     public Button btnSubmit = Button.name("submit");
     private Label lblRangeDate = Label.xpath("//table[@class='ptable report']//span[@class='ml-5']");
     public Label lblNoRecordsFound = Label.xpath("//tbody//td[contains(text(),'No records found.')]");
@@ -36,7 +37,6 @@ public class PunterPerformancePage extends HomePage {
     String lblTableHeader = "//thead//th[text()='%s']";
     public Label lblDateRange = Label.xpath("//span[text()='Punter Perfomance']/parent::span/following-sibling::span");
     public Button btnHome = Button.xpath("//table//span[text()='Home']");
-
     public void filter(String from, String to, String product, String portal, String typeCurrency) {
         if (!from.isEmpty()) {
             dpFrom.selectDate(from, "dd/MM/yyyy");
@@ -112,9 +112,23 @@ public class PunterPerformancePage extends HomePage {
         return null;
     }
 
+    public List<String> getHeaderName() {
+        List<String> lstHeaderA = tblReport.getHeaderNameOfRows();
+        lstHeaderA.remove(0);
+        return lstHeaderA;
+    }
+
+    public boolean isDisplayData() {
+        if (isUsernameAsHyperlink("Portal")){
+            System.out.println("There is data display");
+            return true;
+        } else if (lblNoRecordsFound.isDisplayed()){
+            System.out.println("No records found.");
+            return true;
+        }
+        return false;
+    }
+
     public enum Product {ALL, EXCHANGE}
 
-    public String isTableHeaderByName(String name){
-        return Label.xpath(String.format(lblTableHeader, name)).getText();
-    }
 }

@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.util.List;
+
 public class PunterPerformanceTest extends BaseCaseTest {
 
     /**
@@ -53,8 +55,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
         log("Step 2. Leave all as default value and Click Submit button");
         page.btnSubmit.click();
         log("Verify 1. There is data display. If no data display the message No record found");
-        Assert.assertTrue(page.isUsernameAsHyperlink("Portal"),"There is not data display");
-        Assert.assertTrue(page.lblNoRecordsFound.isInvisible(2), "No records found.");
+        Assert.assertTrue(page.isDisplayData());
         log("INFO: Executed completely");
     }
 
@@ -121,8 +122,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
         Assert.assertTrue(page.ddbTypeCurrency.isEnabled());
         Assert.assertTrue(page.btnSubmit.isEnabled());
         Assert.assertEquals(page.lblYouCanSeeReport.getText(),"You can see report data up to 6 months.");
-        Assert.assertEquals(page.isTableHeaderByName("User Name"),"User Name");
-        Assert.assertEquals(page.isTableHeaderByName("Brand"),"Brand");
+        Assert.assertEquals(page.getHeaderName(),BOConstants.Reports.PunterPerformance.LST_HEADER);
         log("INFO: Executed completely");
     }
 

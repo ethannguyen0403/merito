@@ -271,6 +271,9 @@ public class BOConstants {
             public final static List<String> LST_SAT_RATE__HEADER = Arrays.asList("Username", "Currency", "Deal Rate (INR)", "Operator");
             public final static List<String> LST_EXCLUDE_AGENT__HEADER = Arrays.asList("Brand", "UserName", "Login ID", "Currency", "Upline", "Last Update By", "Last Update Date", "Operator");
         }
+        public static class PunterPerformance {
+            public final static List<String> LST_HEADER = Arrays.asList("User Name", "Brand","Level","Currency","Total Wager","Win","Lose","Draw","Avg Stake\n(HKD)","(HKD)","(F)","Win%","Turnover","Win/Loss","Tax/Comm","Total","Turnover","Win/Loss","Tax/Comm","Total");
+        }
     }
 
     public static class Tools {
