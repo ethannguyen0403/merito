@@ -112,12 +112,6 @@ public class PunterPerformancePage extends HomePage {
         return null;
     }
 
-    public List<String> getHeaderName() {
-        List<String> lstHeaderA = tblReport.getHeaderNameOfRows();
-        lstHeaderA.remove(0);
-        return lstHeaderA;
-    }
-
     public boolean isDisplayData() {
         if (isUsernameAsHyperlink("Portal")){
             System.out.println("There is data display");

@@ -122,7 +122,9 @@ public class PunterPerformanceTest extends BaseCaseTest {
         Assert.assertTrue(page.ddbTypeCurrency.isEnabled());
         Assert.assertTrue(page.btnSubmit.isEnabled());
         Assert.assertEquals(page.lblYouCanSeeReport.getText(),"You can see report data up to 6 months.");
-        Assert.assertEquals(page.getHeaderName(),BOConstants.Reports.PunterPerformance.LST_HEADER);
+        List<String> lstHeader = page.tblReport.getHeaderNameOfRows();
+        lstHeader.remove(0);
+        Assert.assertEquals(lstHeader,BOConstants.Reports.PunterPerformance.LST_HEADER);
         log("INFO: Executed completely");
     }
 
