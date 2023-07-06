@@ -52,7 +52,7 @@ public class ResettlementLogTest extends BaseCaseTest {
      * @expect: 1. Verify the event/market display log
      */
     @TestRails(id = "597")
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke"})
     public void BO_Settlement_Resettlement_Log_597() {
         log("@title:Validate can search log by Event/Market");
         log("Step 1. Access Tool > Resettlement Log");
@@ -65,7 +65,7 @@ public class ResettlementLogTest extends BaseCaseTest {
                 "     *              Market: Moneyline\n" +
                 "     *              Click search");
 
-        page.searchByEventMarket("2021/07/17", "Soccer", "Algeria", "Double Chance");
+        page.searchByEventMarket("2021/07/17", " Soccer ", " Algeria ", " Double Chance ");
 
         log("Verify 1. Verify log display");
         List<String> lstDescription = page.tblResettlementLog.getColumn(page.colDescription, false);
