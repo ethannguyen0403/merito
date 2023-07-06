@@ -28,13 +28,11 @@ public class PunterPerformancePage extends HomePage {
     public int colLevel = 3;
     public int colTotalWager = 4;
     public Table tblReport = Table.xpath("//table[@class='ptable report']", 17);
-//    public Table tblHeader = Table.xpath("//table[@class='ptable report']/thead",20);
     public Button btnSubmit = Button.name("submit");
     private Label lblRangeDate = Label.xpath("//table[@class='ptable report']//span[@class='ml-5']");
     public Label lblNoRecordsFound = Label.xpath("//tbody//td[contains(text(),'No records found.')]");
     public Label lblAtLeast1 = Label.xpath("//div[contains(text(),'Please select at least 1')]");
     public Label lblYouCanSeeReport = Label.xpath("//label[contains(text(),'You can see report data up to 6 months.')]");
-    String lblTableHeader = "//thead//th[text()='%s']";
     public Label lblDateRange = Label.xpath("//span[text()='Punter Perfomance']/parent::span/following-sibling::span");
     public Button btnHome = Button.xpath("//table//span[text()='Home']");
     public void filter(String from, String to, String product, String portal, String typeCurrency) {
