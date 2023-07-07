@@ -131,9 +131,10 @@ public class DateTimePicker extends BaseElement {
             if (!currentYear.equals(y)) {
                 lblYear.click();
                 clickYear(y, "");
+                clickMonth(mm);
             }
             //
-            if (!currentMonth.equals(mm)) {
+            if (!currentMonth.equals(mm) && currentYear.equals(y)) {
                 lblMonth.click();
                 clickMonth(mm);
             }

@@ -57,6 +57,10 @@ public class BOConstants {
             public final static String SEARCH_COUNTRY_RACES = "Search country";
             public final static List<String> DDB_SPORT_COUNTRY_RACES = Arrays.asList("Horse Racing", "Horse Racing - Antepost", "Greyhound Racing", "Greyhound Racing - Antepost");
         }
+
+        public static class SmallBetConfiguration {
+            public final static List<String> TABLE_HEADER = Arrays.asList("Agent","Status","Stake","Accept % of Pricing","Reject Back if Potential Winning","Reject Lay if Potential Liability","Action");
+        }
     }
 
     public static class Settlement {
@@ -270,6 +274,9 @@ public class BOConstants {
             public final static List<String> LST_AA_RATE__HEADER = Arrays.asList("Username", "Client", "Currency", "Rate", "Operator", "Player", "Portal", "Profit");
             public final static List<String> LST_SAT_RATE__HEADER = Arrays.asList("Username", "Currency", "Deal Rate (INR)", "Operator");
             public final static List<String> LST_EXCLUDE_AGENT__HEADER = Arrays.asList("Brand", "UserName", "Login ID", "Currency", "Upline", "Last Update By", "Last Update Date", "Operator");
+        }
+        public static class PunterPerformance {
+            public final static List<String> LST_HEADER = Arrays.asList("User Name", "Brand","Level","Currency","Total Wager","Win","Lose","Draw","Avg Stake\n(HKD)","(HKD)","(F)","Win%","Turnover","Win/Loss","Tax/Comm","Total","Turnover","Win/Loss","Tax/Comm","Total");
         }
     }
 

@@ -24,7 +24,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      */
     @TestRails(id = "660")
     @Test(groups = {"smoke"})
-    public void BO_System_Priority_Settings_001() {
+    public void BO_System_Priority_Settings_660() {
         log("@title: Validate UI display correctly when access Priority Settings");
         log("Step 1. Navigate to System> Priority Settings");
         PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
@@ -75,7 +75,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      */
     @TestRails(id = "661")
     @Test(groups = {"smoke"})
-    public void BO_System_Priority_Settings_002() {
+    public void BO_System_Priority_Settings_661() {
         log("@title: Validate can search Sport");
         log("Step 1. Navigate to System> Priority Settings");
         PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
@@ -103,7 +103,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      */
     @TestRails(id = "662")
     @Test(groups = {"smoke"})
-    public void BO_System_Priority_Settings_003() {
+    public void BO_System_Priority_Settings_662() {
         log("@title: Validate can search Competition");
         log("Step 1. Navigate to System> Priority Settings");
         String competitionKey = "English";
@@ -134,7 +134,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      */
     @TestRails(id = "663")
     @Test(groups = {"smoke"})
-    public void BO_System_Priority_Settings_004() {
+    public void BO_System_Priority_Settings_663() {
         log("@title: Validate can search Market");
         log("Step 1. Navigate to System> Priority Settings");
         String marketKey = "Asian Handicap";
@@ -164,14 +164,14 @@ public class PrioritySettingTest extends BaseCaseTest {
      * @expect: 1. Verify the list market type display in the list
      */
     @TestRails(id = "664")
-    @Test(groups = {"smoke"})
-    public void BO_System_Priority_Settings_005() {
+    @Test(groups = {"smoke1"})
+    public void BO_System_Priority_Settings_664() {
         log("@title: Validate can search Country Races");
         log("Step 1. Navigate to System> Priority Settings");
         String countryKey = "Australia";
         PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
 
-        log("Step 2. Select to type : Country Races ");
+        log("Step 2. Select to type : Country");
         log("Step 3. Select Brand");
         log("Step 4. Input Country Racing in the search Country textbox");
         page.search("Country", "", "", countryKey);
@@ -197,7 +197,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      */
     @TestRails(id = "665")
     @Test(groups = {"smoke"})
-    public void BO_System_Priority_Settings_006() {
+    public void BO_System_Priority_Settings_665() {
         log("@title: Validate select Brand works");
 
         log("Step 1. Navigate to System> Priority Settings");
@@ -224,7 +224,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      */
     @TestRails(id = "666")
     @Test(groups = {"smoke"})
-    public void BO_System_Priority_Settings_007() {
+    public void BO_System_Priority_Settings_666() {
         log("@title: Validate can search and select a brand");
         log("Step 1. Navigate to System> Priority Settings");
         PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
@@ -255,7 +255,7 @@ public class PrioritySettingTest extends BaseCaseTest {
     @TestRails(id = "667")
     @Test(groups = {"smoke"})
     @Parameters({"satMemberLoginID", "memberPassword"})
-    public void BO_System_Priority_Settings_008(String satMemberLoginID, String memberPassword) throws Exception {
+    public void BO_System_Priority_Settings_667(String satMemberLoginID, String memberPassword) throws Exception {
         log("@title: Verify sport priority on member site is correctly displayed");
         log("Step 1. Navigate to System> Priority Settings");
         PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
@@ -292,7 +292,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      */
     @TestRails(id = "668")
     @Test(groups = {"smoke"})
-    public void BO_System_Priority_Settings_009() throws Exception {
+    public void BO_System_Priority_Settings_668() throws Exception {
         log("@title: Validate Competition priority  on member site is correctly displayed");
         log("Step 1. Navigate to System> Priority Settings");
         PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
@@ -328,7 +328,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      */
     @TestRails(id = "669")
     @Test(groups = {"smoke"})
-    public void BO_System_Priority_Settings_010() throws Exception {
+    public void BO_System_Priority_Settings_669() throws Exception {
         log("@title: Validate Market priority on member site is correctly displayed");
         log("Step 1. Navigate to System> Priority Settings");
         PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();

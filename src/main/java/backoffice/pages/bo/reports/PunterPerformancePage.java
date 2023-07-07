@@ -2,6 +2,7 @@ package backoffice.pages.bo.reports;
 
 import backoffice.controls.DateTimePicker;
 import backoffice.controls.DropDownBox;
+import backoffice.controls.Row;
 import backoffice.controls.Table;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.pages.bo.reports.component.TransactionDetailsPopup;
@@ -24,12 +25,16 @@ public class PunterPerformancePage extends HomePage {
     public DropDownBox ddbPortal = DropDownBox.xpath("//div[contains(@class,'portal')]//div[@class='selected-list']", "//div[contains(@class,'portal')]//div[contains(@class,'dropdown-list')]//li/label");
     public Label lblPortalError = Label.xpath("//div[contains(@class, 'search-region')]//div[@class='error-message'][3]");
     public int colUsername = 1;
-    public int colLevel = 2;
+    public int colLevel = 3;
     public int colTotalWager = 4;
     public Table tblReport = Table.xpath("//table[@class='ptable report']", 17);
-    Button btnSubmit = Button.name("submit");
+    public Button btnSubmit = Button.name("submit");
     private Label lblRangeDate = Label.xpath("//table[@class='ptable report']//span[@class='ml-5']");
-
+    public Label lblNoRecordsFound = Label.xpath("//tbody//td[contains(text(),'No records found.')]");
+    public Label lblAtLeast1 = Label.xpath("//div[contains(text(),'Please select at least 1')]");
+    public Label lblYouCanSeeReport = Label.xpath("//label[contains(text(),'You can see report data up to 6 months.')]");
+    public Label lblDateRange = Label.xpath("//span[text()='Punter Perfomance']/parent::span/following-sibling::span");
+    public Button btnHome = Button.xpath("//table//span[text()='Home']");
     public void filter(String from, String to, String product, String portal, String typeCurrency) {
         if (!from.isEmpty()) {
             dpFrom.selectDate(from, "dd/MM/yyyy");
@@ -105,5 +110,17 @@ public class PunterPerformancePage extends HomePage {
         return null;
     }
 
+    public boolean isDisplayData() {
+        if (isUsernameAsHyperlink("Portal")){
+            System.out.println("There is data display");
+            return true;
+        } else if (lblNoRecordsFound.isDisplayed()){
+            System.out.println("No records found.");
+            return true;
+        }
+        return false;
+    }
+
     public enum Product {ALL, EXCHANGE}
+
 }

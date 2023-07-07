@@ -24,7 +24,7 @@ public class WagerResettlementTest extends BaseCaseTest {
      */
     @TestRails(id = "594")
     @Test(groups = {"smoke"})
-    public void BO_Settlement_Wager_Resettlement_001() {
+    public void BO_Settlement_Wager_Resettlement_594() {
         log("@title: Validate UI in Resettlement display correctly");
         log("Step 1. Access Settlement > Wager Resettlement");
         WagerResettlementPage page = backofficeHomePage.navigateWagerResettlement();
@@ -57,13 +57,13 @@ public class WagerResettlementTest extends BaseCaseTest {
     @TestRails(id = "595")
     @Test(groups = {"smoke"})
     @Parameters({"wagerID"})
-    public void BO_Settlement_Wager_Resettlement_002(String wagerID) {
+    public void BO_Settlement_Wager_Resettlement_595(String wagerID) {
         log("@title: Validate can search wager resettlement");
         log("Step 1. Access Settlement > Wager Resettlement");
         //String wagerId = "59511";
-        List<String> lstInfo = WagerResettlementUltils.getMarketInfo(wagerID, WagerResettlementPage.BetType.NORMAL, "EXCHANGE");
-        WagerResettlementPage page = backofficeHomePage.navigateWagerResettlement();
 
+        WagerResettlementPage page = backofficeHomePage.navigateWagerResettlement();
+        List<String> lstInfo = WagerResettlementUltils.getMarketInfo(wagerID, WagerResettlementPage.BetType.NORMAL, "EXCHANGE");
         log("Step 2. Select Bet Type: Normal");
         log("Step 3. Input wager id in precondtion and product = exchange");
         page.searchByWager("Normal", wagerID, "Exchange");
