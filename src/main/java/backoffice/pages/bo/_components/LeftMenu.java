@@ -1,5 +1,8 @@
 package backoffice.pages.bo._components;
 
+import backoffice.pages.bo.paymentmanagement.DepositWithdrawalTransactionsPage;
+import backoffice.pages.bo.paymentmanagement.PaymentConfigurationPage;
+import backoffice.testcases.paymentmanagement.PaymentConfigurationTest;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
 import backoffice.common.BOConstants;
@@ -48,6 +51,9 @@ public class LeftMenu extends Header {
     SubMenu smBannerManagement = SubMenu.name("banner-management");
     SubMenu smPerformance = SubMenu.name("performance");
 
+    Menu menuPaymentManagement = Menu.name("payment-management");
+    SubMenu smPaymentConfiguration = SubMenu.name("payment-configuration");
+    SubMenu smDepositWithdrawalTransactions = SubMenu.name("deposit-withdrawal-transactions");
 
     Menu menuMarketManagement = Menu.id("market-management");
     SubMenu smFindBlockedMarket = SubMenu.name("find-blocked-market");
@@ -618,4 +624,19 @@ public class LeftMenu extends Header {
         return new SmallBetConfigurationPage();
     }
 
+    public PaymentConfigurationPage navigatePaymentConfigurationPage() {
+        smPaymentConfiguration.click();
+        smPaymentConfiguration.isInvisible(2);
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
+        return new PaymentConfigurationPage();
+    }
+
+    public DepositWithdrawalTransactionsPage navigateDepositWithdrawalTransactionsPage() {
+        smDepositWithdrawalTransactions.click();
+        smDepositWithdrawalTransactions.isInvisible(2);
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
+        return new DepositWithdrawalTransactionsPage();
+    }
 }
