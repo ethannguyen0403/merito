@@ -1,6 +1,7 @@
 package backoffice.pages.bo.settlement;
 
 import backoffice.controls.DateTimePicker;
+import backoffice.controls.Table;
 import backoffice.controls.bo.StaticTable;
 import backoffice.pages.bo.home.HomePage;
 import com.paltech.element.common.Button;
@@ -29,7 +30,6 @@ public class ResettlementLogPage extends HomePage {
     public int colDescription = 2;
     private int totalColumn = 7;
     public StaticTable tblResettlementLog = StaticTable.xpath("//div[@class='custom-table']", "div[contains(@class,'custom-table-body')]", "div[contains(@class,'custom-table-row')]", "div[contains(@class,'custom-table-cell')]", totalColumn);
-
     public void searchByWagerID(String wagerId) {
         rbSearchByWagerID.click();
         txtWagerID.sendKeys(wagerId);
@@ -39,7 +39,6 @@ public class ResettlementLogPage extends HomePage {
 
     public void searchByEventMarket(String eventDate, String sport, String event, String market) {
         rbSearchByEventMarket.click();
-        waitSpinIcon();
         if (!eventDate.isEmpty()) {
             dtpEventDate.selectDate(eventDate, "yyyy/MM/dd");
             waitSpinIcon();

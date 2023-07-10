@@ -26,7 +26,7 @@ public class DropDownBox extends BaseElement {
         super(locator);
         locatorItems = locatorChildren;
         lblSelectAll = Label.xpath(xpathParent + "//following-sibling::div[contains(@class,'dropdown-list')]//div[contains(@class, 'select-all')]//span[1]");
-        lblUnSelectAll = Label.xpath(xpathParent + "//following-sibling::div[contains(@class,'dropdown-list')]//div[contains(@class, 'select-all')]//span[contains(text(),'UnSelect All')]");
+        lblUnSelectAll = Label.xpath(xpathParent + "//following-sibling::div[contains(@class,'dropdown-list')]//div[contains(@class, 'select-all')]//span[contains(text(),'UnSelect')]");
         icClearAll = Icon.xpath(xpathParent + "//span[contains(@class,'clear-all')]");
         lblRemoveSelecteList = Label.xpath(xpathParent + "//div[contains(@class,'c-list')]//span[contains(@class,'c-remove')]");
         lblSelectedList = Label.xpath(xpathParent + "//div[contains(@class,'c-list')]//span[contains(@class,'c-label')]");
@@ -222,7 +222,7 @@ public class DropDownBox extends BaseElement {
         } else {
             this.moveAndHoverOnControl();
         }
-        if (lblUnSelectAll.isDisplayedShort(2)) {
+        if (lblUnSelectAll.isDisplayedShort(4)) {
             lblUnSelectAll.click();
         }
     }

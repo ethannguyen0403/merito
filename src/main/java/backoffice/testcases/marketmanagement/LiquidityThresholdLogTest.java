@@ -28,14 +28,18 @@ public class LiquidityThresholdLogTest extends BaseCaseTest {
     @TestRails(id = "626")
     @Test(groups = {"smoke"})
     @Parameters({"companyAccount"})
-    public void BO_Market_Management_Liquidity_Threshold_log_001(String companyAccount) {
+    public void BO_Market_Management_Liquidity_Threshold_log_626(String companyAccount) {
         log("@title: Validate can search account in agent that have view log and log is matched");
         log("Step 1. Access Tool > Liquidity Threshold Log");
         String username = companyAccount;
         LiquidityThresholdLogPage page = backofficeHomePage.navigateLiquidityThresholdLog();
         List<ArrayList<String>> lstData = LiquidityThresholdLogUltils.getLog(username);
-
-
+        if (lstData.get(0).get(1).equals(lstData.get(0).get(2))){
+            lstData.get(0).set(2, "");
+        }
+        if (lstData.get(0).get(10).equals("View")){
+            lstData.get(0).set(10, "");
+        }
         log("Step 2. Input the username and click search button");
         page.search(username);
 

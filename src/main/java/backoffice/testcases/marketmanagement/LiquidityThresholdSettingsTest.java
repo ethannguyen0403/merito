@@ -53,9 +53,9 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
      * @pre-condition: 1. Login BO
      * @steps: 1. Access Operations > Liquidity Threshold Settings
      * 2. Select Golf sport and search the market type: Top US
-     * 3. Input the setting in None-live cell: 1 then press enter
+     * 3. Input the setting in live cell: 1 then press enter
      * 4. Click close
-     * @expect: 1 Confirm popup display with the title : Update - [Market Type] with  the message: Are you sure to set this non live to setting value ?
+     * @expect: 1 Confirm popup display with the title : Update - [Market Type] with  the message: Are you sure to set this live to setting value ?
      * 2. Verify the confirm popup is closed and the setting is not affect
      */
     @TestRails(id = "629")
@@ -75,7 +75,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
         log("Step 3. Input the setting in Live cell: 1 then press enter");
         page.setThreshold(marketType, "", "1");
 
-        log("Verify 1 Confirm popup display with the title : Update - [Market Type] with  the message: Are you sure to set this non live to setting value ?");
+        log("Verify 1 Confirm popup display with the title : Update - [Market Type] with  the message: Are you sure to set this live to setting value ?");
         Assert.assertEquals(page.popup.getContent(), String.format("Are you sure to set this live to %s ?", "1"), "FAILED! Confirm message is incorrect");
 
         log("Step 4. Click close");
