@@ -49,24 +49,24 @@ public class AGConstant {
         {
             switch (_brandname) {
                 case "satsport":
-                    put("Portal", "Portal");
-                    put("Company", "Company");
-                    put("Partner", "Partner");
-                    put("Corporator", "Senior Admin");
-                    put("Senior Master Agent", "Admin");
-                    put("Master Agent", "Senior Master Agent");
-                    put("Agent", "Master Agent");
-                    put("Member", "Member");
+                    put("PO", "Portal");
+                    put("CO", "Company");
+                    put("PART", "Partner");
+                    put("CORP", "Senior Admin");
+                    put("SMA", "Admin");
+                    put("MA", "Senior Master Agent");
+                    put("AG", "Master Agent");
+                    put("PL", "Member");
                     break;
                 default:
-                    put("Portal", "Portal");
-                    put("Company", "Company");
-                    put("Partner", "Partner");
-                    put("Corporator", "Corporator");
-                    put("Senior Master Agent", "Senior Master Agent");
-                    put("Master Agent", "Master Agent");
-                    put("Agent", "Agent");
-                    put("Member", "Member");
+                    put("PO", "Portal");
+                    put("CO", "Company");
+                    put("PART", "Partner");
+                    put("CORP", "Corporator");
+                    put("SMA", "Senior Master Agent");
+                    put("MA", "Master Agent");
+                    put("AG", "Agent");
+                    put("PL", "Member");
             }
 
         }
@@ -301,16 +301,20 @@ public class AGConstant {
             public final static String LBL_BALANCE_DEPOSIT_INVALID = "Balance Deposit is invalid.";
             public final static String LBL_MIN_GREATER_MAX_INVALID = "Min bet shall not be greater than max bet.";
             public final static String CASH_BALANCE = "Cash Balance";
-            public final static String RATE_SETTOMG = "Rate Setting";
-            public final static String PRODUCT_SETTINGS = "Rate Setting";
+            public final static String RATE_SETTING = "Rate Setting";
+            public final static String PRODUCT_SETTINGS = "Product Settings";
             public final static String BET_SETTING = "Bet Settings";
-            public final static List<String> LST_PRODUCTS = Arrays.asList("Exchange", "Live Dealer Asian", "Exchange Game", "Live Dealer European", "Lottery & Slots", "Supernowa Casino", "Evolution");
-            public final static List<String> BET_SETTING_HEADER = Arrays.asList("Soccer", "Cricket", "Tennis", "Baseketball", "Fancy", "Other");
-            public final static List<String> TAX_SETTING_HEADER = Arrays.asList("Soccer", "Cricket", "Tennis", "Baseketball", "Other");
-            public final static List<String> POSITION_SETTING_HEADER = Arrays.asList("Soccer", "Cricket", "Tennis", "Baseketball", "Other");
+            public final static String TAX_SETTING = "Tax Settings";
+            public final static String POSITION_TAKING_SETTING = "Position Taking";
+            public final static List<String> LST_PRODUCTS = Arrays.asList("Exchange", "CMD Sportsbook", "Supernowa Casino", "Exchange Games", "Live Dealer European", "Live Dealer Asian", "Evolution", "Pragmatic", "Game Hall", "ViVo", "Ion", "Sabong");
+            public final static List<String> EX_BET_SETTING_HEADER = Arrays.asList("","Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Other");
+            public final static List<String> EX_TAX_SETTING_HEADER_SAT = Arrays.asList("","Soccer", "Cricket", "Tennis", "Basketball", "Other");
+            public final static List<String> EX_TAX_SETTING_HEADER = Arrays.asList("","Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Other");
+            public final static List<String> EX_POSITION_SETTING_HEADER = Arrays.asList("","Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Horse Racing","Greyhound Racing", "Other");
             public final static List<String> BET_SETTING_COLUMN = Arrays.asList("Min Bet", "Max Bet", "Max Liability Per Market", "Max Win Per Market");
-            public final static List<String> BET_AND_TAX_SETTING_HEADER_EG = Arrays.asList("Exchange Baccarat", "Exchange BlackJack", "Exchange Card Racer", "Exchange Hi Lo", "Exchange Texas Hold'em", "Exchange Omaha Hi", "Other");
-            public final static List<String> TAX_SETTING_COLUMN = Arrays.asList("", "Upline", "Tax");
+            public final static List<String> EG_BET_TAX_PT_SETTING_HEADER_SAT = Arrays.asList("","Exchange Baccarat", "Exchange BlackJack", "Exchange Card Racer", "Exchange Hi Lo", "Exchange Texas Hold'em", "Exchange Omaha Hi", "Other");
+            public final static List<String> EG_BET_TAX_PT_SETTING_HEADER = Arrays.asList("","Baccarat", "Blackjack", "Racing", "Hilo", "Hold'em", "Omaha Hi", "Other");
+            public final static List<String> TAX_SETTING_COLUMN = Arrays.asList("Upline", "Tax");
 
 
         }
