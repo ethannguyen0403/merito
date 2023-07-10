@@ -18,9 +18,9 @@ import agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection
 import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.NewUIProductSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.OldUIProductSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.ProductSettingSection;
-import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.NewUIRateSettingSection;
-import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.OldUIRateSettingSection;
-import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.RateSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.RateSettingsSection;
+import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.NewUIRateSettingsSection;
+import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.OldUIRateSettingsSection;
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.NewUIRiskSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.OldUIRiskSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.RiskSettingSection;
@@ -89,12 +89,12 @@ public class ComponentsFactory {
         }
     }
 
-    public static RateSettingSection rateSettingInfoObject(String types) {
+    public static RateSettingsSection rateSettingInfoObject(String types) {
         switch (types) {
             case "satsport":
-                return new OldUIRateSettingSection();
+                return new OldUIRateSettingsSection();
             default:
-                return new NewUIRateSettingSection();
+                return new NewUIRateSettingsSection();
         }
     }
 
