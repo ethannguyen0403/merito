@@ -9,6 +9,7 @@ import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,8 +31,9 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "707")
     @Test(groups = {"smoke"})
-    public void Agent_AM_Position_Taking_Listing_002() {
+    public void Agent_AM_Position_Taking_Listing_707() {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
         String userCode = ProfileUtils.getProfile().getUserCodeAndLoginID();
@@ -53,10 +55,11 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3597")
     @Test(groups = {"regression"})
     @Parameters({"brandname"})
     public void Agent_AM_Position_Taking_Listing_003(String brandname) {
-        log("@title: Verify Position Taking List UI display correct");
+        log("@title: Validate can search by username");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname, "", userID);
@@ -74,9 +77,10 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "708")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
-    public void Agent_AM_Position_Taking_Listing_004(String brandname) {
+    public void Agent_AM_Position_Taking_Listing_708(String brandname) {
         log("@title:Verify can search by Login ID ");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -94,9 +98,10 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3598")
     @Test(groups = {"regression"})
-    public void Agent_AM_Position_Taking_Listing_005() {
-        log("@title:Verify can search by Login ID ");
+    public void Agent_AM_Position_Taking_Listing_3598() {
+        log("@title:Validate no result if input invalid Username or Password ");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String downlineLoginID = "invalid";
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
@@ -109,8 +114,9 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3599")
     @Test(groups = {"regression"})
-    public void Agent_AM_Position_Taking_Listing_006() {
+    public void Agent_AM_Position_Taking_Listing_3599() {
         log("@title: Verify PT Setting table display corresponding with selected product");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
@@ -167,10 +173,10 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-
+    @TestRails(id = "3600")
     @Test(groups = {"regression"})
     @Parameters({"brandname"})
-    public void Agent_AM_Position_Taking_Listing_007(String brandname) {
+    public void Agent_AM_Position_Taking_Listing_3600(String brandname) {
         log("@title:Verify filter member level display correctly");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -188,9 +194,10 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3601")
     @Test(groups = {"regression"})
     @Parameters({"brandname"})
-    public void Agent_AM_Position_Taking_Listing_008(String brandname) {
+    public void Agent_AM_Position_Taking_Listing_3601(String brandname) {
         log("@title:Verify filter agent level display correctly");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
@@ -208,9 +215,9 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-
+    @TestRails(id = "3603")
     @Test(groups = {"regression"})
-    public void Agent_AM_Position_Taking_Listing_010() {
+    public void Agent_AM_Position_Taking_Listing_3603() {
         log("@title:Verify can active/inactive sport column");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
@@ -300,9 +307,9 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-
+    @TestRails(id = "3604")
     @Test(groups = {"regression"})
-    public void Agent_AM_Position_Taking_Listing_011() {
+    public void Agent_AM_Position_Taking_Listing_3604() {
         log("@title: Verify Select All checkbox works");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
@@ -334,10 +341,10 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-
+    @TestRails(id = "709")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
-    public void Agent_AM_Position_Taking_Listing_012(String brandname) {
+    public void Agent_AM_Position_Taking_Listing_709(String brandname) {
         log("@title: Verify can update PT for all sports");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         HashMap<String, Boolean> sportMap = new HashMap<String, Boolean>() {
@@ -378,9 +385,9 @@ public class PositionTakingListingTest extends BaseCaseTest {
         Assert.assertTrue(page.verifyUpdateStatus(member, true), "FAILED! Update Status not display green check");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3605")
     @Test(groups = {"regression"})
-    public void Agent_AM_Position_Taking_Listing_013() {
+    public void Agent_AM_Position_Taking_Listing_3605() {
         log("@title: Verify the popup message display when updating PT without select any user");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
@@ -400,10 +407,10 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-
+    @TestRails(id = "710")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
-    public void Agent_AM_Position_Taking_Listing_014(String brandname) {
+    public void Agent_AM_Position_Taking_Listing_710(String brandname) {
         log("@title: Verify can update PT  for selected sport");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();

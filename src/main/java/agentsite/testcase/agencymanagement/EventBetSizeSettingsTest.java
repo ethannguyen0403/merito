@@ -37,7 +37,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
      */
     @TestRails(id = "705")
     @Test(groups = {"smoke"})
-    public void Agent_AM_Event_Bet_Site_Settings_015() {
+    public void Agent_AM_Event_Bet_Site_Settings_705() {
         log("@title: Verify can search  event name with correct value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -55,9 +55,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3565")
     @Test(groups = {"poregression"})
-    public void Agent_AM_Event_Bet_Site_Settings_002() {
-        log("@title:Verify Event Bet Size Settings display when login by PO levels");
+    public void Agent_AM_Event_Bet_Site_Settings_3565() {
+        log("@title:Validate Event Bet Size Settings display when login by PO levels");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
 
@@ -70,8 +71,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3566")
     @Test(groups = {"satregression"})
-    public void Agent_AM_Event_Bet_Site_Settings_003() {
+    public void Agent_AM_Event_Bet_Site_Settings_3566() {
         log("@title:Verify Event Bet Size Settings display when login by Control Login levels");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
@@ -84,9 +86,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3567")
     @Test(groups = {"regressionAGLevel"})
-    public void Agent_AM_Event_Bet_Site_Settings_004() {
+    public void Agent_AM_Event_Bet_Site_Settings_3567() {
         log("@title:Verify Event Bet Size Settings NOT display when login with the level not is PO or Control Blocking Level");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         List<String> lstLeftMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
@@ -96,9 +98,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3568")
     @Test(groups = {"satregression"})
-    public void Agent_AM_Event_Bet_Site_Settings_005() {
+    public void Agent_AM_Event_Bet_Site_Settings_3568() {
         log("@title: Verify UI on Event Bet Size Setting when login for SAD level");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
@@ -113,9 +115,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Assert.assertEquals(page.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is not display");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3569")
     @Test(groups = {"poregression"})
-    public void Agent_AM_Event_Bet_Site_Settings_006() {
+    public void Agent_AM_Event_Bet_Site_Settings_3569() {
         log("@title: Verify UI on Event Bet Size Setting when login for PO level");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
@@ -131,8 +133,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3570")
     @Test(groups = {"regression"})
-    public void Agent_AM_Event_Bet_Site_Settings_007() {
+    public void Agent_AM_Event_Bet_Site_Settings_3570() {
         log("@title: Verify Min-Max value is read only when login for PO level");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
@@ -150,9 +153,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Assert.assertEquals(page.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is not display");
         log("INFO: Executed completely");
     }
-
-    @Test(groups = {"regression2"})
-    public void Agent_AM_Event_Bet_Site_Settings_011() {
+    @TestRails(id = "3571")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Event_Bet_Site_Settings_3571() {
         log("@title: Verify can search competition with prefix value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -169,9 +172,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3575")
     @Test(groups = {"regression"})
-    public void Agent_AM_Event_Bet_Site_Settings_012() {
+    public void Agent_AM_Event_Bet_Site_Settings_3575() {
         log("@title: Verify can search competition with correct value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -189,9 +192,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3576")
     @Test(groups = {"regression"})
-    public void Agent_AM_Event_Bet_Site_Settings_013() {
+    public void Agent_AM_Event_Bet_Site_Settings_3576() {
         log("@title: Verify no competition display when search with invalid data");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
@@ -205,9 +208,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3577")
     @Test(groups = {"regression"})
-    public void Agent_AM_Event_Bet_Site_Settings_014() {
+    public void Agent_AM_Event_Bet_Site_Settings_3577() {
         log("@title: Verify can search event name that contains search value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -224,9 +227,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3578")
     @Test(groups = {"regression"})
-    public void Agent_AM_Event_Bet_Site_Settings_016() {
+    public void Agent_AM_Event_Bet_Site_Settings_3578() {
         log("@title: Verify no  event  display when search with invalid data");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
@@ -240,9 +243,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3579")
     @Test(groups = {"regression"})
-    public void Agent_AM_Event_Bet_Site_Settings_017() {
+    public void Agent_AM_Event_Bet_Site_Settings_3579() {
         log("@title: Verify can search event ID  that contains search value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -259,9 +262,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3580")
     @Test(groups = {"regression"})
-    public void Agent_AM_Event_Bet_Site_Settings_018() {
+    public void Agent_AM_Event_Bet_Site_Settings_3580() {
         log("@title: Verify can search event ID with correct value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -280,9 +283,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3581")
     @Test(groups = {"regression"})
-    public void Agent_AM_Event_Bet_Site_Settings_019() {
+    public void Agent_AM_Event_Bet_Site_Settings_3581() {
         log("@title:Verify no  event  display when search with invalid event Id");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
@@ -369,16 +372,16 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     @TestRails(id = "706")
     @Test(groups = {"smoke"})
     @Parameters({"username", "downlineAccount", "memberAccount", "password"})
-    public void Agent_AM_Event_Bet_Site_Settings_022(String username, String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_706(String username, String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title:Verify can update and remove max and min event setting");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
         AccountInfo acc = ProfileUtils.getProfile();
         List<String> betSettingInfo = EventBetSizeSettingUtils.getUserBetSetting("EXCHANGE", acc.getUserID(), "CRICKET");
         Event event = EventBetSizeSettingUtils.getEventList("Cricket", acc.getUserID(), "TODAY").get(0);
-        //     List<String> betSettingInfo = EventBetSizeSettingUtils.getUserBetSetting("EXCHANGE",acc.getUserID(),"SOCCER");
-        /*int min = Integer.parseInt(String.format("%.0f", Double.parseDouble(betSettingInfo.get(0)))) + 1;
-        int max = (Integer.parseInt(String.format("%.0f", Double.parseDouble(betSettingInfo.get(1)))) +min)/2;*/
+
+//        int min = Integer.parseInt(String.format("%.0f", Double.parseDouble(betSettingInfo.get(0)))) + 1;
+//        int max = (Integer.parseInt(String.format("%.0f", Double.parseDouble(betSettingInfo.get(1)))) +min)/2;
         int min = 5;
         int max = 300;
 
@@ -451,10 +454,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         }*/
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3584")
     @Test(groups = {"regression"})
     @Parameters({"username", "portalSubAccount", "popassword"})
-    public void Agent_AM_Event_Bet_Site_Settings_023(String username, String portalSubAccount, String popassword) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3584(String username, String portalSubAccount, String popassword) throws Exception {
         log("@title:Verify Event Bet Size Setting at PO level is updated following SAD level");
         log("Step 1.Log in successfully by SAD level > Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
@@ -483,10 +486,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3585")
     @Test(groups = {"regression"})
     @Parameters({"username", "portalSubAccount", "popassword"})
-    public void Agent_AM_Event_Bet_Site_Settings_024(String username, String portalSubAccount, String popassword) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3585(String username, String portalSubAccount, String popassword) throws Exception {
         log("@title:Verify can update min-max for Fancy");
         log("Step 1.Log in successfully by SAD level > Navigate Agency Management > Event Bet Size Settings");
         String sportName = "Cricket";
@@ -518,9 +521,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3586")
     @Test(groups = {"regression1"})
-    public void Agent_AM_Event_Bet_Site_Settings_025() {
+    public void Agent_AM_Event_Bet_Site_Settings_3586() {
         log("@title: Only can update for min");
         log("Step 1.Log in successfully by SAD level > Navigate Agency Management > Event Bet Size Settings");
         String sportName = "Cricket";
@@ -539,9 +542,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
-    @Test(groups = {"regression1"})
-    public void Agent_AM_Event_Bet_Site_Settings_026() {
+    @TestRails(id = "3587")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Event_Bet_Site_Settings_3587() {
         log("@title: Only can update for max");
         log("Step 1.Log in successfully by SAD level > Navigate Agency Management > Event Bet Size Settings");
         String sportName = "Cricket";
@@ -560,10 +563,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3588")
     @Test(groups = {"regression"})
-    public void Agent_AM_Event_Bet_Site_Settings_027() {
-        log("@title:Verify validate message display when input max less than min in colimn Min-Max");
+    public void Agent_AM_Event_Bet_Site_Settings_3588() {
+        log("@title: Validate validate message display when input max less than min");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
@@ -604,9 +607,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Assert.assertEquals(popup.getContentMessage(), ERROR_MAX_LESS_THAN_MIN, "FAILED! Error message is incorrect");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3589")
     @Test(groups = {"regression"})
-    public void Agent_AM_Event_Bet_Site_Settings_028() {
+    public void Agent_AM_Event_Bet_Site_Settings_3589() {
         log("@title: Verify cancel button works");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -635,9 +638,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3590")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password", "downlineAccount"})
-    public void Agent_AM_Event_Bet_Site_Settings_029(String memberAccount, String password, String downlineAccount) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3590(String memberAccount, String password, String downlineAccount) throws Exception {
         log("@title:Cannot place bet when stake less than min setting in Event Bet Site Setting for normal market");
         AccountInfo acc = ProfileUtils.getProfile();
         int min = 100;
@@ -678,10 +682,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3591")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Event_Bet_Site_Settings_030(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3591(String memberAccount, String password) throws Exception {
         log("@title:Cannot place bet when stake less than max setting in Event Bet Site Setting for normal market");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -702,10 +706,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3592")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Event_Bet_Site_Settings_031(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3592(String memberAccount, String password) throws Exception {
         log("@title: Cannot place bet when stake less than min setting in Event Bet Site Setting for Fancy market");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -727,9 +731,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3593")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Event_Bet_Site_Settings_032(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3593(String memberAccount, String password) throws Exception {
         log("@title:Cannot place bet when stake greater than max setting in Event Bet Site Setting for Fancy market");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -751,9 +756,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3594")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Event_Bet_Site_Settings_033(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3594(String memberAccount, String password) throws Exception {
         log("@title: Cannot place bet when stake greater than max setting in Event Bet Site Setting for Bookmaker market");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -775,10 +781,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3595")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Event_Bet_Site_Settings_034(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3595(String memberAccount, String password) throws Exception {
         log("@title:Cannot place bet when stake greater than max setting in Event Bet Site Setting for Bookmaker market");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
