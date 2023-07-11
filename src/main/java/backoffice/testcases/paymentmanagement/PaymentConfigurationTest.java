@@ -4,14 +4,12 @@ import backoffice.common.BOConstants;
 import backoffice.pages.bo.paymentmanagement.PaymentConfigurationPage;
 import backoffice.pages.bo.paymentmanagement.paymentconfiguration.PaymentConfigurationPopup;
 import backoffice.utils.paymentmanagement.PaymentConfigurationPopupUtils;
-import backoffice.utils.paymentmanagement.PaymentConfigurationUtils;
 import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("Step 1. Access Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
         log("Step 2. Input a non-exist agent and click Add button");
-        page.filter("All", "fafssd");
+        page.addAgent("All", "fafssd");
         log("Verify 1: Verify The error message \"Agent fafssd does not exist in the System!\" display");
         Assert.assertEquals(page.lblAlertAgentDoesNotExist.getText(), "Agent fafssd does not exist in the System!");
         log("INFO: Executed completely");
@@ -51,17 +49,16 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("@title: Validate cannot add the agent already added in BO Payment Configuration");
         log("pre-condition 1: There is an agent added into Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
-        page.filter("All", satSADAgentLoginID);
-        log("Step 1. Access Payment Configuration");
-        log("Step 2. Input a the agent in precondition and click add button");
-        page.filter("All", satSADAgentLoginID);
-        log("Verify The error message \"Agent [username] is already added\" display");
-        Assert.assertEquals(page.lblAlertAgentAlreadyAdd.getText(), "Agent " + satSADAgentLoginID + " is already added");
-
+        page.addAgent("All", satSADAgentLoginID);
         try {
+            log("Step 1. Access Payment Configuration");
+            log("Step 2. Input a the agent in precondition and click add button");
+            page.addAgent("All", satSADAgentLoginID);
+            log("Verify The error message \"Agent [username] is already added\" display");
+            Assert.assertEquals(page.lblAlertAgentAlreadyAdd.getText(), "Agent " + satSADAgentLoginID + " is already added");
+        } finally {
             page.clickToRemoveByUsername(satSADAgentLoginID);
             page.btnOK.click();
-        } finally {
             System.out.println("Remove Agent");
         }
         log("INFO: Executed completely");
@@ -81,20 +78,21 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("@title: Validate cannot add the agent already added in BO Payment Configuration");
         log("pre-condition 1: There is an agent added into Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
-        page.filter("All", satSADAgentLoginID);
-        log("Step 1. Access Payment Configuration");
-        log("Step 2. Click on eye icon of the according agent");
-        String sameLineAgent = satSADAgentLoginID;
-        for (int i = 3; i < satSADAgentLoginID.length(); i++) {
-            sameLineAgent = new StringBuilder(sameLineAgent).deleteCharAt(3).toString();
-        }
-        page.filter("All", sameLineAgent);
-        log("Verify The error message \"Only 1 level in a single line is allowed to configure\" display");
-        Assert.assertEquals(page.lblAlertOnly1Level.getText(), "Only 1 level in a single line is allowed to configure");
+        page.addAgent("All", satSADAgentLoginID);
         try {
+            log("Step 1. Access Payment Configuration");
+            log("Step 2. Click on eye icon of the according agent");
+
+            String sameLineAgent = satSADAgentLoginID;
+            for (int i = 3; i < satSADAgentLoginID.length(); i++) {
+                sameLineAgent = new StringBuilder(sameLineAgent).deleteCharAt(3).toString();
+            }
+            page.addAgent("All", sameLineAgent);
+            log("Verify The error message \"Only 1 level in a single line is allowed to configure\" display");
+            Assert.assertEquals(page.lblAlertOnly1Level.getText(), "Only 1 level in a single line is allowed to configure");
+        } finally {
             page.clickToRemoveByUsername(satSADAgentLoginID);
             page.btnOK.click();
-        } finally {
             System.out.println("Remove Agent");
         }
         log("INFO: Executed completely");
@@ -106,7 +104,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
      * @steps: 1. Access Payment Configuration
      * 2. Click on eye icon of the according agent
      * @expect: 1. A View log popup display with the title Payment Configuration Log - [Agent code]
-     * 2. Display log data
+     *          2. Display log data
      */
     @TestRails(id = "3839")
     @Test(groups = {"regression"})
@@ -114,22 +112,25 @@ public class PaymentConfigurationTest extends BaseCaseTest {
     public void BO_Payment_Management_PaymentConfiguration_3839(String satSADAgentLoginID) {
         log("@title: Validate can view Payment Configuration Log in BO Payment Configuration");
         log("pre-condition 1: There is an agent added into Payment Configuration");
-
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
-        page.filter("All", satSADAgentLoginID);
-        log("Step 1. Access Payment Configuration");
-        log("Step 2. Click on eye icon of the according agent");
-        PaymentConfigurationPopup popup = page.clickToViewLogByUsername(satSADAgentLoginID);
-        log("Verify 1: A View log popup display with the title Payment Configuration Log - [Agent code]");
-        Assert.assertEquals(popup.lblTitlebyUsername(satSADAgentLoginID).getText(), "Payment Configuration Log - " + satSADAgentLoginID);
-        log("Verify 2: Display log data");
-        List<ArrayList<String>> lstData = popup.getAllData();
-        Assert.assertEquals(lstData, PaymentConfigurationPopupUtils.getData(satSADAgentLoginID));
-        popup.clickToClose();
+        page.addAgent("All", satSADAgentLoginID);
         try {
+            log("Step 1. Access Payment Configuration");
+            log("Step 2. Click on eye icon of the according agent");
+            PaymentConfigurationPopup popup = page.clickToViewLogByUsername(satSADAgentLoginID);
+            log("Verify 1: A View log popup display with the title Payment Configuration Log - [Agent code]");
+            Assert.assertEquals(popup.getTitlePopupByUsername(satSADAgentLoginID), "Payment Configuration Log - " + satSADAgentLoginID);
+            log("Verify 2: Display log data");
+            List<ArrayList<String>> lstData = popup.getLogOfUser();
+            List<ArrayList<String>> lstDataExpect = PaymentConfigurationPopupUtils.getData(satSADAgentLoginID);
+            for (int i = 0; i < lstDataExpect.size(); i++){
+                lstDataExpect.get(i).set(2,lstDataExpect.get(i).get(2).replace(".0",""));
+            }
+            Assert.assertEquals(lstData, lstDataExpect);
+            popup.clickToClosePopup();
+        } finally {
             page.clickToRemoveByUsername(satSADAgentLoginID);
             page.btnOK.click();
-        } finally {
             System.out.println("Remove Agent");
         }
         log("INFO: Executed completely");
@@ -150,19 +151,19 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("@title: Validate cannot add the agent already added in BO Payment Configuration");
         log("pre-condition 1: There is an agent added into Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
-        page.filter("All", satSADAgentLoginID);
-        log("Step 1. Access Payment Configuration");
-        log("Step 2. Click on eye icon of the according agent");
-        PaymentConfigurationPopup popup = page.clickToViewLogByUsername(satSADAgentLoginID);
-        log("Step 3. Click close button");
-        popup.clickToClose();
-        page.waitSpinIcon();
-        log("Verify 1: Verify Payment Configuration log popup is no longer display");
-        Assert.assertFalse(page.isDisplayTitleOfPopup(satSADAgentLoginID));
+        page.addAgent("All", satSADAgentLoginID);
         try {
+            log("Step 1. Access Payment Configuration");
+            log("Step 2. Click on eye icon of the according agent");
+            PaymentConfigurationPopup popup = page.clickToViewLogByUsername(satSADAgentLoginID);
+            log("Step 3. Click close button");
+            popup.clickToClosePopup();
+            page.waitSpinIcon();
+            log("Verify 1: Verify Payment Configuration log popup is no longer display");
+            Assert.assertFalse(page.isDisplayLogPopup(2));
+        } finally {
             page.clickToRemoveByUsername(satSADAgentLoginID);
             page.btnOK.click();
-        } finally {
             System.out.println("Remove Agent");
         }
         log("INFO: Executed completely");
@@ -183,13 +184,14 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("Step 1. Access Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
         log("Step 2. Observe the list");
-        ArrayList<String> lstData = page.getListUsernameAndUpdateDate();
-        ArrayList<String> lstDataSorted = page.getListSortedByUsernameAndUpdateDate(lstData);
-        for (int i = 0; i < lstData.size(); i++){
-            lstData.set(i,lstData.get(i).replace(" ","T"));
+        List<ArrayList<String>> lstData = page.getAllDataOnTable();
+        ArrayList<String> lstUpdateDate = new ArrayList<>();
+        for (int i = 0; i < lstData.size();i++){
+            lstData.get(i).get(8);
         }
+        ArrayList<String> lstDataSorted = page.getListUpdateDateSorted(lstUpdateDate);
         log("Verify 1: Verify the data is sorted by updated date");
-        Assert.assertEquals(lstData,lstDataSorted);
+        Assert.assertEquals(lstUpdateDate,lstDataSorted);
         log("INFO: Executed completely");
     }
 

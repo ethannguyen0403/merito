@@ -1,13 +1,12 @@
 package backoffice.pages.bo.paymentmanagement.paymentconfiguration;
 
 import agentsite.controls.Table;
+import backoffice.controls.Row;
 import backoffice.pages.bo.paymentmanagement.PaymentConfigurationPage;
-import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,27 +16,28 @@ public class PaymentConfigurationPopup  {
     String lblTitle = "//span[text()='Payment Configuration Log - %s']";
     Table tblData = Table.xpath("//div[@class='modal-body']//div[@class='ps-content']",3);
     Button btnClose = Button.xpath("//button[text()='Close']");
-    public Label lblTitlebyUsername(String username){
-        return Label.xpath(String.format(lblTitle,username));
+    public String getTitlePopupByUsername(String username){
+        return Label.xpath(String.format(lblTitle,username)).getText();
     }
 
-    public List<ArrayList<String>> getAllData() {
+    public List<ArrayList<String>> getLogOfUser() {
         List<ArrayList<String>> lstData = new ArrayList<>();
-        List<WebElement> lstRow = DriverManager.getDriver().findElements(By.xpath("//div[@class='modal-body']//div[@class='ps-content']/div"));
-        for (int i = 0; i < lstRow.size(); i++){
-            int n = i + 1;
-                Label lblData = Label.xpath(String.format("//div[@class='modal-body']//div[@class='ps-content']/div[%s]/div[1]",n));
+        Row lstRow = Row.xpath("//div[@class='modal-body']//div[@class='ps-content']/div");
+        for (int i = 0; i < lstRow.getWebElements().size(); i++){
+                int u = i + 1;
+                Label lblData = Label.xpath(String.format("//div[@class='modal-body']//div[@class='ps-content']/div[%s]/div[1]",u));
                 lblData.scrollToThisControl(true);
-                lstData.add(i,new ArrayList<String>(
-                        Arrays.asList(
-                                Label.xpath(String.format("//div[@class='modal-body']//div[@class='ps-content']/div[%s]/div[1]",n)).getText(),
-                                Label.xpath(String.format("//div[@class='modal-body']//div[@class='ps-content']/div[%s]/div[2]",n)).getText(),
-                                Label.xpath(String.format("//div[@class='modal-body']//div[@class='ps-content']/div[%s]/div[3]",n)).getText()+".0"
-                        )));
+                Row row = Row.xpath(String.format("//div[@class='modal-body']//div[@class='ps-content']/div[%s]/div",u));
+                ArrayList<String> lstString = new ArrayList<String>();
+                for (int j = 0; j < row.getWebElements().size();j++){
+                    int n = j + 1;
+                    lstString.add(j,Label.xpath(String.format("//div[@class='modal-body']//div[@class='ps-content']/div[%s]/div[%s]",u,n)).getText());
+                }
+                lstData.add(i, lstString);
         }
         return lstData;
     }
-    public PaymentConfigurationPage clickToClose(){
+    public PaymentConfigurationPage clickToClosePopup(){
         btnClose.click();
         return new PaymentConfigurationPage();
     }

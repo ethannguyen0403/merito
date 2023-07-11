@@ -1,11 +1,9 @@
 package backoffice.pages.bo.paymentmanagement;
 
+import backoffice.controls.Row;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.pages.bo.paymentmanagement.paymentconfiguration.PaymentConfigurationPopup;
-import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,11 +21,11 @@ public class PaymentConfigurationPage extends HomePage {
     String btnEye = "//div[text()=' %s ']/parent::div//span[@class='cursor-pointer p-2'][2]";
     public Button btnOK = Button.xpath("//button[text()='OK']");
     public Label lblScrollTo = Label.xpath("//div[text()='6']");
-    String lblTitleOfPopupByUsername = "//span[text()='Payment Configuration Log - %s']";
+    Popup ppLog = Popup.xpath("//modal-container");
     public Label lblPaymentConfiguration = Label.xpath("//span[@id='bo-page-title']");
     public Label lblPaymentMethod = Label.xpath("//label[text()='Payment Method']");
     public Label lblAgent = Label.xpath("//label[text()='Agent']");
-    public void filter(String paymentMethod, String userAgentName) {
+    public void addAgent(String paymentMethod, String userAgentName) {
         if (!paymentMethod.isEmpty()){
             ddnPaymentMethod.selectByVisibleContainsText(paymentMethod);
         }
@@ -38,32 +36,47 @@ public class PaymentConfigurationPage extends HomePage {
     }
     public void clickToRemoveByUsername(String username) {
         Button btnRemoveByUsername = Button.xpath(String.format(btnRemove,username));
-        lblScrollTo.scrollToThisControl(true);
-        btnRemoveByUsername.click();
+        if (btnRemoveByUsername.isClickable(2)){
+            btnRemoveByUsername.click();
+        } else {
+            lblScrollTo.scrollToThisControl(true);
+            btnRemoveByUsername.click();
+        }
+
+
     }
 
     public PaymentConfigurationPopup clickToViewLogByUsername(String username) {
         Button btnViewLog = Button.xpath(String.format(btnEye,username));
-        lblScrollTo.scrollToThisControl(true);
-        btnViewLog.click();
+        if (btnViewLog.isClickable(2)){
+            btnViewLog.click();
+        } else {
+            lblScrollTo.scrollToThisControl(true);
+        }
         return new PaymentConfigurationPopup();
     }
-    public boolean isDisplayTitleOfPopup(String username){
-        return Label.xpath(String.format(lblTitleOfPopupByUsername,username)).isDisplayed(3000);
+    public boolean isDisplayLogPopup(){
+        return ppLog.isDisplayed(3000);
     }
-    public ArrayList<String> getListUsernameAndUpdateDate() {
-        ArrayList<String> lstData = new ArrayList<String>();
-        List<WebElement> lstRow = DriverManager.getDriver().findElements(By.xpath("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted']"));
-        for (int i = 0; i < lstRow.size(); i++){
+    public List<ArrayList<String>> getAllDataOnTable() {
+        List<ArrayList<String>> lstData = new ArrayList<>();
+        Row lstRow = Row.xpath("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted']");
+        for (int i = 0; i < lstRow.getWebElements().size(); i++){
             int n = i + 1;
             Label lblData = Label.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]",n));
             lblData.scrollToThisControl(true);
-            lstData.add(Label.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]/div[9]",n)).getText());
+            Row row = Row.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]/div",n));
+            ArrayList<String> lstString = new ArrayList<String>();
+            for (int j = 0; j < row.getWebElements().size();j++){
+                int u = j + 1;
+                lstString.add(j,Label.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]/div[%s]",n,u)).getText());
+            }
+            lstData.add(i, lstString);
         }
         return lstData;
     }
 
-    public ArrayList<String> getListSortedByUsernameAndUpdateDate(ArrayList<String> lstData) {
+    public ArrayList<String> getListUpdateDateSorted(ArrayList<String> lstData) {
         ArrayList<LocalDateTime> myDates = new ArrayList<>();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         for (int i = 0; i < lstData.size(); i++){
@@ -79,8 +92,8 @@ public class PaymentConfigurationPage extends HomePage {
     }
     public ArrayList<String> getHeaderTableName(){
         ArrayList<String> lstData = new ArrayList<String>();
-        List<WebElement> lstColumn = DriverManager.getDriver().findElements(By.xpath("//div[@class='custom-table-header']/div/div/span"));
-        for (int i = 1; i <= lstColumn.size(); i++){
+        Row rowHeadTableName = Row.xpath("//div[@class='custom-table-header']/div/div/span");
+        for (int i = 1; i <= rowHeadTableName.getWebElements().size(); i++){
             lstData.add(Label.xpath(String.format("//div[@class='custom-table-header']/div/div[%s]/span",i)).getText());
         }
         return lstData;
