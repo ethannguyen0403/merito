@@ -14,6 +14,7 @@ import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,8 +26,9 @@ public class BlockRacingTest extends BaseCaseTest {
      * @steps: 1. Navigate Markets Management >Block Racing
      * @expect: 1. Verify there is no console error display
      */
+    @TestRails(id = "772")
     @Test(groups = {"http_request"})
-    public void Agent_MM_Block_Racing_TC001() {
+    public void Agent_MM_Block_Racing_TC772() {
         log("@title: Validate there is no http responded error returned");
 
         log("Step 1. Navigate Markets Management >Block Racing");
@@ -38,9 +40,10 @@ public class BlockRacingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3700")
     @Test(groups = {"interaction"})
     @Parameters({"username", "downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_Block_Racing_TC006(String username, String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_Block_Racing_TC3700(String username, String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Venue Name display/dissapear when block/unblock");
         log("Step Precondition Get horse racing info in Block Unblock event page in Today tab");
         String sportName = "Horse Racing";
@@ -93,10 +96,10 @@ public class BlockRacingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3701")
     @Test(groups = {"interaction"})
     @Parameters({"username", "downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_Block_Racing_TC007(String username, String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_Block_Racing_TC3701(String username, String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Venue Name of Greyhound Racing display/disappear when block/unblock");
         log("Step Precondition Get Greyhound racing info in Block Unblock event page in Today tab");
         String sportName = "Greyhound Racing";

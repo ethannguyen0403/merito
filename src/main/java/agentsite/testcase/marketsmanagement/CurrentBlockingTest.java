@@ -14,6 +14,7 @@ import membersite.objects.sat.Event;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,9 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * 2. Select  Type = Event, Sport = Soccer
      * @expect: 1. Verify Current Blocking UI display correctly
      */
-    @Test(groups = {"smoke"})
-    public void Agent_MM_CurrentBlocking_TC002() {
+    @TestRails(id = "3703")
+    @Test(groups = {"regression"})
+    public void Agent_MM_CurrentBlocking_TC3730() {
         log("@title: Validate Current Blocking UI display correctly");
 
         log("Step 1. Navigate Markets Management > Current Blocking");
@@ -58,9 +60,10 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * @expect: 1. Verify Blocked User popup display, UI display correctly
      * 2. The number blocked in the list matched with the number in current column
      */
+    @TestRails(id = "773")
     @Test(groups = {"smoke"})
     @Parameters("downlineAccount")
-    public void Agent_MM_CurrentBlocking_TC003(String downlineAccount) {
+    public void Agent_MM_CurrentBlocking_TC773(String downlineAccount) {
         log("@title: Verify can view blocked user for an event");
         log("Step 1. Navigate Markets Management > Current Blocking");
         CurrentBlockingPage page = agentHomePage.navigateCurrentBlockingPage();
@@ -106,9 +109,10 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * @expect: 1. Verify the account is remove in the list Blocked User
      * 2. Close the popup and verify the blocked number is deducted
      */
+    @TestRails(id = "774")
     @Test(groups = {"smoke"})
     @Parameters("downlineAccount")
-    public void Agent_MM_CurrentBlocking_TC004(String downlineAccount) {
+    public void Agent_MM_CurrentBlocking_TC774(String downlineAccount) {
         log("@title: Verify can unblocked Now event for a user");
         log("Pre-condition Step: Block an event");
         BlockUnblockEventPage blockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
@@ -158,8 +162,9 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * 2. Select  Type = Event, Sport = Soccer
      * @expect: 1. Verify UI display correct when select Competition type
      */
+    @TestRails(id = "775")
     @Test(groups = {"smoke"})
-    public void Agent_MM_CurrentBlocking_TC005() {
+    public void Agent_MM_CurrentBlocking_TC775() {
         log("@title: Verify Current Blocking UI when selecting Competition");
 
         log("Step 1. Navigate Markets Management > Current Blocking");
@@ -193,10 +198,11 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * @expect: 1. Verify the account is remove in the list Blocked User
      * 2. Close the popup and verify the blocked number is deducted
      */
+    @TestRails(id = "776")
     @Test(groups = {"smoke"})
     @Parameters("downlineAccount")
-    public void Agent_MM_CurrentBlocking_TC006(String downlineAccount) {
-        log("@title: Verify Current Blocking UI when selecting Competition");
+    public void Agent_MM_CurrentBlocking_TC776(String downlineAccount) {
+        log("@title:Verify can unblock competition");
         log("Precondition. Block a competition");
         CurrentBlockingPage page = agentHomePage.navigateCurrentBlockingPage();
         log("Step 2. Select  Type = Competition, Sport = Soccer");
@@ -234,8 +240,6 @@ public class CurrentBlockingTest extends BaseCaseTest {
         } else {
             Assert.assertEquals(blockedUserNumberAfter, "", "FAILED! block number does not deducted after unblock competition for an account");
         }
-
-
         log("INFO: Executed completely");
     }
 

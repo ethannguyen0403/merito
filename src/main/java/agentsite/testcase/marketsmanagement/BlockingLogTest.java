@@ -5,16 +5,13 @@ import baseTest.BaseCaseTest;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 public class BlockingLogTest extends BaseCaseTest {
-    /**
-     * @title: Validate there is no http responded error returned
-     * @pre-condition: 1. Log in successfully from PO level
-     * @steps: 1. Navigate Markets Management >Block Racing
-     * @expect: 1. Verify there is no console error display
-     */
+
+    @TestRails(id = "3709")
     @Test(groups = {"http_request"})
-    public void Agent_MM_Blocking_Log_TC001() {
+    public void Agent_MM_Blocking_Log_TC3709() {
         log("@title: Validate there is no http responded error returned");
 
         log("Step 1. Navigate Markets Management >Block Racing");
@@ -26,14 +23,9 @@ public class BlockingLogTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Verify Blocking Log UI display correctly
-     * @pre-condition: 11. Log in successfully by SAD
-     * @steps: 1. Navigate Markets Management > Blocking Log
-     * @expect: 1. Verify Blocking Log UI display correctly
-     */
-    @Test(groups = {"smoke"})
-    public void Agent_MM_Blocking_Log_TC002() {
+    @TestRails(id = "3710")
+    @Test(groups = {"regression"})
+    public void Agent_MM_Blocking_Log_TC3710() {
         log("@title Verify Blocking Log UI display correctly");
         log("Step 1. Navigate Markets Management > Blocking Log");
         BlockingLogPage page = agentHomePage.navigateBlockingLogPage();
