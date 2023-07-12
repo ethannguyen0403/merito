@@ -132,7 +132,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseTest {
      * e.g. CMD Sportsbook (CMD Sportsbook) …
      */
     @TestRails(id = "3868")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     public void BO_System_Provider_Currency_Mapping_3868() {
         log("@title: Validate product list display correctly in Product dropdown");
         log("Step 1. Access Provider Currency Mapping Page");

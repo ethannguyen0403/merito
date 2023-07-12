@@ -22,7 +22,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      * @Verify: 1. Verify Agent is added in the list with correct data as added
      */
     @TestRails(id = "16")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     @Parameters({"agentNotAdd"})
     public void BO_System_Small_Bets_Configuration_016(String agentNotAdd) {
         log("@title: Validate can add small bets setting for an agent in Small Bet Configuration in Backoffice");
@@ -71,7 +71,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      *          2. Agent is remove out the list
      */
     @TestRails(id = "17")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     @Parameters({"agentNotAdd"})
     public void BO_System_Small_Bets_Configuration_017(String agentNotAdd) {
         log("@title: Validate can add small bets setting for an agent in Small Bet Configuration in Backoffice");
@@ -104,7 +104,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      * @Verify: 1. Verify the error message display "Agent [username] is already added!"
      */
     @TestRails(id = "18")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_System_Small_Bets_Configuration_018(String satSADAgentLoginID) {
         log("@title: Validate can add small bets setting for an agent in Small Bet Configuration in Backoffice");
@@ -131,7 +131,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      *              - Add button is disable if not input agent
      */
     @TestRails(id = "19")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     public void BO_System_Small_Bets_Configuration_019() {
         log("@title: Validate can add small bets setting for an agent in Small Bet Configuration in Backoffice");
         log("pre-condition 1: Log in BO");
@@ -162,7 +162,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      *              - Submit and Close button
      */
     @TestRails(id = "20")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     public void BO_System_Small_Bets_Configuration_020() {
         log("@title: Validate can add small bets setting for an agent in Small Bet Configuration in Backoffice");
         log("pre-condition 1: Log in BO");
@@ -200,7 +200,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      */
 
     @TestRails(id = "41")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_System_Small_Bets_Configuration_041(String satSADAgentLoginID) {
         log("@title: Validate can update Stake in Small Bet Configuration in Backoffice");
@@ -231,7 +231,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      *          3. Verify Accept % of Pricing is kept as current
      */
     @TestRails(id = "42")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_System_Small_Bets_Configuration_042(String satSADAgentLoginID) {
         log("@title: Validate can Not update Stake with No confirm in Small Bet Configuration in Backoffice");
@@ -261,7 +261,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      *          2. Verify message "Update is successful!" and value of Accept % of Pricing that is updated after confirm yes
      */
     @TestRails(id = "43")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_System_Small_Bets_Configuration_043(String satSADAgentLoginID) {
         log("@title: Validate can update Accept % of Pricing in Small Bet Configuration in Backoffice");
@@ -292,7 +292,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      *          3. Verify Accept % of Pricing is kept as current
      */
     @TestRails(id = "44")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_System_Small_Bets_Configuration_044(String satSADAgentLoginID) {
         log("@title: Validate can NOT update Accept % of Pricing with No confirm in Small Bet Configuration in Backoffice");
@@ -322,7 +322,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      *          2. Verify message "Update is successful!" and value of Reject Back if Potential Winning that is updated after confirm yes
      */
     @TestRails(id = "45")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_System_Small_Bets_Configuration_045(String satSADAgentLoginID) {
         log("@title: Validate can update Reject Back if Potential Winning in Small Bet Configuration in Backoffice");
@@ -353,7 +353,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      *          3. Verify Reject Back if Potential Winning is kept as current
      */
     @TestRails(id = "46")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_System_Small_Bets_Configuration_046(String satSADAgentLoginID) {
         log("@title: Validate can NOT update Reject Back if Potential Winning No confirm in Small Bet Configuration in Backoffice");
@@ -383,7 +383,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      *          2. Verify message "Update is successful!" displays and value of Reject Lay if Potential Liability that is updated after confirm yes
      */
     @TestRails(id = "47")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_System_Small_Bets_Configuration_047(String satSADAgentLoginID) {
         log("@title: Validate can update Reject Lay if Potential Liability in Small Bet Configuration in Backoffice");
@@ -414,7 +414,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      *          3. Reject Lay if Potential Liability is kept as current
      */
     @TestRails(id = "48")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_System_Small_Bets_Configuration_048(String satSADAgentLoginID) {
         log("@title: Validate can NOT update Reject Lay if Potential Liability No confirm in Small Bet Configuration in Backoffice");
@@ -442,7 +442,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
      * @Verify: 1. Verify message "Agent does not exist in the system" display
      */
     @TestRails(id = "49")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     public void BO_System_Small_Bets_Configuration_049() {
         log("@title: Validate message error display when add none exist agent in Small Bet Configuration in Backoffice");
         log("Step 1. Access Small Bets Configuration");
