@@ -167,6 +167,15 @@ public class BOConstants {
             public final static List<String> FILTER_PERIOD = Arrays.asList("Old Events", "Today", "Tomorrow", "Future");
         }
     }
+    public static class PaymentManagement {
+        public static class PaymentConfiguration {
+            public final static List<String> HEADER_TABLE = Arrays.asList("No.","Brand","Level","Username","Currency","Payment Method","Line","Updated By","Updated Date","Action");
+            public final static List<String> OPTION_OF_PAYMENT_METHOD = Arrays.asList("All","KINGSPAY");
+        }
+        public static class DepositWithdrawalTransactions {
+            public final static List<String> TAB_NAME = Arrays.asList("Deposit Transactions","Withdrawal Transactions");
+        }
+    }
 
     public static class Reports {
         public static class WinLossDetail {
