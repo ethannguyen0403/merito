@@ -42,8 +42,6 @@ public class PaymentConfigurationPage extends HomePage {
             lblScrollTo.scrollToThisControl(true);
             btnRemoveByUsername.click();
         }
-
-
     }
 
     public PaymentConfigurationPopup clickToViewLogByUsername(String username) {
@@ -56,7 +54,12 @@ public class PaymentConfigurationPage extends HomePage {
         return new PaymentConfigurationPopup();
     }
     public boolean isDisplayLogPopup(){
-        return ppLog.isDisplayed(3000);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return ppLog.isDisplayed(3);
     }
     public List<ArrayList<String>> getAllDataOnTable() {
         List<ArrayList<String>> lstData = new ArrayList<>();
@@ -73,6 +76,7 @@ public class PaymentConfigurationPage extends HomePage {
             }
             lstData.add(i, lstString);
         }
+        lblScrollTo.scrollToThisControl(false);
         return lstData;
     }
 
@@ -82,11 +86,11 @@ public class PaymentConfigurationPage extends HomePage {
         for (int i = 0; i < lstData.size(); i++){
             myDates.add(LocalDateTime.parse(lstData.get(i),format));
         }
-        Collections.sort(myDates);
+        Collections.sort(myDates,Collections.reverseOrder());
 
         ArrayList<String> lstSorted = new ArrayList<String>();
         for (int i = 0; i < myDates.size(); i++){
-            lstSorted.add(String.valueOf(myDates.get(i)));
+            lstSorted.add(String.valueOf(myDates.get(i)).replace("T"," "));
         }
         return lstSorted;
     }

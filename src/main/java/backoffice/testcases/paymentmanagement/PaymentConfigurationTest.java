@@ -82,12 +82,22 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         try {
             log("Step 1. Access Payment Configuration");
             log("Step 2. Click on eye icon of the according agent");
-
-            String sameLineAgent = satSADAgentLoginID;
-            for (int i = 3; i < satSADAgentLoginID.length(); i++) {
-                sameLineAgent = new StringBuilder(sameLineAgent).deleteCharAt(3).toString();
+            List<ArrayList<String>> lstData = page.getAllDataOnTable();
+            String lineAgent = null;
+            for (int i = 0; i < lstData.size();i++){
+                if (lstData.get(i).get(3).equals(satSADAgentLoginID)){
+                    lineAgent = lstData.get(i).get(6);
+                    break;
+                }
             }
-            page.addAgent("All", sameLineAgent);
+            String upLineAgent = null;
+            for (int i = 0; i < lineAgent.length();i++){
+                if (String.valueOf(lineAgent.charAt(i)).equals("/")) {
+                    upLineAgent = lineAgent.substring(0,i);
+                    break;
+                }
+            }
+            page.addAgent("All", upLineAgent);
             log("Verify The error message \"Only 1 level in a single line is allowed to configure\" display");
             Assert.assertEquals(page.lblAlertOnly1Level.getText(), "Only 1 level in a single line is allowed to configure");
         } finally {
@@ -145,7 +155,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
      * @expect: 1. Verify Payment Configuration log popup is no longer display
      */
     @TestRails(id = "3840")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression1"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_Payment_Management_PaymentConfiguration_3840(String satSADAgentLoginID) {
         log("@title: Validate cannot add the agent already added in BO Payment Configuration");
@@ -158,9 +168,8 @@ public class PaymentConfigurationTest extends BaseCaseTest {
             PaymentConfigurationPopup popup = page.clickToViewLogByUsername(satSADAgentLoginID);
             log("Step 3. Click close button");
             popup.clickToClosePopup();
-            page.waitSpinIcon();
             log("Verify 1: Verify Payment Configuration log popup is no longer display");
-            Assert.assertFalse(page.isDisplayLogPopup(2));
+            Assert.assertFalse(page.isDisplayLogPopup());
         } finally {
             page.clickToRemoveByUsername(satSADAgentLoginID);
             page.btnOK.click();
@@ -187,7 +196,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         List<ArrayList<String>> lstData = page.getAllDataOnTable();
         ArrayList<String> lstUpdateDate = new ArrayList<>();
         for (int i = 0; i < lstData.size();i++){
-            lstData.get(i).get(8);
+            lstUpdateDate.add(i,lstData.get(i).get(8));
         }
         ArrayList<String> lstDataSorted = page.getListUpdateDateSorted(lstUpdateDate);
         log("Verify 1: Verify the data is sorted by updated date");
