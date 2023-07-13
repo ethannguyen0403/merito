@@ -155,7 +155,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
      * @expect: 1. Verify Payment Configuration log popup is no longer display
      */
     @TestRails(id = "3840")
-    @Test(groups = {"regression1"})
+    @Test(groups = {"regression"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_Payment_Management_PaymentConfiguration_3840(String satSADAgentLoginID) {
         log("@title: Validate cannot add the agent already added in BO Payment Configuration");

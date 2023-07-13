@@ -1,16 +1,15 @@
 package backoffice.pages.bo.paymentmanagement;
 
 import backoffice.controls.DateTimePicker;
+import backoffice.controls.Row;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.utils.paymentmanagement.PaymentConfigurationUtils;
-import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +30,8 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
     public Button btnDepositTab = Button.xpath("//li[@class='nav-item cursor-pointer'][1]");
     public ArrayList<String> getTabName(){
         ArrayList<String> lstTab = new ArrayList<String>();
-        List<WebElement> lstColumn = DriverManager.getDriver().findElements(By.xpath("//li[@class='nav-item cursor-pointer']/a"));
-        for (int i = 1; i <= lstColumn.size(); i++){
+        Row lstColumn = Row.xpath("//li[@class='nav-item cursor-pointer']/a");
+        for (int i = 1; i <= lstColumn.getWebElements().size(); i++){
             lstTab.add(Label.xpath(String.format("//li[@class='nav-item cursor-pointer'][%s]/a",i)).getText());
         }
         return lstTab;
@@ -42,8 +41,8 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
     }
     public ArrayList<String> getHeaderTableName(){
         ArrayList<String> lstData = new ArrayList<String>();
-        List<WebElement> lstColumn = DriverManager.getDriver().findElements(By.xpath("//div[@class='custom-table-header']/div/div/span"));
-        for (int i = 1; i <= lstColumn.size(); i++){
+        Row lstColumn = Row.xpath("//div[@class='custom-table-header']/div/div/span");
+        for (int i = 1; i <= lstColumn.getWebElements().size(); i++){
             lstData.add(Label.xpath(String.format("//div[@class='custom-table-header']/div/div[%s]/span",i)).getText());
         }
         return lstData;
@@ -60,5 +59,56 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
             }
         }
         return agent;
+    }
+
+    public void searchData(String fromDay, String toDay, String brand, String agent, String status, String username) {
+        if (!fromDay.isEmpty()){
+            dtpFrom.selectDate(fromDay,"yyyy/MM/dd");
+        }
+        if (!toDay.isEmpty()){
+            dtpTo.selectDate(toDay,"yyyy/MM/dd");
+        }
+        if (!brand.isEmpty()){
+            ddnBrand.selectByVisibleText(brand);
+        }
+        if (!agent.isEmpty()){
+            ddnAgent.selectByVisibleText(agent);
+        }
+        if (!status.isEmpty()){
+            ddnStatus.selectByVisibleText(status);
+        }
+        if (!username.isEmpty()){
+            txbUsername.sendKeys(username);
+        }
+        btnSearch.click();
+    }
+    public List<ArrayList<String>> getDataInTable(){
+        if (Row.xpath("//div[@class='custom-table-body custom-scroll-body ng-star-inserted']//div[@class='ps-content']").isDisplayed()){
+            List<ArrayList<String>> lstData = new ArrayList<>();
+            Row lstRow = Row.xpath("//div[@class='custom-table-row ng-star-inserted']");
+            for (int i = 0; i < lstRow.getWebElements().size();i++){
+                int n = i + 1;
+                Label lblData = Label.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]",n));
+                lblData.scrollToThisControl(true);
+                Row row = Row.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]/div",n));
+                ArrayList<String> lstString = new ArrayList<String>();
+                for (int j = 0; j < row.getWebElements().size();j++){
+                    int u = j + 1;
+                    lstString.add(j,Label.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]/div[%s]",n,u)).getText());
+                }
+                lstData.add(i, lstString);
+            }
+            return lstData;
+        } else {
+            System.out.println("No records found");
+        }
+        return null;
+    }
+
+    public boolean checkTransactionDateInFilterRange(LocalDateTime fromDayTime, LocalDateTime toDayTime, LocalDateTime dateTime) {
+        if (dateTime.isAfter(fromDayTime)  && dateTime.isBefore(toDayTime) && dateTime.equals(fromDayTime) && dateTime.equals(toDayTime)){
+            return true;
+        }
+        return false;
     }
 }

@@ -1,9 +1,7 @@
 package backoffice.testcases.paymentmanagement;
 
 import backoffice.common.BOConstants;
-import backoffice.controls.DateTimePicker;
 import backoffice.pages.bo.paymentmanagement.DepositWithdrawalTransactionsPage;
-import backoffice.utils.paymentmanagement.PaymentConfigurationUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
 import org.testng.Assert;
@@ -11,6 +9,7 @@ import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,7 +144,6 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
 
     /**
      * @title: Validate default value on BO Withdrawal Transactions display correctly in BO Deposit/Withdrawal Transactions
-     * @pre-condition: 1. Login BO
      * @steps: 1. Access Deposit/Withdrawal Transactions page
      *         2. Active Withdraw tab, observe and verify value in the filter controls
      * @expect: 1. Verify From - To is display current day in time zone GMT-4
@@ -173,33 +171,5 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate default value on BO Withdrawal Transactions display correctly in BO Deposit/Withdrawal Transactions
-     * @pre-condition: 1. Login BO
-     * @steps: 1. Access Deposit/Withdrawal Transactions page
-     *         2. Active Withdraw tab, observe and verify value in the filter controls
-     * @expect: 1. Verify From - To is display current day in time zone GMT-4
-     *          2. Brand display All by default, and display all brands
-     *          3. Agent display All by default. It display all agents of all brands which is added in Payment Configuration
-     *          4. Status: All is default value. When clicking on the dropdown, the status include: All, Pending, Success, Failure, Approved, Reject
-     */
-    @TestRails(id = "3848")
-    @Test(groups = {"regression1"})
-    public void BO_Payment_Management_Deposit_Withdrawal_Transactions_3848() {
-        log("@title: Validate default value on BO Withdrawal Transactions display correctly in BO Deposit/Withdrawal Transactions");
-        log("Step 1. Access Deposit/Withdrawal Transactions page");
-        DepositWithdrawalTransactionsPage page = backofficeHomePage.navigateDepositWithdrawalTransactionsPage();
-        log("Step 2. Active Withdraw tab, observe and verify value in the filter controls");
-        page.btnWithdrawalTab.click();
-        log("Verify 1: Verify default value on BO Withdrawal Transactions display correctly");
-        Assert.assertEquals(page.txbFrom.getAttribute("value"), DateUtils.getDate(0, "yyyy/MM/dd", BOConstants.GMT_FOUR));
-        Assert.assertEquals(page.txbTo.getAttribute("value"), DateUtils.getDate(0, "yyyy/MM/dd", BOConstants.GMT_FOUR));
-        Assert.assertEquals(page.ddnBrand.getFirstSelectedOption(),"All");
-        Assert.assertEquals(page.ddnAgent.getFirstSelectedOption(),"All");
-        List<String> lstAgent = page.ddnAgent.getOptions();
-        Assert.assertEquals(page.getNumberAgentSameAsPaymentConfigurationPage(lstAgent),lstAgent.size()-1);
-        Assert.assertEquals(page.ddnStatus.getFirstSelectedOption(),"All");
-        Assert.assertEquals(page.ddnStatus.getOptions(),BOConstants.PaymentManagement.DepositWithdrawalTransactions.STATUS_OF_WITHDRAWAL);
-        log("INFO: Executed completely");
-    }
+
 }
