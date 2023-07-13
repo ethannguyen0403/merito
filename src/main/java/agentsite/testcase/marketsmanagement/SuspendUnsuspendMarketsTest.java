@@ -30,7 +30,7 @@ import static common.AGConstant.MarketsManagement.SuspendUnsuspendMarket.*;
 public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
     @TestRails(id = "782")
     @Test(groups = {"smoke"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC001() {
+    public void Agent_MM_SuspendUnsuspendMarkets_TC782() {
         log("@title: Verify Control Level Blocking cannot access the page");
 
         log("Step 1 Login agent site the level control blocking");
@@ -45,7 +45,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
 
     @TestRails(id = "783")
     @Test(groups = {"smokeMA"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC002() {
+    public void Agent_MM_SuspendUnsuspendMarkets_TC783() {
         log("@title: Verify can access the page at direct level under Control Blocking level");
 
         log("Step 1 Login agent site - the level under control blocking");
@@ -60,7 +60,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
 
     @TestRails(id = "784")
     @Test(groups = {"smokeMA"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC003() {
+    public void Agent_MM_SuspendUnsuspendMarkets_TC784() {
         log("@title: Verify UI is displayed correctly");
         log("Step 1 Login agent site - the level under control blocking");
         log("Step 2 Expand  Bet/Market Management section in the left menu");
@@ -81,9 +81,9 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "785")
+    @TestRails(id = "3717")
     @Test(groups = {"smokeMA1"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC004() {
+    public void Agent_MM_SuspendUnsuspendMarkets_TC3717() {
         String loginUserId = ProfileUtils.getProfile().getUserID();
         log("@title: Verify Market Detail popup UI is correctly display");
         log("Step 1 Login agent site - the level under control blocking");
@@ -113,10 +113,10 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "786")
+    @TestRails(id = "785")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC005(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_SuspendUnsuspendMarkets_TC785(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify can suspend line market");
         log("Step Precondition: Unblock an event has Line market at level control blocking");
         String sportName = "Cricket";
@@ -142,9 +142,10 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3718")
     @Test(groups = {"interaction"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC006(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_SuspendUnsuspendMarkets_TC3718(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Line market in member site is suspend ");
         log("Step Precondition: Unblock an event has Line market at level control blocking");
         String sportName = "Cricket";
@@ -176,9 +177,10 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3719")
     @Test(groups = {"interaction"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC007(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_SuspendUnsuspendMarkets_TC3719(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Line market in member site is unsuspend ");
         log("Step Precondition: Unblock an event has Line market at level control blocking");
         String sportName = "Cricket";
@@ -251,10 +253,10 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
 //
 //        log("INFO: Executed completely");
 //    }
-
+    @TestRails(id = "3721")
     @Test(groups = {"interaction"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC009(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_SuspendUnsuspendMarkets_TC321(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Suspend function in Block Unblock Event will override setting in Suspend/Unsuspend Market page");
         log("Step precondition 1: Login agent by direct agent at control blocking");
         String sportName = "Cricket";
@@ -287,10 +289,10 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3723")
     @Test(groups = {"interaction"})
     @Parameters({"downlineAccount", "password"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC011(String downlineAccount, String password) throws Exception {
+    public void Agent_MM_SuspendUnsuspendMarkets_TC3723(String downlineAccount, String password) throws Exception {
         log("@title: Agent level only level under control blocking can see the menu");
         log("Step precondition: Login agent by level control blocking");
         log("Step 1 Expand  Bets/Market Management and observer the menu Suspend/Unsuspend Market page");

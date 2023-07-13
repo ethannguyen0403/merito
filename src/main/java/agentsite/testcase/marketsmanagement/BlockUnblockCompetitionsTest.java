@@ -14,6 +14,7 @@ import membersite.pages.SportPage;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -26,8 +27,9 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
      * @steps: 1. Navigate Markets Management > Block/Unblock Competition
      * @expect: 1. Verify Block/Unblock Competition UI display correctly
      */
+    @TestRails(id = "777")
     @Test(groups = {"smoke"})
-    public void Agent_MM_BlockUnblockCompetitions_TC002() {
+    public void Agent_MM_BlockUnblockCompetitions_TC777() {
         log("@title: Validate Block/Unblock Competition UI display correctly");
 
         log("Step 1. Navigate Markets Management > Block/Unblock Competition");
@@ -55,9 +57,10 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
      * 4. Click on Block button
      * @expect: 1. Status is change to Blocked Status, Last Update By and Last Update time display correctly
      */
+    @TestRails(id = "778")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount"})
-    public void Agent_MM_BlockUnblockCompetitions_TC003(String downlineAccount) {
+    public void Agent_MM_BlockUnblockCompetitions_TC778(String downlineAccount) {
         log("@title: Verify can Block a competition");
         log("Step 1. Navigate Markets Management > Block/Unblock Competition");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -93,9 +96,10 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
      * 4. Click on Unblock button
      * @expect: 1. Status is change to Unblocked Status, Last Update By and Last Update time display correctly
      */
+    @TestRails(id = "779")
     @Test(groups = {"smoke"})
     @Parameters("downlineAccount")
-    public void Agent_MM_BlockUnblockCompetitions_TC004(String downlineAccount) {
+    public void Agent_MM_BlockUnblockCompetitions_TC779(String downlineAccount) {
         log("@title: Verify can Unblock a competition");
         AccountInfo acc = ProfileUtils.getProfile();
         String fullUserAlias = acc.getUserCodeAndLoginID();
@@ -129,9 +133,10 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
      * 4. Click on Unblock  button
      * @expect: 1. Verify the competition displays in Block/Unblock Event Report
      */
-    @Test(groups = {"smoke"})
+    @TestRails(id = "3704")
+    @Test(groups = {"regression"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_BlockUnblockCompetitions_TC005(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_BlockUnblockCompetitions_TC3704(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Unblock competition display in Block unblock event page");
         AccountInfo acc = ProfileUtils.getProfile();
         String sportName = "Soccer";
@@ -176,9 +181,10 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
      * @expect: 1. Verify the competition not display in Block/Unblock Event Report
      * 2. Verify the competition does not display on member site
      */
-    @Test(groups = {"smoke"})
+    @TestRails(id = "3705")
+    @Test(groups = {"regression"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_BlockUnblockCompetitions_TC006(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_BlockUnblockCompetitions_TC3705(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Blocked Competition not display Block/Unblock Event");
         AccountInfo acc = ProfileUtils.getProfile();
         String sportName = "Soccer";
@@ -211,9 +217,10 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"interaction5"})
+    @TestRails(id = "3707")
+    @Test(groups = {"interaction"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_BlockUnblockCompetitions_TC007(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_BlockUnblockCompetitions_TC3707(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify competition is displayed in member site when unblocked in agent site");
         log("Pre-condition: get a competition in Today Tab");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -243,9 +250,10 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3708")
     @Test(groups = {"interaction"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_BlockUnblockCompetitions_TC008(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_BlockUnblockCompetitions_TC3708(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify competition is not display in member site when blocked in agent site");
         log("Pre-condition: get a competition in Today Tab");
         AccountInfo acc = ProfileUtils.getProfile();

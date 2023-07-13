@@ -6,6 +6,7 @@ import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 public class LiquidityThresholdTest extends BaseCaseTest {
     /**
@@ -14,8 +15,9 @@ public class LiquidityThresholdTest extends BaseCaseTest {
      * @steps: 1. Navigate Markets Management >Liquidity Threshold
      * @expect: 1. Verify there is no console error display
      */
+    @TestRails(id = "780")
     @Test(groups = {"http_request"})
-    public void Agent_MM_Liquidity_Threshold_TC001() {
+    public void Agent_MM_Liquidity_Threshold_TC780() {
         log("@title: Validate there is no http responded error returned");
 
         log("Step 1. Navigate Markets Management >Liquidity Threshold");
@@ -36,9 +38,10 @@ public class LiquidityThresholdTest extends BaseCaseTest {
      * @expect: 1. Can active Liquidity Threshold, the column Last Update Time, Last Update By, History is empty
      * 2. Can inactive Liquidity Threshold and show log in Last Update Time, Last Update By and View link
      */
+    @TestRails(id = "781")
     @Test(groups = {"smokePO"})
     @Parameters({"username", "controlBlockingAccount"})
-    public void Agent_MM_Liquidity_Threshold_TC005(String controlBlockingAccount) {
+    public void Agent_MM_Liquidity_Threshold_TC781(String controlBlockingAccount) {
         log("@title: Can Active/Inactive Liquidity Threshold Status");
 
         log("Step 1. Navigate Markets Management >Liquidity Threshold");
@@ -70,10 +73,11 @@ public class LiquidityThresholdTest extends BaseCaseTest {
      * 3. Click Active liquidity threshold
      * @expect: 1.  Can not active for downline when upline is inactive
      */
-    @Test(groups = {"smokePO"})
+    // Missing test case id in TestRail
+       @Test(groups = {"smokePO"})
     @Parameters({"controlBlockingAccount", "downlineAccount"})
     public void Agent_MM_Liquidity_Threshold_TC008(String controlBlockingAccount, String downlineAccount) {
-        log("@title: Can Active/Inactive Liquidity Threshold Status");
+        log("@title: Can not active for downline when upline is inactive");
         log("Step 1. Navigate Markets Management >Liquidity Threshold");
         LiquidityThresholdPage page = agentHomePage.navigateLiquidityThresholdPage();
 
