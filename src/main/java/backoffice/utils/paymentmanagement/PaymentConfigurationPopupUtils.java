@@ -30,7 +30,7 @@ public class PaymentConfigurationPopupUtils {
                         Arrays.asList(
                                 jsonObject.getString("action"),
                                 jsonObject.getString("lastUpdateBy"),
-                                jsonObject.getString("lastUpdateDate")
+                                jsonObject.getString("lastUpdateDate").replace(".0","")
                 )));
             }
         }
