@@ -838,9 +838,10 @@ public class LeftMenuTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"interaction"})
+    @TestRails(id = "3481")
+    @Test(groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC022(String brandname) throws Exception {
+    public void LeftMenu_TC3481(String brandname) throws Exception {
         log("@title: Verify Account Status in Downline Listing page is updated according after update in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
@@ -867,9 +868,10 @@ public class LeftMenuTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"interaction"})
+    @TestRails(id = "3482")
+    @Test(groups = {"regression"})
     @Parameters({"brandname"})
-    public void LeftMenu_TC023(String brandname) throws Exception {
+    public void LeftMenu_TC3482(String brandname) throws Exception {
         log("@title: Can update user profile in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
