@@ -45,9 +45,6 @@ public class PaymentConfigurationPage extends HomePage {
         Button btnRemoveByUsername = Button.xpath(String.format(btnRemove,username));
         if (btnRemoveByUsername.isClickable(2)){
             btnRemoveByUsername.click();
-        } else {
-            scrollTo6.scrollToThisControl(true);
-            btnRemoveByUsername.click();
         }
     }
 
