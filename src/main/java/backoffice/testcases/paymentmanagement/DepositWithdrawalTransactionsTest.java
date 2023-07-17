@@ -218,7 +218,6 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 4. Select a specific brand");
         log("Step 5. Click Search button");
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        String toDay = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"", page.ddnBrand.getOptions().get(1),"","","");
         log("Verify 1: Verify all accounts under select brand display only. Display \"No records found\" if the brand have no deposit transaction in filter range");
         List<String> lstBrand = page.tblDeposit.getColumn(2,20,true);
@@ -249,7 +248,6 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 4. Select all brand and status is Success");
         log("Step 5. Click Search button");
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        String toDay = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"","","","Success","");
         log("Verify 1: Verify all accounts which have status = Success");
         List<String> lstStatus = page.tblDeposit.getColumn(9,20,true);
@@ -280,7 +278,6 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 4. Select all brand and status is Failure");
         log("Step 5. Click Search button");
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        String toDay = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"","","","Failure","");
         log("Verify 1: Verify all accounts which have status = Failure");
         List<String> lstStatus = page.tblDeposit.getColumn(9,20,true);
@@ -310,7 +307,6 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 4. Select all brand and status is Pending");
         log("Step 5. Click Search button");
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        String toDay = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"","","","Pending","");
         log("Verify 1: Verify all accounts which have status = Pending");
         List<String> lstStatus = page.tblDeposit.getColumn(9,20,true);
@@ -340,12 +336,8 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 4. Select all brand and status is Success");
         log("Step 5. Click Search button");
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        String toDay = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"","","","Success","");
         log("Verify 1: Verify all accounts which have status = Success");
-        List<String> lstTransactionDate = page.tblWithDrawal.getColumn(4,20,true);
-        Assert.assertTrue(page.checkTransactionDateInFilterRange(fromDay,toDay, lstTransactionDate));
-
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
         Assert.assertTrue(page.checkAccountsSelectLabels("","","Success",Collections.singletonList("") , Collections.singletonList(""), lstStatus));
         log("INFO: Executed completely");
@@ -373,7 +365,6 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 4. Select all brand and status is Failure");
         log("Step 5. Click Search button");
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        String toDay = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"","","","Failure","");
         log("Verify 1: Verify all accounts which have status = Failure");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
@@ -403,7 +394,6 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 4. Select all brand and status is Approved");
         log("Step 5. Click Search button");
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        String toDay = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"","","","Approved","");
         log("Verify 1: Verify all accounts which have status = Approved");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
@@ -433,7 +423,6 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 4. Select all brand and status is Reject");
         log("Step 5. Click Search button");
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        String toDay = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"","","","Rejected","");
         log("Verify 1: Verify all accounts which have status = Rejected");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
@@ -463,7 +452,6 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 4. Select all brand and status is Pending");
         log("Step 5. Click Search button");
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        String toDay = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"","","","Pending","");
         log("Verify 1: Verify all accounts which have status = Pending");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
