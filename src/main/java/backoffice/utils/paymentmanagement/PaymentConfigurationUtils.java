@@ -30,8 +30,8 @@ public class PaymentConfigurationUtils {
         }
         return lstData;
     }
-    public static List<ArrayList<String>> getListBrandWithAgent() {
-        List<ArrayList<String>> lstData = new ArrayList<>();
+    public static List<String> getListAgentByBrandName(String brandname) {
+        List<String> lstData = new ArrayList<>();
         String api = String.format("%s/system-manager/web/sv/payment/list-payment-configuration", backofficeUrl);
         String jsn = "{\n" +
                 "  \"loginId\": \"\",\n" +
@@ -41,14 +41,10 @@ public class PaymentConfigurationUtils {
         if (Objects.nonNull(jsonArray)) {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                lstData.add(i, new ArrayList<String>(
-                        Arrays.asList(
-                                jsonObject.getString("brandName"),
-                                jsonObject.getString("loginId")
-                        )
-                ));
-//                lstData.add(jsonObject.getString("brandName"));
-//                lstData.add(jsonObject.getString("loginId"));
+                if (jsonObject.getString("brandName").equals(brandname)) {
+                    lstData.add(jsonObject.getString("loginId"));
+                }
+
             }
         }
         return lstData;

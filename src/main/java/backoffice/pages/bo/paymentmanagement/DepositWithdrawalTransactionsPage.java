@@ -2,6 +2,7 @@ package backoffice.pages.bo.paymentmanagement;
 
 import backoffice.controls.DateTimePicker;
 import backoffice.controls.Row;
+import backoffice.controls.Table;
 import backoffice.controls.bo.StaticTable;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.utils.paymentmanagement.PaymentConfigurationUtils;
@@ -31,6 +32,7 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
     public Button btnSearch = Button.name("submit");
     public Button btnWithdrawalTab = Button.xpath("//li[@class='nav-item cursor-pointer'][2]");
     public Button btnDepositTab = Button.xpath("//li[@class='nav-item cursor-pointer'][1]");
+    Table tblBody = Table.xpath("//div[@class='custom-table-body custom-scroll-body ng-star-inserted']",20);
     public StaticTable tblDeposit = StaticTable.xpath("//div[@class='custom-table currency-table mt-2 ng-star-inserted']","div[@class='custom-table-body custom-scroll-body ng-star-inserted']",
             "div[@class='custom-table-row ng-star-inserted']","div[contains(@class,'custom-table-cell')]",9);
     public StaticTable tblWithDrawal = StaticTable.xpath("//div[@class='custom-table currency-table mt-2 ng-star-inserted']","div[@class='custom-table-body custom-scroll-body ng-star-inserted']",
@@ -89,76 +91,31 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
         }
         btnSearch.click();
     }
-    public List<ArrayList<String>> getDataInTable(){
-        if (Row.xpath("//div[@class='custom-table-body custom-scroll-body ng-star-inserted']//div[@class='ps-content']").isDisplayed()){
-            List<ArrayList<String>> lstData = new ArrayList<>();
-            Row lstRow = Row.xpath("//div[@class='custom-table-row ng-star-inserted']");
-            for (int i = 0; i < lstRow.getWebElements().size();i++){
-                int n = i + 1;
-                Label lblData = Label.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]",n));
-                lblData.scrollToThisControl(true);
-                Row row = Row.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]/div",n));
-                ArrayList<String> lstString = new ArrayList<String>();
-                for (int j = 0; j < row.getWebElements().size();j++){
-                    int u = j + 1;
-                    lstString.add(j,Label.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]/div[%s]",n,u)).getText());
-                }
-                lstData.add(i, lstString);
-            }
-            return lstData;
-        } else {
-            System.out.println("No records found");
-        }
-        return null;
-    }
 
     public boolean checkTransactionDateInFilterRange(String fromDay, String toDay, List<String> lstTransactionDate) {
-        if (Label.xpath("//div[@class='custom-table-body custom-scroll-body ng-star-inserted']").isDisplayed()){
+        if (tblBody.isDisplayed()){
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd\nHH:mm:ss");
-            LocalDateTime fromDayTime = LocalDateTime.parse(fromDay+"\n00:00:00",format);
-            LocalDateTime toDayTime = LocalDateTime.parse(toDay+"\n00:00:00",format);
+            LocalDateTime fromDayTime = LocalDateTime.parse(fromDay+"\n00:00:01",format);
+            LocalDateTime toDayTime = LocalDateTime.parse(toDay+"\n23:59:59",format);
             for (int i = 0; i < lstTransactionDate.size(); i++){
-                if (LocalDateTime.parse(lstTransactionDate.get(i),format).isAfter(fromDayTime)  && LocalDateTime.parse(lstTransactionDate.get(i),format).isBefore(toDayTime)){
-                    return true;
-                }
-                if (LocalDateTime.parse(lstTransactionDate.get(i),format).isEqual(fromDayTime)  || LocalDateTime.parse(lstTransactionDate.get(i),format).isEqual(toDayTime)){
-                    return true;
+                if (LocalDateTime.parse(lstTransactionDate.get(i),format).isBefore(fromDayTime)  && LocalDateTime.parse(lstTransactionDate.get(i),format).isAfter(toDayTime)){
+                    System.out.println("Transaction date is not in the filter range");
+                    return false;
                 }
             }
-            System.out.println("Transaction date is not in the filter range");
-            return false;
+            return true;
         } else {
             System.out.println("No records found");
             return false;
         }
     }
 
-    public boolean checkAccountsSelectLabels(String brand, String agent, String status, List<String> lstBrand, List<String> lstAgent, List<String> lstStatus) {
-        if (Label.xpath("//div[@class='custom-table-body custom-scroll-body ng-star-inserted']").isDisplayed()){
+    public boolean checkAccountsByBrand(String brand, List<String> lstBrand) {
+        if (tblBody.isDisplayed()){
             if (!brand.isEmpty() && !lstBrand.isEmpty()){
                 for (int i = 0; i < lstBrand.size();i++){
                     if (!lstBrand.get(i).equals(brand)){
                         System.out.println(lstBrand.get(i) + " difference from "+brand);
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-            }
-            if (!agent.isEmpty() && !lstAgent.isEmpty()){
-                for (int i = 0; i < lstAgent.size();i++){
-                    if (!lstAgent.get(i).substring(0,lstAgent.get(i).indexOf("(")-1).equals(agent)){
-                        System.out.println(lstAgent.get(i) + " difference from" + agent );
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-            }
-            if (!status.isEmpty() && !lstStatus.isEmpty()){
-                for (int i = 0; i < lstStatus.size();i++){
-                    if (!lstStatus.get(i).equals(status)){
-                        System.out.println(lstStatus.get(i) + " difference from" + status );
                         return false;
                     } else {
                         return true;
@@ -171,14 +128,45 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
         }
         return false;
     }
-
-    public boolean checkAgentOnPaymentConfigurationByBrandName(String brandname, List<String> lstAgent) {
-        List<String> lstAgentOnPayment = new ArrayList<>();
-        for (int i = 0; i < PaymentConfigurationUtils.getListBrandWithAgent().size(); i++){
-            if (PaymentConfigurationUtils.getListBrandWithAgent().get(i).get(0).equals(brandname)){
-                lstAgentOnPayment.add(PaymentConfigurationUtils.getListBrandWithAgent().get(i).get(1));
+    public boolean checkAccountsByUserName(String username, List<String> lstUsername){
+        if (tblBody.isDisplayed()){
+            if (!username.isEmpty() && !lstUsername.isEmpty()){
+                for (int i = 0; i < lstUsername.size();i++){
+                    if (!lstUsername.get(i).substring(0,lstUsername.get(i).indexOf("(")-1).equals(username)){
+                        System.out.println(lstUsername.get(i) + " difference from" + username );
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
             }
+        } else {
+            System.out.println("No records found");
+            return true;
         }
+        return false;
+    }
+    public boolean checkAccountsByStatus(String status, List<String> lstStatus){
+        if (tblBody.isDisplayed()){
+            if (!status.isEmpty() && !lstStatus.isEmpty()){
+                for (int i = 0; i < lstStatus.size();i++){
+                    if (!lstStatus.get(i).equals(status)){
+                        System.out.println(lstStatus.get(i) + " difference from" + status );
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            System.out.println("No records found");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean verifyAgentListLoadCorrect(String brandname, List<String> lstAgent) {
+        List<String> lstAgentOnPayment = PaymentConfigurationUtils.getListAgentByBrandName(brandname);
         int o = 0;
         for (int i = 0; i < lstAgentOnPayment.size(); i++){
             for (int j = 0; j < lstAgent.size(); j++){
@@ -192,21 +180,12 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
         }
         return false;
     }
-    public List<String> getListTransactionSorted(List<String> lstTransaction) {
-        List<LocalDateTime> myDates = new ArrayList<>();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd\nHH:mm:ss");
+    public List<String> getListSorted(List<String> lstTransaction) {
+        ArrayList<String> myDates = new ArrayList<>();
         for (int i = 0; i < lstTransaction.size(); i++){
-            myDates.add(LocalDateTime.parse(lstTransaction.get(i),format));
+            myDates.add(lstTransaction.get(i));
         }
         Collections.sort(myDates,Collections.reverseOrder());
-
-        ArrayList<String> lstSorted = new ArrayList<String>();
-        for (int i = 0; i < myDates.size(); i++){
-            lstSorted.add(String.valueOf(myDates.get(i)).replace("T","\n"));
-            if (lstSorted.get(i).length() < 17){
-                lstSorted.set(i,lstSorted.get(i)+":00");
-            }
-        }
-        return lstSorted;
+        return myDates;
     }
 }

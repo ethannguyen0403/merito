@@ -9,7 +9,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.util.Collections;
 import java.util.List;
 
 public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
@@ -221,7 +220,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         page.searchData(fromDay,"", page.ddnBrand.getOptions().get(1),"","","");
         log("Verify 1: Verify all accounts under select brand display only. Display \"No records found\" if the brand have no deposit transaction in filter range");
         List<String> lstBrand = page.tblDeposit.getColumn(2,20,true);
-        Assert.assertTrue(page.checkAccountsSelectLabels(page.ddnBrand.getOptions().get(1),"","",lstBrand, Collections.singletonList(""),Collections.singletonList("")));
+        Assert.assertTrue(page.checkAccountsByBrand(page.ddnBrand.getOptions().get(1), lstBrand));
         log("INFO: Executed completely");
     }
 
@@ -251,7 +250,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         page.searchData(fromDay,"","","","Success","");
         log("Verify 1: Verify all accounts which have status = Success");
         List<String> lstStatus = page.tblDeposit.getColumn(9,20,true);
-        Assert.assertTrue(page.checkAccountsSelectLabels("","","Success",Collections.singletonList(""), Collections.singletonList(""),lstStatus));
+        Assert.assertTrue(page.checkAccountsByStatus("Success", lstStatus));
         log("INFO: Executed completely");
     }
 
@@ -281,7 +280,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         page.searchData(fromDay,"","","","Failure","");
         log("Verify 1: Verify all accounts which have status = Failure");
         List<String> lstStatus = page.tblDeposit.getColumn(9,20,true);
-        Assert.assertTrue(page.checkAccountsSelectLabels("","","Failure", Collections.singletonList(""),Collections.singletonList(""),lstStatus));
+        Assert.assertTrue(page.checkAccountsByStatus("Failure", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -310,7 +309,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         page.searchData(fromDay,"","","","Pending","");
         log("Verify 1: Verify all accounts which have status = Pending");
         List<String> lstStatus = page.tblDeposit.getColumn(9,20,true);
-        Assert.assertTrue(page.checkAccountsSelectLabels("","","Pending", Collections.singletonList(""), Collections.singletonList(""), lstStatus));
+        Assert.assertTrue(page.checkAccountsByStatus("Pending", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -339,7 +338,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         page.searchData(fromDay,"","","","Success","");
         log("Verify 1: Verify all accounts which have status = Success");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
-        Assert.assertTrue(page.checkAccountsSelectLabels("","","Success",Collections.singletonList("") , Collections.singletonList(""), lstStatus));
+        Assert.assertTrue(page.checkAccountsByStatus("Success", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -368,7 +367,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         page.searchData(fromDay,"","","","Failure","");
         log("Verify 1: Verify all accounts which have status = Failure");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
-        Assert.assertTrue(page.checkAccountsSelectLabels("","","Failure",Collections.singletonList("") , Collections.singletonList(""), lstStatus));
+        Assert.assertTrue(page.checkAccountsByStatus("Failure", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -397,7 +396,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         page.searchData(fromDay,"","","","Approved","");
         log("Verify 1: Verify all accounts which have status = Approved");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
-        Assert.assertTrue(page.checkAccountsSelectLabels("","","Approved",Collections.singletonList("") , Collections.singletonList(""), lstStatus));
+        Assert.assertTrue(page.checkAccountsByStatus("Approved", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -426,7 +425,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         page.searchData(fromDay,"","","","Rejected","");
         log("Verify 1: Verify all accounts which have status = Rejected");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
-        Assert.assertTrue(page.checkAccountsSelectLabels("","","Rejected",Collections.singletonList("") , Collections.singletonList(""), lstStatus));
+        Assert.assertTrue(page.checkAccountsByStatus("Rejected", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -455,7 +454,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         page.searchData(fromDay,"","","","Pending","");
         log("Verify 1: Verify all accounts which have status = Pending");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
-        Assert.assertTrue(page.checkAccountsSelectLabels("","","Pending",Collections.singletonList("") , Collections.singletonList(""), lstStatus));
+        Assert.assertTrue(page.checkAccountsByStatus("Pending", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -484,8 +483,8 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"","","","",usernameDepositTransaction);
         log("Verify 1: Verify only the transactions of the according account displayed");
-        List<String> lstAgent = page.tblWithDrawal.getColumn(3,20,true);
-        Assert.assertTrue(page.checkAccountsSelectLabels("",usernameDepositTransaction,"",Collections.singletonList("") , lstAgent, Collections.singletonList("")));
+        List<String> lstUsername = page.tblWithDrawal.getColumn(3,20,true);
+        Assert.assertTrue(page.checkAccountsByUserName(usernameDepositTransaction, lstUsername));
         log("INFO: Executed completely");
     }
     /**
@@ -514,8 +513,8 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"","","","",usernameDepositTransaction);
         log("Verify 1: Verify only the transactions of the according account displayed");
-        List<String> lstAgent = page.tblDeposit.getColumn(3,20,true);
-        Assert.assertTrue(page.checkAccountsSelectLabels("",usernameDepositTransaction,"",Collections.singletonList("") , lstAgent, Collections.singletonList("")));
+        List<String> lstUsername = page.tblDeposit.getColumn(3,20,true);
+        Assert.assertTrue(page.checkAccountsByUserName(usernameDepositTransaction, lstUsername));
         log("INFO: Executed completely");
     }
     /**
@@ -537,12 +536,11 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 2. Active Withdraw Transactions tab");
         page.btnDepositTab.click();
         log("Step 3. Select a brand that having the agent added in Payment Configuration page");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"", page.ddnBrand.getOptions().get(1),"","","");
+        page.ddnBrand.selectByVisibleText(page.ddnBrand.getOptions().get(1));
         log("Step 4. Check the list Agent");
         List<String> lstAgent = page.ddnAgent.getOptions().subList(1,page.ddnAgent.getOptions().size());
         log("Verify 1: Verify the list agents of the according brand added in Payment Configuration page");
-        Assert.assertTrue(page.checkAgentOnPaymentConfigurationByBrandName( page.ddnBrand.getOptions().get(1), lstAgent),page.ddnBrand.getOptions().get(1)+" has not agent in Payment Configuration Page");
+        Assert.assertTrue(page.verifyAgentListLoadCorrect(page.ddnBrand.getOptions().get(1), lstAgent),page.ddnBrand.getOptions().get(1)+" has not agent in Payment Configuration Page");
         log("INFO: Executed completely");
     }
     /**
@@ -567,7 +565,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         page.searchData(fromDay,"", "Pradhanbet","","","");
         log("Verify 1: Verify the list transaction is sort DESC by transaction date");
         List<String> lstTransaction = page.tblDeposit.getColumn(4,20,true);
-        Assert.assertEquals(lstTransaction,page.getListTransactionSorted(lstTransaction));
+        Assert.assertEquals(lstTransaction,page.getListSorted(lstTransaction));
         log("INFO: Executed completely");
     }
     /**
@@ -576,7 +574,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
      * @steps: 1. Access Deposit/Withdrawal Transactions page
      *         2. Active Withdrawal Transactions tab
      *         3. Select a brand has withdrawal transaction
-     * @expect: 1. Verify the list transaction is sort DESC by transaction date
+     * @expect: 1. Verify the list transaction is sort DESC by Updated Date
      */
     @TestRails(id = "3862")
     @Test(groups = {"regression"})
@@ -590,9 +588,9 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select a brand has deposit transaction");
         String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,"", "Pradhanbet","","","");
-        log("Verify 1: Verify the list transaction is sort DESC by transaction date");
-        List<String> lstTransaction = page.tblWithDrawal.getColumn(4,20,true);
-        Assert.assertEquals(lstTransaction,page.getListTransactionSorted(lstTransaction));
+        log("Verify 1: Verify the list transaction is sort DESC by Updated Date");
+        List<String> lstUpdatedDate = page.tblWithDrawal.getColumn(13,20,true);
+        Assert.assertEquals(lstUpdatedDate,page.getListSorted(lstUpdatedDate));
         log("INFO: Executed completely");
     }
 }
