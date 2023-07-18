@@ -94,7 +94,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public CreditBalanceSection creditBalanceInforSection;
     public RiskSettingSection riskSettingInforSection;
     public CashBalanceSection cashBalanceInforSection;
-    public agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.RateSettingSection rateSettingInforSection;
+    public agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.RateSettingsSection rateSettingInforSection;
     public ProductSettingSection productSettingInforSection;
     public BetSettingSection betSettingInforSection;
     public TaxSettingSection taxSettingInforSection;

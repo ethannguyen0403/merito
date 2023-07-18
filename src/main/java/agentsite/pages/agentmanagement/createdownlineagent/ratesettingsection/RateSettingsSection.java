@@ -2,7 +2,7 @@ package agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection;
 
 import com.paltech.element.common.Icon;
 
-public class RateSettingSection {
+public class RateSettingsSection {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
 
     public void waitingLoadingSpinner() {

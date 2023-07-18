@@ -21,7 +21,7 @@ public class CreateUserTest extends BaseCaseTest {
 
 
     @TestRails(id = "3492")
-    @Test(groups = {"regression","http_request"})
+    @Test(groups = {"http_request"})
     public void Agent_AM_CreateUser_3492() throws Exception {
         //Set isProxy = true
         log("@title: There is no http responded error returned");
@@ -89,7 +89,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3985")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_fair"})
     public void Agent_AM_CreateUser_3985() throws Exception {
         //login Control blocking level + Cash
         log("@title: Validate UI in Create User with Exchange Product setting for Credit Cash line");
@@ -182,7 +182,7 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3986")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_fair"})
     public void Agent_AM_CreateUser_3986() throws Exception {
         log("@title: Validate UI in Create User with Exchange Game Product setting");
         log("Step 1. Navigate Agency Management > Create User");
@@ -237,10 +237,10 @@ public class CreateUserTest extends BaseCaseTest {
 
     @TestRails(id = "3496")
     @Test(groups = {"regression"})
-    public void Agent_AM_CreateUser_006() throws Exception {
+    public void Agent_AM_CreateUser_3496() throws Exception {
         log("@title: Validate can NOT Create User if not input Password");
         log("Step 1. Navigate Agency Management > Create User");
-        String loginId = StringUtils.generateString("autoID.", 8);
+        String loginId = StringUtils.generateAlphabetic( 10);
         CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("2. Left Password empty and click on submit button");
@@ -253,8 +253,9 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3497")
-    @Test(groups = {"poregression"})
-    public void Agent_AM_CreateUser_012() {
+    @Test(groups = {"regression_po"})
+    public void Agent_AM_CreateUser_3497() {
+        //login level = PO
         log("@title: Validate cannot create user from PO level");
         log("Step Precondition 1. Log in successfully by PO level");
         log("1. Click on Agency Management");
@@ -268,15 +269,16 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3498")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_CreateUser_3498() {
-        log("@title: Validate no Security poup display when access the page");
+        //login level != PO
+        log("@title: Validate no Security poup display when access the page - SAT");
         log("Step Precondition 1. Log in successfully by SAD/SMA level");
         log("1. Navigate to Create User page");
         agentHomePage.leftMenu.clickSubMenu(AGENCY_MANAGEMENT,CREATE_USER);
 
         log("Verify 1. Validate there is no security popup display for SAT");
-        Assert.assertFalse(agentHomePage.isSecurityCodePopupDisplayed(_brandname),"FAILED! Security Popup is displayed");
+        Assert.assertFalse(agentHomePage.securityPopup.isDisplayed(),"FAILED! Security Popup is displayed");
         log("INFO: Executed completely");
     }
 

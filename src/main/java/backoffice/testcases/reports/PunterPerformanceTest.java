@@ -47,7 +47,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
      * @expect: 1. There is data display. If no data display the message "No record found"
      */
     @TestRails(id = "3876")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     public void BO_Report_Punter_Performance_3876() {
         log("@title: Validate can search data in Punter Performance");
         log("Step 1. Access Reports > Punter Performance");
@@ -67,7 +67,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
      * @expect: 1. Verify the message "Please select at least 1 portal" display and Submit button is disable
      */
     @TestRails(id = "3877")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     public void BO_Report_Punter_Performance_3877() {
         log("@title: Validate message display when no portal selected");
         log("Step 1. Access Reports > Punter Performance");
@@ -88,7 +88,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
      * @expect: 1. Verify the message "Please select at least 1 product" display and Submit button is disable
      */
     @TestRails(id = "3878")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     public void BO_Report_Punter_Performance_3878() {
         log("@title: Validate message display when no product selected");
         log("Step 1. Access Reports > Punter Performance");
@@ -111,7 +111,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
      *             - Verify table header display correctly
      */
     @TestRails(id = "3879")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     public void BO_Report_Punter_Performance_3879() {
         log("@title: Validate UI display correctly");
         log("Step 1. Access Reports > Punter Performance");
@@ -136,7 +136,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
      * @expect: 1. Verify the result display in today the date range next to Punter performance is correctly (08/06/2023 ~ 17/06/2023)
      */
     @TestRails(id = "3880")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     public void BO_Report_Punter_Performance_3880() {
         log("@title: Validate date range display correctly when searching with input fromDay, toDay");
         log("Step 1. Access Reports > Punter Performance");
@@ -160,7 +160,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
      * @expect: 1. Verify data is back in Portal level
      */
     @TestRails(id = "3881")
-    @Test(groups = {"Regression"})
+    @Test(groups = {"regression"})
     public void BO_Report_Punter_Performance_3881() {
         log("@title: Validate date range display correctly when searching with input fromDay, to");
         log("Step 1. Access Reports > Punter Performance");

@@ -1,9 +1,6 @@
 package backoffice.common;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BOConstants {
     public final static String NO_RECORD_FOUND = "No record found";
@@ -174,6 +171,12 @@ public class BOConstants {
         }
         public static class DepositWithdrawalTransactions {
             public final static List<String> TAB_NAME = Arrays.asList("Deposit Transactions","Withdrawal Transactions");
+            public static final List<String> HEADER_TABLE_OF_DEPOSIT_TAB = Arrays.asList("No.","Brand","Username","Transaction Date","Transaction ID","Payment Method",
+                    "Currency","Deposit Amount","Status");
+            public static final List<String> HEADER_TABLE_OF_WITHDRAWAL_TAB = Arrays.asList("No.","Brand","Username","Transaction Date","Transaction ID","Bank Account Name",
+                    "Bank Name","IFSC Code","Bank Account No.","Currency","Withdrawal Amount","Status","Updated Date","Updated By");
+            public static final List<String> STATUS_OF_DEPOSIT = Arrays.asList("All","Pending","Success","Failure");
+            public static final List<String> STATUS_OF_WITHDRAWAL = Arrays.asList("All","Pending","Success","Failure","Approved","Rejected");
         }
     }
 

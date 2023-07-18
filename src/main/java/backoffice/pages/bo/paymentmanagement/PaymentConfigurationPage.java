@@ -1,6 +1,6 @@
 package backoffice.pages.bo.paymentmanagement;
 
-import backoffice.controls.Row;
+import backoffice.controls.bo.StaticTable;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.pages.bo.paymentmanagement.paymentconfiguration.PaymentConfigurationPopup;
 import com.paltech.element.common.*;
@@ -20,11 +20,18 @@ public class PaymentConfigurationPage extends HomePage {
     String btnRemove = "//div[text()=' %s ']/parent::div//span[@class='cursor-pointer p-2'][1]";
     String btnEye = "//div[text()=' %s ']/parent::div//span[@class='cursor-pointer p-2'][2]";
     public Button btnOK = Button.xpath("//button[text()='OK']");
-    public Label lblScrollTo = Label.xpath("//div[text()='6']");
+    public Label scrollTo6 = Label.xpath("//div[text()='6']");
+    public Label scrollTo3 = Label.xpath("//div[text()='3']");
+    public Label scrollTo2 = Label.xpath("//div[text()='2']");
+    public Label scrollTo1 = Label.xpath("//div[text()='1']");
     Popup ppLog = Popup.xpath("//modal-container");
     public Label lblPaymentConfiguration = Label.xpath("//span[@id='bo-page-title']");
     public Label lblPaymentMethod = Label.xpath("//label[text()='Payment Method']");
     public Label lblAgent = Label.xpath("//label[text()='Agent']");
+    private int totalColumn = 10;
+    public StaticTable tblReport = StaticTable.xpath("//div[@class='custom-table currency-table']","div[@class='custom-table-body custom-scroll-body ng-star-inserted']",
+            "div[@class='custom-table-row ng-star-inserted']","div[contains(@class,'custom-table-cell')]",totalColumn);
+
     public void addAgent(String paymentMethod, String userAgentName) {
         if (!paymentMethod.isEmpty()){
             ddnPaymentMethod.selectByVisibleContainsText(paymentMethod);
@@ -38,12 +45,7 @@ public class PaymentConfigurationPage extends HomePage {
         Button btnRemoveByUsername = Button.xpath(String.format(btnRemove,username));
         if (btnRemoveByUsername.isClickable(2)){
             btnRemoveByUsername.click();
-        } else {
-            lblScrollTo.scrollToThisControl(true);
-            btnRemoveByUsername.click();
         }
-
-
     }
 
     public PaymentConfigurationPopup clickToViewLogByUsername(String username) {
@@ -51,52 +53,55 @@ public class PaymentConfigurationPage extends HomePage {
         if (btnViewLog.isClickable(2)){
             btnViewLog.click();
         } else {
-            lblScrollTo.scrollToThisControl(true);
+            scrollTo6.scrollToThisControl(true);
         }
         return new PaymentConfigurationPopup();
     }
     public boolean isDisplayLogPopup(){
-        return ppLog.isDisplayed(3000);
-    }
-    public List<ArrayList<String>> getAllDataOnTable() {
-        List<ArrayList<String>> lstData = new ArrayList<>();
-        Row lstRow = Row.xpath("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted']");
-        for (int i = 0; i < lstRow.getWebElements().size(); i++){
-            int n = i + 1;
-            Label lblData = Label.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]",n));
-            lblData.scrollToThisControl(true);
-            Row row = Row.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]/div",n));
-            ArrayList<String> lstString = new ArrayList<String>();
-            for (int j = 0; j < row.getWebElements().size();j++){
-                int u = j + 1;
-                lstString.add(j,Label.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]/div[%s]",n,u)).getText());
-            }
-            lstData.add(i, lstString);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-        return lstData;
+        return ppLog.isDisplayed(3);
     }
 
-    public ArrayList<String> getListUpdateDateSorted(ArrayList<String> lstData) {
-        ArrayList<LocalDateTime> myDates = new ArrayList<>();
+    public List<String> getListUpdateDateSorted(List<String> lstData) {
+        List<LocalDateTime> myDates = new ArrayList<>();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         for (int i = 0; i < lstData.size(); i++){
             myDates.add(LocalDateTime.parse(lstData.get(i),format));
         }
-        Collections.sort(myDates);
+        Collections.sort(myDates,Collections.reverseOrder());
 
         ArrayList<String> lstSorted = new ArrayList<String>();
         for (int i = 0; i < myDates.size(); i++){
-            lstSorted.add(String.valueOf(myDates.get(i)));
+            lstSorted.add(String.valueOf(myDates.get(i)).replace("T"," "));
         }
         return lstSorted;
     }
-    public ArrayList<String> getHeaderTableName(){
-        ArrayList<String> lstData = new ArrayList<String>();
-        Row rowHeadTableName = Row.xpath("//div[@class='custom-table-header']/div/div/span");
-        for (int i = 1; i <= rowHeadTableName.getWebElements().size(); i++){
-            lstData.add(Label.xpath(String.format("//div[@class='custom-table-header']/div/div[%s]/span",i)).getText());
+
+    public String getUplineOfAgent(List<ArrayList<String>> lstData, String username) {
+        String lineAgent = null;
+        String upLineAgent = null;
+        for (int i = 0; i < lstData.size();i++){
+            if (lstData.get(i).get(3).equals(username)){
+                lineAgent = lstData.get(i).get(6);
+                break;
+            }
         }
-        return lstData;
+        for (int i = 0; i < lineAgent.length();i++){
+            if (String.valueOf(lineAgent.charAt(i)).equals("/")) {
+                upLineAgent = lineAgent.substring(0,i);
+                break;
+            }
+        }
+        return upLineAgent;
     }
 
+    public void scrollToTopTable() {
+        scrollTo3.scrollToThisControl(true);
+        scrollTo2.scrollToThisControl(true);
+        scrollTo1.scrollToThisControl(true);
+    }
 }

@@ -41,15 +41,6 @@ public class HomePage extends LoginPage {
         waitingLoadingSpinner();
     }
 
-    public boolean isSecurityCodePopupDisplayed(String types) {
-        switch (types) {
-            case "satsport":
-                return securityPopup.isDisplayed();
-            default:
-                return securityPopup.isInvisible(2);
-        }
-    }
-
     public LoginPage logout() {
         this.header.logout();
         return new LoginPage(this._type);
