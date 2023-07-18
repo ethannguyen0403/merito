@@ -98,7 +98,7 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
             LocalDateTime fromDayTime = LocalDateTime.parse(fromDay+"\n00:00:01",format);
             LocalDateTime toDayTime = LocalDateTime.parse(toDay+"\n23:59:59",format);
             for (int i = 0; i < lstTransactionDate.size(); i++){
-                if (LocalDateTime.parse(lstTransactionDate.get(i),format).isBefore(fromDayTime)  && LocalDateTime.parse(lstTransactionDate.get(i),format).isAfter(toDayTime)){
+                if (LocalDateTime.parse(lstTransactionDate.get(i),format).isBefore(fromDayTime) || LocalDateTime.parse(lstTransactionDate.get(i),format).isAfter(toDayTime)){
                     System.out.println("Transaction date is not in the filter range");
                     return false;
                 }
@@ -110,7 +110,7 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
         }
     }
 
-    public boolean checkAccountsByBrand(String brand, List<String> lstBrand) {
+    public boolean verifySearchResultByBrand(String brand, List<String> lstBrand) {
         if (tblBody.isDisplayed()){
             if (!brand.isEmpty() && !lstBrand.isEmpty()){
                 for (int i = 0; i < lstBrand.size();i++){
@@ -128,7 +128,7 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
         }
         return false;
     }
-    public boolean checkAccountsByUserName(String username, List<String> lstUsername){
+    public boolean verifySearchResultByUserName(String username, List<String> lstUsername){
         if (tblBody.isDisplayed()){
             if (!username.isEmpty() && !lstUsername.isEmpty()){
                 for (int i = 0; i < lstUsername.size();i++){
@@ -146,7 +146,7 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
         }
         return false;
     }
-    public boolean checkAccountsByStatus(String status, List<String> lstStatus){
+    public boolean verifySearchResultByStatus(String status, List<String> lstStatus){
         if (tblBody.isDisplayed()){
             if (!status.isEmpty() && !lstStatus.isEmpty()){
                 for (int i = 0; i < lstStatus.size();i++){
@@ -165,21 +165,6 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
         return false;
     }
 
-    public boolean verifyAgentListLoadCorrect(String brandname, List<String> lstAgent) {
-        List<String> lstAgentOnPayment = PaymentConfigurationUtils.getListAgentByBrandName(brandname);
-        int o = 0;
-        for (int i = 0; i < lstAgentOnPayment.size(); i++){
-            for (int j = 0; j < lstAgent.size(); j++){
-                if (lstAgent.get(j).equals(lstAgentOnPayment.get(i))){
-                    o++;
-                }
-            }
-        }
-        if (lstAgent.size() == o){
-            return true;
-        }
-        return false;
-    }
     public List<String> getListSorted(List<String> lstTransaction) {
         ArrayList<String> myDates = new ArrayList<>();
         for (int i = 0; i < lstTransaction.size(); i++){

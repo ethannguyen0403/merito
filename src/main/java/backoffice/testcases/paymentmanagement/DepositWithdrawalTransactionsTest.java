@@ -2,6 +2,7 @@ package backoffice.testcases.paymentmanagement;
 
 import backoffice.common.BOConstants;
 import backoffice.pages.bo.paymentmanagement.DepositWithdrawalTransactionsPage;
+import backoffice.utils.paymentmanagement.PaymentConfigurationUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
 import org.testng.Assert;
@@ -9,6 +10,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
@@ -185,7 +188,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 2. Active Withdraw tab, observe and verify value in the filter controls");
         page.btnDepositTab.click();
         log("Step 3. Select data range from to in a week");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
+        String fromDay = DateUtils.getDate(-7, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         String toDay = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         page.searchData(fromDay,toDay,"","","","");
         log("Verify 1: Verify default value on BO Withdrawal Transactions display correctly");
@@ -216,11 +219,10 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select data range from to");
         log("Step 4. Select a specific brand");
         log("Step 5. Click Search button");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"", page.ddnBrand.getOptions().get(1),"","","");
+        page.searchData("2023-06-01","", page.ddnBrand.getOptions().get(1),"","","");
         log("Verify 1: Verify all accounts under select brand display only. Display \"No records found\" if the brand have no deposit transaction in filter range");
         List<String> lstBrand = page.tblDeposit.getColumn(2,20,true);
-        Assert.assertTrue(page.checkAccountsByBrand(page.ddnBrand.getOptions().get(1), lstBrand));
+        Assert.assertTrue(page.verifySearchResultByBrand(page.ddnBrand.getOptions().get(1), lstBrand));
         log("INFO: Executed completely");
     }
 
@@ -246,11 +248,10 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select data range from to");
         log("Step 4. Select all brand and status is Success");
         log("Step 5. Click Search button");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"","","","Success","");
+        page.searchData("2023-06-01","","","","Success","");
         log("Verify 1: Verify all accounts which have status = Success");
         List<String> lstStatus = page.tblDeposit.getColumn(9,20,true);
-        Assert.assertTrue(page.checkAccountsByStatus("Success", lstStatus));
+        Assert.assertTrue(page.verifySearchResultByStatus("Success", lstStatus));
         log("INFO: Executed completely");
     }
 
@@ -276,11 +277,10 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select data range from to");
         log("Step 4. Select all brand and status is Failure");
         log("Step 5. Click Search button");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"","","","Failure","");
+        page.searchData("2023-06-01","","","","Failure","");
         log("Verify 1: Verify all accounts which have status = Failure");
         List<String> lstStatus = page.tblDeposit.getColumn(9,20,true);
-        Assert.assertTrue(page.checkAccountsByStatus("Failure", lstStatus));
+        Assert.assertTrue(page.verifySearchResultByStatus("Failure", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -305,11 +305,10 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select data range from to");
         log("Step 4. Select all brand and status is Pending");
         log("Step 5. Click Search button");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"","","","Pending","");
+        page.searchData("2023-06-01","","","","Pending","");
         log("Verify 1: Verify all accounts which have status = Pending");
         List<String> lstStatus = page.tblDeposit.getColumn(9,20,true);
-        Assert.assertTrue(page.checkAccountsByStatus("Pending", lstStatus));
+        Assert.assertTrue(page.verifySearchResultByStatus("Pending", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -334,11 +333,10 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select data range from to");
         log("Step 4. Select all brand and status is Success");
         log("Step 5. Click Search button");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"","","","Success","");
+        page.searchData("2023-06-01","","","","Success","");
         log("Verify 1: Verify all accounts which have status = Success");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
-        Assert.assertTrue(page.checkAccountsByStatus("Success", lstStatus));
+        Assert.assertTrue(page.verifySearchResultByStatus("Success", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -363,11 +361,10 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select data range from to");
         log("Step 4. Select all brand and status is Failure");
         log("Step 5. Click Search button");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"","","","Failure","");
+        page.searchData("2023-06-01","","","","Failure","");
         log("Verify 1: Verify all accounts which have status = Failure");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
-        Assert.assertTrue(page.checkAccountsByStatus("Failure", lstStatus));
+        Assert.assertTrue(page.verifySearchResultByStatus("Failure", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -392,11 +389,10 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select data range from to");
         log("Step 4. Select all brand and status is Approved");
         log("Step 5. Click Search button");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"","","","Approved","");
+        page.searchData("2023-06-01","","","","Approved","");
         log("Verify 1: Verify all accounts which have status = Approved");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
-        Assert.assertTrue(page.checkAccountsByStatus("Approved", lstStatus));
+        Assert.assertTrue(page.verifySearchResultByStatus("Approved", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -421,11 +417,10 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select data range from to");
         log("Step 4. Select all brand and status is Reject");
         log("Step 5. Click Search button");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"","","","Rejected","");
+        page.searchData("2023-06-01","","","","Rejected","");
         log("Verify 1: Verify all accounts which have status = Rejected");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
-        Assert.assertTrue(page.checkAccountsByStatus("Rejected", lstStatus));
+        Assert.assertTrue(page.verifySearchResultByStatus("Rejected", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -450,11 +445,10 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select data range from to");
         log("Step 4. Select all brand and status is Pending");
         log("Step 5. Click Search button");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"","","","Pending","");
+        page.searchData("2023-06-01","","","","Pending","");
         log("Verify 1: Verify all accounts which have status = Pending");
         List<String> lstStatus = page.tblWithDrawal.getColumn(12,20,true);
-        Assert.assertTrue(page.checkAccountsByStatus("Pending", lstStatus));
+        Assert.assertTrue(page.verifySearchResultByStatus("Pending", lstStatus));
         log("INFO: Executed completely");
     }
     /**
@@ -480,11 +474,10 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select data range from to");
         log("Step 4. Input a username that have deposit transaction");
         log("Step 5. Click Search button");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"","","","",usernameDepositTransaction);
+        page.searchData("2023-06-01","","","","",usernameDepositTransaction);
         log("Verify 1: Verify only the transactions of the according account displayed");
         List<String> lstUsername = page.tblWithDrawal.getColumn(3,20,true);
-        Assert.assertTrue(page.checkAccountsByUserName(usernameDepositTransaction, lstUsername));
+        Assert.assertTrue(page.verifySearchResultByUserName(usernameDepositTransaction, lstUsername));
         log("INFO: Executed completely");
     }
     /**
@@ -510,11 +503,10 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 3. Select data range from to");
         log("Step 4. Input a username that have deposit transaction");
         log("Step 5. Click Search button");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"","","","",usernameDepositTransaction);
+        page.searchData("2023-06-01","","","","",usernameDepositTransaction);
         log("Verify 1: Verify only the transactions of the according account displayed");
         List<String> lstUsername = page.tblDeposit.getColumn(3,20,true);
-        Assert.assertTrue(page.checkAccountsByUserName(usernameDepositTransaction, lstUsername));
+        Assert.assertTrue(page.verifySearchResultByUserName(usernameDepositTransaction, lstUsername));
         log("INFO: Executed completely");
     }
     /**
@@ -535,12 +527,16 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         DepositWithdrawalTransactionsPage page = backofficeHomePage.navigateDepositWithdrawalTransactionsPage();
         log("Step 2. Active Withdraw Transactions tab");
         page.btnDepositTab.click();
+        page.waitSpinIcon();
         log("Step 3. Select a brand that having the agent added in Payment Configuration page");
-        page.ddnBrand.selectByVisibleText(page.ddnBrand.getOptions().get(1));
+        page.ddnBrand.selectByIndex(1);
         log("Step 4. Check the list Agent");
         List<String> lstAgent = page.ddnAgent.getOptions().subList(1,page.ddnAgent.getOptions().size());
+        Collections.sort(lstAgent);
+        List<String> lstAgentOnPayment = PaymentConfigurationUtils.getListAgentByBrandName(page.ddnBrand.getOptions().get(1));
+        Collections.sort(lstAgentOnPayment);
         log("Verify 1: Verify the list agents of the according brand added in Payment Configuration page");
-        Assert.assertTrue(page.verifyAgentListLoadCorrect(page.ddnBrand.getOptions().get(1), lstAgent),page.ddnBrand.getOptions().get(1)+" has not agent in Payment Configuration Page");
+        Assert.assertEquals(lstAgent, lstAgentOnPayment,page.ddnBrand.getOptions().get(1)+" has not agent in Payment Configuration Page");
         log("INFO: Executed completely");
     }
     /**
@@ -561,8 +557,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 2. Active Withdraw Transactions tab");
         page.btnDepositTab.click();
         log("Step 3. Select a brand has deposit transaction");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"", "Pradhanbet","","","");
+        page.searchData("2023-06-01","", "Pradhanbet","","","");
         log("Verify 1: Verify the list transaction is sort DESC by transaction date");
         List<String> lstTransaction = page.tblDeposit.getColumn(4,20,true);
         Assert.assertEquals(lstTransaction,page.getListSorted(lstTransaction));
@@ -586,8 +581,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         log("Step 2. Active Withdraw Transactions tab");
         page.btnWithdrawalTab.click();
         log("Step 3. Select a brand has deposit transaction");
-        String fromDay = DateUtils.getDate(-30, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        page.searchData(fromDay,"", "Pradhanbet","","","");
+        page.searchData("2023-06-01","", "Pradhanbet","","","");
         log("Verify 1: Verify the list transaction is sort DESC by Updated Date");
         List<String> lstUpdatedDate = page.tblWithDrawal.getColumn(13,20,true);
         Assert.assertEquals(lstUpdatedDate,page.getListSorted(lstUpdatedDate));
