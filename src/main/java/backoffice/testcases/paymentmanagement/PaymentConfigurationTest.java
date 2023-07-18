@@ -82,21 +82,9 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         try {
             log("Step 1. Access Payment Configuration");
             log("Step 2. Click on eye icon of the according agent");
-            List<ArrayList<String>> lstData = page.getAllDataOnTable();
-            String lineAgent = null;
-            for (int i = 0; i < lstData.size();i++){
-                if (lstData.get(i).get(3).equals(satSADAgentLoginID)){
-                    lineAgent = lstData.get(i).get(6);
-                    break;
-                }
-            }
-            String upLineAgent = null;
-            for (int i = 0; i < lineAgent.length();i++){
-                if (String.valueOf(lineAgent.charAt(i)).equals("/")) {
-                    upLineAgent = lineAgent.substring(0,i);
-                    break;
-                }
-            }
+            List<ArrayList<String>> lstData = page.tblReport.getRowsWithoutHeader(50,true);
+            String upLineAgent = page.getUplineOfAgent(lstData, satSADAgentLoginID);
+            page.scrollToTopTable();
             page.addAgent("All", upLineAgent);
             log("Verify The error message \"Only 1 level in a single line is allowed to configure\" display");
             Assert.assertEquals(page.lblAlertOnly1Level.getText(), "Only 1 level in a single line is allowed to configure");
@@ -131,11 +119,8 @@ public class PaymentConfigurationTest extends BaseCaseTest {
             log("Verify 1: A View log popup display with the title Payment Configuration Log - [Agent code]");
             Assert.assertEquals(popup.getTitlePopupByUsername(satSADAgentLoginID), "Payment Configuration Log - " + satSADAgentLoginID);
             log("Verify 2: Display log data");
-            List<ArrayList<String>> lstData = popup.getLogOfUser();
+            List<ArrayList<String>> lstData = popup.tblPopup.getRowsWithoutHeader(200,true);
             List<ArrayList<String>> lstDataExpect = PaymentConfigurationPopupUtils.getData(satSADAgentLoginID);
-            for (int i = 0; i < lstDataExpect.size(); i++){
-                lstDataExpect.get(i).set(2,lstDataExpect.get(i).get(2).replace(".0",""));
-            }
             Assert.assertEquals(lstData, lstDataExpect);
             popup.clickToClosePopup();
         } finally {
@@ -193,12 +178,8 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("Step 1. Access Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
         log("Step 2. Observe the list");
-        List<ArrayList<String>> lstData = page.getAllDataOnTable();
-        ArrayList<String> lstUpdateDate = new ArrayList<>();
-        for (int i = 0; i < lstData.size();i++){
-            lstUpdateDate.add(i,lstData.get(i).get(8));
-        }
-        ArrayList<String> lstDataSorted = page.getListUpdateDateSorted(lstUpdateDate);
+        List<String> lstUpdateDate = page.tblReport.getColumn(9,20,true);
+        List<String> lstDataSorted = page.getListUpdateDateSorted(lstUpdateDate);
         log("Verify 1: Verify the data is sorted by updated date");
         Assert.assertEquals(lstUpdateDate,lstDataSorted);
         log("INFO: Executed completely");
@@ -229,7 +210,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         Assert.assertEquals(page.ddnPaymentMethod.getFirstSelectedOption(),"All");
         Assert.assertEquals(page.lblAgent.getText(),"Agent");
         Assert.assertTrue(page.btnAdd.isEnabled());
-        ArrayList<String> lstHeader = page.getHeaderTableName();
+        List<String> lstHeader = page.tblReport.getColumnNamesOfTable();
         Assert.assertEquals(lstHeader, BOConstants.PaymentManagement.PaymentConfiguration.HEADER_TABLE);
         log("INFO: Executed completely");
     }
