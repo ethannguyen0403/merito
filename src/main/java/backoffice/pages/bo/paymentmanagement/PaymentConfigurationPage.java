@@ -67,18 +67,12 @@ public class PaymentConfigurationPage extends HomePage {
     }
 
     public List<String> getListUpdateDateSorted(List<String> lstData) {
-        List<LocalDateTime> myDates = new ArrayList<>();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        ArrayList<String> myDates = new ArrayList<>();
         for (int i = 0; i < lstData.size(); i++){
-            myDates.add(LocalDateTime.parse(lstData.get(i),format));
+            myDates.add(lstData.get(i));
         }
         Collections.sort(myDates,Collections.reverseOrder());
-
-        ArrayList<String> lstSorted = new ArrayList<String>();
-        for (int i = 0; i < myDates.size(); i++){
-            lstSorted.add(String.valueOf(myDates.get(i)).replace("T"," "));
-        }
-        return lstSorted;
+        return myDates;
     }
 
     public String getUplineOfAgent(List<ArrayList<String>> lstData, String username) {
