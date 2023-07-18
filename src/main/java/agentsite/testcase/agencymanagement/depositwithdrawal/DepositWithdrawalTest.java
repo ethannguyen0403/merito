@@ -319,11 +319,11 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * 3. Click View Log
      * @expect: 1. Verify log data display corresponding as deposit
      */
-    @TestRails(id = "720")
+    @TestRails(id = "3619")
     @Test(groups = {"satregression"})
     @Parameters({"brandname"})
     public void Agent_AM_DepositWithdrawal_010(String brandname) {
-        log("@title:  Validate Deposit log display correctly");
+        log("@title: Validate Deposit log display correctly");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
@@ -356,9 +356,10 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * 3. Click View Log
      * @expect: 1. Verify log data display corresponding as With draw
      */
+    @TestRails(id = "3620")
     @Test(groups = {"satregression"})
     @Parameters({"brandname"})
-    public void Agent_AM_DepositWithdrawal_011(String brandname) {
+    public void Agent_AM_DepositWithdrawal_3620(String brandname) {
         log("@title: Validate Withdraw log display correctly");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
@@ -391,7 +392,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "720")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_012() throws Exception {
+    public void Agent_AM_DepositWithdrawal_720(){
         log("@title: Validate security popup display Deposit/withdraw page");
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -403,31 +404,11 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate My Credit, Total Balance, Sub Balance,Available Balance is correc
-     * @pre-condition: 1. Log in successfully
-     * @steps: 1. Navigate Agency Management > Deposit Withdrawal     *
-     * @expect: In viewied level data My Credit, Total Balance, Sub Balance, Available Balance
-     * In downline table  veify data to Total Balance, Sub Balance, Available Balance
-     */
-    @TestRails(id = "721")
-    @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_013() {
-        log("@title: Validate My Credit, Total Balance, Sub Balance,Available Balance is correct");
 
-        log("Step 1: Navigate Agency Management > Deposit Withdrawal");
-        DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage("");
-
-        log("Verify 1. In viewied level data My Credit, Total Balance, Sub Balance, Available Balance\n" +
-                "     * In downline table  veify data to Total Balance, Sub Balance, Available Balance");
-
-
-        log("INFO: Executed completely");
-    }
-
+    @TestRails(id = "3626")
     @Test(groups = {"interaction"})
     @Parameters({"password", "brandname"})
-    public void Agent_AM_DepositWithdrawal_Deposit_015(String password, String brandname) throws Exception {
+    public void Agent_AM_DepositWithdrawal_Deposit_3626(String password, String brandname) throws Exception {
         log("@title:  Verify Balance agent is correctly is correct when deposit from agent site");
         double depositAmount = 1;
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
@@ -456,9 +437,10 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         Assert.assertTrue(page.verifyBalanceUpdated(depositAmount, downlineAvailableBalance, DepositWithdrawalPage.Actions.DEPOSIT));
     }
 
+    @TestRails(id = "3627")
     @Test(groups = {"interaction"})
     @Parameters({"password", "brandname"})
-    public void Agent_AM_DepositWithdrawal_Deposit_016(String password, String brandname) throws Exception {
+    public void Agent_AM_DepositWithdrawal_Deposit_3627(String password, String brandname) throws Exception {
         log("@title:  Verify Balance agent is correctly is correct when withdraw from agent site");
         double depositAmount = 1;
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);

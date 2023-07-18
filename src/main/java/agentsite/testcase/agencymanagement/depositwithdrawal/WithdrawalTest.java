@@ -25,8 +25,9 @@ public class WithdrawalTest extends BaseCaseTest {
      * @expect: 1. Withdrawal popup is displayed
      * 2. Info is displayed correctly
      */
+    @TestRails(id = "3628")
     @Test(groups = {"regression"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_001() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Withdraw_3628(){
         log("@title: Validate that Withdrawal popup displays correct info.");
         //   AccountInfo acc = ProfileUtils.getProfile();
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -64,8 +65,9 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Open Withdrawal popup of an account
      * @expect: 1. Withdrawal popup is closed
      */
+    @TestRails(id = "3629")
     @Test(groups = {"regression"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_002() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Withdraw_3629() {
         log("@title: Validate that there is an error message displayed when submitted without inputting");
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname, "", userID);
@@ -94,8 +96,9 @@ public class WithdrawalTest extends BaseCaseTest {
      * 3. Withdraw without any amount
      * @expect: 1. There is an error message when submitted without any amount
      */
+    @TestRails(id = "3630")
     @Test(groups = {"regression"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_003() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Withdraw_3630() {
         log("@title: Validate that there is an error message displayed when submitted without any amount");
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname, "", userID);
@@ -129,7 +132,7 @@ public class WithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "731")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_004() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Withdraw_731() {
         log("@title: Validate that there is an insufficient error displayed when inputted an amount more than the current cash balance");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -165,7 +168,7 @@ public class WithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "732")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_005() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Withdraw_732() throws Exception {
         log("@title:Validate that an amount is withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -212,7 +215,7 @@ public class WithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "733")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_006() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Withdraw_733() {
         log("@title:Validate can withdraw by click on Withdraw link");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -266,7 +269,7 @@ public class WithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "734")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_007() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Withdraw_734() {
         log("@title: Validate that Withdrawal popup is displayed when clicking Withdraw button");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -305,7 +308,7 @@ public class WithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "735")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_008() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Withdraw_735(){
         log("@title: Validate can withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -351,7 +354,7 @@ public class WithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "736")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_009() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Withdraw_736() {
         log("@title: Validate that cannot withdraw with  amount more than current balance");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -392,7 +395,7 @@ public class WithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "737")
     @Test(priority = 3, groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_010() {
+    public void Agent_AM_DepositWithdrawal_Withdraw_737() {
         log("@title: Validate can withdraw Win/Loss Settle successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getAllDriectMember(_brandname, ProfileUtils.getProfile().getUserID());
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -440,7 +443,7 @@ public class WithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "738")
     @Test(priority = 3, groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_011() {
+    public void Agent_AM_DepositWithdrawal_Withdraw_738() {
         log("@title: Validate can multiple Withdraw by Credit Update by click on Withdraw button");
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -521,7 +524,7 @@ public class WithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "739")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_012() {
+    public void Agent_AM_DepositWithdrawal_Withdraw_739() {
         log("@title: Validate can multiple Withdraw by Win/Loss Settle by click on Withdraw button");
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
