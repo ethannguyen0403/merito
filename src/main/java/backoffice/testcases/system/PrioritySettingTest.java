@@ -164,7 +164,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      * @expect: 1. Verify the list market type display in the list
      */
     @TestRails(id = "664")
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke"})
     public void BO_System_Priority_Settings_664() {
         log("@title: Validate can search Country Races");
         log("Step 1. Navigate to System> Priority Settings");
