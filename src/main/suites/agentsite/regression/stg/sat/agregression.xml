@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="SAT_STG_AG_REG_CREDIT" verbose="1">
+<suite name="SAT_STG_AG_REG_AG" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
@@ -11,12 +11,7 @@
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='SAA00'/>
-        <parameter name='levelLogin' value='Senior Admin'/>
-        <parameter name='level' value='SAD'/>
-        <parameter name='downlineAccount' value='auto.part1'/>
-        <parameter name='portalSubAccount' value='SASUBIS'/>
-        <parameter name='memberAccount' value='auto.pl02'/>
+        <parameter name='username' value='maisainr1'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
@@ -25,15 +20,12 @@
         <parameter name='brandname' value="satsport"/>
         <groups>
             <run>
-                <include name="regression_credit"/>
+                <include name="regression_ag"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
             <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
-<!--            <class name="agentsite.testcase.HeaderTest"/>-->
-<!--            <class name="agentsite.testcase.LeftMenuTest"/>-->
         </classes>
 
     </test>

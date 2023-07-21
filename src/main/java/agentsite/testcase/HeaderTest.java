@@ -158,7 +158,7 @@ public class HeaderTest extends BaseCaseTest {
      * Fraud Detection (For the agent is PO level)
      */
     @TestRails(id = "3887")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void Header_TC3887_PO() {
         log("@title: Validate there are sub menu when hover on expand left menu icon");
         log("Step: 1 Collapse left menu");
@@ -261,7 +261,7 @@ public class HeaderTest extends BaseCaseTest {
      * @expect: Left menu is active Fraud Detection menu section
      */
     @TestRails(id = "3463")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void Header_TC3463_PO() {
         log("@title: Validate can expand Fraud Detection section in left menu");
         log("Step: 1 Collapse left menu");

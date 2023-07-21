@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="SAT_STG_AG_REG_CREDIT" verbose="1">
+<suite name="SAT_GREEN_AG_REG_PO" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
     <test name="SAT_REG_Chrome">
         <parameter name='browser' value='window10.local.chrome'/>
-        <parameter name='env' value='stg'/>
+        <parameter name='env' value='green'/>
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='SAA00'/>
-        <parameter name='levelLogin' value='Senior Admin'/>
-        <parameter name='level' value='SAD'/>
+        <parameter name='username' value='SASUBBA'/>
+        <parameter name='levelLogin' value='Portal'/>
         <parameter name='downlineAccount' value='auto.part1'/>
-        <parameter name='portalSubAccount' value='SASUBIS'/>
+        <parameter name='controlBlockingAccount' value='Auto.SAD1'/>
         <parameter name='memberAccount' value='auto.pl02'/>
-        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='controlBlockingLevel' value='CORP'/>
+        <parameter name='accountToBet' value='SAL0000001 (follow.pl1)'/>
+        <parameter name='password' value='v+18qgA8nyoUHEW9394RTw=='/>
+        <parameter name="passwordNonePO" value="5pjguoEh1fnSILpykWt1vQ=="/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
         <parameter name="isCredit" value="false"/>
@@ -25,15 +27,21 @@
         <parameter name='brandname' value="satsport"/>
         <groups>
             <run>
-                <include name="regression_credit"/>
+                <include name="regression_po"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
             <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+<!--            <class name="agentsite.testcase.reports.StatementReportTest"/>-->
+
+<!--            <class name="agentsite.testcase.reports.UnsettledBetTest"/>-->
+<!--            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>-->
+<!--            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>-->
 <!--            <class name="agentsite.testcase.HeaderTest"/>-->
 <!--            <class name="agentsite.testcase.LeftMenuTest"/>-->
+<!--            <class name="agentsite.testcase.satsport.SATHeaderTest"/>-->
         </classes>
 
     </test>
