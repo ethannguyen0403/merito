@@ -89,9 +89,9 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         page.filter(memberAccount,"", "");
         log("Step 3. Update valid Credit Given, Max Credit, Member Max Credit and click submit button");
         AccountInfo creditInfoBeforeUpdate = page.getCreditInfoAccount(memberAccount);
-        double updateCreditGiven = creditInfoBeforeUpdate.getCreditGiven() - 1.00;
-        double updateMaxCredit = creditInfoBeforeUpdate.getMaxCredit() - 1.00;
-        double updateMemberMaxCredit = creditInfoBeforeUpdate.getMemberMaxCredit() - 1.00;
+        double updateCreditGiven = creditInfoBeforeUpdate.getCreditGiven() - 1;
+        double updateMaxCredit = creditInfoBeforeUpdate.getMaxCredit() - 1;
+        double updateMemberMaxCredit = creditInfoBeforeUpdate.getMemberMaxCredit() - 1;
         try{
             page.updateCreditSetting(memberAccount, String.format("%.2f", updateCreditGiven) , String.format("%.2f",updateMaxCredit), String.format("%.2f",updateMemberMaxCredit));
             log("Verify 1. Validate Credit Given, Max Credit, Member Max Credit are updated");

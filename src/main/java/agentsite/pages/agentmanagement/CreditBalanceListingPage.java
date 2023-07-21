@@ -10,7 +10,7 @@ public class CreditBalanceListingPage extends HomePage {
 
     public TextBox txtUserName = TextBox.id("userName");
     public DropDownBox ddpAccountStatus = DropDownBox.id("status");
-    public DropDownBox ddpLevel = DropDownBox.id("memberAccount");
+    public DropDownBox ddpLevel = DropDownBox.id("userLevel");
     public Button btnSubmit = Button.xpath("//button[@class='pbtn search']");
     public Table tblAccountList = Table.xpath("//table[contains(@class,'report')]", 22);
     int colUsername = 2;

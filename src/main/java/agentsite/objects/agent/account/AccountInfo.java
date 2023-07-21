@@ -149,7 +149,7 @@ public class AccountInfo {
         return _creditGiven;
     }
 
-    public void setCreditGiven(double val) {
+    public void setCreditGiven(int val) {
         this._creditGiven = val;
     }
 
@@ -173,7 +173,7 @@ public class AccountInfo {
         return _availableBalance;
     }
 
-    public void setAvailableBalance(double val) {
+    public void setAvailableBalance(int val) {
         this._availableBalance = val;
     }
 
