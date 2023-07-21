@@ -14,9 +14,9 @@ public class AccountInfo {
     private String _currencyCode;
     private String _status;
     private String _level;
-    private int _creditGiven;
-    private int _maxCredit;
-    private int _memberMaxCredit;
+    private double _creditGiven;
+    private double _maxCredit;
+    private double _memberMaxCredit;
     private double _availableBalance;
     private double _transferableBalance;
     private double _retainAmount;
@@ -145,15 +145,15 @@ public class AccountInfo {
         this._creditUsed = val;
     }
 
-    public int getCreditGiven() {
+    public double getCreditGiven() {
         return _creditGiven;
     }
 
-    public void setCreditGiven(int val) {
+    public void setCreditGiven(double val) {
         this._creditGiven = val;
     }
 
-    public int getMaxCredit() {
+    public double getMaxCredit() {
         return _maxCredit;
     }
 
@@ -161,7 +161,7 @@ public class AccountInfo {
         this._maxCredit = val;
     }
 
-    public int getMemberMaxCredit() {
+    public double getMemberMaxCredit() {
         return _memberMaxCredit;
     }
 
@@ -251,9 +251,9 @@ public class AccountInfo {
         private String _currencyCode = "";
         private String _status = "";
         private String _level = "";
-        private int _creditGiven;
-        private int _maxCredit;
-        private int _memberMaxCredit;
+        private double _creditGiven;
+        private double _maxCredit;
+        private double _memberMaxCredit;
         private double _availableBalance;
         private double _transferableBalance;
         private double _retainAmount;
@@ -326,22 +326,22 @@ public class AccountInfo {
             return this;
         }
 
-        public Builder creditGiven(int val) {
+        public Builder creditGiven(double val) {
             _creditGiven = val;
             return this;
         }
 
-        public Builder maxCredit(int val) {
+        public Builder maxCredit(double val) {
             _maxCredit = val;
             return this;
         }
 
-        public Builder memberMaxCredit(int val) {
+        public Builder memberMaxCredit(double val) {
             _memberMaxCredit = val;
             return this;
         }
 
-        public Builder availableBalance(int val) {
+        public Builder availableBalance(double val) {
             _availableBalance = val;
             return this;
         }

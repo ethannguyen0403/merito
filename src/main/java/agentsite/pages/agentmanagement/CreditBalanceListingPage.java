@@ -10,15 +10,15 @@ public class CreditBalanceListingPage extends HomePage {
 
     public TextBox txtUserName = TextBox.id("userName");
     public DropDownBox ddpAccountStatus = DropDownBox.id("status");
-    public DropDownBox ddpLevel = DropDownBox.id("userLevel");
+    public DropDownBox ddpLevel = DropDownBox.id("memberAccount");
     public Button btnSubmit = Button.xpath("//button[@class='pbtn search']");
     public Table tblAccountList = Table.xpath("//table[contains(@class,'report')]", 22);
     int colUsername = 2;
     int colEdit = 5;
-    int colCreditGiven = 15;
-    int colMaxCredit = 16;
-    int colMemberMaxCredit = 17;
-    int colVailabaleBalance = 18;
+    public int colCreditGiven = 20;
+    int colMaxCredit = 21;
+    int colMemberMaxCredit = 22;
+    int colVailabaleBalance = 23;
 
     public CreditBalanceListingPage(String types) {
         super(types);
@@ -83,10 +83,10 @@ public class CreditBalanceListingPage extends HomePage {
         String memberMaxCredit = tblAccountList.getControlOfCell(1, colMemberMaxCredit, i, null).getText().trim().replaceAll(",", "");
         String availableBalance = tblAccountList.getControlOfCell(1, colVailabaleBalance, i, null).getText().trim().replaceAll(",", "");
         return new AccountInfo.Builder()
-                .creditGiven(Integer.parseInt(creditGiven))
-                .maxCredit(Integer.parseInt(maxCredit))
-                .memberMaxCredit(Integer.parseInt(memberMaxCredit))
-                .availableBalance(Integer.parseInt(availableBalance))
+                .creditGiven(Double.parseDouble(creditGiven))
+                .maxCredit(Double.parseDouble(maxCredit))
+                .memberMaxCredit(Double.parseDouble(memberMaxCredit))
+                .availableBalance(Double.parseDouble(availableBalance))
                 .build();
 
     }
