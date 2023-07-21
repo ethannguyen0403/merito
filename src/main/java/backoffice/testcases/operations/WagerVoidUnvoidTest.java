@@ -25,7 +25,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
      * 5. Input the wager ID get in member site and click search button
      * @expect: 1. Verify Wager info display correctly as precondition
      */
-    @Test(groups = {"smoke11"})
+    @Test(groups = {"smoke"})
     @Parameters("wagerID")
     public void BO_Operations_Wager_Void_Unvoid_001(String wagerID) {
         log("@title: Validate can search void/un-void wager by Wager ID");
@@ -59,7 +59,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
     @TestRails(id = "643")
     @Test(groups = {"smoke"})
     @Parameters("satMemberLoginID")
-    public void BO_Operations_Wager_Void_Unvoid_002(String satMemberLoginID) {
+    public void BO_Operations_Wager_Void_Unvoid_643(String satMemberLoginID) {
         log("@title: Validate can search void/un-void wager by Username/ Nick Name");
         log("Step 1. Access Operations > Wager Void/Un-void");
         String toDate = DateUtils.getDate(0, "dd/MM/yyyy", BOConstants.GMT_FOUR);
@@ -93,7 +93,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
      */
     @TestRails(id = "644")
     @Test(groups = {"smoke"})
-    public void BO_Operations_Wager_Void_Unvoid_003() {
+    public void BO_Operations_Wager_Void_Unvoid_644() {
         log("@title: Validate can search void/un-void wager by Event List");
         log("Step 1. Access Operations > Wager Void/Un-void");
         // String eventName = "Heilongjiang Lava Spring v Sichuan Jiuniu FC";
@@ -128,7 +128,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
      */
     @TestRails(id = "645")
     @Test(groups = {"smoke"})
-    public void BO_Operations_Wager_Void_Unvoid_004() {
+    public void BO_Operations_Wager_Void_Unvoid_645() {
         log("@title: Validate can search wager void/un-void by market ID");
         log("Step 1. Access Operations > Wager Void/Un-void");
         String marketID = "174479114";

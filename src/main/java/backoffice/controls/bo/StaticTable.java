@@ -125,9 +125,10 @@ public class StaticTable extends BaseElement {
                 return lst;
             }
             if (isMoved) {
-                if (!cell.isDisplayedShort(timeOutShort)) {
-                    cell.scrollToThisControl(true);
-                }
+//                if (!cell.isDisplayedShort(timeOutShort)) {
+//                    cell.scrollToThisControl(true);
+//                }
+                cell.scrollToThisControl(true);
             }
             i += 1;
         }
@@ -388,7 +389,8 @@ public class StaticTable extends BaseElement {
 
             // moving to next row after getting the row in case row of this table are hidden visible view
             if (isMoved) {
-                row.scrollDownInDistance();
+//                row.scrollDownInDistance();
+                row.scrollToThisControl(true);
             }
             i += 1;
         }
