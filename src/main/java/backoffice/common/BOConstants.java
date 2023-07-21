@@ -295,7 +295,7 @@ public class BOConstants {
     public static class Tools {
         public static class BetFairAccountInfo {
             public final static String TITLE = "BetFair Account Info";
-            public final static List<String> LST_HEADER = Arrays.asList("No.", "Account Name", "Currency", "Exchange", "Exchange Games", "Available Balance", "Exposure Limit", "Current Exposure", "Change Log", "Available Balance", "Exposure Limit", "Current Exposure", "Change Log");
+            public final static List<String> LST_HEADER = Arrays.asList("No.", "Account Name", "Currency", "Exchange", "Exchange Games", "", "Available Balance", "Exposure Limit", "Current Exposure", "Change Log", "Available Balance", "Exposure Limit", "Current Exposure", "Change Log", "Force Login");
         }
 
         public static class APIPlayer {

@@ -2,6 +2,8 @@ package backoffice.pages.bo.paymentmanagement;
 
 import backoffice.controls.DateTimePicker;
 import backoffice.controls.Row;
+import backoffice.controls.Table;
+import backoffice.controls.bo.StaticTable;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.utils.paymentmanagement.PaymentConfigurationUtils;
 import com.paltech.element.common.Button;
@@ -10,7 +12,9 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DepositWithdrawalTransactionsPage extends HomePage {
@@ -28,6 +32,11 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
     public Button btnSearch = Button.name("submit");
     public Button btnWithdrawalTab = Button.xpath("//li[@class='nav-item cursor-pointer'][2]");
     public Button btnDepositTab = Button.xpath("//li[@class='nav-item cursor-pointer'][1]");
+    Table tblBody = Table.xpath("//div[@class='custom-table-body custom-scroll-body ng-star-inserted']",20);
+    public StaticTable tblDeposit = StaticTable.xpath("//div[@class='custom-table currency-table mt-2 ng-star-inserted']","div[@class='custom-table-body custom-scroll-body ng-star-inserted']",
+            "div[@class='custom-table-row ng-star-inserted']","div[contains(@class,'custom-table-cell')]",9);
+    public StaticTable tblWithDrawal = StaticTable.xpath("//div[@class='custom-table currency-table mt-2 ng-star-inserted']","div[@class='custom-table-body custom-scroll-body ng-star-inserted']",
+            "div[@class='custom-table-row ng-star-inserted']","div[contains(@class,'custom-table-cell')]",14);
     public ArrayList<String> getTabName(){
         ArrayList<String> lstTab = new ArrayList<String>();
         Row lstColumn = Row.xpath("//li[@class='nav-item cursor-pointer']/a");
@@ -63,10 +72,10 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
 
     public void searchData(String fromDay, String toDay, String brand, String agent, String status, String username) {
         if (!fromDay.isEmpty()){
-            dtpFrom.selectDate(fromDay,"yyyy/MM/dd");
+            dtpFrom.selectDate(fromDay,"yyyy-MM-dd");
         }
         if (!toDay.isEmpty()){
-            dtpTo.selectDate(toDay,"yyyy/MM/dd");
+            dtpTo.selectDate(toDay,"yyyy-MM-dd");
         }
         if (!brand.isEmpty()){
             ddnBrand.selectByVisibleText(brand);
@@ -82,33 +91,86 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
         }
         btnSearch.click();
     }
-    public List<ArrayList<String>> getDataInTable(){
-        if (Row.xpath("//div[@class='custom-table-body custom-scroll-body ng-star-inserted']//div[@class='ps-content']").isDisplayed()){
-            List<ArrayList<String>> lstData = new ArrayList<>();
-            Row lstRow = Row.xpath("//div[@class='custom-table-row ng-star-inserted']");
-            for (int i = 0; i < lstRow.getWebElements().size();i++){
-                int n = i + 1;
-                Label lblData = Label.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]",n));
-                lblData.scrollToThisControl(true);
-                Row row = Row.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]/div",n));
-                ArrayList<String> lstString = new ArrayList<String>();
-                for (int j = 0; j < row.getWebElements().size();j++){
-                    int u = j + 1;
-                    lstString.add(j,Label.xpath(String.format("//div[@class='ps-content']/div[@class='custom-table-row ng-star-inserted'][%s]/div[%s]",n,u)).getText());
+
+    public boolean checkTransactionDateInFilterRange(String fromDay, String toDay, List<String> lstTransactionDate) {
+        if (tblBody.isDisplayed()){
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd\nHH:mm:ss");
+            LocalDateTime fromDayTime = LocalDateTime.parse(fromDay+"\n00:00:01",format);
+            LocalDateTime toDayTime = LocalDateTime.parse(toDay+"\n23:59:59",format);
+            for (int i = 0; i < lstTransactionDate.size(); i++){
+                if (LocalDateTime.parse(lstTransactionDate.get(i),format).isBefore(fromDayTime) || LocalDateTime.parse(lstTransactionDate.get(i),format).isAfter(toDayTime)){
+                    System.out.println("Transaction date is not in the filter range");
+                    return false;
                 }
-                lstData.add(i, lstString);
             }
-            return lstData;
+            return true;
         } else {
             System.out.println("No records found");
+            return false;
         }
-        return null;
     }
 
-    public boolean checkTransactionDateInFilterRange(LocalDateTime fromDayTime, LocalDateTime toDayTime, LocalDateTime dateTime) {
-        if (dateTime.isAfter(fromDayTime)  && dateTime.isBefore(toDayTime) && dateTime.equals(fromDayTime) && dateTime.equals(toDayTime)){
+    public boolean verifySearchResultByBrand(String brand, List<String> lstBrand) {
+        if (tblBody.isDisplayed()){
+            if (!brand.isEmpty() && !lstBrand.isEmpty()){
+                for (int i = 0; i < lstBrand.size();i++){
+                    if (!lstBrand.get(i).equals(brand)){
+                        System.out.println(lstBrand.get(i) + " difference from "+brand);
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
+       } else {
+            System.out.println("No records found");
             return true;
         }
         return false;
+    }
+    public boolean verifySearchResultByUserName(String username, List<String> lstUsername){
+        if (tblBody.isDisplayed()){
+            if (!username.isEmpty() && !lstUsername.isEmpty()){
+                for (int i = 0; i < lstUsername.size();i++){
+                    if (!lstUsername.get(i).substring(0,lstUsername.get(i).indexOf("(")-1).equals(username)){
+                        System.out.println(lstUsername.get(i) + " difference from" + username );
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            System.out.println("No records found");
+            return true;
+        }
+        return false;
+    }
+    public boolean verifySearchResultByStatus(String status, List<String> lstStatus){
+        if (tblBody.isDisplayed()){
+            if (!status.isEmpty() && !lstStatus.isEmpty()){
+                for (int i = 0; i < lstStatus.size();i++){
+                    if (!lstStatus.get(i).equals(status)){
+                        System.out.println(lstStatus.get(i) + " difference from" + status );
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            System.out.println("No records found");
+            return true;
+        }
+        return false;
+    }
+
+    public List<String> getListSorted(List<String> lstTransaction) {
+        ArrayList<String> myDates = new ArrayList<>();
+        for (int i = 0; i < lstTransaction.size(); i++){
+            myDates.add(lstTransaction.get(i));
+        }
+        Collections.sort(myDates,Collections.reverseOrder());
+        return myDates;
     }
 }

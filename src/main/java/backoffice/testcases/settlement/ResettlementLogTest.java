@@ -22,7 +22,7 @@ public class ResettlementLogTest extends BaseCaseTest {
      */
     @TestRails(id = "596")
     @Test(groups = {"smoke"})
-    public void BO_Settlement_Resettlement_Log_001() {
+    public void BO_Settlement_Resettlement_Log_596() {
         log("@title: Validate can search log by Wager ID");
         log("Step 1. Access Tool > Resettlement Log");
         String wagerID = "59105118";
