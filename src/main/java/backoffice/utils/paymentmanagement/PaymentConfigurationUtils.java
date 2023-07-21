@@ -30,5 +30,24 @@ public class PaymentConfigurationUtils {
         }
         return lstData;
     }
+    public static List<String> getListAgentByBrandName(String brandname) {
+        List<String> lstData = new ArrayList<>();
+        String api = String.format("%s/system-manager/web/sv/payment/list-payment-configuration", backofficeUrl);
+        String jsn = "{\n" +
+                "  \"loginId\": \"\",\n" +
+                "  \"paymentMethod\": null\n" +
+                "}";
+        JSONArray jsonArray = WSUtils.getPOSTJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET,jsn,DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+        if (Objects.nonNull(jsonArray)) {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.getString("brandName").equals(brandname)) {
+                    lstData.add(jsonObject.getString("loginId"));
+                }
+
+            }
+        }
+        return lstData;
+    }
 
 }
