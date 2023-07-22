@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="FS_SMOKE_AG_SMOKE_HOME" verbose="1">
+<suite name="FAIR_STG_AG_REG" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="FS_SMOKE_Chrome">
+    <test name="FAIR_REG_Chrome">
         <parameter name='browser' value='window10.local.chrome'/>
-        <parameter name='env' value='fastg'/>
+        <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
@@ -22,18 +22,22 @@
         <parameter name='currency' value='HKD'/>
         <parameter name="isCredit" value="false"/>
         <parameter name='level' value='SMA'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value="fairexchange"/>
         <groups>
             <run>
+                <include name="regression_newui"/>
                 <include name="regression"/>
-                <include name="fairregression"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.HeaderTest"/>
-            <class name="agentsite.testcase.LeftMenuTest"/>
-            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
-            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+<!--            <class name="agentsite.testcase.HeaderTest"/>-->
+<!--            <class name="agentsite.testcase.LeftMenuTest"/>-->
+<!--            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>-->
+<!--            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>-->
         </classes>
 
     </test>

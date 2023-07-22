@@ -5,7 +5,7 @@
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="PO_SAT_REG_Chrome">
+    <test name="SAT_REG_Chrome">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
@@ -23,22 +23,25 @@
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
         <parameter name="isCredit" value="false"/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value="satsport"/>
         <groups>
             <run>
-                <include name="poregression"/>
+                <include name="regression_po"/>
             </run>
         </groups>
 
         <classes>
-            <class name="agentsite.testcase.reports.StatementReportTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+<!--            <class name="agentsite.testcase.reports.StatementReportTest"/>-->
 
-            <!--
-                <class name="agentsite.testcase.reports.UnsettledBetTest"/>
-                <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
-                <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>-->
-            <!--            <class name="agentsite.testcase.HeaderTest"/>-->
-            <!--            <class name="agentsite.testcase.LeftMenuTest"/>-->
-            <!--            <class name="agentsite.testcase.satsport.SATHeaderTest"/>-->
+<!--            <class name="agentsite.testcase.reports.UnsettledBetTest"/>-->
+<!--            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>-->
+<!--            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>-->
+<!--            <class name="agentsite.testcase.HeaderTest"/>-->
+<!--            <class name="agentsite.testcase.LeftMenuTest"/>-->
+<!--            <class name="agentsite.testcase.satsport.SATHeaderTest"/>-->
         </classes>
 
     </test>
