@@ -1,40 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="FAIR_STG_AG_REG_CREDIT" verbose="1">
+<suite name="FAIR_GREEN_AG_REG_HTTP" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
     <test name="FAIR_REG_Chrome">
         <parameter name='browser' value='window10.local.chrome'/>
-        <parameter name='env' value='stg'/>
+        <parameter name='env' value='green'/>
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
-        <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='048'/>
-        <parameter name='levelLogin' value='Senior Master Agent'/>
+        <parameter name='isProxy' value='true'/>
+        <parameter name='username' value='03H'/>
+        <parameter name='levelLogin' value='Partner'/>
         <parameter name='downlineAccount' value='03H00'/>
-        <parameter name='portalSubAccount' value='ANSUBCT'/>
+        <parameter name='controlBlockingAccount' value='03H'/>
         <parameter name='memberAccount' value='03H0000000'/>
-        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
-        <parameter name='isThrown' value='false'/>
+        <parameter name='accountToBet' value='ANF0000002'/>
+        <parameter name='controlBlockingLevel' value='PART'/>
+        <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
+        <parameter name="passwordNonePO" value="5pjguoEh1fnSILpykWt1vQ=="/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
         <parameter name="isCredit" value="false"/>
-        <parameter name='level' value='SMA'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value="fairexchange"/>
         <groups>
             <run>
-                <include name="regression_credit"/>
+                <include name="http_request"/>
             </run>
         </groups>
 
         <classes>
-<!--            <class name="agentsite.testcase.HeaderTest"></class>-->
-            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"></class>
-            <class name="agentsite.testcase.agencymanagement.CreateUserTest"></class>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
         </classes>
 
     </test>
+
 </suite>
