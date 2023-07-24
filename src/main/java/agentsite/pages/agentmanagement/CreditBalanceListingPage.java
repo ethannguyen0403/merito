@@ -3,7 +3,7 @@ package agentsite.pages.agentmanagement;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.creditbalancelisting.EditCreditSettingPopup;
-import agentsite.pages.agentmanagement.creditbalancelisting.creditinfoaccountcolumn.CreditInfoAccountColumn;
+import agentsite.pages.agentmanagement.creditbalancelisting.creditinfosmalevelcolumn.CreditInfoSMALevelColumn;
 import agentsite.pages.components.ComponentsFactory;
 import com.paltech.element.common.*;
 
@@ -17,7 +17,7 @@ public class CreditBalanceListingPage extends HomePage {
     int colUsername = 2;
     int colEdit = 5;
     int colVailabaleBalance = 22;
-    public CreditInfoAccountColumn creditInfoAccountColumn;
+    public CreditInfoSMALevelColumn creditInfoAccountColumn;
     public CreditBalanceListingPage(String types) {
         super(types);
         creditInfoAccountColumn = ComponentsFactory.creditInfoSMALevelColumn(_type);

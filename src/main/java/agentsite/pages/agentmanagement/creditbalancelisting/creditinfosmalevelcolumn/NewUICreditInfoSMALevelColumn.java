@@ -1,18 +1,15 @@
-package agentsite.pages.agentmanagement.creditbalancelisting.creditinfoaccountcolumn;
+package agentsite.pages.agentmanagement.creditbalancelisting.creditinfosmalevelcolumn;
 
-import agentsite.controls.Table;
 import agentsite.objects.agent.account.AccountInfo;
 import com.paltech.element.common.Label;
 
-public class OldUICreditInfoSMALevelColumn extends CreditInfoAccountColumn {
+public class NewUICreditInfoSMALevelColumn extends CreditInfoSMALevelColumn {
     int colUsername = 2;
-    int colCreditGiven = 16;
-    int colMaxCredit = 17;
-    int colMemberMaxCredit = 18;
-    int colVailabaleBalance = 19;
-    public Table tblAccountList = Table.xpath("//table[contains(@class,'report')]", 22);
-    public OldUICreditInfoSMALevelColumn() {
-
+    int colCreditGiven = 17;
+    int colMaxCredit = 18;
+    int colMemberMaxCredit = 19;
+    int colVailabaleBalance = 20;
+    public NewUICreditInfoSMALevelColumn() {
     }
     public int getRowIndexofUserName(String username) {
         int i = 1;
@@ -44,4 +41,5 @@ public class OldUICreditInfoSMALevelColumn extends CreditInfoAccountColumn {
                 .availableBalance(Double.parseDouble(availableBalance))
                 .build();
     }
+
 }
