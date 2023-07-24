@@ -88,7 +88,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         log("Step 2. Select an account and click on Edit icon");
         page.filter(memberAccount,"", "");
         log("Step 3. Update valid Credit Given, Max Credit, Member Max Credit and click submit button");
-        AccountInfo creditInfoBeforeUpdate = page.getCreditInfoAccount(memberAccount);
+        AccountInfo creditInfoBeforeUpdate = page.creditInfoAccountColumn.getCreditInfoAccount(memberAccount);
         double updateCreditGiven = creditInfoBeforeUpdate.getCreditGiven() - 1;
         double updateMaxCredit = creditInfoBeforeUpdate.getMaxCredit() - 1;
         double updateMemberMaxCredit = creditInfoBeforeUpdate.getMemberMaxCredit() - 1;
@@ -96,7 +96,9 @@ public class CreditBalanceListingTest extends BaseCaseTest {
             page.updateCreditSetting(memberAccount, String.format("%.2f", updateCreditGiven) , String.format("%.2f",updateMaxCredit), String.format("%.2f",updateMemberMaxCredit));
             log("Verify 1. Validate Credit Given, Max Credit, Member Max Credit are updated");
             page.waitingLoadingSpinner();
-            Assert.assertEquals(String.format("%.2f",updateCreditGiven), page.tblAccountList.getControlOfCell(1, page.colCreditGiven,1,null).getText(),"Credit Given is not updated");
+            Assert.assertEquals(updateCreditGiven, page.creditInfoAccountColumn.getCreditInfoAccount(memberAccount).getCreditGiven(),"Credit Given is not updated");
+            Assert.assertEquals(updateMaxCredit, page.creditInfoAccountColumn.getCreditInfoAccount(memberAccount).getMaxCredit(),"Max Credit is not updated");
+            Assert.assertEquals(updateMemberMaxCredit, page.creditInfoAccountColumn.getCreditInfoAccount(memberAccount).getMemberMaxCredit(),"Member Max Credit is not updated");
         } finally {
             System.out.println("Credit Given, Max Credit, Member Max Credit update to old value");
             page.updateCreditSetting(memberAccount, String.format("%.2f",creditInfoBeforeUpdate.getCreditGiven()) , String.format("%.2f",creditInfoBeforeUpdate.getMaxCredit()),String.format("%.2f",creditInfoBeforeUpdate.getMemberMaxCredit()));
@@ -105,21 +107,21 @@ public class CreditBalanceListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3611")
-    @Test(groups = {"interaction1"})
+    @Test(groups = {"interaction"})
     @Parameters({"brandname", "memberAccount", "password"})
     public void Credit_Balance_Listing_3611(String memberAccount, String password) throws Exception {
         log("@title: Validate player balance is correct after update credit in agent");
         log("Step 1. Navigate Agency Management > Transfer");
         CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
         page.filter(memberAccount, "", "");
-        AccountInfo creditInfoBeforeUpdate = page.getCreditInfoAccount(memberAccount);
+        AccountInfo creditInfoBeforeUpdate = page.creditInfoAccountColumn.getCreditInfoAccount(memberAccount);
         double updateCredit = creditInfoBeforeUpdate.getCreditGiven() - 1;
 
         log("Step 2 Transfer an amount for a player");
         log("Step 3. Update valid Credit Given");
         page.updateCreditSetting(memberAccount, String.format("%.2f", updateCredit), "", "");
 
-        AccountInfo creditInfoAftereUpdate = page.getCreditInfoAccount(memberAccount);
+        AccountInfo creditInfoAftereUpdate = page.creditInfoAccountColumn.getCreditInfoAccount(memberAccount);
         double userBalanceinAgent = creditInfoAftereUpdate.getAvailableBalance();
 
         log("Step 3 Login member site");

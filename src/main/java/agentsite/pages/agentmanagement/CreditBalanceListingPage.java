@@ -4,6 +4,8 @@ import agentsite.controls.Table;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.creditbalancelisting.EditCreditSettingPopup;
+import agentsite.pages.agentmanagement.creditbalancelisting.creditinfoaccountcolumn.CreditInfoAccountColumn;
+import agentsite.pages.components.ComponentsFactory;
 import com.paltech.element.common.*;
 
 public class CreditBalanceListingPage extends HomePage {
@@ -15,14 +17,13 @@ public class CreditBalanceListingPage extends HomePage {
     public Table tblAccountList = Table.xpath("//table[contains(@class,'report')]", 22);
     int colUsername = 2;
     int colEdit = 5;
-    public int colCreditGiven = 20;
-    int colMaxCredit = 21;
-    int colMemberMaxCredit = 22;
-    int colVailabaleBalance = 23;
-
+    int colVailabaleBalance = 22;
+    public CreditInfoAccountColumn creditInfoAccountColumn;
     public CreditBalanceListingPage(String types) {
         super(types);
+        creditInfoAccountColumn = ComponentsFactory.creditInfoAccountColumn(_type);
     }
+
 
     public void filter(String username, String accountStatus, String level) {
         if (!username.isEmpty())
@@ -76,20 +77,19 @@ public class CreditBalanceListingPage extends HomePage {
         popup.editCreditSetting(creditGiven, maxCredit, memberMaxCredit);
     }
 
-    public AccountInfo getCreditInfoAccount(String userName) {
-        int i = getRowIndexofUserName(userName);
-        String creditGiven = tblAccountList.getControlOfCell(1, colCreditGiven, i, null).getText().trim().replaceAll(",", "");
-        String maxCredit = tblAccountList.getControlOfCell(1, colMaxCredit, i, null).getText().trim().replaceAll(",", "");
-        String memberMaxCredit = tblAccountList.getControlOfCell(1, colMemberMaxCredit, i, null).getText().trim().replaceAll(",", "");
-        String availableBalance = tblAccountList.getControlOfCell(1, colVailabaleBalance, i, null).getText().trim().replaceAll(",", "");
-        return new AccountInfo.Builder()
-                .creditGiven(Double.parseDouble(creditGiven))
-                .maxCredit(Double.parseDouble(maxCredit))
-                .memberMaxCredit(Double.parseDouble(memberMaxCredit))
-                .availableBalance(Double.parseDouble(availableBalance))
-                .build();
-
-    }
+//    public AccountInfo getCreditInfoAccount(String userName) {
+//        int i = getRowIndexofUserName(userName);
+//        String creditGiven = tblAccountList.getControlOfCell(1, colCreditGiven, i, null).getText().trim().replaceAll(",", "");
+//        String maxCredit = tblAccountList.getControlOfCell(1, colMaxCredit, i, null).getText().trim().replaceAll(",", "");
+//        String memberMaxCredit = tblAccountList.getControlOfCell(1, colMemberMaxCredit, i, null).getText().trim().replaceAll(",", "");
+//        String availableBalance = tblAccountList.getControlOfCell(1, colVailabaleBalance, i, null).getText().trim().replaceAll(",", "");
+//        return new AccountInfo.Builder().build();
+//                .creditGiven(Double.parseDouble(creditGiven))
+//                .maxCredit(Double.parseDouble(maxCredit))
+//                .memberMaxCredit(Double.parseDouble(memberMaxCredit))
+//                .availableBalance(Double.parseDouble(availableBalance))
+//                .build();
+//    }
 
 
 }
