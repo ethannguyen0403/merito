@@ -27,9 +27,8 @@ import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.Ri
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.NewUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.OldUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
-import agentsite.pages.agentmanagement.creditbalancelisting.creditinfosmalevel.CreditInfoSMALevel;
-import agentsite.pages.agentmanagement.creditbalancelisting.creditinfosmalevel.NewUICreditInfoSMALevel;
-import agentsite.pages.agentmanagement.creditbalancelisting.creditinfosmalevel.OldUICreditInfoSMALevel;
+import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.CreditBalanceListing;
+import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.OldUICreditBalanceListing;
 import agentsite.pages.components.header.Header;
 import agentsite.pages.components.header.NewUIHeader;
 import agentsite.pages.components.header.OldUIHeader;
@@ -137,12 +136,12 @@ public class ComponentsFactory {
         }
     }
 
-    public static CreditInfoSMALevel creditInfoSMALevelColumn(String types) {
+    public static CreditBalanceListing creditBalanceListing(String types) {
         switch (types) {
             case "satsport":
-                return new OldUICreditInfoSMALevel();
+                return new OldUICreditBalanceListing();
             default:
-                return new NewUICreditInfoSMALevel();
+                return new OldUICreditBalanceListing();
         }
     }
 }

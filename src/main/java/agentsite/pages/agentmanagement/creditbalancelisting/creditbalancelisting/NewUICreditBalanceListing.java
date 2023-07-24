@@ -1,33 +1,16 @@
-package agentsite.pages.agentmanagement.creditbalancelisting.creditinfosmalevel;
+package agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting;
 
 import agentsite.objects.agent.account.AccountInfo;
-import com.paltech.element.common.Label;
 
-public class NewUICreditInfoSMALevel extends CreditInfoSMALevel {
-    int colUsername = 2;
+public class NewUICreditBalanceListing extends CreditBalanceListing {
+
     int colCreditGiven = 17;
     int colMaxCredit = 18;
     int colMemberMaxCredit = 19;
     int colVailabaleBalance = 20;
-    public NewUICreditInfoSMALevel() {
-    }
-    public int getRowIndexofUserName(String username) {
-        int i = 1;
-        String xpath = tblAccountList.getxPathOfCell(1, colUsername, i, null);
-        Label lblUserName = Label.xpath(xpath);
-        while (true) {
-            if (!lblUserName.isDisplayed()) {
-                System.out.println("DEBUG! Username " + username + " does not exist in the table");
-                return 0;
-            }
-            xpath = tblAccountList.getxPathOfCell(1, colUsername, i, null);
-            lblUserName = Label.xpath(xpath);
-            if (lblUserName.getText().trim().equals(username)) {
-                return i;
-            }
-            i = i + 1;
-        }
-    }
+
+
+
     public AccountInfo getCreditInfoAccount(String userName) {
         int i = getRowIndexofUserName(userName);
         String creditGiven = tblAccountList.getControlOfCell(1, colCreditGiven, i, null).getText().trim().replaceAll(",", "");

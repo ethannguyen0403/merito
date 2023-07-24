@@ -27,7 +27,6 @@ public class HomePage extends LoginPage {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     private int totalCol = 2;
     Table tblSMAInfo = Table.xpath("//table[@class='ptable report ng-scope']", totalCol);
-
     public HomePage(String types) {
         super(types);
 //        footer = ComponentsFactory.footerObject(_type);
