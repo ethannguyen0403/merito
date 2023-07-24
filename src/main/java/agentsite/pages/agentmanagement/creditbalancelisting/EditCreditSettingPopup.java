@@ -20,7 +20,7 @@ public class EditCreditSettingPopup extends ConfirmPopup {
 
     public void editCreditSetting(String creditGiven, String maxCredit, String memberMaxCredit) {
         if (!creditGiven.isEmpty()) {
-            txtCreditGiven.sendKeys(Keys.CONTROL,"a",Keys.DELETE);
+            txtCreditGiven.sendKeys(Keys.CONTROL,"a",Keys.BACK_SPACE);
             txtCreditGiven.sendKeys(creditGiven);
         }
         if (!maxCredit.isEmpty()) {
@@ -29,6 +29,7 @@ public class EditCreditSettingPopup extends ConfirmPopup {
         if (!memberMaxCredit.isEmpty()) {
             txtMemberMaxCredit.sendKeys(memberMaxCredit);
         }
+        lblCreditGiven.click();
         btnSubmit.click();
     }
 
