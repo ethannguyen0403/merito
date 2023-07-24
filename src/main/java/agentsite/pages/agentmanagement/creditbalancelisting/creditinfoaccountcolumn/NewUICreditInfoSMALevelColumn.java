@@ -1,16 +1,15 @@
 package agentsite.pages.agentmanagement.creditbalancelisting.creditinfoaccountcolumn;
 
 import agentsite.objects.agent.account.AccountInfo;
-import agentsite.pages.agentmanagement.CreditBalanceListingPage;
 import com.paltech.element.common.Label;
 
-public class NewUICreditInfoAccountColumn extends CreditInfoAccountColumn {
+public class NewUICreditInfoSMALevelColumn extends CreditInfoAccountColumn {
     int colUsername = 2;
     int colCreditGiven = 17;
     int colMaxCredit = 18;
     int colMemberMaxCredit = 19;
     int colVailabaleBalance = 20;
-    public NewUICreditInfoAccountColumn() {
+    public NewUICreditInfoSMALevelColumn() {
     }
     public int getRowIndexofUserName(String username) {
         int i = 1;

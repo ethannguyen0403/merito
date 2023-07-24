@@ -83,6 +83,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
     @Parameters({"memberAccount"})
     public void Credit_Balance_Listing_3610(String memberAccount) {
         log("@title: Validate can search by login ID");
+        log("pre-condition: Log in successfully by SAD that belonging to Credit line");
         log("Step 1. Navigate Agency Management > Credit Balance Listing");
         CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
         log("Step 2. Select an account and click on Edit icon");

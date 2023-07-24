@@ -1,7 +1,6 @@
 package agentsite.pages.agentmanagement;
 
 import agentsite.controls.Table;
-import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.creditbalancelisting.EditCreditSettingPopup;
 import agentsite.pages.agentmanagement.creditbalancelisting.creditinfoaccountcolumn.CreditInfoAccountColumn;
@@ -21,7 +20,7 @@ public class CreditBalanceListingPage extends HomePage {
     public CreditInfoAccountColumn creditInfoAccountColumn;
     public CreditBalanceListingPage(String types) {
         super(types);
-        creditInfoAccountColumn = ComponentsFactory.creditInfoAccountColumn(_type);
+        creditInfoAccountColumn = ComponentsFactory.creditInfoSMALevelColumn(_type);
     }
 
 

@@ -2,17 +2,16 @@ package agentsite.pages.agentmanagement.creditbalancelisting.creditinfoaccountco
 
 import agentsite.controls.Table;
 import agentsite.objects.agent.account.AccountInfo;
-import agentsite.pages.agentmanagement.CreditBalanceListingPage;
 import com.paltech.element.common.Label;
 
-public class OldUICreditInfoAccountColumn extends CreditInfoAccountColumn {
+public class OldUICreditInfoSMALevelColumn extends CreditInfoAccountColumn {
     int colUsername = 2;
     int colCreditGiven = 16;
     int colMaxCredit = 17;
     int colMemberMaxCredit = 18;
     int colVailabaleBalance = 19;
     public Table tblAccountList = Table.xpath("//table[contains(@class,'report')]", 22);
-    public OldUICreditInfoAccountColumn() {
+    public OldUICreditInfoSMALevelColumn() {
 
     }
     public int getRowIndexofUserName(String username) {
