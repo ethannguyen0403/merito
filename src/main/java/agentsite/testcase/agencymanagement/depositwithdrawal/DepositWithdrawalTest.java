@@ -28,7 +28,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "711")
     @Test(groups = {"http_request"})
-    public void Agent_AM_DepositWithdrawal_001() throws Exception {
+    public void Agent_AM_DepositWithdrawal_711() {
         log("@title: There is no http responded error returned");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
@@ -53,7 +53,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
     @TestRails(id = "712")
     @Test(groups = {"smoke"})
     @Parameters("currency")
-    public void Agent_AM_DepositWithdrawal_002(String currency) throws Exception {
+    public void Agent_AM_DepositWithdrawal_712(String currency) throws Exception {
         log("@title: Validate that this page loading is successful");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         String loginAccBalance = String.format(Locale.getDefault(), "%,.2f", DownLineListingUtils.getMyCreditBalance());
@@ -90,7 +90,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "713")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_003() throws Exception {
+    public void Agent_AM_DepositWithdrawal_713() {
         log("@title: Validate that filtering with username is correct");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         if (lstUsers.size() == 0) {
@@ -122,7 +122,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "714")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_004() throws Exception {
+    public void Agent_AM_DepositWithdrawal_714() {
         log("@title: Validate that filtering with username is correct");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         if (lstUsers.size() == 0) {
@@ -157,7 +157,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "715")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_005() throws Exception {
+    public void Agent_AM_DepositWithdrawal_715() {
         log("@title: Validate that filtering with correct username, account Status and level");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         if (lstUsers.size() == 0) {
@@ -193,7 +193,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "716")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_006() throws Exception {
+    public void Agent_AM_DepositWithdrawal_716() {
         log("@title: Validate that there is no record found when filtering an incorrect status");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         if (lstUsers.size() == 0) {
@@ -226,7 +226,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "717")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_007() throws Exception {
+    public void Agent_AM_DepositWithdrawal_717() {
         log("@title: Validate that there is no record found when filtering an invalid username");
         String userCode = StringUtils.generateAlphabetic(8);
 
@@ -251,7 +251,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "718")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_008() throws Exception {
+    public void Agent_AM_DepositWithdrawal_718() {
         log("@title: Validate there is UI when drill-down");
         AccountInfo acc = ProfileUtils.getProfile();
         String acc1 = acc.getUserCodeAndLoginID();
@@ -288,7 +288,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "719")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_009() {
+    public void Agent_AM_DepositWithdrawal_719() {
         log("@title:  Validate Open View Log popup");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
@@ -319,16 +319,15 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * 3. Click View Log
      * @expect: 1. Verify log data display corresponding as deposit
      */
-    @TestRails(id = "720")
-    @Test(groups = {"satregression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_DepositWithdrawal_010(String brandname) {
+    @TestRails(id = "3619")
+    @Test(groups = {"regression_oldui"})
+    public void Agent_AM_DepositWithdrawal_3619() {
         log("@title:  Validate Deposit log display correctly");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         String remark = String.format("DepositWithdrawal_010 deposit 1 on %s", DateUtils.getDate(0, "DD/MM/YYY hh:mm", "GMT -4"));
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
@@ -356,15 +355,15 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * 3. Click View Log
      * @expect: 1. Verify log data display corresponding as With draw
      */
-    @Test(groups = {"satregression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_DepositWithdrawal_011(String brandname) {
+    @TestRails(id = "3620")
+    @Test(groups = {"regression_oldui"})
+    public void Agent_AM_DepositWithdrawal_3620() {
         log("@title: Validate Withdraw log display correctly");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         String remark = String.format("DepositWithdrawal_011 withdraw 1 on %s", DateUtils.getDate(0, "DD/MM/YYY hh:mm", "GMT -4"));
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
@@ -391,7 +390,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "720")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_012() throws Exception {
+    public void Agent_AM_DepositWithdrawal_720() {
         log("@title: Validate security popup display Deposit/withdraw page");
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -412,7 +411,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "721")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_013() {
+    public void Agent_AM_DepositWithdrawal_721() {
         log("@title: Validate My Credit, Total Balance, Sub Balance,Available Balance is correct");
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -426,13 +425,13 @@ public class DepositWithdrawalTest extends BaseCaseTest {
     }
 
     @Test(groups = {"interaction"})
-    @Parameters({"password", "brandname"})
-    public void Agent_AM_DepositWithdrawal_Deposit_015(String password, String brandname) throws Exception {
+    @Parameters({"password"})
+    public void Agent_AM_DepositWithdrawal_Deposit_015(String password) throws Exception {
         log("@title:  Verify Balance agent is correctly is correct when deposit from agent site");
         double depositAmount = 1;
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         String loginId = directDownline.getUserCode();
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -457,13 +456,13 @@ public class DepositWithdrawalTest extends BaseCaseTest {
     }
 
     @Test(groups = {"interaction"})
-    @Parameters({"password", "brandname"})
-    public void Agent_AM_DepositWithdrawal_Deposit_016(String password, String brandname) throws Exception {
+    @Parameters({"password"})
+    public void Agent_AM_DepositWithdrawal_Deposit_016(String password) throws Exception {
         log("@title:  Verify Balance agent is correctly is correct when withdraw from agent site");
         double depositAmount = 1;
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         String loginId = directDownline.getUserCode();
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
