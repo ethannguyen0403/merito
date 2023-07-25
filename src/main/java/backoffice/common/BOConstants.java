@@ -301,6 +301,8 @@ public class BOConstants {
         }
         public static class PunterPerformance {
             public final static List<String> LST_HEADER = Arrays.asList("User Name", "Brand","Level","Currency","Total Wager","Win","Lose","Draw","Avg Stake\n(HKD)","(HKD)","(F)","Win%","Turnover","Win/Loss","Tax/Comm","Total","Turnover","Win/Loss","Tax/Comm","Total");
+            public final static String MSG_AT_LEAST_1_PORTAL = "Please select at least 1 portal";
+            public final static String MSG_AT_LEAST_1_PRODUCT = "Please select at least 1 product";
         }
     }
 
