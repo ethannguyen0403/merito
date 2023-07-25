@@ -1,6 +1,5 @@
 package agentsite.pages.agentmanagement;
 
-import agentsite.controls.Row;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.depositwithdrawal.*;
@@ -10,7 +9,6 @@ import agentsite.ultils.account.ProfileUtils;
 import com.paltech.element.common.*;
 import com.paltech.utils.DoubleUtils;
 
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -487,7 +485,7 @@ public class DepositWithdrawalPage extends HomePage {
 
     }
 
-    public boolean verifyTotalBalanceHeader() {
+    public boolean isTotalBalanceHeader() {
         double totalBalance = Double.parseDouble(tblAccountBalance.getControlOfCell(1, colSubBalanceHeader,1,null).getText().trim().replaceAll(",","")) +
                 Double.parseDouble(tblAccountBalance.getControlOfCell(1, colMainAvailableBalance,1,null).getText().trim().replaceAll(",",""));
         if (String.format("%,.2f",totalBalance).equals(tblAccountBalance.getControlOfCell(1,colTotalBalanceHeader,1,null).getText())){
@@ -496,7 +494,7 @@ public class DepositWithdrawalPage extends HomePage {
         return false;
     }
 
-    public boolean verifySubBalanceHeader() {
+    public boolean isSubBalanceHeader() {
         double subBalanceHeader = 0;
         List<String> subBalance = tblWithdrawalDeposit.getColumn(colTotalBalance,100,false);
         for (int i = 0; i < subBalance.size();i++){

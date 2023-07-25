@@ -11,7 +11,7 @@ public class OldUIDepositWithdraw extends DepositWithdraw{
     int colTotalBalance = 8;
     int colAvailableBalance = 10;
     public Table tblWithdrawalDeposit = Table.xpath("//table[contains(@class,'ptable report table-responsive')]", totalCol);
-    public boolean verifyTotalBalanceOfDownline() {
+    public boolean isTotalBalanceOfDownline() {
         List<ArrayList<String>> lstData = tblWithdrawalDeposit.getRowsWithoutHeader(20,false);
         for (int i = 0; i < lstData.size(); i++){
             double totalBalance = Double.parseDouble(lstData.get(i).get(colSubBalance)) + Double.parseDouble(lstData.get(i).get(colAvailableBalance));
