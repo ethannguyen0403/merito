@@ -48,7 +48,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("@title: Validate cannot add the agent already added in BO Payment Configuration");
         log("pre-condition 1: There is an agent added into Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
-        String agentAdded = page.tblReport.getColumn(4,10,false).get(1);
+        String agentAdded = page.tblReport.getColumn(page.colUsername,10,false).get(1);
         page.addAgent("All", agentAdded);
         log("Step 1. Access Payment Configuration");
         log("Step 2. Input a the agent in precondition and click add button");
@@ -174,7 +174,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("Step 1. Access Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
         log("Step 2. Observe the list");
-        List<String> lstUpdateDate = page.tblReport.getColumn(9,20,true);
+        List<String> lstUpdateDate = page.tblReport.getColumn( page.colUpdatedDate,20,true);
         List<String> lstDataSorted = page.getListUpdateDateSorted(lstUpdateDate);
         log("Verify 1: Verify the data is sorted by updated date");
         Assert.assertEquals(lstUpdateDate,lstDataSorted);
