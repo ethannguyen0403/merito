@@ -28,7 +28,11 @@ import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.New
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.OldUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
 import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.CreditBalanceListing;
+import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.NewUICreditBalanceListing;
 import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.OldUICreditBalanceListing;
+import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
+import agentsite.pages.agentmanagement.depositwithdrawal.NewUIDepositWithdraw;
+import agentsite.pages.agentmanagement.depositwithdrawal.OldUIDepositWithdraw;
 import agentsite.pages.components.header.Header;
 import agentsite.pages.components.header.NewUIHeader;
 import agentsite.pages.components.header.OldUIHeader;
@@ -141,7 +145,15 @@ public class ComponentsFactory {
             case "satsport":
                 return new OldUICreditBalanceListing();
             default:
-                return new OldUICreditBalanceListing();
+                return new NewUICreditBalanceListing();
+        }
+    }
+    public static DepositWithdraw depositWithdraw(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIDepositWithdraw();
+            default:
+                return new NewUIDepositWithdraw();
         }
     }
 }

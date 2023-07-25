@@ -403,25 +403,18 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate My Credit, Total Balance, Sub Balance,Available Balance is correc
-     * @pre-condition: 1. Log in successfully
-     * @steps: 1. Navigate Agency Management > Deposit Withdrawal     *
-     * @expect: In viewied level data My Credit, Total Balance, Sub Balance, Available Balance
-     * In downline table  veify data to Total Balance, Sub Balance, Available Balance
-     */
     @TestRails(id = "721")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_013() {
+    public void Agent_AM_DepositWithdrawal_721() {
         log("@title: Validate My Credit, Total Balance, Sub Balance,Available Balance is correct");
-
+        log("pre-condition: Log in successfully by SAD that belonging to Credit Cash line");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage("");
-
         log("Verify 1. In viewied level data My Credit, Total Balance, Sub Balance, Available Balance\n" +
                 "     * In downline table  veify data to Total Balance, Sub Balance, Available Balance");
-
-
+        Assert.assertTrue(page.verifyTotalBalanceHeader(), "ToTal Balance Header's value is wrong");
+        Assert.assertTrue(page.verifySubBalanceHeader(), "Sub Balance Header's value is wrong");
+        Assert.assertTrue(page.depositWithdraw.verifyTotalBalanceOfDownline(), "Total Balance Of Downline's value is wrong");
         log("INFO: Executed completely");
     }
 
