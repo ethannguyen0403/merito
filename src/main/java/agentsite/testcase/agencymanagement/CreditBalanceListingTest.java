@@ -115,14 +115,14 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         log("Step 1. Navigate Agency Management > Transfer");
         CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
         page.filter(memberAccount, "", "");
-        AccountInfo creditInfoBeforeUpdate = page.creditBalanceListing.getCreditInfoAccount(memberAccount);
+        AccountInfo creditInfoBeforeUpdate = page.getCreditInfoAccount(memberAccount);
         double updateCredit = creditInfoBeforeUpdate.getCreditGiven() - 1;
 
         log("Step 2 Transfer an amount for a player");
         log("Step 3. Update valid Credit Given");
         page.updateCreditSetting(memberAccount, String.format("%.2f", updateCredit), "", "");
 
-        AccountInfo creditInfoAftereUpdate = page.creditBalanceListing.getCreditInfoAccount(memberAccount);
+        AccountInfo creditInfoAftereUpdate = page.getCreditInfoAccount(memberAccount);
         double userBalanceinAgent = creditInfoAftereUpdate.getAvailableBalance();
 
         log("Step 3 Login member site");

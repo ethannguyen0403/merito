@@ -1,6 +1,7 @@
 package agentsite.pages.agentmanagement;
 
 import agentsite.controls.Table;
+import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.creditbalancelisting.EditCreditSettingPopup;
 import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.CreditBalanceListing;
@@ -16,7 +17,10 @@ public class CreditBalanceListingPage extends HomePage {
     public Table tblAccountList = Table.xpath("//table[contains(@class,'report')]", 22);
     int colUsername = 2;
     int colEdit = 5;
-    int colVailabaleBalance = 22;
+    int colCreditGiven = 15;
+    int colMaxCredit = 16;
+    int colMemberMaxCredit = 17;
+    int colVailabaleBalance = 18;
     public CreditBalanceListing creditBalanceListing;
     public CreditBalanceListingPage(String types) {
         super(types);
@@ -75,9 +79,19 @@ public class CreditBalanceListingPage extends HomePage {
         popup.editCreditSetting(creditGiven, maxCredit, memberMaxCredit);
     }
 
-//    public AccountInfo getCreditInfoAccount(String userName) {
-//        return new AccountInfo.Builder().build();
-//    }
+    public AccountInfo getCreditInfoAccount(String userName) {
+        int i = getRowIndexofUserName(userName);
+        String creditGiven = tblAccountList.getControlOfCell(1, colCreditGiven, i, null).getText().trim().replaceAll(",", "");
+        String maxCredit = tblAccountList.getControlOfCell(1, colMaxCredit, i, null).getText().trim().replaceAll(",", "");
+        String memberMaxCredit = tblAccountList.getControlOfCell(1, colMemberMaxCredit, i, null).getText().trim().replaceAll(",", "");
+        String availableBalance = tblAccountList.getControlOfCell(1, colVailabaleBalance, i, null).getText().trim().replaceAll(",", "");
+        return new AccountInfo.Builder()
+                .creditGiven(Double.parseDouble(creditGiven))
+                .maxCredit(Double.parseDouble(maxCredit))
+                .memberMaxCredit(Double.parseDouble(memberMaxCredit))
+                .availableBalance(Double.parseDouble(availableBalance))
+                .build();
+    }
 
 
 }
