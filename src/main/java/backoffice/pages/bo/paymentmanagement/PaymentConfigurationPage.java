@@ -13,9 +13,6 @@ import java.util.*;
 public class PaymentConfigurationPage extends HomePage {
     public DropDownBox ddnPaymentMethod = DropDownBox.xpath("//select[@name='payment-method']");
     TextBox txbAgent = TextBox.xpath("//input[@name='username']");
-    public Label lblAlertAgentDoesNotExist = Label.xpath("//span[contains(text(),'does not exist in the System!')]");
-    public Label lblAlertAgentAlreadyAdd = Label.xpath("//span[contains(text(),'is already added')]");
-    public Label lblAlertOnly1Level = Label.xpath("//span[contains(text(),'Only 1 level in a single line is allowed to configure')]");
     public Button btnAdd = Button.xpath("//button[text()='Add']");
     String btnRemove = "//div[text()=' %s ']/parent::div//span[@class='cursor-pointer p-2'][1]";
     String btnEye = "//div[text()=' %s ']/parent::div//span[@class='cursor-pointer p-2'][2]";
