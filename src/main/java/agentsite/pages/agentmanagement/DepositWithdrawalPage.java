@@ -485,7 +485,7 @@ public class DepositWithdrawalPage extends HomePage {
 
     }
 
-    public boolean isTotalBalanceHeader() {
+    public boolean isTotalBalanceHeaderCalculatedCorrect() {
         double totalBalance = Double.parseDouble(tblAccountBalance.getControlOfCell(1, colSubBalanceHeader,1,null).getText().trim().replaceAll(",","")) +
                 Double.parseDouble(tblAccountBalance.getControlOfCell(1, colMainAvailableBalance,1,null).getText().trim().replaceAll(",",""));
         if (String.format("%,.2f",totalBalance).equals(tblAccountBalance.getControlOfCell(1,colTotalBalanceHeader,1,null).getText())){
@@ -494,7 +494,7 @@ public class DepositWithdrawalPage extends HomePage {
         return false;
     }
 
-    public boolean isSubBalanceHeader() {
+    public boolean isSubBalanceHeaderCalculatedCorrect() {
         double subBalanceHeader = 0;
         List<String> subBalance = tblWithdrawalDeposit.getColumn(colTotalBalance,100,false);
         for (int i = 0; i < subBalance.size();i++){

@@ -412,9 +412,9 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage("");
         log("Verify 1. In viewied level data My Credit, Total Balance, Sub Balance, Available Balance\n" +
                 "     * In downline table  veify data to Total Balance, Sub Balance, Available Balance");
-        Assert.assertTrue(page.isTotalBalanceHeader(), "ToTal Balance Header's value is wrong");
-        Assert.assertTrue(page.isSubBalanceHeader(), "Sub Balance Header's value is wrong");
-        Assert.assertTrue(page.depositWithdraw.isTotalBalanceOfDownline(), "Total Balance Of Downline's value is wrong");
+        Assert.assertTrue(page.isTotalBalanceHeaderCalculatedCorrect(), "ToTal Balance Header's value is wrong");
+        Assert.assertTrue(page.isSubBalanceHeaderCalculatedCorrect(), "Sub Balance Header's value is wrong");
+        Assert.assertTrue(page.depositWithdraw.isTotalBalanceCalculatedCorrect(), "Total Balance Of Downline's value is wrong");
         log("INFO: Executed completely");
     }
 
