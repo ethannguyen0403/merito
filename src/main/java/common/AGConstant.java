@@ -423,7 +423,42 @@ public class AGConstant {
                     add("Update Status");
                 }
             };
-            //public final static ArrayList<String> TABLE_AGENT_HEADER_LIVE_DEALER_ASIAN = new ArrayList<>(){{add("No."); add("Username");add( "Login ID");add("Account Status"); "","Level","First Name","Last Name","Andar Bahar","Baccarat","Casinowar","Dragon Tiger","Roulette","Teen Patti","Teenpatti 20-20","Three card poker","Last Update")}};
+            public static final Map<String, String> PRODUCT_CODE_TO_NAME = new HashMap<String, String>() {
+                {
+                    put("SUPER_SPADE", "Live Dealer Asian");
+                    put("EZUGI", "Live Dealer European");
+                    put("VERONICA", "Supernowa Casino");
+                    put("EVOLUTION", "Evolution");
+                    put("GAME_HALL", "Game Hall");
+                    put("VIVO", "ViVo");
+                    put("ION", "Ion");
+                    put("PRAGMATIC", "Pragmatic");
+                    put("CMD_SPORTSBOOK", "CMD Sportsbook");
+                }
+            };
+        }
+
+        public static class BetSettingListing {
+            public static final HashMap<String, Boolean> SPORT_COLUMN_FALSE = new HashMap<String, Boolean>() {
+                {
+                    put("Soccer", false);
+                    put("Cricket", false);
+                    put("Tennis", false);
+                    put("Basketball", false);
+                    put("Fancy", false);
+                    put("Other", false);
+                }
+            };
+            public static final HashMap<String, Boolean> SPORT_COLUMN_TRUE = new HashMap<String, Boolean>() {
+                {
+                    put("Soccer", true);
+                    put("Cricket", true);
+                    put("Tennis", true);
+                    put("Basketball", true);
+                    put("Fancy", true);
+                    put("Other", true);
+                }
+            };
         }
 
         public static class TaxSettingListing {
@@ -566,6 +601,7 @@ public class AGConstant {
             public final static List<String> TABLE_HEADER_ALL = Arrays.asList("Username", "Login ID", "Profit And Loss", "Transfer", "Outstanding", "Available Balance", "");
             public final static String LBL_STATEMENT_REPORT_SEARCH_TITLE = "Client Ledger %s - %s";
         }
+
 
         public static class TransactionHistory {
             public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Competition Name", "Volume", "PnL", "Tax", " ");

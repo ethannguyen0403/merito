@@ -57,6 +57,15 @@ public class BOConstants {
 
         public static class SmallBetConfiguration {
             public final static List<String> TABLE_HEADER = Arrays.asList("Agent","Status","Stake","Accept % of Pricing","Reject Back if Potential Winning","Reject Lay if Potential Liability","Action");
+            public final static String MSG_ADD_SUCCEED = "Add Succeed";
+            public final static String MSG_AGENT_ALREADY_ADDED = "Agent %s is already added!";
+            public final static String MSG_SHOULD_NOT_BE_ADD = "Agent code under Fairenter, Funsport and Laystars should not be added.";
+            public final static String MSG_UPDATE_SUCCESSFUL = "Update is successful!";
+            public final static String MSG_UPDATE_STAKE = "Are you sure to update Min Bet of agent %s from %s INR to %s INR?";
+            public final static String MSG_UPDATE_ACCEPT_OF_PRICING = "Are you sure to update Accept %% of Pricing of agent %s from %s %% to %s %%?";
+            public final static String MSG_UPDATE_REJECT_BACK = "Are you sure to update Reject Back if Potential Winning of agent %s from %s times to %s times?";
+            public final static String MSG_UPDATE_REJECT_LAY = "Are you sure to update Reject Lay if Potential Liability of agent %s from %s times to %s times?";
+            public final static String MSG_AGENT_NOT_EXIST = "Agent does not exist in the system!";
         }
     }
 
@@ -168,6 +177,9 @@ public class BOConstants {
         public static class PaymentConfiguration {
             public final static List<String> HEADER_TABLE = Arrays.asList("No.","Brand","Level","Username","Currency","Payment Method","Line","Updated By","Updated Date","Action");
             public final static List<String> OPTION_OF_PAYMENT_METHOD = Arrays.asList("All","KINGSPAY");
+            public final static String MSG_AGENT_NOT_EXIST = "Agent %s does not exist in the System!";
+            public final static String MSG_AGENT_ALREADY_ADDED = "Agent %s is already added";
+            public final static String MSG_ONLY_1_LEVEL_IN_SINGLE_LINE = "Only 1 level in a single line is allowed to configure";
         }
         public static class DepositWithdrawalTransactions {
             public final static List<String> TAB_NAME = Arrays.asList("Deposit Transactions","Withdrawal Transactions");
@@ -289,6 +301,8 @@ public class BOConstants {
         }
         public static class PunterPerformance {
             public final static List<String> LST_HEADER = Arrays.asList("User Name", "Brand","Level","Currency","Total Wager","Win","Lose","Draw","Avg Stake\n(HKD)","(HKD)","(F)","Win%","Turnover","Win/Loss","Tax/Comm","Total","Turnover","Win/Loss","Tax/Comm","Total");
+            public final static String MSG_AT_LEAST_1_PORTAL = "Please select at least 1 portal";
+            public final static String MSG_AT_LEAST_1_PRODUCT = "Please select at least 1 product";
         }
     }
 

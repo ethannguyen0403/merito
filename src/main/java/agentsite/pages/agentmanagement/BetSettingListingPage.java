@@ -14,7 +14,8 @@ public class BetSettingListingPage extends HomePage {
     public DropDownBox ddbAccountStatus = DropDownBox.xpath("//label[text()='Account Status']//following::select[1]");
     public DropDownBox ddbProduct = DropDownBox.xpath("//label[text()='Product']//following::select[1]");
     public DropDownBox ddbLevel = DropDownBox.id("userLevel");
-    public Button btnSearch = Button.xpath("//button[@class='pbtn search']");
+    public Button btnSubmit = Button.xpath("//button[@class='pbtn search']");
+    public Label lblTitlePage = Label.xpath("//app-title-dashboard//div[@class='title']//label");
     public int totalColum = 10;
     public int usernameCol = 2;
     public int loginIDCol = 3;
@@ -31,6 +32,7 @@ public class BetSettingListingPage extends HomePage {
     public int fancyCol = 14;
     public int otherCol = 15;
     public int updateStatusCol = 16;
+    public Row sportsRow = Row.xpath("//div[@id='betSetting']//table[@class='ptable info ng-star-inserted']/tr");
     public Table tblDownline = Table.xpath("//table[contains(@class,'ptable report')]", totalColum);
     public TextBox txtMinBet = TextBox.xpath("(//table[@class='ptable info search-region']//input)[1]");
     public TextBox txtMaxBet = TextBox.xpath("(//table[@class='ptable info search-region']//input)[2]");
@@ -56,7 +58,7 @@ public class BetSettingListingPage extends HomePage {
             ddbProduct.selectByVisibleText(product);
         if (!level.isEmpty())
             ddbLevel.selectByVisibleText(level);
-        btnSearch.click();
+        btnSubmit.click();
         waitingLoadingSpinner();
     }
 
