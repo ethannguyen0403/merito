@@ -8,6 +8,7 @@ import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.EventBetSizeSettingUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.driver.DriverManager;
+import com.paltech.element.common.TextBox;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.objects.sat.Event;
@@ -55,8 +56,53 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3564")
+    @Test(groups = {"regression_sat"})
+    public void Agent_AM_Event_Bet_Site_Settings_3564() {
+        log("@title: Validate there is no http responded error returned");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        agentHomePage.navigateEventBetSizeSettingsPage();
+
+        log("Verify 1. Verify Event Bet Size Settings page is displayed without console error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error display when accessing the page");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3571")
+    @Test(groups = {"regression_sat"})
+    public void Agent_AM_Event_Bet_Site_Settings_3571() {
+        log("@title: Validate Min-Max value of Fancy is read only when login for PO level");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage eventBetSizeSettingsPage = agentHomePage.navigateEventBetSizeSettingsPage();
+
+        log("Verify 1. Validate data on PO > Event Bet Size Setting display for Fancy correctly and readonly");
+        Assert.assertEquals(TextBox.xpath(eventBetSizeSettingsPage.tblEvent.getxPathOfCell(1, 5, 1, "input[1]")).getAttribute("disabled"), "true", "FAILED! Min Fancy is not disabled");
+        Assert.assertEquals(TextBox.xpath(eventBetSizeSettingsPage.tblEvent.getxPathOfCell(1, 5, 1, "input[2]")).getAttribute("disabled"), "true", "FAILED! Max Fancy is not disabled");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3572")
+    @Test(groups = {"regression_sat"})
+    public void Agent_AM_Event_Bet_Site_Settings_3572() {
+        log("@title: Validate only Open event display on the list");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage eventBetSizeSettingsPage = agentHomePage.navigateEventBetSizeSettingsPage();
+        String closedEventId = "32502254";
+
+        log("Step 2. Select Soccer and Active Old Events tab");
+        eventBetSizeSettingsPage.filter("", "Soccer","Old Events");
+        eventBetSizeSettingsPage.searchEventInfo("","", closedEventId);
+
+        log("Verify 2. Validate Closed event not display in the list");
+        Assert.assertTrue(eventBetSizeSettingsPage.lblNoRecordFound.isDisplayed(),"FAILED! Closed event displays in list result");
+
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "3565")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void Agent_AM_Event_Bet_Site_Settings_3565() {
         log("@title:Validate Event Bet Size Settings display when login by PO levels");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -72,7 +118,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3566")
-    @Test(groups = {"satregression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3566() {
         log("@title:Verify Event Bet Size Settings display when login by Control Login levels");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -86,8 +132,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3567")
-    @Test(groups = {"regressionAGLevel"})
+    @Test(groups = {"regression_ag"})
     public void Agent_AM_Event_Bet_Site_Settings_3567() {
         log("@title:Verify Event Bet Size Settings NOT display when login with the level not is PO or Control Blocking Level");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -98,8 +145,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3568")
-    @Test(groups = {"satregression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3568() {
         log("@title: Verify UI on Event Bet Size Setting when login for SAD level");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -115,8 +163,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Assert.assertEquals(page.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is not display");
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3569")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void Agent_AM_Event_Bet_Site_Settings_3569() {
         log("@title: Verify UI on Event Bet Size Setting when login for PO level");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -134,7 +183,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3570")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3570() {
         log("@title: Verify Min-Max value is read only when login for PO level");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -153,9 +202,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Assert.assertEquals(page.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is not display");
         log("INFO: Executed completely");
     }
-    @TestRails(id = "3571")
-    @Test(groups = {"regression"})
-    public void Agent_AM_Event_Bet_Site_Settings_3571() {
+
+    @TestRails(id = "3574")
+    @Test(groups = {"regression_sat"})
+    public void Agent_AM_Event_Bet_Site_Settings_3574() {
         log("@title: Verify can search competition with prefix value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -172,8 +222,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3575")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3575() {
         log("@title: Verify can search competition with correct value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -192,8 +243,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3576")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3576() {
         log("@title: Verify no competition display when search with invalid data");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -208,8 +260,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3577")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3577() {
         log("@title: Verify can search event name that contains search value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -227,8 +280,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3578")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3578() {
         log("@title: Verify no  event  display when search with invalid data");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -243,8 +297,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3579")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3579() {
         log("@title: Verify can search event ID  that contains search value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -262,8 +317,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3580")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3580() {
         log("@title: Verify can search event ID with correct value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -283,8 +339,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3581")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3581() {
         log("@title:Verify no  event  display when search with invalid event Id");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -300,7 +357,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"regression1"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_021() {
         log("@title: Verify can update and remove min event setting in Fancy MIN-Max");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -328,7 +385,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"regression1"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_020() {
         log("@title: Verify can update and remove min event setting in normal product");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -454,6 +511,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         }*/
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3584")
     @Test(groups = {"regression"})
     @Parameters({"username", "portalSubAccount", "popassword"})
@@ -486,6 +544,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3585")
     @Test(groups = {"regression"})
     @Parameters({"username", "portalSubAccount", "popassword"})
@@ -521,6 +580,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3586")
     @Test(groups = {"regression1"})
     public void Agent_AM_Event_Bet_Site_Settings_3586() {
@@ -542,6 +602,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3587")
     @Test(groups = {"regression"})
     public void Agent_AM_Event_Bet_Site_Settings_3587() {
@@ -563,6 +624,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3588")
     @Test(groups = {"regression"})
     public void Agent_AM_Event_Bet_Site_Settings_3588() {
@@ -607,6 +669,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Assert.assertEquals(popup.getContentMessage(), ERROR_MAX_LESS_THAN_MIN, "FAILED! Error message is incorrect");
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3589")
     @Test(groups = {"regression"})
     public void Agent_AM_Event_Bet_Site_Settings_3589() {
@@ -682,6 +745,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3591")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
@@ -706,6 +770,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3592")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
@@ -781,6 +846,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3595")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})

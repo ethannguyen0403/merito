@@ -112,6 +112,7 @@ public class HomePage extends LoginPage {
 
     public EventBetSizeSettingsPage navigateEventBetSizeSettingsPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, EVENT_BET_STIE_SETTINGS);
+        waitingLoadingSpinner();
         return new EventBetSizeSettingsPage(_type);
     }
 
@@ -146,7 +147,7 @@ public class HomePage extends LoginPage {
     }
 
     public CommissionSettingListingPage navigateCommissionSettingListingPage() {
-        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING);
+        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, COMMISSION_LISTING);
         return new CommissionSettingListingPage(_type);
     }
 
