@@ -5,6 +5,7 @@ import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import com.paltech.element.common.*;
 import common.AGConstant;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class CommissionSettingListingPage extends HomePage {
     private String ddbGameXpath = "//label[@for='%s']/following::select[1]";
     private String successIcon = "//span[contains(@class,'psuccess')]";
     private String errorIcon = "//span[contains(@class,'perror')]";
+    private DropDownBox ddbSetCommissionSetting = DropDownBox.xpath("//table[@id='commission-group']//select");
 
     public CommissionSettingListingPage(String types) {
         super(types);
@@ -76,7 +78,7 @@ public class CommissionSettingListingPage extends HomePage {
     }
 
 
-    public void updateCommissiongSetting(String loginID, boolean accountIsAgentlevel, String product, List<Double> lstGameCommission) {
+    public void updateCommissiongSetting(String loginID, boolean accountIsAgentlevel, String product, double commissionValue) {
         // select the checkbox with corresponding loginID
         String chbDownlinexPath;
         if (accountIsAgentlevel)
@@ -88,14 +90,23 @@ public class CommissionSettingListingPage extends HomePage {
             System.out.println(String.format("Not found the element %s", chbDownlinexPath));
             return;
         }
+        if (!product.isEmpty()) {
+            ddbProduct.selectByVisibleText(product);
+            waitingLoadingSpinner();
+        }
         chb.click();
 
         //based on selected product, input the corresponding commission
-        inputCommission(lstGameCommission, product);
+//        inputCommission(lstGameCommission, product);
+        if (commissionValue == 0.0) {
+            ddbSetCommissionSetting.selectByVisibleText("0");
+        } else {
+            ddbSetCommissionSetting.selectByVisibleText(String.valueOf(commissionValue));
+        }
+
 
         //Click update
         btnUpdate.click();
-        waitingLoadingSpinner();
     }
 
     public void inputCommission(List<Double> lstGameCommission, String productName) {
@@ -152,6 +163,15 @@ public class CommissionSettingListingPage extends HomePage {
         return expectedData.equals(listActualInfo);
     }
 
+    public void verifyCommissionUpdated(boolean isAgent, String expectedValue) {
+        if (isAgent) {
+            List<ArrayList<String>> lstRow = tblAgentCommission.getRowsWithoutHeader(1,false);
+            Assert.assertEquals(lstRow.get(0).get(8),expectedValue,String.format("FAILED! Commission is not updated correct actual: %s and expected: %s",lstRow.get(0).get(8), expectedValue));
+        } else {
+            Assert.assertTrue(true,"Handle for case is member");
+        }
+
+    }
     public void waitingLoadingSpinner() {
         iconLoadSpinner.waitForControlInvisible(1, 1);
     }
