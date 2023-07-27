@@ -4,6 +4,8 @@ import agentsite.controls.Table;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.creditbalancelisting.EditCreditSettingPopup;
+import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.CreditBalanceListing;
+import agentsite.pages.components.ComponentsFactory;
 import com.paltech.element.common.*;
 
 public class CreditBalanceListingPage extends HomePage {
@@ -19,9 +21,10 @@ public class CreditBalanceListingPage extends HomePage {
     int colMaxCredit = 16;
     int colMemberMaxCredit = 17;
     int colVailabaleBalance = 18;
-
+    public CreditBalanceListing creditBalanceListing;
     public CreditBalanceListingPage(String types) {
         super(types);
+        creditBalanceListing = ComponentsFactory.creditBalanceListing(types);
     }
 
     public void filter(String username, String accountStatus, String level) {
@@ -83,12 +86,11 @@ public class CreditBalanceListingPage extends HomePage {
         String memberMaxCredit = tblAccountList.getControlOfCell(1, colMemberMaxCredit, i, null).getText().trim().replaceAll(",", "");
         String availableBalance = tblAccountList.getControlOfCell(1, colVailabaleBalance, i, null).getText().trim().replaceAll(",", "");
         return new AccountInfo.Builder()
-                .creditGiven(Integer.parseInt(creditGiven))
-                .maxCredit(Integer.parseInt(maxCredit))
-                .memberMaxCredit(Integer.parseInt(memberMaxCredit))
-                .availableBalance(Integer.parseInt(availableBalance))
+                .creditGiven(Double.parseDouble(creditGiven))
+                .maxCredit(Double.parseDouble(maxCredit))
+                .memberMaxCredit(Double.parseDouble(memberMaxCredit))
+                .availableBalance(Double.parseDouble(availableBalance))
                 .build();
-
     }
 
 

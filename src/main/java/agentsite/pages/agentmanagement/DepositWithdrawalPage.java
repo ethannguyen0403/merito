@@ -2,10 +2,8 @@ package agentsite.pages.agentmanagement;
 
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
-import agentsite.pages.agentmanagement.depositwithdrawal.DepositPopup;
-import agentsite.pages.agentmanagement.depositwithdrawal.DepositToPopup;
-import agentsite.pages.agentmanagement.depositwithdrawal.ViewLogPopup;
-import agentsite.pages.agentmanagement.depositwithdrawal.WithdrawalPopup;
+import agentsite.pages.agentmanagement.depositwithdrawal.*;
+import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.ultils.account.ProfileUtils;
 import com.paltech.element.common.*;
@@ -49,7 +47,7 @@ public class DepositWithdrawalPage extends HomePage {
     public DropDownBox ddbLevel = DropDownBox.xpath("(//table[contains(@class,'ptable report table-responsive')])//th[" + colLevel + "]//select");
     public int colCreditInitiation = 8;
     public int colTotalBalance = 9;
-    public int colSubBalance = 1;
+    public int colSubBalance = 10;
     public int colWinloss = 12;
     public int colExposure = 13;
     public int colMyCreditHeader = 1;
@@ -68,8 +66,10 @@ public class DepositWithdrawalPage extends HomePage {
     private int colLog = 15;
     private int totalColAccountBalanceTable = 4;
     public Table tblAccountBalance = Table.xpath("(//table[@class='ptable report'])[1]", totalColAccountBalanceTable);
+    public DepositWithdraw depositWithdraw;
     public DepositWithdrawalPage(String types) {
         super(types);
+        depositWithdraw = ComponentsFactory.depositWithdraw(types);
     }
 
     public List<ArrayList<String>> getLoginAccountBalanceInfo() {
@@ -485,6 +485,30 @@ public class DepositWithdrawalPage extends HomePage {
 
     }
 
+    public boolean isTotalBalanceHeaderCalculatedCorrect() {
+        double totalBalance = Double.parseDouble(tblAccountBalance.getControlOfCell(1, colSubBalanceHeader,1,null).getText().trim().replaceAll(",","")) +
+                Double.parseDouble(tblAccountBalance.getControlOfCell(1, colMainAvailableBalance,1,null).getText().trim().replaceAll(",",""));
+        if (String.format("%,.2f",totalBalance).equals(tblAccountBalance.getControlOfCell(1,colTotalBalanceHeader,1,null).getText())){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isSubBalanceHeaderCalculatedCorrect() {
+        double subBalanceHeader = 0;
+        List<String> subBalance = tblWithdrawalDeposit.getColumn(colTotalBalance,100,false);
+        for (int i = 0; i < subBalance.size();i++){
+            subBalanceHeader = subBalanceHeader + Double.parseDouble(subBalance.get(i).trim().replaceAll(",",""));
+        }
+        DoubleUtils.roundUpWithTwoPlaces(subBalanceHeader);
+        if (String.format("%,.2f",subBalanceHeader).equals(tblAccountBalance.getControlOfCell(1,colSubBalanceHeader,1,null).getText())){
+            return true;
+        }
+        return false;
+    }
+
+
     public enum Actions {DEPOSIT, WITHDRAWAL, CHECK, USERNAME, SUCCESS_ICON, FAILURE_ICON, VIEW_LOG}
+
 
 }
