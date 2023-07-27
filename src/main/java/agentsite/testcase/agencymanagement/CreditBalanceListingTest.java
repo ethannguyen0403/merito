@@ -11,6 +11,101 @@ import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 public class CreditBalanceListingTest extends BaseCaseTest {
+    @TestRails(id = "3607")
+    @Test(groups = {"smoke"})
+    @Parameters({"memberAccount", "password"})
+    public void Credit_Balance_Listing_3607(String memberAccount) {
+        log("@title: Validate can update Credit Balance");
+        log("Step 1. Navigate Agency Management > Credit Balance Listing");
+        CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
+
+        log("Step 2. Select an account and click on Edit icon");
+        log("Step 3: Update valid Credit Given, Max Credit, Member Max Credit and click submit button");
+        page.filter(memberAccount, "", "");
+        page.updateCreditSetting(memberAccount, "1", "1", "1");
+
+        log("Verify 1. Validate Username display in the result table");
+        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
+
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "3608")
+    @Test(groups = {"smoke"})
+    @Parameters({"memberAccount", "password"})
+    public void Credit_Balance_Listing_3608(String memberAccount) {
+        log("@title: Validate can search by username");
+        log("Step 1. Navigate Agency Management > Credit Balance Listing");
+        CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
+
+        log("Step 2. Enter Username and click Submit button");
+        page.filter(memberAccount, "", "");
+
+        log("Verify 1. Validate Username display in the result table");
+        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
+
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "3609")
+    @Test(groups = {"smoke"})
+    @Parameters({"brandname", "memberAccount", "password"})
+    public void Credit_Balance_Listing_3609(String memberAccount, String password) throws Exception {
+        log("@title: Validate can search by login ID");
+        log("Step 1. Navigate Agency Management > Sub User Listing");
+        CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
+
+        log("Step 2. Enter Login ID and click Submit button");
+        page.filter(memberAccount, "", "");
+
+        log("Verify 1. Validate Login ID display in the result table");
+        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3609")
+    @Test(groups = {"smoke"})
+    @Parameters({"memberAccount", "password"})
+    public void Credit_Balance_Listing_3609(String memberAccount) {
+        log("@title: Validate can search by login ID");
+        log("Step 1. Navigate Agency Management > Credit Balance Listing");
+        CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
+
+        log("Step 2. Enter Login ID and click Submit button");
+        page.filter(memberAccount, "", "");
+
+        log("Verify 1. Validate Login ID display in the result table");
+        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
+
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "3610")
+    @Test(groups = {"regression"})
+    @Parameters({"memberAccount"})
+    public void Credit_Balance_Listing_3610(String memberAccount) {
+        log("@title: Validate can search by login ID");
+        log("pre-condition: Log in successfully by SAD that belonging to Credit line");
+        log("Step 1. Navigate Agency Management > Credit Balance Listing");
+        CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
+        log("Step 2. Select an account and click on Edit icon");
+        page.filter(memberAccount,"", "");
+        log("Step 3. Update valid Credit Given, Max Credit, Member Max Credit and click submit button");
+        AccountInfo creditInfoBeforeUpdate = page.creditBalanceListing.getCreditInfoAccount(memberAccount);
+        double updateCreditGiven = creditInfoBeforeUpdate.getCreditGiven() - 1;
+        double updateMaxCredit = creditInfoBeforeUpdate.getMaxCredit() - 1;
+        double updateMemberMaxCredit = creditInfoBeforeUpdate.getMemberMaxCredit() - 1;
+        try{
+            page.updateCreditSetting(memberAccount, String.format("%.2f", updateCreditGiven) , String.format("%.2f",updateMaxCredit), String.format("%.2f",updateMemberMaxCredit));
+            log("Verify 1. Validate Credit Given, Max Credit, Member Max Credit are updated");
+            page.waitingLoadingSpinner();
+            Assert.assertEquals(updateCreditGiven, page.creditBalanceListing.getCreditInfoAccount(memberAccount).getCreditGiven(),"Credit Given is not updated");
+            Assert.assertEquals(updateMaxCredit, page.creditBalanceListing.getCreditInfoAccount(memberAccount).getMaxCredit(),"Max Credit is not updated");
+            Assert.assertEquals(updateMemberMaxCredit, page.creditBalanceListing.getCreditInfoAccount(memberAccount).getMemberMaxCredit(),"Member Max Credit is not updated");
+        } finally {
+            System.out.println("Credit Given, Max Credit, Member Max Credit update to old value");
+            page.updateCreditSetting(memberAccount, String.format("%.2f",creditInfoBeforeUpdate.getCreditGiven()) , String.format("%.2f",creditInfoBeforeUpdate.getMaxCredit()),String.format("%.2f",creditInfoBeforeUpdate.getMemberMaxCredit()));
+        }
+        log("INFO: Executed completely");
+    }
 
     @TestRails(id = "3611")
     @Test(groups = {"interaction"})
@@ -42,58 +137,6 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "3609")
-    @Test(groups = {"smoke"})
-    @Parameters({"memberAccount", "password"})
-    public void Credit_Balance_Listing_3609(String memberAccount) {
-        log("@title: Validate can search by login ID");
-        log("Step 1. Navigate Agency Management > Credit Balance Listing");
-        CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
-
-        log("Step 2. Enter Login ID and click Submit button");
-        page.filter(memberAccount, "", "");
-
-        log("Verify 1. Validate Login ID display in the result table");
-        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
-
-        log("INFO: Executed completely");
-    }
-
-    @TestRails(id = "3608")
-    @Test(groups = {"smoke"})
-    @Parameters({"memberAccount", "password"})
-    public void Credit_Balance_Listing_3608(String memberAccount) {
-        log("@title: Validate can search by username");
-        log("Step 1. Navigate Agency Management > Credit Balance Listing");
-        CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
-
-        log("Step 2. Enter Username and click Submit button");
-        page.filter(memberAccount, "", "");
-
-        log("Verify 1. Validate Username display in the result table");
-        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
-
-        log("INFO: Executed completely");
-    }
-
-    @TestRails(id = "3607")
-    @Test(groups = {"smoke"})
-    @Parameters({"memberAccount", "password"})
-    public void Credit_Balance_Listing_3607(String memberAccount) {
-        log("@title: Validate can update Credit Balance");
-        log("Step 1. Navigate Agency Management > Credit Balance Listing");
-        CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
-
-        log("Step 2. Select an account and click on Edit icon");
-        log("Step 3: Update valid Credit Given, Max Credit, Member Max Credit and click submit button");
-        page.filter(memberAccount, "", "");
-        page.updateCreditSetting(memberAccount, "1", "1", "1");
-
-        log("Verify 1. Validate Username display in the result table");
-        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
-
-        log("INFO: Executed completely");
-    }
 
 }
 

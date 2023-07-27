@@ -31,7 +31,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("Step 2. Input a non-exist agent and click Add button");
         page.addAgent("All", "fafssd");
         log("Verify 1: Verify The error message \"Agent fafssd does not exist in the System!\" display");
-        Assert.assertEquals(page.lblAlertAgentDoesNotExist.getText(), "Agent fafssd does not exist in the System!");
+        Assert.assertEquals(page.lblDangerAlert.getText(), String.format(BOConstants.PaymentManagement.PaymentConfiguration.MSG_AGENT_NOT_EXIST,"fafssd"));
         log("INFO: Executed completely");
     }
 
@@ -44,23 +44,19 @@ public class PaymentConfigurationTest extends BaseCaseTest {
      */
     @TestRails(id = "3836")
     @Test(groups = {"regression"})
-    @Parameters({"satSADAgentLoginID"})
-    public void BO_Payment_Management_PaymentConfiguration_3836(String satSADAgentLoginID) {
+    public void BO_Payment_Management_PaymentConfiguration_3836() {
         log("@title: Validate cannot add the agent already added in BO Payment Configuration");
         log("pre-condition 1: There is an agent added into Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
-        page.addAgent("All", satSADAgentLoginID);
-        try {
-            log("Step 1. Access Payment Configuration");
-            log("Step 2. Input a the agent in precondition and click add button");
-            page.addAgent("All", satSADAgentLoginID);
-            log("Verify The error message \"Agent [username] is already added\" display");
-            Assert.assertEquals(page.lblAlertAgentAlreadyAdd.getText(), "Agent " + satSADAgentLoginID + " is already added");
-        } finally {
-            page.clickToRemoveByUsername(satSADAgentLoginID);
-            page.btnOK.click();
-            System.out.println("Remove Agent");
-        }
+        String agentAdded = page.tblReport.getColumn(page.colUsername,10,false).get(1);
+        page.addAgent("All", agentAdded);
+        log("Step 1. Access Payment Configuration");
+        log("Step 2. Input a the agent in precondition and click add button");
+        page.addAgent("All", agentAdded);
+        log("Verify The error message \"Agent [username] is already added\" display");
+        Assert.assertEquals(page.lblDangerAlert.getText(),
+                String.format(BOConstants.PaymentManagement.PaymentConfiguration.MSG_AGENT_ALREADY_ADDED,agentAdded));
+
         log("INFO: Executed completely");
     }
 
@@ -87,7 +83,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
             page.scrollToTopTable();
             page.addAgent("All", upLineAgent);
             log("Verify The error message \"Only 1 level in a single line is allowed to configure\" display");
-            Assert.assertEquals(page.lblAlertOnly1Level.getText(), "Only 1 level in a single line is allowed to configure");
+            Assert.assertEquals(page.lblDangerAlert.getText(), BOConstants.PaymentManagement.PaymentConfiguration.MSG_ONLY_1_LEVEL_IN_SINGLE_LINE);
         } finally {
             page.clickToRemoveByUsername(satSADAgentLoginID);
             page.btnOK.click();
@@ -178,7 +174,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("Step 1. Access Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
         log("Step 2. Observe the list");
-        List<String> lstUpdateDate = page.tblReport.getColumn(9,20,true);
+        List<String> lstUpdateDate = page.tblReport.getColumn( page.colUpdatedDate,20,true);
         List<String> lstDataSorted = page.getListUpdateDateSorted(lstUpdateDate);
         log("Verify 1: Verify the data is sorted by updated date");
         Assert.assertEquals(lstUpdateDate,lstDataSorted);

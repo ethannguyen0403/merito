@@ -116,7 +116,7 @@ public class EditUserTest extends BaseCaseTest {
     @TestRails(id = "698")
     @Test(groups = {"smoke"})
     @Parameters({"password"})
-    public void Agent_AM_Downline_Listing_Edit_User_003(String password) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_698(String password) throws Exception {
         log("@title: Verify Can change password");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -173,11 +173,9 @@ public class EditUserTest extends BaseCaseTest {
      */
     @TestRails(id = "699")
     @Test(groups = {"smoke"})
-    @Parameters({"username", "password"})
-    public void Agent_AM_Downline_Listing_Edit_User_004(String username, String password) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_699() throws Exception {
         log("@title: Verify can inactive and reactive the account");
         log("Step 1. Navigate Agency Management > Downline Listing");
-        String passDecrypt = StringUtils.decrypt(password);
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
@@ -259,11 +257,9 @@ public class EditUserTest extends BaseCaseTest {
      */
     @TestRails(id = "700")
     @Test(groups = {"smoke"})
-    @Parameters({"username", "password"})
-    public void Agent_AM_Downline_Listing_Edit_User_012(String username, String password) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_700() throws Exception {
         log("@title: Verify can Inactive and active Live Event");
         log("Step 1. Navigate Agency Management > Downline Listing");
-        String passwordDecrypt = StringUtils.decrypt(password);
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
@@ -350,8 +346,7 @@ public class EditUserTest extends BaseCaseTest {
      */
     @TestRails(id = "701")
     @Test(groups = {"smoke"})
-    @Parameters({"username", "password"})
-    public void Agent_AM_Downline_Listing_Edit_User_013(String username, String password) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_701() throws Exception {
         log("@title: Verify can update Credit Balance");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -401,10 +396,9 @@ public class EditUserTest extends BaseCaseTest {
     @TestRails(id = "702")
     @Test(groups = {"smoke"})
     @Parameters({"username", "password"})
-    public void Agent_AM_Downline_Listing_Edit_User_014(String username, String password) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_702(String username, String password) throws Exception {
         log("@title: Verify can Inactive and active a sport");
         log("Step 1. Navigate Agency Management > Downline Listing");
-        String passDecryp = StringUtils.decrypt(password);
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
@@ -474,11 +468,9 @@ public class EditUserTest extends BaseCaseTest {
      */
     @TestRails(id = "703")
     @Test(groups = {"smoke"})
-    @Parameters({"username", "password"})
-    public void Agent_AM_Downline_Listing_Edit_User_015(String username, String password) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_703() throws Exception {
         log("@title: Verify can Inactive and active a market type of a sport");
         log("Step 1. Navigate Agency Management > Downline Listing");
-        String passDecryp = StringUtils.decrypt(password);
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
@@ -532,11 +524,10 @@ public class EditUserTest extends BaseCaseTest {
      */
     @TestRails(id = "704")
     @Test(groups = {"smoke"})
-    @Parameters({"username", "password", "currency"})
-    public void Agent_AM_Downline_Listing_Edit_User_024(String username, String password, String currency) throws Exception {
+    @Parameters({"password","currency"})
+    public void Agent_AM_Downline_Listing_Edit_User_704(String password, String currency) throws Exception {
         log("@title: Verify can edit User successfully if input valid min bet Setting");
         log("Step 1. Navigate Agency Management > Downline Listing");
-        String passDecryp = StringUtils.decrypt(password);
         String userID = ProfileUtils.getProfile().getUserID();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
@@ -560,7 +551,7 @@ public class EditUserTest extends BaseCaseTest {
         lstBetSetting.add(maxBetLst);
 
         log("Step 3. Input Min bet of Soccer with valid value");
-        page.editDownlinePopup.accInfoSection.txtPassword.sendKeys(password);
+        page.editDownlinePopup.accInfoSection.txtPassword.sendKeys(StringUtils.decrypt(password));
         page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
         page.submitEditDownline();
 
@@ -599,13 +590,11 @@ public class EditUserTest extends BaseCaseTest {
     }
 
 
-    @Test(groups = {"satregression"})
-    @Parameters({"username", "password", "currency"})
+    @Test(groups = {"regression_oldui"})
     public void Agent_AM_Downline_Listing_Edit_User_028() throws Exception {
         log("@title: Verify can edit User successfully if input valid min bet Setting");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String loginID = listAccount.get(0).getUserCode();
 
@@ -617,7 +606,6 @@ public class EditUserTest extends BaseCaseTest {
     }
 
     @Test(groups = {"interaction"})
-    @Parameters({"username", "password", "currency"})
     public void Agent_AM_Downline_Listing_Edit_User_030() throws Exception {
         log("@title: Verity Exchange Product is displayed/dissappear in member site when active/inactive");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -870,14 +858,13 @@ public class EditUserTest extends BaseCaseTest {
         agentHomePage.quickSearch.updateStatus(memberAccount, AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(1), true);
     }
 
-    @Test(groups = {"satregression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_Edit_User_005(String brandname) {
+    @Test(groups = {"regression_oldui"})
+    public void Agent_AM_Downline_Listing_Edit_User_005() {
         log("@title:Verify can Suspend  the account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
@@ -905,14 +892,13 @@ public class EditUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"satregression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_Edit_User_006(String brandname) {
+    @Test(groups = {"regression_oldui"})
+    public void Agent_AM_Downline_Listing_Edit_User_006() {
         log("@title:Verify can Close the account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
@@ -931,14 +917,13 @@ public class EditUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"satregression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_Edit_User_009(String brandname) {
+    @Test(groups = {"regression_oldui"})
+    public void Agent_AM_Downline_Listing_Edit_User_009() {
         log("@title:Verify cannot inactive all product");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
@@ -954,14 +939,13 @@ public class EditUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"satregression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_Edit_User_010(String brandname) {
+    @Test(groups = {"regression_oldui"})
+    public void Agent_AM_Downline_Listing_Edit_User_010() {
         log("@title:Verify navigate to Downline List if click on Cancel button");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");

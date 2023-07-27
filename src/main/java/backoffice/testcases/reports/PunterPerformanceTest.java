@@ -75,7 +75,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
         log("Step 2. Unselect any portal");
         page.ddbPortal.deSelectAll(true);
         log("Verify 1. Verify the message \"Please select at least 1 portal\" display and Submit button is disable");
-        Assert.assertEquals(page.lblAtLeast1.getText(),"Please select at least 1 portal");
+        Assert.assertEquals(page.lblErrorAlert.getText(),BOConstants.Reports.PunterPerformance.MSG_AT_LEAST_1_PORTAL);
         Assert.assertFalse(page.btnSubmit.isEnabled());
         log("INFO: Executed completely");
     }
@@ -96,7 +96,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
         log("Step 2. Unselect any product");
         page.ddbProduct.deSelectAll(true);
         log("Verify 1. Verify the message \"Please select at least 1 product\" display and Submit button is disable");
-        Assert.assertEquals(page.lblAtLeast1.getText(),"Please select at least 1 product");
+        Assert.assertEquals(page.lblErrorAlert.getText(),BOConstants.Reports.PunterPerformance.MSG_AT_LEAST_1_PRODUCT);
         Assert.assertFalse(page.btnSubmit.isEnabled());
         log("INFO: Executed completely");
     }

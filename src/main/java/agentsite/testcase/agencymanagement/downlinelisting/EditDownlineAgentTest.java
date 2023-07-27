@@ -18,12 +18,11 @@ import java.util.List;
 public class EditDownlineAgentTest extends BaseCaseTest {
 
     @Test(groups = {"http_request"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_001(String brandname) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_Agent_001() throws Exception {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, ProfileUtils.getDownlineBalanceInfo().get(0).get(0), brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, ProfileUtils.getDownlineBalanceInfo().get(0).get(0), _brandname);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
@@ -45,14 +44,14 @@ public class EditDownlineAgentTest extends BaseCaseTest {
      * @expect: 1. Verify Message "Max Player Credit is invalid" display
      */
     @TestRails(id = "696")
-    @Test(groups = {"creditSmoke"})
-    @Parameters({"level", "brandname"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_004(String level, String brandname) throws Exception {
+    @Test(groups = {"smoke_credit"})
+    @Parameters({"level"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_696(String level) throws Exception {
         log("@title: Validate cannot update if Max Player Credit exceed the limit");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, "ACTIVE", brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, "ACTIVE", _brandname);
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
@@ -83,14 +82,14 @@ public class EditDownlineAgentTest extends BaseCaseTest {
      * 2. Verify Max Player Credit display correctly as setting in First Time Deposit limit section
      */
     @TestRails(id = "679")
-    @Test(groups = {"creditSmoke"})
-    @Parameters({"password", "downlineLevel", "brandname"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_005(String password, String downlineLevel, String brandname) throws Exception {
+    @Test(groups = {"smoke_credit"})
+    @Parameters({"password", "downlineLevel"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_679(String password, String downlineLevel) throws Exception {
         log("@title: Validate Max Player Credit setting display correctly when create user");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname);
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
@@ -129,13 +128,13 @@ public class EditDownlineAgentTest extends BaseCaseTest {
      * 2. Verify page display if input valid security code
      */
     @Test(groups = {"smoke"})
-    @Parameters({"level", "levelLogin", "brandname"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_003(String level, String levelLogin, String brandname) throws Exception {
+    @Parameters({"level", "levelLogin"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_003(String level, String levelLogin) throws Exception {
         log("@title: Validate there Cannot update if Max Player Credit exceed the limit");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, "ACTIVE", brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, "ACTIVE", _brandname);
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
