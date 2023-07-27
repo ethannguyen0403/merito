@@ -25,8 +25,9 @@ public class WithdrawalTest extends BaseCaseTest {
      * @expect: 1. Withdrawal popup is displayed
      * 2. Info is displayed correctly
      */
+    @TestRails(id = "3628")
     @Test(groups = {"regression"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_001() {
+    public void Agent_AM_DepositWithdrawal_Withdraw_3628(){
         log("@title: Validate that Withdrawal popup displays correct info.");
         //   AccountInfo acc = ProfileUtils.getProfile();
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -64,8 +65,9 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Open Withdrawal popup of an account
      * @expect: 1. Withdrawal popup is closed
      */
+    @TestRails(id = "3629")
     @Test(groups = {"regression"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_002() {
+    public void Agent_AM_DepositWithdrawal_Withdraw_3629() {
         log("@title: Validate that there is an error message displayed when submitted without inputting");
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname, "", userID);
@@ -94,8 +96,9 @@ public class WithdrawalTest extends BaseCaseTest {
      * 3. Withdraw without any amount
      * @expect: 1. There is an error message when submitted without any amount
      */
+    @TestRails(id = "3630")
     @Test(groups = {"regression"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_003() {
+    public void Agent_AM_DepositWithdrawal_Withdraw_3630() {
         log("@title: Validate that there is an error message displayed when submitted without any amount");
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname, "", userID);
@@ -165,7 +168,7 @@ public class WithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "732")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_732() {
+    public void Agent_AM_DepositWithdrawal_Withdraw_732() throws Exception {
         log("@title:Validate that an amount is withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -305,7 +308,7 @@ public class WithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "735")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Withdraw_735() {
+    public void Agent_AM_DepositWithdrawal_Withdraw_735(){
         log("@title: Validate can withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");

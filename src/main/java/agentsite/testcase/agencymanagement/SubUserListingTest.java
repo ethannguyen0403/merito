@@ -1,5 +1,6 @@
 package agentsite.testcase.agencymanagement;
 
+import agentsite.pages.agentmanagement.CreditBalanceListingPage;
 import agentsite.pages.agentmanagement.SubUserListingPage;
 import agentsite.pages.agentmanagement.subuserlisting.SubUserPopup;
 import baseTest.BaseCaseTest;
@@ -7,6 +8,7 @@ import com.paltech.utils.StringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +32,7 @@ public class SubUserListingTest extends BaseCaseTest {
     @Test(groups = {"smoke"})
     @Parameters("password")
     public void Agent_AM_Sub_User_Listing_0004(String password) throws Exception {
-        log("@title: Verify can search downline by Login ID");
+        log("@title: Can create Sub user successfully with full permissions");
         log("Step 1. Navigate Agency Management > Sub User Listing");
         String pwDecrypt = StringUtils.decrypt(password);
 
@@ -154,7 +156,6 @@ public class SubUserListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
 
     @Test(groups = {"regression"})
     @Parameters("password")
@@ -325,5 +326,6 @@ public class SubUserListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
 }
 

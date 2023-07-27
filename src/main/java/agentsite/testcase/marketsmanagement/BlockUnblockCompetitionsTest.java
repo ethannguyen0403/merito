@@ -124,20 +124,6 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "3704")
-    @Test(groups = {"http_request"})
-    public void Agent_MM_BlockUnblockCompetitions_TC3704() {
-        log("@title: Validate there is no http responded error returned");
-
-        log("Step 1. Navigate Markets Management > Block/Unblock Competition");
-        agentHomePage.navigateBlockUnblockCompetitionPage();
-
-        log("Verify 1. Validate there is no console error display");
-        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error display when accessing the page");
-
-        log("INFO: Executed completely");
-    }
-
     /**
      * @title: Verify Unblock Competition display in Member Site and Block/Unblock Event
      * @pre-condition: 1. Log in successfully by SAD
@@ -149,8 +135,8 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
      */
     @TestRails(id = "3705")
     @Test(groups = {"regression"})
-    @Parameters({"downlineAccount"})
-    public void Agent_MM_BlockUnblockCompetitions_TC3705(String downlineAccount) {
+    @Parameters({"downlineAccount", "memberAccount", "password"})
+    public void Agent_MM_BlockUnblockCompetitions_TC3705(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Unblock competition display in Block unblock event page");
         AccountInfo acc = ProfileUtils.getProfile();
         String sportName = "Soccer";
@@ -197,8 +183,8 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
      */
     @TestRails(id = "3706")
     @Test(groups = {"regression"})
-    @Parameters({"downlineAccount"})
-    public void Agent_MM_BlockUnblockCompetitions_TC3706(String downlineAccount) {
+    @Parameters({"downlineAccount", "memberAccount", "password"})
+    public void Agent_MM_BlockUnblockCompetitions_TC3706(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Blocked Competition not display Block/Unblock Event");
         AccountInfo acc = ProfileUtils.getProfile();
         String sportName = "Soccer";

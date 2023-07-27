@@ -6,6 +6,7 @@ import com.paltech.utils.DateUtils;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,9 @@ public class BFVoidedDiscrepancyTest extends BaseCaseTest {
      * @steps: 1. Navigate Report> BF Voided Discrepancy
      * @expect: 1. There is no http responded error returned
      */
+    @TestRails(id = "819")
     @Test(groups = {"http_request"})
-    public void Agent_Report_BF_Void_Discrepancy_001() {
+    public void Agent_Report_BF_Void_Discrepancy_819() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report> BF Voided Discrepancy");
         agentHomePage.navigateBFVoidedDiscrepancyPage();
@@ -34,8 +36,9 @@ public class BFVoidedDiscrepancyTest extends BaseCaseTest {
      * @steps: 1. Navigate Report > BF Voided Discrepancy
      * @expect: 1. Verify BF Voided Discrepancy UI display correctly
      */
+    @TestRails(id = "820")
     @Test(groups = {"smokePO"})
-    public void Agent_Report_BF_Void_Discrepancy_002() {
+    public void Agent_Report_BF_Void_Discrepancy_820() {
         log("@title: Validate BF Voided Discrepancy display correctly");
         log("Step 1. Navigate Report> BF Voided Discrepancy");
         BFVoidedDiscrepancyPage page = agentHomePage.navigateBFVoidedDiscrepancyPage();
@@ -72,8 +75,9 @@ public class BFVoidedDiscrepancyTest extends BaseCaseTest {
      * 2. Enter valid data and filter
      * @expect: 1. BF voided report display with valid data
      */
+    @TestRails(id = "821")
     @Test(groups = {"smokePO"})
-    public void Agent_Report_BF_Void_Discrepancy_003() {
+    public void Agent_Report_BF_Void_Discrepancy_821() {
         log("@title: Validate can filter the report BF voided Discrepancy");
         log("Step 1. Navigate Report> BF Voided Discrepancy");
         BFVoidedDiscrepancyPage page = agentHomePage.navigateBFVoidedDiscrepancyPage();

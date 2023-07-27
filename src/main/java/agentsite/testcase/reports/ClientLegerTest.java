@@ -6,6 +6,7 @@ import com.paltech.utils.DateUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -13,14 +14,9 @@ import static common.AGConstant.Report.ClientLedger.TABLE_HEADER_ALL;
 import static common.AGConstant.Report.ClientLedger.TABLE_HEADER_BETTING;
 
 public class ClientLegerTest extends BaseCaseTest {
-    /**
-     * @title: There is no http responded error returned
-     * @pre-condition: 1. Log in successfully
-     * @steps: 1. Navigate Report > Client Ledger
-     * @expect: 1.  There is no http requests error
-     */
+    @TestRails(id = "3747")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Client_Ledger_001() {
+    public void Agent_Report_Client_Ledger_3747() {
         log("@title: There is no http responded error returned");
         log("Step 1: Navigate Report > Client Ledger");
         ClientLedgerPage page = agentHomePage.navigateClientLedgerPage();
@@ -29,9 +25,9 @@ public class ClientLegerTest extends BaseCaseTest {
         Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3748")
     @Test(groups = {"regression"})
-    public void Agent_Report_Client_Ledger_002() {
+    public void Agent_Report_Client_Ledger_3748() {
         log("@title: Validate Client Ledger UI display correctly when view By Betting Report");
         log("Step 1. Navigate Report > Client Ledger");
         ClientLedgerPage page = agentHomePage.navigateClientLedgerPage();
@@ -45,9 +41,9 @@ public class ClientLegerTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3749")
     @Test(groups = {"regression"})
-    public void Agent_Report_Client_Ledger_003() {
+    public void Agent_Report_Client_Ledger_3749() {
         log("@title: Validate Client Ledger UI display correctly when view By Balance Reportt");
         log("Step 1. Navigate Report > Client Ledger");
         ClientLedgerPage page = agentHomePage.navigateClientLedgerPage();
@@ -62,8 +58,9 @@ public class ClientLegerTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3750")
     @Test(groups = {"regression"})
-    public void Agent_Report_Client_Ledger_004() {
+    public void Agent_Report_Client_Ledger_3750() {
         log("@title: Validate Client Ledger UI display correctly when view By All Type");
         log("Step 1. Navigate Report > Client Ledger");
         ClientLedgerPage page = agentHomePage.navigateClientLedgerPage();
@@ -78,17 +75,10 @@ public class ClientLegerTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate can filter report by username
-     * @pre-condition: 1. Log in successfully by SAD levle
-     * @steps: 1. Navigate Report >  Client Ledger
-     * 2. Select Type : All
-     * 3. Search Username and click submit button
-     * @expect: 1. Verify can filter report by username
-     */
+    @TestRails(id = "804")
     @Test(groups = {"smoke"})
     @Parameters("downlineAccount")
-    public void Agent_Report_Client_Ledger_005(String downlineAccount) {
+    public void Agent_Report_Client_Ledger_804(String downlineAccount) {
         log("@title: Validate can filter report by username");
         log("Step 1. Navigate Report > Client Ledger");
         ClientLedgerPage page = agentHomePage.navigateClientLedgerPage();
