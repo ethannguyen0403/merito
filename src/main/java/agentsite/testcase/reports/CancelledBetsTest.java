@@ -6,6 +6,7 @@ import com.paltech.utils.DateUtils;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,9 @@ public class CancelledBetsTest extends BaseCaseTest {
      * @steps: 1. Navigate Report> Cancelled Bets
      * @expect: 1. There is no http responded error returned
      */
+    @TestRails(id = "3741")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Cancelled_Bets_001() {
+    public void Agent_Report_Cancelled_Bets_3741() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report> Cancelled Bets");
         CancelledBetsPage page = agentHomePage.navigateCancelledBetsPage();
@@ -34,8 +36,9 @@ public class CancelledBetsTest extends BaseCaseTest {
      * @steps: 1. Navigate Report > Cancelled Bets
      * @expect: 1. Verify Cancelled Bets UI display correctly
      */
+    @TestRails(id = "798")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Cancelled_Bets_002() {
+    public void Agent_Report_Cancelled_Bets_798() {
         log("@title: Validate Cancelled Bets UI display correctly");
         log("Step 1. Navigate Report > Cancelled Bets");
         CancelledBetsPage page = agentHomePage.navigateCancelledBetsPage();
@@ -63,8 +66,9 @@ public class CancelledBetsTest extends BaseCaseTest {
      * 2. Search the data range has data of Exchange Product
      * @expect: 1. Data display with status is System Voided
      */
+    @TestRails(id = "799")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Cancelled_Bets_003() {
+    public void Agent_Report_Cancelled_Bets_799() {
         log("@title: Validate cancelled Bets can filter correct data");
         log("Step 1. Navigate Report > Cancelled Bets");
         CancelledBetsPage page = agentHomePage.navigateCancelledBetsPage();
