@@ -19,7 +19,7 @@ import java.util.List;
 
 public class DepositWithdrawalTransactionsPage extends HomePage {
     public Label lblTitlePage = Label.xpath("//div[@id='header']//span[text()='Deposit/Withdrawal Transactions']");
-    String lblName = "//label[text()='%s']";
+    String lblNameXpath = "//label[text()='%s']";
     public Button btnTabActive = Button.xpath("//li[@class='nav-item cursor-pointer']//a[@class='nav-link active']");
     public TextBox txbFrom = TextBox.name("from-date");
     public TextBox txbTo = TextBox.name("to-date");
@@ -37,6 +37,9 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
             "div[@class='custom-table-row ng-star-inserted']","div[contains(@class,'custom-table-cell')]",9);
     public StaticTable tblWithDrawal = StaticTable.xpath("//div[@class='custom-table currency-table mt-2 ng-star-inserted']","div[@class='custom-table-body custom-scroll-body ng-star-inserted']",
             "div[@class='custom-table-row ng-star-inserted']","div[contains(@class,'custom-table-cell')]",14);
+    int colStatusInDeposit = 9;
+    int colStatusInWithdrawal = 12;
+    int colUsername = 3;
     public ArrayList<String> getTabName(){
         ArrayList<String> lstTab = new ArrayList<String>();
         Row lstColumn = Row.xpath("//li[@class='nav-item cursor-pointer']/a");
@@ -46,7 +49,7 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
         return lstTab;
     }
     public Label getLblByName (String lblName){
-        return Label.xpath(String.format(this.lblName, lblName));
+        return Label.xpath(String.format(this.lblNameXpath, lblName));
     }
     public ArrayList<String> getHeaderTableName(){
         ArrayList<String> lstData = new ArrayList<String>();
@@ -128,16 +131,21 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
         }
         return false;
     }
-    public boolean verifySearchResultByUserName(String username, List<String> lstUsername){
+    public boolean isSearchResultByUserName(String transactionType, String username){
+        List<String> lstUsername = new ArrayList<>();
+        if (transactionType.equals("Deposit")){
+            lstUsername = tblDeposit.getColumn(colUsername,20,true);
+        } else if (transactionType.equals("Withdrawal")){
+            lstUsername = tblWithDrawal.getColumn(colUsername,20,true);
+        }
         if (tblBody.isDisplayed()){
             if (!username.isEmpty() && !lstUsername.isEmpty()){
                 for (int i = 0; i < lstUsername.size();i++){
                     if (!lstUsername.get(i).substring(0,lstUsername.get(i).indexOf("(")-1).equals(username)){
                         System.out.println(lstUsername.get(i) + " difference from" + username );
                         return false;
-                    } else {
-                        return true;
                     }
+                    return true;
                 }
             }
         } else {
@@ -146,16 +154,21 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
         }
         return false;
     }
-    public boolean verifySearchResultByStatus(String status, List<String> lstStatus){
+    public boolean isSearchResultByStatus(String transactionType, String status){
+        List<String> lstStatus = new ArrayList<>();
+        if (transactionType.equals("Deposit")){
+            lstStatus = tblDeposit.getColumn(colStatusInDeposit,20,true);
+        } else if (transactionType.equals("Withdrawal")){
+            lstStatus = tblWithDrawal.getColumn(colStatusInWithdrawal,20,true);
+        }
         if (tblBody.isDisplayed()){
             if (!status.isEmpty() && !lstStatus.isEmpty()){
-                for (int i = 0; i < lstStatus.size();i++){
+                for (int i = 0; i < lstStatus.size(); i++){
                     if (!lstStatus.get(i).equals(status)){
                         System.out.println(lstStatus.get(i) + " difference from" + status );
                         return false;
-                    } else {
-                        return true;
                     }
+                    return true;
                 }
             }
         } else {

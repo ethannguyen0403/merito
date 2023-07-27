@@ -30,29 +30,21 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         log("pre-condition 2: Active Small Bets Configuration Page");
         SmallBetConfigurationPage smallBetConfigurationPage = backofficeHomePage.navigateSmallBetConfiguration();
         log("pre-condition 3: Have an agent that has not added in the list");
-        String statusAgent = "true";
+        String statusAgent = "ON";
         String stakeValue = "12";
         String acceptOfPricingValue = "8";
         String rejectBackValue = "5";
         String rejectLayValue = "5";
-        log("Step 1. Input the agent in precondition into the Agent Textbox and click Add button");
-        smallBetConfigurationPage.inputAgentTextBox(agentNotAdd);
-        smallBetConfigurationPage.btnAdd.click();
-        log("Step 2. Input valid data and click Submit");
-        smallBetConfigurationPage.inputConfigurationSmallBetsForNewAgent(statusAgent, stakeValue, acceptOfPricingValue, rejectBackValue, rejectLayValue);
-        smallBetConfigurationPage.btnSubmitOnConfigurationPopup.click();
-        log("Verify 1: Verify Agent is added in the list with correct data as added");
-        Assert.assertEquals(smallBetConfigurationPage.lblAddSucceed.getText(),"Add Succeed");
-        Assert.assertEquals(smallBetConfigurationPage.getAgentIDAdded(agentNotAdd), agentNotAdd);
-        Assert.assertEquals(smallBetConfigurationPage.getStatusByAgentID(agentNotAdd), statusAgent);
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Stake", agentNotAdd),stakeValue);
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Accept % of Pricing", agentNotAdd),acceptOfPricingValue);
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Back if Potential Winning", agentNotAdd),rejectBackValue);
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Lay if Potential Liability", agentNotAdd),rejectLayValue);
         try {
-            smallBetConfigurationPage.clickToRemove(agentNotAdd);
-            smallBetConfigurationPage.btnYes.click();
+            log("Step 1. Input the agent in precondition into the Agent Textbox and click Add button");
+            smallBetConfigurationPage.inputAgentTextBox(agentNotAdd);
+            log("Step 2. Input valid data and click Submit");
+            smallBetConfigurationPage.inputConfigurationSmallBetsForNewAgent(statusAgent, stakeValue, acceptOfPricingValue, rejectBackValue, rejectLayValue);
+            log("Verify 1: Verify Agent is added in the list with correct data as added");
+            Assert.assertEquals(smallBetConfigurationPage.lblSuccessAlert.getText(),BOConstants.System.SmallBetConfiguration.MSG_ADD_SUCCEED);
+            Assert.assertTrue(smallBetConfigurationPage.isAgentInfoUpdatedCorrect(agentNotAdd,statusAgent,stakeValue, acceptOfPricingValue, rejectBackValue, rejectLayValue));
         } finally {
+            smallBetConfigurationPage.clickToRemove(agentNotAdd);
             System.out.println("Remove Agent");
         }
 
@@ -79,9 +71,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         SmallBetConfigurationPage smallBetConfigurationPage = backofficeHomePage.navigateSmallBetConfiguration();
         log("pre-condition 2: Active Small Bets Configuration Page");
         smallBetConfigurationPage.inputAgentTextBox(agentNotAdd);
-        smallBetConfigurationPage.btnAdd.click();
         smallBetConfigurationPage.inputConfigurationSmallBetsForNewAgent("true", "5", "5", "", "");
-        smallBetConfigurationPage.btnSubmitOnConfigurationPopup.click();
         log("pre-condition 3: Have an agent added small bet setting");
         log("Step 1. Select the agent in the list");
         log("Step 2. Click on Remove icon the last column");
@@ -91,7 +81,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         log("Step 3. A confirm message display then click Yes button");
         smallBetConfigurationPage.btnYes.click();
         log("Verify 2: Agent is remove out the list");
-        Assert.assertTrue(smallBetConfigurationPage.isRemovedAgentByAgentID(agentNotAdd));
+        Assert.assertFalse(smallBetConfigurationPage.isAgentInfoUpdatedCorrect(agentNotAdd,"","","","",""), "Agent is exist!");
         log("INFO: Executed completely");
     }
 
@@ -114,14 +104,13 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         log("pre-condition 3: Have an agent added small bet setting");
         log("Step 1. Input the agent in precondition into the Agent Textbox and click Add button");
         smallBetConfigurationPage.inputAgentTextBox(satSADAgentLoginID);
-        smallBetConfigurationPage.btnAdd.click();
         log("Verify 1: Verify the error message display Agent "+satSADAgentLoginID+" is already added!");
-        Assert.assertEquals(smallBetConfigurationPage.isAgentIDIsAlreadyAdded(satSADAgentLoginID).getText(), "Agent "+satSADAgentLoginID+" is already added!");
+        Assert.assertEquals(smallBetConfigurationPage.lblDangerAlert.getText(), String.format(BOConstants.System.SmallBetConfiguration.MSG_AGENT_ALREADY_ADDED, satSADAgentLoginID));
         log("INFO: Executed completely");
     }
 
     /**
-     * @title: Validate can not add the existed agent in Small Bet Configuration in Backoffice
+     * @title: Validate UI is correctly in Small Bets Configuration UI in BO is correctly
      * @pre-condition: 1. Login BO
      * @steps: 1. Active Small Bets Configuration Page
      * @Verify: 1. Verify UI is correct:
@@ -133,7 +122,7 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
     @TestRails(id = "19")
     @Test(groups = {"regression"})
     public void BO_System_Small_Bets_Configuration_019() {
-        log("@title: Validate can add small bets setting for an agent in Small Bet Configuration in Backoffice");
+        log("@title: Validate UI is correctly in Small Bets Configuration UI in BO is correctly");
         log("pre-condition 1: Log in BO");
         log("Step 1: Active Small Bets Configuration Page");
         SmallBetConfigurationPage smallBetConfigurationPage = backofficeHomePage.navigateSmallBetConfiguration();
@@ -142,10 +131,9 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         Assert.assertTrue(smallBetConfigurationPage.txbSearchAgentID.isDisplayed());
         Assert.assertFalse(smallBetConfigurationPage.btnAdd.isEnabled());
 
-        List<String> lstHeaderName = smallBetConfigurationPage.getHeaderNameOfRows();
-        Assert.assertEquals(lstHeaderName, BOConstants.System.SmallBetConfiguration.TABLE_HEADER);
+        Assert.assertEquals(smallBetConfigurationPage.tblReport.getColumnNamesOfTable(), BOConstants.System.SmallBetConfiguration.TABLE_HEADER);
 
-        Assert.assertEquals(smallBetConfigurationPage.lblmessageShouldNotBeAdd.getText(),"Agent code under Fairenter, Funsport and Laystars should not be added.");
+        Assert.assertEquals(smallBetConfigurationPage.lblmessageShouldNotBeAdd.getText(),BOConstants.System.SmallBetConfiguration.MSG_SHOULD_NOT_BE_ADD);
         log("INFO: Executed completely");
     }
 
@@ -169,10 +157,9 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         log("Step 1: Active Small Bets Configuration Page");
         SmallBetConfigurationPage smallBetConfigurationPage = backofficeHomePage.navigateSmallBetConfiguration();
         log("Step 2: Input any value");
+        log("Step 3: Click on Add button");
         String newAgent = "08D0000";
         smallBetConfigurationPage.inputAgentTextBox(newAgent);
-        log("Step 3: Click on Add button");
-        smallBetConfigurationPage.btnAdd.click();
         log("Verify 1: Verify UI is correct");
         Assert.assertEquals(smallBetConfigurationPage.lblConfigurationSmallBetOnPopup.getText(),"Configuration Small Bets For Agent "+newAgent);
         Assert.assertEquals(smallBetConfigurationPage.getTitleOnConfigurationColumByName("Stake"), "Stake <=");
@@ -208,15 +195,21 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         SmallBetConfigurationPage smallBetConfigurationPage = backofficeHomePage.navigateSmallBetConfiguration();
         log("Step 2. Select agent in precondition and update Stake to a new value then press enter");
         String valueOfStakeCurrent = smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Stake", satSADAgentLoginID);
-        String newValue = "15";
-        smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Stake", satSADAgentLoginID, newValue);
-        log("Verify 1: Verify messsage Are you sure to update Min Bet of agent "+ satSADAgentLoginID +" from "+valueOfStakeCurrent+" INR to "+newValue+" INR? display");
-        Assert.assertEquals(smallBetConfigurationPage.lblAreYouSure.getText(), "Are you sure to update Min Bet of agent "+ satSADAgentLoginID +" from "+valueOfStakeCurrent+" INR to "+newValue+" INR?");
-        log("Step 3. Click yes on confirm popup");
-        smallBetConfigurationPage.btnYes.click();
-        log("Verify 2: Verify message \"Update is successful!\" and value of Stake that is updated after confirm yes");
-        Assert.assertEquals(smallBetConfigurationPage.lblUpdateIsSuccessful.getText(),"Update is successful!");
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Stake", satSADAgentLoginID), newValue);
+        String newValue = "5";
+        try{
+            smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Stake", satSADAgentLoginID, newValue);
+            log("Verify 1: Verify messsage Are you sure to update Min Bet of agent "+ satSADAgentLoginID +" from "+valueOfStakeCurrent+" INR to "+newValue+" INR? display");
+            Assert.assertEquals(smallBetConfigurationPage.lblAreYouSure.getText(), String.format(BOConstants.System.SmallBetConfiguration.MSG_UPDATE_STAKE, satSADAgentLoginID, valueOfStakeCurrent, newValue));
+            log("Step 3. Click yes on confirm popup");
+            smallBetConfigurationPage.btnYes.click();
+            log("Verify 2: Verify message \"Update is successful!\" and value of Stake that is updated after confirm yes");
+            Assert.assertEquals(smallBetConfigurationPage.lblSuccessAlert.getText(), BOConstants.System.SmallBetConfiguration.MSG_UPDATE_SUCCESSFUL);
+            Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Stake", satSADAgentLoginID), newValue);
+        } finally {
+            smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Stake", satSADAgentLoginID, valueOfStakeCurrent);
+            System.out.println("Update to old stake");
+        }
+
         log("INFO: Executed completely");
     }
 
@@ -269,15 +262,21 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         SmallBetConfigurationPage smallBetConfigurationPage = backofficeHomePage.navigateSmallBetConfiguration();
         log("Step 2. Select agent in precondition and update Accept % of Pricing to a new value then press enter");
         String valueOfAcceptOfPricingCurrent = smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Accept % of Pricing", satSADAgentLoginID);
-        String newValue = "10";
-        smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Accept % of Pricing", satSADAgentLoginID, newValue);
-        log("Verify 1: Verify messsage Are you sure to update Accept % of Pricing of agent "+ satSADAgentLoginID +" from "+valueOfAcceptOfPricingCurrent+" % to "+newValue+" % display");
-        Assert.assertEquals(smallBetConfigurationPage.lblAreYouSure.getText(), "Are you sure to update Accept % of Pricing of agent " + satSADAgentLoginID + " from " + valueOfAcceptOfPricingCurrent + " % to "+newValue+" %?");
-        log("Step 3. Click yes on confirm popup");
-        smallBetConfigurationPage.btnYes.click();
-        log("Verify 2: Verify message \"Update is successful!\" and value of Accept % of Pricing that is updated after confirm yes");
-        Assert.assertEquals(smallBetConfigurationPage.lblUpdateIsSuccessful.getText(),"Update is successful!");
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Accept % of Pricing", satSADAgentLoginID), newValue);
+        String newValue = "5";
+        try{
+            smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Accept % of Pricing", satSADAgentLoginID, newValue);
+            log("Verify 1: Verify messsage Are you sure to update Accept % of Pricing of agent "+ satSADAgentLoginID +" from "+valueOfAcceptOfPricingCurrent+" % to "+newValue+" % display");
+            Assert.assertEquals(smallBetConfigurationPage.lblAreYouSure.getText(), String.format(BOConstants.System.SmallBetConfiguration.MSG_UPDATE_ACCEPT_OF_PRICING, satSADAgentLoginID, valueOfAcceptOfPricingCurrent, newValue));
+            log("Step 3. Click yes on confirm popup");
+            smallBetConfigurationPage.btnYes.click();
+            log("Verify 2: Verify message \"Update is successful!\" and value of Accept % of Pricing that is updated after confirm yes");
+            Assert.assertEquals(smallBetConfigurationPage.lblSuccessAlert.getText(), BOConstants.System.SmallBetConfiguration.MSG_UPDATE_SUCCESSFUL);
+            Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Accept % of Pricing", satSADAgentLoginID), newValue);
+        } finally {
+            smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Accept % of Pricing", satSADAgentLoginID, valueOfAcceptOfPricingCurrent);
+            System.out.println("Update to old accept");
+        }
+
         log("INFO: Executed completely");
     }
 
@@ -330,15 +329,21 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         SmallBetConfigurationPage smallBetConfigurationPage = backofficeHomePage.navigateSmallBetConfiguration();
         log("Step 2. Select agent in precondition and update Reject Back if Potential Winning to a new value then press enter");
         String valueOfRejectBackIfPotentialWinningCurrent = smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Back if Potential Winning", satSADAgentLoginID);
-        String newValue = "5";
-        smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Reject Back if Potential Winning", satSADAgentLoginID,newValue);
-        log("Verify 1: Verify messsage Are you sure to update Reject Back if Potential Winning of agent "+satSADAgentLoginID+" from "+valueOfRejectBackIfPotentialWinningCurrent+" % to "+newValue+" %?");
-        Assert.assertEquals(smallBetConfigurationPage.lblAreYouSure.getText(),"Are you sure to update Reject Back if Potential Winning of agent "+satSADAgentLoginID+" from "+valueOfRejectBackIfPotentialWinningCurrent+" times to "+newValue+" times?");
-        log("Step 3. Click yes on confirm popup");
-        smallBetConfigurationPage.btnYes.click();
-        log("Verify 2: Verify message \"Update is successful!\" and value of Reject Back if Potential Winning that is updated after confirm yes");
-        Assert.assertEquals(smallBetConfigurationPage.lblUpdateIsSuccessful.getText(),"Update is successful!");
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Back if Potential Winning", satSADAgentLoginID),newValue);
+        String newValue = "10";
+        try{
+            smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Reject Back if Potential Winning", satSADAgentLoginID,newValue);
+            log("Verify 1: Verify messsage Are you sure to update Reject Back if Potential Winning of agent "+satSADAgentLoginID+" from "+valueOfRejectBackIfPotentialWinningCurrent+" % to "+newValue+" %?");
+            Assert.assertEquals(smallBetConfigurationPage.lblAreYouSure.getText(), String.format(BOConstants.System.SmallBetConfiguration.MSG_UPDATE_REJECT_BACK, satSADAgentLoginID, valueOfRejectBackIfPotentialWinningCurrent, newValue));
+            log("Step 3. Click yes on confirm popup");
+            smallBetConfigurationPage.btnYes.click();
+            log("Verify 2: Verify message \"Update is successful!\" and value of Reject Back if Potential Winning that is updated after confirm yes");
+            Assert.assertEquals(smallBetConfigurationPage.lblSuccessAlert.getText(), BOConstants.System.SmallBetConfiguration.MSG_UPDATE_SUCCESSFUL);
+            Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Back if Potential Winning", satSADAgentLoginID),newValue);
+        } finally {
+            smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Reject Back if Potential Winning", satSADAgentLoginID,valueOfRejectBackIfPotentialWinningCurrent);
+            System.out.println("Update to old Reject Back");
+        }
+
         log("INFO: Executed completely");
     }
 
@@ -392,14 +397,20 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         log("Step 2. Select agent in precondition and update Reject Lay if Potential Winning to a new value then press enter");
         String valueOfRejectLayIfPotentialLiabilityCurrent = smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Lay if Potential Liability", satSADAgentLoginID);
         String newValue = "5";
-        smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Reject Lay if Potential Liability", satSADAgentLoginID,newValue);
-        log("Verify 1: Verify messsage Are you sure to update Reject Lay if Potential Liability of agent "+satSADAgentLoginID+" from "+valueOfRejectLayIfPotentialLiabilityCurrent+" times to "+newValue+" times?");
-        Assert.assertEquals(smallBetConfigurationPage.lblAreYouSure.getText(),"Are you sure to update Reject Lay if Potential Liability of agent "+satSADAgentLoginID+" from "+valueOfRejectLayIfPotentialLiabilityCurrent+" times to "+newValue+" times?");
-        log("Step 3. Click yes on confirm popup");
-        smallBetConfigurationPage.btnYes.click();
-        log("Verify 2: Verify message \"Update is successful!\" and value of Reject Lay if Potential Liability that is updated after confirm yes");
-        Assert.assertEquals(smallBetConfigurationPage.lblUpdateIsSuccessful.getText(),"Update is successful!");
-        Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Lay if Potential Liability", satSADAgentLoginID),newValue);
+        try{
+            smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Reject Lay if Potential Liability", satSADAgentLoginID,newValue);
+            log("Verify 1: Verify messsage Are you sure to update Reject Lay if Potential Liability of agent "+satSADAgentLoginID+" from "+valueOfRejectLayIfPotentialLiabilityCurrent+" times to "+newValue+" times?");
+            Assert.assertEquals(smallBetConfigurationPage.lblAreYouSure.getText(),String.format(BOConstants.System.SmallBetConfiguration.MSG_UPDATE_REJECT_LAY, satSADAgentLoginID, valueOfRejectLayIfPotentialLiabilityCurrent, newValue));
+            log("Step 3. Click yes on confirm popup");
+            smallBetConfigurationPage.btnYes.click();
+            log("Verify 2: Verify message \"Update is successful!\" and value of Reject Lay if Potential Liability that is updated after confirm yes");
+            Assert.assertEquals(smallBetConfigurationPage.lblSuccessAlert.getText(), BOConstants.System.SmallBetConfiguration.MSG_UPDATE_SUCCESSFUL);
+            Assert.assertEquals(smallBetConfigurationPage.getValueTextBoxByConfigurationNameAndAgentID("Reject Lay if Potential Liability", satSADAgentLoginID),newValue);
+        } finally {
+            smallBetConfigurationPage.inputTextboxByConfigurationNameAndAgentID("Reject Lay if Potential Liability", satSADAgentLoginID,valueOfRejectLayIfPotentialLiabilityCurrent);
+            System.out.println("Update to old Reject Lay");
+        }
+
         log("INFO: Executed completely");
     }
 
@@ -449,9 +460,8 @@ public class SmallBetConfigurationTest extends BaseCaseTest {
         SmallBetConfigurationPage smallBetConfigurationPage = backofficeHomePage.navigateSmallBetConfiguration();
         log("Step 2. Input a inavlid agent and click Add button");
         smallBetConfigurationPage.inputAgentTextBox("023R213E");
-        smallBetConfigurationPage.btnAdd.click();
         log("Verify 1: Verify message \"Agent does not exist in the system!\" display");
-        Assert.assertEquals(smallBetConfigurationPage.lblErrorAgentDoesNotExist.getText(),"Agent does not exist in the system!");
+        Assert.assertEquals(smallBetConfigurationPage.lblDangerAlert.getText(), BOConstants.System.SmallBetConfiguration.MSG_AGENT_NOT_EXIST);
         log("INFO: Executed completely");
     }
 }

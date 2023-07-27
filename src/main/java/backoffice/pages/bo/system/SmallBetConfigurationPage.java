@@ -1,29 +1,23 @@
 package backoffice.pages.bo.system;
 
-import backoffice.controls.Row;
+import backoffice.controls.bo.StaticTable;
 import backoffice.pages.bo.home.HomePage;
-import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SmallBetConfigurationPage extends HomePage {
-    String agentRowByAgentID = "//div[contains(text(),'%s')]";
-    String acceptOfPricingByAgentID = "//div[contains(text(),'%s')]//following::input[2]";
-    String stakeByAgentID = "//div[contains(text(),'%s')]//following::input[1]";
-    String rejectBackIfPotentialWinningByAgentID = "//div[contains(text(),'%s')]//following::input[3]";
-    String rejectLayIfPotentialLiabilityByAgentID = "//div[contains(text(),'%s')]//following::input[4]";
+    String acceptOfPricingByAgentIDXpath = "//div[contains(text(),'%s')]//following::input[2]";
+    String stakeByAgentIDXpath = "//div[contains(text(),'%s')]//following::input[1]";
+    String rejectBackIfPotentialWinningByAgentIDXpath = "//div[contains(text(),'%s')]//following::input[3]";
+    String rejectLayIfPotentialLiabilityByAgentIDXpath = "//div[contains(text(),'%s')]//following::input[4]";
     public Button btnYes = Button.xpath("//button[text()='Yes']");
     public Button btnNo = Button.xpath("//button[text()='No']");
-    public Label lblUpdateIsSuccessful = Label.xpath("//span[contains(text(),'Update is successful!')]");
     public Label lblConfirmation = Label.xpath("//span[contains(text(),'Confirmation')]");
     public Label lblAreYouSure = Label.xpath("//h6");
     public TextBox txbSearchAgentID = TextBox.xpath("//div[@class='input-group input-group-sm']//input");
     public Button btnAdd = Button.xpath("//button[text()='Add']");
-    public Label lblErrorAgentDoesNotExist = Label.xpath("//span[text()='Agent does not exist in the system!']");
     public RadioButton radioButtonStatusAgentOnConfigurationPopup = RadioButton.xpath("//div[@class='modal-body']//button[@role='switch']");
     public TextBox txbStakeOnConfigurationPopup = TextBox.xpath("//div[contains(text(),'Stake')]/parent::div//input");
     public TextBox txbAcceptOnConfigurationPopup = TextBox.xpath("//div[contains(text(),'Accept')]/parent::div//input");
@@ -31,32 +25,35 @@ public class SmallBetConfigurationPage extends HomePage {
     public TextBox txbRejectLayOnConfigurationPopup = TextBox.xpath("//div[contains(text(),'Lay')]/parent::div//input");
     public Button btnSubmitOnConfigurationPopup = Button.xpath("//button[text()='Submit']");
     public Button btnCloseOnConfigurationPopup = Button.xpath("//button[text()='Close']");
-    public Label lblAddSucceed = Label.xpath("//span[text()='Add Succeed']");
-    String statusByAgentID = "//div[contains(text(),'%s')]/parent::div//button";
-    String btnRemoveAgentByAgentID = "//div[contains(text(),'%s')]/parent::div//a[text()='Remove']";
-    String agentIDIsAlreadyAdded = "//span[text()='Agent %s is already added!']";
+    String btnRemoveAgentByAgentIDXpath = "//div[contains(text(),'%s')]/parent::div//a[text()='Remove']";
     public Label lblAgent = Label.xpath("//div[text()='Agent:']");
-    List<WebElement> lstHeaderName = DriverManager.getDriver().findElements(By.xpath("//div[@class='custom-table-header']//div/div/span"));
-    String configurationColums = "//div[contains(text(),'%s')]";
+    String configurationColumsXpath = "//div[contains(text(),'%s')]";
     public Label lblmessageShouldNotBeAdd = Label.xpath("//label[text()='Agent code under Fairenter, Funsport and Laystars should not be added.']");
     public Label lblConfigurationSmallBetOnPopup = Label.cssSelector("h5");
+    public StaticTable tblReport = StaticTable.xpath("//div[@class='custom-table currency-table']", "div[@class='ps-content']", "div[@class='custom-table-row']",
+            "div[@class='custom-table-cell']",100);
+    String txbStakeByAgentIDXpath = "//div[text()=' %s ']/following-sibling::div[contains(@class,'custom-table-cell')][2]//input";
+    String txbAcceptByAgentIDXpath = "//div[text()=' %s ']/following-sibling::div[contains(@class,'custom-table-cell')][3]//input";
+    String txbRejectBackByAgentIDXpath = "//div[text()=' %s ']/following-sibling::div[contains(@class,'custom-table-cell')][4]//input";
+    String txbRejectLayByAgentIDXpath = "//div[text()=' %s ']/following-sibling::div[contains(@class,'custom-table-cell')][5]//input";
+    int colAgent = 1;
 
     public void inputTextboxByConfigurationNameAndAgentID(String configurationName, String agentID, String number){
         switch (configurationName){
             case "Stake":
-                TextBox txbStake = TextBox.xpath(String.format(stakeByAgentID,agentID));
+                TextBox txbStake = TextBox.xpath(String.format(stakeByAgentIDXpath,agentID));
                 txbStake.sendKeys(number);
                 break;
             case "Accept % of Pricing":
-                TextBox txbAcceptOfPricing =  TextBox.xpath(String.format(acceptOfPricingByAgentID,agentID));
+                TextBox txbAcceptOfPricing =  TextBox.xpath(String.format(acceptOfPricingByAgentIDXpath,agentID));
                 txbAcceptOfPricing.sendKeys(number);
                 break;
             case "Reject Back if Potential Winning":
-                TextBox txbRejectBackIfPotentialWinning = TextBox.xpath(String.format(rejectBackIfPotentialWinningByAgentID,agentID));
+                TextBox txbRejectBackIfPotentialWinning = TextBox.xpath(String.format(rejectBackIfPotentialWinningByAgentIDXpath,agentID));
                 txbRejectBackIfPotentialWinning.sendKeys(number);
                 break;
             case "Reject Lay if Potential Liability":
-                TextBox txbRejectLayIfPotentialLiability = TextBox.xpath(String.format(rejectLayIfPotentialLiabilityByAgentID,agentID));
+                TextBox txbRejectLayIfPotentialLiability = TextBox.xpath(String.format(rejectLayIfPotentialLiabilityByAgentIDXpath,agentID));
                 txbRejectLayIfPotentialLiability.sendKeys(number);
                 break;
             default:
@@ -64,17 +61,53 @@ public class SmallBetConfigurationPage extends HomePage {
         }
         txbSearchAgentID.click();
     }
+    public boolean isAgentInfoUpdatedCorrect(String agentID, String statusAgent, String stakeAgent, String acceptPerOfPricing, String rejectBackIfProtentialWin, String rejectLayIfPotentialLiabilty){
+        List<ArrayList<String>> lstData = tblReport.getRows(5,false);
+        for (int i = 0; i < lstData.size(); i++){
+            String agent = lstData.get(i).get(colAgent - 1);
+            if (agent.equals(agentID)){
+                String status = lstData.get(i).get(1);
+                String stake = TextBox.xpath(String.format(txbStakeByAgentIDXpath,agent)).getAttribute("value");
+                String acceptPer = TextBox.xpath(String.format(txbAcceptByAgentIDXpath,agent)).getAttribute("value");
+                String rejectBack = TextBox.xpath(String.format(txbRejectBackByAgentIDXpath,agent)).getAttribute("value");
+                String rejecLay = TextBox.xpath(String.format(txbRejectLayByAgentIDXpath,agent)).getAttribute("value");
+                if (!statusAgent.isEmpty() && !status.equals(statusAgent)) {
+                    System.out.println("Status of "+ agentID +" is wrong!");
+                    return false;
+                }
+                if (!stakeAgent.isEmpty() && !stake.equals(stakeAgent)){
+                    System.out.println("Stake of "+ agentID +" is wrong!");
+                    return false;
+                }
+                if (!acceptPerOfPricing.isEmpty() && !acceptPer.equals(acceptPerOfPricing)){
+                    System.out.println("Accept Per Of Pricing of "+ agentID +" is wrong!");
+                    return false;
+                }
+                if (!rejectBackIfProtentialWin.isEmpty() && !rejectBack.equals(rejectBackIfProtentialWin)){
+                    System.out.println("Reject Back If Protential Win of "+ agentID +" is wrong!");
+                    return false;
+                }
+                if (!rejectLayIfPotentialLiabilty.isEmpty() && !rejecLay.equals(rejectLayIfPotentialLiabilty)){
+                    System.out.println("Reject Lay If Potential Liabilty of "+ agentID +" is wrong!");
+                    return false;
+                }
+                return true;
+            }
+        }
+        System.out.println("Agent is not exist");
+        return false;
+    }
 
     public String getValueTextBoxByConfigurationNameAndAgentID(String configurationName, String agentID){
         switch (configurationName){
             case "Stake":
-                return TextBox.xpath(String.format(stakeByAgentID,agentID)).getAttribute("value");
+                return TextBox.xpath(String.format(stakeByAgentIDXpath,agentID)).getAttribute("value");
             case "Accept % of Pricing":
-                return TextBox.xpath(String.format(acceptOfPricingByAgentID,agentID)).getAttribute("value");
+                return TextBox.xpath(String.format(acceptOfPricingByAgentIDXpath,agentID)).getAttribute("value");
             case "Reject Back if Potential Winning":
-                return TextBox.xpath(String.format(rejectBackIfPotentialWinningByAgentID,agentID)).getAttribute("value");
+                return TextBox.xpath(String.format(rejectBackIfPotentialWinningByAgentIDXpath,agentID)).getAttribute("value");
             case "Reject Lay if Potential Liability":
-                return TextBox.xpath(String.format(rejectLayIfPotentialLiabilityByAgentID,agentID)).getAttribute("value");
+                return TextBox.xpath(String.format(rejectLayIfPotentialLiabilityByAgentIDXpath,agentID)).getAttribute("value");
             default:
                 System.out.println("Input configuration name wrongly");
         }
@@ -83,9 +116,10 @@ public class SmallBetConfigurationPage extends HomePage {
 
     public void inputAgentTextBox(String agentID) {
         txbSearchAgentID.sendKeys(agentID);
+        btnAdd.click();
     }
     private void clickStatusAgentOnConfigurationPopup(String statusAgent){
-        if (statusAgent == "true" && radioButtonStatusAgentOnConfigurationPopup.getAttribute("aria-checked").contains("false")){
+        if (statusAgent == "ON" && radioButtonStatusAgentOnConfigurationPopup.getAttribute("aria-checked").contains("false")){
                 radioButtonStatusAgentOnConfigurationPopup.click();
         } else {
             if (radioButtonStatusAgentOnConfigurationPopup.getAttribute("aria-checked").contains("true")){
@@ -107,36 +141,15 @@ public class SmallBetConfigurationPage extends HomePage {
         if (!rejectLayValue.isEmpty()){
             txbRejectLayOnConfigurationPopup.sendKeys(rejectLayValue);
         }
-    }
-
-    public String getAgentIDAdded(String agentID) {
-        return Label.xpath(String.format(agentRowByAgentID, agentID)).getText();
-    }
-
-    public String getStatusByAgentID(String agentID){
-        return RadioButton.xpath(String.format(statusByAgentID, agentID)).getAttribute("aria-checked");
-    }
-
-    public boolean isRemovedAgentByAgentID (String agentID){
-        Label removeAgent = Label.xpath(String.format(agentRowByAgentID, agentID));
-        return removeAgent.isInvisible(3);
+        btnSubmitOnConfigurationPopup.click();
     }
 
     public void clickToRemove(String agentID) {
-        Button.xpath(String.format(btnRemoveAgentByAgentID, agentID)).click();
+        Button.xpath(String.format(btnRemoveAgentByAgentIDXpath, agentID)).click();
+        btnYes.click();
     }
 
-    public Label isAgentIDIsAlreadyAdded(String agentID) {
-        return Label.xpath(String.format(agentIDIsAlreadyAdded, agentID));
-    }
-    public ArrayList<String> getHeaderNameOfRows() {
-        ArrayList<String> lstHeader = new ArrayList<String>();
-        for (int i = 0; lstHeaderName.size() > i ; i++){
-           lstHeader.add(lstHeaderName.get(i).getText());
-        }
-        return lstHeader;
-    }
     public String getTitleOnConfigurationColumByName(String name){
-        return Label.xpath(String.format(configurationColums, name)).getText();
+        return Label.xpath(String.format(configurationColumsXpath, name)).getText();
     }
 }
