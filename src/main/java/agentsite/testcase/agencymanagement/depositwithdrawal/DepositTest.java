@@ -93,7 +93,7 @@ public class DepositTest extends BaseCaseTest {
      */
     @TestRails(id = "722")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Deposit_722() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Deposit_722() {
         log("@title: Validate that there is an error message displayed when submitted without any amount");
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -129,7 +129,7 @@ public class DepositTest extends BaseCaseTest {
     @TestRails(id = "723")
     @Test(groups = {"smoke"})
     @Parameters({"username"})
-    public void Agent_AM_DepositWithdrawal_Deposit_723(String username) throws Exception {
+    public void Agent_AM_DepositWithdrawal_Deposit_723(String username) {
         log("@title: Validate that there is an insufficient error displayed when inputted an amount more than the current cash balance");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -167,8 +167,7 @@ public class DepositTest extends BaseCaseTest {
      */
     @TestRails(id = "724")
     @Test(groups = {"smoke"})
-    @Parameters("currency")
-    public void Agent_AM_DepositWithdrawal_Deposit_724(String currency) throws Exception {
+    public void Agent_AM_DepositWithdrawal_Deposit_724() {
         log("@title: Validate can deposited successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -214,7 +213,7 @@ public class DepositTest extends BaseCaseTest {
 
         log("Verify 3. Verify available balance of deposit account is updated");
         Assert.assertEquals(userInfoAfter.get(page.colAvailableBalance - 1), expectedAmountAfterDeposit,
-                String.format("FAIED! Availabale Balance of account %s expected is %s but found %s", userCode, expectedAmountAfterDeposit, userInfoAfter.get(page.colAvailableBalance - 1)));
+                String.format("FAILED! Available Balance of account %s expected is %s but found %s", userCode, expectedAmountAfterDeposit, userInfoAfter.get(page.colAvailableBalance - 1)));
 
         log("INFO: Executed completely");
     }
@@ -230,7 +229,7 @@ public class DepositTest extends BaseCaseTest {
      */
     @TestRails(id = "725")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Deposit_725() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Deposit_725() {
         log("@title: Validate can multiple deposit by click on Deposit button");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
@@ -274,7 +273,7 @@ public class DepositTest extends BaseCaseTest {
      */
     @TestRails(id = "726")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Deposit_726() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Deposit_726() {
         log("@title: Validate that Deposit popup is displayed when clicking Deposit button");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -446,7 +445,7 @@ public class DepositTest extends BaseCaseTest {
      */
     @TestRails(id = "729")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Deposit_729() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Deposit_729() {
         log("@title:  Validate cannot deposit an amount more than the current balance");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -490,7 +489,7 @@ public class DepositTest extends BaseCaseTest {
      */
     @TestRails(id = "730")
     @Test(groups = {"smoke"})
-    public void Agent_AM_DepositWithdrawal_Deposit_730() throws Exception {
+    public void Agent_AM_DepositWithdrawal_Deposit_730() {
         log("@title:  Validate Deposit/Withdraw Link is disabled /enable when select/unselect account");
         log("Step 1. Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
@@ -535,8 +534,8 @@ public class DepositTest extends BaseCaseTest {
 
     @TestRails(id = "3625")
     @Test(groups = {"interaction"})
-    @Parameters({"brandname", "memberAccount", "password"})
-    public void Agent_AM_DepositWithdrawal_Deposit_3625(String brandname, String memberAccount, String password) throws Exception {
+    @Parameters({"memberAccount", "password"})
+    public void Agent_AM_DepositWithdrawal_Deposit_3625(String memberAccount, String password) throws Exception {
         log("@title: Verify Balance member site is correct after withdraw from agent site");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         AccountInfo accountInfo = DownLineListingUtils.getAccountInfoInList(lstUsers, memberAccount);

@@ -5,6 +5,7 @@ import baseTest.BaseCaseTest;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,9 @@ public class AnalysisOfRunningMarketsTest extends BaseCaseTest {
      * @steps: 1. Navigate Report> Analysis of Running Markets
      * @expect: 1. There is no http responded error returned
      */
+    @TestRails(id = "822")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Analysis_Of_Running_Markets_001() {
+    public void Agent_Report_Analysis_Of_Running_Markets_822() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report> Analysis of Running Markets");
         AnalysisOfRunningMarketsPage page = agentHomePage.navigateAnalysisOfRunningMarketsPage();
@@ -28,14 +30,9 @@ public class AnalysisOfRunningMarketsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate Analysis of Running Markets display correctly
-     * @pre-condition: 1. Log in successfully by PO level
-     * @steps: 1. Navigate Report> Analysis of Running Markets
-     * @expect: 1. Verify Analysis of Running Markets UI display correctly
-     */
+    @TestRails(id = "823")
     @Test(groups = {"smokePO", "smoke"})
-    public void Agent_Report_Analysis_Of_Running_Markets_002() {
+    public void Agent_Report_Analysis_Of_Running_Markets_823() {
         log("@title: Validate Analysis of Running Markets display correctly ");
         log("Step 1. Navigate Report> Analysis of Running Markets");
         AnalysisOfRunningMarketsPage page = agentHomePage.navigateAnalysisOfRunningMarketsPage();
@@ -52,16 +49,10 @@ public class AnalysisOfRunningMarketsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Market info display correctly
-     * @pre-condition: 1. Log in successfully by PO level
-     * @steps: 1. Navigate Report >Analysis of Running Markets
-     * 2. Select a sport and click on the event
-     * * @expect: 1. Market title display correct include competition, event name ,event start time, market name
-     */
+    @TestRails(id = "824")
     @Test(groups = {"smokePO", "smoke"})
-    public void Agent_Report_Analysis_Of_Running_Markets_003() {
-        log("@title: Can drill down and open bet list");
+    public void Agent_Report_Analysis_Of_Running_Markets_824() {
+        log("@title: Market info display correctly");
         log("Step 1. Navigate Report >Analysis of Running Markets");
         AnalysisOfRunningMarketsPage page = agentHomePage.navigateAnalysisOfRunningMarketsPage();
 

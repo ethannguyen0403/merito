@@ -36,7 +36,7 @@ public class DownlineListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"regression1"})
+    @Test(groups = {"regression"})
     public void Agent_AM_Downline_Listing_002() {
         log("@title: Validate UI in Downline Listing ");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -64,15 +64,14 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_003(String brandname) {
+    public void Agent_AM_Downline_Listing_003() {
         log("@title: Validate can search direct downline");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = loginAccInfo.getUserID();
         ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Input direct downline , account status is All, and level is All");
@@ -87,14 +86,13 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_004(String brandname) {
+    public void Agent_AM_Downline_Listing_004() {
         log("@title: Validate can search indirect downline ");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
-        AccountInfo indirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(), "PL", "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
+        AccountInfo indirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(), "PL", "ACTIVE", _brandname).get(0);
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Input direct downline , account status is All, and level is All");
@@ -228,13 +226,12 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_013(String brandname) throws Exception {
+    public void Agent_AM_Downline_Listing_013() {
         log("@title: Validate can inactive member account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String userID = loginAccInfo.getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
@@ -259,13 +256,12 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_014(String brandname) {
+    public void Agent_AM_Downline_Listing_014() {
         log("@title:Validate can suspend  account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String userID = loginAccInfo.getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
@@ -289,13 +285,12 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_017(String brandname) {
+    public void Agent_AM_Downline_Listing_017() {
         log("@title: Validate can close an account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String userID = loginAccInfo.getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
@@ -316,13 +311,12 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_015(String brandname) {
+    public void Agent_AM_Downline_Listing_015() {
         log("@title: Validate can active account from inactive status");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String userID = loginAccInfo.getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
@@ -342,13 +336,12 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_016(String brandname) {
+    public void Agent_AM_Downline_Listing_016() {
         log("@title: Validate can active account from suspend status");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String userID = loginAccInfo.getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
@@ -368,12 +361,11 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_018(String brandname) {
+    public void Agent_AM_Downline_Listing_018() {
         log("@title: Validate can not active close an account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
@@ -390,13 +382,12 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_019(String brandname) {
+    public void Agent_AM_Downline_Listing_019() {
         log("@title: Validate can inactive an agent");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         String userCode = directDownline.getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
@@ -412,7 +403,7 @@ public class DownlineListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"regressionfe"})
+    @Test(groups = {"regression_newui"})
     public void Agent_AM_Downline_Listing_021() {
         log("@title:Validate can open and update Delay Bet");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -429,13 +420,12 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_022(String brandname) {
+    public void Agent_AM_Downline_Listing_022() {
         log("@title: Validate drill-down to member level");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(loginAccInfo.getUserID(), downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(loginAccInfo.getUserID(), downlineLevel, "ACTIVE", _brandname).get(0);
         if (Objects.isNull(directDownline)) {
             log("INFO: There is no member under this account");
             return;
@@ -464,14 +454,13 @@ public class DownlineListingTest extends BaseCaseTest {
      */
     @TestRails(id = "694")
     @Test(groups = {"smoke"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Downline_Listing_006(String brandname) {
+    public void Agent_AM_Downline_Listing_006() {
         log("@title: Validate can search downline with Username ");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
         String level = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, _brandname);
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Input a Username exist indirect/direct downline");

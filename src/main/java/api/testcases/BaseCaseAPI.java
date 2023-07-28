@@ -34,7 +34,7 @@ public class BaseCaseAPI {
     public static APIClient client;
     public static boolean isAddHeader = true;
     private static ApplicationContext context;
-    private static boolean isAddTestRailResult = false;
+    private static boolean isAddTestRailResult = true;
     private static List<Long> lstCases = new ArrayList<>();
 
     @BeforeSuite(alwaysRun = true)

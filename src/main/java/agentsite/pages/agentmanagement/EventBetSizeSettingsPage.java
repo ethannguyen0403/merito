@@ -1,6 +1,5 @@
 package agentsite.pages.agentmanagement;
 
-
 import agentsite.controls.MenuTree;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
@@ -34,6 +33,7 @@ public class EventBetSizeSettingsPage extends HomePage {
     public TextBox txtEventID = TextBox.xpath("//input[@placeholder='Search By Event ID']");
     public Button btnSubmit = Button.xpath("//button[@class='btn-submit']");
     public Button btnCancel = Button.xpath("//button[@class='btn-cancel1']");
+    public Label lblNoRecordFound = Label.xpath("//td[text()='No records found.']");
 
     public EventBetSizeSettingsPage(String types) {
         super(types);

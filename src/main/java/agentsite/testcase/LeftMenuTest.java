@@ -74,7 +74,7 @@ public class LeftMenuTest extends BaseCaseTest {
      * 2. Not display Deposit/Withdraw menu for credit account
      */
     @TestRails(id = "3467")
-    @Test(groups = {"credit_regression"})
+    @Test(groups = {"regression_credit"})
     public void LeftMenu_TC3467() {
         log("@title: Validate all items menu in Agency Management for Credit account");
         log("Step:1 Click on Agency Management collapse");
@@ -108,7 +108,7 @@ public class LeftMenuTest extends BaseCaseTest {
      * 2. Not display Deposit/Withdraw menu for credit account
      */
     @TestRails(id = "3889")
-    @Test(groups = {"creditcash_regression"})
+    @Test(groups = {"regression_creditcash"})
     public void LeftMenu_TC3889_CreditCash() {
         log("@title: Validate all items menu in Agency Management for Credit Cash account");
         log("Step:1 Click on Agency Management collapse");
@@ -188,7 +188,7 @@ public class LeftMenuTest extends BaseCaseTest {
      * 2. Verify all menu items in Report is correctly
      */
     @TestRails(id = "3469")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void LeftMenu_TC3469_PO() {
         log("@title: Validate can expand/collapse Report and all item display correctly");
         log("Step:1 Expand the report");
@@ -229,7 +229,7 @@ public class LeftMenuTest extends BaseCaseTest {
      * 2. Verify all menu items in Report is correctly
      */
     @TestRails(id = "3888")
-    @Test(groups = {"fairregression"})
+    @Test(groups = {"regression_newui"})
     public void LeftMenu_TC3888() {
         log("@title: Validate can expand/collapse Report and all item display correctly");
         log("Step:1 Expand the report");
