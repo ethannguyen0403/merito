@@ -28,6 +28,7 @@ public class SubUserListingPage extends HomePage {
     public Table tblSubUSer = Table.xpath("//table[contains(@class,'ptable report')]", tblSubUserTotalCol);
     private Label iconLoadSpinner = Label.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
     private String successIcon = "//span[contains(@class,'psuccess')]";
+    public Label lblTitle = Label.xpath("//div[@class='title']/label");
 
     public SubUserListingPage(String types) {
         super(types);
