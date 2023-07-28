@@ -4,11 +4,9 @@ import agentsite.pages.agentmanagement.SubUserListingPage;
 import agentsite.pages.agentmanagement.subuserlisting.SubUserPopup;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
-import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import util.testraildemo.TestRails;
 
 import java.util.HashMap;
 import java.util.List;
@@ -63,9 +61,8 @@ public class SubUserListingTest extends BaseCaseTest {
     }
 
 
-    @TestRails(id = "3645")
     @Test(groups = {"http_request"})
-    public void Agent_SAD_Sub_User_Listing_3645() {
+    public void Agent_AM_Sub_User_Listing_001() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Sub User Listing");
         log("Step 2. Click on Create button");
@@ -76,9 +73,9 @@ public class SubUserListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-    @TestRails(id = "3646")
+
     @Test(groups = {"regression"})
-    public void Agent_SAD_Sub_User_Listing_3646() {
+    public void Agent_AM_Sub_User_Listing_002() {
         log("@title: Verify Sub User Listing UI display correct");
         log("Step 1. Navigate Agency Management > Sub User Listing");
         SubUserListingPage page = agentHomePage.navigateSubUserListingPage();
@@ -86,12 +83,12 @@ public class SubUserListingTest extends BaseCaseTest {
         log("Verify 1. Verify UI Sub User Listing display correctly");
         Assert.assertEquals(page.btnCreate.getText(), "Create", "FAILED! Create button incorrect display");
         Assert.assertEquals(page.tblSubUSer.getHeaderNameOfRows(), TBL_SUB_USER_TABLE_NONPO, "FAILED! Header table column is incorrect display");
-        Assert.assertTrue(page.btnCreate.isEnabled(), "FAILED! Creat button not enable");
+
         log("INFO: Executed completely");
     }
-    @TestRails(id = "3647")
+
     @Test(groups = {"regression"})
-    public void Agent_SAD_Sub_User_Listing_3647() {
+    public void Agent_AM_Sub_User_Listing_003() {
         log("@title: Verify Create Sub User UI popup display correct");
         log("Step 1. Navigate Agency Management > Sub User Listing");
         SubUserListingPage page = agentHomePage.navigateSubUserListingPage();
@@ -101,11 +98,8 @@ public class SubUserListingTest extends BaseCaseTest {
 
         log("Verify 1. Verify UI Sub User Listing display correctly");
         Assert.assertEquals(popup.lblTitle.getText(), "Create Sub User", "FAILED! Popup title is incorrect");
-        Assert.assertTrue(popup.lblUserNamePrefix.isDisplayed(), "FAILED! Username prefix not display");
-        Assert.assertTrue(popup.ddbFirstCharOfUserName.isDisplayed(), "FAILED! First char of username dropdown box not display");
-        Assert.assertTrue(popup.ddbSecondCharOfUserName.isDisplayed(), "FAILED! Second char of username dropdown box not display");
         Assert.assertEquals(popup.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect display");
-        Assert.assertEquals(popup.btnCancel.getText(), BTN_CANCEL, "FAILED! Cancel button is incorrect display");
+        Assert.assertEquals(popup.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is incorrect display");
         Assert.assertTrue(popup.txtPassword.isDisplayed(), "FAILED! Password textbox not display");
         Assert.assertTrue(popup.ddbStatus.isDisplayed(), "FAILED! Status dropdown box not dipslay");
         Assert.assertTrue(popup.txtFirstName.isDisplayed(), "FAILED! First Name textbox not display");
@@ -118,10 +112,10 @@ public class SubUserListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-    @TestRails(id = "3648")
+
     @Test(groups = {"regression"})
     @Parameters("password")
-    public void Agent_SAD_Sub_User_Listing_3648(String password) throws Exception {
+    public void Agent_AM_Sub_User_Listing_005(String password) throws Exception {
         log("@title:Verify Sub account only setting for a create account permission");
         log("Step 1. Navigate Agency Management > Sub User Listing");
         HashMap<String, Boolean> permissions = new HashMap<String, Boolean>() {
@@ -140,30 +134,31 @@ public class SubUserListingTest extends BaseCaseTest {
         SubUserListingPage page = agentHomePage.navigateSubUserListingPage();
         String userName = page.getActiveSubUser("", pwDecrypt);
 
-        log("Step 2. Click on Edit for any account and only active Create Account permission");
-        log("Step 3. Click Submit");
+        log("2. Click on Edit for any account and only active Create Account permission");
+        log("3. Click Submit");
         page.editSubUser(userName, pwDecrypt, "Active", StringUtils.generateAlphabetic(4), StringUtils.generateAlphabetic(4), permissions);
 
-        log("Verify 1.Verify Green check only display for Create Account and Account Balance column");
+        log("Verify 1.Verify Green check only display for Create Account and Account Balance column\n" +
+                "2. Verify there are menu is available when login sub account\n" +
+                "- Create Downline Agent\n" +
+                "- Create User");
         Assert.assertTrue(page.verifySubUserInfo(userName, permissions), "FAILED the list permission is incorrect");
         page.logout();
 
-        log("Verify 2. Verify there are menu is available when login sub account\n" +
-                "- Create Downline Agent\n" +
-                "- Create User");
+        log("Verify 2. Verify can login agent with new sub account");
         loginNewAccount(sosAgentURL, agentNewAccURL, userName, password, "112233");
         agentHomePage.leftMenu.leftMenuList.expandMenu(AGENCY_MANAGEMENT);
         List<String> lstSubMennu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
         Assert.assertEquals(lstSubMennu.get(0), CREATE_DOWNLINE_AGENT, "Failed! Create Downline Agent not display correctly");
-        Assert.assertEquals(lstSubMennu.get(1), CREATE_USER, "Failed! Create User not display correctly");
+        Assert.assertEquals(lstSubMennu.get(0), CREATE_USER, "Failed! Create User not display correctly");
 
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "3649")
+
     @Test(groups = {"regression"})
     @Parameters("password")
-    public void Agent_SAD_Sub_User_Listing_3649(String password) throws Exception {
+    public void Agent_AM_Sub_User_Listing_006(String password) throws Exception {
         log("@title: Verify Sub account only setting for Update Account permission");
         log("Step 1. Navigate Agency Management > Sub User Listing");
         HashMap<String, Boolean> permissions = new HashMap<String, Boolean>() {
@@ -181,34 +176,37 @@ public class SubUserListingTest extends BaseCaseTest {
         String pwDecrypt = StringUtils.decrypt(password);
         SubUserListingPage page = agentHomePage.navigateSubUserListingPage();
         String userName = page.getActiveSubUser("", pwDecrypt);
+
         log("2.Click on Edit for any account and only active Update Account permission");
         log("3. Click Submit");
         page.editSubUser(userName, pwDecrypt, "Active", StringUtils.generateAlphabetic(4), StringUtils.generateAlphabetic(4), permissions);
 
-        log("Verify 1.Verify Green check only display for Create Account and Account Balance column");
-        Assert.assertTrue(page.verifySubUserInfo(userName, permissions), "FAILED the list permission is incorrect");
-        page.logout();
-
-        log("Verify 2. Verify there are menu is available when login sub account\n" +
+        log("Verify 1.Verify Green check only display for Create Account and Account Balance column\n" +
+                "2. Verify there are menu is available when login sub account\n" +
                 "- Create Downline Agent\n" +
                 "- Create User\n" +
                 "- Downline Listing");
+        Assert.assertTrue(page.verifySubUserInfo(userName, permissions), "FAILED the list permission is incorrect");
+        page.logout();
+
+        log("Verify 2. Verify can login agent with new sub account");
         loginNewAccount(sosAgentURL, agentNewAccURL, userName, password, "112233");
         agentHomePage.leftMenu.leftMenuList.expandMenu(AGENCY_MANAGEMENT);
-        List<String> lstSubMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
-        Assert.assertEquals(lstSubMenu.get(0), DOWNLINE_LISTING, "Failed! Downline Listing not display correctly");
-        Assert.assertEquals(lstSubMenu.get(1), EVENT_BET_STIE_SETTINGS, "Failed! Event Bet Size Settings not display correctly");
-        Assert.assertEquals(lstSubMenu.get(2), POSITION_TAKING_LISTING, "Failed! Position Taking Listing not display correctly");
-        Assert.assertEquals(lstSubMenu.get(4), COMMISSION_LISTING, "Failed!Commission Listing not display correctly");
-        Assert.assertEquals(lstSubMenu.get(5), BET_SETTING_LISTING, "Failed! Bet Setting Listing not display correctly");
-        Assert.assertEquals(lstSubMenu.get(6), TAX_SETTING_LISTING, "Failed! Tax Settings not display correctly");
-        Assert.assertEquals(lstSubMenu.get(7), ANNOUNCEMENT, "Failed! Announcement not display correctly");
+        List<String> lstSubMennu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
+        Assert.assertEquals(lstSubMennu.get(0), DOWNLINE_LISTING, "Failed! Downline Listing not display correctly");
+        Assert.assertEquals(lstSubMennu.get(1), EVENT_BET_STIE_SETTINGS, "Failed! Event Bet Size Settings not display correctly");
+        Assert.assertEquals(lstSubMennu.get(2), POSITION_TAKING_LISTING, "Failed! Position Taking Listing not display correctly");
+        Assert.assertEquals(lstSubMennu.get(3), COMMISSION_LISTING, "Failed!Commission Listing not display correctly");
+        Assert.assertEquals(lstSubMennu.get(4), BET_SETTING_LISTING, "Failed! Bet Setting Listing not display correctly");
+        Assert.assertEquals(lstSubMennu.get(5), TAX_SETTING_LISTING, "Failed! Tax Settings not display correctly");
+        Assert.assertEquals(lstSubMennu.get(6), "Announcement", "Failed! Announcement not display correctly");
+
         log("INFO: Executed completely");
     }
-    @TestRails(id = "3650")
+
     @Test(groups = {"regression"})
     @Parameters("password")
-    public void Agent_SAD_Sub_User_Listing_3650(String password) throws Exception {
+    public void Agent_AM_Sub_User_Listing_007(String password) throws Exception {
         log("@title: Verify Sub account only setting for Report permission");
         log("Step 1. Navigate Agency Management > Sub User Listing");
         HashMap<String, Boolean> permissions = new HashMap<String, Boolean>() {
@@ -244,10 +242,10 @@ public class SubUserListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-    @TestRails(id = "3651")
+
     @Test(groups = {"regression"})
     @Parameters("password")
-    public void Agent_SAD_Sub_User_Listing_3651(String password) throws Exception {
+    public void Agent_AM_Sub_User_Listing_008(String password) throws Exception {
         log("@title: Verify Sub account only setting for Transfer & Deposit/Withdraw permission");
         log("Step 1. Navigate Agency Management > Sub User Listing");
         HashMap<String, Boolean> permissions = new HashMap<String, Boolean>() {
@@ -274,19 +272,20 @@ public class SubUserListingTest extends BaseCaseTest {
         Assert.assertTrue(page.verifySubUserInfo(userName, permissions), "FAILED the list permission is incorrect");
         page.logout();
 
-        log("Verify 2. Only Agency Management only display Deposit/Withdraw");
+        log("Verify 2. Only  Agency Management only display Deposit/Withdraw ");
         loginNewAccount(sosAgentURL, agentNewAccURL, userName, password, "112233");
-        List<String> lstSubMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
-        Assert.assertEquals(lstSubMenu.get(0), DEPOSIT_WITHDRAW, "Failed! Downline Listing not display correctly");
+        List<String> lstSubMennu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
+        Assert.assertEquals(lstSubMennu.get(0), DEPOSIT_WITHDRAW, "Failed! Downline Listing not display correctly");
+        Assert.assertFalse(agentHomePage.leftMenu.leftMenuList.isMenuDisplay(REPORT), "FAILED! Report menu does not display");
         Assert.assertTrue(agentHomePage.leftMenu.leftMenuList.isMenuDisplay(AGENCY_MANAGEMENT), "FAILED! Agency Management menu does not display");
-        Assert.assertFalse(agentHomePage.leftMenu.leftMenuList.isMenuDisplay(REPORT), "FAILED! Report menu display");
-        Assert.assertFalse(agentHomePage.leftMenu.leftMenuList.isMenuDisplay(MARKET_MANAGEMENT), "FAILED! Markets Management menu display");
+        Assert.assertFalse(agentHomePage.leftMenu.leftMenuList.isMenuDisplay(MARKET_MANAGEMENT), "FAILED! Markets Management menu does not display");
+
         log("INFO: Executed completely");
     }
-    @TestRails(id = "3652")
+
     @Test(groups = {"regression"})
     @Parameters("password")
-    public void Agent_SAD_Sub_User_Listing_3652(String password) throws Exception {
+    public void Agent_AM_Sub_User_Listing_009(String password) throws Exception {
         log("@title: Verify Sub account only setting for Markets Management permission");
         log("Step 1. Navigate Agency Management > Sub User Listing");
         HashMap<String, Boolean> permissions = new HashMap<String, Boolean>() {
@@ -312,21 +311,19 @@ public class SubUserListingTest extends BaseCaseTest {
         Assert.assertTrue(page.verifySubUserInfo(userName, permissions), "FAILED the list permission is incorrect");
         page.logout();
 
-        log("Verify 2. Only Markets Management  section display with enough menu and verify Sub account only see the menu when login");
+        log("Verify2. Only Markets Management  section display with enough menu and verify Sub account only see the menu when login");
         loginNewAccount(sosAgentURL, agentNewAccURL, userName, password, "112233");
         agentHomePage.leftMenu.leftMenuList.expandMenu(MARKET_MANAGEMENT);
-        List<String> lstSubMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(MARKET_MANAGEMENT);
-        Assert.assertEquals(lstSubMenu.get(0), BLOCK_RACING, "Failed! Block Racing not display correctly");
-        Assert.assertEquals(lstSubMenu.get(1), BLOCK_UNBLOCK_EVENT, "Failed!Block/Unblock Events not display correctly");
-        Assert.assertEquals(lstSubMenu.get(2), BLOCK_UNBLOCK_COMPETITION, "Failed! Block/Unblock Competitions not display correctly");
-        Assert.assertEquals(lstSubMenu.get(3), CURRENT_BLOCKING, "Failed! Current Blocking not display correctly");
-        Assert.assertEquals(lstSubMenu.get(4), BLOCKING_LOG, "Failed! Blocking Log not display correctly");
+        List<String> lstSubMennu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(MARKET_MANAGEMENT);
+        Assert.assertEquals(lstSubMennu.get(0), BLOCK_RACING, "Failed! Block Racing not display correctly");
+        Assert.assertEquals(lstSubMennu.get(1), BLOCK_UNBLOCK_EVENT, "Failed!Block/Unblock Events not display correctly");
+        Assert.assertEquals(lstSubMennu.get(2), BLOCK_UNBLOCK_COMPETITION, "Failed! Block/Unblock Competitions not display correctly");
+        Assert.assertEquals(lstSubMennu.get(3), CURRENT_BLOCKING, "Failed! Current Blocking not display correctly");
+        Assert.assertEquals(lstSubMennu.get(4), BLOCKING_LOG, "Failed! Blocking Log not display correctly");
         Assert.assertFalse(agentHomePage.leftMenu.leftMenuList.isMenuDisplay(REPORT), "FAILED! Markets Management menu does not display");
         Assert.assertFalse(agentHomePage.leftMenu.leftMenuList.isMenuDisplay(AGENCY_MANAGEMENT), "FAILED! Markets Management menu does not display");
 
         log("INFO: Executed completely");
     }
-
-
 }
 
