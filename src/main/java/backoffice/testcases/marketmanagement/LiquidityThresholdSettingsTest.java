@@ -23,7 +23,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
     public void BO_Operations_Liquidity_Threshold_Setting_003() {
         log("@title: Validate confirm message display when input Non-live setting");
         String sportName = "Golf";
-        String marketType = "Top US";
+        String marketType = "Top USA Player";
         log("Step 1. Access Operations > Liquidity Threshold Settings");
         LiquidityThresholdSettingsPage page = backofficeHomePage.navigateLiquidityThresholdSettings();
 
@@ -63,7 +63,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
     public void BO_Operations_Liquidity_Threshold_Setting_004() {
         log("@title: Validate confirm message display when input Live setting");
         String sportName = "Golf";
-        String marketType = "Top US";
+        String marketType = "Top USA Player";
         log("Step 1. Access Operations > Liquidity Threshold Settings");
         LiquidityThresholdSettingsPage page = backofficeHomePage.navigateLiquidityThresholdSettings();
 
