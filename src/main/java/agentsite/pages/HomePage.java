@@ -14,6 +14,7 @@ import agentsite.pages.riskmanagement.NetExposurePage;
 import agentsite.pages.riskmanagement.VolumeMonitorPage;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Icon;
+import com.paltech.utils.StringUtils;
 
 import static common.AGConstant.HomePage.*;
 
@@ -36,8 +37,12 @@ public class HomePage extends LoginPage {
     }
 
     public void confirmSecurityCode(String securityCode) {
-        securityPopup.submitSecurityCode(securityCode);
-        waitingLoadingSpinner();
+        try {
+            securityPopup.submitSecurityCode(StringUtils.decrypt(securityCode));
+            waitingLoadingSpinner();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public LoginPage logout() {
@@ -295,6 +300,7 @@ public class HomePage extends LoginPage {
 
     public WinLossBySportAndMarketTypePage navigateWinLossBySportAndMarketTypePage() {
         leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE);
+        waitingLoadingSpinner();
         return new WinLossBySportAndMarketTypePage(_type);
     }
 
