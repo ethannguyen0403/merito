@@ -146,11 +146,7 @@ public class PrioritySettingTest extends BaseCaseTest {
         page.search("Market", "", "", marketKey);
 
         log("Verify 1. Verify the list market type display in the list");
-        List<String> lstMarket = page.tblPriority.getColumn(page.colSportName, false);
-        for (int i = 1; i < lstMarket.size(); i++) {
-            Assert.assertTrue(lstMarket.get(i).contains(marketKey), String.format("FAILED! Market Name is %s but search key is %s", lstMarket.get(i), marketKey));
-        }
-
+        Assert.assertTrue(page.isMarketNameDisplay(marketKey));
         log("INFO: Executed completely");
     }
 
@@ -177,11 +173,7 @@ public class PrioritySettingTest extends BaseCaseTest {
         page.search("Country", "", "", countryKey);
 
         log("Verify 1. Verify the list country name display in the list");
-        List<String> lstCountry = page.tblPriorityCountryRace.getColumn(page.colCountryName, false);
-        for (int i = 1; i < lstCountry.size(); i++) {
-            Assert.assertTrue(lstCountry.get(i).contains(countryKey), String.format("FAILED! Market Name is %s but search key is %s", lstCountry.get(i), countryKey));
-        }
-
+        Assert.assertTrue(page.isCountryNameDisplay(countryKey));
         log("INFO: Executed completely");
     }
 

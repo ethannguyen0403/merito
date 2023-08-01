@@ -20,10 +20,10 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
      */
     @TestRails(id = "628")
     @Test(groups = {"smoke"})
-    public void BO_Operations_Liquidity_Threshold_Setting_003() {
+    public void BO_Operations_Liquidity_Threshold_Setting_628() {
         log("@title: Validate confirm message display when input Non-live setting");
         String sportName = "Golf";
-        String marketType = "Top US";
+        String marketType = "Match Odds";
         log("Step 1. Access Operations > Liquidity Threshold Settings");
         LiquidityThresholdSettingsPage page = backofficeHomePage.navigateLiquidityThresholdSettings();
 
@@ -60,10 +60,10 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
      */
     @TestRails(id = "629")
     @Test(groups = {"smoke"})
-    public void BO_Operations_Liquidity_Threshold_Setting_004() {
+    public void BO_Operations_Liquidity_Threshold_Setting_629() {
         log("@title: Validate confirm message display when input Live setting");
         String sportName = "Golf";
-        String marketType = "Top US";
+        String marketType = "Handicap";
         log("Step 1. Access Operations > Liquidity Threshold Settings");
         LiquidityThresholdSettingsPage page = backofficeHomePage.navigateLiquidityThresholdSettings();
 

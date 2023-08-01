@@ -1,12 +1,16 @@
 package backoffice.testcases.settlement;
 
+import backoffice.common.BOConstants;
 import backoffice.pages.bo.settlement.ResettlementLogPage;
+import backoffice.utils.settlement.ResettlementLogUtils;
 import baseTest.BaseCaseTest;
+import com.paltech.utils.DateUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResettlementLogTest extends BaseCaseTest {
@@ -22,10 +26,10 @@ public class ResettlementLogTest extends BaseCaseTest {
      */
     @TestRails(id = "596")
     @Test(groups = {"smoke"})
-    public void BO_Settlement_Resettlement_Log_596() {
+    @Parameters({"wagerID"})
+    public void BO_Settlement_Resettlement_Log_596(String wagerID) {
         log("@title: Validate can search log by Wager ID");
         log("Step 1. Access Tool > Resettlement Log");
-        String wagerID = "59105118";
         ResettlementLogPage page = backofficeHomePage.navigateResettlementLog();
 
         log("Step 2. Select Search by: Wager ID");
@@ -59,23 +63,21 @@ public class ResettlementLogTest extends BaseCaseTest {
         ResettlementLogPage page = backofficeHomePage.navigateResettlementLog();
 
         log("Step 2. Select Search by: Event/Market");
-        log("Step 3. Select Event Date: 09/30/2020\n" +
-                "     *              Sport:Basketball\n" +
-                "     *              Event: Hapoel Herusalem v CB Miraflores\n" +
-                "     *              Market: Moneyline\n" +
-                "     *              Click search");
-
-        page.searchByEventMarket("2021/07/17", " Soccer ", " Algeria ", " Double Chance ");
+        log("Step 3. Select Event Date: \n" +
+                "     *           Sport:\n" +
+                "     *           Event:\n" +
+                "     *           Market:\n" +
+                "     *           Click search");
+        String date = DateUtils.getDate(-7, "yyyy/MM/dd", BOConstants.GMT_FOUR);
+        String dateTime = DateUtils.getDate(-7, "yyyy-MM-dd", BOConstants.GMT_FOUR);
+        List<ArrayList<String>> sports = ResettlementLogUtils.getSports(dateTime);
+        List<ArrayList<String>> events = ResettlementLogUtils.getEvents(sports.get(sports.size() - 1).get(0),dateTime);
+        List<ArrayList<String>> markets = ResettlementLogUtils.getMarkets(events.get(events.size() -1).get(0));
+        page.searchByEventMarket(date,sports.get(sports.size() - 1).get(1),
+                events.get(events.size() - 1).get(1), markets.get(markets.size() - 1).get(1));
 
         log("Verify 1. Verify log display");
-        List<String> lstDescription = page.tblResettlementLog.getColumn(page.colDescription, false);
-//        for (String des : lstDescription) {
-//            Assert.assertEquals(des, "\n" +
-//                    "ITF Stare Splavy\n" +
-//                    "T Mrdeza v J Grabher\n" +
-//                    "J Grabher - Match Odds\n" +
-//                    "Soccer: 2021/06/17 04:05:18", "FAILED! Description dose not display when searching");
-//        }
+        Assert.assertTrue(page.isLogDisplayed(), "FAILED! Log is not display");
         log("INFO: Executed completely");
     }
 

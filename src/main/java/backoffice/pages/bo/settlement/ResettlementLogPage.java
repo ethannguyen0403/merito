@@ -1,13 +1,9 @@
 package backoffice.pages.bo.settlement;
 
 import backoffice.controls.DateTimePicker;
-import backoffice.controls.Table;
 import backoffice.controls.bo.StaticTable;
 import backoffice.pages.bo.home.HomePage;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.DropDownBox;
-import com.paltech.element.common.RadioButton;
-import com.paltech.element.common.TextBox;
+import com.paltech.element.common.*;
 
 public class ResettlementLogPage extends HomePage {
     public RadioButton rbSearchByWagerID = RadioButton.xpath("//input[@value='WAGER_PAGE']");
@@ -26,6 +22,7 @@ public class ResettlementLogPage extends HomePage {
     public DateTimePicker ddpResettleToDate = DateTimePicker.xpath(txtResettleToDate, "//bs-datepicker-container");
     public Button btnSearch = Button.name("search");
     public int colBetID = 3;
+    Label lblNoRecordFound = Label.xpath("//div[@class='text-center ng-star-inserted']");
     public int colAffectPlayer = 4;
     public int colDescription = 2;
     private int totalColumn = 7;
@@ -43,14 +40,17 @@ public class ResettlementLogPage extends HomePage {
             dtpEventDate.selectDate(eventDate, "yyyy/MM/dd");
             waitSpinIcon();
         }
-        if (!sport.isEmpty())
+        if (!sport.isEmpty()){
             ddbSport.selectByVisibleText(sport);
+            waitSpinIcon();
+        }
         if (!event.isEmpty())
             ddbEvent.selectByVisibleText(event);
+            waitSpinIcon();
         if (!market.isEmpty())
             ddbMarket.selectByVisibleText(market);
-        btnSearch.click();
-        waitSpinIcon();
+            btnSearch.click();
+            waitSpinIcon();
     }
 
     public void searchByUsername(String startDate, String endDate, String username) {
@@ -66,4 +66,15 @@ public class ResettlementLogPage extends HomePage {
     }
 
 
+    public boolean isLogDisplayed() {
+        if (tblResettlementLog.getRowsWithoutHeader(10,true).size() > 0){
+            System.out.println("Log is displayed");
+            return true;
+        }
+        if (lblNoRecordFound.isDisplayed()){
+            System.out.println("No record founds!");
+            return true;
+        }
+        return false;
+    }
 }

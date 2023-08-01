@@ -2,6 +2,7 @@ package agentsite.testcase.reports;
 
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.DepositWithdrawalPage;
+import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.ViewLogPopup;
 import agentsite.pages.report.TransferLogPage;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
@@ -54,8 +55,8 @@ public class TransferLogTest extends BaseCaseTest {
 
         log("Step 1. Get View Log info");
         page = agentHomePage.navigateDepositWithdrawalPage("");
-        page.deposit(userCode, "1", "Deposit 1 auto script " + com.paltech.utils.StringUtils.generateString("Auto", 4), true, true);
-        ViewLogPopup popup = (ViewLogPopup) page.action(DepositWithdrawalPage.Actions.VIEW_LOG, userCode);
+        page.depositWithdraw.deposit(userCode, "1", "Deposit 1 auto script " + com.paltech.utils.StringUtils.generateString("Auto", 4), true, true);
+        ViewLogPopup popup = (ViewLogPopup) page.depositWithdraw.action(DepositWithdraw.Actions.VIEW_LOG, userCode);
         List<ArrayList<String>> log = popup.tblLog.getRowsWithoutHeader(1, false);
         List<ArrayList<String>> expectedData = popup.defineTransferLogbyViewLogData(log);
         popup.closePopup();
