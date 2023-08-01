@@ -6,6 +6,7 @@ import agentsite.ultils.report.ReportslUtils;
 import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,9 @@ import static common.AGConstant.Report.*;
 import static common.AGConstant.Report.ProfitAndLoss.*;
 
 public class ProfitAndLossTest extends BaseCaseTest {
-
+    @TestRails(id = "3730")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Profit_And_Loss_001() {
+    public void Agent_Report_Profit_And_Loss_3730() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report > Profit And Loss");
         agentHomePage.navigateProfitAndLossPage();
@@ -27,9 +28,9 @@ public class ProfitAndLossTest extends BaseCaseTest {
         Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
         log("INFO: Executed completely");
     }
-
-    @Test(groups = {"regression5"})
-    public void Agent_Report_Profit_And_Loss_002() {
+    @TestRails(id = "3731")
+    @Test(groups = {"regression"})
+    public void Agent_Report_Profit_And_Loss_3731() {
         log("@title:Validate Profit and Loss UI display correctly");
         log("Step 1. Navigate Report > Profit And Loss");
         ProfitAndLossPage page = agentHomePage.navigateProfitAndLossPage();
@@ -51,10 +52,10 @@ public class ProfitAndLossTest extends BaseCaseTest {
         Assert.assertEquals(page.tblDownLineProfitAndLoss.getHeaderList(), TBL_DOWNLINE_TABLE, "FAILED! Dowline tablie is incorrect");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3735")
     @Test(groups = {"poregression"})
-    public void Agent_Report_Profit_And_Loss_008() {
-        log("@title:Validate Profit and Loss UI display correctly at Portal level");
+    public void Agent_Report_Profit_And_Loss_3735() {
+        log("@title:Validate Profit and Loss UI display correctly at PO level");
         log("Step 1. Navigate Report > Profit And Loss");
         ProfitAndLossPage page = agentHomePage.navigateProfitAndLossPage();
 
@@ -76,8 +77,9 @@ public class ProfitAndLossTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3732")
     @Test(groups = {"regression"})
-    public void Agent_Report_Profit_And_Loss_003() {
+    public void Agent_Report_Profit_And_Loss_3732() {
         log("@title: Validate can filter report of all product");
         log("Step 1. Navigate Report > Profit And Loss");
         List<String> lstAllProducts = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
@@ -107,8 +109,9 @@ public class ProfitAndLossTest extends BaseCaseTest {
      * 3. Get summary data then Drill down to Member level and click on the user name
      * @expect: 1. Verify data display correctly on summary and transaction detail at Member result column
      */
+    @TestRails(id = "789")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Profit_And_Loss_004() {
+    public void Agent_Report_Profit_And_Loss_789() {
         log("@title: Validate can filter data on summary display correctly with total in detail");
         log("Step 1. Navigate Report > Profit And Loss");
         ProfitAndLossPage page = agentHomePage.navigateProfitAndLossPage();
@@ -140,8 +143,9 @@ public class ProfitAndLossTest extends BaseCaseTest {
      * 3. Drill down to Member level and click on the user name
      * @expect: 1. Sum member result column and verify it match with total column
      */
+    @TestRails(id = "790")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Profit_And_Loss_005() {
+    public void Agent_Report_Profit_And_Loss_790() {
         log("@title: Validate can filter data on summary display correctly with total in detail");
         log("Step 1. Navigate Report > Profit And Loss");
         ProfitAndLossPage page = agentHomePage.navigateProfitAndLossPage();
@@ -166,9 +170,9 @@ public class ProfitAndLossTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-
+    @TestRails(id = "3733")
     @Test(groups = {"regression"})
-    public void Agent_Report_Profit_And_Loss_006() {
+    public void Agent_Report_Profit_And_Loss_3733() {
         log("@title: Verify data in timezone and product dropdown is correct");
         log("Step 1. Navigate Report > Profit And Loss");
         List<String> lstAllProducts = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
@@ -184,10 +188,10 @@ public class ProfitAndLossTest extends BaseCaseTest {
         Assert.assertEquals(lstProduct, lstAllProducts, "FAILED! List timezone is incorrect");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3734")
     @Test(groups = {"regression"})
-    public void Agent_Report_Profit_And_Loss_007() {
-        log("@title: Verify Validate message display when filter without any products selected");
+    public void Agent_Report_Profit_And_Loss_3734() {
+        log("@title: Validate message display when filter without any products selected");
         log("Step 1. Navigate Report > Profit And Loss");
         ProfitAndLossPage page = agentHomePage.navigateProfitAndLossPage();
 
