@@ -261,7 +261,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
     public void BO_Operations_Wager_Void_Unvoid_646(String wagerID) {
         log("@title:Validate void/unvoid exchange wager in Match status on the market have 1 wager");
         log("Step 1. Access Operations > Wager Void/Un-void");
-        // String wagerID ="58291";
+        // String wagerID ="";
         WagerVoidUnvoidPage page = backofficeHomePage.navigateWagerVoidUnvoid();
 
         log("Step 2. Select void by, Wager and search by wager");

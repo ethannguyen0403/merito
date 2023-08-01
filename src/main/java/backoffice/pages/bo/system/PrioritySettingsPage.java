@@ -22,6 +22,7 @@ public class PrioritySettingsPage extends LeftMenu {
     public TextBox txtSearch = TextBox.xpath("//div[contains(@class,'table-wrapper')]//div[contains(@class,'custom-table-body')]//input");
     public int colEmpty = 1;
     public int colPriority = 2;
+    public int colMarketName = 3;
     public int colSportName = 3;
     public int colLastUpdateBy = 4;
     public int colLastUpdateTime = 5;
@@ -76,6 +77,27 @@ public class PrioritySettingsPage extends LeftMenu {
         return true;
     }
 
+    public boolean isMarketNameDisplay(String marketType){
+        List<String> lstMarket = tblPriority.getColumn(colMarketName, false);
+        for (int i = 0; i < lstMarket.size(); i++){
+            if (lstMarket.get(i).equals(marketType)){
+                return true;
+            }
+        }
+        System.out.println(marketType + " not display");
+        return false;
+    }
+
+    public boolean isCountryNameDisplay(String country){
+        List<String> lstCountry = tblPriorityCountryRace.getColumn(colCountryName, false);
+        for (int i = 0; i < lstCountry.size(); i++){
+            if (lstCountry.get(i).equals(country)){
+                return true;
+            }
+        }
+        System.out.println(country + " not display");
+        return false;
+    }
     public enum TYPE {SPORT, COMPETITION, MARKET, COUNTRYRACES}
 
 }

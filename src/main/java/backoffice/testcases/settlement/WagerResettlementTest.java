@@ -60,7 +60,7 @@ public class WagerResettlementTest extends BaseCaseTest {
     public void BO_Settlement_Wager_Resettlement_595(String wagerID) {
         log("@title: Validate can search wager resettlement");
         log("Step 1. Access Settlement > Wager Resettlement");
-        //String wagerId = "59511";
+        //String wagerId = "";
 
         WagerResettlementPage page = backofficeHomePage.navigateWagerResettlement();
         List<String> lstInfo = WagerResettlementUltils.getMarketInfo(wagerID, WagerResettlementPage.BetType.NORMAL, "EXCHANGE");
