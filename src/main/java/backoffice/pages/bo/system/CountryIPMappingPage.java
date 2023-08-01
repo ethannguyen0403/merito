@@ -4,6 +4,7 @@ import backoffice.controls.bo.StaticTable;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.pages.bo.operations.component.NewIPPopup;
 import com.paltech.element.common.*;
+import org.openqa.selenium.Keys;
 
 import java.util.List;
 
@@ -35,7 +36,10 @@ public class CountryIPMappingPage extends HomePage {
             }
         }
     }
-
+    public void searchCountryName(String countryName){
+        txtCountryName.sendKeys(countryName);
+        txtCountryName.sendKeys(Keys.ENTER);
+    }
     public NewIPPopup openNewIP() {
         btnNewIP.click();
         return new NewIPPopup();

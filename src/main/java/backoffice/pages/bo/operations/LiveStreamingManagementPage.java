@@ -44,7 +44,7 @@ public class LiveStreamingManagementPage extends HomePage {
 
     public void filter(String date, String sport, String feCompetition, String feEvent, String providerCompetition, String providerEvent) {
         if (!date.isEmpty()) {
-            dtpDate.selectDate(date, "yyyy-MM-dd");
+            dtpDate.selectDate(date, "yyyy/MM/dd");
         }
         if (!sport.isEmpty()) {
             ddbSport.selectByVisibleText(sport);

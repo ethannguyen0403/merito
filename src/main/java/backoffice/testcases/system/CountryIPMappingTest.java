@@ -34,7 +34,7 @@ public class CountryIPMappingTest extends BaseCaseTest {
      */
     @TestRails(id = "650")
     @Test(groups = {"smoke"})
-    public void BO_System_Country_IP_Mapping_002() {
+    public void BO_System_Country_IP_Mapping_650() throws InterruptedException {
         log("@title: Validate UI Country - IP Mapping display correctly");
         log("Step 1. Access Operations > Currency - Country Mapping");
         String countryName = "Albania";
@@ -47,6 +47,8 @@ public class CountryIPMappingTest extends BaseCaseTest {
         Assert.assertEquals(page.tblIP.getColumnNamesOfTable(), BOConstants.Operations.CountryIPMapping.TABLE_IP_COUNTRIES, "FAILED! IP Table header is incorrect");
 
         log("Step 2. Select a country :Albania");
+        page.searchCountryName(countryName);
+        page.waitSpinIcon();
         page.selectCountry(countryName);
 
         log("Verify 2. The Ips title display as the format : Ips: Albania");
