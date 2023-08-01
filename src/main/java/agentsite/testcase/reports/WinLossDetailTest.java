@@ -18,9 +18,9 @@ import static common.AGConstant.HomePage.WIN_LOSS_BY_DETAIL;
 import static common.AGConstant.Report.LIST_EXTRA_RPODUCTS;
 
 public class WinLossDetailTest extends BaseCaseTest {
-
+    @TestRails(id = "3738")
     @Test(groups = {"http_request"})
-    public void Agent_Report_WinLossDetail_001() {
+    public void Agent_Report_WinLossDetail_3738() {
         log("@title: There is no http responded error returned");
         log("Step 1: Navigate Report > Win Loss Detail");
         agentHomePage.navigateWinLossDetailPage();
@@ -38,7 +38,7 @@ public class WinLossDetailTest extends BaseCaseTest {
      */
     @TestRails(id = "794")
     @Test(groups = {"smoke"})
-    public void Agent_Report_WinLossDetail_002() {
+    public void Agent_Report_WinLossDetail_794() {
         log("@title: Validate Win Loss Detail UI display correctly");
         log("Step 1. Navigate Report> Win Loss Detail");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -69,7 +69,7 @@ public class WinLossDetailTest extends BaseCaseTest {
     @TestRails(id = "795")
     @Test(groups = {"smoke"})
     @Parameters("memberAccount")
-    public void Agent_Report_WinLossDetail_003(String memberAccount) {
+    public void Agent_Report_WinLossDetail_795(String memberAccount) {
         log("@title: Validate can filter Win Loss Detail report");
         log("Step 1. Navigate Report > Win Loss Detail");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -95,7 +95,7 @@ public class WinLossDetailTest extends BaseCaseTest {
 
     @TestRails(id = "796")
     @Test(groups = {"smoke"})
-    public void Agent_Report_WinLossDetail_004() {
+    public void Agent_Report_WinLossDetail_796() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Detail");
         List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);

@@ -24,7 +24,7 @@ public class TransferLogTest extends BaseCaseTest {
      */
     @TestRails(id = "801")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Transfer_Log_001() {
+    public void Agent_Report_Transfer_Log_801() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report> Transfer Log");
         agentHomePage.navigateTransferLogPage();
@@ -44,7 +44,7 @@ public class TransferLogTest extends BaseCaseTest {
      */
     @TestRails(id = "802")
     @Test(groups = {"smoke_Credit_Cash"})
-    public void Agent_Report_Transfer_Log_003() {
+    public void Agent_Report_Transfer_Log_802() {
         log("@title: Validate data Transfer Log display correctly");
         DepositWithdrawalPage page;
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -86,7 +86,7 @@ public class TransferLogTest extends BaseCaseTest {
      */
     @TestRails(id = "803")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Transfer_Log_002() {
+    public void Agent_Report_Transfer_Log_803() {
         log("@title: Validate data Transfer Log display correctly");
         log("Step 1. Navigate Report > Transfer Log");
         TransferLogPage tranferlogPage = agentHomePage.navigateTransferLogPage();

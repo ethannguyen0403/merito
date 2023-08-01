@@ -1,30 +1,14 @@
 package agentsite.testcase.reports;
 
 import agentsite.pages.report.TopGainersTopLosersPage;
-import agentsite.ultils.report.TopGainerLoserUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 public class TopGainersTopLosersTest extends BaseCaseTest {
-    /**
-     * @title: There is no http responded error returned
-     * @pre-condition: 1. Log in successfully
-     * @steps: 1. Navigate Report> Transaction history
-     * @expect: 1. There is no http responded error returned
-     */
-    @Test(groups = {"http_request"})
-    public void Agent_Report_Top_Gainers_Top_Losers_001() {
-        log("@title: There is no http responded error returned");
-        log("Step 1. Navigate Report> Transaction history");
-        agentHomePage.navigateTopGainersTopLosersPage();
-
-        log("Verify: There is no http requests error");
-        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
-        log("INFO: Executed completely");
-    }
 
     /**
      * @title: Validate Top Gainers & Top Losers UI display correctly
@@ -32,8 +16,9 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
      * @steps: 1. Navigate Report > Top Gainers & Top Losers
      * @expect: 1. Verify Top Gainers & Top Losers UI display correctly
      */
+    @TestRails(id = "812")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Top_Gainers_Top_Losers_002() {
+    public void Agent_Report_Top_Gainers_Top_Losers_812() {
         log("@title: Validate Top Gainers & Top Losers UI display correctly ");
         log("Step 1. Navigate Report > Top Gainers & Top Losers");
         TopGainersTopLosersPage page = agentHomePage.navigateTopGainersTopLosersPage();
@@ -54,38 +39,16 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+    @TestRails(id = "3757")
+    @Test(groups = {"http_request"})
+    public void Agent_Report_Top_Gainers_Top_Losers_3757() {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Navigate Report> Transaction history");
+        agentHomePage.navigateTopGainersTopLosersPage();
 
-    @Test(groups = {"regression"})
-    public void Agent_Report_Top_Gainers_Top_Losers_003() {
-        log("@title: Validate Top Gainer data display correctly");
-        log("Step 1. Navigate Report > Top Gainers & Top Losers");
-        int bigStake = TopGainerLoserUtils.getBigStake();
-        TopGainersTopLosersPage page = agentHomePage.navigateTopGainersTopLosersPage();
-        log("Step 2. Filter Exchange product that have the date has data");
-        log("Verify 1. Verify Top Gainers table display correct data");
-
+        log("Verify: There is no http requests error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"smoke"})
-    public void Agent_Report_Top_Gainers_Top_Losers_004() {
-        log("@title: Validate Top Gainers & Top Losers UI display correctly");
-        log("Step 1. Navigate Report > Top Gainers & Top Losers");
-        TopGainersTopLosersPage page = agentHomePage.navigateTopGainersTopLosersPage();
-        log("Step 2. Filter Exchange product that have the date has data");
-        log("Verify 1. Verify Big Stake table display correct data");
-
-        log("INFO: Executed completely");
-    }
-
-    @Test(groups = {"smoke"})
-    public void Agent_Report_Top_Gainers_Top_Losers_005() {
-        log("@title: Validate Top Losers  data display correctly");
-        log("Step 1. Navigate Report > Top Gainers & Top Losers");
-        TopGainersTopLosersPage page = agentHomePage.navigateTopGainersTopLosersPage();
-        log("Step 2. Filter Exchange product that have the date has data");
-        log("Verify 1. Verify Big Stake table display correct data");
-
-        log("INFO: Executed completely");
-    }
 }

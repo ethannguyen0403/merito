@@ -7,6 +7,7 @@ import com.paltech.utils.DateUtils;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,8 +19,9 @@ import static common.AGConstant.Report.PositionTakingReport.TABLE_HEADER;
 
 public class PositionTakingReportTest extends BaseCaseTest {
 
+    @TestRails(id = "3739")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Position_Taking_Report_001() {
+    public void Agent_Report_Position_Taking_Report_3739() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report> Position Taking Report");
         agentHomePage.navigatePositionTakingReportPage();
@@ -28,9 +30,9 @@ public class PositionTakingReportTest extends BaseCaseTest {
         Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3740")
     @Test(groups = {"regression"})
-    public void Agent_Report_Position_Taking_Report_002() {
+    public void Agent_Report_Position_Taking_Report_3740() {
         log("@title: Validate Position Taking Report display correctly");
         log("Step 1. Navigate Report> Position Taking Report");
         String today = DateUtils.getDate(0, "dd/MM/yyyy", "GMT-4");
@@ -49,16 +51,9 @@ public class PositionTakingReportTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate can search data
-     * @pre-condition: 1. Log in successfully by SAD
-     * @steps: 1. Navigate Report > Position Taking Report
-     * 2. Search the data range has data of Exchange Product
-     * @expect: 1. Data display
-     */
     @Test(groups = {"smoke"})
     public void Agent_Report_Position_Taking_Report_003() {
-        log("@title: Validate can filter Win Loss Detail report");
+        log("@title: Validate can search data");
         log("Step 1. Navigate Report > Position Taking Report");
         PositionTakingReportPage page = agentHomePage.navigatePositionTakingReportPage();
 
@@ -66,7 +61,7 @@ public class PositionTakingReportTest extends BaseCaseTest {
         page.dpFrom.currentMonthWithDate("1");
         page.filter("Exchange");
 
-        log("Verify 1. Verify Volume, Pnl, Tax max with detail");
+        log("Verify 1. Verify data is displayed");
         if (page.lblNoRecord.isDisplayed()) {
             log("PASSED By pass as no data found");
             Assert.assertEquals(page.lblNoRecord.getText(), AGConstant.NO_RECORD_FOUND, "Bypass this test case");
@@ -77,10 +72,11 @@ public class PositionTakingReportTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "4088")
     @Test(groups = {"regression"})
-    public void Agent_Report_Position_Taking_Report_004() {
+    public void Agent_Report_Position_Taking_Report_4088() {
         log("@title: Validate data product dropdown is corrected");
-        log("Step 1: Navigate Report > Win Loss Detail");
+        log("Step 1: Navigate Report > Position Taking Report");
         List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
         PositionTakingReportPage page = agentHomePage.navigatePositionTakingReportPage();
 
