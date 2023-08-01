@@ -20,6 +20,11 @@
             <artifactId>coreselenium</artifactId>
             <version>1.0.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.paltech</groupId>
+            <artifactId>api</artifactId>
+            <version>1.0.4</version>
+        </dependency>
          <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
@@ -38,7 +43,7 @@
         </repository>
         <repository>
             <id>pal</id>
-            <url>https://artifact.pal.net.vn/repository/maven-releases/</url>
+            <url>https://nexus.techtank9.com/repository/maven-releases/</url>
         </repository>
     </repositories>
 
