@@ -27,7 +27,7 @@ public class CashBalanceSection extends BaseElement {
         lblTitle = Label.xpath(String.format("%s//div[@class='psection']", _xPath));
         tblCashBalance = Table.xpath(String.format("%s//table[contains(@class,'credit-balance-table')]", _xPath), 2);
         txtCreditInitiation = TextBox.xpath(String.format("%s//input[contains(@name,'CreditReference')]", _xPath));
-        txtFirstTimeDeposit = TextBox.xpath(String.format("%s//input[contai//input[contains(@name,'playerMaxCredit')]ns(@name,'cashBalance')]", _xPath));
+        txtFirstTimeDeposit = TextBox.xpath(String.format("%s//input[contains//input[contains(@name,'playerMaxCredit')](@name,'cashBalance')]", _xPath));
         txtMaxPlayerCredit = TextBox.xpath(String.format("%s//input[contains(@name,'playerMaxCredit')]", _xPath));
         lblMaxPlayerCredit = Label.xpath(String.format("%s//span[contains(@class,'playerMaxCredit')]", _xPath));
         lblFirstTimeDepositValue = Label.xpath(String.format("%s//span[contains(@class,'playerMaxCredit')]", _xPath));

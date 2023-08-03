@@ -539,7 +539,8 @@ public class EditUserTest extends BaseCaseTest {
         log("Step 2.1. Input security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
 
-        List<ArrayList<String>> lstBetSettingValidation = page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.getBetSettingValidationValueLst(currency);
+        List<ArrayList<String>> lstBetSettingValidation = page.betSettingInforSection.getBetSettingValidationValueLst(currency);
+//      page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.getBetSettingValidationValueLst(currency);
         String minBet = Integer.toString(Integer.parseInt(lstBetSettingValidation.get(0).get(1)) + 1);
         String maxBet = Integer.toString(Integer.parseInt(lstBetSettingValidation.get(1).get(1)) - 1);
         List<ArrayList<String>> lstBetSetting = new ArrayList<>();
@@ -552,7 +553,8 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 3. Input Min bet of Soccer with valid value");
         page.editDownlinePopup.accInfoSection.txtPassword.sendKeys(StringUtils.decrypt(password));
-        page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
+        page.betSettingInforSection.inputBetSetting(lstBetSetting);
+//        page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
         page.submitEditDownline();
 
         log("Verify 1. Verify can update User with valid Min Bet");

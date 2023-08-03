@@ -9,18 +9,22 @@ import org.openqa.selenium.By;
 import java.util.List;
 
 public class ProductSettingsSection extends BaseElement {
-    private String _xPath = "//div[@id='EXCHANGE-bet-settings']";
-    public Label lblProductSetting = Label.xpath(String.format("%s/div[@class='psection']", _xPath));
-    public ProductStatusSettingsSection productStatusSettingsSection = ProductStatusSettingsSection.xpath(String.format("%s//div[contains(@class,'subsetting product-status')]", _xPath));
-    public BetSettingsSection betSettingSectionExchange = BetSettingsSection.xpath(String.format("%s//div[@id='EXCHANGE-bet-settings']", _xPath));
-    public BetSettingsSection betSettingSectionExchangeGame = BetSettingsSection.xpath(String.format("%s//div[@id='EXCH_GAMES-bet-settings']", _xPath));
-    public TaxSettingsSection taxSettingSectionExchange = TaxSettingsSection.xpath(String.format("%s//div[@id='EXCHANGE-tax-settings']", _xPath));
-    public TaxSettingsSection taxSettingSectionExchangeGame = TaxSettingsSection.xpath(String.format("%s//div[@id='EXCH_GAMES-bet-settings']", _xPath));
-    public MenuTree mnProduct = MenuTree.xpath(String.format("%s//tabset[@id='productSetting']/ul", _xPath), "/li");
+    private String _xPath;
+    public ProductStatusSettingsSection productStatusSettingsSection;
+    public BetSettingsSection betSettingSectionExchange;
+//    public Label lblProductSetting = Label.xpath(String.format("%s/div[@class='psection']", _xPath));
+//    public ProductStatusSettingsSection productStatusSettingsSection = ProductStatusSettingsSection.xpath(String.format("%s//div[contains(@class,'subsetting product-status')]", _xPath));
+//    public BetSettingsSection betSettingSectionExchange = BetSettingsSection.xpath(String.format("%s//div[@id='EXCHANGE-bet-settings']", _xPath));
+//    public BetSettingsSection betSettingSectionExchangeGame = BetSettingsSection.xpath(String.format("%s//div[@id='EXCH_GAMES-bet-settings']", _xPath));
+//    public TaxSettingsSection taxSettingSectionExchange = TaxSettingsSection.xpath(String.format("%s//div[@id='EXCHANGE-tax-settings']", _xPath));
+//    public TaxSettingsSection taxSettingSectionExchangeGame = TaxSettingsSection.xpath(String.format("%s//div[@id='EXCH_GAMES-bet-settings']", _xPath));
+//    public MenuTree mnProduct = MenuTree.xpath(String.format("%s//tabset[@id='productSetting']/ul", _xPath), "/li");
 
     public ProductSettingsSection(By locator, String xpathExpression) {
         super(locator);
         this._xPath = xpathExpression;
+        productStatusSettingsSection = ProductStatusSettingsSection.xpath(String.format("%s//div[contains(@class,'subsetting product-status')]", _xPath));
+        betSettingSectionExchange = BetSettingsSection.xpath(String.format("%s//div[@id='EXCHANGE-bet-settings']", _xPath));
     }
 
     public static ProductSettingsSection xpath(String xpathExpression) {

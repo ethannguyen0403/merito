@@ -31,13 +31,13 @@ public class CreateDownLineAgentPage extends HomePage {
     public agentsite.pages.agentmanagement.createdownlineagent.CreditBalanceSection creditBalanceSection = agentsite.pages.agentmanagement.createdownlineagent.CreditBalanceSection.xpath("//div[@id='credit-balance-setting']//app-credit-setting-exchange");
 
     // Cash Balance Section
-    public agentsite.pages.agentmanagement.createdownlineagent.CashBalanceSection cashBalanceSection = agentsite.pages.agentmanagement.createdownlineagent.CashBalanceSection.xpath("//div[@id='credit-balance-setting']//app-credit-setting-exchange");
+    public agentsite.pages.agentmanagement.createdownlineagent.CashBalanceSection cashBalanceSection = agentsite.pages.agentmanagement.createdownlineagent.CashBalanceSection.xpath("//div[@id='credit-balance-setting']");
 
     // Rate Setting Section
     public RateSettingSection rateSettingSection = RateSettingSection.xpath("//div[contains(@class,'ratesetting')]");
 
     //Product Settings
-    public ProductSettingsSection productSettingsSection = ProductSettingsSection.xpath("//app-edit-agent//div[@id='product-settings']");
+    public ProductSettingsSection productSettingsSection = ProductSettingsSection.xpath("//div[@id[starts-with(.,'product-settings')]]");
 
     public PositionTakingSection positionTakingExchangeSection = PositionTakingSection.xpath("//app-ptsetting//div[@id='EXCHANGE-position-taking']");
     public PositionTakingSection positionTakingExchangeGAMESection = PositionTakingSection.xpath("//app-ptsetting//div[@id='EXCH_GAMES-position-taking']");
