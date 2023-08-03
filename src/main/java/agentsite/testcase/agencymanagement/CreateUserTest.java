@@ -1,5 +1,10 @@
 package agentsite.testcase.agencymanagement;
 
+import agentsite.objects.agent.account.AccountInfo;
+import agentsite.pages.agentmanagement.CreateDownLineAgentPage;
+import agentsite.pages.agentmanagement.DownLineListingPage;
+import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import common.AGConstant;
 import agentsite.pages.agentmanagement.CreateUserPage;
 import baseTest.BaseCaseTest;
@@ -345,7 +350,7 @@ public class CreateUserTest extends BaseCaseTest {
     @TestRails(id = "690")
     @Test (groups = {"smoke_sat"})
     @Parameters({"memberAccount"})
-    public void Agent_AM_CreateUser_690(String memberAccount) {
+    public void Agent_AM_CreateUser_690(String memberAccount) throws Exception {
         log("@title: Validate cannot create downline with the exist Login ID");
         log("Step 1. Navigate Agency Management > Create User");
         String password = "1234qwer";
