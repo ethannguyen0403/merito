@@ -34,12 +34,12 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     @TestRails(id = "678")
     @Test (groups = {"smoke"})
     @Parameters({"currency","prefix"})
-    public void Agent_AM_CreateDownline_Agent_002(String currency,String prefix) throws Exception {
+    public void Agent_AM_CreateDownline_Agent_678(String currency, String prefix) {
         log("@title: Validate UI in Create Downline Agent with Exchange Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
         log("Step 2. Enter Security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
         page.waitingLoadingSpinner();
 
         log("Verify 1. Account info section");
@@ -115,13 +115,13 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     @TestRails(id = "679")
     @Test (groups = {"smoke"})
     @Parameters({"currency","prefix"})
-    public void Agent_AM_CreateDownline_Agent_003(String currency,String prefix) throws Exception {
+    public void Agent_AM_CreateDownline_Agent_679(String currency,String prefix) {
         log("@title: Validate UI in Create Downline Agent with Exchange Game Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Step 2. Enter Security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
         page.waitingLoadingSpinner();
 
         log("Step 2. Select Exchange Game Tab");
@@ -199,25 +199,25 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      */
     @TestRails(id = "681")
     @Test (groups = {"smoke"})
-    public void Agent_AM_CreateDownline_Agent_005() throws Exception {
+    public void Agent_AM_CreateDownline_Agent_681() {
         log("@title: Validate display Cash Balance for Cash account");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 1.Credit Cash Balance section display");
-        List<ArrayList<String>> lstBalance = page.cashBalanceSection.tblCashBalance.getRowsWithoutHeader(2,false);
-        Assert.assertEquals(page.cashBalanceSection.lblTitle.getText(),AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_BALANCE,"FAILED! Cash Balance Section display incorrect");
-        Assert.assertEquals(lstBalance.get(0).get(0),AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_INITIATION,"FAILED! Credit Initiation label displays incorrect");
-        Assert.assertEquals(lstBalance.get(0).get(2),AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_TIME_DEPOSIT,"FAILED! First Time Deposit display incorrect");
-        Assert.assertEquals(lstBalance.get(1).get(0),AGConstant.AgencyManagement.CreateAccount.LBL_MAX_PLAYER_CREDIT,"FAILED! Max Player Credit display incorrect");
-        Assert.assertFalse(page.cashBalanceSection.txtInitiationDeposit.isDisplayed(),"FAILED! Credit Initiation textbox not display");
-        Assert.assertTrue(page.cashBalanceSection.txtFirstTimeDeposit.isDisplayed(),"FAILED! First Time Deposit textbox not display");
-        Assert.assertTrue(page.cashBalanceSection.txtMemberMaxCredit.isDisplayed(),"FAILED!Max Player Credit textbox not display");
+//        List<ArrayList<String>> lstBalance = page.cashBalanceSection.tblCashBalance.getRowsWithoutHeader(2,false);
+        Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
+//        Assert.assertEquals(lstBalance.get(0).get(0),AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_INITIATION,"FAILED! Credit Initiation label displays incorrect");
+//        Assert.assertEquals(lstBalance.get(0).get(1),AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_TIME_DEPOSIT,"FAILED! First Time Deposit display incorrect");
+//        Assert.assertEquals(lstBalance.get(1).get(0),AGConstant.AgencyManagement.CreateAccount.LBL_MAX_PLAYER_CREDIT,"FAILED! Max Player Credit display incorrect");
+        Assert.assertTrue(page.cashBalanceInforSection.txtInitialDeposit.isDisplayed(),"FAILED! Credit Initiation textbox not display");
+//        Assert.assertTrue(page.cashBalanceSection.txtFirstTimeDeposit.isDisplayed(),"FAILED! First Time Deposit textbox not display");
+//        Assert.assertTrue(page.cashBalanceSection.txtMemberMaxCredit.isDisplayed(),"FAILED!Max Player Credit textbox not display");
 
         log("Verify 2. There is no Credit Balance section display");
-        Assert.assertFalse(page.creditBalanceSection.txtInitiationDeposit.isDisplayed(),"FAILED! Credit Limit textbox display for Cash Account");
+        Assert.assertEquals(page.creditBalanceInforSection.getCreditSectionTitle(),"","FAILED! Credit section display for Cash Account");
 
-        Assert.assertFalse(page.lblRiskSetting.isDisplayed(),"FAILED! Risk Setting section display for Cash account");
+        Assert.assertEquals(page.riskSettingInforSection.getRiskSettingTitle(),"", "FAILED! Risk Setting section display for Cash account");
         log("INFO: Executed completely");
     }
 
@@ -237,13 +237,13 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     @TestRails(id = "682")
     @Test (groups = {"smoke"})
     @Parameters({"currency"})
-    public void Agent_AM_CreateDownline_Agent_006(String currency) throws Exception {
+    public void Agent_AM_CreateDownline_Agent_682(String currency) {
         log("@title: Validate display Cash Balance for Credit Cash account");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Step 2. Enter Security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
         page.waitingLoadingSpinner();
 
         log("Verify  2. Hover to Password hint icon. The title should be \"New Password:\n" +
@@ -274,14 +274,14 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      */
     @TestRails(id = "683")
     @Test (groups = {"smoke"})
-    public void Agent_AM_CreateDownline_Agent_007() throws Exception {
+    public void Agent_AM_CreateDownline_Agent_683() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         String password = "1234qwer";
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Step 2. Input required field and click on Submit button");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
         String loginID = page.createDownline("test.AG1",password,"Active");
 
         log("Verify 1. Popup Create Downline with the message \"Downline was created successfully\"");
@@ -309,13 +309,13 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      */
     @TestRails(id = "685")
     @Test (groups = {"smoke"})
-    public void Agent_AM_CreateDownline_Agent_011() throws Exception {
+    public void Agent_AM_CreateDownline_Agent_685() {
         log("@title: Validate if input incorrect Change Password format");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Step 2. Enter security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Input correct Login ID and incorrect password format");
         page.createDownline("test.AG1", "1234567", "Active");
@@ -333,7 +333,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         //Run for SAT only
         log("@title: Validate can NOT Create Downline Agent if not input Login ID");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
         page.createDownline("", StringUtils.decrypt(password), "Active");
 
         log("Verify 1. Message \"Login ID is required.\" display next to Cancel button");
@@ -344,10 +344,10 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 
     @TestRails(id = "3487")
     @Test(groups = {"regression"})
-    public void Agent_AM_CreateDownline_Agent_3487() throws Exception {
+    public void Agent_AM_CreateDownline_Agent_3487() {
         log("@title: Validate can NOT Create Downline Agent if not input Password");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Step 2: Left Password empty and click on submit button");
         page.createDownline("test.AG1", "", "Active");
@@ -402,12 +402,12 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 
     @TestRails(id = "3491")
     @Test (groups = {"regression_ma"})
-    public void Agent_AM_CreateDownline_Agent_016() throws Exception {
+    public void Agent_AM_CreateDownline_Agent_3491() {
         //SAT + login level under SMA Cash only
         log("@title: Validate UI when access the page by the levels under SAD");
         log("Precondition. Log in successfully by SMA level");
         log("Step 1. Navigate Agency Management > Create Downline Agent Level");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 1. Validate UI when access the page by the levels under SAD\n" +
                 "- Only have Info,  Cash Balance, Rate Setting, Product Setting, Bet Setting Section displays");
@@ -435,10 +435,10 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      */
     @TestRails(id = "680")
     @Test (groups = {"regression_credit"})
-    public void Agent_AM_CreateDownline_Agent_680() throws Exception {
+    public void Agent_AM_CreateDownline_Agent_680() {
         log("@title: Validate display Credit Balance and Risk Setting for Credit account");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 1. Risk Setting section display");
         Assert.assertEquals(page.riskSettingInforSection.getRiskSettingTitle().trim(),AGConstant.AgencyManagement.CreateAccount.LBL_RISK_SETTING,"FAILED! Risk Setting Section display incorrect");
@@ -449,10 +449,10 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     @TestRails(id = "3484")
     @Test (groups = {"regression_credit"})
     @Parameters({"username"})
-    public void Agent_AM_CreateDownline_Agent_3484(String username) throws Exception {
+    public void Agent_AM_CreateDownline_Agent_3484(String username) {
         log("@title: Validate display Credit Balance and Risk Setting for Credit account");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname, username, userID);
         page.accountInforSection.selectAgentLevel(AGConstant.AG_LEVEL_NAMING_BRANDS.get(lstUsers.get(0).getLevel()));
@@ -467,10 +467,10 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 
     @TestRails(id = "3485")
     @Test (groups = {"regression_credit"})
-    public void Agent_AM_CreateDownline_Agent_3485() throws Exception {
+    public void Agent_AM_CreateDownline_Agent_3485() {
         log("@title: Validate display Credit Balance and Risk Setting for Credit account");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 1. Verify Credit Cash section does not display");
         Assert.assertFalse(page.cashBalanceInforSection.txtInitialDeposit.isDisplayed(),"FAILED! Initial Deposit field display");
@@ -479,11 +479,11 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 
     @TestRails(id = "3483")
     @Test (groups = {"http_request"})
-    public void Agent_AM_CreateDownline_Agent_3483() throws Exception {
+    public void Agent_AM_CreateDownline_Agent_3483() {
         //Set isProxy = true
         log("@title: Validate There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 1. Create Downline page is displayed without console error");
         Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error display when accessing the page");

@@ -49,8 +49,8 @@ public class CreditBalanceSection extends BaseElement {
             txtMemberMaxCredit.sendKeys(maxPlayerCredit);
     }
 
-    public double getCreditLimit(String currency) {
-        String creditLimit = lblCreditLimit.getText().split(currency)[1].trim();
-        return Double.valueOf(creditLimit.replaceAll(",", "").toString());
-    }
+//    public double getCreditLimit(String currency) {
+//        String creditLimit = lblCreditLimit.getText().split(currency)[1].trim();
+//        return Double.valueOf(creditLimit.replaceAll(",", "").toString());
+//    }
 }
