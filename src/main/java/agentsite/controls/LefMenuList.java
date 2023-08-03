@@ -124,6 +124,10 @@ public class LefMenuList extends BaseElement {
             if (lblSubMenu.getText().trim().equalsIgnoreCase(subMenu)) {
                 return lblSubMenu;
             }
+            //handle to expand Win Loss report in NewUI
+            if (lblSubMenu.getText().trim().equals("Win Loss")) {
+                lblSubMenu.click();
+            }
 
             if (lblSubMenu.getText().trim().isEmpty()) {
                 // Click + to expand to view all submenu

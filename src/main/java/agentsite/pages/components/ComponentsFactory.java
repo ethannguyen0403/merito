@@ -1,5 +1,8 @@
 package agentsite.pages.components;
 
+import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
+import agentsite.pages.agentmanagement.betsettinglisting.NewUIBetSettingListing;
+import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.NewUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.OldUIAccountInforSection;
@@ -154,6 +157,15 @@ public class ComponentsFactory {
                 return new OldUIDepositWithdraw();
             default:
                 return new NewUIDepositWithdraw();
+        }
+    }
+
+    public static BetSettingListing betSettingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIBetSettingListing();
+            default:
+                return new NewUIBetSettingListing();
         }
     }
 }
