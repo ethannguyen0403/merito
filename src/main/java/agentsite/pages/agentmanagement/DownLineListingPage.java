@@ -1,7 +1,6 @@
 package agentsite.pages.agentmanagement;
 
 import agentsite.controls.Table;
-import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.createdownlineagent.CashBalanceSection;
 import agentsite.pages.agentmanagement.downlinelisting.ChangePasswordPopup;
 import agentsite.pages.agentmanagement.downlinelisting.EditDownlinePopup;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import static baseTest.BaseCaseTest.environment;
 
-public class DownLineListingPage extends HomePage {
+public class DownLineListingPage extends CreateDownLineAgentPage {
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     public EditDownlinePopup editDownlinePopup = EditDownlinePopup.xpath("//app-agency-edit");
     public SuccessPopup successPopup = SuccessPopup.xpath("//app-alert");

@@ -292,8 +292,8 @@ public class AGConstant {
             public final static String CREATE_USER_SUCCEESS_MESSAGE = "Downline was created successfully";
             public final static String MEMBER_CREATE_SUCCEESS_MESSAGE = "Member was created successfully";
             public final static String LBL_LOGINID_INVALID = "Login ID is invalid.";
-            public final static String LBL_LOGINID_EXIST = "User code exists.";
-            public final static String LBL_PASSWORD_INVALID = "Password is invalid.";
+            public final static String LBL_LOGINID_EXIST = "Login ID already exist.";
+            public final static String LBL_PASSWORD_INVALID = "Password is invalid";
             public final static String LBL_PASSWORD_REQUIRED = "Password is required.";
             public final static String LBL_LOGINID_REQUIRED = "Login ID is required.";
             public final static String LBL_MIN_INVALID = "Min Bet is invalid.";
