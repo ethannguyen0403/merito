@@ -10,14 +10,16 @@ import membersite.objects.AccountBalance;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
 public class TransferTest extends BaseCaseTest {
 
+    @TestRails(id = "3617")
     @Test(groups = {"interaction"})
-    @Parameters({"brandname", "memberAccount", "password"})
-    public void Agent_AM_Transfer_006(String brandname, String memberAccount, String password) throws Exception {
+    @Parameters({"memberAccount", "password"})
+    public void Agent_AM_Transfer_3617(String memberAccount, String password) throws Exception {
         log("@title: Verify available balance of PL in member site is updated when agent transfer successfully");
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
@@ -45,9 +47,10 @@ public class TransferTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3618")
     @Test(groups = {"interaction"})
-    @Parameters({"brandname", "memberAccount"})
-    public void Agent_AM_Transfer_007(String brandname, String memberAccount) {
+    @Parameters({"memberAccount"})
+    public void Agent_AM_Transfer_3618( String memberAccount) {
         log("@title: Verify Balance of login account is updated after transfer");
         log("Step 1. Navigate Agency Management > Transfer");
         AccountInfo accountLoginInfo = ProfileUtils.getProfile();

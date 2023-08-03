@@ -19,7 +19,7 @@ public class LoginTest extends BaseCaseTest {
      */
     @TestRails(id = "870")
     @Test(groups = {"http_request"})
-    public void Agent_Login_001() {
+    public void Agent_Login_870() {
         log("@title: There is no http responded error returned");
         log("Step 1: Log in with a valid username and password");
         log("Verify: There is no http requests error");
@@ -35,7 +35,7 @@ public class LoginTest extends BaseCaseTest {
     @TestRails(id = "671")
     @Test(groups = {"smokeNewUI"})
     @Parameters({"username"})
-    public void Agent_Login_002(String username) {
+    public void Agent_Login_671(String username) {
         log("@title: Validate that user can sign in successfully");
         log("Step 1: Log in with a valid information(username, password, captcha, security code)");
         log("Verify 1: Logout button is displayed");

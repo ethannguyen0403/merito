@@ -23,21 +23,27 @@ import static common.AGConstant.AgencyManagement.DownlineListing.LST_SAT_DOWLINE
 import static common.AGConstant.HomePage.DOWNLINE_LISTING;
 
 public class DownlineListingTest extends BaseCaseTest {
-
+    @TestRails(id = "3499")
     @Test(groups = {"http_request"})
-    public void Agent_AM_Downline_Listing_001() {
-        log("@title: Validate can search downline with Username ");
+    public void Agent_AM_Downline_Listing_Edit_User_3499() throws Exception {
+        log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
-        agentHomePage.navigateDownlineListingPage();
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(_brandname, userID, "PL");
+        String loginID = listAccount.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+
+        log("Step 2. Click on Edit icon of any agent");
+        page.clickEditIcon(loginID);
 
         log("Verify There is no console error display");
         Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console Error display");
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3500")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_002() {
+    public void Agent_AM_Downline_Listing_3500() {
         log("@title: Validate UI in Downline Listing ");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -62,9 +68,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3501")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_003() {
+    public void Agent_AM_Downline_Listing_3501() {
         log("@title: Validate can search direct downline");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
@@ -84,9 +90,9 @@ public class DownlineListingTest extends BaseCaseTest {
         Assert.assertEquals(lstRecord.get(0), directDownline.getUserCode(), String.format("Failed! Expected usser code %s display but found %s", directDownline.getUserCode(), lstRecord.get(0)));
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3502")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_004() {
+    public void Agent_AM_Downline_Listing_3502() {
         log("@title: Validate can search indirect downline ");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
@@ -106,9 +112,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3503")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_005() {
+    public void Agent_AM_Downline_Listing_3503() {
         log("@title: Validate can only search with correctly account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -121,9 +127,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3504")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_007() {
+    public void Agent_AM_Downline_Listing_3504() {
         log("@title:Validate can search downline by Active Status");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -142,9 +148,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3505")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_008() {
+    public void Agent_AM_Downline_Listing_3505() {
         log("@title: Validate can search downline by Inactive  Status");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -163,9 +169,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3506")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_010() {
+    public void Agent_AM_Downline_Listing_3506() {
         log("@title: Validate can search downline by Suspended  Status");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -183,9 +189,9 @@ public class DownlineListingTest extends BaseCaseTest {
         }
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3507")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_011() {
+    public void Agent_AM_Downline_Listing_3507() {
         log("@title: Validate can search downline by Blocked  Status");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -203,9 +209,9 @@ public class DownlineListingTest extends BaseCaseTest {
         }
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3508")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_012() {
+    public void Agent_AM_Downline_Listing_3508() {
         log("@title: Validate can search downline by Closed  Status");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -224,9 +230,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3509")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_013() {
+    public void Agent_AM_Downline_Listing_3509() {
         log("@title: Validate can inactive member account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
@@ -254,9 +260,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3510")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_014() {
+    public void Agent_AM_Downline_Listing_3510() {
         log("@title:Validate can suspend  account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
@@ -283,9 +289,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3513")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_017() {
+    public void Agent_AM_Downline_Listing_3513() {
         log("@title: Validate can close an account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
@@ -309,9 +315,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3511")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_015() {
+    public void Agent_AM_Downline_Listing_3511() {
         log("@title: Validate can active account from inactive status");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
@@ -334,9 +340,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3512")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_016() {
+    public void Agent_AM_Downline_Listing_3512() {
         log("@title: Validate can active account from suspend status");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
@@ -359,9 +365,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3514")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_018() {
+    public void Agent_AM_Downline_Listing_3514() {
         log("@title: Validate can not active close an account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -380,9 +386,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3515")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_019() {
+    public void Agent_AM_Downline_Listing_3515() {
         log("@title: Validate can inactive an agent");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -402,9 +408,9 @@ public class DownlineListingTest extends BaseCaseTest {
         Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3516")
     @Test(groups = {"regression_newui"})
-    public void Agent_AM_Downline_Listing_021() {
+    public void Agent_AM_Downline_Listing_3516() {
         log("@title:Validate can open and update Delay Bet");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -418,9 +424,9 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3517")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_022() {
+    public void Agent_AM_Downline_Listing_3517() {
         log("@title: Validate drill-down to member level");
         log("Step 1. Navigate Agency Management > Downline Listing");
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
@@ -454,7 +460,7 @@ public class DownlineListingTest extends BaseCaseTest {
      */
     @TestRails(id = "694")
     @Test(groups = {"smoke"})
-    public void Agent_AM_Downline_Listing_006() {
+    public void Agent_AM_Downline_Listing_694() {
         log("@title: Validate can search downline with Username ");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -487,7 +493,7 @@ public class DownlineListingTest extends BaseCaseTest {
     @TestRails(id = "695")
     @Test(groups = {"smoke"})
     @Parameters({"level", "password"})
-    public void Agent_AM_Downline_Listing_020(String level, String password) throws Exception {
+    public void Agent_AM_Downline_Listing_695(String level, String password) throws Exception {
         log("@title: Validate can change password from the table");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();

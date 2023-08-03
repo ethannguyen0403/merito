@@ -34,7 +34,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     @TestRails(id = "678")
     @Test (groups = {"smoke"})
     @Parameters({"currency","prefix"})
-    public void Agent_AM_CreateDownline_Agent_002(String currency,String prefix) throws Exception {
+    public void Agent_AM_CreateDownline_Agent_678(String currency,String prefix) throws Exception {
         log("@title: Validate UI in Create Downline Agent with Exchange Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
@@ -115,7 +115,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     @TestRails(id = "679")
     @Test (groups = {"smoke"})
     @Parameters({"currency","prefix"})
-    public void Agent_AM_CreateDownline_Agent_003(String currency,String prefix) throws Exception {
+    public void Agent_AM_CreateDownline_Agent_679(String currency,String prefix) throws Exception {
         log("@title: Validate UI in Create Downline Agent with Exchange Game Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
@@ -199,7 +199,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      */
     @TestRails(id = "681")
     @Test (groups = {"smoke"})
-    public void Agent_AM_CreateDownline_Agent_005() throws Exception {
+    public void Agent_AM_CreateDownline_Agent_681() throws Exception {
         log("@title: Validate display Cash Balance for Cash account");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
@@ -237,7 +237,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     @TestRails(id = "682")
     @Test (groups = {"smoke"})
     @Parameters({"currency"})
-    public void Agent_AM_CreateDownline_Agent_006(String currency) throws Exception {
+    public void Agent_AM_CreateDownline_Agent_682(String currency) throws Exception {
         log("@title: Validate display Cash Balance for Credit Cash account");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
@@ -274,7 +274,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      */
     @TestRails(id = "683")
     @Test (groups = {"smoke"})
-    public void Agent_AM_CreateDownline_Agent_007() throws Exception {
+    public void Agent_AM_CreateDownline_Agent_683() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         String password = "1234qwer";
@@ -309,7 +309,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      */
     @TestRails(id = "685")
     @Test (groups = {"smoke"})
-    public void Agent_AM_CreateDownline_Agent_011() throws Exception {
+    public void Agent_AM_CreateDownline_Agent_685() throws Exception {
         log("@title: Validate if input incorrect Change Password format");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));

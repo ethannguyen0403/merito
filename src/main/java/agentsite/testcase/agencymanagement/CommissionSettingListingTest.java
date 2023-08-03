@@ -27,7 +27,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
     @TestRails(id = "740")
     @Test(groups = {"smoke"})
     @Parameters("username")
-    public void Agent_AM_Commission_Setting_Listing_0002(String username) {
+    public void Agent_AM_Commission_Setting_Listing_740(String username) {
         log("@title: Verify Commission Setting Listing UI display correct");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");
         String userCode = ProfileUtils.getProfile().getUserCodeAndLoginID();
@@ -85,7 +85,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
     @TestRails(id = "741")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
-    public void Agent_AM_Commission_Setting_Listing_0004(String brandname) {
+    public void Agent_AM_Commission_Setting_Listing_741(String brandname) {
         log("@title: Verify can search commission setting Listing by Login ID");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -116,7 +116,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
     @TestRails(id = "742")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
-    public void Agent_AM_Commission_Setting_Listing_0005(String brandname) {
+    public void Agent_AM_Commission_Setting_Listing_742(String brandname) {
         log("@title: Verify can update commission for a member account");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -126,22 +126,22 @@ public class CommissionSettingListingTest extends BaseCaseTest {
 
         log("Step 2. Search player account and select the active product: e.g. Live Dealer European");
         page.search(loginID, "", "", AGConstant.LIVE_DEALER_ASIAN);
-//        List<ArrayList<String>> lstExpected = page.tblMemberCommission.getRowsWithoutHeader(1, false);
-//        lstExpected.get(0).set(9, String.format("%.2f", lstGameCommission.get(0)));
-//        lstExpected.get(0).set(11, String.format("%.2f", lstGameCommission.get(1)));
-//        lstExpected.get(0).set(13, String.format("%.2f", lstGameCommission.get(2)));
-//        lstExpected.get(0).set(15, String.format("%.2f", lstGameCommission.get(3)));
-//        lstExpected.get(0).set(17, String.format("%.2f", lstGameCommission.get(4)));
-//        lstExpected.get(0).set(19, String.format("%.2f", lstGameCommission.get(5)));
-//        lstExpected.get(0).set(21, String.format("%.2f", lstGameCommission.get(6)));
-//        lstExpected.get(0).set(23, String.format("%.2f", lstGameCommission.get(7)));
-//
-//        log("Step 3. Click on the check box to select the account and update commission for all games");
-//        page.updateCommissiongSetting(loginID, false, AGConstant.LIVE_DEALER_ASIAN, lstGameCommission);
+        List<ArrayList<String>> lstExpected = page.tblMemberCommission.getRowsWithoutHeader(1, false);
+        lstExpected.get(0).set(9, String.format("%.2f", lstGameCommission.get(0)));
+        lstExpected.get(0).set(11, String.format("%.2f", lstGameCommission.get(1)));
+        lstExpected.get(0).set(13, String.format("%.2f", lstGameCommission.get(2)));
+        lstExpected.get(0).set(15, String.format("%.2f", lstGameCommission.get(3)));
+        lstExpected.get(0).set(17, String.format("%.2f", lstGameCommission.get(4)));
+        lstExpected.get(0).set(19, String.format("%.2f", lstGameCommission.get(5)));
+        lstExpected.get(0).set(21, String.format("%.2f", lstGameCommission.get(6)));
+        lstExpected.get(0).set(23, String.format("%.2f", lstGameCommission.get(7)));
 
-//        log("Verify 1. Verify commissions are update for all games");
-//        log("Verify 2. Green check display at Update Status column if successfully update commission");
-//        Assert.assertTrue(page.veifyComissionUpdate(lstExpected, false, true), "FAILED! ");
+        log("Step 3. Click on the check box to select the account and update commission for all games");
+        page.updateCommissiongSetting(loginID, false, AGConstant.LIVE_DEALER_ASIAN, lstGameCommission.get(0));
+
+        log("Verify 1. Verify commissions are update for all games");
+        log("Verify 2. Green check display at Update Status column if successfully update commission");
+        Assert.assertTrue(page.veifyComissionUpdate(lstExpected, false, true), "FAILED! ");
 
         log("INFO: Executed completely");
     }

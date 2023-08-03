@@ -16,7 +16,7 @@ public class LogoutTest extends BaseCaseTest {
      */
     @TestRails(id = "672")
     @Test(groups = {"smoke"})
-    public void Agent_Logout_001() {
+    public void Agent_Logout_672() {
         log("@title: Validate that user can logout successfully");
         log("Step 1: Log in with a valid username and password");
         log("Step 2: Click Logout button");

@@ -1,5 +1,10 @@
 package agentsite.testcase.agencymanagement;
 
+import agentsite.objects.agent.account.AccountInfo;
+import agentsite.pages.agentmanagement.CreateDownLineAgentPage;
+import agentsite.pages.agentmanagement.DownLineListingPage;
+import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import common.AGConstant;
 import agentsite.pages.agentmanagement.CreateUserPage;
 import baseTest.BaseCaseTest;
@@ -290,7 +295,7 @@ public class CreateUserTest extends BaseCaseTest {
      */
     @TestRails(id = "688")
     @Test(groups = {"smoke"})
-    public void Agent_AM_CreateUser_007() throws Exception {
+    public void Agent_AM_CreateUser_688() throws Exception {
         log("@title: Validate if input incorrect Login ID format");
         log("Step 1. Navigate Agency Management > Create User");
         CreateUserPage page =  agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
@@ -317,7 +322,7 @@ public class CreateUserTest extends BaseCaseTest {
      */
     @TestRails(id = "689")
     @Test (groups = {"smoke"})
-    public void Agent_AM_CreateUser_008() throws Exception {
+    public void Agent_AM_CreateUser_689() throws Exception {
         log("@title: Validate if input incorrect Change Password format");
         log("Step 1. Navigate Agency Management > Create User");
         String password = "p@ssword";
@@ -347,7 +352,7 @@ public class CreateUserTest extends BaseCaseTest {
     @TestRails(id = "690")
     @Test (groups = {"smoke"})
     @Parameters({"memberAccount"})
-    public void Agent_AM_CreateUser_009(String memberAccount) throws Exception {
+    public void Agent_AM_CreateUser_690(String memberAccount) throws Exception {
         log("@title: Validate cannot create downline with the exist Login ID");
         log("Step 1. Navigate Agency Management > Create User");
         String password = "1234qwer";
@@ -378,7 +383,7 @@ public class CreateUserTest extends BaseCaseTest {
     @TestRails(id = "691")
     @Test (groups = {"smoke"})
     @Parameters({"currency"})
-    public void Agent_AM_CreateUser_010(String currency) throws Exception {
+    public void Agent_AM_CreateUser_691(String currency) throws Exception {
         log("@title: Validate cannot  create downline if input invalid Min Bet Setting");
         log("Step 1. Navigate Agency Management > Create User");
        CreateUserPage page =  agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
@@ -421,7 +426,7 @@ public class CreateUserTest extends BaseCaseTest {
     @TestRails(id = "692")
     @Test (groups = {"smoke"})
     @Parameters({"currency"})
-    public void Agent_AM_CreateUser_010_1(String currency) throws Exception {
+    public void Agent_AM_CreateUser_692(String currency) throws Exception {
         log("@title: Validate cannot  create downline if input invalid= -Max Bet Setting");
         log("Step 1. Navigate Agency Management > Create User");
        CreateUserPage page =  agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
@@ -468,7 +473,7 @@ public class CreateUserTest extends BaseCaseTest {
     @TestRails(id = "693")
     @Test (groups = {"smoke"})
     @Parameters("currency")
-    public void Agent_AM_CreateUser_011(String currency) throws Exception {
+    public void Agent_AM_CreateUser_693(String currency) throws Exception {
         log("@title: Validate cannot  create downline if  deposit/ update credit limit over the valid");
         log("Step 1. Navigate Agency Management > Create User");
         String password = "1234qwer";
@@ -502,7 +507,7 @@ public class CreateUserTest extends BaseCaseTest {
     @TestRails(id = "687")
     @Test (groups = {"smoke"})
     @Parameters("password")
-    public void Agent_AM_CreateUser_004(String password) throws Exception {
+    public void Agent_AM_CreateUser_687(String password) throws Exception {
         log("@title: Validate can Create User successfully");
         log("Step 1. Navigate Agency Management > Create User");
         String passwordDecrypt = StringUtils.decrypt(password);
@@ -552,8 +557,9 @@ public class CreateUserTest extends BaseCaseTest {
      * 2. The page display when input correct security code
      *
      */
+    @TestRails(id = "693")
     @Test (groups = {"smoke"})
-    public void Agent_AM_CreateUser_013() throws Exception {
+    public void Agent_AM_CreateUser_693() throws Exception {
         log("@title: Validate cannot  create downline if  deposit/ update credit limit over the valid");
         log("Step 1. Navigate Agency Management > Create User");
         CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
@@ -566,6 +572,68 @@ public class CreateUserTest extends BaseCaseTest {
 
         log("Verify 2. The page display when input correct security code");
         Assert.assertEquals(page.header.lblPageTitle.getText(), AGConstant.AgencyManagement.CreateUser.TITLE_PAGE,"FAILED!Page not displayed");
+
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "676")
+    @Test(groups = {"smoke"})
+    @Parameters({"level", "levelLogin"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_696(String level, String levelLogin) throws Exception {
+        log("@title: Validate there Cannot update if Max Player Credit exceed the limit");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, "ACTIVE", _brandname);
+        String loginID = listAccount.get(0).getUserCode();
+
+        log("Step 2. Click on Edit icon of any agent");
+        page.searchDownline(loginID, "", "Agent");
+        page.clickEditIcon(loginID);
+
+        log("Verify 1. Verify Security Code popup prompted");
+        Assert.assertTrue(page.securityPopup.isDisplayed(), "FAILED Security popup not display");
+
+        log("Step  Enter security code");
+        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+
+        log("Verify 2. Verify page display if input valid security code");
+        Assert.assertEquals(page.editDownlinePopup.getTitle(), String.format("Edit %s", levelLogin), "FAILED!Page not displayed");
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "679")
+    @Test(groups = {"smoke_credit"})
+    @Parameters({"password", "downlineLevel"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_679(String password, String downlineLevel) throws Exception {
+        log("@title: Validate Max Player Credit setting display correctly when create user");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname);
+        String loginID = listAccount.get(0).getUserCode();
+
+        log("Step 2. Click on Edit icon of any agent");
+        page.searchDownline(loginID, "", "");
+        page.clickEditIcon(loginID);
+        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+
+        log("Step 3. Input valid Max Player Credit and valid other information then click submit");
+        String maxPlayerCreditLitmit = "1";
+        page.editDownlinePopup.balanceSection.updateCashBalance(maxPlayerCreditLitmit);
+        page.editDownlinePopup.btnSubmit.click();
+        String message = page.getMessageUpdate(true);
+
+        log("Verify 1. Verify can update agent with valid max player credit");
+        Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_DOWNLINE_SUCCESS, "FAILED, Success updating downline message not display");
+        agentHomePage.logout();
+
+        log("Step 4. Login agent with the agent in step 2");
+        loginAgent(sosAgentURL, agentSecurityCodeURL, loginID, password, environment.getSecurityCode());
+
+        log("5. Select Agency Management > Create Downline agent");
+        CreateDownLineAgentPage createAgentPage = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+
+        log("Verify 2. Verify Max Player Credit display correctly as setting in First Time Deposit limit section");
+        Assert.assertEquals(Integer.toString(createAgentPage.creditBalanceSection.getMaxPlayerLitmitCredit()), maxPlayerCreditLitmit, "FAILED! Max player credit not match with the setting");
 
         log("INFO: Executed completely");
     }
