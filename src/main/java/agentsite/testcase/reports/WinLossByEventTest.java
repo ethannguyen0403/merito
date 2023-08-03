@@ -6,6 +6,7 @@ import com.paltech.utils.DateUtils;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,10 @@ public class WinLossByEventTest extends BaseCaseTest {
      * @steps: 1. Navigate Report> Win Loss By Event
      * @expect: 1. There is no http responded error returned
      */
+
+    @TestRails(id = "3752")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Win_Loss_By_Event_001() {
+    public void Agent_Report_Win_Loss_By_Event_3752() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report> Win Loss By Event");
         agentHomePage.navigateWinLossByEventPage();
@@ -34,8 +37,10 @@ public class WinLossByEventTest extends BaseCaseTest {
      * @steps: 1. Navigate Report >  Win Loss By Event
      * @expect: 1. Verify Win Loss By Event UI display correctly
      */
+
+    @TestRails(id = "808")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Win_Loss_By_Event_002() {
+    public void Agent_Report_Win_Loss_By_Event_808() {
         log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
         log("Step 1. Navigate Report >  Win Loss By Event");
         WinLossByEventPage page = agentHomePage.navigateWinLossByEventPage();
@@ -70,8 +75,10 @@ public class WinLossByEventTest extends BaseCaseTest {
      * 3. Expand the competition
      * @expect: 1. Verify Grand total row is sum by total of all competitions
      */
+
+    @TestRails(id = "809")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Win_Loss_By_Event_003() {
+    public void Agent_Report_Win_Loss_By_Event_809() {
         log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
         log("Step 1. Navigate Report >  Win Loss By Event");
         WinLossByEventPage page = agentHomePage.navigateWinLossByEventPage();
@@ -101,8 +108,9 @@ public class WinLossByEventTest extends BaseCaseTest {
      * 4. Click on Turn over number
      * @expect: 1. Verify Turnover match with summary Player stake in bets list
      */
+    @TestRails(id = "810")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Win_Loss_By_Event_004() {
+    public void Agent_Report_Win_Loss_By_Event_810() {
         log("@title: Validate Turnover match with summary Player stake in bets list");
         log("Step 1. Navigate Report >  Win Loss By Event");
         WinLossByEventPage page = agentHomePage.navigateWinLossByEventPage();

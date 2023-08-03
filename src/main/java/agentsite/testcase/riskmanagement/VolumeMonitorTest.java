@@ -19,11 +19,11 @@ import static common.AGConstant.RiskManagement.VolumeMonitor.*;
 
 public class VolumeMonitorTest extends BaseCaseTest {
     /***
-     * This tes cases only available for F24 and Betclub9
+     * This test cases only available for F24 and Betclub9
      */
     @TestRails(id = "830")
     @Test(groups = {"smoke", "smokePO"})
-    public void Agent_RM_VolumeMonitorTest_TC001() {
+    public void Agent_RM_VolumeMonitorTest_830() {
         log("@title: Verify UI display correctly");
         log("Step 1.Navigate Risk Management > Volumn Monitor");
         VolumeMonitorPage page = agentHomePage.navigateVolumeMonitorPage();
@@ -48,7 +48,7 @@ public class VolumeMonitorTest extends BaseCaseTest {
 
     @TestRails(id = "831")
     @Test(groups = {"smoke", "smokePO"})
-    public void Agent_RM_VolumeMonitorTest_TC002() {
+    public void Agent_RM_VolumeMonitorTest_831() {
         log("@title: Data is display when filter");
         log("Step 1.Navigate Risk Management > Volume Monitor");
         VolumeMonitorPage page = agentHomePage.navigateVolumeMonitorPage();
@@ -71,7 +71,7 @@ public class VolumeMonitorTest extends BaseCaseTest {
 
     @TestRails(id = "832")
     @Test(groups = {"smoke", "smokePO"})
-    public void Agent_RM_VolumeMonitorTest_TC003() {
+    public void Agent_RM_VolumeMonitorTest_832() {
         log("@title: Can drilldown to member level and bet history icon display");
         log("Step 1.Navigate Risk Management > Volume Monitor");
         VolumeMonitorPage page = agentHomePage.navigateVolumeMonitorPage();
@@ -93,7 +93,7 @@ public class VolumeMonitorTest extends BaseCaseTest {
 
     @TestRails(id = "833")
     @Test(groups = {"smoke5", "smokePO"})
-    public void Agent_RM_VolumeMonitorTest_TC004() {
+    public void Agent_RM_VolumeMonitorTest_833() {
         log("@title: Can open Bet History");
         log("Step 1.Navigate Risk Management > Volume Monitor");
         VolumeMonitorPage page = agentHomePage.navigateVolumeMonitorPage();

@@ -34,11 +34,11 @@ public class MeritoConstant {
     };
     public static final Map<String, String> LOGIN_NEW_ACC_AGENT_URL_SUFFIX = new HashMap<String, String>() {
         {
-            put("fairexchange", "/agent/#/1/update");
-            put("satsport", "agent/#/2/update");
-            put("funsport", "/agent/#/1/update");
-            put("laser365", "/agent/#/1/update");
-            put("fairenter", "/agent/#/1/update");
+            put("fairexchange", "agent/#/1/update");
+            put("satsport", "/agent/#/2/update");
+            put("funsport", "agent/#/1/update");
+            put("laser365", "agent/#/1/update");
+            put("fairenter", "agent/#/1/update");
             put("betclub", "/agent/#/1/update");
         }
     };

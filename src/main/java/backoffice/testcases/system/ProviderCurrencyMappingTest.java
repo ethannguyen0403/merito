@@ -21,7 +21,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseTest {
      */
     @TestRails(id = "651")
     @Test(groups = {"smoke"})
-    public void BO_System_Provider_Currency_Mapping_651() {
+    public void BO_System_Provider_Currency_Mapping_651() throws InterruptedException {
         log("@title: Validate data in Ezugi Live Dealer European display correctly");
         log("Step  1. Access Tool > Provider Currency Mapping");
         List<ArrayList<String>> lstProviderCurrencies = ProviderCurrencyMappingUltils.getProviderCurrencyMapping("EZUGI");
@@ -29,6 +29,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseTest {
         log("Step 2. Check provider currency mapping of Ezugi");
         page.ddnProduct.selectByVisibleContainsText("Ezugi");
         page.btnSubmit.click();
+        Thread.sleep(1000);
         log("Verify 1. Verify Ezugi provider currency is corrected");
         Assert.assertEquals(page.tblEzugi.getRowsWithoutHeader(50, true), lstProviderCurrencies, "FAILED! List Currency of Ezugi is incorrect");
         log("INFO: Executed completely");
@@ -63,7 +64,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseTest {
      */
     @TestRails(id = "653")
     @Test(groups = {"smoke"})
-    public void BO_System_Provider_Currency_Mapping_653() {
+    public void BO_System_Provider_Currency_Mapping_653() throws InterruptedException {
         log("@title: Validate data in Superspade display correctly");
         log("Step  1. Access Tool > Provider Currency Mapping");
         List<ArrayList<String>> lstProviderCurrencies = ProviderCurrencyMappingUltils.getProviderCurrencyMapping("SUPER_SPADE");
@@ -72,6 +73,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseTest {
         log("Step 2. Check provider currency mapping of Superspade");
         page.ddnProduct.selectByVisibleContainsText("Superspade");
         page.btnSubmit.click();
+        Thread.sleep(1000);
         log("Verify 1. Verify Superspade provider currency is corrected");
         Assert.assertEquals(page.tblSuperspade.getRowsWithoutHeader(50, true), lstProviderCurrencies, "FAILED! List Currency of Superspade is incorret");
         log("INFO: Executed completely");
@@ -86,7 +88,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseTest {
      */
     @TestRails(id = "654")
     @Test(groups = {"smoke"})
-    public void BO_System_Provider_Currency_Mapping_654() {
+    public void BO_System_Provider_Currency_Mapping_654() throws InterruptedException {
         log("@title: Validate data in Digient display correctly");
         log("Step  1. Access Tool > Provider Currency Mapping");
         List<ArrayList<String>> lstProviderCurrencies = ProviderCurrencyMappingUltils.getProviderCurrencyMapping("DIGIENT");
@@ -95,6 +97,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseTest {
         log("Step 2. Check provider currency mapping of Digient");
         page.ddnProduct.selectByVisibleContainsText("Digient");
         page.btnSubmit.click();
+        Thread.sleep(1000);
         log("Verify 1. Verify Digient provider currency is corrected");
         Assert.assertEquals(page.tblDigient.getRowsWithoutHeader(50, true), lstProviderCurrencies, "FAILED! List Currency of Digient is incorret");
         log("INFO: Executed completely");
@@ -109,7 +112,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseTest {
      */
     @TestRails(id = "655")
     @Test(groups = {"smoke"})
-    public void BO_System_Provider_Currency_Mapping_655() {
+    public void BO_System_Provider_Currency_Mapping_655() throws InterruptedException {
         log("@title: Validate data in Supernowa display correctly");
         log("Step  1. Access Tool > Provider Currency Mapping");
         List<ArrayList<String>> lstProviderCurrencies = ProviderCurrencyMappingUltils.getProviderCurrencyMapping("VERONICA");
@@ -118,6 +121,7 @@ public class ProviderCurrencyMappingTest extends BaseCaseTest {
         log("Step 2. Check provider currency mapping of Supernowa");
         page.ddnProduct.selectByVisibleContainsText("Supernowa");
         page.btnSubmit.click();
+        Thread.sleep(1000);
         log("Verify 1. Verify Supernowa provider currency is corrected");
         Assert.assertEquals(page.tblSupernowa.getRowsWithoutHeader(50, true), lstProviderCurrencies, "FAILED! List Currency of Supernowa is incorret");
         log("INFO: Executed completely");

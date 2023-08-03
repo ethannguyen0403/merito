@@ -136,7 +136,7 @@ public class HomePage extends LoginPage {
     }
 
     public SubUserListingPage navigateSubUserListingPage() {
-        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, POSITION_TAKING_LISTING);
+        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, SUB_USER_LISTING);
         return new SubUserListingPage(_type);
     }
 

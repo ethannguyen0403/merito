@@ -18,8 +18,9 @@ import static common.AGConstant.Report.WinLossSimple.TABLE_HEADER;
 
 public class WinLossSimpleTest extends BaseCaseTest {
 
+    @TestRails(id = "3736")
     @Test(groups = {"http_request"})
-    public void Agent_Report_WinLossSimple_001() {
+    public void Agent_Report_WinLossSimple_3736() {
         log("@title: There is no http responded error returned");
         log("Step 1: Navigate Report > Win Loss Simple");
         agentHomePage.navigateWinLossSimplePage();
@@ -30,9 +31,10 @@ public class WinLossSimpleTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3737")
     @Test(groups = {"regression"})
     @Parameters("memberAccount")
-    public void Agent_Report_WinLossSimple_002() {
+    public void Agent_Report_WinLossSimple_3737() {
         log("@title: Validate Win Loss Simple UI display correctly");
         log("Step 1: Navigate Report > Win Loss Simple");
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
@@ -59,7 +61,7 @@ public class WinLossSimpleTest extends BaseCaseTest {
     @TestRails(id = "791")
     @Test(groups = {"smoke"})
     @Parameters("memberAccount")
-    public void Agent_Report_WinLossSimple_003(String memberAccount) {
+    public void Agent_Report_WinLossSimple_791(String memberAccount) {
         log("@title: Valid can filter Win Loss Simple report");
         log("Step 1: Navigate Report > Win Loss Simple");
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
@@ -88,7 +90,7 @@ public class WinLossSimpleTest extends BaseCaseTest {
      */
     @TestRails(id = "792")
     @Test(groups = {"smoke"})
-    public void Agent_Report_WinLossSimple_004() {
+    public void Agent_Report_WinLossSimple_792() {
         log("@title: Validate that an error message is displayed when filtering without any product");
         log("Step 1: Navigate Report > Win Loss Simple");
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
@@ -105,7 +107,7 @@ public class WinLossSimpleTest extends BaseCaseTest {
 
     @TestRails(id = "793")
     @Test(groups = {"smoke"})
-    public void Agent_Report_WinLossSimple_005() {
+    public void Agent_Report_WinLossSimple_793() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Simple");
         List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
