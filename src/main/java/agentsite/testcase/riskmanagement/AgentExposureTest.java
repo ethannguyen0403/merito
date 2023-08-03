@@ -7,6 +7,7 @@ import agentsite.ultils.riskmanagement.AgentExposureLimitUtils;
 import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ public class AgentExposureTest extends BaseCaseTest {
     /***
      * This test cases only available for F24 and Betclub9
      */
-
+    @TestRails(id = "839")
     @Test(groups = {"smoke5", "smokePO"})
-    public void Agent_RM_AgentExposureTest_TC001() {
+    public void Agent_RM_AgentExposureTest_838() {
         log("@title: Verify UI display correctly");
         log("Step 1. Navigate Risk Management > Agent Exposure Limit");
         AgentExposureLimitPage page = agentHomePage.navigateAgentExposureLimitPage();
@@ -31,9 +32,9 @@ public class AgentExposureTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "839")
     @Test(groups = {"smokePO"})
-    public void Agent_RM_AgentExposureTest_TC002() {
+    public void Agent_RM_AgentExposureTest_839() {
         log("@title:Verify can drill donw to agent level");
         log("Step 1.Navigate Risk Management > Agent Exposure Limit");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -48,9 +49,9 @@ public class AgentExposureTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "840")
     @Test(groups = {"smoke", "smokePO"})
-    public void Agent_RM_AgentExposureTest_TC003() {
+    public void Agent_RM_AgentExposureTest_840() {
         log("@title: Verify can open bet list in PT Mode");
         log("Step 1.Navigate Risk Management > Agent Exposure Limit");
         String userID = ProfileUtils.getProfile().getUserID();

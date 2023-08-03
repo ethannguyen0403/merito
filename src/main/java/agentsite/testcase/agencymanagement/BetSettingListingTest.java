@@ -37,7 +37,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     @TestRails(id = "743")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
-    public void Agent_AM_Bet_Setting_Listing_0003(String brandname) {
+    public void Agent_AM_Bet_Setting_Listing_743(String brandname) {
         log("@title: Can update Min Bet, Max Bet, Max Liability per Market, Max Win per Market, for all sport of Exchange Product");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -79,7 +79,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     @TestRails(id = "744")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
-    public void Agent_AM_Bet_Setting_Listing_0004(String brandname) {
+    public void Agent_AM_Bet_Setting_Listing_744(String brandname) {
         log("@title: Verify update bet setting with valid min bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -125,7 +125,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     @TestRails(id = "745")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
-    public void Agent_AM_Bet_Setting_Listing_0005(String brandname) {
+    public void Agent_AM_Bet_Setting_Listing_745(String brandname) {
         log("@title: Verify update bet setting with valid max bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -169,7 +169,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     @TestRails(id = "746")
     @Test(groups = {"smoke"})
     @Parameters({"username", "brandname"})
-    public void Agent_AM_Bet_Setting_Listing_0006(String brandname) {
+    public void Agent_AM_Bet_Setting_Listing_746(String brandname) {
         log("@title: Verify update bet setting with valid Max Liability Per Market Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -204,7 +204,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     @TestRails(id = "747")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
-    public void Agent_AM_Bet_Setting_Listing_0007(String brandname) {
+    public void Agent_AM_Bet_Setting_Listing_747(String brandname) {
         log("@title: Verify update bet setting with valid  Max Win Per Market Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -237,9 +237,10 @@ public class BetSettingListingTest extends BaseCaseTest {
 
     }
 
+    @TestRails(id = "3638")
     @Test(groups = {"interaction2"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_AM_Bet_Setting_Listing_0010(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_AM_Bet_Setting_Listing_3638(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Cannot place bet when max liability on a market excceed the setting");
         log("Step 1. Active Bet Setting Listing and update max liability on a market for a player on Cricket");
         String sportName = "Cricket";
@@ -300,9 +301,10 @@ public class BetSettingListingTest extends BaseCaseTest {
 
     }
 
+    @TestRails(id = "3639")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Bet_Setting_Listing_0011(String downlineAccount, String memeberAccount, String password) throws Exception {
+    public void Agent_AM_Bet_Setting_Listing_3639(String downlineAccount, String memeberAccount, String password) throws Exception {
         log("@title: Cannot place bet when potential win is greater than the setting");
         log("Step 1 Active Bet Setting Listing and update Max Win per market for Soccer");
         String sportName = "Cricket";
@@ -354,10 +356,10 @@ public class BetSettingListingTest extends BaseCaseTest {
         }
 
     }
-
+    @TestRails(id = "3636")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Bet_Setting_Listing_008(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Bet_Setting_Listing_3636(String memberAccount, String password) throws Exception {
         log("@title: Verify cannot place bet when place bet in member site smaller than min bet setting");
         log("Step 1. Navigate to Agent Site and get list Event");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -384,10 +386,10 @@ public class BetSettingListingTest extends BaseCaseTest {
         log("Verify stake error message displays");
         Assert.assertTrue(memberHomePage.betsSlipContainer.isErrorDisplayed(marketPage.betsSlipContainer.lblMinMaxStakeErrorMessage, expectedMsg), "ERROR! Min Stake error message is not displayed");
     }
-
+    @TestRails(id = "3637")
     @Test(groups = {"interaction01"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Bet_Setting_Listing_009(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Bet_Setting_Listing_3637(String memberAccount, String password) throws Exception {
         log("@title: Verify cannot place bet when place bet in member site greater than max bet setting");
         log("Step 1. Navigate to Agent Site and get list Event");
         String userID = ProfileUtils.getProfile().getUserID();

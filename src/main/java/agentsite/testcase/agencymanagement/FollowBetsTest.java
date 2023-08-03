@@ -9,6 +9,7 @@ import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,9 @@ public class FollowBetsTest extends BaseCaseTest {
      * @steps: 1. Navigate Agency Management > Follow Bet
      * @expect: 1. There is no http requests error
      */
+    @TestRails(id = "3664")
     @Test(groups = {"http_request"})
-    public void Agent_AM_Follow_Bets_001() {
+    public void Agent_AM_Follow_Bets_3664() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Follow Bet");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
@@ -45,9 +47,10 @@ public class FollowBetsTest extends BaseCaseTest {
      * 3. A confirm message display to confirm deleted group and click OK to confirm.
      * - Verify Group is remove out the group list table
      */
+    @TestRails(id = "755")
     @Test(groups = {"smokePO"})
     @Parameters({"accountToBet", "username"})
-    public void Agent_AM_Follow_Bets_007(String accountToBet, String username) {
+    public void Agent_AM_Follow_Bets_755(String accountToBet, String username) {
         log("@title: Verify can Add, Edit, Deleted, group for Exchange product");
         log("Step 1. Navigate Agency Management >  Follow Bets");
         String groupName = String.format("%s%s", "Auto Group", StringUtils.generateAlphabetic(4));
@@ -95,9 +98,10 @@ public class FollowBetsTest extends BaseCaseTest {
      * @expect: 1.Verify can add agent into the group
      * 2. Verify can agent player out the group
      */
+    @TestRails(id = "756")
     @Test(groups = {"smokePO"})
     @Parameters({"accountToBet", "controlBlockingAccount"})
-    public void Agent_AM_Follow_Bets_009(String accountToBet, String controlBlockingAccount) {
+    public void Agent_AM_Follow_Bets_756(String accountToBet, String controlBlockingAccount) {
         log("@title: Verify can Add, Edit, Deleted, group for Exchange product");
         log("Step 1. Navigate Agency Management >  Follow Bets");
         String groupName = String.format("%s%s", "Auto Group", StringUtils.generateAlphabetic(4));

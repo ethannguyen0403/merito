@@ -15,7 +15,7 @@ import static common.AGConstant.HomePage.ANNOUNCEMENT;
 public class AnnouncementTest extends BaseCaseTest {
     @TestRails(id = "752")
     @Test(groups = {"http_request"})
-    public void Agent_AM_Announcement_001() {
+    public void Agent_AM_Announcement_752() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management >Announcement");
         AnnoucementPage page = agentHomePage.navigateAnnoucementPage();
@@ -28,8 +28,7 @@ public class AnnouncementTest extends BaseCaseTest {
 
     @TestRails(id = "753")
     @Test(groups = {"smoke"})
-    @Parameters({"username", "memberAccount", "password"})
-    public void Agent_AM_Announcement_002(String username, String memberAccount, String password) throws Exception {
+    public void Agent_AM_Announcement_753()  {
         log("@title: Verify Announcement UI display correct");
         log("Step 1. Navigate Agency Management >Announcement");
         AnnoucementPage page = agentHomePage.navigateAnnoucementPage();
@@ -44,8 +43,7 @@ public class AnnouncementTest extends BaseCaseTest {
 
     @TestRails(id = "754")
     @Test(groups = {"smoke"})
-    @Parameters({"username", "memberAccount", "password"})
-    public void Agent_AM_Announcement_003(String username, String memberAccount, String password) throws Exception {
+    public void Agent_AM_Announcement_754() {
         log("@title: Verify can add, update and deleted announcement");
         log("Step 1. Navigate Agency Management >Announcement");
         AnnoucementPage page = agentHomePage.navigateAnnoucementPage();
@@ -74,10 +72,10 @@ public class AnnouncementTest extends BaseCaseTest {
         log("INFO: Executed completely");
 
     }
-
+    @TestRails(id = "3653")
     @Test(groups = {"interaction"})
     @Parameters({"username", "memberAccount", "password"})
-    public void Agent_AM_Announcement_004(String username, String memberAccount, String password) throws Exception {
+    public void Agent_AM_Announcement_3653(String username, String memberAccount, String password) throws Exception {
         log("@title: Member display announcement when agent set for a Specific player");
         log("Step 1. Navigate Agency Management >Announcement");
         //String announcementMsg = "This is announcement is created by auto scrips " + DateUtils.getMilliSeconds();
@@ -106,9 +104,10 @@ public class AnnouncementTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3654")
     @Test(groups = {"interaction"})
     @Parameters({"username", "memberAccount", "password"})
-    public void Agent_AM_Announcement_005(String username, String memberAccount, String password) throws Exception {
+    public void Agent_AM_Announcement_3654(String username, String memberAccount, String password) throws Exception {
         log("@title: The announcement not display when inactive");
         log("Step 1. Navigate Agency Management >Announcement");
         String announcementMsg = "This is announcement is created by auto scrips " + DateUtils.getMilliSeconds();
@@ -136,9 +135,10 @@ public class AnnouncementTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3655")
     @Test(groups = {"interaction"})
     @Parameters({"username", "memberAccount", "password"})
-    public void Agent_AM_Announcement_006(String username, String memberAccount, String password) throws Exception {
+    public void Agent_AM_Announcement_3655(String username, String memberAccount, String password) throws Exception {
         log("@title: The announcement not display if set invalid time range");
         log("Step 1. Navigate Agency Management >Announcement");
         String announcementMsg = "This is announcement is created by auto scrips " + DateUtils.getMilliSeconds();

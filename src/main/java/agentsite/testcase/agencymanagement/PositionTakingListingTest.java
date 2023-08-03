@@ -58,7 +58,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     @TestRails(id = "3597")
     @Test(groups = {"regression"})
     @Parameters({"brandname"})
-    public void Agent_AM_Position_Taking_Listing_003(String brandname) {
+    public void Agent_AM_Position_Taking_Listing_3597(String brandname) {
         log("@title: Validate can search by username");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
