@@ -147,6 +147,7 @@ public class HomePage extends LoginPage {
 
     public TaxSettingListingPage navigateTaxSettingListingPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, TAX_SETTING_LISTING);
+        waitingLoadingSpinner();
         return new TaxSettingListingPage(_type);
     }
 
@@ -163,6 +164,7 @@ public class HomePage extends LoginPage {
 
     public BlockUnblockEventPage navigateBlockUnblockEventsPage() {
         leftMenu.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_EVENT);
+        waitingLoadingSpinner();
         return new BlockUnblockEventPage(_type);
     }
 
