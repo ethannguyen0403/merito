@@ -8,6 +8,7 @@ import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,10 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * 2. Input Login ID and  click Submit button
      * @expect: 1. Verify Login display in the result table
      */
+    @TestRails(id = "749")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
-    public void Agent_AM_Tax_Setting_Listing_0004(String brandname) {
+    public void Agent_AM_Tax_Setting_Listing_749(String brandname) {
         log("@title: Verify can search downline by Login ID");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -48,9 +50,10 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * 3. Update valid tax for Soccer, Tennis, Cricket, Basketball, Fancy Other and Click update
      * @expect: 1. Verify tax is updated for all sport and Update status is display green check
      */
+    @TestRails(id = "750")
     @Test(groups = {"smoke"})
     @Parameters({"brandname"})
-    public void Agent_AM_Tax_Setting_Listing_0005(String brandname) {
+    public void Agent_AM_Tax_Setting_Listing_750(String brandname) {
         log("@title: Verify can update tax for all sports");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -90,9 +93,10 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @steps: 1. Navigate Agency Management >  Tax Setting Listing
      * @expect: 1. Verify UI Tax Setting Listing display correctly
      */
+    @TestRails(id = "748")
     @Test(groups = {"smoke"})
     @Parameters("username")
-    public void Agent_AM_Tax_Setting_Listing_0002(String username) {
+    public void Agent_AM_Tax_Setting_Listing_748(String username) {
         log("@title: Verify  Tax Setting Listing UI display correct");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
         String userCode = ProfileUtils.getProfile().getUserCode();
