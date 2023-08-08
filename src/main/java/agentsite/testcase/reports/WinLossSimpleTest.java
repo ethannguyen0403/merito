@@ -110,7 +110,7 @@ public class WinLossSimpleTest extends BaseCaseTest {
     public void Agent_Report_WinLossSimple_793() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Simple");
-        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
+        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive());
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
 
         log("Step 2: Get all products in dropdown");

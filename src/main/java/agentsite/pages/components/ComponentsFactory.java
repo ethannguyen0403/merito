@@ -1,5 +1,8 @@
 package agentsite.pages.components;
 
+import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
+import agentsite.pages.agentmanagement.betsettinglisting.NewUIBetSettingListing;
+import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.NewUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.OldUIAccountInforSection;
@@ -33,6 +36,12 @@ import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting
 import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.NewUIDepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.OldUIDepositWithdraw;
+import agentsite.pages.agentmanagement.ptlisting.NewUIPositionTakingListing;
+import agentsite.pages.agentmanagement.ptlisting.OldUIPositionTakingListing;
+import agentsite.pages.agentmanagement.ptlisting.PositionTakingListing;
+import agentsite.pages.agentmanagement.taxsettinglisting.NewUITaxSettingListing;
+import agentsite.pages.agentmanagement.taxsettinglisting.OldUITaxSettingListing;
+import agentsite.pages.agentmanagement.taxsettinglisting.TaxSettingListing;
 import agentsite.pages.components.header.Header;
 import agentsite.pages.components.header.NewUIHeader;
 import agentsite.pages.components.header.OldUIHeader;
@@ -154,6 +163,33 @@ public class ComponentsFactory {
                 return new OldUIDepositWithdraw();
             default:
                 return new NewUIDepositWithdraw();
+        }
+    }
+
+    public static BetSettingListing betSettingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIBetSettingListing();
+            default:
+                return new NewUIBetSettingListing();
+        }
+    }
+
+    public static TaxSettingListing taxSettingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUITaxSettingListing();
+            default:
+                return new NewUITaxSettingListing();
+        }
+    }
+
+    public static PositionTakingListing positionTakingListingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIPositionTakingListing();
+            default:
+                return new NewUIPositionTakingListing();
         }
     }
 }

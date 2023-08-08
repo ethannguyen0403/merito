@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static baseTest.BaseCaseTest._brandname;
 import static baseTest.BaseCaseTest.domainURL;
+import static common.AGConstant.Report.LIST_EXTRA_PRODUCTS_NEWUI;
+import static common.AGConstant.Report.LIST_EXTRA_PRODUCTS_OLDUI;
 
 public class ReportslUtils {
 
@@ -42,9 +45,15 @@ public class ReportslUtils {
         return lstProductActive;
     }
 
-    public static List<String> getAllProducts(List<String> activeProducts, List<String> extraProducts) {
+    public static List<String> getAllProducts(List<String> activeProducts) {
         List<String> lstProduct = new ArrayList<>(activeProducts);
-        lstProduct.addAll(extraProducts);
+        switch (_brandname) {
+            case "satsport":
+                lstProduct.addAll(LIST_EXTRA_PRODUCTS_OLDUI);
+                break;
+            default:
+                lstProduct.addAll(LIST_EXTRA_PRODUCTS_NEWUI);
+        }
         lstProduct = lstProduct.stream().sorted().collect(Collectors.toList());
         return lstProduct;
     }

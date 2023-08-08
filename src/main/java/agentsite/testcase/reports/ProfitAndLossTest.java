@@ -82,7 +82,7 @@ public class ProfitAndLossTest extends BaseCaseTest {
     public void Agent_Report_Profit_And_Loss_3732() {
         log("@title: Validate can filter report of all product");
         log("Step 1. Navigate Report > Profit And Loss");
-        List<String> lstAllProducts = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
+        List<String> lstAllProducts = ReportslUtils.getAllProducts(ReportslUtils.getProductActive());
         ProfitAndLossPage page = agentHomePage.navigateProfitAndLossPage();
 
         log("Step 2.Filter date range that have settled bet and select all product");
@@ -175,7 +175,7 @@ public class ProfitAndLossTest extends BaseCaseTest {
     public void Agent_Report_Profit_And_Loss_3733() {
         log("@title: Verify data in timezone and product dropdown is correct");
         log("Step 1. Navigate Report > Profit And Loss");
-        List<String> lstAllProducts = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
+        List<String> lstAllProducts = ReportslUtils.getAllProducts(ReportslUtils.getProductActive());
         ProfitAndLossPage page = agentHomePage.navigateProfitAndLossPage();
 
         log("Step 2. Get all data in Timezone and Product dropdown");

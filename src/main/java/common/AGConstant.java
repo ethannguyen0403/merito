@@ -395,6 +395,32 @@ public class AGConstant {
             public final static String LBL_ACCOUNTSTATUS = "Account Status";
             public final static String LBL_PRODUCT = "Product";
             public final static String LBL_LEVEL = "Level";
+
+            public static final HashMap<String, Boolean> SPORT_COLUMN_TRUE = new HashMap<String, Boolean>() {
+                {
+                    put("Soccer", true);
+                    put("Cricket", true);
+                    put("Fancy", true);
+                    put("Tennis", true);
+                    put("Basketball", true);
+                    put("Horse Racing", true);
+                    put("Greyhound Racing", true);
+                    put("Other", true);
+                }
+            };
+
+            public static final HashMap<String, Boolean> SPORT_COLUMN_FALSE = new HashMap<String, Boolean>() {
+                {
+                    put("Soccer", false);
+                    put("Cricket", false);
+                    put("Fancy", false);
+                    put("Tennis", false);
+                    put("Basketball", false);
+                    put("Horse Racing", false);
+                    put("Greyhound Racing", false);
+                    put("Other", false);
+                }
+            };
         }
 
         public static class CommissionSettingListing {
@@ -463,7 +489,8 @@ public class AGConstant {
 
         public static class TaxSettingListing {
             public final static String TITLE_PAGE = "Tax Setting Listing";
-            public final static List<String> TABLE_TAX = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Other", "Update Status");
+            public final static List<String> TABLE_TAX = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Other", "Update Status");
+            public final static List<String> TABLE_TAX_SAT = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Other", "Update Status");
         }
 
         public static class SubUserListing {
@@ -524,7 +551,8 @@ public class AGConstant {
         public final static String ERROR_PRODUCT = "Please select at least 1 product.";
         public final static String ERROR_DATE_RANGE = "End date cannot earlier than start date. Please redefine the search criteria";
         public final static List<String> LIST_EXTRA_RPODUCTS_PO = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Central Fancy", "Central Bookmaker", "Follow Bets");
-        public final static List<String> LIST_EXTRA_RPODUCTS = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Central Fancy", "Central Bookmaker");
+        public final static List<String> LIST_EXTRA_PRODUCTS_NEWUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker");
+        public final static List<String> LIST_EXTRA_PRODUCTS_OLDUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Central Fancy", "Central Bookmaker");
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS = "You can see report data up to 6 months";
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_1_TO_6 = "You can see report data up to 1 month and back to previous 6 months.";
         public final static String LBL_PRODUCT = "Product";
