@@ -57,25 +57,14 @@ public class TaxSettingListingTest extends BaseCaseTest {
         String userID = ProfileUtils.getProfile().getUserID();
         String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(2).getUserCode();
         TaxSettingListingPage page = agentHomePage.navigateTaxSettingListingPage();
-        double soccerTax = 0.10;
-        double tennisTax = 0.20;
-        double cricketTax = 0.40;
-        double basketball = 0.50;
-//        double fancyTax=0.70;
-        double otherTax = 0.60;
+        double adjustValue = 0.10;
 
         log("Step 2. Search a Member account and check on Select All sport");
         page.taxSettingListing.search(loginID, "", "");
-        List<ArrayList<String>> lstExpectedData = page.tblTax.getRowsWithoutHeader(1, false);
-        lstExpectedData.get(0).set(page.soccerCol - 1, String.format("%.2f", soccerTax) + "%");
-        lstExpectedData.get(0).set(page.cricketCol - 1, String.format("%.2f", cricketTax) + "%");
-        lstExpectedData.get(0).set(page.tennisCol - 1, String.format("%.2f", tennisTax) + "%");
-        lstExpectedData.get(0).set(page.basketballCol - 1, String.format("%.2f", basketball) + "%");
-//        lstExpectedData.get(0).set(page.fancyCol -1,String.format("%.2f",fancyTax)+"%");
-        lstExpectedData.get(0).set(page.otherCol - 1, String.format("%.2f", otherTax) + "%");
+        List<ArrayList<String>> lstExpectedData = page.taxSettingListing.defineListTaxSetting(adjustValue);
 
         log("Step 3. Update valid tax for Soccer, Tennis, Cricket, Basketball, Fancy Other and Click update");
-        page.taxSettingListing.updateTaxSetting(loginID, soccerTax, cricketTax, tennisTax, basketball, otherTax);
+        page.taxSettingListing.updateTaxSetting(loginID, lstExpectedData);
 
         log("Verify 1. Verify tax is updated for all sport and Update status is display green check");
         List<ArrayList<String>> lstActualData = page.tblTax.getRowsWithoutHeader(1, false);

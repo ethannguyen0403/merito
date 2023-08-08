@@ -132,6 +132,7 @@ public class HomePage extends LoginPage {
 
     public PositionTakingListingPage navigatePositionTakingListingPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, POSITION_TAKING_LISTING);
+        waitingLoadingSpinner();
         return new PositionTakingListingPage(_type);
     }
 

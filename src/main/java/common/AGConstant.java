@@ -395,6 +395,32 @@ public class AGConstant {
             public final static String LBL_ACCOUNTSTATUS = "Account Status";
             public final static String LBL_PRODUCT = "Product";
             public final static String LBL_LEVEL = "Level";
+
+            public static final HashMap<String, Boolean> SPORT_COLUMN_TRUE = new HashMap<String, Boolean>() {
+                {
+                    put("Soccer", true);
+                    put("Cricket", true);
+                    put("Fancy", true);
+                    put("Tennis", true);
+                    put("Basketball", true);
+                    put("Horse Racing", true);
+                    put("Greyhound Racing", true);
+                    put("Other", true);
+                }
+            };
+
+            public static final HashMap<String, Boolean> SPORT_COLUMN_FALSE = new HashMap<String, Boolean>() {
+                {
+                    put("Soccer", false);
+                    put("Cricket", false);
+                    put("Fancy", false);
+                    put("Tennis", false);
+                    put("Basketball", false);
+                    put("Horse Racing", false);
+                    put("Greyhound Racing", false);
+                    put("Other", false);
+                }
+            };
         }
 
         public static class CommissionSettingListing {

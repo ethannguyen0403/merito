@@ -10,9 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static common.AGConstant.*;
@@ -32,7 +30,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "707")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_newui"})
     public void Agent_AM_Position_Taking_Listing_707() {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
@@ -55,6 +53,30 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "4136")
+    @Test(groups = {"smoke_sat"})
+    public void Agent_AM_Position_Taking_Listing_4136() {
+        log("@title: Verify Position Taking List UI display correct");
+        log("Step 1. Navigate Agency Management  > Position Taking Listing");
+        String userCode = ProfileUtils.getProfile().getUserCodeAndLoginID();
+        PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
+
+        log("Verify 1. Verify UI on Position Taking Listing display correctly");
+        Assert.assertTrue(page.txtUsername.isDisplayed(), "FAILED! Username textbox not display");
+        Assert.assertTrue(page.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box not display");
+        Assert.assertTrue(page.ddbProduct.isDisplayed(), "FAILED! Product dropdown not display");
+        Assert.assertTrue(page.ddbLevel.isDisplayed(), "FAILED! Level dropdown not display");
+        List<String> lstHeader = page.tblDownline.getHeaderNameOfRows();
+        Assert.assertEquals(lstHeader, AgencyManagement.PositionTakingListing.SAT_TABLE_PT_HEADER, "FAILED! Header table not match");
+        Assert.assertTrue(page.lblUsername.isDisplayed(), "FAILED! Username level does not correct");
+        Assert.assertTrue(page.lblProduct.isDisplayed(), "FAILED! Product label does not correct");
+        Assert.assertTrue(page.lblAccountStatus.isDisplayed(), "FAILED! Account Status label does not correct");
+        Assert.assertTrue(page.lblLevel.isDisplayed(), "FAILED! Level label does not correct");
+        Assert.assertEquals(page.lblBreadcrumb.getText(), userCode, "FAILED! Breadcrumb bar not display login account");
+
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "3597")
     @Test(groups = {"regression"})
     @Parameters({"brandname"})
@@ -67,7 +89,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
         log("Step 2. Input Username and click submit button");
-        page.search(downlineUserName, "", "", "");
+        page.positionTakingListing.search(downlineUserName, "", "", "");
 
         log("Verify 1. Verify can search by username");
         List<ArrayList<String>> lstResult = page.tblDownline.getRowsWithoutHeader(1, false);
@@ -79,17 +101,16 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
     @TestRails(id = "708")
     @Test(groups = {"smoke"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Position_Taking_Listing_708(String brandname) {
+    public void Agent_AM_Position_Taking_Listing_708() {
         log("@title:Verify can search by Login ID ");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(brandname, "", userID);
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(_brandname, "", userID);
         String downlineLoginID = listAccount.get(0).getLoginID();
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
         log("Step 2. Input Login ID and click submit button");
-        page.search(downlineLoginID, "", "", "");
+        page.positionTakingListing.search(downlineLoginID, "", "", "");
 
         log("Verify 1. Verify Login ID displays");
         List<ArrayList<String>> lstResult = page.tblDownline.getRowsWithoutHeader(1, false);
@@ -107,7 +128,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
         log("Step 2. Input invalid value in Username textbox and click submit button");
-        page.search(downlineLoginID, "", "", "");
+        page.positionTakingListing.search(downlineLoginID, "", "", "");
 
         log("Verify 1. Verify \"No records found.\"");
         Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record row not display when searching in valid username");
@@ -122,49 +143,49 @@ public class PositionTakingListingTest extends BaseCaseTest {
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
         log("Step 2. Select Exchange Game product");
-        page.search("", EXCHANGE_GAMES, "", "");
+        page.positionTakingListing.search("", EXCHANGE_GAMES, "", "");
 
         log("Verify 2. Verify Position Taking table of Exchange Game display");
         List<String> lstHeader = page.tblDownline.getHeaderNameOfRows();
         Assert.assertEquals(lstHeader, AgencyManagement.PositionTakingListing.TABLE_PT_EXCHANGE_GAME_HEADER, "FAILED! Position Taking table of Exchange Game match");
 
         log("Step 3.Select Lottery & Slot product");
-        page.search("", LOTTERY_SLOT, "", "");
+        page.positionTakingListing.search("", LOTTERY_SLOT, "", "");
 
         log("Verify 3. Verify Position Taking table of Lottery & Slot display");
         lstHeader = page.tblDownline.getHeaderNameOfRows();
         Assert.assertEquals(lstHeader, AgencyManagement.PositionTakingListing.TABLE_PT_LOTTERY_SLOT_HEADER, "FAILED! Position Taking table of Lottery & Slot incorrect");
 
         log("Step 4.Select Live Dealer Asian product");
-        page.search("", LIVE_DEALER_ASIAN, "", "");
+        page.positionTakingListing.search("", LIVE_DEALER_ASIAN, "", "");
 
         log("Verify 4. Verify Position Taking table of Live Dealer Asian display");
         lstHeader = page.tblDownline.getHeaderNameOfRows();
         Assert.assertEquals(lstHeader, AgencyManagement.PositionTakingListing.TABLE_PT_LIVE_DEALER_ASIA_HEADER, "FAILED! Position Taking table of Live Dealer Asian incorrect");
 
         log("Step 5.Select Live Dealer European product");
-        page.search("", LIVE_DEALER_EUROPEAN, "", "");
+        page.positionTakingListing.search("", LIVE_DEALER_EUROPEAN, "", "");
 
         log("Verify 5. Verify Position Taking table of Live Dealer European display");
         lstHeader = page.tblDownline.getHeaderNameOfRows();
         Assert.assertEquals(lstHeader, AgencyManagement.PositionTakingListing.TABLE_PT_LIVE_DEALER_EUROPEAN_HEADER, "FAILED! Position Taking table of Live Dealer European incorrect");
 
         log("Step 6.Select Evolution product");
-        page.search("", EVOLUTION, "", "");
+        page.positionTakingListing.search("", EVOLUTION, "", "");
 
         log("Verify 6. Verify Position Taking table of Evolution display");
         lstHeader = page.tblDownline.getHeaderNameOfRows();
         Assert.assertEquals(lstHeader, AgencyManagement.PositionTakingListing.TABLE_PT_EVOLUTION_HEADER, "FAILED! Position Taking table of Evolution incorrect");
 
         log("Step 7.Select Supernowa Casino product");
-        page.search("", SUPERNOWA_CASION, "", "");
+        page.positionTakingListing.search("", SUPERNOWA_CASION, "", "");
 
         log("Verify 7. Verify Position Taking table of Supernowa Casino display");
         lstHeader = page.tblDownline.getHeaderNameOfRows();
         Assert.assertEquals(lstHeader, AgencyManagement.PositionTakingListing.TABLE_PT_SUPERNOWA_HEADER, "FAILED! Position Taking table of Supernowa Casino incorrect");
 
         log("Step 8.Select Exchange product");
-        page.search("", EXCHANGE, "", "");
+        page.positionTakingListing.search("", EXCHANGE, "", "");
 
         log("Verify 8. Verify Position Taking table of Exchange display");
         lstHeader = page.tblDownline.getHeaderNameOfRows();
@@ -184,7 +205,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
         log("Step 2. Filter level = member");
-        page.search(member, "", "", "Member");
+        page.positionTakingListing.search(member, "", "", "Member");
 
         log("Verify 1. Verify only member display in the list");
         List<String> lstResult = page.tblDownline.getColumn(page.usernameCol, false);
@@ -206,7 +227,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
         log("Step 2. 2. Filter level = agent");
-        page.search(agent, "", "", "Agent");
+        page.positionTakingListing.search(agent, "", "", "Agent");
 
         log("Verify 1. Verify only direct agent account display in the list");
         List<String> lstResult = page.tblDownline.getColumn(page.usernameCol, false);
@@ -343,46 +364,25 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
     @TestRails(id = "709")
     @Test(groups = {"smoke"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Position_Taking_Listing_709(String brandname) {
+    public void Agent_AM_Position_Taking_Listing_709() {
         log("@title: Verify can update PT for all sports");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
-        HashMap<String, Boolean> sportMap = new HashMap<String, Boolean>() {
-            {
-                put("Soccer", true);
-                put("Cricket", true);
-                put("Fancy", true);
-                put("Tennis", true);
-                put("Basketball", true);
-                put("Horse Racing", true);
-                put("Greyhound Racing", false);
-                put("Other", true);
-            }
-        };
         String userID = ProfileUtils.getProfile().getUserID();
-        String member = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0).getUserCode();
+        String member = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
-
         int PT = 10;
 
         log("Step  2. Select a downline and select all sport");
-        page.search(member, "", "", "");
-        List<String> lstPTInfoBeforeUpdate = page.getPTofAccount(member);
-        lstPTInfoBeforeUpdate.set(page.soccerCol - 1, Integer.toString(PT));
-        lstPTInfoBeforeUpdate.set(page.cricketCol - 1, Integer.toString(PT));
-        lstPTInfoBeforeUpdate.set(page.fancytCol - 1, Integer.toString(PT));
-        lstPTInfoBeforeUpdate.set(page.tennisCol - 1, Integer.toString(PT));
-        lstPTInfoBeforeUpdate.set(page.basketballCol - 1, Integer.toString(PT));
-        lstPTInfoBeforeUpdate.set(page.horseRacingCol - 1, Integer.toString(PT));
-        lstPTInfoBeforeUpdate.set(page.otherCol - 1, Integer.toString(PT));
+        page.positionTakingListing.search(member, "", "", "");
+        List<String> lstPTInfoExpected = page.positionTakingListing.definePTSettingList(member, PT);
 
         log("Step 3. Update SAD Preset  and click Update");
-        page.updatePT(member, PT, sportMap);
+        page.positionTakingListing.updatePT(member, PT, AgencyManagement.PositionTakingListing.SPORT_COLUMN_TRUE);
 
         log("Verify 1. Verify PT for Soccer, Cricket, Fancy Tennis, Basketball, Horse Racing, Other is updated and there is a green check in Update Status column");
-        List<String> lstPTInfo = page.getPTofAccount(member);
-        Assert.assertEquals(lstPTInfo, lstPTInfoBeforeUpdate, "FAILED! Position Taking Listing Data does not match");
-        Assert.assertTrue(page.verifyUpdateStatus(member, true), "FAILED! Update Status not display green check");
+        List<String> lstPTInfo = page.positionTakingListing.getPTofAccount(member);
+        Assert.assertEquals(lstPTInfo, lstPTInfoExpected, "FAILED! Position Taking Listing Data does not match");
+        Assert.assertTrue(page.positionTakingListing.verifyUpdateStatus(member, true), "FAILED! Update Status not display green check");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3605")
@@ -394,7 +394,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step 2. Not select any user and update SAT Preset and click Update");
         log("Step 3. Click OK button");
-        page.updatePT("", 2, null);
+        page.positionTakingListing.updatePT("", 2, null);
 
         log(" Verify 1 Change PT Setting popup display with the message \"Please select at least 1 user");
         ConfirmPopup popup = new ConfirmPopup();
@@ -409,41 +409,33 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
     @TestRails(id = "710")
     @Test(groups = {"smoke"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Position_Taking_Listing_710(String brandname) {
+    public void Agent_AM_Position_Taking_Listing_710() {
         log("@title: Verify can update PT  for selected sport");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String downline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0).getUserCode();
+        String downline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
-
         int PT = 2;
 
         log("Step 2. Select a downline and only select Soccer sport");
-        page.search(downline, "", "", "");
-        List<String> lstPTInfoBeforeUpdate = page.getPTofAccount(downline);
+        page.positionTakingListing.search(downline, "", "", "");
+        List<String> lstPTInfoBeforeUpdate = page.positionTakingListing.getPTofAccount(downline);
         lstPTInfoBeforeUpdate.set(page.soccerCol - 1, Integer.toString(PT));
-        HashMap<String, Boolean> sport = new HashMap<String, Boolean>() {
-            {
-                put("Soccer", true);
-                put("Cricket", false);
-                put("Fancy", false);
-                put("Tennis", false);
-                put("Basketball", false);
-                put("Horse Racing", false);
-                put("Greyhound Racing", false);
-                put("Other", false);
-            }
-        };
-        log("Step 3. Update SAD Preset and click update button");
-        page.updatePT(downline, PT, sport);
+        try {
+            AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE.put("Soccer", true);
+            log("Step 3. Update SAD Preset and click update button");
+            page.positionTakingListing.updatePT(downline, PT, AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE);
 
-        log("Verify 1. Verify Login ID displays");
-        page.enableSport(sport);
-        List<String> lstPTInfo = page.getPTofAccount(downline);
-        Assert.assertEquals(lstPTInfo, lstPTInfoBeforeUpdate, "FAILED! Position Taking Listing Data does not match");
-        Assert.assertTrue(page.verifyUpdateStatus(downline, true), "FAILED! Update Status not display green check");
-        log("INFO: Executed completely");
+            log("Verify 1. Verify Login ID displays");
+            page.positionTakingListing.enableSport(AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE);
+            List<String> lstPTInfo = page.positionTakingListing.getPTofAccount(downline);
+            Assert.assertEquals(lstPTInfo, lstPTInfoBeforeUpdate, "FAILED! Position Taking Listing Data does not match");
+            Assert.assertTrue(page.positionTakingListing.verifyUpdateStatus(downline, true), "FAILED! Update Status not display green check");
+            log("INFO: Executed completely");
+        } finally {
+            AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE.put("Soccer", false);
+        }
+
     }
 
 }

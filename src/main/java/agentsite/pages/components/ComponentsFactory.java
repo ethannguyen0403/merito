@@ -36,6 +36,9 @@ import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting
 import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.NewUIDepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.OldUIDepositWithdraw;
+import agentsite.pages.agentmanagement.ptlisting.NewUIPositionTakingListing;
+import agentsite.pages.agentmanagement.ptlisting.OldUIPositionTakingListing;
+import agentsite.pages.agentmanagement.ptlisting.PositionTakingListing;
 import agentsite.pages.agentmanagement.taxsettinglisting.NewUITaxSettingListing;
 import agentsite.pages.agentmanagement.taxsettinglisting.OldUITaxSettingListing;
 import agentsite.pages.agentmanagement.taxsettinglisting.TaxSettingListing;
@@ -178,6 +181,15 @@ public class ComponentsFactory {
                 return new OldUITaxSettingListing();
             default:
                 return new NewUITaxSettingListing();
+        }
+    }
+
+    public static PositionTakingListing positionTakingListingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIPositionTakingListing();
+            default:
+                return new NewUIPositionTakingListing();
         }
     }
 }
