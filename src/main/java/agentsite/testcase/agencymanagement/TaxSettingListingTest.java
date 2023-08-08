@@ -6,7 +6,7 @@ import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
 import common.AGConstant;
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
@@ -14,6 +14,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaxSettingListingTest extends BaseCaseTest {
+    @TestRails(id = "3643")
+    @Test(groups = {"http_request"})
+    public void Agent_AM_Tax_Setting_Listing_3643() {
+        log("@title: Validate There is no http responded error returned");
+        log("Step 1. Navigate Agency Management  > Tax Setting Listing");
+        agentHomePage.navigateTaxSettingListingPage();
+
+        log("Verify 1. Tax Setting Listing page is displayed without console error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3644")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Tax_Setting_Listing_3644() {
+        log("@title: Validate can search downline by username");
+        log("Step 1. Navigate Agency Management > Tax Setting Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String userCode = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();
+        TaxSettingListingPage page = agentHomePage.navigateTaxSettingListingPage();
+
+        log("Step 2. Search PL account and Exchange Product");
+        page.taxSettingListing.search(userCode, "", "");
+
+        log("Verify 1. Verify Login display in the result table");
+        List<String> lstMembers = page.tblTax.getColumn(page.usernameCol, false);
+        Assert.assertEquals(lstMembers.get(0), userCode, "FAILED! Login ID not display as search criteria");
+        Assert.assertEquals(lstMembers.size(), 1, "FAILED! Should only display 1 record when searching with correct username");
+
+        log("INFO: Executed completely");
+    }
+
     /**
      * @title: Verify can search downline by Login ID
      * @pre-condition: 1. Log in successfully by SAD
@@ -27,7 +60,10 @@ public class TaxSettingListingTest extends BaseCaseTest {
         log("@title: Verify can search downline by Login ID");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();
+        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getLoginID();
+        if(loginID.isEmpty()) {
+            throw new SkipException("SKIPPED! The player have no login ID for filter");
+        }
         TaxSettingListingPage page = agentHomePage.navigateTaxSettingListingPage();
 
         log("Step 2. Search PL account and Exchange Product");
@@ -35,7 +71,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
 
         log("Verify 1. Verify Login display in the result table");
         List<String> lstMembers = page.tblTax.getColumn(page.usernameCol, false);
-        Assert.assertEquals(lstMembers.get(0), loginID, "FALED! Login ID not display as search criteria");
+        Assert.assertEquals(lstMembers.get(0), loginID, "FAILED! Login ID not display as search criteria");
         Assert.assertEquals(lstMembers.size(), 1, "FAILED! Should only display 1 record when searching with correct username");
 
         log("INFO: Executed completely");
