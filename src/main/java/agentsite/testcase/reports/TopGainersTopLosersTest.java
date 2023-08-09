@@ -117,7 +117,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         TopGainersTopLosersPage page = winLossSimplePage.navigateTopGainersTopLosersPage();
         log("Step 2. Filter Exchange product that have the date has data");
         page.search(fromDate,toDate,"Exchange");
-        log("Verify 1. Validate Top Gainers table display correct data");
+        log("Verify 1. Validate Top Losers table display correct data");
         Assert.assertTrue(page.topGainersTopLosers.isCheckUserDisplayInTopLosersTableCorrect(losers),"FAILED! Data of Top Losers displayed incorrect!");
         log("INFO: Executed completely");
     }
