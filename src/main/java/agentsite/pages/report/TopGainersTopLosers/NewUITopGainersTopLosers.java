@@ -92,7 +92,7 @@ public class NewUITopGainersTopLosers extends TopGainersTopLosers{
                 ))));
             }
         } else {
-            System.out.println("There are not Top Gainers");
+            System.out.println("There are not Top Losers");
             return true;
         }
         if (tblTopGainers.getColumn(1,false).get(0).equals("No records found.")){
@@ -108,7 +108,7 @@ public class NewUITopGainersTopLosers extends TopGainersTopLosers{
             }
         }
         if (lstTopLoserCompare.contains(loserCompare)){
-            System.out.println("Data of Top Gainers Table Display correct");
+            System.out.println("Data of Top Losers Table Display correct");
             return true;
         }
         return false;
