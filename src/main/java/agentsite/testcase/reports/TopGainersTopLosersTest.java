@@ -100,7 +100,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3760")
-    @Test(groups = {"regression1"})
+    @Test(groups = {"regression"})
     public void Agent_Report_Top_Gainers_Top_Losers_3760() {
         log("@title: Validate Top Gainers data display correctly");
         log("@pre-condition 1: Log in successfully by SAD");
