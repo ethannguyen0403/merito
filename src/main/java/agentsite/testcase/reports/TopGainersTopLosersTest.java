@@ -63,7 +63,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         log("@pre-condition 1: Log in successfully by SAD");
         log("@pre-condition 2: Go to Win Loss Simple > Search a date range that has the account has placed a bet and bets are settled for Exchange product only (not including Fancy or Bookmaker)");
         WinLossSimplePage winLossSimplePage = agentHomePage.navigateWinLossSimplePage();
-        String fromDate = DateUtils.getDate(-60, "yyyy-MM-dd", AGConstant.timeZone);
+        String fromDate = DateUtils.getDate(-30, "yyyy-MM-dd", AGConstant.timeZone);
         String toDate = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
         winLossSimplePage.dpFrom.selectDate(fromDate,"yyyy-MM-dd");
         winLossSimplePage.dpTo.selectDate(toDate,"yyyy-MM-dd");
@@ -91,7 +91,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         log("Step 1. Navigate Report > Top Gainers & Top Losers");
         TopGainersTopLosersPage page = bigStakeConfigurationPage.navigateTopGainersTopLosersPage();
         log("Step 2. Filter Exchange product that have the date has data");
-        String fromDate = DateUtils.getDate(-60, "yyyy-MM-dd", AGConstant.timeZone);
+        String fromDate = DateUtils.getDate(-30, "yyyy-MM-dd", AGConstant.timeZone);
         String toDate = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
         page.search(fromDate,toDate,"Exchange");
         log("Verify 1. Validate  Big Stake  table display correct data");
@@ -100,13 +100,13 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3760")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression1"})
     public void Agent_Report_Top_Gainers_Top_Losers_3760() {
         log("@title: Validate Top Gainers data display correctly");
         log("@pre-condition 1: Log in successfully by SAD");
         log("@pre-condition 2: Go to Win Loss Simple > Search a date range that has the account has placed a bet and bets are settled for Exchange product only (not including Fancy or Bookmaker)");
         WinLossSimplePage winLossSimplePage = agentHomePage.navigateWinLossSimplePage();
-        String fromDate = DateUtils.getDate(-60, "yyyy-MM-dd", AGConstant.timeZone);
+        String fromDate = DateUtils.getDate(-30, "yyyy-MM-dd", AGConstant.timeZone);
         String toDate = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
         winLossSimplePage.dpFrom.selectDate(fromDate,"yyyy-MM-dd");
         winLossSimplePage.dpTo.selectDate(toDate,"yyyy-MM-dd");
