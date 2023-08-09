@@ -38,9 +38,9 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         Assert.assertEquals(page.lblInfoDataSupport.getText(), AGConstant.Report.TopGainersTopLosers.LBL_INFO_SUPPORT_YESTERDAY_DATA, String.format("FAILED! Expected label text is %s but found %s", AGConstant.Report.TopGainersTopLosers.LBL_INFO_SUPPORT_YESTERDAY_DATA, page.lblInfoDataSupport.getText()));
         Assert.assertEquals(page.lblInfoReportPlaceTime.getText(), AGConstant.Report.TopGainersTopLosers.LBL_INFO_PLACE_TIME, String.format("FAILED! Expected label text is %s but found %s", AGConstant.Report.TopGainersTopLosers.LBL_INFO_PLACE_TIME, page.lblInfoReportPlaceTime.getText()));
 
-        Assert.assertTrue(page.topGainersTopLosers.isTopGainersHeaderTable(), "FAILED! Incorrect header of top gainers");
-        Assert.assertTrue(page.topGainersTopLosers.isTopLosersHeaderTable(), "FAILED! Incorrect header of top loser");
-        Assert.assertTrue(page.topGainersTopLosers.isBigStakeHeaderTable(), "FAILED! Incorrect header of big stake");
+        Assert.assertTrue(page.topGainersTopLosers.isHeaderTableDisplayCorrect("Top Gainers"), "FAILED! Incorrect header of top gainers");
+        Assert.assertTrue(page.topGainersTopLosers.isHeaderTableDisplayCorrect("Top Losers"), "FAILED! Incorrect header of top loser");
+        Assert.assertTrue(page.topGainersTopLosers.isHeaderTableDisplayCorrect("Big Stake"), "FAILED! Incorrect header of big stake");
 
         log("INFO: Executed completely");
     }
@@ -69,14 +69,14 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         winLossSimplePage.dpTo.selectDate(toDate,"yyyy-MM-dd");
         winLossSimplePage.btnSubmit.click();
         log("@pre-condition 3: Get Win/Loss and Total tax/comm of any player: for example Win/Loss: 0.90, 0.00, and Total tax/comm");
-        List<ArrayList<String>> winner = winLossSimplePage.winLossSimple.getListSMAWinnerInfor();
+        List<ArrayList<String>> winner = winLossSimplePage.winLossSimple.getListWinnerInfor();
         log("Step 1. Navigate Report > Top Gainers & Top Losers");
         TopGainersTopLosersPage page = winLossSimplePage.navigateTopGainersTopLosersPage();
         log("Step 2. Filter Exchange product that have the date has data");
         page.search(fromDate,toDate,"Exchange");
         page.waitingLoadingSpinner();
         log("Verify 1. Validate Top Gainers table display correct data");
-        Assert.assertTrue(page.topGainersTopLosers.isCheckUserDisplayInTopGainersTableCorrect(winner),"FAILED! Data of Top gainers displayed incorrect!");
+        Assert.assertTrue(page.topGainersTopLosers.isUserDisplayInTableCorrect("Top Gainers",winner),"FAILED! Data of Top gainers displayed incorrect!");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3759")
@@ -97,7 +97,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         page.search(fromDate,toDate,"Exchange");
         page.waitingLoadingSpinner();
         log("Verify 1. Validate  Big Stake  table display correct data");
-        Assert.assertTrue(page.topGainersTopLosers.isCheckUserDisplayInBigStakeTableCorrect(bigStake),"FAILED! Data of Big Stake displayed incorrect!");
+        Assert.assertTrue(page.topGainersTopLosers.isUserDisplayInBigStakeTableCorrect(bigStake),"FAILED! Data of Big Stake displayed incorrect!");
         log("INFO: Executed completely");
     }
 
@@ -114,14 +114,14 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         winLossSimplePage.dpTo.selectDate(toDate,"yyyy-MM-dd");
         winLossSimplePage.btnSubmit.click();
         log("@pre-condition 3: Get Win/Loss and Total tax/comm of any player has settled Lose < 0: for example Win/Loss: -0.90, 0.00, and Total tax/comm");
-        List<ArrayList<String>> losers = winLossSimplePage.winLossSimple.getListSMALoserInfor();
+        List<ArrayList<String>> losers = winLossSimplePage.winLossSimple.getListLoserInfor();
         log("Step 1. Navigate Report > Top Gainers & Top Losers");
         TopGainersTopLosersPage page = winLossSimplePage.navigateTopGainersTopLosersPage();
         log("Step 2. Filter Exchange product that have the date has data");
         page.search(fromDate,toDate,"Exchange");
         page.waitingLoadingSpinner();
         log("Verify 1. Validate Top Losers table display correct data");
-        Assert.assertTrue(page.topGainersTopLosers.isCheckUserDisplayInTopLosersTableCorrect(losers),"FAILED! Data of Top Losers displayed incorrect!");
+        Assert.assertTrue(page.topGainersTopLosers.isUserDisplayInTableCorrect("Top Losers",losers),"FAILED! Data of Top Losers displayed incorrect!");
         log("INFO: Executed completely");
     }
 }

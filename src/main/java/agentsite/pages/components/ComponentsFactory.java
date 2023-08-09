@@ -60,6 +60,8 @@ public class ComponentsFactory {
         switch (types) {
             case "funsport":
                 return new NewUILeftMenu();
+            case "fairexchange":
+                return new NewUILeftMenu();
             default:
                 return new OldUILeftMenu();
         }
