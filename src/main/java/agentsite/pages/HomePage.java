@@ -224,7 +224,7 @@ public class HomePage extends LoginPage {
     }
 
     public BigStakeConfigurationPage navigateBigStakeConfigurationPage() {
-        leftMenu.clickSubMenu(REPORT, BIG_STAKE_CONFIGURATION);
+        leftMenu.navigateBigStakeConfigurationPage();
         return new BigStakeConfigurationPage(_type);
     }
 
@@ -304,7 +304,7 @@ public class HomePage extends LoginPage {
     }
 
     public WinLossSimplePage navigateWinLossSimplePage() {
-        leftMenu.clickSubMenu(REPORT, WIN_LOSS_SIMPLE);
+        leftMenu.navigateWinLossSimplePage();
         return new WinLossSimplePage(_type);
     }
 

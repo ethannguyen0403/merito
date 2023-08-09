@@ -121,7 +121,6 @@ public class OldUILeftMenu extends LeftMenu {
     }
 
     public void navigatePS38SportsResultsPage() {
-
         clickSubMenu(REPORT, PS38_SPORTS_RESULTS);
     }
 
@@ -129,4 +128,15 @@ public class OldUILeftMenu extends LeftMenu {
     public boolean isDisplayPS38SportsResults() {
         return leftMenuList.isSubMenuDisplay(REPORT, PS38_SPORTS_RESULTS);
     }
+
+    @Override
+    public void navigateWinLossSimplePage() {
+        clickSubMenu(REPORT, WIN_LOSS_SIMPLE);
+    }
+
+    @Override
+    public void navigateBigStakeConfigurationPage() {
+        clickSubMenu(REPORT, TOP_GAINER_TOP_LOSER, BIG_STAKE_CONFIGURATION);
+    }
 }
+

@@ -2,8 +2,16 @@ package agentsite.ultils.report;
 
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
+import com.paltech.utils.DoubleUtils;
 import com.paltech.utils.WSUtils;
+import membersite.objects.sat.Event;
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import static baseTest.BaseCaseTest.domainURL;
 
@@ -18,6 +26,5 @@ public class TopGainerLoserUtils {
         JSONObject jsonObject = getBigStakeJSON();
         return jsonObject.getInt("config");
     }
-
 
 }

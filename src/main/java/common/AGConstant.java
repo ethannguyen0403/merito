@@ -181,6 +181,8 @@ public class AGConstant {
         public final static String WIN_LOSS_BY_MARKET_TYPE = "Win Loss By Sport And Market Type";
         public final static String WIN_LOSS_BY_DETAIL = "%s Win Loss Detail";
         public final static String WIN_LOSS_SIMPLE = "Win Loss Simple";
+        public final static String WIN_LOSS = "Win Loss";
+        public final static String SIMPLE = "Simple";
         public final static String ANALYSIS_OF_RUNNING_MARKETS = "Analysis of Running Markets";
         public final static String SUB_USER_LISTING = "Sub User Listing";
         public final static String EVENT_BET_STIE_SETTINGS = "Event Bet Size Settings";
@@ -626,11 +628,14 @@ public class AGConstant {
         public static class TopGainersTopLosers {
             public final static String BTN_SEARCH = "Search";
             public final static String LBL_INFO_REPORT_VALID = "You can see report data up to 3 months and back to previous 1 year.";
-            public final static String LBL_INFO_SUPPORT_YESTERDAY_DATA = "Top Gainer & Top Losers only support yesterday data. Big Stake supports today data.";
+            public final static String LBL_INFO_SUPPORT_YESTERDAY_DATA = "Top Gainers & Top Losers only support yesterday data. Big Stake supports today data..";
             public final static String LBL_INFO_PLACE_TIME = "Big Stake wagers are based on placed time.";
-            public final static List<String> TABLE_TOP_GAINERS_HEADER = Arrays.asList("Top Gainers", "20\n50\n100\n200", "No.", "Usercode", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
-            public final static List<String> TABLE_TOP_LOSERS_HEADER = Arrays.asList("Top Losers", "20\n50\n100\n200", "No.", "Usercode", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
-            public final static List<String> TABLE_BIG_STAKE_HEADER = Arrays.asList("Big Stake", "20\n50\n100\n200", "No.", "Usercode", "Stake", "Status", "Win/Loss", "Wager ID");
+            public final static List<String> AGENT_SMA_TABLE_TOP_GAINERS_HEADER_NEWUI = Arrays.asList("Top Gainers", "20\n50\n100\n200", "No.", "Usercode", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
+            public final static List<String> AGENT_SAD_TABLE_TOP_GAINERS_HEADER_OLDUI = Arrays.asList("Top Gainers", "20\n50\n100\n200", "Login ID", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
+            public final static List<String> AGENT_SMA_TABLE_TOP_LOSERS_HEADER_NEWUI = Arrays.asList("Top Losers", "20\n50\n100\n200", "No.", "Usercode", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
+            public final static List<String> AGENT_SAD_TABLE_TOP_LOSERS_HEADER_OLDUI = Arrays.asList("Top Losers", "20\n50\n100\n200", "Login ID", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
+            public final static List<String> TABLE_BIG_STAKE_HEADER_NEWUI = Arrays.asList("Big Stake", "20\n50\n100\n200", "No.", "Usercode", "Stake", "Status", "Win/Loss", "Wager ID");
+            public final static List<String> TABLE_BIG_STAKE_HEADER_OLDUI = Arrays.asList("Big Stake (>=1 )", "Login ID", "Description", "Wager Details", "Status", "Win/Loss", "Wager ID");
         }
 
         public static class BigStakeConfiguration {

@@ -10,8 +10,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static common.AGConstant.HomePage.AGENCY_MANAGEMENT;
-import static common.AGConstant.HomePage.PS38_SPORTS_RESULTS;
+import static common.AGConstant.HomePage.*;
 
 public class NewUILeftMenu extends LeftMenu {
     Icon iconHome = Icon.xpath("//span[@class='action-icon home']");
@@ -117,5 +116,10 @@ public class NewUILeftMenu extends LeftMenu {
     @Override
     public boolean isDisplayPS38SportsResults() {
         return leftMenuList.isSubMenuDisplay(AGENCY_MANAGEMENT, PS38_SPORTS_RESULTS);
+    }
+
+    @Override
+    public void navigateWinLossSimplePage() {
+        clickSubMenu(REPORT, WIN_LOSS, SIMPLE);
     }
 }

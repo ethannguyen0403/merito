@@ -39,11 +39,19 @@ import agentsite.pages.components.header.OldUIHeader;
 import agentsite.pages.components.leftmenu.LeftMenu;
 import agentsite.pages.components.leftmenu.NewUILeftMenu;
 import agentsite.pages.components.leftmenu.OldUILeftMenu;
+import agentsite.pages.report.TopGainersTopLosers.NewUITopGainersTopLosers;
+import agentsite.pages.report.TopGainersTopLosers.OldUITopGainersTopLosers;
+import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
+import agentsite.pages.report.WinLossSimple.NewUIWinLossSimple;
+import agentsite.pages.report.WinLossSimple.OldUIWinLossSimple;
+import agentsite.pages.report.WinLossSimple.WinLossSimple;
 
 public class ComponentsFactory {
     public static LeftMenu leftMenuObject(String types) {
         switch (types) {
             case "funsport":
+                return new NewUILeftMenu();
+            case "fairexchange":
                 return new NewUILeftMenu();
             default:
                 return new OldUILeftMenu();
@@ -154,6 +162,23 @@ public class ComponentsFactory {
                 return new OldUIDepositWithdraw();
             default:
                 return new NewUIDepositWithdraw();
+        }
+    }
+    public static TopGainersTopLosers topGainersTopLosers(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUITopGainersTopLosers();
+            default:
+                return new NewUITopGainersTopLosers();
+        }
+    }
+
+    public static WinLossSimple winLossSimple(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIWinLossSimple();
+            default:
+                return new NewUIWinLossSimple();
         }
     }
 }
