@@ -101,7 +101,7 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
 
     @Override
     public boolean isCheckUserDisplayInTopLosersTableCorrect(List<ArrayList<String>> losers) {
-        List<ArrayList<String>> lstTopLoser = tblTopGainers.getRowsWithoutHeader(20,false);
+        List<ArrayList<String>> lstTopLoser = tblTopLoser.getRowsWithoutHeader(20,false);
         List<ArrayList<String>> lstTopLoserCompare = new ArrayList<>();
         ArrayList<String> loserCompare = new ArrayList<>();
         if (!(losers.size() == 0)){
@@ -116,7 +116,7 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
             System.out.println("There are not Top Losers");
             return true;
         }
-        if (tblTopGainers.getColumn(1,false).get(0).equals("No records found.")){
+        if (tblTopLoser.getColumn(1,false).get(0).equals("No records found.")){
             System.out.println("No records found.");
             return true;
         } else {
