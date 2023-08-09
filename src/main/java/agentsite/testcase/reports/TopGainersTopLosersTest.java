@@ -74,6 +74,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         TopGainersTopLosersPage page = winLossSimplePage.navigateTopGainersTopLosersPage();
         log("Step 2. Filter Exchange product that have the date has data");
         page.search(fromDate,toDate,"Exchange");
+        page.waitingLoadingSpinner();
         log("Verify 1. Validate Top Gainers table display correct data");
         Assert.assertTrue(page.topGainersTopLosers.isCheckUserDisplayInTopGainersTableCorrect(winner),"FAILED! Data of Top gainers displayed incorrect!");
         log("INFO: Executed completely");
@@ -94,6 +95,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         String fromDate = DateUtils.getDate(-30, "yyyy-MM-dd", AGConstant.timeZone);
         String toDate = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
         page.search(fromDate,toDate,"Exchange");
+        page.waitingLoadingSpinner();
         log("Verify 1. Validate  Big Stake  table display correct data");
         Assert.assertTrue(page.topGainersTopLosers.isCheckUserDisplayInBigStakeTableCorrect(bigStake),"FAILED! Data of Big Stake displayed incorrect!");
         log("INFO: Executed completely");
@@ -117,6 +119,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         TopGainersTopLosersPage page = winLossSimplePage.navigateTopGainersTopLosersPage();
         log("Step 2. Filter Exchange product that have the date has data");
         page.search(fromDate,toDate,"Exchange");
+        page.waitingLoadingSpinner();
         log("Verify 1. Validate Top Losers table display correct data");
         Assert.assertTrue(page.topGainersTopLosers.isCheckUserDisplayInTopLosersTableCorrect(losers),"FAILED! Data of Top Losers displayed incorrect!");
         log("INFO: Executed completely");
