@@ -33,12 +33,17 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
             case "Top Gainers":
                 tblHeader = tblTopGainers.getHeaderNameOfRows();
                 lstHeader = AGConstant.Report.TopGainersTopLosers.AGENT_SAD_TABLE_TOP_GAINERS_HEADER_OLDUI;
+                break;
             case "Top Losers":
                 tblHeader = tblTopLoser.getHeaderNameOfRows();
                 lstHeader = AGConstant.Report.TopGainersTopLosers.AGENT_SAD_TABLE_TOP_LOSERS_HEADER_OLDUI;
+                break;
             case "Big Stake":
                 tblHeader = tblBigStake.getHeaderNameOfRows();
                 lstHeader = AGConstant.Report.TopGainersTopLosers.TABLE_BIG_STAKE_HEADER_OLDUI;
+                break;
+            default:
+                System.out.println("There are not "+ tableName);
         }
         if (tblHeader.equals(lstHeader)){
             System.out.println("Display "+tableName+" Header Table Old UI correct");
@@ -56,13 +61,14 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
         } else {
             lstStake = tblBigStake.getColumn(colWagerDetails,20,true);
             for (int i = 0; i < lstStake.size();i++){
-                if (!(Double.parseDouble(lstStake.get(i).split("\n")[1]) < Double.parseDouble(bigStake))){
-                    System.out.println("FAILED! Data of Big Stake displayed correct");
-                    return true;
+                if ((Double.parseDouble(lstStake.get(i).split("\n")[1]) < Double.parseDouble(bigStake))){
+                    System.out.println("FAILED! Data of Big Stake displayed Incorrect");
+                    return false;
                 }
             }
+            System.out.println("Data of Big Stake displayed correct");
+            return true;
         }
-        return false;
     }
 
     @Override
@@ -70,13 +76,11 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
         List<ArrayList<String>> lstTopWinLoserTable = new ArrayList<>();
         List<ArrayList<String>> lstWinLossSimple = new ArrayList<>();
         if (lstWinLose.size() > 0){
-            for (int i = 0; i < 1;i++){
-                lstWinLossSimple.add(i, new ArrayList<>(Arrays.asList(
-                        lstWinLose.get(i).get(colUsernameInWinLossLSimple)+" ("+lstWinLose.get(0).get(colNicknameInWinLossLSimple)+")",
-                        lstWinLose.get(i).get(colWinLossInWinLossLSimple),
-                        lstWinLose.get(i).get(colTaxInWinLossLSimple)
-                )));
-            }
+            lstWinLossSimple.add(0, new ArrayList<>(Arrays.asList(
+                    lstWinLose.get(0).get(colUsernameInWinLossLSimple)+" ("+lstWinLose.get(0).get(colNicknameInWinLossLSimple)+")",
+                    lstWinLose.get(0).get(colWinLossInWinLossLSimple),
+                    lstWinLose.get(0).get(colTaxInWinLossLSimple)
+            )));
         } else {
             System.out.println("There are not "+ tableName);
             return true;
@@ -93,6 +97,8 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
                 lstToptable = tblTopLoser.getRowsWithoutHeader(20, false);
                 lblNoRecordsFound = lblNoRecordsFoundTopLosers;
                 break;
+            default:
+                System.out.println("There are not this table name!");
         }
         if (lblNoRecordsFound.getText().equals("No records found.")){
             System.out.println("No records found.");
