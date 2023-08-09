@@ -6,6 +6,7 @@ import com.paltech.utils.DateUtils;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 public class FollowBetsPerformanceTest extends BaseCaseTest {
     /**
@@ -14,8 +15,9 @@ public class FollowBetsPerformanceTest extends BaseCaseTest {
      * @steps: 1. Navigate Report >Follow & Small Bets Performance
      * @expect: 1. Verify Follow Bets Performance UI display correctly
      */
+    @TestRails(id = "825")
     @Test(groups = {"smokePO"})
-    public void Agent_Report_Follow_Small_Bets_Performance_002() {
+    public void Agent_Report_Follow_Small_Bets_Performance_825() {
         log("@title: Validate Follow & Small Bets Performance display correctly");
         log("Step  1. Navigate Report >Follow Bets Performance");
         FollowBetPerformancePage page = agentHomePage.navigateFollowBetPerformancePage();
@@ -38,8 +40,9 @@ public class FollowBetsPerformanceTest extends BaseCaseTest {
      * 3. Enter username or Login ID and select account to bet then click Submit button
      * @expect: 1. Verify Follow Bets info display
      */
+    @TestRails(id = "826")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Follow_Small_Bets_Performance_001() {
+    public void Agent_Report_Follow_Small_Bets_Performance_826() {
         log("@title: Validate can filter follow bet");
         log("Step 1. Navigate Report >Follow & Small Bets Performance");
         FollowBetPerformancePage page = agentHomePage.navigateFollowBetPerformancePage();

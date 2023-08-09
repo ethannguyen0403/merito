@@ -6,6 +6,7 @@ import com.paltech.utils.DateUtils;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,9 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseTest {
      * @steps: 1. Navigate Report> Win Loss By Sport And Market Type
      * @expect: 1. There is no http responded error returned
      */
+    @TestRails(id = "3751")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_001() {
+    public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_3751() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report>  Win Loss By Sport And Market Type");
         agentHomePage.navigateWinLossBySportAndMarketTypePage();
@@ -34,8 +36,9 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseTest {
      * @steps: 1. Navigate Report > Win Loss By Sport And Market Type
      * @expect: 1. Verify  Win Loss By Sport And Market Type UI display correctly
      */
+    @TestRails(id = "805")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_002() {
+    public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_805() {
         log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
         log("Step 1. Navigate Report > Win Loss By Sport And Market Type");
         WinLossBySportAndMarketTypePage page = agentHomePage.navigateWinLossBySportAndMarketTypePage();
@@ -65,8 +68,9 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseTest {
      * 2. Filter Exchange product that have data
      * @expect: 1. Verify Grand total row is sum by total of all sports
      */
+    @TestRails(id = "806")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_003() {
+    public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_806() {
         log("@title: Validate Grand total row is correctly");
         log("Step 1. Navigate Report > Win Loss By Sport And Market Type");
         WinLossBySportAndMarketTypePage page = agentHomePage.navigateWinLossBySportAndMarketTypePage();
@@ -81,8 +85,8 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseTest {
 
         log("Verify 1. Verify Grand total row is sum by total of all sports");
         List<String> lstSport = page.getSportList();
-//        ArrayList<String> expectedData = page.sumSportData(lstSport);
-//        Assert.assertEquals(page.getGrandTotalRow(),expectedData,"FAILED! Grand Total Row not match when sum with total row of all sport");
+        ArrayList<String> expectedData = page.sumSportData(lstSport);
+        Assert.assertEquals(page.getGrandTotalRow(),expectedData,"FAILED! Grand Total Row not match when sum with total row of all sport");
 
         log("INFO: Executed completely");
     }
@@ -95,8 +99,9 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseTest {
      * 3. Click on Turnover of a market type
      * @expect: 1 Verify Turnover in summary report match when sum player stake in detail report
      */
+    @TestRails(id = "807")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_004() {
+    public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_807() {
         log("@title: Validate data on when click on Turnover is matched with details");
         log("Step 1. Navigate Report > Win Loss By Sport And Market Type");
         WinLossBySportAndMarketTypePage page = agentHomePage.navigateWinLossBySportAndMarketTypePage();

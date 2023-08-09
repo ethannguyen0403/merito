@@ -1,23 +1,20 @@
 package agentsite.testcase.reports;
 
-import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.report.TransactionHistoryPage;
 import agentsite.pages.report.WinLossDetailPage;
 import agentsite.pages.report.WinLossSimplePage;
-import agentsite.ultils.account.ProfileUtils;
-import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import agentsite.ultils.report.ReportslUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.List;
 
 import static common.AGConstant.BTN_SUBMIT;
 import static common.AGConstant.HomePage.TRANSACTION_HISTORY;
-import static common.AGConstant.HomePage.WIN_LOSS_BY_DETAIL;
 import static common.AGConstant.Report.*;
 import static common.AGConstant.Report.TransactionHistory.TABLE_HEADER;
 
@@ -28,8 +25,9 @@ public class TransactionHistoryTest extends BaseCaseTest {
      * @steps: 1. Navigate Report> Transaction history
      * @expect: 1. There is no http responded error returned
      */
+    @TestRails(id = "3753")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Transaction_History_001() {
+    public void Agent_Report_Transaction_History_3753() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report> Transaction history");
         agentHomePage.navigateTransactionHistoryPage();
@@ -45,9 +43,10 @@ public class TransactionHistoryTest extends BaseCaseTest {
      * 2. Search Exchange Product and the date range has data
      * @expect: 1. Verify data of each competition display correctly
      */
+    @TestRails(id = "811")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Transaction_History_003() {
-        log("@title: Validate data on Transaction History display correctly y");
+    public void Agent_Report_Transaction_History_811() {
+        log("@title: Validate data on Transaction History display correctly");
         log("Step 1. Navigate Report >  Transaction History");
         TransactionHistoryPage page = agentHomePage.navigateTransactionHistoryPage();
 
@@ -63,10 +62,10 @@ public class TransactionHistoryTest extends BaseCaseTest {
         Assert.assertTrue(page.verifyVolumePnLTaxMatchWithDetail(), "FAILED! Summary data not match with Transaction Detail");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "812")
     @Test(groups = {"regression1"})
     public void Agent_Report_Transaction_History_002() {
-        log("@title: Validate data on Transaction History display correctly y");
+        log("@title: Validate data on Transaction History display correctly");
         log("Step 1. Navigate Report >  Transaction History");
         String today = DateUtils.getDate(0, "dd/MM/yyyy", "GMT-4:00");
         TransactionHistoryPage page = agentHomePage.navigateTransactionHistoryPage();
@@ -86,14 +85,14 @@ public class TransactionHistoryTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3755")
     @Test(groups = {"regression"})
-    public void Agent_Report_Transaction_History_004() {
+    public void Agent_Report_Transaction_History_3755() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Transaction History");
-        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
-        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-        String winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
+        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive());
+//        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+//        String winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
         WinLossDetailPage page = agentHomePage.navigateWinLossDetailPage();
 
         log("Step 2: Get all products in dropdown");
@@ -104,8 +103,9 @@ public class TransactionHistoryTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3756")
     @Test(groups = {"regression"})
-    public void Agent_Report_Transaction_History_005() {
+    public void Agent_Report_Transaction_History_3756() {
         log("@title: Validate that an error message is displayed when filtering without any product");
         log("Step 1: Navigate Report > Transaction History");
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();

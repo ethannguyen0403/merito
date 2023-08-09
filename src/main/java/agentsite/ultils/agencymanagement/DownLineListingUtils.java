@@ -167,6 +167,7 @@ public class DownLineListingUtils {
                 for (int i = 0; i < jsnList.length(); i++) {
                     JSONObject item = jsnList.getJSONObject(i);
                     double cashBalance = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("cashBalance"));
+                    double availableBalance = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("availableBalance"));
                     double pnl = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("pnl"));
                     double outstanding = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("plOutstanding"));
                     AccountInfo a = new AccountInfo.Builder()
@@ -177,6 +178,7 @@ public class DownLineListingUtils {
                             .status(item.getString("status"))
                             .level(item.getString("level"))
                             .cashBalance(cashBalance)
+                            .availableBalance(availableBalance)
                             .currencyCode(item.getString("currencyCode"))
                             .todayWinLoss(pnl)
                             .myOutstanding(outstanding)
@@ -186,17 +188,34 @@ public class DownLineListingUtils {
             }
             if (jsonObject.has("extraInfo")) {
                 JSONObject item = jsonObject.getJSONObject("extraInfo");
-                double yourCreditCash = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("myCreditBalance"));
                 if (item.has("lineInfo")) {
-                    JSONObject accountInfo = item.getJSONArray("lineInfo").getJSONObject(0);
-                    lstUsers.add(new AccountInfo.Builder()
-                            .userID(Integer.toString(accountInfo.getInt("userId")))
-                            .userCode(accountInfo.getString("usercode"))
-                            .loginID(accountInfo.getString("loginId"))
-                            .level(accountInfo.getString("level"))
-                            .cashBalance(yourCreditCash)
-                            .currencyCode(accountInfo.getString("currencyCode"))
-                            .build());
+                    if (item.has("sub")) {
+                        //handle for SAT
+                        JSONObject jsnSubInfo = item.getJSONObject("sub");
+                        double yourCreditCashBalance = DoubleUtils.roundEvenWithTwoPlaces(jsnSubInfo.getDouble("cashBalance"));
+                        JSONObject accountInfo = item.getJSONArray("lineInfo").getJSONObject(0);
+                        lstUsers.add(new AccountInfo.Builder()
+                                .userID(Integer.toString(accountInfo.getInt("userId")))
+                                .userCode(accountInfo.getString("usercode"))
+                                .loginID(accountInfo.getString("loginId"))
+                                .availableBalance(yourCreditCashBalance)
+                                .level(accountInfo.getString("level"))
+                                .currencyCode(accountInfo.getString("currencyCode"))
+                                .build());
+                    } else {
+                        //handle for others
+                        double yourCreditCashBalance = DoubleUtils.roundEvenWithTwoPlaces(item.getDouble("myCreditBalance"));
+                        JSONObject accountInfo = item.getJSONArray("lineInfo").getJSONObject(0);
+                        lstUsers.add(new AccountInfo.Builder()
+                                .userID(Integer.toString(accountInfo.getInt("userId")))
+                                .userCode(accountInfo.getString("usercode"))
+                                .loginID(accountInfo.getString("loginId"))
+                                .availableBalance(yourCreditCashBalance)
+                                .level(accountInfo.getString("level"))
+                                .currencyCode(accountInfo.getString("currencyCode"))
+                                .build());
+                    }
+
                 }
             }
         } else {
@@ -205,13 +224,22 @@ public class DownLineListingUtils {
         return lstUsers;
     }
 
-    public static Double getMyCreditBalance() {
+    public static Double getMyCreditCashBalance() {
         JSONObject jsonObject = getListingCreditCashBalance();
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("extraInfo")) {
                 JSONObject jsnExtraInfo = jsonObject.getJSONObject("extraInfo");
                 if (Objects.nonNull(jsnExtraInfo)) {
-                    return jsnExtraInfo.getDouble("myCreditBalance");
+                    {
+                        if(jsnExtraInfo.has("sub")) {
+                            //handle for SAT
+                            JSONObject jsnSubInfo = jsnExtraInfo.getJSONObject("sub");
+                            return jsnSubInfo.getDouble("cashBalance");
+                        } else {
+                            //handle for other brands
+                            return jsnExtraInfo.getDouble("myCreditBalance");
+                        }
+                    }
                 }
             }
         }

@@ -15,7 +15,7 @@ public class ViewLogTest extends BaseCaseTest {
      */
     @TestRails(id = "815")
     @Test(groups = {"http_request"})
-    public void Agent_Report_View_Log_001() {
+    public void Agent_Report_View_Log_815() {
         log("@title: There is no http responded error returned");
         log("Step 1: Navigate Report > View Log");
         ViewLogPage page = agentHomePage.navigateViewLogPage();
@@ -33,7 +33,7 @@ public class ViewLogTest extends BaseCaseTest {
      */
     @TestRails(id = "816")
     @Test(groups = {"smoke"})
-    public void Agent_Report_View_Log_002() {
+    public void Agent_Report_View_Log_816() {
         log("@title: Validate View Log UI display correctly");
         log("Step 1: Navigate Report > View Log");
         ViewLogPage page = agentHomePage.navigateViewLogPage();

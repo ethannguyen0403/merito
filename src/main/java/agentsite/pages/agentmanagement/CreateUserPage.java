@@ -69,10 +69,18 @@ public CreateUserPage(String types) {
 //        btnSubmit.click();
 //        waitingLoadingSpinner();
 //    }
-    public void createUserWithDeposit(String password, String creditLimit, String firsTimeDeposit) {
-        accountInforSection.inputInfo("",password,"");
-        cashBalanceInforSection.inputCashBalanceInfo(creditLimit, firsTimeDeposit);
+    public void createUserWithDeposit(String loginId, String password, String creditLimit, String firsTimeDeposit) {
+        switch (_type) {
+            case "satsport":
+                accountInforSection.inputInfo(loginId, password,"");
+                cashBalanceInforSection.inputCashBalanceInfo(creditLimit, firsTimeDeposit);
+                break;
+            default:
+                accountInforSection.inputInfo(password,"");
+                cashBalanceInforSection.inputCashBalanceInfo(firsTimeDeposit);
+        }
         btnSubmit.click();
+        waitingLoadingSpinner();
     }
 
     public String createUser(String loginId, String password) {

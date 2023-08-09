@@ -2,6 +2,7 @@ package agentsite.testcase.reports;
 
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.DepositWithdrawalPage;
+import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.ViewLogPopup;
 import agentsite.pages.report.TransferLogPage;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
@@ -24,7 +25,7 @@ public class TransferLogTest extends BaseCaseTest {
      */
     @TestRails(id = "801")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Transfer_Log_001() {
+    public void Agent_Report_Transfer_Log_801() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report> Transfer Log");
         agentHomePage.navigateTransferLogPage();
@@ -44,7 +45,7 @@ public class TransferLogTest extends BaseCaseTest {
      */
     @TestRails(id = "802")
     @Test(groups = {"smoke_Credit_Cash"})
-    public void Agent_Report_Transfer_Log_003() {
+    public void Agent_Report_Transfer_Log_802() {
         log("@title: Validate data Transfer Log display correctly");
         DepositWithdrawalPage page;
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -54,8 +55,8 @@ public class TransferLogTest extends BaseCaseTest {
 
         log("Step 1. Get View Log info");
         page = agentHomePage.navigateDepositWithdrawalPage("");
-        page.deposit(userCode, "1", "Deposit 1 auto script " + com.paltech.utils.StringUtils.generateString("Auto", 4), true, true);
-        ViewLogPopup popup = (ViewLogPopup) page.action(DepositWithdrawalPage.Actions.VIEW_LOG, userCode);
+        page.depositWithdraw.deposit(userCode, "1", "Deposit 1 auto script " + com.paltech.utils.StringUtils.generateString("Auto", 4), true, true);
+        ViewLogPopup popup = (ViewLogPopup) page.depositWithdraw.action(DepositWithdraw.Actions.VIEW_LOG, userCode);
         List<ArrayList<String>> log = popup.tblLog.getRowsWithoutHeader(1, false);
         List<ArrayList<String>> expectedData = popup.defineTransferLogbyViewLogData(log);
         popup.closePopup();
@@ -86,7 +87,7 @@ public class TransferLogTest extends BaseCaseTest {
      */
     @TestRails(id = "803")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Transfer_Log_002() {
+    public void Agent_Report_Transfer_Log_803() {
         log("@title: Validate data Transfer Log display correctly");
         log("Step 1. Navigate Report > Transfer Log");
         TransferLogPage tranferlogPage = agentHomePage.navigateTransferLogPage();

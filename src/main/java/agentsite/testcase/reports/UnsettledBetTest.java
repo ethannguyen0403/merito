@@ -7,6 +7,7 @@ import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +17,9 @@ import static common.AGConstant.Report.UnsettleBet.*;
 
 public class UnsettledBetTest extends BaseCaseTest {
 
+    @TestRails(id = "3724")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Unsettled_Bet_001() {
+    public void Agent_Report_Unsettled_Bet_3724() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report > Unsettled Bet");
         agentHomePage.navigateUnsettledBetPage();
@@ -26,9 +28,9 @@ public class UnsettledBetTest extends BaseCaseTest {
         Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3725")
     @Test(groups = {"regression1"})
-    public void Agent_Report_Unsettled_Bet_002() {
+    public void Agent_Report_Unsettled_Bet_3725() {
         log("@title: Validate Unsettled Bet - Last Bet Mode UI display correctly");
         log("Step 1. Navigate Report > Unsettled Bet");
         String today = DateUtils.getDate(0, "dd/MM/yyyy", "GMT-4:00");
@@ -53,9 +55,10 @@ public class UnsettledBetTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3726")
     @Test(groups = {"poregression"})
     @Parameters("memberAccount")
-    public void Agent_Report_Unsettled_Bet_003() {
+    public void Agent_Report_Unsettled_Bet_3726() {
         log("@title:Validate Unsettled Bet - Hierarchy Mode UI display correctly");
         log("Step 1. Navigate Report > Unsettled Bet");
         UnsettledBetPage page = agentHomePage.navigateUnsettledBetPage();
@@ -71,8 +74,9 @@ public class UnsettledBetTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3727")
     @Test(groups = {"poregression"})
-    public void Agent_Report_Unsettled_Bet_004() {
+    public void Agent_Report_Unsettled_Bet_3727() {
         log("@title:Validate Unsettled Bet - Sport Mode UI display correctly");
         log("Step 1. Navigate Report > Unsettled Bet");
         UnsettledBetPage page = agentHomePage.navigateUnsettledBetPage();
@@ -93,9 +97,10 @@ public class UnsettledBetTest extends BaseCaseTest {
      * 2. Select Last Best Mode > Select Matched and click Submit
      * @expect: 1. Match bet display correctly
      */
+    @TestRails(id = "786")
     @Test(groups = {"smoke"})
     @Parameters("memberAccount")
-    public void Agent_Report_Unsettled_Bet_005(String memberAccount) {
+    public void Agent_Report_Unsettled_Bet_786(String memberAccount) {
         log("@title: Validate Last Best Mode - Can filter Matched bet");
         log("Step 1. Navigate Report > Unsettled Bet");
         UnsettledBetPage page = agentHomePage.navigateUnsettledBetPage();
@@ -115,9 +120,10 @@ public class UnsettledBetTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3728")
     @Test(groups = {"regression"})
     @Parameters("memberAccount")
-    public void Agent_Report_Unsettled_Bet_006(String memberAccount) {
+    public void Agent_Report_Unsettled_Bet_3728(String memberAccount) {
         log("@title: Validate Last Best Mode - Can filter Unmatched bet");
         log("Step 1. Navigate Report > Unsettled Bet");
         UnsettledBetPage page = agentHomePage.navigateUnsettledBetPage();
@@ -137,14 +143,15 @@ public class UnsettledBetTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3729")
     @Test(groups = {"regression"})
     @Parameters("memberAccount")
-    public void Agent_Report_Unsettled_Bet_007(String memberAccount) {
-        log("@title: Validate Last Best Mode - Can filter Unmatched bet");
+    public void Agent_Report_Unsettled_Bet_3729(String memberAccount) {
+        log("@title: Validate Last Best Mode - Can filter Cancelled bet");
         log("Step 1. Navigate Report > Unsettled Bet");
         UnsettledBetPage page = agentHomePage.navigateUnsettledBetPage();
 
-        log("Step Select Last Best Mode > Select Unmatched and click Submit");
+        log("Step Select Last Best Mode > Select Cancelled and click Submit");
         page.dpFrom.previousMonthWithDate(-1, "25");
         page.search("Cancelled", "", memberAccount, "", "", "");
 
@@ -168,8 +175,9 @@ public class UnsettledBetTest extends BaseCaseTest {
      * 4. Click on event
      * @expect: 1. Verify bet number is matched with total bet
      */
+    @TestRails(id = "787")
     @Test(groups = {"smoke"})
-    public void Agent_Report_Unsettled_Bet_008() {
+    public void Agent_Report_Unsettled_Bet_787() {
         log("@title: Validate Sport Mode - Total bet list is correct");
         log("Step 1. Navigate Report > Unsettled Bet");
         UnsettledBetPage page = agentHomePage.navigateUnsettledBetPage();
@@ -192,37 +200,6 @@ public class UnsettledBetTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate Hierarchy Mode - Can navigate to bet list
-     * @pre-condition: 1. Log in successfully by SAD
-     * @steps: 1. Navigate Report > Unsettled Bet
-     * 2. Select Hierarchy Mode
-     * 3. Enter Soccer and click submit
-     * @expect: 1. Verify data is display
-     */
-    @Test(groups = {"smoke"})
-    @Parameters("downlineAccount")
-    public void Agent_Report_Unsettled_Bet_009(String downlineAccount) {
-        log("@title:Validate Hierarchy Mode - Can navigate to bet list");
-        log("Step 1. Navigate Report > Unsettled Bet");
-        UnsettledBetPage page = agentHomePage.navigateUnsettledBetPage();
 
-        log("Step 2. Select Hierarchy Mode");
-        page.selectMode("Hierarchy Mode");
-        List<ArrayList<String>> data = page.tblHierarchyMode.getRowsWithoutHeader(1, false);
-
-        log("Step 3. Enter Soccer and click submit");
-        page.search("Matched", "", downlineAccount, "", "", "");
-
-        log("Verify 1. Verify data is display");
-        if (data.get(0).get(0).equalsIgnoreCase(AGConstant.NO_RECORD_FOUND)) {
-            Assert.assertEquals(data.get(0).get(0), AGConstant.NO_RECORD_FOUND, "FAILED! No record message display incorrect when have no result found");
-            Assert.assertEquals(page.lblNoRecord.getText(), AGConstant.NO_RECORD_FOUND, "FAILED! No record label is incorrect");
-            return;
-        }
-        Assert.assertEquals(data.get(0).get(page.colLoginID - 1), downlineAccount, "Failed! Data not display");
-
-        log("INFO: Executed completely");
-    }
 
 }

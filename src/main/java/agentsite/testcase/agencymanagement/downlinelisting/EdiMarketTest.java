@@ -12,15 +12,17 @@ import com.paltech.utils.DateUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EdiMarketTest extends BaseCaseTest {
 
-    @Test(groups = {"interaction1"})
+    @TestRails(id = "3562")
+    @Test(groups = {"interaction"})
     @Parameters({"downlineAccount", "password"})
-    public void Agent_AM_Downline_Listing_Edit_Market_013(String downlineAccount, String password) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_Market_3562(String downlineAccount, String password) throws Exception {
         log("@title: Cannot transfer in a day in a weekly not allow to transfer");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();

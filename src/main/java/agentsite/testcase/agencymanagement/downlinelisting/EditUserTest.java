@@ -26,8 +26,9 @@ import java.util.List;
 import static com.paltech.utils.StringUtils.decrypt;
 
 public class EditUserTest extends BaseCaseTest {
+    @TestRails(id = "3499")
     @Test(groups = {"http_request"})
-    public void Agent_AM_Downline_Listing_Edit_User_001() throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_3499() throws Exception {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -43,9 +44,9 @@ public class EditUserTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3523")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_Edit_User_002() throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_3523() throws Exception {
         log("@title: Validate UI in Edit User");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -539,7 +540,8 @@ public class EditUserTest extends BaseCaseTest {
         log("Step 2.1. Input security code");
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
 
-        List<ArrayList<String>> lstBetSettingValidation = page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.getBetSettingValidationValueLst(currency);
+        List<ArrayList<String>> lstBetSettingValidation = page.betSettingInforSection.getBetSettingValidationValueLst(currency);
+//      page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.getBetSettingValidationValueLst(currency);
         String minBet = Integer.toString(Integer.parseInt(lstBetSettingValidation.get(0).get(1)) + 1);
         String maxBet = Integer.toString(Integer.parseInt(lstBetSettingValidation.get(1).get(1)) - 1);
         List<ArrayList<String>> lstBetSetting = new ArrayList<>();
@@ -552,7 +554,8 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 3. Input Min bet of Soccer with valid value");
         page.editDownlinePopup.accInfoSection.txtPassword.sendKeys(StringUtils.decrypt(password));
-        page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
+        page.betSettingInforSection.inputBetSetting(lstBetSetting);
+//        page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
         page.submitEditDownline();
 
         log("Verify 1. Verify can update User with valid Min Bet");
@@ -590,8 +593,9 @@ public class EditUserTest extends BaseCaseTest {
     }
 
 
+    @TestRails(id = "3542")
     @Test(groups = {"regression_oldui"})
-    public void Agent_AM_Downline_Listing_Edit_User_028() throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_3542() throws Exception {
         log("@title: Verify can edit User successfully if input valid min bet Setting");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
@@ -605,8 +609,9 @@ public class EditUserTest extends BaseCaseTest {
         Assert.assertFalse(page.securityPopup.isDisplayed(), "FAILED Security popup  display when edit agent");
     }
 
+    @TestRails(id = "3544")
     @Test(groups = {"interaction"})
-    public void Agent_AM_Downline_Listing_Edit_User_030() throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_3544() throws Exception {
         log("@title: Verity Exchange Product is displayed/dissappear in member site when active/inactive");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
@@ -623,10 +628,10 @@ public class EditUserTest extends BaseCaseTest {
         log("Verify 1. Verify there is no Security Code popup prompted");
         Assert.assertFalse(page.securityPopup.isDisplayed(), "FAILED Security popup  display when edit agent");
     }
-
+    @TestRails(id = "3544")
     @Test(groups = {"interaction"})
     @Parameters({"username", "password", "memberAccount"})
-    public void Agent_AM_Downline_Listing_Edit_User_031(String username, String password, String memberAccount) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_3544(String username, String password, String memberAccount) throws Exception {
         log("@title: Verity Lottery & Slots Product is displayed/dissappear in member site when active/inactive");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -669,10 +674,10 @@ public class EditUserTest extends BaseCaseTest {
         log("4.2 Verify Lottery & Slots product appears");
         Assert.assertTrue(memberHomePage.header.isProductTabDisplay("Lottery & Slots"), "ERROR! Product tab is not appeared");
     }
-
+    @TestRails(id = "3546")
     @Test(groups = {"interaction"})
     @Parameters({"username", "password", "memberAccount"})
-    public void Agent_AM_Downline_Listing_Edit_User_032(String username, String password, String memberAccount) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_3546(String username, String password, String memberAccount) throws Exception {
         log("@title: Verity Exchange Games Product is displayed/dissappear in member site when active/inactive");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -715,10 +720,10 @@ public class EditUserTest extends BaseCaseTest {
         log("Step 4.2 Verify Exchange Games product appears");
         Assert.assertTrue(memberHomePage.header.isProductTabDisplay("Exchange Games"), "ERROR! Product tab is not appeared");
     }
-
+    @TestRails(id = "3547")
     @Test(groups = {"interaction"})
     @Parameters({"username", "password", "memberAccount"})
-    public void Agent_AM_Downline_Listing_Edit_User_033(String username, String password, String memberAccount) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_3547(String username, String password, String memberAccount) throws Exception {
         log("@title: Verity Live Dealer Asian Product is displayed/dissappear in member site when active/inactive");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -761,10 +766,10 @@ public class EditUserTest extends BaseCaseTest {
         log("Step 4.2 Verify Live Dealer Asian product appears");
         Assert.assertTrue(memberHomePage.header.isProductTabDisplay("Live Dealer Asian"), "ERROR! Product tab is not appeared");
     }
-
+    @TestRails(id = "3548")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Downline_Listing_Edit_User_034(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_3548(String memberAccount, String password) throws Exception {
         log("@title: Verify player display change password after agent update password");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -788,10 +793,10 @@ public class EditUserTest extends BaseCaseTest {
         Assert.assertTrue(changePasswordPage.btnChangePassword.isDisplayed(), "ERROR! Change Password page does not display");
         changePasswordPage.skip();
     }
-
+    @TestRails(id = "3549")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Downline_Listing_Edit_User_035(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_3549(String memberAccount, String password) throws Exception {
         log("@title: Verify player cannot login member site when the account inactive");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -812,10 +817,10 @@ public class EditUserTest extends BaseCaseTest {
         String errorMessage = landingPage.loginInvalid(memberAccount, StringUtils.decrypt(password));
         Assert.assertEquals(errorMessage, "Your account has been Inactive, please contact your Upline for help.", "ERROR! Account inactive message is not displayed");
     }
-
+    @TestRails(id = "3550")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "username", "password", "isLogin"})
-    public void Agent_AM_Downline_Listing_Edit_User_036(String memberAccount, String username, String password, boolean isLogin) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_3550(String memberAccount, String username, String password, boolean isLogin) throws Exception {
         log("@title: Verify player login but cannot place bet  on exchange when account is suspended");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -857,10 +862,10 @@ public class EditUserTest extends BaseCaseTest {
         agentHomePage.leftMenu.switchQuickSearch();
         agentHomePage.quickSearch.updateStatus(memberAccount, AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(1), true);
     }
-
+    @TestRails(id = "3524")
     @Test(groups = {"regression_oldui"})
-    public void Agent_AM_Downline_Listing_Edit_User_005() {
-        log("@title:Verify can Suspend  the account");
+    public void Agent_AM_Downline_Listing_Edit_User_3524() {
+        log("@title:Verify can Suspend the account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
@@ -891,9 +896,9 @@ public class EditUserTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3525")
     @Test(groups = {"regression_oldui"})
-    public void Agent_AM_Downline_Listing_Edit_User_006() {
+    public void Agent_AM_Downline_Listing_Edit_User_3525() {
         log("@title:Verify can Close the account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -916,9 +921,9 @@ public class EditUserTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3528")
     @Test(groups = {"regression_oldui"})
-    public void Agent_AM_Downline_Listing_Edit_User_009() {
+    public void Agent_AM_Downline_Listing_Edit_User_3528() {
         log("@title:Verify cannot inactive all product");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -938,9 +943,9 @@ public class EditUserTest extends BaseCaseTest {
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_ALL_PRODUCT_NOT_SELECT, "FAILED! Message update downline is not correct");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3529")
     @Test(groups = {"regression_oldui"})
-    public void Agent_AM_Downline_Listing_Edit_User_010() {
+    public void Agent_AM_Downline_Listing_Edit_User_3529() {
         log("@title:Verify navigate to Downline List if click on Cancel button");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();

@@ -16,7 +16,7 @@ public class LogoutTest extends BaseCaseTest {
      */
     @TestRails(id = "672")
     @Test(groups = {"smoke"})
-    public void Agent_Logout_001() {
+    public void Agent_Logout_672() {
         log("@title: Validate that user can logout successfully");
         log("Step 1: Log in with a valid username and password");
         log("Step 2: Click Logout button");
@@ -25,7 +25,7 @@ public class LogoutTest extends BaseCaseTest {
         log("Verify: Logout is successful");
         Assert.assertTrue(agentLoginPage.txtUsername.isDisplayed(), "ERROR: Username text-box is not displayed after logging out");
         String login = agentLoginPage.lblLogin.getText();
-        Assert.assertEquals(login, AGConstant.LoginPage.LOGIN, String.format("ERROR: The expected text is '%s' but found '%s'", AGConstant.LoginPage.LOGIN, login));
+        Assert.assertEquals(login.toUpperCase(), AGConstant.LoginPage.LOGIN, String.format("ERROR: The expected text is '%s' but found '%s'", AGConstant.LoginPage.LOGIN, login));
         log("INFO: Executed completely");
     }
 

@@ -16,11 +16,11 @@ import static common.AGConstant.RiskManagement.NetExposure.*;
 
 public class NetExposureTest extends BaseCaseTest {
     /***
-     * This tes cases only available for F24 and Betclub9
+     * This test cases only available for F24 and Betclub9
      */
     @TestRails(id = "834")
     @Test(groups = {"smoke5", "smokePO"})
-    public void Agent_RM_NetExposureTest_TC001() {
+    public void Agent_RM_NetExposureTest_834() {
         log("@title: Verify UI display correctly");
         log("Step 1.Navigate Risk Management > Volumn Monitor");
         NetExposurePage page = agentHomePage.navigateNetExposurePage();
@@ -41,7 +41,7 @@ public class NetExposureTest extends BaseCaseTest {
 
     @TestRails(id = "835")
     @Test(groups = {"smokePO"})
-    public void Agent_RM_NetExposureTest_TC002() {
+    public void Agent_RM_NetExposureTest_835() {
         log("@title:Validate Order place on match odds market display correct section My PT mode");
         log("Step 1.Navigate Risk Management > Net Exposure");
         NetExposurePage page = agentHomePage.navigateNetExposurePage();
@@ -55,13 +55,12 @@ public class NetExposureTest extends BaseCaseTest {
             Assert.assertEquals(page.tblResult.getColumnNamesOfTable(), RESULT_TABLE_HEADER, "FAILE! Result table is incorrect");
         }
 
-
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "836")
     @Test(groups = {"smoke", "smokePO"})
-    public void Agent_RM_NetExposureTest_TC003() {
+    public void Agent_RM_NetExposureTest_836() {
         log("@title: Verify can open bet list in PT Mode");
         log("Step 1.Navigate Risk Management > Volume Monitor");
         NetExposurePage page = agentHomePage.navigateNetExposurePage();
@@ -82,8 +81,8 @@ public class NetExposureTest extends BaseCaseTest {
     }
 
     @TestRails(id = "837")
-    @Test(groups = {"smoke", "smokePO"})
-    public void Agent_RM_NetExposureTest_TC004() {
+    @Test(groups = {"poregression"})
+    public void Agent_RM_NetExposureTest_837() {
         log("@title: Verify can open Downline");
         log("Step 1.Navigate Risk Management > Volume Monitor");
         NetExposurePage page = agentHomePage.navigateNetExposurePage();

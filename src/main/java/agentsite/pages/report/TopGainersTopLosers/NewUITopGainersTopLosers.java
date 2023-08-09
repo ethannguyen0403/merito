@@ -78,19 +78,6 @@ public class NewUITopGainersTopLosers extends TopGainersTopLosers{
         return false;
     }
 
-//    @Override
-//    public boolean isCheckUserDisplayInBigStakeTableCorrect() {
-//        if (tblBigStake.getRowsWithoutHeader(20,false).size() > 0){
-//            System.out.println("Data of Big Stake Table Display correct");
-//            return true;
-//        }
-//        if (tblBigStake.getColumn(1,false).get(0).equals("No records found.")){
-//            System.out.println("No records found.");
-//            return true;
-//        }
-//        return false;
-//    }
-
     @Override
     public boolean isCheckUserDisplayInTopLosersTableCorrect(List<ArrayList<String>> losers) {
         List<ArrayList<String>> lstTopLoser = tblTopGainers.getRowsWithoutHeader(20,false);

@@ -3,6 +3,8 @@ package agentsite.testcase.agencymanagement.depositwithdrawal;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.DepositWithdrawalPage;
 import agentsite.pages.agentmanagement.depositwithdrawal.DepositPopup;
+import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
+import agentsite.pages.agentmanagement.depositwithdrawal.NewUIDepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.ViewLogPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
@@ -34,7 +36,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 2: Click Submit button");
-        page.filter("", "All", "All");
+        page.depositWithdraw.filter("", "All", "All");
 
         log("Verify: There is no http requests error");
         Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
@@ -51,30 +53,30 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * 4. Column names on Downline info table are correct
      */
     @TestRails(id = "712")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_newui"})
     @Parameters("currency")
-    public void Agent_AM_DepositWithdrawal_712(String currency) throws Exception {
+    public void Agent_AM_DepositWithdrawal_712(String currency) {
         log("@title: Validate that this page loading is successful");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
-        String loginAccBalance = String.format(Locale.getDefault(), "%,.2f", DownLineListingUtils.getMyCreditBalance());
+        String loginAccBalance = String.format(Locale.getDefault(), "%,.2f", DownLineListingUtils.getMyCreditCashBalance());
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 1: Input security code");
-        page.securityPopup.submitSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
-        boolean isStatusItems = page.ddbAccountStatus.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_ACCOUNT_STATUS);
-        boolean isLevel = page.ddbLevel.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL);
-        List<String> lstHeader = page.tblWithdrawalDeposit.getColumnNamesOfTable();
+//        page.securityPopup.submitSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        boolean isStatusItems = NewUIDepositWithdraw.ddbAccountStatus.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_ACCOUNT_STATUS);
+        boolean isLevel = NewUIDepositWithdraw.ddbLevel.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL);
+        List<String> lstHeader = page.depositWithdraw.tblWithdrawalDeposit.getColumnNamesOfTable();
 
         log("Verify 1: Items on Account Status dropdown-box are loaded correctly");
         log("Verify 2: Items on Level dropdown-box are loaded correctly");
         Assert.assertTrue(isStatusItems, "ERROR: At least an item within Account Status ddb is incorrect");
         Assert.assertTrue(isLevel, "ERROR: At least an item within Level ddb is incorrect");
-        Assert.assertEquals(page.lblLoginAccountAvailableBalance.getText().trim(), String.format("%s %s %s", AGConstant.AgencyManagement.DepositWithdrawal.LBL_AVAILABLE_BALANCE, currency, loginAccBalance));
-        Assert.assertEquals(page.lblUsername.getText().trim(), AGConstant.LBL_USERNAME, "FAILED! Username label not correct");
-        Assert.assertEquals(page.lblAccountStatus.getText().trim(), AGConstant.AgencyManagement.DepositWithdrawal.LBL_ACCOUNT_STATUS, "FAILED! Account status not correct");
-        Assert.assertEquals(page.lblLevel.getText().trim(), AGConstant.AgencyManagement.DepositWithdrawal.LBL_LEVEL, "FAILED! Level label not correct");
-        Assert.assertEquals(page.txtUsername.getAttribute("placeholder").trim(), AGConstant.AgencyManagement.DepositWithdrawal.USERNAME_NICKNAME, "FAILED! Username placeholder not correct");
-        Assert.assertEquals(page.btnSubmit.getText(), AGConstant.BTN_SUBMIT, "Failed, Submit button display incorrect");
+        Assert.assertEquals(page.depositWithdraw.getLabelText("lblLoginAccountAvailableBalance"), String.format("%s %s %s", AGConstant.AgencyManagement.DepositWithdrawal.LBL_AVAILABLE_BALANCE, currency, loginAccBalance));
+        Assert.assertEquals(page.depositWithdraw.getLabelText("lblUsername"), AGConstant.LBL_USERNAME, "FAILED! Username label not correct");
+        Assert.assertEquals(page.depositWithdraw.getLabelText("lblAccountStatus"), AGConstant.AgencyManagement.DepositWithdrawal.LBL_ACCOUNT_STATUS, "FAILED! Account status not correct");
+        Assert.assertEquals(page.depositWithdraw.getLabelText("lblLevel"), AGConstant.AgencyManagement.DepositWithdrawal.LBL_LEVEL, "FAILED! Level label not correct");
+        Assert.assertEquals(page.depositWithdraw.txtUsername.getAttribute("placeholder").trim(), AGConstant.AgencyManagement.DepositWithdrawal.USERNAME_NICKNAME, "FAILED! Username placeholder not correct");
+        Assert.assertEquals(page.depositWithdraw.btnSubmit.getText(), AGConstant.BTN_SUBMIT, "Failed, Submit button display incorrect");
 
         log("Verify 4: Column names on Deposit/withdraw info table are correct");
         Assert.assertEquals(lstHeader, AGConstant.AgencyManagement.DepositWithdrawal.TABLE_HEADER, "FAILED! Header Deposit Withdraw not match with the expected");
@@ -103,9 +105,9 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 2: Filter with username " + userCode);
-        page.filter(userCode, "", "");
+        page.depositWithdraw.filter(userCode, "", "");
 
-        List<String> lstUsername = page.tblWithdrawalDeposit.getColumn(page.defineDepositWithdrawTableColumn("User Name"), false);
+        List<String> lstUsername = page.depositWithdraw.tblWithdrawalDeposit.getColumn(page.depositWithdraw.defineDepositWithdrawTableColumn("User Name"), false);
 
         log("Verify 1: This table is displayed correctly");
         Assert.assertEquals(lstUsername.size(), 1, "ERROR: lstUsername doesn't equal to 1");
@@ -137,14 +139,14 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log(String.format("Step 2: Filter with username '%s' and '%s' level", userCode, level));
-        page.filter(userCode, "", level);
+        page.depositWithdraw.filter(userCode, "", level);
 
-        List<ArrayList<String>> lstRecords = page.tblWithdrawalDeposit.getRowsWithoutHeader(2, false);
+        List<ArrayList<String>> lstRecords = page.depositWithdraw.tblWithdrawalDeposit.getRowsWithoutHeader(2, false);
 
         log("Verify 1: Data in this table is displayed correctly after filtering");
         Assert.assertEquals(lstRecords.size(), 1, "ERROR: lstRecords doesn't equal to 1");
-        Assert.assertEquals(lstRecords.get(0).get(page.defineDepositWithdrawTableColumn("User Name") - 1), userCode, String.format("ERROR: The expected username is '%s' but found '%s'", userCode, lstRecords.get(0).get(page.defineDepositWithdrawTableColumn("User Name") - 1)));
-        Assert.assertTrue(page.verifyFilterByLevel(lstRecords.get(0).get(page.colLevel - 1), level), String.format("ERROR: The expected level is '%s' but found '%s'", level, lstRecords.get(0).get(page.colLevel - 1)));
+        Assert.assertEquals(lstRecords.get(0).get(page.depositWithdraw.defineDepositWithdrawTableColumn("User Name") - 1), userCode, String.format("ERROR: The expected username is '%s' but found '%s'", userCode, lstRecords.get(0).get(page.depositWithdraw.defineDepositWithdrawTableColumn("User Name") - 1)));
+        Assert.assertTrue(page.depositWithdraw.verifyFilterByLevel(lstRecords.get(0).get(page.depositWithdraw.colLevel - 1), level), String.format("ERROR: The expected level is '%s' but found '%s'", level, lstRecords.get(0).get(page.depositWithdraw.colLevel - 1)));
         log("INFO: Executed completely");
     }
 
@@ -172,15 +174,15 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log(String.format("Step 2: Filter with username '%s', '%s' status and '%s' level", userCode, status, level));
-        page.filter(userCode, status, level);
+        page.depositWithdraw.filter(userCode, status, level);
 
-        List<ArrayList<String>> lstRecords = page.tblWithdrawalDeposit.getRowsWithoutHeader(2, false);
+        List<ArrayList<String>> lstRecords = page.depositWithdraw.tblWithdrawalDeposit.getRowsWithoutHeader(2, false);
 
         log("Verify 1: Data in this table is displayed correctly after filtering");
         Assert.assertEquals(lstRecords.size(), 1, "ERROR: lstRecords doesn't equal to 1");
-        Assert.assertEquals(lstRecords.get(0).get(page.defineDepositWithdrawTableColumn("User Name") - 1), userCode, String.format("ERROR: The expected username is '%s' but found '%s'", userCode, lstRecords.get(0).get(page.defineDepositWithdrawTableColumn("User Name") - 1)));
-        Assert.assertTrue(page.verifyFilterByLevel(lstRecords.get(0).get(page.colLevel - 1), level), String.format("ERROR: The expected level is '%s' but found '%s'", level, lstRecords.get(0).get(page.colLevel - 1)));
-        Assert.assertTrue(lstRecords.get(0).get(page.colAccountStatus - 1).contains(status), String.format("ERROR: The expected status is '%s' but found '%s'", status, lstRecords.get(0).get(page.colAccountStatus - 1)));
+        Assert.assertEquals(lstRecords.get(0).get(page.depositWithdraw.defineDepositWithdrawTableColumn("User Name") - 1), userCode, String.format("ERROR: The expected username is '%s' but found '%s'", userCode, lstRecords.get(0).get(page.depositWithdraw.defineDepositWithdrawTableColumn("User Name") - 1)));
+        Assert.assertTrue(page.depositWithdraw.verifyFilterByLevel(lstRecords.get(0).get(page.depositWithdraw.colLevel - 1), level), String.format("ERROR: The expected level is '%s' but found '%s'", level, lstRecords.get(0).get(page.depositWithdraw.colLevel - 1)));
+        Assert.assertTrue(lstRecords.get(0).get(page.depositWithdraw.colAccountStatus - 1).contains(status), String.format("ERROR: The expected status is '%s' but found '%s'", status, lstRecords.get(0).get(page.depositWithdraw.colAccountStatus - 1)));
         log("INFO: Executed completely");
     }
 
@@ -207,9 +209,9 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log(String.format("Step 2: Filter with username '%s', '%s' status and '%s' level", userCode, status, "All"));
-        page.filter(userCode, status, "");
+        page.depositWithdraw.filter(userCode, status, "");
 
-        List<ArrayList<String>> lstRecords = page.tblWithdrawalDeposit.getRowsWithoutHeader(2, false);
+        List<ArrayList<String>> lstRecords = page.depositWithdraw.tblWithdrawalDeposit.getRowsWithoutHeader(2, false);
 
         log("Verify 1: There is no record found when filtering an incorrect status");
         Assert.assertEquals(lstRecords.size(), 1, "ERROR: lstRecords doesn't equal to 1");
@@ -234,10 +236,10 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log(String.format("Step 2: Filter an invalid username '%s'", userCode));
-        page.filter(userCode, "", "");
+        page.depositWithdraw.filter(userCode, "", "");
 
         log("Verify 1:There is no result found when filtering an invalid username");
-        Assert.assertEquals(page.lblNoRecord.getText(), AGConstant.NO_RECORD_FOUND, String.format("ERROR: The expected text is '%s' but found '%s'", AGConstant.NO_RECORD_FOUND, page.lblNoRecord.getText()));
+        Assert.assertEquals(page.depositWithdraw.lblNoRecord.getText(), AGConstant.NO_RECORD_FOUND, String.format("ERROR: The expected text is '%s' but found '%s'", AGConstant.NO_RECORD_FOUND, page.depositWithdraw.lblNoRecord.getText()));
         log("INFO: Executed completely");
     }
 
@@ -267,13 +269,13 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         page.waitingLoadingSpinner();
 
         log(String.format("Step 2. Drill-down to indirect downline %s", lstUsers.get(0).getUserCode()));
-        page.clickDownline(lstUsers.get(0).getUserCode());
-        String actualBreadcrumb = page.getBreadcrumb();
+        page.depositWithdraw.clickDownline(lstUsers.get(0).getUserCode());
+        String actualBreadcrumb = page.depositWithdraw.getBreadcrumb();
 
         log("Verify 1. There is no Update Status Transfer columns");
         log("Verify 2. Deposit and Withdraw button is no longer displayed");
         Assert.assertEquals(actualBreadcrumb, String.format("%s\\%s", acc1, downlineUsename1), "FAILED! Downline Bar is incorrect");
-        List<String> lstHeader = page.tblWithdrawalDeposit.getColumnNamesOfTable();
+        List<String> lstHeader = page.depositWithdraw.tblWithdrawalDeposit.getColumnNamesOfTable();
         Assert.assertEquals(lstHeader, AGConstant.AgencyManagement.DepositWithdrawal.TABLE_HEADER_DOWNLINE, "FAILED! Header Deposit Withdraw not match with the expected");
         log("INFO: Executed completely");
     }
@@ -300,7 +302,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         String userCode = lstUsers.get(0).getUserCode();
         String formatLoginID = lstUsers.get(0).getUserCodeAndLoginID("%s (%s)");
         log(String.format("Step 2. Click on View Log link of  account  %s", userCode));
-        ViewLogPopup popup = (ViewLogPopup) page.action(DepositWithdrawalPage.Actions.VIEW_LOG, userCode);
+        ViewLogPopup popup = (ViewLogPopup) page.depositWithdraw.action(DepositWithdraw.Actions.VIEW_LOG, userCode);
 
         log("Verify 1. View Log popup display with the title \"Deposit Withdrawal Log - SA1\"");
         Assert.assertEquals(popup.getTitle(), String.format(AGConstant.AgencyManagement.DepositWithdrawal.VIEWLOG_TITLE, formatLoginID), "FAILED! View Log Title is incorrect as expected");
@@ -332,10 +334,10 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log(String.format("Step 2.  Deposit for an account%s", directDownline.getUserCode()));
-        page.deposit(directDownline.getUserCode(), "1", remark, true, true);
+        page.depositWithdraw.deposit(directDownline.getUserCode(), "1", remark, true, true);
 
         log("Step 3. Click View Log");
-        ViewLogPopup viewLogPopup = (ViewLogPopup) page.action(DepositWithdrawalPage.Actions.VIEW_LOG, directDownline.getUserCode());
+        ViewLogPopup viewLogPopup = (ViewLogPopup) page.depositWithdraw.action(DepositWithdraw.Actions.VIEW_LOG, directDownline.getUserCode());
 
         log("Verify 1. Verify log data display corresponding as deposit");
         List<ArrayList<String>> lstDepositLog = viewLogPopup.tblLog.getRowsWithoutHeader(1, false);
@@ -368,10 +370,10 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log(String.format("Step 2. Withdrawal for an account %s", directDownline.getUserCode()));
-        page.withdraw(directDownline.getUserCode(), "1", remark, true, true);
+        page.depositWithdraw.withdraw(directDownline.getUserCode(), "1", remark, true, true);
 
         log("Step 3. Click View Log");
-        ViewLogPopup viewLogPopup = (ViewLogPopup) page.action(DepositWithdrawalPage.Actions.VIEW_LOG, directDownline.getUserCode());
+        ViewLogPopup viewLogPopup = (ViewLogPopup) page.depositWithdraw.action(DepositWithdraw.Actions.VIEW_LOG, directDownline.getUserCode());
 
         log("Verify 1. Verify log data display corresponding as With draw");
         List<ArrayList<String>> lstDepositLog = viewLogPopup.tblLog.getRowsWithoutHeader(1, false);
@@ -397,13 +399,13 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage("");
 
         log("Verify 1. Verify security popup display");
-        Assert.assertTrue(page.securityPopup.isDisplayed(), "FAILED! Security Popup should not display when open Deposit Withdraw page in SAT and White Label");
+        Assert.assertTrue(page.depositWithdraw.securityPopup.isDisplayed(), "FAILED! Security Popup should not display when open Deposit Withdraw page in SAT and White Label");
 
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "721")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     public void Agent_AM_DepositWithdrawal_721() {
         log("@title: Validate My Credit, Total Balance, Sub Balance,Available Balance is correct");
         log("pre-condition: Log in successfully by SAD that belonging to Credit Cash line");
@@ -411,8 +413,8 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage("");
         log("Verify 1. In viewied level data My Credit, Total Balance, Sub Balance, Available Balance\n" +
                 "     * In downline table  veify data to Total Balance, Sub Balance, Available Balance");
-        Assert.assertTrue(page.isTotalBalanceHeaderCalculatedCorrect(), "ToTal Balance Header's value is wrong");
-        Assert.assertTrue(page.isSubBalanceHeaderCalculatedCorrect(), "Sub Balance Header's value is wrong");
+        Assert.assertTrue(page.depositWithdraw.isTotalBalanceHeaderCalculatedCorrect(), "ToTal Balance Header's value is wrong");
+        Assert.assertTrue(page.depositWithdraw.isSubBalanceHeaderCalculatedCorrect(), "Sub Balance Header's value is wrong");
         Assert.assertTrue(page.depositWithdraw.isTotalBalanceCalculatedCorrect(), "Total Balance Of Downline's value is wrong");
         log("INFO: Executed completely");
     }
@@ -431,9 +433,9 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 2. Select direct agent account and click Deposit");
-        page.filter(loginId, "", "");
-        double downlineAvailableBalance = page.getDataByColumn(loginId, 11);
-        Object popupObj = page.action(DepositWithdrawalPage.Actions.DEPOSIT, 1);
+        page.depositWithdraw.filter(loginId, "", "");
+        double downlineAvailableBalance = page.depositWithdraw.getDataByColumn(loginId, 11);
+        Object popupObj = page.depositWithdraw.action(DepositWithdraw.Actions.DEPOSIT, 1);
 
         log("Step 3. Deposit amount for agent");
         DepositPopup popup = DepositPopup.class.cast(popupObj);
@@ -445,7 +447,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         loginAgent(loginId, password, true);
         log("Verify Balance of deposited agent");
         page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
-        Assert.assertTrue(page.verifyBalanceUpdated(depositAmount, downlineAvailableBalance, DepositWithdrawalPage.Actions.DEPOSIT));
+        Assert.assertTrue(page.depositWithdraw.verifyBalanceUpdated(depositAmount, downlineAvailableBalance, DepositWithdraw.Actions.DEPOSIT));
     }
 
     @Test(groups = {"interaction"})
@@ -462,9 +464,9 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 2. Select direct agent account and click Deposit");
-        page.filter(loginId, "", "");
-        double downlineAvailableBalance = page.getDataByColumn(loginId, 11);
-        Object popupObj = page.action(DepositWithdrawalPage.Actions.WITHDRAWAL, 1);
+        page.depositWithdraw.filter(loginId, "", "");
+        double downlineAvailableBalance = page.depositWithdraw.getDataByColumn(loginId, 11);
+        Object popupObj = page.depositWithdraw.action(DepositWithdraw.Actions.WITHDRAWAL, 1);
 
         log("Step 3. Deposit amount for agent");
         DepositPopup popup = DepositPopup.class.cast(popupObj);
@@ -476,7 +478,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         loginAgent(loginId, password, true);
         log("Verify Balance of deposited agent");
         page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
-        Assert.assertTrue(page.verifyBalanceUpdated(depositAmount, downlineAvailableBalance, DepositWithdrawalPage.Actions.WITHDRAWAL));
+        Assert.assertTrue(page.depositWithdraw.verifyBalanceUpdated(depositAmount, downlineAvailableBalance, DepositWithdraw.Actions.WITHDRAWAL));
     }
 }
 

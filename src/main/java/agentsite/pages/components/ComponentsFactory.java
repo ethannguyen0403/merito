@@ -1,5 +1,8 @@
 package agentsite.pages.components;
 
+import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
+import agentsite.pages.agentmanagement.betsettinglisting.NewUIBetSettingListing;
+import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.NewUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.OldUIAccountInforSection;
@@ -33,25 +36,23 @@ import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting
 import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.NewUIDepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.OldUIDepositWithdraw;
+import agentsite.pages.agentmanagement.ptlisting.NewUIPositionTakingListing;
+import agentsite.pages.agentmanagement.ptlisting.OldUIPositionTakingListing;
+import agentsite.pages.agentmanagement.ptlisting.PositionTakingListing;
+import agentsite.pages.agentmanagement.taxsettinglisting.NewUITaxSettingListing;
+import agentsite.pages.agentmanagement.taxsettinglisting.OldUITaxSettingListing;
+import agentsite.pages.agentmanagement.taxsettinglisting.TaxSettingListing;
 import agentsite.pages.components.header.Header;
 import agentsite.pages.components.header.NewUIHeader;
 import agentsite.pages.components.header.OldUIHeader;
 import agentsite.pages.components.leftmenu.LeftMenu;
 import agentsite.pages.components.leftmenu.NewUILeftMenu;
 import agentsite.pages.components.leftmenu.OldUILeftMenu;
-import agentsite.pages.report.TopGainersTopLosers.NewUITopGainersTopLosers;
-import agentsite.pages.report.TopGainersTopLosers.OldUITopGainersTopLosers;
-import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
-import agentsite.pages.report.WinLossSimple.NewUIWinLossSimple;
-import agentsite.pages.report.WinLossSimple.OldUIWinLossSimple;
-import agentsite.pages.report.WinLossSimple.WinLossSimple;
 
 public class ComponentsFactory {
     public static LeftMenu leftMenuObject(String types) {
         switch (types) {
             case "funsport":
-                return new NewUILeftMenu();
-            case "fairexchange":
                 return new NewUILeftMenu();
             default:
                 return new OldUILeftMenu();
@@ -164,21 +165,31 @@ public class ComponentsFactory {
                 return new NewUIDepositWithdraw();
         }
     }
-    public static TopGainersTopLosers topGainersTopLosers(String types) {
+
+    public static BetSettingListing betSettingPage(String types) {
         switch (types) {
             case "satsport":
-                return new OldUITopGainersTopLosers();
+                return new OldUIBetSettingListing();
             default:
-                return new NewUITopGainersTopLosers();
+                return new NewUIBetSettingListing();
         }
     }
 
-    public static WinLossSimple winLossSimple(String types) {
+    public static TaxSettingListing taxSettingPage(String types) {
         switch (types) {
             case "satsport":
-                return new OldUIWinLossSimple();
+                return new OldUITaxSettingListing();
             default:
-                return new NewUIWinLossSimple();
+                return new NewUITaxSettingListing();
+        }
+    }
+
+    public static PositionTakingListing positionTakingListingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIPositionTakingListing();
+            default:
+                return new NewUIPositionTakingListing();
         }
     }
 }

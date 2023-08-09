@@ -1,6 +1,7 @@
 package agentsite.pages;
 
 import agentsite.controls.Table;
+import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.*;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.QuickSearch;
@@ -12,8 +13,13 @@ import agentsite.pages.report.*;
 import agentsite.pages.riskmanagement.AgentExposureLimitPage;
 import agentsite.pages.riskmanagement.NetExposurePage;
 import agentsite.pages.riskmanagement.VolumeMonitorPage;
+import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Icon;
+import com.paltech.utils.StringUtils;
+
+import java.util.List;
 
 import static common.AGConstant.HomePage.*;
 
@@ -36,8 +42,12 @@ public class HomePage extends LoginPage {
     }
 
     public void confirmSecurityCode(String securityCode) {
-        securityPopup.submitSecurityCode(securityCode);
-        waitingLoadingSpinner();
+        try {
+            securityPopup.submitSecurityCode(StringUtils.decrypt(securityCode));
+            waitingLoadingSpinner();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public LoginPage logout() {
@@ -122,6 +132,7 @@ public class HomePage extends LoginPage {
 
     public PositionTakingListingPage navigatePositionTakingListingPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, POSITION_TAKING_LISTING);
+        waitingLoadingSpinner();
         return new PositionTakingListingPage(_type);
     }
 
@@ -137,11 +148,13 @@ public class HomePage extends LoginPage {
 
     public TaxSettingListingPage navigateTaxSettingListingPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, TAX_SETTING_LISTING);
+        waitingLoadingSpinner();
         return new TaxSettingListingPage(_type);
     }
 
     public BetSettingListingPage navigateBetSettingListingPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, BET_SETTING_LISTING);
+        waitingLoadingSpinner();
         return new BetSettingListingPage(_type);
     }
 
@@ -152,6 +165,7 @@ public class HomePage extends LoginPage {
 
     public BlockUnblockEventPage navigateBlockUnblockEventsPage() {
         leftMenu.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_EVENT);
+        waitingLoadingSpinner();
         return new BlockUnblockEventPage(_type);
     }
 
@@ -295,11 +309,23 @@ public class HomePage extends LoginPage {
 
     public WinLossBySportAndMarketTypePage navigateWinLossBySportAndMarketTypePage() {
         leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE);
+        waitingLoadingSpinner();
         return new WinLossBySportAndMarketTypePage(_type);
     }
 
     public WinLossDetailPage navigateWinLossDetailPage() {
-        leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_DETAIL);
+        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+        String winLossDetailMenu;
+        switch (_type) {
+            case "satsport":
+                winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
+                leftMenu.clickSubMenu(REPORT, winLossDetailMenu);
+                break;
+            default:
+                winLossDetailMenu = String.format("%s By Detail", ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
+                leftMenu.clickSubMenu(REPORT, winLossDetailMenu);
+        }
+        waitingLoadingSpinner();
         return new WinLossDetailPage(_type);
     }
 

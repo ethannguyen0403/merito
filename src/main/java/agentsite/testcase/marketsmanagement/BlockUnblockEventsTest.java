@@ -42,7 +42,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.filter(controlBlockingAccount, "Tennis", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         String childID = BlockUnblockEventsUtils.getchildUserID(sadID, downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList("Tennis", childID, "TODAY", "Unblocked");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Tennis");
         }
         String eventName = event.get(0).getEventName();
@@ -291,7 +291,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.filter("", "Soccer", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", childID, "TODAY");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Soccer");
         }
 
@@ -329,7 +329,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", childID, "TMR");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Soccer");
         }
         String eventName = event.get(0).getEventName();
@@ -361,7 +361,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.filter("", "Soccer", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", childID, "TODAY");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Soccer");
         }
         String eventName = event.get(0).getEventName();
@@ -394,7 +394,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.filter("", "Soccer", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", childID, "TODAY");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Soccer");
         }
         String eventName = event.get(0).getEventName();
@@ -425,7 +425,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.filter("", "Soccer", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", childID, "TODAY");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Soccer");
         }
         String eventName = event.get(0).getEventName();
@@ -457,7 +457,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.filter("", "Soccer", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", childID, "TODAY");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Soccer");
         }
         String eventName = event.get(0).getEventName();
@@ -489,7 +489,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.filter("", "Soccer", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", childID, "TODAY");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Soccer");
         }
         String eventName = event.get(0).getEventName();
@@ -522,7 +522,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.filter("", "Soccer", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", childID, "TODAY");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Soccer");
         }
         String eventName = event.get(0).getEventName();
@@ -555,7 +555,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.filter("", "Tennis", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList("Tennis", childID, "TODAY");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Tennis");
         }
         String eventName = event.get(0).getEventName();
@@ -590,7 +590,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("Step 2. Select sport is soccer, and a tab that has data");
         page.filter("", "Soccer", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", userID, "TODAY");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Tennis");
         }
         String eventName = event.get(0).getEventName();
@@ -632,7 +632,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("Step 4. Click Unblock Now");
         page.filter("", "Cricket", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", downlineAccount, "TODAY");
-        if (Objects.isNull(event.get(0).getEventName())) {
+        if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Tennis");
         }
 
@@ -652,6 +652,11 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     @TestRails(id="3687")
     @Test(groups = {"regression"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_3687() {
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> lstAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname);
+        String downlineAccount = lstAccount.get(0).getUserCode();
+
         log("@title:Validate can unblocked now all events for an downline");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
@@ -663,6 +668,10 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
         log("Step 2: Select sport is soccer, and Today ");
         page.filter("", sport, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+        List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", downlineAccount, "TODAY");
+        if (event.isEmpty()) {
+            throw new SkipException("INFO: Skipping this test case as have no event in today for Tennis");
+        }
 
         log("Step 3: Select all events and a downline");
         log("Step Precondition: Block all event to make sure view able and bet able status is correct for Unblock Now");
@@ -773,21 +782,22 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.blockUnblockEvent("", "All", "Unblock Now", "", 1);
 
         log("Step 3. Select a checkbox beside the downline (Acc1)and selected on another downline(Acc2)( select but uncheck the checkbox)");
-        page.selectDownline(userCode2, true);
+        page.selectDownline(userCode, true);
+        page.clickDownline(userCode2);
 
         log("Step  4. Check all events checkbox and click Blocked");
         page.blockUnblockEvent("", "All", "Block", "", 1);
 
         log("Verify 1.1 Event status when viewing acc2 is blocked");
         List<ArrayList<String>> lstEventofUserCode2 = BlockUnblockEventsUtils.getAllEvents(sport, childID2, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
-        Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode2, "Now"), "FAILED! event api status is incorrectly");
+        Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode2, "Blocked"), "FAILED! event api status is incorrectly");
 
         log("Step 5. Select Acc1 to view event status");
         page.clickDownline(userCode);
 
         log("Verify 1.2 Event status when viewing acc1 is unblock");
         List<ArrayList<String>> lstEventofUserCode = BlockUnblockEventsUtils.getAllEvents(sport, childID, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
-        Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode, "Blocked"), "FAILED! event api status is incorrectly");
+        Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode, "Now"), "FAILED! event api status is incorrectly");
         log("INFO: Executed completely");
     }
 
