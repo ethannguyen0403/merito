@@ -49,14 +49,14 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
     public boolean isCheckUserDisplayInTopGainersTableCorrect(List<ArrayList<String>> winner) {
         List<ArrayList<String>> lstTopGainer = tblTopGainers.getRowsWithoutHeader(20,false);
         List<ArrayList<String>> lstTopGainerCompare = new ArrayList<>();
-        ArrayList<String> winnerCompare = new ArrayList<>();
+        List<ArrayList<String>> winnerCompare = new ArrayList<>();
         if (!(winner.size()>0)){
-            for (int i = 0; i < winner.size();i++){
-                winnerCompare.add(i, String.valueOf(new ArrayList<>(Arrays.asList(
-                        winner.get(0).get(colUsernameInWinLossLSimple)+" ("+winner.get(0).get(colNicknameInWinLossLSimple)+")",
-                        winner.get(0).get(colWinLossInWinLossLSimple),
-                        winner.get(0).get(colTaxInWinLossLSimple)
-                ))));
+            for (int i = 0; i < 1;i++){
+                winnerCompare.add(i, new ArrayList<>(Arrays.asList(
+                        winner.get(i).get(colUsernameInWinLossLSimple)+" ("+winner.get(0).get(colNicknameInWinLossLSimple)+")",
+                        winner.get(i).get(colWinLossInWinLossLSimple),
+                        winner.get(i).get(colTaxInWinLossLSimple)
+                )));
             }
         } else {
             System.out.println("There are not Top Gainers");
@@ -74,7 +74,7 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
                 )));
             }
         }
-        if (lstTopGainerCompare.contains(winnerCompare)){
+        if (lstTopGainerCompare.containsAll(winnerCompare)){
             System.out.println("Data of Top Gainers Table Display correct");
             return true;
         }
@@ -103,14 +103,14 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
     public boolean isCheckUserDisplayInTopLosersTableCorrect(List<ArrayList<String>> losers) {
         List<ArrayList<String>> lstTopLoser = tblTopLoser.getRowsWithoutHeader(20,false);
         List<ArrayList<String>> lstTopLoserCompare = new ArrayList<>();
-        ArrayList<String> loserCompare = new ArrayList<>();
+        List<ArrayList<String>> loserCompare = new ArrayList<>();
         if (!(losers.size() == 0)){
-            for (int i = 0; i < losers.size();i++){
-                loserCompare.add(i, String.valueOf(new ArrayList<>(Arrays.asList(
-                        losers.get(0).get(colUsernameInWinLossLSimple)+" ("+losers.get(0).get(colNicknameInWinLossLSimple)+")",
-                        losers.get(0).get(colWinLossInWinLossLSimple),
-                        losers.get(0).get(colTaxInWinLossLSimple)
-                ))));
+            for (int i = 0; i < 1;i++){
+                loserCompare.add(i, new ArrayList<>(Arrays.asList(
+                        losers.get(i).get(colUsernameInWinLossLSimple)+" ("+losers.get(0).get(colNicknameInWinLossLSimple)+")",
+                        losers.get(i).get(colWinLossInWinLossLSimple),
+                        losers.get(i).get(colTaxInWinLossLSimple)
+                )));
             }
         } else {
             System.out.println("There are not Top Losers");
@@ -128,7 +128,7 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
                 )));
             }
         }
-        if (lstTopLoserCompare.contains(loserCompare)){
+        if (lstTopLoserCompare.containsAll(loserCompare)){
             System.out.println("Data of Top Losers Table Display correct");
             return true;
         }
