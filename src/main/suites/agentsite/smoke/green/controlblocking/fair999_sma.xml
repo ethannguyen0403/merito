@@ -25,6 +25,7 @@
             <run>
                 <include name="smoke"/>
                 <include name="smokeNewUI"/>
+                <include name="smoke_newui"/>
             </run>
         </groups>
 

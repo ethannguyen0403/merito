@@ -273,7 +273,15 @@ public class HomePage extends LoginPage {
     }
 
     public StatementReportPage navigateStatementReportPage() {
-        leftMenu.clickSubMenu(REPORT, STATEMENT_REPORT);
+        switch (_type) {
+            case "satsport":
+                leftMenu.clickSubMenu(REPORT, STATEMENT_REPORT);
+                waitingLoadingSpinner();
+                break;
+            default:
+                leftMenu.clickSubMenu(AGENCY_MANAGEMENT, STATEMENT_REPORT);
+                waitingLoadingSpinner();
+        }
         return new StatementReportPage(_type);
     }
 

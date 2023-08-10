@@ -28,6 +28,7 @@
                 <!--                <include name="precondition" />-->
                 <include name="smoke"/>
                 <include name="satsmoke"/>
+                <include name="smoke_sat"/>
             </run>
         </groups>
 

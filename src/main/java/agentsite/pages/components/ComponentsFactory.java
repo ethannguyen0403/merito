@@ -48,6 +48,9 @@ import agentsite.pages.components.header.OldUIHeader;
 import agentsite.pages.components.leftmenu.LeftMenu;
 import agentsite.pages.components.leftmenu.NewUILeftMenu;
 import agentsite.pages.components.leftmenu.OldUILeftMenu;
+import agentsite.pages.report.statementreport.NewUIStatementReport;
+import agentsite.pages.report.statementreport.OldUIStatementReport;
+import agentsite.pages.report.statementreport.StatementReport;
 
 public class ComponentsFactory {
     public static LeftMenu leftMenuObject(String types) {
@@ -190,6 +193,15 @@ public class ComponentsFactory {
                 return new OldUIPositionTakingListing();
             default:
                 return new NewUIPositionTakingListing();
+        }
+    }
+
+    public static StatementReport statementReportPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIStatementReport();
+            default:
+                return new NewUIStatementReport();
         }
     }
 }
