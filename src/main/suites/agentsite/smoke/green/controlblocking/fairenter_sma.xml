@@ -28,7 +28,9 @@
             <run>
                 <include name="smoke"/>
                 <include name="smokeNewUI"/>
+                <include name="smoke_newui"/>
                 <include name="smoke_Credit"/>
+                <include name="smoke_credit"/>
             </run>
         </groups>
 
