@@ -36,6 +36,12 @@ import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting
 import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.NewUIDepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.OldUIDepositWithdraw;
+import agentsite.pages.agentmanagement.downlinelisting.DownlineListing;
+import agentsite.pages.agentmanagement.downlinelisting.NewUIDownlineListing;
+import agentsite.pages.agentmanagement.downlinelisting.OldUIDownlineListing;
+import agentsite.pages.agentmanagement.editdownlinelisting.EditDownlineListing;
+import agentsite.pages.agentmanagement.editdownlinelisting.NewUIEditDownlineListing;
+import agentsite.pages.agentmanagement.editdownlinelisting.OldUIEditDownlineListing;
 import agentsite.pages.agentmanagement.ptlisting.NewUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.OldUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.PositionTakingListing;
@@ -202,6 +208,24 @@ public class ComponentsFactory {
                 return new OldUIStatementReport();
             default:
                 return new NewUIStatementReport();
+        }
+    }
+
+    public static DownlineListing downlineListingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIDownlineListing();
+            default:
+                return new NewUIDownlineListing();
+        }
+    }
+
+    public static EditDownlineListing editDownlineListing(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIEditDownlineListing(types);
+            default:
+                return new NewUIEditDownlineListing(types);
         }
     }
 }

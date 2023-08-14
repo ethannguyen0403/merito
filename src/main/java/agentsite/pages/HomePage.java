@@ -90,6 +90,7 @@ public class HomePage extends LoginPage {
 
     public DownLineListingPage navigateDownlineListingPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING);
+        waitingLoadingSpinner();
         return new DownLineListingPage(_type);
     }
 

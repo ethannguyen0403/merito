@@ -10,6 +10,10 @@ import java.util.List;
 
 public class StatementReport {
     public int tblReportTotalCol = 2;
+    private int colCreditDetail = 2;
+    private int colProfitAndLossDetail = 3;
+    private int colTaxDetail = 4;
+    private int colAvailableBalanceDetail = 5;
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     public TextBox txtSearchFrom = TextBox.name("fromDate");
     public TextBox txtSearchTo = TextBox.name("toDate");
@@ -99,15 +103,17 @@ public class StatementReport {
         if(lblSport.isDisplayed()) {
             lblSport.click();
             waitingLoadingSpinner();
+        } else {
+            System.out.println(String.format("Have no %s for opening", sportGameName));
         }
     }
 
     public List<Double> defineAvailableBalance() {
         List<Double> lstAvailableBalance = new ArrayList<>();
-        List<ArrayList<String>> lstCell = new ArrayList<>();
+        List<ArrayList<String>> lstRowValues = new ArrayList<>();
         Double openingBal = getOpeningBalance();
         int rowIndex = tblDetailReport.getNumberOfRows(false, true);
-        int colIndex = 3;
+        int colCount = 3;
         double creditVal;
         double profitAndLossVal;
         double taxVal;
@@ -118,24 +124,23 @@ public class StatementReport {
         } else {
             for (int i = 0; i < rowIndex; i++) {
                 List<String> lstCellValue = new ArrayList<>();
-                for (int j = 0; j < colIndex ; j++) {
+                for (int j = 0; j < colCount ; j++) {
                     Label lblCellValue = Label.xpath(tblDetailReport.getxPathOfCell(1,j+2,i+1,null));
                     lstCellValue.add(j, lblCellValue.getText());
                 }
-                lstCell.add(i, (ArrayList<String>) lstCellValue);
+                lstRowValues.add(i, (ArrayList<String>) lstCellValue);
                 if (i == 0) {
                     lstAvailableBalance.add(i, openingBal);
                 } else {
-                    Label lblCellValue = Label.xpath(tblDetailReport.getxPathOfCell(1,5,i,"span"));
-                    creditVal = Double.parseDouble(lstCell.get(i).get(0));
-                    profitAndLossVal = Double.parseDouble(lstCell.get(i).get(1));
-                    taxVal = Double.parseDouble(lstCell.get(i).get(2));
+                    Label lblCellValue = Label.xpath(tblDetailReport.getxPathOfCell(1,colAvailableBalanceDetail,i,"span"));
+                    creditVal = Double.parseDouble(lstRowValues.get(i).get(0));
+                    profitAndLossVal = Double.parseDouble(lstRowValues.get(i).get(1));
+                    taxVal = Double.parseDouble(lstRowValues.get(i).get(2));
                     previousAvailableBalanceVal = Double.parseDouble(lblCellValue.getText().replace(",",""));
                     currentAvailableBalanceVal = previousAvailableBalanceVal + (creditVal + profitAndLossVal + taxVal);
                     lstAvailableBalance.add(i, currentAvailableBalanceVal);
                 }
             }
-
             return lstAvailableBalance;
         }
     }
@@ -149,5 +154,16 @@ public class StatementReport {
             return null;
         }
 
+    }
+
+    public boolean isAvailableBalanceShowCorrect(List<Double> lstExpectedBalance) {
+        int rowIndex = tblDetailReport.getNumberOfRows(false, true);
+        for (int i = 0; i < rowIndex; i++) {
+            Label lblCellValue = Label.xpath(tblDetailReport.getxPathOfCell(1,colAvailableBalanceDetail,i+1,null));
+            if(!lblCellValue.getText().replace(",","").equals(String.format("%.2f",lstExpectedBalance.get(i)))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

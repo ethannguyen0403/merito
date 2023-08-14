@@ -11,6 +11,7 @@ public class AGConstant {
     public final static String timeZone = "GMT-4";
     public final static String EXCHANGE = "Exchange";
     public final static String EXCHANGE_GAMES = "Exchange Games";
+    public final static String PS38 = "PS38";
     public final static String SUPERNOWA_CASION = "Supernowa Casino";
     public final static String EVOLUTION = "Evolution";
     public final static String LIVE_DEALER_ASIAN = "Live Dealer Asian";
