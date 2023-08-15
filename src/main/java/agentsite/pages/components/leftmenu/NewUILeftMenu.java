@@ -120,6 +120,6 @@ public class NewUILeftMenu extends LeftMenu {
 
     @Override
     public void navigateWinLossSimplePage() {
-        clickSubMenu(REPORT, WIN_LOSS, SIMPLE);
+        clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_SIMPLE_NEWUI);
     }
 }

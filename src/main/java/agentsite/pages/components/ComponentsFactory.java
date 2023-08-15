@@ -42,6 +42,9 @@ import agentsite.pages.agentmanagement.downlinelisting.OldUIDownlineListing;
 import agentsite.pages.agentmanagement.editdownlinelisting.EditDownlineListing;
 import agentsite.pages.agentmanagement.editdownlinelisting.NewUIEditDownlineListing;
 import agentsite.pages.agentmanagement.editdownlinelisting.OldUIEditDownlineListing;
+import agentsite.pages.agentmanagement.followbets.FollowBets;
+import agentsite.pages.agentmanagement.followbets.NewUIFollowBets;
+import agentsite.pages.agentmanagement.followbets.OldUIFollowBets;
 import agentsite.pages.agentmanagement.ptlisting.NewUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.OldUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.PositionTakingListing;
@@ -54,6 +57,12 @@ import agentsite.pages.components.header.OldUIHeader;
 import agentsite.pages.components.leftmenu.LeftMenu;
 import agentsite.pages.components.leftmenu.NewUILeftMenu;
 import agentsite.pages.components.leftmenu.OldUILeftMenu;
+import agentsite.pages.report.TopGainersTopLosers.NewUITopGainersTopLosers;
+import agentsite.pages.report.TopGainersTopLosers.OldUITopGainersTopLosers;
+import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
+import agentsite.pages.report.WinLossSimple.NewUIWinLossSimple;
+import agentsite.pages.report.WinLossSimple.OldUIWinLossSimple;
+import agentsite.pages.report.WinLossSimple.WinLossSimple;
 import agentsite.pages.report.statementreport.NewUIStatementReport;
 import agentsite.pages.report.statementreport.OldUIStatementReport;
 import agentsite.pages.report.statementreport.StatementReport;
@@ -61,7 +70,7 @@ import agentsite.pages.report.statementreport.StatementReport;
 public class ComponentsFactory {
     public static LeftMenu leftMenuObject(String types) {
         switch (types) {
-            case "funsport":
+            case "fairexchange":
                 return new NewUILeftMenu();
             default:
                 return new OldUILeftMenu();
@@ -226,6 +235,31 @@ public class ComponentsFactory {
                 return new OldUIEditDownlineListing(types);
             default:
                 return new NewUIEditDownlineListing(types);
+        }
+    }
+    public static TopGainersTopLosers topGainersTopLosers(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUITopGainersTopLosers();
+            default:
+                return new NewUITopGainersTopLosers();
+        }
+    }
+
+    public static WinLossSimple winLossSimple(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIWinLossSimple();
+            default:
+                return new NewUIWinLossSimple();
+        }
+    }
+    public static FollowBets followBets(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIFollowBets();
+            default:
+                return new NewUIFollowBets();
         }
     }
 }

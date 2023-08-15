@@ -131,7 +131,7 @@ public class OldUILeftMenu extends LeftMenu {
 
     @Override
     public void navigateWinLossSimplePage() {
-        clickSubMenu(REPORT, WIN_LOSS_SIMPLE);
+        clickSubMenu(REPORT, WIN_LOSS_SIMPLE_OLDUI);
     }
 
     @Override
