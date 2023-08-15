@@ -54,6 +54,9 @@ import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
 import agentsite.pages.report.WinLossSimple.NewUIWinLossSimple;
 import agentsite.pages.report.WinLossSimple.OldUIWinLossSimple;
 import agentsite.pages.report.WinLossSimple.WinLossSimple;
+import agentsite.testcase.agencymanagement.followbets.FollowBets;
+import agentsite.testcase.agencymanagement.followbets.NewUIFollowBets;
+import agentsite.testcase.agencymanagement.followbets.OldUIFollowBets;
 
 public class ComponentsFactory {
     public static LeftMenu leftMenuObject(String types) {
@@ -216,6 +219,15 @@ public class ComponentsFactory {
                 return new OldUIWinLossSimple();
             default:
                 return new NewUIWinLossSimple();
+        }
+    }
+
+    public static FollowBets followBets(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIFollowBets();
+            default:
+                return new NewUIFollowBets();
         }
     }
 }

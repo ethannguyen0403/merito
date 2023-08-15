@@ -126,7 +126,7 @@ public class HomePage extends LoginPage {
     }
 
     public FollowBetsPage navigateFollowBetsPage() {
-        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, BET_SETTING_LISTING);
+        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, FOLLOW_BETS);
         return new FollowBetsPage(_type);
     }
 

@@ -3,6 +3,7 @@ package agentsite.testcase.agencymanagement;
 import agentsite.pages.agentmanagement.FollowBetsPage;
 import agentsite.pages.agentmanagement.followbets.GroupDetailsPopup;
 import agentsite.pages.components.ConfirmPopup;
+import agentsite.ultils.agencymanagement.FollowBetsUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
 import common.AGConstant;
@@ -139,6 +140,73 @@ public class FollowBetsTest extends BaseCaseTest {
         }
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3665")
+    @Test(groups = {"regression"})
+    public void Agency_Management_Follow_Bets_3665() {
+        log("@title: Validate Follow Bets UI - By Group display correct");
+        log("@Pre-condition 1: Log in successfully by  PO");
+        log("Step 1: Navigate Agency Management >  Follow Bets");
+        FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
+        log("Step 2: Select By Group");
+        page.rbByGroup.click();
+        log("Verify 1: Validate Follow Bets - By Group UI display correctly");
+        Assert.assertTrue(page.isFormSearchByGroupDisplayCorrect());
+        Assert.assertTrue(page.isFormAddPlayerAgentByGroupDisplayCorrect());
+        Assert.assertTrue(page.btnAddGroup.isEnabled(),"Add Group button display incorrect");
+        Assert.assertTrue(page.isTblGroupListByGroupDisplayCorrect());
+        Assert.assertTrue(page.followBets.isTblPlayerAgentListByGroupDisplayCorrect());
+    }
+    @TestRails(id = "3666")
+    @Test(groups = {"regression"})
+    public void Agency_Management_Follow_Bets_3666() {
+        log("@title: Validate Follow Bets UI - By Group display correct");
+        log("@Pre-condition 1: Log in successfully by  PO");
+        log("Step 1: Navigate Agency Management >  Follow Bets");
+        FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
+        log("Step 2: Select By Player");
+        page.rbByPlayer.click();
+        log("Verify 1: Validate Follow Bets - By Group UI display correctly");
+        Assert.assertTrue(page.lblPlayerName.isDisplayed(),"Player Name Label display incorrect!");
+        Assert.assertTrue(page.txtPlayerName.isDisplayed(),"Player Name Textbox display incorrect!");
+        Assert.assertTrue(page.btnSearchByPlayer.isDisplayed(),"Search Player Name Button display incorrect!");
+        Assert.assertTrue(page.btnAddPlayer.isDisplayed(),"Add Player Button display incorrect!");
+        Assert.assertTrue(page.followBets.isHeaderTableByPlayerDisplayCorrect());
+    }
+    @TestRails(id = "3667")
+    @Test(groups = {"regression"})
+    public void Agency_Management_Follow_Bets_3667 () {
+        log("@title: Validate can search the player that added into a group");
+        log("@Pre-condition 1: Log in successfully by  PO");
+        log("@Pre-condition 1: Has a player is added into a group");
+        log("Step 1: Navigate Agency Management >  Follow Bets");
+        String groudId = FollowBetsUtils.getGroupId();
+        String username = FollowBetsUtils.getUserName(groudId,"PL");
+        FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
+        log("Step 2: Select By Group");
+        page.rbByGroup.click();
+        log("Step 3: Input Player Username/Login ID and click Search");
+        page.searchPlayer(username);
+        page.waitingLoadingSpinner();
+        log("Verify 1: Validate Group List display a group that has the player is added in Player/Agent List");
+        Assert.assertTrue(page.isPlayerAddedDisplayCorrect(username,"Member"),"Player is added display incorrect!");
+    }
+    @TestRails(id = "3668")
+    @Test(groups = {"regression"})
+    public void Agency_Management_Follow_Bets_3668 () {
+        log("@title: Validate can search the player that added into a group");
+        log("@Pre-condition 1: Log in successfully by  PO");
+        log("@Pre-condition 1: Has a player is added into a group");
+        log("Step 1: Navigate Agency Management >  Follow Bets");
+        String groudId = FollowBetsUtils.getGroupId();
+        String username = FollowBetsUtils.getUserName(groudId,"AG");
+        FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
+        log("Step 2: Select By Group");
+        page.rbByGroup.click();
+        log("Step 3: Input Agent Username/Login ID and click Search");
+        page.searchPlayer(username);
+        page.waitingLoadingSpinner();
+        log("Verify 1: Validate Group List display a group that has the agent is added in Player/Agent List");
+        Assert.assertTrue(page.isPlayerAddedDisplayCorrect(username,"AG"),"Agent is added display incorrect!");
+    }
 }
 
