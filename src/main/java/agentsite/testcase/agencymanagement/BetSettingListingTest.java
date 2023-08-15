@@ -2,6 +2,8 @@ package agentsite.testcase.agencymanagement;
 
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.BetSettingListingPage;
+import agentsite.pages.agentmanagement.DownLineListingPage;
+import agentsite.pages.agentmanagement.EditDownLinePage;
 import agentsite.pages.marketsmanagement.BlockUnblockEventPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
@@ -23,6 +25,10 @@ import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static common.AGConstant.*;
+import static common.AGConstant.HomePage.AGENCY_MANAGEMENT;
+import static common.AGConstant.HomePage.BET_SETTING_LISTING;
 
 public class BetSettingListingTest extends BaseCaseTest {
     /**
@@ -419,6 +425,7 @@ public class BetSettingListingTest extends BaseCaseTest {
 
         log("Verify stake error message displays");
         Assert.assertTrue(memberHomePage.betsSlipContainer.isErrorDisplayed(marketPage.betsSlipContainer.lblMinMaxStakeErrorMessage, expectedMsg), "ERROR! Min Stake error message is not displayed");
+        log("INFO: Executed completely");
     }
 
     @Test(groups = {"interaction01"})
@@ -449,10 +456,11 @@ public class BetSettingListingTest extends BaseCaseTest {
         log("Verify stake error message displays");
         Assert.assertTrue(memberHomePage.betsSlipContainer.isErrorDisplayed(memberHomePage.betsSlipContainer.lblMinMaxStakeErrorMessage, expectedMsg)
                 , "ERROR! Max Stake error message is not displayed");
+        log("INFO: Executed completely");
     }
 
     @TestRails(id = "3634")
-    @Test(groups = {"regression"})
+    @Test(groups = {"http_request"})
     public void Agent_AM_Bet_Setting_Listing_3634() {
         log("@title: Validate There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
@@ -460,6 +468,7 @@ public class BetSettingListingTest extends BaseCaseTest {
 
         log("Verify 1. Verify the correct username is displayed");
         Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error display when accessing the page");
+        log("INFO: Executed completely");
     }
 
     @TestRails(id = "3635")
@@ -484,6 +493,79 @@ public class BetSettingListingTest extends BaseCaseTest {
         Assert.assertTrue(betSettingListingPage.txtMaxLiabilityPerMarket.isDisplayed(), "FAILED! Max Liability textbox is not displayed");
         Assert.assertTrue(betSettingListingPage.txtMaxWinPerMarket.isDisplayed(), "FAILED! Max Win Per Market textbox is not displayed");
         Assert.assertTrue(betSettingListingPage.tblDownline.isDisplayed(), "FAILED! Result table is not displayed");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3975")
+    @Test(groups = {"regression_newui"})
+    @Parameters({"password"})
+    public void Agent_AM_Bet_Setting_Listing_3975(String password) throws Exception {
+        log("@title: Validate the inactive product not display in product list in Bet Setting Listing page");
+        log("Precondition. Login Agent Site with downline agent is inactive Exchange Game product");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String downlineUserCode = DownLineListingUtils.getDownLineUsers(userID, "", "ACTIVE", _brandname).get(0).getUserCodeAndLoginID("%s-%s");
+        //handle to get loginId for logging if having
+        if(!downlineUserCode.contains("-")) {
+            downlineUserCode = downlineUserCode.split("-")[0];
+        } else {
+            downlineUserCode = downlineUserCode.split("-")[1];
+        }
+        DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
+        downLineListingPage.downlineListing.searchDownline(downlineUserCode,"","");
+        EditDownLinePage editDownLinePage = downLineListingPage.downlineListing.clickEditIcon(downlineUserCode);
+        editDownLinePage.editDownlineListing.enableDisableSport(EXCHANGE_GAMES, false);
+        editDownLinePage.editDownlineListing.clickSubmit();
+        downLineListingPage = editDownLinePage.editDownlineListing.closeEditDownlinePopup();
+        downLineListingPage.logout();
+        Thread.sleep(2000);
+        log("Step 1. Login the downline account in precondition");
+        loginNewAccount(sosAgentURL, agentNewAccURL, downlineUserCode, password, StringUtils.decrypt(environment.getSecurityCode()));
+
+        log("Step 2. Active Bet Setting Listing page");
+        BetSettingListingPage betSettingListingPage = agentHomePage.navigateBetSettingListingPage();
+        log("Step 3. Click on product dropdown and observe data");
+        List<String> lstProduct = betSettingListingPage.ddbProduct.getOptions();
+
+        log("Verify 3. Verify Exchange Game is not display");
+        Assert.assertFalse(lstProduct.contains(EXCHANGE_GAMES), "FAILED! List product contain Exchange Games");
+        log("INFO: Executed completely");
+
+    }
+
+    @TestRails(id = "3976")
+    @Test(groups = {"regression_newui"})
+    @Parameters({"password"})
+    public void Agent_AM_Bet_Setting_Listing_3976(String password) throws Exception {
+        log("@title: Validate Bet Setting Listing page is hidden when Exchange /Exchange Game/ PS38 product is inactive");
+        log("Precondition. Login agent site with a downline agent is inactive Exchange and Exchange Game and PS38 product");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String downlineUserCode = DownLineListingUtils.getDownLineUsers(userID, "", "ACTIVE", _brandname).get(0).getUserCodeAndLoginID("%s-%s");
+        //handle to get loginId for logging if having
+        if(!downlineUserCode.contains("-")) {
+            downlineUserCode = downlineUserCode.split("-")[0];
+        } else {
+            downlineUserCode = downlineUserCode.split("-")[1];
+        }
+        DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
+        downLineListingPage.downlineListing.searchDownline(downlineUserCode,"","");
+        EditDownLinePage editDownLinePage = downLineListingPage.downlineListing.clickEditIcon(downlineUserCode);
+        editDownLinePage.editDownlineListing.enableDisableSport(EXCHANGE_GAMES, false);
+        editDownLinePage.editDownlineListing.enableDisableSport(EXCHANGE, false);
+        editDownLinePage.editDownlineListing.enableDisableSport(PS38, false);
+
+        editDownLinePage.editDownlineListing.clickSubmit();
+        downLineListingPage = editDownLinePage.editDownlineListing.closeEditDownlinePopup();
+        downLineListingPage.logout();
+        Thread.sleep(2000);
+        log("Step 1. Login the downline account in precondition");
+        loginNewAccount(sosAgentURL, agentNewAccURL, downlineUserCode, password, StringUtils.decrypt(environment.getSecurityCode()));
+
+        log("Step 2. Expand left menu and observe Bet Setting Listing menu");
+        List<String> lstSubMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
+
+        log("Verify 2. The page is no longer display in the left menu");
+        Assert.assertFalse(lstSubMenu.contains(BET_SETTING_LISTING), "FAILED! List product contain Bet Setting Listing page");
+        log("INFO: Executed completely");
     }
 }
 

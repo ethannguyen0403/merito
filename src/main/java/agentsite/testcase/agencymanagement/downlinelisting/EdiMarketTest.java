@@ -36,10 +36,10 @@ public class EdiMarketTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Click on Edit icon of any agent level 02R0001");
-        EditDownLinePage editDownLineAgentPage = page.clickEditIcon(userName);
+        EditDownLinePage editDownLineAgentPage = page.downlineListing.clickEditIcon(userName);
 
         log("Step 3. In Account Balance Transfer Condition, Select Weekly  and a day is not today then click update button");
-        editDownLineAgentPage.setTransaction(false, lstDate, true);
+        editDownLineAgentPage.editDownlineListing.setTransaction(false, lstDate, true);
 
         log("Step 4 Login agent with account 02R0001 level > Transfer");
         loginAgent(downlineAccount, password, true);

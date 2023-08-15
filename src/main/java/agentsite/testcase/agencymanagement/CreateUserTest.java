@@ -576,8 +576,8 @@ public class CreateUserTest extends BaseCaseTest {
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
-        page.searchDownline(loginID, "", "Agent");
-        page.clickEditIcon(loginID);
+        page.downlineListing.searchDownline(loginID, "", "Agent");
+        page.downlineListing.clickEditIcon(loginID);
 
         log("Verify 1. Verify Security Code popup prompted");
         Assert.assertTrue(page.securityPopup.isDisplayed(), "FAILED Security popup not display");
@@ -601,15 +601,15 @@ public class CreateUserTest extends BaseCaseTest {
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
-        page.searchDownline(loginID, "", "");
-        page.clickEditIcon(loginID);
+        page.downlineListing.searchDownline(loginID, "", "");
+        page.downlineListing.clickEditIcon(loginID);
         page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Step 3. Input valid Max Player Credit and valid other information then click submit");
         String maxPlayerCreditLitmit = "1";
         page.editDownlinePopup.balanceSection.updateCashBalance(maxPlayerCreditLitmit);
         page.editDownlinePopup.btnSubmit.click();
-        String message = page.getMessageUpdate(true);
+        String message = page.downlineListing.getMessageUpdate(true);
 
         log("Verify 1. Verify can update agent with valid max player credit");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_DOWNLINE_SUCCESS, "FAILED, Success updating downline message not display");

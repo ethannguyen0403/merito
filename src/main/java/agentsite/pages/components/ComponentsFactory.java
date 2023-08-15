@@ -36,6 +36,12 @@ import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting
 import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.NewUIDepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.OldUIDepositWithdraw;
+import agentsite.pages.agentmanagement.downlinelisting.DownlineListing;
+import agentsite.pages.agentmanagement.downlinelisting.NewUIDownlineListing;
+import agentsite.pages.agentmanagement.downlinelisting.OldUIDownlineListing;
+import agentsite.pages.agentmanagement.editdownlinelisting.EditDownlineListing;
+import agentsite.pages.agentmanagement.editdownlinelisting.NewUIEditDownlineListing;
+import agentsite.pages.agentmanagement.editdownlinelisting.OldUIEditDownlineListing;
 import agentsite.pages.agentmanagement.ptlisting.NewUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.OldUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.PositionTakingListing;
@@ -48,22 +54,14 @@ import agentsite.pages.components.header.OldUIHeader;
 import agentsite.pages.components.leftmenu.LeftMenu;
 import agentsite.pages.components.leftmenu.NewUILeftMenu;
 import agentsite.pages.components.leftmenu.OldUILeftMenu;
-import agentsite.pages.report.TopGainersTopLosers.NewUITopGainersTopLosers;
-import agentsite.pages.report.TopGainersTopLosers.OldUITopGainersTopLosers;
-import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
-import agentsite.pages.report.WinLossSimple.NewUIWinLossSimple;
-import agentsite.pages.report.WinLossSimple.OldUIWinLossSimple;
-import agentsite.pages.report.WinLossSimple.WinLossSimple;
-import agentsite.testcase.agencymanagement.followbets.FollowBets;
-import agentsite.testcase.agencymanagement.followbets.NewUIFollowBets;
-import agentsite.testcase.agencymanagement.followbets.OldUIFollowBets;
+import agentsite.pages.report.statementreport.NewUIStatementReport;
+import agentsite.pages.report.statementreport.OldUIStatementReport;
+import agentsite.pages.report.statementreport.StatementReport;
 
 public class ComponentsFactory {
     public static LeftMenu leftMenuObject(String types) {
         switch (types) {
             case "funsport":
-                return new NewUILeftMenu();
-            case "fairexchange":
                 return new NewUILeftMenu();
             default:
                 return new OldUILeftMenu();
@@ -204,30 +202,30 @@ public class ComponentsFactory {
         }
     }
 
-    public static TopGainersTopLosers topGainersTopLosers(String types) {
+    public static StatementReport statementReportPage(String types) {
         switch (types) {
             case "satsport":
-                return new OldUITopGainersTopLosers();
+                return new OldUIStatementReport();
             default:
-                return new NewUITopGainersTopLosers();
+                return new NewUIStatementReport();
         }
     }
 
-    public static WinLossSimple winLossSimple(String types) {
+    public static DownlineListing downlineListingPage(String types) {
         switch (types) {
             case "satsport":
-                return new OldUIWinLossSimple();
+                return new OldUIDownlineListing();
             default:
-                return new NewUIWinLossSimple();
+                return new NewUIDownlineListing();
         }
     }
 
-    public static FollowBets followBets(String types) {
+    public static EditDownlineListing editDownlineListing(String types) {
         switch (types) {
             case "satsport":
-                return new OldUIFollowBets();
+                return new OldUIEditDownlineListing(types);
             default:
-                return new NewUIFollowBets();
+                return new NewUIEditDownlineListing(types);
         }
     }
 }

@@ -90,6 +90,7 @@ public class HomePage extends LoginPage {
 
     public DownLineListingPage navigateDownlineListingPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING);
+        waitingLoadingSpinner();
         return new DownLineListingPage(_type);
     }
 
@@ -126,7 +127,7 @@ public class HomePage extends LoginPage {
     }
 
     public FollowBetsPage navigateFollowBetsPage() {
-        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, FOLLOW_BETS);
+        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, BET_SETTING_LISTING);
         return new FollowBetsPage(_type);
     }
 
@@ -238,7 +239,7 @@ public class HomePage extends LoginPage {
     }
 
     public BigStakeConfigurationPage navigateBigStakeConfigurationPage() {
-        leftMenu.navigateBigStakeConfigurationPage();
+        leftMenu.clickSubMenu(REPORT, BIG_STAKE_CONFIGURATION);
         return new BigStakeConfigurationPage(_type);
     }
 
@@ -273,7 +274,15 @@ public class HomePage extends LoginPage {
     }
 
     public StatementReportPage navigateStatementReportPage() {
-        leftMenu.clickSubMenu(REPORT, STATEMENT_REPORT);
+        switch (_type) {
+            case "satsport":
+                leftMenu.clickSubMenu(REPORT, STATEMENT_REPORT);
+                waitingLoadingSpinner();
+                break;
+            default:
+                leftMenu.clickSubMenu(AGENCY_MANAGEMENT, STATEMENT_REPORT);
+                waitingLoadingSpinner();
+        }
         return new StatementReportPage(_type);
     }
 
@@ -303,12 +312,27 @@ public class HomePage extends LoginPage {
     }
 
     public WinLossByEventPage navigateWinLossByEventPage() {
-        leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT);
+        switch (_type) {
+            case "satsport":
+            case "funsport":
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_OLDUI);
+                break;
+            default:
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_NEWUI);
+        }
+        waitingLoadingSpinner();
         return new WinLossByEventPage(_type);
     }
 
     public WinLossBySportAndMarketTypePage navigateWinLossBySportAndMarketTypePage() {
-        leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE);
+        switch (_type) {
+            case "satsport":
+            case "funsport":
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE_OLDUI);
+                break;
+            default:
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE_NEWUI);
+        }
         waitingLoadingSpinner();
         return new WinLossBySportAndMarketTypePage(_type);
     }
@@ -318,11 +342,12 @@ public class HomePage extends LoginPage {
         String winLossDetailMenu;
         switch (_type) {
             case "satsport":
-                winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
+            case "funsport":
+                winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_OLDUI, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
                 leftMenu.clickSubMenu(REPORT, winLossDetailMenu);
                 break;
             default:
-                winLossDetailMenu = String.format("%s By Detail", ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
+                winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_NEWUI, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
                 leftMenu.clickSubMenu(REPORT, winLossDetailMenu);
         }
         waitingLoadingSpinner();
@@ -330,7 +355,15 @@ public class HomePage extends LoginPage {
     }
 
     public WinLossSimplePage navigateWinLossSimplePage() {
-        leftMenu.navigateWinLossSimplePage();
+        switch (_type) {
+            case "satsport":
+            case "funsport":
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_SIMPLE_OLDUI);
+                break;
+            default:
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_SIMPLE_NEWUI);
+        }
+        waitingLoadingSpinner();
         return new WinLossSimplePage(_type);
     }
 
