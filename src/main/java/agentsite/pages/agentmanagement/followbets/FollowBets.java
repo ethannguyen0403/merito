@@ -1,4 +1,4 @@
-package agentsite.testcase.agencymanagement.followbets;
+package agentsite.pages.agentmanagement.followbets;
 
 public class FollowBets {
     public boolean isTblPlayerAgentListByGroupDisplayCorrect() {return false;}

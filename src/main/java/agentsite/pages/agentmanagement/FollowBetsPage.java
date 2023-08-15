@@ -6,7 +6,7 @@ import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.followbets.GroupDetailsPopup;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.ConfirmPopup;
-import agentsite.testcase.agencymanagement.followbets.FollowBets;
+import agentsite.pages.agentmanagement.followbets.FollowBets;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.RadioButton;
