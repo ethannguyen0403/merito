@@ -312,12 +312,27 @@ public class HomePage extends LoginPage {
     }
 
     public WinLossByEventPage navigateWinLossByEventPage() {
-        leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT);
+        switch (_type) {
+            case "satsport":
+            case "funsport":
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_OLDUI);
+                break;
+            default:
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_NEWUI);
+        }
+        waitingLoadingSpinner();
         return new WinLossByEventPage(_type);
     }
 
     public WinLossBySportAndMarketTypePage navigateWinLossBySportAndMarketTypePage() {
-        leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE);
+        switch (_type) {
+            case "satsport":
+            case "funsport":
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE_OLDUI);
+                break;
+            default:
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE_NEWUI);
+        }
         waitingLoadingSpinner();
         return new WinLossBySportAndMarketTypePage(_type);
     }
@@ -327,11 +342,12 @@ public class HomePage extends LoginPage {
         String winLossDetailMenu;
         switch (_type) {
             case "satsport":
-                winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
+            case "funsport":
+                winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_OLDUI, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
                 leftMenu.clickSubMenu(REPORT, winLossDetailMenu);
                 break;
             default:
-                winLossDetailMenu = String.format("%s By Detail", ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
+                winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_NEWUI, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
                 leftMenu.clickSubMenu(REPORT, winLossDetailMenu);
         }
         waitingLoadingSpinner();
@@ -339,7 +355,15 @@ public class HomePage extends LoginPage {
     }
 
     public WinLossSimplePage navigateWinLossSimplePage() {
-        leftMenu.clickSubMenu(REPORT, WIN_LOSS_SIMPLE);
+        switch (_type) {
+            case "satsport":
+            case "funsport":
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_SIMPLE_OLDUI);
+                break;
+            default:
+                leftMenu.clickSubMenu(REPORT, WIN_LOSS_SIMPLE_NEWUI);
+        }
+        waitingLoadingSpinner();
         return new WinLossSimplePage(_type);
     }
 
