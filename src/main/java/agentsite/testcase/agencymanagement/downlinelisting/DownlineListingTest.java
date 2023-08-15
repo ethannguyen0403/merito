@@ -34,7 +34,7 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Click on Edit icon of any agent");
-        page.clickEditIcon(loginID);
+        page.downlineListing.clickEditIcon(loginID);
 
         log("Verify There is no console error display");
         Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console Error display");
@@ -81,7 +81,7 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Input direct downline , account status is All, and level is All");
-        page.searchDownline(directDownline.getLoginID(), "All", "All");
+        page.downlineListing.searchDownline(directDownline.getLoginID(), "All", "All");
 
         log("Verify 1.Account is display in the list");
         int totalRow = page.tblDowlineListing.getNumberOfRows(false, false);
@@ -102,7 +102,7 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Input direct downline , account status is All, and level is All");
-        page.searchDownline(indirectDownline.getLoginID(), "All", "All");
+        page.downlineListing.searchDownline(indirectDownline.getLoginID(), "All", "All");
 
         log("Verify 1.Account is display in the list");
         int totalRow = page.tblDowlineListing.getNumberOfRows(false, false);
@@ -120,7 +120,7 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Get the correct account and input the data that missing the last letter");
-        page.searchDownline("invalidloginID", "All", "All");
+        page.downlineListing.searchDownline("invalidloginID", "All", "All");
 
         log("Verify 1. No record found");
         Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
@@ -135,12 +135,12 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2.  Search Active status and click submit button");
-        page.searchDownline("", "Active", "All");
+        page.downlineListing.searchDownline("", "Active", "All");
 
         log("Verify1. All account in Active status display\n" +
                 "If have no active account => display message \"No record found\"");
         if (!page.lblNoRecord.isDisplayed()) {
-            List<String> lstRecord = page.getAccountStatus();
+            List<String> lstRecord = page.downlineListing.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Active")), "FAILED! List downline account contain account status not in Active");
         } else {
             Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
@@ -156,12 +156,12 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Select Inactive status and click submit button");
-        page.searchDownline("", "Inactive", "All");
+        page.downlineListing.searchDownline("", "Inactive", "All");
 
         log("Verify 1. All account in Inactive status display\n" +
                 "If have no Inactive account => display message \"No record found\"");
         if (!page.lblNoRecord.isDisplayed()) {
-            List<String> lstRecord = page.getAccountStatus();
+            List<String> lstRecord = page.downlineListing.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Inactive")), "FAILED! List downline account contain account status not in Inactive");
         } else {
             Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
@@ -177,12 +177,12 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Select Suspended status and click submit button");
-        page.searchDownline("", "Suspended", "All");
+        page.downlineListing.searchDownline("", "Suspended", "All");
 
         log("Verify 1. All account in Suspended status display\n" +
                 "If have no Suspended account => display message \"No record found\"");
         if (!page.lblNoRecord.isDisplayed()) {
-            List<String> lstRecord = page.getAccountStatus();
+            List<String> lstRecord = page.downlineListing.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Suspended")), "FAILED! List downline account contain account status not in Suspended");
         } else {
             Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
@@ -197,12 +197,12 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Select Blocked status and click submit button");
-        page.searchDownline("", "Blocked", "All");
+        page.downlineListing.searchDownline("", "Blocked", "All");
 
         log("Verify 1. All account in Blocked status display\n" +
                 "If have no Blocked account => display message \"No record found\"");
         if (!page.lblNoRecord.isDisplayed()) {
-            List<String> lstRecord = page.getAccountStatus();
+            List<String> lstRecord = page.downlineListing.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Blocked")), "FAILED! List downline account contain account status not in Suspended");
         } else {
             Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
@@ -217,12 +217,12 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step2.  Select Closed status and click submit button");
-        page.searchDownline("", "Closed", "All");
+        page.downlineListing.searchDownline("", "Closed", "All");
 
         log("Verify 1. All account in Closed status display\n" +
                 "If have no Closed account => display message \"No record found\"");
         if (!page.lblNoRecord.isDisplayed()) {
-            List<String> lstRecord = page.getAccountStatus();
+            List<String> lstRecord = page.downlineListing.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Closed")), "FAILED! List downline account contain account status not in Suspended");
         } else {
             Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
@@ -244,8 +244,8 @@ public class DownlineListingTest extends BaseCaseTest {
         log("Step 2. Select member account \n" +
                 "3. Update an active account to inactive status\n" +
                 "4. Click save icon next to the drop box");
-        page.searchDownline(userCode, "All", "All");
-        SuccessPopup popup = page.updateAccountStatus(userCode, "Inactive");
+        page.downlineListing.searchDownline(userCode, "All", "All");
+        SuccessPopup popup = page.downlineListing.updateAccountStatus(userCode, "Inactive");
 
         log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
                 "2. Click OK button => the popup is disappear\n" +
@@ -253,10 +253,10 @@ public class DownlineListingTest extends BaseCaseTest {
         Assert.assertEquals(popup.getContentMessage(), "Update is successful!");
         popup.close();
         Assert.assertFalse(popup.isDisplayed(), "FAILED! Confirm popup is not disappear when closed");
-        Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
+        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
 
         log("Postcondition change status to active");
-        page.updateAccountStatus(userCode, "Active").close();
+        page.downlineListing.updateAccountStatus(userCode, "Active").close();
 
         log("INFO: Executed completely");
     }
@@ -274,18 +274,18 @@ public class DownlineListingTest extends BaseCaseTest {
         log("Step 2. Select member account \n" +
                 "3. Update an active account to suspended status\n" +
                 "4. Click save icon next to the drop box");
-        page.searchDownline(userCode, "All", "All");
-        SuccessPopup popup = page.updateAccountStatus(userCode, "Suspended");
+        page.downlineListing.searchDownline(userCode, "All", "All");
+        SuccessPopup popup = page.downlineListing.updateAccountStatus(userCode, "Suspended");
         log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
                 "2. Click OK button => the popup is disappear\n" +
                 "3. Verify Account status Suspended\n ");
         Assert.assertEquals(popup.getContentMessage(), "Update is successful!");
         popup.close();
         Assert.assertFalse(popup.isDisplayed(), "FAILED! Confirm popup is not disappear when closed");
-        Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Suspended"), "FAILED! Status is incorrect display");
+        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Suspended"), "FAILED! Status is incorrect display");
 
         log("Postcondition change status to active");
-        page.updateAccountStatus(userCode, "Active").close();
+        page.downlineListing.updateAccountStatus(userCode, "Active").close();
 
         log("INFO: Executed completely");
     }
@@ -302,8 +302,8 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Select member account in any status\n" +
                 "3. Close the account");
-        page.searchDownline(userCode, "All", "All");
-        SuccessPopup popup = page.updateAccountStatus(userCode, "Closed");
+        page.downlineListing.searchDownline(userCode, "All", "All");
+        SuccessPopup popup = page.downlineListing.updateAccountStatus(userCode, "Closed");
 
         log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
                 "2. Click OK button => the popup is disappear\n" +
@@ -311,7 +311,7 @@ public class DownlineListingTest extends BaseCaseTest {
         Assert.assertEquals(popup.getContentMessage(), "Update is successful!");
         popup.close();
         Assert.assertFalse(popup.isDisplayed(), "FAILED! Confirm popup is not disappear when closed");
-        Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Closed"), "FAILED! Status is incorrect display");
+        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Closed"), "FAILED! Status is incorrect display");
 
         log("INFO: Executed completely");
     }
@@ -327,16 +327,16 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Select member account that inactivated\n");
-        page.searchDownline(userCode, "All", "All");
+        page.downlineListing.searchDownline(userCode, "All", "All");
         log("Inactive account");
-        page.updateAccountStatus(userCode, "Inactive").close();
+        page.downlineListing.updateAccountStatus(userCode, "Inactive").close();
 
         log("Step 3 Active the account");
-        page.updateAccountStatus(userCode, "Active").close();
+        page.downlineListing.updateAccountStatus(userCode, "Active").close();
         log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
                 "2. Click OK button => the popup is disappear\n" +
                 "3. Verify Account status Active\n");
-        Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Acitve"), "FAILED! Status is incorrect display");
+        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Acitve"), "FAILED! Status is incorrect display");
 
         log("INFO: Executed completely");
     }
@@ -352,16 +352,16 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Search an account");
-        page.searchDownline(userCode, "All", "All");
+        page.downlineListing.searchDownline(userCode, "All", "All");
 
         log("Step 3 Suspend account");
-        page.updateAccountStatus(userCode, "Suspended").close();
+        page.downlineListing.updateAccountStatus(userCode, "Suspended").close();
 
         log("Step 3 Active the account");
-        page.updateAccountStatus(userCode, "Active").close();
+        page.downlineListing.updateAccountStatus(userCode, "Active").close();
 
         log("Verify 1. Verify Account status Active");
-        Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Active"), "FAILED! Status is incorrect display");
+        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Active"), "FAILED! Status is incorrect display");
 
         log("INFO: Executed completely");
     }
@@ -376,13 +376,13 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Search an account");
-        page.searchDownline(userCode, "All", "All");
+        page.downlineListing.searchDownline(userCode, "All", "All");
 
         log("Step 3 Closed account");
-        page.updateAccountStatus(userCode, "Closed").close();
+        page.downlineListing.updateAccountStatus(userCode, "Closed").close();
 
         log("Verify 1. Verify cannot active the closed account");
-        Assert.assertFalse(page.getAccountStatusDropdown(userCode).isEnabled(), "FAILED! Account is closed should disable Account status dropdwon");
+        Assert.assertFalse(page.downlineListing.getAccountStatusDropdown(userCode).isEnabled(), "FAILED! Account is closed should disable Account status dropdwon");
 
         log("INFO: Executed completely");
     }
@@ -399,13 +399,13 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Select agent account in any level\n" +
                 "3. Update to Inactive status\n");
-        page.searchDownline(userCode, "All", "Agent");
+        page.downlineListing.searchDownline(userCode, "All", "Agent");
 
         log("Step 3 Inactive agent account");
-        page.updateAccountStatus(userCode, "Inactive").close();
+        page.downlineListing.updateAccountStatus(userCode, "Inactive").close();
 
         log("Verify 1. Verify status is change to Inactive");
-        Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
+        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3516")
@@ -418,7 +418,7 @@ public class DownlineListingTest extends BaseCaseTest {
         log("Step2. Select agent account in any level\n" +
                 "3. Click Delay bet icon\n" +
                 "4. Input valid delay amount and click on submit button");
-        page.searchDownline("invalidloginID", "All", "All");
+        page.downlineListing.searchDownline("invalidloginID", "All", "All");
 
         log("Verify1. Verify Delay popup display with correct UI");
 
@@ -440,8 +440,8 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Click Login ID that level is not Member\n" +
                 "3. Click until only Member display");
-        page.clickUserName(directDownline.getUserCode());
-        String actualBreadcrumb = page.getBreadcrumb();
+        page.downlineListing.clickUserName(directDownline.getUserCode());
+        String actualBreadcrumb = page.downlineListing.getBreadcrumb();
 
         log("Verify 1. Can drill down to the member level, the breadcrumb is correct\n" +
                 "2. Login ID at Member level is not a Link");
@@ -470,7 +470,7 @@ public class DownlineListingTest extends BaseCaseTest {
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Input a Username exist indirect/direct downline");
-        page.searchDownline(loginID, "", "");
+        page.downlineListing.searchDownline(loginID, "", "");
 
         log("Verify 1. Corresponding account display in the list");
         int totalRow = page.tblDowlineListing.getNumberOfRows(false, false);
@@ -505,13 +505,13 @@ public class DownlineListingTest extends BaseCaseTest {
         log("Step 3. Click change password icon");
         log("Step 4. Update password");
         try {
-            String message = page.changePassword(loginID, "1234qwert");
+            String message = page.downlineListing.changePassword(loginID, "1234qwert");
             log("Verify 1. Verify can change password successfully");
             Assert.assertEquals(message, AgencyManagement.DownlineListing.MSG_CHANGE_PASSWORD_SUCCESS, "FAILED, Success message is incorrect when updating password");
             log("INFO: Executed completely");
         } finally {
             log("Post Condition: Re-change to old pw");
-            page.changePassword(loginID, StringUtils.decrypt(password));
+            page.downlineListing.changePassword(loginID, StringUtils.decrypt(password));
         }
 
 

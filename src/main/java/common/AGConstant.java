@@ -11,6 +11,7 @@ public class AGConstant {
     public final static String timeZone = "GMT-4";
     public final static String EXCHANGE = "Exchange";
     public final static String EXCHANGE_GAMES = "Exchange Games";
+    public final static String PS38 = "PS38";
     public final static String SUPERNOWA_CASION = "Supernowa Casino";
     public final static String EVOLUTION = "Evolution";
     public final static String LIVE_DEALER_ASIAN = "Live Dealer Asian";
@@ -177,10 +178,14 @@ public class AGConstant {
         public final static String TRANSFER = "Transfer";
         public final static String TOP_GAINER_TOP_LOSER = "Top Gainers & Top Losers";
         public final static String VIEW_LOG = "View Log";
-        public final static String WIN_LOSS_BY_EVENT = "Win Loss By Event";
-        public final static String WIN_LOSS_BY_MARKET_TYPE = "Win Loss By Sport And Market Type";
-        public final static String WIN_LOSS_BY_DETAIL = "%s Win Loss Detail";
-        public final static String WIN_LOSS_SIMPLE = "Win Loss Simple";
+        public final static String WIN_LOSS_BY_EVENT_OLDUI = "Win Loss By Event";
+        public final static String WIN_LOSS_BY_MARKET_TYPE_OLDUI = "Win Loss By Sport And Market Type";
+        public final static String WIN_LOSS_BY_DETAIL_OLDUI = "%s Win Loss Detail";
+        public final static String WIN_LOSS_SIMPLE_OLDUI = "Win Loss Simple";
+        public final static String WIN_LOSS_BY_EVENT_NEWUI = "By Event";
+        public final static String WIN_LOSS_BY_MARKET_TYPE_NEWUI = "By Market";
+        public final static String WIN_LOSS_BY_DETAIL_NEWUI = "%s By Detail";
+        public final static String WIN_LOSS_SIMPLE_NEWUI = "Simple";
         public final static String ANALYSIS_OF_RUNNING_MARKETS = "Analysis of Running Markets";
         public final static String SUB_USER_LISTING = "Sub User Listing";
         public final static String EVENT_BET_STIE_SETTINGS = "Event Bet Size Settings";

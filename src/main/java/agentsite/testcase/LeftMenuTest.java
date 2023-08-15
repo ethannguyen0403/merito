@@ -582,7 +582,7 @@ public class LeftMenuTest extends BaseCaseTest {
         log("Step: 5. Active downline setting page and search the acording account");
         agentHomePage.leftMenu.switchMainMenu();
         DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
-        downLineListingPage.searchDownline(directDownline.getUserCode(), "Suspended", MEMBER);
+        downLineListingPage.downlineListing.searchDownline(directDownline.getUserCode(), "Suspended", MEMBER);
 
         log("Verify 2. Status is updated");
         List<String> lstRecord = downLineListingPage.tblDowlineListing.getColumn(downLineListingPage.userCodeCol, false);
@@ -856,10 +856,10 @@ public class LeftMenuTest extends BaseCaseTest {
         log("Step 3 Active downline Listing page and search the player");
         agentHomePage.leftMenu.switchMainMenu();
         DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
-        downLineListingPage.searchDownline(directDownline.getUserCode(), "", "");
+        downLineListingPage.downlineListing.searchDownline(directDownline.getUserCode(), "", "");
 
         log("Verify 1 :All accounts under suspended account is suspended");
-        Assert.assertEquals(downLineListingPage.getAccountStatus(directDownline.getUserCode()), "Suspended", "FAILED! List downline account contain account status not in Suspended");
+        Assert.assertEquals(downLineListingPage.downlineListing.getAccountStatus(directDownline.getUserCode()), "Suspended", "FAILED! List downline account contain account status not in Suspended");
 
         log("Post Condition: Active the account");
         agentHomePage.leftMenu.switchQuickSearch();
@@ -892,7 +892,7 @@ public class LeftMenuTest extends BaseCaseTest {
         log("Step 3 Active downline Listing page and search the account then click on Edit icon");
         agentHomePage.leftMenu.switchMainMenu();
         DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
-        EditDownLinePage editDownLinePage = downLineListingPage.clickEditIcon(directDownline.getUserCode());
+        EditDownLinePage editDownLinePage = downLineListingPage.downlineListing.clickEditIcon(directDownline.getUserCode());
 
         log("Verify 1 Verify info(first name, Last name, Mobile) is updated and display in edit downline accordingly");
         Assert.assertEquals(editDownLinePage.accInfoSection.txtFirstName.getAttribute("value"), firstName, "Failed! First name not display incorrect like when update in user profile");

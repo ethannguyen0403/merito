@@ -18,6 +18,7 @@ public class EditDownlinePopup extends BaseElement {
     private String _xPath = "//div[@id='account']//app-agency-account-ui";
     private Label lblMessage = Label.xpath("//div[contains(@class,'modal-body-fit-with-content')]");
 
+
     public EditDownlinePopup(By locator, String xpathExpression) {
         super(locator);
         this._xPath = xpathExpression;
@@ -41,6 +42,5 @@ public class EditDownlinePopup extends BaseElement {
         lblTitle.isDisplayed(1);
         return lblTitle.getText();
     }
-
 
 }

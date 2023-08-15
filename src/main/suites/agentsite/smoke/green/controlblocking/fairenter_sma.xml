@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="GREEN_Funsport_SMOKE_AGENT_SMA" verbose="1">
+<suite name="F24_AG_GREEN_Smoke_Test" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="Funsport_SMOKE_Chrome">
+    <test name="FAIRENTER24 Agent Site in Green">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='green'/>
         <parameter name='language' value='en'/>
