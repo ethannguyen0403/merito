@@ -12,7 +12,7 @@ public class LefMenuList extends BaseElement {
     private String groupMenuXpath = "//div[contains(@class,'asia-menu-group')]";
     private String groupMenuTitleXpath = "//div[contains(@class,'asia-menu-title')]";
     private String subMenuXpath = "//div[@class='submenu']//div[contains(@class,'menu-item')]";
-    private String collapseSubMenuXpath = "//div[contains(@class,'icon')]";
+    private String collapseSubMenuXpath = "//div[@class='collapse-icon']";
 
     public LefMenuList(By locator, String xpathExpression) {
         super(locator);
@@ -140,9 +140,50 @@ public class LefMenuList extends BaseElement {
             i = i + 1;
         }
     }
+    public Label getSubMenuControl(String menu, String subMenu1, String subMenu2) {
+        int menuIndex = getMenuIndex(menu);
+        // expand menu
+        expandMenu(menu);
+        String rootMenuXpath = String.format("(%s%s)[%s]", _xPath, groupMenuXpath, menuIndex);
+        int i = 1;
+        Label lblSubMenu1 = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i));
+        Label lblSubMenu2;
+        // expand the root menu when not found the sub list
+        if (!lblSubMenu1.isDisplayed()) {
+            Label.xpath(rootMenuXpath).click();
+        }
+        Label lblExpandSubMenu;
+        while (true) {
+            lblSubMenu1 = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i));
+            lblSubMenu2 = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i+1));
+            lblExpandSubMenu = Label.xpath(String.format("(%s%s)[%s]%s", rootMenuXpath, subMenuXpath, i, collapseSubMenuXpath));
+            if (!lblSubMenu1.isDisplayed()) {
+                return null;
+            }
+
+            if (lblSubMenu1.getText().trim().equalsIgnoreCase(subMenu1)) {
+                lblSubMenu1.click();
+                return lblSubMenu2;
+            }
+
+            if (lblSubMenu1.getText().trim().isEmpty()) {
+                // Click + to expand to view all submenu
+                if (lblExpandSubMenu.isDisplayed()) {
+                    lblExpandSubMenu.click();
+                    i = i + 1;
+                    continue;
+                }
+            }
+            i = i + 1;
+        }
+    }
 
     public void clickSubMenu(String menu, String submenu) {
         Label lblSubmenu = getSubMenuControl(menu, submenu);
+        lblSubmenu.click();
+    }
+    public void clickSubMenu(String menu, String submenu1, String submenu2) {
+        Label lblSubmenu = getSubMenuControl(menu, submenu1, submenu2);
         lblSubmenu.click();
     }
 

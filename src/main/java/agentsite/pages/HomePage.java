@@ -127,7 +127,7 @@ public class HomePage extends LoginPage {
     }
 
     public FollowBetsPage navigateFollowBetsPage() {
-        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, BET_SETTING_LISTING);
+        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, FOLLOW_BETS);
         return new FollowBetsPage(_type);
     }
 
@@ -239,7 +239,7 @@ public class HomePage extends LoginPage {
     }
 
     public BigStakeConfigurationPage navigateBigStakeConfigurationPage() {
-        leftMenu.clickSubMenu(REPORT, BIG_STAKE_CONFIGURATION);
+        leftMenu.navigateBigStakeConfigurationPage();
         return new BigStakeConfigurationPage(_type);
     }
 
@@ -312,15 +312,16 @@ public class HomePage extends LoginPage {
     }
 
     public WinLossByEventPage navigateWinLossByEventPage() {
-        switch (_type) {
-            case "satsport":
-            case "funsport":
-                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_OLDUI);
-                break;
-            default:
-                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_NEWUI);
-        }
-        waitingLoadingSpinner();
+        leftMenu.navigateWinLossSimplePage();
+//        switch (_type) {
+//            case "satsport":
+//            case "funsport":
+//                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_OLDUI);
+//                break;
+//            default:
+//                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_NEWUI);
+//        }
+//        waitingLoadingSpinner();
         return new WinLossByEventPage(_type);
     }
 
