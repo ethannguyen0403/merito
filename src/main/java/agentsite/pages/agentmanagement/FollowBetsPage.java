@@ -4,6 +4,7 @@ package agentsite.pages.agentmanagement;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.followbets.GroupDetailsPopup;
+import agentsite.pages.agentmanagement.followbets.PlayerDetailsPopup;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.ConfirmPopup;
 import agentsite.pages.agentmanagement.followbets.FollowBets;
@@ -29,9 +30,9 @@ public class FollowBetsPage extends HomePage {
     public int colAddAgentPlayerAction = 5;
     String lblPlayerAgentNameByGroupXpath = "(//label[text()='Player/Agent Name'])[%s]";
     public Table tblAddAgentPlayer = Table.xpath("//app-follow-bygroup/div[1]/div[2]//table[contains(@class,'table-sm ptable')]", colTblPlayerAgentList);
-    TextBox txtPlayerAgentNameSearchByGroup = TextBox.xpath("//app-follow-bygroup[1]/div[1]/div[1]//input[1]");
+    public TextBox txtPlayerAgentNameSearchByGroup = TextBox.xpath("//app-follow-bygroup[1]/div[1]/div[1]//input[1]");
     TextBox txtPlayerAgentNameAddPlayerByGroup = TextBox.xpath("//app-follow-bygroup[1]/div[1]/div[2]//input[1]");
-    Button btnSearchByGroup = Button.xpath("//app-follow-bygroup//button[text()='Search']");
+    public Button btnSearchByGroup = Button.xpath("//app-follow-bygroup//button[text()='Search']");
     public Button btnSearchByPlayer = Button.xpath("//app-follow-byplayer//button[text()='Search']");
     Button btnAddPlayerAgent = Button.xpath("//app-follow-bygroup/div[1]/div[2]//table[@class='ptable info']//button");
     public Button btnAddPlayer = Button.xpath("//app-follow-byplayer//button[text()='Add Player']");
@@ -52,6 +53,9 @@ public class FollowBetsPage extends HomePage {
     public Table tblByPlayer = Table.xpath("//app-follow-byplayer//table[contains(@class,'table-sm ptable')]", colTblByPlayer);
     public Label lblPlayerName = Label.xpath("//label[text()='Player Name']");
     public TextBox txtPlayerName = TextBox.xpath("//input[@type='text']");
+    public Label lblErrorContent = Label.xpath("//app-alert//div[@class='modal-body modal-body-fit-with-content']");
+    Label lblNoFoundRecordsInGroupList = Label.xpath("//app-follow-bygroup/div[1]/div[1]//table[contains(@class,'table-sm ptable')]//td[text()='No records found.']");
+    Label lblNoFoundRecordsInPlayerList = Label.xpath("//app-follow-bygroup/div[1]/div[2]//table[contains(@class,'table-sm ptable')]//td[text()='No records found.']");
     public FollowBets followBets;
     public FollowBetsPage(String types) {
         super(types);
@@ -68,7 +72,6 @@ public class FollowBetsPage extends HomePage {
         }
         btnAddGroup.click();
         return new GroupDetailsPopup();
-
     }
 
     public void addGroup(String groupName, String followStatus, String accountToBet, String additionalStake, String additionalOddRange, String product, String stake, boolean isFollowall) {
@@ -170,7 +173,7 @@ public class FollowBetsPage extends HomePage {
         }
     }
 
-    public ConfirmPopup removeAgentPlayerByGroup(String loginID, String action) {
+    public ConfirmPopup removeAgentPlayerByGroup(String loginID) {
         Button btn = Button.xpath(tblAddAgentPlayer.getControlxPathBasedValueOfDifferentColumnOnRow(loginID, 1, colUsername, 1, null, colAddAgentPlayerAction, "button[1]", false, false));
         btn.click();
         return new ConfirmPopup();
@@ -230,34 +233,42 @@ public class FollowBetsPage extends HomePage {
         return false;
     }
 
-    public void searchPlayer(String playerFollowBet) {
-        if (!playerFollowBet.isEmpty()){
-            txtPlayerAgentNameSearchByGroup.sendKeys(playerFollowBet);
+    public void searchPlayer(String type,String playerFollowBet) {
+        switch (type){
+            case "By Group":
+                if (!playerFollowBet.isEmpty()){
+                    txtPlayerAgentNameSearchByGroup.sendKeys(playerFollowBet);
+                }
+                btnSearchByGroup.click();
+                break;
+            default:
+                if (!playerFollowBet.isEmpty()){
+                    txtPlayerName.sendKeys(playerFollowBet);
+                }
+                btnSearchByPlayer.click();
         }
-        btnSearchByGroup.click();
     }
 
-    public boolean isPlayerAddedDisplayCorrect(String username, String level) {
-        List<WebElement> lstGroup = tblGroupList.getWebElementsOfCell(colGroupName,1,null,false,false,false);
+    public boolean isPlayerAddedDisplayCorrect(String type, String username) {
+        searchPlayer(type, username);
         List<String> lstUsername = tblAddAgentPlayer.getColumn(colUsername,10,false);
-        List<String> lstLevel = tblAddAgentPlayer.getColumn(colLevel,10,false);
-        if (lstUsername.size()==0){
-            System.out.println("There is not "+level);
-            return true;
-        }
-        if (!(lstGroup.get(0).getText().equals("No records found."))){
-            lstGroup.get(0).click();
-            waitingLoadingSpinner();
+        List<String> lstLoginID = tblAddAgentPlayer.getColumn(colLoginID,10,false);
+        if (!lblNoFoundRecordsInPlayerList.isDisplayed()){
             for (int j = 0; j < lstUsername.size(); j++){
-                if (lstUsername.get(j).equals(username) && lstLevel.get(j).equals(level)){
-                    System.out.println(level+" is added display correct!");
+                if (lstUsername.get(j).equals(username) || lstLoginID.get(j).equals(username)){
+                    System.out.println(username+" is added display correct!");
                     return true;
                 }
             }
         } else {
-            System.out.println("No records found!");
+            System.out.println("No records found.");
             return true;
         }
         return false;
+    }
+    public PlayerDetailsPopup clickAddPlayer(){
+        btnAddPlayer.click();
+        waitingLoadingSpinner();
+        return new PlayerDetailsPopup();
     }
 }

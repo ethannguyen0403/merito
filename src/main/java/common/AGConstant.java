@@ -517,6 +517,7 @@ public class AGConstant {
             public final static List<String> PLAYER_AGENT_LIST_TABLE_HEADER_OLDUI = Arrays.asList( "Player/Agent List", "Username", "Login ID", "Level", "Upline", "Actions");
             public final static List<String> PLAYER_TABLE_HEADER_NEWUI = Arrays.asList( "Username", "Nickname", "Follow Status", "Exchange %", "Fancy %", "Additional Follow", "Account To Bet", "Last Update By", "Last Update Date", "Actions", "Stake %", "Odds Range %");
             public final static List<String> PLAYER_TABLE_HEADER_OLDUI = Arrays.asList( "Username", "Login ID", "Follow Status", "Exchange %", "Fancy %", "Additional Follow", "Account To Bet", "Last Update By", "Last Update Date", "Actions", "Stake %", "Odds Range %");
+            public final static List<String> FOLLOW_DETAIL_TABLE_HEADER = Arrays.asList( "Soccer\nAdd\nFollow All", "Tennis\nAdd\nFollow All", "Cricket\nAdd\nFollow All", "Basketball\nAdd\nFollow All", "Horse Racing\nAdd\nFollow All", "Others\nAdd\nFollow All");
         }
     }
 
