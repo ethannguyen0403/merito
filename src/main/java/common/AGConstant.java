@@ -231,9 +231,11 @@ public class AGConstant {
             public final static String LBL_LAST_NAME = "Last Name";
             public final static String LBL_PHONE = "Phone";
             public final static String LBL_MOBILE = "Mobile";
+            public final static String LBL_EMAIL = "Email";
             public final static String LBL_FAX = "Fax";
             public final static String LBL_BASE_CURRENCY = "Base Currency";
             public final static String LBL_ALLOW_AG_EXTRA = "Allow AG Extra PT";
+            public final static String LBL_ALLOW_PL_EXTRA = "Allow PL Extra PT";
             public final static String LBL_INITIATION_DEPOSIT = "Initiation Deposit";
             public final static String LBL_CASH_BALANCE = "Cash Balance";
             public final static String LBL_CREDIT_BALANCE = "Credit Balance";
@@ -253,12 +255,13 @@ public class AGConstant {
             public final static String LBL_TAX_SETTING = "Tax Settings";
             public final static String LBL_POSITION_TAKING = "Position Taking";
 
-            public final static List<String> LST_TAX_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Other");
+            public final static List<String> LST_TAX_SETTING_HEADER_NEWUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Other");
+            public final static List<String> LST_TAX_SETTING_HEADER_OLDUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Other");
             public final static List<String> LST_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Other");
             public final static List<String> LST_BET_SETTING_OPTION = Arrays.asList("Min Bet", "Max Bet", "Max Liability Per Market", "Max Win Per Market");
             public final static List<String> LST_TAX_SETTING_OPTION = Arrays.asList("Upline", "Tax");
-            public final static List<String> LST_POSITION_TAKING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Horse Racing", "Other");
-            public final static List<String> LST_POSITION_TAKING_HEADER_OLD_UI = Arrays.asList("", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Racing", "Other");
+            public final static List<String> LST_POSITION_TAKING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Horse Racing","Greyhound Racing", "Other");
+//            public final static List<String> LST_POSITION_TAKING_HEADER_OLD_UI = Arrays.asList("", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Racing", "Other");
             public final static List<String> LST_EG_GAME_GORUP_HEADER = Arrays.asList("", "Baccarat", "Blackjack", "Racing", "Hilo", "Hold'em", "Omaha Hi", "Other");
             public final static String LBL_LOGINID_HINT = "Login ID must be unique and at least a minimum of 6 characters and maximum of 15 characters";
             public final static String LBL_PASSWORD_HINT = "New Password: \n" +
@@ -285,7 +288,8 @@ public class AGConstant {
             public final static String EDIT_AGENT_TITLE = "Edit Master Agent";
             public final static String EDIT_MEMBER_TITLE = "Edit Member\n";
             public final static List<String> LST_ACCOUNT_STATUS = Arrays.asList("All", "Active", "Inactive", "Suspended", "Closed", "Blocked");
-            public final static List<String> LST_SAT_DOWLINE_LISTING_TABLE_HEADER = Arrays.asList("No.", "Username", "Login ID", "Client Name", "Credit Initiation", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Downline", "Create Date", "Last Login Time", "Last Login IP");
+            public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Client Name", "Mobile", "Credit Initiation", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Downline", "Create Date", "Last Login Time", "Last Login IP");
+            public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Exchange", "Live Dealer European", "Live Dealer Asian", "Exchange Games", "Supernowa Casino", "Evolution", "Game Hall","Vivo","ION","Pragmatic");
             public final static String MSG_CHANGE_PASSWORD_SUCCESS = "Update is successful!";
             public final static String MSG_INVALID_MAX_PLAYER_CREDIT = "Member Max Credit is invalid. ";
             public final static String MSG_EDIT_DOWNLINE_SUCCESS = "Downline was updated successfully";

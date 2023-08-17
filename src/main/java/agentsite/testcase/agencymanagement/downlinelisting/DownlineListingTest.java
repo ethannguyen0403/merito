@@ -2,6 +2,7 @@ package agentsite.testcase.agencymanagement.downlinelisting;
 
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.DownLineListingPage;
+import agentsite.pages.agentmanagement.EditDownLinePage;
 import agentsite.pages.components.SuccessPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
@@ -17,21 +18,31 @@ import java.util.List;
 import java.util.Objects;
 
 import static common.AGConstant.*;
-import static common.AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL;
-import static common.AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS;
-import static common.AGConstant.AgencyManagement.DownlineListing.LST_SAT_DOWLINE_LISTING_TABLE_HEADER;
-import static common.AGConstant.HomePage.DOWNLINE_LISTING;
 
 public class DownlineListingTest extends BaseCaseTest {
     @TestRails(id = "3499")
     @Test(groups = {"http_request"})
-    public void Agent_AM_Downline_Listing_Edit_User_3499() throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_User_3499() {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+
+        log("1. Validate downline listing page is displayed without console error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console Error display");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3518")
+    @Test(groups = {"http_request"})
+    public void Agent_AM_Downline_Listing_Edit_User_3518() throws Exception {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(_brandname, userID, "PL");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(loginID,"","");
 
         log("Step 2. Click on Edit icon of any agent");
         page.downlineListing.clickEditIcon(loginID);
@@ -47,25 +58,36 @@ public class DownlineListingTest extends BaseCaseTest {
         log("@title: Validate UI in Downline Listing ");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        List<String> lstHeaderTable = page.tblDowlineListing.getHeaderNameOfRows();
 
         log("1. Verify Title is : Downline Listing\n" +
                 "2. Control display correctly\n" +
                 "3. Root breadcrumb is login ID\n" +
                 "4. Account List table display with correct header: No., Login ID, Client Name, Credit Initiation, Account Status, Edit, Change Password, Level, Delay Bet, Downline, Created Date, Last Login Time, Last Login IP\n" +
                 "5 Pagingnation section in the bottom");
-        Assert.assertEquals(page.header.lblPageTitle.getText(), DOWNLINE_LISTING, "FAILED! Page title is incorrect displayed");
-        Assert.assertEquals(page.lblLoginId.getText(), LOGIN_ID, "FAILED! Login ID is incorrect displayed");
-        Assert.assertEquals(page.lblAccountStatus.getText(), ACCOUNT_STATUS, "FAILED! Account Status is incorrect displayed");
-        Assert.assertEquals(page.lblLevel.getText(), LEVEL, "FAILED! Account Status is incorrect displayed");
-        Assert.assertEquals(page.btnSearch.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect display");
-        Assert.assertTrue(page.txtLoginID.isDisplayed(), "FAILED! Login ID textbox is incorrect display");
-        Assert.assertTrue(page.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdownbox is incorrect display");
-        Assert.assertTrue(page.ddbLevel.isDisplayed(), "FAILED! Level dropdown is incorrect display");
-        Assert.assertEquals(page.ddbAccountStatus.getOptions(), LST_ACCOUNT_STATUS, "FAILED! Data in Account Status dropdownbox is incorrect displayed");
-        Assert.assertEquals(page.ddbLevel.getOptions(), DDB_LEVEL, "FAILED! Data in Account Status dropdownbox is incorrect displayed");
-        Assert.assertEquals(lstHeaderTable, LST_SAT_DOWLINE_LISTING_TABLE_HEADER, "FAILED! Table header is incorrect displayed");
+        page.downlineListing.verifyUIDisplayCorrect();
+        log("INFO: Executed completely");
+    }
 
+    @TestRails(id = "3519")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_3519() throws Exception {
+        log("@title: Validate UI in Downline Listing ");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
+        String loginID = listAccount.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(loginID,"","");
+
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
+
+        log("1. Verify Title is : Downline Listing\n" +
+                "2. Control display correctly\n" +
+                "3. Root breadcrumb is login ID\n" +
+                "4. Account List table display with correct header\n" +
+                "5 Pagingnation section in the bottom");
+        editDownLinePage.editDownlineListing.verifyUIDisplayCorrect();
         log("INFO: Executed completely");
     }
     @TestRails(id = "3501")
