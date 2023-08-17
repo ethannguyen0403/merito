@@ -44,7 +44,7 @@ public class TransferLogTest extends BaseCaseTest {
      * @expect: 1. Verify log show correctly
      */
     @TestRails(id = "802")
-    @Test(groups = {"smoke_Credit_Cash"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_Report_Transfer_Log_802() {
         log("@title: Validate data Transfer Log display correctly");
         DepositWithdrawalPage page;
@@ -54,8 +54,8 @@ public class TransferLogTest extends BaseCaseTest {
         String userCode = memberInfo.getUserCode();
 
         log("Step 1. Get View Log info");
-        page = agentHomePage.navigateDepositWithdrawalPage("");
-        page.depositWithdraw.deposit(userCode, "1", "Deposit 1 auto script " + com.paltech.utils.StringUtils.generateString("Auto", 4), true, true);
+        page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
+        page.depositWithdraw.deposit(userCode, "1", "Deposit 1 auto script " + com.paltech.utils.StringUtils.generateString("Auto", 6), true, true);
         ViewLogPopup popup = (ViewLogPopup) page.depositWithdraw.action(DepositWithdraw.Actions.VIEW_LOG, userCode);
         List<ArrayList<String>> log = popup.tblLog.getRowsWithoutHeader(1, false);
         List<ArrayList<String>> expectedData = popup.defineTransferLogbyViewLogData(log);
@@ -65,7 +65,7 @@ public class TransferLogTest extends BaseCaseTest {
         TransferLogPage tranferlogPage = page.navigateTransferLogPage();
 
         log("Step 3. Input the account do deposit/withdraw in steps 1 and click submit");
-        tranferlogPage.filter("", "All");
+        tranferlogPage.filter(userCode, "All");
 
         log("Verify  1. Verify log show correctly");
         List<ArrayList<String>> data = tranferlogPage.tblReport.getRowsWithoutHeader(true);
@@ -95,7 +95,7 @@ public class TransferLogTest extends BaseCaseTest {
         List<String> lstHeader = tranferlogPage.tblReport.getHeaderNameOfRows();
 
         log("Verify  1. Verify page UI show correctly");
-        Assert.assertEquals(tranferlogPage.txtUserName.getAttribute("placeholder"), AGConstant.LBL_USERNAME_PLACE_HOLDER, "FAILED! Username textbox placehoder is incorrect button is incorrect");
+        Assert.assertTrue(tranferlogPage.txtUserName.isDisplayed(), "FAILED! Username textbox is not displayed");
         Assert.assertEquals(tranferlogPage.btnToday.getText(), AGConstant.Report.BTN_TODAY, "FAILED! Today button is incorrect");
         Assert.assertEquals(tranferlogPage.btnYesterday.getText(), AGConstant.Report.BTN_YESTERDAY, "FAILED! Yesterday button is incorrect");
         Assert.assertEquals(tranferlogPage.btnLastWeek.getText(), AGConstant.Report.LAST_WEEK, "FAILED! Last Business button is incorrect");

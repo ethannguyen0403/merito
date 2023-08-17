@@ -303,7 +303,7 @@ public class DepositTest extends BaseCaseTest {
     }
 
     @TestRails(id = "727")
-    @Test(priority = 2, groups = {"smoke"})
+    @Test(groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Deposit_727() {
         log("@title: Validate can deposited by Win/Loss Settle successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();

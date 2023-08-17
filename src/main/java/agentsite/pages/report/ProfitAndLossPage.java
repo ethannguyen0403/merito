@@ -20,8 +20,8 @@ public class ProfitAndLossPage extends HomePage {
     public DropDownBox ddbTimeZone = DropDownBox.id("timezone");
     public TextBox txtSearchTo = TextBox.xpath("//div[@id='search-region']//table//tr[1]/td[6]//input");
     public TextBox txtSearchFrom = TextBox.xpath("//div[@id='search-region']//table//tr[1]/td[4]//input");
-    public DateTimePicker dpFrom = DateTimePicker.xpath(txtSearchFrom, "//bs-days-calendar-view");
-    public DateTimePicker dpTo = DateTimePicker.xpath(txtSearchTo, "//bs-days-calendar-view");
+    public DateTimePicker dpFrom = DateTimePicker.xpath(txtSearchFrom, "//bs-calendar-layout");
+    public DateTimePicker dpTo = DateTimePicker.xpath(txtSearchTo, "//bs-calendar-layout");
     public agentsite.controls.DropDownBox ddbProduct = agentsite.controls.DropDownBox.xpath("//angular2-multiselect//div[contains(@class,'selected-list')]", "//div[contains(@class,'dropdown-list')]//div[@class='list-area']//ul[@class='lazyContainer']//label");
     public Button btnToday = Button.name("today");
     public Button btnYesterday = Button.name("yesterday");
@@ -64,11 +64,13 @@ public class ProfitAndLossPage extends HomePage {
         if (!timeZone.isEmpty())
             ddbTimeZone.selectByVisibleText(timeZone);
         if (!from.isEmpty())
-            dpFrom.currentMonthWithDate(from);
+            dpFrom.selectDate(from,"dd/MM/yyyy");
         if (!to.isEmpty())
-            dpTo.currentMonthWithDate(to);
+            dpTo.selectDate(to,"dd/MM/yyyy");
         if (!productName.isEmpty())
             filterbyProduct(productName);
+        btnSubmit.click();
+        waitingLoadingSpinner();
     }
 
     public void filterbyProduct(String productName) {

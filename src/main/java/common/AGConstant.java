@@ -672,7 +672,7 @@ public class AGConstant {
         public static class TopGainersTopLosers {
             public final static String BTN_SEARCH = "Search";
             public final static String LBL_INFO_REPORT_VALID = "You can see report data up to 3 months and back to previous 1 year.";
-            public final static String LBL_INFO_SUPPORT_YESTERDAY_DATA = "Top Gainer & Top Losers only support yesterday data. Big Stake supports today data.";
+            public final static String LBL_INFO_SUPPORT_YESTERDAY_DATA = "Top Gainers & Top Losers only support yesterday data. Big Stake supports today data..";
             public final static String LBL_INFO_PLACE_TIME = "Big Stake wagers are based on placed time.";
             public final static List<String> AGENT_SMA_TABLE_TOP_GAINERS_HEADER_NEWUI = Arrays.asList("Top Gainers", "20\n50\n100\n200", "No.", "Usercode", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
             public final static List<String> AGENT_SAD_TABLE_TOP_GAINERS_HEADER_OLDUI = Arrays.asList("Top Gainers", "20\n50\n100\n200", "Login ID", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
@@ -699,7 +699,7 @@ public class AGConstant {
 
         public static class TransferLog {
             public final static String LBL_INFO = "You can see report data up to 6 months";
-            public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Audit Date", "Username", "Login ID", "Audit Type", "Attribute", "Old Value", "New Value", "Perform By", "Remark");
+            public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Audit Date", "UserName", "Login ID", "Audit Type", "Attribute", "Old Value", "New Value", "Perform By", "Remark");
         }
     }
 

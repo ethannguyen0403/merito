@@ -1,6 +1,8 @@
 package agentsite.pages.components.leftmenu;
 
+import agentsite.objects.agent.account.AccountInfo;
 import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
 import org.openqa.selenium.support.PageFactory;
@@ -121,5 +123,24 @@ public class NewUILeftMenu extends LeftMenu {
     @Override
     public void navigateWinLossSimplePage() {
         clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_SIMPLE_NEWUI);
+    }
+
+    public void navigateWinLossBySportAndMarketTypePage() {
+        clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_BY_MARKET_TYPE_NEWUI);
+    }
+
+    public void navigateStatementReportPage() {
+        clickSubMenu(AGENCY_MANAGEMENT, STATEMENT_REPORT);
+    }
+
+    public void navigateWinLossDetailPage() {
+        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+        String winLossDetailMenu;
+        winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_NEWUI, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
+        clickSubMenu(REPORT, winLossDetailMenu);
+    }
+
+    public void navigateWinLossByEventPage() {
+        clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_NEWUI);
     }
 }

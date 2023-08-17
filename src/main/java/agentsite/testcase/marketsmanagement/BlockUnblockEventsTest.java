@@ -29,7 +29,7 @@ import static common.AGConstant.MarketsManagement.BlockUnblockEvent.*;
 
 public class BlockUnblockEventsTest extends BaseCaseTest {
     @TestRails(id = "757")
-    @Test(groups = {"smokePO"})
+    @Test(groups = {"smoke_po"})
     @Parameters({"downlineAccount", "controlBlockingAccount", "passwordNonePO", "controlBlockingLevel"})
     public void Agent_MM_BlockUnblockEvent_757(String downlineAccount, String controlBlockingAccount, String password, String controlBlockingLevel) throws Exception {
         log("@title: Validate that Unblock Now an event successfully from PO level");
@@ -171,7 +171,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
      * @steps: 1. Observe Markets Management in the left menu
      * @expect: 1. Verify there is no market management section
      */
-    @Test(groups = {"smokeCO"})
+    @Test(groups = {"smoke_co"})
     public void Agent_MM_BlockUnblockEvent_037() {
         //TODO: Add test case to Testrail
         log("@title: Validate that Unblock Now an event successfully from CO level");

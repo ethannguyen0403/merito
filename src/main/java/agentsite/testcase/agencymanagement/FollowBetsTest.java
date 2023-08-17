@@ -49,7 +49,7 @@ public class FollowBetsTest extends BaseCaseTest {
      * - Verify Group is remove out the group list table
      */
     @TestRails(id = "755")
-    @Test(groups = {"smokePO"})
+    @Test(groups = {"smoke_po"})
     @Parameters({"accountToBet", "username"})
     public void Agent_AM_Follow_Bets_755(String accountToBet, String username) {
         log("@title: Verify can Add, Edit, Deleted, group for Exchange product");
@@ -100,7 +100,7 @@ public class FollowBetsTest extends BaseCaseTest {
      * 2. Verify can agent player out the group
      */
     @TestRails(id = "756")
-    @Test(groups = {"smokePO"})
+    @Test(groups = {"smoke_po"})
     @Parameters({"accountToBet", "controlBlockingAccount"})
     public void Agent_AM_Follow_Bets_756(String accountToBet, String controlBlockingAccount) {
         log("@title: Verify can Add, Edit, Deleted, group for Exchange product");
