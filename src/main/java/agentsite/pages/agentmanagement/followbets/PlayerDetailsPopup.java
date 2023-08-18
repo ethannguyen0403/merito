@@ -18,9 +18,10 @@ public class PlayerDetailsPopup {
     private int colFollowDetails = 6;
     public Table tblFollowDetails = Table.xpath("//table[contains(@class,'follow-detail-table')]",colFollowDetails);
     public String txtMarketNameXpath = "//div[text()='%s']//following-sibling::div[1]//input";
-    public void createNewPlayer(String groupName, String followStatus, String accountToBet, String additionalStake, String additionalOddRange, String product, String stake, boolean isFollowall) {
-        txtPlayerName.isPresent(3);
-        txtPlayerName.sendKeys(groupName);
+    public void createNewPlayer(String playerName, String followStatus, String accountToBet, String additionalStake, String additionalOddRange, String product, String stake, boolean isFollowall) {
+        if (txtPlayerName.isEnabled()){
+            txtPlayerName.sendKeys(playerName);
+        }
         if (!followStatus.isEmpty()){
             ddbFollowStatus.selectByVisibleText(followStatus);
         }

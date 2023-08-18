@@ -71,14 +71,14 @@ public class FollowBetsTest extends BaseCaseTest {
         Assert.assertTrue(page.verifyByGroupInfo(groupName, "Yes", "11.00", "0.00", "1.00", "2.00", accountToBet, username, ""));
 
         log("Step 5. Click on Edit button and update  group name, Follow status, group color, Additional Stake, Additional Odds Range %, Product, Stake %, Uncheck Follow All Bets, only check Match odds for all sport and Win for HR and click Save button");
-        popup = (GroupDetailsPopup) page.clickAction(groupName, "Edit");
+        popup = (GroupDetailsPopup) page.clickAction("By Group",groupName, "Edit");
         popup.createNewGroup(groupName, "No", accountToBet, "2", "3", "Exchange", "9", true);
 
         log("Verify 2. The group info is updated as step 5");
         Assert.assertTrue(page.verifyByGroupInfo(groupName, "No", "--", "--", "--", "--", "--", username, ""));
 
         log("Step 6. Click Deleted button");
-        ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction(groupName, "Delete");
+        ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction("By Group",groupName, "Delete");
         String confirmMsg = confirmPopup.getContentMessage();
         confirmPopup.confirm();
 
@@ -139,7 +139,7 @@ public class FollowBetsTest extends BaseCaseTest {
             Assert.assertTrue(page.tblAddAgentPlayer.getColumn(1, 1, false).get(0).equalsIgnoreCase(AGConstant.NO_RECORD_FOUND), "FAILED! Agent has not removed yet");
         } finally {
             log("Step PostCondition: Delete group");
-            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction(groupName, "Delete");
+            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction("By Group",groupName, "Delete");
             confirmPopup.confirm();
         }
         log("INFO: Executed completely");
@@ -265,7 +265,7 @@ public class FollowBetsTest extends BaseCaseTest {
             page.rbByPlayer.click();
             page.rbByGroup.click();
             page.waitingLoadingSpinner();
-            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction(groupName, "Delete");
+            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction("By Group",groupName, "Delete");
             confirmPopup.confirm();
         }
         log("INFO: Executed completely");
@@ -390,6 +390,41 @@ public class FollowBetsTest extends BaseCaseTest {
         Assert.assertEquals(playerDetailsPopup.tblFollowDetails.getHeaderList(),AGConstant.AgencyManagement.FollowBets.FOLLOW_DETAIL_TABLE_HEADER,"FAILED! Header table name of follow details table display incorrect!");
         log("INFO: Executed completely");
     }
-
+    @TestRails(id = "3677")
+    @Test(groups = {"stg_regression_po1"})
+    @Parameters({"playerFollowBet","accountToBet","username"})
+    public void Agency_Management_Follow_Bets_3677 (String playerFollowBet,String accountToBet,String username) {
+        log("@title: Validate Player Details UI popup");
+        log("@Pre-condition 1: Log in successfully by PO");
+        log("Step 1: Navigate Agency Management >  Follow Bets");
+        FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
+        log("Step 2: Select By Player");
+        page.rbByPlayer.click();
+        log("Step 3: Click Add Player");
+        log("Step 4: Input the valid player and the required fields and click on Follow All Bets and click on Save button");
+        PlayerDetailsPopup playerDetailsPopup = page.clickAddPlayer();
+        try{
+            playerDetailsPopup.createNewPlayer(playerFollowBet,"Yes",accountToBet,"1","1","","1",true);
+            log("Verify 1: Validate Player is added and info is displayed correctly");
+            page.waitingLoadingSpinner();
+            Assert.assertTrue(page.verifyByPlayerInfo(playerFollowBet,"Yes","1.00","0.00","1.00","1.00",accountToBet,username.toUpperCase(),""));
+            log("Step 5: Click on edit and update the info of the follow account: Update stakeUpdate for Exchange and other fields and click save");
+            playerDetailsPopup = (PlayerDetailsPopup) page.clickAction("By Player",playerFollowBet,"Edit");
+            playerDetailsPopup.createNewPlayer("","",accountToBet,"2","2","","2",true);
+            page.waitingLoadingSpinner();
+            log("Verify 2: Follow info is updated correctly");
+            Assert.assertTrue(page.verifyByPlayerInfo(playerFollowBet,"Yes","2.00","0.00","2.00","2.00",accountToBet,username.toUpperCase(),""));
+        } finally {
+            log("Step 6: Click the remove");
+            ConfirmPopup confirmPopup = page.removePlayerByPlayer(playerFollowBet);
+            String confirmMsg = confirmPopup.getContentMessage();
+            confirmPopup.confirm();
+            page.waitingLoadingSpinner();
+            log("Verify 3: Validate a confirm dialog display then click on OK and the player is remove out the list");
+            Assert.assertEquals(confirmMsg,String.format("Are you sure to remove %s?",playerFollowBet));
+            Assert.assertFalse(page.tblByPlayer.getColumn(page.colUsername,20,false).get(0).equalsIgnoreCase(playerFollowBet),"FAILED! Player still display!");
+        }
+        log("INFO: Executed completely");
+    }
 }
 

@@ -13,7 +13,6 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.RadioButton;
 import com.paltech.element.common.TextBox;
 import common.AGConstant;
-import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,9 +46,17 @@ public class FollowBetsPage extends HomePage {
     private int colAccountToBet = 7;
     private int colLastUpdateBy = 8;
     private int colLastUpdateTime = 9;
-    private int colAction = 10;
+    private int colActionByGroup = 10;
+    private int colActionByPlayer = 11;
     private int colTblByPlayer = 11;
-    private int colLevel = 3;
+    private int colFollowStatusByPlayer = 3;
+    private int colExchangeByPlayer = 4;
+    private int colFancyByPlayer = 5;
+    private int colStakeByPlayer = 6;
+    private int colOddsRangeByPlayer = 7;
+    private int colAccountToBetByPlayer = 8;
+    private int colLastUpdateByByPlayer = 9;
+    private int colLastUpdateDateByPlayer = 10;
     public Table tblByPlayer = Table.xpath("//app-follow-byplayer//table[contains(@class,'table-sm ptable')]", colTblByPlayer);
     public Label lblPlayerName = Label.xpath("//label[text()='Player Name']");
     public TextBox txtPlayerName = TextBox.xpath("//input[@type='text']");
@@ -151,19 +158,35 @@ public class FollowBetsPage extends HomePage {
         return false;
     }
 
-    public Object clickAction(String groupName, String action) {
+    public Object clickAction(String type,String groupName, String action) {
         Button btn;
+        Table table;
+        int colAction;
+        switch (type) {
+            case "By Group":
+                colAction = colActionByGroup;
+                table = tblGroupList;
+                break;
+            default:
+                colAction = colActionByPlayer;
+                table = tblByPlayer;
+        }
         switch (action) {
             case "Edit":
-                btn = Button.xpath(tblGroupList.getControlxPathBasedValueOfDifferentColumnOnRow(groupName, 1, colGroupName, 1, null, colAction, "button[1]", false, false));
+                btn = Button.xpath(table.getControlxPathBasedValueOfDifferentColumnOnRow(groupName, 1, colGroupName, 1, null, colAction, "button[1]", false, false));
                 if (Objects.isNull(btn)) {
                     System.err.println(String.format("ERROR: Cannot get Edit button at group name %s", groupName));
                     return null;
                 }
-                btn.click();//app-follow-bygroup/div[1]/div[2]/div/div[2]/button
-                return new GroupDetailsPopup();
+                btn.click();
+                waitingLoadingSpinner();
+                if (type.equals("By Group")){
+                    return new GroupDetailsPopup();
+                } else {
+                    return new PlayerDetailsPopup();
+                }
             default:
-                btn = Button.xpath(tblGroupList.getControlxPathBasedValueOfDifferentColumnOnRow(groupName, 1, colGroupName, 1, null, colAction, "button[2]", false, false));
+                btn = Button.xpath(table.getControlxPathBasedValueOfDifferentColumnOnRow(groupName, 1, colGroupName, 1, null, colAction, "button[2]", false, false));
                 if (Objects.isNull(btn)) {
                     System.err.println(String.format("ERROR: Cannot get Delete button at group name %s", groupName));
                     return null;
@@ -178,7 +201,6 @@ public class FollowBetsPage extends HomePage {
         btn.click();
         return new ConfirmPopup();
     }
-
 
     public void waitingLoadingSpinner() {
         iconLoadSpinner.waitForControlInvisible(1, 1);
@@ -270,5 +292,61 @@ public class FollowBetsPage extends HomePage {
         btnAddPlayer.click();
         waitingLoadingSpinner();
         return new PlayerDetailsPopup();
+    }
+
+    public ConfirmPopup removePlayerByPlayer(String username) {
+        Button btn = Button.xpath(tblByPlayer.getControlxPathBasedValueOfDifferentColumnOnRow(username, 1, colUsername, 1, null, colActionByPlayer, "button[2]", false, false));
+        btn.click();
+        return new ConfirmPopup();
+    }
+    public boolean verifyByPlayerInfo(String playerName, String followStatus, String exchangeFollow, String fancyFollow, String additionalFollowStake, String additionalFollowOdds, String accounToBet, String lastUpdateBy, String lastUpdateDate) {
+        List<ArrayList<String>> byPlayerData = tblByPlayer.getRowsWithoutHeader(false);
+        for (int i = 0; i < byPlayerData.size(); i++) {
+            if (byPlayerData.get(i).get(colGroupName - 1).equals(playerName)) {
+                Button btnFollowStatus = Button.xpath(tblByPlayer.getControlxPathBasedValueOfDifferentColumnOnRow(playerName, 1, colGroupName, 1, null, colFollowStatusByPlayer, "button[contains(@class,'yesNoBtn')]", false, false));
+                if (!btnFollowStatus.isDisplayed()) {
+                    System.err.println(String.format("FAILED! Cannot find Follow Status button of according group name %s", playerName));
+                    return false;
+                }
+                if (!btnFollowStatus.getText().equals(followStatus)) {
+                    System.err.println(String.format("FAILED! Expected follow status is %s but found %s ", followStatus, btnFollowStatus.getText()));
+                    return false;
+                }
+                if (!byPlayerData.get(i).get(colExchangeByPlayer - 1).equals(exchangeFollow)) {
+                    System.err.println(String.format("FAILED! Exchange is %s but found %s ", exchangeFollow, byPlayerData.get(i).get(colExchange - 1)));
+                    return false;
+                }
+                if (!byPlayerData.get(i).get(colFancyByPlayer - 1).equals(fancyFollow)) {
+                    System.err.println(String.format("FAILED! Fancy is %s but found %s ", fancyFollow, byPlayerData.get(i).get(colFancy - 1)));
+                    return false;
+                }
+                if (!byPlayerData.get(i).get(colStakeByPlayer - 1).equals(additionalFollowStake)) {
+                    System.err.println(String.format("FAILED! Additional Follow Stake is %s but found %s ", additionalFollowStake, byPlayerData.get(i).get(colAdditionalFollowStake - 1)));
+                    return false;
+                }
+                if (!byPlayerData.get(i).get(colOddsRangeByPlayer - 1).equals(additionalFollowOdds)) {
+                    System.err.println(String.format("FAILED! Additional Follow Odds is %s but found %s ", additionalFollowOdds, byPlayerData.get(i).get(colAdditionalFollowOdds - 1)));
+                    return false;
+                }
+                if (!byPlayerData.get(i).get(colAccountToBetByPlayer - 1).contains(accounToBet)) {
+                    System.err.println(String.format("FAILED! Account to bet is %s but found %s ", accounToBet, byPlayerData.get(i).get(colAccountToBet - 1)));
+                    return false;
+                }
+                if (!byPlayerData.get(i).get(colLastUpdateByByPlayer - 1).equals(lastUpdateBy)) {
+                    System.err.println(String.format("FAILED! Account to bet is %s but found %s ", lastUpdateBy, byPlayerData.get(i).get(colLastUpdateBy - 1)));
+                    return false;
+                }
+                if (!lastUpdateDate.isEmpty()) {
+                    if (!byPlayerData.get(i).get(colLastUpdateDateByPlayer - 1).equals(lastUpdateDate)) {
+                        System.err.println(String.format("FAILED! Account to bet is %s but found %s ", lastUpdateDate, byPlayerData.get(i).get(colLastUpdateTime - 1)));
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+        System.out.println(String.format("The group name %s not exist in the list", playerName));
+        return false;
     }
 }
