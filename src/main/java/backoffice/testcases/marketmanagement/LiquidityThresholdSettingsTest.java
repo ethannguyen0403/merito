@@ -71,7 +71,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
         page.searchSport(sportName);
         page.selectSport(1);
         page.searchMarketType(marketType);
-
+        page.waitSpinIcon();
         log("Step 3. Input the setting in Live cell: 1 then press enter");
         page.setThreshold(marketType, "", "1");
 
