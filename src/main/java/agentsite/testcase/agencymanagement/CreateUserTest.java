@@ -354,10 +354,10 @@ public class CreateUserTest extends BaseCaseTest {
         log("@title: Validate cannot create downline with the exist Login ID");
         log("Step 1. Navigate Agency Management > Create User");
         String password = "1234qwer";
-        CreateUserPage page = agentHomePage.navigateCreateUserPage(StringUtils.decrypt(environment.getSecurityCode()));
+        CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Step  Enter security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 2. Input Login ID that exist in the system and correct password then click submit");
         page.createUser(memberAccount,password);
@@ -583,7 +583,7 @@ public class CreateUserTest extends BaseCaseTest {
         Assert.assertTrue(page.securityPopup.isDisplayed(), "FAILED Security popup not display");
 
         log("Step  Enter security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Verify 2. Verify page display if input valid security code");
         Assert.assertEquals(page.editDownlinePopup.getTitle(), String.format("Edit %s", levelLogin), "FAILED!Page not displayed");
@@ -603,7 +603,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("Step 2. Click on Edit icon of any agent");
         page.downlineListing.searchDownline(loginID, "", "");
         page.downlineListing.clickEditIcon(loginID);
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Input valid Max Player Credit and valid other information then click submit");
         String maxPlayerCreditLitmit = "1";

@@ -83,7 +83,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3684")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void Agent_MM_BlockUnblockEvent_3684() {
         log("@title: Validate Block/Unblock Events UI display correctly at PO level");
 
@@ -226,10 +226,10 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "759")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_759(String downlineAccount, String memberAccount, String password) throws Exception {
-        log("@title: Validate that can block an unblocked event successfully from SAD leve");
+        log("@title: Validate that can block an unblocked event successfully from SAD level");
         AccountInfo acc = ProfileUtils.getProfile();
 
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
@@ -687,7 +687,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
 
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_769() {
         log("@title:Validate can unblocked now all events for an downline");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();

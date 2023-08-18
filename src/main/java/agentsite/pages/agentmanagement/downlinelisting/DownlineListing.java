@@ -106,13 +106,13 @@ public class DownlineListing extends CreateDownLineAgentPage {
         }
     }
 
-    public void confirmSecurityCode(String securityCode) {
-        if (securityPopup.isDisplayed()) {
-            if (!securityCode.isEmpty()) {
-                securityPopup.submitSecurityCode(securityCode);
-            }
-        }
-    }
+//    public void confirmSecurityCode(String securityCode) {
+//        if (securityPopup.isDisplayed()) {
+//            if (!securityCode.isEmpty()) {
+//                securityPopup.submitSecurityCode(securityCode);
+//            }
+//        }
+//    }
 
     public String getMessageUpdate(boolean isClose) {
         String message = successPopup.getContentMessage();

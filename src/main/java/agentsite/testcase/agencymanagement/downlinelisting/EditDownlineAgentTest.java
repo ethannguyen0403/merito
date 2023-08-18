@@ -40,7 +40,7 @@ public class EditDownlineAgentTest extends BaseCaseTest {
         log("Step 2. Click on Edit icon of any agent");
         page.downlineListing.searchDownline(loginID, "", "Agent");
         page.downlineListing.clickEditIcon(loginID);
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Input Max player Credit greater than the limit");
         String maxPlayerCreditLitmit = String.format("%d", page.editDownlinePopup.balanceSection.getMaxPlayerLitmitCredit() + 1);

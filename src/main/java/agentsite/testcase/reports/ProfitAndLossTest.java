@@ -53,7 +53,7 @@ public class ProfitAndLossTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3735")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void Agent_Report_Profit_And_Loss_3735() {
         log("@title:Validate Profit and Loss UI display correctly at PO level");
         log("Step 1. Navigate Report > Profit And Loss");

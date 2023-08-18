@@ -37,7 +37,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
      * @expect: 1. There is a event name "FC Hapoel Ashkelon v Hapoel Afula" display
      */
     @TestRails(id = "705")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_705() {
         log("@title: Verify can search  event name with correct value");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -427,7 +427,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
      * 4. Verify member site will get max setting when max event setting is removed
      */
     @TestRails(id = "706")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     @Parameters({"username", "downlineAccount", "memberAccount", "password"})
     public void Agent_AM_Event_Bet_Site_Settings_706(String username, String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title:Verify can update and remove max and min event setting");
@@ -582,7 +582,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3586")
-    @Test(groups = {"regression1"})
+    @Test(groups = {"regression"})
     public void Agent_AM_Event_Bet_Site_Settings_3586() {
         log("@title: Only can update for min");
         log("Step 1.Log in successfully by SAD level > Navigate Agency Management > Event Bet Size Settings");
