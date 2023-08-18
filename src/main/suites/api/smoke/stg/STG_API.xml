@@ -18,7 +18,7 @@
 
         <groups>
             <run>
-                <include name="smoke1"/>
+                <include name="smoke"/>
             </run>
         </groups>
 

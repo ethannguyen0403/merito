@@ -73,7 +73,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
         page.searchByUsername("Exchange", satMemberLoginID, fromDate, toDate);
 
         log("Verify 1. Verify Wager info display correctly as pre-condition and has place date in search date range");
-        List<String> lstWagerInfo = page.tblWager.getColumn(page.colNickname, false);
+        List<String> lstWagerInfo = page.tblWager.getColumn(page.colUsername, false);
         for (String acutalUsername : lstWagerInfo) {
             Assert.assertEquals(acutalUsername, satMemberLoginID, "FAILED! Result table not display the searching data");
         }
@@ -261,7 +261,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
     public void BO_Operations_Wager_Void_Unvoid_646(String wagerID) {
         log("@title:Validate void/unvoid exchange wager in Match status on the market have 1 wager");
         log("Step 1. Access Operations > Wager Void/Un-void");
-        // String wagerID ="";
+        // String wagerID ="101851";
         WagerVoidUnvoidPage page = backofficeHomePage.navigateWagerVoidUnvoid();
 
         log("Step 2. Select void by, Wager and search by wager");

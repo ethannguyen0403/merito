@@ -1,10 +1,10 @@
 package agentsite.pages.agentmanagement.followbets;
 
+import agentsite.controls.Table;
 import com.paltech.element.common.*;
 
-public class GroupDetailsPopup {
-
-    public TextBox txtGroupName = TextBox.id("groupName");
+public class PlayerDetailsPopup {
+    public TextBox txtPlayerName = TextBox.xpath("//app-follow-detail//label[text()='Player Name']//following-sibling::div/input");
     public TextBox txtAdditionalStake = TextBox.xpath("//label[contains(text(),'Additional Stake')]//following::input[1]");
     public TextBox txtAdditionalOddsRange = TextBox.xpath("//label[contains(text(),'Additional Odds Range')]//following::input[1]");
     public TextBox txtStake = TextBox.xpath("//label[text()='Stake %']//following::input[1]");
@@ -12,13 +12,16 @@ public class GroupDetailsPopup {
     public DropDownBox ddbFollowStatus = DropDownBox.xpath("//label[contains(text(),'Follow Status')]//following::select[1]");
     public DropDownBox ddbAccountToBet = DropDownBox.xpath("//label[contains(text(),'Account To Bet')]//following::select[1]");
     public DropDownBox ddbProduct = DropDownBox.xpath("//label[contains(text(),'Product')]//following::select[1]");
-    public Button btnSave = Button.xpath("//button[@class='pbtn icon-pointer' and text()='Save'] ");
-    public Button btnCancel = Button.xpath("//button[contains(@class,'cancel')]");
-    public Label lblGroupDetails = Label.xpath("//div[text()='Group Details']");
-
-    public void createNewGroup(String groupName, String followStatus, String accountToBet, String additionalStake, String additionalOddRange, String product, String stake, boolean isFollowall) {
-        txtGroupName.isPresent(3);
-        txtGroupName.sendKeys(groupName);
+    public Button btnSave = Button.xpath("//button[@class='pbtn icon-pointer' and text()='Save']");
+    public Button btnClose = Button.xpath("//button[contains(@class,'close')]");
+    public Label lblPlayerDetails = Label.xpath("//div[text()='Player Details']");
+    private int colFollowDetails = 6;
+    public Table tblFollowDetails = Table.xpath("//table[contains(@class,'follow-detail-table')]",colFollowDetails);
+    public String txtMarketNameXpath = "//div[text()='%s']//following-sibling::div[1]//input";
+    public void createNewPlayer(String playerName, String followStatus, String accountToBet, String additionalStake, String additionalOddRange, String product, String stake, boolean isFollowall) {
+        if (txtPlayerName.isEnabled()){
+            txtPlayerName.sendKeys(playerName);
+        }
         if (!followStatus.isEmpty()){
             ddbFollowStatus.selectByVisibleText(followStatus);
         }

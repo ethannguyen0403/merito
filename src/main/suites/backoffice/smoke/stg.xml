@@ -20,7 +20,7 @@
         <parameter name='satSADAgentLoginID' value='Auto.SAD1'/>
         <parameter name='satMemberLoginID' value='05H0000000'/>
         <parameter name='memberPassword' value='5pjguoEh1fnSILpykWt1vQ=='/>
-        <parameter name='wagerID' value='59105118'/>
+        <parameter name='wagerID' value='101851'/>
         <parameter name='companyAccount' value='Auto.CO1'/>
         <parameter name='memberPassword' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='fsMemberLoginID' value='FSG0000000'/> <!--Currency Mapping Testing PTI-->

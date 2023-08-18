@@ -2,7 +2,6 @@ package backoffice.pages.bo._components;
 
 import backoffice.pages.bo.paymentmanagement.DepositWithdrawalTransactionsPage;
 import backoffice.pages.bo.paymentmanagement.PaymentConfigurationPage;
-import backoffice.testcases.paymentmanagement.PaymentConfigurationTest;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
 import backoffice.common.BOConstants;

@@ -28,6 +28,7 @@ public class RoleManagementTest extends BaseCaseTest {
      * 2. Verify Role info is updated
      * 3. Role is deleted
      */
+
     @Test(groups = {"smoke"})
     public void BO_Admin_Management_Role_Management_001() {
         log("@title: Validate can add, edit, Update role delete role");
@@ -36,37 +37,37 @@ public class RoleManagementTest extends BaseCaseTest {
         String roleEdit = roleName + "_Edit";
         String description = "The role is created by automation script";
         RoleManagementPage page = backofficeHomePage.navigateRoleManagement();
-
-        log("Step 2. Click Add button, New Role popup display . Input role name and description and click Save Change");
-        page.addRole(roleName, description);
         AlertMessageBox message = new AlertMessageBox();
+        try{
+            log("Step 2. Click Add button, New Role popup display . Input role name and description and click Save Change");
+            page.addRole(roleName, description);
 
-        log("Verify 1. Verify Role is added in the list");
-        String successMsg = message.getSuccessAlert();
-        Assert.assertTrue(successMsg.contains("Role saved!"), "FAILED! Success message display incorrect");
-        page.search(RoleManagementPage.Types.ROLE, roleName);
-        List<ArrayList<String>> lstRole = page.tblRole.getRowsWithoutHeader(1, false);
-        Assert.assertEquals(lstRole.get(0).get(0), roleName, "FAILED! Role Name not display correct after adding");
-        Assert.assertEquals(lstRole.get(0).get(1), description, "FAILED!Description not display correct after adding");
+            log("Verify 1. Verify Role is added in the list");
+            String successMsg = message.getSuccessAlert();
+            Assert.assertTrue(successMsg.contains("Role saved!"), "FAILED! Success message display incorrect");
+            page.search(RoleManagementPage.Types.ROLE, roleName);
+            List<ArrayList<String>> lstRole = page.tblRole.getRowsWithoutHeader(1, false);
+            Assert.assertEquals(lstRole.get(0).get(0), roleName, "FAILED! Role Name not display correct after adding");
+            Assert.assertEquals(lstRole.get(0).get(1), description, "FAILED!Description not display correct after adding");
 
-        log("Step 3. Select the new create role and click Edit, update role name an description and click Save Change");
-        page.editRole(roleName, roleEdit, description + "_Edit");
-        successMsg = message.getSuccessAlert();
-        Assert.assertTrue(successMsg.contains("Role saved!"), "FAILED! Success message display incorrect");
+            log("Step 3. Select the new create role and click Edit, update role name an description and click Save Change");
+            page.editRole(roleName, roleEdit, description + "_Edit");
+            successMsg = message.getSuccessAlert();
+            Assert.assertTrue(successMsg.contains("Role saved!"), "FAILED! Success message display incorrect");
 
-        log("Verify 2. Verify Role info is updated");
-        lstRole = page.tblRole.getRowsWithoutHeader(1, false);
-        Assert.assertEquals(lstRole.get(0).get(0), roleEdit, "FAILED! Role Name not display correct after edit");
-        Assert.assertEquals(lstRole.get(0).get(1), description + "_Edit", "FAILED!Description not display correct after edit");
+            log("Verify 2. Verify Role info is updated");
+            lstRole = page.tblRole.getRowsWithoutHeader(1, false);
+            Assert.assertEquals(lstRole.get(0).get(0), roleEdit, "FAILED! Role Name not display correct after edit");
+            Assert.assertEquals(lstRole.get(0).get(1), description + "_Edit", "FAILED!Description not display correct after edit");
+        } finally {
+            log("Step 4. Select the role and click Deleted button then confirm to delete");
+            page.deleteRole(roleEdit, true);
 
-        log("Step 4. Select the role and click Deleted button then confirm to delete");
-        page.deleteRole(roleEdit, true);
-
-        log("Verify 3. Role is deleted");
-        successMsg = message.getSuccessAlert();
-        Assert.assertTrue(successMsg.contains("Role is deleted successfully!"), "FAILED! Success message display incorrect after delete a role");
-        Assert.assertEquals(page.lblNoRole.getText(), BOConstants.NO_RECORDS_FOUND, "FAILED! Role still display after deleted");
-
+            log("Verify 3. Role is deleted");
+            String successMsg = message.getSuccessAlert();
+            Assert.assertTrue(successMsg.contains("Role is deleted successfully!"), "FAILED! Success message display incorrect after delete a role");
+            Assert.assertEquals(page.lblNoRole.getText(), BOConstants.NO_RECORDS_FOUND, "FAILED! Role still display after deleted");
+        }
         log("INFO: Executed completely");
 
     }
@@ -84,6 +85,7 @@ public class RoleManagementTest extends BaseCaseTest {
      * 3. Verify the selected permission in Active section display in Inactive permission section
      * 4. Verify the account in Testing role cannot see the page that inactive
      */
+
     @Test(groups = {"smoke"})
     @Parameters({"username", "password"})
     public void BO_Admin_Management_Role_Management_005(String username, String password) throws Exception {
