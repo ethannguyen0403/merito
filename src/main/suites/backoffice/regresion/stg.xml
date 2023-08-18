@@ -14,10 +14,13 @@
         <parameter name='isProxy' value='false'/>
         <parameter name='username' value='autoqa'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='satSADAgentLoginID' value='Auto.SAD1'/>
+        <parameter name='usernameDepositTransaction' value='FAP000000R'/>
+
         <parameter name='isThrown' value='true'/>
         <parameter name='currency' value='HKD'/>
         <parameter name='appname' value='backoffice'/>
-        <parameter name='brandname' value='backoffice'/>
+        <parameter name='brandname' value='IPL688'/>
         <parameter name='feMemberLoginId' value='feinrisa'/>
         <parameter name='feMemberLoginPwd' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <groups>
@@ -27,13 +30,22 @@
         </groups>
 
         <classes>
-            <class name="backoffice.testcases.system.BetFairTaxRecrawlTest"/>
+<!--            <class name="backoffice.testcases.system.BetFairTaxRecrawlTest"/> Confirm from BA: Do need test this page for permission-->
+            <class name="backoffice.testcases.system.ProviderCurrencyMappingTest"/>
+
             <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
             <class name="backoffice.testcases.operations.BannerManagementTest"/>
             <class name="backoffice.testcases.operations.MixedPTConfigurationTest"/>
+
             <class name="backoffice.testcases.marketmanagement.EventMarketLogTest"/>
             <class name="backoffice.testcases.marketmanagement.BeforeLoginManagementTest"/>
             <class name="backoffice.testcases.marketmanagement.BlockUnblockEventTest"/>
+
+            <class name="backoffice.testcases.paymentmanagement.DepositWithdrawalTransactionsTest"/>
+            <class name="backoffice.testcases.paymentmanagement.PaymentConfigurationTest"/>
+
+            <class name="backoffice.testcases.reports.PunterPerformanceTest"/>
+
         </classes>
 
     </test>

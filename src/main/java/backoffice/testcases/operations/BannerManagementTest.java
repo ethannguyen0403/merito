@@ -422,7 +422,7 @@ public class BannerManagementTest extends BaseCaseTest {
         }
         log("Verify 4. Login to Home and observe banner");
         memberHomePage = landingPage.login(feMemberLoginId, StringUtils.decrypt(feMemberLoginPwd), true);
-        log("Verify 4. Verify Banner show correctly with sequence set from BO");
+        log("Verify 5. Verify Banner show correctly with sequence set from BO");
         List<String> lstMemberImgSrcAfter = landingPage.getListBanners("old view");
         for (int i = 0; i < lstMemberImgSrcAfter.size(); i++) {
             Assert.assertTrue(lstMemberImgSrcAfter.get(i).contains(lstImgSrc.get(i)));

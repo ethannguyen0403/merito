@@ -519,6 +519,7 @@ public class DepositWithdrawalTransactionsTest extends BaseCaseTest {
         page.waitSpinIcon();
         log("Step 3. Select a brand that having the agent added in Payment Configuration page");
         page.ddnBrand.selectByIndex(1);
+        page.waitSpinIcon();
         log("Step 4. Check the list Agent");
         List<String> lstAgent = page.ddnAgent.getOptions().subList(1,page.ddnAgent.getOptions().size());
         Collections.sort(lstAgent);
