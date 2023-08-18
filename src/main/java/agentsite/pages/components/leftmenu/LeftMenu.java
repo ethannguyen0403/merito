@@ -21,6 +21,9 @@ public class LeftMenu {
     public void clickSubMenu(String menu, String submenu) {
         leftMenuList.clickSubMenu(menu, submenu);
     }
+    public void clickSubMenu(String menu, String submenu1, String submenu2) {
+        leftMenuList.clickSubMenu(menu, submenu1, submenu2);
+    }
 
     public boolean isMenuExpanded(String menu) {
         String attribute = leftMenuList.getmenuAtribuite(menu, "class");
@@ -58,4 +61,18 @@ public class LeftMenu {
     public boolean isDisplayPS38SportsResults() {
         return true;
     }
+
+    public void navigateWinLossSimplePage() {
+    }
+
+    public void navigateBigStakeConfigurationPage() {
+    }
+
+    public void navigateWinLossBySportAndMarketTypePage() {}
+
+    public void navigateStatementReportPage() {}
+
+    public void navigateWinLossDetailPage() {}
+
+    public void navigateWinLossByEventPage() {}
 }

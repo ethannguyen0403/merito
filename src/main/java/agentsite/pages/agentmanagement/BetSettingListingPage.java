@@ -2,7 +2,11 @@ package agentsite.pages.agentmanagement;
 
 import agentsite.controls.Row;
 import agentsite.controls.Table;
+import agentsite.objects.agent.BetSetting;
 import agentsite.pages.HomePage;
+import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
+import agentsite.pages.components.ComponentsFactory;
+import agentsite.ultils.agencymanagement.BetSettingUtils;
 import com.paltech.element.common.*;
 
 import java.util.ArrayList;
@@ -45,203 +49,217 @@ public class BetSettingListingPage extends HomePage {
     private String successIcon = "//span[contains(@class,'psuccess')]";
     private String errorIcon = "//span[contains(@class,'perror')]";
 
+    public BetSettingListing betSettingListing;
+
     public BetSettingListingPage(String types) {
         super(types);
+        _type = types;
+        betSettingListing = ComponentsFactory.betSettingPage(_type);
     }
 
-    public void search(String username, String level, String accountStatus, String product) {
-        if (!username.isEmpty())
-            txtUsername.sendKeys(username);
-        if (!accountStatus.isEmpty())
-            ddbAccountStatus.selectByVisibleText(accountStatus);
-        if (!product.isEmpty())
-            ddbProduct.selectByVisibleText(product);
-        if (!level.isEmpty())
-            ddbLevel.selectByVisibleText(level);
-        btnSubmit.click();
-        waitingLoadingSpinner();
-    }
+//    public void search(String username, String level, String accountStatus, String product) {
+//        if (!username.isEmpty())
+//            txtUsername.sendKeys(username);
+//        if (!accountStatus.isEmpty())
+//            ddbAccountStatus.selectByVisibleText(accountStatus);
+//        if (!product.isEmpty())
+//            ddbProduct.selectByVisibleText(product);
+//        if (!level.isEmpty())
+//            ddbLevel.selectByVisibleText(level);
+//        btnSubmit.click();
+//        waitingLoadingSpinner();
+//    }
 
-    public void enableSport(HashMap<String, Boolean> map) {
-        CheckBox chb = CheckBox.xpath(String.format(xPathSport, "Soccer"));
-        if (!map.get("Soccer")) {
-            chb.click();
-            //waitingLoadingSpinner();
-        }
-        chb = CheckBox.xpath(String.format(xPathSport, "Cricket"));
-        if (!map.get("Cricket")) {
-            chb.click();
-            //waitingLoadingSpinner();
-        }
-        chb = CheckBox.xpath(String.format(xPathSport, "Tennis"));
-        if (!map.get("Tennis")) {
-            chb.click();
-            //waitingLoadingSpinner();
-        }
-        chb = CheckBox.xpath(String.format(xPathSport, "Basketball"));
-        if (!map.get("Basketball")) {
-            chb.click();
-            //waitingLoadingSpinner();
-        }
-        chb = CheckBox.xpath(String.format(xPathSport, "Fancy"));
-        if (!map.get("Fancy")) {
-            chb.click();
-            //  waitingLoadingSpinner();
-        }
+//    public void enableSport(HashMap<String, Boolean> map) {
+//        CheckBox chb = CheckBox.xpath(String.format(xPathSport, "Soccer"));
+//        if (!map.get("Soccer")) {
+//            chb.click();
+//            //waitingLoadingSpinner();
+//        }
+//        chb = CheckBox.xpath(String.format(xPathSport, "Cricket"));
+//        if (!map.get("Cricket")) {
+//            chb.click();
+//            //waitingLoadingSpinner();
+//        }
+//        chb = CheckBox.xpath(String.format(xPathSport, "Tennis"));
+//        if (!map.get("Tennis")) {
+//            chb.click();
+//            //waitingLoadingSpinner();
+//        }
+//        chb = CheckBox.xpath(String.format(xPathSport, "Basketball"));
+//        if (!map.get("Basketball")) {
+//            chb.click();
+//            //waitingLoadingSpinner();
+//        }
+//        chb = CheckBox.xpath(String.format(xPathSport, "Fancy"));
+//        if (!map.get("Fancy")) {
+//            chb.click();
+//            //  waitingLoadingSpinner();
+//        }
+//
+//        chb = CheckBox.xpath(String.format(xPathSport, "Other"));
+//        if (!map.get("Other")) {
+//            chb.click();
+//            //  waitingLoadingSpinner();
+//        }
+//        waitingLoadingSpinner();
+//    }
 
-        chb = CheckBox.xpath(String.format(xPathSport, "Other"));
-        if (!map.get("Other")) {
-            chb.click();
-            //  waitingLoadingSpinner();
-        }
-    }
+//    public int getSpotColumn(HashMap<String, Boolean> map) {
+//        int i = 1;
+//        if (map.get("Soccer")) {
+//            soccerCol = (totalColum - 1) + i;
+//            i = i + 1;
+//        }
+//
+//        if (map.get("Cricket")) {
+//            cricketCol = (totalColum - 1) + i;
+//            i = i + 1;
+//        }
+//
+//        if (map.get("Tennis")) {
+//            tennisCol = (totalColum - 1) + i;
+//            i = i + 1;
+//        }
+//
+//        if (map.get("Basketball")) {
+//            basketballCol = (totalColum - 1) + i;
+//            i = i + 1;
+//        }
+//        if (map.get("Fancy")) {
+//            fancyCol = (totalColum - 1) + i;
+//            i = i + 1;
+//        }
+//
+//        if (map.get("Other")) {
+//            otherCol = (totalColum - 1) + i;
+//            i = i + 1;
+//        }
+//        return i - 1;
+//    }
 
-    public int getSpotColumn(HashMap<String, Boolean> map) {
-        int i = 1;
-        if (map.get("Soccer")) {
-            soccerCol = (totalColum - 1) + i;
-            i = i + 1;
-        }
+//    /**
+//     * Update value for Min Bet, Max Bet, Max Liability Per Market, maxWinPermarket. If input value = -1 we will ignore the input
+//     *
+//     * @param loginID
+//     * @param minBet
+//     * @param maxBet
+//     * @param maxLiabilityPerMarket
+//     * @param maxWinPerMarket
+//     */
+//    public void updateBetSetting(String loginID, int minBet, int maxBet, int maxLiabilityPerMarket, int maxWinPerMarket) {
+//
+//        //input Min, Max, Max Liability per Market, Max Win Per Market
+//        inputValue(minBet, maxBet, maxLiabilityPerMarket, maxWinPerMarket);
+//
+//        // Select the checkbox corresponding with login ID
+//        String chbDownlinexPath = tblDownline.getControlxPathBasedValueOfDifferentColumnOnRow(loginID, 1, usernameCol, 1, null, chbCol, "input[@id='cItem']", false, false);
+//        CheckBox chb = CheckBox.xpath(chbDownlinexPath);
+//        chb.click();
+//
+//        //Click update
+//        btnUpdate.click();
+//        waitingLoadingSpinner();
+//    }
 
-        if (map.get("Cricket")) {
-            cricketCol = (totalColum - 1) + i;
-            i = i + 1;
-        }
+//    public void inputValue(int min, int max, int maxLiabilityperMarket, int maxWinPerMarket) {
+//        if (min != -1)
+//            txtMinBet.sendKeys(Integer.toString(min));
+//        if (max != -1)
+//            txtMaxBet.sendKeys(Integer.toString(max));
+//        if (maxLiabilityperMarket != -1)
+//            txtMaxLiabilityPerMarket.sendKeys(Integer.toString(maxLiabilityperMarket));
+//        if (maxWinPerMarket != -1)
+//            txtMaxWinPerMarket.sendKeys(Integer.toString(maxWinPerMarket));
+//    }
 
-        if (map.get("Tennis")) {
-            tennisCol = (totalColum - 1) + i;
-            i = i + 1;
-        }
+//    public boolean verifyUpdateStatus(List<ArrayList<String>> lstData, boolean isSuccess, HashMap<String, Boolean> sportList) {
+//        int sportColumn = getSpotColumn(sportList);
+//        int totalColum = 10;
+//        totalColum = sportColumn + totalColum;
+//        tblDownline = Table.xpath("//table[contains(@class,'ptable report table-responsive')]", totalColum);
+//        updateStatusCol = totalColum;
+//        String cell_xpath;
+//        for (int i = 0; i < lstData.size(); i++) {
+//            if (i % 4 == 0) {
+//                cell_xpath = String.format("%s//tr[%s]//td[%s]", "//table[contains(@class,'ptable report table-responsive')]", i + 1, updateStatusCol);
+//                Label lblIcon;
+//                if (isSuccess) {
+//                    lblIcon = Label.xpath(String.format("%s%s", cell_xpath, successIcon));
+//                } else {
+//                    lblIcon = Label.xpath(String.format("%s%s", cell_xpath, errorIcon));
+//                }
+//                if (!lblIcon.isDisplayed())
+//                    return false;
+//            }
+//        }
+//        return true;
+//    }
 
-        if (map.get("Basketball")) {
-            basketballCol = (totalColum - 1) + i;
-            i = i + 1;
-        }
-        if (map.get("Fancy")) {
-            fancyCol = (totalColum - 1) + i;
-            i = i + 1;
-        }
+//    public List<ArrayList<String>> getBetSettingofAccount(HashMap<String, Boolean> sportList) {
+//        //init table column
+//        int sportColumn = getSpotColumn(sportList);
+//        totalColum = sportColumn + totalColum;
+//        tblDownline = Table.xpath("//table[contains(@class,'ptable report')]", totalColum);
+//        List<ArrayList<String>> listInfo = new ArrayList<ArrayList<String>>();
+//
+//        String rowXpath = String.format("%s%s", this.tblDownline.getLocator().toString().replace("By.xpath: ", ""), "//tbody/tr[%s]");
+//
+//        // Get total row of the table
+//        int totalRows = tblDownline.getNumberOfRows(false, false);
+//        for (int i = 0; i < totalRows; i++) {
+//
+//            Row row = Row.xpath(String.format(rowXpath, (i + 1)));
+//            //1,5,9,12
+//            if (i % 4 == 0) {
+//                listInfo.add(row.getRow(totalColum, false));
+//            } else {
+//                listInfo.add(row.getRow(sportColumn + 1, false));
+//            }
+//        }
+//        return listInfo;
+//    }
 
-        if (map.get("Other")) {
-            otherCol = (totalColum - 1) + i;
-            i = i + 1;
-        }
-        return i - 1;
-    }
-
-    /**
-     * Update value for Min Bet, Max Bet, Max Liability Per Market, maxWinPermarket. If input value = -1 we will ignore the input
-     *
-     * @param loginID
-     * @param minBet
-     * @param maxBet
-     * @param maxLiabilityPerMarket
-     * @param maxWinPerMarket
-     */
-    public void updateBetSetting(String loginID, int minBet, int maxBet, int maxLiabilityPerMarket, int maxWinPerMarket) {
-
-        //input Min, Max, Max Liability per Market, Max Win Per Market
-        inputValue(minBet, maxBet, maxLiabilityPerMarket, maxWinPerMarket);
-
-        // Select the checkbox corresponding with login ID
-        String chbDownlinexPath = tblDownline.getControlxPathBasedValueOfDifferentColumnOnRow(loginID, 1, usernameCol, 1, null, chbCol, "input[@id='cItem']", false, false);
-        CheckBox chb = CheckBox.xpath(chbDownlinexPath);
-        chb.click();
-
-        //Click update
-        btnUpdate.click();
-        waitingLoadingSpinner();
-    }
-
-    public void inputValue(int min, int max, int maxLiabilityperMarket, int maxWinPerMarket) {
-        if (min != -1)
-            txtMinBet.sendKeys(Integer.toString(min));
-        if (max != -1)
-            txtMaxBet.sendKeys(Integer.toString(max));
-        if (maxLiabilityperMarket != -1)
-            txtMaxLiabilityPerMarket.sendKeys(Integer.toString(maxLiabilityperMarket));
-        if (maxWinPerMarket != -1)
-            txtMaxWinPerMarket.sendKeys(Integer.toString(maxWinPerMarket));
-    }
-
-    public boolean verifyUpdateStatus(List<ArrayList<String>> lstData, boolean isSuccess, HashMap<String, Boolean> sportList) {
-        int sportColumn = getSpotColumn(sportList);
-        int totalColum = 10;
-        totalColum = sportColumn + totalColum;
-        tblDownline = Table.xpath("//table[contains(@class,'ptable report table-responsive')]", totalColum);
-        updateStatusCol = totalColum;
-        String cell_xpath;
-        for (int i = 0; i < lstData.size(); i++) {
-            if (i % 4 == 0) {
-                cell_xpath = String.format("%s//tr[%s]//td[%s]", "//table[contains(@class,'ptable report table-responsive')]", i + 1, updateStatusCol);
-                Label lblIcon;
-                if (isSuccess) {
-                    lblIcon = Label.xpath(String.format("%s%s", cell_xpath, successIcon));
-                } else {
-                    lblIcon = Label.xpath(String.format("%s%s", cell_xpath, errorIcon));
-                }
-                if (!lblIcon.isDisplayed())
-                    return false;
-            }
-        }
-        return true;
-    }
-
-    public List<ArrayList<String>> getBetSettingofAccount(HashMap<String, Boolean> sportList) {
-        //init table column
-        int sportColumn = getSpotColumn(sportList);
-        totalColum = sportColumn + totalColum;
-        tblDownline = Table.xpath("//table[contains(@class,'ptable report')]", totalColum);
-        List<ArrayList<String>> listInfo = new ArrayList<ArrayList<String>>();
-
-        String rowXpath = String.format("%s%s", this.tblDownline.getLocator().toString().replace("By.xpath: ", ""), "//tbody/tr[%s]");
-
-        // Get total row of the table
-        int totalRows = tblDownline.getNumberOfRows(false, false);
-        for (int i = 0; i < totalRows; i++) {
-
-            Row row = Row.xpath(String.format(rowXpath, (i + 1)));
-            //1,5,9,12
-            if (i % 4 == 0) {
-                listInfo.add(row.getRow(totalColum, false));
-            } else {
-                listInfo.add(row.getRow(sportColumn + 1, false));
-            }
-        }
-        return listInfo;
-    }
-
-    public List<ArrayList<String>> defineActualDataForOneAccount(HashMap<String, Boolean> sportList, double minBet, double maxBet, double maxLiabilityPerMarket, double maxWinPerMarket) {
-        // this function define data for an account
-        List<ArrayList<String>> lstExpectedData = getBetSettingofAccount(sportList);
-        lstExpectedData.get(0).set(soccerCol - 1, String.format("%.2f", minBet));
-        lstExpectedData.get(0).set(cricketCol - 1, String.format("%.2f", minBet));
-        lstExpectedData.get(0).set(tennisCol - 1, String.format("%.2f", minBet));
-        lstExpectedData.get(0).set(basketballCol - 1, String.format("%.2f", minBet));
-        lstExpectedData.get(0).set(fancyCol - 1, String.format("%.2f", minBet));
-        lstExpectedData.get(0).set(otherCol - 1, String.format("%.2f", minBet));
-        lstExpectedData.get(1).set(1, String.format("%.2f", maxBet));
-        lstExpectedData.get(1).set(2, String.format("%.2f", maxBet));
-        lstExpectedData.get(1).set(3, String.format("%.2f", maxBet));
-        lstExpectedData.get(1).set(4, String.format("%.2f", maxBet));
-        lstExpectedData.get(1).set(5, String.format("%.2f", maxBet));
-        lstExpectedData.get(1).set(6, String.format("%.2f", maxBet));
-        lstExpectedData.get(2).set(1, String.format("%.2f", maxLiabilityPerMarket));
-        lstExpectedData.get(2).set(2, String.format("%.2f", maxLiabilityPerMarket));
-        lstExpectedData.get(2).set(3, String.format("%.2f", maxLiabilityPerMarket));
-        lstExpectedData.get(2).set(4, String.format("%.2f", maxLiabilityPerMarket));
-        lstExpectedData.get(2).set(5, String.format("%.2f", maxLiabilityPerMarket));
-        lstExpectedData.get(2).set(6, String.format("%.2f", maxLiabilityPerMarket));
-        lstExpectedData.get(3).set(1, String.format("%.2f", maxWinPerMarket));
-        lstExpectedData.get(3).set(2, String.format("%.2f", maxWinPerMarket));
-        lstExpectedData.get(3).set(3, String.format("%.2f", maxWinPerMarket));
-        lstExpectedData.get(3).set(4, String.format("%.2f", maxWinPerMarket));
-        lstExpectedData.get(3).set(5, String.format("%.2f", maxWinPerMarket));
-        lstExpectedData.get(3).set(6, String.format("%.2f", maxWinPerMarket));
-        return lstExpectedData;
-    }
+//    public List<ArrayList<String>> defineActualDataForOneAccount(HashMap<String, Boolean> sportList, double minBet, double maxBet, double maxLiabilityPerMarket, double maxWinPerMarket) {
+//        // this function define data for an account
+//        List<ArrayList<String>> lstExpectedData = getBetSettingofAccount(sportList);
+//        lstExpectedData.get(0).set(soccerCol - 7, String.format("%.2f", minBet));
+//        lstExpectedData.get(0).set(cricketCol - 7, String.format("%.2f", minBet));
+//        lstExpectedData.get(0).set(tennisCol - 7, String.format("%.2f", minBet));
+//        lstExpectedData.get(0).set(basketballCol - 7, String.format("%.2f", minBet));
+//        lstExpectedData.get(0).set(fancyCol - 7, String.format("%.2f", minBet));
+//        lstExpectedData.get(0).set(otherCol - 7, String.format("%.2f", minBet));
+//        lstExpectedData.get(1).set(1, String.format("%.2f", maxBet));
+//        lstExpectedData.get(1).set(2, String.format("%.2f", maxBet));
+//        lstExpectedData.get(1).set(3, String.format("%.2f", maxBet));
+//        lstExpectedData.get(1).set(4, String.format("%.2f", maxBet));
+//        lstExpectedData.get(1).set(5, String.format("%.2f", maxBet));
+//        lstExpectedData.get(1).set(6, String.format("%.2f", maxBet));
+//        lstExpectedData.get(2).set(1, String.format("%.2f", maxLiabilityPerMarket));
+//        lstExpectedData.get(2).set(2, String.format("%.2f", maxLiabilityPerMarket));
+//        lstExpectedData.get(2).set(3, String.format("%.2f", maxLiabilityPerMarket));
+//        lstExpectedData.get(2).set(4, String.format("%.2f", maxLiabilityPerMarket));
+//        lstExpectedData.get(2).set(5, String.format("%.2f", maxLiabilityPerMarket));
+//        lstExpectedData.get(2).set(6, String.format("%.2f", maxLiabilityPerMarket));
+//        lstExpectedData.get(3).set(1, String.format("%.2f", maxWinPerMarket));
+//        lstExpectedData.get(3).set(2, String.format("%.2f", maxWinPerMarket));
+//        lstExpectedData.get(3).set(3, String.format("%.2f", maxWinPerMarket));
+//        lstExpectedData.get(3).set(4, String.format("%.2f", maxWinPerMarket));
+//        lstExpectedData.get(3).set(5, String.format("%.2f", maxWinPerMarket));
+//        lstExpectedData.get(3).set(6, String.format("%.2f", maxWinPerMarket));
+//        return lstExpectedData;
+//    }
 
     public void waitingLoadingSpinner() {
         iconLoadSpinner.waitForControlInvisible(1, 1);
+    }
+
+    public List<String> getListMinMaxByUserAndSport(String userId, String userName, String sport) {
+        List<String> lstSetting = new ArrayList<>();
+        List<BetSetting> lstBetSetting = BetSettingUtils.getEventList("EXCHANGE",userId,userName,sport.toUpperCase());
+        for (int i = 0; i < lstBetSetting.size(); i++) {
+            lstBetSetting.get(i);
+        }
+        return lstSetting;
     }
 }

@@ -1,11 +1,8 @@
 package agentsite.testcase.reports;
 
-import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.report.TransactionHistoryPage;
 import agentsite.pages.report.WinLossDetailPage;
 import agentsite.pages.report.WinLossSimplePage;
-import agentsite.ultils.account.ProfileUtils;
-import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import agentsite.ultils.report.ReportslUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
@@ -18,7 +15,6 @@ import java.util.List;
 
 import static common.AGConstant.BTN_SUBMIT;
 import static common.AGConstant.HomePage.TRANSACTION_HISTORY;
-import static common.AGConstant.HomePage.WIN_LOSS_BY_DETAIL;
 import static common.AGConstant.Report.*;
 import static common.AGConstant.Report.TransactionHistory.TABLE_HEADER;
 
@@ -94,9 +90,9 @@ public class TransactionHistoryTest extends BaseCaseTest {
     public void Agent_Report_Transaction_History_3755() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Transaction History");
-        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
-        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-        String winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
+        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive());
+//        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+//        String winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
         WinLossDetailPage page = agentHomePage.navigateWinLossDetailPage();
 
         log("Step 2: Get all products in dropdown");

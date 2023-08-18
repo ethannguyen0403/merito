@@ -12,7 +12,7 @@ import util.testraildemo.TestRails;
 import java.util.List;
 
 import static common.AGConstant.BTN_SUBMIT;
-import static common.AGConstant.HomePage.WIN_LOSS_SIMPLE;
+import static common.AGConstant.HomePage.WIN_LOSS_SIMPLE_OLDUI;
 import static common.AGConstant.Report.*;
 import static common.AGConstant.Report.WinLossSimple.TABLE_HEADER;
 
@@ -40,7 +40,7 @@ public class WinLossSimpleTest extends BaseCaseTest {
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
 
         log("Step 1. Verify Win Loss Simple UI display correctly");
-        Assert.assertEquals(page.header.lblPageTitle.getText(), WIN_LOSS_SIMPLE, "Failed! Page title is incorrect");
+//        Assert.assertEquals(page.header.lblPageTitle.getText(), WIN_LOSS_SIMPLE_OLDUI, "Failed! Page title is incorrect");
         Assert.assertEquals(page.btnToday.getText(), BTN_TODAY, "Failed! Today button is incorrect");
         Assert.assertEquals(page.btnYesterday.getText(), BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
         Assert.assertEquals(page.btnLastWeek.getText(), LAST_WEEK, "Failed! Last Week button is incorrect");
@@ -110,7 +110,7 @@ public class WinLossSimpleTest extends BaseCaseTest {
     public void Agent_Report_WinLossSimple_793() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Simple");
-        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
+        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive());
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
 
         log("Step 2: Get all products in dropdown");

@@ -1,5 +1,8 @@
 package agentsite.pages.components;
 
+import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
+import agentsite.pages.agentmanagement.betsettinglisting.NewUIBetSettingListing;
+import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.NewUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.OldUIAccountInforSection;
@@ -33,17 +36,41 @@ import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting
 import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.NewUIDepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.OldUIDepositWithdraw;
+import agentsite.pages.agentmanagement.downlinelisting.DownlineListing;
+import agentsite.pages.agentmanagement.downlinelisting.NewUIDownlineListing;
+import agentsite.pages.agentmanagement.downlinelisting.OldUIDownlineListing;
+import agentsite.pages.agentmanagement.editdownlinelisting.EditDownlineListing;
+import agentsite.pages.agentmanagement.editdownlinelisting.NewUIEditDownlineListing;
+import agentsite.pages.agentmanagement.editdownlinelisting.OldUIEditDownlineListing;
+import agentsite.pages.agentmanagement.followbets.FollowBets;
+import agentsite.pages.agentmanagement.followbets.NewUIFollowBets;
+import agentsite.pages.agentmanagement.followbets.OldUIFollowBets;
+import agentsite.pages.agentmanagement.ptlisting.NewUIPositionTakingListing;
+import agentsite.pages.agentmanagement.ptlisting.OldUIPositionTakingListing;
+import agentsite.pages.agentmanagement.ptlisting.PositionTakingListing;
+import agentsite.pages.agentmanagement.taxsettinglisting.NewUITaxSettingListing;
+import agentsite.pages.agentmanagement.taxsettinglisting.OldUITaxSettingListing;
+import agentsite.pages.agentmanagement.taxsettinglisting.TaxSettingListing;
 import agentsite.pages.components.header.Header;
 import agentsite.pages.components.header.NewUIHeader;
 import agentsite.pages.components.header.OldUIHeader;
 import agentsite.pages.components.leftmenu.LeftMenu;
 import agentsite.pages.components.leftmenu.NewUILeftMenu;
 import agentsite.pages.components.leftmenu.OldUILeftMenu;
+import agentsite.pages.report.TopGainersTopLosers.NewUITopGainersTopLosers;
+import agentsite.pages.report.TopGainersTopLosers.OldUITopGainersTopLosers;
+import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
+import agentsite.pages.report.WinLossSimple.NewUIWinLossSimple;
+import agentsite.pages.report.WinLossSimple.OldUIWinLossSimple;
+import agentsite.pages.report.WinLossSimple.WinLossSimple;
+import agentsite.pages.report.statementreport.NewUIStatementReport;
+import agentsite.pages.report.statementreport.OldUIStatementReport;
+import agentsite.pages.report.statementreport.StatementReport;
 
 public class ComponentsFactory {
     public static LeftMenu leftMenuObject(String types) {
         switch (types) {
-            case "funsport":
+            case "fairexchange":
                 return new NewUILeftMenu();
             default:
                 return new OldUILeftMenu();
@@ -154,6 +181,85 @@ public class ComponentsFactory {
                 return new OldUIDepositWithdraw();
             default:
                 return new NewUIDepositWithdraw();
+        }
+    }
+
+    public static BetSettingListing betSettingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIBetSettingListing();
+            default:
+                return new NewUIBetSettingListing();
+        }
+    }
+
+    public static TaxSettingListing taxSettingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUITaxSettingListing();
+            default:
+                return new NewUITaxSettingListing();
+        }
+    }
+
+    public static PositionTakingListing positionTakingListingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIPositionTakingListing();
+            default:
+                return new NewUIPositionTakingListing();
+        }
+    }
+
+    public static StatementReport statementReportPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIStatementReport();
+            default:
+                return new NewUIStatementReport();
+        }
+    }
+
+    public static DownlineListing downlineListingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIDownlineListing(types);
+            default:
+                return new NewUIDownlineListing(types);
+        }
+    }
+
+    public static EditDownlineListing editDownlineListing(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIEditDownlineListing(types);
+            default:
+                return new NewUIEditDownlineListing(types);
+        }
+    }
+    public static TopGainersTopLosers topGainersTopLosers(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUITopGainersTopLosers();
+            default:
+                return new NewUITopGainersTopLosers();
+        }
+    }
+
+    public static WinLossSimple winLossSimple(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIWinLossSimple();
+            default:
+                return new NewUIWinLossSimple();
+        }
+    }
+    public static FollowBets followBets(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIFollowBets();
+            default:
+                return new NewUIFollowBets();
         }
     }
 }

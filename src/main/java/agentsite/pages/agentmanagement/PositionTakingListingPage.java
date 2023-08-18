@@ -1,11 +1,11 @@
 package agentsite.pages.agentmanagement;
 
-import agentsite.controls.Cell;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
+import agentsite.pages.agentmanagement.ptlisting.PositionTakingListing;
+import agentsite.pages.components.ComponentsFactory;
 import com.paltech.element.common.*;
 import common.AGConstant;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,9 +53,11 @@ public class PositionTakingListingPage extends HomePage {
     private String xPathSport = "//span[contains(text(),'%s')]/preceding::input[1]";
     private String successIcon = "//span[contains(@class,'psuccess')]";
     private String errorIcon = "//span[contains(@class,'perror')]";
-
+    public PositionTakingListing positionTakingListing;
     public PositionTakingListingPage(String types) {
         super(types);
+        _type = types;
+        positionTakingListing = ComponentsFactory.positionTakingListingPage(_type);
     }
 
     private CheckBox defineCheckbox(String sport) {
@@ -97,127 +99,127 @@ public class PositionTakingListingPage extends HomePage {
         return defineCheckbox(sport).isSelected();
     }
 
-    public void search(String username, String accountStatus, String product, String level) {
-        if (!username.isEmpty())
-            txtUsername.sendKeys(username);
-        if (!accountStatus.isEmpty())
-            ddbAccountStatus.selectByVisibleText(accountStatus);
-        if (!product.isEmpty())
-            ddbProduct.selectByVisibleText(product);
-        if (!level.isEmpty())
-            ddbLevel.selectByVisibleText(level);
-        btnSearch.click();
-        waitingLoadingSpinner();
-    }
+//    public void search(String username, String accountStatus, String product, String level) {
+//        if (!username.isEmpty())
+//            txtUsername.sendKeys(username);
+//        if (!accountStatus.isEmpty())
+//            ddbAccountStatus.selectByVisibleText(accountStatus);
+//        if (!product.isEmpty())
+//            ddbProduct.selectByVisibleText(product);
+//        if (!level.isEmpty())
+//            ddbLevel.selectByVisibleText(level);
+//        btnSearch.click();
+//        waitingLoadingSpinner();
+//    }
 
-    public void updatePT(String loginID, int PT, HashMap<String, Boolean> map) {
-        if (Objects.nonNull(map)) {
-            // Select sport to update PT
-            enableSport(map);
-        }
-        // Select the checkbox corresponding with login ID
-        if (!loginID.isEmpty()) {
-            String chbDownlinexPath = tblDownline.getControlxPathBasedValueOfDifferentColumnOnRow(loginID, 1, usernameCol, 1, null, chbCol, "input", false, false);
-            CheckBox chb = CheckBox.xpath(chbDownlinexPath);
-            chb.click();
-        }
+//    public void updatePT(String loginID, int PT, HashMap<String, Boolean> map) {
+//        if (Objects.nonNull(map)) {
+//            // Select sport to update PT
+//            enableSport(map);
+//        }
+//        // Select the checkbox corresponding with login ID
+//        if (!loginID.isEmpty()) {
+//            String chbDownlinexPath = tblDownline.getControlxPathBasedValueOfDifferentColumnOnRow(loginID, 1, usernameCol, 1, null, chbCol, "input", false, false);
+//            CheckBox chb = CheckBox.xpath(chbDownlinexPath);
+//            chb.click();
+//        }
+//
+//        // Select SAD Preset value
+//        ddbLevelPreset.isDisplayed(1);
+//        ddbLevelPreset.selectByVisibleText(Integer.toString(PT));
+//
+//        //Click update
+//        btnUpdate.click();
+//        waitingLoadingSpinner();
+//
+//    }
 
-        // Select SAD Preset value
-        ddbLevelPreset.isDisplayed(1);
-        ddbLevelPreset.selectByVisibleText(Integer.toString(PT));
+//    public ArrayList<String> getPTofAccount(String loginID) {
+//        ArrayList<String> info = new ArrayList<String>();
+//        int rowindex = getRowIndexofAccount(loginID);
+//        if (rowindex == -1) {
+//            System.out.println(String.format("There is no account % in the list", loginID));
+//            return info;
+//        }
+//        String cell_xpath = String.format("%s%s//td", tblDownline.getLocator().toString().replace("By.xpath: ", ""), String.format("//tbody[%s]", rowindex + 1));
+//
+//        for (int i = 1; i <= totalColum + 1; i++) {
+//            Cell cell = Cell.xpath(String.format("(%s)[%s]", cell_xpath, i));
+//            if (!cell.isDisplayed(timeOutShortInSeconds)) {
+//                return info;
+//            }
+//            info.add(cell.getText(1));
+//        }
+//        return info;
+//    }
 
-        //Click update
-        btnUpdate.click();
-        waitingLoadingSpinner();
+//    public boolean verifyUpdateStatus(String loginID, boolean isSuccess) {
+//        int rowindex = getRowIndexofAccount(loginID);
+//        if (rowindex == -1) {
+//            System.out.println(String.format("There is no account % in the list", loginID));
+//            return false;
+//        }
+//        String cell_xpath = String.format("%s%s//td", tblDownline.getLocator().toString().replace("By.xpath: ", ""), String.format("//tbody[%s]", rowindex + 1));
+//        Label lblIcon;
+//        if (isSuccess) {
+//            lblIcon = Label.xpath(String.format("%s%s", cell_xpath, successIcon));
+//        } else
+//            lblIcon = Label.xpath(String.format("%s%s", cell_xpath, errorIcon));
+//        return lblIcon.isDisplayed();
+//    }
 
-    }
-
-    public ArrayList<String> getPTofAccount(String loginID) {
-        ArrayList<String> info = new ArrayList<String>();
-        int rowindex = getRowIndexofAccount(loginID);
-        if (rowindex == -1) {
-            System.out.println(String.format("There is no account % in the list", loginID));
-            return info;
-        }
-        String cell_xpath = String.format("%s%s//td", tblDownline.getLocator().toString().replace("By.xpath: ", ""), String.format("//tbody[%s]", rowindex + 1));
-
-        for (int i = 1; i <= totalColum + 1; i++) {
-            Cell cell = Cell.xpath(String.format("(%s)[%s]", cell_xpath, i));
-            if (!cell.isDisplayed(timeOutShortInSeconds)) {
-                return info;
-            }
-            info.add(cell.getText(1));
-        }
-        return info;
-    }
-
-    public boolean verifyUpdateStatus(String loginID, boolean isSuccess) {
-        int rowindex = getRowIndexofAccount(loginID);
-        if (rowindex == -1) {
-            System.out.println(String.format("There is no account % in the list", loginID));
-            return false;
-        }
-        String cell_xpath = String.format("%s%s//td", tblDownline.getLocator().toString().replace("By.xpath: ", ""), String.format("//tbody[%s]", rowindex + 1));
-        Label lblIcon;
-        if (isSuccess) {
-            lblIcon = Label.xpath(String.format("%s%s", cell_xpath, successIcon));
-        } else
-            lblIcon = Label.xpath(String.format("%s%s", cell_xpath, errorIcon));
-        return lblIcon.isDisplayed();
-    }
-
-    public List<ArrayList<String>> getPTData() {
-        String tableXpath = "//app-exchange-pt-table//table[contains(@class,'directDownline table-responsive')]/tbody[%s]";
-        int i = 1;
-        Table tbl = Table.xpath(String.format(tableXpath, i), totalColum);
-        while (true) {
-            if (!tbl.isDisplayed()) {
-                return null;
-            }
-            tbl.getRows(false);
-        }
-    }
+//    public List<ArrayList<String>> getPTData() {
+//        String tableXpath = "//app-exchange-pt-table//table[contains(@class,'directDownline table-responsive')]/tbody[%s]";
+//        int i = 1;
+//        Table tbl = Table.xpath(String.format(tableXpath, i), totalColum);
+//        while (true) {
+//            if (!tbl.isDisplayed()) {
+//                return null;
+//            }
+//            tbl.getRows(false);
+//        }
+//    }
 
 
-    public int getRowIndexofAccount(String loginID) {
-        List<String> usernameLst = tblDownline.getColumn(usernameCol, false);
-        for (int i = 0, n = usernameLst.size(); i < n; i++) {
-            if (usernameLst.get(i).trim().equalsIgnoreCase(loginID))
-                return i;
-        }
-        return -1;
-    }
+//    public int getRowIndexofAccount(String loginID) {
+//        List<String> usernameLst = tblDownline.getColumn(usernameCol, false);
+//        for (int i = 0, n = usernameLst.size(); i < n; i++) {
+//            if (usernameLst.get(i).trim().equalsIgnoreCase(loginID))
+//                return i;
+//        }
+//        return -1;
+//    }
 
-    public void enableSport(HashMap<String, Boolean> map) {
-        CheckBox chb = CheckBox.xpath(String.format(xPathSport, "Soccer"));
-        if (!map.get("Soccer")) {
-            chb.click();
-        }
-        chb = CheckBox.xpath(String.format(xPathSport, "Cricket"));
-        if (!map.get("Cricket")) {
-            chb.click();
-        }
-        chb = CheckBox.xpath(String.format(xPathSport, "Fancy"));
-        if (!map.get("Fancy")) {
-            chb.click();
-        }
-        chb = CheckBox.xpath(String.format(xPathSport, "Tennis"));
-        if (!map.get("Tennis")) {
-            chb.click();
-        }
-        chb = CheckBox.xpath(String.format(xPathSport, "Basketball"));
-        if (!map.get("Basketball")) {
-            chb.click();
-        }
-        chb = CheckBox.xpath(String.format(xPathSport, "Horse Racing"));
-        if (!map.get("Horse Racing")) {
-            chb.click();
-        }
-        chb = CheckBox.xpath(String.format(xPathSport, "Other"));
-        if (!map.get("Other")) {
-            chb.click();
-        }
-    }
+//    public void enableSport(HashMap<String, Boolean> map) {
+//        CheckBox chb = CheckBox.xpath(String.format(xPathSport, "Soccer"));
+//        if (!map.get("Soccer")) {
+//            chb.click();
+//        }
+//        chb = CheckBox.xpath(String.format(xPathSport, "Cricket"));
+//        if (!map.get("Cricket")) {
+//            chb.click();
+//        }
+//        chb = CheckBox.xpath(String.format(xPathSport, "Fancy"));
+//        if (!map.get("Fancy")) {
+//            chb.click();
+//        }
+//        chb = CheckBox.xpath(String.format(xPathSport, "Tennis"));
+//        if (!map.get("Tennis")) {
+//            chb.click();
+//        }
+//        chb = CheckBox.xpath(String.format(xPathSport, "Basketball"));
+//        if (!map.get("Basketball")) {
+//            chb.click();
+//        }
+//        chb = CheckBox.xpath(String.format(xPathSport, "Horse Racing"));
+//        if (!map.get("Horse Racing")) {
+//            chb.click();
+//        }
+//        chb = CheckBox.xpath(String.format(xPathSport, "Other"));
+//        if (!map.get("Other")) {
+//            chb.click();
+//        }
+//    }
 
     public void waitingLoadingSpinner() {
         iconLoadSpinner.waitForControlInvisible(1, 1);

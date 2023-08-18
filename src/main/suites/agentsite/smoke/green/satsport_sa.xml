@@ -24,8 +24,10 @@
 
         <groups>
             <run>
-                <include name="smoke1"/>
-                <include name="satsmoke"/>
+                <include name="smoke"/>
+                <include name="smoke_sat"/>
+                <include name="smoke_oldui"/>
+                <include name="smoke_creditcash"/>
             </run>
         </groups>
 

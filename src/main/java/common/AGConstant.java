@@ -11,6 +11,7 @@ public class AGConstant {
     public final static String timeZone = "GMT-4";
     public final static String EXCHANGE = "Exchange";
     public final static String EXCHANGE_GAMES = "Exchange Games";
+    public final static String PS38 = "PS38";
     public final static String SUPERNOWA_CASION = "Supernowa Casino";
     public final static String EVOLUTION = "Evolution";
     public final static String LIVE_DEALER_ASIAN = "Live Dealer Asian";
@@ -177,10 +178,15 @@ public class AGConstant {
         public final static String TRANSFER = "Transfer";
         public final static String TOP_GAINER_TOP_LOSER = "Top Gainers & Top Losers";
         public final static String VIEW_LOG = "View Log";
-        public final static String WIN_LOSS_BY_EVENT = "Win Loss By Event";
-        public final static String WIN_LOSS_BY_MARKET_TYPE = "Win Loss By Sport And Market Type";
-        public final static String WIN_LOSS_BY_DETAIL = "%s Win Loss Detail";
-        public final static String WIN_LOSS_SIMPLE = "Win Loss Simple";
+        public final static String WIN_LOSS_BY_EVENT_OLDUI = "Win Loss By Event";
+        public final static String WIN_LOSS_BY_MARKET_TYPE_OLDUI = "Win Loss By Sport And Market Type";
+        public final static String WIN_LOSS_BY_DETAIL_OLDUI = "%s Win Loss Detail";
+        public final static String WIN_LOSS_SIMPLE_OLDUI = "Win Loss Simple";
+        public final static String WIN_LOSS_BY_EVENT_NEWUI = "By Event";
+        public final static String WIN_LOSS_BY_MARKET_TYPE_NEWUI = "By Market";
+        public final static String WIN_LOSS_BY_DETAIL_NEWUI = "%s By Detail";
+        public final static String WIN_LOSS_NEWUI = "Win Loss";
+        public final static String WIN_LOSS_SIMPLE_NEWUI = "Simple";
         public final static String ANALYSIS_OF_RUNNING_MARKETS = "Analysis of Running Markets";
         public final static String SUB_USER_LISTING = "Sub User Listing";
         public final static String EVENT_BET_STIE_SETTINGS = "Event Bet Size Settings";
@@ -225,9 +231,11 @@ public class AGConstant {
             public final static String LBL_LAST_NAME = "Last Name";
             public final static String LBL_PHONE = "Phone";
             public final static String LBL_MOBILE = "Mobile";
+            public final static String LBL_EMAIL = "Email";
             public final static String LBL_FAX = "Fax";
             public final static String LBL_BASE_CURRENCY = "Base Currency";
             public final static String LBL_ALLOW_AG_EXTRA = "Allow AG Extra PT";
+            public final static String LBL_ALLOW_PL_EXTRA = "Allow PL Extra PT";
             public final static String LBL_INITIATION_DEPOSIT = "Initiation Deposit";
             public final static String LBL_CASH_BALANCE = "Cash Balance";
             public final static String LBL_CREDIT_BALANCE = "Credit Balance";
@@ -247,12 +255,13 @@ public class AGConstant {
             public final static String LBL_TAX_SETTING = "Tax Settings";
             public final static String LBL_POSITION_TAKING = "Position Taking";
 
-            public final static List<String> LST_TAX_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Other");
+            public final static List<String> LST_TAX_SETTING_HEADER_NEWUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Other");
+            public final static List<String> LST_TAX_SETTING_HEADER_OLDUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Other");
             public final static List<String> LST_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Other");
             public final static List<String> LST_BET_SETTING_OPTION = Arrays.asList("Min Bet", "Max Bet", "Max Liability Per Market", "Max Win Per Market");
             public final static List<String> LST_TAX_SETTING_OPTION = Arrays.asList("Upline", "Tax");
-            public final static List<String> LST_POSITION_TAKING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Horse Racing", "Other");
-            public final static List<String> LST_POSITION_TAKING_HEADER_OLD_UI = Arrays.asList("", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Racing", "Other");
+            public final static List<String> LST_POSITION_TAKING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Horse Racing","Greyhound Racing", "Other");
+//            public final static List<String> LST_POSITION_TAKING_HEADER_OLD_UI = Arrays.asList("", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Racing", "Other");
             public final static List<String> LST_EG_GAME_GORUP_HEADER = Arrays.asList("", "Baccarat", "Blackjack", "Racing", "Hilo", "Hold'em", "Omaha Hi", "Other");
             public final static String LBL_LOGINID_HINT = "Login ID must be unique and at least a minimum of 6 characters and maximum of 15 characters";
             public final static String LBL_PASSWORD_HINT = "New Password: \n" +
@@ -279,7 +288,8 @@ public class AGConstant {
             public final static String EDIT_AGENT_TITLE = "Edit Master Agent";
             public final static String EDIT_MEMBER_TITLE = "Edit Member\n";
             public final static List<String> LST_ACCOUNT_STATUS = Arrays.asList("All", "Active", "Inactive", "Suspended", "Closed", "Blocked");
-            public final static List<String> LST_SAT_DOWLINE_LISTING_TABLE_HEADER = Arrays.asList("No.", "Username", "Login ID", "Client Name", "Credit Initiation", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Downline", "Create Date", "Last Login Time", "Last Login IP");
+            public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Client Name", "Mobile", "Credit Initiation", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Downline", "Create Date", "Last Login Time", "Last Login IP");
+            public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Exchange", "Live Dealer European", "Live Dealer Asian", "Exchange Games", "Supernowa Casino", "Evolution", "Game Hall","Vivo","ION","Pragmatic");
             public final static String MSG_CHANGE_PASSWORD_SUCCESS = "Update is successful!";
             public final static String MSG_INVALID_MAX_PLAYER_CREDIT = "Member Max Credit is invalid. ";
             public final static String MSG_EDIT_DOWNLINE_SUCCESS = "Downline was updated successfully";
@@ -395,6 +405,32 @@ public class AGConstant {
             public final static String LBL_ACCOUNTSTATUS = "Account Status";
             public final static String LBL_PRODUCT = "Product";
             public final static String LBL_LEVEL = "Level";
+
+            public static final HashMap<String, Boolean> SPORT_COLUMN_TRUE = new HashMap<String, Boolean>() {
+                {
+                    put("Soccer", true);
+                    put("Cricket", true);
+                    put("Fancy", true);
+                    put("Tennis", true);
+                    put("Basketball", true);
+                    put("Horse Racing", true);
+                    put("Greyhound Racing", true);
+                    put("Other", true);
+                }
+            };
+
+            public static final HashMap<String, Boolean> SPORT_COLUMN_FALSE = new HashMap<String, Boolean>() {
+                {
+                    put("Soccer", false);
+                    put("Cricket", false);
+                    put("Fancy", false);
+                    put("Tennis", false);
+                    put("Basketball", false);
+                    put("Horse Racing", false);
+                    put("Greyhound Racing", false);
+                    put("Other", false);
+                }
+            };
         }
 
         public static class CommissionSettingListing {
@@ -463,7 +499,8 @@ public class AGConstant {
 
         public static class TaxSettingListing {
             public final static String TITLE_PAGE = "Tax Setting Listing";
-            public final static List<String> TABLE_TAX = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Other", "Update Status");
+            public final static List<String> TABLE_TAX = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Other", "Update Status");
+            public final static List<String> TABLE_TAX_SAT = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Other", "Update Status");
         }
 
         public static class SubUserListing {
@@ -477,6 +514,13 @@ public class AGConstant {
             public final static List<String> TAB_DAYS = Arrays.asList("Old Events", "Today", "Tomorrow", "Future");
             public final static List<String> TABLE_HEADER = Arrays.asList("Competition Name", "Event Name", "Event ID", "Min - Max", "Fancy Min - Max", "Bookmaker Min - Max");
             public final static List<String> TABLE_HEADER_PO = Arrays.asList("Competition Name", "Event Name", "Event ID", "Min - Max (F)", "Fancy Min - Max", "Bookmaker Min - Max (F)");
+        }
+        public static class FollowBets {
+            public final static List<String> GROUP_LIST_TABLE_HEADER = Arrays.asList("Group List", "Group", "Follow Status", "Exchange %", "Fancy %", "Additional Follow", "Account To Bet", "Last Update By", "Last Update Date", "Actions", "Stake %", "Odds Range %");
+            public final static List<String> PLAYER_AGENT_LIST_TABLE_HEADER_NEWUI = Arrays.asList( "Player/Agent List", "Username", "Nickname", "Level", "Upline", "Actions");
+            public final static List<String> PLAYER_AGENT_LIST_TABLE_HEADER_OLDUI = Arrays.asList( "Player/Agent List", "Username", "Login ID", "Level", "Upline", "Actions");
+            public final static List<String> PLAYER_TABLE_HEADER_NEWUI = Arrays.asList( "Username", "Nickname", "Follow Status", "Exchange %", "Fancy %", "Additional Follow", "Account To Bet", "Last Update By", "Last Update Date", "Actions", "Stake %", "Odds Range %");
+            public final static List<String> PLAYER_TABLE_HEADER_OLDUI = Arrays.asList( "Username", "Login ID", "Follow Status", "Exchange %", "Fancy %", "Additional Follow", "Account To Bet", "Last Update By", "Last Update Date", "Actions", "Stake %", "Odds Range %");
         }
     }
 
@@ -524,7 +568,8 @@ public class AGConstant {
         public final static String ERROR_PRODUCT = "Please select at least 1 product.";
         public final static String ERROR_DATE_RANGE = "End date cannot earlier than start date. Please redefine the search criteria";
         public final static List<String> LIST_EXTRA_RPODUCTS_PO = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Central Fancy", "Central Bookmaker", "Follow Bets");
-        public final static List<String> LIST_EXTRA_RPODUCTS = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Central Fancy", "Central Bookmaker");
+        public final static List<String> LIST_EXTRA_PRODUCTS_NEWUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker");
+        public final static List<String> LIST_EXTRA_PRODUCTS_OLDUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Central Fancy", "Central Bookmaker");
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS = "You can see report data up to 6 months";
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_1_TO_6 = "You can see report data up to 1 month and back to previous 6 months.";
         public final static String LBL_PRODUCT = "Product";
@@ -589,7 +634,8 @@ public class AGConstant {
 
         public static class StatementReport {
 
-            public final static List<String> TABLE_HEADER = Arrays.asList("Username", "Nickname");
+            public final static List<String> TABLE_HEADER_NEWUI = Arrays.asList("Username", "Nickname");
+            public final static List<String> TABLE_HEADER_OLDUI = Arrays.asList("Username", "Login ID");
             public final static List<String> TABLE_DETAIL_STATEMENT_HEADER = Arrays.asList("Sport/Game", "Credit", "Profit & Loss", "Tax/Commission", "Available Balance");
             public final static String LBL_STATEMENT_REPORT_SEARCH_TITLE = "Statement Report from %s to %s";
         }
@@ -626,11 +672,14 @@ public class AGConstant {
         public static class TopGainersTopLosers {
             public final static String BTN_SEARCH = "Search";
             public final static String LBL_INFO_REPORT_VALID = "You can see report data up to 3 months and back to previous 1 year.";
-            public final static String LBL_INFO_SUPPORT_YESTERDAY_DATA = "Top Gainer & Top Losers only support yesterday data. Big Stake supports today data.";
+            public final static String LBL_INFO_SUPPORT_YESTERDAY_DATA = "Top Gainers & Top Losers only support yesterday data. Big Stake supports today data..";
             public final static String LBL_INFO_PLACE_TIME = "Big Stake wagers are based on placed time.";
-            public final static List<String> TABLE_TOP_GAINERS_HEADER = Arrays.asList("Top Gainers", "20\n50\n100\n200", "No.", "Usercode", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
-            public final static List<String> TABLE_TOP_LOSERS_HEADER = Arrays.asList("Top Losers", "20\n50\n100\n200", "No.", "Usercode", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
-            public final static List<String> TABLE_BIG_STAKE_HEADER = Arrays.asList("Big Stake", "20\n50\n100\n200", "No.", "Usercode", "Stake", "Status", "Win/Loss", "Wager ID");
+            public final static List<String> AGENT_SMA_TABLE_TOP_GAINERS_HEADER_NEWUI = Arrays.asList("Top Gainers", "20\n50\n100\n200", "No.", "Usercode", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
+            public final static List<String> AGENT_SAD_TABLE_TOP_GAINERS_HEADER_OLDUI = Arrays.asList("Top Gainers", "20\n50\n100\n200", "Login ID", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
+            public final static List<String> AGENT_SMA_TABLE_TOP_LOSERS_HEADER_NEWUI = Arrays.asList("Top Losers", "20\n50\n100\n200", "No.", "Usercode", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
+            public final static List<String> AGENT_SAD_TABLE_TOP_LOSERS_HEADER_OLDUI = Arrays.asList("Top Losers", "20\n50\n100\n200", "Login ID", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
+            public final static List<String> TABLE_BIG_STAKE_HEADER_NEWUI = Arrays.asList("Big Stake", "20\n50\n100\n200", "No.", "Usercode", "Stake", "Status", "Win/Loss", "Wager ID");
+            public final static List<String> TABLE_BIG_STAKE_HEADER_OLDUI = Arrays.asList("Big Stake (>=1 )", "Login ID", "Description", "Wager Details", "Status", "Win/Loss", "Wager ID");
         }
 
         public static class BigStakeConfiguration {
@@ -650,7 +699,7 @@ public class AGConstant {
 
         public static class TransferLog {
             public final static String LBL_INFO = "You can see report data up to 6 months";
-            public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Audit Date", "Username", "Login ID", "Audit Type", "Attribute", "Old Value", "New Value", "Perform By", "Remark");
+            public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Audit Date", "UserName", "Login ID", "Audit Type", "Attribute", "Old Value", "New Value", "Perform By", "Remark");
         }
     }
 

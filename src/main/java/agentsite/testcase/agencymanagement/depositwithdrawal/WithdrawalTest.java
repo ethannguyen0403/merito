@@ -395,7 +395,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Amount is updated correctly
      */
     @TestRails(id = "737")
-    @Test(priority = 3, groups = {"smoke"})
+    @Test(groups = {"smoke"})
     public void Agent_AM_DepositWithdrawal_Withdraw_737() {
         log("@title: Validate can withdraw Win/Loss Settle successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -448,7 +448,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Verify Balance is updated correctly
      */
     @TestRails(id = "738")
-    @Test(priority = 3, groups = {"smoke_sat"})
+    @Test(groups = {"smoke_sat"})
     public void Agent_AM_DepositWithdrawal_Withdraw_738() throws InterruptedException {
         log("@title: Validate can multiple Withdraw by Credit Update by click on Withdraw button");
 

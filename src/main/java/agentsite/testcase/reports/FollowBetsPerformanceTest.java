@@ -16,7 +16,7 @@ public class FollowBetsPerformanceTest extends BaseCaseTest {
      * @expect: 1. Verify Follow Bets Performance UI display correctly
      */
     @TestRails(id = "825")
-    @Test(groups = {"smokePO"})
+    @Test(groups = {"smoke_po"})
     public void Agent_Report_Follow_Small_Bets_Performance_825() {
         log("@title: Validate Follow & Small Bets Performance display correctly");
         log("Step  1. Navigate Report >Follow Bets Performance");

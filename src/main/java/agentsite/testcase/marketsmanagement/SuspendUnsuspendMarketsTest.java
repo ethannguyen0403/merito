@@ -44,7 +44,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "783")
-    @Test(groups = {"smokeMA"})
+    @Test(groups = {"smoke_ma"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC783() {
         log("@title: Verify can access the page at direct level under Control Blocking level");
 
@@ -59,7 +59,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "784")
-    @Test(groups = {"smokeMA"})
+    @Test(groups = {"smoke_ma"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC784() {
         log("@title: Verify UI is displayed correctly");
         log("Step 1 Login agent site - the level under control blocking");
@@ -82,7 +82,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3717")
-    @Test(groups = {"smokeMA1"})
+    @Test(groups = {"smoke_ma"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC3717() {
         String loginUserId = ProfileUtils.getProfile().getUserID();
         log("@title: Verify Market Detail popup UI is correctly display");

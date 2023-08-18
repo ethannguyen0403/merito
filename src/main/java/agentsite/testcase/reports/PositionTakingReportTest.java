@@ -77,7 +77,7 @@ public class PositionTakingReportTest extends BaseCaseTest {
     public void Agent_Report_Position_Taking_Report_4088() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Position Taking Report");
-        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive(), LIST_EXTRA_RPODUCTS);
+        List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive());
         PositionTakingReportPage page = agentHomePage.navigatePositionTakingReportPage();
 
         log("Step 2: Get all products in dropdown");

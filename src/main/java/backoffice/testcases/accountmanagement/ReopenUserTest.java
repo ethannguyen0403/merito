@@ -42,7 +42,7 @@ public class ReopenUserTest extends BaseCaseTest {
         DriverManager.getDriver().get(agentLoginURL);
         agentHomePage = loginAgent(sosAgentURL, agentSecurityCodeURL, satSADAgentLoginID, memberPassword, environment.getSecurityCode());
         DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
-        downLineListingPage.searchDownline("", "Closed", "All");
+        downLineListingPage.downlineListing.searchDownline("", "Closed", "All");
         String closeAccount = downLineListingPage.tblDowlineListing.getColumn(downLineListingPage.loginIDCol, false).get(0);
 
         log("Step 1. Access Member Management > Reopen User");
@@ -68,7 +68,7 @@ public class ReopenUserTest extends BaseCaseTest {
         log("Step 4. Login agent site > downline listing > Search the account and check status");
         agentHomePage = loginAgent(sosAgentURL, agentSecurityCodeURL, username, password, environment.getSecurityCode());
         downLineListingPage = agentHomePage.navigateDownlineListingPage();
-        downLineListingPage.searchDownline(closeAccount, "Active", "All");
+        downLineListingPage.downlineListing.searchDownline(closeAccount, "Active", "All");
 
         log("Step 3. Account is active in agent site");
         List<String> lstRecord = downLineListingPage.tblDowlineListing.getColumn(downLineListingPage.loginIDCol, false);

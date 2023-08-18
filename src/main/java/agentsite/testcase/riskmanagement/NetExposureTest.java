@@ -19,7 +19,7 @@ public class NetExposureTest extends BaseCaseTest {
      * This test cases only available for F24 and Betclub9
      */
     @TestRails(id = "834")
-    @Test(groups = {"smoke5", "smokePO"})
+    @Test(groups = {"smoke_po"})
     public void Agent_RM_NetExposureTest_834() {
         log("@title: Verify UI display correctly");
         log("Step 1.Navigate Risk Management > Volumn Monitor");
@@ -40,7 +40,7 @@ public class NetExposureTest extends BaseCaseTest {
     }
 
     @TestRails(id = "835")
-    @Test(groups = {"smokePO"})
+    @Test(groups = {"smoke_po"})
     public void Agent_RM_NetExposureTest_835() {
         log("@title:Validate Order place on match odds market display correct section My PT mode");
         log("Step 1.Navigate Risk Management > Net Exposure");
@@ -59,7 +59,7 @@ public class NetExposureTest extends BaseCaseTest {
     }
 
     @TestRails(id = "836")
-    @Test(groups = {"smoke", "smokePO"})
+    @Test(groups = {"smoke_po"})
     public void Agent_RM_NetExposureTest_836() {
         log("@title: Verify can open bet list in PT Mode");
         log("Step 1.Navigate Risk Management > Volume Monitor");
@@ -81,7 +81,7 @@ public class NetExposureTest extends BaseCaseTest {
     }
 
     @TestRails(id = "837")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void Agent_RM_NetExposureTest_837() {
         log("@title: Verify can open Downline");
         log("Step 1.Navigate Risk Management > Volume Monitor");

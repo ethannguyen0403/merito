@@ -31,7 +31,7 @@ public class AnalysisOfRunningMarketsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "823")
-    @Test(groups = {"smokePO", "smoke"})
+    @Test(groups = {"smoke_po"})
     public void Agent_Report_Analysis_Of_Running_Markets_823() {
         log("@title: Validate Analysis of Running Markets display correctly ");
         log("Step 1. Navigate Report> Analysis of Running Markets");
@@ -50,7 +50,7 @@ public class AnalysisOfRunningMarketsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "824")
-    @Test(groups = {"smokePO", "smoke"})
+    @Test(groups = {"smoke_po"})
     public void Agent_Report_Analysis_Of_Running_Markets_824() {
         log("@title: Market info display correctly");
         log("Step 1. Navigate Report >Analysis of Running Markets");

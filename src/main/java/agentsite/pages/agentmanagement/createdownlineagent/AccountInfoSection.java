@@ -18,6 +18,7 @@ public class AccountInfoSection extends BaseElement {
     String ddpUsernameCharXPath = String.format("//select[@name='userNameChar']");
     private String _xPath = "//div[@id='account']//app-agency-account-ui";
     String listLable = String.format("%s//td[contains(@class,'label')]", _xPath);
+    String listEditDownlineLabel = String.format("%s//div[contains(@class,'column header')]", _xPath);
     String lblUsernameCharXpath = String.format("%s//div[contains(@class,'column data')][1]/span/span", _xPath);
     public Label lblUsernamePrefix = Label.xpath(String.format("%s//span[@id='username-prefix']", _xPath));
     //public DropDownBox ddpUsernameChar = DropDownBox.xpath(String.format("%s//div[contains(@class,'column data')][1]/span/span",_xPath));
@@ -58,7 +59,19 @@ public class AccountInfoSection extends BaseElement {
         }
         return lstInfo;
     }
-
+    public List<String> getListLabelEditDownlineInfo() {
+        List<String> lstInfo = new ArrayList<>();
+        Label lblInfo = Label.xpath(listEditDownlineLabel);
+        if (Objects.isNull(lblInfo)) {
+            System.out.println("Cannot get all label in account info section");
+            return null;
+        }
+        List<WebElement> lsElement = lblInfo.getWebElements();
+        for (int i = 0; i < lsElement.size(); i++) {
+            lstInfo.add(lsElement.get(i).getText().trim());
+        }
+        return lstInfo;
+    }
     public String getUserName() {
         String username = lblUsernamePrefix.getText();
         Label lblUsernameChar = Label.xpath(lblUsernameCharXpath);
