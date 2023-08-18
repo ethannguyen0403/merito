@@ -33,7 +33,7 @@ public class NewUIDownlineListing extends DownlineListing {
         }
         if (inputSecurityCode) {
             try {
-                confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+                confirmSecurityCode(environment.getSecurityCode());
             } catch (Exception e) {
                 e.printStackTrace();
             }

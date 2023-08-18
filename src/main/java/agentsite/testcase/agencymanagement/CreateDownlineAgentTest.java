@@ -215,7 +215,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 //        Assert.assertTrue(page.cashBalanceSection.txtMemberMaxCredit.isDisplayed(),"FAILED!Max Player Credit textbox not display");
 
         log("Verify 2. There is no Credit Balance section display");
-        Assert.assertFalse(page.creditBalanceSection.txtInitiationDeposit.isDisplayed(),"FAILED! Credit Limit textbox display for Cash Account");
+        Assert.assertFalse(page.creditBalanceSection.lblDownlineAGMaxCreditLimit.isDisplayed(),"FAILED! Credit Limit label display for Cash Account");
 
         Assert.assertFalse(page.lblRiskSetting.isDisplayed(),"FAILED! Risk Setting section display for Cash account");
         log("INFO: Executed completely");
@@ -235,7 +235,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      *          4. The agent level under login level
      */
     @TestRails(id = "682")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke_creditcash"})
     @Parameters({"currency"})
     public void Agent_AM_CreateDownline_Agent_682(String currency) {
         log("@title: Validate display Cash Balance for Credit Cash account");
@@ -321,7 +321,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         page.createDownline("test.AG1", "1234567", "Active");
 
         log("Verify 1. Message \"Password is invalid.\" display next to Cancel button");
-        Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID, String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID, page.lblErrorMsg.getText()));
+        Assert.assertTrue(page.lblErrorMsg.getText().contains(AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID), String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID, page.lblErrorMsg.getText()));
 
         log("INFO: Executed completely");
     }

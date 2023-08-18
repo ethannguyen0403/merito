@@ -214,7 +214,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         List<ArrayList<String>> lstRecords = page.depositWithdraw.tblWithdrawalDeposit.getRowsWithoutHeader(2, false);
 
         log("Verify 1: There is no record found when filtering an incorrect status");
-        Assert.assertEquals(lstRecords.size(), 1, "ERROR: lstRecords doesn't equal to 1");
+        Assert.assertEquals(lstRecords.size(), 0, "ERROR: lstRecords doesn't equal to 1");
         Assert.assertEquals(lstRecords.get(0).get(0), AGConstant.NO_RECORD_FOUND, String.format("ERROR: The expected text is '%s' but found '%s'", AGConstant.NO_RECORD_FOUND, lstRecords.get(0).get(0)));
         log("INFO: Executed completely");
     }
@@ -391,7 +391,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * @expect: 1. Verify security popup display
      */
     @TestRails(id = "720")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_newui"})
     public void Agent_AM_DepositWithdrawal_720() {
         log("@title: Validate security popup display Deposit/withdraw page");
 

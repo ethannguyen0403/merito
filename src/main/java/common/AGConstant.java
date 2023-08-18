@@ -207,7 +207,7 @@ public class AGConstant {
     }
 
     public static class Announcement {
-        public final static String INFO = "From date and To date are displayed in IST(GMT+5:30)";
+        public final static String INFO = "From date and To date are displayed in IST (GMT+5:30)";
         public final static String ADD_ANNOUNCEMENT = "Add Announcement";
     }
 
@@ -448,14 +448,7 @@ public class AGConstant {
                     add("Level");
                     add("First Name");
                     add("Last Name");
-                    add("Andar Bahar");
-                    add("Baccarat");
-                    add("Casinowar");
-                    add("Dragon Tiger");
-                    add("Roulette");
-                    add("Teen Patti");
-                    add("Teenpatti 20-20");
-                    add("Three card poker");
+                    add("Live Dealer Asian");
                     add("Update Status");
                 }
             };
@@ -754,7 +747,7 @@ public class AGConstant {
         }
 
         public static class BlockedUserPopup {
-            public final static String TITLE_PAGE = "Blocked Users";
+            public final static String TITLE_PAGE = "Blocked User";
             public final static String LBL_COMPETITION = "Competition Name";
             public final static String LBL_EVENT = "Event Name";
             public final static String BTN_UNBLOCK_NOW = "Unblock Now";

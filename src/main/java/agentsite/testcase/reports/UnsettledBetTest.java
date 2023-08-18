@@ -30,7 +30,7 @@ public class UnsettledBetTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3725")
-    @Test(groups = {"regression1"})
+    @Test(groups = {"regression"})
     public void Agent_Report_Unsettled_Bet_3725() {
         log("@title: Validate Unsettled Bet - Last Bet Mode UI display correctly");
         log("Step 1. Navigate Report > Unsettled Bet");
@@ -57,7 +57,7 @@ public class UnsettledBetTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3726")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     @Parameters("memberAccount")
     public void Agent_Report_Unsettled_Bet_3726() {
         log("@title:Validate Unsettled Bet - Hierarchy Mode UI display correctly");
@@ -76,7 +76,7 @@ public class UnsettledBetTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3727")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void Agent_Report_Unsettled_Bet_3727() {
         log("@title:Validate Unsettled Bet - Sport Mode UI display correctly");
         log("Step 1. Navigate Report > Unsettled Bet");

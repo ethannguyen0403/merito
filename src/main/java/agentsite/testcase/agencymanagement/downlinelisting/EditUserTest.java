@@ -129,7 +129,7 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         page.downlineListing.searchDownline(loginID, "All", "Member");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Input new password in  password textbox and click Submit");
         page.editDownlinePopup.accInfoSection.inputInfo(passwordEdit, "", "", "", "", "", "");
@@ -187,7 +187,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(loginID);
 
         log("Step  Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step  3. Change account status to Inactive and click on Submit button\n" +
                 "     *              Click Ok button on Edit Member popup");
@@ -271,7 +271,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(loginID);
 
         log("Step 2. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Inactive Live and click Save button");
         page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateLiveNonLive(false, true);
@@ -360,7 +360,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(loginID);
 
         log("Step 2.1. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Inactive Live and click Save button");
         page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateLiveNonLive(true, false);
@@ -373,7 +373,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(loginID);
 
         log("Step 5.1. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateLiveNonLive(true, true);
         page.downlineListing.submitEditDownline();
@@ -410,7 +410,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(loginID);
 
         log("Step 2.1. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. In-active any sport");
         page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateSport("Soccer", false);
@@ -436,7 +436,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(loginID);
 
         log("Step 4.2. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 4.3 Repeat step 2 to 3 and Active Sport again and active at least 1 market of the sport");
         page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", true);
@@ -482,7 +482,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(loginID);
 
         log("Step 2.1. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Select Soccer sport and click edit icon");
         log("Step 4. Uncheck a market (e.g.: Half Time) and submit");
@@ -538,7 +538,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(loginID);
 
         log("Step 2.1. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         List<ArrayList<String>> lstBetSettingValidation = page.betSettingInforSection.getBetSettingValidationValueLst(currency);
 //      page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.getBetSettingValidationValueLst(currency);
@@ -641,7 +641,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(memberAccount);
 
         log("Step 2.1. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.1 In-active Lottery & Slots product");
         page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Lottery & Slots", false);
@@ -661,7 +661,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(memberAccount);
 
         log("Step 2.2. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.3 Active Lottery & Slots product");
         page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Lottery & Slots", true);
@@ -687,7 +687,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(memberAccount);
 
         log("Step 2.1. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.1 In-active Exchange Games product");
         page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Exchange Games", false);
@@ -707,7 +707,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(memberAccount);
 
         log("Step 2.2. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.3 Active Exchange Games product");
         page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Exchange Games", true);
@@ -733,7 +733,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(memberAccount);
 
         log("Step 2.1. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.1 In-active Live Dealer Asian product");
         page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Live Dealer Asian", false);
@@ -753,7 +753,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(memberAccount);
 
         log("Step 2.2. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.3 Active Live Dealer Asian product");
         page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Live Dealer Asian", true);
@@ -779,7 +779,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(memberAccount);
 
         log("Step 2.1. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.1 In-active Live Dealer Asian product");
         page.editDownlinePopup.accInfoSection.txtPassword.sendKeys(StringUtils.decrypt(password));
@@ -806,7 +806,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(memberAccount);
 
         log("Step 2.1. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.1 In-acctive the account");
         page.editDownlinePopup.accInfoSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(2));
@@ -832,7 +832,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.clickEditIcon(memberAccount);
 
         log("Step 2.1. Input security code");
-        page.confirmSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
+        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Suspend the account");
         page.editDownlinePopup.accInfoSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(3));
