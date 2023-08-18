@@ -33,7 +33,7 @@ public class LoginTest extends BaseCaseTest {
      * @expect: 1. Home page is displayed
      */
     @TestRails(id = "671")
-    @Test(groups = {"smokeNewUI"})
+    @Test(groups = {"smoke_newui"})
     @Parameters({"username"})
     public void Agent_Login_671(String username) {
         log("@title: Validate that user can sign in successfully");
@@ -150,7 +150,7 @@ public class LoginTest extends BaseCaseTest {
      * @steps: 1. Log in with a valid information(username, password, captcha, security code)
      * @expect: 1. Home page is displayed
      */
-    @Test(groups = {"smokeoldUI"})
+    @Test(groups = {"smoke_sat"})
     @Parameters({"username"})
     public void Agent_Login_Old_UI_002() {
         log("@title: Validate that CONFIGURE OTP display after login");

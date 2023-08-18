@@ -1,6 +1,8 @@
 package agentsite.pages.components.leftmenu;
 
+import agentsite.objects.agent.account.AccountInfo;
 import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Image;
@@ -138,5 +140,24 @@ public class OldUILeftMenu extends LeftMenu {
     public void navigateBigStakeConfigurationPage() {
         clickSubMenu(REPORT, TOP_GAINER_TOP_LOSER, BIG_STAKE_CONFIGURATION);
     }
+
+    public void navigateWinLossBySportAndMarketTypePage() {
+        clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE_OLDUI);
+    }
+
+    public void navigateStatementReportPage() {
+        clickSubMenu(REPORT, STATEMENT_REPORT);
+    }
+    public void navigateWinLossDetailPage() {
+        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+        String winLossDetailMenu;
+        winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_OLDUI, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
+        clickSubMenu(REPORT, winLossDetailMenu);
+    }
+
+    public void navigateWinLossByEventPage() {
+        clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_OLDUI);
+    }
+
 }
 

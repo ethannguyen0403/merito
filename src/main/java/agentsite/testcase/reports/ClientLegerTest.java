@@ -1,10 +1,12 @@
 package agentsite.testcase.reports;
 
+import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.report.ClientLedgerPage;
+import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
@@ -77,20 +79,23 @@ public class ClientLegerTest extends BaseCaseTest {
 
     @TestRails(id = "804")
     @Test(groups = {"smoke"})
-    @Parameters("downlineAccount")
-    public void Agent_Report_Client_Ledger_804(String downlineAccount) {
+    public void Agent_Report_Client_Ledger_804() {
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String loginID = listAccount.get(0).getUserCode();
+
         log("@title: Validate can filter report by username");
         log("Step 1. Navigate Report > Client Ledger");
         ClientLedgerPage page = agentHomePage.navigateClientLedgerPage();
 
         log("Step 2. Select Type : All");
         log("Step 3. Search Username and click submit button");
-        page.filter("", "", "", downlineAccount, "", "");
+        page.filter("", "", "", loginID, "", "");
 
         log("Verify 1. Verify can filter report by username");
         List<String> lsLoginID = page.tblClientLedger.getColumn(page.colUsername, false);
-        Assert.assertEquals(lsLoginID.size(), 2, "FAILED! There is more than 2 rows contains the search username");
-        Assert.assertEquals(lsLoginID.get(0), downlineAccount, "FAILED! Login ID not correct as search criteria");
+        Assert.assertEquals(lsLoginID.size(), 1, "FAILED! There is more than 2 rows contains the search username");
+        Assert.assertEquals(lsLoginID.get(0), loginID, "FAILED! Login ID not correct as search criteria");
 
         log("INFO: Executed completely");
     }

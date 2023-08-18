@@ -67,4 +67,12 @@ public class LeftMenu {
 
     public void navigateBigStakeConfigurationPage() {
     }
+
+    public void navigateWinLossBySportAndMarketTypePage() {}
+
+    public void navigateStatementReportPage() {}
+
+    public void navigateWinLossDetailPage() {}
+
+    public void navigateWinLossByEventPage() {}
 }

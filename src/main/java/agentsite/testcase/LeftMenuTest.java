@@ -633,7 +633,7 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect: Verify the list menu display correct when login Portal level
      */
     @TestRails(id = "675")
-    @Test(groups = {"smokePO"})
+    @Test(groups = {"smoke_po"})
     public void LeftMenu_TC019() {
         log("@title:  Verify the list menu display correct when login Portal level");
         log("Step 1: Expand all left menu");
@@ -701,7 +701,7 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect: Verify the list menu display correct when login Control Blocking level
      */
     @TestRails(id = "676")
-    @Test(groups = {"smokePO"})
+    @Test(groups = {"smoke_po"})
     public void LeftMenu_TC020() {
         log("@title: Verify the list menu display correct when login Control Blocking level");
         log("Step 1: Expand all left menu");

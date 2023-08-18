@@ -38,7 +38,7 @@ public class BigStakeConfigurationTest extends BaseCaseTest {
      * @expect: 1. Verify Big Stake Configuration UI display correctly
      */
     @TestRails(id = "813")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     public void Agent_Report_Big_Stake_Configuration_813() {
         log("@title:Validate Big Stake Configuration UI display correctly");
         log("Step 1. Navigate Report > Top Gainers & Top Losers > Big Stake Configuration");
@@ -47,7 +47,7 @@ public class BigStakeConfigurationTest extends BaseCaseTest {
         log("Verify 1. Verify Big Stake Configuration UI display correctly");
         Assert.assertEquals(page.lblBigStake.getText(), AGConstant.Report.BigStakeConfiguration.LBL_BIG_STAKE, "FAILED! Big Stake label is incorrect");
         Assert.assertTrue(page.txtBigStake.isDisplayed(), "FAILED! Big Stake textbox is NOT display");
-        Assert.assertEquals(page.btnSubmit.getAttribute("value"), AGConstant.BTN_SUBMIT, "FAILED! Submit button display incorrect");
+        Assert.assertEquals(page.btnSubmit.getText(), AGConstant.BTN_SUBMIT, "FAILED! Submit button display incorrect");
         Assert.assertEquals(page.tblBigStakeConfiguration.getHeaderNameOfRows(), AGConstant.Report.BigStakeConfiguration.TABLE_BIG_STAKE_HEADER, "FAILED! Incorrect header of big stake");
         log("INFO: Executed completely");
     }
@@ -60,7 +60,7 @@ public class BigStakeConfigurationTest extends BaseCaseTest {
      * @expect: 1. Can update big stake successfully" Big stake configuration is saved successfully."
      */
     @TestRails(id = "814")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     @Parameters("username")
     public void Agent_Report_Big_Stake_Configuration_814(String username) {
         log("@title:Validate can configure big stake ");
@@ -69,20 +69,23 @@ public class BigStakeConfigurationTest extends BaseCaseTest {
 
         log("Step 2. Update Big stake = 13");
         String currentDateTime = DateUtils.getDate(0, "dd/MMM/yyyy HH:mm", AGConstant.timeZone);
-        String message = page.configureBigStake("13");
+        try {
+            String message = page.configureBigStake("13");
 
-        log("Verify 1. Can update big stake successfully\" Big stake configuration is saved successfully.\"");
-        Assert.assertEquals(message, AGConstant.Report.BigStakeConfiguration.LBL_SUCCESS_MESSAGE, "FAILED! Success message is incorrect");
+            log("Verify 1. Can update big stake successfully\" Big stake configuration is saved successfully.\"");
+            Assert.assertEquals(message, AGConstant.Report.BigStakeConfiguration.LBL_SUCCESS_MESSAGE, "FAILED! Success message is incorrect");
 
-        page.btnOK.click();
-        List<ArrayList<String>> configuredData = page.tblBigStakeConfiguration.getRowsWithoutHeader(1, false);
-        Assert.assertTrue(configuredData.get(0).get(0).contains(currentDateTime), "FAILED! configure date time not correctlu");
-        Assert.assertTrue(configuredData.get(0).get(1).contains("13.00"), "FAILED! configure date time not correctlu");
-        Assert.assertTrue(configuredData.get(0).get(2).contains(username), "FAILED! configure date time not correctlu");
+            page.btnOK.click();
+            List<ArrayList<String>> configuredData = page.tblBigStakeConfiguration.getRowsWithoutHeader(1, false);
+            Assert.assertTrue(configuredData.get(0).get(0).contains(currentDateTime), "FAILED! configure date time not correctly");
+            Assert.assertTrue(configuredData.get(0).get(1).contains("13.00"), "FAILED! configure date time not correctly");
+            Assert.assertTrue(configuredData.get(0).get(2).contains(username), "FAILED! configure date time not correctly");
+            log("INFO: Executed completely");
+        } finally {
+            log("PostCondition: Set big stake to 0");
+            page.configureBigStake("0");
+        }
 
-        log("PostCondition: Set big stake to 0");
-        page.configureBigStake("0");
-        log("INFO: Executed completely");
     }
 
 }

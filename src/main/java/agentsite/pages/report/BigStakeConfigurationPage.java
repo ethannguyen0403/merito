@@ -11,11 +11,11 @@ public class BigStakeConfigurationPage extends HomePage {
     public Label lblNoRecord = Label.xpath("//td[contains(@class,'noRecord')]");
     public Label lblBigStake = Label.xpath("//label[text()='Big Stake']");
     public TextBox txtBigStake = TextBox.xpath("//label[text()='Big Stake']/following::input[1]");
-    public Button btnSubmit = Button.xpath("//input[@value='Submit']");
+    public Button btnSubmit = Button.xpath("//button[@id='btn-submit']");
     public Label lblInfo = Label.xpath("//span[@class='pinfo']/following-sibling::label");
     public Table tblBigStakeConfiguration = Table.xpath("//table[contains(@class,'ptable report')]", 3);
     public Label lblMessage = Label.xpath("//app-alert//div[contains(@class,'modal-body')]");
-    public Button btnOK = Button.xpath("//app-alert//button[contains(@class,'btn-warning')]");
+    public Button btnOK = Button.xpath("//app-alert//button[text()='OK']");
     private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
     int colBigStakeValue = 2;
 
