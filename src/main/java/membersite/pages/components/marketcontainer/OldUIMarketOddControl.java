@@ -1,6 +1,7 @@
 package membersite.pages.components.marketcontainer;
 
 import com.paltech.element.BaseElement;
+import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
@@ -34,6 +35,7 @@ public class OldUIMarketOddControl extends BaseElement {
     private Label lblSportHighLight;
     private Label lblMarketName;
     private Label lblNoEvent;
+    Button btnRule = Button.xpath("//span[contains(@class,'market-rules-span')]");
     private boolean _isMatchOdds;
 
     private OldUIMarketOddControl(By locator, String xpath, boolean isMatchOdds) {
@@ -219,5 +221,5 @@ public class OldUIMarketOddControl extends BaseElement {
 
     public enum Status {NA, IN_PLAY, COMING}
 
-
+    public void clickRuleButton(){btnRule.click();}
 }

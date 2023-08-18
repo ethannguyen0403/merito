@@ -1,5 +1,6 @@
 package membersite.pages.components.marketcontainer;
 
+import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import membersite.objects.funsport.Odd;
@@ -79,4 +80,5 @@ public class MarketContainerControl {
     public enum Team {HOME, DRAW, AWAY}
 
     public enum Status {NA, IN_PLAY, COMING}
+    public void clickRuleButton(){}
 }

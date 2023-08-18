@@ -7,6 +7,7 @@ import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
 import membersite.pages.MarketPage;
 import membersite.pages.SportPage;
+import membersite.pages.popup.RulePopup;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -17,19 +18,20 @@ import java.util.Objects;
 public class MarketPageTest extends BaseCaseTest {
     @TestRails(id = "1074")
     @Test(groups = {"regression"})
-    @Parameters({"password"})
-    public void HomePage_1074() {
-        log("@title: Validate can open rule popup");
-        log("Step 1.Active any market");
-        memberHomePage.clickProduct(MemberConstants.EXCHANGE);
-
+    @Parameters({"password", "skinName"})
+    public void MB_Change_Password_TC1074(String password, String skinName) throws Exception {
+        log("@title:Validate can open rule popup");
+        log("Step 1 Active any market");
         log("Step 2.Click on Rule button");
-        memberHomePage.header.clickMainMenu("Home");
-        MarketPage marketPage = memberHomePage.clickFristNextUpHR();
-
-
-        log("Verify 1. Racing market page display correctly. Country, market start time, market name is corrected");
-        Assert.assertEquals(marketPage.marketOddControl.getTitle(), "", "Failed! Market page is incorrect");
+        Event event = memberHomePage.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = memberHomePage.clickEventName(event.getEventName());
+        RulePopup rulePopup = marketPage.openRules();
+        log("Verify 1. Rule popup display with the title : Market name - Rules");
+        Assert.assertTrue(rulePopup.getTitle().contains("Match Odds - Rules"));
 
         log("INFO: Executed completely");
     }

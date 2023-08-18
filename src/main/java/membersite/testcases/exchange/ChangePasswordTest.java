@@ -19,12 +19,13 @@ public class ChangePasswordTest extends BaseCaseTest {
     public void Change_Password_TC1220(String password) throws Exception {
         log("@title:Validate change password after login successfully");
         log("Step 1.Select My Account > Change Password");
-        log("Step 2. Input New Password and New Password Confirmation");
-        log("Step 3. Current Password");
-        log("Step 4. Click Save Change");
         String newPass = "test1234";
         String passDecrypt = StringUtils.decrypt(password);
         ChangePasswordPopup popup = memberHomePage.header.openChangePasswordPopup();
+
+        log("Step 2. Input New Password and New Password Confirmation");
+        log("Step 3. Current Password");
+        log("Step 4. Click Save Change");
         try {
             String successMsg = popup.changePassword(newPass, newPass, passDecrypt);
             popup.clickCancelBtn();

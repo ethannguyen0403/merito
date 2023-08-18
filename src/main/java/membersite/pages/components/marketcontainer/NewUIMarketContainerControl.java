@@ -115,9 +115,8 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
         return btnRule.getText();
     }
 
-    public RulePopup clickRuleButton() {
+    public void clickRuleButton() {
         btnRule.click();
-        return new RulePopup();
     }
 
     public String getTotalMatched() {
