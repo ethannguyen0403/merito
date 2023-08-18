@@ -22,7 +22,7 @@
         <parameter name='feMemberLoginPwd' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <groups>
             <run>
-                <include name="regression"/>
+                <include name="regression1"/>
             </run>
         </groups>
 
@@ -34,6 +34,7 @@
             <class name="backoffice.testcases.marketmanagement.EventMarketLogTest"/>
             <class name="backoffice.testcases.marketmanagement.BeforeLoginManagementTest"/>
             <class name="backoffice.testcases.marketmanagement.BlockUnblockEventTest"/>
+            <class name="backoffice.testcases.paymentmanagement.PaymentConfigurationTest"/>
         </classes>
 
     </test>

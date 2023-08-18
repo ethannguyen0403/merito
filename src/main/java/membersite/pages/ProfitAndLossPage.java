@@ -9,6 +9,7 @@ import controls.Table;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.profitandloss.ProfitAndLossContainer;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,7 +104,13 @@ public class ProfitAndLossPage extends HomePage {
             String totalProfitLost = lst.get(i).get(colProfitLoss - 1);
             total = Double.parseDouble(totalProfitLost) + total;
             tblSport.getControlOfCell(1, colSportGame, i + 1, "span[@class='hover hyperlink']").click();
-            tblMarket.isTextDisplayed("Total", 3);
+            // Add wait time to wait data load => Will improve when finding the solution
+            //tblMarket.isTextDisplayed("Total", 3);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             int tblMarketRows = tblMarket.getNumberOfRows(false, false);          //  List<String> lstData = tblMarket.getRow(tblMarketRows,1);
             String totalPLMarketTable = tblMarket.getRow(tblMarketRows, 1).get(1);
             if (!totalProfitLost.equals(totalPLMarketTable)) {

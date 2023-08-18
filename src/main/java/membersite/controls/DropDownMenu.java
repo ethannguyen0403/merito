@@ -85,7 +85,7 @@ public class DropDownMenu extends BaseElement {
 /*	private int findSubMenuIndex(String subMenuName){
 		int index = 1;
 		this.click();
-
+ 
 		Label subMenu ;
 
 		while (true){
@@ -109,7 +109,7 @@ public class DropDownMenu extends BaseElement {
 
     private Label getMenu(String name) {
         this.click();
-        Label subMenu = Label.xpath(String.format("%s//a[text()='%s']", this.xpathLocatorItems, name));
+        Label subMenu = Label.xpath(String.format("%s//*[text()='%s']", this.xpathLocatorItems, name));
         if (subMenu.isDisplayed())
             return subMenu;
         else {
