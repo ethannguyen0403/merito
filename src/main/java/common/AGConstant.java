@@ -438,11 +438,25 @@ public class AGConstant {
             public final static List<String> LST_LIVE_DEALER_ASIAN_GAMES = Arrays.asList("Andar Bahar", "Baccarat", "Casinowar", "Dragon Tiger", "Roulette", "Teen Patti", "Teenpatti 20-20", "Three card poker");
             public final static List<String> LST_LIVE_DEALER_EUROPEAN_GAMES = Arrays.asList("Auto roulette", "Baccarat", "Bet on Numbers", "Blackjack", "Holdem", "Keno", "Roulette", "Sic Bo", "Lucky 7", "Other");
             public final static List<String> LST_LOTTERY_SLOT_GAMES = Arrays.asList("Lottery & Slots");
-            public final static ArrayList<String> TABLE_AGENT_HEADER_LIVE_DEALER_ASIAN = new ArrayList<String>() {
+            public final static ArrayList<String> TABLE_AGENT_HEADER_LIVE_DEALER_ASIAN_NEWUI = new ArrayList<String>() {
                 {
                     add("No.");
                     add("Username");
                     add("Nickname");
+                    add("Account Status");
+                    add("");
+                    add("Level");
+                    add("First Name");
+                    add("Last Name");
+                    add("Live Dealer Asian");
+                    add("Update Status");
+                }
+            };
+            public final static ArrayList<String> TABLE_AGENT_HEADER_LIVE_DEALER_ASIAN_OLDUI = new ArrayList<String>() {
+                {
+                    add("No.");
+                    add("Username");
+                    add("Login ID");
                     add("Account Status");
                     add("");
                     add("Level");

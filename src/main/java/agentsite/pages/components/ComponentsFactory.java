@@ -3,6 +3,9 @@ package agentsite.pages.components;
 import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.NewUIBetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
+import agentsite.pages.agentmanagement.commissionlisting.CommissionSettingListing;
+import agentsite.pages.agentmanagement.commissionlisting.NewUIComissionSettingListing;
+import agentsite.pages.agentmanagement.commissionlisting.OldUIComissionSettingListing;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.NewUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.OldUIAccountInforSection;
@@ -260,6 +263,15 @@ public class ComponentsFactory {
                 return new OldUIFollowBets();
             default:
                 return new NewUIFollowBets();
+        }
+    }
+
+    public static CommissionSettingListing commissionSettingListing(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIComissionSettingListing();
+            default:
+                return new NewUIComissionSettingListing();
         }
     }
 }

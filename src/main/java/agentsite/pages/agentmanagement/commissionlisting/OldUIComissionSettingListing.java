@@ -1,0 +1,16 @@
+package agentsite.pages.agentmanagement.commissionlisting;
+
+import common.AGConstant;
+import org.testng.Assert;
+
+import java.util.ArrayList;
+
+public class OldUIComissionSettingListing extends CommissionSettingListing{
+
+    public void verifyTableHeaderDisplayCorrect(String product) {
+        ArrayList<String> lstHeader = tblAgentCommission.getHeaderNameOfRows();
+        if (product.equalsIgnoreCase("live dealer asian")) {
+            Assert.assertEquals(lstHeader, AGConstant.AgencyManagement.CommissionSettingListing.TABLE_AGENT_HEADER_LIVE_DEALER_ASIAN_OLDUI);
+        }
+    }
+}
