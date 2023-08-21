@@ -69,11 +69,10 @@ public class LiquidityThresholdLogTest extends BaseCaseTest {
      */
     @TestRails(id = "627")
     @Test(groups = {"smoke"})
-    @Parameters("BO_Market_Management_Liquidity_Threshold_log_002")
-    public void BO_Market_Management_Liquidity_Threshold_log_002(String BO_Market_Management_Liquidity_Threshold_log_002) {
+    public void BO_Market_Management_Liquidity_Threshold_log_627() {
         log("@title: Validate can NOT search account in agent that does not have view log link");
         log("Step 1. Access Tool > Liquidity Threshold Log");
-        String username = BO_Market_Management_Liquidity_Threshold_log_002;//"Auto.PART2";
+        String username = "Auto.PART2";
         LiquidityThresholdLogPage page = backofficeHomePage.navigateLiquidityThresholdLog();
 
         log("Step 2. Input the username in precondition and click search button");

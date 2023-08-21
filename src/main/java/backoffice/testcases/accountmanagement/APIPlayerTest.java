@@ -66,9 +66,9 @@ public class APIPlayerTest extends BaseCaseTest {
      * 2. Verify cannot login api when account is removed
      **/
     @TestRails(id = "619")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_s"})
     @Parameters({"satMemberLoginID", "memberPassword"})
-    public void BO_Tools_API_Player_003(String satMemberLoginID, String memberPassword) throws Exception {
+    public void BO_Tools_API_Player_619(String satMemberLoginID, String memberPassword) throws Exception {
         log("@title: Validate only account added into API Player list can login api");
         log("Step Access Tool > API Player");
         String passDecrypt = StringUtils.decrypt(memberPassword);
