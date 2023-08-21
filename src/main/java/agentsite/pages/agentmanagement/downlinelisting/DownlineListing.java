@@ -14,7 +14,7 @@ public class DownlineListing extends CreateDownLineAgentPage {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     public EditDownlinePopup editDownlinePopup = EditDownlinePopup.xpath("//app-agency-edit");
-    public SuccessPopup successPopup = SuccessPopup.xpath("//app-alert");
+    public SuccessPopup successPopup = SuccessPopup.xpath("//app-alert | //app-comfirm");
     public TextBox txtLoginID = TextBox.id("username");
     public DropDownBox ddbAccountStatus = DropDownBox.id("status");
     public DropDownBox ddbLevel = DropDownBox.id("userLevel");

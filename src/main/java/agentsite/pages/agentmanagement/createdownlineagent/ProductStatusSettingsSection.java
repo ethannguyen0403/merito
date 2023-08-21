@@ -4,7 +4,7 @@ import agentsite.controls.Table;
 import agentsite.pages.agentmanagement.edituser.EditMarketPopup;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.CheckBox;
-import com.paltech.element.common.Label;
+import com.paltech.element.common.Link;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
@@ -63,9 +63,9 @@ public class ProductStatusSettingsSection extends BaseElement {
         for (String sport : headerList) {
             if (sport.equalsIgnoreCase(sportName)) {
                 System.out.println(String.format("Product Setting - Click on Edit icon of %s", sportName));
-                Label lblEdit = (Label) tblSportTable.getControlOfCell(1, i, 1, "span[@class='editmarket']");
+                Link lnk = (Link) tblSportTable.getControlOfCell(1, i, 1, "span[@class='editmarket']");
                 //  Label lblEdit = Label.xpath(String.format("//div[contains(@class,'marketSettingWrapper')]//table[contains(@class,'sportTable')]//tbody//tr[1]//td[%d]//span[@class='editmarket']",i));
-                lblEdit.click();
+                lnk.click();
                 break;
             }
             i = i + 1;
