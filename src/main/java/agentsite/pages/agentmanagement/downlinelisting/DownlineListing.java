@@ -27,7 +27,7 @@ public class DownlineListing extends CreateDownLineAgentPage {
     private int totalColumn = 19;
     public int changePasswordCol = 9;
     public int userCodeCol = 2;
-    public int accountStatusCol = 7;
+    public int accountStatusCol = 4;
     public int editCol = 8;
     public Table tblDowlineListing = Table.xpath("//table[contains(@class,'ptable report')]", totalColumn);
 
