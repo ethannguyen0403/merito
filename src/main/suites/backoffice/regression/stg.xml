@@ -22,7 +22,7 @@
         <parameter name='feMemberLoginPwd' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <groups>
             <run>
-                <include name="regression1"/>
+                <include name="regression"/>
             </run>
         </groups>
 
