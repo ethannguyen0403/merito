@@ -345,7 +345,7 @@ public class BannerManagementTest extends BaseCaseTest {
 
         log("Step 2: Switch to Old View");
         page.switchView("Old View");
-
+        page.waitSpinIcon();
         log("Step 3: Select Type = Home, Brand = SAT Sport, Status = Active and submit");
         page.filter("Home", expectedBrand, status);
 
