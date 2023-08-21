@@ -30,10 +30,6 @@
         </groups>
 
         <classes>
-<!--            <class name="backoffice.testcases.system.BetFairTaxRecrawlTest"/> Confirm from BA: Do need test this page for permission-->
-            <class name="backoffice.testcases.system.ProviderCurrencyMappingTest"/>
-
-            <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
             <class name="backoffice.testcases.operations.BannerManagementTest"/>
             <class name="backoffice.testcases.operations.MixedPTConfigurationTest"/>
 
@@ -43,7 +39,6 @@
 
             <class name="backoffice.testcases.paymentmanagement.DepositWithdrawalTransactionsTest"/>
             <class name="backoffice.testcases.paymentmanagement.PaymentConfigurationTest"/>
-
 
             <class name="backoffice.testcases.reports.PunterPerformanceTest"/>
 

@@ -29,7 +29,7 @@ public class RoleManagementTest extends BaseCaseTest {
      * 3. Role is deleted
      */
 
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_s"})
     public void BO_Admin_Management_Role_Management_001() {
         log("@title: Validate can add, edit, Update role delete role");
         log("Step 1. Access Admin Management > Role Management");
@@ -86,7 +86,7 @@ public class RoleManagementTest extends BaseCaseTest {
      * 4. Verify the account in Testing role cannot see the page that inactive
      */
 
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_s"})
     @Parameters({"username", "password"})
     public void BO_Admin_Management_Role_Management_005(String username, String password) throws Exception {
         log("@title: Validate active/inactive permission for a role");

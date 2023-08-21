@@ -74,8 +74,9 @@ public class PunterPerformanceTest extends BaseCaseTest {
         PunterPerformancePage page = backofficeHomePage.navigatePunterPerformance();
         log("Step 2. Unselect any portal");
         page.ddbPortal.deSelectAll(true);
+        page.waitSpinIcon();
         log("Verify 1. Verify the message \"Please select at least 1 portal\" display and Submit button is disable");
-        Assert.assertEquals(page.lblErrorAlert.getText(),BOConstants.Reports.PunterPerformance.MSG_AT_LEAST_1_PORTAL);
+        Assert.assertEquals(page.getLblError("Please select at least 1 portal").getText(),BOConstants.Reports.PunterPerformance.MSG_AT_LEAST_1_PORTAL);
         Assert.assertFalse(page.btnSubmit.isEnabled());
         log("INFO: Executed completely");
     }
@@ -96,7 +97,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
         log("Step 2. Unselect any product");
         page.ddbProduct.deSelectAll(true);
         log("Verify 1. Verify the message \"Please select at least 1 product\" display and Submit button is disable");
-        Assert.assertEquals(page.lblErrorAlert.getText(),BOConstants.Reports.PunterPerformance.MSG_AT_LEAST_1_PRODUCT);
+        Assert.assertEquals(page.getLblError("Please select at least 1 product").getText(),BOConstants.Reports.PunterPerformance.MSG_AT_LEAST_1_PRODUCT);
         Assert.assertFalse(page.btnSubmit.isEnabled());
         log("INFO: Executed completely");
     }
@@ -166,13 +167,15 @@ public class PunterPerformanceTest extends BaseCaseTest {
         log("Step 1. Access Reports > Punter Performance");
         PunterPerformancePage page = backofficeHomePage.navigatePunterPerformance();
         log("Step 2. Filter in a range that having data");
-        String fromDay = DateUtils.getDate(-3, "dd/MM/yyyy", BOConstants.GMT_FOUR);
+        String fromDay = DateUtils.getDate(-15, "dd/MM/yyyy", BOConstants.GMT_FOUR);
         String toDay = DateUtils.getDate(-1, "dd/MM/yyyy", BOConstants.GMT_FOUR);
         page.filter(fromDay, toDay,"","","");
+        page.waitSpinIcon();
         log("Step 3. Click on username in Portal level to drill-down");
         page.drillDown("Company");
         log("Step 4. Click on Home link");
         page.btnHome.click();
+        page.waitSpinIcon();
         log("Verify 1: Verify data is back in Portal level");
         Assert.assertTrue(page.isUsernameAsHyperlink("Portal"));
         log("INFO: Executed completely");

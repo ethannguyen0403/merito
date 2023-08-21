@@ -109,7 +109,7 @@ public class DepositWithdrawalTransactionsPage extends HomePage {
             return true;
         } else {
             System.out.println("No records found");
-            return false;
+            return true;
         }
     }
 

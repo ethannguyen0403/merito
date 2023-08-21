@@ -35,6 +35,7 @@ public class PunterPerformancePage extends HomePage {
     public Label lblYouCanSeeReport = Label.xpath("//label[contains(text(),'You can see report data up to 6 months.')]");
     public Label lblDateRange = Label.xpath("//span[text()='Punter Perfomance']/parent::span/following-sibling::span");
     public Button btnHome = Button.xpath("//table//span[text()='Home']");
+    String lblErrorXpath = "//div[contains(@class,'error-message') and contains(text(),'%s')]";
     public void filter(String from, String to, String product, String portal, String typeCurrency) {
         if (!from.isEmpty()) {
             dpFrom.selectDate(from, "dd/MM/yyyy");
@@ -119,6 +120,9 @@ public class PunterPerformancePage extends HomePage {
             return true;
         }
         return false;
+    }
+    public Label getLblError(String error){
+        return Label.xpath(String.format(lblErrorXpath,error));
     }
 
     public enum Product {ALL, EXCHANGE}
