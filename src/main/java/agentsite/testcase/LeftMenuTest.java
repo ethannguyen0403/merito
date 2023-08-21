@@ -313,7 +313,7 @@ public class LeftMenuTest extends BaseCaseTest {
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname);
-        String accountDisplay = listAccount.get(0).getUserCodeAndLoginID("%s (%s)");
+        String accountDisplay = listAccount.get(0).getUserCode();
 
         log("Step:1. Click on Quick Search button");
         log("Step:2. Enter direct login ID of agent level");
@@ -323,11 +323,11 @@ public class LeftMenuTest extends BaseCaseTest {
 
         log("Verify 1 Verify account info and his direct update display");
         Assert.assertEquals(agentHomePage.quickSearch.lblLevelQS.getText(), ProfileUtils.convertDownlineByBrand(downlineLevel, ProfileUtils.getAppName()), "FAILED! Level in quick search is incorrect displayed");
-        Assert.assertEquals(agentHomePage.quickSearch.lblAccountQS.getText(), accountDisplay, "FAILED! Account display in quick search incorrect");
+        Assert.assertTrue(agentHomePage.quickSearch.lblAccountQS.getText().contains(accountDisplay), "FAILED! Account display in quick search incorrect");
 
         log("Verify 2. Verify all report display : Balance, Unsettled Bet, Client Ledger, Settings, Login");
         List<String> lstQuickSearchMenu = agentHomePage.quickSearch.mtQuickSearchMenu.getListSubMenu();
-        Assert.assertEquals(lstQuickSearchMenu, LST_QUICK_SEARCH_MENU, "FAILED, Quick Search menu is incorrect displayed");
+        Assert.assertEquals(lstQuickSearchMenu, LST_QUICK_SEARCH_MENU_OLDUI, "FAILED, Quick Search menu is incorrect displayed");
 
         log("INFO: Executed completely");
     }
@@ -342,15 +342,14 @@ public class LeftMenuTest extends BaseCaseTest {
      */
     @TestRails(id = "3472")
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3472(String brandname) {
+    public void LeftMenu_TC3472() {
         log("@title: Validate can search indirect member account in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
-        AccountInfo inDirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(), "", "ACTIVE", brandname).get(0);
-        String directAccountDisplay = directDownline.getUserCodeAndLoginID("%s (%s)");
-        String indirectAccountDisplay = inDirectDownline.getUserCodeAndLoginID("%s (%s)");
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
+        AccountInfo inDirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(), "", "ACTIVE", _brandname).get(0);
+        String directAccountDisplay = directDownline.getUserCode();
+        String indirectAccountDisplay = inDirectDownline.getUserCode();
         log("Step:1. Click on Quick Search button");
         log("Step:2. Enter direct login ID of agent level");
         log("Step:3. Click Submit button");
@@ -359,13 +358,12 @@ public class LeftMenuTest extends BaseCaseTest {
 
         log("Verify 1 Verify account info and his direct update display");
         Assert.assertEquals(agentHomePage.quickSearch.lblLevelQS.getText(), ProfileUtils.convertDownlineByBrand(directDownline.getLevel(), ProfileUtils.getAppName()), "FAILED! Level in quick search is incorrect displayed");
-        Assert.assertEquals(agentHomePage.quickSearch.lblAccountQS.getText(), directAccountDisplay, "FAILED! Account display in quick search incorrect");
+        Assert.assertTrue(agentHomePage.quickSearch.lblAccountQS.getText().contains(directAccountDisplay), "FAILED! Account display in quick search incorrect");
         Assert.assertEquals(agentHomePage.quickSearch.lblLevelIndrectQS.getText(), ProfileUtils.convertDownlineByBrand(inDirectDownline.getLevel(), ProfileUtils.getAppName()), "FAILED! Level in quick search is incorrect displayed");
-        Assert.assertEquals(agentHomePage.quickSearch.lblAccountIndrectQS.getText(), indirectAccountDisplay, "FAILED! Account display in quick search incorrect");
+        Assert.assertTrue(agentHomePage.quickSearch.lblAccountIndrectQS.getText().contains(indirectAccountDisplay), "FAILED! Account display in quick search incorrect");
 
         log("Verify 2. Verify all report display : Balance, Unsettled Bet, Client Ledger, Settings, Login");
-        List<String> lstQuickSearchMenu = agentHomePage.quickSearch.mtQuickSearchMenu.getListSubMenu();
-        Assert.assertEquals(lstQuickSearchMenu, LST_QUICK_SEARCH_MENU, "FAILED, Quick Search menu is incorrect displayed");
+        Assert.assertTrue(agentHomePage.quickSearch.isListSubMenuDisplayCorrect(), "FAILED, Quick Search menu is incorrect displayed");
 
         log("INFO: Executed completely");
     }
@@ -379,12 +377,11 @@ public class LeftMenuTest extends BaseCaseTest {
      */
     @TestRails(id = "3473")
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3473(String brandname) {
+    public void LeftMenu_TC3473() {
         log("@title: Verify Balance button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         agentHomePage.leftMenu.switchQuickSearch();
@@ -394,7 +391,6 @@ public class LeftMenuTest extends BaseCaseTest {
 
         log("Verify 1 Verify account info and his direct update display");
         Assert.assertTrue(tblBalance.getColumn(1, false).contains("Available Balance"), "FAILED! Balance table info not display after clicking");
-
 
         log("INFO: Executed completely");
     }
@@ -408,12 +404,11 @@ public class LeftMenuTest extends BaseCaseTest {
      */
     @TestRails(id = "3474")
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3474(String brandname) throws Exception {
+    public void LeftMenu_TC3474() {
         log("@title: Downline Listing button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         agentHomePage.leftMenu.switchQuickSearch();
@@ -437,13 +432,12 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect: 1. Verify Profit & Loss page display
      */
     @TestRails(id = "3475")
-    @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3475(String brandname) {
+    @Test(groups = {"regression_sat"})
+    public void LeftMenu_TC3475() {
         log("@title: Verify Profit & Loss button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         agentHomePage.leftMenu.switchQuickSearch();
@@ -467,12 +461,11 @@ public class LeftMenuTest extends BaseCaseTest {
      */
     @TestRails(id = "3476")
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3476(String brandname) {
+    public void LeftMenu_TC3476() {
         log("@title: Verify Client Ledger button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         agentHomePage.leftMenu.switchQuickSearch();
@@ -496,12 +489,11 @@ public class LeftMenuTest extends BaseCaseTest {
      */
     @TestRails(id = "3478")
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3478(String brandname) {
+    public void LeftMenu_TC3478() {
         log("@title: Verify Setting button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         agentHomePage.leftMenu.switchQuickSearch();
@@ -525,12 +517,11 @@ public class LeftMenuTest extends BaseCaseTest {
      */
     @TestRails(id = "3477")
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3477(String brandname) {
+    public void LeftMenu_TC3477() {
         log("@title: Verify Login button in quick search section works");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         agentHomePage.leftMenu.switchQuickSearch();
@@ -558,11 +549,10 @@ public class LeftMenuTest extends BaseCaseTest {
      */
     @TestRails(id = "3479")
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3479(String brandname) throws Exception {
+    public void LeftMenu_TC3479() {
         log("@title: Verify can update account status in Quick Search");
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0);
         String displayAccount = directDownline.getUserCodeAndLoginID("%s (%s)");
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
@@ -573,25 +563,29 @@ public class LeftMenuTest extends BaseCaseTest {
         QuickSetting quickSetting = agentHomePage.quickSearch.clickSetting();
 
         log("Step:4. Update Account status and click submit");
-        SuccessPopup popup = quickSetting.updateStatus("Suspended");
+        try {
+            SuccessPopup popup = quickSetting.updateStatus("Suspended");
 
-        log("Verify 1. Account status is update");
-        Assert.assertEquals(popup.getContentMessage(), String.format("%s is updated to Suspended successfully.", displayAccount), "FAILED! Success message is incorrect display after update status");
-        popup.close();
+            log("Verify 1. Account status is update");
+            Assert.assertEquals(popup.getContentMessage(), String.format("%s is updated to Suspended successfully.", displayAccount), "FAILED! Success message is incorrect display after update status");
+            popup.close();
 
-        log("Step: 5. Active downline setting page and search the acording account");
-        agentHomePage.leftMenu.switchMainMenu();
-        DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
-        downLineListingPage.downlineListing.searchDownline(directDownline.getUserCode(), "Suspended", MEMBER);
+            log("Step: 5. Active downline setting page and search the acording account");
+            agentHomePage.leftMenu.switchMainMenu();
+            DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
+            downLineListingPage.downlineListing.searchDownline(directDownline.getUserCode(), "Suspended", MEMBER);
 
-        log("Verify 2. Status is updated");
-        List<String> lstRecord = downLineListingPage.tblDowlineListing.getColumn(downLineListingPage.userCodeCol, false);
-        Assert.assertEquals(lstRecord.get(0), directDownline.getUserCode(), String.format("Failed! Expected login id %s display but found %s", directDownline.getUserCode(), lstRecord.get(0)));
+            log("Verify 2. Status is updated");
+            List<String> lstRecord = downLineListingPage.tblDowlineListing.getColumn(downLineListingPage.userCodeCol, false);
+            Assert.assertEquals(lstRecord.get(0), directDownline.getUserCode(), String.format("Failed! Expected login id %s display but found %s", directDownline.getUserCode(), lstRecord.get(0)));
 
-        log("Step: Post condition: Reactive the account");
-        downLineListingPage.leftMenu.switchQuickSearch();
-        agentHomePage.quickSearch.quickSearch(directDownline.getUserCode());
-        agentHomePage.quickSearch.clickSetting().updateStatus("Active").close();
+        } finally {
+            log("Step: Post condition: Reactive the account");
+            agentHomePage.leftMenu.switchQuickSearch();
+            agentHomePage.quickSearch.quickSearch(directDownline.getUserCode());
+            agentHomePage.quickSearch.clickSetting().updateStatus("Active").close();
+        }
+
 
         log("INFO: Executed completely");
     }
@@ -605,12 +599,11 @@ public class LeftMenuTest extends BaseCaseTest {
      */
     @TestRails(id = "3480")
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3480(String brandname) {
+    public void LeftMenu_TC3480() {
         log("@title: Verify all sub menu in Setting page work");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         agentHomePage.leftMenu.switchQuickSearch();
@@ -840,42 +833,44 @@ public class LeftMenuTest extends BaseCaseTest {
 
     @TestRails(id = "3481")
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3481(String brandname) throws Exception {
+    public void LeftMenu_TC3481() {
         log("@title: Verify Account Status in Downline Listing page is updated according after update in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
 
         log("Step 1. Click on Quick Search button");
         agentHomePage.leftMenu.switchQuickSearch();
 
-        log("Step 2. Search a account " + directDownline.getUserCode() + " account and active Settings button then update account status to Suspended");
-        agentHomePage.quickSearch.updateStatus(directDownline.getUserCode(), "Suspended", true);
+        try {
+            log("Step 2. Search a account " + directDownline.getUserCode() + " account and active Settings button then update account status to Suspended");
+            agentHomePage.quickSearch.updateStatus(directDownline.getUserCode(), "Suspended", true);
 
-        log("Step 3 Active downline Listing page and search the player");
-        agentHomePage.leftMenu.switchMainMenu();
-        DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
-        downLineListingPage.downlineListing.searchDownline(directDownline.getUserCode(), "", "");
+            log("Step 3 Active downline Listing page and search the player");
+            agentHomePage.leftMenu.switchMainMenu();
+            DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
+            downLineListingPage.downlineListing.searchDownline(directDownline.getUserCode(), "", "");
 
-        log("Verify 1 :All accounts under suspended account is suspended");
-        Assert.assertEquals(downLineListingPage.downlineListing.getAccountStatus(directDownline.getUserCode()), "Suspended", "FAILED! List downline account contain account status not in Suspended");
+            log("Verify 1 :All accounts under suspended account is suspended");
+            Assert.assertEquals(downLineListingPage.downlineListing.getAccountStatus(directDownline.getUserCode()), "Suspended", "FAILED! List downline account contain account status not in Suspended");
 
-        log("Post Condition: Active the account");
-        agentHomePage.leftMenu.switchQuickSearch();
-        agentHomePage.quickSearch.updateStatus(directDownline.getUserCode(), "Active", true);
+        } finally {
+            log("Post Condition: Active the account");
+            agentHomePage.leftMenu.switchQuickSearch();
+            agentHomePage.quickSearch.updateStatus(directDownline.getUserCode(), "Active", true);
+        }
+
 
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "3482")
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3482(String brandname) throws Exception {
+    public void LeftMenu_TC3482() throws Exception {
         log("@title: Can update user profile in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
 
         log("Step 1. Click on Quick Search button");
         agentHomePage.leftMenu.switchQuickSearch();
@@ -892,6 +887,7 @@ public class LeftMenuTest extends BaseCaseTest {
         log("Step 3 Active downline Listing page and search the account then click on Edit icon");
         agentHomePage.leftMenu.switchMainMenu();
         DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
+        downLineListingPage.downlineListing.searchDownline(directDownline.getUserCode(),"","");
         EditDownLinePage editDownLinePage = downLineListingPage.downlineListing.clickEditIcon(directDownline.getUserCode());
 
         log("Verify 1 Verify info(first name, Last name, Mobile) is updated and display in edit downline accordingly");

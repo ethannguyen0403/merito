@@ -1,10 +1,9 @@
 package agentsite.pages;
 
 import agentsite.controls.Table;
-import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.*;
 import agentsite.pages.components.ComponentsFactory;
-import agentsite.pages.components.QuickSearch;
+import agentsite.pages.components.quicksearch.QuickSearch;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.header.Header;
 import agentsite.pages.components.leftmenu.LeftMenu;
@@ -13,13 +12,9 @@ import agentsite.pages.report.*;
 import agentsite.pages.riskmanagement.AgentExposureLimitPage;
 import agentsite.pages.riskmanagement.NetExposurePage;
 import agentsite.pages.riskmanagement.VolumeMonitorPage;
-import agentsite.ultils.account.ProfileUtils;
-import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Icon;
 import com.paltech.utils.StringUtils;
-
-import java.util.List;
 
 import static common.AGConstant.HomePage.*;
 
@@ -38,7 +33,7 @@ public class HomePage extends LoginPage {
 //        footer = ComponentsFactory.footerObject(_type);
         header = ComponentsFactory.headerObject(_type);
         leftMenu = ComponentsFactory.leftMenuObject(_type);
-        quickSearch = new QuickSearch();
+        quickSearch = ComponentsFactory.quickSearchObject(_type);
     }
 
     public void confirmSecurityCode(String securityCode) {
@@ -189,6 +184,7 @@ public class HomePage extends LoginPage {
 
     public DownLineListingPage navigateDownlineListingFromQuickSearch() {
         quickSearch.clickDownLineListing();
+        waitingLoadingSpinner();
         return new DownLineListingPage(_type);
     }
 

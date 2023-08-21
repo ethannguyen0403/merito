@@ -54,7 +54,7 @@ public class LefMenuList extends BaseElement {
 
     public String getmenuAtribuite(String menu, String attributeName) {
         int index = getMenuIndex(menu);
-        return Label.xpath(String.format("%s%s[%s]", _xPath, groupMenuXpath, index)).getAttribute(attributeName);
+        return Label.xpath(String.format("(%s%s)[%s]", _xPath, groupMenuXpath, index)).getAttribute(attributeName);
     }
 
     public List<String> getListSubMenu(String menu) {

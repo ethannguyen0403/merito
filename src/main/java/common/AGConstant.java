@@ -190,7 +190,8 @@ public class AGConstant {
         public final static String ANALYSIS_OF_RUNNING_MARKETS = "Analysis of Running Markets";
         public final static String SUB_USER_LISTING = "Sub User Listing";
         public final static String EVENT_BET_STIE_SETTINGS = "Event Bet Size Settings";
-        public final static List<String> LST_QUICK_SEARCH_MENU = Arrays.asList("Balance", "Downline Listing", "Profit & Loss", "Client Ledger", "Settings", "Login");
+        public final static List<String> LST_QUICK_SEARCH_MENU_OLDUI = Arrays.asList("Balance", "Downline Listing", "Profit & Loss", "Client Ledger", "Settings", "Login");
+        public final static List<String> LST_QUICK_SEARCH_MENU_NEWUI = Arrays.asList("Balance", "Unsettled Bet", "Client Ledger", "Settings", "Login");
         public final static List<String> LST_QUICK_SEARCH_LOGIN = Arrays.asList("Created Date", "Last Login Time", "Last Login IP");
         public final static List<String> LST_QUICK_SEARCH_SETTING_MENU = Arrays.asList("User Profile", "Product Status", "Position Taking", "Bet Settings", "Tax Settings", "Commission");
         public final static String PS38_SPORTS_RESULTS = "PS38 Sports Results";
@@ -199,10 +200,10 @@ public class AGConstant {
 
     public static class SubUserListing {
         public final static String Create_Sub_User = "";
-        public final static List<String> TBL_SUB_USER_TABLE_NONPO = Arrays.asList("No.", "Username", "Edit", "Status", "First Name", "Last Name", "Permissions", "Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management");
+        public final static List<String> TBL_SUB_USER_TABLE_NONPO = Arrays.asList("No.", "Username", "Edit", "Status", "First Name", "Last Name", "Permissions", "Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management", "Fraud Detection");
         public final static List<String> PERMISSION_LIST = Arrays.asList("Create Account", "View Account", "Transfer & Deposit/Withdraw", "Markets Management", "Update Account",
                 "Report", "Account Balance", "Fraud Detection");
-        public final static List<String> PERMISSION_LIST_SAD = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management");
+        public final static List<String> PERMISSION_LIST_SAD = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management", "Fraud Detection");
         public final static List<String> CREATE_SUB_USER_FORM = Arrays.asList("Username", "Password", "Status", "First Name", "Last Name");
     }
 
@@ -512,7 +513,7 @@ public class AGConstant {
 
         public static class SubUserListing {
             public final static String TITLE_PAGE = "Sub User Listing";
-            public final static List<String> PERMISSIONS_ALL = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management");
+            public final static List<String> PERMISSIONS_ALL = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management", "Fraud Detection");
             public final static List<String> PERMISSIONSNONPO = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance");
         }
 
