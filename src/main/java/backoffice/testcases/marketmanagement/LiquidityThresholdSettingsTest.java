@@ -99,7 +99,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
      */
     @TestRails(id = "630")
     @Test(groups = {"smoke"})
-    public void BO_Operations_Liquidity_Threshold_Setting_005() {
+    public void BO_Operations_Liquidity_Threshold_Setting_630() {
         log("@title: Validate odds is blur and unclick able when total match of the market not reach the setting for Non-live market");
         log("2. The agent of member account is active Liquidity Threshold");
         log("3. Have a non-live Soccer event");

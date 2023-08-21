@@ -67,8 +67,8 @@ public class ResetAccountPasswordTest extends BaseCaseTest {
      * 4. Verify change password popup display after add new security code
      * 5. Agent is change password successfully
      */
-    @Test(groups = {"smoke"})
-    @Parameters({"resetAGAccountPW", "memberPassword"})
+    @Test(groups = {"smoke_s"})
+    @Parameters({"satMemberLoginID", "memberPassword"})
     public void BO_MM_Reset_Account_Password_002(String resetAGAccountPW, String memberPassword) throws Exception {
         log("@title: Validate can reset password of agent account");
         log("Step 1. Access Member Management > Reset Account Password");
