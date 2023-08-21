@@ -31,7 +31,7 @@ public class FraudDetectionTest extends BaseCaseTest {
      */
     @TestRails(id = "602")
     @Test(groups = {"smoke"})
-    public void BO_Fraud_Detection_001() {
+    public void BO_Fraud_Detection_602() {
         log("@title: Validate can search fraud by Event Date");
         log("Step 1. Access Fraud Detection > Fraud Detection");
         FraudDetectionPage page = backofficeHomePage.navigateFraudDetection();
@@ -78,7 +78,7 @@ public class FraudDetectionTest extends BaseCaseTest {
      */
     @TestRails(id = "603")
     @Test(groups = {"smoke"})
-    public void BO_Fraud_Detection_002() {
+    public void BO_Fraud_Detection_603() {
         log("@title: Validate can search fraud by Event Date");
         String date = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         List<ArrayList<String>> lstSport = FraudDetectionUtils.getListSportHasPlace(date, "WON");
