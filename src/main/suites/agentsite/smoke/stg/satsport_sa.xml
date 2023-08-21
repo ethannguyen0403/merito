@@ -17,7 +17,6 @@
         <parameter name='portalSubAccount' value='SASUBIS'/>
         <parameter name='memberAccount' value='sabella1'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
-
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='INR'/>
         <parameter name='appname' value='agentsite'/>
@@ -44,7 +43,7 @@
             <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
             <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
             <class name="agentsite.testcase.reports.BigStakeConfigurationTest"/>
-<!--            <class name="agentsite.testcase.reports.CancelledBetsTest"/>-->
+            <!--            <class name="agentsite.testcase.reports.CancelledBetsTest"/>-->
             <class name="agentsite.testcase.reports.ClientLegerTest"/>
             <class name="agentsite.testcase.reports.FollowBetsPerformanceTest"/>
             <class name="agentsite.testcase.reports.PositionTakingReportTest"/>
@@ -88,8 +87,6 @@
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
-
         </classes>
-
     </test>
 </suite>
