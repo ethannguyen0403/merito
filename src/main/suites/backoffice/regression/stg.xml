@@ -44,6 +44,7 @@
             <class name="backoffice.testcases.paymentmanagement.DepositWithdrawalTransactionsTest"/>
             <class name="backoffice.testcases.paymentmanagement.PaymentConfigurationTest"/>
 
+
             <class name="backoffice.testcases.reports.PunterPerformanceTest"/>
 
         </classes>
