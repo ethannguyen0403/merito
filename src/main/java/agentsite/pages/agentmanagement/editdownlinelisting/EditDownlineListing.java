@@ -20,8 +20,8 @@ public class EditDownlineListing extends CreateDownLineAgentPage{
 
     public void inputInfoSection(String password, String accountStatus, String firstName, String lastName, String phone, String mobile, String fax, boolean isSubmit) {
         accInfoSection.inputInfo(password, accountStatus, firstName, lastName, phone, mobile, fax);
-        if (isSubmit) ;
-        btnSubmit.click();
+        if (isSubmit)
+            btnSubmit.click();
         waitingLoadingSpinner();
     }
 

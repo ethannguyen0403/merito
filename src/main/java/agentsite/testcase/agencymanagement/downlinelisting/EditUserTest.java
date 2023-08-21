@@ -129,10 +129,11 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         page.downlineListing.searchDownline(loginID, "All", "Member");
+        page.downlineListing.clickEditIcon(loginID);
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Input new password in  password textbox and click Submit");
-        page.editDownlinePopup.accInfoSection.inputInfo(passwordEdit, "", "", "", "", "", "");
+        page.editDownlinePopup.accInfoSection.inputInfo("", passwordEdit, "");
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
@@ -191,7 +192,7 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step  3. Change account status to Inactive and click on Submit button\n" +
                 "     *              Click Ok button on Edit Member popup");
-        page.editDownlinePopup.accInfoSection.inputInfo("", "Inactive", "", "", "", "", "");
+        page.editDownlinePopup.accInfoSection.inputInfo("","", "Inactive");
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
@@ -222,7 +223,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.submitEditDownline();
 
         log("Step 6. Change account status to Active and Submit and click Ok button");
-        page.editDownlinePopup.accInfoSection.inputInfo("", "Active", "", "", "", "", "");
+        page.editDownlinePopup.accInfoSection.inputInfo("","", "Active");
         page.downlineListing.submitEditDownline();
         message = page.downlineListing.getMessageUpdate(true);
 
@@ -403,7 +404,7 @@ public class EditUserTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
-        String loginID = listAccount.get(2).getUserCode();
+        String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
         page.downlineListing.searchDownline(loginID, "Active", "Member");
@@ -486,7 +487,7 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 3. Select Soccer sport and click edit icon");
         log("Step 4. Uncheck a market (e.g.: Half Time) and submit");
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateMarket("Soccer", "Half Time (HALF_TIME)", false);
+        page.productSettingsSection.productStatusSettingsSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", false);
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
@@ -542,8 +543,8 @@ public class EditUserTest extends BaseCaseTest {
 
         List<ArrayList<String>> lstBetSettingValidation = page.betSettingInforSection.getBetSettingValidationValueLst(currency);
 //      page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.getBetSettingValidationValueLst(currency);
-        String minBet = Integer.toString(Integer.parseInt(lstBetSettingValidation.get(0).get(1)) + 1);
-        String maxBet = Integer.toString(Integer.parseInt(lstBetSettingValidation.get(1).get(1)) - 1);
+        String minBet = Integer.toString(Integer.parseInt(lstBetSettingValidation.get(0).get(1).replace(",","")) + 1);
+        String maxBet = Integer.toString(Integer.parseInt(lstBetSettingValidation.get(1).get(1).replace(",","")) - 1);
         List<ArrayList<String>> lstBetSetting = new ArrayList<>();
         ArrayList<String> minBetLst = new ArrayList<String>(
                 Arrays.asList(minBet, minBet, minBet, minBet, minBet, minBet));
@@ -878,7 +879,8 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step  3. Change account status to Suspended and click on Submit button\n" +
                 "     *              Click Ok button on Edit Member popup");
-        editUserPage.editDownlineListing.inputInfoSection("", "Suspended", "", "", "", "", "", true);
+        editUserPage.accInfoSection.inputInfo("","", "Suspended");
+        page.downlineListing.submitEditDownline();
         String message = editUserPage.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
@@ -889,7 +891,8 @@ public class EditUserTest extends BaseCaseTest {
         editUserPage = page.downlineListing.clickEditIcon(loginID);
 
         log("Step 6. Change account status to Active and Submit and click Ok button");
-        editUserPage.editDownlineListing.inputInfoSection("", "Suspended", "", "", "", "", "", true);
+        editUserPage.accInfoSection.inputInfo("","", "Suspended");
+        page.downlineListing.submitEditDownline();
 
         log("Verify 4. Downline Listing display Account Status is Active");
         Assert.assertEquals(page.downlineListing.getAccountStatus(loginID), "Active", String.format("FAILED! Account status of account %s is not Suspended", loginID));
@@ -912,7 +915,8 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step  3. Change account status to Suspended and click on Submit button\n" +
                 "     *              Click Ok button on Edit Member popup");
-        editUserPage.editDownlineListing.inputInfoSection("", "Closed", "", "", "", "", "", true);
+        editUserPage.accInfoSection.inputInfo("", "", "Closed");
+        page.downlineListing.submitEditDownline();
         String message = editUserPage.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
