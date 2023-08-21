@@ -19,7 +19,7 @@ public class AgentExposureTest extends BaseCaseTest {
      * This test cases only available for F24 and Betclub9
      */
     @TestRails(id = "839")
-    @Test(groups = {"smoke5", "smokePO"})
+    @Test(groups = {"smoke_po"})
     public void Agent_RM_AgentExposureTest_838() {
         log("@title: Verify UI display correctly");
         log("Step 1. Navigate Risk Management > Agent Exposure Limit");
@@ -33,7 +33,7 @@ public class AgentExposureTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "839")
-    @Test(groups = {"smokePO"})
+    @Test(groups = {"smoke_po"})
     public void Agent_RM_AgentExposureTest_839() {
         log("@title:Verify can drill donw to agent level");
         log("Step 1.Navigate Risk Management > Agent Exposure Limit");
@@ -50,7 +50,7 @@ public class AgentExposureTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "840")
-    @Test(groups = {"smoke", "smokePO"})
+    @Test(groups = {"smoke_po"})
     public void Agent_RM_AgentExposureTest_840() {
         log("@title: Verify can open bet list in PT Mode");
         log("Step 1.Navigate Risk Management > Agent Exposure Limit");

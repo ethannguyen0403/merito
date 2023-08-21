@@ -96,6 +96,7 @@ public class HomePage extends LoginPage {
 
     public AnnoucementPage navigateAnnoucementPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, ANNOUNCEMENT);
+        waitingLoadingSpinner();
         return new AnnoucementPage(_type);
     }
 
@@ -128,6 +129,7 @@ public class HomePage extends LoginPage {
 
     public FollowBetsPage navigateFollowBetsPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, FOLLOW_BETS);
+        waitingLoadingSpinner();
         return new FollowBetsPage(_type);
     }
 
@@ -139,11 +141,13 @@ public class HomePage extends LoginPage {
 
     public TransferPage navigateTransferPage(String securityCode) {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, TRANSFER);
+        waitingLoadingSpinner();
         return new TransferPage(_type);
     }
 
     public SubUserListingPage navigateSubUserListingPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, SUB_USER_LISTING);
+        waitingLoadingSpinner();
         return new SubUserListingPage(_type);
     }
 
@@ -161,6 +165,7 @@ public class HomePage extends LoginPage {
 
     public CommissionSettingListingPage navigateCommissionSettingListingPage() {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, COMMISSION_LISTING);
+        waitingLoadingSpinner();
         return new CommissionSettingListingPage(_type);
     }
 
@@ -172,11 +177,13 @@ public class HomePage extends LoginPage {
 
     public BlockingLogPage navigateBlockingLogPage() {
         leftMenu.clickSubMenu(MARKET_MANAGEMENT, BLOCKING_LOG);
+        waitingLoadingSpinner();
         return new BlockingLogPage(_type);
     }
 
     public BlockRacingPage navigateBlockRacingPage() {
         leftMenu.clickSubMenu(MARKET_MANAGEMENT, BLOCK_RACING);
+        waitingLoadingSpinner();
         return new BlockRacingPage(_type);
     }
 
@@ -194,16 +201,19 @@ public class HomePage extends LoginPage {
 
     public BlockUnblockCompetitionPage navigateBlockUnblockCompetitionPage() {
         leftMenu.clickSubMenu(MARKET_MANAGEMENT, BLOCK_UNBLOCK_COMPETITION);
+        waitingLoadingSpinner();
         return new BlockUnblockCompetitionPage(_type);
     }
 
     public CurrentBlockingPage navigateCurrentBlockingPage() {
         leftMenu.clickSubMenu(MARKET_MANAGEMENT, CURRENT_BLOCKING);
+        waitingLoadingSpinner();
         return new CurrentBlockingPage(_type);
     }
 
     public LiquidityThresholdPage navigateLiquidityThresholdPage() {
         leftMenu.clickSubMenu(MARKET_MANAGEMENT, LIQUIDITY_THRESHOLD);
+        waitingLoadingSpinner();
         return new LiquidityThresholdPage(_type);
     }
 
@@ -215,56 +225,67 @@ public class HomePage extends LoginPage {
 
     public AgentExposureLimitPage navigateAgentExposureLimitPage() {
         leftMenu.clickSubMenu(RISK_MANAGEMENT, AGENT_EXPOSURE_LIMIT);
+        waitingLoadingSpinner();
         return new AgentExposureLimitPage(_type);
     }
 
     public NetExposurePage navigateNetExposurePage() {
         leftMenu.clickSubMenu(RISK_MANAGEMENT, NET_EXPOSURE);
+        waitingLoadingSpinner();
         return new NetExposurePage(_type);
     }
 
     public VolumeMonitorPage navigateVolumeMonitorPage() {
         leftMenu.clickSubMenu(RISK_MANAGEMENT, VOLUME_MONITOR);
+        waitingLoadingSpinner();
         return new VolumeMonitorPage(_type);
     }
 
     public AnalysisOfRunningMarketsPage navigateAnalysisOfRunningMarketsPage() {
         leftMenu.navigateAnalysisOfRunningMarketsPage();
+        waitingLoadingSpinner();
         return new AnalysisOfRunningMarketsPage(_type);
     }
 
     public BFVoidedDiscrepancyPage navigateBFVoidedDiscrepancyPage() {
         leftMenu.clickSubMenu(REPORT, BF_VOIDED_DISCREAPANCY);
+        waitingLoadingSpinner();
         return new BFVoidedDiscrepancyPage(_type);
     }
 
     public BigStakeConfigurationPage navigateBigStakeConfigurationPage() {
         leftMenu.navigateBigStakeConfigurationPage();
+        waitingLoadingSpinner();
         return new BigStakeConfigurationPage(_type);
     }
 
     public CancelledBetsPage navigateCancelledBetsPage() {
         leftMenu.clickSubMenu(REPORT, CANCELLED_BETS);
+        waitingLoadingSpinner();
         return new CancelledBetsPage(_type);
     }
 
     public ClientLedgerPage navigateClientLedgerPage() {
         leftMenu.clickSubMenu(REPORT, CLIENT_LEDGER);
+        waitingLoadingSpinner();
         return new ClientLedgerPage(_type);
     }
 
     public FollowBetPerformancePage navigateFollowBetPerformancePage() {
         leftMenu.clickSubMenu(REPORT, CLIENT_LEDGER);
+        waitingLoadingSpinner();
         return new FollowBetPerformancePage(_type);
     }
 
     public PositionTakingReportPage navigatePositionTakingReportPage() {
         leftMenu.clickSubMenu(REPORT, POSITION_TAKING_REPORT);
+        waitingLoadingSpinner();
         return new PositionTakingReportPage(_type);
     }
 
     public ProfitAndLossPage navigateProfitAndLossPage() {
         leftMenu.clickSubMenu(REPORT, PROFIT_AND_LOSS);
+        waitingLoadingSpinner();
         return new ProfitAndLossPage(_type);
     }
 
@@ -274,96 +295,61 @@ public class HomePage extends LoginPage {
     }
 
     public StatementReportPage navigateStatementReportPage() {
-        switch (_type) {
-            case "satsport":
-                leftMenu.clickSubMenu(REPORT, STATEMENT_REPORT);
-                waitingLoadingSpinner();
-                break;
-            default:
-                leftMenu.clickSubMenu(AGENCY_MANAGEMENT, STATEMENT_REPORT);
-                waitingLoadingSpinner();
-        }
+        leftMenu.navigateStatementReportPage();
+        waitingLoadingSpinner();
         return new StatementReportPage(_type);
     }
 
     public TopGainersTopLosersPage navigateTopGainersTopLosersPage() {
         leftMenu.clickSubMenu(REPORT, TOP_GAINER_TOP_LOSER);
+        waitingLoadingSpinner();
         return new TopGainersTopLosersPage(_type);
     }
 
     public TransactionHistoryPage navigateTransactionHistoryPage() {
         leftMenu.clickSubMenu(REPORT, TRANSACTION_HISTORY);
+        waitingLoadingSpinner();
         return new TransactionHistoryPage(_type);
     }
 
     public TransferLogPage navigateTransferLogPage() {
         leftMenu.clickSubMenu(REPORT, TRANSFER_LOG);
+        waitingLoadingSpinner();
         return new TransferLogPage(_type);
     }
 
     public UnsettledBetPage navigateUnsettledBetPage() {
         leftMenu.clickSubMenu(REPORT, UNSETTLED_BET);
+        waitingLoadingSpinner();
         return new UnsettledBetPage(_type);
     }
 
     public ViewLogPage navigateViewLogPage() {
         leftMenu.clickSubMenu(REPORT, VIEW_LOG);
+        waitingLoadingSpinner();
         return new ViewLogPage(_type);
     }
 
     public WinLossByEventPage navigateWinLossByEventPage() {
-        leftMenu.navigateWinLossSimplePage();
-//        switch (_type) {
-//            case "satsport":
-//            case "funsport":
-//                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_OLDUI);
-//                break;
-//            default:
-//                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_NEWUI);
-//        }
-//        waitingLoadingSpinner();
+        leftMenu.navigateWinLossByEventPage();
+        waitingLoadingSpinner();
         return new WinLossByEventPage(_type);
     }
 
     public WinLossBySportAndMarketTypePage navigateWinLossBySportAndMarketTypePage() {
-        switch (_type) {
-            case "satsport":
-            case "funsport":
-                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE_OLDUI);
-                break;
-            default:
-                leftMenu.clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE_NEWUI);
-        }
+        leftMenu.navigateWinLossBySportAndMarketTypePage();
         waitingLoadingSpinner();
         return new WinLossBySportAndMarketTypePage(_type);
     }
 
     public WinLossDetailPage navigateWinLossDetailPage() {
-        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-        String winLossDetailMenu;
-        switch (_type) {
-            case "satsport":
-            case "funsport":
-                winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_OLDUI, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
-                leftMenu.clickSubMenu(REPORT, winLossDetailMenu);
-                break;
-            default:
-                winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_NEWUI, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
-                leftMenu.clickSubMenu(REPORT, winLossDetailMenu);
-        }
+        leftMenu.navigateWinLossDetailPage();
         waitingLoadingSpinner();
         return new WinLossDetailPage(_type);
     }
 
     public WinLossSimplePage navigateWinLossSimplePage() {
-        switch (_type) {
-            case "satsport":
-            case "funsport":
-                leftMenu.clickSubMenu(REPORT, WIN_LOSS_SIMPLE_OLDUI);
-                break;
-            default:
-                leftMenu.clickSubMenu(REPORT, WIN_LOSS_SIMPLE_NEWUI);
-        }
+        leftMenu.navigateWinLossSimplePage();
         waitingLoadingSpinner();
         return new WinLossSimplePage(_type);
     }
@@ -388,6 +374,7 @@ public class HomePage extends LoginPage {
 
     public PS38SportsResultsPage navigatePS38SportsResultsPage() {
         leftMenu.navigatePS38SportsResultsPage();
+        waitingLoadingSpinner();
         return new PS38SportsResultsPage(_type);
     }
 

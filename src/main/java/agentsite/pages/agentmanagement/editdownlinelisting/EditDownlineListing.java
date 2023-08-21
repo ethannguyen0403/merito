@@ -9,6 +9,7 @@ public class EditDownlineListing extends CreateDownLineAgentPage{
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     protected Button btnClosePopup = Button.xpath("//app-agency-edit//button[@class='close']");
     protected Button btnSubmit = Button.xpath("//div[@class='paction']/button[@id='submitBtn']");
+    protected Button btnCancel = Button.xpath("//div[@class='paction']/button[@id='cancelBtn']");
     public EditDownlineListing(String types) {
         super(types);
     }
@@ -53,5 +54,7 @@ public class EditDownlineListing extends CreateDownLineAgentPage{
 
     public DownLineListingPage closeEditDownlinePopup() {
         return null;
+    }
+    public void verifyUIDisplayCorrect() {
     }
 }

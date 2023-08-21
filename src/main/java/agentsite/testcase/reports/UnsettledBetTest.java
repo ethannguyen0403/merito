@@ -28,8 +28,9 @@ public class UnsettledBetTest extends BaseCaseTest {
         Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3725")
-    @Test(groups = {"regression1"})
+    @Test(groups = {"regression"})
     public void Agent_Report_Unsettled_Bet_3725() {
         log("@title: Validate Unsettled Bet - Last Bet Mode UI display correctly");
         log("Step 1. Navigate Report > Unsettled Bet");
@@ -56,7 +57,7 @@ public class UnsettledBetTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3726")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     @Parameters("memberAccount")
     public void Agent_Report_Unsettled_Bet_3726() {
         log("@title:Validate Unsettled Bet - Hierarchy Mode UI display correctly");
@@ -75,7 +76,7 @@ public class UnsettledBetTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3727")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void Agent_Report_Unsettled_Bet_3727() {
         log("@title:Validate Unsettled Bet - Sport Mode UI display correctly");
         log("Step 1. Navigate Report > Unsettled Bet");
@@ -110,11 +111,11 @@ public class UnsettledBetTest extends BaseCaseTest {
         page.search("Matched", "", memberAccount, "", "", "");
 
         log("Verify 1. Match bet display correctly");
-        List<ArrayList<String>> data = page.tblLastBetsMode.getRowsWithoutHeader(false);
-        if (data.get(0).get(0).equalsIgnoreCase(AGConstant.NO_RECORD_FOUND)) {
-            Assert.assertEquals(page.lblLastBetsModeNoRecord.getText(), AGConstant.NO_RECORD_FOUND, "FAILED! No record label is incorrect");
+        if (page.lblNoRecord.isDisplayed()) {
+            Assert.assertEquals(page.lblNoRecord.getText(), AGConstant.NO_RECORD_FOUND, "FAILED! No record label is incorrect");
             return;
         }
+        List<ArrayList<String>> data = page.tblLastBetsMode.getRowsWithoutHeader(false);
         page.verifySearchLastBetsMode(data, memberAccount, "Matched", "", "", "", "");
 
         log("INFO: Executed completely");
@@ -191,15 +192,17 @@ public class UnsettledBetTest extends BaseCaseTest {
             return;
         }
         String sport = page.unsettleBetSportModeContainer.getAllSports().get(0);
-        String totalBetFirstRow = page.unsettleBetSportModeContainer.getdataofSport(sport).get(0).get(0);
+        String totalBetFirstRow = page.unsettleBetSportModeContainer.getdataofSport(sport).get(0).get(2).split("Total Bets")[1];
 
         log("Verify  4. Click on event");
-        List<ArrayList<String>> betListInfo = page.tblSportMode.getRowsWithoutHeader(false);
-        Assert.assertEquals(betListInfo.size() - 1, Integer.parseInt(totalBetFirstRow), "Failed! Bet list number not display as total bet");
+        page.unsettleBetSportModeContainer.tblSportMode.scrollToTop();
+        page.unsettleBetSportModeContainer.clickEvent(sport);
+
+        List<ArrayList<String>> betListInfo = page.unsettleBetSportModeContainer.tblSportModeDetail.getRowsWithoutHeader(true);
+        Assert.assertEquals(betListInfo.size(), Integer.parseInt(totalBetFirstRow.trim()), "Failed! Bet list number not display as total bet");
 
         log("INFO: Executed completely");
     }
-
 
 
 }

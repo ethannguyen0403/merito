@@ -4,6 +4,7 @@ import agentsite.pages.report.ProfitAndLossPage;
 import agentsite.pages.report.components.TransactionDetailsPopup;
 import agentsite.ultils.report.ReportslUtils;
 import baseTest.BaseCaseTest;
+import com.paltech.utils.DateUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
@@ -11,8 +12,7 @@ import util.testraildemo.TestRails;
 import java.util.ArrayList;
 import java.util.List;
 
-import static common.AGConstant.BTN_SUBMIT;
-import static common.AGConstant.NO_RECORD_FOUND;
+import static common.AGConstant.*;
 import static common.AGConstant.Report.*;
 import static common.AGConstant.Report.ProfitAndLoss.*;
 
@@ -53,7 +53,7 @@ public class ProfitAndLossTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3735")
-    @Test(groups = {"poregression"})
+    @Test(groups = {"regression_po"})
     public void Agent_Report_Profit_And_Loss_3735() {
         log("@title:Validate Profit and Loss UI display correctly at PO level");
         log("Step 1. Navigate Report > Profit And Loss");
@@ -117,10 +117,12 @@ public class ProfitAndLossTest extends BaseCaseTest {
         ProfitAndLossPage page = agentHomePage.navigateProfitAndLossPage();
 
         log("Step 2.Filter date range that have settled bet and select Exchange");
-        page.dpTo.previousMonthWithDate(-1, "27");
+//        page.dpFrom.previousMonthWithDate(-1, "27");
+        String fromDate = DateUtils.getDate(-30, "dd/MM/yyyy", "GMT-4:00");
+        page.filter("",fromDate,"",EXCHANGE);
 
-        if (!page.lblNoRecordDowLinePL.isDisplayed()) {
-            Assert.assertEquals(page.lblNoRecordDowLinePL.getText(), "", "FAILED! No record message incorrect display");
+        if (page.lblNoRecordDowLinePL.isDisplayed()) {
+            Assert.assertEquals(page.lblNoRecordDowLinePL.getText(), NO_RECORD_FOUND, "FAILED! No record message incorrect display");
             return;
         }
 

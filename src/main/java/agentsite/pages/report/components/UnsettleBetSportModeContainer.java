@@ -15,6 +15,8 @@ public class UnsettleBetSportModeContainer extends BaseElement {
     String lstSportLblDetailXpath;
     Label lblNoRecord;
     int totalColumnSummary = 3;
+    public Table tblSportMode = Table.xpath("//div[@id='accordion']//table",totalColumnSummary);
+    public Table tblSportModeDetail = Table.xpath("//div[@class='bet-list-detail-table-sport']//table", 10);
     private String _xPath;
 
     public UnsettleBetSportModeContainer(By locator, String xpathExpression) {
@@ -36,7 +38,7 @@ public class UnsettleBetSportModeContainer extends BaseElement {
     public List<String> getAllSports() {
         int n = getSport();
         List<String> lstSport = new ArrayList<>();
-        if (!isNoReport()) {
+        if (isNoReport()) {
             lstSport.add(NO_RECORD_FOUND);
             return lstSport;
         }
@@ -82,14 +84,14 @@ public class UnsettleBetSportModeContainer extends BaseElement {
         int index = getIndexofSport(sport);
         Table tbl = Table.xpath(String.format("(%s)[%s]//table", lstSportLblXpath, index), totalColumnSummary);
         tbl.getControlOfCell(1, 1, 1, "span//strong").click();
-
     }
 
     public List<ArrayList<String>> getdataofSport(String sport) {
         expandSport(sport);
         int index = getIndexofSport(sport);
         Table tbl = Table.xpath(String.format("(%s)[%s]//table", lstSportLblXpath, index), totalColumnSummary);
-        return tbl.getRowsWithoutHeader(false);
+        return tbl.getRowsWithoutHeader(2, false);
+
     }
 
 

@@ -13,6 +13,7 @@ import membersite.objects.sat.Market;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.marketcontainer.MarketContainerControl;
 import membersite.pages.components.racingmarketcontainer.RacingMarketContainer;
+import membersite.pages.popup.RulePopup;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,6 +64,10 @@ public class MarketPage extends HomePage {
         return marketOddControl.getFancyMarketInfo(fcMarket);
     }
 
+    public RulePopup openRules(){
+        marketOddControl.clickRuleButton();
+        return new RulePopup();
+    }
     public void addFancyOdds(FancyMarket fcMarket, boolean isBack) {
         switch (fcMarket.getMaketType()) {
             case "WICKET_FANCY":

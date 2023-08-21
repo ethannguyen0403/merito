@@ -37,7 +37,7 @@ public class BFVoidedDiscrepancyTest extends BaseCaseTest {
      * @expect: 1. Verify BF Voided Discrepancy UI display correctly
      */
     @TestRails(id = "820")
-    @Test(groups = {"smokePO"})
+    @Test(groups = {"smoke_po"})
     public void Agent_Report_BF_Void_Discrepancy_820() {
         log("@title: Validate BF Voided Discrepancy display correctly");
         log("Step 1. Navigate Report> BF Voided Discrepancy");
@@ -76,7 +76,7 @@ public class BFVoidedDiscrepancyTest extends BaseCaseTest {
      * @expect: 1. BF voided report display with valid data
      */
     @TestRails(id = "821")
-    @Test(groups = {"smokePO"})
+    @Test(groups = {"smoke_po"})
     public void Agent_Report_BF_Void_Discrepancy_821() {
         log("@title: Validate can filter the report BF voided Discrepancy");
         log("Step 1. Navigate Report> BF Voided Discrepancy");

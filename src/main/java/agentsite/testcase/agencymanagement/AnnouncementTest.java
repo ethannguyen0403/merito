@@ -27,7 +27,7 @@ public class AnnouncementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "753")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     public void Agent_AM_Announcement_753()  {
         log("@title: Verify Announcement UI display correct");
         log("Step 1. Navigate Agency Management >Announcement");
@@ -42,7 +42,7 @@ public class AnnouncementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "754")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     public void Agent_AM_Announcement_754() {
         log("@title: Verify can add, update and deleted announcement");
         log("Step 1. Navigate Agency Management >Announcement");

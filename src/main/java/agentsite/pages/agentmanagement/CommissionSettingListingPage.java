@@ -28,7 +28,7 @@ public class CommissionSettingListingPage extends HomePage {
     public int colLoginID = 2;
     public int chbCol = 5;
     public int agentUpdateStatusCol = 19;
-    public int tblAgentCommissionTotalCol = 19;
+    public int tblAgentCommissionTotalCol = 10;
     public Table tblAgentCommission = Table.xpath("//div[@class='downline-listings']//table", tblAgentCommissionTotalCol);
     public DropDownBox ddbAgentPagination = DropDownBox.xpath("//div[@class='downline-listings']//app-custom-pagination//select[contains(@class,'custom-select')]");
     public int tblMemberCommissionTotalCol = 25;

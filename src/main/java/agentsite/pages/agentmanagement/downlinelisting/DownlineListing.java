@@ -1,6 +1,7 @@
 package agentsite.pages.agentmanagement.downlinelisting;
 
 import agentsite.controls.Table;
+import agentsite.pages.agentmanagement.CreateDownLineAgentPage;
 import agentsite.pages.agentmanagement.EditDownLinePage;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.SuccessPopup;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DownlineListing {
+public class DownlineListing extends CreateDownLineAgentPage {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     public EditDownlinePopup editDownlinePopup = EditDownlinePopup.xpath("//app-agency-edit");
@@ -29,6 +30,10 @@ public class DownlineListing {
     public int accountStatusCol = 7;
     public int editCol = 8;
     public Table tblDowlineListing = Table.xpath("//table[contains(@class,'ptable report')]", totalColumn);
+
+    public DownlineListing(String types) {
+        super(types);
+    }
 
     public void waitingLoadingSpinner() {
         iconLoadSpinner.waitForControlInvisible(2, 2);
@@ -101,13 +106,13 @@ public class DownlineListing {
         }
     }
 
-    public void confirmSecurityCode(String securityCode) {
-        if (securityPopup.isDisplayed()) {
-            if (!securityCode.isEmpty()) {
-                securityPopup.submitSecurityCode(securityCode);
-            }
-        }
-    }
+//    public void confirmSecurityCode(String securityCode) {
+//        if (securityPopup.isDisplayed()) {
+//            if (!securityCode.isEmpty()) {
+//                securityPopup.submitSecurityCode(securityCode);
+//            }
+//        }
+//    }
 
     public String getMessageUpdate(boolean isClose) {
         String message = successPopup.getContentMessage();
@@ -206,5 +211,9 @@ public class DownlineListing {
             }
         }
         return cellIndex;
+    }
+
+    public void verifyUIDisplayCorrect() {
+        return;
     }
 }
