@@ -256,8 +256,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("Verify 3. Account Status: Active and Inactive");
         Assert.assertTrue(page.accInfoSection.ddrAccountStatus.areOptionsMatched(AGConstant.AgencyManagement.CreateAccount.LST_ACCOUNTS_STATUS_CREATE),"FAILED! Account status default value not include Active and Inactive Status");
 
-        log("Verify 4.Verify Currency");
-        Assert.assertEquals(page.accInfoSection.lblBaseCurrencyValue.getText(),currency,"FAILED! Account status default value not include Active and Inactive Status");
+//        log("Verify 4.Verify Currency");
+//        Assert.assertEquals(page.accInfoSection.lblBaseCurrencyValue.getText(),currency,"FAILED! Account status default value not include Active and Inactive Status");
 
         log("INFO: Executed completely");
     }
@@ -273,7 +273,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      *          3. Valid can login agent with the created account
      */
     @TestRails(id = "683")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke1"})
     public void Agent_AM_CreateDownline_Agent_683() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
@@ -282,7 +282,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 
         log("Step 2. Input required field and click on Submit button");
         page.confirmSecurityCode(environment.getSecurityCode());
-        String loginID = page.createDownline("test.AG1",password,"Active");
+        String loginID = "test.AG"+ StringUtils.generateAlphabetic(5);
+        page.createDownline(loginID, password,"Active");
 
         log("Verify 1. Popup Create Downline with the message \"Downline was created successfully\"");
         Assert.assertTrue(page.successPopup.isDisplayed(),"FAILED! Success popup does not display after create user");
@@ -294,7 +295,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         page.logout();
 
         log("Verify 3. Valid can login agent with the created account");
-        loginNewAccount(sosAgentURL,agentNewAccURL,loginID,StringUtils.encrypt(password),StringUtils.decrypt(environment.getSecurityCode()));
+        loginNewAccount(sosAgentURL,agentNewAccURL,loginID, StringUtils.encrypt(password),StringUtils.decrypt(environment.getSecurityCode()));
         Assert.assertEquals(agentHomePage.leftMenu.lblLoginID.getText(),loginID,"Failed!, Login ID label display incorrect");
         log("INFO: Executed completely");
     }

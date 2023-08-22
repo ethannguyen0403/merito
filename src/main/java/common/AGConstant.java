@@ -266,8 +266,8 @@ public class AGConstant {
             public final static List<String> LST_EG_GAME_GORUP_HEADER = Arrays.asList("", "Baccarat", "Blackjack", "Racing", "Hilo", "Hold'em", "Omaha Hi", "Other");
             public final static String LBL_LOGINID_HINT = "Login ID must be unique and at least a minimum of 6 characters and maximum of 15 characters";
             public final static String LBL_PASSWORD_HINT = "New Password: \n" +
-                    " 1. Should be between 8 to 15 characters.  \n" +
-                    " 2. Only alphanumeric characters are allowed.  \n" +
+                    " 1. Should be between 8 to 15 characters. \n" +
+                    " 2. Only alphanumeric characters are allowed. \n" +
                     " 3. Should contains at least 1 letter and 1 number.";
             public final static List<String> LST_ACCOUNTS_STATUS_CREATE = Arrays.asList("Active", "Inactive");
         }
@@ -688,7 +688,7 @@ public class AGConstant {
             public final static List<String> AGENT_SMA_TABLE_TOP_LOSERS_HEADER_NEWUI = Arrays.asList("Top Losers", "20\n50\n100\n200", "No.", "Usercode", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
             public final static List<String> AGENT_SAD_TABLE_TOP_LOSERS_HEADER_OLDUI = Arrays.asList("Top Losers", "20\n50\n100\n200", "Login ID", "Total Wager", "Total Turnover", "Total Win/Loss", "Total Tax/Comm");
             public final static List<String> TABLE_BIG_STAKE_HEADER_NEWUI = Arrays.asList("Big Stake", "20\n50\n100\n200", "No.", "Usercode", "Stake", "Status", "Win/Loss", "Wager ID");
-            public final static List<String> TABLE_BIG_STAKE_HEADER_OLDUI = Arrays.asList("Big Stake (>=1 )", "Login ID", "Description", "Wager Details", "Status", "Win/Loss", "Wager ID");
+            public final static List<String> TABLE_BIG_STAKE_HEADER_OLDUI = Arrays.asList("Big Stake", "Login ID", "Description", "Wager Details", "Status", "Win/Loss", "Wager ID");
         }
 
         public static class BigStakeConfiguration {

@@ -19,7 +19,7 @@ public class CreateDownLineAgentPage extends HomePage {
 
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     public Label lblPageTitle = Label.xpath("//app-title-dashboard//div[@class='title']");
-    public SuccessPopup successPopup = SuccessPopup.xpath("//app-alert");
+    public SuccessPopup successPopup = SuccessPopup.xpath("//app-alert | //app-alert-create");
 
     // Info section
     public AccountInfoSection accInfoSection = AccountInfoSection.xpath("//div[@id='account']//app-agency-account-ui");

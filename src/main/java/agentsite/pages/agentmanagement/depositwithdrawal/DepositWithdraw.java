@@ -21,8 +21,8 @@ public class DepositWithdraw {
     public Table tblWithdrawalDeposit = Table.xpath("//table[contains(@class,'ptable report table-responsive')]", 13);
     public Table tblAccountBalance = Table.xpath("(//table[@class='ptable report'])[1]", 4);
     public CheckBox chkAll = CheckBox.id("cAll");
-    private Button btnDeposit = Button.id("bntUpdateDeposit");
-    private Button btnWithdraw = Button.id("bntUpdateWithdraw");
+    public Button btnDeposit = Button.id("bntUpdateDeposit");
+    public Button btnWithdraw = Button.id("bntUpdateWithdraw");
     public DropDownBox ddbAccountStatus = DropDownBox.id("status");
     public DropDownBox ddbLevel = DropDownBox.id("userLevel");
     private String downlineXPath = "//span[text()='%s']";
