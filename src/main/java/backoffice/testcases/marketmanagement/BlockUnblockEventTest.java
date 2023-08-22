@@ -86,14 +86,8 @@ public class BlockUnblockEventTest extends BaseCaseTest {
         page.filter(user, BOConstants.Operations.BlockUnblockEvent.SPORTS.get(0),
                 BOConstants.Operations.BlockUnblockEvent.FILTER_PERIOD.get(1));
         List<String> lstEventDateTime = page.getListEventDateTime();
-        String currentDate = DateUtils.getDate(0, "yyyy-MM-dd", "GMT-4");
-
         log("Step 2. Validate when filter for Today displays with KOT in current date");
-        for (int i = 0; i < lstEventDateTime.size(); i++) {
-            String[] parts = lstEventDateTime.get(i).split(" ");
-            Assert.assertTrue(parts[0].equalsIgnoreCase(currentDate), "FAILED! Event Date Time is not in today expected: " + currentDate +
-                    " actual: " + parts[0]);
-        }
+        Assert.assertTrue(page.isTheDateOfEventDisplayCorrect(lstEventDateTime),"FAILED! Event Date Time is not in today expected");
         log("INFO: Executed completely");
     }
 

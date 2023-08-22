@@ -2,8 +2,13 @@ package backoffice.pages.bo.marketmanagement;
 
 import backoffice.pages.bo.home.HomePage;
 import com.paltech.element.common.*;
+import com.paltech.utils.DateUtils;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -201,5 +206,18 @@ public class BlockUnblockEventPage extends HomePage {
         Label lblFirstEventName = Label.xpath("//table[@aria-describedby='block-unblock-table']//tr[1]//div[@class='d-flex justify-content-between']//span[1]");
         String expectedTitle = "Block/Unblock Events Details - " + lblFirstEventName.getText();
         return lblDetailsTitle.getText().equals(expectedTitle);
+    }
+
+    public boolean isTheDateOfEventDisplayCorrect(List<String> lstEventDateTime) {
+        for (int i = 0; i < lstEventDateTime.size(); i++) {
+            String rangeDate = DateUtils.getDate(-4,"yyyy-MM-dd","GMT-4");
+            String toDay = DateUtils.getDate(0,"yyyy-MM-dd","GMT-4");
+            String[] parts = lstEventDateTime.get(i).split(" ");
+            if (LocalDate.parse(parts[0]).isBefore(LocalDate.parse(rangeDate)) && LocalDate.parse(parts[0]).isAfter(LocalDate.parse(toDay))){
+                System.err.println("FAILED! Event Date Time is not in today expected: from:" + rangeDate +" to "+toDay+"\nactual:"+parts[0]);
+                return false;
+            }
+        }
+        return true;
     }
 }

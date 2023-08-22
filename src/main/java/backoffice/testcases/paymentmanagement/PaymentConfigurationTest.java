@@ -143,6 +143,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("pre-condition 1: There is an agent added into Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
         page.addAgent("All", satSADAgentLoginID);
+        page.waitSpinIcon();
         try {
             log("Step 1. Access Payment Configuration");
             log("Step 2. Click on eye icon of the according agent");
