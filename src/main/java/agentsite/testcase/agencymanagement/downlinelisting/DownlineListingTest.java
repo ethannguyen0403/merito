@@ -35,7 +35,29 @@ public class DownlineListingTest extends BaseCaseTest {
 
     @TestRails(id = "3518")
     @Test(groups = {"http_request"})
-    public void Agent_AM_Downline_Listing_Edit_User_3518() throws Exception {
+    @Parameters({"memberAccount"})
+    public void Agent_AM_Downline_Listing_Edit_User_3518(String memberAccount) throws Exception {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+//        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(_brandname, memberAccount, userID);
+        String loginID = listAccount.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(loginID,"","");
+
+        log("Step 2. Click on Edit icon of any agent");
+        page.downlineListing.clickEditIcon(loginID);
+
+        log("Verify There is no console error display");
+        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console Error display");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3522")
+    @Test(groups = {"http_request"})
+    public void Agent_AM_Downline_Listing_Edit_User_3522() throws Exception {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -44,7 +66,7 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         page.downlineListing.searchDownline(loginID,"","");
 
-        log("Step 2. Click on Edit icon of any agent");
+        log("Step 2. Click on Edit icon of any Member level");
         page.downlineListing.clickEditIcon(loginID);
 
         log("Verify There is no console error display");
@@ -70,16 +92,18 @@ public class DownlineListingTest extends BaseCaseTest {
 
     @TestRails(id = "3519")
     @Test(groups = {"regression"})
-    public void Agent_AM_Downline_Listing_3519() throws Exception {
+    @Parameters({"memberAccount"})
+    public void Agent_AM_Downline_Listing_3519(String memberAccount) throws Exception {
         log("@title: Validate UI in Downline Listing ");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
+//        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(_brandname, memberAccount, userID);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         page.downlineListing.searchDownline(loginID,"","");
 
-        log("Step 1. Navigate Agency Management > Downline Listing");
+        log("Step 2. Click on Edit icon of any agent");
         EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
 
         log("1. Verify Title is : Downline Listing\n" +
@@ -88,6 +112,67 @@ public class DownlineListingTest extends BaseCaseTest {
                 "4. Account List table display with correct header\n" +
                 "5 Pagingnation section in the bottom");
         editDownLinePage.editDownlineListing.verifyUIDisplayCorrect();
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3520")
+    @Test(groups = {"regression_sat"})
+    public void Agent_AM_Downline_Listing_3520() throws Exception {
+        log("@title: Validate UI in Downline Listing ");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
+        String loginID = listAccount.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(loginID,"","");
+
+        log("Step 2. Click on Edit icon of any agent");
+        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
+
+        log("1. Validate there is no Security Code popup pormpted");
+        Assert.assertFalse(editDownLinePage.securityPopup.isDisplayed(), "FAILED! Security Popup displays");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3521")
+    @Test(groups = {"regression_sad"})
+    public void Agent_AM_Downline_Listing_3521() throws Exception {
+        //run for SAT only
+        log("@title: Validate UI when access from the level under SAD ");
+        log("Precondition: Log in successfully agent site by SMA level and belong to credit cash line");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
+        String loginID = listAccount.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(loginID,"","");
+
+        log("Step 2. Click on Edit icon of any agent");
+        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
+
+        log("1. Validate UI at low levels(under SAD) display correctly\n" +
+                "Info, Cash Balance, Rate Setting, Product Settings, Bet Setting Sections");
+        editDownLinePage.editDownlineListing.verifyUIDisplayCorrect();
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3523")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3523() throws Exception {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
+        String loginID = listAccount.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(loginID,"","");
+
+        log("Step 2. Click on Edit icon of any Member level");
+        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
+
+        log("Verify 2. Validate UI displays correct");
+        editDownLinePage.editDownlineListing.verifyUIDisplayCorrect();
+
         log("INFO: Executed completely");
     }
     @TestRails(id = "3501")

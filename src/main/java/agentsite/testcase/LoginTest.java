@@ -1,5 +1,6 @@
 package agentsite.testcase;
 
+import agentsite.pages.LoginPage;
 import agentsite.pages.SecurityCodePage;
 import agentsite.pages.components.ConfirmPopup;
 import baseTest.BaseCaseTest;
@@ -57,12 +58,13 @@ public class LoginTest extends BaseCaseTest {
         log("Step 2. Enter incorrect username/password");
         log("Step3. Input valid captcha then click on Login button");
         Helper.loginAgentIgnoreCaptchaTest(sosAgentURL, agentSecurityCodeURL, "invalid.LoginID", password);
+        LoginPage loginPage = new LoginPage(_brandname);
 
         log("Verify 1. Verify cannot login by pass api when input incorrect username and password");
-        Assert.assertEquals(agentLoginPage.lblLogin.getText().toLowerCase(), "login", "FAILED! Login Lable is incorrect");
-        Assert.assertEquals(agentLoginPage.txtUsername.isDisplayed(), "FAILED! Login Username textbox is not displayed");
-        Assert.assertEquals(agentLoginPage.txtPassword.isDisplayed(), "FAILED! Login Password textbox is not displayed");
-        Assert.assertEquals(agentLoginPage.btnLogIn.getText(), "Login", "FAILED! Login label is incorrect");
+        Assert.assertEquals(loginPage.lblLogin.getText().toLowerCase(), "login", "FAILED! Login Lable is incorrect");
+        Assert.assertTrue(loginPage.txtUsername.isDisplayed(), "FAILED! Login Username textbox is not displayed");
+        Assert.assertTrue(loginPage.txtPassword.isDisplayed(), "FAILED! Login Password textbox is not displayed");
+        Assert.assertEquals(loginPage.btnLogIn.getText(), "Login", "FAILED! Login label is incorrect");
 
         log("INFO: Executed completely");
     }
@@ -76,7 +78,9 @@ public class LoginTest extends BaseCaseTest {
         log("Step 1. Access Agent site login page");
         log("Step 2. Enter valid username/password");
         log("Step 3. Input invalid captcha then click on Login button");
-        ConfirmPopup popup = agentLoginPage.loginWitInvalidInfo(username, StringUtils.decrypt(password), invalidCaptcha, true);
+        Helper.loginAgentIgnoreCaptchaTest(sosAgentURL, agentSecurityCodeURL, "invalid.LoginID", password);
+        LoginPage loginPage = new LoginPage(_brandname);
+        ConfirmPopup popup = loginPage.loginWitInvalidInfo(username, StringUtils.decrypt(password), invalidCaptcha, true);
 
         log("Verify 1.Verify cannot login agent site. Message \"Invalid captcha.\" displayed");
         String errorMessage = popup.getContentMessage();
@@ -95,11 +99,10 @@ public class LoginTest extends BaseCaseTest {
         SecurityCodePage securityCodePage = loginAgentWithoutSecurityCode(sosAgentURL, agentSecurityCodeURL, username, password);
 
         log("Verify 1. Verify Security code display");
-        Assert.assertEquals(securityCodePage.lblTitle.getText(), "Security Code", "FAILED! ecurity Code Title is incorrect display");
-        Assert.assertEquals(securityCodePage.txtSecurityCode.isDisplayed(), "FAILED! Security Code textbox is incorrect display");
+        Assert.assertTrue(securityCodePage.lblTitle.getText().equalsIgnoreCase("Security Code"), "FAILED! Security Code Title is incorrect display");
+        Assert.assertTrue(securityCodePage.txtSecurityCode.isDisplayed(), "FAILED! Security Code textbox is incorrect display");
         Assert.assertEquals(securityCodePage.btnSubmit.getText(), "Submit", "FAILED! Submit button is incorrect display");
         Assert.assertEquals(securityCodePage.btnBackToLoginPage.getText(), "Back To Login Page", "FAILED! Back To Login Page button is incorrect display");
-
         log("INFO: Executed completely");
     }
 
@@ -133,13 +136,14 @@ public class LoginTest extends BaseCaseTest {
         SecurityCodePage securityCodePage = loginAgentWithoutSecurityCode(sosAgentURL, agentSecurityCodeURL, username, password);
 
         log("Step 3. Click on Back To Login Page on Security Code popup");
-        agentLoginPage = securityCodePage.clickBackBtn();
+        securityCodePage.clickBackBtn();
+        LoginPage loginPage = new LoginPage(_brandname);
 
         log("Verify 1. Verify Login form display");
-        Assert.assertEquals(agentLoginPage.lblLogin.getText().toLowerCase(), "login", "FAILED! Login Lable is incorrect");
-        Assert.assertEquals(agentLoginPage.txtUsername.isDisplayed(), "FAILED! Login label is incorrect");
-        Assert.assertEquals(agentLoginPage.txtPassword.isDisplayed(), "FAILED! Login label is incorrect");
-        Assert.assertEquals(agentLoginPage.btnLogIn.getText(), "Login", "FAILED! Login label is incorrect");
+        Assert.assertEquals(loginPage.lblLogin.getText().toLowerCase(), "login", "FAILED! Login Lable is incorrect");
+        Assert.assertTrue(loginPage.txtUsername.isDisplayed(), "FAILED! Login label is incorrect");
+        Assert.assertTrue(loginPage.txtPassword.isDisplayed(), "FAILED! Login label is incorrect");
+        Assert.assertEquals(loginPage.btnLogIn.getText(), "Login", "FAILED! Login label is incorrect");
 
         log("INFO: Executed completely");
     }
