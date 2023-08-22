@@ -33,6 +33,9 @@ import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.Ri
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.NewUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.OldUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
+import agentsite.pages.agentmanagement.createuser.CreateUser;
+import agentsite.pages.agentmanagement.createuser.NewUICreateUser;
+import agentsite.pages.agentmanagement.createuser.OldUICreateUser;
 import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.CreditBalanceListing;
 import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.NewUICreditBalanceListing;
 import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.OldUICreditBalanceListing;
@@ -282,6 +285,15 @@ public class ComponentsFactory {
                 return new OldUIComissionSettingListing();
             default:
                 return new NewUIComissionSettingListing();
+        }
+    }
+
+    public static CreateUser createUserPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUICreateUser(types);
+            default:
+                return new NewUICreateUser(types);
         }
     }
 }
