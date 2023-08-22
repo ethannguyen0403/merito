@@ -364,7 +364,7 @@ public class BannerManagementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1646")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_s"})
     public void BO_Operations_BannerManagement_1646() {
         String expectedBrand = "FairExchange";
         String expectedTheme = "All";
@@ -375,6 +375,7 @@ public class BannerManagementTest extends BaseCaseTest {
 
         log("Step 2: Switch to New View");
         page.switchView("New View");
+        page.waitSpinIcon();
         log("Step 3: Select Type = Home, Brand = FairExchange, Theme = ALL, Status = Active and submit");
         page.filter("Home", expectedBrand, expectedTheme, status);
 
@@ -398,7 +399,7 @@ public class BannerManagementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1647")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_s"})
     @Parameters({"feMemberLoginId", "feMemberLoginPwd", "language", "currency"})
     public void BO_Operations_BannerManagement_1647(String feMemberLoginId, String feMemberLoginPwd, String language, String currency) throws Exception {
         String expectedBrand = "FairExchange";
@@ -410,6 +411,7 @@ public class BannerManagementTest extends BaseCaseTest {
         log("Step 2: Observe sequence setting for Old VIew, Type = Home, Brand = FairExchange, Status = Active");
         page.switchView("Old View");
         page.filter("Home", expectedBrand, status);
+        page.waitSpinIcon();
         List<String> lstImgSrc = page.getListBanners(page.colBanner, page.colValidTill);
         page.logout();
         memberLoginURL = defineURL("fairexchange", MEMBER_URL_SUFFIX.get("fairexchange"));
@@ -432,7 +434,7 @@ public class BannerManagementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1648")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_s"})
     @Parameters({"feMemberLoginId", "feMemberLoginPwd", "language", "currency"})
     public void BO_Operations_BannerManagement_1648(String feMemberLoginId, String feMemberLoginPwd, String language, String currency) throws Exception {
         String expectedBrand = "FairExchange";

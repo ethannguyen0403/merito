@@ -289,7 +289,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
     @Parameters({"feMemberLoginId", "feMemberLoginPwd", "language", "currency"})
     public void BO_Operations_Before_Login_Management_1658(String feMemberLoginId, String feMemberLoginPwd, String language, String currency) throws Exception {
         String type = "Header Menu";
-        log("@title: Validate FairExchange Before Login - Header Menu show as setting");
+        log("@title: Validate FairExchange After Login - Header Menu show as setting");
         log("Step 1. Access Operations > Before Login Management");
         BeforeLoginManagementPage page = backofficeHomePage.navigateBeforeLoginManagement();
 
