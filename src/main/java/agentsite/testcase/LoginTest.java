@@ -155,7 +155,6 @@ public class LoginTest extends BaseCaseTest {
      * @expect: 1. Home page is displayed
      */
     @Test(groups = {"smoke_sat"})
-    @Parameters({"username"})
     public void Agent_Login_Old_UI_002() {
         log("@title: Validate that CONFIGURE OTP display after login");
         log("Verify 1: Check CONFIGURE OTP label displays");

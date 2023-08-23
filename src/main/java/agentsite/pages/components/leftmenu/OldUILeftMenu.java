@@ -8,6 +8,7 @@ import com.paltech.element.common.Button;
 import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
+import common.AGConstant;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
@@ -159,5 +160,16 @@ public class OldUILeftMenu extends LeftMenu {
         clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_OLDUI);
     }
 
+    public void navigateClientLedgerPage() {
+        clickSubMenu(REPORT, CLIENT_LEDGER);
+    }
+
+    public boolean isListSubMenuDisplayCorrect(String menu) {
+        if(menu.equals(REPORT)) {
+            List<String> lstSubReprotMenu = leftMenuList.getListSubMenu(REPORT);
+            return lstSubReprotMenu.equals(AGConstant.Report.LIST_SUB_MENU_CONTROL_BLOCKING_OLDUI);
+        }
+        return false;
+    }
 }
 

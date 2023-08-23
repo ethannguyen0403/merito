@@ -55,12 +55,11 @@ public class CommissionSettingListingTest extends BaseCaseTest {
      */
     @TestRails(id = "741")
     @Test(groups = {"smoke"})
-    @Parameters({"brandname"})
-    public void Agent_AM_Commission_Setting_Listing_741(String brandname) {
+    public void Agent_AM_Commission_Setting_Listing_741() {
         log("@title: Verify can search commission setting Listing by Login ID");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", brandname).get(0).getUserCode();
+        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();
         CommissionSettingListingPage page = agentHomePage.navigateCommissionSettingListingPage();
 
         log("Step 2. Enter valid Login ID in Username textbox and click on Submit button");

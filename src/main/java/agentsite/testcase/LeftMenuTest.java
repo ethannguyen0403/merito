@@ -239,7 +239,7 @@ public class LeftMenuTest extends BaseCaseTest {
         Assert.assertTrue(agentHomePage.leftMenu.isMenuExpanded(REPORT), "FAILED! The menu not expanded");
 
         log("Step 2 Click the + to expand the rest menus");
-        List<String> lstSubReprotMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(REPORT);
+//        List<String> lstSubReprotMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(REPORT);
 
         log("Step 3. Collapse the menu then click on Report");
         agentHomePage.leftMenu.leftMenuList.collapsedMenu(REPORT);
@@ -248,14 +248,15 @@ public class LeftMenuTest extends BaseCaseTest {
         Assert.assertFalse(agentHomePage.leftMenu.isMenuExpanded(REPORT), "FAILED! The menu is not collapsed");
 
         log("Verify 3: the list menu in report is correctly displayed");
-        Assert.assertEquals(lstSubReprotMenu.get(0), "Profit And Loss", "FAILED! Profit And Loss not display in Report Menu ");
-        Assert.assertEquals(lstSubReprotMenu.get(1), "Win Loss", "FAILED! Win Loss Simple not display in Report Menu ");
-        Assert.assertEquals(lstSubReprotMenu.get(2), "Position Taking Report", "FAILED! Position Taking Report not display in Report Menu ");
-        Assert.assertEquals(lstSubReprotMenu.get(3), "Unsettled Bet", "FAILED!Create Downline Agent not display in Report Menu ");
-        Assert.assertEquals(lstSubReprotMenu.get(4), "Cancelled Bets", "FAILED! Cancelled Bets not display in Report Menu ");
-        Assert.assertEquals(lstSubReprotMenu.get(5), "Top Gainers & Top Losers", "FAILED! Top Gainers & Top Losers not display in Report Menu Portal Level");
-        Assert.assertEquals(lstSubReprotMenu.get(6), "Transfer Log", "FAILED! Transfer Log not display in Report Menu ");
-        Assert.assertEquals(lstSubReprotMenu.get(7), "View Log", "FAILED! View Log not display in Report Menu ");
+        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(REPORT));
+//        Assert.assertEquals(lstSubReprotMenu.get(0), "Profit And Loss", "FAILED! Profit And Loss not display in Report Menu ");
+//        Assert.assertEquals(lstSubReprotMenu.get(1), "Win Loss", "FAILED! Win Loss Simple not display in Report Menu ");
+//        Assert.assertEquals(lstSubReprotMenu.get(2), "Position Taking Report", "FAILED! Position Taking Report not display in Report Menu ");
+//        Assert.assertEquals(lstSubReprotMenu.get(3), "Unsettled Bet", "FAILED!Create Downline Agent not display in Report Menu ");
+//        Assert.assertEquals(lstSubReprotMenu.get(4), "Cancelled Bets", "FAILED! Cancelled Bets not display in Report Menu ");
+//        Assert.assertEquals(lstSubReprotMenu.get(5), "Top Gainers & Top Losers", "FAILED! Top Gainers & Top Losers not display in Report Menu Portal Level");
+//        Assert.assertEquals(lstSubReprotMenu.get(6), "Transfer Log", "FAILED! Transfer Log not display in Report Menu ");
+//        Assert.assertEquals(lstSubReprotMenu.get(7), "View Log", "FAILED! View Log not display in Report Menu ");
 
         log("INFO: Executed completely");
     }
@@ -307,12 +308,11 @@ public class LeftMenuTest extends BaseCaseTest {
      */
     @TestRails(id = "3471")
     @Test(groups = {"regression"})
-    @Parameters({"brandname"})
-    public void LeftMenu_TC3471(String brandname) {
+    public void LeftMenu_TC3471() {
         log("@title: Validate can search direct member account in quick search");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String accountDisplay = listAccount.get(0).getUserCode();
 
         log("Step:1. Click on Quick Search button");
@@ -326,8 +326,7 @@ public class LeftMenuTest extends BaseCaseTest {
         Assert.assertTrue(agentHomePage.quickSearch.lblAccountQS.getText().contains(accountDisplay), "FAILED! Account display in quick search incorrect");
 
         log("Verify 2. Verify all report display : Balance, Unsettled Bet, Client Ledger, Settings, Login");
-        List<String> lstQuickSearchMenu = agentHomePage.quickSearch.mtQuickSearchMenu.getListSubMenu();
-        Assert.assertEquals(lstQuickSearchMenu, LST_QUICK_SEARCH_MENU_OLDUI, "FAILED, Quick Search menu is incorrect displayed");
+        Assert.assertTrue(agentHomePage.quickSearch.isListSubMenuDisplayCorrect(), "FAILED, Quick Search menu is incorrect displayed");
 
         log("INFO: Executed completely");
     }
@@ -463,9 +462,8 @@ public class LeftMenuTest extends BaseCaseTest {
     @Test(groups = {"regression"})
     public void LeftMenu_TC3476() {
         log("@title: Verify Client Ledger button in quick search section works");
-        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0);
         log("Step: 1. Click on Quick Search button");
         log("Step: 2. Search any available account");
         agentHomePage.leftMenu.switchQuickSearch();

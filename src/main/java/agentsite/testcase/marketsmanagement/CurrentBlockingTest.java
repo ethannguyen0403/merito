@@ -62,8 +62,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
      */
     @TestRails(id = "773")
     @Test(groups = {"smoke"})
-    @Parameters("downlineAccount")
-    public void Agent_MM_CurrentBlocking_TC773(String downlineAccount) {
+    public void Agent_MM_CurrentBlocking_TC773() {
         log("@title: Verify can view blocked user for an event");
         log("Step 1. Navigate Markets Management > Current Blocking");
         CurrentBlockingPage page = agentHomePage.navigateCurrentBlockingPage();

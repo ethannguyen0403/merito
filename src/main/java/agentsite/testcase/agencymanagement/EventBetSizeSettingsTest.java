@@ -428,7 +428,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
      */
     @TestRails(id = "706")
     @Test(groups = {"smoke_sat"})
-    @Parameters({"username", "downlineAccount", "memberAccount", "password"})
+    @Parameters({"downlineAccount"})
     public void Agent_AM_Event_Bet_Site_Settings_706(String downlineAccount) {
         log("@title:Verify can update and remove max and min event setting");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -471,9 +471,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3584")
-    @Test(groups = {"regression_sat"})
-    @Parameters({"username", "portalSubAccount", "popassword"})
-    public void Agent_AM_Event_Bet_Site_Settings_3584(String username, String portalSubAccount, String popassword) throws Exception {
+    @Test(groups = {"regression_po"})
+    @Parameters({"portalSubAccount", "password"})
+    public void Agent_AM_Event_Bet_Site_Settings_3584(String portalSubAccount, String password) throws Exception {
         log("@title:Verify Event Bet Size Setting at PO level is updated following SAD level");
         log("Step 1.Log in successfully by SAD level > Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
@@ -492,7 +492,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         page.logout();
 
         log("Step  4. Login agent by PO level and select the according SAD and sport");
-        loginAgent(sosAgentURL, agentSecurityCodeURL, portalSubAccount, popassword, environment.getSecurityCode());
+        loginAgent(sosAgentURL, agentSecurityCodeURL, portalSubAccount, password, environment.getSecurityCode());
         page = agentHomePage.navigateEventBetSizeSettingsPage();
         page.filter(userCodeLoginId, "Cricket", "Today");
         page.searchEventInfo("", "", event.getID());
