@@ -6,7 +6,7 @@
         <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
-    <test name="BO STG Regression">
+    <test name="Regression test cases of Backoffice in STG">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
