@@ -136,8 +136,9 @@ public class HomePage extends LoginPage {
 
     public TransferPage navigateTransferPage(String securityCode) {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, TRANSFER);
-        waitingLoadingSpinner();
-        return new TransferPage(_type);
+        TransferPage page = new TransferPage(_type);
+        page.confirmSecurityCode(securityCode);
+        return page;
     }
 
     public SubUserListingPage navigateSubUserListingPage() {
@@ -262,7 +263,7 @@ public class HomePage extends LoginPage {
     }
 
     public ClientLedgerPage navigateClientLedgerPage() {
-        leftMenu.clickSubMenu(REPORT, CLIENT_LEDGER);
+        leftMenu.navigateClientLedgerPage();
         waitingLoadingSpinner();
         return new ClientLedgerPage(_type);
     }

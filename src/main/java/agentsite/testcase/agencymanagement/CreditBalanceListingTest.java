@@ -45,26 +45,26 @@ public class CreditBalanceListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+//    @TestRails(id = "3609")
+//    @Test(groups = {"smoke"})
+//    @Parameters({"memberAccount"})
+//    public void Credit_Balance_Listing_3609(String memberAccount) {
+//        log("@title: Validate can search by login ID");
+//        log("Step 1. Navigate Agency Management > Sub User Listing");
+//        CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
+//
+//        log("Step 2. Enter Login ID and click Submit button");
+//        page.filter(memberAccount, "", "");
+//
+//        log("Verify 1. Validate Login ID display in the result table");
+//        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
+//
+//        log("INFO: Executed completely");
+//    }
+
     @TestRails(id = "3609")
     @Test(groups = {"smoke"})
-    @Parameters({"brandname", "memberAccount", "password"})
-    public void Credit_Balance_Listing_3609(String memberAccount, String password) throws Exception {
-        log("@title: Validate can search by login ID");
-        log("Step 1. Navigate Agency Management > Sub User Listing");
-        CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
-
-        log("Step 2. Enter Login ID and click Submit button");
-        page.filter(memberAccount, "", "");
-
-        log("Verify 1. Validate Login ID display in the result table");
-        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
-
-        log("INFO: Executed completely");
-    }
-
-    @TestRails(id = "3609")
-    @Test(groups = {"smoke"})
-    @Parameters({"memberAccount", "password"})
+    @Parameters({"memberAccount"})
     public void Credit_Balance_Listing_3609(String memberAccount) {
         log("@title: Validate can search by login ID");
         log("Step 1. Navigate Agency Management > Credit Balance Listing");

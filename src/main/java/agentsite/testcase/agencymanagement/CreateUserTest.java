@@ -58,7 +58,7 @@ public class CreateUserTest extends BaseCaseTest {
 
         log(" 2. Display Cash Balance if account is Credit Cash and Credit Balance if account is Credit");
         Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle().trim(), CASH_BALANCE, "FAILED! Cash balance title is incorrect display");
-        Assert.assertTrue(page.cashBalanceInforSection.txtInitialDeposit.isDisplayed(), "FAILED! Credit Initiation textbox is not displayed");
+        Assert.assertTrue(page.cashBalanceInforSection.txtFirstTimeDeposit.isDisplayed(), "FAILED! Credit Initiation textbox is not displayed");
 
         log(" 4. Product Setting, select Exchange product");
         Assert.assertEquals(page.productSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
@@ -112,7 +112,7 @@ public class CreateUserTest extends BaseCaseTest {
 
         log(" 2. Display Cash Balance if account is Credit Cash and Credit Balance if account is Credit");
         Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle().trim(), CASH_BALANCE, "FAILED! Cash balance title is incorrect display");
-        Assert.assertTrue(page.cashBalanceInforSection.txtInitialDeposit.isDisplayed(), "FAILED! Credit Initiation textbox is not displayed");
+        Assert.assertTrue(page.cashBalanceInforSection.txtFirstTimeDeposit.isDisplayed(), "FAILED! Credit Initiation textbox is not displayed");
 
         log(" 4. Product Setting, select Exchange product");
         Assert.assertEquals(page.productSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");

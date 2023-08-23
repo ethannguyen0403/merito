@@ -2,9 +2,14 @@ package agentsite.pages.agentmanagement.downlinelisting;
 
 import agentsite.controls.Cell;
 import agentsite.pages.agentmanagement.EditDownLinePage;
+import agentsite.pages.components.SuccessPopup;
+import com.paltech.element.common.Button;
+import com.paltech.element.common.DropDownBox;
+import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import org.testng.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static baseTest.BaseCaseTest._brandname;
@@ -16,6 +21,7 @@ import static common.AGConstant.BTN_SUBMIT;
 import static common.AGConstant.HomePage.DOWNLINE_LISTING;
 
 public class OldUIDownlineListing extends DownlineListing {
+    private int accountStatusCol = 7;
     public OldUIDownlineListing(String types) {
         super(types);
     }
@@ -51,6 +57,72 @@ public class OldUIDownlineListing extends DownlineListing {
         Assert.assertEquals(ddbAccountStatus.getOptions(), LST_ACCOUNT_STATUS, "FAILED! Data in Account Status dropdownbox is incorrect displayed");
         Assert.assertEquals(ddbLevel.getOptions(), DDB_LEVEL, "FAILED! Data in Account Status dropdownbox is incorrect displayed");
         Assert.assertEquals(lstHeaderTable, LST_DOWLINE_LISTING_TABLE_HEADER_OLDUI, "FAILED! Table header is incorrect displayed");
+    }
+
+    public SuccessPopup updateAccountStatus(String userCode, String status) {
+        int userCodeIndex = getUserCodeIndex(userCode);
+        if (userCodeIndex == 0) {
+            System.out.println(String.format("DEBUG! There is no usercode %s in the table", userCode));
+            return null;
+        }
+        DropDownBox ddbAccountStatusByUserCode = DropDownBox.xpath(
+                tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(
+                        userCode, 1, userCodeCol, userCodeIndex, null, 7, "select[contains(@class,'com-status')]", false, false));
+        Button icSave = Button.xpath(tblDowlineListing.getxPathOfCell(1, 7, userCodeIndex, "i[contains(@class,'ico-save')]"));
+        ddbAccountStatusByUserCode.selectByVisibleContainsText(status);
+        icSave.click();
+        return SuccessPopup.xpath("//app-comfirm");
+    }
+
+    public boolean isAccountStatusCorrect(String userCode, String expectedStatus) {
+        DropDownBox ddbAccountStatusByUserCode = getAccountStatusDropdown(userCode);
+        String actualStatus = ddbAccountStatusByUserCode.getFirstSelectedOption();
+        if (!actualStatus.equals(expectedStatus)) {
+            System.out.println(String.format("FAILED! Expected satus of the account %s is %s but found %s", userCode, expectedStatus, actualStatus));
+            return false;
+        }
+        return true;
+    }
+
+    public DropDownBox getAccountStatusDropdown(String userCode) {
+        int userCodeIndex = getUserCodeIndex(userCode);
+        if (userCodeIndex == 0) {
+            System.out.println(String.format("DEBUG! There is no usercode %s in the table", userCode));
+            return null;
+        }
+        return DropDownBox.xpath(
+                tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(
+                        userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, "select[contains(@class,'com-status')]", false, false));
+    }
+
+    public List<String> getAccountStatus() {
+        List<String> lstAccountStatus = new ArrayList<>();
+        int index = 1;
+        DropDownBox ddbAccountStatus;
+        while (true) {
+            ddbAccountStatus = DropDownBox.xpath(tblDowlineListing.getxPathOfCell(1, accountStatusCol, index, "select[contains(@class,'com-status')]"));
+            if (!ddbAccountStatus.isDisplayed()) {
+                return lstAccountStatus;
+            }
+            lstAccountStatus.add(ddbAccountStatus.getFirstSelectedOption());
+            index = index + 1;
+        }
+    }
+
+    public String getAccountStatus(String userCode) {
+        int userCodeIndex = getUserCodeIndex(userCode);
+        if (userCodeIndex == 0) {
+            System.out.println(String.format("DEBUG! There is no usercode %s in the table", userCode));
+            return null;
+        }
+        DropDownBox ddpAccountStatus = DropDownBox.xpath(
+                tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(
+                        userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, "select[contains(@class,'com-status')]", false, false));
+        if (ddpAccountStatus.isDisplayed())
+            return ddpAccountStatus.getFirstSelectedOption().trim();
+        else
+            return Label.xpath(tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, null, false, false)).getText().trim();
+
     }
 
 }

@@ -5,6 +5,7 @@ import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
+import common.AGConstant;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
@@ -142,5 +143,17 @@ public class NewUILeftMenu extends LeftMenu {
 
     public void navigateWinLossByEventPage() {
         clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_NEWUI);
+    }
+
+    public void navigateClientLedgerPage() {
+        clickSubMenu(AGENCY_MANAGEMENT, CLIENT_LEDGER);
+    }
+
+    public boolean isListSubMenuDisplayCorrect(String menu) {
+        if(menu.equals(REPORT)) {
+            List<String> lstSubReprotMenu = leftMenuList.getListSubMenu(REPORT);
+            return lstSubReprotMenu.equals(AGConstant.Report.LIST_SUB_MENU_CONTROL_BLOCKING_NEWUI);
+        }
+        return false;
     }
 }

@@ -75,4 +75,8 @@ public class LeftMenu {
     public void navigateWinLossDetailPage() {}
 
     public void navigateWinLossByEventPage() {}
+
+    public void navigateClientLedgerPage() {}
+
+    public boolean isListSubMenuDisplayCorrect(String menu) { return false;}
 }

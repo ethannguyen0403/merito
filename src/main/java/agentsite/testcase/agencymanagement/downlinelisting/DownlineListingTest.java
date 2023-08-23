@@ -9,6 +9,7 @@ import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
@@ -92,13 +93,12 @@ public class DownlineListingTest extends BaseCaseTest {
 
     @TestRails(id = "3519")
     @Test(groups = {"regression"})
-    @Parameters({"memberAccount"})
-    public void Agent_AM_Downline_Listing_3519(String memberAccount) throws Exception {
+    public void Agent_AM_Downline_Listing_3519() throws Exception {
         log("@title: Validate UI in Downline Listing ");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-//        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(_brandname, memberAccount, userID);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID,"PL",_brandname);
+//        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(_brandname, memberAccount, userID);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         page.downlineListing.searchDownline(loginID,"","");
@@ -175,6 +175,28 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
+    @TestRails(id = "3526")
+    @Test(groups = {"regression_creditcash"})
+    public void Agent_AM_Downline_Listing_Edit_User_3526() throws Exception {
+        log("@title: Validate Credit Initiation and Balance disabled for Credit Cash");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
+        String loginID = listAccount.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(loginID,"","");
+
+        log("Step 2. Click on Edit icon of any Member level");
+        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
+
+        log("Verify 2. Validate Credit Initiation and Balance Textbox is disabled");
+        Assert.assertFalse(editDownLinePage.cashBalanceInforSection.txtCreditInitiation.isEnabled());
+        Assert.assertFalse(editDownLinePage.cashBalanceInforSection.txtFirstTimeDeposit.isEnabled());
+
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "3501")
     @Test(groups = {"regression"})
     public void Agent_AM_Downline_Listing_3501() {
@@ -183,12 +205,12 @@ public class DownlineListingTest extends BaseCaseTest {
         AccountInfo loginAccInfo = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = loginAccInfo.getUserID();
-        ProfileUtils.getProfile().getUserID();
+//        ProfileUtils.getProfile().getUserID();
         AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Input direct downline , account status is All, and level is All");
-        page.downlineListing.searchDownline(directDownline.getLoginID(), "All", "All");
+        page.downlineListing.searchDownline(directDownline.getUserCode(), "All", "All");
 
         log("Verify 1.Account is display in the list");
         int totalRow = page.tblDowlineListing.getNumberOfRows(false, false);
@@ -205,11 +227,11 @@ public class DownlineListingTest extends BaseCaseTest {
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
         AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
-        AccountInfo indirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(), "PL", "ACTIVE", _brandname).get(0);
+        AccountInfo indirectDownline = DownLineListingUtils.getAllDownLineUsers(_brandname,"", directDownline.getUserID()).get(0);
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Input direct downline , account status is All, and level is All");
-        page.downlineListing.searchDownline(indirectDownline.getLoginID(), "All", "All");
+        page.downlineListing.searchDownline(indirectDownline.getUserCode(), "All", "All");
 
         log("Verify 1.Account is display in the list");
         int totalRow = page.tblDowlineListing.getNumberOfRows(false, false);
@@ -338,7 +360,7 @@ public class DownlineListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3509")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Downline_Listing_3509() {
         log("@title: Validate can inactive member account");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -352,23 +374,27 @@ public class DownlineListingTest extends BaseCaseTest {
                 "3. Update an active account to inactive status\n" +
                 "4. Click save icon next to the drop box");
         page.downlineListing.searchDownline(userCode, "All", "All");
-        SuccessPopup popup = page.downlineListing.updateAccountStatus(userCode, "Inactive");
+        try {
+            SuccessPopup popup = page.downlineListing.updateAccountStatus(userCode, "Inactive");
 
-        log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
-                "2. Click OK button => the popup is disappear\n" +
-                "3. Verify Account status Inactive\n");
-        Assert.assertEquals(popup.getContentMessage(), "Update is successful!");
-        popup.close();
-        Assert.assertFalse(popup.isDisplayed(), "FAILED! Confirm popup is not disappear when closed");
-        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
+            log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
+                    "2. Click OK button => the popup is disappear\n" +
+                    "3. Verify Account status Inactive\n");
+            Assert.assertEquals(popup.getContentMessage(), "Update is successful!");
+            popup.close();
 
-        log("Postcondition change status to active");
-        page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            Assert.assertFalse(popup.isDisplayed(), "FAILED! Confirm popup is not disappear when closed");
+            Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
+        } finally {
+            log("Postcondition change status to active");
+            page.downlineListing.updateAccountStatus(userCode, "Active").close();
 
-        log("INFO: Executed completely");
+            log("INFO: Executed completely");
+        }
+
     }
     @TestRails(id = "3510")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Downline_Listing_3510() {
         log("@title:Validate can suspend  account");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -382,22 +408,24 @@ public class DownlineListingTest extends BaseCaseTest {
                 "3. Update an active account to suspended status\n" +
                 "4. Click save icon next to the drop box");
         page.downlineListing.searchDownline(userCode, "All", "All");
-        SuccessPopup popup = page.downlineListing.updateAccountStatus(userCode, "Suspended");
-        log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
-                "2. Click OK button => the popup is disappear\n" +
-                "3. Verify Account status Suspended\n ");
-        Assert.assertEquals(popup.getContentMessage(), "Update is successful!");
-        popup.close();
-        Assert.assertFalse(popup.isDisplayed(), "FAILED! Confirm popup is not disappear when closed");
-        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Suspended"), "FAILED! Status is incorrect display");
+        try {
+            SuccessPopup popup = page.downlineListing.updateAccountStatus(userCode, "Suspended");
+            log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
+                    "2. Click OK button => the popup is disappear\n" +
+                    "3. Verify Account status Suspended\n ");
+            Assert.assertEquals(popup.getContentMessage(), "Update is successful!");
+            popup.close();
+            Assert.assertFalse(popup.isDisplayed(), "FAILED! Confirm popup is not disappear when closed");
+            Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Suspended"), "FAILED! Status is incorrect display");
+        } finally {
 
-        log("Postcondition change status to active");
-        page.downlineListing.updateAccountStatus(userCode, "Active").close();
-
-        log("INFO: Executed completely");
+            log("Postcondition change status to active");
+            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            log("INFO: Executed completely");
+        }
     }
     @TestRails(id = "3513")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Downline_Listing_3513() {
         log("@title: Validate can close an account");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -423,7 +451,7 @@ public class DownlineListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3511")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Downline_Listing_3511() {
         log("@title: Validate can active account from inactive status");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -435,20 +463,26 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Select member account that inactivated\n");
         page.downlineListing.searchDownline(userCode, "All", "All");
-        log("Inactive account");
         page.downlineListing.updateAccountStatus(userCode, "Inactive").close();
 
-        log("Step 3 Active the account");
-        page.downlineListing.updateAccountStatus(userCode, "Active").close();
-        log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
-                "2. Click OK button => the popup is disappear\n" +
-                "3. Verify Account status Active\n");
-        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Acitve"), "FAILED! Status is incorrect display");
+        try {
+            log("Step 3 Active the account");
+            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
+                    "2. Click OK button => the popup is disappear\n" +
+                    "3. Verify Account status Active\n");
+            Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Active"), "FAILED! Status is incorrect display");
+        } finally {
+            log("Postcondition change status to active");
+            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            log("INFO: Executed completely");
+        }
 
-        log("INFO: Executed completely");
+
+
     }
     @TestRails(id = "3512")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Downline_Listing_3512() {
         log("@title: Validate can active account from suspend status");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -460,33 +494,38 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Search an account");
         page.downlineListing.searchDownline(userCode, "All", "All");
+        try {
+            log("Step 3 Suspend account");
+            page.downlineListing.updateAccountStatus(userCode, "Suspended").close();
 
-        log("Step 3 Suspend account");
-        page.downlineListing.updateAccountStatus(userCode, "Suspended").close();
+            log("Step 3 Active the account");
+            page.downlineListing.updateAccountStatus(userCode, "Active").close();
 
-        log("Step 3 Active the account");
-        page.downlineListing.updateAccountStatus(userCode, "Active").close();
-
-        log("Verify 1. Verify Account status Active");
-        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Active"), "FAILED! Status is incorrect display");
-
-        log("INFO: Executed completely");
+            log("Verify 1. Verify Account status Active");
+            Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Active"), "FAILED! Status is incorrect display");
+        } finally {
+            log("Postcondition change status to active");
+            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            log("INFO: Executed completely");
+        }
     }
     @TestRails(id = "3514")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Downline_Listing_3514() {
         log("@title: Validate can not active close an account");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "Closed", _brandname).get(0);
         String userCode = directDownline.getUserCode();
+        if(userCode.isEmpty()) {
+            throw new SkipException("Have no closed account for testing");
+        }
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Search an account");
         page.downlineListing.searchDownline(userCode, "All", "All");
-
-        log("Step 3 Closed account");
-        page.downlineListing.updateAccountStatus(userCode, "Closed").close();
+//        log("Step 3 Closed account");
+//        page.downlineListing.updateAccountStatus(userCode, "Closed").close();
 
         log("Verify 1. Verify cannot active the closed account");
         Assert.assertFalse(page.downlineListing.getAccountStatusDropdown(userCode).isEnabled(), "FAILED! Account is closed should disable Account status dropdwon");
@@ -494,7 +533,7 @@ public class DownlineListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3515")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Downline_Listing_3515() {
         log("@title: Validate can inactive an agent");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -508,12 +547,19 @@ public class DownlineListingTest extends BaseCaseTest {
                 "3. Update to Inactive status\n");
         page.downlineListing.searchDownline(userCode, "All", "Agent");
 
-        log("Step 3 Inactive agent account");
-        page.downlineListing.updateAccountStatus(userCode, "Inactive").close();
+        try {
+            log("Step 3 Inactive agent account");
+            page.downlineListing.updateAccountStatus(userCode, "Inactive").close();
 
-        log("Verify 1. Verify status is change to Inactive");
-        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
-        log("INFO: Executed completely");
+            log("Verify 1. Verify status is change to Inactive");
+            Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
+        } finally {
+            log("Postcondition change status to active");
+            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            log("INFO: Executed completely");
+        }
+
+
     }
     @TestRails(id = "3516")
     @Test(groups = {"regression_newui"})
