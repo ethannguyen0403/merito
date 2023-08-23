@@ -74,7 +74,7 @@ public class LiquidityThresholdTest extends BaseCaseTest {
      * @expect: 1.  Can not active for downline when upline is inactive
      */
     // Missing test case id in TestRail
-       @Test(groups = {"smoke_po"})
+    @Test(groups = {"smoke_po"})
     @Parameters({"controlBlockingAccount", "downlineAccount"})
     public void Agent_MM_Liquidity_Threshold_TC008(String controlBlockingAccount, String downlineAccount) {
         log("@title: Can not active for downline when upline is inactive");

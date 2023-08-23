@@ -27,7 +27,7 @@ public class AnnouncementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "753")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     public void Agent_AM_Announcement_753()  {
         log("@title: Verify Announcement UI display correct");
         log("Step 1. Navigate Agency Management >Announcement");
@@ -42,7 +42,7 @@ public class AnnouncementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "754")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     public void Agent_AM_Announcement_754() {
         log("@title: Verify can add, update and deleted announcement");
         log("Step 1. Navigate Agency Management >Announcement");
@@ -60,14 +60,14 @@ public class AnnouncementTest extends BaseCaseTest {
         page.updateAnnoucement(announcementMsg, true, String.format("New Message %s", announcementMsg), "", "", "All");
 
         log("Verify 2. Verify announcement is successfully updated");
-        Assert.assertTrue(page.isAnnouncementDisplay(announcementMsg), "FAILED! announcement does not display");
+        Assert.assertTrue(page.isAnnouncementDisplay(String.format("New Message %s", announcementMsg)), "FAILED! announcement does not display");
 
         log("Step 5.Delete announcement");
-        String confirmMessage = page.deleteAnnouncement(announcementMsg, true);
+        String confirmMessage = page.deleteAnnouncement(String.format("New Message %s", announcementMsg), true);
 
         log("Verify 3. Verify a confirm message display and announcement is deleted after click on button");
         Assert.assertEquals(confirmMessage, "Are you sure you want to delete this announcement?", "FAILED! Confirm message not display correctly");
-        Assert.assertFalse(page.isAnnouncementDisplay(announcementMsg), "FAILED! announcement display after delete");
+        Assert.assertFalse(page.isAnnouncementDisplay(String.format("New Message %s", announcementMsg)), "FAILED! announcement display after delete");
 
         log("INFO: Executed completely");
 

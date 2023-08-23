@@ -30,5 +30,10 @@ public class SuccessPopup extends BaseElement {
 
     public void close() {
         btnOK.click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

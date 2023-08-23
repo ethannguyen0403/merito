@@ -3,6 +3,9 @@ package agentsite.pages.components;
 import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.NewUIBetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
+import agentsite.pages.agentmanagement.commissionlisting.CommissionSettingListing;
+import agentsite.pages.agentmanagement.commissionlisting.NewUIComissionSettingListing;
+import agentsite.pages.agentmanagement.commissionlisting.OldUIComissionSettingListing;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.NewUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.OldUIAccountInforSection;
@@ -30,6 +33,9 @@ import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.Ri
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.NewUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.OldUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
+import agentsite.pages.agentmanagement.createuser.CreateUser;
+import agentsite.pages.agentmanagement.createuser.NewUICreateUser;
+import agentsite.pages.agentmanagement.createuser.OldUICreateUser;
 import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.CreditBalanceListing;
 import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.NewUICreditBalanceListing;
 import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.OldUICreditBalanceListing;
@@ -57,6 +63,9 @@ import agentsite.pages.components.header.OldUIHeader;
 import agentsite.pages.components.leftmenu.LeftMenu;
 import agentsite.pages.components.leftmenu.NewUILeftMenu;
 import agentsite.pages.components.leftmenu.OldUILeftMenu;
+import agentsite.pages.components.quicksearch.NewUIQuickSearch;
+import agentsite.pages.components.quicksearch.OldUIQuickSearch;
+import agentsite.pages.components.quicksearch.QuickSearch;
 import agentsite.pages.report.TopGainersTopLosers.NewUITopGainersTopLosers;
 import agentsite.pages.report.TopGainersTopLosers.OldUITopGainersTopLosers;
 import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
@@ -85,7 +94,14 @@ public class ComponentsFactory {
                 return new NewUIHeader();
         }
     }
-
+    public static QuickSearch quickSearchObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIQuickSearch();
+            default:
+                return new NewUIQuickSearch();
+        }
+    }
     public static AccountInforSection accInfoObject(String types) {
         switch (types) {
             case "satsport":
@@ -260,6 +276,24 @@ public class ComponentsFactory {
                 return new OldUIFollowBets();
             default:
                 return new NewUIFollowBets();
+        }
+    }
+
+    public static CommissionSettingListing commissionSettingListing(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIComissionSettingListing();
+            default:
+                return new NewUIComissionSettingListing();
+        }
+    }
+
+    public static CreateUser createUserPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUICreateUser(types);
+            default:
+                return new NewUICreateUser(types);
         }
     }
 }

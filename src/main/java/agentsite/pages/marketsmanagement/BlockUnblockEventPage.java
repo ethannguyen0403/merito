@@ -26,7 +26,7 @@ import static common.AGConstant.MarketsManagement.BlockUnblockEvent.*;
 public class BlockUnblockEventPage extends HomePage {
     public DownlineControl dlcDownline = DownlineControl.xpath("//ul[@class='tree-container downline-list']//li");
     public Table tblDownline = Table.xpath("//app-block-unblock-events//div[contains(@class,'col-left')]//table", 1);
-    public TextBox txtSearchByUsernameLoginID = TextBox.xpath("//input[@placeholder='Search By Username/Nickname']");
+    public TextBox txtSearchByUsernameLoginID = TextBox.xpath("//input[contains(@placeholder,'Search By Username')]");
     public TextBox txtSearchByEventIDName = TextBox.xpath("//input[@placeholder='Search By Event ID/Name']");
     public DropDownBox ddbSADList = DropDownBox.xpath("//label[contains(@class,'sad-list')]//parent::td/following-sibling::td/select");
     public Label lblSADList = Label.xpath("//label[contains(@class,'sad-list')]");

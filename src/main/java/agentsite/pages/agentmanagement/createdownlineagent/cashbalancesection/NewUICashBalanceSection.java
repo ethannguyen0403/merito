@@ -5,7 +5,7 @@ import com.paltech.element.common.TextBox;
 
 public class NewUICashBalanceSection extends CashBalanceSection {
     private Label lblCashBalanceTitle = Label.xpath("//div[@class='psection' and text()='Cash Balance ']");
-    private TextBox txtFirstTimeDeposit = TextBox.xpath("//input[@name='cashBalance']");
+//    private TextBox txtFirstTimeDeposit = TextBox.xpath("//input[@name='cashBalance']");
 
     public String getCashSectionTitle() {
         return lblCashBalanceTitle.getText();

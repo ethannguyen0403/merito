@@ -14,6 +14,7 @@
         <parameter name='username' value='03H'/>
         <parameter name='levelLogin' value='Parter'/>
         <parameter name='downlineAccount' value='03H00'/>
+        <parameter name='donwlineLevel' value='SAD'/>
         <parameter name='portalSubAccount' value='ANSUBCT'/>
         <parameter name='memberAccount' value='03H0000000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>

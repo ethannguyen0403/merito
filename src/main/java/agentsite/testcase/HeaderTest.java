@@ -334,6 +334,8 @@ public class HeaderTest extends BaseCaseTest {
 
         log("Step 4. Login with the new password");
         agentHomePage.logout();
+        Thread.sleep(2000);
+
         BaseCaseTest.loginAgent(sosAgentURL, agentSecurityCodeURL, username, newPassEncrypt, environment.getSecurityCode());
         Assert.assertTrue(agentHomePage.header.btnSignOut.isDisplayed(), String.format("ERROR: cannot login after change password for login account", username));
         log("INFO: Executed completely");

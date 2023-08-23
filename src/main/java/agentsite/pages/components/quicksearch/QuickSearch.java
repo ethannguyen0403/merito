@@ -1,7 +1,9 @@
-package agentsite.pages.components;
+package agentsite.pages.components.quicksearch;
 
 import agentsite.controls.MenuTree;
 import agentsite.controls.Table;
+import agentsite.pages.components.QuickSetting;
+import agentsite.pages.components.SuccessPopup;
 import agentsite.ultils.account.ProfileUtils;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
@@ -34,7 +36,6 @@ public class QuickSearch {
         btnSearchQuickSearch.click();
         btnSearchQuickSearch.isInvisible(1);
     }
-
     public void clickDownLineListing() {
         mtQuickSearchMenu.clickMenu(DOWNLINE_LISTING);
     }
@@ -152,4 +153,6 @@ public class QuickSearch {
         QuickSetting setting = new QuickSetting();
         return setting.openUserProfile().updateProfile(newPassword, confirmPassword, firstName, lastName, mobile, phone, fax, isClose);
     }
+
+    public boolean isListSubMenuDisplayCorrect() {return false;}
 }

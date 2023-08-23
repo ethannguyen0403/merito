@@ -14,7 +14,7 @@ public class DownlineListing extends CreateDownLineAgentPage {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     public EditDownlinePopup editDownlinePopup = EditDownlinePopup.xpath("//app-agency-edit");
-    public SuccessPopup successPopup = SuccessPopup.xpath("//app-alert");
+
     public TextBox txtLoginID = TextBox.id("username");
     public DropDownBox ddbAccountStatus = DropDownBox.id("status");
     public DropDownBox ddbLevel = DropDownBox.id("userLevel");
@@ -27,7 +27,7 @@ public class DownlineListing extends CreateDownLineAgentPage {
     private int totalColumn = 19;
     public int changePasswordCol = 9;
     public int userCodeCol = 2;
-    public int accountStatusCol = 7;
+    public int accountStatusCol = 4;
     public int editCol = 8;
     public Table tblDowlineListing = Table.xpath("//table[contains(@class,'ptable report')]", totalColumn);
 
@@ -65,23 +65,11 @@ public class DownlineListing extends CreateDownLineAgentPage {
     }
 
     public String getAccountStatus(String userCode) {
-        int userCodeIndex = getUserCodeIndex(userCode);
-        if (userCodeIndex == 0) {
-            System.out.println(String.format("DEBUG! There is no usercode %s in the table", userCode));
-            return null;
-        }
-        DropDownBox ddpAccountStatus = DropDownBox.xpath(
-                tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(
-                        userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, "select[contains(@class,'com-status')]", false, false));
-        if (ddpAccountStatus.isDisplayed())
-            return ddpAccountStatus.getFirstSelectedOption().trim();
-        else
-            return Label.xpath(tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, null, false, false)).getText().trim();
-
+        return null;
     }
 
 
-    private int getUserCodeIndex(String userCode) {
+    protected int getUserCodeIndex(String userCode) {
         int index = 1;
         while (true) {
             Link lnkUserCode = (Link) tblDowlineListing.getControlOfCell(1, userCodeCol, index, null);
@@ -106,16 +94,27 @@ public class DownlineListing extends CreateDownLineAgentPage {
         }
     }
 
-    public void confirmSecurityCode(String securityCode) {
-        if (securityPopup.isDisplayed()) {
-            if (!securityCode.isEmpty()) {
-                securityPopup.submitSecurityCode(securityCode);
-            }
-        }
-    }
+//    public void confirmSecurityCode(String securityCode) {
+//        if (securityPopup.isDisplayed()) {
+//            if (!securityCode.isEmpty()) {
+//                securityPopup.submitSecurityCode(securityCode);
+//            }
+//        }
+//    }
 
     public String getMessageUpdate(boolean isClose) {
-        String message = successPopup.getContentMessage();
+        SuccessPopup successPopup;
+        String message;
+        switch (_type) {
+            case "satsport":
+                successPopup = SuccessPopup.xpath("//app-comfirm");
+                message = successPopup.getContentMessage();
+                break;
+            default:
+                successPopup = SuccessPopup.xpath("//app-alert");
+                message = successPopup.getContentMessage();
+                break;
+        }
         if (isClose) {
             successPopup.close();
         }
@@ -123,53 +122,19 @@ public class DownlineListing extends CreateDownLineAgentPage {
     }
 
     public SuccessPopup updateAccountStatus(String userCode, String status) {
-        int userCodeIndex = getUserCodeIndex(userCode);
-        if (userCodeIndex == 0) {
-            System.out.println(String.format("DEBUG! There is no usercode %s in the table", userCode));
-            return null;
-        }
-        DropDownBox ddbAccountStatusByUserCode = DropDownBox.xpath(
-                tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(
-                        userCode, 1, userCodeCol, userCodeIndex, null, 6, "select[contains(@class,'com-status')]", false, false));
-        Button icSave = Button.xpath(tblDowlineListing.getxPathOfCell(1, 6, userCodeIndex, "i[contains(@class,'ico-save')]"));
-        ddbAccountStatusByUserCode.selectByVisibleContainsText(status);
-        icSave.click();
-        return SuccessPopup.xpath("//app-comfirm");
+        return null;
     }
 
     public boolean isAccountStatusCorrect(String userCode, String expectedStatus) {
-        DropDownBox ddbAccountStatusByUserCode = getAccountStatusDropdown(userCode);
-        String actualStatus = ddbAccountStatusByUserCode.getFirstSelectedOption();
-        if (!actualStatus.equals(expectedStatus)) {
-            System.out.println(String.format("FAILED! Expected satus of the account %s is %s but found %s", userCode, expectedStatus, actualStatus));
-            return false;
-        }
-        return true;
+        return false;
     }
 
     public DropDownBox getAccountStatusDropdown(String userCode) {
-        int userCodeIndex = getUserCodeIndex(userCode);
-        if (userCodeIndex == 0) {
-            System.out.println(String.format("DEBUG! There is no usercode %s in the table", userCode));
-            return null;
-        }
-        return DropDownBox.xpath(
-                tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(
-                        userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, "select[contains(@class,'com-status')]", false, false));
+        return null;
     }
 
     public List<String> getAccountStatus() {
-        List<String> lstAccountStatus = new ArrayList<>();
-        int index = 1;
-        DropDownBox ddbAccountStatus;
-        while (true) {
-            ddbAccountStatus = DropDownBox.xpath(tblDowlineListing.getxPathOfCell(1, accountStatusCol, index, "select[contains(@class,'com-status')]"));
-            if (!ddbAccountStatus.isDisplayed()) {
-                return lstAccountStatus;
-            }
-            lstAccountStatus.add(ddbAccountStatus.getFirstSelectedOption());
-            index = index + 1;
-        }
+        return null;
     }
 
     public String getBreadcrumb() {
@@ -214,6 +179,5 @@ public class DownlineListing extends CreateDownLineAgentPage {
     }
 
     public void verifyUIDisplayCorrect() {
-        return;
     }
 }

@@ -68,7 +68,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
      * @expect: 1. Verify Error message "Only 1 level in a single line is allowed to configure" display
      */
     @TestRails(id = "3837")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_s"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_Payment_Management_PaymentConfiguration_3837(String satSADAgentLoginID) {
         log("@title: Validate cannot add the agent already added in BO Payment Configuration");
@@ -101,7 +101,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
      *          2. Display log data
      */
     @TestRails(id = "3839")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_s"})
     @Parameters({"satSADAgentLoginID"})
     public void BO_Payment_Management_PaymentConfiguration_3839(String satSADAgentLoginID) {
         log("@title: Validate can view Payment Configuration Log in BO Payment Configuration");
@@ -143,6 +143,7 @@ public class PaymentConfigurationTest extends BaseCaseTest {
         log("pre-condition 1: There is an agent added into Payment Configuration");
         PaymentConfigurationPage page = backofficeHomePage.navigatePaymentConfigurationPage();
         page.addAgent("All", satSADAgentLoginID);
+        page.waitSpinIcon();
         try {
             log("Step 1. Access Payment Configuration");
             log("Step 2. Click on eye icon of the according agent");

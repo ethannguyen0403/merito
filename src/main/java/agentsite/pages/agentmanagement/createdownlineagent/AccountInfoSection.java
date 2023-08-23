@@ -27,6 +27,7 @@ public class AccountInfoSection extends BaseElement {
     public Icon iconUserCodStatus = Icon.xpath(String.format("%s//input[@name='usercode-status']", _xPath));
     public TextBox txtPassword = TextBox.xpath(String.format("%s//input[@name='password']", _xPath));
     public DropDownBox ddrAccountStatus = DropDownBox.xpath(String.format("%s//select[@name='status']", _xPath));
+    public DropDownBox ddrAccountStatusSAT = DropDownBox.xpath(String.format("%s//select[@class='full-width ng-pristine ng-valid ng-touched']", _xPath));
     public TextBox txtFirstName = TextBox.xpath(String.format("%s//input[@name='firstName']", _xPath));
     public TextBox txtLastName = TextBox.xpath(String.format("%s//input[@name='lastName']", _xPath));
     public TextBox txtPhone = TextBox.xpath(String.format("%s//input[@name='phone']", _xPath));
