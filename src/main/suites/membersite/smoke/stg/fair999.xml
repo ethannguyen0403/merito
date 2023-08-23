@@ -6,7 +6,7 @@
         <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
-    <test name="FAIR999 STG Smoke Chrome ">
+    <test name="Smoke test cases Fair999 Member Site in STG">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value=''/>
@@ -25,7 +25,7 @@
         <parameter name='brandname' value='fairexchange'/>
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="smoke1"/>
             </run>
         </groups>
 

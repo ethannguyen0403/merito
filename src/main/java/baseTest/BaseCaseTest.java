@@ -88,7 +88,7 @@ public class BaseCaseTest {
             Map data = new HashMap();
             //data.put("suite_id",true);
             data.put("include_all", false);
-            data.put("name", "Test Run of suite " + ctx.getName() + " on" + DateUtils.getDateFollowingGMT("GMT+7", "dd-MM-YYYY hh:mm:ss"));
+            data.put("name", "Test Run of " + ctx.getName() + " on " + DateUtils.getDateFollowingGMT("GMT+7", "dd-MM-YYYY hh:mm:ss"));
             // data.put("milestone_id",1);
 
             JSONObject c = (JSONObject) client.sendPost("add_run/" + PROJECT_ID, data);
