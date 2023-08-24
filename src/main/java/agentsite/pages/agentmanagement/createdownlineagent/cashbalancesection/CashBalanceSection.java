@@ -5,8 +5,8 @@ import com.paltech.element.common.TextBox;
 
 public class CashBalanceSection {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
-    public TextBox txtInitialDeposit = TextBox.xpath("//input[@name='cashBalance']");
-
+    public TextBox txtCreditInitiation = TextBox.xpath("//input[@name='CreditReference']");
+    public TextBox txtFirstTimeDeposit = TextBox.xpath("//input[@name='cashBalance']");
     public void waitingLoadingSpinner() {
         iconLoadSpinner.waitForControlInvisible(2, 2);
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="GREEN_FE_SMOKE_AGENT_SMA" verbose="1">
+<suite name="STG_SAT_SMOKE_AGENT_SMA" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
@@ -12,6 +12,7 @@
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
         <parameter name='username' value='corpinr2'/>
+        <parameter name='level' value='SAD'/>
         <parameter name='levelLogin' value='Senior Admin'/>
         <parameter name='downlineAccount' value='smaag1'/>
         <parameter name='portalSubAccount' value='SASUBIS'/>
@@ -43,7 +44,7 @@
             <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
             <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
             <class name="agentsite.testcase.reports.BigStakeConfigurationTest"/>
-            <!--            <class name="agentsite.testcase.reports.CancelledBetsTest"/>-->
+            <class name="agentsite.testcase.reports.CancelledBetsTest"/>
             <class name="agentsite.testcase.reports.ClientLegerTest"/>
             <class name="agentsite.testcase.reports.FollowBetsPerformanceTest"/>
             <class name="agentsite.testcase.reports.PositionTakingReportTest"/>

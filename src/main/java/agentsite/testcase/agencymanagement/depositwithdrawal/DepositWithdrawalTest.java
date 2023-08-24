@@ -214,8 +214,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         List<ArrayList<String>> lstRecords = page.depositWithdraw.tblWithdrawalDeposit.getRowsWithoutHeader(2, false);
 
         log("Verify 1: There is no record found when filtering an incorrect status");
-        Assert.assertEquals(lstRecords.size(), 0, "ERROR: lstRecords doesn't equal to 1");
-        Assert.assertEquals(lstRecords.get(0).get(0), AGConstant.NO_RECORD_FOUND, String.format("ERROR: The expected text is '%s' but found '%s'", AGConstant.NO_RECORD_FOUND, lstRecords.get(0).get(0)));
+        Assert.assertTrue(page.depositWithdraw.lblNoRecord.getText().equals(AGConstant.NO_RECORD_FOUND), String.format("ERROR: The expected text is '%s' but found '%s'", AGConstant.NO_RECORD_FOUND, page.depositWithdraw.lblNoRecord.getText()));
         log("INFO: Executed completely");
     }
 
@@ -275,8 +274,9 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         log("Verify 1. There is no Update Status Transfer columns");
         log("Verify 2. Deposit and Withdraw button is no longer displayed");
         Assert.assertEquals(actualBreadcrumb, String.format("%s\\%s", acc1, downlineUsename1), "FAILED! Downline Bar is incorrect");
-        List<String> lstHeader = page.depositWithdraw.tblWithdrawalDeposit.getColumnNamesOfTable();
-        Assert.assertEquals(lstHeader, AGConstant.AgencyManagement.DepositWithdrawal.TABLE_HEADER_DOWNLINE, "FAILED! Header Deposit Withdraw not match with the expected");
+        Assert.assertFalse(page.depositWithdraw.btnDeposit.isDisplayed(), "FAILED! Deposit button is displayed");
+        Assert.assertFalse(page.depositWithdraw.btnWithdraw.isDisplayed(), "FAILED! Withdraw button is displayed");
+
         log("INFO: Executed completely");
     }
 
@@ -413,6 +413,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage("");
         log("Verify 1. In viewied level data My Credit, Total Balance, Sub Balance, Available Balance\n" +
                 "     * In downline table  veify data to Total Balance, Sub Balance, Available Balance");
+        //TODO: need handle tolerance value e.g calculate 403.06 but UI show 403.08
         Assert.assertTrue(page.depositWithdraw.isTotalBalanceHeaderCalculatedCorrect(), "ToTal Balance Header's value is wrong");
         Assert.assertTrue(page.depositWithdraw.isSubBalanceHeaderCalculatedCorrect(), "Sub Balance Header's value is wrong");
         Assert.assertTrue(page.depositWithdraw.isTotalBalanceCalculatedCorrect(), "Total Balance Of Downline's value is wrong");

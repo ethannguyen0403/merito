@@ -99,7 +99,7 @@ public class AnnoucementPage extends HomePage {
     }
 
     private void editAnnoucement(int index, String newMessage) {
-        Button btnEdit = Button.xpath(tblAnnouncement.getxPathOfCell(1, colAction, index, "p[1]/button[@class='pbtn']"));
+        Button btnEdit = Button.xpath(String.format("//app-agency-announcement//table[@class='parent']//tr[%s]//td[%s]//p[1]/button[@class='pbtn']", index, colAction));
         btnEdit.click();
         if (!newMessage.isEmpty()) {
             textArea.sendKeys(newMessage);

@@ -6,7 +6,7 @@
         <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
-    <test name="FAIR999 STG Smoke Chrome ">
+    <test name="Regression test cases Fair999 Member Site in Green">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value=''/>

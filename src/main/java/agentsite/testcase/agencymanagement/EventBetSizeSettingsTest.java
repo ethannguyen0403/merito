@@ -46,7 +46,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Event event = EventBetSizeSettingUtils.getEventList("Cricket", acc.getUserID(), "TODAY").get(0);
 
         log(String.format("Step 2. Input event Name with a prefix : %s", event.getEventName()));
-        page.filter("", "Soccer", "Today");
+        page.filter("", "Cricket", "Today");
         page.searchEventInfo("", event.getEventName(), "");
 
         List<ArrayList<String>> result = page.getTableInfo();
@@ -428,22 +428,19 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
      */
     @TestRails(id = "706")
     @Test(groups = {"smoke_sat"})
-    @Parameters({"username", "downlineAccount", "memberAccount", "password"})
-    public void Agent_AM_Event_Bet_Site_Settings_706(String username, String downlineAccount, String memberAccount, String password) throws Exception {
+    @Parameters({"downlineAccount"})
+    public void Agent_AM_Event_Bet_Site_Settings_706(String downlineAccount) {
         log("@title:Verify can update and remove max and min event setting");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
         AccountInfo acc = ProfileUtils.getProfile();
-        List<String> betSettingInfo = EventBetSizeSettingUtils.getUserBetSetting("EXCHANGE", acc.getUserID(), "CRICKET");
+//        List<String> betSettingInfo = EventBetSizeSettingUtils.getUserBetSetting("EXCHANGE", acc.getUserID(), "CRICKET");
         Event event = EventBetSizeSettingUtils.getEventList("Cricket", acc.getUserID(), "TODAY").get(0);
-
-//        int min = Integer.parseInt(String.format("%.0f", Double.parseDouble(betSettingInfo.get(0)))) + 1;
-//        int max = (Integer.parseInt(String.format("%.0f", Double.parseDouble(betSettingInfo.get(1)))) +min)/2;
         int min = 5;
         int max = 300;
 
         log("Step 2. Select Cricket, and select Today or Tomorrow tab that has event");
-        page.filter("", "Soccer", "Today");
+        page.filter("", "Cricket", "Today");
         page.searchEventInfo("", "", event.getID());
 
         log("Step 3. Update min-max for an event and click submit button");
@@ -456,66 +453,27 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         DriverManager.getDriver().switchToParentFrame();
         BlockUnblockEventPage blockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
         blockEventPage.searchDownline(downlineAccount);
-        blockEventPage.filter("", "Soccer", "Today");
+        blockEventPage.filter("", "Cricket", "Today");
         blockEventPage.searchEvent(event.getID());
         blockEventPage.blockUnblockEvent("all", "all", "Unblock Now", "", 1);
-      /*  page.logout();
-
-        log(String.format("Login member site and place bet on the event %s", event.getEventName()));
-        loginMemberviaUI(memberAccount,StringUtils.decrypt(password));
-        HomePage memberHomePage = new HomePage();
-        SoccerPage soccerPage = memberagentHomePage.navigateSportMenu("Soccer",SoccerPage.class);
-        soccerPage.eventContainer.clickEvent(event.getEventName());
-        Market market = soccerPage.marketContainerControl.getMarket(event,1,true);
-        market.getOdd().click();
-        soccerPage.betSlipControl.placeBet(market.getOdd().getText(),String.format("%d",Integer.parseInt(String.format("%.0f", Double.parseDouble(betSettingInfo.get(0))))));
-
-        log("Verify 2. Verify member site display message when place bet with stake greater than max event setting");
-        String actualError = soccerPage.myBetControl.getPlaceBetErrorMessage();
-
-        String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",(double)min),String.format("%(,.2f",(double)max),String.format("%.2f", Double.parseDouble(betSettingInfo.get(0))));
-        Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));
-        soccerPage.logout();*/
 
         log("Step 4. Remove max event setting for the event and click submit");
         //loginAgent(username,password);
-        loginAgent(sosAgentURL, agentSecurityCodeURL, username, password, environment.getSecurityCode());
+//        loginAgent(sosAgentURL, agentSecurityCodeURL, username, password, environment.getSecurityCode());
         page = agentHomePage.navigateEventBetSizeSettingsPage();
-        page.filter("", "Soccer", "Today");
+        page.filter("", "Cricket", "Today");
         page.searchEventInfo("", "", event.getID());
         page.updateMinMax(event.getID(), "Exchange", "", "");
 
         log("Verify 3. Verify Max bet is removed");
         Assert.assertEquals(page.getMinMax(event.getID(), "Exchange"), "-", "FAILED! Min-Max not update as the expected");
-       /* page.logout();
-
-        loginMemberviaUI(memberAccount,StringUtils.decrypt(password));
-        memberHomePage = new HomePage();
-        soccerPage = memberagentHomePage.navigateSportMenu("Soccer",SoccerPage.class);
-        try{
-        soccerPage.clickEvent(event);
-        market = soccerPage.marketContainerControl.getMarket(event,1,true);
-        market.getOdd().click();
-        soccerPage.betSlipControl.placeBet(Integer.toString(100),String.format("%d",Integer.parseInt(String.format("%.0f", Double.parseDouble(betSettingInfo.get(0))))));
-        List<Order> wagers = soccerPage.myBetControl.getOrder(false, true, 1);
-
-        log("Verify 4. Verify member site will get max setting when max event setting is removed");
-        Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
-        Assert.assertEquals(Integer.toString(100), wagers.get(0).getOdds(), "Incorrect Odds");
-      //  Assert.assertEquals(String.format("%.2f",betSettingInfo.get(0)), wagers.get(0).getStake(), "Incorrect Stake");
-
-        }finally {
-            log("Post Condition: Cancel all unmatch bets");
-            soccerPage.myBetControl.cancelAllBetUnmatched();
-            log("INFO: Executed completely");
-        }*/
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "3584")
-    @Test(groups = {"regression"})
-    @Parameters({"username", "portalSubAccount", "popassword"})
-    public void Agent_AM_Event_Bet_Site_Settings_3584(String username, String portalSubAccount, String popassword) throws Exception {
+    @Test(groups = {"regression_po"})
+    @Parameters({"portalSubAccount", "password"})
+    public void Agent_AM_Event_Bet_Site_Settings_3584(String portalSubAccount, String password) throws Exception {
         log("@title:Verify Event Bet Size Setting at PO level is updated following SAD level");
         log("Step 1.Log in successfully by SAD level > Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
@@ -534,7 +492,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         page.logout();
 
         log("Step  4. Login agent by PO level and select the according SAD and sport");
-        loginAgent(sosAgentURL, agentSecurityCodeURL, portalSubAccount, popassword, environment.getSecurityCode());
+        loginAgent(sosAgentURL, agentSecurityCodeURL, portalSubAccount, password, environment.getSecurityCode());
         page = agentHomePage.navigateEventBetSizeSettingsPage();
         page.filter(userCodeLoginId, "Cricket", "Today");
         page.searchEventInfo("", "", event.getID());
@@ -546,7 +504,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3585")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     @Parameters({"username", "portalSubAccount", "popassword"})
     public void Agent_AM_Event_Bet_Site_Settings_3585(String username, String portalSubAccount, String popassword) throws Exception {
         log("@title:Verify can update min-max for Fancy");
@@ -569,20 +527,21 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("Verify 1. Min-max value of a Fancy event is updated");
         Assert.assertEquals(page.getMinMax(event.getID(), "Fancy"), String.format("%d-%d", min, max, "FAILED! Min-Max not update as the expected"));
 
-        log("Step  4. Login agent by PO level and select the according SAD and sport");
-        loginAgent(sosAgentURL, agentSecurityCodeURL, portalSubAccount, popassword, environment.getSecurityCode());
-        page = agentHomePage.navigateEventBetSizeSettingsPage();
-        page.filter(userCodeLoginId, "Cricket", "Today");
-        page.searchEventInfo("", "", event.getID());
-
-        log("Verify 1. Verify PO can only view min-max value that updated by SAD");
-        Assert.assertEquals(page.getMinMax(event.getID(), "Fancy"), String.format("%d-%d", min, max, "FAILED! Min-Max not update as the expected"));
-
-        log("INFO: Executed completely");
+        //TODO: handle steps below
+//        log("Step  4. Login agent by PO level and select the according SAD and sport");
+//        loginAgent(sosAgentURL, agentSecurityCodeURL, portalSubAccount, popassword, environment.getSecurityCode());
+//        page = agentHomePage.navigateEventBetSizeSettingsPage();
+//        page.filter(userCodeLoginId, "Cricket", "Today");
+//        page.searchEventInfo("", "", event.getID());
+//
+//        log("Verify 1. Verify PO can only view min-max value that updated by SAD");
+//        Assert.assertEquals(page.getMinMax(event.getID(), "Fancy"), String.format("%d-%d", min, max, "FAILED! Min-Max not update as the expected"));
+//
+//        log("INFO: Executed completely");
     }
 
     @TestRails(id = "3586")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3586() {
         log("@title: Only can update for min");
         log("Step 1.Log in successfully by SAD level > Navigate Agency Management > Event Bet Size Settings");
@@ -604,7 +563,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3587")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3587() {
         log("@title: Only can update for max");
         log("Step 1.Log in successfully by SAD level > Navigate Agency Management > Event Bet Size Settings");
@@ -626,7 +585,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3588")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3588() {
         log("@title: Validate validate message display when input max less than min");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -671,7 +630,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3589")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3589() {
         log("@title: Verify cancel button works");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");

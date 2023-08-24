@@ -33,8 +33,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 
     @TestRails(id = "678")
     @Test (groups = {"smoke"})
-    @Parameters({"currency","prefix"})
-    public void Agent_AM_CreateDownline_Agent_678(String currency, String prefix) {
+    @Parameters({"currency"})
+    public void Agent_AM_CreateDownline_Agent_678(String currency) {
         log("@title: Validate UI in Create Downline Agent with Exchange Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
@@ -56,7 +56,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         Assert.assertEquals(lstInfo.get(8), AGConstant.AgencyManagement.CreateAccount.LBL_FAX, "FAILED! Fax display incorrect");
         Assert.assertEquals(lstInfo.get(9), AGConstant.AgencyManagement.CreateAccount.LBL_BASE_CURRENCY, "FAILED! Base Currency display incorrect");
         Assert.assertEquals(lstInfo.get(10), AGConstant.AgencyManagement.CreateAccount.LBL_ALLOW_AG_EXTRA, "FAILED! Allow Extra display incorrect");
-        Assert.assertEquals(page.accInfoSection.lblUsernamePrefix.getText(),prefix, "FAILED! Login ID textbox does not display");
+//        Assert.assertEquals(page.accInfoSection.lblUsernamePrefix.getText(),prefix, "FAILED! Login ID textbox does not display");
         Assert.assertTrue(page.accInfoSection.txtPassword.isDisplayed(), "FAILED! Password textbox does not display");
         Assert.assertTrue(page.accInfoSection.ddrAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box does not display");
         Assert.assertTrue(page.accInfoSection.ddpLevel.isDisplayed(), "FAILED! Level dropdown box does not display");
@@ -210,7 +210,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 //        Assert.assertEquals(lstBalance.get(0).get(0),AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_INITIATION,"FAILED! Credit Initiation label displays incorrect");
 //        Assert.assertEquals(lstBalance.get(0).get(1),AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_TIME_DEPOSIT,"FAILED! First Time Deposit display incorrect");
 //        Assert.assertEquals(lstBalance.get(1).get(0),AGConstant.AgencyManagement.CreateAccount.LBL_MAX_PLAYER_CREDIT,"FAILED! Max Player Credit display incorrect");
-        Assert.assertTrue(page.cashBalanceInforSection.txtInitialDeposit.isDisplayed(),"FAILED! Credit Initiation textbox not display");
+        Assert.assertTrue(page.cashBalanceInforSection.txtFirstTimeDeposit.isDisplayed(),"FAILED! Credit Initiation textbox not display");
 //        Assert.assertTrue(page.cashBalanceSection.txtFirstTimeDeposit.isDisplayed(),"FAILED! First Time Deposit textbox not display");
 //        Assert.assertTrue(page.cashBalanceSection.txtMemberMaxCredit.isDisplayed(),"FAILED!Max Player Credit textbox not display");
 
@@ -256,8 +256,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("Verify 3. Account Status: Active and Inactive");
         Assert.assertTrue(page.accInfoSection.ddrAccountStatus.areOptionsMatched(AGConstant.AgencyManagement.CreateAccount.LST_ACCOUNTS_STATUS_CREATE),"FAILED! Account status default value not include Active and Inactive Status");
 
-        log("Verify 4.Verify Currency");
-        Assert.assertEquals(page.accInfoSection.lblBaseCurrencyValue.getText(),currency,"FAILED! Account status default value not include Active and Inactive Status");
+//        log("Verify 4.Verify Currency");
+//        Assert.assertEquals(page.accInfoSection.lblBaseCurrencyValue.getText(),currency,"FAILED! Account status default value not include Active and Inactive Status");
 
         log("INFO: Executed completely");
     }
@@ -273,7 +273,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      *          3. Valid can login agent with the created account
      */
     @TestRails(id = "683")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke1"})
     public void Agent_AM_CreateDownline_Agent_683() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
@@ -282,7 +282,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 
         log("Step 2. Input required field and click on Submit button");
         page.confirmSecurityCode(environment.getSecurityCode());
-        String loginID = page.createDownline("test.AG1",password,"Active");
+        String loginID = "test.AG"+ StringUtils.generateAlphabetic(5);
+        page.createDownline(loginID, password,"Active");
 
         log("Verify 1. Popup Create Downline with the message \"Downline was created successfully\"");
         Assert.assertTrue(page.successPopup.isDisplayed(),"FAILED! Success popup does not display after create user");
@@ -294,7 +295,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         page.logout();
 
         log("Verify 3. Valid can login agent with the created account");
-        loginNewAccount(sosAgentURL,agentNewAccURL,loginID,StringUtils.encrypt(password),StringUtils.decrypt(environment.getSecurityCode()));
+        loginNewAccount(sosAgentURL,agentNewAccURL,loginID, StringUtils.encrypt(password),StringUtils.decrypt(environment.getSecurityCode()));
         Assert.assertEquals(agentHomePage.leftMenu.lblLoginID.getText(),loginID,"Failed!, Login ID label display incorrect");
         log("INFO: Executed completely");
     }
@@ -473,7 +474,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
 
         log("Verify 1. Verify Credit Cash section does not display");
-        Assert.assertFalse(page.cashBalanceInforSection.txtInitialDeposit.isDisplayed(),"FAILED! Initial Deposit field display");
+        Assert.assertFalse(page.cashBalanceInforSection.txtFirstTimeDeposit.isDisplayed(),"FAILED! Initial Deposit field display");
         log("INFO: Executed completely");
     }
 

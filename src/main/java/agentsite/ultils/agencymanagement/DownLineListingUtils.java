@@ -92,7 +92,7 @@ public class DownLineListingUtils {
                             .parentID(Integer.toString(item.getInt("parentId")))
                             .level(item.getString("level"))
                             .currencyCode(item.getString("currencyCode"))
-                            .status(item.getString("status"))
+                            .status(item.getString("myStatus"))
                             .build();
                     lstUsers.add(a);
                 }

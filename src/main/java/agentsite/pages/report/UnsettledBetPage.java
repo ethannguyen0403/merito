@@ -32,7 +32,7 @@ public class UnsettledBetPage extends HomePage {
     public Button btnSearch = Button.id("pbtn-submit");
     public RadioGroup rdModeGroup = RadioGroup.xpath("//div[@id='unsettled-bet']//div[@name='check-box-view-mode']/div[@class='form-filter']");
     public RadioGroup rdBetType = RadioGroup.xpath("//div[@id='unsettled-bet']//div[@name='check-box-bet-type']/div[@class='form-filter']");
-    public Label lblInfo = Label.xpath("//div[@id='unsettled-bet']//i/following::span[1]");
+    public Label lblInfo = Label.xpath("//div[@id='unsettled-bet']//i//..//..//span");
     /*  public RadioButton rbAll = RadioButton.xpath("//input[@id='all']");
       public Label lblAll = Label.xpath("//input[@id='all']/following::label[@for='all']");
       public RadioButton rbMatched = RadioButton.xpath("//app-last-bets-mode//input[@id='matched']");
@@ -48,7 +48,7 @@ public class UnsettledBetPage extends HomePage {
     public Label lblLastBetsModeNoRecord = Label.xpath("//div[@class='last-bet-table']//table//td[@class='text-center']");
 
     public Label lblNoRecord = Label.xpath("//td[@class='text-center']");
-    public Label lblSatkeAll = Label.xpath("//div[@class='select']");
+    public Label lblSatkeAll = Label.xpath("//div[@class='form-control select']");
     public TextBox txtStakeFrom = TextBox.id("stakeFrom");
     public TextBox txtStakeTo = TextBox.id("stakeTo");
     public DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStakeTo, "//bs-days-calendar-view");

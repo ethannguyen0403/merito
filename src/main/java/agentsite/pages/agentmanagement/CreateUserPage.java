@@ -1,5 +1,8 @@
 package agentsite.pages.agentmanagement;
 
+import agentsite.pages.agentmanagement.createuser.CreateUser;
+import agentsite.pages.components.ComponentsFactory;
+
 public class CreateUserPage extends CreateDownLineAgentPage {
 
 //    // Info section
@@ -52,8 +55,11 @@ public class CreateUserPage extends CreateDownLineAgentPage {
 //        waitingLoadingSpinner();
 //    }
 //
+    public CreateUser createUserPage;
 public CreateUserPage(String types) {
     super(types);
+    _type = types;
+    createUserPage = ComponentsFactory.createUserPage(_type);
 }
 
 //    public String createUser( String password) {
@@ -69,37 +75,37 @@ public CreateUserPage(String types) {
 //        btnSubmit.click();
 //        waitingLoadingSpinner();
 //    }
-    public void createUserWithDeposit(String loginId, String password, String creditLimit, String firsTimeDeposit) {
-        switch (_type) {
-            case "satsport":
-                accountInforSection.inputInfo(loginId, password,"");
-                cashBalanceInforSection.inputCashBalanceInfo(creditLimit, firsTimeDeposit);
-                break;
-            default:
-                accountInforSection.inputInfo(password,"");
-                cashBalanceInforSection.inputCashBalanceInfo(firsTimeDeposit);
-        }
-        btnSubmit.click();
-        waitingLoadingSpinner();
-    }
+//    public void createUserWithDeposit(String loginId, String password, String creditLimit, String firsTimeDeposit) {
+//        switch (_type) {
+//            case "satsport":
+//                accountInforSection.inputInfo(loginId, password,"");
+//                cashBalanceInforSection.inputCashBalanceInfo(creditLimit, firsTimeDeposit);
+//                break;
+//            default:
+//                accountInforSection.inputInfo(password,"");
+//                cashBalanceInforSection.inputCashBalanceInfo(firsTimeDeposit);
+//        }
+//        btnSubmit.click();
+//        waitingLoadingSpinner();
+//    }
 
-    public String createUser(String loginId, String password) {
-        String username = "";
-        switch (_type) {
-            case "satsport":
-                accountInforSection.inputInfo(loginId, password, "Active");
-                btnSubmit.click();
-                waitingLoadingSpinner();
-                break;
-            default:
-                username = accountInforSection.getUserName();
-                accountInforSection.txtPassword.sendKeys(password);
-                waitingLoadingSpinner();
-                btnSubmit.click();
-                waitingLoadingSpinner();
-                return username;
-            }
-            return username;
-        }
+//    public String createUser(String loginId, String password) {
+//        String username = "";
+//        switch (_type) {
+//            case "satsport":
+//                accountInforSection.inputInfo(loginId, password, "Active");
+//                btnSubmit.click();
+//                waitingLoadingSpinner();
+//                break;
+//            default:
+//                username = accountInforSection.getUserName();
+//                accountInforSection.txtPassword.sendKeys(password);
+//                waitingLoadingSpinner();
+//                btnSubmit.click();
+//                waitingLoadingSpinner();
+//                return username;
+//            }
+//            return username;
+//        }
 
 }

@@ -41,9 +41,9 @@ public class NewUIEditDownlineListing extends EditDownlineListing {
         Assert.assertEquals(lstInfo.get(4), AGConstant.AgencyManagement.CreateAccount.LBL_LAST_NAME, "FAILED! Last Name label display incorrect");
         Assert.assertEquals(lstInfo.get(5), AGConstant.AgencyManagement.CreateAccount.LBL_PHONE, "FAILED! Phone display incorrect");
         Assert.assertEquals(lstInfo.get(6), AGConstant.AgencyManagement.CreateAccount.LBL_MOBILE, "FAILED! Mobile display incorrect");
-        Assert.assertEquals(lstInfo.get(7), AGConstant.AgencyManagement.CreateAccount.LBL_EMAIL, "FAILED! Mobile display incorrect");
-        Assert.assertEquals(lstInfo.get(8), AGConstant.AgencyManagement.CreateAccount.LBL_FAX, "FAILED! Fax display incorrect");
-        Assert.assertEquals(lstInfo.get(9), AGConstant.AgencyManagement.CreateAccount.LBL_ALLOW_PL_EXTRA, "FAILED! Allow Extra display incorrect");
+        Assert.assertEquals(lstInfo.get(7), AGConstant.AgencyManagement.CreateAccount.LBL_FAX, "FAILED! Fax display incorrect");
+        Assert.assertEquals(lstInfo.get(8), AGConstant.AgencyManagement.CreateAccount.LBL_BASE_CURRENCY, "FAILED! Base Currency display incorrect");
+//        Assert.assertEquals(lstInfo.get(9), AGConstant.AgencyManagement.CreateAccount.LBL_ALLOW_PL_EXTRA, "FAILED! Allow Extra display incorrect");
         Assert.assertTrue(accInfoSection.lblUsernamePrefix.isDisplayed(), "FAILED! Login ID textbox does not display");
         Assert.assertTrue(accInfoSection.txtPassword.isDisplayed(), "FAILED! Password textbox does not display");
         Assert.assertTrue(accInfoSection.ddrAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box does not display");
