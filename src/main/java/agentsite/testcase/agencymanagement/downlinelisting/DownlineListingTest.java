@@ -3,20 +3,20 @@ package agentsite.testcase.agencymanagement.downlinelisting;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.DownLineListingPage;
 import agentsite.pages.agentmanagement.EditDownLinePage;
+import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
 import agentsite.pages.components.SuccessPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
+import common.AGConstant;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static common.AGConstant.*;
 
@@ -193,6 +193,73 @@ public class DownlineListingTest extends BaseCaseTest {
         log("Verify 2. Validate Credit Initiation and Balance Textbox is disabled");
         Assert.assertFalse(editDownLinePage.cashBalanceInforSection.txtCreditInitiation.isEnabled());
         Assert.assertFalse(editDownLinePage.cashBalanceInforSection.txtFirstTimeDeposit.isEnabled());
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3531")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3531() throws Exception {
+        log("@title: Validate downline will not display the update is inactive market");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String parentUserID = ProfileUtils.getProfile().getUserID();
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(parentUserID, downlineLevel, _brandname);
+        String userCode = listAccount.get(0).getUserCode();
+        String userId = listAccount.get(0).getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userId,"PL", "", _brandname);
+        String downlineUserCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode,"","");
+
+        log("Step 2. Click on Edit icon of direct agent");
+        log("Step 3. Select Soccer sport and click edit icon");
+        log("Step 4. Uncheck a market (e.g.: Half Time) and submit");
+        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        editPage.productSettingsSection.productStatusSettingsSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", false);
+        page.downlineListing.submitEditDownline();
+        String message = page.downlineListing.getMessageUpdate(true);
+
+        log("Step 5. Drill down upline of the level in Step 2 and click on Edit icon");
+        page.downlineListing.searchDownline("","","");
+        log("Step 6. Click Edit icon and observe the market inactive in step 4");
+        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon("downlineUserCode");
+        editDownLinePage.productSettingsSection.productStatusSettingsSection.searchMarketOfSport("Soccer","Match Odds (MATCH_ODDS)");
+
+        log("Verify 6. The market inactive not display for downline");
+        Assert.assertTrue(editDownLinePage.productSettingsSection.productStatusSettingsSection.editMarketPopup.lblNoRecordFound.isDisplayed(),"FAILED! Inactive market still display in search result");
+        log("Validate Edit Member popup display with the message \"Member was updated successfully\"");
+        Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3532")
+    @Test(groups = {"regression1"})
+    public void Agent_AM_Downline_Listing_Edit_User_3532() throws Exception {
+        log("@title: Validate downline will not display the update is inactive market");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        BetSettingListing betSettingListing = new BetSettingListing();
+        String userID = ProfileUtils.getProfile().getUserID();
+//        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+//        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, _brandname);
+//        String userCode = listAccount.get(0).getUserCode();
+//        String userId = listAccount.get(0).getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode,"","");
+
+        log("Step 2. Click on Edit icon of any Member level");
+        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        List<ArrayList<String>> lstActualData = betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
+        double minBet = Double.parseDouble(lstActualData.get(0).get(9).replace(",","")) - 1;
+        List<ArrayList<String>> lstBetSetting = new ArrayList<>();
+        ArrayList<String> minBetLst = new ArrayList<String>((int) minBet);
+        lstBetSetting.add(minBetLst);
+        editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
+        log("Step 3. Input Min bet  of Soccer less the  valid value");
+        
 
         log("INFO: Executed completely");
     }

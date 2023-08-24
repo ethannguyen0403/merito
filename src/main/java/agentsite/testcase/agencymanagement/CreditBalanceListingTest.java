@@ -12,7 +12,7 @@ import util.testraildemo.TestRails;
 
 public class CreditBalanceListingTest extends BaseCaseTest {
     @TestRails(id = "3607")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     @Parameters({"memberAccount", "password"})
     public void Credit_Balance_Listing_3607(String memberAccount) {
         log("@title: Validate can update Credit Balance");
@@ -30,7 +30,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3608")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     @Parameters({"memberAccount", "password"})
     public void Credit_Balance_Listing_3608(String memberAccount) {
         log("@title: Validate can search by username");
@@ -63,7 +63,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
 //    }
 
     @TestRails(id = "3609")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     @Parameters({"memberAccount"})
     public void Credit_Balance_Listing_3609(String memberAccount) {
         log("@title: Validate can search by login ID");
@@ -79,7 +79,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3610")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_sat"})
     @Parameters({"memberAccount"})
     public void Credit_Balance_Listing_3610(String memberAccount) {
         log("@title: Validate can search by login ID");
@@ -108,7 +108,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3611")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_sat"})
     @Parameters({"brandname", "memberAccount", "password"})
     public void Credit_Balance_Listing_3611(String memberAccount, String password) throws Exception {
         log("@title: Validate player balance is correct after update credit in agent");

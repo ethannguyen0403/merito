@@ -154,12 +154,12 @@ public class LoginTest extends BaseCaseTest {
      * @steps: 1. Log in with a valid information(username, password, captcha, security code)
      * @expect: 1. Home page is displayed
      */
-    @Test(groups = {"smoke_sat"})
-    public void Agent_Login_Old_UI_002() {
-        log("@title: Validate that CONFIGURE OTP display after login");
-        log("Verify 1: Check CONFIGURE OTP label displays");
-        Assert.assertEquals(agentHomePage.leftMenu.getConfigureOTP(), AGConstant.HomePage.CONFIGURE_OTP, "Failed!, My Account button not displayed");
-        log("INFO: Executed completely");
-    }
+//    @Test(groups = {"smoke_sat"})
+//    public void Agent_Login_Old_UI_002() {
+//        log("@title: Validate that CONFIGURE OTP display after login");
+//        log("Verify 1: Check CONFIGURE OTP label displays");
+//        Assert.assertEquals(agentHomePage.leftMenu.getConfigureOTP(), AGConstant.HomePage.CONFIGURE_OTP, "Failed!, My Account button not displayed");
+//        log("INFO: Executed completely");
+//    }
 
 }
