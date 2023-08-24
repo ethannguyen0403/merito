@@ -58,6 +58,7 @@ public class BaseCaseTest {
     public static String sosValidationAgentURL;
     public static String agentSecurityCodeURL;
     public static String agentNewAccURL;
+    public static String agentFollowBetURL;
     public static String backofficeUrl;
     public static String backofficeSOSUrl;
     public static String backofficeDashboardUrl;
@@ -67,7 +68,7 @@ public class BaseCaseTest {
     public static String PROJECT_ID = "1";
     public static APIClient client;
     private static ApplicationContext context;
-    private static boolean isAddTestRailResult = true;
+    private static boolean isAddTestRailResult = false;
     private static List<Long> lstCases = new ArrayList<>();
 
     @BeforeSuite(alwaysRun = true)
@@ -88,7 +89,7 @@ public class BaseCaseTest {
             Map data = new HashMap();
             //data.put("suite_id",true);
             data.put("include_all", false);
-            data.put("name", "Test Run of suite " + ctx.getName() + " on" + DateUtils.getDateFollowingGMT("GMT+7", "dd-MM-YYYY hh:mm:ss"));
+            data.put("name", "Test Run of " + ctx.getName() + " on " + DateUtils.getDateFollowingGMT("GMT+7", "dd-MM-YYYY hh:mm:ss"));
             // data.put("milestone_id",1);
 
             JSONObject c = (JSONObject) client.sendPost("add_run/" + PROJECT_ID, data);
@@ -357,6 +358,8 @@ public class BaseCaseTest {
             sosValidationAgentURL = defineURL(brandname, AGENT_SOS_BY_PASS_CAPTCHA_URL_SUFFIX);
             agentSecurityCodeURL = defineURL(brandname, AGENT_SECURITY_CODE_URL_SUFFIX.get(brandname));
             agentNewAccURL = defineURL(brandname, LOGIN_NEW_ACC_AGENT_URL_SUFFIX.get(brandname));
+            agentFollowBetURL = defineURL(brandname, AGENT_FOLLOW_BETS_URL_SUFFIX);
+
 
             // define Backoffice url: Login url, loginByPassCaptcha URL, Dashboard url
             backofficeUrl = environment.getBackofficeURL();

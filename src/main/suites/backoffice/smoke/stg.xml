@@ -6,7 +6,7 @@
         <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
-    <test name="BO STG Smoke">
+    <test name="Smoke test cases of Backoffice in STG">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
