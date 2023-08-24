@@ -82,4 +82,22 @@ public class ProductStatusSettingsSection extends BaseElement {
         if (!isCheck == isActive)
             chbProduct.click();
     }
+
+    public void searchMarketOfSport(String sportName, String marketName) {
+        ArrayList<String> headerList = tblSportTable.getHeaderNameOfRows();
+
+        int i = 1;
+        for (String sport : headerList) {
+            if (sport.equalsIgnoreCase(sportName)) {
+                System.out.println(String.format("Product Setting - Click on Edit icon of %s", sportName));
+                Link lnk = (Link) tblSportTable.getControlOfCell(1, i, 1, "span[@class='editmarket']");
+                //  Label lblEdit = Label.xpath(String.format("//div[contains(@class,'marketSettingWrapper')]//table[contains(@class,'sportTable')]//tbody//tr[1]//td[%d]//span[@class='editmarket']",i));
+                lnk.click();
+                break;
+            }
+            i = i + 1;
+        }
+        editMarketPopup.txtSearchMarket.isDisplayed();
+        editMarketPopup.searchMarket(marketName);
+    }
 }

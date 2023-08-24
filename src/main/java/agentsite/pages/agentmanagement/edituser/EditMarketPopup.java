@@ -3,6 +3,7 @@ package agentsite.pages.agentmanagement.edituser;
 import agentsite.controls.Table;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Button;
+import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -11,6 +12,7 @@ public class EditMarketPopup extends BaseElement {
     public TextBox txtSearchMarket;
     public Table tblMarket;
     public Button btnOK;
+    public Label lblNoRecordFound;
     public Button btnCancle;
     private String _xPath; //app-blocking-setting
 
@@ -21,6 +23,7 @@ public class EditMarketPopup extends BaseElement {
         tblMarket = Table.xpath(String.format("%s//perfect-scrollbar[contains(@class,'content-market')]//table", _xPath), 2);
         btnOK = Button.xpath(String.format("%s//button[@class='pbtn']", _xPath));
         btnCancle = Button.xpath(String.format("%s//button[@class='cancel']", _xPath));
+        lblNoRecordFound = Label.xpath("//td[text()='No records found.']");
     }
 
     public static EditMarketPopup xpath(String xpathExpression) {
