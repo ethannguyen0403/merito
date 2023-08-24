@@ -61,8 +61,8 @@ public class FollowBetsPage extends HomePage {
     public Label lblPlayerName = Label.xpath("//label[text()='Player Name']");
     public TextBox txtPlayerName = TextBox.xpath("//input[@type='text']");
     public Label lblErrorContent = Label.xpath("//app-alert//div[@class='modal-body modal-body-fit-with-content']");
-    Label lblNoFoundRecordsInGroupList = Label.xpath("//app-follow-bygroup/div[1]/div[1]//table[contains(@class,'table-sm ptable')]//td[text()='No records found.']");
     Label lblNoFoundRecordsInPlayerList = Label.xpath("//app-follow-bygroup/div[1]/div[2]//table[contains(@class,'table-sm ptable')]//td[text()='No records found.']");
+    public Label lblErrorContentAlert = Label.xpath("//app-alert//div[contains(@class,'modal-body')]");
     public FollowBets followBets;
     public FollowBetsPage(String types) {
         super(types);
@@ -258,16 +258,23 @@ public class FollowBetsPage extends HomePage {
     public void searchPlayer(String type,String playerFollowBet) {
         switch (type){
             case "By Group":
-                if (!playerFollowBet.isEmpty()){
+                if (playerFollowBet != null){
                     txtPlayerAgentNameSearchByGroup.sendKeys(playerFollowBet);
+                } else {
+                    System.out.println("There is not player!");
+                    break;
                 }
                 btnSearchByGroup.click();
                 break;
             default:
-                if (!playerFollowBet.isEmpty()){
+                if (playerFollowBet != null){
                     txtPlayerName.sendKeys(playerFollowBet);
+                } else {
+                    System.out.println("There is not player!");
+                    break;
                 }
                 btnSearchByPlayer.click();
+                break;
         }
     }
 
@@ -348,5 +355,31 @@ public class FollowBetsPage extends HomePage {
         }
         System.out.println(String.format("The group name %s not exist in the list", playerName));
         return false;
+    }
+
+    public void changeFollowStatus(String type, String groupName, String followStatus) {
+        List<ArrayList<String>> byGroupData = new ArrayList<>();
+        Table tblData;
+        int colFollowStatus;
+        switch (type) {
+            case "By Group":
+                byGroupData = tblGroupList.getRowsWithoutHeader(false);
+                tblData = tblGroupList;
+                colFollowStatus = this.colFollowStatus;
+                break;
+            default:
+                byGroupData = tblByPlayer.getRowsWithoutHeader(false);
+                tblData = tblByPlayer;
+                colFollowStatus = colFollowStatusByPlayer;
+                break;
+        }
+        for (int i = 0; i < byGroupData.size(); i++) {
+            if (byGroupData.get(i).get(colGroupName - 1).equals(groupName)) {
+                Button btnFollowStatus = Button.xpath(tblData.getControlxPathBasedValueOfDifferentColumnOnRow(groupName, 1, colGroupName, 1, null, colFollowStatus, "button[contains(@class,'yesNoBtn')]", false, false));
+                if (!btnFollowStatus.getText().equals(followStatus)){
+                    btnFollowStatus.click();
+                }
+            }
+        }
     }
 }
