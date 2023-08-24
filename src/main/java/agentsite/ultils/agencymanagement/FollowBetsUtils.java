@@ -2,6 +2,7 @@ package agentsite.ultils.agencymanagement;
 
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
+import com.paltech.utils.DateUtils;
 import com.paltech.utils.WSUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,7 +15,7 @@ import java.util.Objects;
 import static baseTest.BaseCaseTest.domainURL;
 
 public class FollowBetsUtils {
-    static JSONArray getList() {
+    static JSONArray getListByGroup() {
         List<ArrayList<String>> lstGroup = new ArrayList<>();
         String api = String.format("%s/agent-bet-setting/group/list", domainURL);
         JSONArray jsonArray = WSUtils.getPOSTJSONArrayWithCookies(api, Configs.HEADER_FORM_URLENCODED, null, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
@@ -22,7 +23,7 @@ public class FollowBetsUtils {
     }
     public static ArrayList<String> getGroupId() {
         ArrayList<String> lstGroupId = new ArrayList<>();
-        JSONArray jsonArray = getList();
+        JSONArray jsonArray = getListByGroup();
         if (Objects.nonNull(jsonArray)) {
             for (int i = 0; i < jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -33,7 +34,7 @@ public class FollowBetsUtils {
     }
     public static ArrayList<String> getLstGroupName() {
         ArrayList<String> lstGroupName = new ArrayList<>();
-        JSONArray jsonArray = getList();
+        JSONArray jsonArray = getListByGroup();
         if (Objects.nonNull(jsonArray)) {
             for (int i = 0; i < jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -74,5 +75,17 @@ public class FollowBetsUtils {
             }
         }
             return username;
+    }
+    public static ArrayList<String> getListUserNameByPlayer(){
+        ArrayList<String> lstUsername = new ArrayList<>();
+        String api = String.format("%s/agent-bet-setting/follow-player/list?q=&_%s", domainURL, DateUtils.getMilliSeconds());
+        JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api,Configs.HEADER_FORM_URLENCODED,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        if (Objects.nonNull(jsonArray)){
+            for (int i = 0; i < jsonArray.length(); i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                lstUsername.add(jsonObject.getString("userName"));
+            }
+        }
+        return lstUsername;
     }
 }

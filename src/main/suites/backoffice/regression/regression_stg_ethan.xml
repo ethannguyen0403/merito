@@ -30,7 +30,9 @@
         </groups>
 
         <classes>
-            <class name="backoffice.testcases.operations.BannerManagementTest"/>
+            <class name="backoffice.testcases.system.ProviderCurrencyMappingTest"/>
+
+            <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
             <class name="backoffice.testcases.operations.MixedPTConfigurationTest"/>
 
             <class name="backoffice.testcases.marketmanagement.EventMarketLogTest"/>

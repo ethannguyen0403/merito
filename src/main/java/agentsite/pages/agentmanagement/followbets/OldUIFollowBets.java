@@ -10,7 +10,7 @@ public class OldUIFollowBets extends FollowBets{
     private int colTblByPlayer = 11;
     public Table tblAddAgentPlayer = Table.xpath("//app-follow-bygroup/div[1]/div[2]//table[contains(@class,'table-sm ptable')]", colTblPlayerAgentList);
     public Table tblByPlayer = Table.xpath("//app-follow-byplayer//table[contains(@class,'table-sm ptable')]", colTblByPlayer);
-    private int colLoginId = 2;
+    private int colUsername = 1;
     private int colAddAgentPlayerAction = 5;
 
     @Override
@@ -34,7 +34,7 @@ public class OldUIFollowBets extends FollowBets{
 
     @Override
     public ConfirmPopup removeAgentPlayerByGroup(String loginID) {
-        Button btn = Button.xpath(tblAddAgentPlayer.getControlxPathBasedValueOfDifferentColumnOnRow(loginID, 1, colLoginId, 1, null, colAddAgentPlayerAction, "button[1]", false, false));
+        Button btn = Button.xpath(tblAddAgentPlayer.getControlxPathBasedValueOfDifferentColumnOnRow(loginID, 1, colUsername, 1, null, colAddAgentPlayerAction, "button[1]", false, false));
         btn.click();
         return new ConfirmPopup();
     }
