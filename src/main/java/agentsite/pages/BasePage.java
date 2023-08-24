@@ -27,6 +27,8 @@ public class BasePage {
             }
         }
     }
-
+    public void navigateToUrl(String url) {
+        DriverManager.getDriver().get(url);
+    }
 
 }
