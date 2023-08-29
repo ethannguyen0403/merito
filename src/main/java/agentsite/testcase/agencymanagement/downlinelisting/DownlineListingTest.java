@@ -235,16 +235,12 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3532")
-    @Test(groups = {"regression1"})
-    public void Agent_AM_Downline_Listing_Edit_User_3532() throws Exception {
-        log("@title: Validate downline will not display the update is inactive market");
+    @Test(groups = {"regression"})
+    @Parameters({"currency"})
+    public void Agent_AM_Downline_Listing_Edit_User_3532(String currency) throws Exception {
+        log("@title: Validate cannot edit User if Min is invalid");
         log("Step 1. Navigate Agency Management > Downline Listing");
-        BetSettingListing betSettingListing = new BetSettingListing();
         String userID = ProfileUtils.getProfile().getUserID();
-//        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-//        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, _brandname);
-//        String userCode = listAccount.get(0).getUserCode();
-//        String userId = listAccount.get(0).getUserID();
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -252,15 +248,51 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
-        List<ArrayList<String>> lstActualData = betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
-        double minBet = Double.parseDouble(lstActualData.get(0).get(9).replace(",","")) - 1;
+        List<ArrayList<String>> lstBetSettingValidation = editPage.betSettingInforSection.getBetSettingValidationValueLst(currency);
+        String minBet =Integer.toString(Integer.parseInt(lstBetSettingValidation.get(0).get(1))-1);
         List<ArrayList<String>> lstBetSetting = new ArrayList<>();
-        ArrayList<String> minBetLst = new ArrayList<String>((int) minBet);
+        ArrayList<String> minBetLst = new ArrayList<String>(
+                Arrays.asList(minBet, minBet, minBet, minBet, minBet, minBet));
         lstBetSetting.add(minBetLst);
-        editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
-        log("Step 3. Input Min bet  of Soccer less the  valid value");
-        
 
+        log("Step 3. Input Min bet less the valid value");
+        editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
+
+        log("Verified  1. Message \"Min Bet is invalid.\" and the valid is highlight");
+        Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID, page.lblErrorMsg.getText()));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3533")
+    @Test(groups = {"regression"})
+    @Parameters({"currency"})
+    public void Agent_AM_Downline_Listing_Edit_User_3533(String currency) throws Exception {
+        log("@title: Validate cannot edit User if Max is invalid");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode,"","");
+
+        log("Step 2. Click on Edit icon of any Member level");
+        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        List<ArrayList<String>> lstBetSettingValidation = editPage.betSettingInforSection.getBetSettingValidationValueLst(currency);
+        String minBet =Integer.toString(Integer.parseInt(lstBetSettingValidation.get(0).get(1).replace(",","")));
+        String maxBet =Integer.toString(Integer.parseInt(lstBetSettingValidation.get(1).get(1).replace(",","")) + 1);
+        List<ArrayList<String>> lstBetSetting = new ArrayList<>();
+        ArrayList<String> minBetLst = new ArrayList<String>(
+                Arrays.asList(minBet, minBet, minBet, minBet, minBet, minBet));
+        ArrayList<String> maxBetLst = new ArrayList<String>(
+                Arrays.asList(maxBet, maxBet, maxBet, maxBet, maxBet, maxBet));
+        lstBetSetting.add(minBetLst);
+        lstBetSetting.add(maxBetLst);
+
+        log("Step 3. Input Min bet less the valid value");
+        editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
+
+        log("Verified  1. Message \"Min Bet is invalid.\" and the valid is highlight");
+        Assert.assertEquals(page.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID, page.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
 
