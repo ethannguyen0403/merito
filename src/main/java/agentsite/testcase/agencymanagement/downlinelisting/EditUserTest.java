@@ -275,7 +275,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Inactive Live and click Save button");
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateLiveNonLive(false, true);
+        page.editDownlinePopup.productStatusSettingInforSection.updateLiveNonLive(false,true);
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
@@ -314,7 +314,7 @@ public class EditUserTest extends BaseCaseTest {
         log("Step 5.1. Input security code");
         page.downlineListing.submitEditDownline();
 
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateLiveNonLive(true, true);
+        page.editDownlinePopup.productStatusSettingInforSection.updateLiveNonLive(true, true);
         page.downlineListing.submitEditDownline();
         message = page.downlineListing.getMessageUpdate(true);
 
@@ -364,7 +364,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Inactive Live and click Save button");
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateLiveNonLive(true, false);
+        page.editDownlinePopup.productStatusSettingInforSection.updateLiveNonLive(true, false);
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
@@ -376,7 +376,7 @@ public class EditUserTest extends BaseCaseTest {
         log("Step 5.1. Input security code");
         page.confirmSecurityCode(environment.getSecurityCode());
 
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateLiveNonLive(true, true);
+        page.editDownlinePopup.productStatusSettingInforSection.updateLiveNonLive(true, true);
         page.downlineListing.submitEditDownline();
         message = page.downlineListing.getMessageUpdate(true);
 
@@ -414,7 +414,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. In-active any sport");
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateSport("Soccer", false);
+        page.editDownlinePopup.productStatusSettingInforSection.updateSport("Soccer", false);
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
@@ -440,7 +440,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 4.3 Repeat step 2 to 3 and Active Sport again and active at least 1 market of the sport");
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", true);
+        page.editDownlinePopup.productStatusSettingInforSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", true);
         page.downlineListing.submitEditDownline();
         message = page.downlineListing.getMessageUpdate(true);
 
@@ -487,7 +487,7 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 3. Select Soccer sport and click edit icon");
         log("Step 4. Uncheck a market (e.g.: Half Time) and submit");
-        page.productSettingsSection.productStatusSettingsSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", false);
+        page.productStatusSettingInforSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", false);
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
@@ -645,7 +645,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.1 In-active Lottery & Slots product");
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Lottery & Slots", false);
+        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Lottery & Slots", false);
         page.downlineListing.submitEditDownline();
         page.downlineListing.closeSubmitEditDownlinePopup();
         page.logout();
@@ -665,7 +665,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.3 Active Lottery & Slots product");
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Lottery & Slots", true);
+        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Lottery & Slots", true);
         page.downlineListing.submitEditDownline();
         page.downlineListing.closeSubmitEditDownlinePopup();
         page.logout();
@@ -691,7 +691,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.1 In-active Exchange Games product");
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Exchange Games", false);
+        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Exchange Games", false);
         page.downlineListing.submitEditDownline();
         page.downlineListing.closeSubmitEditDownlinePopup();
         page.logout();
@@ -711,7 +711,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.3 Active Exchange Games product");
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Exchange Games", true);
+        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Exchange Games", true);
         page.downlineListing.submitEditDownline();
         page.downlineListing.closeSubmitEditDownlinePopup();
         page.logout();
@@ -737,7 +737,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.1 In-active Live Dealer Asian product");
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Live Dealer Asian", false);
+        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Live Dealer Asian", false);
         page.downlineListing.submitEditDownline();
         page.downlineListing.closeSubmitEditDownlinePopup();
         page.logout();
@@ -757,7 +757,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.3 Active Live Dealer Asian product");
-        page.editDownlinePopup.productSettingsSection.productStatusSettingsSection.updateProduct("Live Dealer Asian", true);
+        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Live Dealer Asian", true);
         page.downlineListing.submitEditDownline();
         page.downlineListing.closeSubmitEditDownlinePopup();
         page.logout();

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -40,7 +41,7 @@ public class DropDownMenu extends BaseElement {
     }
 
     public WebElement waitForElementToBePresent(By by, int timeOutInSeconds) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), timeOutInSeconds);
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOutInSeconds));
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 

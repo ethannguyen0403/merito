@@ -8,6 +8,7 @@ import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.Bet
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.CashBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.CreditBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.ProductSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.ProductStatusSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.RiskSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
 import agentsite.pages.components.ComponentsFactory;
@@ -98,6 +99,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public ProductSettingSection productSettingInforSection;
     public BetSettingSection betSettingInforSection;
     public TaxSettingSection taxSettingInforSection;
+    public ProductStatusSettingSection productStatusSettingInforSection;
     public agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection.PositionTakingSection positionTakingInforSection;
     protected String _type;
     private int totalBetSettingsColumns = 7;
@@ -125,7 +127,7 @@ public class CreateDownLineAgentPage extends HomePage {
         betSettingInforSection = ComponentsFactory.betSettingInfoObject(_type);
         taxSettingInforSection = ComponentsFactory.taxSettingInfoObject(_type);
         positionTakingInforSection = ComponentsFactory.positionTakingInfoObject(_type);
-
+        productStatusSettingInforSection = ComponentsFactory.productStatusSettingInfoObject(_type);
     }
 
 //    public String createDownline(String password, String level) {

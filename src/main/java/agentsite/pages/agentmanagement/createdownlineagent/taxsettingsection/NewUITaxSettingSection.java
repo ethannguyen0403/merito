@@ -9,9 +9,9 @@ public class NewUITaxSettingSection extends TaxSettingSection {
 
     public String getTaxSettingSectionTitle(String product) {
         if (product.equalsIgnoreCase(AGConstant.EXCHANGE)) {
-            return lblTaxSettingTitleEX.getText();
+            return lblTaxSettingTitleEX.getText().trim();
         } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
-            return lblTaxSettingTitleEG.getText();
+            return lblTaxSettingTitleEG.getText().trim();
         }
         return "";
     }

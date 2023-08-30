@@ -38,6 +38,24 @@ public class NewUIAccountInforSection extends AccountInforSection {
 
     }
 
+    public void inputInfo(String password, String accountStatus, String firstName, String lastName, String phone, String mobile, String fax) {
+        if (!password.isEmpty()) {
+            txtPassword.sendKeys(password);
+        }
+        if (!accountStatus.isEmpty())
+            ddrAccountStatus.selectByVisibleText(accountStatus);
+        if (!firstName.isEmpty())
+            txtFirstName.sendKeys(firstName);
+        if (!phone.isEmpty())
+            txtPhone.sendKeys(phone);
+        if (!lastName.isEmpty())
+            txtLastName.sendKeys(lastName);
+        if (!mobile.isEmpty())
+            txtMobile.sendKeys(mobile);
+        if (!fax.isEmpty())
+            txtFax.sendKeys(fax);
+    }
+
     public String getUserName() {
         String username = lblUsernamePrefix.getText();
         Label lblUsernameChar = Label.xpath(lblUsernameCharXpath);

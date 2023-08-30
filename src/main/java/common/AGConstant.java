@@ -286,8 +286,9 @@ public class AGConstant {
         }
 
         public static class DownlineListing {
-            public final static String EDIT_AGENT_TITLE = "Edit Master Agent";
-            public final static String EDIT_MEMBER_TITLE = "Edit Member\n";
+            public final static String EDIT_AGENT_TITLE = "Edit Downline Agent";
+            public final static String EDIT_USER_TITLE = "Edit User";
+            public final static String EDIT_MARKET_TITLE = "Edit market for %s";
             public final static List<String> LST_ACCOUNT_STATUS = Arrays.asList("All", "Active", "Inactive", "Suspended", "Closed", "Blocked");
             public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Client Name", "Mobile", "Credit Initiation", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Downline", "Create Date", "Last Login Time", "Last Login IP");
             public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Exchange", "Live Dealer European", "Live Dealer Asian", "Exchange Games", "Supernowa Casino", "Evolution", "Game Hall", "Vivo", "ION", "Pragmatic");
@@ -309,6 +310,8 @@ public class AGConstant {
             public final static String LBL_LOGINID_REQUIRED = "Login ID is required.";
             public final static String LBL_MIN_INVALID = "Min Bet is invalid.";
             public final static String LBL_MAX_INVALID = "Max Bet is invalid.";
+            public final static String LBL_MAX_LIABILITY_INVALID = "Max Liability Per Market is invalid.";
+            public final static String LBL_MAX_WIN_INVALID = "Max Win Per Market is invalid.";
             public final static String LBL_BALANCE_DEPOSIT_INVALID = "Balance Deposit is invalid.";
             public final static String LBL_MIN_GREATER_MAX_INVALID = "Min bet shall not be greater than max bet.";
             public final static String CASH_BALANCE = "Cash Balance";
