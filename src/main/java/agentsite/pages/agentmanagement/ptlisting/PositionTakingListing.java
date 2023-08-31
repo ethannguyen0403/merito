@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PositionTakingListing {
-    public int totalColum = 16;
+    public int totalColum = 32;
     public int usernameCol = 2;
     public int chbCol = 5;
     public int soccerCol = 8;
@@ -28,9 +28,18 @@ public class PositionTakingListing {
     public Button btnSearch = Button.xpath("//button[@class='pbtn search']");
     private String xPathSport = "//span[contains(text(),'%s')]/preceding::input[1]";
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
-    public Table tblDownline = Table.xpath("//app-exchange-pt-table//table[contains(@class,'directDownline table-responsive')]", totalColum);
+    public Table tblDownline = Table.xpath("//app-agency-position-taking//table[contains(@class,'directDownline table-responsive')]", totalColum);
     private String successIcon = "//span[contains(@class,'psuccess')]";
     private String errorIcon = "//span[contains(@class,'perror')]";
+    public CheckBox cbAll = CheckBox.xpath("//span[contains(text(),'Select All')]/preceding::input[1]");
+    public CheckBox cbSoccer = CheckBox.xpath("//input[@id='SOCCER']");
+    public CheckBox cbCricket = CheckBox.xpath("//input[@id='CRICKET']");
+    public CheckBox cbFancy = CheckBox.xpath("//input[@id='FANCY']");
+    public CheckBox cbTennis = CheckBox.xpath("//input[@id='TENNIS']");
+    public CheckBox cbBasketball = CheckBox.xpath("//input[@id='BASKETBALL']");
+    public CheckBox cbHorseRacing = CheckBox.xpath("//input[@id='HORSE']");
+    public CheckBox cbGreyhoundRacing = CheckBox.xpath("//input[@id='GREYHOUND']");
+    public CheckBox cbOther = CheckBox.xpath("//input[@id='OTHER']");
 
     public void waitingLoadingSpinner() {
         iconLoadSpinner.waitForControlInvisible(2, 2);
@@ -142,4 +151,42 @@ public class PositionTakingListing {
         return lstPTSetting;
     }
 
+    private CheckBox defineCheckbox(String sport) {
+        switch (sport) {
+            case "Soccer":
+                return cbSoccer;
+            case "Cricket":
+                return cbCricket;
+            case "Tennis":
+                return cbTennis;
+            case "Fancy":
+                return cbFancy;
+            case "Baseketball":
+                return cbBasketball;
+            case "Horse Racing":
+                return cbHorseRacing;
+            case "Greyhound Racing":
+                return cbGreyhoundRacing;
+            case "Other":
+                return cbOther;
+            default:
+                return cbAll;
+        }
+    }
+
+    public void checkCheckbox(String sport) {
+        CheckBox cb = defineCheckbox(sport);
+        if (!cb.isSelected())
+            cb.click();
+    }
+
+    public void unCheckCheckbox(String sport) {
+        CheckBox cb = defineCheckbox(sport);
+        if (cb.isSelected())
+            cb.click();
+    }
+
+    public boolean isTableHeaderProductDisplayCorrect(String product) {
+        return false;
+    }
 }

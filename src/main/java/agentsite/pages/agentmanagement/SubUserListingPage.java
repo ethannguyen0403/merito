@@ -81,7 +81,7 @@ public class SubUserListingPage extends HomePage {
         subUserPopup.fillInfo(password, status, firstName, lastName, permissions, true);
     }
 
-    public boolean verifySubUserInfo(String userName, HashMap<String, Boolean> permissions) {
+    public boolean isSubUserPermissionSettingCorrect(String userName, HashMap<String, Boolean> permissions) {
         List<String> permissionlst = PERMISSIONS_ALL;
         String cell_xpath;
         Label lblIcon;

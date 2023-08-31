@@ -53,7 +53,7 @@ public class SubUserListingTest extends BaseCaseTest {
         log("Step 4. Click Submit");
         String subUsername = page.createSubUser("", pwDecrypt, "Active", StringUtils.generateAlphabetic(4), StringUtils.generateAlphabetic(4), permissions);
         log("Verify 1. Verify Sub user is created with all permission");
-        Assert.assertTrue(page.verifySubUserInfo(subUsername, permissions), "FAILED the list permission is incorrect");
+        Assert.assertTrue(page.isSubUserPermissionSettingCorrect(subUsername, permissions), "FAILED the list permission is incorrect");
         page.logout();
         Thread.sleep(2000);
 
@@ -398,7 +398,6 @@ public class SubUserListingTest extends BaseCaseTest {
                 put("Transfer & Deposit/Withdraw", false);
                 put("Account Balance", true);
                 put("Markets Management", false);
-                put("Fraud Detection", false);
             }
         };
         String pwDecrypt = StringUtils.decrypt(password);
@@ -410,7 +409,7 @@ public class SubUserListingTest extends BaseCaseTest {
         page.editSubUser(userName, pwDecrypt, "Active", StringUtils.generateAlphabetic(4), StringUtils.generateAlphabetic(4), permissions);
 
         log("Verify 1.Verify Green check only display for Create Account and Account Balance column");
-        Assert.assertTrue(page.verifySubUserInfo(userName, permissions), "FAILED the list permission is incorrect");
+        Assert.assertTrue(page.isSubUserPermissionSettingCorrect(userName, permissions), "FAILED the list permission is incorrect");
         page.logout();
         Thread.sleep(2000);
 
@@ -441,7 +440,6 @@ public class SubUserListingTest extends BaseCaseTest {
                 put("Transfer & Deposit/Withdraw", false);
                 put("Account Balance", true);
                 put("Markets Management", false);
-                put("Fraud Detection", false);
             }
         };
         String pwDecrypt = StringUtils.decrypt(password);
@@ -452,7 +450,7 @@ public class SubUserListingTest extends BaseCaseTest {
         page.editSubUser(userName, pwDecrypt, "Active", StringUtils.generateAlphabetic(4), StringUtils.generateAlphabetic(4), permissions);
 
         log("Verify 1.Verify Green check only display for Create Account and Account Balance column");
-        Assert.assertTrue(page.verifySubUserInfo(userName, permissions), "FAILED the list permission is incorrect");
+        Assert.assertTrue(page.isSubUserPermissionSettingCorrect(userName, permissions), "FAILED the list permission is incorrect");
         page.logout();
         Thread.sleep(2000);
 
@@ -487,7 +485,6 @@ public class SubUserListingTest extends BaseCaseTest {
                 put("Transfer & Deposit/Withdraw", false);
                 put("Account Balance", true);
                 put("Markets Management", false);
-                put("Fraud Detection", false);
             }
         };
         String pwDecrypt = StringUtils.decrypt(password);
@@ -499,7 +496,7 @@ public class SubUserListingTest extends BaseCaseTest {
         page.editSubUser(userName, "", "Active", StringUtils.generateAlphabetic(4), StringUtils.generateAlphabetic(4), permissions);
 
         log("Verify 1. Verify Green check only display for Report and Account Balance column ");
-        Assert.assertTrue(page.verifySubUserInfo(userName, permissions), "FAILED the list permission is incorrect");
+        Assert.assertTrue(page.isSubUserPermissionSettingCorrect(userName, permissions), "FAILED the list permission is incorrect");
         page.logout();
         Thread.sleep(2000);
 
@@ -527,7 +524,6 @@ public class SubUserListingTest extends BaseCaseTest {
                 put("Transfer & Deposit/Withdraw", true);
                 put("Account Balance", true);
                 put("Markets Management", false);
-                put("Fraud Detection", false);
             }
         };
         String pwDecrypt = StringUtils.decrypt(password);
@@ -539,7 +535,7 @@ public class SubUserListingTest extends BaseCaseTest {
         page.editSubUser(userName, pwDecrypt, "Active", StringUtils.generateAlphabetic(4), StringUtils.generateAlphabetic(4), permissions);
 
         log("Verify 1. Verify Green check only display forTransfer & Deposit/Withdraw and Account Balance column");
-        Assert.assertTrue(page.verifySubUserInfo(userName, permissions), "FAILED the list permission is incorrect");
+        Assert.assertTrue(page.isSubUserPermissionSettingCorrect(userName, permissions), "FAILED the list permission is incorrect");
         page.logout();
         Thread.sleep(2000);
 
@@ -567,7 +563,6 @@ public class SubUserListingTest extends BaseCaseTest {
                 put("Transfer & Deposit/Withdraw", false);
                 put("Account Balance", true);
                 put("Markets Management", true);
-                put("Fraud Detection", false);
             }
         };
         String pwDecrypt = StringUtils.decrypt(password);
@@ -578,7 +573,7 @@ public class SubUserListingTest extends BaseCaseTest {
         page.editSubUser(userName, pwDecrypt, "Active", StringUtils.generateAlphabetic(4), StringUtils.generateAlphabetic(4), permissions);
 
         log("Verify 1. Verify Green check only display for Markets Management and Account Balance column");
-        Assert.assertTrue(page.verifySubUserInfo(userName, permissions), "FAILED the list permission is incorrect");
+        Assert.assertTrue(page.isSubUserPermissionSettingCorrect(userName, permissions), "FAILED the list permission is incorrect");
         page.logout();
         Thread.sleep(2000);
 

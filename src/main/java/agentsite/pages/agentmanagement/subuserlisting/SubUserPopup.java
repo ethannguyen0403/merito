@@ -86,7 +86,7 @@ public class SubUserPopup {
                 enableFlag = permissions.get(permissionLst.get(i));
                 chb = CheckBox.xpath(String.format(xPathPermission, permissionLst.get(i)));
                 if (Objects.nonNull(chb)) {
-                    if (chb.getAttribute("name").equalsIgnoreCase("true") != enableFlag)
+                    if (!(chb.getAttribute("name") != String.valueOf(enableFlag)))
                         chb.click();
                 }
             }
