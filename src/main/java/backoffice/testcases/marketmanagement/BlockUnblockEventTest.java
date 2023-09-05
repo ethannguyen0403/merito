@@ -85,6 +85,7 @@ public class BlockUnblockEventTest extends BaseCaseTest {
         String user = page.ddbUplineUser.getFirstSelectedOption();
         page.filter(user, BOConstants.Operations.BlockUnblockEvent.SPORTS.get(0),
                 BOConstants.Operations.BlockUnblockEvent.FILTER_PERIOD.get(1));
+        page.waitSpinIcon();
         List<String> lstEventDateTime = page.getListEventDateTime();
         log("Step 2. Validate when filter for Today displays with KOT in current date");
         Assert.assertTrue(page.isTheDateOfEventDisplayCorrect(lstEventDateTime),"FAILED! Event Date Time is not in today expected");
@@ -337,7 +338,7 @@ public class BlockUnblockEventTest extends BaseCaseTest {
         log("Step 3. Click checkbox in Event to Select All");
         page.clickSelectAllEvent();
 
-        log("Step 3. Validate All options are selected");
+        log("Verify 1. Validate All options are selected");
         Assert.assertTrue(page.isEventCheckboxChecked(), "FAILED! All events checkbox are not checked");
 
         log("INFO: Executed completely");

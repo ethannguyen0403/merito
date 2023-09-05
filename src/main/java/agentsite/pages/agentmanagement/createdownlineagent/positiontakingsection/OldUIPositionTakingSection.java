@@ -9,9 +9,9 @@ public class OldUIPositionTakingSection extends PositionTakingSection {
 
     public String getPositionTakingSectionTitle(String product) {
         if (product.equalsIgnoreCase(AGConstant.EXCHANGE)) {
-            return lblPositionTakingTitleEX.getText();
+            return lblPositionTakingTitleEX.getText().trim();
         } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
-            return lblPositionTakingTitleEG.getText();
+            return lblPositionTakingTitleEG.getText().trim();
         }
         return "";
     }

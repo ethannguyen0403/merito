@@ -63,7 +63,8 @@ public class TransactionDetailsPopup {
 
     public boolean isColumnDataMatchedWithTotal(String columnName, List<String> lstLevel) {
         Table table = defineReportCol(lstLevel);
-        int col = getColumnIndexByName(table, columnName) + 1;// there is Cashout column is hide so need to inclue 1 more column
+        fullScreenPopup();
+        int col = table.getColumnIndexByName(columnName) + 1;// there is Cashout column is hide so need to inclue 1 more column
         if (col == -1) {
             System.out.println(String.format("Column name %s not be found in the table", columnName));
             return false;
@@ -87,15 +88,6 @@ public class TransactionDetailsPopup {
         return totalResult == memberResult;
     }
 
-    private int getColumnIndexByName(Table table, String columnName) {
-        fullScreenPopup();
-        ArrayList<String> lstHeader = table.getHeaderNameOfRows();
-        for (int i = 0, n = lstHeader.size(); i < n; i++) {
-            if (lstHeader.get(i).equals(columnName))
-                return i + 1;
-        }
-        return -1;
-    }
 
     public double sumPlayerStake() {
         double totalPlayerStake = 0.0;

@@ -9,7 +9,7 @@ public class OldUICashBalanceSection extends CashBalanceSection {
     private TextBox txtMaxPlayerCredit = TextBox.xpath("//input[@name='playerMaxCredit']");
 //    private TextBox txtFirstTimeDeposit = TextBox.xpath("//input[@name='cashBalance']");
     public String getCashSectionTitle() {
-        return lblCashBalanceTitle.getText();
+        return lblCashBalanceTitle.getText().trim();
     }
     public void inputCashBalanceInfo(String creditInit, String firstTimeDeposit) {
         if (!creditInit.isEmpty()) {

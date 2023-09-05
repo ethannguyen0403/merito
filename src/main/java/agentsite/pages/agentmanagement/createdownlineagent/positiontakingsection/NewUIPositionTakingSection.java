@@ -8,9 +8,9 @@ public class NewUIPositionTakingSection extends PositionTakingSection {
     private Label lblPositionTakingTitleEG = Label.xpath("//div[@id='EXCH_GAMES-position-taking']//div[text()='Position Taking ']");
     public String getPositionTakingSectionTitle(String product) {
         if (product.equalsIgnoreCase(AGConstant.EXCHANGE)) {
-            return lblPositionTakingTitleEX.getText();
+            return lblPositionTakingTitleEX.getText().trim();
         } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
-            return lblPositionTakingTitleEG.getText();
+            return lblPositionTakingTitleEG.getText().trim();
         }
         return "";
     }
