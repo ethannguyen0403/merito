@@ -382,7 +382,7 @@ public class DownlineListingTest extends BaseCaseTest {
     @TestRails(id = "3537")
     @Test(groups = {"regression"})
     public void Agent_AM_Downline_Listing_Edit_User_3537() throws Exception {
-        log("@title: Validate cannot edit User if  Max Win Per Market  is invalid");
+        log("@title: Validate cannot edit User if input invalid password format");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String password = "p@ssword";
         String userID = ProfileUtils.getProfile().getUserID();
@@ -393,9 +393,10 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        log("Step 3. Input invalid password format");
         editPage.editDownlineListing.inputInfoSection(password,"","","","","","",true);
 
-        log("Verified 1. Message \"Password is invalid.\" display next to Cancel button");
+        log("Verified 3. Message \"Password is invalid.\" display next to Cancel button");
         Assert.assertTrue(page.lblErrorMsg.getText().contains(AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID),String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID, page.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
@@ -416,9 +417,10 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        log("Step 3. Input valid info of all fields and click Submit button");
         editPage.editDownlineListing.inputInfoSection("","",firstName,lastName,"",mobile,"",true);
 
-        log("Verified 1. User info is updated with new data");
+        log("Verified 3. User info is updated with new data");
         page.downlineListing.closeSubmitEditDownlinePopup();
         page.downlineListing.clickEditIcon(userCode);
         Assert.assertEquals(editPage.accountInforSection.txtFirstName.getAttribute("value"), firstName, String.format("FAILED! First Name displays incorrect actual %s and expected %s", editPage.accountInforSection.txtFirstName.getText(), firstName));
@@ -479,7 +481,7 @@ public class DownlineListingTest extends BaseCaseTest {
     @TestRails(id = "3551")
     @Test(groups = {"regression"})
     public void Agent_AM_Downline_Listing_Edit_User_3551() throws Exception {
-        log("@title: Validate Edit User UI when login from low level");
+        log("@title: Validate UI when open Edit Market popup");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
@@ -489,9 +491,10 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon for member level");
         EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        log("Step 3. In product Setting Section, click on any edit button of any Sport");
         editDownlinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","Test");
 
-        log("Verify 2. Validate Edit Market popup display with the title \"Edit Market for [Sport]\"\n" +
+        log("Verify 3. Validate Edit Market popup display with the title \"Edit Market for [Sport]\"\n" +
                 "2 Validate UI on Edit Market Popup:\n" +
                 "\n" +
                 "Search Market labels and textbox\n" +
@@ -501,6 +504,29 @@ public class DownlineListingTest extends BaseCaseTest {
         Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.cbAllMarket.isDisplayed(), "FAILED! Check all market checkbox does not display");
         Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.btnOK.isDisplayed(), "FAILED! Button OK does not display");
         Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.btnCancle.isDisplayed(), "FAILED! Button Cancel does not display");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3552")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3552() throws Exception {
+        log("@title: Validate search correct Market works");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon for member level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        log("Step 3. In product Setting Section, click on any edit button of any Sport");
+        log("Step 4. Input a correct market and press Enter");
+        editDownlinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","Match Odds (MATCH_ODDS)");
+
+        log("Verify 3. Validate the correct market  display");
+        List<String> columnMarket = editDownlinePage.productStatusSettingInforSection.editMarketPopup.tblMarket.getColumn(1, false);
+        Assert.assertTrue(columnMarket.get(0).equalsIgnoreCase("Match Odds (MATCH_ODDS)"), String.format("FAILED! Search market does not display correct expected %s and actual %s","Match Odds (MATCH_ODDS)",columnMarket.get(0)));
         log("INFO: Executed completely");
     }
 

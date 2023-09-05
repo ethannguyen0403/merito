@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class ProductStatusSettingSection {
     private int totalSportCol = 40;
-    public EditMarketPopup editMarketPopup = EditMarketPopup.xpath(String.format("//app-blocking-setting"));
+    public EditMarketPopup editMarketPopup = EditMarketPopup.xpath("//app-blocking-setting");
     public CheckBox chbLive = CheckBox.id("live");
     public CheckBox chbNoneLive = CheckBox.id("nonlive");
     public Table tblSportTable = Table.xpath("//div[contains(@class,'marketSettingWrapper')]//table[contains(@class,'sportTable')]", totalSportCol);
