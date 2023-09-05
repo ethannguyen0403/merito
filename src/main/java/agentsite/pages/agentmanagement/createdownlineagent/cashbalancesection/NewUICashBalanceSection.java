@@ -8,7 +8,7 @@ public class NewUICashBalanceSection extends CashBalanceSection {
 //    private TextBox txtFirstTimeDeposit = TextBox.xpath("//input[@name='cashBalance']");
 
     public String getCashSectionTitle() {
-        return lblCashBalanceTitle.getText();
+        return lblCashBalanceTitle.getText().trim();
     }
 
     public void inputCashBalanceInfo(String firstTimeDeposit) {

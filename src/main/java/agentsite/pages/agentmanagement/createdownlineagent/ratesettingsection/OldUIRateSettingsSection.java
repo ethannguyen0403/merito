@@ -6,7 +6,7 @@ public class OldUIRateSettingsSection extends RateSettingsSection {
     private Label lblRateSettingTitle = Label.xpath("//div[text()='Rate Setting']");
 
     public String getRateSettingSectionTitle() {
-        return lblRateSettingTitle.getText();
+        return lblRateSettingTitle.getText().trim();
     }
 
 }

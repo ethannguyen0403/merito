@@ -9,7 +9,7 @@ public class OldUICreditBalanceSection extends CreditBalanceSection {
     private Label lblMemberMaxCredit = Label.xpath("(//table[contains(@class,'credit-balance-table')])[1]//body//tr[4]//td[1]");
 
     public String getCreditSectionTitle() {
-        return lblCreditBalanceTitle.getText();
+        return lblCreditBalanceTitle.getText().trim();
     }
 
     public double getCreditLimit(String currency) {

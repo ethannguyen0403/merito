@@ -22,6 +22,7 @@ import static common.AGConstant.HomePage.DOWNLINE_LISTING;
 
 public class OldUIDownlineListing extends DownlineListing {
     private int accountStatusCol = 7;
+    private Button btnOK = Button.xpath("//button[text()='Ok']");
     public OldUIDownlineListing(String types) {
         super(types);
     }
@@ -34,8 +35,8 @@ public class OldUIDownlineListing extends DownlineListing {
         Link lnkEdit = (Link) tblDowlineListing.getControlBasedValueOfDifferentColumnOnRow(loginID, 1, userCodeCol, 1, null, editCol, "a[contains(@class,'pedit')]", false, false);
         if (lnkEdit.isClickable(1)) {
             lnkEdit.click();
+            waitingLoadingSpinner();
         }
-        waitingLoadingSpinner();
         return new EditDownLinePage(_brandname);
     }
 
@@ -123,6 +124,13 @@ public class OldUIDownlineListing extends DownlineListing {
         else
             return Label.xpath(tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, null, false, false)).getText().trim();
 
+    }
+
+    public void closeSubmitEditDownlinePopup() {
+        if (btnOK.isClickable(1)) {
+            btnOK.click();
+        }
+        waitingLoadingSpinner();
     }
 
 }

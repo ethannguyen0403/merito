@@ -11,7 +11,7 @@ import com.paltech.element.common.*;
 
 public class DownLineListingPage extends CreateDownLineAgentPage {
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
-    public EditDownlinePopup editDownlinePopup = EditDownlinePopup.xpath("//app-agency-edit");
+    public EditDownlinePopup editDownlinePopup;
     public SuccessPopup successPopup = SuccessPopup.xpath("//app-alert");
     public TextBox txtLoginID = TextBox.id("username");
     public DropDownBox ddbAccountStatus = DropDownBox.id("status");

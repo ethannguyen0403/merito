@@ -2,6 +2,7 @@ package agentsite.pages.agentmanagement.downlinelisting;
 
 import agentsite.controls.Cell;
 import agentsite.pages.agentmanagement.EditDownLinePage;
+import com.paltech.element.common.Button;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
@@ -20,6 +21,7 @@ import static common.AGConstant.BTN_SUBMIT;
 import static common.AGConstant.HomePage.DOWNLINE_LISTING;
 
 public class NewUIDownlineListing extends DownlineListing {
+    private Button btnOK = Button.xpath("//button[text()='OK']");
     public NewUIDownlineListing(String types) {
         super(types);
     }
@@ -93,5 +95,12 @@ public class NewUIDownlineListing extends DownlineListing {
         else
             return Label.xpath(tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, null, false, false)).getText().trim();
 
+    }
+
+    public void closeSubmitEditDownlinePopup() {
+        if (btnOK.isClickable(1)) {
+            btnOK.click();
+        }
+        waitingLoadingSpinner();
     }
 }

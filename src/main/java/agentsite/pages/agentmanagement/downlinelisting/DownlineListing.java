@@ -6,21 +6,19 @@ import agentsite.pages.agentmanagement.EditDownLinePage;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.SuccessPopup;
 import com.paltech.element.common.*;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class DownlineListing extends CreateDownLineAgentPage {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
-    public EditDownlinePopup editDownlinePopup = EditDownlinePopup.xpath("//app-agency-edit");
+    public EditDownlinePopup editDownlinePopup;
 
     public TextBox txtLoginID = TextBox.id("username");
     public DropDownBox ddbAccountStatus = DropDownBox.id("status");
     public DropDownBox ddbLevel = DropDownBox.id("userLevel");
     public Button btnSearch = Button.xpath("//button[@class='pbtn search']");
     public Button btnSubmit = Button.id("submitBtn");
-    public Button btnOK = Button.xpath("//button[text()='OK']");
     public Label lblLoginId = Label.xpath("//label[@for='username']");
     public Label lblAccountStatus = Label.xpath("//label[@for='status']");
     public Label lblLevel = Label.xpath("//label[@for='userLevel']");
@@ -36,7 +34,7 @@ public class DownlineListing extends CreateDownLineAgentPage {
     }
 
     public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(2, 2);
+        iconLoadSpinner.waitForControlInvisible(2, 4);
     }
 
     public void searchDownline(String loginId, String accountStatus, String level) {
@@ -84,7 +82,7 @@ public class DownlineListing extends CreateDownLineAgentPage {
     }
 
     public void submitEditDownline() {
-        if (editDownlinePopup.isDisplayed()) {
+        if (editDownlinePopup.btnSubmit.isDisplayed()) {
             editDownlinePopup.btnSubmit.click();
             waitingLoadingSpinner();
         } else {
@@ -152,10 +150,6 @@ public class DownlineListing extends CreateDownLineAgentPage {
     }
 
     public void closeSubmitEditDownlinePopup() {
-        if (btnOK.isClickable(1)) {
-            btnOK.click();
-        }
-        waitingLoadingSpinner();
     }
 
     public EditDownLinePage clickEditIcon(String loginID, boolean inputSecurityCode) {

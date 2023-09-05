@@ -3,7 +3,6 @@ package agentsite.testcase.agencymanagement.downlinelisting;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.DownLineListingPage;
 import agentsite.pages.agentmanagement.EditDownLinePage;
-import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
 import agentsite.pages.components.SuccessPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
@@ -16,6 +15,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.text.NumberFormat;
 import java.util.*;
 
 import static common.AGConstant.*;
@@ -216,7 +216,7 @@ public class DownlineListingTest extends BaseCaseTest {
         log("Step 3. Select Soccer sport and click edit icon");
         log("Step 4. Uncheck a market (e.g.: Half Time) and submit");
         EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
-        editPage.productSettingsSection.productStatusSettingsSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", false);
+        editPage.productStatusSettingInforSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", false);
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
@@ -224,7 +224,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.downlineListing.searchDownline("","","");
         log("Step 6. Click Edit icon and observe the market inactive in step 4");
         EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon("downlineUserCode");
-        editDownLinePage.productSettingsSection.productStatusSettingsSection.searchMarketOfSport("Soccer","Match Odds (MATCH_ODDS)");
+        editDownLinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","Match Odds (MATCH_ODDS)");
 
         log("Verify 6. The market inactive not display for downline");
         Assert.assertTrue(editDownLinePage.productSettingsSection.productStatusSettingsSection.editMarketPopup.lblNoRecordFound.isDisplayed(),"FAILED! Inactive market still display in search result");
@@ -235,16 +235,12 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3532")
-    @Test(groups = {"regression1"})
-    public void Agent_AM_Downline_Listing_Edit_User_3532() throws Exception {
-        log("@title: Validate downline will not display the update is inactive market");
+    @Test(groups = {"regression"})
+    @Parameters({"currency"})
+    public void Agent_AM_Downline_Listing_Edit_User_3532(String currency) throws Exception {
+        log("@title: Validate cannot edit User if Min is invalid");
         log("Step 1. Navigate Agency Management > Downline Listing");
-        BetSettingListing betSettingListing = new BetSettingListing();
         String userID = ProfileUtils.getProfile().getUserID();
-//        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-//        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, _brandname);
-//        String userCode = listAccount.get(0).getUserCode();
-//        String userId = listAccount.get(0).getUserID();
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -252,15 +248,259 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
-        List<ArrayList<String>> lstActualData = betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
-        double minBet = Double.parseDouble(lstActualData.get(0).get(9).replace(",","")) - 1;
+        List<ArrayList<String>> lstBetSettingValidation = editPage.betSettingInforSection.getBetSettingValidationValueLst(currency);
+        String minBet =Double.toString(Double.parseDouble(lstBetSettingValidation.get(0).get(1))-1);
         List<ArrayList<String>> lstBetSetting = new ArrayList<>();
-        ArrayList<String> minBetLst = new ArrayList<String>((int) minBet);
+        ArrayList<String> minBetLst = new ArrayList<String>(
+                Arrays.asList(minBet, minBet, minBet, minBet, minBet, minBet));
         lstBetSetting.add(minBetLst);
-        editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
-        log("Step 3. Input Min bet  of Soccer less the  valid value");
-        
 
+        log("Step 3. Input Min bet less than the valid value");
+        editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
+
+        log("Verified  1. Message \"Min Bet is invalid.\" and the valid is highlight");
+        Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID, page.lblErrorMsg.getText()));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3533")
+    @Test(groups = {"regression"})
+    @Parameters({"currency"})
+    public void Agent_AM_Downline_Listing_Edit_User_3533(String currency) throws Exception {
+        log("@title: Validate cannot edit User if Max is invalid");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode,"","");
+
+        log("Step 2. Click on Edit icon of any Member level");
+        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        List<ArrayList<String>> lstBetSettingValidation = editPage.betSettingInforSection.getBetSettingValidationValueLst(currency);
+        NumberFormat nf = NumberFormat.getInstance();
+        String minBet = String.valueOf(nf.parse(lstBetSettingValidation.get(0).get(1)).intValue());
+        String maxBet = String.valueOf(nf.parse(lstBetSettingValidation.get(1).get(1)).intValue() + 1);
+        List<ArrayList<String>> lstBetSetting = new ArrayList<>();
+        ArrayList<String> minBetLst = new ArrayList<String>(
+                Arrays.asList(minBet, minBet, minBet, minBet, minBet, minBet));
+        ArrayList<String> maxBetLst = new ArrayList<String>(
+                Arrays.asList(maxBet, maxBet, maxBet, maxBet, maxBet, maxBet));
+        lstBetSetting.add(minBetLst);
+        lstBetSetting.add(maxBetLst);
+
+        log("Step 3. Input Max bet greater than the valid value");
+        editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
+
+        log("Verified  1. Message \"Max Bet is invalid.\" and the valid is highlight");
+        Assert.assertEquals(page.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_INVALID, page.lblErrorMsg.getText()));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3534")
+    @Test(groups = {"regression"})
+    @Parameters({"currency"})
+    public void Agent_AM_Downline_Listing_Edit_User_3534(String currency) throws Exception {
+        log("@title: Validate cannot edit User if Max Liability Per Market is invalid");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode,"","");
+
+        log("Step 2. Click on Edit icon of any Member level");
+        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        List<ArrayList<String>> lstBetSettingValidation = editPage.betSettingInforSection.getBetSettingValidationValueLst(currency);
+
+        NumberFormat nf = NumberFormat.getInstance();
+        String minBet = String.valueOf(nf.parse(lstBetSettingValidation.get(0).get(1)).intValue());
+        String maxBet = String.valueOf(nf.parse(lstBetSettingValidation.get(1).get(1)).intValue());
+        String maxLiability = String.valueOf(nf.parse(lstBetSettingValidation.get(2).get(1)).intValue() + 1);
+        List<ArrayList<String>> lstBetSetting = new ArrayList<>();
+        ArrayList<String> minBetLst = new ArrayList<>(
+                Arrays.asList(minBet, minBet, minBet, minBet, minBet, minBet));
+        ArrayList<String> maxBetLst = new ArrayList<>(
+                Arrays.asList(maxBet, maxBet, maxBet, maxBet, maxBet, maxBet));
+        ArrayList<String> maxLiabilityLst = new ArrayList<>(
+                Arrays.asList(maxLiability, maxLiability, maxLiability, maxLiability, maxLiability, maxLiability));
+        lstBetSetting.add(minBetLst);
+        lstBetSetting.add(maxBetLst);
+        lstBetSetting.add(maxLiabilityLst);
+
+        log("Step 3. Input Max Liability bet greater than the valid value");
+        editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
+
+        log("Verified  1. Message \"Max Liability Per Market is invalid.\" and the valid is highlight");
+        Assert.assertEquals(page.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_LIABILITY_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_LIABILITY_INVALID, page.lblErrorMsg.getText()));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3535")
+    @Test(groups = {"regression"})
+    @Parameters({"currency"})
+    public void Agent_AM_Downline_Listing_Edit_User_3535(String currency) throws Exception {
+        log("@title: Validate cannot edit User if  Max Win Per Market  is invalid");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode,"","");
+
+        log("Step 2. Click on Edit icon of any Member level");
+        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        List<ArrayList<String>> lstBetSettingValidation = editPage.betSettingInforSection.getBetSettingValidationValueLst(currency);
+
+        NumberFormat nf = NumberFormat.getInstance();
+        String minBet = String.valueOf(nf.parse(lstBetSettingValidation.get(0).get(1)).intValue());
+        String maxBet = String.valueOf(nf.parse(lstBetSettingValidation.get(1).get(1)).intValue());
+        String maxLiability = String.valueOf(nf.parse(lstBetSettingValidation.get(2).get(1)).intValue());
+        String maxWin = String.valueOf(nf.parse(lstBetSettingValidation.get(3).get(1)).intValue() + 1);
+        List<ArrayList<String>> lstBetSetting = new ArrayList<>();
+        ArrayList<String> minBetLst = new ArrayList<>(
+                Arrays.asList(minBet, minBet, minBet, minBet, minBet, minBet));
+        ArrayList<String> maxBetLst = new ArrayList<>(
+                Arrays.asList(maxBet, maxBet, maxBet, maxBet, maxBet, maxBet));
+        ArrayList<String> maxLiabilityLst = new ArrayList<>(
+                Arrays.asList(maxLiability, maxLiability, maxLiability, maxLiability, maxLiability, maxLiability));
+        ArrayList<String> maxWinLst = new ArrayList<>(
+                Arrays.asList(maxWin, maxWin, maxWin, maxWin, maxWin, maxWin));
+        lstBetSetting.add(minBetLst);
+        lstBetSetting.add(maxBetLst);
+        lstBetSetting.add(maxLiabilityLst);
+        lstBetSetting.add(maxWinLst);
+
+        log("Step 3. Input Max Liability bet greater than the valid value");
+        editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
+
+        log("Verified  1. Message \"Max Win Per Market is invalid.\" and the valid is highlight");
+        Assert.assertEquals(page.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID, page.lblErrorMsg.getText()));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3537")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3537() throws Exception {
+        log("@title: Validate cannot edit User if  Max Win Per Market  is invalid");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String password = "p@ssword";
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon of any Member level");
+        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        editPage.editDownlineListing.inputInfoSection(password,"","","","","","",true);
+
+        log("Verified 1. Message \"Password is invalid.\" display next to Cancel button");
+        Assert.assertTrue(page.lblErrorMsg.getText().contains(AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID),String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID, page.lblErrorMsg.getText()));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3538")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3538() throws Exception {
+        log("@title: Validate edit User if input valid info: First Name, Last Name, Mobile");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String firstName = StringUtils.generateAlphabetic( 10);
+        String lastName = StringUtils.generateAlphabetic( 10);
+        String mobile = StringUtils.generateNumeric(10);
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon of any Member level");
+        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        editPage.editDownlineListing.inputInfoSection("","",firstName,lastName,"",mobile,"",true);
+
+        log("Verified 1. User info is updated with new data");
+        page.downlineListing.closeSubmitEditDownlinePopup();
+        page.downlineListing.clickEditIcon(userCode);
+        Assert.assertEquals(editPage.accountInforSection.txtFirstName.getAttribute("value"), firstName, String.format("FAILED! First Name displays incorrect actual %s and expected %s", editPage.accountInforSection.txtFirstName.getText(), firstName));
+        Assert.assertEquals(editPage.accountInforSection.txtLastName.getAttribute("value"), lastName, String.format("FAILED! First Name displays incorrect actual %s and expected %s", editPage.accountInforSection.txtLastName.getText(), lastName));
+        Assert.assertEquals(editPage.accountInforSection.txtMobile.getAttribute("value"), mobile, String.format("FAILED! First Name displays incorrect actual %s and expected %s", editPage.accountInforSection.txtMobile.getText(), mobile));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3542")
+    @Test(groups = {"regression_sat"})
+    public void Agent_AM_Downline_Listing_Edit_User_3542() throws Exception {
+        log("@title: Validate there is no Security popup display when click Edit User");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon of any Member level");
+        page.downlineListing.clickEditIcon(userCode);
+
+        log("Verified 1. Validate there is no security popup display");
+        Assert.assertFalse(page.downlineListing.successPopup.isDisplayed(), "FAILED! Security Popup is displayed");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3543")
+    @Test(groups = {"regression_ag"})
+    public void Agent_AM_Downline_Listing_Edit_User_3543() throws Exception {
+        //Run for SAT with level under SAD only
+        log("@title: Validate Edit User UI when login from low level");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon for member level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+
+        log("Verified 1. Validate Edit User UI display correctly when view from SMA level:\n" +
+                "-Info section\n" +
+                "\n" +
+                "Cash Balance section\n" +
+                "Product Settings\n" +
+                "Bet Settings\n" +
+                "There is no Position Taking Setting section");
+        Assert.assertTrue(editDownlinePage.accountInforSection.txtPassword.isDisplayed(), "FAILED! Account Info Section is not displayed");
+        Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
+        Assert.assertEquals(page.productSettingInforSection.getProductSettingSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
+        Assert.assertEquals(page.betSettingInforSection.getBetSettingSectionTitle(AGConstant.EXCHANGE),AGConstant.AgencyManagement.CreateAccount.LBL_BET_SETTING,"FAILED! Bet Setting Section display incorrect");
+        Assert.assertFalse(page.positionTakingInforSection.tblPositionTakingEX.isDisplayed(),"FAILED! Position Taking Section is displayed");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3551")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3551() throws Exception {
+        log("@title: Validate Edit User UI when login from low level");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon for member level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        editDownlinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","Test");
+
+        log("Verify 2. Validate Edit Market popup display with the title \"Edit Market for [Sport]\"\n" +
+                "2 Validate UI on Edit Market Popup:\n" +
+                "\n" +
+                "Search Market labels and textbox\n" +
+                "Market list and check box\n" +
+                "OK and Cancel popup");
+        Assert.assertEquals(editDownlinePage.productStatusSettingInforSection.editMarketPopup.lblTitle.getText(), String.format(AgencyManagement.DownlineListing.EDIT_MARKET_TITLE, "Soccer"), "FAILED! Edit Market popup title displays incorrectly");
+        Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.cbAllMarket.isDisplayed(), "FAILED! Check all market checkbox does not display");
+        Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.btnOK.isDisplayed(), "FAILED! Button OK does not display");
+        Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.btnCancle.isDisplayed(), "FAILED! Button Cancel does not display");
         log("INFO: Executed completely");
     }
 

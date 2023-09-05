@@ -1,0 +1,4 @@
+package agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection;
+
+public class OldUIProductStatusSettingSection extends ProductStatusSettingSection {
+}

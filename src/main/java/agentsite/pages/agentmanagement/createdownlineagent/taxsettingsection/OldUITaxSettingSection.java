@@ -8,9 +8,9 @@ public class OldUITaxSettingSection extends TaxSettingSection {
     private Label lblTaxSettingTitleEG = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']//div[text()='Tax Settings']");
     public String getTaxSettingSectionTitle(String product) {
         if (product.equalsIgnoreCase(AGConstant.EXCHANGE)) {
-            return lblTaxSettingTitleEX.getText();
+            return lblTaxSettingTitleEX.getText().trim();
         } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
-            return lblTaxSettingTitleEG.getText();
+            return lblTaxSettingTitleEG.getText().trim();
         }
         return "";
     }

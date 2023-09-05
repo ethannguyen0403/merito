@@ -31,7 +31,7 @@ public class PositionTakingListingPage extends HomePage {
     public int greyhoundCol = 14;
     public int otherCol = 15;
     public int updateStatusCol = 16;
-    public Table tblDownline = Table.xpath("//app-exchange-pt-table//table[contains(@class,'directDownline table-responsive')]", totalColum);
+    public Table tblDownline = Table.xpath("//app-agency-position-taking//table[contains(@class,'directDownline table-responsive')]", totalColum);
     public DropDownBox ddbLevelPreset = DropDownBox.xpath("//table[contains(@class,'selectionTable')]//td[contains(text(),'Preset')]/select");
     public Label lblUsername = Label.xpath(String.format("//td[text()='%s']", AGConstant.AgencyManagement.PositionTakingListing.LBL_USERNAME));
     public Label lblAccountStatus = Label.xpath(String.format("//td[text()='%s']", AGConstant.AgencyManagement.PositionTakingListing.LBL_ACCOUNTSTATUS));
@@ -60,44 +60,44 @@ public class PositionTakingListingPage extends HomePage {
         positionTakingListing = ComponentsFactory.positionTakingListingPage(_type);
     }
 
-    private CheckBox defineCheckbox(String sport) {
-        switch (sport) {
-            case "Soccer":
-                return cbSoccer;
-            case "Cricket":
-                return cbCricket;
-            case "Tennis":
-                return cbTennis;
-            case "Fancy":
-                return cbFancy;
-            case "Baseketball":
-                return cbBasketball;
-            case "Horse Racing":
-                return cbHorseRacing;
-            case "Greyhound Racing":
-                return cbFancy;
-            case "Other":
-                return cbOther;
-            default:
-                return cbAll;
-        }
-    }
+//    private CheckBox defineCheckbox(String sport) {
+//        switch (sport) {
+//            case "Soccer":
+//                return cbSoccer;
+//            case "Cricket":
+//                return cbCricket;
+//            case "Tennis":
+//                return cbTennis;
+//            case "Fancy":
+//                return cbFancy;
+//            case "Baseketball":
+//                return cbBasketball;
+//            case "Horse Racing":
+//                return cbHorseRacing;
+//            case "Greyhound Racing":
+//                return cbGreyhoundRacing;
+//            case "Other":
+//                return cbOther;
+//            default:
+//                return cbAll;
+//        }
+//    }
 
-    public void checkCheckbox(String sport) {
-        CheckBox cb = defineCheckbox(sport);
-        if (!cb.isSelected())
-            cb.click();
-    }
+//    public void checkCheckbox(String sport) {
+//        CheckBox cb = defineCheckbox(sport);
+//        if (!cb.isSelected())
+//            cb.click();
+//    }
+//
+//    public void unCheckCheckbox(String sport) {
+//        CheckBox cb = defineCheckbox(sport);
+//        if (cb.isSelected())
+//            cb.click();
+//    }
 
-    public void unCheckCheckbox(String sport) {
-        CheckBox cb = defineCheckbox(sport);
-        if (cb.isSelected())
-            cb.click();
-    }
-
-    public boolean isCheckboxChecked(String sport) {
-        return defineCheckbox(sport).isSelected();
-    }
+//    public boolean isCheckboxChecked(String sport) {
+//        return defineCheckbox(sport).isSelected();
+//    }
 
 //    public void search(String username, String accountStatus, String product, String level) {
 //        if (!username.isEmpty())

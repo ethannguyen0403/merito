@@ -24,6 +24,9 @@ import agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection
 import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.NewUIProductSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.OldUIProductSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.ProductSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.NewUIProductStatusSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.OldUIProductStatusSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.ProductStatusSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.RateSettingsSection;
 import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.NewUIRateSettingsSection;
 import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.OldUIRateSettingsSection;
@@ -153,6 +156,15 @@ public class ComponentsFactory {
                 return new OldUIProductSettingSection();
             default:
                 return new NewUIProductSettingSection();
+        }
+    }
+
+    public static ProductStatusSettingSection productStatusSettingInfoObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIProductStatusSettingSection();
+            default:
+                return new NewUIProductStatusSettingSection();
         }
     }
 

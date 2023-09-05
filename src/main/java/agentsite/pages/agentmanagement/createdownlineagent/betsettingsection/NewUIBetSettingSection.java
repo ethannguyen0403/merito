@@ -11,9 +11,9 @@ public class NewUIBetSettingSection extends BetSettingSection {
     private Label lblBetSettingTitleEG = Label.xpath("//div[@id='EXCH_GAMES-bet-settings']//div[text()='Bet Settings ']");
     public String getBetSettingSectionTitle(String product) {
         if (product.equalsIgnoreCase(AGConstant.EXCHANGE)) {
-            return lblBetSettingTitleEX.getText();
+            return lblBetSettingTitleEX.getText().trim();
         } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
-            return lblBetSettingTitleEG.getText();
+            return lblBetSettingTitleEG.getText().trim();
         }
         return "";
     }
