@@ -7,10 +7,11 @@ import agentsite.pages.agentmanagement.transfer.TransferPopup;
 import agentsite.pages.components.ConfirmPopup;
 import agentsite.pages.components.SecurityPopup;
 import com.paltech.element.common.*;
+import org.testng.Assert;
 
 public class TransferPage extends HomePage {
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
-    public TextBox txtUserName = TextBox.id("userName");
+    public TextBox _txtUserName = TextBox.id("userName");
     public DropDownBox ddpAccountStatus = DropDownBox.id("status");
     public DropDownBox ddpLevel = DropDownBox.id("level");
     public Button btnSubmit = Button.xpath("//button[@class='btn-submit']");
@@ -43,7 +44,7 @@ public class TransferPage extends HomePage {
 
     public void filter(String username, String accountStatus, String level) {
         if (!username.isEmpty())
-            txtUserName.sendKeys(username);
+            _txtUserName.sendKeys(username);
         if (!accountStatus.isEmpty())
             ddpAccountStatus.selectByVisibleText(accountStatus);
         if (!level.isEmpty())
@@ -98,6 +99,11 @@ public class TransferPage extends HomePage {
         return new TransferPopup();
     }
 
+    public ConfirmPopup clickTransferButton(){
+        btnTransfer.click();
+        return new ConfirmPopup();
+    }
+
     public ConfirmPopup clickUpdateStatusColumn(String username) {
         int index = getRowIndexofUserName(username);
         String xpath = tblAccountList.getxPathOfCell(1, colUpdateStatus, index, null);
@@ -107,13 +113,13 @@ public class TransferPage extends HomePage {
 
     public boolean isAccountTransferredSuccess(String userName) {
         int index = getRowIndexofUserName(userName);
-        String xpath = tblAccountList.getxPathOfCell(1, colUsername, index, "span[@class='psuccess']");
+        String xpath = tblAccountList.getxPathOfCell(1, colUpdateStatus, index, "span[@class='psuccess']");
         return Icon.xpath(xpath).isDisplayed();
     }
 
     public boolean isAccountTransferredError(String userName) {
         int index = getRowIndexofUserName(userName);
-        String xpath = tblAccountList.getxPathOfCell(1, colUsername, index, "span[@class='perror']");
+        String xpath = tblAccountList.getxPathOfCell(1, colUpdateStatus, index, "span[@class='perror']");
         return Icon.xpath(xpath).isDisplayed();
     }
 
@@ -124,9 +130,15 @@ public class TransferPage extends HomePage {
         return Label.xpath(tblAccountList.getxPathOfCell(1, colUsername, 1, null)).getText().trim();
     }
 
+    public void selectUser(String username){
+        int index = getRowIndexofUserName(username);
+        Link lnkTransferableBalance = Link.xpath(tblAccountList.getxPathOfCell(1, colCheckBox, index, null));
+        lnkTransferableBalance.click();
+    }
     public void transfer(String userName, String amount) {
         int index = getRowIndexofUserName(userName);
         clickTransferBalanceLine(index).transfer(amount);
+        waitingLoadingSpinner();
     }
 
     public AccountInfo getTransferInfo(String username) {
@@ -156,6 +168,20 @@ public class TransferPage extends HomePage {
                 .creditGiven(Integer.parseInt(creditGiven.replaceAll(",", "")))
                 .creditUsed(Double.parseDouble(creditUsed.replaceAll(",", "")))
                 .build();
+    }
+
+    public void verifyTransferInfo(String username, AccountInfo beforeTransfer, double amount){
+        AccountInfo afterTransfer = getTransferInfo(username);
+        Assert.assertTrue(isAccountTransferredSuccess(username),"Failed! Update Status column should be green check ");
+        Assert.assertEquals(beforeTransfer.getTransferableBalance() + amount, afterTransfer.getTransferableBalance(), "Failed! Transferable balance is incorrect");
+        Assert.assertEquals(beforeTransfer.getRetainAmount(), afterTransfer.getRetainAmount(), "Failed! Transferable balance is incorrect");
+        Assert.assertEquals(beforeTransfer.getTotalBalance() + amount, afterTransfer.getTotalBalance(), "Failed! Total Balance is incorrect");
+        Assert.assertEquals(beforeTransfer.getYesterdayDownlineBalance(), afterTransfer.getYesterdayDownlineBalance(), "Failed! Yesterday Downline Balance is incorrect");
+        Assert.assertEquals(beforeTransfer.getDownlineBalance(), afterTransfer.getDownlineBalance(), "Failed!  Downline Balance is incorrect");
+        Assert.assertEquals(beforeTransfer.getTotalPlayerOutstanding(), afterTransfer.getTotalPlayerOutstanding(), "Failed!Total Players Outstanding is incorrect");
+        Assert.assertEquals(beforeTransfer.getCreditGiven(), afterTransfer.getCreditGiven(), "Failed! Credit Given incorrect");
+        Assert.assertEquals(beforeTransfer.getCreditUsed(), afterTransfer.getCreditUsed(), "Failed! Credit Used incorrect");
+        Assert.assertTrue(isAccountTransferredSuccess(username),"Failed! Update Status column should be green check ");
     }
 
 }

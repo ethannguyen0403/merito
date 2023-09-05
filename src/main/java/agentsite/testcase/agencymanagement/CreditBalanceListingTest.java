@@ -108,7 +108,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3611")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_demo"})
     @Parameters({"brandname", "memberAccount", "password"})
     public void Credit_Balance_Listing_3611(String memberAccount, String password) throws Exception {
         log("@title: Validate player balance is correct after update credit in agent");
