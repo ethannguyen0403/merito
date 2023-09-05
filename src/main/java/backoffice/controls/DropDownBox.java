@@ -233,7 +233,7 @@ public class DropDownBox extends BaseElement {
     }
 
     public WebElement waitForElementToBePresent(By by, int timeOutInSeconds) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOutInSeconds));
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), timeOutInSeconds);
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
