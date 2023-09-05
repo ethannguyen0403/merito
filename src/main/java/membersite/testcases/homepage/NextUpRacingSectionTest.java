@@ -21,6 +21,7 @@ public class NextUpRacingSectionTest extends BaseCaseTest {
 
         log("Verify 1. Racing market page display correctly. Country, market start time, market name is corrected");
         log("INFO: Executed completely");
+        memberHomePage.getPageUrl();
     }
 
 }
