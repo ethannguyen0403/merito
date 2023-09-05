@@ -3,18 +3,126 @@ package agentsite.testcase.agencymanagement;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.AccountBalancePage;
 import agentsite.pages.agentmanagement.TransferPage;
+import agentsite.pages.components.ConfirmPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import common.AGConstant;
 import membersite.objects.AccountBalance;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static common.AGConstant.AgencyManagement.LBL_ACCOUNTSTATUS;
+import static common.AGConstant.AgencyManagement.Transfer.*;
+import static common.AGConstant.HomePage.TRANSFER;
+import static common.AGConstant.LBL_USERNAME_PLACE_HOLDER_SAT;
+
 public class TransferTest extends BaseCaseTest {
+    @TestRails(id = "3612")
+    @Test(groups = {"http_request"})
+    public void Agent_AM_Transfer_3612(){
+        log("@title: Verify available balance of PL in member site is updated when agent transfer successfully");
+        log("Step 1. Navigate Agency Management > Transfer");
+        agentHomePage.navigateTransferPage(environment.getSecurityCode());
+
+        log("Verify Transfer page is displayed without console error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
+
+        log("INFO: Executed completely");
+    }
+
+
+    @TestRails(id = "3614")
+    @Test(groups = {"regression_credit"})
+    @Parameters({"memberAccount"})
+    public void Agent_AM_Transfer_3614( String memberAccount) {
+        log("@title: Verify Balance of login account is updated after transfer");
+        log("Precondition Step Log in successfully by SAD that belonging to Credit line");
+        log("Step 1. Navigate Agency Management > Transfer");
+        TransferPage page = agentHomePage.navigateTransferPage(environment.getSecurityCode());
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(userID, "SMA", _brandname);
+        String userName = DownLineListingUtils.getAccountInfoInList(lstUsers, memberAccount).getUserCode();
+        AccountInfo accountInfoBeforeTransfer = page.getTransferInfo(userName);
+        double amount = page.defineAmountBasedOnTransferableBalance(0.1, accountInfoBeforeTransfer.getTransferableBalance());
+        AccountInfo beforeTransfer = page.getTransferInfo(userName);
+
+        log("Step 2. Select an account and click on Transferable Balance number");
+        log("Step 3. Enter valid amount and click submit button");
+        page.transfer("0OS", String.format("%.2f", amount));
+
+        log("Verify: Validate Transferable Balance and Total Balance are updated");
+        page.verifyTransferInfo(userName,beforeTransfer,amount);
+
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "3615")
+    @Test(groups = {"regression_credit"})
+    @Parameters({"memberAccount"})
+    public void Agent_AM_Transfer_3615( String memberAccount) {
+        log("@title: Verify Balance of login account is updated after transfer");
+        log("Precondition Step Log in successfully by SAD that belonging to Credit line");
+        log("Step 1. Navigate Agency Management > Transfer");
+        TransferPage page = agentHomePage.navigateTransferPage(environment.getSecurityCode());
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(userID, "SMA", _brandname);
+        String userName = DownLineListingUtils.getAccountInfoInList(lstUsers, memberAccount).getUserCode();
+
+        log("Step 2. Select a downline");
+        page.selectUser(userName);
+
+        log("Step 3. Click on Transfer button");
+        ConfirmPopup popup =page.clickTransferButton();
+        String actualMessage = popup.getContentMessage();
+
+        log("Verify: Validate message \"Full transfer will be applied to all selected users. Would you like to proceed with the transfer?\"");
+        Assert.assertEquals(actualMessage,FULL_TRANSFER_CONFIRM_MSG,"Failed! The message is incorrect");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3613")
+    @Test(groups = {"regression_credit"})
+    public void Agent_AM_Transfer_3613() {
+        log("@title: Verify Balance of login account is updated after transfer");
+        log("Precondition Step Log in successfully by SAD that belonging to Credit line");
+        log("Step 1. Navigate Agency Management > Transfer");
+        TransferPage page = agentHomePage.navigateTransferPage(environment.getSecurityCode());
+        ArrayList<String> lstHeader = page.tblAccountList.getHeaderNameOfRows();
+        List<String> lstAccountStatus = page.ddpAccountStatus.getOptions();
+        List<String> lstLevel = page.ddpLevel.getOptions();
+        log("Verify: Validate UI on Transfer display correctly");
+        Assert.assertEquals(page._txtUserName.getAttribute("placeholder"),LBL_USERNAME_PLACE_HOLDER_SAT,"Failed");
+        Assert.assertEquals(lstAccountStatus,LST_ACCOUNT_STATUS,"List Account Status is incorrect");
+        Assert.assertEquals(lstLevel,LST_LEVEL,"Failed! List level incorrect");
+        Assert.assertEquals(page.lblAllYesterDayBalance.getText(),ALL_YESTERDAY_BALANCE,"Failed! Incorrect label: You are allowed to transfer on today");
+        Assert.assertEquals(page.lblYouAreAllowToTransferOnToday.getText(),YOU_ARE_ALLOW_TO_TRANSFER_ON_TODAY_MSG,"Failed! Incorrect label: You are allowed to transfer on today");
+        Assert.assertEquals(page.lblTransferableBalanceIsCalculatedUpToYesterday.getText(), AGConstant.AgencyManagement.Transfer.TRANSFERABLE_BALANCE_IS_CALCULATED_TO_YESTERDAY_MSG,"Failed!Incorrect label Transferable Balance is calculated up to Yesterday");
+        Assert.assertEquals(lstHeader,TABLE_HEADER,"Failed! table header is incorrect");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3616")
+    @Test(groups = {"regression_credit_oldui"})
+    public void Agent_AM_Transfer_3616() {
+        log("@title: Verify Balance of login account is updated after transfer");
+        log("Precondition Step Log in successfully by SAD that belonging to Credit line");
+        log("Step 1. Navigate Agency Management > Transfer");
+        TransferPage page = agentHomePage.navigateTransferPage("");
+
+        log("Verify: Validate security popup display and only access when input correct security code");
+        Assert.assertTrue(page.securityPopup.isDisplayed(),"Failed! Security popup dose not display when login for old UI");
+        page.confirmSecurityCode(environment.getSecurityCode());
+        Assert.assertEquals(page.header.lblPageTitle.getText(),TRANSFER);
+
+        log("INFO: Executed completely");
+    }
 
     @TestRails(id = "3617")
     @Test(groups = {"interaction"})
