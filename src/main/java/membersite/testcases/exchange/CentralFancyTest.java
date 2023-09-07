@@ -29,7 +29,7 @@ public class CentralFancyTest extends BaseCaseTest {
      * @Expected 1. Can place bet
      */
     @TestRails(id = "543")
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke"})
     public void CentralFancyTest_543() {
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
