@@ -56,8 +56,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         page.betsSlipContainer.placeBet(odds, stake);
 
         log("Verify: Error Cannot place bet display");
-        String actualError = page.myBetsContainer.getPlaceBetErrorMessage();
-        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f", Double.parseDouble(minBet)), String.format("%(,.2f", Double.parseDouble(maxBet)), String.format("%.2f", Double.parseDouble(stake)));
+        String actualError = page.myBetsContainer.getBetslipErrorMessage();
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID, String.format("%.0f", Double.parseDouble(minBet)), String.format("%,.0f", Double.parseDouble(maxBet)), String.format("%.0f", Double.parseDouble(stake)));
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
         log("INFO: Executed completely");
     }
@@ -190,7 +190,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             Assert.assertEquals(expectedProfit, wagers.get(0).getProfit(), "Incorrect Profit");
 
             log("Verify: Account Balance/Outstanding updated correctly");
-            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Failed!, Balance update incorrectly after place bet");
             Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
@@ -688,7 +688,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         log("Verify: Error message \"Error : Cannot place bet. Your Main balance is insufficient.\" display");
         String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f", Double.parseDouble(minBet)), String.format("%(,.2f", Double.parseDouble(maxBet)), String.format("%s", stake));
+        String expectedError = String.format(MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE, String.format("%.2f", Double.parseDouble(minBet)), String.format("%(,.2f", Double.parseDouble(maxBet)), String.format("%s", stake));
         //   String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake),Double.valueOf(minBet),Double.valueOf(maxBet),BetUtils.getUserBalance());
         //  String expectedError = FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE;
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));

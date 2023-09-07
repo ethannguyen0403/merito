@@ -22,7 +22,8 @@ public class RacingPage extends HomePage {
     }
 
     public MarketPage clickRacing(String country, String trackName, String race) {
-        return racingContainer.clickRacing(country, trackName, race, this._type);
+        racingContainer.clickRacing(country, trackName, race);
+        return new MarketPage(_type);
     }
 
 }

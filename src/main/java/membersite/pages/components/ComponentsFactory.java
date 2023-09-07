@@ -15,6 +15,7 @@ import membersite.pages.components.footer.FunFooter;
 import membersite.pages.components.footer.SatFooter;
 import membersite.pages.components.header.*;
 import membersite.pages.components.highlightracecontainer.HighLightRaceContainer;
+import membersite.pages.components.highlightracecontainer.OldUIHighLightRaceContainer;
 import membersite.pages.components.leftmneu.LeftMenu;
 import membersite.pages.components.leftmneu.NewUILeftMenu;
 import membersite.pages.components.loginform.FairenterLoginPopup;
@@ -34,7 +35,9 @@ import membersite.pages.components.nextupracingcontainer.NextUpRacingContainer;
 import membersite.pages.components.profitandloss.NewUIProfitAndLossContainer;
 import membersite.pages.components.profitandloss.NewViewProfitAndLossContainer;
 import membersite.pages.components.profitandloss.ProfitAndLossContainer;
+import membersite.pages.components.racingcontainer.NewUIRacingContainer;
 import membersite.pages.components.racingcontainer.RacingContainer;
+import membersite.pages.components.racingmarketcontainer.NewUIRacingMarketControl;
 import membersite.pages.components.racingmarketcontainer.RacingMarketContainer;
 import membersite.pages.components.underagegamblingpopup.FairenterUnderageGamblingPopup;
 import membersite.pages.components.underagegamblingpopup.FunsportUnderageGamblingPopup;
@@ -178,21 +181,21 @@ public class ComponentsFactory {
     public static RacingMarketContainer racingMarketContainerObject(String types) {
         switch (types) {
             default:
-                return new RacingMarketContainer();
+                return new NewUIRacingMarketControl();
         }
     }
 
     public static HighLightRaceContainer highLightRaceContainerObject(String types) {
         switch (types) {
             default:
-                return new HighLightRaceContainer();
+                return new OldUIHighLightRaceContainer();
         }
     }
 
     public static RacingContainer racingContainerObject(String types) {
         switch (types) {
             default:
-                return new RacingContainer();
+                return new NewUIRacingContainer();
         }
     }
 

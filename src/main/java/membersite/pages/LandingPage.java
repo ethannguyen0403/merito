@@ -90,6 +90,7 @@ public class LandingPage extends BasePage {
         return header.navigateSportMenu(sportName, this._type);
     }
 
+
     public MyBetsPage openMyBet() {
         return header.openMyBets(this._type);
     }

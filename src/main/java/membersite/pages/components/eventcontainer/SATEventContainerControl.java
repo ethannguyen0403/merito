@@ -22,7 +22,7 @@ public class SATEventContainerControl extends EventContainerControl {
     private String lblEventNameXPath = "//span[@class='home-team'or contains(@class,'meto-text-primary')]";
     private String lblListEventXPath = "//div[@class='container-event-info']//table[contains(@class,'table-odds')]/tbody/tr";
     private Label lblNoEvent = Label.xpath("//div[@class='text-center']");
-    private String lblEventStartTimeXpath = "//div[contains(@class,'item-child inplay-it')]";
+    private String lblEventStartTimeXpath = "//div[contains(@class,'start-time')]/span";
     private String lblHomeNameXpath = "//span[@class='home-team'or contains(@class,'meto-text-primary')]";
     private String lblTotalMatchXpath = "//div[contains(@class,'total-matched')]";
     private String iconAddFavoritXPath = "//i[contains(@class,'far fa-star')]";
@@ -35,7 +35,7 @@ public class SATEventContainerControl extends EventContainerControl {
     }
 
     public List<String> getAllEventHighlight() {
-        if (!lblNoEvent.isDisplayedShort(3)) {
+        if (!lblNoEvent.isDisplayedShort(1)) {
             List<String> lstEvent = new ArrayList<>();
             //String xpathEvents = String.format("%s%s",lblEventNameXPath, _xpath);
             Link lnkEventName = Link.xpath(lblEventNameXPath);

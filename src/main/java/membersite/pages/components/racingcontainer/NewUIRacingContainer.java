@@ -2,6 +2,7 @@ package membersite.pages.components.racingcontainer;
 
 import com.paltech.element.common.*;
 import membersite.controls.RacingMarketControl;
+import membersite.pages.MarketPage;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -87,18 +88,17 @@ public class NewUIRacingContainer extends RacingContainer {
         return lst;
     }
 
-    public RacingMarketControl clickRacing(String country, String trackName, String race) {
+    public void clickRacing(String country, String trackName, String race) {
         List<String> lst = getAllRacingList(country, trackName);
         String xpathRace = String.format(xPathRacingLink, trackName);
         for (String r : lst) {
             if (race.equals(r.trim())) {
                 Link lnkRaces = Link.xpath(String.format("%s[.=' %s ']", xpathRace, race));
                 lnkRaces.click();
-                return RacingMarketControl.xpath("//app-racing-market");
+                return ;
             }
         }
         System.out.println(String.format("FAILED! Cannot find the race link %s to click on", race));
-        return null;
     }
 
     public enum Status {NA, IN_PLAY, COMING}
