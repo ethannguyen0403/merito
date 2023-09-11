@@ -39,6 +39,9 @@ import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.Ri
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.NewUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.OldUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.NewUITransferSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.OldUITransferSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.TransferSettingSection;
 import agentsite.pages.agentmanagement.createuser.CreateUser;
 import agentsite.pages.agentmanagement.createuser.NewUICreateUser;
 import agentsite.pages.agentmanagement.createuser.OldUICreateUser;
@@ -195,6 +198,15 @@ public class ComponentsFactory {
                 return new OldUIPositionTakingSection();
             default:
                 return new NewUIPositionTakingSection();
+        }
+    }
+
+    public static TransferSettingSection transferSettingInfoObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUITransferSettingSection();
+            default:
+                return new NewUITransferSettingSection();
         }
     }
 

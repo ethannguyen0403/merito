@@ -31,7 +31,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
         log("Step 1. Navigate Agency Management > Commission Setting Listing");
         String userCode = ProfileUtils.getProfile().getUserCodeAndLoginID();
         CommissionSettingListingPage page = agentHomePage.navigateCommissionSettingListingPage();
-        page.search("", "", "", AGConstant.LIVE_DEALER_ASIAN);
+        page.commissionSettingListing.search("", "", "", AGConstant.LIVE_DEALER_ASIAN);
 
         log("Verify 1. Verify Commission Setting Listing UI display correct");
         Assert.assertTrue(page.txtUsername.isDisplayed(), "FAILED! Username textbox is not displayed");
@@ -63,7 +63,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
         CommissionSettingListingPage page = agentHomePage.navigateCommissionSettingListingPage();
 
         log("Step 2. Enter valid Login ID in Username textbox and click on Submit button");
-        page.search(loginID, "", "", "");
+        page.commissionSettingListing.search(loginID, "", "", "");
 
         log("Verify 1. Verify the correct username is displayed");
         List<String> lstMembers = page.tblMemberCommission.getColumn(page.colUsername, false);
@@ -94,22 +94,22 @@ public class CommissionSettingListingTest extends BaseCaseTest {
         List<Double> lstGameCommission = Arrays.asList(0.01);
 
         log("Step 2. Search player account and select the active product: e.g. Live Dealer European");
-        page.search(loginID, "", "", AGConstant.LIVE_DEALER_ASIAN);
+        page.commissionSettingListing.search(loginID, "", "", AGConstant.LIVE_DEALER_ASIAN);
         List<ArrayList<String>> lstExpected = page.tblMemberCommission.getRowsWithoutHeader(1, false);
         lstExpected.get(0).set(9, String.format("%.2f", lstGameCommission.get(0)));
 
         try {
             log("Step 3. Click on the check box to select the account and update commission for all games");
-            page.updateCommissiongSetting(loginID, false, AGConstant.LIVE_DEALER_ASIAN, lstGameCommission.get(0));
+            page.commissionSettingListing.updateCommissionSetting(loginID, false, AGConstant.LIVE_DEALER_ASIAN, lstGameCommission.get(0));
 
             log("Verify 1. Verify commissions are update for all games");
             log("Verify 2. Green check display at Update Status column if successfully update commission");
-            Assert.assertTrue(page.verifyComissionUpdate(lstExpected, false, true), "FAILED! ");
+            Assert.assertTrue(page.commissionSettingListing.verifyCommissionUpdate(lstExpected, false, true), "FAILED! ");
 
             log("INFO: Executed completely");
         } finally {
             log("Post-condition");
-            page.updateCommissiongSetting(loginID, false, AGConstant.LIVE_DEALER_ASIAN, 0.0);
+            page.commissionSettingListing.updateCommissionSetting(loginID, false, AGConstant.LIVE_DEALER_ASIAN, 0.0);
         }
 
     }
@@ -138,10 +138,10 @@ public class CommissionSettingListingTest extends BaseCaseTest {
         CommissionSettingListingPage page = agentHomePage.navigateCommissionSettingListingPage();
 
         log("Step 2. Enter valid username in Username textbox and click on Submit button");
-        page.search(lstUsers.get(0).getUserCode(),"","","");
+        page.commissionSettingListing.search(lstUsers.get(0).getUserCode(), "", "", "");
         log("Verify 2. Validate the correct username is displayed");
-        List<ArrayList<String>> lstRow = page.tblAgentCommission.getRowsWithoutHeader(1,false);
-        Assert.assertEquals(lstUsers.get(0).getUserCode(),lstRow.get(0).get(1), "FAILED! Search result is not matched with filter criteria");
+        List<ArrayList<String>> lstRow = page.tblAgentCommission.getRowsWithoutHeader(1, false);
+        Assert.assertEquals(lstUsers.get(0).getUserCode(), lstRow.get(0).get(1), "FAILED! Search result is not matched with filter criteria");
         log("INFO: Executed completely");
     }
 
@@ -157,14 +157,14 @@ public class CommissionSettingListingTest extends BaseCaseTest {
         double currentAgentSettingValue = CommissionSettingListingUtils.getAgentCommissionSettingByProduct(lstUsers.get(0).getUserCode(), "EZUGI");
         double commissionUpdateValue = currentAgentSettingValue + 0.01;
         try {
-            page.updateCommissiongSetting(lstUsers.get(0).getUserCode(), true, AGConstant.LIVE_DEALER_EUROPEAN, commissionUpdateValue);
-            page.search(lstUsers.get(0).getUserCode(),"","",AGConstant.LIVE_DEALER_EUROPEAN);
+            page.commissionSettingListing.updateCommissionSetting(lstUsers.get(0).getUserCode(), true, AGConstant.LIVE_DEALER_EUROPEAN, commissionUpdateValue);
+            page.commissionSettingListing.search(lstUsers.get(0).getUserCode(), "", "", AGConstant.LIVE_DEALER_EUROPEAN);
 
-            page.verifyCommissionUpdated(true, String.valueOf(commissionUpdateValue));
+            page.commissionSettingListing.verifyCommissionUpdated(true, String.valueOf(commissionUpdateValue));
             log("Step 2. Enter valid username in Username textbox and click on Submit button");
             log("INFO: Executed completely");
         } finally {
-            page.updateCommissiongSetting(lstUsers.get(0).getUserCode(), true, AGConstant.LIVE_DEALER_EUROPEAN, commissionUpdateValue - 0.01);
+            page.commissionSettingListing.updateCommissionSetting(lstUsers.get(0).getUserCode(), true, AGConstant.LIVE_DEALER_EUROPEAN, commissionUpdateValue - 0.01);
         }
 
     }

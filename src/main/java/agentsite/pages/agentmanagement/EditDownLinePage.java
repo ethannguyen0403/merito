@@ -13,20 +13,4 @@ public class EditDownLinePage extends CreateDownLineAgentPage {
         editDownlineListing = ComponentsFactory.editDownlineListing(_type);
     }
 
-    public String getLoginIDValue() {
-        return accountInforSection.tblAccountInfo.getControlOfCell(1, 1, 2, null).getText().trim();
-    }
-
-//    public void inputInfoSection(String password, String accountStatus, String firstName, String lastName, String phone, String mobile, String fax, boolean isSubmit) {
-//        accInfoSection.inputInfo(password, accountStatus, firstName, lastName, phone, mobile, fax);
-//        if (isSubmit) ;
-//        btnSubmit.click();
-//        waitingLoadingSpinner();
-//    }
-
-//    public void setTransaction(boolean isDaily, List<String> days, boolean isSubmit) {
-//        transferSettingSection.setTransfer(isDaily, days);
-//        btnSubmit.click();
-//    }
-
 }

@@ -1,7 +1,6 @@
 package agentsite.pages.agentmanagement.editdownlinelisting;
 
 import agentsite.pages.agentmanagement.DownLineListingPage;
-import agentsite.pages.agentmanagement.downlinelisting.EditDownlinePopup;
 import com.paltech.element.common.*;
 import java.util.List;
 
@@ -26,8 +25,10 @@ public class EditDownlineListing extends DownLineListingPage {
     }
 
     public void setTransaction(boolean isDaily, List<String> days, boolean isSubmit) {
-        transferSettingSection.setTransfer(isDaily, days);
-        btnSubmit.click();
+        transferSettingInforSection.setTransfer(isDaily, days);
+        if(isSubmit) {
+            btnSubmit.click();
+        }
     }
 
     public void enableDisableSport(String sportName, boolean isEnable) {

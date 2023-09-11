@@ -46,8 +46,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         page.accountInforSection.verifyUIDisplayedCorrect();
 
         log("Verify 2. Cash Balance");
-        List<ArrayList<String>> lstBalance = page.creditBalanceSection.tblCashBalance.getRowsWithoutHeader(1,false);
-        Assert.assertEquals(page.creditBalanceSection.lblCashBalanceTitle.getText().trim(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Title display incorrect");
+        List<ArrayList<String>> lstBalance = page.creditBalanceInforSection.tblCashBalance.getRowsWithoutHeader(1,false);
+        Assert.assertEquals(page.creditBalanceInforSection.lblCashBalanceTitle.getText().trim(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Title display incorrect");
         //Assert.assertEquals(lstBalance.get(0).get(0), FEAGConstant.AgencyManagement.CreateAccount.LBL_INITIATION_DEPOSIT,"FAILED! Initiation Deposit label displays incorrect");
 
 
@@ -110,8 +110,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         page.accountInforSection.verifyUIDisplayedCorrect();
         log("Verify 2. Cash Balance");
 
-        List<ArrayList<String>> lstBalance = page.creditBalanceSection.tblCashBalance.getRowsWithoutHeader(1,false);
-        Assert.assertEquals(page.creditBalanceSection.lblCashBalanceTitle.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
+        List<ArrayList<String>> lstBalance = page.creditBalanceInforSection.tblCashBalance.getRowsWithoutHeader(1,false);
+        Assert.assertEquals(page.creditBalanceInforSection.lblCashBalanceTitle.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
         Assert.assertEquals(lstBalance.get(0).get(0), AGConstant.AgencyManagement.CreateAccount.LBL_INITIATION_DEPOSIT,"FAILED! Credit Initiation label displays incorrect");
 //
         log("Verify 3. Product Setting, select Exchange product");
@@ -169,7 +169,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 //        Assert.assertTrue(page.cashBalanceSection.txtMemberMaxCredit.isDisplayed(),"FAILED!Max Player Credit textbox not display");
 
         log("Verify 2. There is no Credit Balance section display");
-        Assert.assertFalse(page.creditBalanceSection.lblDownlineAGMaxCreditLimit.isDisplayed(),"FAILED! Credit Limit label display for Cash Account");
+        Assert.assertFalse(page.creditBalanceInforSection.lblDownlineAGMaxCreditLimit.isDisplayed(),"FAILED! Credit Limit label display for Cash Account");
 
         Assert.assertFalse(page.lblRiskSetting.isDisplayed(),"FAILED! Risk Setting section display for Cash account");
         log("INFO: Executed completely");
