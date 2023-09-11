@@ -398,7 +398,7 @@ public class CreateUserTest extends BaseCaseTest {
         String password = "1234qwer";
 
         log("Step 3. Input invalid Min bet setting less than required");
-        page.accInfoSection.txtPassword.sendKeys(password);
+        page.accountInforSection.txtPassword.sendKeys(password);
         page.betSettingInforSection.inputBetSetting(lstBetSetting);
 //        page.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
         page.btnSubmit.click();
@@ -444,7 +444,7 @@ public class CreateUserTest extends BaseCaseTest {
 
 
         log("Step 3. Input invalid MAx bet setting less than required");
-        page.accInfoSection.txtPassword.sendKeys(password);
+        page.accountInforSection.txtPassword.sendKeys(password);
         page.betSettingInforSection.inputBetSetting(lstBetSetting);
 //        page.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
         page.btnSubmit.click();

@@ -146,6 +146,7 @@ public class AGConstant {
         public final static String DOWNLINE_LISTING = "Downline Listing";
         public final static String CREATE_DOWNLINE_AGENT = "Create Downline Agent";
         public final static String CREATE_USER = "Create User";
+        public final static String CREATE_COMPANY = "Create Company";
         public final static String PROFIT_LOSS = "Profit & Loss";
         public final static String PROFIT_AND_LOSS = "Profit And Loss";
         public final static String LIQUIDITY_THRESHOLD = "Liquidity Threshold";

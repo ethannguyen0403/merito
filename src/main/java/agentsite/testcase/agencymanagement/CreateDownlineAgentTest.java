@@ -33,8 +33,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 
     @TestRails(id = "678")
     @Test (groups = {"smoke"})
-    @Parameters({"currency"})
-    public void Agent_AM_CreateDownline_Agent_678(String currency) {
+    public void Agent_AM_CreateDownline_Agent_678() {
         log("@title: Validate UI in Create Downline Agent with Exchange Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
@@ -44,29 +43,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 
         log("Verify 1. Account info section");
         Assert.assertEquals(page.header.lblPageTitle.getText().trim(), AGConstant.AgencyManagement.CreateDownlineAgent.TITLE_PAGE, "Failed! Page title is incorrect");
-        List<String> lstInfo = page.accInfoSection.getListLabelInfo();
-        Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.CreateAccount.LBL_LOGIN_ID, "FAILED! Login ID label display incorrect");
-        Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
-        Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
-        Assert.assertEquals(lstInfo.get(3), AGConstant.AgencyManagement.CreateAccount.LBL_LEVEL, "FAILED! Level label display incorrect");
-        Assert.assertEquals(lstInfo.get(4), AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_NAME, "FAILED! First Name label display incorrect");
-        Assert.assertEquals(lstInfo.get(5), AGConstant.AgencyManagement.CreateAccount.LBL_LAST_NAME, "FAILED! Last Name label display incorrect");
-        Assert.assertEquals(lstInfo.get(6), AGConstant.AgencyManagement.CreateAccount.LBL_PHONE, "FAILED! Phone display incorrect");
-        Assert.assertEquals(lstInfo.get(7), AGConstant.AgencyManagement.CreateAccount.LBL_MOBILE, "FAILED! Mobile display incorrect");
-        Assert.assertEquals(lstInfo.get(8), AGConstant.AgencyManagement.CreateAccount.LBL_FAX, "FAILED! Fax display incorrect");
-        Assert.assertEquals(lstInfo.get(9), AGConstant.AgencyManagement.CreateAccount.LBL_BASE_CURRENCY, "FAILED! Base Currency display incorrect");
-        Assert.assertEquals(lstInfo.get(10), AGConstant.AgencyManagement.CreateAccount.LBL_ALLOW_AG_EXTRA, "FAILED! Allow Extra display incorrect");
-//        Assert.assertEquals(page.accInfoSection.lblUsernamePrefix.getText(),prefix, "FAILED! Login ID textbox does not display");
-        Assert.assertTrue(page.accInfoSection.txtPassword.isDisplayed(), "FAILED! Password textbox does not display");
-        Assert.assertTrue(page.accInfoSection.ddrAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box does not display");
-        Assert.assertTrue(page.accInfoSection.ddpLevel.isDisplayed(), "FAILED! Level dropdown box does not display");
-        Assert.assertTrue(page.accInfoSection.txtFirstName.isDisplayed(), "FAILED! First Name textbox does not display");
-        Assert.assertTrue(page.accInfoSection.txtLastName.isDisplayed(), "FAILED! Last Name textbox does not display");
-        Assert.assertTrue(page.accInfoSection.txtMobile.isDisplayed(), "FAILED! Mobile textbox does not display");
-        Assert.assertTrue(page.accInfoSection.txtPhone.isDisplayed(), "FAILED! Phone textbox does not display");
-        Assert.assertTrue(page.accInfoSection.txtFax.isDisplayed(), "FAILED! Tax textbox does not display");
-        Assert.assertEquals(page.accInfoSection.lblBaseCurrencyValue.getText(), currency, "FAILED!Base currency is not correct");
-        Assert.assertTrue(page.accInfoSection.cbAllowExtraPT.isDisplayed(), "FAILED! Allow Extra PT checkbox does not display");
+        page.accountInforSection.verifyUIDisplayedCorrect();
 
         log("Verify 2. Cash Balance");
         List<ArrayList<String>> lstBalance = page.creditBalanceSection.tblCashBalance.getRowsWithoutHeader(1,false);
@@ -130,30 +107,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("Verify 1. Account info section");
        // List<ArrayList<String>> lstInfo = page.tblAccountInfo.getRowsWithoutHeader(2,false);
         Assert.assertEquals(page.header.lblPageTitle.getText().trim(), AGConstant.AgencyManagement.CreateDownlineAgent.TITLE_PAGE, "Failed! Page title is incorrect");
-        List<String> lstInfo = page.accInfoSection.getListLabelInfo();
-        Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.CreateAccount.LBL_LOGIN_ID, "FAILED! Login ID label display incorrect");
-        Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
-        Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
-        Assert.assertEquals(lstInfo.get(3), AGConstant.AgencyManagement.CreateAccount.LBL_LEVEL, "FAILED! Level label display incorrect");
-        Assert.assertEquals(lstInfo.get(4), AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_NAME, "FAILED! First Name label display incorrect");
-        Assert.assertEquals(lstInfo.get(5), AGConstant.AgencyManagement.CreateAccount.LBL_LAST_NAME, "FAILED! Last Name label display incorrect");
-        Assert.assertEquals(lstInfo.get(6), AGConstant.AgencyManagement.CreateAccount.LBL_PHONE, "FAILED! Phone display incorrect");
-        Assert.assertEquals(lstInfo.get(7), AGConstant.AgencyManagement.CreateAccount.LBL_MOBILE, "FAILED! Mobile display incorrect");
-        Assert.assertEquals(lstInfo.get(8), AGConstant.AgencyManagement.CreateAccount.LBL_FAX, "FAILED! Fax display incorrect");
-        Assert.assertEquals(lstInfo.get(9), AGConstant.AgencyManagement.CreateAccount.LBL_BASE_CURRENCY, "FAILED! Base Currency display incorrect");
-        Assert.assertEquals(lstInfo.get(10), AGConstant.AgencyManagement.CreateAccount.LBL_ALLOW_AG_EXTRA, "FAILED! Allow Extra display incorrect");
-        Assert.assertEquals(page.accInfoSection.lblUsernamePrefix.getText(),prefix, "FAILED! Login ID textbox does not display");
-        Assert.assertTrue(page.accInfoSection.txtPassword.isDisplayed(), "FAILED! Password textbox does not display");
-        Assert.assertTrue(page.accInfoSection.ddrAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box does not display");
-        Assert.assertTrue(page.accInfoSection.ddpLevel.isDisplayed(), "FAILED! Level dropdown box does not display");
-        Assert.assertTrue(page.accInfoSection.txtFirstName.isDisplayed(), "FAILED! First Name textbox does not display");
-        Assert.assertTrue(page.accInfoSection.txtLastName.isDisplayed(), "FAILED! Last Name textbox does not display");
-        Assert.assertTrue(page.accInfoSection.txtMobile.isDisplayed(), "FAILED! Mobile textbox does not display");
-        Assert.assertTrue(page.accInfoSection.txtPhone.isDisplayed(), "FAILED! Phone textbox does not display");
-        Assert.assertTrue(page.accInfoSection.txtFax.isDisplayed(), "FAILED! Tax textbox does not display");
-        Assert.assertEquals(page.accInfoSection.lblBaseCurrencyValue.getText(), currency, "FAILED!Base currency is not correct");
-        Assert.assertTrue(page.accInfoSection.cbAllowExtraPT.isDisplayed(), "FAILED! Allow Extra PT checkbox does not display");
-
+        page.accountInforSection.verifyUIDisplayedCorrect();
         log("Verify 2. Cash Balance");
 
         List<ArrayList<String>> lstBalance = page.creditBalanceSection.tblCashBalance.getRowsWithoutHeader(1,false);
@@ -250,11 +204,11 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
                 " 1. Should be between 8 to 15 characters.\n" +
                 "  2. Only alphanumeric characters are allowed.\n" +
                 "  3. Should contains at least 1 letter and 1 number.\"");
-        page.accInfoSection.lblPasswordHint.moveAndHoverOnControl();
-        Assert.assertEquals(page.accInfoSection.lblPasswordHint.getAttribute("title").trim(), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD_HINT.trim(),"FAILED! Password Hint message not correct");
+        page.accountInforSection.lblPasswordHint.moveAndHoverOnControl();
+        Assert.assertEquals(page.accountInforSection.lblPasswordHint.getAttribute("title").trim(), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD_HINT.trim(),"FAILED! Password Hint message not correct");
 
         log("Verify 3. Account Status: Active and Inactive");
-        Assert.assertTrue(page.accInfoSection.ddrAccountStatus.areOptionsMatched(AGConstant.AgencyManagement.CreateAccount.LST_ACCOUNTS_STATUS_CREATE),"FAILED! Account status default value not include Active and Inactive Status");
+        Assert.assertTrue(page.accountInforSection.ddrAccountStatus.areOptionsMatched(AGConstant.AgencyManagement.CreateAccount.LST_ACCOUNTS_STATUS_CREATE),"FAILED! Account status default value not include Active and Inactive Status");
 
 //        log("Verify 4.Verify Currency");
 //        Assert.assertEquals(page.accInfoSection.lblBaseCurrencyValue.getText(),currency,"FAILED! Account status default value not include Active and Inactive Status");
@@ -273,7 +227,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      *          3. Valid can login agent with the created account
      */
     @TestRails(id = "683")
-    @Test (groups = {"smoke1"})
+    @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_683() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
         log("Step 1. Navigate Agency Management > Create Downline Agent");

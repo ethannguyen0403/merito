@@ -24,7 +24,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public SuccessPopup successPopup = SuccessPopup.xpath("//app-alert | //app-alert-create");
 
     // Info section
-    public AccountInfoSection accInfoSection = AccountInfoSection.xpath("//div[@id='account']//app-agency-account-ui");
+//    public AccountInfoSection accInfoSection = AccountInfoSection.xpath("//div[@id='account']//app-agency-account-ui");
 
     //Transer Setting Section
     public TransferSettingSection transferSettingSection = TransferSettingSection.xpath("//div[@id='transfer-settings']");

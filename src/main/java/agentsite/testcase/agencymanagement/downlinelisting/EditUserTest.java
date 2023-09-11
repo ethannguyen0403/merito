@@ -55,25 +55,11 @@ public class EditUserTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Click on Edit icon of any Member level");
-        EditDownLinePage editDownLineAgentPage = (EditDownLinePage) page.downlineListing.clickEditIcon(loginID);
+        EditDownLinePage editDownLineAgentPage = page.downlineListing.clickEditIcon(loginID);
 
         log("Verify 1. Verify UI in Edit Downline Agent is corrected");
         Assert.assertEquals(page.header.lblPageTitle.getText().trim(), AGConstant.AgencyManagement.EDIT_DOWNLINE_AGENT_TITLE, "Failed! Page title is incorrect");
-        List<String> lstInfo = editDownLineAgentPage.accInfoSection.getListLabelInfo();
-        Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.CreateAccount.LBL_LOGIN_ID, "FAILED! Login ID label display incorrect");
-        Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
-        Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
-        Assert.assertEquals(lstInfo.get(3), AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_NAME, "FAILED! First Name label display incorrect");
-        Assert.assertEquals(lstInfo.get(4), AGConstant.AgencyManagement.CreateAccount.LBL_LAST_NAME, "FAILED! Last Name label display incorrect");
-        Assert.assertEquals(lstInfo.get(5), AGConstant.AgencyManagement.CreateAccount.LBL_MOBILE, "FAILED! Mobile display incorrect");
-
-        Assert.assertTrue(editDownLineAgentPage.accInfoSection.txtPassword.isDisplayed(), "FAILED! Password textbox does not display");
-        Assert.assertTrue(editDownLineAgentPage.accInfoSection.ddrAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box does not display");
-        Assert.assertTrue(editDownLineAgentPage.accInfoSection.ddpLevel.isDisplayed(), "FAILED! Level dropdown box does not display");
-        Assert.assertTrue(editDownLineAgentPage.accInfoSection.txtFirstName.isDisplayed(), "FAILED! First Name textbox does not display");
-        Assert.assertTrue(editDownLineAgentPage.accInfoSection.txtLastName.isDisplayed(), "FAILED! Last Name textbox does not display");
-        Assert.assertTrue(editDownLineAgentPage.accInfoSection.txtMobile.isDisplayed(), "FAILED! Mobile textbox does not display");
-        Assert.assertTrue(editDownLineAgentPage.accInfoSection.txtPhone.isDisplayed(), "FAILED! Phone textbox does not display");
+        editDownLineAgentPage.accountInforSection.verifyUIDisplayedCorrect();
 
         log("Verify 2. Cash Balance");
         Assert.assertEquals(editDownLineAgentPage.creditBalanceSection.lblCashBalanceTitle.getText().trim(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE, "FAILED! Cash Balance Title display incorrect");
@@ -130,7 +116,7 @@ public class EditUserTest extends BaseCaseTest {
         EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
 
         log("Step 3. Input new password in  password textbox and click Submit");
-        editDownLinePage.editDownlineListing.accInfoSection.inputInfo("", StringUtils.decrypt(password), "");
+        editDownLinePage.editDownlineListing.accountInforSection.inputInfo("", StringUtils.decrypt(password), "");
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
@@ -188,7 +174,7 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step  3. Change account status to Inactive and click on Submit button\n" +
                 "     *              Click Ok button on Edit Member popup");
-        page.editDownlinePopup.accInfoSection.inputInfo("","", "Inactive");
+        page.editDownlinePopup.accountInforSection.inputInfo("","", "Inactive");
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
@@ -219,7 +205,7 @@ public class EditUserTest extends BaseCaseTest {
         page.downlineListing.submitEditDownline();
 
         log("Step 6. Change account status to Active and Submit and click Ok button");
-        page.editDownlinePopup.accInfoSection.inputInfo("","", "Active");
+        page.editDownlinePopup.accountInforSection.inputInfo("","", "Active");
         page.downlineListing.submitEditDownline();
         message = page.downlineListing.getMessageUpdate(true);
 
@@ -550,7 +536,7 @@ public class EditUserTest extends BaseCaseTest {
         lstBetSetting.add(maxBetLst);
 
         log("Step 3. Input Min bet of Soccer with valid value");
-        page.editDownlinePopup.accInfoSection.txtPassword.sendKeys(StringUtils.decrypt(password));
+        page.editDownlinePopup.accountInforSection.txtPassword.sendKeys(StringUtils.decrypt(password));
         page.betSettingInforSection.inputBetSetting(lstBetSetting);
 //        page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
         page.downlineListing.submitEditDownline();
@@ -779,7 +765,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.1 In-active Live Dealer Asian product");
-        page.editDownlinePopup.accInfoSection.txtPassword.sendKeys(StringUtils.decrypt(password));
+        page.editDownlinePopup.accountInforSection.txtPassword.sendKeys(StringUtils.decrypt(password));
         page.downlineListing.submitEditDownline();
         page.downlineListing.closeSubmitEditDownlinePopup();
         page.logout();
@@ -806,7 +792,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3.1 In-acctive the account");
-        page.editDownlinePopup.accInfoSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(2));
+        page.editDownlinePopup.accountInforSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(2));
         page.downlineListing.submitEditDownline();
         page.downlineListing.closeSubmitEditDownlinePopup();
         page.logout();
@@ -832,7 +818,7 @@ public class EditUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Suspend the account");
-        page.editDownlinePopup.accInfoSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(3));
+        page.editDownlinePopup.accountInforSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(3));
         page.downlineListing.submitEditDownline();
         page.downlineListing.closeSubmitEditDownlinePopup();
         page.logout();
@@ -875,7 +861,7 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step  3. Change account status to Suspended and click on Submit button\n" +
                 "     *              Click Ok button on Edit Member popup");
-        editUserPage.accInfoSection.inputInfo("","", "Suspended");
+        editUserPage.accountInforSection.inputInfo("","", "Suspended");
         page.downlineListing.submitEditDownline();
         String message = editUserPage.getMessageUpdate(true);
 
@@ -887,7 +873,7 @@ public class EditUserTest extends BaseCaseTest {
         editUserPage = page.downlineListing.clickEditIcon(loginID);
 
         log("Step 6. Change account status to Active and Submit and click Ok button");
-        editUserPage.accInfoSection.inputInfo("","", "Suspended");
+        editUserPage.accountInforSection.inputInfo("","", "Suspended");
         page.downlineListing.submitEditDownline();
 
         log("Verify 4. Downline Listing display Account Status is Active");
@@ -911,7 +897,7 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step  3. Change account status to Suspended and click on Submit button\n" +
                 "     *              Click Ok button on Edit Member popup");
-        editUserPage.accInfoSection.inputInfo("", "", "Closed");
+        editUserPage.accountInforSection.inputInfo("", "", "Closed");
         page.downlineListing.submitEditDownline();
         String message = editUserPage.getMessageUpdate(true);
 
