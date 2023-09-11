@@ -8,10 +8,13 @@ import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.Ac
 import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.BetSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.CashBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.CreditBalanceSection;
+import agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection.PositionTakingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.ProductSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.ProductStatusSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.RateSettingsSection;
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.RiskSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.TransferSettingSection;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.SuccessPopup;
@@ -23,60 +26,15 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label lblPageTitle = Label.xpath("//app-title-dashboard//div[@class='title']");
     public SuccessPopup successPopup = SuccessPopup.xpath("//app-alert | //app-alert-create");
 
-    // Info section
-//    public AccountInfoSection accInfoSection = AccountInfoSection.xpath("//div[@id='account']//app-agency-account-ui");
-
-    //Transer Setting Section
-    public TransferSettingSection transferSettingSection = TransferSettingSection.xpath("//div[@id='transfer-settings']");
-
-    // Credit Balance Section
-    public agentsite.pages.agentmanagement.createdownlineagent.CreditBalanceSection creditBalanceSection = agentsite.pages.agentmanagement.createdownlineagent.CreditBalanceSection.xpath("//div[@id='credit-balance-setting']//app-credit-setting-exchange");
-
-    // Cash Balance Section
-    public agentsite.pages.agentmanagement.createdownlineagent.CashBalanceSection cashBalanceSection = agentsite.pages.agentmanagement.createdownlineagent.CashBalanceSection.xpath("//div[@id='credit-balance-setting']");
-
-    // Rate Setting Section
-    public RateSettingSection rateSettingSection = RateSettingSection.xpath("//div[contains(@class,'ratesetting')]");
-
     //Product Settings
     public ProductSettingsSection productSettingsSection = ProductSettingsSection.xpath("//div[@id[starts-with(.,'product-settings')]]");
 
-    public PositionTakingSection positionTakingExchangeSection = PositionTakingSection.xpath("//app-ptsetting//div[@id='EXCHANGE-position-taking']");
-    public PositionTakingSection positionTakingExchangeGAMESection = PositionTakingSection.xpath("//app-ptsetting//div[@id='EXCH_GAMES-position-taking']");
-
-    /*// Credit Balance Section
-    public Label lblCreditLimit = Label.xpath("//div[@id='EXCHANGE-credit-balance']//table[contains(@class,'credit-balance-table')]//span[contains(,@class,'')]");
-    public TextBox txtCreditLimit = TextBox.id("creditLimit-EXCHANGE");
-    public Label lblAgentMaxCredit = Label.xpath("//div[@id='EXCHANGE-credit-balance']//table[contains(@class,'credit-balance-table')]//body/tr[3]/td[1]");
-    public TextBox txtAgentMaxCredit = TextBox.id("smaMaxCredit-EXCHANGE");
-    public Label lblMemberMaxCredit = Label.xpath("//div[@id='EXCHANGE-credit-balance']//table[contains(@class,'credit-balance-table')]//body/tr[4]/td[1]");
-    public TextBox txtMemberMaxCredit = TextBox.id("memberMaxCredit-EXCHANGE");
-
-    // Exchange Tab  - Rate Setting
-    public Label lblRateSetting = Label.xpath("//div[contains(@class,'ratesetting')]/div[@class='psection']");
-   // public Table tblRateSetting = Table.xpath("//div[contains(@class,'ratesetting')]//table[contains(@class,'credit-balance-table')]",2);
-    public Label lblRate = Label.xpath("//div[contains(@class,'ratesetting')]//table[contains(@class,'credit-balance-table')]//td[1]");
-    public TextBox txtRate = TextBox.xpath("//input[contains(@class,'rate-input')]");*/
-
     // Exchange Tab  - Risk Setting
     public Label lblRiskSetting = Label.xpath("//div[@id='EXCHANGE-risk-settings']/div[@class='psection']");
-    public Label lblMaxExposureHint = Label.xpath("//table[@class='ptable info credit-balance-table']//span[@class='extra-title']");
-    public Label lblMaxExposure = Label.xpath("//div[@id='EXCHANGE-risk-settings']//table[@class='ptable info credit-balance-table']//tr[2]/td[1]");
-    public TextBox txtMaxExposure = TextBox.id("riskSetting");
 
     // Product Settings - Exchange Tab
     public Label lblProductSetting = Label.xpath("//div[@id='product-settings']/div[@class='psection']");
-    public Tab tabExchange = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange']");
-    public Tab chbExchange = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange']//preceding::input[@type='checkbox'][1]");
     public Tab tabExchangeGames = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange Games']");
-    public Tab cbhExchangeGames = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange Games']//preceding::input[@type='checkbox'][1]");
-    public Tab tabLiveDealerAsian = Tab.xpath("//tabset[@id='productSetting']//span[text()='Live Dealer Asian']");
-    public Tab chbLiveDealerAsian = Tab.xpath("//tabset[@id='productSetting']//span[text()='Live Dealer Asian']//preceding::input[@type='checkbox'][1]");
-    public Tab tabLiveDealerEuropean = Tab.xpath("//tabset[@id='productSetting']//span[text()='Live Dealer European']");
-    public Tab chbLiveDealerEuropean = Tab.xpath("//tabset[@id='productSetting']//span[text()='Live Dealer European']//preceding::input[@type='checkbox'][1]");
-
-    // tottal column of tblSportSetting is dynamic. It's based on the active sport from upline or from BO setting
-    public Table tblSportSetting = Table.xpath("//div[@class='marketSettingWrapper']//table[contains(@class,'info ptable sportTable')]", 1);
 
     //Exchange Product - Bet Settings
 
@@ -86,23 +44,22 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label lblEGTaxSettings = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']/div[@class='psection']");
     public Label lblPositionTakingListing = Label.xpath("//div[@id='EXCHANGE-position-taking']/div[@class='psection']");
     public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[@class='psection']");
-    public CheckBox chbLive = CheckBox.id("live");
-    public CheckBox chbNonLive = CheckBox.id("nonlive");
     public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
     public Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
     public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg']");
-    public Label lblMessage = Label.xpath("//div[@class='modal-body modal-body-fit-with-content']");
+
     public AccountInforSection accountInforSection;
     public CreditBalanceSection creditBalanceInforSection;
     public RiskSettingSection riskSettingInforSection;
     public CashBalanceSection cashBalanceInforSection;
-    public agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.RateSettingsSection rateSettingInforSection;
+    public RateSettingsSection rateSettingInforSection;
     public ProductSettingSection productSettingInforSection;
     public BetSettingSection betSettingInforSection;
     public TaxSettingSection taxSettingInforSection;
     public ProductStatusSettingSection productStatusSettingInforSection;
     public AccountBalanceTransferConditionInforSection accountBalanceTransferConditionInforSection;
-    public agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection.PositionTakingSection positionTakingInforSection;
+    public PositionTakingSection positionTakingInforSection;
+    public TransferSettingSection transferSettingInforSection;
     protected String _type;
     private int totalBetSettingsColumns = 7;
     public Table tblBetSettings = Table.xpath("//div[@id='EXCHANGE-bet-settings']//table[contains(@class,'betTable')]", totalBetSettingsColumns);
@@ -131,24 +88,14 @@ public class CreateDownLineAgentPage extends HomePage {
         positionTakingInforSection = ComponentsFactory.positionTakingInfoObject(_type);
         productStatusSettingInforSection = ComponentsFactory.productStatusSettingInfoObject(_type);
         accountBalanceTransferConditionInforSection = ComponentsFactory.accountBalanceTransferConditionInfoObject(_type);
+        transferSettingInforSection = ComponentsFactory.transferSettingInfoObject(_type);
     }
-
-//    public String createDownline(String password, String level) {
-//        String username = accountInforSection.getUserName();
-//        accountInforSection.inputInfo(password, level);
-//        waitingLoadingSpinner();
-//        btnSubmit.click();
-//        waitingLoadingSpinner();
-//        return username;
-//    }
-
 
     public String createDownline(String loginID, String password, String accountStatus) {
         String username = "";
         switch (_type) {
             case "satsport":
                 accountInforSection.inputInfo(loginID, password, accountStatus);
-//        accInfoSection.inputInfo(loginID, password, accountStatus);
                 btnSubmit.click();
                 waitingLoadingSpinner();
                 break;

@@ -4,10 +4,10 @@ import agentsite.pages.agentmanagement.CreateDownLineAgentPage;
 import com.paltech.element.common.Icon;
 
 
-public class CreateCompanyPage extends CreateDownLineAgentPage {
+public class CreateCompany extends CreateDownLineAgentPage {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
 
-    public CreateCompanyPage(String types) {
+    public CreateCompany(String types) {
         super(types);
 
     }

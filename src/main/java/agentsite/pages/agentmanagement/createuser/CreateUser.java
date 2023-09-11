@@ -1,14 +1,18 @@
 package agentsite.pages.agentmanagement.createuser;
 
 import agentsite.pages.agentmanagement.CreateDownLineAgentPage;
+import agentsite.pages.components.ComponentsFactory;
 import com.paltech.element.common.*;
 
 
 public class CreateUser extends CreateDownLineAgentPage {
+    public CreateUser createUserPage;
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
 
     public CreateUser(String types) {
         super(types);
+        _type = types;
+        createUserPage = ComponentsFactory.createUserPage(_type);
     }
 
     public void waitingLoadingSpinner() {

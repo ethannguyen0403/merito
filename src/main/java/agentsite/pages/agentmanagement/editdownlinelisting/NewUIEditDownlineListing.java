@@ -54,7 +54,7 @@ public class NewUIEditDownlineListing extends EditDownlineListing {
         Assert.assertTrue(accountInforSection.txtFax.isDisplayed(), "FAILED! Tax textbox does not display");
 //        Assert.assertTrue(accountInforSection.cbAllowExtraPT.isDisplayed(), "FAILED! Allow Extra PT checkbox does not display");
 
-        Assert.assertEquals(creditBalanceSection.lblCashBalanceTitle.getText().trim(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Title display incorrect");
+        Assert.assertEquals(creditBalanceInforSection.lblCashBalanceTitle.getText().trim(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Title display incorrect");
 
         Assert.assertEquals(lblProductSetting.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
 

@@ -16,13 +16,10 @@ public class TransferPage extends HomePage {
     public DropDownBox ddpLevel = DropDownBox.id("level");
     public Button btnSubmit = Button.xpath("//button[@class='btn-submit']");
     public Button btnTransfer = Button.id("btn-transfer");
-    public CheckBox cbAllYesterDayBalance = CheckBox.id("textBoxAllYesterday");
     public Label lblAllYesterDayBalance = Label.id("labelBalance");
     public Label lblYouAreAllowToTransferOnToday = Label.xpath("//div[@id='transferInfo']//div[contains(@class,'transfer-message')][1]");
     public Label lblTransferableBalanceIsCalculatedUpToYesterday = Label.xpath("//div[@id='transferInfo']//div[contains(@class,'transfer-message')][2]");
     public Table tblAccountList = Table.xpath("//div[@id='transferList']//table[contains(@class,'report')]", 15);
-    public CheckBox cbAll = CheckBox.xpath("//div[@id='transferList']//table[contains(@class,'report')]//th[5]//input");
-    public Label lblNorecord = Label.xpath("//td[@class='no-record']");
     int colUsername = 2;
     int colNickname = 3;
     int colAccountStatus = 4;
@@ -78,18 +75,6 @@ public class TransferPage extends HomePage {
         }
     }
 
-    private void selectCheckBox(int index) {
-        //  int i = getRowIndexofUserName(username);
-        CheckBox cbCheckBox;
-        if (index == 0) {
-            cbCheckBox = cbAll;
-        } else {
-            String xpath = tblAccountList.getxPathOfCell(1, colCheckBox, index, "input");
-            cbCheckBox = CheckBox.xpath(xpath);
-        }
-        cbCheckBox.click();
-    }
-
     private TransferPopup clickTransferBalanceLine(int index) {
         //  int i = getRowIndexofUserName(username);
         Link lnkTransferableBalance;
@@ -121,13 +106,6 @@ public class TransferPage extends HomePage {
         int index = getRowIndexofUserName(userName);
         String xpath = tblAccountList.getxPathOfCell(1, colUpdateStatus, index, "span[@class='perror']");
         return Icon.xpath(xpath).isDisplayed();
-    }
-
-    public String getFirstUsername() {
-        if (lblNorecord.isDisplayed()) {
-            return "DEBUG: There is no data display in Transfer page";
-        }
-        return Label.xpath(tblAccountList.getxPathOfCell(1, colUsername, 1, null)).getText().trim();
     }
 
     public void selectUser(String username){
