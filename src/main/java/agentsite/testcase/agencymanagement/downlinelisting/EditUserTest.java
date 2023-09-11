@@ -124,24 +124,20 @@ public class EditUserTest extends BaseCaseTest {
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String loginID = listAccount.get(0).getUserCode();
-        String passwordEdit = "1234qwert";
-        String passwordDecrypt = decrypt(password);
 
         log("Step 2. Click on Edit icon of any Member level");
         page.downlineListing.searchDownline(loginID, "All", "Member");
-        page.downlineListing.clickEditIcon(loginID);
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
 
         log("Step 3. Input new password in  password textbox and click Submit");
-        page.editDownlinePopup.accInfoSection.inputInfo("", passwordEdit, "");
+        editDownLinePage.editDownlineListing.accInfoSection.inputInfo("", StringUtils.decrypt(password), "");
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
-
-        log("Step 4. Login the account in member site with new password");
-        agentHomePage.logout();
+//        log("Step 4. Login the account in member site with new password");
+//        agentHomePage.logout();
 
        /* BaseCaseFE.loginMemberviaUI(environment.getMemberSiteURL(),loginID,passwordEdit);
         log("Verify 2. Change password page display after login member site");

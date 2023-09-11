@@ -19,6 +19,7 @@ import java.text.NumberFormat;
 import java.util.*;
 
 import static common.AGConstant.*;
+import static common.AGConstant.AgencyManagement.CreateDownlineAgent.LBL_ACCOUNT_TRANSFER_WEEKLY_INVALID;
 
 public class DownlineListingTest extends BaseCaseTest {
     @TestRails(id = "3499")
@@ -206,9 +207,7 @@ public class DownlineListingTest extends BaseCaseTest {
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(parentUserID, downlineLevel, _brandname);
         String userCode = listAccount.get(0).getUserCode();
-        String userId = listAccount.get(0).getUserID();
-        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userId,"PL", "", _brandname);
-        String downlineUserCode = listAccountDownline.get(0).getUserCode();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(listAccount.get(0).getUserID(), "", _brandname);
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         page.downlineListing.searchDownline(userCode,"","");
 
@@ -220,16 +219,16 @@ public class DownlineListingTest extends BaseCaseTest {
         page.downlineListing.submitEditDownline();
         String message = page.downlineListing.getMessageUpdate(true);
 
-        log("Step 5. Drill down upline of the level in Step 2 and click on Edit icon");
-        page.downlineListing.searchDownline("","","");
+        log("Step 5. Drill down downline of the level in Step 2 and click on Edit icon");
+        page.downlineListing.searchDownline(listAccountDownline.get(0).getUserCode(),"","");
         log("Step 6. Click Edit icon and observe the market inactive in step 4");
-        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon("downlineUserCode");
+        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(listAccountDownline.get(0).getUserCode());
         editDownLinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","Match Odds (MATCH_ODDS)");
 
         log("Verify 6. The market inactive not display for downline");
         Assert.assertTrue(editDownLinePage.productSettingsSection.productStatusSettingsSection.editMarketPopup.lblNoRecordFound.isDisplayed(),"FAILED! Inactive market still display in search result");
         log("Validate Edit Member popup display with the message \"Member was updated successfully\"");
-        Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
+        Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_DOWNLINE_SUCCESS, "FAILED! Message update downline is not correct");
 
         log("INFO: Executed completely");
     }
@@ -503,7 +502,7 @@ public class DownlineListingTest extends BaseCaseTest {
         Assert.assertEquals(editDownlinePage.productStatusSettingInforSection.editMarketPopup.lblTitle.getText(), String.format(AgencyManagement.DownlineListing.EDIT_MARKET_TITLE, "Soccer"), "FAILED! Edit Market popup title displays incorrectly");
         Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.cbAllMarket.isDisplayed(), "FAILED! Check all market checkbox does not display");
         Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.btnOK.isDisplayed(), "FAILED! Button OK does not display");
-        Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.btnCancle.isDisplayed(), "FAILED! Button Cancel does not display");
+        Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.btnCancel.isDisplayed(), "FAILED! Button Cancel does not display");
         log("INFO: Executed completely");
     }
 
@@ -527,6 +526,210 @@ public class DownlineListingTest extends BaseCaseTest {
         log("Verify 3. Validate the correct market  display");
         List<String> columnMarket = editDownlinePage.productStatusSettingInforSection.editMarketPopup.tblMarket.getColumn(1, false);
         Assert.assertTrue(columnMarket.get(0).equalsIgnoreCase("Match Odds (MATCH_ODDS)"), String.format("FAILED! Search market does not display correct expected %s and actual %s","Match Odds (MATCH_ODDS)",columnMarket.get(0)));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3553")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3553() throws Exception {
+        log("@title: Validate can search all the market have same prefix");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon for member level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        log("Step 3. In product Setting Section, click on any edit button of any Sport");
+        log("Step 4. Input a prefix of market (e.g.: Over) and press Enter");
+        editDownlinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","Over");
+
+        log("Verify 3. Validate the list markets have prefix = Over are  displayed");
+        List<String> columnMarket = editDownlinePage.productStatusSettingInforSection.editMarketPopup.tblMarket.getColumn(1,false);
+        Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.isResultContainsPrefixMarket("Over", columnMarket), "FAILED! List result contains market having different prefix");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3554")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3554() throws Exception {
+        log("@title: Validate no result display when search with invalid market");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon for member level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        log("Step 3. In product Setting Section, click on any edit button of any Sport");
+        log("Step 4. Input a invalid market and press Enter");
+        editDownlinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","invalid market");
+
+        log("Verify 3. Validate message \"No record found\" display");
+        Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.lblNoRecordFound.isDisplayed(), "FAILED! No record found does not displays when search invalid market");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3555")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3555() throws Exception {
+        log("@title: Validate no result display when search with invalid market");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon for member level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        log("Step 3. In product Setting Section, click on any edit button of any Sport");
+        editDownlinePage.productStatusSettingInforSection.openEditMarketOfSport("Soccer");
+        log("Step 4. On the list markets mark them is checked");
+        editDownlinePage.productStatusSettingInforSection.editMarketPopup.clickCheckboxAllMarket(true);
+
+        log("Verify 4. Validate all market checkbox is checked");
+        Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.isAllMarketChecked(), "FAILED! All markets checkbox is not checked");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3556")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3556() throws Exception {
+        log("@title: Validate all market checkboxes is unchecked when all markets is unchecked");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon for member level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        log("Step 3. In product Setting Section, click on any edit button of any Sport");
+        editDownlinePage.productStatusSettingInforSection.openEditMarketOfSport("Soccer");
+        log("Step 4. On the list markets mark them is unchecked");
+        editDownlinePage.productStatusSettingInforSection.editMarketPopup.clickCheckboxAllMarket(false);
+
+        log("Verify 4. Validate all market checkbox is unchecked");
+        Assert.assertTrue(editDownlinePage.productStatusSettingInforSection.editMarketPopup.isAllMarketUnChecked(), "FAILED! All markets checkbox is not unchecked");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3557")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3557() throws Exception {
+        log("@title: Validate cancel button work");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon for member level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        log("Step 3. In product Setting Section, click on any edit button of any Sport");
+        editDownlinePage.productStatusSettingInforSection.openEditMarketOfSport("Soccer");
+        log("Step 4. Click on Cancel button");
+        editDownlinePage.productStatusSettingInforSection.editMarketPopup.btnCancel.click();
+
+        log("Verify 4. Validate Market popup is closed");
+        Assert.assertFalse(editDownlinePage.productStatusSettingInforSection.editMarketPopup.isDisplayed(), "FAILED! Edit market popup is not closed");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3558")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3558() throws Exception {
+        log("@title: Validate close popup icon work");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        String userCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(userCode, "", "");
+
+        log("Step 2. Click on Edit icon for member level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        log("Step 3. In product Setting Section, click on any edit button of any Sport");
+        editDownlinePage.productStatusSettingInforSection.openEditMarketOfSport("Soccer");
+        log("Step 4. Click on X button of the popup");
+        editDownlinePage.productStatusSettingInforSection.editMarketPopup.iconClose.click();
+
+        log("Verify 4. Validate Market popup is closed");
+        Assert.assertFalse(editDownlinePage.productStatusSettingInforSection.editMarketPopup.isDisplayed(), "FAILED! Edit market popup is not closed");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3559")
+    @Test(groups = {"regression_credit"})
+    public void Agent_AM_Downline_Listing_Edit_User_3559() throws Exception {
+        log("@title: Validate Account Balance Transfer Condition display when edit for an agent account in any level");
+        log("Precondition: Log in successfully Credit line");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String userName = ProfileUtils.getProfile().getUserCode();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getAllDownLineUsers(_brandname, userName, userID);
+        String downlineUserCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(downlineUserCode, "", "");
+
+        log("Step 2. Click on Edit icon of any agent level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(downlineUserCode);
+
+        log("Verify 2. Validate Control in Account Balance Transfer Condition display");
+        Assert.assertEquals(editDownlinePage.accountBalanceTransferConditionInforSection.getAccountBalanceTransferConditionTitle(),
+                "Account Balance Transfer Condition", "FAILED! Account Balance Transfer Condition section is not displayed");
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "3560")
+    @Test(groups = {"regression_credit"})
+    public void Agent_AM_Downline_Listing_Edit_User_3560() throws Exception {
+        log("@title: Validate Account Balance Transfer Condition NOT display when edit for player account");
+        log("Precondition: Log in successfully Credit line");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL",_brandname);
+        String downlineUserCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(downlineUserCode, "", "");
+
+        log("Step 2. Click on Edit icon of any agent level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(downlineUserCode);
+
+        log("Verify 2. Validate there is no section Account Balance Transfer Condition");
+        Assert.assertEquals(editDownlinePage.accountBalanceTransferConditionInforSection.getAccountBalanceTransferConditionTitle(),
+                "", "FAILED! Account Balance Transfer Condition section is not displayed");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3563")
+    @Test(groups = {"regression_credit"})
+    public void Agent_AM_Downline_Listing_Edit_User_3563() throws Exception {
+        log("@title: Validate An error message display when Select Weekly but not select day in Account Balance Transfer Condition");
+        log("Precondition: Log in successfully Credit line");
+        log("Step 1. Navigate Agency Management > Downline Listing");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String userName = ProfileUtils.getProfile().getUserCode();
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getAllDownLineUsers(_brandname, userName, userID);
+        String downlineUserCode = listAccountDownline.get(0).getUserCode();
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(downlineUserCode, "", "");
+
+        log("Step 2. Click on Edit icon of any agent level");
+        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(downlineUserCode);
+
+        log("Step 3. In Account Balance Transfer Condition, Select Weekly and not select any day then click Submit button");
+        editDownlinePage.accountBalanceTransferConditionInforSection.setTransferPeriod(false, Collections.singletonList(""));
+
+        log("Verify 2. Validate Error message display \"Please select at least one day when Account balance transfer is Weekly.");
+        Assert.assertEquals(editDownlinePage.lblErrorMsg.getText(),
+                LBL_ACCOUNT_TRANSFER_WEEKLY_INVALID, "FAILED! Account Balance Transfer Condition section is not displayed");
         log("INFO: Executed completely");
     }
 

@@ -1,11 +1,11 @@
 package agentsite.pages.agentmanagement.editdownlinelisting;
 
-import agentsite.pages.agentmanagement.CreateDownLineAgentPage;
 import agentsite.pages.agentmanagement.DownLineListingPage;
+import agentsite.pages.agentmanagement.downlinelisting.EditDownlinePopup;
 import com.paltech.element.common.*;
 import java.util.List;
 
-public class EditDownlineListing extends CreateDownLineAgentPage{
+public class EditDownlineListing extends DownLineListingPage {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     protected Button btnClosePopup = Button.xpath("//app-agency-edit//button[@class='close']");
     protected Button btnSubmit = Button.xpath("//div[@class='paction']/button[@id='submitBtn']");

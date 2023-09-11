@@ -6,6 +6,9 @@ import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.CommissionSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.NewUIComissionSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.OldUIComissionSettingListing;
+import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.AccountBalanceTransferConditionInforSection;
+import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.NewUIAccountBalanceTransferConditionSection;
+import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.OldUIAccountBalanceTransferConditionSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.NewUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.OldUIAccountInforSection;
@@ -306,6 +309,15 @@ public class ComponentsFactory {
                 return new OldUICreateUser(types);
             default:
                 return new NewUICreateUser(types);
+        }
+    }
+
+    public static AccountBalanceTransferConditionInforSection accountBalanceTransferConditionInfoObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIAccountBalanceTransferConditionSection();
+            default:
+                return new NewUIAccountBalanceTransferConditionSection();
         }
     }
 }

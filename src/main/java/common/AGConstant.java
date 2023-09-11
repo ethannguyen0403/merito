@@ -287,6 +287,7 @@ public class AGConstant {
             public final static String LBL_MIN_INVALID = "Min Bet is invalid.";
             public final static String LBL_MAX_INVALID = "Max Bet is invalid.";
             public final static String LBL_BALANCE_DEPOSIT_INVALID = "Max Bet is invalid.";
+            public final static String LBL_ACCOUNT_TRANSFER_WEEKLY_INVALID = "Please select at least one day when Account balance transfer is Weekly.";
 
         }
 
@@ -296,7 +297,7 @@ public class AGConstant {
             public final static String EDIT_MARKET_TITLE = "Edit market for %s";
             public final static List<String> LST_ACCOUNT_STATUS = Arrays.asList("All", "Active", "Inactive", "Suspended", "Closed", "Blocked");
             public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Client Name", "Mobile", "Credit Initiation", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Downline", "Create Date", "Last Login Time", "Last Login IP");
-            public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Exchange", "Live Dealer European", "Live Dealer Asian", "Exchange Games", "Supernowa Casino", "Evolution", "Game Hall", "Vivo", "ION", "Pragmatic");
+            public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Exchange", "Live Dealer European", "Live Dealer Asian", "Exchange Games", "Supernowa Casino", "Evolution", "RWB Sports", "Game Hall", "Vivo", "ION");
             public final static String MSG_CHANGE_PASSWORD_SUCCESS = "Update is successful!";
             public final static String MSG_INVALID_MAX_PLAYER_CREDIT = "Member Max Credit is invalid. ";
             public final static String MSG_EDIT_DOWNLINE_SUCCESS = "Downline was updated successfully";
