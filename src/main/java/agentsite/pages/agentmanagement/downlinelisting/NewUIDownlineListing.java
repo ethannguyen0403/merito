@@ -22,6 +22,7 @@ import static common.AGConstant.HomePage.DOWNLINE_LISTING;
 
 public class NewUIDownlineListing extends DownlineListing {
     private Button btnOK = Button.xpath("//button[text()='OK']");
+    private Button btnSubmit = Button.xpath("//app-agency-edit//button[@id='submitBtn']");
     public NewUIDownlineListing(String types) {
         super(types);
     }
@@ -34,6 +35,11 @@ public class NewUIDownlineListing extends DownlineListing {
         Link lnkEdit = (Link) tblDowlineListing.getControlBasedValueOfDifferentColumnOnRow(loginID, 1, userCodeCol, 1, null, editCol, "a[contains(@class,'pedit')]", false, false);
         if (lnkEdit.isClickable(1)) {
             lnkEdit.click();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         if (inputSecurityCode) {
             try {
@@ -64,7 +70,7 @@ public class NewUIDownlineListing extends DownlineListing {
         Assert.assertTrue(ddbLevel.isDisplayed(), "FAILED! Level dropdown is incorrect display");
         Assert.assertEquals(ddbAccountStatus.getOptions(), LST_ACCOUNT_STATUS, "FAILED! Data in Account Status dropdownbox is incorrect displayed");
         Assert.assertEquals(ddbLevel.getOptions(), DDB_LEVEL, "FAILED! Data in Account Status dropdownbox is incorrect displayed");
-        Assert.assertEquals(lstHeaderTable.remove(0), LST_DOWLINE_LISTING_TABLE_HEADER_NEWUI, "FAILED! Table header is incorrect displayed");
+        Assert.assertEquals(lstHeaderTable, LST_DOWLINE_LISTING_TABLE_HEADER_NEWUI, "FAILED! Table header is incorrect displayed");
     }
 
     public List<String> getAccountStatus() {
@@ -102,5 +108,12 @@ public class NewUIDownlineListing extends DownlineListing {
             btnOK.click();
         }
         waitingLoadingSpinner();
+    }
+
+    public void submitEditDownline() {
+        if (btnSubmit.isDisplayed()) {
+            btnSubmit.click();
+            waitingLoadingSpinner();
+        }
     }
 }

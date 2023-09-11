@@ -12,7 +12,6 @@ import java.util.List;
 public class DownlineListing extends CreateDownLineAgentPage {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
-    public EditDownlinePopup editDownlinePopup;
 
     public TextBox txtLoginID = TextBox.id("username");
     public DropDownBox ddbAccountStatus = DropDownBox.id("status");
@@ -82,14 +81,6 @@ public class DownlineListing extends CreateDownLineAgentPage {
     }
 
     public void submitEditDownline() {
-        if (editDownlinePopup.btnSubmit.isDisplayed()) {
-            editDownlinePopup.btnSubmit.click();
-            waitingLoadingSpinner();
-        } else {
-            //handle for SAT
-            btnSubmit.click();
-            waitingLoadingSpinner();
-        }
     }
 
 //    public void confirmSecurityCode(String securityCode) {

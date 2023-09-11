@@ -15,7 +15,7 @@ public class EditDownlinePopup extends EditDownLinePage {
     public AccountInfoSection accInfoSection;
     public ProductSettingsSection productSettingsSection;
     public CreditBalanceSection balanceSection;
-    public Button btnSubmit;
+    public Button btnSubmit = Button.xpath("//button[contains(@id,'submitBtn')]");
     private String _xPath = "//div[@id='account']//app-agency-account-ui";
     private Label lblMessage = Label.xpath("//div[contains(@class,'modal-body-fit-with-content')]");
     public AccountInforSection accountInforSection;
