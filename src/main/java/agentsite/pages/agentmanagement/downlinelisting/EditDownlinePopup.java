@@ -1,7 +1,7 @@
 package agentsite.pages.agentmanagement.downlinelisting;
 
 import agentsite.pages.agentmanagement.EditDownLinePage;
-import agentsite.pages.agentmanagement.createdownlineagent.AccountInfoSection;
+//import agentsite.pages.agentmanagement.createdownlineagent.AccountInfoSection;
 import agentsite.pages.agentmanagement.createdownlineagent.CreditBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.ProductSettingsSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
@@ -12,7 +12,7 @@ import com.paltech.element.common.Label;
 public class EditDownlinePopup extends EditDownLinePage {
     public Label lblTitle;
     public Button btnOK = Button.xpath("//button[contains(@class,'btn btn-warning')]");
-    public AccountInfoSection accInfoSection;
+//    public AccountInfoSection accInfoSection;
     public ProductSettingsSection productSettingsSection;
     public CreditBalanceSection balanceSection;
     public Button btnSubmit = Button.xpath("//button[contains(@id,'submitBtn')]");

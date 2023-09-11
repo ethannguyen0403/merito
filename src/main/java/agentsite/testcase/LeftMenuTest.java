@@ -889,9 +889,9 @@ public class LeftMenuTest extends BaseCaseTest {
         EditDownLinePage editDownLinePage = downLineListingPage.downlineListing.clickEditIcon(directDownline.getUserCode());
 
         log("Verify 1 Verify info(first name, Last name, Mobile) is updated and display in edit downline accordingly");
-        Assert.assertEquals(editDownLinePage.accInfoSection.txtFirstName.getAttribute("value"), firstName, "Failed! First name not display incorrect like when update in user profile");
-        Assert.assertEquals(editDownLinePage.accInfoSection.txtLastName.getAttribute("value"), lastName, "Failed! Last name not display incorrect like when update in user profile");
-        Assert.assertEquals(editDownLinePage.accInfoSection.txtMobile.getAttribute("value"), mobile, "Failed! Mobile not display incorrect like when update in user profile");
+        Assert.assertEquals(editDownLinePage.accountInforSection.txtFirstName.getAttribute("value"), firstName, "Failed! First name not display incorrect like when update in user profile");
+        Assert.assertEquals(editDownLinePage.accountInforSection.txtLastName.getAttribute("value"), lastName, "Failed! Last name not display incorrect like when update in user profile");
+        Assert.assertEquals(editDownLinePage.accountInforSection.txtMobile.getAttribute("value"), mobile, "Failed! Mobile not display incorrect like when update in user profile");
         log("INFO: Executed completely");
     }
 }

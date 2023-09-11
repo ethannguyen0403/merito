@@ -39,7 +39,7 @@ public class OldUIEditDownlineListing extends EditDownlineListing {
         Assert.assertEquals(header.lblPageTitle.getText().trim(), "Edit User", "Failed! Page title is incorrect");
 
         //Account Information section
-        List<String> lstInfo = accInfoSection.getListLabelInfo();
+        List<String> lstInfo = accountInforSection.getListLabelInfo();
         Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.CreateAccount.LBL_LOGIN_ID, "FAILED! Login ID label display incorrect");
         Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
         Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
@@ -47,11 +47,11 @@ public class OldUIEditDownlineListing extends EditDownlineListing {
         Assert.assertEquals(lstInfo.get(4), AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_NAME, "FAILED! Last Name label display incorrect");
         Assert.assertEquals(lstInfo.get(5), AGConstant.AgencyManagement.CreateAccount.LBL_LAST_NAME, "FAILED! Phone display incorrect");
         Assert.assertEquals(lstInfo.get(6), AGConstant.AgencyManagement.CreateAccount.LBL_MOBILE, "FAILED! Mobile display incorrect");
-        Assert.assertTrue(accInfoSection.txtPassword.isDisplayed(), "FAILED! Password textbox does not display");
+        Assert.assertTrue(accountInforSection.txtPassword.isDisplayed(), "FAILED! Password textbox does not display");
 //        Assert.assertTrue(ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box does not display");
-        Assert.assertTrue(accInfoSection.txtFirstName.isDisplayed(), "FAILED! First Name textbox does not display");
-        Assert.assertTrue(accInfoSection.txtLastName.isDisplayed(), "FAILED! Last Name textbox does not display");
-        Assert.assertTrue(accInfoSection.txtMobile.isDisplayed(), "FAILED! Mobile textbox does not display");
+        Assert.assertTrue(accountInforSection.txtFirstName.isDisplayed(), "FAILED! First Name textbox does not display");
+        Assert.assertTrue(accountInforSection.txtLastName.isDisplayed(), "FAILED! Last Name textbox does not display");
+        Assert.assertTrue(accountInforSection.txtMobile.isDisplayed(), "FAILED! Mobile textbox does not display");
         Assert.assertTrue(txtEmail.isDisplayed(), "FAILED! Email textbox does not display");
 
         //Cash Balance section
