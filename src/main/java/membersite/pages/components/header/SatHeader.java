@@ -5,10 +5,7 @@ import com.paltech.element.common.*;
 import common.MemberConstants;
 import membersite.controls.DropDownMenu;
 import membersite.objects.AccountBalance;
-import membersite.pages.AccountStatementPage;
-import membersite.pages.MyBetsPage;
-import membersite.pages.ProfitAndLossPage;
-import membersite.pages.SportPage;
+import membersite.pages.*;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.signinform.SATSignInPopup;
@@ -162,15 +159,18 @@ public class SatHeader extends Header1 {
      * @return
      */
     public SportPage navigateSportMenu(String pageName, String brand) {
-        Menu menu = Menu.xpath(String.format(sportMenuXpath, pageName));
-        if (!menu.isDisplayed(5)) {
-            System.out.println(String.format("There is no %s menu display", pageName));
-            return null;
-        }
-        menu.click();
+        clickHeaderMenu(pageName);
         return new SportPage(brand);
     }
 
+    private void clickHeaderMenu(String sportMenu){
+        Menu menu = Menu.xpath(String.format(sportMenuXpath, sportMenu));
+        if (!menu.isDisplayed(5)) {
+            System.out.println(String.format("There is no %s menu display", sportMenu));
+            return;
+        }
+        menu.click();
+    }
     public MyMarketPopup openMyMarketPopup() {
         lnkMyMarkets.click();
         return new MyMarketPopup();
@@ -257,6 +257,11 @@ public class SatHeader extends Header1 {
 
     public void logout() {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"));
+    }
+
+    public RacingPage navigateRacing(String pageName, String brand) {
+        clickHeaderMenu(pageName);
+        return new RacingPage(brand);
     }
 
 }

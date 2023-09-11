@@ -559,6 +559,15 @@ public class AGConstant {
             public final static List<String> PLAYER_TABLE_HEADER_OLDUI = Arrays.asList("Username", "Login ID", "Follow Status", "Exchange %", "Fancy %", "Additional Follow", "Account To Bet", "Last Update By", "Last Update Date", "Actions", "Stake %", "Odds Range %");
             public final static List<String> FOLLOW_DETAIL_TABLE_HEADER = Arrays.asList("Soccer\nAdd\nFollow All", "Tennis\nAdd\nFollow All", "Cricket\nAdd\nFollow All", "Basketball\nAdd\nFollow All", "Horse Racing\nAdd\nFollow All", "Others\nAdd\nFollow All");
         }
+        public static class Transfer {
+            public final static String FULL_TRANSFER_CONFIRM_MSG = "Full transfer will be applied to all selected users. Would you like to proceed with the transfer?";
+            public final static String ALL_YESTERDAY_BALANCE = "All Yesterday Balance";
+            public final static String YOU_ARE_ALLOW_TO_TRANSFER_ON_TODAY_MSG = "You are allowed to transfer on today";
+            public final static String TRANSFERABLE_BALANCE_IS_CALCULATED_TO_YESTERDAY_MSG = "Transferable Balance is calculated up to Yesterday";
+            public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level","Transferable Balance","Retain Amount","Total Balance","Yesterday Downline Balance","Downline Balance","Total Players Outstanding","Credit Given","Credit Used","Update Status");
+            public final static List<String> LST_ACCOUNT_STATUS = Arrays.asList("All", "Active", "Inactive", "Suspended", "Closed", "Blocked");
+            public final static List<String> LST_LEVEL = Arrays.asList("All", "Agent", "Member");
+        }
     }
 
     public static class RiskManagement {
@@ -665,7 +674,7 @@ public class AGConstant {
             public final static String TITLE = "Follow Bets Performance";
             public final static String INFO = "You can see report data up to 3 months and back to previous 1 year.";
             public final static List<String> TABLE_FOLLOW_BETS_HEADER = Arrays.asList("Group/Player", "Exchange", "Fancy", "Additional Stake", "Additional Odds Range", "Account To Bet", "Total Follow Wager", "Total Follow Win/Loss");
-            public final static String LBL_USERNAME_PLACE_HOLDER = "Username or Login ID";
+
         }
 
         public static class CancelledBets {

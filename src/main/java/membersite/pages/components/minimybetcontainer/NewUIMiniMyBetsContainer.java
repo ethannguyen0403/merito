@@ -13,7 +13,8 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     public MiniMyBetControl fancyMiniMyBet = MiniMyBetControl.xpath("//app-fancy-bets");
     public MiniMyBetControl bookMakerMiniMyBet = MiniMyBetControl.xpath("//app-bookmaker-bets");
     private String xPathSelection = "//div[contains(@class,'%s') and contains(@class,'row-open-bet')]";
-    private Label lblErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");//div[contains(@class,'betslip-error')]
+    private Label lblBetslipErrorMessage = Label.xpath("//div[contains(@class,'betslip-error')]");
+    private Label lblErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
     private Link lnkCancelAll = Link.xpath("//div[contains(@class,'cancel-all-bet')]//a");
     private CheckBox chkAverageOdds = CheckBox.xpath("//label[contains(@class,'chk-average-odds')]");
     private CheckBox chkOrderByMatchedDate = CheckBox.id("order-matched-date");
@@ -27,7 +28,9 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
         if (lnkCancelAll.isDisplayed())
             lnkCancelAll.click();
     }
-
+    public String getBetslipErrorMessage() {
+        return lblBetslipErrorMessage.getText();
+    }
     public String getPlaceBetErrorMessage() {
         return lblErrorMessage.getText();
     }

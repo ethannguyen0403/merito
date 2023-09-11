@@ -31,8 +31,8 @@ public class RacingContainer {
         return null;
     }
 
-    public MarketPage clickRacing(String country, String trackName, String race, String brand) {
-        return new MarketPage(brand);
+    public void clickRacing(String country, String trackName, String race) {
+        return;
     }
 
     public boolean isNoRace() {
