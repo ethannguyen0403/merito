@@ -103,7 +103,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         log("@title: Validate Place a unmatch bet");
         log("Step 1 Access api url for merito");
         log("Step 2 Login with valid username and password");
-        String sportID = "1";
+        String sportID = "2";
         String passDes = StringUtils.decrypt(password);
         String token = LoginMemberUtils.loginAPISuccess(username, passDes).getMessage();
 
@@ -175,7 +175,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         log("@title: Validate that can not place bet exposure greater than balance");
         log("Step 1 Access api url for merito");
         log("Step 2 Login with valid username and password");
-        String sportID = "1";
+        String sportID = "2";
         String passDes = StringUtils.decrypt(password);
         String token = LoginMemberUtils.loginAPISuccess(username, passDes).getMessage();
 
@@ -245,7 +245,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         log("@title:V alidate that can not place bet if stake less than min stake");
         log("Step 1 Access api url for merito");
         log("Step 2 Login with valid username and password");
-        String sportID = "1";
+        String sportID = "2";
         String passDes = StringUtils.decrypt(password);
         String token = LoginMemberUtils.loginAPISuccess(username, passDes).getMessage();
 

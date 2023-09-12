@@ -60,10 +60,14 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
             txtOdds.sendKeys(odds);
         }
         inputStake(stake);
-        lblSelection.click();
-        btnPlaceBet.click();
-        // waiting accepting label disappear
-        lblAccepting.waitForControlInvisible(20, 10);
+      //  txtOdds.click();
+        if(btnPlaceBet.isClickable(2)){
+            btnPlaceBet.click();
+            // waiting accepting label disappear
+            lblAccepting.waitForControlInvisible(10, 10);
+        }
+
+
     }
 
     // Just input stake after click on odds then place bet

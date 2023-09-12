@@ -29,7 +29,7 @@ public class SatHeader extends Header1 {
     private Button btnJoinNow = Button.xpath("//header//button[contains(@class,'join-now')]");
     private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[contains(@class,'account d-block')]", "", "//ul[contains(@class,'dropdown-menu')]//li");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
-    private Label imgSpinner = Label.xpath("//div[@class=lds-spinner']");
+    private Label imgSpinner = Label.xpath("//div[contains(@class,lds-spinner')]");
     private Image imgLeftMenu = Image.xpath("//div[@class='left-menu-icon']/img");
     private Menu menuSports = Menu.xpath("//app-sport-menu-bar//ul[@class='navbar-nav']//a");
     private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
