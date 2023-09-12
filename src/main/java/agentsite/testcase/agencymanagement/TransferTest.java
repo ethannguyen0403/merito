@@ -7,7 +7,6 @@ import agentsite.pages.components.ConfirmPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import common.AGConstant;
 import membersite.objects.AccountBalance;
 import org.testng.Assert;
@@ -18,7 +17,6 @@ import util.testraildemo.TestRails;
 import java.util.ArrayList;
 import java.util.List;
 
-import static common.AGConstant.AgencyManagement.LBL_ACCOUNTSTATUS;
 import static common.AGConstant.AgencyManagement.Transfer.*;
 import static common.AGConstant.HomePage.TRANSFER;
 import static common.AGConstant.LBL_USERNAME_PLACE_HOLDER_SAT;
@@ -49,16 +47,16 @@ public class TransferTest extends BaseCaseTest {
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(userID, "SMA", _brandname);
         String userName = DownLineListingUtils.getAccountInfoInList(lstUsers, memberAccount).getUserCode();
-        AccountInfo accountInfoBeforeTransfer = page.getTransferInfo(userName);
-        double amount = page.defineAmountBasedOnTransferableBalance(0.1, accountInfoBeforeTransfer.getTransferableBalance());
-        AccountInfo beforeTransfer = page.getTransferInfo(userName);
+        AccountInfo accountInfoBeforeTransfer = page.transferPage.getTransferInfo(userName);
+        double amount = page.transferPage.defineAmountBasedOnTransferableBalance(0.1, accountInfoBeforeTransfer.getTransferableBalance());
+        AccountInfo beforeTransfer = page.transferPage.getTransferInfo(userName);
 
         log("Step 2. Select an account and click on Transferable Balance number");
         log("Step 3. Enter valid amount and click submit button");
-        page.transfer("0OS", String.format("%.2f", amount));
+        page.transferPage.transfer("0OS", String.format("%.2f", amount));
 
         log("Verify: Validate Transferable Balance and Total Balance are updated");
-        page.verifyTransferInfo(userName,beforeTransfer,amount);
+        page.transferPage.verifyTransferInfo(userName,beforeTransfer,amount);
 
         log("INFO: Executed completely");
     }
@@ -75,10 +73,10 @@ public class TransferTest extends BaseCaseTest {
         String userName = DownLineListingUtils.getAccountInfoInList(lstUsers, memberAccount).getUserCode();
 
         log("Step 2. Select a downline");
-        page.selectUser(userName);
+        page.transferPage.selectUser(userName);
 
         log("Step 3. Click on Transfer button");
-        ConfirmPopup popup =page.clickTransferButton();
+        ConfirmPopup popup = page.transferPage.clickTransferButton();
         String actualMessage = popup.getContentMessage();
 
         log("Verify: Validate message \"Full transfer will be applied to all selected users. Would you like to proceed with the transfer?\"");
@@ -94,16 +92,16 @@ public class TransferTest extends BaseCaseTest {
         log("Precondition Step Log in successfully by SAD that belonging to Credit line");
         log("Step 1. Navigate Agency Management > Transfer");
         TransferPage page = agentHomePage.navigateTransferPage(environment.getSecurityCode());
-        ArrayList<String> lstHeader = page.tblAccountList.getHeaderNameOfRows();
-        List<String> lstAccountStatus = page.ddpAccountStatus.getOptions();
-        List<String> lstLevel = page.ddpLevel.getOptions();
+        ArrayList<String> lstHeader = page.transferPage.tblAccountList.getHeaderNameOfRows();
+        List<String> lstAccountStatus = page.transferPage.ddpAccountStatus.getOptions();
+        List<String> lstLevel = page.transferPage.ddpLevel.getOptions();
         log("Verify: Validate UI on Transfer display correctly");
-        Assert.assertEquals(page._txtUserName.getAttribute("placeholder"),LBL_USERNAME_PLACE_HOLDER_SAT,"Failed");
+        Assert.assertEquals(page.transferPage.txtUserName.getAttribute("placeholder"),LBL_USERNAME_PLACE_HOLDER_SAT,"Failed");
         Assert.assertEquals(lstAccountStatus,LST_ACCOUNT_STATUS,"List Account Status is incorrect");
         Assert.assertEquals(lstLevel,LST_LEVEL,"Failed! List level incorrect");
-        Assert.assertEquals(page.lblAllYesterDayBalance.getText(),ALL_YESTERDAY_BALANCE,"Failed! Incorrect label: You are allowed to transfer on today");
-        Assert.assertEquals(page.lblYouAreAllowToTransferOnToday.getText(),YOU_ARE_ALLOW_TO_TRANSFER_ON_TODAY_MSG,"Failed! Incorrect label: You are allowed to transfer on today");
-        Assert.assertEquals(page.lblTransferableBalanceIsCalculatedUpToYesterday.getText(), AGConstant.AgencyManagement.Transfer.TRANSFERABLE_BALANCE_IS_CALCULATED_TO_YESTERDAY_MSG,"Failed!Incorrect label Transferable Balance is calculated up to Yesterday");
+        Assert.assertEquals(page.transferPage.lblAllYesterDayBalance.getText(),ALL_YESTERDAY_BALANCE,"Failed! Incorrect label: You are allowed to transfer on today");
+        Assert.assertEquals(page.transferPage.lblYouAreAllowToTransferOnToday.getText(),YOU_ARE_ALLOW_TO_TRANSFER_ON_TODAY_MSG,"Failed! Incorrect label: You are allowed to transfer on today");
+        Assert.assertEquals(page.transferPage.lblTransferableBalanceIsCalculatedUpToYesterday.getText(), AGConstant.AgencyManagement.Transfer.TRANSFERABLE_BALANCE_IS_CALCULATED_TO_YESTERDAY_MSG,"Failed!Incorrect label Transferable Balance is calculated up to Yesterday");
         Assert.assertEquals(lstHeader,TABLE_HEADER,"Failed! table header is incorrect");
         log("INFO: Executed completely");
     }
@@ -135,12 +133,12 @@ public class TransferTest extends BaseCaseTest {
 
         log("Step 1. Navigate Agency Management > Transfer");
         TransferPage page = agentHomePage.navigateTransferPage(environment.getSecurityCode());
-        AccountInfo accountInfoBeforeTransfer = page.getTransferInfo(userName);
-        double amount = page.defineAmountBasedOnTransferableBalance(0.1, accountInfoBeforeTransfer.getTransferableBalance());
+        AccountInfo accountInfoBeforeTransfer = page.transferPage.getTransferInfo(userName);
+        double amount = page.transferPage.defineAmountBasedOnTransferableBalance(0.1, accountInfoBeforeTransfer.getTransferableBalance());
 
         log("Step 2 Transfer an amount " + amount + " for a player" + userName);
-        page.transfer(userName, String.format("%.2f", amount));
-        AccountInfo accountInfoAfterTransfer = page.getTransferInfo(userName);
+        page.transferPage.transfer(userName, String.format("%.2f", amount));
+        AccountInfo accountInfoAfterTransfer = page.transferPage.getTransferInfo(userName);
         String memberBalanceExpectedAfterTransfer = String.format("%,.2f", accountInfoAfterTransfer.getCreditGiven() + accountInfoAfterTransfer.getCreditUsed());
         String memberExposureExpectedAfterTransfer = String.format("%,.2f", accountInfoAfterTransfer.getTotalPlayerOutstanding());
 
@@ -170,14 +168,14 @@ public class TransferTest extends BaseCaseTest {
         AccountInfo accountLoginInfoExpected = accountBalancePage.getInfoCreditLoginBalance(currencyCode);
 
         TransferPage page = accountBalancePage.navigateTransferPage(environment.getSecurityCode());
-        AccountInfo accountInfoBeforeTransfer = page.getTransferInfo(userName);
+        AccountInfo accountInfoBeforeTransfer = page.transferPage.getTransferInfo(userName);
 
-        double amount = page.defineAmountBasedOnTransferableBalance(0.1, accountInfoBeforeTransfer.getTransferableBalance());
+        double amount = page.transferPage.defineAmountBasedOnTransferableBalance(0.1, accountInfoBeforeTransfer.getTransferableBalance());
         accountLoginInfoExpected.setDownlineBalance(accountLoginInfoExpected.getDownlineBalance() - amount);
         accountLoginInfoExpected.setYesterdayDownlineBalance(accountLoginInfoExpected.getYesterdayDownlineBalance() - amount);
 
         log("Step 2 Transfer an amount " + amount + " for downline" + userName);
-        page.transfer(userName, String.format("%.2f", amount));
+        page.transferPage.transfer(userName, String.format("%.2f", amount));
 
         log("Step 3 Active account balance page ");
         accountBalancePage = page.navigateAccountBalance();

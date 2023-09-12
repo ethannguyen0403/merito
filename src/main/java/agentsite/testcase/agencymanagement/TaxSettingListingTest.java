@@ -40,7 +40,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
         page.taxSettingListing.search(userCode, "", "");
 
         log("Verify 1. Verify Login display in the result table");
-        List<String> lstMembers = page.tblTax.getColumn(page.usernameCol, false);
+        List<String> lstMembers = page.taxSettingListing.tblTax.getColumn(page.taxSettingListing.usernameCol, false);
         Assert.assertEquals(lstMembers.get(0), userCode, "FAILED! Login ID not display as search criteria");
         Assert.assertEquals(lstMembers.size(), 1, "FAILED! Should only display 1 record when searching with correct username");
 
@@ -70,7 +70,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
         page.taxSettingListing.search(loginID, "", "");
 
         log("Verify 1. Verify Login display in the result table");
-        List<String> lstMembers = page.tblTax.getColumn(page.loginIDCol, false);
+        List<String> lstMembers = page.taxSettingListing.tblTax.getColumn(page.taxSettingListing.loginIDCol, false);
         Assert.assertEquals(lstMembers.get(0), loginID, "FAILED! Login ID not display as search criteria");
         Assert.assertEquals(lstMembers.size(), 1, "FAILED! Should only display 1 record when searching with correct username");
 
@@ -103,7 +103,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
         page.taxSettingListing.updateTaxSetting(loginID, lstExpectedData);
 
         log("Verify 1. Verify tax is updated for all sport and Update status is display green check");
-        List<ArrayList<String>> lstActualData = page.tblTax.getRowsWithoutHeader(1, false);
+        List<ArrayList<String>> lstActualData = page.taxSettingListing.tblTax.getRowsWithoutHeader(1, false);
         Assert.assertEquals(lstActualData, lstExpectedData, "FAILED! Data does not update correctly after update tax");
         Assert.assertTrue(page.taxSettingListing.verifyUpdateStatus(lstActualData, true), "FAILED! Data does not update correctly after update tax");
 
@@ -125,17 +125,17 @@ public class TaxSettingListingTest extends BaseCaseTest {
         TaxSettingListingPage page = agentHomePage.navigateTaxSettingListingPage();
 
         log("Verify 1. Verify UI Tax Setting Listing display correctly");
-        Assert.assertTrue(page.txtUsername.isDisplayed(), "FAILED Username textbox not display");
-        Assert.assertTrue(page.ddbAccountStatus.isDisplayed(), "FAILED Account Status Dropdown not display");
-        Assert.assertTrue(page.ddbProduct.isDisplayed(), "FAILED Product Dropdown not display");
-        Assert.assertEquals(page.btnSearch.getText(), AGConstant.BTN_SUBMIT, "FAILED Search button text should be Submit");
-        Assert.assertTrue(page.txtSoccer.isDisplayed(), "FAILED! Soccer textbox not display");
-        Assert.assertTrue(page.txtCricket.isDisplayed(), "FAILED! Cricket textbox not display");
-        Assert.assertTrue(page.txtTennis.isDisplayed(), "FAILED! Tennis textbox not display");
-        Assert.assertTrue(page.txtBasketball.isDisplayed(), "FAILED! Basketball textbox not display");
-        Assert.assertTrue(page.txtOther.isDisplayed(), "FAILED! Other textbox not display");
-        Assert.assertTrue(page.lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
-        Assert.assertEquals(page.tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX, "FAILED! Table header not match with the expected");
+        Assert.assertTrue(page.taxSettingListing.txtUsername.isDisplayed(), "FAILED Username textbox not display");
+        Assert.assertTrue(page.taxSettingListing.ddbAccountStatus.isDisplayed(), "FAILED Account Status Dropdown not display");
+        Assert.assertTrue(page.taxSettingListing.ddbProduct.isDisplayed(), "FAILED Product Dropdown not display");
+        Assert.assertEquals(page.taxSettingListing.btnSearch.getText(), AGConstant.BTN_SUBMIT, "FAILED Search button text should be Submit");
+        Assert.assertTrue(page.taxSettingListing.txtSoccer.isDisplayed(), "FAILED! Soccer textbox not display");
+        Assert.assertTrue(page.taxSettingListing.txtCricket.isDisplayed(), "FAILED! Cricket textbox not display");
+        Assert.assertTrue(page.taxSettingListing.txtTennis.isDisplayed(), "FAILED! Tennis textbox not display");
+        Assert.assertTrue(page.taxSettingListing.txtBasketball.isDisplayed(), "FAILED! Basketball textbox not display");
+        Assert.assertTrue(page.taxSettingListing.txtOther.isDisplayed(), "FAILED! Other textbox not display");
+        Assert.assertTrue(page.taxSettingListing.lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
+        Assert.assertEquals(page.taxSettingListing.tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX, "FAILED! Table header not match with the expected");
 
         log("INFO: Executed completely");
     }
@@ -149,17 +149,17 @@ public class TaxSettingListingTest extends BaseCaseTest {
         TaxSettingListingPage page = agentHomePage.navigateTaxSettingListingPage();
 
         log("Verify 1. Verify UI Tax Setting Listing display correctly (does not have Fancy)");
-        Assert.assertTrue(page.txtUsername.isDisplayed(), "FAILED Username textbox not display");
-        Assert.assertTrue(page.ddbAccountStatus.isDisplayed(), "FAILED Account Status Dropdown not display");
-        Assert.assertTrue(page.ddbProduct.isDisplayed(), "FAILED Product Dropdown not display");
-        Assert.assertEquals(page.btnSearch.getText(), AGConstant.BTN_SUBMIT, "FAILED Search button text should be Submit");
-        Assert.assertTrue(page.txtSoccer.isDisplayed(), "FAILED! Soccer textbox not display");
-        Assert.assertTrue(page.txtCricket.isDisplayed(), "FAILED! Cricket textbox not display");
-        Assert.assertTrue(page.txtTennis.isDisplayed(), "FAILED! Tennis textbox not display");
-        Assert.assertTrue(page.txtBasketball.isDisplayed(), "FAILED! Basketball textbox not display");
-        Assert.assertTrue(page.txtOther.isDisplayed(), "FAILED! Other textbox not display");
-        Assert.assertTrue(page.lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
-        Assert.assertEquals(page.tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX_SAT, "FAILED! Table header not match with the expected");
+        Assert.assertTrue(page.taxSettingListing.txtUsername.isDisplayed(), "FAILED Username textbox not display");
+        Assert.assertTrue(page.taxSettingListing.ddbAccountStatus.isDisplayed(), "FAILED Account Status Dropdown not display");
+        Assert.assertTrue(page.taxSettingListing.ddbProduct.isDisplayed(), "FAILED Product Dropdown not display");
+        Assert.assertEquals(page.taxSettingListing.btnSearch.getText(), AGConstant.BTN_SUBMIT, "FAILED Search button text should be Submit");
+        Assert.assertTrue(page.taxSettingListing.txtSoccer.isDisplayed(), "FAILED! Soccer textbox not display");
+        Assert.assertTrue(page.taxSettingListing.txtCricket.isDisplayed(), "FAILED! Cricket textbox not display");
+        Assert.assertTrue(page.taxSettingListing.txtTennis.isDisplayed(), "FAILED! Tennis textbox not display");
+        Assert.assertTrue(page.taxSettingListing.txtBasketball.isDisplayed(), "FAILED! Basketball textbox not display");
+        Assert.assertTrue(page.taxSettingListing.txtOther.isDisplayed(), "FAILED! Other textbox not display");
+        Assert.assertTrue(page.taxSettingListing.lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
+        Assert.assertEquals(page.taxSettingListing.tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX_SAT, "FAILED! Table header not match with the expected");
 
         log("INFO: Executed completely");
     }

@@ -12,6 +12,11 @@ public class NewUIFollowBets extends FollowBets{
     public Table tblByPlayer = Table.xpath("//app-follow-byplayer//table[contains(@class,'table-sm ptable')]", colTblByPlayer);
     private int colUsername = 1;
     private int colAddAgentPlayerAction = 5;
+
+    public NewUIFollowBets(String types) {
+        super(types);
+    }
+
     @Override
     public boolean isTblPlayerAgentListByGroupDisplayCorrect() {
         if (tblAddAgentPlayer.getHeaderNameOfRows().equals(AGConstant.AgencyManagement.FollowBets.PLAYER_AGENT_LIST_TABLE_HEADER_NEWUI)){

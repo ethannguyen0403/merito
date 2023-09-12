@@ -13,6 +13,10 @@ public class OldUIFollowBets extends FollowBets{
     private int colUsername = 1;
     private int colAddAgentPlayerAction = 5;
 
+    public OldUIFollowBets(String types) {
+        super(types);
+    }
+
     @Override
     public boolean isTblPlayerAgentListByGroupDisplayCorrect() {
         if (tblAddAgentPlayer.getHeaderNameOfRows().equals(AGConstant.AgencyManagement.FollowBets.PLAYER_AGENT_LIST_TABLE_HEADER_OLDUI)){

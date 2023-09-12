@@ -258,7 +258,7 @@ public class DownlineListingTest extends BaseCaseTest {
         editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
 
         log("Verified  1. Message \"Min Bet is invalid.\" and the valid is highlight");
-        Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID, page.lblErrorMsg.getText()));
+        Assert.assertEquals(page.downlineListing.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID, page.downlineListing.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
 
@@ -292,7 +292,7 @@ public class DownlineListingTest extends BaseCaseTest {
         editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
 
         log("Verified  1. Message \"Max Bet is invalid.\" and the valid is highlight");
-        Assert.assertEquals(page.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_INVALID, page.lblErrorMsg.getText()));
+        Assert.assertEquals(page.downlineListing.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_INVALID, page.downlineListing.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
 
@@ -331,7 +331,7 @@ public class DownlineListingTest extends BaseCaseTest {
         editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
 
         log("Verified  1. Message \"Max Liability Per Market is invalid.\" and the valid is highlight");
-        Assert.assertEquals(page.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_LIABILITY_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_LIABILITY_INVALID, page.lblErrorMsg.getText()));
+        Assert.assertEquals(page.downlineListing.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_LIABILITY_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_LIABILITY_INVALID, page.downlineListing.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
 
@@ -374,7 +374,7 @@ public class DownlineListingTest extends BaseCaseTest {
         editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
 
         log("Verified  1. Message \"Max Win Per Market is invalid.\" and the valid is highlight");
-        Assert.assertEquals(page.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID, page.lblErrorMsg.getText()));
+        Assert.assertEquals(page.downlineListing.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID, page.downlineListing.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
 
@@ -396,7 +396,7 @@ public class DownlineListingTest extends BaseCaseTest {
         editPage.editDownlineListing.inputInfoSection(password,"","","","","","",true);
 
         log("Verified 3. Message \"Password is invalid.\" display next to Cancel button");
-        Assert.assertTrue(page.lblErrorMsg.getText().contains(AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID),String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID, page.lblErrorMsg.getText()));
+        Assert.assertTrue(page.downlineListing.lblErrorMsg.getText().contains(AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID),String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID, page.downlineListing.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
 
@@ -749,8 +749,8 @@ public class DownlineListingTest extends BaseCaseTest {
         page.downlineListing.searchDownline(directDownline.getUserCode(), "All", "All");
 
         log("Verify 1.Account is display in the list");
-        int totalRow = page.tblDowlineListing.getNumberOfRows(false, false);
-        List<String> lstRecord = page.tblDowlineListing.getColumn(page.userCodeCol, false);
+        int totalRow = page.downlineListing.tblDowlineListing.getNumberOfRows(false, false);
+        List<String> lstRecord = page.downlineListing.tblDowlineListing.getColumn(page.downlineListing.userCodeCol, false);
         Assert.assertEquals(totalRow, 1, String.format("Failed!There are more than 1 records when search login ID %s", directDownline.getUserCode()));
         Assert.assertEquals(lstRecord.get(0), directDownline.getUserCode(), String.format("Failed! Expected usser code %s display but found %s", directDownline.getUserCode(), lstRecord.get(0)));
         log("INFO: Executed completely");
@@ -770,8 +770,8 @@ public class DownlineListingTest extends BaseCaseTest {
         page.downlineListing.searchDownline(indirectDownline.getUserCode(), "All", "All");
 
         log("Verify 1.Account is display in the list");
-        int totalRow = page.tblDowlineListing.getNumberOfRows(false, false);
-        List<String> lstRecord = page.tblDowlineListing.getColumn(page.userCodeCol, false);
+        int totalRow = page.downlineListing.tblDowlineListing.getNumberOfRows(false, false);
+        List<String> lstRecord = page.downlineListing.tblDowlineListing.getColumn(page.downlineListing.userCodeCol, false);
         Assert.assertEquals(totalRow, 1, String.format("Failed!There are more than 1 records when search login ID %s", indirectDownline.getUserCode()));
         Assert.assertEquals(lstRecord.get(0), indirectDownline.getUserCode(), String.format("Failed! Expected login id %s display but found %s", indirectDownline.getUserCode(), lstRecord.get(0)));
 
@@ -788,7 +788,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.downlineListing.searchDownline("invalidloginID", "All", "All");
 
         log("Verify 1. No record found");
-        Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+        Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
 
         log("INFO: Executed completely");
     }
@@ -804,11 +804,11 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Verify1. All account in Active status display\n" +
                 "If have no active account => display message \"No record found\"");
-        if (!page.lblNoRecord.isDisplayed()) {
+        if (!page.downlineListing.lblNoRecord.isDisplayed()) {
             List<String> lstRecord = page.downlineListing.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Active")), "FAILED! List downline account contain account status not in Active");
         } else {
-            Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+            Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
         }
 
         log("INFO: Executed completely");
@@ -825,11 +825,11 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Verify 1. All account in Inactive status display\n" +
                 "If have no Inactive account => display message \"No record found\"");
-        if (!page.lblNoRecord.isDisplayed()) {
+        if (!page.downlineListing.lblNoRecord.isDisplayed()) {
             List<String> lstRecord = page.downlineListing.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Inactive")), "FAILED! List downline account contain account status not in Inactive");
         } else {
-            Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+            Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
         }
 
         log("INFO: Executed completely");
@@ -846,11 +846,11 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Verify 1. All account in Suspended status display\n" +
                 "If have no Suspended account => display message \"No record found\"");
-        if (!page.lblNoRecord.isDisplayed()) {
+        if (!page.downlineListing.lblNoRecord.isDisplayed()) {
             List<String> lstRecord = page.downlineListing.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Suspended")), "FAILED! List downline account contain account status not in Suspended");
         } else {
-            Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+            Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
         }
         log("INFO: Executed completely");
     }
@@ -866,11 +866,11 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Verify 1. All account in Blocked status display\n" +
                 "If have no Blocked account => display message \"No record found\"");
-        if (!page.lblNoRecord.isDisplayed()) {
+        if (!page.downlineListing.lblNoRecord.isDisplayed()) {
             List<String> lstRecord = page.downlineListing.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Blocked")), "FAILED! List downline account contain account status not in Suspended");
         } else {
-            Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+            Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
         }
         log("INFO: Executed completely");
     }
@@ -886,11 +886,11 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Verify 1. All account in Closed status display\n" +
                 "If have no Closed account => display message \"No record found\"");
-        if (!page.lblNoRecord.isDisplayed()) {
+        if (!page.downlineListing.lblNoRecord.isDisplayed()) {
             List<String> lstRecord = page.downlineListing.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Closed")), "FAILED! List downline account contain account status not in Suspended");
         } else {
-            Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+            Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
         }
 
         log("INFO: Executed completely");
@@ -1162,8 +1162,8 @@ public class DownlineListingTest extends BaseCaseTest {
         page.downlineListing.searchDownline(loginID, "", "");
 
         log("Verify 1. Corresponding account display in the list");
-        int totalRow = page.tblDowlineListing.getNumberOfRows(false, false);
-        List<String> lstRecord = page.tblDowlineListing.getColumn(page.userCodeCol, false);
+        int totalRow = page.downlineListing.tblDowlineListing.getNumberOfRows(false, false);
+        List<String> lstRecord = page.downlineListing.tblDowlineListing.getColumn(page.downlineListing.userCodeCol, false);
         Assert.assertEquals(totalRow, 1, String.format("Failed!There are more than 1 records when search login ID %s", loginID));
         Assert.assertEquals(lstRecord.get(0), loginID, String.format("Failed! Expected login id %s display but found %s", loginID, lstRecord.get(0)));
 

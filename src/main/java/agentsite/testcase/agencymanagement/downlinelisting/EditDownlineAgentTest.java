@@ -48,7 +48,7 @@ public class EditDownlineAgentTest extends BaseCaseTest {
         page.editDownlinePopup.btnSubmit.click();
 
         log("Verify 1. Verify Message \"Max Player Credit is invalid\" display");
-        Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.DownlineListing.MSG_INVALID_MAX_PLAYER_CREDIT, "FAILED! Incorrect max player credit is invalid");
+        Assert.assertEquals(page.downlineListing.lblErrorMsg.getText(), AGConstant.AgencyManagement.DownlineListing.MSG_INVALID_MAX_PLAYER_CREDIT, "FAILED! Incorrect max player credit is invalid");
 
         log("INFO: Executed completely");
     }

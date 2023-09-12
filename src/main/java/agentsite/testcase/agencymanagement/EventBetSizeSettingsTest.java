@@ -46,12 +46,12 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Event event = EventBetSizeSettingUtils.getEventList("Cricket", acc.getUserID(), "TODAY").get(0);
 
         log(String.format("Step 2. Input event Name with a prefix : %s", event.getEventName()));
-        page.filter("", "Cricket", "Today");
-        page.searchEventInfo("", event.getEventName(), "");
+        page.eventBetSizeSetting.filter("", "Cricket", "Today");
+        page.eventBetSizeSetting.searchEventInfo("", event.getEventName(), "");
 
-        List<ArrayList<String>> result = page.getTableInfo();
+        List<ArrayList<String>> result = page.eventBetSizeSetting.getTableInfo();
         log(String.format("Verify 1. There is a event name \"%s\" display", event.getEventName()));
-        Assert.assertTrue(result.get(0).get(page.colEventName - 1).contains(event.getEventName()), String.format("FAILED! Result not contains event %s", event.getEventName()));
+        Assert.assertTrue(result.get(0).get(page.eventBetSizeSetting.colEventName - 1).contains(event.getEventName()), String.format("FAILED! Result not contains event %s", event.getEventName()));
 
         log("INFO: Executed completely");
     }
@@ -77,8 +77,8 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         EventBetSizeSettingsPage eventBetSizeSettingsPage = agentHomePage.navigateEventBetSizeSettingsPage();
 
         log("Verify 1. Validate data on PO > Event Bet Size Setting display for Fancy correctly and readonly");
-        Assert.assertEquals(TextBox.xpath(eventBetSizeSettingsPage.tblEvent.getxPathOfCell(1, 5, 1, "input[1]")).getAttribute("disabled"), "true", "FAILED! Min Fancy is not disabled");
-        Assert.assertEquals(TextBox.xpath(eventBetSizeSettingsPage.tblEvent.getxPathOfCell(1, 5, 1, "input[2]")).getAttribute("disabled"), "true", "FAILED! Max Fancy is not disabled");
+        Assert.assertEquals(TextBox.xpath(eventBetSizeSettingsPage.eventBetSizeSetting.tblEvent.getxPathOfCell(1, 5, 1, "input[1]")).getAttribute("disabled"), "true", "FAILED! Min Fancy is not disabled");
+        Assert.assertEquals(TextBox.xpath(eventBetSizeSettingsPage.eventBetSizeSetting.tblEvent.getxPathOfCell(1, 5, 1, "input[2]")).getAttribute("disabled"), "true", "FAILED! Max Fancy is not disabled");
 
         log("INFO: Executed completely");
     }
@@ -88,15 +88,15 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     public void Agent_AM_Event_Bet_Site_Settings_3572() {
         log("@title: Validate only Open event display on the list");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
-        EventBetSizeSettingsPage eventBetSizeSettingsPage = agentHomePage.navigateEventBetSizeSettingsPage();
+        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
         String closedEventId = "32502254";
 
         log("Step 2. Select Soccer and Active Old Events tab");
-        eventBetSizeSettingsPage.filter("", "Soccer","Old Events");
-        eventBetSizeSettingsPage.searchEventInfo("","", closedEventId);
+        page.eventBetSizeSetting.filter("", "Soccer","Old Events");
+        page.eventBetSizeSetting.searchEventInfo("","", closedEventId);
 
         log("Verify 2. Validate Closed event not display in the list");
-        Assert.assertTrue(eventBetSizeSettingsPage.lblNoRecordFound.isDisplayed(),"FAILED! Closed event displays in list result");
+        Assert.assertTrue(page.eventBetSizeSetting.lblNoRecordFound.isDisplayed(),"FAILED! Closed event displays in list result");
 
         log("INFO: Executed completely");
     }
@@ -112,7 +112,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Assert.assertEquals(page.header.lblPageTitle.getText(), EVENT_BET_STIE_SETTINGS, "FAILED! Page Title is incorrect");
 
         log("Verify 2. Display level control Blocking Dropdown box");
-        Assert.assertTrue(page.ddbSADLevel.isDisplayed(), "FAILED! Level Control Blocking dropdown box is not displayed");
+        Assert.assertTrue(page.eventBetSizeSetting.ddbSADLevel.isDisplayed(), "FAILED! Level Control Blocking dropdown box is not displayed");
 
         log("INFO: Executed completely");
     }
@@ -128,7 +128,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         Assert.assertEquals(page.header.lblPageTitle.getText(), EVENT_BET_STIE_SETTINGS, "FAILED! Page Title is incorrect");
 
         log("Verify 2. Not Display level control Blocking Dropdown box");
-        Assert.assertFalse(page.ddbSADLevel.isDisplayed(), "FAILED! Level Control Blocking dropdown box is not displayed");
+        Assert.assertFalse(page.eventBetSizeSetting.ddbSADLevel.isDisplayed(), "FAILED! Level Control Blocking dropdown box is not displayed");
 
         log("INFO: Executed completely");
     }
@@ -154,13 +154,13 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
 
         log("Verify 1. Verify UI on Event Bet Size Setting display correctly");
-        List<String> lstHeader = page.tblEvent.getHeaderNameOfRows();
-        List<String> lstTabs = page.mnTabs.getListSubMenu();
-        Assert.assertEquals(page.lblSport.getText(), "Sport", "FAILED! Sport lable is incorrect");
+        List<String> lstHeader = page.eventBetSizeSetting.tblEvent.getHeaderNameOfRows();
+        List<String> lstTabs = page.eventBetSizeSetting.mnTabs.getListSubMenu();
+        Assert.assertEquals(page.eventBetSizeSetting.lblSport.getText(), "Sport", "FAILED! Sport lable is incorrect");
         Assert.assertEquals(lstTabs, TAB_DAYS, "FAILED! Date tabs in incorrect");
         Assert.assertEquals(lstHeader, TABLE_HEADER, "FAILED!Table Header in incorrect");
-        Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is not display");
-        Assert.assertEquals(page.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is not display");
+        Assert.assertEquals(page.eventBetSizeSetting.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is not display");
+        Assert.assertEquals(page.eventBetSizeSetting.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is not display");
         log("INFO: Executed completely");
     }
 
@@ -172,13 +172,13 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
 
         log("Verify 1. Verify UI on Event Bet Size Setting at PO level display correctly");
-        List<String> lstHeader = page.tblEvent.getHeaderNameOfRows();
-        List<String> lstTabs = page.mnTabs.getListSubMenu();
-        Assert.assertEquals(page.lblSport.getText(), "Sport", "FAILED! Sport lable is incorrect");
+        List<String> lstHeader = page.eventBetSizeSetting.tblEvent.getHeaderNameOfRows();
+        List<String> lstTabs = page.eventBetSizeSetting.mnTabs.getListSubMenu();
+        Assert.assertEquals(page.eventBetSizeSetting.lblSport.getText(), "Sport", "FAILED! Sport lable is incorrect");
         Assert.assertEquals(lstTabs, TAB_DAYS, "FAILED! Date tabs in incorrect");
         Assert.assertEquals(lstHeader, TABLE_HEADER_PO, "FAILED!Table Header in incorrect");
-        Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is not display");
-        Assert.assertEquals(page.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is not display");
+        Assert.assertEquals(page.eventBetSizeSetting.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is not display");
+        Assert.assertEquals(page.eventBetSizeSetting.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is not display");
         log("INFO: Executed completely");
     }
 
@@ -193,13 +193,13 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
                 "        2. Update Min-Max field for normal market" +
                 "        3. Login PO level > Event Bet Size Setting");
         log("Verify 1. Verify UI on Event Bet Size Setting at PO level display correctly");
-        List<String> lstHeader = page.tblEvent.getHeaderNameOfRows();
-        List<String> lstTabs = page.mnTabs.getListSubMenu();
-        Assert.assertEquals(page.lblSport.getText(), "Sport", "FAILED! Sport lable is incorrect");
+        List<String> lstHeader = page.eventBetSizeSetting.tblEvent.getHeaderNameOfRows();
+        List<String> lstTabs = page.eventBetSizeSetting.mnTabs.getListSubMenu();
+        Assert.assertEquals(page.eventBetSizeSetting.lblSport.getText(), "Sport", "FAILED! Sport lable is incorrect");
         Assert.assertEquals(lstTabs, TAB_DAYS, "FAILED! Date tabs in incorrect");
         Assert.assertEquals(lstHeader, TABLE_HEADER, "FAILED!Table Header in incorrect");
-        Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is not display");
-        Assert.assertEquals(page.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is not display");
+        Assert.assertEquals(page.eventBetSizeSetting.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is not display");
+        Assert.assertEquals(page.eventBetSizeSetting.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is not display");
         log("INFO: Executed completely");
     }
 
@@ -214,11 +214,11 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         String prefix = event.getCompetitionName().substring(0, 5);
 
         log("Step 2: Input competition Name with a prefix \'e.g. : Span\'");
-        page.searchEventInfo(prefix, "", "");
+        page.eventBetSizeSetting.searchEventInfo(prefix, "", "");
 
         log("Verify 1. All competition has prefix Span display");
-        List<String> lstResult = page.tblEvent.getColumn(page.colCompetitionName, true);
-        Assert.assertTrue(page.searchResultContainsKey(lstResult, prefix));
+        List<String> lstResult = page.eventBetSizeSetting.tblEvent.getColumn(page.eventBetSizeSetting.colCompetitionName, true);
+        Assert.assertTrue(page.eventBetSizeSetting.searchResultContainsKey(lstResult, prefix));
 
         log("INFO: Executed completely");
     }
@@ -234,11 +234,11 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         String competitionName = event.getCompetitionName();
 
         log("Step 2. Input competition Name with a prefix \"e.g. : English League 1");
-        page.searchEventInfo(competitionName, "", "");
+        page.eventBetSizeSetting.searchEventInfo(competitionName, "", "");
 
         log("Verify 1.There is a competition display");
-        List<String> lstResult = page.tblEvent.getColumn(page.colCompetitionName, true);
-        Assert.assertTrue(page.searchResultContainsKey(lstResult, competitionName));
+        List<String> lstResult = page.eventBetSizeSetting.tblEvent.getColumn(page.eventBetSizeSetting.colCompetitionName, true);
+        Assert.assertTrue(page.eventBetSizeSetting.searchResultContainsKey(lstResult, competitionName));
         Assert.assertTrue(lstResult.size() == 1, "FAILED! There are more than 1 competition when searching with correct value");
 
         log("INFO: Executed completely");
@@ -252,10 +252,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
 
         log("Step 2. Input competition Name with invalid data ");
-        page.searchEventInfo("invalidCompetition", "", "");
+        page.eventBetSizeSetting.searchEventInfo("invalidCompetition", "", "");
 
         log("Verify 1.Verify message \"No records found\" display");
-        List<String> lstResult = page.tblEvent.getColumn(page.colCompetitionName, false);
+        List<String> lstResult = page.eventBetSizeSetting.tblEvent.getColumn(page.eventBetSizeSetting.colCompetitionName, false);
         Assert.assertEquals(lstResult.get(0), NO_RECORD_FOUND, "FAILED! Should display No records found when searching invalid competition");
 
         log("INFO: Executed completely");
@@ -272,11 +272,11 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         String eventNamePrefix = event.getEventName().substring(0, 5);
 
         log("Step 2. Input  event name  with a prefix \"e.g. :  Hapoel ");
-        page.searchEventInfo("", eventNamePrefix, "");
+        page.eventBetSizeSetting.searchEventInfo("", eventNamePrefix, "");
 
         log("Verify 1. All event contains \"Hapoel\" display");
-        List<String> lstResult = page.tblEvent.getColumn(page.colEventName, true);
-        Assert.assertTrue(page.searchResultContainsKey(lstResult, eventNamePrefix));
+        List<String> lstResult = page.eventBetSizeSetting.tblEvent.getColumn(page.eventBetSizeSetting.colEventName, true);
+        Assert.assertTrue(page.eventBetSizeSetting.searchResultContainsKey(lstResult, eventNamePrefix));
 
         log("INFO: Executed completely");
     }
@@ -289,10 +289,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
 
         log("Step 2. Input event name with invalid data ");
-        page.searchEventInfo("", "invalid", "");
+        page.eventBetSizeSetting.searchEventInfo("", "invalid", "");
 
         log("Verify 1. Verify message \"No record found\" display");
-        List<String> lstResult = page.tblEvent.getColumn(page.colCompetitionName, false);
+        List<String> lstResult = page.eventBetSizeSetting.tblEvent.getColumn(page.eventBetSizeSetting.colCompetitionName, false);
         Assert.assertEquals(lstResult.get(0), NO_RECORD_FOUND, "FAILED! Should display No records found when searching invalid competition");
 
         log("INFO: Executed completely");
@@ -309,11 +309,11 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         String eventId = event.getID().substring(0, 6);
 
         log("Step 2. Input  event ID  with a prefix \"e.g. :  2986546");
-        page.searchEventInfo("", "", eventId);
+        page.eventBetSizeSetting.searchEventInfo("", "", eventId);
 
         log("Verify 1. All event ID contains 2986546\" is displayed");
-        List<String> lstResult = page.tblEvent.getColumn(page.colEventID, false);
-        Assert.assertTrue(page.searchResultContainsKey(lstResult, eventId), "FAILED! Result list not contain event id");
+        List<String> lstResult = page.eventBetSizeSetting.tblEvent.getColumn(page.eventBetSizeSetting.colEventID, false);
+        Assert.assertTrue(page.eventBetSizeSetting.searchResultContainsKey(lstResult, eventId), "FAILED! Result list not contain event id");
 
         log("INFO: Executed completely");
     }
@@ -326,14 +326,14 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         AccountInfo acc = ProfileUtils.getProfile();
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
         Event event = EventBetSizeSettingUtils.getEventList("Cricket", acc.getUserID(), "TODAY").get(0);
-        page.filter("", "Cricket", "Today");
+        page.eventBetSizeSetting.filter("", "Cricket", "Today");
         String eventId = event.getID();
 
         log("Step 2.Input event ID  with a correct event id");
-        page.searchEventInfo("", "", eventId);
+        page.eventBetSizeSetting.searchEventInfo("", "", eventId);
 
         log("Verify 1. All event ID is displayed");
-        List<String> lstResult = page.tblEvent.getColumn(page.colEventID, false);
+        List<String> lstResult = page.eventBetSizeSetting.tblEvent.getColumn(page.eventBetSizeSetting.colEventID, false);
         Assert.assertEquals(lstResult.get(0), eventId, "FAILED! EventID is incorrect displayed after searching");
         Assert.assertTrue(lstResult.size() == 1, "FAILED! Result list is incorrect display when searching exact event id");
 
@@ -346,12 +346,12 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("@title:Verify no  event  display when search with invalid event Id");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
-        page.filter("", "Cricket", "Today");
+        page.eventBetSizeSetting.filter("", "Cricket", "Today");
         log("Step 2. Input Event id with invalid data ");
-        page.searchEventInfo("", "", "invalidid");
+        page.eventBetSizeSetting.searchEventInfo("", "", "invalidid");
 
         log("Verify 1.Verify message \"No record found\" display");
-        List<String> lstResult = page.tblEvent.getColumn(page.colCompetitionName, false);
+        List<String> lstResult = page.eventBetSizeSetting.tblEvent.getColumn(page.eventBetSizeSetting.colCompetitionName, false);
         Assert.assertEquals(lstResult.get(0), NO_RECORD_FOUND, "FAILED! Should display No records found when searching invalid event id");
 
         log("INFO: Executed completely");
@@ -370,18 +370,18 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("Step 2. Select Soccer, and select Today or Tomorrow tab that has event");
         log("Step 3. Update min that greater min bet setting for an event and click submit button ");
-        page.filter("", sportName, "Today");
-        page.searchEventInfo("", "", event.getID());
-        page.updateMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.filter("", sportName, "Today");
+        page.eventBetSizeSetting.searchEventInfo("", "", event.getID());
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
 
         log("Verify 1. Verify min-max value should be updated");
-        Assert.assertEquals(page.getMinMax(event.getID(), "Fancy"), String.format("%s-%s", min, max, "FAILED! Min-Max not update as the expected"));
+        Assert.assertEquals(page.eventBetSizeSetting.getMinMax(event.getID(), "Fancy"), String.format("%s-%s", min, max, "FAILED! Min-Max not update as the expected"));
 
         log("Step 4. Remove the setting ");
-        page.updateMinMax(event.getID(), "Fancy", "", "");
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Fancy", "", "");
 
         log("Verify 1. Verify min-max value should be removed");
-        Assert.assertEquals(page.getMinMax(event.getID(), "Fancy"), "-", "FAILED! Min-Max not update as the expected");
+        Assert.assertEquals(page.eventBetSizeSetting.getMinMax(event.getID(), "Fancy"), "-", "FAILED! Min-Max not update as the expected");
         log("INFO: Executed completely");
     }
 
@@ -398,18 +398,18 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("Step 2. Select Soccer, and select Today or Tomorrow tab that has event");
         log("Step 3. Update min that greater min bet setting for an event and click submit button ");
-        page.filter("", sportName, "Today");
-        page.searchEventInfo("", "", event.getID());
-        page.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.filter("", sportName, "Today");
+        page.eventBetSizeSetting.searchEventInfo("", "", event.getID());
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
 
         log("Verify 1. Verify min-max value should be updated");
-        Assert.assertEquals(page.getMinMax(event.getID(), "Exchange"), String.format("%s-%s", min, max, "FAILED! Min-Max not update as the expected"));
+        Assert.assertEquals(page.eventBetSizeSetting.getMinMax(event.getID(), "Exchange"), String.format("%s-%s", min, max, "FAILED! Min-Max not update as the expected"));
 
         log("Step 4. Remove the setting ");
-        page.updateMinMax(event.getID(), "Exchange", "", "");
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Exchange", "", "");
 
         log("Verify 1. Verify min-max value should be removed");
-        Assert.assertEquals(page.getMinMax(event.getID(), "Exchange"), "-", "FAILED! Min-Max not update as the expected");
+        Assert.assertEquals(page.eventBetSizeSetting.getMinMax(event.getID(), "Exchange"), "-", "FAILED! Min-Max not update as the expected");
         log("INFO: Executed completely");
     }
 
@@ -440,14 +440,14 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int max = 300;
 
         log("Step 2. Select Cricket, and select Today or Tomorrow tab that has event");
-        page.filter("", "Cricket", "Today");
-        page.searchEventInfo("", "", event.getID());
+        page.eventBetSizeSetting.filter("", "Cricket", "Today");
+        page.eventBetSizeSetting.searchEventInfo("", "", event.getID());
 
         log("Step 3. Update min-max for an event and click submit button");
-        page.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
 
         log("Verify 1. Verify min-max is updated");
-        Assert.assertEquals(page.getMinMax(event.getID(), "Exchange"), String.format("%d-%d", min, max, "FAILED! Min-Max not update as the expected"));
+        Assert.assertEquals(page.eventBetSizeSetting.getMinMax(event.getID(), "Exchange"), String.format("%d-%d", min, max, "FAILED! Min-Max not update as the expected"));
 
         log("Precondition step: Unblock today market for Soccer and Cricket sport");
         DriverManager.getDriver().switchToParentFrame();
@@ -461,12 +461,12 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         //loginAgent(username,password);
 //        loginAgent(sosAgentURL, agentSecurityCodeURL, username, password, environment.getSecurityCode());
         page = agentHomePage.navigateEventBetSizeSettingsPage();
-        page.filter("", "Cricket", "Today");
-        page.searchEventInfo("", "", event.getID());
-        page.updateMinMax(event.getID(), "Exchange", "", "");
+        page.eventBetSizeSetting.filter("", "Cricket", "Today");
+        page.eventBetSizeSetting.searchEventInfo("", "", event.getID());
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Exchange", "", "");
 
         log("Verify 3. Verify Max bet is removed");
-        Assert.assertEquals(page.getMinMax(event.getID(), "Exchange"), "-", "FAILED! Min-Max not update as the expected");
+        Assert.assertEquals(page.eventBetSizeSetting.getMinMax(event.getID(), "Exchange"), "-", "FAILED! Min-Max not update as the expected");
         log("INFO: Executed completely");
     }
 
@@ -484,21 +484,21 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int max = 100;
 
         log("Step 2. Select Cricket and select Today or Tomorrow tab that has event");
-        page.filter("", "Cricket", "Today");
-        page.searchEventInfo("", "", event.getID());
+        page.eventBetSizeSetting.filter("", "Cricket", "Today");
+        page.eventBetSizeSetting.searchEventInfo("", "", event.getID());
 
         log("Step 3. Update min-max for an event and click submit button");
-        page.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
         page.logout();
 
         log("Step  4. Login agent by PO level and select the according SAD and sport");
         loginAgent(sosAgentURL, agentSecurityCodeURL, portalSubAccount, password, environment.getSecurityCode());
         page = agentHomePage.navigateEventBetSizeSettingsPage();
-        page.filter(userCodeLoginId, "Cricket", "Today");
-        page.searchEventInfo("", "", event.getID());
+        page.eventBetSizeSetting.filter(userCodeLoginId, "Cricket", "Today");
+        page.eventBetSizeSetting.searchEventInfo("", "", event.getID());
 
         log("Verify 1. Verify PO can only view min-max value that updated by SAD");
-        Assert.assertEquals(page.getMinMax(event.getID(), "Exchange"), String.format("%d-%d", min, max, "FAILED! Min-Max not update as the expected"));
+        Assert.assertEquals(page.eventBetSizeSetting.getMinMax(event.getID(), "Exchange"), String.format("%d-%d", min, max, "FAILED! Min-Max not update as the expected"));
 
         log("INFO: Executed completely");
     }
@@ -518,24 +518,24 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int max = 100;
 
         log("Step 2. Select Cricket and select Today or Tomorrow tab that has event");
-        page.filter("", sportName, "Today");
-        page.searchEventInfo("", "", event.getID());
+        page.eventBetSizeSetting.filter("", sportName, "Today");
+        page.eventBetSizeSetting.searchEventInfo("", "", event.getID());
 
         log("Step 3. Update Fancy min-max for an event and click submit button");
-        page.updateMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
 
         log("Verify 1. Min-max value of a Fancy event is updated");
-        Assert.assertEquals(page.getMinMax(event.getID(), "Fancy"), String.format("%d-%d", min, max, "FAILED! Min-Max not update as the expected"));
+        Assert.assertEquals(page.eventBetSizeSetting.getMinMax(event.getID(), "Fancy"), String.format("%d-%d", min, max, "FAILED! Min-Max not update as the expected"));
 
         //TODO: handle steps below
 //        log("Step  4. Login agent by PO level and select the according SAD and sport");
 //        loginAgent(sosAgentURL, agentSecurityCodeURL, portalSubAccount, popassword, environment.getSecurityCode());
 //        page = agentHomePage.navigateEventBetSizeSettingsPage();
-//        page.filter(userCodeLoginId, "Cricket", "Today");
-//        page.searchEventInfo("", "", event.getID());
+//        page.eventBetSizeSetting.filter(userCodeLoginId, "Cricket", "Today");
+//        page.eventBetSizeSetting.searchEventInfo("", "", event.getID());
 //
 //        log("Verify 1. Verify PO can only view min-max value that updated by SAD");
-//        Assert.assertEquals(page.getMinMax(event.getID(), "Fancy"), String.format("%d-%d", min, max, "FAILED! Min-Max not update as the expected"));
+//        Assert.assertEquals(page.eventBetSizeSetting.getMinMax(event.getID(), "Fancy"), String.format("%d-%d", min, max, "FAILED! Min-Max not update as the expected"));
 //
 //        log("INFO: Executed completely");
     }
@@ -552,12 +552,12 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int min = 15;
 
         log("Step 2/ Only input for min and click Save button");
-        page.filter("", sportName, "Today");
-        page.searchEventInfo("", "", event.getID());
-        page.updateMinMax(event.getID(), "Fancy", Integer.toString(min), "");
+        page.eventBetSizeSetting.filter("", sportName, "Today");
+        page.eventBetSizeSetting.searchEventInfo("", "", event.getID());
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Fancy", Integer.toString(min), "");
 
         log("Verify 1 Can input only min");
-        Assert.assertEquals(page.getMinMax(event.getID(), "Fancy"), String.format("%s-%s", min, "", "FAILED! Min-Max not update as the expected"));
+        Assert.assertEquals(page.eventBetSizeSetting.getMinMax(event.getID(), "Fancy"), String.format("%s-%s", min, "", "FAILED! Min-Max not update as the expected"));
 
         log("INFO: Executed completely");
     }
@@ -574,12 +574,12 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int max = 15;
 
         log("Step 2/ Only input for max and click Save button");
-        page.filter("", sportName, "Today");
-        page.searchEventInfo("", "", event.getID());
-        page.updateMinMax(event.getID(), "Fancy", "", Integer.toString(max));
+        page.eventBetSizeSetting.filter("", sportName, "Today");
+        page.eventBetSizeSetting.searchEventInfo("", "", event.getID());
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Fancy", "", Integer.toString(max));
 
         log("Verify 1 Can input only min");
-        Assert.assertEquals(page.getMinMax(event.getID(), "Fancy"), String.format("%s-%s", "", max, "FAILED! Min-Max not update as the expected"));
+        Assert.assertEquals(page.eventBetSizeSetting.getMinMax(event.getID(), "Fancy"), String.format("%s-%s", "", max, "FAILED! Min-Max not update as the expected"));
 
         log("INFO: Executed completely");
     }
@@ -596,12 +596,12 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int min = 100;
         int max = 50;
         log("Step 2. Select Cricket and select Today or Tomorrow tab that has event");
-        page.filter("", "Cricket", "Today");
+        page.eventBetSizeSetting.filter("", "Cricket", "Today");
 
         log("Step 3.Input min value greater than max bet setting in Min-Max column");
         log("Step 4.Click on X icon");
-        page.inputMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
-        ConfirmPopup popup = page.openErrorPopup(eventId, "Exchange");
+        page.eventBetSizeSetting.inputMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
+        ConfirmPopup popup = page.eventBetSizeSetting.openErrorPopup(eventId, "Exchange");
 
         log("Verify 1. Verify error message display :\"Min must be less than or equal to Max\" at Min-Max column");
         Assert.assertEquals(popup.getTitle(), "Error", "FAILED! Error popup title is incorrect");
@@ -610,8 +610,8 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("Step 3.Input min value greater than max bet setting in Fancy Min-Max column");
         log("Step 4.Click on X icon");
-        page.inputMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
-        popup = page.openErrorPopup(eventId, "Fancy");
+        page.eventBetSizeSetting.inputMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
+        popup = page.eventBetSizeSetting.openErrorPopup(eventId, "Fancy");
 
         log("Verify 2. Verify error message display :\"Min must be less than or equal to Max\" at Fancy Min-Max column");
         Assert.assertEquals(popup.getTitle(), "Error", "FAILED! Error popup title is incorrect");
@@ -620,8 +620,8 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("Step 3.Input min value greater than max bet setting in Bookmaker Min-Max column");
         log("Step 4.Click on X icon");
-        page.inputMinMax(event.getID(), "Bookmaker", Integer.toString(min), Integer.toString(max));
-        popup = page.openErrorPopup(eventId, "Bookmaker");
+        page.eventBetSizeSetting.inputMinMax(event.getID(), "Bookmaker", Integer.toString(min), Integer.toString(max));
+        popup = page.eventBetSizeSetting.openErrorPopup(eventId, "Bookmaker");
 
         log("Verify 2. Verify error message display :\"Min must be less than or equal to Max\" at Bookmaker Min-Max column");
         Assert.assertEquals(popup.getTitle(), "Error", "FAILED! Error popup title is incorrect");
@@ -641,21 +641,21 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int min = 100;
         int max = 123;
         log("Step 2. Select Soccer and select Today or Tomorrow tab that has event");
-        page.filter("", "Cricket", "Today");
+        page.eventBetSizeSetting.filter("", "Cricket", "Today");
 
         log("Step 3. Input min max value for all column:Min-Max, Fancy Min-Max, Bookmaker Min-Max, then click on Cancel ");
-        page.inputMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
-        page.inputMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
-        page.inputMinMax(event.getID(), "Bookmaker", Integer.toString(min), Integer.toString(max));
-        page.btnCancel.click();
+        page.eventBetSizeSetting.inputMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.inputMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.inputMinMax(event.getID(), "Bookmaker", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.btnCancel.click();
 
         log("Verify 1. Verify the input value of all column is cleared");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId, "Exchange").getAttribute("value"), "", "FAILED! Min text box of event " + eventId + " at column Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId, "Exchange").getAttribute("value"), "", "FAILED! Max text box of event " + eventId + " at column Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId, "Fancy").getAttribute("value"), "", "FAILED! Min text box of event " + eventId + " at column Fancy Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId, "Fancy").getAttribute("value"), "", "FAILED! Max text box of event " + eventId + "at column Fancy Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMinTextBoxofEvent(eventId, "Bookmaker").getAttribute("value"), "", "FAILED! Min text box of event " + eventId + "at column Bookmaker Min -Max does not clear after clicking Cancel button ");
-        Assert.assertEquals(page.getMaxTextBoxofEvent(eventId, "Bookmaker").getAttribute("value"), "", "FAILED! Max text box of event " + eventId + " at column Bookmaker Min -Max does not clear after clicking Cancel button ");
+        Assert.assertEquals(page.eventBetSizeSetting.getMinTextBoxofEvent(eventId, "Exchange").getAttribute("value"), "", "FAILED! Min text box of event " + eventId + " at column Min -Max does not clear after clicking Cancel button ");
+        Assert.assertEquals(page.eventBetSizeSetting.getMaxTextBoxofEvent(eventId, "Exchange").getAttribute("value"), "", "FAILED! Max text box of event " + eventId + " at column Min -Max does not clear after clicking Cancel button ");
+        Assert.assertEquals(page.eventBetSizeSetting.getMinTextBoxofEvent(eventId, "Fancy").getAttribute("value"), "", "FAILED! Min text box of event " + eventId + " at column Fancy Min -Max does not clear after clicking Cancel button ");
+        Assert.assertEquals(page.eventBetSizeSetting.getMaxTextBoxofEvent(eventId, "Fancy").getAttribute("value"), "", "FAILED! Max text box of event " + eventId + "at column Fancy Min -Max does not clear after clicking Cancel button ");
+        Assert.assertEquals(page.eventBetSizeSetting.getMinTextBoxofEvent(eventId, "Bookmaker").getAttribute("value"), "", "FAILED! Min text box of event " + eventId + "at column Bookmaker Min -Max does not clear after clicking Cancel button ");
+        Assert.assertEquals(page.eventBetSizeSetting.getMaxTextBoxofEvent(eventId, "Bookmaker").getAttribute("value"), "", "FAILED! Max text box of event " + eventId + " at column Bookmaker Min -Max does not clear after clicking Cancel button ");
 
         log("INFO: Executed completely");
     }
@@ -676,8 +676,8 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         String eventName = event.getEventName();
 
         log("Step 2. Update Min bet for an event (first column)");
-        page.filter("", sportName, "Tomorrow");
-        page.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.filter("", sportName, "Tomorrow");
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
 
         log("Step precondition: Unblock the event in Block/Unbock Event page");
         BlockUnblockEventPage blockUnblockEventPage = page.navigateBlockUnblockEventsPage();
@@ -720,7 +720,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int min = 100;
         int max = 123;
         log("Step 2. Update Max bet for an event (first colum)");
-        page.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
 
         log("Step 3 Login in member site and place on BF market of the event in step 2 ");
 
@@ -745,7 +745,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int min = 100;
         int max = 123;
         log("Step 2. Update Min bet for an event in Fancy Min-Max Column");
-        page.updateMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
 
         log("Step 3 Login in member site and place on Fancy market under event has setting min max ");
 
@@ -770,7 +770,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int min = 100;
         int max = 123;
         log("Step 2. Update Max bet for an event in Fancy Min-Max Column");
-        page.updateMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Fancy", Integer.toString(min), Integer.toString(max));
 
         log("Step 3 Login in member site and place on Fancy market under event has setting min max with stake > max bet setting");
 
@@ -795,7 +795,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int min = 100;
         int max = 123;
         log("Step 2. Update Max bet for an event in Bookmaker Min-Max Column");
-        page.updateMinMax(event.getID(), "Bookmaker", Integer.toString(min), Integer.toString(max));
+        page.eventBetSizeSetting.updateMinMax(event.getID(), "Bookmaker", Integer.toString(min), Integer.toString(max));
 
         log("Step 3 Login in member site and place on Bookmaker market under event has setting min max with stake < max bet setting");
         memberHomePage = loginMember(memberAccount, password);
@@ -821,7 +821,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         int min = 100;
         int max = 123;
         log("Step 2. Update Max bet for an event in Bookmaker Min-Max Column");
-        page.filter("", "Cricket", "Today");
+        page.eventBetSizeSetting.filter("", "Cricket", "Today");
 
         log("Step 3 Login in member site and place on Bookmaker market under event has setting min max with stake > max bet setting ");
 

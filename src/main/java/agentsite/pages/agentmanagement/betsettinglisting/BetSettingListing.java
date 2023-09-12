@@ -35,6 +35,8 @@ public class BetSettingListing {
     public DropDownBox ddbProduct = DropDownBox.xpath("//label[text()='Product']//following::select[1]");
     public DropDownBox ddbLevel = DropDownBox.id("userLevel");
     public Button btnSubmit = Button.xpath("//button[@class='pbtn search']");
+    public Row sportsRow = Row.xpath("//div[@id='betSetting']//table[@class='ptable info ng-star-inserted']/tr");
+    public Label lblTitlePage = Label.xpath("//app-title-dashboard//div[@class='title']//label");
 
     public void waitingLoadingSpinner() {
         iconLoadSpinner.waitForControlInvisible(2, 2);

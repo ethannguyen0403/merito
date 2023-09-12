@@ -574,7 +574,7 @@ public class LeftMenuTest extends BaseCaseTest {
             downLineListingPage.downlineListing.searchDownline(directDownline.getUserCode(), "Suspended", MEMBER);
 
             log("Verify 2. Status is updated");
-            List<String> lstRecord = downLineListingPage.tblDowlineListing.getColumn(downLineListingPage.userCodeCol, false);
+            List<String> lstRecord = downLineListingPage.downlineListing.tblDowlineListing.getColumn(downLineListingPage.downlineListing.userCodeCol, false);
             Assert.assertEquals(lstRecord.get(0), directDownline.getUserCode(), String.format("Failed! Expected login id %s display but found %s", directDownline.getUserCode(), lstRecord.get(0)));
 
         } finally {

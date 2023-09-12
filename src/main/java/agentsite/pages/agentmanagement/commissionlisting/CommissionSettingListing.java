@@ -34,6 +34,8 @@ public class CommissionSettingListing {
     private String ddbGameXpath = "//label[@for='%s']/following::select[1]";
     private String successIcon = "//span[contains(@class,'psuccess')]";
     private String errorIcon = "//span[contains(@class,'perror')]";
+    public Label lblBreadcrumb = Label.xpath("//div[contains(@class,'downline-bar')]");
+    public Label lblMemberBreadcrumb = Label.xpath("//div[@id='commission-member']/div[@class='psection']");
 
     public void verifyTableHeaderDisplayCorrect(String product) {}
 
