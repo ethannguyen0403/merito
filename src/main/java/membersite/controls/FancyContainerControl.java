@@ -26,7 +26,7 @@ public class FancyContainerControl extends BaseElement {
     private String lblMarketNameXpath = "span[contains(@class,'market-name')][1]";
     private Label lblTitle = Label.xpath(String.format("%s//div[@class='title']", _xpath));
     private String tblXpath = "//wicket-fancy-odds//span[contains(text(),'%s')]//ancestor::table";
-    private String tblCentralFancyXpath = "(%s//central-fancy-odds)//span[contains(text()'%s')]//ancestor::table";
+    private String tblCentralFancyXpath = "//central-fancy-odds)//span[contains(text()'%s')]//ancestor::table";
     private String tblFancyXpath = "(%s//fancy-odds)[%s]//table";
     private Table tblFCMarket = Table.xpath(String.format("%s//table", _xpath), totalColumn);
     private String minMaxXPath = "//div[@class='value-mm-bet']";
