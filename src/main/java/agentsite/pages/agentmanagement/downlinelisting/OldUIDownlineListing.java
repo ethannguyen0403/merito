@@ -23,6 +23,7 @@ import static common.AGConstant.HomePage.DOWNLINE_LISTING;
 public class OldUIDownlineListing extends DownlineListing {
     private int accountStatusCol = 7;
     private Button btnOK = Button.xpath("//button[text()='Ok']");
+    private Button btnSubmit = Button.id("submitBtn");
     public OldUIDownlineListing(String types) {
         super(types);
     }
@@ -131,6 +132,13 @@ public class OldUIDownlineListing extends DownlineListing {
             btnOK.click();
         }
         waitingLoadingSpinner();
+    }
+
+    public void submitEditDownline() {
+        if (btnSubmit.isDisplayed()) {
+            btnSubmit.click();
+            waitingLoadingSpinner();
+        }
     }
 
 }

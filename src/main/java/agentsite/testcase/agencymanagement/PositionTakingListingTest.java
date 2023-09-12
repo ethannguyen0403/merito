@@ -38,17 +38,17 @@ public class PositionTakingListingTest extends BaseCaseTest {
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
         log("Verify 1. Verify UI on Position Taking Listing display correctly");
-        Assert.assertTrue(page.txtUsername.isDisplayed(), "FAILED! Username textbox not display");
-        Assert.assertTrue(page.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box not display");
-        Assert.assertTrue(page.ddbProduct.isDisplayed(), "FAILED! Product dropdown not display");
-        Assert.assertTrue(page.ddbLevel.isDisplayed(), "FAILED! Level dropdown not display");
-        List<String> lstHeader = page.tblDownline.getHeaderNameOfRows();
+        Assert.assertTrue(page.positionTakingListing.txtUsername.isDisplayed(), "FAILED! Username textbox not display");
+        Assert.assertTrue(page.positionTakingListing.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box not display");
+        Assert.assertTrue(page.positionTakingListing.ddbProduct.isDisplayed(), "FAILED! Product dropdown not display");
+        Assert.assertTrue(page.positionTakingListing.ddbLevel.isDisplayed(), "FAILED! Level dropdown not display");
+        List<String> lstHeader = page.positionTakingListing.tblDownline.getHeaderNameOfRows();
         Assert.assertEquals(lstHeader, AgencyManagement.PositionTakingListing.TABLE_PT_EXCHANGE_HEADER_NEWUI, "FAILED! Header table not match");
-        Assert.assertTrue(page.lblUsername.isDisplayed(), "FAILED! Username level does not correct");
-        Assert.assertTrue(page.lblProduct.isDisplayed(), "FAILED! Product label does not correct");
-        Assert.assertTrue(page.lblAccountStatus.isDisplayed(), "FAILED! Account Status label does not correct");
-        Assert.assertTrue(page.lblLevel.isDisplayed(), "FAILED! Level label does not correct");
-        Assert.assertEquals(page.lblBreadcrumb.getText(), userCode, "FAILED! Breadcrumb bar not display login account");
+        Assert.assertTrue(page.positionTakingListing.lblUsername.isDisplayed(), "FAILED! Username level does not correct");
+        Assert.assertTrue(page.positionTakingListing.lblProduct.isDisplayed(), "FAILED! Product label does not correct");
+        Assert.assertTrue(page.positionTakingListing.lblAccountStatus.isDisplayed(), "FAILED! Account Status label does not correct");
+        Assert.assertTrue(page.positionTakingListing.lblLevel.isDisplayed(), "FAILED! Level label does not correct");
+        Assert.assertEquals(page.positionTakingListing.lblBreadcrumb.getText(), userCode, "FAILED! Breadcrumb bar not display login account");
 
         log("INFO: Executed completely");
     }
@@ -62,17 +62,17 @@ public class PositionTakingListingTest extends BaseCaseTest {
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
         log("Verify 1. Verify UI on Position Taking Listing display correctly");
-        Assert.assertTrue(page.txtUsername.isDisplayed(), "FAILED! Username textbox not display");
-        Assert.assertTrue(page.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box not display");
-        Assert.assertTrue(page.ddbProduct.isDisplayed(), "FAILED! Product dropdown not display");
-        Assert.assertTrue(page.ddbLevel.isDisplayed(), "FAILED! Level dropdown not display");
-        List<String> lstHeader = page.tblDownline.getHeaderNameOfRows();
+        Assert.assertTrue(page.positionTakingListing.txtUsername.isDisplayed(), "FAILED! Username textbox not display");
+        Assert.assertTrue(page.positionTakingListing.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box not display");
+        Assert.assertTrue(page.positionTakingListing.ddbProduct.isDisplayed(), "FAILED! Product dropdown not display");
+        Assert.assertTrue(page.positionTakingListing.ddbLevel.isDisplayed(), "FAILED! Level dropdown not display");
+        List<String> lstHeader = page.positionTakingListing.tblDownline.getHeaderNameOfRows();
         Assert.assertEquals(lstHeader, AgencyManagement.PositionTakingListing.TABLE_PT_EXCHANGE_HEADER_OLDUI, "FAILED! Header table not match");
-        Assert.assertTrue(page.lblUsername.isDisplayed(), "FAILED! Username level does not correct");
-        Assert.assertTrue(page.lblProduct.isDisplayed(), "FAILED! Product label does not correct");
-        Assert.assertTrue(page.lblAccountStatus.isDisplayed(), "FAILED! Account Status label does not correct");
-        Assert.assertTrue(page.lblLevel.isDisplayed(), "FAILED! Level label does not correct");
-        Assert.assertEquals(page.lblBreadcrumb.getText(), userCode, "FAILED! Breadcrumb bar not display login account");
+        Assert.assertTrue(page.positionTakingListing.lblUsername.isDisplayed(), "FAILED! Username level does not correct");
+        Assert.assertTrue(page.positionTakingListing.lblProduct.isDisplayed(), "FAILED! Product label does not correct");
+        Assert.assertTrue(page.positionTakingListing.lblAccountStatus.isDisplayed(), "FAILED! Account Status label does not correct");
+        Assert.assertTrue(page.positionTakingListing.lblLevel.isDisplayed(), "FAILED! Level label does not correct");
+        Assert.assertEquals(page.positionTakingListing.lblBreadcrumb.getText(), userCode, "FAILED! Breadcrumb bar not display login account");
 
         log("INFO: Executed completely");
     }
@@ -92,8 +92,8 @@ public class PositionTakingListingTest extends BaseCaseTest {
         page.positionTakingListing.search(downlineUserName, "", "", "");
 
         log("Verify 1. Verify can search by username");
-        List<ArrayList<String>> lstResult = page.tblDownline.getRowsWithoutHeader(1, false);
-        Assert.assertEquals(lstResult.get(0).get(page.usernameCol - 1), downlineUserName, "FAILED! Username not display as expected");
+        List<ArrayList<String>> lstResult = page.positionTakingListing.tblDownline.getRowsWithoutHeader(1, false);
+        Assert.assertEquals(lstResult.get(0).get(page.positionTakingListing.usernameCol - 1), downlineUserName, "FAILED! Username not display as expected");
         Assert.assertEquals(lstResult.size(), 1, "FAILED! Result should display 1 record");
 
         log("INFO: Executed completely");
@@ -113,8 +113,8 @@ public class PositionTakingListingTest extends BaseCaseTest {
         page.positionTakingListing.search(downlineLoginID, "", "", "");
 
         log("Verify 1. Verify Login ID displays");
-        List<ArrayList<String>> lstResult = page.tblDownline.getRowsWithoutHeader(1, false);
-        Assert.assertEquals(lstResult.get(0).get(page.loginIDCol - 1), downlineLoginID, "FAILED! Username not display as expected");
+        List<ArrayList<String>> lstResult = page.positionTakingListing.tblDownline.getRowsWithoutHeader(1, false);
+        Assert.assertEquals(lstResult.get(0).get(page.positionTakingListing.loginIDCol - 1), downlineLoginID, "FAILED! Username not display as expected");
         Assert.assertEquals(lstResult.size(), 1, "FAILED! Result should display 1 record");
         log("INFO: Executed completely");
     }
@@ -131,7 +131,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         page.positionTakingListing.search(downlineLoginID, "", "", "");
 
         log("Verify 1. Verify \"No records found.\"");
-        Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record row not display when searching in valid username");
+        Assert.assertEquals(page.positionTakingListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record row not display when searching in valid username");
         log("INFO: Executed completely");
     }
 
@@ -225,7 +225,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         page.positionTakingListing.search(member, "", "", "Member");
 
         log("Verify 1. Verify only member display in the list");
-        List<String> lstResult = page.tblDownline.getColumn(page.usernameCol, false);
+        List<String> lstResult = page.positionTakingListing.tblDownline.getColumn(page.positionTakingListing.usernameCol, false);
         Assert.assertTrue(lstResult.size() == 2, "FAILED! Result should display 1 record");
         Assert.assertEquals(lstResult.get(0), member, "FAILED! Filter member level incorrect");
 
@@ -246,7 +246,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         page.positionTakingListing.search(agent, "", "", "Agent");
 
         log("Verify 1. Verify only direct agent account display in the list");
-        List<String> lstResult = page.tblDownline.getColumn(page.usernameCol, 1, false);
+        List<String> lstResult = page.positionTakingListing.tblDownline.getColumn(page.positionTakingListing.usernameCol, 1, false);
         Assert.assertTrue(lstResult.size() == 1, "FAILED! Result should display 1 record");
         Assert.assertEquals(lstResult.get(0), agent, "FAILED! Filter member level incorrect");
         log("INFO: Executed completely");
@@ -282,83 +282,83 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("Step 2. Uncheck /Check on Soccer checkbox");
         log("Verify 1. Verify Soccer checkbox is disappear/display when unchecked/checked");
        page.positionTakingListing.unCheckCheckbox("Soccer");
-        List<String> lstResult = page.tblDownline.getHeaderList();
+        List<String> lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Soccer"), "FAILED, Pt Table header contains Soccer after uncheck Soccer checkbox");
 
         page.positionTakingListing.checkCheckbox("Soccer");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertTrue(lstResult.contains("Soccer"), "FAILED, Pt Table header not contains Soccer after check Soccer checkbox");
 
 
         log("Step 3. Uncheck /Check on Cricket checkbox");
         log("Verify 2. Verify Cricket checkbox is disappear/display when unchecked/checked");
         page.positionTakingListing.unCheckCheckbox("Cricket");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Cricket"), "FAILED, Pt Table header contains Cricket after uncheck Cricket checkbox");
 
         page.positionTakingListing.checkCheckbox("Cricket");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertTrue(lstResult.contains("Cricket"), "FAILED, Pt Table header not contains Cricket after check Cricket checkbox");
 
         log("Step 4. Uncheck /Check on Fancy checkbox");
         log("Verify 3. Verify Fancy checkbox is disappear/display when unchecked/checked");
        page.positionTakingListing.unCheckCheckbox("Fancy");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Fancy"), "FAILED, Pt Table header contains Fancy after uncheck Fancy checkbox");
 
         page.positionTakingListing.checkCheckbox("Fancy");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertTrue(lstResult.contains("Fancy"), "FAILED, Pt Table header not contains Fancy after check Fancy checkbox");
 
         log("Step 5. Uncheck /Check on Tennis checkbox");
         log("Verify 4. Verify Tennis checkbox is disappear/display when unchecked/checked");
        page.positionTakingListing.unCheckCheckbox("Tennis");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Tennis"), "FAILED, Pt Table header contains Tennis after uncheck Tennis checkbox");
 
         page.positionTakingListing.checkCheckbox("Tennis");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertTrue(lstResult.contains("Tennis"), "FAILED, Pt Table header not contains Tennis after check Tennis checkbox");
 
         log("Step 6. Uncheck /Check on Basketball checkbox");
         log("Verify 5. Verify Basketball checkbox is disappear/display when unchecked/checked");
        page.positionTakingListing.unCheckCheckbox("Basketball");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Basketball"), "FAILED, Pt Table header contains Basketball after uncheck Basketball checkbox");
 
         page.positionTakingListing.checkCheckbox("Basketball");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertTrue(lstResult.contains("Basketball"), "FAILED, Pt Table header not contains Basketball after check Basketball checkbox");
 
 
         log("Step 7. Uncheck /Check on Horse Racing checkbox");
         log("Verify 6. Verify Horse Racing checkbox is disappear/display when unchecked/checked");
        page.positionTakingListing.unCheckCheckbox("Horse Racing");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Horse Racing"), "FAILED, Pt Table header contains Horse Racing after uncheck Horse Racing checkbox");
 
         page.positionTakingListing.checkCheckbox("Horse Racing");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertTrue(lstResult.contains("Horse Racing"), "FAILED, Pt Table header not contains Horse Racing after check Horse Racing checkbox");
 
         log("Step 8. Uncheck /Check on Greyhound Racing checkbox");
         log("Verify 7. Verify Greyhound Racing checkbox is disappear/display when unchecked/checked");
        page.positionTakingListing.unCheckCheckbox("Greyhound Racing");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Greyhound Racing"), "FAILED, Pt Table header contains Greyhound Racing after uncheck Greyhound Racing checkbox");
 
         page.positionTakingListing.checkCheckbox("Greyhound Racing");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertTrue(lstResult.contains("Greyhound Racing"), "FAILED, Pt Table header not contains Greyhound Racing after check Greyhound Racing checkbox");
 
         log("Step 9. Uncheck /Check on Other checkbox");
         log("Verify 8. Verify Other checkbox is disappear/display when unchecked/checked");
        page.positionTakingListing.unCheckCheckbox("Other");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Other"), "FAILED, Pt Table header contains Other after uncheck Other checkbox");
 
         page.positionTakingListing.checkCheckbox("Other");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertTrue(lstResult.contains("Other"), "FAILED, Pt Table header not contains Other after check Other checkbox");
 
         log("INFO: Executed completely");
@@ -374,7 +374,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("Step 2. Uncheck /Check on Select All checkbox");
         log("Verify 1. Verify Select All checkbox is disappear/display when unchecked/checked");
        page.positionTakingListing.unCheckCheckbox("Select All");
-        List<String> lstResult = page.tblDownline.getHeaderList();
+        List<String> lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Soccer"), "FAILED, Pt Table header contains Soccer after uncheck Select All checkbox");
         Assert.assertFalse(lstResult.contains("Cricket"), "FAILED, Pt Table header contains Cricket after uncheck Select All checkbox");
         Assert.assertFalse(lstResult.contains("Fancy"), "FAILED, Pt Table header contain sFancy after uncheck Select All checkbox");
@@ -385,7 +385,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         Assert.assertFalse(lstResult.contains("Other"), "FAILED, Pt Table header contains Other after uncheck Select All checkbox");
 
         page.positionTakingListing.checkCheckbox("Select All");
-        lstResult = page.tblDownline.getHeaderList();
+        lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertTrue(lstResult.contains("Soccer"), "FAILED, Pt Table header contains Soccer after uncheck Select All checkbox");
         Assert.assertTrue(lstResult.contains("Cricket"), "FAILED, Pt Table header contains Cricket after uncheck Select All checkbox");
         Assert.assertTrue(lstResult.contains("Fancy"), "FAILED, Pt Table header contain sFancy after uncheck Select All checkbox");
@@ -456,7 +456,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("Step 2. Select a downline and only select Soccer sport");
         page.positionTakingListing.search(downline, "", "", "");
         List<String> lstPTInfoBeforeUpdate = page.positionTakingListing.getPTofAccount(downline);
-        lstPTInfoBeforeUpdate.set(page.soccerCol - 1, Integer.toString(PT));
+        lstPTInfoBeforeUpdate.set(page.positionTakingListing.soccerCol - 1, Integer.toString(PT));
         try {
             AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE.put("Soccer", true);
             log("Step 3. Update SAD Preset and click update button");

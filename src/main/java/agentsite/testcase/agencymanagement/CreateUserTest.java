@@ -398,7 +398,7 @@ public class CreateUserTest extends BaseCaseTest {
         String password = "1234qwer";
 
         log("Step 3. Input invalid Min bet setting less than required");
-        page.accInfoSection.txtPassword.sendKeys(password);
+        page.accountInforSection.txtPassword.sendKeys(password);
         page.betSettingInforSection.inputBetSetting(lstBetSetting);
 //        page.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
         page.btnSubmit.click();
@@ -444,7 +444,7 @@ public class CreateUserTest extends BaseCaseTest {
 
 
         log("Step 3. Input invalid MAx bet setting less than required");
-        page.accInfoSection.txtPassword.sendKeys(password);
+        page.accountInforSection.txtPassword.sendKeys(password);
         page.betSettingInforSection.inputBetSetting(lstBetSetting);
 //        page.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
         page.btnSubmit.click();
@@ -607,7 +607,7 @@ public class CreateUserTest extends BaseCaseTest {
 
         log("Step 3. Input valid Max Player Credit and valid other information then click submit");
         String maxPlayerCreditLitmit = "1";
-        page.editDownlinePopup.balanceSection.updateCashBalance(maxPlayerCreditLitmit);
+        page.editDownlinePopup.creditBalanceInforSection.updateCashBalance(maxPlayerCreditLitmit);
         page.editDownlinePopup.btnSubmit.click();
         String message = page.downlineListing.getMessageUpdate(true);
 
@@ -622,7 +622,7 @@ public class CreateUserTest extends BaseCaseTest {
         CreateDownLineAgentPage createAgentPage = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Verify 2. Verify Max Player Credit display correctly as setting in First Time Deposit limit section");
-        Assert.assertEquals(Integer.toString(createAgentPage.creditBalanceSection.getMaxPlayerLitmitCredit()), maxPlayerCreditLitmit, "FAILED! Max player credit not match with the setting");
+        Assert.assertEquals(Integer.toString(createAgentPage.creditBalanceInforSection.getMaxPlayerLitmitCredit()), maxPlayerCreditLitmit, "FAILED! Max player credit not match with the setting");
 
         log("INFO: Executed completely");
     }

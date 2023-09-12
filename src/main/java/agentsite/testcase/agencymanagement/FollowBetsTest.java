@@ -62,21 +62,21 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 2. Select By Group");
         log("Step 3. Click Add Group");
         log("Step 4. Input the required field with valid value and select check on Follow All Bets and click Save button");
-        GroupDetailsPopup popup = page.clickAddGroup("By Group".toUpperCase());
+        GroupDetailsPopup popup = page.followBets.clickAddGroup("By Group".toUpperCase());
         popup.createNewGroup(groupName, "Yes", accountToBet, "1", "2", "Exchange", "11", true);
 
         log("Verify 1. The group is added into Group List with correct info  ");
-        Assert.assertTrue(page.verifyByGroupInfo(groupName, "Yes", "11.00", "0.00", "1.00", "2.00", accountToBet, username, ""));
+        Assert.assertTrue(page.followBets.verifyByGroupInfo(groupName, "Yes", "11.00", "0.00", "1.00", "2.00", accountToBet, username, ""));
 
         log("Step 5. Click on Edit button and update  group name, Follow status, group color, Additional Stake, Additional Odds Range %, Product, Stake %, Uncheck Follow All Bets, only check Match odds for all sport and Win for HR and click Save button");
-        popup = (GroupDetailsPopup) page.clickAction("By Group",groupName, "Edit");
+        popup = (GroupDetailsPopup) page.followBets.clickAction("By Group",groupName, "Edit");
         popup.createNewGroup(groupName, "No", accountToBet, "2", "3", "Exchange", "9", true);
 
         log("Verify 2. The group info is updated as step 5");
-        Assert.assertTrue(page.verifyByGroupInfo(groupName, "No", "--", "--", "--", "--", "--", username, ""));
+        Assert.assertTrue(page.followBets.verifyByGroupInfo(groupName, "No", "--", "--", "--", "--", "--", username, ""));
 
         log("Step 6. Click Deleted button");
-        ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction("By Group",groupName, "Delete");
+        ConfirmPopup confirmPopup = (ConfirmPopup) page.followBets.clickAction("By Group",groupName, "Delete");
         String confirmMsg = confirmPopup.getContentMessage();
         confirmPopup.confirm();
 
@@ -84,7 +84,7 @@ public class FollowBetsTest extends BaseCaseTest {
                 "     *          - Verify Group is remove out the group list table");
 
         Assert.assertEquals(confirmMsg, "Are you sure to delete this group?", "FAILED! Confirm delete group message are incorrect");
-        Assert.assertFalse(page.verifyByGroupInfo(groupName, "No", "--", "--", "--", "--", "--", username, ""));
+        Assert.assertFalse(page.followBets.verifyByGroupInfo(groupName, "No", "--", "--", "--", "--", "--", username, ""));
 
         log("INFO: Executed completely");
     }
@@ -111,20 +111,20 @@ public class FollowBetsTest extends BaseCaseTest {
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         try {
             log("Step Precondition: Have a group created");
-            page.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "No", accountToBet, "1", "2", "Exchange", "11", true);
+            page.followBets.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "No", accountToBet, "1", "2", "Exchange", "11", true);
 
             log("Step 2. Select By Group");
             log("Step 3. Select a group in group list");
             log("Step 4. Enter a valid agent account");
-            ConfirmPopup confirmPopup = page.addAgentPlayer(groupName, controlBlockingAccount);
+            ConfirmPopup confirmPopup = page.followBets.addAgentPlayer(groupName, controlBlockingAccount);
             String confirmMsg = confirmPopup.getContentMessage();
             confirmPopup.confirm();
             page.waitingLoadingSpinner();
 
             log("Verify 1.Verify can add agent into the group");
             Assert.assertEquals(confirmMsg, String.format("Do you want to add %s to group %s?", controlBlockingAccount, groupName), String.format("FAILED! Confirm add add %s to group %s is incorrect", controlBlockingAccount, groupName));
-            List<ArrayList<String>> addAgentPlayerLst = page.tblAddAgentPlayer.getRowsWithoutHeader(false);
-            Assert.assertEquals(addAgentPlayerLst.get(0).get(page.colUsername - 1), controlBlockingAccount, "FAILED! Agent account added not match");
+            List<ArrayList<String>> addAgentPlayerLst = page.followBets.tblAddAgentPlayer.getRowsWithoutHeader(false);
+            Assert.assertEquals(addAgentPlayerLst.get(0).get(page.followBets.colUsername - 1), controlBlockingAccount, "FAILED! Agent account added not match");
 
             log("Step 5. Remove the agent out the group");
             confirmPopup = page.followBets.removeAgentPlayerByGroup(controlBlockingAccount);
@@ -133,11 +133,11 @@ public class FollowBetsTest extends BaseCaseTest {
             page.waitingLoadingSpinner();
 
             log("Verify 2. Verify can remove agent out the group");
-            Assert.assertEquals(confirmMsg, String.format("Confirm to remove user %s from %s.", addAgentPlayerLst.get(0).get(page.colUsername - 1), groupName), "FAILED! Confirm remove agent/player is incorrect");
-            Assert.assertTrue(page.tblAddAgentPlayer.getColumn(1, 1, false).get(0).equalsIgnoreCase(AGConstant.NO_RECORD_FOUND), "FAILED! Agent has not removed yet");
+            Assert.assertEquals(confirmMsg, String.format("Confirm to remove user %s from %s.", addAgentPlayerLst.get(0).get(page.followBets.colUsername - 1), groupName), "FAILED! Confirm remove agent/player is incorrect");
+            Assert.assertTrue(page.followBets.tblAddAgentPlayer.getColumn(1, 1, false).get(0).equalsIgnoreCase(AGConstant.NO_RECORD_FOUND), "FAILED! Agent has not removed yet");
         } finally {
             log("Step PostCondition: Delete group");
-            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction("By Group",groupName, "Delete");
+            ConfirmPopup confirmPopup = (ConfirmPopup) page.followBets.clickAction("By Group",groupName, "Delete");
             confirmPopup.confirm();
         }
         log("INFO: Executed completely");
@@ -150,12 +150,12 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Group");
-        page.rbByGroup.click();
+        page.followBets.rbByGroup.click();
         log("Verify 1: Validate Follow Bets - By Group UI display correctly");
-        Assert.assertTrue(page.isFormSearchByGroupDisplayCorrect());
-        Assert.assertTrue(page.isFormAddPlayerAgentByGroupDisplayCorrect());
-        Assert.assertTrue(page.btnAddGroup.isEnabled(),"Add Group button display incorrect");
-        Assert.assertTrue(page.isTblGroupListByGroupDisplayCorrect());
+        Assert.assertTrue(page.followBets.isFormSearchByGroupDisplayCorrect());
+        Assert.assertTrue(page.followBets.isFormAddPlayerAgentByGroupDisplayCorrect());
+        Assert.assertTrue(page.followBets.btnAddGroup.isEnabled(),"Add Group button display incorrect");
+        Assert.assertTrue(page.followBets.isTblGroupListByGroupDisplayCorrect());
         Assert.assertTrue(page.followBets.isTblPlayerAgentListByGroupDisplayCorrect());
         log("INFO: Executed completely");
     }
@@ -167,13 +167,13 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Player");
-        page.rbByPlayer.click();
+        page.followBets.rbByPlayer.click();
         page.waitingLoadingSpinner();
         log("Verify 1: Validate Follow Bets - By Group UI display correctly");
-        Assert.assertTrue(page.lblPlayerName.isDisplayed(),"Player Name Label display incorrect!");
-        Assert.assertTrue(page.txtPlayerName.isDisplayed(),"Player Name Textbox display incorrect!");
-        Assert.assertTrue(page.btnSearchByPlayer.isDisplayed(),"Search Player Name Button display incorrect!");
-        Assert.assertTrue(page.btnAddPlayer.isDisplayed(),"Add Player Button display incorrect!");
+        Assert.assertTrue(page.followBets.lblPlayerName.isDisplayed(),"Player Name Label display incorrect!");
+        Assert.assertTrue(page.followBets.txtPlayerName.isDisplayed(),"Player Name Textbox display incorrect!");
+        Assert.assertTrue(page.followBets.btnSearchByPlayer.isDisplayed(),"Search Player Name Button display incorrect!");
+        Assert.assertTrue(page.followBets.btnAddPlayer.isDisplayed(),"Add Player Button display incorrect!");
         Assert.assertTrue(page.followBets.isHeaderTableByPlayerDisplayCorrect());
         log("INFO: Executed completely");
     }
@@ -187,12 +187,12 @@ public class FollowBetsTest extends BaseCaseTest {
         String username = FollowBetsUtils.getUsernameByLevel("PL");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Group");
-        page.rbByGroup.click();
+        page.followBets.rbByGroup.click();
         log("Step 3: Input Player Username/Login ID and click Search");
-        page.searchPlayer("By Group",username);
+        page.followBets.searchPlayer("By Group",username);
         page.waitingLoadingSpinner();
         log("Verify 1: Validate Group List display a group that has the player is added in Player/Agent List");
-        Assert.assertTrue(page.isPlayerAddedDisplayCorrect("By Group",username),"FAILED! Player is added display incorrect!");
+        Assert.assertTrue(page.followBets.isPlayerAddedDisplayCorrect("By Group",username),"FAILED! Player is added display incorrect!");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3668")
@@ -205,12 +205,12 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Group");
-        page.rbByGroup.click();
+        page.followBets.rbByGroup.click();
         log("Step 3: Input Agent Username/Login ID and click Search");
-        page.searchPlayer("By Group",username);
+        page.followBets.searchPlayer("By Group",username);
         page.waitingLoadingSpinner();
         log("Verify 1: Validate Group List display a group that has the agent is added in Player/Agent List");
-        Assert.assertTrue(page.isPlayerAddedDisplayCorrect("By Group",username),"FAILED! Agent is added display incorrect!");
+        Assert.assertTrue(page.followBets.isPlayerAddedDisplayCorrect("By Group",username),"FAILED! Agent is added display incorrect!");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3669")
@@ -221,9 +221,9 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Group");
-        page.rbByGroup.click();
+        page.followBets.rbByGroup.click();
         log("Step 3: Click Add Group");
-        GroupDetailsPopup groupDetailsPopup = page.clickAddGroup("BY GROUP");
+        GroupDetailsPopup groupDetailsPopup = page.followBets.clickAddGroup("BY GROUP");
         log("Verify 1: Validate Group Details popup display correctly");
         Assert.assertTrue(groupDetailsPopup.lblGroupDetails.isDisplayed(),"FAILED! Group Details display incorrect!");
         log("INFO: Executed completely");
@@ -239,32 +239,32 @@ public class FollowBetsTest extends BaseCaseTest {
         try{
             log("@Pre-condition 2: Have a group created");
             log("Step 1: Navigate Agency Management >  Follow Bets");
-            page.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "No", accountToBet, "1", "2", "Exchange", "11", true);
+            page.followBets.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "No", accountToBet, "1", "2", "Exchange", "11", true);
             log("Step 2: Select By Group");
             log("Step 3: Select a group in group list");
             log("Step 4: Add player into the group");
-            ConfirmPopup confirmPopup = page.addAgentPlayer(groupName, playerFollowBet);
+            ConfirmPopup confirmPopup = page.followBets.addAgentPlayer(groupName, playerFollowBet);
             String confirmMsg = confirmPopup.getContentMessage();
             confirmPopup.confirm();
             page.waitingLoadingSpinner();
             log("Verify 1: Validate can add player into the group");
             Assert.assertEquals(confirmMsg, String.format("Do you want to add %s to group %s?", playerFollowBet, groupName), String.format("FAILED! Confirm add %s to group %s is incorrect", playerFollowBet, groupName));
-            List<ArrayList<String>> addAgentPlayerLst = page.tblAddAgentPlayer.getRowsWithoutHeader(false);
-            Assert.assertTrue(page.isPlayerAddedDisplayCorrect("By Group",playerFollowBet),"FAILED! Player is added display incorrect!");
+            List<ArrayList<String>> addAgentPlayerLst = page.followBets.tblAddAgentPlayer.getRowsWithoutHeader(false);
+            Assert.assertTrue(page.followBets.isPlayerAddedDisplayCorrect("By Group",playerFollowBet),"FAILED! Player is added display incorrect!");
             log("Step 5: Remove Player out the group");
             page.followBets.removeAgentPlayerByGroup(playerFollowBet);
             confirmMsg = confirmPopup.getContentMessage();
             confirmPopup.confirm();
             page.waitingLoadingSpinner();
             log("Verify 2: Validate can remove player out the group");
-            Assert.assertEquals(confirmMsg, String.format("Confirm to remove user %s from %s.", addAgentPlayerLst.get(0).get(page.colUsername - 1), groupName), "FAILED! Confirm remove agent/player is incorrect");
-            Assert.assertTrue(page.isPlayerAddedDisplayCorrect("By Group",playerFollowBet),"FAILED! Player still not remove!");
+            Assert.assertEquals(confirmMsg, String.format("Confirm to remove user %s from %s.", addAgentPlayerLst.get(0).get(page.followBets.colUsername - 1), groupName), "FAILED! Confirm remove agent/player is incorrect");
+            Assert.assertTrue(page.followBets.isPlayerAddedDisplayCorrect("By Group",playerFollowBet),"FAILED! Player still not remove!");
         } finally {
             log("Step PostCondition: Delete group");
-            page.rbByPlayer.click();
-            page.rbByGroup.click();
+            page.followBets.rbByPlayer.click();
+            page.followBets.rbByGroup.click();
             page.waitingLoadingSpinner();
-            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction("By Group",groupName, "Delete");
+            ConfirmPopup confirmPopup = (ConfirmPopup) page.followBets.clickAction("By Group",groupName, "Delete");
             confirmPopup.confirm();
         }
         log("INFO: Executed completely");
@@ -279,15 +279,15 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Group");
-        page.rbByGroup.click();
+        page.followBets.rbByGroup.click();
         log("Step 3: Select a group and input invalid account and click Add Player/Agent");
-        ConfirmPopup confirmPopup = page.addAgentPlayer(groupName, "asdqwerd");
+        ConfirmPopup confirmPopup = page.followBets.addAgentPlayer(groupName, "asdqwerd");
         log("Verify 1: Validate confirm popup display when add account");
         Assert.assertTrue(confirmPopup.isPopupDisplay(),"FAILED! Confirm popup display incorrect");
         confirmPopup.confirm();
         page.waitingLoadingSpinner();
         log("Verify 2: Validate The message [username] does not exist in system!");
-        Assert.assertEquals(page.lblErrorContent.getText(), String.format("%s does not exist in system!","asdqwerd"));
+        Assert.assertEquals(page.followBets.lblErrorContent.getText(), String.format("%s does not exist in system!","asdqwerd"));
         log("INFO: Executed completely");
     }
     @TestRails(id = "3672")
@@ -301,15 +301,15 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Group");
-        page.rbByGroup.click();
+        page.followBets.rbByGroup.click();
         log("Step 3: Select Group and add account A into");
-        ConfirmPopup confirmPopup = page.addAgentPlayer(groupName, username);
+        ConfirmPopup confirmPopup = page.followBets.addAgentPlayer(groupName, username);
         log("Verify 1: Validate confirm popup display when add account");
         Assert.assertTrue(confirmPopup.isPopupDisplay(),"FAILED! Confirm popup display incorrect");
         confirmPopup.confirm();
         page.waitingLoadingSpinner();
         log("Verify 2: Validate The message Error popup display User [username] has existed in group.");
-        Assert.assertEquals(page.lblErrorContent.getText(), String.format("User %s has existed in group.",username));
+        Assert.assertEquals(page.followBets.lblErrorContent.getText(), String.format("User %s has existed in group.",username));
         log("INFO: Executed completely");
     }
     @TestRails(id = "3673")
@@ -323,12 +323,12 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Group");
-        page.rbByGroup.click();
+        page.followBets.rbByGroup.click();
         log("Step 3: Click Add Group and input the group name same with the group in precondition");
         log("Step 4: Input other required info and click Save");
-        page.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "No", accountToBet, "1", "2", "Exchange", "11", true);
+        page.followBets.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "No", accountToBet, "1", "2", "Exchange", "11", true);
         log("Verify 1: Validate error message display [Group name] group is existing. Please try another name!");
-        Assert.assertEquals(page.lblErrorContent.getText(), String.format("%s group is existing. Please try another name!",groupName));
+        Assert.assertEquals(page.followBets.lblErrorContent.getText(), String.format("%s group is existing. Please try another name!",groupName));
         log("INFO: Executed completely");
     }
     @TestRails(id = "3674")
@@ -341,11 +341,11 @@ public class FollowBetsTest extends BaseCaseTest {
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         String groupName = String.format("%s%s", "Auto Group", StringUtils.generateAlphabetic(4));
         log("Step 2: Select By Group");
-        page.rbByGroup.click();
+        page.followBets.rbByGroup.click();
         log("Step 3: Click Add Group and input the required fields, not check on Follow All Bets and not add any market of sport then click on Save");
-        page.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "No", accountToBet, "1", "2", "Exchange", "11", false);
+        page.followBets.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "No", accountToBet, "1", "2", "Exchange", "11", false);
         log("Verify 1: Error message display \"You should add at least one market or check on Follow All Bets/Follow All of a sport\"");
-        Assert.assertEquals(page.lblErrorContent.getText(), "You should add at least one market or check on Follow All Bets/Follow All of a sport.");
+        Assert.assertEquals(page.followBets.lblErrorContent.getText(), "You should add at least one market or check on Follow All Bets/Follow All of a sport.");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3675")
@@ -356,13 +356,13 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Player");
-        page.rbByPlayer.click();
+        page.followBets.rbByPlayer.click();
         page.waitingLoadingSpinner();
         log("Step 3: Enter the Player account that added into the list and click Search");
-        String username = page.tblByPlayer.getColumn(page.colUsername,false).get(0);
-        page.searchPlayer("By Player",username);
+        String username = page.followBets.tblByPlayer.getColumn(page.followBets.colUsername,false).get(0);
+        page.followBets.searchPlayer("By Player",username);
         log("Verify 1: Validate account is display in the list");
-        Assert.assertEquals(page.tblByPlayer.getColumn(page.colUsername, false).get(0),username, "You should add at least one market or check on Follow All Bets/Follow All for a sport");
+        Assert.assertEquals(page.followBets.tblByPlayer.getColumn(page.followBets.colUsername, false).get(0),username, "You should add at least one market or check on Follow All Bets/Follow All for a sport");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3676")
@@ -373,9 +373,9 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Player");
-        page.rbByPlayer.click();
+        page.followBets.rbByPlayer.click();
         log("Step 3: Click Add Player");
-        PlayerDetailsPopup playerDetailsPopup = page.clickAddPlayer();
+        PlayerDetailsPopup playerDetailsPopup = page.followBets.clickAddPlayer();
         playerDetailsPopup.lblPlayerDetails.click();
         log("Verify 1: Validate Player Details UI display correctly");
         Assert.assertTrue(playerDetailsPopup.txtPlayerName.isDisplayed(),"FAILED! Player Name textbox display incorrect!");
@@ -398,31 +398,31 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Player");
-        page.rbByPlayer.click();
+        page.followBets.rbByPlayer.click();
         page.waitingLoadingSpinner();
         log("Step 3: Click Add Player");
         log("Step 4: Input the valid player and the required fields and click on Follow All Bets and click on Save button");
-        PlayerDetailsPopup playerDetailsPopup = page.clickAddPlayer();
+        PlayerDetailsPopup playerDetailsPopup = page.followBets.clickAddPlayer();
         try{
             playerDetailsPopup.createNewPlayer(playerFollowBet,"Yes",accountToBet,"1","1","","1",true);
             log("Verify 1: Validate Player is added and info is displayed correctly");
             page.waitingLoadingSpinner();
-            Assert.assertTrue(page.verifyByPlayerInfo(playerFollowBet,"Yes","1.00","0.00","1.00","1.00",accountToBet,username.toUpperCase(),""));
+            Assert.assertTrue(page.followBets.verifyByPlayerInfo(playerFollowBet,"Yes","1.00","0.00","1.00","1.00",accountToBet,username.toUpperCase(),""));
             log("Step 5: Click on edit and update the info of the follow account: Update stakeUpdate for Exchange and other fields and click save");
-            playerDetailsPopup = (PlayerDetailsPopup) page.clickAction("By Player",playerFollowBet,"Edit");
+            playerDetailsPopup = (PlayerDetailsPopup) page.followBets.clickAction("By Player",playerFollowBet,"Edit");
             playerDetailsPopup.createNewPlayer("","",accountToBet,"2","2","","2",true);
             page.waitingLoadingSpinner();
             log("Verify 2: Follow info is updated correctly");
-            Assert.assertTrue(page.verifyByPlayerInfo(playerFollowBet,"Yes","2.00","0.00","2.00","2.00",accountToBet,username.toUpperCase(),""));
+            Assert.assertTrue(page.followBets.verifyByPlayerInfo(playerFollowBet,"Yes","2.00","0.00","2.00","2.00",accountToBet,username.toUpperCase(),""));
         } finally {
             log("Step 6: Click the remove");
-            ConfirmPopup confirmPopup = page.removePlayerByPlayer(playerFollowBet);
+            ConfirmPopup confirmPopup = page.followBets.removePlayerByPlayer(playerFollowBet);
             String confirmMsg = confirmPopup.getContentMessage();
             confirmPopup.confirm();
             page.waitingLoadingSpinner();
             log("Verify 3: Validate a confirm dialog display then click on OK and the player is remove out the list");
             Assert.assertEquals(confirmMsg,String.format("Are you sure to remove %s?",playerFollowBet));
-            Assert.assertFalse(page.tblByPlayer.getColumn(page.colUsername,20,false).get(0).equalsIgnoreCase(playerFollowBet),"FAILED! Player still display!");
+            Assert.assertFalse(page.followBets.tblByPlayer.getColumn(page.followBets.colUsername,20,false).get(0).equalsIgnoreCase(playerFollowBet),"FAILED! Player still display!");
         }
         log("INFO: Executed completely");
     }
@@ -437,14 +437,14 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Player");
-        page.rbByPlayer.click();
+        page.followBets.rbByPlayer.click();
         page.waitingLoadingSpinner();
         log("Step 3: Click Add Player");
         log("Step 4: Input the player name same with the player in precondition and input other required fields then click Save");
-        page.clickAddPlayer().createNewPlayer(player,"Yes",accountToBet,"1","1","","1",true);
+        page.followBets.clickAddPlayer().createNewPlayer(player,"Yes",accountToBet,"1","1","","1",true);
         page.waitingLoadingSpinner();
         log("Verify 1: Validate the error message \"Player name aaa is existing in Follow list. Please try another player!\"");
-        Assert.assertEquals(page.lblErrorContentAlert.getText(),String.format("Player name %s is existing in Follow list. Please try another player!",player));
+        Assert.assertEquals(page.followBets.lblErrorContentAlert.getText(),String.format("Player name %s is existing in Follow list. Please try another player!",player));
         log("INFO: Executed completely");
     }
     @TestRails(id = "3679")
@@ -456,14 +456,14 @@ public class FollowBetsTest extends BaseCaseTest {
         log("Step 1: Navigate Agency Management >  Follow Bets");
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2: Select By Player");
-        page.rbByPlayer.click();
+        page.followBets.rbByPlayer.click();
         page.waitingLoadingSpinner();
         log("Step 3: Click Add Player");
         log("Step 4: Input the player name same with the player in precondition and input other required fields then click Save");
-        page.clickAddPlayer().createNewPlayer("corpinr2","Yes",accountToBet,"1","1","","1",true);
+        page.followBets.clickAddPlayer().createNewPlayer("corpinr2","Yes",accountToBet,"1","1","","1",true);
         page.waitingLoadingSpinner();
         log("Verify 1: Validate the error message \"Player name aaa is existing in Follow list. Please try another player!\"");
-        Assert.assertEquals(page.lblErrorContentAlert.getText(),String.format("Player name %s is not exist in PO downline. Please try another player!","corpinr2"));
+        Assert.assertEquals(page.followBets.lblErrorContentAlert.getText(),String.format("Player name %s is not exist in PO downline. Please try another player!","corpinr2"));
         log("INFO: Executed completely");
     }
     @TestRails(id = "3680")
@@ -477,20 +477,20 @@ public class FollowBetsTest extends BaseCaseTest {
         String groupName = String.format("%s%s", "Auto Group", StringUtils.generateAlphabetic(4));
         try{
             log("@Pre-condition 2: Have Group is on follow status and added follow player");
-            page.rbByGroup.click();
+            page.followBets.rbByGroup.click();
             page.waitingLoadingSpinner();
-            page.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "No", accountToBet, "1", "1", "Exchange", "5", true);
-            ConfirmPopup confirmPopup = page.addAgentPlayer(groupName,playerFollowBet);
+            page.followBets.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "No", accountToBet, "1", "1", "Exchange", "5", true);
+            ConfirmPopup confirmPopup = page.followBets.addAgentPlayer(groupName,playerFollowBet);
             confirmPopup.confirm();
             log("Step 2: Select By Group and select the group name in precondition");
             log("Step 3: Change the follow status to yes");
-            page.changeFollowStatus("By Group",groupName,"Yes");
+            page.followBets.changeFollowStatus("By Group",groupName,"Yes");
             page.waitingLoadingSpinner();
             log("Verify 1: Verify follow status is update \"Yes\" and check can follow bet");
-            Assert.assertTrue(page.verifyByGroupInfo(groupName,"Yes","5.00","0.00","1.00","1.00",accountToBet,username.toUpperCase(),""));
+            Assert.assertTrue(page.followBets.verifyByGroupInfo(groupName,"Yes","5.00","0.00","1.00","1.00",accountToBet,username.toUpperCase(),""));
         } finally {
             log("Step PostCondition: Delete group");
-            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction("By Group",groupName, "Delete");
+            ConfirmPopup confirmPopup = (ConfirmPopup) page.followBets.clickAction("By Group",groupName, "Delete");
             confirmPopup.confirm();
         }
         log("INFO: Executed completely");
@@ -505,18 +505,18 @@ public class FollowBetsTest extends BaseCaseTest {
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         try{
             log("@Pre-condition 2: Have player is off follow status and added follow player");
-            page.rbByPlayer.click();
+            page.followBets.rbByPlayer.click();
             page.waitingLoadingSpinner();
-            page.clickAddPlayer().createNewPlayer(playerFollowBet,"No",accountToBet,"1","1","","5",true);
+            page.followBets.clickAddPlayer().createNewPlayer(playerFollowBet,"No",accountToBet,"1","1","","5",true);
             log("Step 2: Select By Player and select player in precondition");
             log("Step 3: Change the follow status to yes");
-            page.changeFollowStatus("By Player",playerFollowBet,"Yes");
+            page.followBets.changeFollowStatus("By Player",playerFollowBet,"Yes");
             page.waitingLoadingSpinner();
             log("Verify 1: Verify follow status is update \"Yes\" and check can follow bet");
-            Assert.assertTrue(page.verifyByPlayerInfo(playerFollowBet,"Yes","5.00","0.00","1.00","1.00",accountToBet,username.toUpperCase(),""));
+            Assert.assertTrue(page.followBets.verifyByPlayerInfo(playerFollowBet,"Yes","5.00","0.00","1.00","1.00",accountToBet,username.toUpperCase(),""));
         } finally {
             log("Step PostCondition: Delete group");
-            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction("By Player",playerFollowBet, "Remove");
+            ConfirmPopup confirmPopup = (ConfirmPopup) page.followBets.clickAction("By Player",playerFollowBet, "Remove");
             confirmPopup.confirm();
         }
         log("INFO: Executed completely");
@@ -549,20 +549,20 @@ public class FollowBetsTest extends BaseCaseTest {
         String groupName = String.format("%s%s", "Auto Group", StringUtils.generateAlphabetic(4));
         try{
             log("@Pre-condition 2: Have Group is on follow status and added follow player");
-            page.rbByGroup.click();
+            page.followBets.rbByGroup.click();
             page.waitingLoadingSpinner();
-            page.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "Yes", accountToBet, "1", "1", "Exchange", "5", true);
-            ConfirmPopup confirmPopup = page.addAgentPlayer(groupName,playerFollowBet);
+            page.followBets.clickAddGroup("By Group".toUpperCase()).createNewGroup(groupName, "Yes", accountToBet, "1", "1", "Exchange", "5", true);
+            ConfirmPopup confirmPopup = page.followBets.addAgentPlayer(groupName,playerFollowBet);
             confirmPopup.confirm();
             log("Step 2: Select By Group and select the group name in precondition");
             log("Step 3: Change the follow status to yes");
-            page.changeFollowStatus("By Group",groupName,"No");
+            page.followBets.changeFollowStatus("By Group",groupName,"No");
             page.waitingLoadingSpinner();
             log("Verify 1: Verify follow status is update \"Yes\" and check can follow bet");
-            Assert.assertTrue(page.verifyByGroupInfo(groupName,"No","--","--","--","--","--",username.toUpperCase(),""));
+            Assert.assertTrue(page.followBets.verifyByGroupInfo(groupName,"No","--","--","--","--","--",username.toUpperCase(),""));
         } finally {
             log("Step PostCondition: Delete group");
-            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction("By Group",groupName, "Delete");
+            ConfirmPopup confirmPopup = (ConfirmPopup) page.followBets.clickAction("By Group",groupName, "Delete");
             confirmPopup.confirm();
         }
         log("INFO: Executed completely");
@@ -577,18 +577,18 @@ public class FollowBetsTest extends BaseCaseTest {
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         try{
             log("@Pre-condition 2: Have player is off follow status and added follow player");
-            page.rbByPlayer.click();
+            page.followBets.rbByPlayer.click();
             page.waitingLoadingSpinner();
-            page.clickAddPlayer().createNewPlayer(playerFollowBet,"Yes",accountToBet,"1","1","","5",true);
+            page.followBets.clickAddPlayer().createNewPlayer(playerFollowBet,"Yes",accountToBet,"1","1","","5",true);
             log("Step 2: Select By Player and select player in precondition");
             log("Step 3: Change the follow status to no");
-            page.changeFollowStatus("By Player",playerFollowBet,"No");
+            page.followBets.changeFollowStatus("By Player",playerFollowBet,"No");
             page.waitingLoadingSpinner();
             log("Verify 1: Verify follow status is update \"Yes\" and check can follow bet");
-            Assert.assertTrue(page.verifyByPlayerInfo(playerFollowBet,"No","--","--","--","--","--",username.toUpperCase(),""));
+            Assert.assertTrue(page.followBets.verifyByPlayerInfo(playerFollowBet,"No","--","--","--","--","--",username.toUpperCase(),""));
         } finally {
             log("Step PostCondition: Delete group");
-            ConfirmPopup confirmPopup = (ConfirmPopup) page.clickAction("By Player",playerFollowBet, "Remove");
+            ConfirmPopup confirmPopup = (ConfirmPopup) page.followBets.clickAction("By Player",playerFollowBet, "Remove");
             confirmPopup.confirm();
         }
         log("INFO: Executed completely");

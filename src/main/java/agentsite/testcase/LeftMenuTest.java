@@ -574,7 +574,7 @@ public class LeftMenuTest extends BaseCaseTest {
             downLineListingPage.downlineListing.searchDownline(directDownline.getUserCode(), "Suspended", MEMBER);
 
             log("Verify 2. Status is updated");
-            List<String> lstRecord = downLineListingPage.tblDowlineListing.getColumn(downLineListingPage.userCodeCol, false);
+            List<String> lstRecord = downLineListingPage.downlineListing.tblDowlineListing.getColumn(downLineListingPage.downlineListing.userCodeCol, false);
             Assert.assertEquals(lstRecord.get(0), directDownline.getUserCode(), String.format("Failed! Expected login id %s display but found %s", directDownline.getUserCode(), lstRecord.get(0)));
 
         } finally {
@@ -889,9 +889,9 @@ public class LeftMenuTest extends BaseCaseTest {
         EditDownLinePage editDownLinePage = downLineListingPage.downlineListing.clickEditIcon(directDownline.getUserCode());
 
         log("Verify 1 Verify info(first name, Last name, Mobile) is updated and display in edit downline accordingly");
-        Assert.assertEquals(editDownLinePage.accInfoSection.txtFirstName.getAttribute("value"), firstName, "Failed! First name not display incorrect like when update in user profile");
-        Assert.assertEquals(editDownLinePage.accInfoSection.txtLastName.getAttribute("value"), lastName, "Failed! Last name not display incorrect like when update in user profile");
-        Assert.assertEquals(editDownLinePage.accInfoSection.txtMobile.getAttribute("value"), mobile, "Failed! Mobile not display incorrect like when update in user profile");
+        Assert.assertEquals(editDownLinePage.accountInforSection.txtFirstName.getAttribute("value"), firstName, "Failed! First name not display incorrect like when update in user profile");
+        Assert.assertEquals(editDownLinePage.accountInforSection.txtLastName.getAttribute("value"), lastName, "Failed! Last name not display incorrect like when update in user profile");
+        Assert.assertEquals(editDownLinePage.accountInforSection.txtMobile.getAttribute("value"), mobile, "Failed! Mobile not display incorrect like when update in user profile");
         log("INFO: Executed completely");
     }
 }

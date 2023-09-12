@@ -1,15 +1,14 @@
 package agentsite.pages.agentmanagement.editdownlinelisting;
 
-import agentsite.pages.agentmanagement.CreateDownLineAgentPage;
 import agentsite.pages.agentmanagement.DownLineListingPage;
 import com.paltech.element.common.*;
 import java.util.List;
 
-public class EditDownlineListing extends CreateDownLineAgentPage{
+public class EditDownlineListing extends DownLineListingPage {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     protected Button btnClosePopup = Button.xpath("//app-agency-edit//button[@class='close']");
-    protected Button btnSubmit = Button.xpath("//div[@class='paction']/button[@id='submitBtn']");
-    protected Button btnCancel = Button.xpath("//div[@class='paction']/button[@id='cancelBtn']");
+    public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@id='submitBtn']");
+    public Button btnCancel = Button.xpath("//div[@class='paction']/button[@id='cancelBtn']");
     public EditDownlineListing(String types) {
         super(types);
     }
@@ -26,8 +25,10 @@ public class EditDownlineListing extends CreateDownLineAgentPage{
     }
 
     public void setTransaction(boolean isDaily, List<String> days, boolean isSubmit) {
-        transferSettingSection.setTransfer(isDaily, days);
-        btnSubmit.click();
+        transferSettingInforSection.setTransfer(isDaily, days);
+        if(isSubmit) {
+            btnSubmit.click();
+        }
     }
 
     public void enableDisableSport(String sportName, boolean isEnable) {

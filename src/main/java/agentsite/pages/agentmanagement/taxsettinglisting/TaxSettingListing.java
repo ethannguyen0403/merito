@@ -8,7 +8,8 @@ import java.util.List;
 public class TaxSettingListing {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     protected int totalColum = 13;
-    protected int usernameCol = 2;
+    public int usernameCol = 2;
+    public int loginIDCol = 3;
     protected int chbCol = 5;
     public int soccerCol = 7;
     public int cricketCol = 8;
@@ -18,6 +19,7 @@ public class TaxSettingListing {
     public int otherCol = 12;
     protected String successIcon = "//span[contains(@class,'psuccess')]";
     protected String errorIcon = "//span[contains(@class,'perror')]";
+    public Label lblBreadcrumb = Label.xpath("//span[@class='my-breadcrumb']");
     public TextBox txtUsername = TextBox.id("memberCode");
     public DropDownBox ddbAccountStatus = DropDownBox.xpath("//label[text()='Account Status']//following::select[1]");
     public DropDownBox ddbProduct = DropDownBox.xpath("//label[text()='Product']//following::select[1]");

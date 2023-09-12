@@ -3,13 +3,18 @@ package agentsite.pages.agentmanagement;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.createdownlineagent.*;
+import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.AccountBalanceTransferConditionInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.BetSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.CashBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.CreditBalanceSection;
+import agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection.PositionTakingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.ProductSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.ProductStatusSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.RateSettingsSection;
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.RiskSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.TransferSettingSection;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.SuccessPopup;
@@ -55,23 +60,10 @@ public class CreateDownLineAgentPage extends HomePage {
 
     // Exchange Tab  - Risk Setting
     public Label lblRiskSetting = Label.xpath("//div[@id='EXCHANGE-risk-settings']/div[@class='psection']");
-    public Label lblMaxExposureHint = Label.xpath("//table[@class='ptable info credit-balance-table']//span[@class='extra-title']");
-    public Label lblMaxExposure = Label.xpath("//div[@id='EXCHANGE-risk-settings']//table[@class='ptable info credit-balance-table']//tr[2]/td[1]");
-    public TextBox txtMaxExposure = TextBox.id("riskSetting");
 
     // Product Settings - Exchange Tab
     public Label lblProductSetting = Label.xpath("//div[@id='product-settings']/div[@class='psection']");
-    public Tab tabExchange = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange']");
-    public Tab chbExchange = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange']//preceding::input[@type='checkbox'][1]");
     public Tab tabExchangeGames = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange Games']");
-    public Tab cbhExchangeGames = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange Games']//preceding::input[@type='checkbox'][1]");
-    public Tab tabLiveDealerAsian = Tab.xpath("//tabset[@id='productSetting']//span[text()='Live Dealer Asian']");
-    public Tab chbLiveDealerAsian = Tab.xpath("//tabset[@id='productSetting']//span[text()='Live Dealer Asian']//preceding::input[@type='checkbox'][1]");
-    public Tab tabLiveDealerEuropean = Tab.xpath("//tabset[@id='productSetting']//span[text()='Live Dealer European']");
-    public Tab chbLiveDealerEuropean = Tab.xpath("//tabset[@id='productSetting']//span[text()='Live Dealer European']//preceding::input[@type='checkbox'][1]");
-
-    // tottal column of tblSportSetting is dynamic. It's based on the active sport from upline or from BO setting
-    public Table tblSportSetting = Table.xpath("//div[@class='marketSettingWrapper']//table[contains(@class,'info ptable sportTable')]", 1);
 
     //Exchange Product - Bet Settings
 
@@ -81,21 +73,23 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label lblEGTaxSettings = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']/div[@class='psection']");
     public Label lblPositionTakingListing = Label.xpath("//div[@id='EXCHANGE-position-taking']/div[@class='psection']");
     public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[@class='psection']");
-    public CheckBox chbLive = CheckBox.id("live");
-    public CheckBox chbNonLive = CheckBox.id("nonlive");
     public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
     public Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
     public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg']");
-    public Label lblMessage = Label.xpath("//div[@class='modal-body modal-body-fit-with-content']");
+
     public AccountInforSection accountInforSection;
     public CreditBalanceSection creditBalanceInforSection;
     public RiskSettingSection riskSettingInforSection;
     public CashBalanceSection cashBalanceInforSection;
+    public RateSettingsSection rateSettingInforSection;
+    public ProductSettingSection productSettingInforSection;
     public agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.RateSettingsSection rateSettingInforSection;
     public BetSettingSection betSettingInforSection;
     public TaxSettingSection taxSettingInforSection;
     public ProductStatusSettingSection productStatusSettingInforSection;
-    public agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection.PositionTakingSection positionTakingInforSection;
+    public AccountBalanceTransferConditionInforSection accountBalanceTransferConditionInforSection;
+    public PositionTakingSection positionTakingInforSection;
+    public TransferSettingSection transferSettingInforSection;
     protected String _type;
     private int totalBetSettingsColumns = 7;
     public Table tblBetSettings = Table.xpath("//div[@id='EXCHANGE-bet-settings']//table[contains(@class,'betTable')]", totalBetSettingsColumns);
@@ -122,24 +116,15 @@ public class CreateDownLineAgentPage extends HomePage {
         taxSettingInforSection = ComponentsFactory.taxSettingInfoObject(_type);
         positionTakingInforSection = ComponentsFactory.positionTakingInfoObject(_type);
         productStatusSettingInforSection = ComponentsFactory.productStatusSettingInfoObject(_type);
+        accountBalanceTransferConditionInforSection = ComponentsFactory.accountBalanceTransferConditionInfoObject(_type);
+        transferSettingInforSection = ComponentsFactory.transferSettingInfoObject(_type);
     }
-
-//    public String createDownline(String password, String level) {
-//        String username = accountInforSection.getUserName();
-//        accountInforSection.inputInfo(password, level);
-//        waitingLoadingSpinner();
-//        btnSubmit.click();
-//        waitingLoadingSpinner();
-//        return username;
-//    }
-
 
     public String createDownline(String loginID, String password, String accountStatus) {
         String username = "";
         switch (_type) {
             case "satsport":
                 accountInforSection.inputInfo(loginID, password, accountStatus);
-//        accInfoSection.inputInfo(loginID, password, accountStatus);
                 btnSubmit.click();
                 waitingLoadingSpinner();
                 break;

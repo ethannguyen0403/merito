@@ -2,6 +2,7 @@ package agentsite.pages;
 
 import agentsite.controls.Table;
 import agentsite.pages.agentmanagement.*;
+import agentsite.pages.agentmanagement.createcompany.CreateCompany;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.quicksearch.QuickSearch;
 import agentsite.pages.components.SecurityPopup;
@@ -377,5 +378,13 @@ public class HomePage extends LoginPage {
 
     public boolean isDisplayPS38SportsResults() {
         return leftMenu.isDisplayPS38SportsResults();
+    }
+
+    public CreateCompany navigateCreateCompanyPage(String securityCode) {
+        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, CREATE_COMPANY);
+        waitingLoadingSpinner();
+        CreateCompany page = new CreateCompany(_type);
+        page.confirmSecurityCode(securityCode);
+        return page;
     }
 }

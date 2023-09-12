@@ -1,11 +1,17 @@
 package agentsite.pages.components;
 
+import agentsite.pages.agentmanagement.announcement.Announcement;
+import agentsite.pages.agentmanagement.announcement.NewUIAnnouncement;
+import agentsite.pages.agentmanagement.announcement.OldUIAnnouncement;
 import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.NewUIBetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.CommissionSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.NewUIComissionSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.OldUIComissionSettingListing;
+import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.AccountBalanceTransferConditionInforSection;
+import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.NewUIAccountBalanceTransferConditionSection;
+import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.OldUIAccountBalanceTransferConditionSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.NewUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.OldUIAccountInforSection;
@@ -33,6 +39,9 @@ import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.Ri
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.NewUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.OldUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.NewUITransferSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.OldUITransferSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.TransferSettingSection;
 import agentsite.pages.agentmanagement.createuser.CreateUser;
 import agentsite.pages.agentmanagement.createuser.NewUICreateUser;
 import agentsite.pages.agentmanagement.createuser.OldUICreateUser;
@@ -48,15 +57,24 @@ import agentsite.pages.agentmanagement.downlinelisting.OldUIDownlineListing;
 import agentsite.pages.agentmanagement.editdownlinelisting.EditDownlineListing;
 import agentsite.pages.agentmanagement.editdownlinelisting.NewUIEditDownlineListing;
 import agentsite.pages.agentmanagement.editdownlinelisting.OldUIEditDownlineListing;
+import agentsite.pages.agentmanagement.eventbetsizesetting.EventBetSizeSetting;
+import agentsite.pages.agentmanagement.eventbetsizesetting.NewUIEventBetSizeSetting;
+import agentsite.pages.agentmanagement.eventbetsizesetting.OldUIEventBetSizeSetting;
 import agentsite.pages.agentmanagement.followbets.FollowBets;
 import agentsite.pages.agentmanagement.followbets.NewUIFollowBets;
 import agentsite.pages.agentmanagement.followbets.OldUIFollowBets;
 import agentsite.pages.agentmanagement.ptlisting.NewUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.OldUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.PositionTakingListing;
+import agentsite.pages.agentmanagement.subuserlisting.NewUISubUserListing;
+import agentsite.pages.agentmanagement.subuserlisting.OldUISubUserListing;
+import agentsite.pages.agentmanagement.subuserlisting.SubUserListing;
 import agentsite.pages.agentmanagement.taxsettinglisting.NewUITaxSettingListing;
 import agentsite.pages.agentmanagement.taxsettinglisting.OldUITaxSettingListing;
 import agentsite.pages.agentmanagement.taxsettinglisting.TaxSettingListing;
+import agentsite.pages.agentmanagement.transfer.NewUITransfer;
+import agentsite.pages.agentmanagement.transfer.OldUITransfer;
+import agentsite.pages.agentmanagement.transfer.Transfer;
 import agentsite.pages.components.header.Header;
 import agentsite.pages.components.header.NewUIHeader;
 import agentsite.pages.components.header.OldUIHeader;
@@ -184,12 +202,21 @@ public class ComponentsFactory {
         }
     }
 
+    public static TransferSettingSection transferSettingInfoObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUITransferSettingSection();
+            default:
+                return new NewUITransferSettingSection();
+        }
+    }
+
     public static CreditBalanceListing creditBalanceListing(String types) {
         switch (types) {
             case "satsport":
-                return new OldUICreditBalanceListing();
+                return new OldUICreditBalanceListing(types);
             default:
-                return new NewUICreditBalanceListing();
+                return new NewUICreditBalanceListing(types);
         }
     }
     public static DepositWithdraw depositWithdraw(String types) {
@@ -274,9 +301,9 @@ public class ComponentsFactory {
     public static FollowBets followBets(String types) {
         switch (types) {
             case "satsport":
-                return new OldUIFollowBets();
+                return new OldUIFollowBets(types);
             default:
-                return new NewUIFollowBets();
+                return new NewUIFollowBets(types);
         }
     }
 
@@ -295,6 +322,51 @@ public class ComponentsFactory {
                 return new OldUICreateUser(types);
             default:
                 return new NewUICreateUser(types);
+        }
+    }
+
+    public static AccountBalanceTransferConditionInforSection accountBalanceTransferConditionInfoObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIAccountBalanceTransferConditionSection();
+            default:
+                return new NewUIAccountBalanceTransferConditionSection();
+        }
+    }
+
+    public static EventBetSizeSetting eventBetSizeSettingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIEventBetSizeSetting(types);
+            default:
+                return new NewUIEventBetSizeSetting(types);
+        }
+    }
+
+    public static SubUserListing subUserListingPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUISubUserListing(types);
+            default:
+                return new NewUISubUserListing(types);
+        }
+    }
+
+    public static Transfer transferPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUITransfer(types);
+            default:
+                return new NewUITransfer(types);
+        }
+    }
+
+    public static Announcement announcementPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIAnnouncement(types);
+            default:
+                return new NewUIAnnouncement(types);
         }
     }
 }
