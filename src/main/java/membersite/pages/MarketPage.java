@@ -84,6 +84,7 @@ public class MarketPage extends HomePage {
     }
 
     public void placeFancy(FancyMarket fancyMarket, boolean isBack, String stake) {
+        System.out.println("Click on odds");
         addFancyOdds(fancyMarket, isBack);
         betsSlipContainer.placeBet(stake);
     }

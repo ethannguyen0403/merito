@@ -369,7 +369,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         Assert.assertEquals(page.accountInforSection.getAccountInforSectionTitle(),AGConstant.AgencyManagement.CreateDownlineAgent.TITLE_PAGE, "FAILED! Account Info Section display incorrect");
         Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
         Assert.assertEquals(page.rateSettingInforSection.getRateSettingSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_RATE_SETTING,"FAILED! Rate Setting Section display incorrect");
-        Assert.assertEquals(page.productSettingInforSection.getProductSettingSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
+        Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
         Assert.assertEquals(page.betSettingInforSection.getBetSettingSectionTitle(AGConstant.EXCHANGE),AGConstant.AgencyManagement.CreateAccount.LBL_BET_SETTING,"FAILED! Bet Setting Section display incorrect");
         Assert.assertFalse(page.taxSettingInforSection.tblTaxSettingEX.isDisplayed(),"FAILED! Tax Setting Section is displayed");
         Assert.assertFalse(page.positionTakingInforSection.tblPositionTakingEX.isDisplayed(),"FAILED! Position Taking Section is displayed");

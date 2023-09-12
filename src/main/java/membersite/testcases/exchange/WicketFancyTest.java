@@ -1,6 +1,7 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
+import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
 import membersite.objects.sat.FancyMarket;
@@ -200,8 +201,7 @@ public class WicketFancyTest extends BaseCaseTest {
      */
     @TestRails(id = "614")
     @Test(groups = {"smoke"})
-    @Parameters({"isCredit"})
-    public void WicketFancyTest_004(boolean isCredit) {
+    public void WicketFancyTest_004() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
@@ -220,17 +220,14 @@ public class WicketFancyTest extends BaseCaseTest {
         marketPage.activeProduct(WICKET_FANCY_TITILE);
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
-        log("Step 4 Active Wicket Fancy tab");
-        marketPage.activeProduct(WICKET_FANCY_TITILE);
-        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
-        String stake = Double.toString(Double.valueOf(fcMarket.getMinSetting()) - 1);
-        String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake), fcMarket.getMinSetting(), fcMarket.getMaxSetting(), BetUtils.getUserBalance());
+        String stake = String.format("%.0f",Double.valueOf(fcMarket.getMinSetting()) - 1);
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeFancy(fcMarket, true, stake);
 
         log("Verify 1. Can NOT place bet");
-        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
 
         log("INFO: Executed completely");
@@ -265,18 +262,14 @@ public class WicketFancyTest extends BaseCaseTest {
         log("Step 4 Active Wicket Fancy tab");
         marketPage.activeProduct(WICKET_FANCY_TITILE);
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
-
-        log("Step 4 Active Wicket Fancy tab");
-        marketPage.activeProduct(WICKET_FANCY_TITILE);
-        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
-        String stake = Double.toString(Double.valueOf(fcMarket.getMaxSetting()) + 1);
-        String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake), fcMarket.getMinSetting(), fcMarket.getMaxSetting(), BetUtils.getUserBalance());
+        String stake =String.format("%.0f",Double.valueOf(fcMarket.getMaxSetting()) + 1);
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeFancy(fcMarket, true, stake);
 
         log("Verify 1. Can NOT place bet");
-        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
 
         log("INFO: Executed completely");

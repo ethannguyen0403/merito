@@ -1,6 +1,7 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
+import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
 import membersite.objects.sat.FancyMarket;
@@ -91,18 +92,6 @@ public class CentralFancyTest extends BaseCaseTest {
             return;
         }
 
-   /*   String eventId = sportPage.getEventIDHasProductData(CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickOnEvent(eventId);
-        if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Central Fancy");
-            Assert.assertTrue(true,"By passed as has no Central Fancy on all available event");
-            return;
-        }
-
-        log("Step 3. Get Central Fancy available");
-        List<FancyMarket> lstFancy = FancyUtils.getFancyHasExpectedStatusInEvent(eventId,"OPEN");
-        FancyMarket fcMarket = lstFancy.get(0);*/
-
         log("Step 4 Active Central Fancy tab");
         marketPage.activeProduct(CENTRAL_FANCY_TITILE);
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
@@ -150,19 +139,6 @@ public class CentralFancyTest extends BaseCaseTest {
             Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
             return;
         }
-
-   /*   String eventId = sportPage.getEventIDHasProductData(CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickOnEvent(eventId);
-        if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Central Fancy");
-            Assert.assertTrue(true,"By passed as has no Central Fancy on all available event");
-            return;
-        }
-
-        log("Step 3. Get Central Fancy available");
-        List<FancyMarket> lstFancy = FancyUtils.getFancyHasExpectedStatusInEvent(eventId,"OPEN");
-        FancyMarket fcMarket = lstFancy.get(0);*/
-
         log("Step 4 Active Central Fancy tab");
         marketPage.activeProduct(CENTRAL_FANCY_TITILE);
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
@@ -227,30 +203,17 @@ public class CentralFancyTest extends BaseCaseTest {
             return;
         }
 
-   /*   String eventId = sportPage.getEventIDHasProductData(CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickOnEvent(eventId);
-        if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Central Fancy");
-            Assert.assertTrue(true,"By passed as has no Central Fancy on all available event");
-            return;
-        }
-
-        log("Step 3. Get Central Fancy available");
-        List<FancyMarket> lstFancy = FancyUtils.getFancyHasExpectedStatusInEvent(eventId,"OPEN");
-        FancyMarket fcMarket = lstFancy.get(0);*/
-
         log("Step 4 Active Central Fancy tab");
         marketPage.activeProduct(CENTRAL_FANCY_TITILE);
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String stake = Double.toString(Double.valueOf(fcMarket.getMinSetting()) - 1);
-        String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake), fcMarket.getMinSetting(), fcMarket.getMaxSetting(), BetUtils.getUserBalance());
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeFancy(fcMarket, true, stake);
 
         log("Verify 1. Can NOT place bet");
-        //TODO: update the behaviour as has request
-        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
+        String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
 
         log("INFO: Executed completely");
@@ -277,34 +240,22 @@ public class CentralFancyTest extends BaseCaseTest {
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4", CENTRAL_FANCY_CODE);
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         if (Objects.isNull(marketPage)) {
-            log("DEBUG: Skip as have no event has Fancy Wicket");
+            log("DEBUG: Skip as have no event has Central Fancy");
             Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
             return;
         }
-
-   /*   String eventId = sportPage.getEventIDHasProductData(CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickOnEvent(eventId);
-        if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Central Fancy");
-            Assert.assertTrue(true,"By passed as has no Central Fancy on all available event");
-            return;
-        }
-
-        log("Step 3. Get Central Fancy available");
-        List<FancyMarket> lstFancy = FancyUtils.getFancyHasExpectedStatusInEvent(eventId,"OPEN");
-        FancyMarket fcMarket = lstFancy.get(0);*/
 
         log("Step 4 Active Central Fancy tab");
         marketPage.activeProduct(CENTRAL_FANCY_TITILE);
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String stake = Double.toString(Double.valueOf(fcMarket.getMaxSetting()) + 1);
-        String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake), fcMarket.getMinSetting(), fcMarket.getMaxSetting(), BetUtils.getUserBalance());
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeFancy(fcMarket, true, stake);
 
         log("Verify 1. Can NOT place bet");
-        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
+        String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
         log("INFO: Executed completely");
     }
@@ -334,22 +285,10 @@ public class CentralFancyTest extends BaseCaseTest {
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4", CENTRAL_FANCY_CODE);
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         if (Objects.isNull(marketPage)) {
-            log("DEBUG: Skip as have no event has Fancy Wicket");
+            log("DEBUG: Skip as have no event has Central Fancy");
             Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
             return;
         }
-
-   /*   String eventId = sportPage.getEventIDHasProductData(CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickOnEvent(eventId);
-        if(Objects.isNull(marketPage)){
-            log("DEBUG: Skip as have no event has Central Fancy");
-            Assert.assertTrue(true,"By passed as has no Central Fancy on all available event");
-            return;
-        }
-
-        log("Step 3. Get Central Fancy available");
-        List<FancyMarket> lstFancy = FancyUtils.getFancyHasExpectedStatusInEvent(eventId,"OPEN");
-        FancyMarket fcMarket = lstFancy.get(0);*/
 
         log("Step 4 Active Central Fancy tab");
         marketPage.activeProduct(CENTRAL_FANCY_TITILE);

@@ -219,17 +219,19 @@ public class Fair999EventContainerControl extends EventContainerControl {
 
     public void clickOnRowofEventName(String event) {
         int i = 1;
-        Link lnkEvent;
+        Link lnkEventHome;
+        Link lnkEventAway;
         while (true) {
-            lnkEvent = (Link) tblEvents.getControlOfCell(1, 1, i, "span[contains(@class,'home-team')]");
-            if (!lnkEvent.isDisplayed()) {
+            lnkEventHome = (Link) tblEvents.getControlOfCell(1, 1, i, "div[contains(@class,'home-team-name')]");
+            lnkEventAway = (Link) tblEvents.getControlOfCell(1, 1, i, "div[contains(@class,'away-team-name')]");
+            if (!lnkEventHome.isDisplayed()) {
                 System.out.println("Debug! Not found event to click");
                 return;
             }
-            String eventName = lnkEvent.getText().trim();
+            String eventName = String.format("%s v %s",lnkEventHome.getText().trim(),lnkEventAway.getText().trim());
             if (eventName.equalsIgnoreCase(event)) {
-                lnkEvent.click();
-                lnkEvent.isDisplayedShort(2);
+                lnkEventHome.click();
+                lnkEventHome.isDisplayedShort(2);
                 return;
             }
             i++;

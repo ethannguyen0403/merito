@@ -4,9 +4,11 @@ import agentsite.controls.Table;
 import agentsite.pages.agentmanagement.edituser.EditMarketPopup;
 import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.Icon;
+import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ProductStatusSettingSection {
@@ -21,7 +23,16 @@ public class ProductStatusSettingSection {
     public void waitingLoadingSpinner() {
         iconLoadSpinner.waitForControlInvisible(2, 2);
     }
+    private Label lblProductSettingTitle = Label.xpath("//div[text()='Product Settings']");
 
+    public String getProductSettingSectionTitle() {
+        return lblProductSettingTitle.getText().trim();
+    }
+
+
+    public List<String> getExchangeSportList() {
+        return tblSportTable.getHeaderNameOfRows();
+    }
     public void updateLiveNonLive(boolean isLive, boolean isNonLive) {
         boolean isLiveActive = true;
         if (Objects.isNull(chbLive.getAttribute("checked")))
@@ -56,6 +67,10 @@ public class ProductStatusSettingSection {
             chbProduct.click();
     }
 
+    public void selectProduct(String productName) {
+        Label lblProduct = Label.xpath(String.format("//span[text()='%s']", productName));
+        lblProduct.click();
+    }
     public void searchMarketOfSport(String sportName, String marketName) {
         openEditMarketOfSport(sportName);
         editMarketPopup.txtSearchMarket.isDisplayed();

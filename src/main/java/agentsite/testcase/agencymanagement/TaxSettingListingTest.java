@@ -13,6 +13,7 @@ import util.testraildemo.TestRails;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class TaxSettingListingTest extends BaseCaseTest {
     @TestRails(id = "3643")
     @Test(groups = {"http_request"})
@@ -163,5 +164,6 @@ public class TaxSettingListingTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
 }
 

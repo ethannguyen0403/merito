@@ -27,9 +27,6 @@ import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.
 import agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection.NewUIPositionTakingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection.OldUIPositionTakingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection.PositionTakingSection;
-import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.NewUIProductSettingSection;
-import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.OldUIProductSettingSection;
-import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.ProductSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.NewUIProductStatusSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.OldUIProductStatusSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.ProductStatusSettingSection;
@@ -168,14 +165,6 @@ public class ComponentsFactory {
         }
     }
 
-    public static ProductSettingSection productSettingInfoObject(String types) {
-        switch (types) {
-            case "satsport":
-                return new OldUIProductSettingSection();
-            default:
-                return new NewUIProductSettingSection();
-        }
-    }
 
     public static ProductStatusSettingSection productStatusSettingInfoObject(String types) {
         switch (types) {

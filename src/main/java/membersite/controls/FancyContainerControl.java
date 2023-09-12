@@ -25,8 +25,8 @@ public class FancyContainerControl extends BaseElement {
     private int colBook = 5;
     private String lblMarketNameXpath = "span[contains(@class,'market-name')][1]";
     private Label lblTitle = Label.xpath(String.format("%s//div[@class='title']", _xpath));
-    private String tblXpath = "(%s//wicket-fancy-odds)[%s]//table";
-    private String tblCentralFancyXpath = "(%s//central-fancy-odds)[%s]//table";
+    private String tblXpath = "//wicket-fancy-odds//span[contains(text(),'%s')]//ancestor::table";
+    private String tblCentralFancyXpath = "//central-fancy-odds)//span[contains(text()'%s')]//ancestor::table";
     private String tblFancyXpath = "(%s//fancy-odds)[%s]//table";
     private Table tblFCMarket = Table.xpath(String.format("%s//table", _xpath), totalColumn);
     private String minMaxXPath = "//div[@class='value-mm-bet']";
@@ -62,39 +62,18 @@ public class FancyContainerControl extends BaseElement {
 
 
     private Table getFancyMarketRow(FancyMarket fcMarket) {
-
         Table tblMarket;
         String xpathTable;
         xpathTable = defineFancyTableXpath(fcMarket.getMaketType());
-        String marketName;
-        int i = 1;
-        while (true) {
-            tblMarket = Table.xpath(String.format(xpathTable, _xpath, i), totalColumn);
-            if (!tblMarket.isDisplayed()) {
-                System.out.println(String.format("Debug: NOT found fancy market : %s in the Fancy container", fcMarket.getMarketName()));
-                return null;
-            }
-            marketName = tblMarket.getControlOfCell(1, colMarketName, 1, lblMarketNameXpath).getText();
-            if (marketName.trim().equalsIgnoreCase(fcMarket.getMarketName())) {
-                System.out.println(String.format("Debug: found fancy market : %s at row %d", fcMarket.getMarketName(), i));
-                return tblMarket;
-            }
-            i++;
+        tblMarket = Table.xpath(String.format(xpathTable,fcMarket.getMarketName()), totalColumn);
+        if (!tblMarket.isDisplayed()) {
+            System.out.println(String.format("Debug: NOT found fancy market : %s in the Fancy container", fcMarket.getMarketName()));
+            return null;
         }
-		/*for(int j=0; j< totalFCMarketRow; j++) {
-			tblMarket = getMarket(j+1);
-			marketName = tblMarket.getControlOfCell(1,colMarketName,1,lblMarketNameXpath).getText();
-			if (marketName.trim().equalsIgnoreCase(fcMarket.getMarketName())) {
-				System.out.println(String.format("Debug: found fancy market : %s at row %d", fcMarket.getMarketName(), j + 1));
-				return tblMarket;
-			}
-		}
-		System.out.println(String.format("Debug: NOT found fancy market : %s in the Fancy container",fcMarket.getMarketName()));
-		return null;*/
+        return tblMarket;
     }
 
     public void clickFancyOdds(FancyMarket fcMarket, boolean isBack) {
-
         Table tbl = getFancyMarketRow(fcMarket);
         Link lnk;
         if (Objects.isNull(tbl))
@@ -103,22 +82,22 @@ public class FancyContainerControl extends BaseElement {
             lnk = (Link) tbl.getControlOfCell(1, colBackOdds, 1, null);
         } else
             lnk = (Link) tbl.getControlOfCell(1, colLayOdds, 1, null);
-        if (waitSuspendLabelDisapper(tbl)) {
-            lnk.click();
-        }
+        lnk.click();
 
     }
 
     private boolean waitSuspendLabelDisapper(Table tblMarket) {
         Label lblSuspend = Label.xpath(String.format("%s//div[contains(@class,'suspended')]/span", tblMarket.getLocator().toString().replace(" By.xpath: ", "")));
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-        // wait suspend lable display in 3minutes
-        while (stopWatch.getElapsedTime() < 300000L) {
-            if (!lblSuspend.isDisplayed()) {
-                return true;
+        if(!lblSuspend.isDisplayed()) {
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
+            // wait suspend lable display in 3minutes
+            while (stopWatch.getElapsedTime() < 300000L) {
+                if (!lblSuspend.isDisplayed()) {
+                    return true;
+                }
+                System.out.println("Wait suspend status disappear in  " + stopWatch.getElapsedTime());
             }
-            System.out.println("Wait suspend status disappear in  " + stopWatch.getElapsedTime());
         }
         return false;
     }
@@ -151,7 +130,7 @@ public class FancyContainerControl extends BaseElement {
         String marketName;
         int i = 1;
         while (true) {
-            tblMarket = Table.xpath(String.format(xpathTable, _xpath, i), totalColumn);
+            tblMarket = Table.xpath(String.format(xpathTable, fcMarket.getMarketName()), totalColumn);
             if (!tblMarket.isDisplayed()) {
                 System.out.println(String.format("Debug: NOT found fancy market : %s in the Fancy container", fcMarket.getMarketName()));
                 return newFancy;
@@ -172,7 +151,7 @@ public class FancyContainerControl extends BaseElement {
                 Link lblRateLay = (Link) tblMarket.getControlOfCell(1, colLayOdds, 1, "span[2]");
                 Link lnkLiability = (Link) tblMarket.getControlOfCell(1, colMarketName, 1, "div[contains(@class,'liability')]//span[@class='fancy-liability-value']");
                 String rate;
-                waitSuspendLabelDisapper(tblMarket);
+//                waitSuspendLabelDisapper(tblMarket);
                 if (lblOdd.isDisplayed())
                     newFancy.setOddsYes(Double.parseDouble(lblOdd.getText().trim()));
                 if (lblRate.isDisplayed()) {

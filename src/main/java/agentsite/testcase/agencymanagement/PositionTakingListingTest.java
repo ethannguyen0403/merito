@@ -251,7 +251,27 @@ public class PositionTakingListingTest extends BaseCaseTest {
         Assert.assertEquals(lstResult.get(0), agent, "FAILED! Filter member level incorrect");
         log("INFO: Executed completely");
     }
+    @TestRails(id = "3602")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Position_Taking_Listing_3602() {
+        log("@title: Validate filter all level display correctly");
+        log("Step 1. Navigate Agency Management > Position Taking Listing");
+        PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
+        log("Step 2. Filter level = all");
+        page.positionTakingListing.search("", "", "", MEMBER);
+        List<String> lstResultMember = page.tblDownline.getColumnByBody(page.levelCol, false);
+        page.positionTakingListing.search("", "", "", AGENT);
+        List<String> lstResultAgent = page.tblDownline.getColumnByBody(page.levelCol, false);
+        page.positionTakingListing.search("", "", "", ALL);
+
+        log(" Verify 1 Change PT Setting popup display with the message \"Please select at least 1 user");
+        List<String> lstResultAll = page.tblDownline.getColumnByBody(page.levelCol, false);
+        Assert.assertTrue(lstResultAll.size()==lstResultMember.size() + lstResultAgent.size(), "FAILED! Result should display 1 record");
+        Assert.assertTrue(lstResultAll.contains(lstResultAgent.get(0)), "Failed! Filter All level does not contains Agent level");
+        Assert.assertTrue(lstResultAll.contains(lstResultMember.get(0)), "Failed! Filter All level does not contains Member level");
+        log("INFO: Executed completely");
+    }
     @TestRails(id = "3603")
     @Test(groups = {"regression"})
     public void Agent_AM_Position_Taking_Listing_3603() {
@@ -453,6 +473,8 @@ public class PositionTakingListingTest extends BaseCaseTest {
         }
 
     }
+
+
 
 }
 

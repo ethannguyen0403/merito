@@ -154,6 +154,75 @@ public class Table extends BaseElement {
             i += 1;
         }
     }
+    /**
+     * Get all values of a column if you want
+     *
+     * @param columnOrder The 1st column of a table starts 1
+     * @param limit       a number of rows you want to get
+     * @param isMoved     if true, it moving down after getting value of a cell
+     * @return all values of a column
+     */
+    public List<String> getColumnByRow(int columnOrder, boolean isMoved) {
+        List<String> lst = new ArrayList<String>();
+        if (columnOrder < 1) {
+            System.out.println(String.format("Error: columnOrder %s is to be more than or equal to 1", columnOrder));
+            return lst;
+        }
+        int i = 1;
+        String cellXpath = String.format("%s%s%s", this._xpathTable, "//tr[%s]/", String.format("td[%s]", columnOrder));
+        if (!Cell.xpath(String.format(cellXpath, i)).isDisplayed()) {
+            return lst;
+        }
+        while (true) {
+            Cell cell = Cell.xpath(String.format(cellXpath, i));
+            if (!cell.isDisplayedShort(timeOutInSecond)) {
+                return lst;
+            }
+            lst.add(cell.getText(timeOutInSecond));
+            i += 1;
+        }
+    }
+
+
+    /**
+     * Get all values of a column if you want, this method to get on the table with many tbody tags
+     *
+     * @param columnOrder The 1st column of a table starts 1
+     * @param isMoved     if true, it moving down after getting value of a cell
+     * @return all values of a column
+     */
+    public List<String> getColumnByBody(int columnOrder, boolean isMoved) {
+        List<String> lst = new ArrayList<String>();
+        if (columnOrder < 1) {
+            System.out.println(String.format("Error: columnOrder %s is to be more than or equal to 1", columnOrder));
+            return lst;
+        }
+        int i = 1;
+        String cellXpath = String.format("%s%s%s", this._xpathTable, "//tbody[%s]/tr[%s]/", String.format("td[%s]", columnOrder));
+        if (!Cell.xpath(String.format(cellXpath, i, 1)).isDisplayed()) {
+            return lst;
+        }
+        while (true) {
+            int row = 1;
+            Cell cell = Cell.xpath(String.format(cellXpath, i,row));
+            if (!cell.isDisplayedShort(timeOutInSecond)) {
+                return lst;
+            }
+            while (true){
+                cell = Cell.xpath(String.format(cellXpath, i,row));
+                if (!cell.isDisplayedShort(timeOutInSecond)) {
+                    break;
+                }
+                lst.add(cell.getText(timeOutInSecond));
+                row = row +1;
+            }
+
+            if (isMoved) {
+                cell.scrollDownInDistance();
+            }
+            i += 1;
+        }
+    }
 
     /**
      * Getting column names of a table header
