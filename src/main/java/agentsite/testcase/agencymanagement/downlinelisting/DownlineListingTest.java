@@ -198,7 +198,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3531")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_isa"})
     public void Agent_AM_Downline_Listing_Edit_User_3531() throws Exception {
         log("@title: Validate downline will not display the update is inactive market");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -227,7 +227,7 @@ public class DownlineListingTest extends BaseCaseTest {
         editDownLinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","Match Odds (MATCH_ODDS)");
 
         log("Verify 6. The market inactive not display for downline");
-        Assert.assertTrue(editDownLinePage.productSettingsSection.productStatusSettingsSection.editMarketPopup.lblNoRecordFound.isDisplayed(),"FAILED! Inactive market still display in search result");
+        Assert.assertTrue(editDownLinePage.productStatusSettingInforSection.editMarketPopup.lblNoRecordFound.isDisplayed(),"FAILED! Inactive market still display in search result");
         log("Validate Edit Member popup display with the message \"Member was updated successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
 
@@ -472,14 +472,14 @@ public class DownlineListingTest extends BaseCaseTest {
                 "There is no Position Taking Setting section");
         Assert.assertTrue(editDownlinePage.accountInforSection.txtPassword.isDisplayed(), "FAILED! Account Info Section is not displayed");
         Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
-        Assert.assertEquals(page.productSettingInforSection.getProductSettingSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
+        Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
         Assert.assertEquals(page.betSettingInforSection.getBetSettingSectionTitle(AGConstant.EXCHANGE),AGConstant.AgencyManagement.CreateAccount.LBL_BET_SETTING,"FAILED! Bet Setting Section display incorrect");
         Assert.assertFalse(page.positionTakingInforSection.tblPositionTakingEX.isDisplayed(),"FAILED! Position Taking Section is displayed");
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "3551")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_isa"})
     public void Agent_AM_Downline_Listing_Edit_User_3551() throws Exception {
         log("@title: Validate UI when open Edit Market popup");
         log("Step 1. Navigate Agency Management > Downline Listing");

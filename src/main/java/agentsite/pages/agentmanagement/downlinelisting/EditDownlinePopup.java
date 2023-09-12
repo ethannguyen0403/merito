@@ -3,8 +3,8 @@ package agentsite.pages.agentmanagement.downlinelisting;
 import agentsite.pages.agentmanagement.EditDownLinePage;
 import agentsite.pages.agentmanagement.createdownlineagent.AccountInfoSection;
 import agentsite.pages.agentmanagement.createdownlineagent.CreditBalanceSection;
-import agentsite.pages.agentmanagement.createdownlineagent.ProductSettingsSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
+import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.ProductStatusSettingSection;
 import agentsite.pages.components.ComponentsFactory;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
@@ -13,7 +13,7 @@ public class EditDownlinePopup extends EditDownLinePage {
     public Label lblTitle;
     public Button btnOK = Button.xpath("//button[contains(@class,'btn btn-warning')]");
     public AccountInfoSection accInfoSection;
-    public ProductSettingsSection productSettingsSection;
+    public ProductStatusSettingSection productStatusSettingSection;
     public CreditBalanceSection balanceSection;
     public Button btnSubmit;
     private String _xPath = "//div[@id='account']//app-agency-account-ui";
@@ -24,6 +24,8 @@ public class EditDownlinePopup extends EditDownLinePage {
         super(type);
         _type = type;
         accountInforSection = ComponentsFactory.accInfoObject(_type);
+        productStatusSettingSection = ComponentsFactory.productStatusSettingInfoObject(_type);
+
     }
 //    public EditDownlinePopup(By locator, String xpathExpression) {
 //        super(locator);

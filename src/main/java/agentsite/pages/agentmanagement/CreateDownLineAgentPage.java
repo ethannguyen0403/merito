@@ -7,7 +7,6 @@ import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.Ac
 import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.BetSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.CashBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.CreditBalanceSection;
-import agentsite.pages.agentmanagement.createdownlineagent.productsettingsection.ProductSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.ProductStatusSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.RiskSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
@@ -36,9 +35,6 @@ public class CreateDownLineAgentPage extends HomePage {
 
     // Rate Setting Section
     public RateSettingSection rateSettingSection = RateSettingSection.xpath("//div[contains(@class,'ratesetting')]");
-
-    //Product Settings
-    public ProductSettingsSection productSettingsSection = ProductSettingsSection.xpath("//div[@id[starts-with(.,'product-settings')]]");
 
     public PositionTakingSection positionTakingExchangeSection = PositionTakingSection.xpath("//app-ptsetting//div[@id='EXCHANGE-position-taking']");
     public PositionTakingSection positionTakingExchangeGAMESection = PositionTakingSection.xpath("//app-ptsetting//div[@id='EXCH_GAMES-position-taking']");
@@ -96,7 +92,6 @@ public class CreateDownLineAgentPage extends HomePage {
     public RiskSettingSection riskSettingInforSection;
     public CashBalanceSection cashBalanceInforSection;
     public agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.RateSettingsSection rateSettingInforSection;
-    public ProductSettingSection productSettingInforSection;
     public BetSettingSection betSettingInforSection;
     public TaxSettingSection taxSettingInforSection;
     public ProductStatusSettingSection productStatusSettingInforSection;
@@ -123,7 +118,6 @@ public class CreateDownLineAgentPage extends HomePage {
         riskSettingInforSection = ComponentsFactory.riskSettingInfoObject(_type);
         cashBalanceInforSection = ComponentsFactory.cashBalanceInfoObject(_type);
         rateSettingInforSection = ComponentsFactory.rateSettingInfoObject(_type);
-        productSettingInforSection = ComponentsFactory.productSettingInfoObject(_type);
         betSettingInforSection = ComponentsFactory.betSettingInfoObject(_type);
         taxSettingInforSection = ComponentsFactory.taxSettingInfoObject(_type);
         positionTakingInforSection = ComponentsFactory.positionTakingInfoObject(_type);
@@ -170,7 +164,7 @@ public class CreateDownLineAgentPage extends HomePage {
     }
 
     public String activeProduct(String productName, boolean isClose) {
-        productSettingsSection.activeProduct(productName);
+        productStatusSettingInforSection.updateProduct(productName,true);
         return getMessageUpdate(isClose);
     }
 }

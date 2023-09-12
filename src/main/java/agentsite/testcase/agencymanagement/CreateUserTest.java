@@ -61,12 +61,12 @@ public class CreateUserTest extends BaseCaseTest {
         Assert.assertTrue(page.cashBalanceInforSection.txtFirstTimeDeposit.isDisplayed(), "FAILED! Credit Initiation textbox is not displayed");
 
         log(" 4. Product Setting, select Exchange product");
-        Assert.assertEquals(page.productSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
-//        List<String> lstProducts = page.productSettingInforSection.mnProductSetting.getListSubMenu();
+        Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
+//        List<String> lstProducts = page.productStatusSettingInforSection.mnProductSetting.getListSubMenu();
 //        Assert.assertEquals(lstProducts.stream().map(String::toLowerCase).collect(Collectors.toList()), LST_PRODUCTS.stream().map(String::toLowerCase).collect(Collectors.toList()), "FAILED! List products tab is incorrect");
 
         log(" 5 Verify Sport setting, Bet Settings, Tax Setting. Position Taking Setting");
-        List<String> lstSport = page.productSettingInforSection.getExchangeSportList();
+        List<String> lstSport = page.productStatusSettingInforSection.getExchangeSportList();
         Assert.assertTrue(lstSport.contains("Soccer"), "FAILED! Sport list contains Soccer");
         Assert.assertTrue(lstSport.contains("Cricket"), "FAILED! Sport list contains Cricket");
         Assert.assertTrue(lstSport.contains("Tennis"), "FAILED! Sport list contains Tennis");
@@ -115,12 +115,12 @@ public class CreateUserTest extends BaseCaseTest {
         Assert.assertTrue(page.cashBalanceInforSection.txtFirstTimeDeposit.isDisplayed(), "FAILED! Credit Initiation textbox is not displayed");
 
         log(" 4. Product Setting, select Exchange product");
-        Assert.assertEquals(page.productSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
-//        List<String> lstProducts = page.productSettingInforSection.mnProductSetting.getListSubMenu();
+        Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
+//        List<String> lstProducts = page.productStatusSettingInforSection.mnProductSetting.getListSubMenu();
 //        Assert.assertEquals(lstProducts.stream().map(String::toLowerCase).collect(Collectors.toList()), LST_PRODUCTS.stream().map(String::toLowerCase).collect(Collectors.toList()), "FAILED! List products tab is incorrect");
 
         log(" 5 Verify Sport setting, Bet Settings, Tax Setting. Position Taking Setting");
-        List<String> lstSport = page.productSettingInforSection.getExchangeSportList();
+        List<String> lstSport = page.productStatusSettingInforSection.getExchangeSportList();
         Assert.assertTrue(lstSport.contains("Soccer"), "FAILED! Sport list contains Soccer");
         Assert.assertTrue(lstSport.contains("Cricket"), "FAILED! Sport list contains Cricket");
         Assert.assertTrue(lstSport.contains("Tennis"), "FAILED! Sport list contains Tennis");
@@ -156,10 +156,10 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Step 2 Product Setting, select Exchange Game product ");
-        page.productSettingInforSection.mnProductSetting.clickMenu(AGConstant.EXCHANGE_GAMES);
+        page.productStatusSettingInforSection.selectProduct(AGConstant.EXCHANGE_GAMES);
 
-        Assert.assertEquals(page.productSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
-//        List<String> lstProducts = page.productSettingInforSection.mnProductSetting.getListSubMenu();
+        Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
+//        List<String> lstProducts = page.productStatusSettingInforSection.mnProductSetting.getListSubMenu();
 //        Assert.assertEquals(lstProducts.stream().map(String::toLowerCase).collect(Collectors.toList()), LST_PRODUCTS.stream().map(String::toLowerCase).collect(Collectors.toList()), "FAILED! List products tab is incorrect");
 
         log("Verify Verify Sport setting, Bet Settings, Tax Setting. Position Taking Setting");
@@ -194,10 +194,10 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Step 2 Product Setting, select Exchange Game product ");
-        page.productSettingInforSection.mnProductSetting.clickMenu(AGConstant.EXCHANGE_GAMES);
+        page.productStatusSettingInforSection.selectProduct(AGConstant.EXCHANGE_GAMES);
 
-        Assert.assertEquals(page.productSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
-//        List<String> lstProducts = page.productSettingInforSection.mnProductSetting.getListSubMenu();
+        Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
+//        List<String> lstProducts = page.productStatusSettingInforSection.mnProductSetting.getListSubMenu();
 //        Assert.assertEquals(lstProducts.stream().map(String::toLowerCase).collect(Collectors.toList()), LST_PRODUCTS.stream().map(String::toLowerCase).collect(Collectors.toList()), "FAILED! List products tab is incorrect");
 
         log("Verify Verify Sport setting, Bet Settings, Tax Setting. Position Taking Setting");
