@@ -11,7 +11,7 @@ import java.util.List;
 public class ProductSettingsSection extends BaseElement {
     private String _xPath;
     public ProductStatusSettingsSection productStatusSettingsSection;
-    public BetSettingsSection betSettingSectionExchange;
+//    public BetSettingsSection betSettingSectionExchange;
 //    public Label lblProductSetting = Label.xpath(String.format("%s/div[@class='psection']", _xPath));
 //    public ProductStatusSettingsSection productStatusSettingsSection = ProductStatusSettingsSection.xpath(String.format("%s//div[contains(@class,'subsetting product-status')]", _xPath));
 //    public BetSettingsSection betSettingSectionExchange = BetSettingsSection.xpath(String.format("%s//div[@id='EXCHANGE-bet-settings']", _xPath));
@@ -24,7 +24,7 @@ public class ProductSettingsSection extends BaseElement {
         super(locator);
         this._xPath = xpathExpression;
         productStatusSettingsSection = ProductStatusSettingsSection.xpath(String.format("%s//div[contains(@class,'subsetting product-status')]", _xPath));
-        betSettingSectionExchange = BetSettingsSection.xpath(String.format("%s//div[@id='EXCHANGE-bet-settings']", _xPath));
+//        betSettingSectionExchange = BetSettingsSection.xpath(String.format("%s//div[@id='EXCHANGE-bet-settings']", _xPath));
     }
 
     public static ProductSettingsSection xpath(String xpathExpression) {

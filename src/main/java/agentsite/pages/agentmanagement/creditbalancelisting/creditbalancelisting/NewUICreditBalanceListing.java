@@ -9,6 +9,9 @@ public class NewUICreditBalanceListing extends CreditBalanceListing {
     int colMemberMaxCredit = 19;
     int colVailabaleBalance = 20;
 
+    public NewUICreditBalanceListing(String types) {
+        super(types);
+    }
 
 
     public AccountInfo getCreditInfoAccount(String userName) {

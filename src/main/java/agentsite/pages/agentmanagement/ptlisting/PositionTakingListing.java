@@ -3,6 +3,8 @@ package agentsite.pages.agentmanagement.ptlisting;
 import agentsite.controls.Cell;
 import agentsite.controls.Table;
 import com.paltech.element.common.*;
+import common.AGConstant;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 public class PositionTakingListing {
     public int totalColum = 32;
     public int usernameCol = 2;
+    public int loginIDCol = 3;
     public int chbCol = 5;
     public int soccerCol = 8;
     public int cricketCol = 9;
@@ -26,6 +29,12 @@ public class PositionTakingListing {
     public DropDownBox ddbProduct = DropDownBox.xpath("//td[text()='Product']//following::select[1]");
     public DropDownBox ddbLevel = DropDownBox.xpath("//span[text()='Level']//following::select[1]");
     public Button btnSearch = Button.xpath("//button[@class='pbtn search']");
+    public Label lblNoRecord = Label.xpath("//td[@class='no-record']");
+    public Label lblUsername = Label.xpath(String.format("//td[text()='%s']", AGConstant.AgencyManagement.PositionTakingListing.LBL_USERNAME));
+    public Label lblAccountStatus = Label.xpath(String.format("//td[text()='%s']", AGConstant.AgencyManagement.PositionTakingListing.LBL_ACCOUNTSTATUS));
+    public Label lblLevel = Label.xpath(String.format("//span[text()='%s']", AGConstant.AgencyManagement.PositionTakingListing.LBL_LEVEL));
+    public Label lblProduct = Label.xpath(String.format("//td[text()='%s']", AGConstant.AgencyManagement.PositionTakingListing.LBL_PRODUCT));
+    public Label lblBreadcrumb = Label.xpath("//span[@class='downline']");
     private String xPathSport = "//span[contains(text(),'%s')]/preceding::input[1]";
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     public Table tblDownline = Table.xpath("//app-agency-position-taking//table[contains(@class,'directDownline table-responsive')]", totalColum);

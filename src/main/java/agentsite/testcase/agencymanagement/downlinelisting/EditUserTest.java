@@ -84,8 +84,8 @@ public class EditUserTest extends BaseCaseTest {
         Assert.assertEquals(lstPositionTakingHeader, AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_HEADER, "FAILED! Position Taking Header does not display as expected");
 
         log("Verify 5. Submit and Cancel button");
-        Assert.assertEquals(editDownLineAgentPage.btnSubmit.getText(), AGConstant.BTN_SUBMIT, "FAILED! Submit button display incorrect");
-        Assert.assertEquals(editDownLineAgentPage.btnCancel.getText(), AGConstant.BTN_CANCEL, "FAILED! Cancel button display incorrect");
+        Assert.assertEquals(editDownLineAgentPage.editDownlineListing.btnSubmit.getText(), AGConstant.BTN_SUBMIT, "FAILED! Submit button display incorrect");
+        Assert.assertEquals(editDownLineAgentPage.editDownlineListing.btnCancel.getText(), AGConstant.BTN_CANCEL, "FAILED! Cancel button display incorrect");
 
         log("INFO: Executed completely");
     }

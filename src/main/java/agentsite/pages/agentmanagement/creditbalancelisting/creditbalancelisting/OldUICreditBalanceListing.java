@@ -10,6 +10,10 @@ public class OldUICreditBalanceListing extends CreditBalanceListing {
     int colVailabaleBalance = 19;
     public Table tblAccountList = Table.xpath("//table[contains(@class,'report')]", 22);
 
+    public OldUICreditBalanceListing(String types) {
+        super(types);
+    }
+
 
     public AccountInfo getCreditInfoAccount(String userName) {
         int i = getRowIndexofUserName(userName);

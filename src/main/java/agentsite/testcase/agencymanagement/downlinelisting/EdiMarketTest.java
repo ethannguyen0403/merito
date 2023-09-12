@@ -50,16 +50,16 @@ public class EdiMarketTest extends BaseCaseTest {
         lstUsers = DownLineListingUtils.getAllDownLineUsers(_brandname, "", userID);
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         userName = DownLineListingUtils.getAccountInfoInList(lstUsers, downlineAccount).getUserCode();
-        AccountInfo accountInfoBeforeTransfer = transferPage.getTransferInfo(userName);
-        double amount = transferPage.defineAmountBasedOnTransferableBalance(0.1, accountInfoBeforeTransfer.getTransferableBalance());
+        AccountInfo accountInfoBeforeTransfer = transferPage.transferPage.getTransferInfo(userName);
+        double amount = transferPage.transferPage.defineAmountBasedOnTransferableBalance(0.1, accountInfoBeforeTransfer.getTransferableBalance());
 
         log("Step 2 Transfer an amount " + amount + " for a account" + userName);
-        transferPage.transfer(userName, String.format("%.2f", amount));
+        transferPage.transferPage.transfer(userName, String.format("%.2f", amount));
 
         log("Verify Verify cannot transfer, an X icon display in Update status,  and click on the icon the message \"You are not allowed to perform transfer today. Please contact your upline\"");
-        Assert.assertFalse(transferPage.isAccountTransferredError(userName), "Failed! Error icon does not display when transfer not at setting schedule");
+        Assert.assertFalse(transferPage.transferPage.isAccountTransferredError(userName), "Failed! Error icon does not display when transfer not at setting schedule");
 
-        ConfirmPopup dialogPopup = transferPage.clickUpdateStatusColumn(userName);
+        ConfirmPopup dialogPopup = transferPage.transferPage.clickUpdateStatusColumn(userName);
         Assert.assertEquals(dialogPopup.getContentMessage(), "You are not allowed to perform transfer today. Please contact your upline", "Failed! Message Error is incorrect when transfer does not follow setting schedule");
 
         log("INFO: Executed completely");

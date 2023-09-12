@@ -478,21 +478,21 @@ public class BetSettingListingTest extends BaseCaseTest {
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         BetSettingListingPage betSettingListingPage = agentHomePage.navigateBetSettingListingPage();
 
-        String lstSports = betSettingListingPage.sportsRow.getText();
+        String lstSports = betSettingListingPage.betSettingListing.sportsRow.getText();
 
         log("Verify 1. Validate UI on Bet Setting Listing display correctly");
-        Assert.assertEquals(betSettingListingPage.lblTitlePage.getText(), AGConstant.HomePage.BET_SETTING_LISTING, "FAILED! Page title displays incorrectly");
-        Assert.assertTrue(betSettingListingPage.txtUsername.isDisplayed(), "FAILED! Username textbox is not displayed");
-        Assert.assertTrue(betSettingListingPage.ddbLevel.isDisplayed(), "FAILED! Level dropdown is not displayed");
-        Assert.assertTrue(betSettingListingPage.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown is not displayed");
-        Assert.assertTrue(betSettingListingPage.btnSubmit.isDisplayed(), "FAILED! Submit button is not displayed");
+        Assert.assertEquals(betSettingListingPage.betSettingListing.lblTitlePage.getText(), AGConstant.HomePage.BET_SETTING_LISTING, "FAILED! Page title displays incorrectly");
+        Assert.assertTrue(betSettingListingPage.betSettingListing.txtUsername.isDisplayed(), "FAILED! Username textbox is not displayed");
+        Assert.assertTrue(betSettingListingPage.betSettingListing.ddbLevel.isDisplayed(), "FAILED! Level dropdown is not displayed");
+        Assert.assertTrue(betSettingListingPage.betSettingListing.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown is not displayed");
+        Assert.assertTrue(betSettingListingPage.betSettingListing.btnSubmit.isDisplayed(), "FAILED! Submit button is not displayed");
         Assert.assertTrue(lstSports.contains("Sport") && lstSports.contains("Select All") && lstSports.contains("Soccer") && lstSports.contains("Cricket")
                 && lstSports.contains("Tennis") && lstSports.contains("Basketball") && lstSports.contains("Fancy") && lstSports.contains("Other"), "FAILED! List Sports does not display correctly");
-        Assert.assertTrue(betSettingListingPage.txtMinBet.isDisplayed(), "FAILED! Min bet textbox is not displayed");
-        Assert.assertTrue(betSettingListingPage.txtMaxBet.isDisplayed(), "FAILED! Max bet textbox is not displayed");
-        Assert.assertTrue(betSettingListingPage.txtMaxLiabilityPerMarket.isDisplayed(), "FAILED! Max Liability textbox is not displayed");
-        Assert.assertTrue(betSettingListingPage.txtMaxWinPerMarket.isDisplayed(), "FAILED! Max Win Per Market textbox is not displayed");
-        Assert.assertTrue(betSettingListingPage.tblDownline.isDisplayed(), "FAILED! Result table is not displayed");
+        Assert.assertTrue(betSettingListingPage.betSettingListing.txtMinBet.isDisplayed(), "FAILED! Min bet textbox is not displayed");
+        Assert.assertTrue(betSettingListingPage.betSettingListing.txtMaxBet.isDisplayed(), "FAILED! Max bet textbox is not displayed");
+        Assert.assertTrue(betSettingListingPage.betSettingListing.txtMaxLiabilityPerMarket.isDisplayed(), "FAILED! Max Liability textbox is not displayed");
+        Assert.assertTrue(betSettingListingPage.betSettingListing.txtMaxWinPerMarket.isDisplayed(), "FAILED! Max Win Per Market textbox is not displayed");
+        Assert.assertTrue(betSettingListingPage.betSettingListing.tblDownline.isDisplayed(), "FAILED! Result table is not displayed");
         log("INFO: Executed completely");
     }
 
@@ -524,7 +524,7 @@ public class BetSettingListingTest extends BaseCaseTest {
         log("Step 2. Active Bet Setting Listing page");
         BetSettingListingPage betSettingListingPage = agentHomePage.navigateBetSettingListingPage();
         log("Step 3. Click on product dropdown and observe data");
-        List<String> lstProduct = betSettingListingPage.ddbProduct.getOptions();
+        List<String> lstProduct = betSettingListingPage.betSettingListing.ddbProduct.getOptions();
 
         log("Verify 3. Verify Exchange Game is not display");
         Assert.assertFalse(lstProduct.contains(EXCHANGE_GAMES), "FAILED! List product contain Exchange Games");

@@ -22,11 +22,14 @@ public class DownlineListing extends CreateDownLineAgentPage {
     public Label lblAccountStatus = Label.xpath("//label[@for='status']");
     public Label lblLevel = Label.xpath("//label[@for='userLevel']");
     private int totalColumn = 19;
+    public int loginIDCol = 3;
     public int changePasswordCol = 9;
     public int userCodeCol = 2;
     public int accountStatusCol = 4;
     public int editCol = 8;
     public Table tblDowlineListing = Table.xpath("//table[contains(@class,'ptable report')]", totalColumn);
+    public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@id='error-msg']");
+    public Label lblNoRecord = Label.xpath("//table[contains(@class,'ptable report')]//span[contains(@class,'no-record')]");
 
     public DownlineListing(String types) {
         super(types);
