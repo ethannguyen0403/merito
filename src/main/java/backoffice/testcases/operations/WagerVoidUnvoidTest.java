@@ -60,7 +60,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
     @Test(groups = {"smoke"})
     @Parameters("satMemberLoginID")
     public void BO_Operations_Wager_Void_Unvoid_643(String satMemberLoginID) {
-        log("@title: Validate can search void/un-void wager by Username/ Nick Name");
+        log("@title: Validate can search void/un-void wager by Nick Name");
         log("Step 1. Access Operations > Wager Void/Un-void");
         String toDate = DateUtils.getDate(0, "dd/MM/yyyy", BOConstants.GMT_FOUR);
         String fromDate = DateUtils.getDate(-45, "dd/MM/yyyy", BOConstants.GMT_FOUR);
@@ -68,12 +68,12 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
 
         log("Step 2. Select void by Wager");
         log("Step 3. Select Exchange Product");
-        log("Step 4. Search by: User Name/Nick Name");
-        log("Step 5. Input Username/ Nick name and place date range then click Search button");
+        log("Step 4. Search by: Nick Name");
+        log("Step 5. Input Nick name and place date range then click Search button");
         page.searchByUsername("Exchange", satMemberLoginID, fromDate, toDate);
 
         log("Verify 1. Verify Wager info display correctly as pre-condition and has place date in search date range");
-        List<String> lstWagerInfo = page.tblWager.getColumn(page.colUsername, false);
+        List<String> lstWagerInfo = page.tblWager.getColumn(page.colNickname, false);
         for (String acutalUsername : lstWagerInfo) {
             Assert.assertEquals(acutalUsername, satMemberLoginID, "FAILED! Result table not display the searching data");
         }
@@ -111,7 +111,6 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
         for (String description : lstWagerInfo) {
             Assert.assertTrue(description.contains(eventName), "FAILED! Result table not display the searching data");
         }
-
         log("INFO: Executed completely");
     }
 
