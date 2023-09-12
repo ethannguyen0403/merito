@@ -25,7 +25,7 @@
         <parameter name='brandname' value='fairexchange'/>
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="smoke1"/>
             </run>
         </groups>
 
@@ -40,6 +40,7 @@
                         <class name="membersite.testcases.exchangegame.EGHomPageTest"/>
                         <class name="membersite.testcases.exchange.PlaceBetFunctionTest"/>
                         <class name="membersite.testcases.exchange.WicketBookmakerTest"/>
+
 
         </classes>
 
