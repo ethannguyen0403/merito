@@ -68,7 +68,7 @@ public class BaseCaseTest {
     public static String PROJECT_ID = "1";
     public static APIClient client;
     private static ApplicationContext context;
-    private static boolean isAddTestRailResult = true;
+    private static boolean isAddTestRailResult = false;
     private static List<Long> lstCases = new ArrayList<>();
 
     @BeforeSuite(alwaysRun = true)

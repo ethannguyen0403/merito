@@ -5,7 +5,7 @@
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="GREEN_SMOKE_Chrome">
+    <test name="Regression test cases SAT Member Site in Green">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
@@ -26,7 +26,7 @@
         <parameter name='bopassword' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <groups>
             <run>
-                <include name="interaction2"/>
+                <include name="interaction_demo"/>
             </run>
         </groups>
         <classes>
