@@ -1,6 +1,8 @@
 package agentsite.pages.agentmanagement.createdownlineagent.accountinfosection;
 
+import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.components.SecurityPopup;
+import agentsite.ultils.account.ProfileUtils;
 import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
@@ -27,6 +29,8 @@ public class NewUIAccountInforSection extends AccountInforSection {
     String listLabel = String.format("%s//div[contains(@class,'column header')]", _xPath);
     private Label lblBaseCurrencyValue = Label.xpath(String.format("%s//div[contains(@class,'column data')][10]", _xPath));
     private CheckBox cbAllowExtraPT = CheckBox.xpath(String.format("%s//input[@name='allowAutoPT']", _xPath));
+    private CheckBox cbAllowCashout = CheckBox.xpath(String.format("%s//input[@name='allowCashOut']", _xPath));
+    private CheckBox cbCreditCash = CheckBox.xpath(String.format("%s//input[@name='creditcash']", _xPath));
 
     //Controls in Create Company
     private DropDownBox ddpCurrency = DropDownBox.xpath(String.format("%s//div[contains(@class,'column data')][9]//select", _xPath));
@@ -103,27 +107,46 @@ public class NewUIAccountInforSection extends AccountInforSection {
         return lstInfo;
     }
     public void verifyUIDisplayedCorrect() {
+        AccountInfo accountInfo = ProfileUtils.getProfile();
         List<String> lstInfo = getListLabelInfo();
-        Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_USERNAME, "FAILED! Login ID label display incorrect");
-        Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
-        Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
-        Assert.assertEquals(lstInfo.get(3), AGConstant.AgencyManagement.CreateAccount.LBL_LEVEL, "FAILED! Level label display incorrect");
-        Assert.assertEquals(lstInfo.get(4), AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_NAME, "FAILED! First Name label display incorrect");
-        Assert.assertEquals(lstInfo.get(5), AGConstant.AgencyManagement.CreateAccount.LBL_LAST_NAME, "FAILED! Last Name label display incorrect");
-        Assert.assertEquals(lstInfo.get(6), AGConstant.AgencyManagement.CreateAccount.LBL_PHONE, "FAILED! Phone display incorrect");
-        Assert.assertEquals(lstInfo.get(7), AGConstant.AgencyManagement.CreateAccount.LBL_MOBILE, "FAILED! Mobile display incorrect");
-        Assert.assertEquals(lstInfo.get(8), AGConstant.AgencyManagement.CreateAccount.LBL_FAX, "FAILED! Fax display incorrect");
-        Assert.assertEquals(lstInfo.get(9), AGConstant.AgencyManagement.CreateAccount.LBL_BASE_CURRENCY, "FAILED! Base Currency display incorrect");
-        Assert.assertEquals(lstInfo.get(10), AGConstant.AgencyManagement.CreateAccount.LBL_ALLOW_AG_EXTRA, "FAILED! Allow Extra display incorrect");
+        if(accountInfo.getLevel().equalsIgnoreCase("PO")) {
+            Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_USERNAME, "FAILED! Username label display incorrect");
+            Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
+            Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
+            Assert.assertEquals(lstInfo.get(3), AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_NAME, "FAILED! First Name label display incorrect");
+            Assert.assertEquals(lstInfo.get(4), AGConstant.AgencyManagement.CreateAccount.LBL_LAST_NAME, "FAILED! Last Name label display incorrect");
+            Assert.assertEquals(lstInfo.get(5), AGConstant.AgencyManagement.CreateAccount.LBL_PHONE, "FAILED! Phone display incorrect");
+            Assert.assertEquals(lstInfo.get(6), AGConstant.AgencyManagement.CreateAccount.LBL_MOBILE, "FAILED! Mobile display incorrect");
+            Assert.assertEquals(lstInfo.get(7), AGConstant.AgencyManagement.CreateAccount.LBL_FAX, "FAILED! Fax display incorrect");
+            Assert.assertEquals(lstInfo.get(8), AGConstant.AgencyManagement.CreateAccount.LBL_BASE_CURRENCY, "FAILED! Base Currency display incorrect");
+            Assert.assertEquals(lstInfo.get(9), AGConstant.AgencyManagement.CreateCompany.LBL_ALLOW_CASHOUT, "FAILED! Allow Cashout label display incorrect");
+            Assert.assertEquals(lstInfo.get(10), AGConstant.AgencyManagement.CreateCompany.LBL_ALLOW_CO_EXTRA, "FAILED! Allow Extra display incorrect");
+            Assert.assertEquals(lstInfo.get(11), AGConstant.AgencyManagement.CreateCompany.LBL_IS_CREDIT_CASH, "FAILED! Credit Cash label display incorrect");
+            Assert.assertTrue(ddpCurrency.isDisplayed(), "FAILED! Base Currency dropdown box does not display");
+            Assert.assertTrue(cbAllowCashout.isDisplayed(), "FAILED! Allow Cashout checkbox does not display");
+            Assert.assertTrue(cbCreditCash.isDisplayed(), "FAILED! Credit Cash checkbox does not display");
+        } else {
+            Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_USERNAME, "FAILED! Login ID label display incorrect");
+            Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
+            Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
+            Assert.assertEquals(lstInfo.get(3), AGConstant.AgencyManagement.CreateAccount.LBL_LEVEL, "FAILED! Level label display incorrect");
+            Assert.assertEquals(lstInfo.get(4), AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_NAME, "FAILED! First Name label display incorrect");
+            Assert.assertEquals(lstInfo.get(5), AGConstant.AgencyManagement.CreateAccount.LBL_LAST_NAME, "FAILED! Last Name label display incorrect");
+            Assert.assertEquals(lstInfo.get(6), AGConstant.AgencyManagement.CreateAccount.LBL_PHONE, "FAILED! Phone display incorrect");
+            Assert.assertEquals(lstInfo.get(7), AGConstant.AgencyManagement.CreateAccount.LBL_MOBILE, "FAILED! Mobile display incorrect");
+            Assert.assertEquals(lstInfo.get(8), AGConstant.AgencyManagement.CreateAccount.LBL_FAX, "FAILED! Fax display incorrect");
+            Assert.assertEquals(lstInfo.get(9), AGConstant.AgencyManagement.CreateAccount.LBL_BASE_CURRENCY, "FAILED! Base Currency display incorrect");
+            Assert.assertEquals(lstInfo.get(10), AGConstant.AgencyManagement.CreateAccount.LBL_ALLOW_AG_EXTRA, "FAILED! Allow Extra display incorrect");
+            Assert.assertTrue(ddpLevel.isDisplayed(), "FAILED! Level dropdown box does not display");
+            Assert.assertTrue(cbAllowExtraPT.isDisplayed(), "FAILED! Allow Extra PT checkbox does not display");
+        }
         Assert.assertTrue(txtPassword.isDisplayed(), "FAILED! Password textbox does not display");
         Assert.assertTrue(ddrAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box does not display");
-        Assert.assertTrue(ddpLevel.isDisplayed(), "FAILED! Level dropdown box does not display");
         Assert.assertTrue(txtFirstName.isDisplayed(), "FAILED! First Name textbox does not display");
         Assert.assertTrue(txtLastName.isDisplayed(), "FAILED! Last Name textbox does not display");
         Assert.assertTrue(txtMobile.isDisplayed(), "FAILED! Mobile textbox does not display");
         Assert.assertTrue(txtPhone.isDisplayed(), "FAILED! Phone textbox does not display");
         Assert.assertTrue(txtFax.isDisplayed(), "FAILED! Tax textbox does not display");
-        Assert.assertTrue(cbAllowExtraPT.isDisplayed(), "FAILED! Allow Extra PT checkbox does not display");
     }
 
 }

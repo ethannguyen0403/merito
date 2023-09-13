@@ -9,6 +9,9 @@ import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.CommissionSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.NewUIComissionSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.OldUIComissionSettingListing;
+import agentsite.pages.agentmanagement.createcompany.CreateCompany;
+import agentsite.pages.agentmanagement.createcompany.NewUICreateCompany;
+import agentsite.pages.agentmanagement.createcompany.OldUICreateCompany;
 import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.AccountBalanceTransferConditionInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.NewUIAccountBalanceTransferConditionSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.OldUIAccountBalanceTransferConditionSection;
@@ -367,6 +370,15 @@ public class ComponentsFactory {
                 return new OldUIAnnouncement(types);
             default:
                 return new NewUIAnnouncement(types);
+        }
+    }
+
+    public static CreateCompany createCompanyPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUICreateCompany(types);
+            default:
+                return new NewUICreateCompany(types);
         }
     }
 }

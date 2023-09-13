@@ -229,6 +229,12 @@ public class AGConstant {
         public final static String LBL_LEVEL = "Level";
         public final static String EDIT_DOWNLINE_AGENT_TITLE = "Edit Downline Agent";
 
+        public static class CreateCompany {
+            public final static String LBL_ALLOW_CO_EXTRA = "Allow CO Extra PT";
+            public final static String LBL_ALLOW_CASHOUT = "Allow Cash Out";
+            public final static String LBL_IS_CREDIT_CASH = "Credit Cash";
+
+        }
         public static class CreateAccount {
             public final static String LBL_LOGIN_ID = "Login ID";
             public final static String LBL_PASSWORD = "Password";
