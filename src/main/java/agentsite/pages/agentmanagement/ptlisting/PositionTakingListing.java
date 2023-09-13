@@ -17,6 +17,7 @@ public class PositionTakingListing {
     public int soccerCol = 8;
     public int cricketCol = 9;
     public int fancytCol = 10;
+    public int levelCol = 6;
     public int tennisCol = 11;
     public int basketballCol = 12;
     public int horseRacingCol = 13;

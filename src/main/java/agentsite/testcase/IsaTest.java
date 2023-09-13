@@ -55,7 +55,7 @@ public class IsaTest extends BaseCaseTest {
         page.taxSettingListing.search(userCode, "", "");
 
         log("Verify 1. Verify Login display in the result table");
-        List<String> lstMembers = page.tblTax.getColumn(page.usernameCol, false);
+        List<String> lstMembers = page.taxSettingListing.tblTax.getColumn(page.taxSettingListing.usernameCol, false);
         Assert.assertEquals(lstMembers.get(0), userCode, "FAILED! Login ID not display as search criteria");
         Assert.assertEquals(lstMembers.size(), 1, "FAILED! Should only display 1 record when searching with correct username");
 
