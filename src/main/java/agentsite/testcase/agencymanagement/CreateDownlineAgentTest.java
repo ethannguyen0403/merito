@@ -91,8 +91,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      */
     @TestRails(id = "679")
     @Test (groups = {"smoke"})
-    @Parameters({"currency","prefix"})
-    public void Agent_AM_CreateDownline_Agent_679(String currency,String prefix) {
+    public void Agent_AM_CreateDownline_Agent_679() {
         log("@title: Validate UI in Create Downline Agent with Exchange Game Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
