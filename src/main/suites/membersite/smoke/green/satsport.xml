@@ -25,8 +25,8 @@
         <parameter name='brandname' value='satsport'/>
         <groups>
             <run>
-                <include name="smoke1"/>
-<!--                <include name="satsport"/>-->
+                <include name="smoke"/>
+                <include name="satsport"/>
             </run>
         </groups>
 
