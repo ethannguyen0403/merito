@@ -46,8 +46,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         page.accountInforSection.verifyUIDisplayedCorrect();
 
         log("Verify 2. Cash Balance");
-        List<ArrayList<String>> lstBalance = page.creditBalanceInforSection.tblCashBalance.getRowsWithoutHeader(1,false);
-        Assert.assertEquals(page.creditBalanceInforSection.lblCashBalanceTitle.getText().trim(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Title display incorrect");
+        List<ArrayList<String>> lstBalance = page.cashBalanceInforSection.tblCashBalance.getRowsWithoutHeader(1,false);
+        Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Title display incorrect");
         //Assert.assertEquals(lstBalance.get(0).get(0), FEAGConstant.AgencyManagement.CreateAccount.LBL_INITIATION_DEPOSIT,"FAILED! Initiation Deposit label displays incorrect");
 
 
@@ -109,8 +109,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         page.accountInforSection.verifyUIDisplayedCorrect();
         log("Verify 2. Cash Balance");
 
-        List<ArrayList<String>> lstBalance = page.creditBalanceInforSection.tblCashBalance.getRowsWithoutHeader(1,false);
-        Assert.assertEquals(page.creditBalanceInforSection.lblCashBalanceTitle.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
+        List<ArrayList<String>> lstBalance = page.cashBalanceInforSection.tblCashBalance.getRowsWithoutHeader(1,false);
+        Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
         Assert.assertEquals(lstBalance.get(0).get(0), AGConstant.AgencyManagement.CreateAccount.LBL_INITIATION_DEPOSIT,"FAILED! Credit Initiation label displays incorrect");
 //
         log("Verify 3. Product Setting, select Exchange product");
@@ -123,15 +123,15 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         List<String> lstTaxSettingOption = page.tblEGTaxSettings.getColumn(1,false);
         List<String> lstPositionTakingHeader = page.tblEGPositionTakingListing.getHeaderNameOfRows();
         Assert.assertEquals(page.lblEGBetSettings.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_BET_SETTING,"FAILED! Bet Setting Section Label display incorrect");
-        Assert.assertEquals(lstBetSettingHeader, AGConstant.AgencyManagement.CreateAccount.LST_EG_GAME_GORUP_HEADER,"FAILED! Exchange Game Bet Setting  Header does not display as expected");
+        Assert.assertEquals(lstBetSettingHeader, AGConstant.AgencyManagement.CreateAccount.LST_EG_GAME_GROUP_HEADER,"FAILED! Exchange Game Bet Setting  Header does not display as expected");
         Assert.assertEquals(lstBetSettingOption, AGConstant.AgencyManagement.CreateAccount.LST_BET_SETTING_OPTION,"FAILED! Bet Setting options in the first column does not display as expected");
 
         Assert.assertEquals(page.lblEGTaxSettings.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_TAX_SETTING,"FAILED! Tax Setting Section Label display incorrect");
-        Assert.assertEquals(lstTaxSettingHeader, AGConstant.AgencyManagement.CreateAccount.LST_EG_GAME_GORUP_HEADER,"FAILED! Exchange Game Tax Setting Header does not display as expected");
+        Assert.assertEquals(lstTaxSettingHeader, AGConstant.AgencyManagement.CreateAccount.LST_EG_GAME_GROUP_HEADER,"FAILED! Exchange Game Tax Setting Header does not display as expected");
         Assert.assertEquals(lstTaxSettingOption, AGConstant.AgencyManagement.CreateAccount.LST_TAX_SETTING_OPTION,"FAILED! Tax Setting options in the first column does not display as expected");
 
         Assert.assertEquals(page.lblEGPositionTakingListing.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_POSITION_TAKING,"FAILED! Position Taking Section Label display incorrect");
-        Assert.assertEquals(lstPositionTakingHeader, AGConstant.AgencyManagement.CreateAccount.LST_EG_GAME_GORUP_HEADER,"FAILED! Exchange Game Position Taking Header does not display as expected");
+        Assert.assertEquals(lstPositionTakingHeader, AGConstant.AgencyManagement.CreateAccount.LST_EG_GAME_GROUP_HEADER,"FAILED! Exchange Game Position Taking Header does not display as expected");
 
         log("Verify 5. Submit and Cancel button");
         Assert.assertEquals(page.btnSubmit.getText(), AGConstant.BTN_SUBMIT,"FAILED! Submit button display incorrect");
@@ -371,7 +371,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
         Assert.assertEquals(page.betSettingInforSection.getBetSettingSectionTitle(AGConstant.EXCHANGE),AGConstant.AgencyManagement.CreateAccount.LBL_BET_SETTING,"FAILED! Bet Setting Section display incorrect");
         Assert.assertFalse(page.taxSettingInforSection.tblTaxSettingEX.isDisplayed(),"FAILED! Tax Setting Section is displayed");
-        Assert.assertFalse(page.positionTakingInforSection.tblPositionTakingEX.isDisplayed(),"FAILED! Position Taking Section is displayed");
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
         log("INFO: Executed completely");
     }
 

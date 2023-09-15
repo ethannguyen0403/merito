@@ -24,6 +24,9 @@ import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.Old
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.CashBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.NewUICashBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.OldUICashBalanceSection;
+import agentsite.pages.agentmanagement.createdownlineagent.commissionsettingsection.CommissionSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.commissionsettingsection.NewUICommissionSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.commissionsettingsection.OldUICommissionSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.CreditBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.NewUICreditBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.OldUICreditBalanceSection;
@@ -193,6 +196,15 @@ public class ComponentsFactory {
                 return new OldUITaxSettingSection();
             default:
                 return new NewUITaxSettingSection();
+        }
+    }
+
+    public static CommissionSettingSection commissionSettingInfoObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUICommissionSettingSection(types);
+            default:
+                return new NewUICommissionSettingSection(types);
         }
     }
 

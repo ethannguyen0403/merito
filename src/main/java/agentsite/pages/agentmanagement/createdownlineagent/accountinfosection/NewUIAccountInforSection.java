@@ -19,7 +19,7 @@ import static baseTest.BaseCaseTest.environment;
 
 public class NewUIAccountInforSection extends AccountInforSection {
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
-    private String _xPath = "//div[@id='account']//app-agency-account-ui";
+
     private DropDownBox ddpLevel = DropDownBox.xpath(String.format("%s//div[contains(@class,'column data')][4]//select", _xPath));
     private Label lblUsernamePrefix
             = Label.xpath(String.format("%s//span[@id='username-prefix']", _xPath));
@@ -30,10 +30,10 @@ public class NewUIAccountInforSection extends AccountInforSection {
     private Label lblBaseCurrencyValue = Label.xpath(String.format("%s//div[contains(@class,'column data')][10]", _xPath));
     private CheckBox cbAllowExtraPT = CheckBox.xpath(String.format("%s//input[@name='allowAutoPT']", _xPath));
     private CheckBox cbAllowCashout = CheckBox.xpath(String.format("%s//input[@name='allowCashOut']", _xPath));
-    private CheckBox cbCreditCash = CheckBox.xpath(String.format("%s//input[@name='creditcash']", _xPath));
+
 
     //Controls in Create Company
-    private DropDownBox ddpCurrency = DropDownBox.xpath(String.format("%s//div[contains(@class,'column data')][9]//select", _xPath));
+    private DropDownBox ddbCurrency = DropDownBox.xpath(String.format("%s//div[contains(@class,'column data')][9]//select", _xPath));
 
 
     public void selectAgentLevel(String levelName) {
@@ -122,7 +122,7 @@ public class NewUIAccountInforSection extends AccountInforSection {
             Assert.assertEquals(lstInfo.get(9), AGConstant.AgencyManagement.CreateCompany.LBL_ALLOW_CASHOUT, "FAILED! Allow Cashout label display incorrect");
             Assert.assertEquals(lstInfo.get(10), AGConstant.AgencyManagement.CreateCompany.LBL_ALLOW_CO_EXTRA, "FAILED! Allow Extra display incorrect");
             Assert.assertEquals(lstInfo.get(11), AGConstant.AgencyManagement.CreateCompany.LBL_IS_CREDIT_CASH, "FAILED! Credit Cash label display incorrect");
-            Assert.assertTrue(ddpCurrency.isDisplayed(), "FAILED! Base Currency dropdown box does not display");
+            Assert.assertTrue(ddbCurrency.isDisplayed(), "FAILED! Base Currency dropdown box does not display");
             Assert.assertTrue(cbAllowCashout.isDisplayed(), "FAILED! Allow Cashout checkbox does not display");
             Assert.assertTrue(cbCreditCash.isDisplayed(), "FAILED! Credit Cash checkbox does not display");
         } else {
@@ -149,4 +149,10 @@ public class NewUIAccountInforSection extends AccountInforSection {
         Assert.assertTrue(txtFax.isDisplayed(), "FAILED! Tax textbox does not display");
     }
 
+    public void selectCurrency(String currency) {
+        if(ddbCurrency.isDisplayed()) {
+            ddbCurrency.selectByVisibleText(currency);
+            waitingLoadingSpinner();
+        }
+    }
 }

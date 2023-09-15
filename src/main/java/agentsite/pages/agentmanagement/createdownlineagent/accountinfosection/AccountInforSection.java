@@ -1,10 +1,7 @@
 package agentsite.pages.agentmanagement.createdownlineagent.accountinfosection;
 
 import agentsite.controls.Table;
-import com.paltech.element.common.DropDownBox;
-import com.paltech.element.common.Icon;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.TextBox;
+import com.paltech.element.common.*;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -14,6 +11,8 @@ import java.util.Objects;
 
 public class AccountInforSection {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
+    protected String _xPath = "//div[@id='account']//app-agency-account-ui";
+    protected CheckBox cbCreditCash = CheckBox.xpath(String.format("%s//input[@name='creditcash']", _xPath));
     public Label lblTitlePage = Label.xpath("//div[@class='title']//label");
     public TextBox txtPassword = TextBox.xpath("//input[@name='password']");
     public DropDownBox ddrAccountStatus = DropDownBox.xpath("//select[@name='status']");
@@ -24,7 +23,7 @@ public class AccountInforSection {
     public TextBox txtFax = TextBox.xpath("//input[@name='fax']");
     public Table tblAccountInfo = Table.xpath("//table[contains(@class,'ptable info account-table')]", 8);
     public Label lblPasswordHint = Label.xpath("//input[@name='password']/following::span[@class='pinfo'][1]");
-    String listEditDownlineLabel = "//div[@id='account']//app-agency-account-ui//div[contains(@class,'column header')]";
+    String listEditDownlineLabel = String.format("%s//div[contains(@class,'column header')]", _xPath);
 
     public void selectAgentLevel(String levelName) {
 
@@ -60,5 +59,7 @@ public class AccountInforSection {
         }
         return lstInfo;
     }
+
+    public void selectCurrency(String currency) {};
 
 }

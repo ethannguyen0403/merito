@@ -1,17 +1,19 @@
 package agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection;
 
-import agentsite.controls.Table;
-import com.paltech.element.common.Icon;
+import static common.AGConstant.AgencyManagement.CommissionSettingListing.PRODUCT_NAME_TO_CODE;
 
 public class PositionTakingSection {
-    int totalColumn = 9;
-    Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
-    public Table tblPositionTakingEX = Table.xpath("//div[@id='EXCHANGE-position-taking']//table",totalColumn);
-    public Table tblPositionTakingEG = Table.xpath("//div[@id='EXCH_GAMES-position-taking']//table",8);
+    protected int totalColumnExchange = 9;
+    protected int totalColumnExchangeGames = 8;
+    protected int totalOther = 2;
+    protected String positionTakingTableXpath = "//div[@id='%s-position-taking']//table";
+    protected String ptAllCheckboxXpath = "//div[@id='%s-position-taking']//td[contains(@class,'ptCheckAll')]//input";
 
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(2, 2);
+    protected String mapProductNameToCode(String productName) {
+        return PRODUCT_NAME_TO_CODE.get(productName);
     }
-
     public String getPositionTakingSectionTitle(String product) {return ""; }
+
+    public void verifyUIDisplayCorrect(String product) {
+    }
 }
