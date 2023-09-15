@@ -99,7 +99,7 @@ public class BaseCaseTest {
         }
     }
 
-    @Parameters({"appname", "username", "password", "language", "isLogin", "isProxy", "isThrown", "currency",})
+    @Parameters({"appname", "username", "password", "language", "isLogin", "isProxy", "isThrown", "currency"})
     @BeforeMethod(alwaysRun = true)
     public static void beforeMethod(String appname, String username, String password, String language, boolean isLogin, boolean isProxy, boolean isThrown, String currency, Method method, ITestResult result, ITestContext ctx) throws Exception {
         System.out.println("*** Map test case in script with test case in TestRail ***");
@@ -276,6 +276,7 @@ public class BaseCaseTest {
         int count = 3;
         DriverManager.quitAll();
         while (count-- > 0) {
+            System.out.println("driver Properties" + driverProperties.getBrowserName());
             DriverManager.createWebDriver(driverProperties);
             DriverManager.getDriver().setLoadingTimeOut(100);
             DriverManager.getDriver().maximize();
