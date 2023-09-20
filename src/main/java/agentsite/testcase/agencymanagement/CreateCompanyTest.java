@@ -208,5 +208,21 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3662")
+    @Test(groups = {"smoke_po"})
+    public void Agent_AM_CreateDownline_Agent_3662() {
+        log("@title: Validate Product is enable based on selected currency");
+        log("Precondition: Log in successfully by  PO");
+        log("Step 1. Navigate Agency Management > Create Downline Agent");
+        CreateCompany page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
+
+        log("Step 2. Select INR currency");
+        page.accountInforSection.selectCurrency("INR");
+
+        log("Verify 2. Validate all products are enable when select INR");
+        page.productStatusSettingInforSection.verifyAllProductChecked();
+        log("INFO: Executed completely");
+    }
+
 }
 

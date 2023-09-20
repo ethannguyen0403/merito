@@ -32,7 +32,7 @@ public class EditUserTest extends BaseCaseTest {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(_brandname, userID, "PL");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 

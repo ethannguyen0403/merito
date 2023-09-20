@@ -1,12 +1,21 @@
 package agentsite.testcase.marketsmanagement;
 
+import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.components.ConfirmPopup;
 import agentsite.pages.marketsmanagement.LiquidityThresholdPage;
+import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static common.AGConstant.HomePage.LIQUIDITY_THRESHOLD;
+import static common.AGConstant.HomePage.MARKET_MANAGEMENT;
 
 public class LiquidityThresholdTest extends BaseCaseTest {
     /**
@@ -98,6 +107,84 @@ public class LiquidityThresholdTest extends BaseCaseTest {
         Assert.assertEquals(popup.getContentMessage(), String.format("Upline %s of %s is OFF. Please help to ON it first.", controlBlockingAccount, downlineAccount),
                 "FAILED! Error message not display when acitve downline has update inacive liquidity");
 
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"smoke_po"})
+    @TestRails(id = "3712")
+    public void Agent_MM_Liquidity_Threshold_TC3712() {
+        log("@title: Validate Liquidity Threshold UI display correctly");
+        log("Step 1. Navigate Markets Management >Liquidity Threshold");
+        LiquidityThresholdPage page = agentHomePage.navigateLiquidityThresholdPage();
+
+        log("Step 2. Validate Liquidity Threshold UI display correctly");
+        Assert.assertEquals(page.getLiquidityThresholdTitle(),LIQUIDITY_THRESHOLD);
+        page.verifyUIDisplayCorrect();
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"smoke_po"})
+    @TestRails(id = "3713")
+    public void Agent_MM_Liquidity_Threshold_TC3713() {
+        log("@title: Validate can search username/ Login ID");
+        log("Step 1. Navigate Markets Management >Liquidity Threshold");
+        LiquidityThresholdPage page = agentHomePage.navigateLiquidityThresholdPage();
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "CO", "ACTIVE", _brandname);
+        String userCodeAndLoginID = listAccount.get(0).getUserCodeAndLoginID("%s-%s");
+        if (userCodeAndLoginID.contains("-")) {
+            String loginId = userCodeAndLoginID.split("-")[1];
+            page.search(loginId);
+            List<String> lstLoginId = page.tblLiquidity.getColumn(page.colLoginID, false);
+            log("Validate the loginID display in the list");
+            Assert.assertTrue(lstLoginId.size() == 1, "FAILED! Total result is greater than 1 record");
+            Assert.assertEquals(lstLoginId.get(0), loginId, String.format("FAILED! Inputted loginId and result does not match, expected: %s but actual: %s", loginId, lstLoginId.get(0)));
+        }
+        String userCode = userCodeAndLoginID.split("-")[0];
+        page.search(userCode);
+        List<String> lstUsername = page.tblLiquidity.getColumn(page.colUsername, false);
+        log("Validate the username display in the list");
+        Assert.assertTrue(lstUsername.size() == 1, "FAILED! Total result is greater than 1 record");
+        Assert.assertEquals(lstUsername.get(0), userCode, String.format("FAILED! Inputted username and result does not match, expected: %s but actual: %s", userCode, lstUsername.get(0)));
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"smoke"})
+    @TestRails(id = "3714")
+    public void Agent_MM_Liquidity_Threshold_TC3714() {
+        log("@title: Validate the page not display when login agent with Non PO level");
+        log("Step 1. Navigate Markets Management");
+        agentHomePage.leftMenu.leftMenuList.expandMenu(MARKET_MANAGEMENT);
+        List<String> lstMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(MARKET_MANAGEMENT);
+
+        log("Validate Liquidity Threshold page not display from Non-PO account");
+        Assert.assertTrue(!lstMenu.contains(LIQUIDITY_THRESHOLD), "FAILED! Liquidity Threshold sub menu show in list");
+        log("INFO: Executed completely");
+    }
+
+    @Test(groups = {"smoke_po1"})
+    @TestRails(id = "3715")
+    @Parameters({"controlBlockingAccount"})
+    public void Agent_MM_Liquidity_Threshold_TC3715(String controlBlockingAccount) {
+        log("@title: Validate all downline is affect threshold status from upline");
+        log("Step 1. Navigate Markets Management >Liquidity Threshold");
+        LiquidityThresholdPage page = agentHomePage.navigateLiquidityThresholdPage();
+        ArrayList<String> lstUpline = page.getUplineAgencies(controlBlockingAccount);
+        String userCodeCO = lstUpline.get(1);
+        String directUplineOfBlockingAccount = lstUpline.get(lstUpline.size()-1);
+        log("Step 2. Search a CO account and active threshould");
+        page.search(userCodeCO);
+        page.setLiquidityThreshold(userCodeCO, true);
+
+        log("Step 3. Inactive Threshold status from SAD level");
+        page.search(controlBlockingAccount);
+        page.setLiquidityThreshold(controlBlockingAccount, false);
+        page.clickOnUserLink(controlBlockingAccount);
+
+        log("Validate Threshold is active from CO-upline of SAD and inactive from SAD to indirect donwline");
+        page.verifyAllDownlineStatusCorrect(false);
+        page.search(directUplineOfBlockingAccount);
+        page.verifyAllDownlineStatusCorrect(true);
         log("INFO: Executed completely");
     }
 

@@ -100,4 +100,14 @@ public class ProductStatusSettingSection {
         }
     }
 
+    public void verifyAllProductChecked() {
+        String[] xpathMenuProduct = mnProduct.getLocator().toString().split("By.xpath: ");
+        String productCheckboxXpath = xpathMenuProduct[1] + "//li[%s]//input";
+        Label lblProducts = Label.xpath(xpathMenuProduct[1]+"//li");
+        for (int i = 0; i < lblProducts.getWebElements().size(); i++) {
+            CheckBox cbProduct = CheckBox.xpath(String.format(productCheckboxXpath, i+1));
+            Assert.assertTrue(cbProduct.isSelected(), "FAILED! Product checkbox is not checked");
+        }
+    }
+
 }
