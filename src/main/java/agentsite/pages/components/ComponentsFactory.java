@@ -90,9 +90,6 @@ import agentsite.pages.components.leftmenu.OldUILeftMenu;
 import agentsite.pages.components.quicksearch.NewUIQuickSearch;
 import agentsite.pages.components.quicksearch.OldUIQuickSearch;
 import agentsite.pages.components.quicksearch.QuickSearch;
-import agentsite.pages.marketsmanagement.liquiditythreshold.LiquidityThreshold;
-import agentsite.pages.marketsmanagement.liquiditythreshold.NewUILiquidityThreshold;
-import agentsite.pages.marketsmanagement.liquiditythreshold.OldUILiquidityThreshold;
 import agentsite.pages.report.TopGainersTopLosers.NewUITopGainersTopLosers;
 import agentsite.pages.report.TopGainersTopLosers.OldUITopGainersTopLosers;
 import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
@@ -399,15 +396,6 @@ public class ComponentsFactory {
                 return new OldUICreateCompany(types);
             default:
                 return new NewUICreateCompany(types);
-        }
-    }
-
-    public static LiquidityThreshold liquidityThresholdPage(String types) {
-        switch (types) {
-            case "satsport":
-                return new OldUILiquidityThreshold();
-            default:
-                return new NewUILiquidityThreshold();
         }
     }
 }
