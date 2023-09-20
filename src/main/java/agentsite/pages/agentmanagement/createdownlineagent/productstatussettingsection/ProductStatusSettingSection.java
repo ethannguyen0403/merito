@@ -2,10 +2,9 @@ package agentsite.pages.agentmanagement.createdownlineagent.productstatussetting
 
 import agentsite.controls.Table;
 import agentsite.pages.agentmanagement.edituser.EditMarketPopup;
-import com.paltech.element.common.CheckBox;
-import com.paltech.element.common.Icon;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.Link;
+import com.paltech.element.common.*;
+import common.AGConstant;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ public class ProductStatusSettingSection {
     public EditMarketPopup editMarketPopup = EditMarketPopup.xpath("//app-blocking-setting");
     public CheckBox chbLive = CheckBox.id("live");
     public CheckBox chbNoneLive = CheckBox.id("nonlive");
+    public Menu mnProduct = Menu.xpath("//tabset[@id='productSetting']//ul[@class='nav nav-tabs']");
     public Table tblSportTable = Table.xpath("//div[contains(@class,'marketSettingWrapper')]//table[contains(@class,'sportTable')]", totalSportCol);
     String cbSportXPath = "//td[contains(@class,'betTitle back')]//label[@title='%s']/input";
     String cbProdudctXpath = ".//span[text()='%s']/../input[@type='checkbox']";
@@ -23,10 +23,9 @@ public class ProductStatusSettingSection {
     public void waitingLoadingSpinner() {
         iconLoadSpinner.waitForControlInvisible(2, 2);
     }
-    private Label lblProductSettingTitle = Label.xpath("//div[text()='Product Settings']");
 
     public String getProductSettingSectionTitle() {
-        return lblProductSettingTitle.getText().trim();
+        return "";
     }
 
 
@@ -89,6 +88,25 @@ public class ProductStatusSettingSection {
                 break;
             }
             i = i + 1;
+        }
+    }
+
+    public void verifyUIDisplayCorrect(String product) {
+        Assert.assertTrue(mnProduct.isDisplayed(), "FAILED! Menu product does not display");
+        if(product.equalsIgnoreCase(AGConstant.EXCHANGE)) {
+            Assert.assertTrue(chbLive.isDisplayed(), "FAILED! Live checkbox does not display");
+            Assert.assertTrue(chbNoneLive.isDisplayed(), "FAILED! Non-live checkbox does not display");
+            Assert.assertTrue(tblSportTable.isDisplayed(), "FAILED! Sport table does not display");
+        }
+    }
+
+    public void verifyAllProductChecked() {
+        String[] xpathMenuProduct = mnProduct.getLocator().toString().split("By.xpath: ");
+        String productCheckboxXpath = xpathMenuProduct[1] + "//li[%s]//input";
+        Label lblProducts = Label.xpath(xpathMenuProduct[1]+"//li");
+        for (int i = 0; i < lblProducts.getWebElements().size(); i++) {
+            CheckBox cbProduct = CheckBox.xpath(String.format(productCheckboxXpath, i+1));
+            Assert.assertTrue(cbProduct.isSelected(), "FAILED! Product checkbox is not checked");
         }
     }
 

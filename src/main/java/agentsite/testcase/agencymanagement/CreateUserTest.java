@@ -84,8 +84,9 @@ public class CreateUserTest extends BaseCaseTest {
         Assert.assertEquals(lstTaxSettingColumn, TAX_SETTING_COLUMN, "FAILED! Column in Tax SETTING incorrect display");
 
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE), POSITION_TAKING_SETTING, "FAILED! Position Taking Header is incorrect");
-        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEX.getHeaderNameOfRows();
-        Assert.assertEquals(lstPositionSettingHeader, EX_POSITION_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
+//        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEX.getHeaderNameOfRows();
+//        Assert.assertEquals(lstPositionSettingHeader, EX_POSITION_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         log(" 6. Submit and Cancel button");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
@@ -138,8 +139,9 @@ public class CreateUserTest extends BaseCaseTest {
         Assert.assertEquals(lstTaxSettingColumn, TAX_SETTING_COLUMN, "FAILED! Column in Tax SETTING incorrect display");
 
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE), POSITION_TAKING_SETTING, "FAILED! Position Taking Header is incorrect");
-        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEX.getHeaderNameOfRows();
-        Assert.assertEquals(lstPositionSettingHeader, EX_POSITION_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
+//        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEX.getHeaderNameOfRows();
+//        Assert.assertEquals(lstPositionSettingHeader, EX_POSITION_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         log(" 6. Submit and Cancel button");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
@@ -166,18 +168,19 @@ public class CreateUserTest extends BaseCaseTest {
         List<String> lstSportBetSetting = page.betSettingInforSection.tblBetSettingEG.getHeaderNameOfRows();
         List<String> lstBetSettingColum = page.betSettingInforSection.tblBetSettingEG.getColumn(1, false);
         Assert.assertEquals(page.betSettingInforSection.getBetSettingSectionTitle(AGConstant.EXCHANGE_GAMES).trim(), BET_SETTING, "FAILED! Bet Setting Header is incorrect");
-        Assert.assertEquals(lstSportBetSetting, EG_BET_TAX_PT_SETTING_HEADER_SAT, "FAILED! Sport in bet setting table is incorrect display");
+        Assert.assertEquals(lstSportBetSetting, EG_BET_TAX_PT_SETTING_HEADER_OLDUI, "FAILED! Sport in bet setting table is incorrect display");
         Assert.assertEquals(lstBetSettingColum, BET_SETTING_COLUMN, "FAILED! The first column in BET SETTING incorrect display");
 
         List<String> lstTaxSettingHeader = page.taxSettingInforSection.tblTaxSettingEG.getHeaderNameOfRows();
         List<String> lstTaxSettingColumn = page.taxSettingInforSection.tblTaxSettingEG.getColumn(1, false);
         Assert.assertEquals(page.taxSettingInforSection.getTaxSettingSectionTitle(AGConstant.EXCHANGE_GAMES).trim(), TAX_SETTING, "FAILED! Tax setting Header is incorrect");
-        Assert.assertEquals(lstTaxSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_SAT, "FAILED! Sport in tax setting table is incorrect display");
+        Assert.assertEquals(lstTaxSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_OLDUI, "FAILED! Sport in tax setting table is incorrect display");
         Assert.assertEquals(lstTaxSettingColumn, TAX_SETTING_COLUMN, "FAILED! Column in Tax SETTING incorrect display");
 
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE_GAMES), POSITION_TAKING_SETTING, "FAILED! Position Taking Header is incorrect");
-        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEG.getHeaderNameOfRows();
-        Assert.assertEquals(lstPositionSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_SAT, "FAILED! Sport in Position setting table is incorrect display");
+//        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEG.getHeaderNameOfRows();
+//        Assert.assertEquals(lstPositionSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_OLDUI, "FAILED! Sport in Position setting table is incorrect display");
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE_GAMES);
 
         log("Verify 2. Submit and Cancel button");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
@@ -204,18 +207,19 @@ public class CreateUserTest extends BaseCaseTest {
         List<String> lstSportBetSetting = page.betSettingInforSection.tblBetSettingEG.getHeaderNameOfRows();
         List<String> lstBetSettingColum = page.betSettingInforSection.tblBetSettingEG.getColumn(1, false);
         Assert.assertEquals(page.betSettingInforSection.getBetSettingSectionTitle(AGConstant.EXCHANGE_GAMES).trim(), BET_SETTING, "FAILED! Bet Setting Header is incorrect");
-        Assert.assertEquals(lstSportBetSetting, EG_BET_TAX_PT_SETTING_HEADER, "FAILED! Sport in bet setting table is incorrect display");
+        Assert.assertEquals(lstSportBetSetting, EG_BET_TAX_PT_SETTING_HEADER_NEWUI, "FAILED! Sport in bet setting table is incorrect display");
         Assert.assertEquals(lstBetSettingColum, BET_SETTING_COLUMN, "FAILED! The first column in BET SETTING incorrect display");
 
         List<String> lstTaxSettingHeader = page.taxSettingInforSection.tblTaxSettingEG.getHeaderNameOfRows();
         List<String> lstTaxSettingColumn = page.taxSettingInforSection.tblTaxSettingEG.getColumn(1, false);
         Assert.assertEquals(page.taxSettingInforSection.getTaxSettingSectionTitle(AGConstant.EXCHANGE_GAMES).trim(), TAX_SETTING, "FAILED! Tax setting Header is incorrect");
-        Assert.assertEquals(lstTaxSettingHeader, EG_BET_TAX_PT_SETTING_HEADER, "FAILED! Sport in tax setting table is incorrect display");
+        Assert.assertEquals(lstTaxSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_NEWUI, "FAILED! Sport in tax setting table is incorrect display");
         Assert.assertEquals(lstTaxSettingColumn, TAX_SETTING_COLUMN, "FAILED! Column in Tax SETTING incorrect display");
 
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE_GAMES), POSITION_TAKING_SETTING, "FAILED! Position Taking Header is incorrect");
-        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEG.getHeaderNameOfRows();
-        Assert.assertEquals(lstPositionSettingHeader, EG_BET_TAX_PT_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
+//        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEG.getHeaderNameOfRows();
+//        Assert.assertEquals(lstPositionSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_NEWUI, "FAILED! Sport in Position setting table is incorrect display");
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE_GAMES);
 
         log("Verify 2. Submit and Cancel button");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");

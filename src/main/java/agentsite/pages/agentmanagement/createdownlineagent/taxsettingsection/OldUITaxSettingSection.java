@@ -2,6 +2,12 @@ package agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection;
 
 import com.paltech.element.common.Label;
 import common.AGConstant;
+import org.testng.Assert;
+
+import java.util.ArrayList;
+
+import static common.AGConstant.AgencyManagement.CreateAccount.LST_TAX_SETTING_HEADER_OLDUI;
+import static common.AGConstant.AgencyManagement.CreateUser.EG_BET_TAX_PT_SETTING_HEADER_OLDUI;
 
 public class OldUITaxSettingSection extends TaxSettingSection {
     private Label lblTaxSettingTitleEX = Label.xpath("//div[@id='EXCHANGE-tax-settings']//div[text()='Tax Settings']");
@@ -13,6 +19,21 @@ public class OldUITaxSettingSection extends TaxSettingSection {
             return lblTaxSettingTitleEG.getText().trim();
         }
         return "";
+    }
+
+    public void verifyUIDisplayCorrect(String product) {
+        if(product.equalsIgnoreCase(AGConstant.EXCHANGE)) {
+            Assert.assertTrue(lblUplineEX.isDisplayed(), "FAILED! Upline label does not display");
+            Assert.assertTrue(lblTaxEX.isDisplayed(), "FAILED! Tax label does not display");
+            ArrayList<String> lstHeader = tblTaxSettingEX.getHeaderNameOfRows();
+            Assert.assertEquals(lstHeader, LST_TAX_SETTING_HEADER_OLDUI,"FAILED! List tax header does not display");
+        } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
+            Assert.assertTrue(lblUplineEG.isDisplayed(), "FAILED! Upline label does not display");
+            Assert.assertTrue(lblTaxEG.isDisplayed(), "FAILED! Tax label does not display");
+            ArrayList<String> lstHeader = tblTaxSettingEG.getHeaderNameOfRows();
+            Assert.assertEquals(lstHeader, EG_BET_TAX_PT_SETTING_HEADER_OLDUI,"FAILED! List tax header does not display");
+        }
+
     }
 
 }

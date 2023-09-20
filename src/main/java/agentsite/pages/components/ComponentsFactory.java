@@ -9,6 +9,9 @@ import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.CommissionSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.NewUIComissionSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.OldUIComissionSettingListing;
+import agentsite.pages.agentmanagement.createcompany.CreateCompany;
+import agentsite.pages.agentmanagement.createcompany.NewUICreateCompany;
+import agentsite.pages.agentmanagement.createcompany.OldUICreateCompany;
 import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.AccountBalanceTransferConditionInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.NewUIAccountBalanceTransferConditionSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.OldUIAccountBalanceTransferConditionSection;
@@ -21,6 +24,9 @@ import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.Old
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.CashBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.NewUICashBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.OldUICashBalanceSection;
+import agentsite.pages.agentmanagement.createdownlineagent.commissionsettingsection.CommissionSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.commissionsettingsection.NewUICommissionSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.commissionsettingsection.OldUICommissionSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.CreditBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.NewUICreditBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.OldUICreditBalanceSection;
@@ -84,6 +90,9 @@ import agentsite.pages.components.leftmenu.OldUILeftMenu;
 import agentsite.pages.components.quicksearch.NewUIQuickSearch;
 import agentsite.pages.components.quicksearch.OldUIQuickSearch;
 import agentsite.pages.components.quicksearch.QuickSearch;
+import agentsite.pages.marketsmanagement.liquiditythreshold.LiquidityThreshold;
+import agentsite.pages.marketsmanagement.liquiditythreshold.NewUILiquidityThreshold;
+import agentsite.pages.marketsmanagement.liquiditythreshold.OldUILiquidityThreshold;
 import agentsite.pages.report.TopGainersTopLosers.NewUITopGainersTopLosers;
 import agentsite.pages.report.TopGainersTopLosers.OldUITopGainersTopLosers;
 import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
@@ -112,6 +121,7 @@ public class ComponentsFactory {
                 return new NewUIHeader();
         }
     }
+
     public static QuickSearch quickSearchObject(String types) {
         switch (types) {
             case "satsport":
@@ -120,6 +130,7 @@ public class ComponentsFactory {
                 return new NewUIQuickSearch();
         }
     }
+
     public static AccountInforSection accInfoObject(String types) {
         switch (types) {
             case "satsport":
@@ -193,6 +204,15 @@ public class ComponentsFactory {
         }
     }
 
+    public static CommissionSettingSection commissionSettingInfoObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUICommissionSettingSection(types);
+            default:
+                return new NewUICommissionSettingSection(types);
+        }
+    }
+
     public static PositionTakingSection positionTakingInfoObject(String types) {
         switch (types) {
             case "satsport":
@@ -219,6 +239,7 @@ public class ComponentsFactory {
                 return new NewUICreditBalanceListing(types);
         }
     }
+
     public static DepositWithdraw depositWithdraw(String types) {
         switch (types) {
             case "satsport":
@@ -281,6 +302,7 @@ public class ComponentsFactory {
                 return new NewUIEditDownlineListing(types);
         }
     }
+
     public static TopGainersTopLosers topGainersTopLosers(String types) {
         switch (types) {
             case "satsport":
@@ -298,6 +320,7 @@ public class ComponentsFactory {
                 return new NewUIWinLossSimple();
         }
     }
+
     public static FollowBets followBets(String types) {
         switch (types) {
             case "satsport":
@@ -367,6 +390,24 @@ public class ComponentsFactory {
                 return new OldUIAnnouncement(types);
             default:
                 return new NewUIAnnouncement(types);
+        }
+    }
+
+    public static CreateCompany createCompanyPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUICreateCompany(types);
+            default:
+                return new NewUICreateCompany(types);
+        }
+    }
+
+    public static LiquidityThreshold liquidityThresholdPage(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUILiquidityThreshold();
+            default:
+                return new NewUILiquidityThreshold();
         }
     }
 }

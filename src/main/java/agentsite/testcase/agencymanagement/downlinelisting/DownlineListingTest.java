@@ -473,7 +473,7 @@ public class DownlineListingTest extends BaseCaseTest {
         Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
         Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
         Assert.assertEquals(page.betSettingInforSection.getBetSettingSectionTitle(AGConstant.EXCHANGE),AGConstant.AgencyManagement.CreateAccount.LBL_BET_SETTING,"FAILED! Bet Setting Section display incorrect");
-        Assert.assertFalse(page.positionTakingInforSection.tblPositionTakingEX.isDisplayed(),"FAILED! Position Taking Section is displayed");
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
         log("INFO: Executed completely");
     }
 

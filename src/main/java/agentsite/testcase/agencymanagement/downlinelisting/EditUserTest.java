@@ -32,7 +32,7 @@ public class EditUserTest extends BaseCaseTest {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(_brandname, userID, "PL");
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
@@ -62,7 +62,7 @@ public class EditUserTest extends BaseCaseTest {
         editDownLineAgentPage.accountInforSection.verifyUIDisplayedCorrect();
 
         log("Verify 2. Cash Balance");
-        Assert.assertEquals(editDownLineAgentPage.creditBalanceInforSection.lblCashBalanceTitle.getText().trim(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE, "FAILED! Cash Balance Title display incorrect");
+        Assert.assertEquals(editDownLineAgentPage.cashBalanceInforSection.getCashSectionTitle(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE, "FAILED! Cash Balance Title display incorrect");
 
         log("Verify 3. Product Setting, select Exchange product");
         Assert.assertEquals(editDownLineAgentPage.lblProductSetting.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING, "FAILED! Product Setting Section display incorrect");

@@ -2,9 +2,13 @@ package agentsite.pages.agentmanagement.createdownlineagent.betsettingsection;
 
 import com.paltech.element.common.Label;
 import common.AGConstant;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static common.AGConstant.AgencyManagement.CreateAccount.LST_BET_SETTING_HEADER;
+import static common.AGConstant.AgencyManagement.CreateUser.EG_BET_TAX_PT_SETTING_HEADER_NEWUI;
 
 public class NewUIBetSettingSection extends BetSettingSection {
     private Label lblBetSettingTitleEX = Label.xpath("//div[@id='EXCHANGE-bet-settings']//div[text()='Bet Settings ']");
@@ -30,4 +34,21 @@ public class NewUIBetSettingSection extends BetSettingSection {
         return betSettingValidateion;
     }
 
+    public void verifyUIDisplayCorrect(String product) {
+        if (product.equalsIgnoreCase(AGConstant.EXCHANGE)) {
+            Assert.assertTrue(lblMinBetEX.isDisplayed(), "FAILED! Min Bet label does not display");
+            Assert.assertTrue(lblMaxBetEX.isDisplayed(), "FAILED! Max Bet label does not display");
+            Assert.assertTrue(lblMaxLiabilityEX.isDisplayed(), "FAILED! Max Liability label does not display");
+            Assert.assertTrue(lblMaxWinEX.isDisplayed(), "FAILED! Max Win label does not display");
+            ArrayList<String> lstHeader = tblBetSettingEX.getHeaderList();
+            Assert.assertEquals(lstHeader, LST_BET_SETTING_HEADER);
+        } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
+            Assert.assertTrue(lblMinBetEG.isDisplayed(), "FAILED! Min Bet label does not display");
+            Assert.assertTrue(lblMaxBetEG.isDisplayed(), "FAILED! Max Bet label does not display");
+            Assert.assertTrue(lblMaxLiabilityEG.isDisplayed(), "FAILED! Max Liability label does not display");
+            Assert.assertTrue(lblMaxWinEG.isDisplayed(), "FAILED! Max Win label does not display");
+            ArrayList<String> lstHeader = tblBetSettingEG.getHeaderNameOfRows();
+            Assert.assertEquals(lstHeader, EG_BET_TAX_PT_SETTING_HEADER_NEWUI);
+        }
+    }
 }
