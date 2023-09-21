@@ -41,7 +41,7 @@ public class BetSettingListingTest extends BaseCaseTest {
      * 2. Update Status column display green check
      */
     @TestRails(id = "743")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1"})
     public void Agent_AM_Bet_Setting_Listing_743() {
         log("@title: Can update Min Bet, Max Bet, Max Liability per Market, Max Win per Market, for all sport of Exchange Product");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
@@ -51,28 +51,28 @@ public class BetSettingListingTest extends BaseCaseTest {
         BetSettingListingPage page = agentHomePage.navigateBetSettingListingPage();
 
         log("Step 2. Select All sport and  search  an PL account");
-        page.betSettingListing.search(loginID, "", "", "");
-        List<ArrayList<String>> lstActualData = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
+        page.search(loginID, "", "", "");
+        List<ArrayList<String>> lstActualData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
         double minBet = Double.parseDouble(lstActualData.get(0).get(9).replace(",","")) + 1;
         double maxBet = Double.parseDouble(lstActualData.get(1).get(1).replace(",","")) + 1;
         double maxLiabilityPerMarket = Double.parseDouble(lstActualData.get(2).get(1).replace(",","")) + 1;
         double maxWinPerMarket = Double.parseDouble(lstActualData.get(3).get(1).replace(",","")) + 1;
 
         log("Step 3. Select PL account then Input valid Min Bet, Max Bet, Max Liability per Market, Max Win per Market and click Submit button");
-        page.betSettingListing.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
-        List<ArrayList<String>> lstExpectedData = page.betSettingListing.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE, minBet, maxBet, maxLiabilityPerMarket, maxWinPerMarket);
+        page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
+        List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE, minBet, maxBet, maxLiabilityPerMarket, maxWinPerMarket);
         try {
-            page.betSettingListing.updateBetSetting(loginID, (int) minBet, (int) maxBet, (int) maxLiabilityPerMarket, (int) maxWinPerMarket);
-            lstActualData = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
+            page.updateBetSetting(loginID, (int) minBet, (int) maxBet, (int) maxLiabilityPerMarket, (int) maxWinPerMarket);
+            lstActualData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
 
             log("Verify 1. Min Bet, Max Bet, Max Liability per Market, Max Win per Market is update for all sports type : Soccer, Cricket, Tennis, Basketball, Fancy, Other");
             Assert.assertEquals(lstActualData, lstExpectedData, "FAILED! Expected not match with the actual");
 
             log("Verify 2. Update Status column display green check");
-            Assert.assertTrue(page.betSettingListing.verifyUpdateStatus(lstActualData, true, AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE), "FAILED! Green check not display on Update Status column");
+            Assert.assertTrue(page.verifyUpdateStatus(lstActualData, true, AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE), "FAILED! Green check not display on Update Status column");
             log("INFO: Executed completely");
         } finally {
-            page.betSettingListing.updateBetSetting(loginID, (int) minBet - 1, (int) maxBet - 1, (int) maxLiabilityPerMarket - 1, (int) maxWinPerMarket - 1);
+            page.updateBetSetting(loginID, (int) minBet - 1, (int) maxBet - 1, (int) maxLiabilityPerMarket - 1, (int) maxWinPerMarket - 1);
         }
 
     }
@@ -99,33 +99,33 @@ public class BetSettingListingTest extends BaseCaseTest {
         try {
             log("Step 2. Search PL account and Exchange Product");
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Soccer", true);
-            page.betSettingListing.search(loginID, "", "", "");
+            page.search(loginID, "", "", "");
 
-            List<ArrayList<String>> lstSetting = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
+            List<ArrayList<String>> lstSetting = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
             minBet = Double.parseDouble(lstSetting.get(0).get(9).replace(",","")) + 1;
 
             log("Step 3. Get current bet setting all sports");
-            List<ArrayList<String>> lstExpectedData = page.betSettingListing.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, minBet, -1, -1, -1);
+            List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, minBet, -1, -1, -1);
 
             log("Step 3.1 Select Soccer only");
-            page.betSettingListing.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
 
             log("Step 4.Input valid Min bet then click Update ");
-            page.betSettingListing.updateBetSetting(loginID, (int) minBet, -1, -1, -1);
+            page.updateBetSetting(loginID, (int) minBet, -1, -1, -1);
             log("Verify 4. Verify Update Status column display green check");
-            Assert.assertTrue(page.betSettingListing.verifyUpdateStatus(lstExpectedData, true, AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE), "FAILED! Green check not display on Update Status column");
+            Assert.assertTrue(page.verifyUpdateStatus(lstExpectedData, true, AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE), "FAILED! Green check not display on Update Status column");
 
             log("Step 5. Select All Sports");
-            page.betSettingListing.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
 
-            List<ArrayList<String>> lstActualData = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
+            List<ArrayList<String>> lstActualData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
             log("Verify 5. Verify Soccer Min bet is update correctly");
             Assert.assertEquals(lstActualData, lstExpectedData, "FAILED! Expected not match with the actual");
             log("INFO: Executed completely");
 
         } finally {
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Soccer", false);
-            page.betSettingListing.updateBetSetting(loginID, (int) minBet - 1, -1, -1, -1);
+            page.updateBetSetting(loginID, (int) minBet - 1, -1, -1, -1);
         }
 
     }
@@ -152,33 +152,33 @@ public class BetSettingListingTest extends BaseCaseTest {
         try {
             log("Step 2. Search PL account and Exchange Product");
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Soccer", true);
-            page.betSettingListing.search(loginID, "", "", "");
+            page.search(loginID, "", "", "");
 
-            List<ArrayList<String>> lstSetting = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
+            List<ArrayList<String>> lstSetting = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
             maxBet = Double.parseDouble(lstSetting.get(1).get(2).replace(",","")) + 1;
 
             log("Step 3. Get current bet setting all sports");
-            List<ArrayList<String>> lstExpectedData = page.betSettingListing.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, -1, maxBet, -1, -1);
+            List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, -1, maxBet, -1, -1);
 
             log("Step 3.1 Select Soccer only");
-            page.betSettingListing.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
 
             log("Step 4.Input valid Max bet then click Update ");
-            page.betSettingListing.updateBetSetting(loginID, -1, (int) maxBet, -1, -1);
+            page.updateBetSetting(loginID, -1, (int) maxBet, -1, -1);
             log("Verify 4. Verify Update Status column display green check");
-            Assert.assertTrue(page.betSettingListing.verifyUpdateStatus(lstExpectedData, true, AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE), "FAILED! Green check not display on Update Status column");
+            Assert.assertTrue(page.verifyUpdateStatus(lstExpectedData, true, AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE), "FAILED! Green check not display on Update Status column");
 
             log("Step 5. Select All Sports");
-            page.betSettingListing.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
 
-            List<ArrayList<String>> lstActualData = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            List<ArrayList<String>> lstActualData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
             log("Verify 5. Verify Soccer Max bet is update correctly");
             Assert.assertEquals(lstActualData, lstExpectedData, "FAILED! Expected not match with the actual");
             log("INFO: Executed completely");
 
         } finally {
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Soccer", false);
-            page.betSettingListing.updateBetSetting(loginID, -1, (int) maxBet - 1, -1, -1);
+            page.updateBetSetting(loginID, -1, (int) maxBet - 1, -1, -1);
         }
 
     }
@@ -205,33 +205,33 @@ public class BetSettingListingTest extends BaseCaseTest {
         try {
             log("Step 2. Search PL account and Exchange Product");
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Soccer", true);
-            page.betSettingListing.search(loginID, "", "", "");
+            page.search(loginID, "", "", "");
 
-            List<ArrayList<String>> lstSetting = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
+            List<ArrayList<String>> lstSetting = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
             maxLiability = Double.parseDouble(lstSetting.get(2).get(2).replace(",","")) + 1;
 
             log("Step 3. Get current bet setting all sports");
-            List<ArrayList<String>> lstExpectedData = page.betSettingListing.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, -1, -1, maxLiability, -1);
+            List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, -1, -1, maxLiability, -1);
 
             log("Step 3.1 Select Soccer only");
-            page.betSettingListing.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
 
             log("Step 4.Input valid max liability per market bet then click Update ");
-            page.betSettingListing.updateBetSetting(loginID, -1, -1, (int) maxLiability, -1);
+            page.updateBetSetting(loginID, -1, -1, (int) maxLiability, -1);
             log("Verify 4. Verify Update Status column display green check");
-            Assert.assertTrue(page.betSettingListing.verifyUpdateStatus(lstExpectedData, true, AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE), "FAILED! Green check not display on Update Status column");
+            Assert.assertTrue(page.verifyUpdateStatus(lstExpectedData, true, AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE), "FAILED! Green check not display on Update Status column");
 
             log("Step 5. Select All Sports");
-            page.betSettingListing.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
 
-            List<ArrayList<String>> lstActualData = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            List<ArrayList<String>> lstActualData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
             log("Verify 5. Verify Soccer max liability per market bet is update correctly");
             Assert.assertEquals(lstActualData, lstExpectedData, "FAILED! Expected not match with the actual");
             log("INFO: Executed completely");
 
         } finally {
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Soccer", false);
-            page.betSettingListing.updateBetSetting(loginID, -1, -1, (int) maxLiability - 1, -1);
+            page.updateBetSetting(loginID, -1, -1, (int) maxLiability - 1, -1);
         }
 
     }
@@ -248,33 +248,33 @@ public class BetSettingListingTest extends BaseCaseTest {
         try {
             log("Step 2. Search PL account and Exchange Product");
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Soccer", true);
-            page.betSettingListing.search(loginID, "", "", "");
+            page.search(loginID, "", "", "");
 
-            List<ArrayList<String>> lstSetting = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
+            List<ArrayList<String>> lstSetting = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
             maxWin = Double.parseDouble(lstSetting.get(2).get(2).replace(",","")) + 1;
 
             log("Step 3. Get current bet setting all sports");
-            List<ArrayList<String>> lstExpectedData = page.betSettingListing.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, -1, -1, -1, maxWin);
+            List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, -1, -1, -1, maxWin);
 
             log("Step 3.1 Select Soccer only");
-            page.betSettingListing.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
 
             log("Step 4.Input valid max win per market bet then click Update ");
-            page.betSettingListing.updateBetSetting(loginID, -1, -1, -1, (int) maxWin);
+            page.updateBetSetting(loginID, -1, -1, -1, (int) maxWin);
             log("Verify 4. Verify Update Status column display green check");
-            Assert.assertTrue(page.betSettingListing.verifyUpdateStatus(lstExpectedData, true, AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE), "FAILED! Green check not display on Update Status column");
+            Assert.assertTrue(page.verifyUpdateStatus(lstExpectedData, true, AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE), "FAILED! Green check not display on Update Status column");
 
             log("Step 5. Select All Sports");
-            page.betSettingListing.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
 
-            List<ArrayList<String>> lstActualData = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            List<ArrayList<String>> lstActualData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
             log("Verify 5. Verify Soccer max liability per market bet is update correctly");
             Assert.assertEquals(lstActualData, lstExpectedData, "FAILED! Expected not match with the actual");
             log("INFO: Executed completely");
 
         } finally {
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Soccer", false);
-            page.betSettingListing.updateBetSetting(loginID, -1, -1, -1, (int) maxWin - 1);
+            page.updateBetSetting(loginID, -1, -1, -1, (int) maxWin - 1);
         }
 
     }
@@ -302,15 +302,15 @@ public class BetSettingListingTest extends BaseCaseTest {
 
         try {
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Cricket", true);
-            page.betSettingListing.search(memberAccount, "", "", "");
-            page.betSettingListing.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
-            List<ArrayList<String>> lstExpectedData = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            page.search(memberAccount, "", "", "");
+            page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            List<ArrayList<String>> lstExpectedData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
             String min = lstExpectedData.get(0).get(8);
             String max = lstExpectedData.get(1).get(1);
             String maxLiabilyBeforeUpdate = lstExpectedData.get(2).get(1);
             int maxLiabilityOnMarket = (int) Double.parseDouble(min);
             lstExpectedData.get(2).set(1, StringUtils.formatCurrency(String.format("%.2f", (double) maxLiabilityOnMarket)));
-            page.betSettingListing.updateBetSetting(userCode, -1, -1, maxLiabilityOnMarket, -1);
+            page.updateBetSetting(userCode, -1, -1, maxLiabilityOnMarket, -1);
 
             log("Step 2.Login member site with the player  in step 1");
             loginMember(memberAccount, password);
@@ -361,17 +361,17 @@ public class BetSettingListingTest extends BaseCaseTest {
 
         try {
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Cricket", true);
-            page.betSettingListing.search(loginID, "", "", "");
-            page.betSettingListing.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
-            List<ArrayList<String>> lstExpectedData = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            page.search(loginID, "", "", "");
+            page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            List<ArrayList<String>> lstExpectedData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
             String min = lstExpectedData.get(3).get(1);
             String maxLiabilyBeforeUpdate = lstExpectedData.get(3).get(1);
             String max = lstExpectedData.get(3).get(2);
             int maxLiabilityOnMarket = Integer.valueOf(min);
             lstExpectedData.get(3).set(1, StringUtils.formatCurrency(String.format("%.2f", (double) maxLiabilityOnMarket)));
-            page.betSettingListing.updateBetSetting(loginID, -1, -1, maxLiabilityOnMarket, -1);
+            page.updateBetSetting(loginID, -1, -1, maxLiabilityOnMarket, -1);
 
-            List<ArrayList<String>> lstActualData = page.betSettingListing.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
+            List<ArrayList<String>> lstActualData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
 
             log("Step 2 Login member site with the player  in step 1");
             loginMember(memeberAccount, password);
@@ -478,21 +478,21 @@ public class BetSettingListingTest extends BaseCaseTest {
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
         BetSettingListingPage betSettingListingPage = agentHomePage.navigateBetSettingListingPage();
 
-        String lstSports = betSettingListingPage.betSettingListing.sportsRow.getText();
+        String lstSports = betSettingListingPage.sportsRow.getText();
 
         log("Verify 1. Validate UI on Bet Setting Listing display correctly");
-        Assert.assertEquals(betSettingListingPage.betSettingListing.lblTitlePage.getText(), AGConstant.HomePage.BET_SETTING_LISTING, "FAILED! Page title displays incorrectly");
-        Assert.assertTrue(betSettingListingPage.betSettingListing.txtUsername.isDisplayed(), "FAILED! Username textbox is not displayed");
-        Assert.assertTrue(betSettingListingPage.betSettingListing.ddbLevel.isDisplayed(), "FAILED! Level dropdown is not displayed");
-        Assert.assertTrue(betSettingListingPage.betSettingListing.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown is not displayed");
-        Assert.assertTrue(betSettingListingPage.betSettingListing.btnSubmit.isDisplayed(), "FAILED! Submit button is not displayed");
+        Assert.assertEquals(betSettingListingPage.lblTitlePage.getText(), AGConstant.HomePage.BET_SETTING_LISTING, "FAILED! Page title displays incorrectly");
+        Assert.assertTrue(betSettingListingPage.txtUsername.isDisplayed(), "FAILED! Username textbox is not displayed");
+        Assert.assertTrue(betSettingListingPage.ddbLevel.isDisplayed(), "FAILED! Level dropdown is not displayed");
+        Assert.assertTrue(betSettingListingPage.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown is not displayed");
+        Assert.assertTrue(betSettingListingPage.btnSubmit.isDisplayed(), "FAILED! Submit button is not displayed");
         Assert.assertTrue(lstSports.contains("Sport") && lstSports.contains("Select All") && lstSports.contains("Soccer") && lstSports.contains("Cricket")
                 && lstSports.contains("Tennis") && lstSports.contains("Basketball") && lstSports.contains("Fancy") && lstSports.contains("Other"), "FAILED! List Sports does not display correctly");
-        Assert.assertTrue(betSettingListingPage.betSettingListing.txtMinBet.isDisplayed(), "FAILED! Min bet textbox is not displayed");
-        Assert.assertTrue(betSettingListingPage.betSettingListing.txtMaxBet.isDisplayed(), "FAILED! Max bet textbox is not displayed");
-        Assert.assertTrue(betSettingListingPage.betSettingListing.txtMaxLiabilityPerMarket.isDisplayed(), "FAILED! Max Liability textbox is not displayed");
-        Assert.assertTrue(betSettingListingPage.betSettingListing.txtMaxWinPerMarket.isDisplayed(), "FAILED! Max Win Per Market textbox is not displayed");
-        Assert.assertTrue(betSettingListingPage.betSettingListing.tblDownline.isDisplayed(), "FAILED! Result table is not displayed");
+        Assert.assertTrue(betSettingListingPage.txtMinBet.isDisplayed(), "FAILED! Min bet textbox is not displayed");
+        Assert.assertTrue(betSettingListingPage.txtMaxBet.isDisplayed(), "FAILED! Max bet textbox is not displayed");
+        Assert.assertTrue(betSettingListingPage.txtMaxLiabilityPerMarket.isDisplayed(), "FAILED! Max Liability textbox is not displayed");
+        Assert.assertTrue(betSettingListingPage.txtMaxWinPerMarket.isDisplayed(), "FAILED! Max Win Per Market textbox is not displayed");
+        Assert.assertTrue(betSettingListingPage.tblDownline.isDisplayed(), "FAILED! Result table is not displayed");
         log("INFO: Executed completely");
     }
 
@@ -524,7 +524,7 @@ public class BetSettingListingTest extends BaseCaseTest {
         log("Step 2. Active Bet Setting Listing page");
         BetSettingListingPage betSettingListingPage = agentHomePage.navigateBetSettingListingPage();
         log("Step 3. Click on product dropdown and observe data");
-        List<String> lstProduct = betSettingListingPage.betSettingListing.ddbProduct.getOptions();
+        List<String> lstProduct = betSettingListingPage.ddbProduct.getOptions();
 
         log("Verify 3. Verify Exchange Game is not display");
         Assert.assertFalse(lstProduct.contains(EXCHANGE_GAMES), "FAILED! List product contain Exchange Games");

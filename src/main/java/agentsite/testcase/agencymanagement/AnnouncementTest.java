@@ -35,9 +35,9 @@ public class AnnouncementTest extends BaseCaseTest {
 
         log("Verify 1. Verify UI Announcement display correctly");
         Assert.assertEquals(page.header.lblPageTitle.getText(), ANNOUNCEMENT, "FAILED! Page title is incorrect display");
-        Assert.assertEquals(page.announcementPage.lblInfo.getText(), INFO, "FAILED! Info label is incorrect display");
-        Assert.assertEquals(page.announcementPage.btnAddAnnouncement.getText(), ADD_ANNOUNCEMENT, "FAILED! Add Annoucement is incorrect display");
-        Assert.assertTrue(page.announcementPage.tblAnnouncement.isDisplayed(), "FAILED! Annoucement table is not displayed ");
+        Assert.assertEquals(page.lblInfo.getText(), INFO, "FAILED! Info label is incorrect display");
+        Assert.assertEquals(page.btnAddAnnouncement.getText(), ADD_ANNOUNCEMENT, "FAILED! Add Annoucement is incorrect display");
+        Assert.assertTrue(page.tblAnnouncement.isDisplayed(), "FAILED! Annoucement table is not displayed ");
         log("INFO: Executed completely");
     }
 
@@ -51,23 +51,23 @@ public class AnnouncementTest extends BaseCaseTest {
 
         log("Step 2. Click on Add Announcement button");
         log("Step 3. Input Announcement message and click Save button");
-        page.announcementPage.addAnnouncement(announcementMsg);
+        page.addAnnouncement(announcementMsg);
 
         log("Verify 1. Verify announcement is successfully add");
-        Assert.assertTrue(page.announcementPage.isAnnouncementDisplay(announcementMsg), "FAILED! announcement does not display");
+        Assert.assertTrue(page.isAnnouncementDisplay(announcementMsg), "FAILED! announcement does not display");
 
         log("Step 4.Edit the announcement to a new message");
-        page.announcementPage.updateAnnoucement(announcementMsg, true, String.format("New Message %s", announcementMsg), "", "", "All");
+        page.updateAnnoucement(announcementMsg, true, String.format("New Message %s", announcementMsg), "", "", "All");
 
         log("Verify 2. Verify announcement is successfully updated");
-        Assert.assertTrue(page.announcementPage.isAnnouncementDisplay(String.format("New Message %s", announcementMsg)), "FAILED! announcement does not display");
+        Assert.assertTrue(page.isAnnouncementDisplay(String.format("New Message %s", announcementMsg)), "FAILED! announcement does not display");
 
         log("Step 5.Delete announcement");
-        String confirmMessage = page.announcementPage.deleteAnnouncement(String.format("New Message %s", announcementMsg), true);
+        String confirmMessage = page.deleteAnnouncement(String.format("New Message %s", announcementMsg), true);
 
         log("Verify 3. Verify a confirm message display and announcement is deleted after click on button");
         Assert.assertEquals(confirmMessage, "Are you sure you want to delete this announcement?", "FAILED! Confirm message not display correctly");
-        Assert.assertFalse(page.announcementPage.isAnnouncementDisplay(String.format("New Message %s", announcementMsg)), "FAILED! announcement display after delete");
+        Assert.assertFalse(page.isAnnouncementDisplay(String.format("New Message %s", announcementMsg)), "FAILED! announcement display after delete");
 
         log("INFO: Executed completely");
 
@@ -84,8 +84,8 @@ public class AnnouncementTest extends BaseCaseTest {
         String todate = DateUtils.getDate(2, "d/MMM/YYYY hh:mm", "GMT-4");
         try {
             log("Step 2. Add annoucement, active and set for a specific player and set available in today");
-            page.announcementPage.addAnnouncement(announcementMsg);
-            page.announcementPage.updateAnnoucement(announcementMsg, true, "", "", todate, memberAccount);
+            page.addAnnouncement(announcementMsg);
+            page.updateAnnoucement(announcementMsg, true, "", "", todate, memberAccount);
 
             log("Step 3 Login member site (SAT and /plus UI)");
             loginMember(memberAccount, password);
@@ -98,7 +98,7 @@ public class AnnouncementTest extends BaseCaseTest {
             loginAgent(username, password, true);
             page = agentHomePage.navigateAnnoucementPage();
             log("Step Postcondition: Delete announcement");
-            page.announcementPage.deleteAnnouncement(announcementMsg, true);
+            page.deleteAnnouncement(announcementMsg, true);
         }
 
         log("INFO: Executed completely");
@@ -115,8 +115,8 @@ public class AnnouncementTest extends BaseCaseTest {
         String todate = DateUtils.getDate(2, "d/MMM/YYYY hh:mm", "GMT-4");
         try {
             log("Step 2. Add announcement, set for a specific player and set from and to in today and inactive status");
-            page.announcementPage.addAnnouncement(announcementMsg);
-            page.announcementPage.updateAnnoucement(announcementMsg, false, "", "", todate, memberAccount);
+            page.addAnnouncement(announcementMsg);
+            page.updateAnnoucement(announcementMsg, false, "", "", todate, memberAccount);
 
             log("Step 3 Login member site (SAT and /plus UI)");
             loginMember(memberAccount, password);
@@ -129,7 +129,7 @@ public class AnnouncementTest extends BaseCaseTest {
             loginAgent(username, password, true);
             page = agentHomePage.navigateAnnoucementPage();
             log("Step Post-condition: Delete announcement");
-            page.announcementPage.deleteAnnouncement(announcementMsg, true);
+            page.deleteAnnouncement(announcementMsg, true);
         }
 
         log("INFO: Executed completely");
@@ -146,8 +146,8 @@ public class AnnouncementTest extends BaseCaseTest {
         String yesterday = DateUtils.getDate(-1, "d/MMM/YYYY hh:mm", "GMT-4");
         try {
             log("Step 2. Add announcement, active and set for a specific player and set from and to in yesterday");
-            page.announcementPage.addAnnouncement(announcementMsg);
-            page.announcementPage.updateAnnoucement(announcementMsg, true, "", yesterday, yesterday, memberAccount);
+            page.addAnnouncement(announcementMsg);
+            page.updateAnnoucement(announcementMsg, true, "", yesterday, yesterday, memberAccount);
 
             log("Step 3 Login member site (SAT and /plus UI)");
             loginMember(memberAccount, password);
@@ -160,7 +160,7 @@ public class AnnouncementTest extends BaseCaseTest {
             loginAgent(username, password, true);
             page = agentHomePage.navigateAnnoucementPage();
             log("Step Postcondition: Delete announcement");
-            page.announcementPage.deleteAnnouncement(announcementMsg, true);
+            page.deleteAnnouncement(announcementMsg, true);
         }
 
         log("INFO: Executed completely");

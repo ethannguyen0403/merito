@@ -5,7 +5,6 @@ import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.HomePage;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.marketsmanagement.liquiditythreshold.HistoryPopup;
-import agentsite.pages.marketsmanagement.liquiditythreshold.LiquidityThreshold;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
@@ -31,14 +30,20 @@ public class LiquidityThresholdPage extends HomePage {
     public Label lblBreadcrumb = Label.xpath("//span[@class='my-breadcrumb']//span[@class='downline']");
     public Table tblLiquidity = Table.xpath("//table[@class='ptable report']", 9);
     public Label lblTitle = Label.xpath("//div[@class='title']//label");
-    public LiquidityThreshold liquidityThreshold;
 
     public LiquidityThresholdPage(String types) {
         super(types);
         _type = types;
-        liquidityThreshold = ComponentsFactory.liquidityThresholdPage(_type);
     }
 
+    public void setLiquidityThreshold(String username, boolean isActive) {
+        boolean flag = isLiquidityStatusAsExpected(username, isActive);
+        if (!flag) {
+            Link lnlLiquidity = (Link) tblLiquidity.getControlBasedValueOfDifferentColumnOnRow(username, 1, colUsername, 1, null, colLiquidityThresholdStatus, "span[@class='slider round']", false, false);
+            lnlLiquidity.click();
+            waitingLoadingSpinner();
+        }
+    }
     public String getLiquidityThresholdTitle() {return lblTitle.getText().trim();}
 
     public void search(String username) {
@@ -51,14 +56,6 @@ public class LiquidityThresholdPage extends HomePage {
         }
     }
 
-    public void setLiquidityThreshold(String username, boolean isActive) {
-        boolean flag = isLiquidityStatusAsExpected(username, isActive);
-        if (!flag) {
-            Link lnlLiquidity = (Link) tblLiquidity.getControlBasedValueOfDifferentColumnOnRow(username, 1, colUsername, 1, null, colLiquidityThresholdStatus, "span[@class='slider round']", false, false);
-            lnlLiquidity.click();
-            waitingLoadingSpinner();
-        }
-    }
 
     public void clickOnUserLink(String username) {
         Link lnkUser = (Link) tblLiquidity.getControlBasedValueOfDifferentColumnOnRow(username, 1, colUsername, 1, null, colUsername, "span[contains(@class,'downline')]", false, false);
@@ -70,15 +67,18 @@ public class LiquidityThresholdPage extends HomePage {
     }
 
     public HistoryPopup openHistory(String username) {
-        Link lnkView = getHistoryLink(username);
-        if (Objects.nonNull(lnkView)) {
-            if (!lnkView.isDisplayed()) {
-                return null;
+        try {
+            Link lnkView = getHistoryLink(username);
+            if (Objects.nonNull(lnkView)) {
+                if (!lnkView.isDisplayed()) {
+                    return null;
+                }
+                lnkView.click();
+                return new HistoryPopup();
             }
-            lnkView.click();
-            return new HistoryPopup();
+        } catch (Exception e) {
+            return null;
         }
-
         return null;
     }
 
@@ -98,7 +98,7 @@ public class LiquidityThresholdPage extends HomePage {
         System.out.println("Open History popup to get status");
         HistoryPopup popup = openHistory(username);
         if (Objects.isNull(popup)) {
-            if (!isActiveStatus) {
+            if (isActiveStatus) {
                 return true;
             }
             return false;

@@ -1,6 +1,6 @@
 package agentsite.testcase.agencymanagement;
 
-import agentsite.pages.agentmanagement.createcompany.CreateCompany;
+import agentsite.pages.agentmanagement.CreateCompanyPage;
 import baseTest.BaseCaseTest;
 import common.AGConstant;
 import org.testng.Assert;
@@ -16,7 +16,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("@title: Validate UI in Create Downline Agent with Exchange Product setting");
         log("Precondition: Log in successfully by  PO");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateCompany page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
+        CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Verify 1. Validate Create Company UI when active Exchange product display correct");
         log("Verify Account Information section");
@@ -55,7 +55,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("@title: Validate Create Company UI when active Exchange Game product display correct");
         log("Precondition: Log in successfully by  PO");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateCompany page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
+        CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Step 2. Select Exchange Game Product");
         page.productStatusSettingInforSection.selectProduct(AGConstant.EXCHANGE_GAMES);
@@ -97,7 +97,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("@title: Validate Create Company UI when active Live Dealer Asian product display correct");
         log("Precondition: Log in successfully by  PO");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateCompany page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
+        CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Step 2. Select Live Dealer Asian Product");
         page.productStatusSettingInforSection.selectProduct(AGConstant.LIVE_DEALER_ASIAN);
@@ -136,7 +136,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("@title: Validate Create Company UI when active Live Dealer European product display correct");
         log("Precondition: Log in successfully by  PO");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateCompany page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
+        CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Step 2. Select Live Dealer Asian Product");
         page.productStatusSettingInforSection.selectProduct(AGConstant.LIVE_DEALER_EUROPEAN);
@@ -174,7 +174,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("@title: Validate Create Company UI when active Lottery and Slot product display correct");
         log("Precondition: Log in successfully by  PO");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateCompany page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
+        CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Step 2. Select Live Dealer Asian Product");
         page.accountInforSection.selectCurrency("INR");
@@ -214,7 +214,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("@title: Validate Product is enable based on selected currency");
         log("Precondition: Log in successfully by  PO");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateCompany page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
+        CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Step 2. Select INR currency");
         page.accountInforSection.selectCurrency("INR");

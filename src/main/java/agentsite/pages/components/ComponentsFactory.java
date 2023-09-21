@@ -1,17 +1,11 @@
 package agentsite.pages.components;
 
-import agentsite.pages.agentmanagement.announcement.Announcement;
-import agentsite.pages.agentmanagement.announcement.NewUIAnnouncement;
-import agentsite.pages.agentmanagement.announcement.OldUIAnnouncement;
 import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.NewUIBetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.CommissionSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.NewUIComissionSettingListing;
 import agentsite.pages.agentmanagement.commissionlisting.OldUIComissionSettingListing;
-import agentsite.pages.agentmanagement.createcompany.CreateCompany;
-import agentsite.pages.agentmanagement.createcompany.NewUICreateCompany;
-import agentsite.pages.agentmanagement.createcompany.OldUICreateCompany;
 import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.AccountBalanceTransferConditionInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.NewUIAccountBalanceTransferConditionSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.OldUIAccountBalanceTransferConditionSection;
@@ -90,9 +84,6 @@ import agentsite.pages.components.leftmenu.OldUILeftMenu;
 import agentsite.pages.components.quicksearch.NewUIQuickSearch;
 import agentsite.pages.components.quicksearch.OldUIQuickSearch;
 import agentsite.pages.components.quicksearch.QuickSearch;
-import agentsite.pages.marketsmanagement.liquiditythreshold.LiquidityThreshold;
-import agentsite.pages.marketsmanagement.liquiditythreshold.NewUILiquidityThreshold;
-import agentsite.pages.marketsmanagement.liquiditythreshold.OldUILiquidityThreshold;
 import agentsite.pages.report.TopGainersTopLosers.NewUITopGainersTopLosers;
 import agentsite.pages.report.TopGainersTopLosers.OldUITopGainersTopLosers;
 import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
@@ -384,30 +375,4 @@ public class ComponentsFactory {
         }
     }
 
-    public static Announcement announcementPage(String types) {
-        switch (types) {
-            case "satsport":
-                return new OldUIAnnouncement(types);
-            default:
-                return new NewUIAnnouncement(types);
-        }
-    }
-
-    public static CreateCompany createCompanyPage(String types) {
-        switch (types) {
-            case "satsport":
-                return new OldUICreateCompany(types);
-            default:
-                return new NewUICreateCompany(types);
-        }
-    }
-
-    public static LiquidityThreshold liquidityThresholdPage(String types) {
-        switch (types) {
-            case "satsport":
-                return new OldUILiquidityThreshold();
-            default:
-                return new NewUILiquidityThreshold();
-        }
-    }
 }
