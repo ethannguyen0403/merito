@@ -1,16 +1,24 @@
 package agentsite.pages.agentmanagement.betsettinglisting;
 
+import agentsite.pages.agentmanagement.BetSettingListingPage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
 public class NewUIBetSettingListing extends BetSettingListing {
+    private int soccerCol = 10;
+    private int cricketCol = 11;
+    private int tennisCol = 12;
+    private int basketballCol = 13;
+    private int fancyCol = 14;
+    private int otherCol = 15;
 
 
     public List<ArrayList<String>> defineActualDataForOneAccount(HashMap<String, Boolean> sportList, double minBet, double maxBet, double maxLiabilityPerMarket, double maxWinPerMarket) {
         // this function define data for an account
-        List<ArrayList<String>> lstExpectedData = getBetSettingofAccount(sportList);
+        List<ArrayList<String>> lstExpectedData = BetSettingListingPage.getBetSettingofAccount(sportList);
         if (minBet != -1) {
             if(sportList.get("Soccer")) {lstExpectedData.get(0).set(soccerCol - 7, String.format("%.2f", minBet));}
             if(sportList.get("Cricket")) {lstExpectedData.get(0).set(cricketCol - 7, String.format("%.2f", minBet));}
