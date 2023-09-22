@@ -1,6 +1,7 @@
 package agentsite.pages.agentmanagement.depositwithdrawal;
 
 import agentsite.controls.Table;
+import agentsite.pages.agentmanagement.DepositWithdrawalPage;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
@@ -9,7 +10,10 @@ import org.openqa.selenium.Keys;
 
 import java.util.*;
 
-public class OldUIDepositWithdraw extends DepositWithdraw{
+import static agentsite.pages.HomePage.waitingLoadingSpinner;
+import static agentsite.pages.agentmanagement.DepositWithdrawalPage.*;
+
+public class OldUIDepositWithdraw extends DepositWithdraw {
     int totalCol = 13;
     int colSubBalance = 9;
     int colTotalBalance = 8;
@@ -46,18 +50,25 @@ public class OldUIDepositWithdraw extends DepositWithdraw{
     }
 
     public void filter(String username, String accountStatus, String level) {
-        if (!username.isEmpty()) {
-            txtUsername.sendKeys(username);
-            txtUsername.sendSingleKey(Keys.ENTER);
-            waitingLoadingSpinner();
+        try {
+            if (!username.isEmpty()) {
+                txtUsername.sendKeys(username);
+                txtUsername.sendSingleKey(Keys.ENTER);
+                Thread.sleep(2000);
+            }
+            if (!accountStatus.isEmpty()) {
+                ddbAccountStatus.selectByVisibleText(accountStatus);
+                Thread.sleep(2000);
+            }
+            if (!level.isEmpty()) {
+                ddbLevel.selectByVisibleText(level);
+                Thread.sleep(2000);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+            e.getCause();
         }
-        if (!accountStatus.isEmpty()) {
-            ddbAccountStatus.selectByVisibleText(accountStatus);
-        }
-        if (!level.isEmpty()) {
-            ddbLevel.selectByVisibleText(level);
-        }
-//        waitingLoadingSpinner();
+
     }
 
     public Object action(DepositWithdraw.Actions type, int rowIndex) {
@@ -169,13 +180,13 @@ public class OldUIDepositWithdraw extends DepositWithdraw{
             if (Objects.nonNull(statusType)) {
                 switch (statusType) {
                     case SUCCESS_ICON:
-                        if (!(boolean) action(DepositWithdraw.Actions.SUCCESS_ICON, lstDownlineBefore.get(i).get(colUsername - 1))) {
+                        if (!(boolean) DepositWithdrawalPage.action(DepositWithdraw.Actions.SUCCESS_ICON, lstDownlineBefore.get(i).get(colUsername - 1))) {
                             System.out.println(String.format("FAILED! Expected update status of username %s not show Success as expected ", lstDownlineBefore.get(i).get(colUsername - 1)));
                             return false;
                         }
                         break;
                     case FAILURE_ICON:
-                        if (!(boolean) action(DepositWithdraw.Actions.FAILURE_ICON, lstDownlineBefore.get(i).get(colUsername - 1))) {
+                        if (!(boolean) DepositWithdrawalPage.action(DepositWithdraw.Actions.FAILURE_ICON, lstDownlineBefore.get(i).get(colUsername - 1))) {
                             System.out.println(String.format("FAILED! Expected update status of username %s not show Error as expected ", lstDownlineBefore.get(i).get(colUsername - 1)));
                             return false;
                         }
@@ -187,7 +198,7 @@ public class OldUIDepositWithdraw extends DepositWithdraw{
     }
 
     public boolean isUpdateStatusSuccess(String username) {
-        boolean result = (boolean) action(DepositWithdraw.Actions.SUCCESS_ICON, username);
+        boolean result = (boolean) DepositWithdrawalPage.action(DepositWithdraw.Actions.SUCCESS_ICON, username);
         System.out.println(String.format("Update status of username %s is %s", username, result));
         return result;
     }

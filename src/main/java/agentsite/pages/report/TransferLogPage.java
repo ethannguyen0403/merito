@@ -22,7 +22,6 @@ public class TransferLogPage extends HomePage {
     public int colUsername = 3;
     public int colLoginId = 4;
     public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]", tblReportTotalCol);
-    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
 
     public TransferLogPage(String types) {
         super(types);
@@ -37,8 +36,5 @@ public class TransferLogPage extends HomePage {
         waitingLoadingSpinner();
     }
 
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(1, 1);
-    }
 
 }

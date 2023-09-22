@@ -35,7 +35,6 @@ public class TransactionHistoryPage extends HomePage {
     public int colTax = 5;
     public int colDetails = 6;
     public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]", tblReportTotalCol);
-    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
     private String sportRows = "//td[contains(@class,'sportName')]";
     //private String competitionRow = "//tr[contains(@ng-repeat,'sport.competitions')]";
     private String competitionRow = "//tr[contains(@class,'ng-star-inserted')]";
@@ -155,9 +154,6 @@ public class TransactionHistoryPage extends HomePage {
         return true;
     }*/
 
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(1, 1);
-    }
 
 
 }

@@ -21,11 +21,11 @@ public class CreditBalanceListingTest extends BaseCaseTest {
 
         log("Step 2. Select an account and click on Edit icon");
         log("Step 3: Update valid Credit Given, Max Credit, Member Max Credit and click submit button");
-        page.creditBalanceListing.filter(memberAccount, "", "");
-        page.creditBalanceListing.updateCreditSetting(memberAccount, "1", "1", "1");
+        page.filter(memberAccount, "", "");
+        page.updateCreditSetting(memberAccount, "1", "1", "1");
 
         log("Verify 1. Validate Username display in the result table");
-        Assert.assertTrue(page.creditBalanceListing.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
+        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
 
         log("INFO: Executed completely");
     }
@@ -38,10 +38,10 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
 
         log("Step 2. Enter Username and click Submit button");
-        page.creditBalanceListing.filter(memberAccount, "", "");
+        page.filter(memberAccount, "", "");
 
         log("Verify 1. Validate Username display in the result table");
-        Assert.assertTrue(page.creditBalanceListing.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
+        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
 
         log("INFO: Executed completely");
     }
@@ -57,7 +57,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
 //        page.filter(memberAccount, "", "");
 //
 //        log("Verify 1. Validate Login ID display in the result table");
-//        Assert.assertTrue(page.creditBalanceListing.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
+//        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
 //
 //        log("INFO: Executed completely");
 //    }
@@ -71,10 +71,10 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
 
         log("Step 2. Enter Login ID and click Submit button");
-        page.creditBalanceListing.filter(memberAccount, "", "");
+        page.filter(memberAccount, "", "");
 
         log("Verify 1. Validate Login ID display in the result table");
-        Assert.assertTrue(page.creditBalanceListing.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
+        Assert.assertTrue(page.getRowIndexofUserName(memberAccount) != 0, "Failed! Cannot get login after searching");
 
         log("INFO: Executed completely");
     }
@@ -87,22 +87,22 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         log("Step 1. Navigate Agency Management > Credit Balance Listing");
         CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
         log("Step 2. Select an account and click on Edit icon");
-        page.creditBalanceListing.filter(memberAccount,"", "");
+        page.filter(memberAccount,"", "");
         log("Step 3. Update valid Credit Given, Max Credit, Member Max Credit and click submit button");
-        AccountInfo creditInfoBeforeUpdate = page.creditBalanceListing.getCreditInfoAccount(memberAccount);
+        AccountInfo creditInfoBeforeUpdate = page.getCreditInfoAccount(memberAccount);
         double updateCreditGiven = creditInfoBeforeUpdate.getCreditGiven() - 1;
         double updateMaxCredit = creditInfoBeforeUpdate.getMaxCredit() - 1;
         double updateMemberMaxCredit = creditInfoBeforeUpdate.getMemberMaxCredit() - 1;
         try{
-            page.creditBalanceListing.updateCreditSetting(memberAccount, String.format("%.2f", updateCreditGiven) , String.format("%.2f",updateMaxCredit), String.format("%.2f",updateMemberMaxCredit));
+            page.updateCreditSetting(memberAccount, String.format("%.2f", updateCreditGiven) , String.format("%.2f",updateMaxCredit), String.format("%.2f",updateMemberMaxCredit));
             log("Verify 1. Validate Credit Given, Max Credit, Member Max Credit are updated");
             page.waitingLoadingSpinner();
-            Assert.assertEquals(updateCreditGiven, page.creditBalanceListing.getCreditInfoAccount(memberAccount).getCreditGiven(),"Credit Given is not updated");
-            Assert.assertEquals(updateMaxCredit, page.creditBalanceListing.getCreditInfoAccount(memberAccount).getMaxCredit(),"Max Credit is not updated");
-            Assert.assertEquals(updateMemberMaxCredit, page.creditBalanceListing.getCreditInfoAccount(memberAccount).getMemberMaxCredit(),"Member Max Credit is not updated");
+            Assert.assertEquals(updateCreditGiven, page.getCreditInfoAccount(memberAccount).getCreditGiven(),"Credit Given is not updated");
+            Assert.assertEquals(updateMaxCredit, page.getCreditInfoAccount(memberAccount).getMaxCredit(),"Max Credit is not updated");
+            Assert.assertEquals(updateMemberMaxCredit, page.getCreditInfoAccount(memberAccount).getMemberMaxCredit(),"Member Max Credit is not updated");
         } finally {
             System.out.println("Credit Given, Max Credit, Member Max Credit update to old value");
-            page.creditBalanceListing.updateCreditSetting(memberAccount, String.format("%.2f",creditInfoBeforeUpdate.getCreditGiven()) , String.format("%.2f",creditInfoBeforeUpdate.getMaxCredit()),String.format("%.2f",creditInfoBeforeUpdate.getMemberMaxCredit()));
+            page.updateCreditSetting(memberAccount, String.format("%.2f",creditInfoBeforeUpdate.getCreditGiven()) , String.format("%.2f",creditInfoBeforeUpdate.getMaxCredit()),String.format("%.2f",creditInfoBeforeUpdate.getMemberMaxCredit()));
         }
         log("INFO: Executed completely");
     }
@@ -114,15 +114,15 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         log("@title: Validate player balance is correct after update credit in agent");
         log("Step 1. Navigate Agency Management > Transfer");
         CreditBalanceListingPage page = agentHomePage.navigateCreditBalanceListingPage(environment.getSecurityCode());
-        page.creditBalanceListing.filter(memberAccount, "", "");
-        AccountInfo creditInfoBeforeUpdate = page.creditBalanceListing.getCreditInfoAccount(memberAccount);
+        page.filter(memberAccount, "", "");
+        AccountInfo creditInfoBeforeUpdate = page.getCreditInfoAccount(memberAccount);
         double updateCredit = creditInfoBeforeUpdate.getCreditGiven() - 1;
 
         log("Step 2 Transfer an amount for a player");
         log("Step 3. Update valid Credit Given");
-        page.creditBalanceListing.updateCreditSetting(memberAccount, String.format("%.2f", updateCredit), "", "");
+        page.updateCreditSetting(memberAccount, String.format("%.2f", updateCredit), "", "");
 
-        AccountInfo creditInfoAftereUpdate = page.creditBalanceListing.getCreditInfoAccount(memberAccount);
+        AccountInfo creditInfoAftereUpdate = page.getCreditInfoAccount(memberAccount);
         double userBalanceinAgent = creditInfoAftereUpdate.getAvailableBalance();
 
         log("Step 3 Login member site");

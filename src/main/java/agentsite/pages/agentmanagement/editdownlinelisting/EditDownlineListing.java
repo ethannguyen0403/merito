@@ -5,16 +5,11 @@ import com.paltech.element.common.*;
 import java.util.List;
 
 public class EditDownlineListing extends DownLineListingPage {
-    Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     protected Button btnClosePopup = Button.xpath("//app-agency-edit//button[@class='close']");
     public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@id='submitBtn']");
     public Button btnCancel = Button.xpath("//div[@class='paction']/button[@id='cancelBtn']");
     public EditDownlineListing(String types) {
         super(types);
-    }
-
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(2, 2);
     }
 
     public void inputInfoSection(String password, String accountStatus, String firstName, String lastName, String phone, String mobile, String fax, boolean isSubmit) {

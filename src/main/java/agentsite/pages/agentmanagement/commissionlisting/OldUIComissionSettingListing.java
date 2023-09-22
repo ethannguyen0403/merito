@@ -5,7 +5,9 @@ import org.testng.Assert;
 
 import java.util.ArrayList;
 
-public class OldUIComissionSettingListing extends CommissionSettingListing{
+import static agentsite.pages.agentmanagement.CommissionSettingListingPage.tblAgentCommission;
+
+public class OldUIComissionSettingListing extends CommissionSettingListing {
 
     public void verifyTableHeaderDisplayCorrect(String product) {
         ArrayList<String> lstHeader = tblAgentCommission.getHeaderNameOfRows();

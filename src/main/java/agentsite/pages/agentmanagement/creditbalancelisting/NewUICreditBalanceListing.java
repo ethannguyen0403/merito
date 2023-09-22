@@ -1,6 +1,8 @@
-package agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting;
+package agentsite.pages.agentmanagement.creditbalancelisting;
 
 import agentsite.objects.agent.account.AccountInfo;
+import static agentsite.pages.agentmanagement.CreditBalanceListingPage.getRowIndexofUserName;
+import static agentsite.pages.agentmanagement.CreditBalanceListingPage.tblAccountList;
 
 public class NewUICreditBalanceListing extends CreditBalanceListing {
 
@@ -8,11 +10,6 @@ public class NewUICreditBalanceListing extends CreditBalanceListing {
     int colMaxCredit = 18;
     int colMemberMaxCredit = 19;
     int colVailabaleBalance = 20;
-
-    public NewUICreditBalanceListing(String types) {
-        super(types);
-    }
-
 
     public AccountInfo getCreditInfoAccount(String userName) {
         int i = getRowIndexofUserName(userName);
