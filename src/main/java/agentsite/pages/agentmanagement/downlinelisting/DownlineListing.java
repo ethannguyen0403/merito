@@ -10,7 +10,6 @@ import java.util.List;
 
 
 public class DownlineListing extends CreateDownLineAgentPage {
-    Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
 
     public TextBox txtLoginID = TextBox.id("username");
@@ -33,10 +32,6 @@ public class DownlineListing extends CreateDownLineAgentPage {
 
     public DownlineListing(String types) {
         super(types);
-    }
-
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(2, 4);
     }
 
     public void searchDownline(String loginId, String accountStatus, String level) {
@@ -85,14 +80,6 @@ public class DownlineListing extends CreateDownLineAgentPage {
 
     public void submitEditDownline() {
     }
-
-//    public void confirmSecurityCode(String securityCode) {
-//        if (securityPopup.isDisplayed()) {
-//            if (!securityCode.isEmpty()) {
-//                securityPopup.submitSecurityCode(securityCode);
-//            }
-//        }
-//    }
 
     public String getMessageUpdate(boolean isClose) {
         SuccessPopup successPopup;

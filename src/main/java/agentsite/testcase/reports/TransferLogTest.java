@@ -55,8 +55,8 @@ public class TransferLogTest extends BaseCaseTest {
 
         log("Step 1. Get View Log info");
         page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
-        page.depositWithdraw.deposit(userCode, "1", "Deposit 1 auto script " + com.paltech.utils.StringUtils.generateString("Auto", 6), true, true);
-        ViewLogPopup popup = (ViewLogPopup) page.depositWithdraw.action(DepositWithdraw.Actions.VIEW_LOG, userCode);
+        page.deposit(userCode, "1", "Deposit 1 auto script " + com.paltech.utils.StringUtils.generateString("Auto", 6), true, true);
+        ViewLogPopup popup = (ViewLogPopup) page.action(DepositWithdraw.Actions.VIEW_LOG, userCode);
         List<ArrayList<String>> log = popup.tblLog.getRowsWithoutHeader(1, false);
         List<ArrayList<String>> expectedData = popup.defineTransferLogbyViewLogData(log);
         popup.closePopup();

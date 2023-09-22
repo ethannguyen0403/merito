@@ -22,9 +22,6 @@ public class BetSettingListingPage extends HomePage {
     private static int chbCol = 6;
     private int updateStatusCol = 16;
     public int usernameCol = 2;
-    private String successIcon = "//span[contains(@class,'psuccess')]";
-    private String errorIcon = "//span[contains(@class,'perror')]";
-
     public static Table tblDownline = Table.xpath("//table[contains(@class,'ptable report')]", totalColum);
     public TextBox txtMinBet = TextBox.xpath("(//table[@class='ptable info search-region']//input)[1]");
     public TextBox txtMaxBet = TextBox.xpath("(//table[@class='ptable info search-region']//input)[2]");

@@ -31,7 +31,6 @@ public class PositionTakingReportPage extends HomePage {
     public String competitionRow = "//table[contains(@class,'ptable report')]//tbody/tr[contains(@ng-repeat,'competition')]";
     public Label lblNoRecord = Label.xpath("//td[contains(@class,'noRecord')]");
     public Label lblYouCanSeeReportData = Label.xpath("//span[@class='pinfo']/following-sibling::label");
-    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
 
     public PositionTakingReportPage(String types) {
         super(types);
@@ -87,7 +86,4 @@ public class PositionTakingReportPage extends HomePage {
         return new PositionTakingDetailPopup();
     }
 
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(1, 1);
-    }
 }

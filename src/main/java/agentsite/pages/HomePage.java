@@ -24,8 +24,10 @@ public class HomePage extends LoginPage {
     public QuickSearch quickSearch;
     public int colName = 1;
     public int colValue = 2;
+    protected String successIcon = "//span[contains(@class,'psuccess')]";
+    protected String errorIcon = "//span[contains(@class,'perror')]";
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
-    Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
+    static Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     private int totalCol = 2;
     Table tblSMAInfo = Table.xpath("//table[@class='ptable report ng-scope']", totalCol);
     public HomePage(String types) {
@@ -351,7 +353,7 @@ public class HomePage extends LoginPage {
         return new WinLossSimplePage(_type);
     }
 
-    public void waitingLoadingSpinner() {
+    public static void waitingLoadingSpinner() {
         iconLoadSpinner.waitForControlInvisible(2, 2);
     }
 

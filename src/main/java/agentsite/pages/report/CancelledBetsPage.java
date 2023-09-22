@@ -31,7 +31,6 @@ public class CancelledBetsPage extends HomePage {
     public int colStatus = 9;
     public int colRemark = 10;
     public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]", tblReportTotalCol);
-    private Icon iconLoadSpinner = Icon.xpath("//d  iv[contains(@class,'la-ball-clip-rotate')]");
 
     public CancelledBetsPage(String types) {
         super(types);
@@ -49,9 +48,6 @@ public class CancelledBetsPage extends HomePage {
         waitingLoadingSpinner();
     }
 
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(1, 1);
-    }
 
 
 }

@@ -45,9 +45,9 @@ import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsectio
 import agentsite.pages.agentmanagement.createuser.CreateUser;
 import agentsite.pages.agentmanagement.createuser.NewUICreateUser;
 import agentsite.pages.agentmanagement.createuser.OldUICreateUser;
-import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.CreditBalanceListing;
-import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.NewUICreditBalanceListing;
-import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.OldUICreditBalanceListing;
+import agentsite.pages.agentmanagement.creditbalancelisting.CreditBalanceListing;
+import agentsite.pages.agentmanagement.creditbalancelisting.NewUICreditBalanceListing;
+import agentsite.pages.agentmanagement.creditbalancelisting.OldUICreditBalanceListing;
 import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.NewUIDepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.OldUIDepositWithdraw;
@@ -225,9 +225,9 @@ public class ComponentsFactory {
     public static CreditBalanceListing creditBalanceListing(String types) {
         switch (types) {
             case "satsport":
-                return new OldUICreditBalanceListing(types);
+                return new OldUICreditBalanceListing();
             default:
-                return new NewUICreditBalanceListing(types);
+                return new NewUICreditBalanceListing();
         }
     }
 

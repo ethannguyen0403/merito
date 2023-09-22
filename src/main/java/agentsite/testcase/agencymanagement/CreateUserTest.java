@@ -236,7 +236,7 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("2. Left Login ID empty and click on submit button");
-        page.createUserPage.createUser("", "123rraqt");
+        page.createUser("", "123rraqt");
 
         log("Verify 1. Message \"Login ID is required.\" display next to Cancel button");
         Assert.assertEquals(page.lblErrorMsg.getText(), LBL_LOGINID_REQUIRED, String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_LOGINID_REQUIRED, page.lblErrorMsg.getText()));
@@ -253,7 +253,7 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("2. Left Password empty and click on submit button");
-        page.createUserPage.createUser(loginId, "");
+        page.createUser(loginId, "");
 
         log("Verify 1. Message \"Password is required.\" display next to Cancel button");
         Assert.assertEquals(page.lblErrorMsg.getText(), LBL_PASSWORD_REQUIRED, String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_REQUIRED, page.lblErrorMsg.getText()));
@@ -335,7 +335,7 @@ public class CreateUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step  2. Input correct Login ID and incorrect password format");
-        page.createUserPage.createUser(loginId, password);
+        page.createUser(loginId, password);
 
         log("Verified 1. Message \"Password is invalid.\" display next to Cancel button");
         Assert.assertTrue(page.lblErrorMsg.getText().contains(AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID),String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID, page.lblErrorMsg.getText()));
@@ -364,7 +364,7 @@ public class CreateUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 2. Input Login ID that exist in the system and correct password then click submit");
-        page.createUserPage.createUser(memberAccount,password);
+        page.createUser(memberAccount,password);
 
         log("Verified  1. Popup Create Downline with the message \"User code exists.\"");
         Assert.assertEquals(page.successPopup.getContentMessage(), AGConstant.AgencyManagement.CreateUser.LBL_LOGINID_EXIST,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_LOGINID_EXIST,page.successPopup.getContentMessage()));
@@ -481,7 +481,7 @@ public class CreateUserTest extends BaseCaseTest {
 
         log("Step 3. Input First Time Deposit value greater than the required value");
         String defineFirstTimeDepositValue = String.format("%.2f",page.creditBalanceInforSection.getCreditLimit(currency) + 1);
-        page.createUserPage.createUserWithDeposit("autoId", password,"",defineFirstTimeDepositValue);
+        page.createUserWithDeposit("autoId", password,"",defineFirstTimeDepositValue);
 
         log("Verified  1. For Credit Cash line, display the message \"Balance Deposit is invalid.\"");
         Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_BALANCE_DEPOSIT_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_BALANCE_DEPOSIT_INVALID, page.lblErrorMsg.getText()));
@@ -513,11 +513,11 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Step 2. Input required field and click on Submit button");
-        String loginID = page.createUserPage.createUser(loginId,passwordDecrypt);
+        String loginID = page.createUser(loginId,passwordDecrypt);
 
         log("Verify 1. Popup Create Downline with the message \"Downline was created successfully\"");
         Assert.assertTrue(page.successPopup.isDisplayed(),"FAILED! Success popup does not display after create user");
-        Assert.assertTrue(page.createUserPage.isCreateUserSuccessCorrect(),"FAILED! Success message after create user is incorrect");
+        Assert.assertTrue(page.isCreateUserSuccessCorrect(),"FAILED! Success message after create user is incorrect");
 
         log("Verify 2. Validate the popup is disappear when click on OK button");
         page.successPopup.close();
