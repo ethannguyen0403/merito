@@ -9,7 +9,10 @@ import com.paltech.element.common.Link;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
+import static common.AGConstant.HomePage.PRODUCTS_LIST;
 
 public class ProductStatusSettingSection {
     private int totalSportCol = 40;
@@ -65,6 +68,19 @@ public class ProductStatusSettingSection {
         boolean isCheck = chbProduct.isSelected();
         if (!isCheck == isActive)
             chbProduct.click();
+    }
+    public void updateProducts(Map<String, Boolean> products) {
+        CheckBox chbProduct;
+        for (String product: PRODUCTS_LIST
+             ) {
+            if(products.containsKey(product))
+            {
+                chbProduct = CheckBox.xpath(String.format(cbProdudctXpath, product));
+                boolean isCheck = chbProduct.isSelected();
+                if(!isCheck == products.get(product))
+                    chbProduct.click();
+            }
+        }
     }
 
     public void selectProduct(String productName) {

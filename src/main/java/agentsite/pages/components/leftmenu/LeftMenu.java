@@ -12,7 +12,7 @@ public class LeftMenu {
     public Label lblLoginID = Label.xpath("//p[contains(@class,'usercode')]");
     public Button tabMainMenu = Button.xpath("//app-left-menu//div[@class='menu-mode-container']//button[1]");
     public Button tabQuickSearch = Button.xpath("//app-left-menu//div[@class='menu-mode-container']//button[2]");
-    public LefMenuList leftMenuList = LefMenuList.xpath("//div[@class='leftmenu']/div[3]");
+    public LefMenuList leftMenuList = LefMenuList.xpath("//div[@class='leftmenu']");
 
     public String getConfigureOTP() {
         return "";

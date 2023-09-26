@@ -18,6 +18,9 @@ import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.SuccessPopup;
 import com.paltech.element.common.*;
 
+import java.util.List;
+import java.util.Map;
+
 public class CreateDownLineAgentPage extends HomePage {
 
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
@@ -39,7 +42,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label lblEGTaxSettings = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']/div[@class='psection']");
     public Label lblPositionTakingListing = Label.xpath("//div[@id='EXCHANGE-position-taking']/div[@class='psection']");
     public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[@class='psection']");
-    public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
+    public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@id='submitBtn']");
     public Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
     public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg']");
 
@@ -114,6 +117,18 @@ public class CreateDownLineAgentPage extends HomePage {
 
     public String activeProduct(String productName, boolean isClose) {
         productStatusSettingInforSection.updateProduct(productName,true);
+        btnSubmit.click();
         return getMessageUpdate(isClose);
+    }
+    public String inActiveProduct(String productName, boolean isClose) {
+        productStatusSettingInforSection.updateProduct(productName,false);
+        btnSubmit.click();
+        return getMessageUpdate(isClose);
+    }
+
+    public void updateProducts(Map<String, Boolean> products){
+        productStatusSettingInforSection.updateProducts(products);
+        btnSubmit.click();
+        getMessageUpdate(true);
     }
 }
