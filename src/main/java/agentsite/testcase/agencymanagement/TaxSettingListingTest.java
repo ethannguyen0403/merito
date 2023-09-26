@@ -1,10 +1,8 @@
 package agentsite.testcase.agencymanagement;
 
-import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.DownLineListingPage;
 import agentsite.pages.agentmanagement.EditDownLinePage;
 import agentsite.pages.agentmanagement.TaxSettingListingPage;
-import agentsite.pages.agentmanagement.taxsettinglisting.TaxSettingListing;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
@@ -15,11 +13,14 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static common.AGConstant.EXCHANGE;
 import static common.AGConstant.EXCHANGE_GAMES;
-import static common.AGConstant.HomePage.*;
+import static common.AGConstant.HomePage.AGENCY_MANAGEMENT;
+import static common.AGConstant.HomePage.TAX_SETTING_LISTING;
 
 
 public class TaxSettingListingTest extends BaseCaseTest {
@@ -243,9 +244,11 @@ public class TaxSettingListingTest extends BaseCaseTest {
         TaxSettingListingPage taxSettingListingPage = agentHomePage.navigateTaxSettingListingPage();
         List<String> products = taxSettingListingPage.getProducts();
 
+
         log("Step 3: Click on product dropdown");
         log("Verify: Verify Exchange Game is not display");
         Assert.assertFalse(products.contains(EXCHANGE_GAMES), "FAILED, Exchange Game should not display");
+
         log("INFO: Executed completely");
     }
 }
