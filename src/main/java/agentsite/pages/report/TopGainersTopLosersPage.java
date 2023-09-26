@@ -23,7 +23,6 @@ public class TopGainersTopLosersPage extends HomePage {
     public Table tblTopGainers = Table.xpath("(//table[contains(@class,'table-sm')])[1]", 6);
     public Table tblTopLoser = Table.xpath("(//table[contains(@class,'table-sm')])[2]", 6);
     public Table tblBigStake = Table.xpath("(//table[contains(@class,'table-sm')])[3]", 6);
-    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
 
     public TopGainersTopLosers topGainersTopLosers;
 
@@ -32,9 +31,6 @@ public class TopGainersTopLosersPage extends HomePage {
         topGainersTopLosers = ComponentsFactory.topGainersTopLosers(types);
     }
 
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(1, 1);
-    }
     public void search(String fromday, String today, String product){
         if (!fromday.isEmpty()){
             dpFrom.selectDate(fromday, "yyyy-MM-dd");

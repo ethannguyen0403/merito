@@ -1,12 +1,16 @@
 package agentsite.pages.agentmanagement.depositwithdrawal;
 
+import agentsite.pages.agentmanagement.DepositWithdrawalPage;
 import backoffice.controls.bo.StaticTable;
 import com.paltech.element.common.*;
 import com.paltech.utils.DoubleUtils;
 
 import java.util.*;
 
-public class NewUIDepositWithdraw extends DepositWithdraw{
+import static agentsite.pages.HomePage.waitingLoadingSpinner;
+import static agentsite.pages.agentmanagement.DepositWithdrawalPage.*;
+
+public class NewUIDepositWithdraw extends DepositWithdraw {
     private Label lblLoginAccountAvailableBalance = Label.xpath("//span[@class='creditBalanceextension']");
     private Label lblUsername = Label.xpath("//label[@for='userName']");
     private Label lblAccountStatus = Label.xpath("//label[@for='status']");
@@ -156,13 +160,13 @@ public class NewUIDepositWithdraw extends DepositWithdraw{
             if (Objects.nonNull(statusType)) {
                 switch (statusType) {
                     case SUCCESS_ICON:
-                        if (!(boolean) action(DepositWithdraw.Actions.SUCCESS_ICON, lstDownlineBefore.get(i).get(colUsername - 1))) {
+                        if (!(boolean) DepositWithdrawalPage.action(DepositWithdraw.Actions.SUCCESS_ICON, lstDownlineBefore.get(i).get(colUsername - 1))) {
                             System.out.println(String.format("FAILED! Expected update status of username %s not show Success as expected ", lstDownlineBefore.get(i).get(colUsername - 1)));
                             return false;
                         }
                         break;
                     case FAILURE_ICON:
-                        if (!(boolean) action(DepositWithdraw.Actions.FAILURE_ICON, lstDownlineBefore.get(i).get(colUsername - 1))) {
+                        if (!(boolean) DepositWithdrawalPage.action(DepositWithdraw.Actions.FAILURE_ICON, lstDownlineBefore.get(i).get(colUsername - 1))) {
                             System.out.println(String.format("FAILED! Expected update status of username %s not show Error as expected ", lstDownlineBefore.get(i).get(colUsername - 1)));
                             return false;
                         }
@@ -174,7 +178,7 @@ public class NewUIDepositWithdraw extends DepositWithdraw{
     }
 
     public boolean isUpdateStatusSuccess(String username) {
-        boolean result = (boolean) action(DepositWithdraw.Actions.SUCCESS_ICON, username);
+        boolean result = (boolean) DepositWithdrawalPage.action(DepositWithdraw.Actions.SUCCESS_ICON, username);
         System.out.println(String.format("Update status of username %s is %s", username, result));
         return result;
     }

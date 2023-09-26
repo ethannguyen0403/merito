@@ -1,8 +1,5 @@
 package agentsite.pages.components;
 
-import agentsite.pages.agentmanagement.announcement.Announcement;
-import agentsite.pages.agentmanagement.announcement.NewUIAnnouncement;
-import agentsite.pages.agentmanagement.announcement.OldUIAnnouncement;
 import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.NewUIBetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
@@ -21,6 +18,9 @@ import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.Old
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.CashBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.NewUICashBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.OldUICashBalanceSection;
+import agentsite.pages.agentmanagement.createdownlineagent.commissionsettingsection.CommissionSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.commissionsettingsection.NewUICommissionSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.commissionsettingsection.OldUICommissionSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.CreditBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.NewUICreditBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.OldUICreditBalanceSection;
@@ -45,9 +45,9 @@ import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsectio
 import agentsite.pages.agentmanagement.createuser.CreateUser;
 import agentsite.pages.agentmanagement.createuser.NewUICreateUser;
 import agentsite.pages.agentmanagement.createuser.OldUICreateUser;
-import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.CreditBalanceListing;
-import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.NewUICreditBalanceListing;
-import agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting.OldUICreditBalanceListing;
+import agentsite.pages.agentmanagement.creditbalancelisting.CreditBalanceListing;
+import agentsite.pages.agentmanagement.creditbalancelisting.NewUICreditBalanceListing;
+import agentsite.pages.agentmanagement.creditbalancelisting.OldUICreditBalanceListing;
 import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.NewUIDepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.OldUIDepositWithdraw;
@@ -112,6 +112,7 @@ public class ComponentsFactory {
                 return new NewUIHeader();
         }
     }
+
     public static QuickSearch quickSearchObject(String types) {
         switch (types) {
             case "satsport":
@@ -120,6 +121,7 @@ public class ComponentsFactory {
                 return new NewUIQuickSearch();
         }
     }
+
     public static AccountInforSection accInfoObject(String types) {
         switch (types) {
             case "satsport":
@@ -193,6 +195,15 @@ public class ComponentsFactory {
         }
     }
 
+    public static CommissionSettingSection commissionSettingInfoObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUICommissionSettingSection(types);
+            default:
+                return new NewUICommissionSettingSection(types);
+        }
+    }
+
     public static PositionTakingSection positionTakingInfoObject(String types) {
         switch (types) {
             case "satsport":
@@ -214,11 +225,12 @@ public class ComponentsFactory {
     public static CreditBalanceListing creditBalanceListing(String types) {
         switch (types) {
             case "satsport":
-                return new OldUICreditBalanceListing(types);
+                return new OldUICreditBalanceListing();
             default:
-                return new NewUICreditBalanceListing(types);
+                return new NewUICreditBalanceListing();
         }
     }
+
     public static DepositWithdraw depositWithdraw(String types) {
         switch (types) {
             case "satsport":
@@ -281,6 +293,7 @@ public class ComponentsFactory {
                 return new NewUIEditDownlineListing(types);
         }
     }
+
     public static TopGainersTopLosers topGainersTopLosers(String types) {
         switch (types) {
             case "satsport":
@@ -298,6 +311,7 @@ public class ComponentsFactory {
                 return new NewUIWinLossSimple();
         }
     }
+
     public static FollowBets followBets(String types) {
         switch (types) {
             case "satsport":
@@ -361,12 +375,4 @@ public class ComponentsFactory {
         }
     }
 
-    public static Announcement announcementPage(String types) {
-        switch (types) {
-            case "satsport":
-                return new OldUIAnnouncement(types);
-            default:
-                return new NewUIAnnouncement(types);
-        }
-    }
 }

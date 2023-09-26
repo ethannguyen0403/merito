@@ -6,6 +6,7 @@ import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransfe
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.BetSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.CashBalanceSection;
+import agentsite.pages.agentmanagement.createdownlineagent.commissionsettingsection.CommissionSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.CreditBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.positiontakingsection.PositionTakingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.ProductStatusSettingSection;
@@ -57,6 +58,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public AccountBalanceTransferConditionInforSection accountBalanceTransferConditionInforSection;
     public PositionTakingSection positionTakingInforSection;
     public TransferSettingSection transferSettingInforSection;
+    public CommissionSettingSection commissionSettingSection;
     protected String _type;
     private int totalBetSettingsColumns = 7;
     public Table tblBetSettings = Table.xpath("//div[@id='EXCHANGE-bet-settings']//table[contains(@class,'betTable')]", totalBetSettingsColumns);
@@ -80,6 +82,7 @@ public class CreateDownLineAgentPage extends HomePage {
         cashBalanceInforSection = ComponentsFactory.cashBalanceInfoObject(_type);
         rateSettingInforSection = ComponentsFactory.rateSettingInfoObject(_type);
         betSettingInforSection = ComponentsFactory.betSettingInfoObject(_type);
+        commissionSettingSection = ComponentsFactory.commissionSettingInfoObject(_type);
         taxSettingInforSection = ComponentsFactory.taxSettingInfoObject(_type);
         positionTakingInforSection = ComponentsFactory.positionTakingInfoObject(_type);
         productStatusSettingInforSection = ComponentsFactory.productStatusSettingInfoObject(_type);

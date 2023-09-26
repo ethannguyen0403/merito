@@ -16,7 +16,6 @@ public class BigStakeConfigurationPage extends HomePage {
     public Table tblBigStakeConfiguration = Table.xpath("//table[contains(@class,'ptable report')]", 3);
     public Label lblMessage = Label.xpath("//app-alert//div[contains(@class,'modal-body')]");
     public Button btnOK = Button.xpath("//app-alert//button[text()='OK']");
-    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
     int colBigStakeValue = 2;
 
     public BigStakeConfigurationPage(String types) {
@@ -31,9 +30,6 @@ public class BigStakeConfigurationPage extends HomePage {
         return lblMessage.getText();
     }
 
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(1, 1);
-    }
     public String getBigStakeCurrently(){
         return tblBigStakeConfiguration.getColumn(colBigStakeValue,3,false).get(0);
     }

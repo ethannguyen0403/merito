@@ -8,12 +8,12 @@
     <version>1.0.4</version>
 <!--    <packaging>pom</packaging>-->
 <!--    <packaging>jar</packaging>-->
-    <parent>
+    <!-- <parent>
         <groupId>com.paltech</groupId>
         <artifactId>coreselenium</artifactId>
-        <version>1.0.4</version>
+        <version>1.0.5</version>
         <relativePath></relativePath>
-    </parent>
+    </parent> -->
     <dependencies>
         <dependency>
             <groupId>com.paltech</groupId>

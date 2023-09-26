@@ -12,4 +12,16 @@ public class CreateUserPage extends CreateDownLineAgentPage {
         createUserPage = ComponentsFactory.createUserPage(_type);
     }
 
+    public void createUserWithDeposit(String loginId, String password, String creditLimit, String firsTimeDeposit) {
+        createUserPage.createUserWithDeposit(loginId, password, creditLimit, firsTimeDeposit);
+    }
+
+    public String createUser(String loginId, String password) {
+        return createUserPage.createUser(loginId, password);
+    }
+
+    public boolean isCreateUserSuccessCorrect() {
+        return createUserPage.isCreateUserSuccessCorrect();
+    }
+
 }

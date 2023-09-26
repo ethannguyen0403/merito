@@ -1,25 +1,19 @@
 package agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection;
 
 import agentsite.controls.Table;
-import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
+import org.testng.Assert;
 
 public class CreditBalanceSection {
-    public Label lblCashBalanceTitle = Label.xpath("//app-credit-setting-exchange//div[@class='psection']");
-    public Table tblCashBalance = Table.xpath(("//app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]"), 2);
-    public Label lblDownlineAGMaxCreditLimit = Label.xpath("//app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]//span[contains(@class,'maxCredit')]");
     public TextBox txtCreditLimit = TextBox.xpath("//input[@name='creditLimit']");
     public TextBox txtAGMaxCredit = TextBox.xpath("//input[@name='smaMaxCredit']");
     public TextBox txtMemberMaxCredit = TextBox.xpath("//input[@name='memberMaxCredit']");
-    public Table tblCreditBalance = Table.xpath("(//table[contains(@class,'credit-balance-table')])[1]", 2);
-    public Label lblCreditLimitValue = Label.xpath("//div[@id='credit-balance-setting']//app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]//span[contains(@class,'creditLimit')]");
-    Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
-    private Label lblMemberMaxCreditLimit = Label.xpath("//app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]//span[contains(@class,'memberMaxCredit')]");
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(2, 2);
-    }
+    public Label lblDownlineAGMaxCreditLimit = Label.xpath("//app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]//span[contains(@class,'maxCredit')]");
 
+    public Label lblCreditLimitValue = Label.xpath("//app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]//span[contains(@class,'creditLimit')]");
+    private Label lblMemberMaxCreditLimit = Label.xpath("//app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]//span[contains(@class,'memberMaxCredit')]");
+    public Table tblCreditBalance = Table.xpath("(//table[contains(@class,'credit-balance-table')])[1]", 2);
     public String getCreditSectionTitle() {
         return "";
     }
@@ -37,5 +31,14 @@ public class CreditBalanceSection {
     public void updateCashBalance(String maxPlayerCredit) {
         if (!maxPlayerCredit.isEmpty())
             txtMemberMaxCredit.sendKeys(maxPlayerCredit);
+    }
+
+    public void verifyUIDisplayCorrect() {
+        Assert.assertTrue(txtCreditLimit.isDisplayed(),"FAILED! Credit Limit textbox does not display");
+        Assert.assertTrue(txtAGMaxCredit.isDisplayed(),"FAILED! AG Max Credit textbox does not display");
+        Assert.assertTrue(txtMemberMaxCredit.isDisplayed(),"FAILED! Player Max Credit textbox does not display");
+        Assert.assertTrue(lblCreditLimitValue.isDisplayed(),"FAILED! Credit Limit label does not display");
+        Assert.assertTrue(lblDownlineAGMaxCreditLimit.isDisplayed(),"FAILED! AG Max Credit label does not display");
+        Assert.assertTrue(lblMemberMaxCreditLimit.isDisplayed(),"FAILED! Player Max Credit label does not display");
     }
 }

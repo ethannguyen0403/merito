@@ -1,19 +1,14 @@
-package agentsite.pages.agentmanagement.creditbalancelisting.creditbalancelisting;
+package agentsite.pages.agentmanagement.creditbalancelisting;
 
-import agentsite.controls.Table;
 import agentsite.objects.agent.account.AccountInfo;
+import static agentsite.pages.agentmanagement.CreditBalanceListingPage.getRowIndexofUserName;
+import static agentsite.pages.agentmanagement.CreditBalanceListingPage.tblAccountList;
 
 public class OldUICreditBalanceListing extends CreditBalanceListing {
     int colCreditGiven = 16;
     int colMaxCredit = 17;
     int colMemberMaxCredit = 18;
     int colVailabaleBalance = 19;
-    public Table tblAccountList = Table.xpath("//table[contains(@class,'report')]", 22);
-
-    public OldUICreditBalanceListing(String types) {
-        super(types);
-    }
-
 
     public AccountInfo getCreditInfoAccount(String userName) {
         int i = getRowIndexofUserName(userName);

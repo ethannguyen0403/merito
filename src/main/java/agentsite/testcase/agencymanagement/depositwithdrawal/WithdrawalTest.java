@@ -42,7 +42,7 @@ public class WithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 2: Open Withdrawal popup of an account " + userCode);
-        WithdrawalPopup popup = (WithdrawalPopup) page.depositWithdraw.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
+        WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
         String popupTitle = popup.lblTitle.getText();
         String expectedTitle = String.format(AGConstant.AgencyManagement.DepositWithdrawal.WITHDRAWAL_TITLE, fullUserAlias);
         String memberBalance = popup.lblMemberBalance.getText().replace(",", "");
@@ -79,7 +79,7 @@ public class WithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 2: Open Withdrawal popup of an account " + userCode);
-        WithdrawalPopup popup = (WithdrawalPopup) page.depositWithdraw.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
+        WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
 
         log("Step 3: Click Cancel button");
         popup.clickCancelBtn();
@@ -110,7 +110,7 @@ public class WithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 2: Open Withdrawal popup of an account " + userCode);
-        WithdrawalPopup popup = (WithdrawalPopup) page.depositWithdraw.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
+        WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
 
         log("Step 3: Withdrawal without any amount");
         popup.withdraw("", "");
@@ -145,7 +145,7 @@ public class WithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step  2. Open Withdrawal popup of an account");
-        WithdrawalPopup popup = (WithdrawalPopup) page.depositWithdraw.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
+        WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
 
         log("Step 3. Withdraw an amount more than the current cash balance");
         popup.withdraw(Double.toString(withDrawAmount), "WithdrawTC004 withdraw amount more than member cash balance");
@@ -182,7 +182,7 @@ public class WithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step  2. Open Withdrawal popup of an account");
-        WithdrawalPopup popup = (WithdrawalPopup) page.depositWithdraw.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
+        WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
 
         log(String.format("Step 3. Withdraw an amount account %s", userCode));
         popup.withdraw(Double.toString(withDrawAmount), "TC005 Withdraw with amount = 1",true, true);
@@ -227,8 +227,8 @@ public class WithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step  2. Open Withdrawal popup of an account");
-        List<ArrayList<String>> listMemberInfo = page.depositWithdraw.getMemberInfo(1);
-        WithdrawalPopup popup = (WithdrawalPopup) page.depositWithdraw.action(DepositWithdraw.Actions.WITHDRAWAL, listMemberInfo.get(0).get(page.depositWithdraw.defineDepositWithdrawTableColumn("User Name") - 1));
+        List<ArrayList<String>> listMemberInfo = page.getMemberInfo(1);
+        WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdraw.Actions.WITHDRAWAL, listMemberInfo.get(0).get(page.defineDepositWithdrawTableColumn("User Name") - 1));
 
         log("Step 3. Withdraw an amount from this username");
         popup.withdraw(Double.toString(withDrawAmount), "WithdrawTC006 withdraw amount ", true, true);
@@ -240,7 +240,7 @@ public class WithdrawalTest extends BaseCaseTest {
         double newYourCash = popup.getNewYourCashBalance();
         double newYourCashAfter = popup.getYourCashBalance();
         popup.clickCancelBtn();
-        double expectedNewMemberCash = Double.valueOf(listMemberInfo.get(0).get(page.depositWithdraw.colAvailableBalance - 1).replaceAll(",", "").toString()) - withDrawAmount;
+        double expectedNewMemberCash = Double.valueOf(listMemberInfo.get(0).get(page.colAvailableBalance - 1).replaceAll(",", "").toString()) - withDrawAmount;
         double expectedNewYourCash = loginAccBalance + withDrawAmount;
 
         log("Verify 1. Message Withdraw successfully is displayed");
@@ -253,8 +253,8 @@ public class WithdrawalTest extends BaseCaseTest {
         Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
 
         log("Verify 3. Main and dowline balance updated correctly");
-        List<ArrayList<String>> listMemberInfoAfter = page.depositWithdraw.getMemberInfo(1);
-        Assert.assertTrue(page.depositWithdraw.verifyBalanceUpdated(withDrawAmount, loginAccBalance, listMemberInfo, listMemberInfoAfter, false, DepositWithdraw.Actions.SUCCESS_ICON), "FAILED! Balance value or status not correct after deposit");
+        List<ArrayList<String>> listMemberInfoAfter = page.getMemberInfo(1);
+        Assert.assertTrue(page.verifyBalanceUpdated(withDrawAmount, loginAccBalance, listMemberInfo, listMemberInfoAfter, false, DepositWithdraw.Actions.SUCCESS_ICON), "FAILED! Balance value or status not correct after deposit");
 
         log("INFO: Executed completely");
     }
@@ -280,13 +280,13 @@ public class WithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 2. Filter with username");
-        page.depositWithdraw.filter(userCode, "", "");
+        page.filter(userCode, "", "");
 
         log("Step 3. Check a checkbox of the account");
-        page.depositWithdraw.action(DepositWithdraw.Actions.CHECK, userCode);
+        page.action(DepositWithdraw.Actions.CHECK, userCode);
 
         log("Step 4. Click on Withdraw button");
-        WithdrawalPopup popup = page.depositWithdraw.openWithdrawalPopup();
+        WithdrawalPopup popup = page.openWithdrawalPopup();
 
         log("Verify 1. Withdraw popup is displayed");
         Assert.assertTrue(popup.popupDepositWithDraw.isDisplayed(), "ERROR: popupDeposit is not displayed");
@@ -319,16 +319,16 @@ public class WithdrawalTest extends BaseCaseTest {
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
-        List<ArrayList<String>> listMemberInfo = page.depositWithdraw.getMemberInfo(1);
+        List<ArrayList<String>> listMemberInfo = page.getMemberInfo(1);
 
         log("Step 2. Filter with username");
-        page.depositWithdraw.filter(userCode, "", "");
+        page.filter(userCode, "", "");
 
         log("Step 3. Check a checkbox of the account");
-        page.depositWithdraw.action(DepositWithdraw.Actions.CHECK, userCode);
+        page.action(DepositWithdraw.Actions.CHECK, userCode);
 
         log("Step 4. Open Withdraw popup");
-        WithdrawalPopup popup = page.depositWithdraw.openWithdrawalPopup();
+        WithdrawalPopup popup = page.openWithdrawalPopup();
 
         log("Step 5.Select Credit Update and Withdraw 1 HKD");
         popup.withdraw(Double.toString(amountWithdraw), String.format("Withdraw TC008 withdraw with amount %.2f from account %s", amountWithdraw, userCode), true, true);
@@ -336,9 +336,9 @@ public class WithdrawalTest extends BaseCaseTest {
 
         log("Verify  1. An amount is withdrawn successfully");
         log("Verify  2. Success icon is displayed when withdrawing completely");
-        List<ArrayList<String>> listMemberInfoAfter = page.depositWithdraw.getMemberInfo(1);
-        Assert.assertTrue(page.depositWithdraw.verifyUpdateStatus(listMemberInfo, true), "FAILED! Green check on Update Status column is not display as expected");
-        Assert.assertTrue(page.depositWithdraw.verifyBalanceUpdated(amountWithdraw, loginAccBalance, listMemberInfo, listMemberInfoAfter, false, DepositWithdraw.Actions.SUCCESS_ICON), "FAILED! Balance value or status not correct after deposit");
+        List<ArrayList<String>> listMemberInfoAfter = page.getMemberInfo(1);
+        Assert.assertTrue(page.verifyUpdateStatus(listMemberInfo, true), "FAILED! Green check on Update Status column is not display as expected");
+        Assert.assertTrue(page.verifyBalanceUpdated(amountWithdraw, loginAccBalance, listMemberInfo, listMemberInfoAfter, false, DepositWithdraw.Actions.SUCCESS_ICON), "FAILED! Balance value or status not correct after deposit");
         log("INFO: Executed completely");
     }
 
@@ -364,23 +364,23 @@ public class WithdrawalTest extends BaseCaseTest {
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
-        List<ArrayList<String>> listMemberInfo = page.depositWithdraw.getMemberInfo(1);
+        List<ArrayList<String>> listMemberInfo = page.getMemberInfo(1);
 
         log("Step 2. Filter with username");
-        page.depositWithdraw.filter(userCode, "", "");
+        page.filter(userCode, "", "");
 
         log("Step 3. Check a checkbox of the account");
-        page.depositWithdraw.action(DepositWithdraw.Actions.CHECK, userCode);
+        page.action(DepositWithdraw.Actions.CHECK, userCode);
 
         log("Step 4. Open Withdraw popup");
-        WithdrawalPopup popup = page.depositWithdraw.openWithdrawalPopup();
+        WithdrawalPopup popup = page.openWithdrawalPopup();
 
         log("Step 5. Withdraw an amount which is more than the current balance");
         popup.withdraw(Double.toString(amountWithdraw), "Withdraw TC009 withdraw credit update amount more than current balance", true, true);
         page.waitingLoadingSpinner();
 
         log("Verify 2. Failure icon is displayed when withdrawing completely");
-        Assert.assertTrue(page.depositWithdraw.verifyUpdateStatus(listMemberInfo, false), "FAILED! Cross icon Update Status column is not display as expected");
+        Assert.assertTrue(page.verifyUpdateStatus(listMemberInfo, false), "FAILED! Cross icon Update Status column is not display as expected");
 
         log("INFO: Executed completely");
     }
@@ -409,17 +409,17 @@ public class WithdrawalTest extends BaseCaseTest {
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
-//        page.depositWithdraw.filter("", "Active", "Member");
-        List<ArrayList<String>> mainBalanceInfo = page.depositWithdraw.getLoginAccountBalanceInfo();
-        List<ArrayList<String>> listMemberInfo = page.depositWithdraw.getMemberInfo(1);
+//        page.filter("", "Active", "Member");
+        List<ArrayList<String>> mainBalanceInfo = page.getLoginAccountBalanceInfo();
+        List<ArrayList<String>> listMemberInfo = page.getMemberInfo(1);
 
         log("Step Precondition. Deposit a amount with Win/Loss option for the user " + userCode);
-        DepositToPopup popupDeposit = (DepositToPopup) page.depositWithdraw.action(DepositWithdraw.Actions.DEPOSIT, userCode);
+        DepositToPopup popupDeposit = (DepositToPopup) page.action(DepositWithdraw.Actions.DEPOSIT, userCode);
         popupDeposit.deposit("1", "TC010 Deposit Win/Loss Settle 1", false, true);
 
         popupDeposit.clickCancelBtn();
         log("Step 2. Click on withdraw link of an user " + userCode);
-        WithdrawalPopup popup = (WithdrawalPopup) page.depositWithdraw.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
+        WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
 
         log("Step 3. Input amount and select Winloss by Settle then click submit");
         popup.withdraw(Double.toString(amountWithdraw), "Withdraw TC010 withdraw Winloss by Settle", false, true);
@@ -432,8 +432,8 @@ public class WithdrawalTest extends BaseCaseTest {
         log("Verify  2. Amount is updated correctly");
 //        List<ArrayList<String>> mainBalanceInfoExpected = page.calculateMainAccountInfo(mainBalanceInfo, amountWithdraw, true);
 //        List<ArrayList<String>> listMemberInfoExpected = page.calculateDownlineBalanceInfo(listMemberInfo, amountWithdraw, false, false);
-        Assert.assertEquals(page.depositWithdraw.getLoginAccountBalanceInfo(), mainBalanceInfo, "FAILED! Main account balance info is not match after deposit");
-        Assert.assertEquals(page.depositWithdraw.getMemberInfo(1), listMemberInfo, "FAILED! Members List balance is not match with the expected");
+        Assert.assertEquals(page.getLoginAccountBalanceInfo(), mainBalanceInfo, "FAILED! Main account balance info is not match after deposit");
+        Assert.assertEquals(page.getMemberInfo(1), listMemberInfo, "FAILED! Members List balance is not match with the expected");
 
         log("INFO: Executed completely");
     }
@@ -456,7 +456,7 @@ public class WithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 1.1 Filter Active account");
-        page.depositWithdraw.filter("", "Active", "");
+        page.filter("", "Active", "");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         List<AccountInfo> lstFiveUser = new ArrayList<>();
@@ -470,43 +470,43 @@ public class WithdrawalTest extends BaseCaseTest {
         double totalDepositAmount = withdrawAmount * (2);
 
         log("Step 1.2 Get main balance and list member info");
-        List<ArrayList<String>> mainBalanceInfo = page.depositWithdraw.getLoginAccountBalanceInfo();
+        List<ArrayList<String>> mainBalanceInfo = page.getLoginAccountBalanceInfo();
 
         log("Step  2. Check on more than 1 account and click on Withdraw button");
-        page.depositWithdraw.selectUser(lstUsers.get(0).getUserCode());
-        page.depositWithdraw.selectUser(lstUsers.get(1).getUserCode());
+        page.selectUser(lstUsers.get(0).getUserCode());
+        page.selectUser(lstUsers.get(1).getUserCode());
 
-        double creditInitationAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colCreditInitiation);
-        double totalBalanceAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colTotalBalance);
-        double availableBalanceAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colAvailableBalance);
-        double winlossAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colWinloss);
-        double creditInitationAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colCreditInitiation);
-        double totalBalanceAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colTotalBalance);
-        double availableBalanceAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colAvailableBalance);
-        double winlossAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colWinloss);
-        WithdrawalPopup popup = page.depositWithdraw.openWithdrawalPopup();
+        double creditInitationAcc1 = page.getDataByColumn(username1, page.colCreditInitiation);
+        double totalBalanceAcc1 = page.getDataByColumn(username1, page.colTotalBalance);
+        double availableBalanceAcc1 = page.getDataByColumn(username1, page.colAvailableBalance);
+        double winlossAcc1 = page.getDataByColumn(username1, page.colWinloss);
+        double creditInitationAcc2 = page.getDataByColumn(username2, page.colCreditInitiation);
+        double totalBalanceAcc2 = page.getDataByColumn(username2, page.colTotalBalance);
+        double availableBalanceAcc2 = page.getDataByColumn(username2, page.colAvailableBalance);
+        double winlossAcc2 = page.getDataByColumn(username2, page.colWinloss);
+        WithdrawalPopup popup = page.openWithdrawalPopup();
 
         log("Step 3. Input amount to withdraw, select Win/Loss Settle enter remark and click on Submit button");
         popup.withdraw(Double.toString(withdrawAmount), "Withdraw TC012 withdraw account1 " + username1 + " and account " + username2, true, true);
 
         log("Step 4. Get info after WithDraw");
-        List<ArrayList<String>> mainBalanceInfoExpected = page.depositWithdraw.calculateMainAccountInfo(mainBalanceInfo, totalDepositAmount, false);
+        List<ArrayList<String>> mainBalanceInfoExpected = page.calculateMainAccountInfo(mainBalanceInfo, totalDepositAmount, false);
         Thread.sleep(2000);
-        double actualCreditInitationAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colCreditInitiation);
-        double actualTotalBalanceAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colTotalBalance);
-        double actualAvailableBalanceAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colAvailableBalance);
-        double actualWinlossAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colWinloss);
-        double actualCreditInitationAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colCreditInitiation);
-        double actualTotalBalanceAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colTotalBalance);
-        double actualAvailableBalanceAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colAvailableBalance);
-        double actualWinlossAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colWinloss);
+        double actualCreditInitationAcc1 = page.getDataByColumn(username1, page.colCreditInitiation);
+        double actualTotalBalanceAcc1 = page.getDataByColumn(username1, page.colTotalBalance);
+        double actualAvailableBalanceAcc1 = page.getDataByColumn(username1, page.colAvailableBalance);
+        double actualWinlossAcc1 = page.getDataByColumn(username1, page.colWinloss);
+        double actualCreditInitationAcc2 = page.getDataByColumn(username2, page.colCreditInitiation);
+        double actualTotalBalanceAcc2 = page.getDataByColumn(username2, page.colTotalBalance);
+        double actualAvailableBalanceAcc2 = page.getDataByColumn(username2, page.colAvailableBalance);
+        double actualWinlossAcc2 = page.getDataByColumn(username2, page.colWinloss);
 
         log("Verify 1. There is a green check display in Update Status column");
-        Assert.assertTrue(page.depositWithdraw.isUpdateStatusSuccess(lstUsers.get(0).getUserCode()), "FAILED! Green check on Update Status column is not display as expected");
-        Assert.assertTrue(page.depositWithdraw.isUpdateStatusSuccess(lstUsers.get(1).getUserCode()), "FAILED! Green check on Update Status column is not display as expected");
+        Assert.assertTrue(page.isUpdateStatusSuccess(lstUsers.get(0).getUserCode()), "FAILED! Green check on Update Status column is not display as expected");
+        Assert.assertTrue(page.isUpdateStatusSuccess(lstUsers.get(1).getUserCode()), "FAILED! Green check on Update Status column is not display as expected");
 
         log("Verify  2. Verify Balance of main account");
-        Assert.assertEquals(page.depositWithdraw.getLoginAccountBalanceInfo(), mainBalanceInfoExpected, "FAILED! Main account balance info is not match with the expected");
+        Assert.assertEquals(page.getLoginAccountBalanceInfo(), mainBalanceInfoExpected, "FAILED! Main account balance info is not match with the expected");
 
         log("Verify  3. Verify balance on deposit account");
         Assert.assertEquals(actualCreditInitationAcc1, creditInitationAcc1 - 1, String.format("FAILED! Credit Initiation account %s is incorrect after withdraw", username1));
@@ -538,7 +538,7 @@ public class WithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 1.1 Filter Active account");
-        page.depositWithdraw.filter("", "Active", "");
+        page.filter("", "Active", "");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         List<AccountInfo> lstFiveUser = new ArrayList<>();
@@ -552,43 +552,43 @@ public class WithdrawalTest extends BaseCaseTest {
         double totalDepositAmount = depositAmount * (2);
 
         log("Step 1.2 Get main balance and list member info");
-        List<ArrayList<String>> mainBalanceInfo = page.depositWithdraw.getLoginAccountBalanceInfo();
+        List<ArrayList<String>> mainBalanceInfo = page.getLoginAccountBalanceInfo();
 
         log("Step  2. Check on more than 1 account and click on Withdraw button");
-        page.depositWithdraw.selectUser(lstUsers.get(0).getUserCode());
-        page.depositWithdraw.selectUser(lstUsers.get(1).getUserCode());
+        page.selectUser(lstUsers.get(0).getUserCode());
+        page.selectUser(lstUsers.get(1).getUserCode());
 
-        double creditInitationAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colCreditInitiation);
-        double totalBalanceAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colTotalBalance);
-        double availableBalanceAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colAvailableBalance);
-        double winlossAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colWinloss);
-        double creditInitationAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colCreditInitiation);
-        double totalBalanceAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colTotalBalance);
-        double availableBalanceAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colAvailableBalance);
-        double winlossAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colWinloss);
-        WithdrawalPopup popup = page.depositWithdraw.openWithdrawalPopup();
+        double creditInitationAcc1 = page.getDataByColumn(username1, page.colCreditInitiation);
+        double totalBalanceAcc1 = page.getDataByColumn(username1, page.colTotalBalance);
+        double availableBalanceAcc1 = page.getDataByColumn(username1, page.colAvailableBalance);
+        double winlossAcc1 = page.getDataByColumn(username1, page.colWinloss);
+        double creditInitationAcc2 = page.getDataByColumn(username2, page.colCreditInitiation);
+        double totalBalanceAcc2 = page.getDataByColumn(username2, page.colTotalBalance);
+        double availableBalanceAcc2 = page.getDataByColumn(username2, page.colAvailableBalance);
+        double winlossAcc2 = page.getDataByColumn(username2, page.colWinloss);
+        WithdrawalPopup popup = page.openWithdrawalPopup();
 
         log("Step 3. Input amount to withdraw, select Win/Loss Settle enter remark and click on Submit button");
         popup.withdraw(Double.toString(depositAmount), "Withdraw TC012 withdraw account1 " + username1 + " and account " + username2, false, true);
 
         log("Step 4. Get info after WithDraw");
-        List<ArrayList<String>> mainBalanceInfoExpected = page.depositWithdraw.calculateMainAccountInfo(mainBalanceInfo, totalDepositAmount, false);
+        List<ArrayList<String>> mainBalanceInfoExpected = page.calculateMainAccountInfo(mainBalanceInfo, totalDepositAmount, false);
         Thread.sleep(2000);
-        double actualCreditInitationAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colCreditInitiation);
-        double actualTotalBalanceAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colTotalBalance);
-        double actualAvailableBalanceAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colAvailableBalance);
-        double actualWinlossAcc1 = page.depositWithdraw.getDataByColumn(username1, page.depositWithdraw.colWinloss);
-        double actualCreditInitationAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colCreditInitiation);
-        double actualTotalBalanceAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colTotalBalance);
-        double actualAvailableBalanceAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colAvailableBalance);
-        double actualWinlossAcc2 = page.depositWithdraw.getDataByColumn(username2, page.depositWithdraw.colWinloss);
+        double actualCreditInitationAcc1 = page.getDataByColumn(username1, page.colCreditInitiation);
+        double actualTotalBalanceAcc1 = page.getDataByColumn(username1, page.colTotalBalance);
+        double actualAvailableBalanceAcc1 = page.getDataByColumn(username1, page.colAvailableBalance);
+        double actualWinlossAcc1 = page.getDataByColumn(username1, page.colWinloss);
+        double actualCreditInitationAcc2 = page.getDataByColumn(username2, page.colCreditInitiation);
+        double actualTotalBalanceAcc2 = page.getDataByColumn(username2, page.colTotalBalance);
+        double actualAvailableBalanceAcc2 = page.getDataByColumn(username2, page.colAvailableBalance);
+        double actualWinlossAcc2 = page.getDataByColumn(username2, page.colWinloss);
 
         log("Verify 1. There is a green check display in Update Status column");
-        Assert.assertTrue(page.depositWithdraw.isUpdateStatusSuccess(lstUsers.get(0).getUserCode()), "FAILED! Green check on Update Status column is not display as expected");
-        Assert.assertTrue(page.depositWithdraw.isUpdateStatusSuccess(lstUsers.get(1).getUserCode()), "FAILED! Green check on Update Status column is not display as expected");
+        Assert.assertTrue(page.isUpdateStatusSuccess(lstUsers.get(0).getUserCode()), "FAILED! Green check on Update Status column is not display as expected");
+        Assert.assertTrue(page.isUpdateStatusSuccess(lstUsers.get(1).getUserCode()), "FAILED! Green check on Update Status column is not display as expected");
 
         log("Verify  2. Verify Balance of main account");
-        Assert.assertEquals(page.depositWithdraw.getLoginAccountBalanceInfo(), mainBalanceInfoExpected, "FAILED! Main account balance info is not match with the expected");
+        Assert.assertEquals(page.getLoginAccountBalanceInfo(), mainBalanceInfoExpected, "FAILED! Main account balance info is not match with the expected");
 
         log("Verify  3. Verify balance on withdraw account");
         Assert.assertEquals(actualCreditInitationAcc1, creditInitationAcc1, String.format("FAILED! Credit Initiation account %s is incorrect after withdraw", username1));

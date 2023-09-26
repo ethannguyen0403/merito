@@ -20,7 +20,6 @@ public class AnalysisOfRunningMarketsPage extends HomePage {
     public String eventStartimeXpath = "span[contains(@class,'event')]";
     public Table tblMarketInfo = Table.xpath("//table[contains(@class,'table detailodd d-table')]", 9);
     public Table tblDownline = Table.xpath("//table[contains(@id,'table-1')]", 5);
-    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
 
     public AnalysisOfRunningMarketsPage(String types) {
         super(types);
@@ -40,10 +39,6 @@ public class AnalysisOfRunningMarketsPage extends HomePage {
     public void expandSport(String sport) {
         Label.xpath(String.format(lblSportByText, sport)).click();
         waitingLoadingSpinner();
-    }
-
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(0, 1);
     }
 
     public boolean isListEventDisplay(String sportName) {

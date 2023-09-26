@@ -1,11 +1,13 @@
 package agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection;
 
 import com.paltech.element.common.*;
+import org.testng.Assert;
 
+import java.text.DateFormatSymbols;
+import java.util.Arrays;
 import java.util.List;
 
 public class AccountBalanceTransferConditionInforSection {
-    Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     RadioButton rdDaily = RadioButton.id("daily");
     RadioButton rdWeekly = RadioButton.id("weekly");
     String cbDaysOfWeekXpath = "//label[text()=' %s']//input";
@@ -23,6 +25,16 @@ public class AccountBalanceTransferConditionInforSection {
                     cbDayOfWeek.click();
                 }
             }
+        }
+    }
+
+    public void verifyUIDisplayCorrect() {
+        Assert.assertTrue(rdWeekly.isDisplayed(),"FAILED! Weekly radio button does not display");
+        Assert.assertTrue(rdDaily.isDisplayed(),"FAILED! Daily radio button does not display");
+        String[] namesOfDays = DateFormatSymbols.getInstance().getShortWeekdays();
+        for (int i = 1; i < namesOfDays.length; i++) {
+            CheckBox cbDayOfWeek = CheckBox.xpath(String.format(cbDaysOfWeekXpath,Arrays.asList(namesOfDays).get(i)));
+            Assert.assertTrue(cbDayOfWeek.isDisplayed(), String.format("FAILED! Checkbox %s is not displayed", Arrays.asList(namesOfDays).get(i)));
         }
     }
 }

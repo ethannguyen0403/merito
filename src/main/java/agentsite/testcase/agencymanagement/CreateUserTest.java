@@ -84,8 +84,9 @@ public class CreateUserTest extends BaseCaseTest {
         Assert.assertEquals(lstTaxSettingColumn, TAX_SETTING_COLUMN, "FAILED! Column in Tax SETTING incorrect display");
 
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE), POSITION_TAKING_SETTING, "FAILED! Position Taking Header is incorrect");
-        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEX.getHeaderNameOfRows();
-        Assert.assertEquals(lstPositionSettingHeader, EX_POSITION_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
+//        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEX.getHeaderNameOfRows();
+//        Assert.assertEquals(lstPositionSettingHeader, EX_POSITION_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         log(" 6. Submit and Cancel button");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
@@ -138,8 +139,9 @@ public class CreateUserTest extends BaseCaseTest {
         Assert.assertEquals(lstTaxSettingColumn, TAX_SETTING_COLUMN, "FAILED! Column in Tax SETTING incorrect display");
 
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE), POSITION_TAKING_SETTING, "FAILED! Position Taking Header is incorrect");
-        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEX.getHeaderNameOfRows();
-        Assert.assertEquals(lstPositionSettingHeader, EX_POSITION_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
+//        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEX.getHeaderNameOfRows();
+//        Assert.assertEquals(lstPositionSettingHeader, EX_POSITION_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         log(" 6. Submit and Cancel button");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
@@ -166,18 +168,19 @@ public class CreateUserTest extends BaseCaseTest {
         List<String> lstSportBetSetting = page.betSettingInforSection.tblBetSettingEG.getHeaderNameOfRows();
         List<String> lstBetSettingColum = page.betSettingInforSection.tblBetSettingEG.getColumn(1, false);
         Assert.assertEquals(page.betSettingInforSection.getBetSettingSectionTitle(AGConstant.EXCHANGE_GAMES).trim(), BET_SETTING, "FAILED! Bet Setting Header is incorrect");
-        Assert.assertEquals(lstSportBetSetting, EG_BET_TAX_PT_SETTING_HEADER_SAT, "FAILED! Sport in bet setting table is incorrect display");
+        Assert.assertEquals(lstSportBetSetting, EG_BET_TAX_PT_SETTING_HEADER_OLDUI, "FAILED! Sport in bet setting table is incorrect display");
         Assert.assertEquals(lstBetSettingColum, BET_SETTING_COLUMN, "FAILED! The first column in BET SETTING incorrect display");
 
         List<String> lstTaxSettingHeader = page.taxSettingInforSection.tblTaxSettingEG.getHeaderNameOfRows();
         List<String> lstTaxSettingColumn = page.taxSettingInforSection.tblTaxSettingEG.getColumn(1, false);
         Assert.assertEquals(page.taxSettingInforSection.getTaxSettingSectionTitle(AGConstant.EXCHANGE_GAMES).trim(), TAX_SETTING, "FAILED! Tax setting Header is incorrect");
-        Assert.assertEquals(lstTaxSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_SAT, "FAILED! Sport in tax setting table is incorrect display");
+        Assert.assertEquals(lstTaxSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_OLDUI, "FAILED! Sport in tax setting table is incorrect display");
         Assert.assertEquals(lstTaxSettingColumn, TAX_SETTING_COLUMN, "FAILED! Column in Tax SETTING incorrect display");
 
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE_GAMES), POSITION_TAKING_SETTING, "FAILED! Position Taking Header is incorrect");
-        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEG.getHeaderNameOfRows();
-        Assert.assertEquals(lstPositionSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_SAT, "FAILED! Sport in Position setting table is incorrect display");
+//        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEG.getHeaderNameOfRows();
+//        Assert.assertEquals(lstPositionSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_OLDUI, "FAILED! Sport in Position setting table is incorrect display");
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE_GAMES);
 
         log("Verify 2. Submit and Cancel button");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
@@ -204,18 +207,19 @@ public class CreateUserTest extends BaseCaseTest {
         List<String> lstSportBetSetting = page.betSettingInforSection.tblBetSettingEG.getHeaderNameOfRows();
         List<String> lstBetSettingColum = page.betSettingInforSection.tblBetSettingEG.getColumn(1, false);
         Assert.assertEquals(page.betSettingInforSection.getBetSettingSectionTitle(AGConstant.EXCHANGE_GAMES).trim(), BET_SETTING, "FAILED! Bet Setting Header is incorrect");
-        Assert.assertEquals(lstSportBetSetting, EG_BET_TAX_PT_SETTING_HEADER, "FAILED! Sport in bet setting table is incorrect display");
+        Assert.assertEquals(lstSportBetSetting, EG_BET_TAX_PT_SETTING_HEADER_NEWUI, "FAILED! Sport in bet setting table is incorrect display");
         Assert.assertEquals(lstBetSettingColum, BET_SETTING_COLUMN, "FAILED! The first column in BET SETTING incorrect display");
 
         List<String> lstTaxSettingHeader = page.taxSettingInforSection.tblTaxSettingEG.getHeaderNameOfRows();
         List<String> lstTaxSettingColumn = page.taxSettingInforSection.tblTaxSettingEG.getColumn(1, false);
         Assert.assertEquals(page.taxSettingInforSection.getTaxSettingSectionTitle(AGConstant.EXCHANGE_GAMES).trim(), TAX_SETTING, "FAILED! Tax setting Header is incorrect");
-        Assert.assertEquals(lstTaxSettingHeader, EG_BET_TAX_PT_SETTING_HEADER, "FAILED! Sport in tax setting table is incorrect display");
+        Assert.assertEquals(lstTaxSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_NEWUI, "FAILED! Sport in tax setting table is incorrect display");
         Assert.assertEquals(lstTaxSettingColumn, TAX_SETTING_COLUMN, "FAILED! Column in Tax SETTING incorrect display");
 
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE_GAMES), POSITION_TAKING_SETTING, "FAILED! Position Taking Header is incorrect");
-        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEG.getHeaderNameOfRows();
-        Assert.assertEquals(lstPositionSettingHeader, EG_BET_TAX_PT_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
+//        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEG.getHeaderNameOfRows();
+//        Assert.assertEquals(lstPositionSettingHeader, EG_BET_TAX_PT_SETTING_HEADER_NEWUI, "FAILED! Sport in Position setting table is incorrect display");
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE_GAMES);
 
         log("Verify 2. Submit and Cancel button");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
@@ -232,7 +236,7 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("2. Left Login ID empty and click on submit button");
-        page.createUserPage.createUser("", "123rraqt");
+        page.createUser("", "123rraqt");
 
         log("Verify 1. Message \"Login ID is required.\" display next to Cancel button");
         Assert.assertEquals(page.lblErrorMsg.getText(), LBL_LOGINID_REQUIRED, String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_LOGINID_REQUIRED, page.lblErrorMsg.getText()));
@@ -249,7 +253,7 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("2. Left Password empty and click on submit button");
-        page.createUserPage.createUser(loginId, "");
+        page.createUser(loginId, "");
 
         log("Verify 1. Message \"Password is required.\" display next to Cancel button");
         Assert.assertEquals(page.lblErrorMsg.getText(), LBL_PASSWORD_REQUIRED, String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_REQUIRED, page.lblErrorMsg.getText()));
@@ -331,7 +335,7 @@ public class CreateUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step  2. Input correct Login ID and incorrect password format");
-        page.createUserPage.createUser(loginId, password);
+        page.createUser(loginId, password);
 
         log("Verified 1. Message \"Password is invalid.\" display next to Cancel button");
         Assert.assertTrue(page.lblErrorMsg.getText().contains(AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID),String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID, page.lblErrorMsg.getText()));
@@ -360,7 +364,7 @@ public class CreateUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 2. Input Login ID that exist in the system and correct password then click submit");
-        page.createUserPage.createUser(memberAccount,password);
+        page.createUser(memberAccount,password);
 
         log("Verified  1. Popup Create Downline with the message \"User code exists.\"");
         Assert.assertEquals(page.successPopup.getContentMessage(), AGConstant.AgencyManagement.CreateUser.LBL_LOGINID_EXIST,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_LOGINID_EXIST,page.successPopup.getContentMessage()));
@@ -477,7 +481,7 @@ public class CreateUserTest extends BaseCaseTest {
 
         log("Step 3. Input First Time Deposit value greater than the required value");
         String defineFirstTimeDepositValue = String.format("%.2f",page.creditBalanceInforSection.getCreditLimit(currency) + 1);
-        page.createUserPage.createUserWithDeposit("autoId", password,"",defineFirstTimeDepositValue);
+        page.createUserWithDeposit("autoId", password,"",defineFirstTimeDepositValue);
 
         log("Verified  1. For Credit Cash line, display the message \"Balance Deposit is invalid.\"");
         Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_BALANCE_DEPOSIT_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_BALANCE_DEPOSIT_INVALID, page.lblErrorMsg.getText()));
@@ -509,11 +513,11 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Step 2. Input required field and click on Submit button");
-        String loginID = page.createUserPage.createUser(loginId,passwordDecrypt);
+        String loginID = page.createUser(loginId,passwordDecrypt);
 
         log("Verify 1. Popup Create Downline with the message \"Downline was created successfully\"");
         Assert.assertTrue(page.successPopup.isDisplayed(),"FAILED! Success popup does not display after create user");
-        Assert.assertTrue(page.createUserPage.isCreateUserSuccessCorrect(),"FAILED! Success message after create user is incorrect");
+        Assert.assertTrue(page.isCreateUserSuccessCorrect(),"FAILED! Success message after create user is incorrect");
 
         log("Verify 2. Validate the popup is disappear when click on OK button");
         page.successPopup.close();

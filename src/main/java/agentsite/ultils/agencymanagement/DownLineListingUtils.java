@@ -35,6 +35,34 @@ public class DownLineListingUtils {
         return WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
     }
 
+    private static JSONObject getLineInfoJson(String brandName, String userName) {
+        String api = defineAPIUrl(brandName);
+        String jsn = String.format("{\"userName\":\"%s\",\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":20}", userName, DateUtils.getMilliSeconds());
+        return WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+    }
+
+    public static List<AccountInfo> getUplineInfoOfUser(String brandName, String userName) {
+        List<AccountInfo> lstUsers = new ArrayList<>();
+        JSONObject jsonObject = getLineInfoJson(brandName, userName);
+        if (Objects.nonNull(jsonObject)) {
+            if (jsonObject.has("lineInfo")) {
+                JSONArray jsnLineInfo = jsonObject.getJSONArray("lineInfo");
+                for (int i = 0; i < jsnLineInfo.length(); i++) {
+                    JSONObject item = jsnLineInfo.getJSONObject(i);
+                    AccountInfo a = new AccountInfo.Builder()
+                            .userID(Integer.toString(item.getInt("userId")))
+                            .userCode(item.getString("usercode"))
+                            .loginID(item.getString("loginId"))
+                            .level(item.getString("level"))
+                            .currencyCode(item.getString("currencyCode"))
+                            .build();
+                    lstUsers.add(a);
+                }
+            }
+        }
+        return lstUsers;
+    }
+
     public static List<String> getDownLineUsers(String loginID) {
         List<String> lstUsers = new ArrayList<>();
         String api = String.format("%s/agent-services/user/sad-downline-list", domainURL);

@@ -41,7 +41,6 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
     public String rMarketPerSport = "//tr[@class='%s']";
     public String rwTotalRowOfSport = "//tr[contains(@class,'total %s')]";
     public Row rGrandTotal = Row.xpath("//tr[contains(@class,'gtotal')]");
-    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
     private int colTurnover = 2;
     private String turnoverPerSportAndMarketXpath = "//tr[@class='%s']//span[text()='%s']//following::td[contains(@ng-bind,'localTurnover')][1]";
 
@@ -270,10 +269,6 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
         lblTurnOver.click();
         waitingLoadingSpinner();
         return new TransactionDetailsPopup();
-    }
-
-    public void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(1, 1);
     }
 
    /* public String getFristSelectedOption(DropDownBox dropDownBox){
