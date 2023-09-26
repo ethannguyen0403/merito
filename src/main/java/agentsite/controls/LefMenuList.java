@@ -10,6 +10,7 @@ import java.util.List;
 public class LefMenuList extends BaseElement {
     static String _xPath;
     private String groupMenuXpath = "//div[contains(@class,'asia-menu-group')]";
+    private String groupMenuActiveXpath = "//div[contains(@class,'asia-menu-group active')]";
     private String groupMenuTitleXpath = "//div[contains(@class,'asia-menu-title')]";
     private String subMenuXpath = "//div[@class='submenu']//div[contains(@class,'menu-item')]";
     private String collapseSubMenuXpath = "//div[@class='collapse-icon']";
@@ -27,13 +28,12 @@ public class LefMenuList extends BaseElement {
         int i = 1;
         Label lblMenu;
         while (true) {
-            lblMenu = Label.xpath(String.format("(%s%s)[%s]//span[2]", _xPath, groupMenuXpath, i));
+            lblMenu = Label.xpath( String.format("(%s%s/ancestor::div[1])[%s]%s//span[2]", _xPath, groupMenuXpath, i,groupMenuTitleXpath));
             if (!lblMenu.isDisplayed()) {
                 System.out.println("Debug: Not found the menu " + menu);
                 return 0;
             }
             if (lblMenu.getText().equalsIgnoreCase(menu)) {
-
                 System.out.println("Debug: Found the menu " + menu);
                 return i;
             }
@@ -58,28 +58,38 @@ public class LefMenuList extends BaseElement {
     }
 
     public List<String> getListSubMenu(String menu) {
+
+       // "(//div[@class='leftmenu']//div[contains(@class,'asia-menu-group')]/ancestor::div[1])[1]//div[@class='asia-menu-title']//span[2]";
+        //((//div[@class='leftmenu']//div[contains(@class,'asia-menu-group')]/ancestor::div[1])[1]//div[@class='asia-menu-title']/following::div[@class='submenu']/div)[3]
         List<String> lstSubMenu = new ArrayList<>();
-        // find
         int menuIndex = getMenuIndex(menu);
-        String rootMenuXpath = String.format("(%s%s)[%s]", _xPath, groupMenuXpath, menuIndex);
         int i = 1;
         Label lblSubMenu;
         Label lblExpandSubMenu;
         // expand the root menu
-        lblSubMenu = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i));
-        if (!lblSubMenu.isDisplayed()) {
-            Label.xpath(rootMenuXpath).click();
-        }
-        lblExpandSubMenu = Label.xpath(String.format("%s%s[%s]%s", rootMenuXpath, subMenuXpath, 1, collapseSubMenuXpath));
+        //(//div[@class='leftmenu']//div[contains(@class,'asia-menu-group')]/ancestor::div[1])[1]//div[@class='asia-menu-title']//span[2]
+
+        lblExpandSubMenu = Label.xpath(String.format("%s%s/ancestor::div[1])[%s]%s//span[2]",_xPath, groupMenuActiveXpath, menuIndex,groupMenuTitleXpath));
         if (lblExpandSubMenu.isDisplayed()) {
             lblExpandSubMenu.click();
         }
+        String menuItem;
         while (true) {
-            lblSubMenu = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i));
+            lblSubMenu = Label.xpath(String.format("((%s%s/ancestor::div[1])[%s]%s/following::div[@class='submenu'][1]//div[contains(@class,'menu-item')])[%s]", _xPath, groupMenuXpath,menuIndex,groupMenuTitleXpath, i));
             if (!lblSubMenu.isDisplayed()) {
                 return lstSubMenu;
             }
-            lstSubMenu.add(lblSubMenu.getText().trim());
+            lblExpandSubMenu = Label.xpath(String.format("((%s%s/ancestor::div[1])[%s]//div[@class='asia-menu-title']/following::div[@class='submenu'][1]//div[contains(@class,'menu-item')])[%s]%s", _xPath, groupMenuXpath,menuIndex, i,collapseSubMenuXpath));
+            menuItem = lblSubMenu.getText().trim();
+            if(menuItem.isEmpty())
+            {
+                if (lblExpandSubMenu.isDisplayed())
+                {
+                    lblExpandSubMenu.click();
+                }
+            }
+            else
+                lstSubMenu.add(menuItem);
             i = i + 1;
         }
     }
