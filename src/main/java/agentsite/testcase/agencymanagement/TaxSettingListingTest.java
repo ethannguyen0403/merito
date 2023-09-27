@@ -1,17 +1,25 @@
 package agentsite.testcase.agencymanagement;
 
+import agentsite.objects.agent.account.AccountInfo;
+import agentsite.pages.agentmanagement.DownLineListingPage;
+import agentsite.pages.agentmanagement.EditDownLinePage;
 import agentsite.pages.agentmanagement.TaxSettingListingPage;
+import agentsite.pages.agentmanagement.taxsettinglisting.TaxSettingListing;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.SkipException;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static common.AGConstant.EXCHANGE;
+import static common.AGConstant.EXCHANGE_GAMES;
+import static common.AGConstant.HomePage.*;
 
 
 public class TaxSettingListingTest extends BaseCaseTest {
@@ -165,5 +173,80 @@ public class TaxSettingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3973")
+    @Test(groups = {"regression_newui"})
+    @Parameters({"username","downlineAccount","password"})
+    public void Agent_AM_Tax_Setting_Listing_3973(String username,String downlineAccount,String password) throws Exception {
+        log("@title: Validate the Tax Setting page is hidden when Exchange and Exchange Game product is inactive");
+        log("Step 1. Login Agent Site");
+        log("There is a downline agent is inactive Exchange and Exchange Game product");
+        final Map<String, Boolean> PRODUCTS = new HashMap<String, Boolean>() {
+            {
+                put("Exchange", false);
+                put("Exchange Games", false);
+            }};
+
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(downlineAccount, "", "Agent");
+        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(downlineAccount);
+        editDownLinePage.confirmSecurityCode(environment.getSecurityCode());
+        editDownLinePage.updateProducts(PRODUCTS);
+        page.logout();
+
+        log("Step 1. Login the downline account in precondition");
+        loginAgent(downlineAccount,password,true);
+
+        log("Step 2: Expand left menu and observe Tax Setting menu");
+        List<String> lstSubMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
+
+        log("Verify: The page is no longer display in the left menu");
+        Assert.assertFalse(lstSubMenu.contains(TAX_SETTING_LISTING),"Failed! The menu display even Exchange and Exchange Game are inactive ");
+
+        log("Post-condition Step: Expand left menu and observe Tax Setting menu");
+        page.logout();
+        loginAgent(username,password,true);
+        page.downlineListing.searchDownline(downlineAccount, "", "Agent");
+        editDownLinePage = page.downlineListing.clickEditIcon(downlineAccount);
+        editDownLinePage.confirmSecurityCode(environment.getSecurityCode());
+        final Map<String, Boolean> PRODUCTS1 = new HashMap<String, Boolean>() {
+            {
+                put("Exchange", true);
+                put("Exchange Games", true);
+            }};
+        editDownLinePage.updateProducts(PRODUCTS1);
+
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "3974")
+    @Test(groups = {"regression_newui"})
+    @Parameters({"username","downlineAccount","password"})
+    public void Agent_AM_Tax_Setting_Listing_3974(String username,String downlineAccount,String password) throws Exception {
+        log("@title: Validate the Tax Setting pa ge is hidden when Exchange and Exchange Game product is inactive");
+        log("Step 1. Login Agent Site");
+        log("There is a downline agent is inactive Exchange and Exchange Game product");
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.downlineListing.searchDownline(downlineAccount, "", "Agent");
+        EditDownLinePage editDownLinePage= page.downlineListing.clickEditIcon(downlineAccount);
+        editDownLinePage.confirmSecurityCode(environment.getSecurityCode());
+        final Map<String, Boolean> PRODUCTS1 = new HashMap<String, Boolean>() {
+            {
+                put("Exchange", true);
+                put("Exchange Games", false);
+            }};
+        editDownLinePage.updateProducts(PRODUCTS1);
+        page.logout();
+
+        log("Step 1. Login the downline account in precondition");
+        loginAgent(downlineAccount,password,true);
+
+        log("Step 2:  Active Tax Setting page");
+        TaxSettingListingPage taxSettingListingPage = agentHomePage.navigateTaxSettingListingPage();
+        List<String> products = taxSettingListingPage.getProducts();
+
+        log("Step 3: Click on product dropdown");
+        log("Verify: Verify Exchange Game is not display");
+        Assert.assertFalse(products.contains(EXCHANGE_GAMES), "FAILED, Exchange Game should not display");
+        log("INFO: Executed completely");
+    }
 }
 

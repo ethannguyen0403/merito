@@ -83,7 +83,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3684")
-    @Test(groups = {"regression_po"})
+    @Test(groups = {"regression_po_isa"})
     public void Agent_MM_BlockUnblockEvent_3684() {
         log("@title: Validate Block/Unblock Events UI display correctly at PO level");
 
@@ -100,6 +100,8 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
                 "5 Downline and Event table display");
         Assert.assertEquals(page.header.lblPageTitle.getText(), BLOCK_UNBLOCK_EVENT, "FAILED! Page title is incorrect displayed");
         Assert.assertTrue(page.btnRefresh.isDisplayed(), "FAILED! Refresh button does not display");
+        Assert.assertTrue(page.ddbSADList.isDisplayed(),"Failed! SAD list dropdown does not display");
+        Assert.assertTrue(page.ddbSport.isDisplayed(),"Failed! Sport dropdown does not display");
         Assert.assertTrue(page.isTabDisplay("Old Events"), "FAILED! Old Event tab not display");
         Assert.assertTrue(page.isTabDisplay("Today"), "FAILED! Today tab not display");
         Assert.assertTrue(page.isTabDisplay("Tomorrow"), "FAILED! Tomorrow tab not display");
@@ -574,8 +576,9 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id="3686")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_isa1"})
     @Parameters({"brandname"})
     public void Agent_MM_BlockUnblockEvent_3686(String brandname) {
         log("@title: Validate Event status just updated for the according selected downline");
@@ -609,6 +612,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.clickDownline(downlineAccount);
 
         log("Verify 1.(Step4) Status of the event still blocked as we blocked event for Acc1 but is viewing status for Acc2");
+        log("(Step 5) Status of the event is Unblocked");
         page.verifyBlockUnblockEvent(eventName, "Unblocked", true, false, true, "Now", "Now");
 
         log("INFO: Executed completely");
@@ -1043,33 +1047,24 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    //TODO: No Testrail testcase
+    @TestRails(id="3684")
     @Test(groups = {"review"})
-    public void Agent_MM_BlockUnblockEvent_UnblockNow_033() {
-        log("@title:Validate can unblocked now all Horse Racing events for an downline");
+    public void Agent_MM_BlockUnblockEvent_UnblockNow_3684() {
+        log("@title:Validate Block/Unblock Events UI display correctly at PO level");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         String userCode = lstUsers.get(0).getUserCode();
         AccountInfo accountInfo = lstUsers.get(lstUsers.size() - 1);
 
-        log("Step 1: Navigate Markets Management > Block/Unblock Events");
+        log("Step Precondition 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
         page.filter("", "Horse Racing", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
 
-        log("Step 2: Select sport is Horse Racing, and Today ");
-        log("Step 3: Select all events");
-        log("Step 4: Click Unblock Now");
-        page.blockUnblockEvent("All", "All", "Unblock Now", "", 1);
-
-        log("Verify 1: Status: Current status is Unblocked, Viewable is GreenCheck icon, and Betable is details");
-        log("Verify 2: Unblock Schedule Setting: Time to open = Now and Time to bet = 25 mintues");
-        //TODO : This function is changing behaviour so will update verify  until 6.0 release done
-        Assert.assertTrue(true, "Verify passed");
-
-        //Assert.assertTrue(popup.popupDeposit.isDisplayed(), "ERROR: popupDeposit is not displayed");
-        //Assert.assertEquals(expectedTitle, popupTitle, String.format("ERROR: The expected popup title is '%s' but found '%s'", expectedTitle, popupTitle));
-        //Assert.assertEquals(Double.parseDouble(yourBalance), accountInfo.getCashBalance(), String.format("ERROR: The expected current balance is '%s' but found '%s'", accountInfo.getCashBalance(), yourBalance));
-        //Assert.assertEquals(Double.parseDouble(memberBalance), lstUsers.get(0).getCashBalance(), String.format("ERROR: The expected member's current balance is '%s' but found '%s'", lstUsers.get(0).getCashBalance(), memberBalance));
+        log("Step 2: Page display: Title: Block/Unblock Events and Refresh button");
+        log("Step 3: SAD list, Sport list and Event time Tab: Old Events, Today, Tomorrow, Future");
+        log("Step 4: Hint message display correct");
+        log("Step 5:Buttons: Block, Unblock Now, Unblocked Schedule, Suspend, Unsuspended (On top and bottom) and buttons are disable");
+        log("Step 6: 5 Downline and Event table display");
         log("INFO: Executed completely");
     }
 
