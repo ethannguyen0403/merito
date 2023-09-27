@@ -3,9 +3,12 @@ package agentsite.testcase.marketsmanagement;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.marketsmanagement.BlockRacingPage;
 import agentsite.pages.marketsmanagement.BlockUnblockEventPage;
+import agentsite.pages.marketsmanagement.blockracing.BlockedUserPopup;
 import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
 import baseTest.BaseCaseTest;
+import com.paltech.utils.DateUtils;
 import common.AGConstant;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
@@ -18,6 +21,9 @@ import util.testraildemo.TestRails;
 
 import java.util.List;
 import java.util.Objects;
+
+import static common.AGConstant.MarketsManagement.BlockRacing.LBL_UPDATE_SUCCESS_MSG;
+import static common.AGConstant.timeZone;
 
 public class BlockRacingTest extends BaseCaseTest {
     /**
@@ -153,5 +159,108 @@ public class BlockRacingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3696")
+    @Test(groups = {"regression_po"})
+    public void Agent_MM_Block_Racing_TC3696() {
+        log("@title: Validate Block Racing - Current tab UI display correctly");
+        log("Step 1. Navigate Markets Management > Block Racing");
+        BlockRacingPage blockRacingPage = agentHomePage.navigateBlockRacingPage();
+        log("Step 2. Active Current tab");
+        blockRacingPage.selectBlockingTab("Current");
+
+        log("Validate  Current tab UI display correctly");
+        blockRacingPage.verifyUIDisplayCorrect(true);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3697")
+    @Test(groups = {"regression_po"})
+    public void Agent_MM_Block_Racing_TC3697() {
+        log("@title: Validate Block Racing - Blocking tab UI display correctly");
+        log("Step 1. Navigate Markets Management > Block Racing");
+        BlockRacingPage blockRacingPage = agentHomePage.navigateBlockRacingPage();
+        log("Step 2. Active Blocking tab");
+        blockRacingPage.selectBlockingTab("Blocking");
+
+        log("Validate  Current tab UI display correctly");
+        blockRacingPage.verifyUIDisplayCorrect(true);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3698")
+    @Test(groups = {"regression"})
+    public void Agent_MM_Block_Racing_TC3698() {
+        log("@title: Validate can Block for Horse Racing");
+        log("Step 1. Navigate Markets Management > Block Racing");
+        String sportName = "Horse Racing";
+        BlockRacingPage blockRacingPage = agentHomePage.navigateBlockRacingPage();
+        log("Step 2. Active Blocking tab and select Horse Racing");
+        log("Step 3. Select downline and  select venue name");
+        log("Step 4. Click Update button");
+        AccountInfo accountInfo = ProfileUtils.getProfile();
+        List<AccountInfo> lstDownline = DownLineListingUtils.getAllDownLineUsers(_brandname, accountInfo.getUserCode(), accountInfo.getUserID());
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, lstDownline.get(0).getUserID(), "TODAY");
+        if (Objects.isNull(eventList.get(0).getEventName())) {
+            throw new SkipException("INFO: Skipping this test case as have no event in today for " + sportName);
+        }
+        Event event = eventList.get(0);
+        String venueName = event.getEventName().split(" ")[0];
+
+        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), lstDownline.get(0).getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
+        String marketName = marketList.get(0).getMarketName();
+        blockRacingPage.block(sportName, event.getCountryName(), lstDownline.get(0).getUserCode(), venueName, marketName);
+        String blockDateTime = DateUtils.getDate(0, "yyyy-MM-dd HH:mm", timeZone);
+        log("Validate the message update successfully");
+        Assert.assertEquals(blockRacingPage.lblSuccessMessage.getText().trim(),LBL_UPDATE_SUCCESS_MSG, "FAILED! Update setting success message does not display correct");
+        blockRacingPage.btnCloseUpdateSetting.click();
+
+        log("Step 5. Click Current tab  and search the venue name");
+        blockRacingPage.selectBlockingTab("Current");
+        blockRacingPage.searchVenueName(venueName);
+
+        log("Validate block icon  display at the venue name\n" +
+                "Click cell, the block info display correctly");
+        BlockedUserPopup blockedUserPopup = blockRacingPage.clickVenueMarketCell(venueName, marketName);
+        blockedUserPopup.verifyBlockedInfoDisplayCorrect(lstDownline.get(0).getUserCode(), lstDownline.get(0).getLevel(), accountInfo.getUserCode(), blockDateTime);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3699")
+    @Test(groups = {"regression"})
+    public void Agent_MM_Block_Racing_TC3699() {
+        log("@title: Validate can Block for Greyhound Racing");
+        log("Step 1. Navigate Markets Management > Block Racing");
+        String sportName = "Greyhound Racing";
+        BlockRacingPage blockRacingPage = agentHomePage.navigateBlockRacingPage();
+        log("Step 2. Active Blocking tab and select Greyhound Racing");
+        log("Step 3. Select downline and  select venue name");
+        log("Step 4. Click Update button");
+        AccountInfo accountInfo = ProfileUtils.getProfile();
+        List<AccountInfo> lstDownline = DownLineListingUtils.getAllDownLineUsers(_brandname, accountInfo.getUserCode(), accountInfo.getUserID());
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, lstDownline.get(0).getUserID(), "TODAY");
+        if (Objects.isNull(eventList.get(0).getEventName())) {
+            throw new SkipException("INFO: Skipping this test case as have no event in today for " + sportName);
+        }
+        Event event = eventList.get(0);
+        String venueName = event.getEventName().split(" ")[0];
+
+        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), lstDownline.get(0).getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
+        String marketName = marketList.get(0).getMarketName();
+        blockRacingPage.block(sportName, event.getCountryName(), lstDownline.get(0).getUserCode(), venueName, marketName);
+        String blockDateTime = DateUtils.getDate(0, "yyyy-MM-dd HH:mm", timeZone);
+        log("Validate the message update successfully");
+        Assert.assertEquals(blockRacingPage.lblSuccessMessage.getText().trim(),LBL_UPDATE_SUCCESS_MSG, "FAILED! Update setting success message does not display correct");
+        blockRacingPage.btnCloseUpdateSetting.click();
+
+        log("Step 5. Click Current tab  and search the venue name");
+        blockRacingPage.selectBlockingTab("Current");
+        blockRacingPage.searchVenueName(venueName);
+
+        log("Validate block icon  display at the venue name\n" +
+                "Click cell, the block info display correctly");
+        BlockedUserPopup blockedUserPopup = blockRacingPage.clickVenueMarketCell(venueName, marketName);
+        blockedUserPopup.verifyBlockedInfoDisplayCorrect(lstDownline.get(0).getUserCode(), lstDownline.get(0).getLevel(), accountInfo.getUserCode(), blockDateTime);
+        log("INFO: Executed completely");
+    }
 
 }

@@ -26,7 +26,7 @@ public class HomePage extends LoginPage {
     public int colValue = 2;
     protected String successIcon = "//span[contains(@class,'psuccess')]";
     protected String errorIcon = "//span[contains(@class,'perror')]";
-    public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
+    public static SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     static Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     private int totalCol = 2;
     Table tblSMAInfo = Table.xpath("//table[@class='ptable report ng-scope']", totalCol);
@@ -38,7 +38,7 @@ public class HomePage extends LoginPage {
         quickSearch = ComponentsFactory.quickSearchObject(_type);
     }
 
-    public void confirmSecurityCode(String securityCode) {
+    public static void confirmSecurityCode(String securityCode) {
         try {
             securityPopup.submitSecurityCode(StringUtils.decrypt(securityCode));
             waitingLoadingSpinner();
@@ -153,6 +153,12 @@ public class HomePage extends LoginPage {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, TAX_SETTING_LISTING);
         waitingLoadingSpinner();
         return new TaxSettingListingPage(_type);
+    }
+
+    public RiskSettingListingPage navigateRiskSettingListingPage() {
+        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, RISK_SETTING_LISTING);
+        waitingLoadingSpinner();
+        return new RiskSettingListingPage(_type);
     }
 
     public BetSettingListingPage navigateBetSettingListingPage() {

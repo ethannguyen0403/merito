@@ -6,13 +6,17 @@ import agentsite.pages.HomePage;
 import agentsite.pages.marketsmanagement.blockracing.BlockedUserPopup;
 import com.paltech.element.common.*;
 import org.openqa.selenium.Keys;
+import org.testng.Assert;
 
 import java.util.List;
 
+import static common.AGConstant.HomePage.BLOCK_RACING;
+
 
 public class BlockRacingPage extends HomePage {
-    public Label lblTitle = Label.xpath("//app-blocking-log-event//div[@class='title']");
-    public DropDownBox ddbSport = DropDownBox.xpath("//app-block-racing//select[contains(@class,'block-select')]");
+    public Label lblTitle = Label.xpath("//app-block-racing//div[@class='title']");
+    public DropDownBox ddbSport = DropDownBox.xpath("//app-block-racing//label[text()='Sport']//..//select[contains(@class,'block-select')]");
+    public DropDownBox ddbSMAList = DropDownBox.xpath("//app-block-racing//label[text()='SMA List']//..//select[contains(@class,'block-select')]");
     public Table tblDownline = Table.xpath("//app-block-racing//table[contains(@class,'block-table')]", 1);
     public Table tblCurrentVenue = Table.xpath("//app-block-racing//table[contains(@class,'report')]", 9);
     public TextBox txtSearchVenueName = TextBox.xpath("//app-block-racing//table[contains(@class,'report')]//div[@class='searchBox']");
@@ -20,6 +24,8 @@ public class BlockRacingPage extends HomePage {
     public MenuTree mnBlockingTab = MenuTree.xpath("//app-block-racing//div[@class='countryTabs']", "//li");
     public CheckBox cbSelectAllDownline = CheckBox.xpath("//app-block-racing//table[contains(@class,'block-table')]//span[contains(@class,'select-all')]/i");
     public Button btnUpdate = Button.id("bntUpdate");
+    public Label lblSuccessMessage = Label.xpath("//div[@class='modal-content']//div[@class='modal-body']");
+    public Button btnCloseUpdateSetting = Button.xpath("//div[@class='modal-content']//button[@class='close pull-right']");
     int colVenueName = 1;
 
     public BlockRacingPage(String types) {
@@ -162,4 +168,25 @@ public class BlockRacingPage extends HomePage {
         return Label.xpath(tblCurrentVenue.getxPathOfCell(1, colIndex, rowIndex, "i[contains(@class,'fa-lock')]")).isDisplayed();
     }
 
+    public void verifyUIDisplayCorrect(boolean isCurrent) {
+        if(isCurrent) {
+            Assert.assertEquals(lblTitle.getText(), BLOCK_RACING, "FAILED! Page title is not displayed correct");
+            Assert.assertTrue(ddbSport.isDisplayed(), "FAILED! Sport dropdown does not display");
+            Assert.assertTrue(tblCurrentVenue.isDisplayed(), "FAILED! Table current blocking value does not display");
+            Assert.assertTrue(txtSearchVenueName.isDisplayed(), "FAILED! Venue name search textbox does not display");
+            Assert.assertTrue(mnCountries.isDisplayed(), "FAILED! Menu countries does not display");
+            Assert.assertTrue(mnBlockingTab.isDisplayed(), "FAILED! Current/Blocking tab does not display");
+        } else {
+            Assert.assertEquals(lblTitle.getText(), BLOCK_RACING, "FAILED! Page title is not displayed correct");
+            Assert.assertTrue(ddbSport.isDisplayed(), "FAILED! Sport dropdown does not display");
+            Assert.assertTrue(ddbSMAList.isDisplayed(), "FAILED! SMA List dropdown does not display");
+            Assert.assertTrue(tblCurrentVenue.isDisplayed(), "FAILED! Table current blocking value does not display");
+            Assert.assertTrue(txtSearchVenueName.isDisplayed(), "FAILED! Venue name search textbox does not display");
+            Assert.assertTrue(mnCountries.isDisplayed(), "FAILED! Menu countries does not display");
+            Assert.assertTrue(mnBlockingTab.isDisplayed(), "FAILED! Current/Blocking tab does not display");
+            Assert.assertTrue(cbSelectAllDownline.isDisplayed(), "FAILED! Select all checkbox does not display");
+            Assert.assertTrue(tblDownline.isDisplayed(), "FAILED! Downline table does not display");
+            Assert.assertTrue(btnUpdate.isDisplayed(), "FAILED! Update button does not display");
+        }
+    }
 }

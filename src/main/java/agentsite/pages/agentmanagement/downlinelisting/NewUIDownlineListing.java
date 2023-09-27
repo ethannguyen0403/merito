@@ -7,11 +7,11 @@ import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import org.testng.Assert;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
+import static agentsite.pages.HomePage.waitingLoadingSpinner;
+import static agentsite.pages.agentmanagement.DownLineListingPage.*;
 import static baseTest.BaseCaseTest._brandname;
 import static baseTest.BaseCaseTest.environment;
 import static common.AGConstant.*;
@@ -21,11 +21,9 @@ import static common.AGConstant.BTN_SUBMIT;
 import static common.AGConstant.HomePage.DOWNLINE_LISTING;
 
 public class NewUIDownlineListing extends DownlineListing {
+    public Label lblPageTitle = Label.xpath("//app-title-dashboard//div[contains(@class, 'title')]");
     private Button btnOK = Button.xpath("//button[text()='OK']");
     private Button btnSubmit = Button.xpath("//app-agency-edit//button[@id='submitBtn']");
-    public NewUIDownlineListing(String types) {
-        super(types);
-    }
 //    private int userCodeCol = 2;
 
     public EditDownLinePage clickEditIcon(String loginID, boolean inputSecurityCode) {
@@ -60,7 +58,7 @@ public class NewUIDownlineListing extends DownlineListing {
         List<String> lstHeaderTable = tblDowlineListing.getHeaderNameOfRows();
         lstHeaderTable.remove(0);
         lstHeaderTable.remove(0);
-        Assert.assertEquals(header.lblPageTitle.getText(), DOWNLINE_LISTING, "FAILED! Page title is incorrect displayed");
+        Assert.assertEquals(lblPageTitle.getText(), DOWNLINE_LISTING, "FAILED! Page title is incorrect displayed");
         Assert.assertEquals(lblLoginId.getText(), LBL_USERNAME, "FAILED! Login ID is incorrect displayed");
         Assert.assertEquals(lblAccountStatus.getText(), ACCOUNT_STATUS, "FAILED! Account Status is incorrect displayed");
         Assert.assertEquals(lblLevel.getText(), LEVEL, "FAILED! Account Status is incorrect displayed");

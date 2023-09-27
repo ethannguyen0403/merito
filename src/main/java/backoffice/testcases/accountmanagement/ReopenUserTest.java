@@ -42,8 +42,8 @@ public class ReopenUserTest extends BaseCaseTest {
         DriverManager.getDriver().get(agentLoginURL);
         agentHomePage = loginAgent(sosAgentURL, agentSecurityCodeURL, satSADAgentLoginID, memberPassword, environment.getSecurityCode());
         DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
-        downLineListingPage.downlineListing.searchDownline("", "Closed", "All");
-        String closeAccount = downLineListingPage.downlineListing.tblDowlineListing.getColumn(downLineListingPage.downlineListing.loginIDCol, false).get(0);
+        downLineListingPage.searchDownline("", "Closed", "All");
+        String closeAccount = downLineListingPage.tblDowlineListing.getColumn(downLineListingPage.loginIDCol, false).get(0);
 
         log("Step 1. Access Member Management > Reopen User");
         loginBackoffice(username, password, true);
@@ -68,10 +68,10 @@ public class ReopenUserTest extends BaseCaseTest {
         log("Step 4. Login agent site > downline listing > Search the account and check status");
         agentHomePage = loginAgent(sosAgentURL, agentSecurityCodeURL, username, password, environment.getSecurityCode());
         downLineListingPage = agentHomePage.navigateDownlineListingPage();
-        downLineListingPage.downlineListing.searchDownline(closeAccount, "Active", "All");
+        downLineListingPage.searchDownline(closeAccount, "Active", "All");
 
         log("Step 3. Account is active in agent site");
-        List<String> lstRecord = downLineListingPage.downlineListing.tblDowlineListing.getColumn(downLineListingPage.downlineListing.loginIDCol, false);
+        List<String> lstRecord = downLineListingPage.tblDowlineListing.getColumn(downLineListingPage.loginIDCol, false);
         Assert.assertEquals(lstRecord.get(0), closeAccount, String.format("Failed! Expected login id %s display but found %s", closeAccount, lstRecord.get(0)));
 
         log("INFO: Executed completely");

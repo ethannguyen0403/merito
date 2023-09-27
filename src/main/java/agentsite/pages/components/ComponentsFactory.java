@@ -279,9 +279,9 @@ public class ComponentsFactory {
     public static DownlineListing downlineListingPage(String types) {
         switch (types) {
             case "satsport":
-                return new OldUIDownlineListing(types);
+                return new OldUIDownlineListing();
             default:
-                return new NewUIDownlineListing(types);
+                return new NewUIDownlineListing();
         }
     }
 
