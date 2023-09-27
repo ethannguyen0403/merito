@@ -155,6 +155,7 @@ public class AGConstant {
         public final static String FOLLOW_BETS = "Follow Bets";
         public final static String DEPOSIT_WITHDRAW = "Deposit/Withdraw";
         public final static String TAX_SETTING_LISTING = "Tax Settings";
+        public final static String RISK_SETTING_LISTING = "Risk Setting Listing";
         public final static String POSITION_TAKING_LISTING = "Position Taking Listing";
         public final static String ANNOUNCEMENT = "Announcement";
         public final static String FRAUD_DETECTION = "Fraud Detection";
@@ -831,6 +832,9 @@ public class AGConstant {
             public final static List<String> TABLE_COMPETITION = Arrays.asList("Competition Name", "Current");
             public final static List<String> TABLE_EVENT = Arrays.asList("Competition Name", "Event Name", "Current");
             public final static List<String> TAB_DAYS = Arrays.asList("Old Events", "Today", "Tomorrow", "Future");
+        }
+        public static class BlockRacing {
+            public final static String LBL_UPDATE_SUCCESS_MSG = "Your settings updated successfully!";
         }
 
         public static class BlockedUserPopup {

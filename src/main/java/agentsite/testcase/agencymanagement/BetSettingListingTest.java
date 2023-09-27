@@ -511,8 +511,8 @@ public class BetSettingListingTest extends BaseCaseTest {
             downlineUserCode = downlineUserCode.split("-")[1];
         }
         DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
-        downLineListingPage.downlineListing.searchDownline(downlineUserCode,"","");
-        EditDownLinePage editDownLinePage = downLineListingPage.downlineListing.clickEditIcon(downlineUserCode);
+        downLineListingPage.searchDownline(downlineUserCode,"","");
+        EditDownLinePage editDownLinePage = downLineListingPage.clickEditIcon(downlineUserCode);
         editDownLinePage.editDownlineListing.enableDisableSport(EXCHANGE_GAMES, false);
         editDownLinePage.editDownlineListing.clickSubmit();
         downLineListingPage = editDownLinePage.editDownlineListing.closeEditDownlinePopup();
@@ -547,8 +547,8 @@ public class BetSettingListingTest extends BaseCaseTest {
             downlineUserCode = downlineUserCode.split("-")[1];
         }
         DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
-        downLineListingPage.downlineListing.searchDownline(downlineUserCode,"","");
-        EditDownLinePage editDownLinePage = downLineListingPage.downlineListing.clickEditIcon(downlineUserCode);
+        downLineListingPage.searchDownline(downlineUserCode,"","");
+        EditDownLinePage editDownLinePage = downLineListingPage.clickEditIcon(downlineUserCode);
         editDownLinePage.editDownlineListing.enableDisableSport(EXCHANGE_GAMES, false);
         editDownLinePage.editDownlineListing.enableDisableSport(EXCHANGE, false);
         editDownLinePage.editDownlineListing.enableDisableSport(PS38, false);
