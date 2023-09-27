@@ -201,7 +201,8 @@ public class AGConstant {
         public final static List<String> LST_QUICK_SEARCH_LOGIN = Arrays.asList("Created Date", "Last Login Time", "Last Login IP");
         public final static List<String> LST_QUICK_SEARCH_SETTING_MENU = Arrays.asList("User Profile", "Product Status", "Position Taking", "Bet Settings", "Tax Settings", "Commission");
         public final static String PS38_SPORTS_RESULTS = "PS38 Sports Results";
-        public final static List<String> PRODUCTS_LIST = Arrays.asList("Exchange", "Exchange Games", "Evolution", "Supernowa Casino");
+        public final static List<String> PRODUCTS_LIST = Arrays.asList("Exchange", "Exchange Games", "Evolution", "Supernowa Casino","CMD Sportsbook","Live Dealer European", "Live Dealer Asian","Pragmatic", "Game Hall",
+                "ViVo", "Ion","Sabong");
 
     }
 
