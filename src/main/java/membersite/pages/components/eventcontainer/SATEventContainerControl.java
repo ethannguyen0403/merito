@@ -216,42 +216,26 @@ public class SATEventContainerControl extends EventContainerControl {
     }
 
     public void clickOnRowofEventName(String event) {
+
+        int i = getEventIndex(event);
+        if (i ==0) {
+            System.out.println("Debug! Not found event to click");
+            return;
+        }
+        tblEvents.getControlOfCell(1, 1, i, "span[contains(@class,'home-team')]").click();
+    }
+
+    private int getEventIndex(String eventName) {
         int i = 1;
         Link lnkEvent;
         while (true) {
             lnkEvent = (Link) tblEvents.getControlOfCell(1, 1, i, "span[contains(@class,'home-team')]");
             if (!lnkEvent.isDisplayed()) {
                 System.out.println("Debug! Not found event to click");
-                return;
-            }
-            String eventName = lnkEvent.getText().trim();
-            if (eventName.equalsIgnoreCase(event)) {
-                lnkEvent.click();
-                lnkEvent.isDisplayedShort(2);
-                return;
-            }
-            i++;
-        }
-    }
-
-    private int getEventIndex(String eventName) {
-        int i = 1;
-        Link lnkHomeTeam;
-        Link lnkAwayTeam;
-        String homeTeamName;
-        String awayTeamName;
-        while (true) {
-            lnkHomeTeam = (Link) tblEvents.getControlOfCell(1, 1, i, "span[contains(@class,'home-team-name')]");
-
-            if (!lnkHomeTeam.isDisplayed()) {
-                System.out.println("Debug! Event " + eventName + " not display on the page");
                 return 0;
             }
-            lnkAwayTeam = (Link) tblEvents.getControlOfCell(1, 1, i, "span[contains(@class,'away-team-name')]");
-            homeTeamName = lnkHomeTeam.getText().trim();
-            awayTeamName = lnkAwayTeam.getText().trim();
-            if (eventName.contains(homeTeamName) && eventName.contains(awayTeamName)) {
-                System.out.println("Debug! Found the event " + eventName + " at row" + i);
+            String name = lnkEvent.getText().trim();
+            if (name.equalsIgnoreCase(eventName)) {
                 return i;
             }
             i++;
@@ -320,6 +304,11 @@ public class SATEventContainerControl extends EventContainerControl {
             i++;
             // check api tha has fany
         }
+    }
+
+    public boolean isEventDisplay(String eventName){
+        getEventIndex(eventName);
+        return false;
     }
 
 
