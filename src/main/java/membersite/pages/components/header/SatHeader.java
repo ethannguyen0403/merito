@@ -59,7 +59,8 @@ public class SatHeader extends Header1 {
         return satUnderageGamblingPopup.clickConfirmation();
     }
 
-    private SATSignInPopup openSigninPopup() {
+    @Override
+    public SATSignInPopup openSigninPopup() {
         btnJoinNow.click();
         return new SATSignInPopup();
     }
