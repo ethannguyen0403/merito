@@ -3,6 +3,8 @@ package membersite.pages.components.header;
 import membersite.objects.AccountBalance;
 import membersite.pages.*;
 import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
+import membersite.pages.components.signinform.SATSignInPopup;
+import membersite.pages.components.signinform.SignInPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
 
@@ -17,6 +19,9 @@ public class Header1 {
     public void signin(String username, String password, String email, String currency, String phone) {
     }
 
+    public SignInPopup openSigninPopup() {
+        return null;
+    }
     public String loginInvalid(String username, String password) {
         return "";
     }

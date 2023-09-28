@@ -4,7 +4,7 @@ import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
 
 public class SATSignInPopup extends SignInPopup {
-    public Popup signInPopup = Popup.xpath("//div[@class='login-popup-content']");
+    public Popup signInPopup = Popup.xpath("//div[@class='signup-popup-content']");
     TextBox txtpassword = TextBox.name("newpassword");
     TextBox txtconfirmPassword = TextBox.name("newcfPassword");
     TextBox txtEmail = TextBox.name("emailAddress");
