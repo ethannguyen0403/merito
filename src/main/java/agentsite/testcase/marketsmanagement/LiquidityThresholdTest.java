@@ -6,6 +6,9 @@ import agentsite.pages.marketsmanagement.LiquidityThresholdPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
+import membersite.objects.sat.Event;
+import membersite.pages.MarketPage;
+import membersite.pages.SportPage;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -13,6 +16,7 @@ import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static common.AGConstant.HomePage.LIQUIDITY_THRESHOLD;
 import static common.AGConstant.HomePage.MARKET_MANAGEMENT;
@@ -188,26 +192,40 @@ public class LiquidityThresholdTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-//    @Test(groups = {"interaction"})
-//    @Parameters({"controlBlockingAccount","downlineAccount","memberAccount","password","boAccount","bopassword"})
-//    public void Agent_MM_Liquidity_Threshold_TC007(String controlBlockingAccount,String memberAccount,String password,String boAccount, String bopassword) throws Exception {
-//        log("@title: Validate odds in member affect when active/inactive liquidity threshold");
-//        log("Step 1. Navigate Markets Management >Liquidity Threshold");
-//        LiquidityThresholdPage page = agentHomePage.navigateLiquidityThresholdPage();
-//
-//        log(String.format("Step 2. Search the account %S",controlBlockingAccount));
-//        page.search(controlBlockingAccount);
-//
-//        log(String.format("Step 3. Click active liquidity threshold of %s",controlBlockingAccount));
-//        page.setLiquidityThreshold(controlBlockingAccount,true);
-//
-//        loginBackoffice(boAccount, bopassword,true);
-//        LiquidityThresholdSettingsPage liquidityThresholdSettingsPage = backofficeHomePage.navigateLiquidityThresholdSettings();
-//        List<String> lstThreshold =  liquidityThresholdSettingsPage.getThreshold("Soccer","Match Odds");
-//        log("Verify 1. Verify odds is blur in member Soccer for Live/Non live if Match volume over the setting in BO");
-//        loginMember(memberAccount,password);
-//
-//        log("INFO: Executed completely");
-//    }
+    @Test(groups = {"interaction_po"})
+    @TestRails(id = "3716")
+    @Parameters({"controlBlockingAccount","memberAccount", "passwordNonePO"})
+    public void Agent_MM_Liquidity_Threshold_TC3716(String controlBlockingAccount,String memberAccount, String passwordNonePO) throws Exception {
+        log("@title: Validate odds in member affect when active/inactive liquidity threshold");
+        log("Precondition: BO has set liquidity for Soccer live and non-live for market Correct Score");
+        log("Step 1. Navigate Markets Management >Liquidity Threshold");
+        LiquidityThresholdPage page = agentHomePage.navigateLiquidityThresholdPage();
+
+        log(String.format("Step 2. Search the account %S",controlBlockingAccount));
+        page.search(controlBlockingAccount);
+
+        log(String.format("Step 3. Click active liquidity threshold of %s",controlBlockingAccount));
+        page.setLiquidityThreshold(controlBlockingAccount,true);
+        page.logout();
+
+        log("Step 4.1 Login Member Site");
+        memberHomePage = loginMember(memberAccount, passwordNonePO);
+        memberHomePage.waitMenuLoading();
+        log("Step 4.2. Click Soccer menu");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu("Soccer");
+
+        log("Step 4.3: Click on an event and navigate to Correct Score market");
+        Event event = sportPage.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEvent(event);
+        marketPage.leftMenu.clickMarket("Correct Score");
+
+        log("Validate odds is blur in member Soccer for Live/Non live if Match volume over the seting in BO");
+        Assert.assertTrue(marketPage.marketOddControl.verifyOddsIsClickable(false));
+        log("INFO: Executed completely");
+    }
 
 }
