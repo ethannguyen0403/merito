@@ -162,65 +162,40 @@ public class EditUserTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
-        String loginID = listAccount.get(1).getUserCode();
+        String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(loginID, "Active", "Member");
-        page.clickEditIcon(loginID);
-
-        log("Step  Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("Step  3. Change account status to Inactive and click on Submit button\n" +
                 "     *              Click Ok button on Edit Member popup");
-        page.editDownlinePopup.accountInforSection.inputInfo("","", "Inactive");
+        editDownLinePage.accountInforSection.inputInfo("", "Inactive");
         page.submitEditDownline();
         String message = page.getMessageUpdate(true);
 
-        log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
+        log("Verify 3 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
 
-        log("Verify 2. Downline Listing display Account Status is Inactive");
+        log("Verify 3. Downline Listing display Account Status is Inactive");
         page.searchDownline(loginID, "Inactive", "Member");
         Assert.assertEquals(page.getAccountStatus(loginID), "Inactive", "FAILED! Incorrect status after Inactive account");
-        agentHomePage.logout();
 
-//        log("Step 4. Login member site with inactive account");
-//        BaseCaseMember.loginMemberviaUI(environment.getMemberSiteURL(),loginID,passDecrypt);
-//
-//        log("Verify 3. Cannot login member site with inactive account");
-//        LoginPopup loginPopup = new LoginPopup();
-//        Assert.assertEquals(loginPopup.lblErrorMessage.getText(), FEMemberConstants.LoginPage.MSG_LOGIN_INACTIVE_ACCOUNT,"FAILED! Can login member site when account is inactive");
-//
-//        log("Step 5. Back to Agent site and click edit the account again");
-//        loginAgent(environment.getSosURL(),environment.getSecurityCodeUrl(),username,password,environment.getSecurityCode());
-
-        log("Step 6. Navigate to Downline Listing page");
+        log("Step 4. Navigate to Downline Listing page");
         page = agentHomePage.navigateDownlineListingPage();
         page.searchDownline(loginID, "Inactive", "Member");
-        page.clickEditIcon(loginID);
+        editDownLinePage = page.clickEditIcon(loginID);
 
-        log("Step 6.1  Input security code");
-        page.submitEditDownline();
-
-        log("Step 6. Change account status to Active and Submit and click Ok button");
-        page.editDownlinePopup.accountInforSection.inputInfo("","", "Active");
+        log("Step 5. Change account status to Active and Submit and click Ok button");
+        editDownLinePage.accountInforSection.inputInfo("", "Active");
         page.submitEditDownline();
         message = page.getMessageUpdate(true);
 
+        log("Verify 5 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message when update account status is not correct");
-        log("Verify 4. Downline Listing display Account Status is Active");
+        log("Verify 5. Downline Listing display Account Status is Active");
         page.searchDownline(loginID, "Active", "Member");
         Assert.assertEquals(page.getAccountStatus(loginID), "Active", "FAILED! Incorrect status after Active account");
-
-        log("Step 7. Login member with the account");
-        agentHomePage.logout();
-
-//        BaseCaseFE.loginMemberviaUI(environment.getMemberSiteURL(),loginID,passDecrypt);
-//        HomePage memberHomePage = new HomePage();
-//
-//        log("Verify 5. Can login member Site");
-//        Assert.assertTrue(memberagentHomePage.ddbMyAccount.isDisplayed(5), "ERROR: ddbMyAccount doesn't display after signed in");
 
         log("INFO: Executed completely");
     }
@@ -246,71 +221,33 @@ public class EditUserTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
-        String loginID = listAccount.get(1).getUserCode();
+        String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(loginID, "Active", "Member");
-        page.clickEditIcon(loginID);
-
-        log("Step 2. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("Step 3. Inactive Live and click Save button");
-        page.editDownlinePopup.productStatusSettingInforSection.updateLiveNonLive(false,true);
+        editDownLinePage.productStatusSettingInforSection.updateLiveNonLive(false,true);
         page.submitEditDownline();
         String message = page.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
-//        agentHomePage.logout();
-//
-//        log(String.format("Step 4. Login member Site with account %s and Active Inlay Page", loginID));
-//        DriverManager.getDriver().getToAvoidTimeOut(environment.getMemberSiteURL());
-//        loginMemberviaUI(loginID,passwordDecrypt);
-//        memberHomePage = new pages.sat.tabexchange.HomePage();
-//        pages.sat.tabexchange.InPlayPage inPlayPage = memberagentHomePage.navigateSportMenu("In-Play", pages.sat.tabexchange.InPlayPage.class);
-//
-//        Event event = inPlayPage.eventContainerControl.getEvent(true,false,0,1);
-//        if(Objects.isNull(event))
-//        {
-//            throw new SkipException("INFO: There is no event in In-play Event");
-//        }
-//
-//        log("Verify 2.1. If In-Play Page has event, Odds is blur and un-clickable on sport page ");
-//        Assert.assertFalse(inPlayPage.eventContainerControl.isOddsUnclickable(event.getEventName()),"FAILED! Inplay odds is not blue and is click able");
-//        log(String.format("Step 4.1 click on the event ", event.getEventName()));
-//        inPlayPage.eventContainerControl.clickEvent(event.getEventName());
-//
-//        log("Verify 2.2. If In-Play Page has event, Odds is blur and un-clickable on market page");
-//        Assert.assertFalse(inPlayPage.marketContainerControl.verifyOddsIsClickable(event),"FAILED! Market page In-play event can click on odds when inactive Live ");
-//        inPlayPage.logout();
-//
-//        log("Step 5. Repeat step 2 to 4 and Active Live");
-//        loginAgent(environment.getSosURL(),environment.getSecurityCodeUrl(),username,password,environment.getSecurityCode());
 
         page = agentHomePage.navigateDownlineListingPage();
         page.searchDownline(loginID, "Active", "Member");
-        page.clickEditIcon(loginID);
+        editDownLinePage = page.clickEditIcon(loginID);
 
         log("Step 5.1. Input security code");
         page.submitEditDownline();
 
-        page.editDownlinePopup.productStatusSettingInforSection.updateLiveNonLive(true, true);
+        editDownLinePage.productStatusSettingInforSection.updateLiveNonLive(true, true);
         page.submitEditDownline();
         message = page.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
-
-//        log("Verify 6. Can add odds to bet slip when Live is active");
-//        agentHomePage.logout();
-//        loginMemberviaUI(loginID,password);
-//        memberHomePage = new HomePage();
-//        inPlayPage = memberagentHomePage.navigateSportMenu("In-Play", InPlayPage.class);
-//        event = inPlayPage.eventContainerControl.getEvent(true,false,0,1);
-//
-//        inPlayPage.eventContainerControl.clickEvent(event.getEventName());
-//        Assert.assertTrue(inPlayPage.marketContainerControl.verifyOddsIsClickable(event),"FAILED! Market page In-play event can NOT click on odds when active Live Setting");
 
         log("INFO Execute completed!");
     }
@@ -335,35 +272,29 @@ public class EditUserTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
-        String loginID = listAccount.get(1).getUserCode();
+        String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(loginID, "Active", "Member");
-        page.clickEditIcon(loginID);
-
-        log("Step 2.1. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("Step 3. Inactive Live and click Save button");
-        page.editDownlinePopup.productStatusSettingInforSection.updateLiveNonLive(true, false);
+        editDownLinePage.productStatusSettingInforSection.updateLiveNonLive(true, false);
         page.submitEditDownline();
         String message = page.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
 
-        page.clickEditIcon(loginID);
+        editDownLinePage = page.clickEditIcon(loginID);
 
-        log("Step 5.1. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
-
-        page.editDownlinePopup.productStatusSettingInforSection.updateLiveNonLive(true, true);
+        editDownLinePage.productStatusSettingInforSection.updateLiveNonLive(true, true);
         page.submitEditDownline();
         message = page.getMessageUpdate(true);
 
         log("Verify 2 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
-
+        log("INFO Execute completed!");
     }
 
     /**
@@ -389,51 +320,30 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(loginID, "Active", "Member");
-        page.clickEditIcon(loginID);
-
-        log("Step 2.1. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("Step 3. In-active any sport");
-        page.editDownlinePopup.productStatusSettingInforSection.updateSport("Soccer", false);
+        editDownLinePage.productStatusSettingInforSection.updateSport("Soccer", false);
         page.submitEditDownline();
         String message = page.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
 
-//        log("Step 4. Login member Site and Active Inlay Page");
-//        BaseCaseFE.loginMemberviaUI(environment.getMemberSiteURL(),loginID,passDecryp);
-//        HomePage memberHomePage = new HomePage();
-//        List<String> listSportMenu = memberagentHomePage.getMainSportsMenu();
-//
-//        log("Verify 2. Login member site and verify Sport is not displayed on the left menu or main menu");
-//        Assert.assertFalse(listSportMenu.contains("Soccer"),"FAILED! Sport should be not display in main menu when the sport is inactive in agent site");
-//        memberagentHomePage.logout();
-
         log("Step 4.1 Login agent again and search the account");
         loginAgent(sosAgentURL, agentSecurityCodeURL, username, password, environment.getSecurityCode());
         page = agentHomePage.navigateDownlineListingPage();
         page.searchDownline(loginID, "Active", "Member");
-        page.clickEditIcon(loginID);
-
-        log("Step 4.2. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        editDownLinePage = page.clickEditIcon(loginID);
 
         log("Step 4.3 Repeat step 2 to 3 and Active Sport again and active at least 1 market of the sport");
-        page.editDownlinePopup.productStatusSettingInforSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", true);
+        editDownLinePage.productStatusSettingInforSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", true);
         page.submitEditDownline();
         message = page.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
-        agentHomePage.logout();
-
-        log("Verify 3. Login member site and verify Sport is displayed on the left menu or main menu");
-//        BaseCaseFE.loginMemberviaUI(environment.getMemberSiteURL(),loginID,passDecryp);
-//        memberHomePage = new HomePage();
-//        listSportMenu = memberagentHomePage.getMainSportsMenu();
-//        Assert.assertTrue(listSportMenu.contains("Soccer"),"FAILED! Sport should be not display in main menu when the sport is inactive in agent site");
+        log("INFO Execute completed!");
     }
 
     /**
@@ -461,38 +371,17 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(loginID, "Active", "Member");
-        page.clickEditIcon(loginID);
-
-        log("Step 2.1. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("Step 3. Select Soccer sport and click edit icon");
         log("Step 4. Uncheck a market (e.g.: Half Time) and submit");
-        page.productStatusSettingInforSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", false);
+        editDownLinePage.productStatusSettingInforSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", false);
         page.submitEditDownline();
         String message = page.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
-        agentHomePage.logout();
-
-        log("Verify 2. Verify Half-Time market is uncheck after that");
-       /* log("Verify 3. Login member site and verify Soccer event not display Half Time market");
-        BaseCaseFE.loginMemberviaUI(environment.getMemberSiteURL(),loginID,passDecryp);
-        memberHomePage = new HomePage();
-
-        SoccerPage socerPage = memberagentHomePage.navigateSportMenu("Soccer",SoccerPage.class);
-        List<String> lstCompetition = socerPage.getLeftMenuList();
-        if(lstCompetition.isEmpty()) {
-            log("DEBUG: There is no event available");
-            return;
-        }
-        socerPage.clickMenu(lstCompetition.get(lstCompetition.size()-1));
-        List<String> lstEvent = socerPage.getLeftMenuList();
-        socerPage.clickMenu(lstEvent.get(lstEvent.size()-1));
-        List<String> lstMarket = socerPage.getLeftMenuList();
-        Assert.assertTrue(lstMarket.contains("Half Time"),"FAILED! Sport should be not display in main menu when the sport is inactive in agent site");*/
-
+        log("INFO Execute completed!");
     }
 
     /**
@@ -517,10 +406,7 @@ public class EditUserTest extends BaseCaseTest {
         String loginID = listAccount.get(0).getUserCode();
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(loginID, "Active", "Member");
-        page.clickEditIcon(loginID);
-
-        log("Step 2.1. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         List<ArrayList<String>> lstBetSettingValidation = page.betSettingInforSection.getBetSettingValidationValueLst(currency);
 //      page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.getBetSettingValidationValueLst(currency);
@@ -535,43 +421,14 @@ public class EditUserTest extends BaseCaseTest {
         lstBetSetting.add(maxBetLst);
 
         log("Step 3. Input Min bet of Soccer with valid value");
-        page.editDownlinePopup.accountInforSection.txtPassword.sendKeys(StringUtils.decrypt(password));
-        page.betSettingInforSection.inputBetSetting(lstBetSetting);
-//        page.editDownlinePopup.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
+        editDownLinePage.accountInforSection.txtPassword.sendKeys(StringUtils.decrypt(password));
+        editDownLinePage.betSettingInforSection.inputBetSetting(lstBetSetting);
         page.submitEditDownline();
 
         log("Verify 1. Verify can update User with valid Min Bet");
         String message = page.getMessageUpdate(true);
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
-        /*agentHomePage.logout();
-
-        log("Step 4. Login member Site and place Soccer bet with the stake less than the value in Step 3");
-        loginMemberviaUI(loginID,password);
-
-        log("Verify 2. Verify message display correctly min bet when place bet with stake less than min setting");
-        BaseCaseFE.loginMemberviaUI(environment.getMemberSiteURL(),loginID,passDecryp);
-        String odds ="20.00";
-        String stake = Integer.toString(Integer.parseInt(minBet)-1);
-        memberHomePage = new HomePage();
-        SoccerPage socerPage = memberagentHomePage.navigateSportMenu("Soccer",SoccerPage.class);
-        Event event = socerPage.eventContainerControl.getEvent(false,false,3,1);
-        if(Objects.isNull(event)) {
-            log("DEBUG: There is no event available");
-            return;
-        }
-        socerPage.clickEvent(event);
-
-        log("Step 3:Click on an Back odds without empty of the selection have the high potential win");
-        Market market = socerPage.marketContainerControl.getMarket(event,1,true);
-        market.getOdd().click();
-
-        log("Step 4. Input stake and click submit");
-        socerPage.betsSlipContainer.placeBet(odds,stake);
-
-        log("Verify: Error Cannot place bet display");
-        String actualError = socerPage.myBetsContainer.getPlaceBetErrorMessage();
-        String expectedError = String.format(FEMemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f",Double.parseDouble(minBet)),String.format("%(,.2f",Double.parseDouble(maxBet)),String.format("%.2f",Double.parseDouble(stake)));
-        Assert.assertEquals(actualError,expectedError,String.format("ERROR! Expected error message is %s but found %s", expectedError,actualError));*/
+        log("INFO Execute completed!");
     }
 
 
@@ -585,10 +442,10 @@ public class EditUserTest extends BaseCaseTest {
         String loginID = listAccount.get(0).getUserCode();
 
         log(String.format("Step 2. Click on Edit icon of  Player: %s", loginID));
-        page.clickEditIcon(loginID);
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("Verify 1. Verify there is no Security Code popup prompted");
-        Assert.assertFalse(page.securityPopup.isDisplayed(), "FAILED Security popup  display when edit agent");
+        Assert.assertFalse(editDownLinePage.securityPopup.isDisplayed(), "FAILED Security popup  display when edit agent");
     }
 
     @TestRails(id = "3544")
@@ -608,7 +465,7 @@ public class EditUserTest extends BaseCaseTest {
         editDownLinePage.activeProduct("Exchange", true);
 
         log("Verify 1. Verify there is no Security Code popup prompted");
-        Assert.assertFalse(page.securityPopup.isDisplayed(), "FAILED Security popup  display when edit agent");
+        Assert.assertFalse(editDownLinePage.securityPopup.isDisplayed(), "FAILED Security popup  display when edit agent");
     }
     @TestRails(id = "3544")
     @Test(groups = {"interaction"})
@@ -620,13 +477,10 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(memberAccount, "Active", "Member");
-        page.clickEditIcon(memberAccount);
-
-        log("Step 2.1. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3.1 In-active Lottery & Slots product");
-        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Lottery & Slots", false);
+        editDownLinePage.productStatusSettingInforSection.updateProduct("Lottery & Slots", false);
         page.submitEditDownline();
         page.closeSubmitEditDownlinePopup();
         page.logout();
@@ -640,13 +494,10 @@ public class EditUserTest extends BaseCaseTest {
         loginAgent(username, password, true);
         page = agentHomePage.navigateDownlineListingPage();
         page.searchDownline(memberAccount, "Active", "Member");
-        page.clickEditIcon(memberAccount);
-
-        log("Step 2.2. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3.3 Active Lottery & Slots product");
-        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Lottery & Slots", true);
+        editDownLinePage.productStatusSettingInforSection.updateProduct("Lottery & Slots", true);
         page.submitEditDownline();
         page.closeSubmitEditDownlinePopup();
         page.logout();
@@ -666,13 +517,10 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(memberAccount, "Active", "Member");
-        page.clickEditIcon(memberAccount);
-
-        log("Step 2.1. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3.1 In-active Exchange Games product");
-        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Exchange Games", false);
+        editDownLinePage.productStatusSettingInforSection.updateProduct("Exchange Games", false);
         page.submitEditDownline();
         page.closeSubmitEditDownlinePopup();
         page.logout();
@@ -686,13 +534,10 @@ public class EditUserTest extends BaseCaseTest {
         loginAgent(username, password, true);
         page = agentHomePage.navigateDownlineListingPage();
         page.searchDownline(memberAccount, "Active", "Member");
-        page.clickEditIcon(memberAccount);
-
-        log("Step 2.2. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3.3 Active Exchange Games product");
-        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Exchange Games", true);
+        editDownLinePage.productStatusSettingInforSection.updateProduct("Exchange Games", true);
         page.submitEditDownline();
         page.closeSubmitEditDownlinePopup();
         page.logout();
@@ -712,13 +557,10 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(memberAccount, "Active", "Member");
-        page.clickEditIcon(memberAccount);
-
-        log("Step 2.1. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3.1 In-active Live Dealer Asian product");
-        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Live Dealer Asian", false);
+        editDownLinePage.productStatusSettingInforSection.updateProduct("Live Dealer Asian", false);
         page.submitEditDownline();
         page.closeSubmitEditDownlinePopup();
         page.logout();
@@ -732,13 +574,10 @@ public class EditUserTest extends BaseCaseTest {
         loginAgent(username, password, true);
         page = agentHomePage.navigateDownlineListingPage();
         page.searchDownline(memberAccount, "Active", "Member");
-        page.clickEditIcon(memberAccount);
-
-        log("Step 2.2. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3.3 Active Live Dealer Asian product");
-        page.editDownlinePopup.productStatusSettingInforSection.updateProduct("Live Dealer Asian", true);
+        editDownLinePage.productStatusSettingInforSection.updateProduct("Live Dealer Asian", true);
         page.submitEditDownline();
         page.closeSubmitEditDownlinePopup();
         page.logout();
@@ -758,13 +597,10 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(memberAccount, "Active", "Member");
-        page.clickEditIcon(memberAccount);
-
-        log("Step 2.1. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3.1 In-active Live Dealer Asian product");
-        page.editDownlinePopup.accountInforSection.txtPassword.sendKeys(StringUtils.decrypt(password));
+        editDownLinePage.accountInforSection.txtPassword.sendKeys(StringUtils.decrypt(password));
         page.submitEditDownline();
         page.closeSubmitEditDownlinePopup();
         page.logout();
@@ -785,13 +621,10 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(memberAccount, "Active", "Member");
-        page.clickEditIcon(memberAccount);
-
-        log("Step 2.1. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3.1 In-acctive the account");
-        page.editDownlinePopup.accountInforSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(2));
+        editDownLinePage.accountInforSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(2));
         page.submitEditDownline();
         page.closeSubmitEditDownlinePopup();
         page.logout();
@@ -811,10 +644,7 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of Active Member level");
         page.searchDownline(memberAccount, "Active", "Member");
-        page.clickEditIcon(memberAccount);
-
-        log("Step 2.1. Input security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3. Suspend the account");
         page.editDownlinePopup.accountInforSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(3));

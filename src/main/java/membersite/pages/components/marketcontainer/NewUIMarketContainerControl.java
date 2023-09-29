@@ -129,18 +129,33 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
 
     public List<Label> getOddsListLabel(int selectionIndex, boolean isBack) {
         List<Label> list = new ArrayList<>();
-        String xPathOddsList = String.format("%s[%d]%s", lblSelectionListXPath, selectionIndex, lblOddListXPath);
-
+        String xPathOddsList = String.format("(%s)[%d]%s", lblSelectionListXPath, selectionIndex, lblOddListXPath);
         int countOddsLabel = Label.xpath(xPathOddsList).getWebElements().size();
-        String backOrLay = isBack ? "back" : "lay";
 
         if (isBack) {
             for (int i = countOddsLabel / 2; i > 0; i--) {
-                list.add(Label.xpath(String.format("%s[%d]%s", xPathOddsList, i, lblOddItem)));
+                list.add(Label.xpath(String.format("(%s%s)[%d]", xPathOddsList, lblOddItem, i)));
             }
         } else {
             for (int i = countOddsLabel / 2; i < countOddsLabel; i++) {
-                list.add(Label.xpath(String.format("%s[%d]%s", xPathOddsList, i + 1, lblOddItem)));
+                list.add(Label.xpath(String.format("(%s%s)[%d]", xPathOddsList, lblOddItem, i + 1)));
+            }
+        }
+        return list;
+    }
+
+    public List<Label> getCellOddsListLabel(int selectionIndex, boolean isBack) {
+        List<Label> list = new ArrayList<>();
+        String xPathOddsList = String.format("(%s)[%d]%s", lblSelectionListXPath, selectionIndex, lblOddListXPath);
+        int countOddsLabel = Label.xpath(xPathOddsList).getWebElements().size();
+
+        if (isBack) {
+            for (int i = countOddsLabel / 2; i > 0; i--) {
+                list.add(Label.xpath(String.format("(%s)[%d]", xPathOddsList, i)));
+            }
+        } else {
+            for (int i = countOddsLabel / 2; i < countOddsLabel; i++) {
+                list.add(Label.xpath(String.format("(%s)[%d]", xPathOddsList, i + 1)));
             }
         }
         return list;
@@ -256,21 +271,34 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
         return returnDate;
     }
 
-    public boolean verifyOddsIsClickable(Event event) {
+    public boolean verifyOddsIsClickable(boolean isClickable) {
         int getTotalSelection = getTotalSelection();
         for (int i = 0; i < getTotalSelection; i++) {
-            List<Label> lblBackOdds = getOddsListLabel(i + 1, true);
-            List<Label> lblLayOdds = getOddsListLabel(i + 1, false);
+            List<Label> lblBackOdds = getCellOddsListLabel(i + 1, true);
+            List<Label> lblLayOdds = getCellOddsListLabel(i + 1, false);
             for (int j = 0; j < lblBackOdds.size(); j++) {
-                if (!lblBackOdds.get(i).isClickable(2)) {
-                    System.out.println("Market Page - Back Odds buttons are not clickable");
-                    return false;
+                if(isClickable) {
+                    if (lblBackOdds.get(j).getAttribute("outerHTML").contains("disable-odds")) {
+                        System.out.println("Market Page - Back Odds buttons are not clickable");
+                        return false;
+                    }
+
+                    if (lblLayOdds.get(j).getAttribute("outerHTML").contains("disable-odds")) {
+                        System.out.println("Market Page - Lay Odds buttons are not clickable");
+                        return false;
+                    }
+                } else {
+                    if (!lblBackOdds.get(j).getAttribute("outerHTML").contains("disable-odds")) {
+                        System.out.println("Market Page - Back Odds buttons are not clickable");
+                        return false;
+                    }
+
+                    if (!lblLayOdds.get(j).getAttribute("outerHTML").contains("disable-odds")) {
+                        System.out.println("Market Page - Lay Odds buttons are not clickable");
+                        return false;
+                    }
                 }
 
-                if (!lblLayOdds.get(i).isClickable(3)) {
-                    System.out.println("Market Page - Lay Odds buttons are not clickable");
-                    return false;
-                }
             }
         }
         System.out.println("Market Page - Odds buttons are clickable");
