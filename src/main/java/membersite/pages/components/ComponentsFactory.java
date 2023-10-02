@@ -6,6 +6,9 @@ import membersite.pages.components.accountstatement.NewViewAccountStatementConta
 import membersite.pages.components.accountstatement.OldUIAccountStatementContainer;
 import membersite.pages.components.betslipcontainer.BetsSlipContainer;
 import membersite.pages.components.betslipcontainer.NewUIBetsSlipContainer;
+import membersite.pages.components.deposit.DepositContainer;
+import membersite.pages.components.deposit.NewUIDepositContainer;
+import membersite.pages.components.deposit.NewViewDepositContainer;
 import membersite.pages.components.eventcontainer.EventContainerControl;
 import membersite.pages.components.eventcontainer.Fair999EventContainerControl;
 import membersite.pages.components.eventcontainer.NewViewEventContainerControl;
@@ -196,6 +199,15 @@ public class ComponentsFactory {
         switch (types) {
             default:
                 return new NewUIRacingContainer();
+        }
+    }
+
+    public static DepositContainer depositContainerObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new NewUIDepositContainer();
+            default:
+                return new NewViewDepositContainer();
         }
     }
 

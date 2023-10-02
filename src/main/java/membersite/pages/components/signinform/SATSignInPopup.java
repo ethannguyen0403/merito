@@ -2,20 +2,24 @@ package membersite.pages.components.signinform;
 
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
+import org.testng.Assert;
 
 public class SATSignInPopup extends SignInPopup {
     public Popup signInPopup = Popup.xpath("//div[@class='signup-popup-content']");
     TextBox txtpassword = TextBox.name("newpassword");
     TextBox txtconfirmPassword = TextBox.name("newcfPassword");
     TextBox txtEmail = TextBox.name("emailAddress");
-    DropDownBox dddSelectCurrency = DropDownBox.name("currency");
+    DropDownBox ddbSelectCurrency = DropDownBox.name("currency");
+    DropDownBox ddbCountry = DropDownBox.xpath("//select[@class='form-control']");
+    TextBox txtCountryCode = TextBox.xpath("//input[@aria-describedby = 'mobileCode']");
     CheckBox cbAgree = CheckBox.id("flexCheckDefault");
-    Button btnJoinNow = Button.xpath("//button[contains(@class,'btn-join-now')]");
-    CheckBox capthcarcb = CheckBox.xpath("//span[@id='recaptcha-anchor']");
+    public Button btnJoinNow = Button.xpath("//button[contains(@class,'btn-join-now')]");
+    CheckBox cbCapcha = CheckBox.xpath("//span[@id='recaptcha-anchor']");
     private TextBox txtusername = TextBox.name("newusername");
-    private TextBox txtPhoneNumber = TextBox.name("mobileNumber");
+    public TextBox txtPhoneNumber = TextBox.name("mobileNumber");
     private Label lblCountryCode = Label.xpath("//input[@value='+91']");
-    private Label errorPhoneNumber = Label.xpath("//span[contains(text(),'Please enter a valid Mobile Number!')]");
+    public Label errorPhoneNumber = Label.xpath("//span[contains(text(),'Please enter a valid Mobile Number!')]");
+    public Button btnSendOTP = Button.xpath("//button[contains(@class,'btn-send-otp')]");
 
 
     public void signin(String username, String password, String email, String currency, String phone) {
@@ -23,7 +27,7 @@ public class SATSignInPopup extends SignInPopup {
         txtpassword.sendKeys(password);
         txtconfirmPassword.sendKeys(password);
         txtEmail.sendKeys(email);
-        dddSelectCurrency.selectByVisibleContainsText(currency);
+        ddbSelectCurrency.selectByVisibleContainsText(currency);
         txtPhoneNumber.sendKeys(phone);
         try {
             Thread.sleep(200);
@@ -31,7 +35,7 @@ public class SATSignInPopup extends SignInPopup {
             e.printStackTrace();
         }
         DriverManager.getDriver().switchTo().frame(0);
-        capthcarcb.click();
+//        cbCapcha.click();
         DriverManager.getDriver().switchTo().defaultContent();
 
         try {
@@ -73,6 +77,32 @@ public class SATSignInPopup extends SignInPopup {
     @Override
     public String phoneNumberError() {
         return errorPhoneNumber.getText();
+    }
+
+    public void verifyUIDisplayCorrect() {
+        Assert.assertTrue(txtusername.isDisplayed(), "FAILED! Username textbox does not display");
+        Assert.assertTrue(txtpassword.isDisplayed(), "FAILED! Password textbox does not display");
+        Assert.assertTrue(txtconfirmPassword.isDisplayed(), "FAILED! Confirm password textbox does not display");
+        Assert.assertTrue(txtEmail.isDisplayed(), "FAILED! Email textbox does not display");
+        Assert.assertTrue(ddbCountry.isDisplayed(), "FAILED! Country dropdown does not display");
+        Assert.assertTrue(ddbSelectCurrency.isDisplayed(), "FAILED! Select currency dropdown does not display");
+        Assert.assertTrue(txtPhoneNumber.isDisplayed(), "FAILED! Phone number textbox does not display");
+        Assert.assertTrue(txtCountryCode.isDisplayed(), "FAILED! Country code textbox does not display");
+        Assert.assertEquals(txtCountryCode.getAttribute("value"),"+91", "FAILED! Country code value display incorrect");
+        Assert.assertTrue(cbCapcha.isDisplayed(), "FAILED! Capcha checkbox does not display");
+        Assert.assertTrue(cbAgree.isDisplayed(), "FAILED! Agree checkbox does not display");
+        Assert.assertTrue(btnJoinNow.isDisplayed(), "FAILED! Join now button does not display");
+    }
+
+    public void verifyPlaceholderDisplayCorrect() {
+        Assert.assertTrue(txtusername.getAttribute("placeholder").equals("Username"), "FAILED! Username textbox does not display");
+        Assert.assertTrue(txtpassword.getAttribute("placeholder").equals("Password"), "FAILED! Password textbox does not display");
+        Assert.assertTrue(txtconfirmPassword.getAttribute("placeholder").equals("Confirm Password"), "FAILED! Confirm password textbox does not display");
+        Assert.assertTrue(txtEmail.getAttribute("placeholder").equals("Email Address"), "FAILED! Email textbox does not display");
+        Assert.assertTrue(ddbCountry.getFirstSelectedOption().equals("India"), "FAILED! Country dropdown does not display");
+        Assert.assertTrue(ddbSelectCurrency.getFirstSelectedOption().equals("[Select Currency]"), "FAILED! Select currency dropdown does not display");
+        Assert.assertTrue(txtPhoneNumber.getAttribute("placeholder").equals("Mobile Number"), "FAILED! Phone number textbox does not display");
+        Assert.assertEquals(txtCountryCode.getAttribute("value"),"+91", "FAILED! Country code value display incorrect");
     }
 }
 
