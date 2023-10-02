@@ -40,7 +40,7 @@ public class SatHeader extends Header1 {
     private Label lblBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance'][2]//span[@class='bal-val']");
     private Label lblLiabilityCurrency = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'lia-val')][1]");
     private Label lblLiability = Label.xpath("(//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')])[1]/span[@class='lia-val'][1]");
-
+    public Button btnDeposit = Button.xpath("//button[contains(@class,'btn-deposit')]");
     // Before Login
     public SATUnderageGamblingPopup clickLogin() {
         if (btnLogin.isDisplayed()) {
@@ -107,6 +107,13 @@ public class SatHeader extends Header1 {
         DriverManager.getDriver().switchToWindow();
         MyBetsPage page = new MyBetsPage(type);
         page.myBetsContainer.waitLoadReport();
+        return page;
+    }
+
+    public DepositPage openDepositPage(String type) {
+        btnDeposit.click();
+        DepositPage page = new DepositPage(type);
+        page.lblTitle.waitForElementToBePresent(page.lblTitle.getLocator(), 2);
         return page;
     }
 
