@@ -30,6 +30,9 @@ public class MemberConstants {
     public static final String FANCY_MARKET_TYPE_CODE = "WICKET_FANCY";
     public final static String NOTES_GMT4 = "Note : Date will be based on time zone GMT-04:00";
     public final static String EXCHANGE = "Exchange";
+    public static final String DEPOSIT_TAB = "DEPOSIT";
+    public static final String WITHDRAWAL = "WITHDRAWAL";
+    public static final String TRANSACTION_HISTORY = "TRANSACTION HISTORY";
     public static final Map<String, String> TIMEZONE_BRAND = new HashMap<String, String>() {
         {
             put("satsport", "IST");
@@ -382,6 +385,24 @@ public class MemberConstants {
         public final static String IMG_PHONE_URL = "whatsapp";
         public final static String IMG_BETFAIR_URL = "ju21gofndjkcggoc";
         public final static String CONTACT_INSTA = "satsportofficial";
+
+    }
+
+    public static class DepositPage {
+        public final static String LBL_BANK_TRANSFER = "BANK TRANSFER";
+        public final static String LBL_PAYTM = "PAYTM";
+        public final static String LBL_PHONEPE = "PHONEPE";
+        public final static String LBL_GPAY = "GPAY";
+        public final static String LBL_UPI = "UPI";
+        public final static String LBL_QR_CODE = "QR CODE";
+
+        public static final Map<String, String> DEPOSIT_SUCCESS_HEADER_BRAND = new HashMap<String, String>() {
+            {
+                put("satsport", "SAT Sport");
+                put("fairexchange", "Fairexchange");
+
+            }
+        };
 
     }
 }

@@ -2,6 +2,7 @@ package agentsite.pages;
 
 import agentsite.controls.Table;
 import agentsite.pages.agentmanagement.*;
+import agentsite.pages.cashmanagement.PaymentChannelManagementPage;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.quicksearch.QuickSearch;
 import agentsite.pages.components.SecurityPopup;
@@ -393,5 +394,11 @@ public class HomePage extends LoginPage {
         CreateCompanyPage page = new CreateCompanyPage(_type);
         page.confirmSecurityCode(securityCode);
         return page;
+    }
+
+    public PaymentChannelManagementPage navigatePaymentChannelManagement() {
+        leftMenu.clickSubMenu(CASH_MANAGEMENT, PAYMENT_CHANNEL_MANAGEMENT);
+        waitingLoadingSpinner();
+        return new PaymentChannelManagementPage(_type);
     }
 }

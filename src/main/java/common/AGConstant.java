@@ -197,6 +197,10 @@ public class AGConstant {
         public final static String ANALYSIS_OF_RUNNING_MARKETS = "Analysis of Running Markets";
         public final static String SUB_USER_LISTING = "Sub User Listing";
         public final static String EVENT_BET_STIE_SETTINGS = "Event Bet Size Settings";
+        public final static String CASH_MANAGEMENT = "Cash Management";
+        public final static String DEPOSIT_WITHDRAWAL_TRANSACTION = "Deposit/Withdrawal Transactions";
+        public final static String PAYMENT_CHANNEL_MANAGEMENT = "Payment Channel Management";
+        public final static String QUICK_DEPOSIT_CONFIG = "Quick Deposit Configuration";
         public final static List<String> LST_QUICK_SEARCH_MENU_OLDUI = Arrays.asList("Balance", "Downline Listing", "Profit & Loss", "Client Ledger", "Settings", "Login");
         public final static List<String> LST_QUICK_SEARCH_MENU_NEWUI = Arrays.asList("Balance", "Unsettled Bet", "Client Ledger", "Settings", "Login");
         public final static List<String> LST_QUICK_SEARCH_LOGIN = Arrays.asList("Created Date", "Last Login Time", "Last Login IP");
