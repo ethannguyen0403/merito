@@ -2,7 +2,6 @@ package membersite.testcases.cashsite;
 
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
-import membersite.pages.DepositPage;
 import membersite.pages.HomePage;
 import membersite.pages.LandingPage;
 import membersite.pages.components.signinform.SATSignInPopup;
@@ -10,8 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-public class SignInPageTest extends BaseCaseTest {
-    @Test(groups = {"smoke"}, invocationCount = 2)
+public class SignUpPageTest extends BaseCaseTest {
+    @Test(groups = {"cash_site"})
     public void Register_Page_TC1213() {
         log("@title:Validate that user can sign in successfully");
         log("@Step 1 Navigate to  login page");
@@ -32,7 +31,7 @@ public class SignInPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "196")
-    @Test(groups = {"function_sat"})
+    @Test(groups = {"cash_site"})
     public void Register_Page_TC196() {
         log("@title: Validate 'Create Your Account' page show when click 'Join now' button");
         log("@Step 1 Navigate to member site");
@@ -47,7 +46,7 @@ public class SignInPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "197")
-    @Test(groups = {"function_sat"})
+    @Test(groups = {"cash_site"})
     public void Register_Page_TC197() {
         log("@title: Validate UI 'Create Your Account' page");
         log("@Step 1 Navigate to member site");
@@ -59,8 +58,9 @@ public class SignInPageTest extends BaseCaseTest {
         satSignInPopup.verifyUIDisplayCorrect();
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "198")
-    @Test(groups = {"function_sat"})
+    @Test(groups = {"cash_site"})
     public void Register_Page_TC198() {
         log("@title: Validate the placeholder on all textboxs");
         log("@Step 1 Navigate to member site");
@@ -74,7 +74,7 @@ public class SignInPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "199")
-    @Test(groups = {"function_sat"})
+    @Test(groups = {"cash_site"})
     public void Register_Page_TC199() {
         log("@title: Validate behavior when signing up without data");
         log("@Step 1 Navigate to member site");
@@ -87,8 +87,9 @@ public class SignInPageTest extends BaseCaseTest {
         Assert.assertEquals(satSignInPopup.btnJoinNow.getAttribute("disabled"), "true");
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "200")
-    @Test(groups = {"function_sat"})
+    @Test(groups = {"cash_site"})
     public void Register_Page_TC200() {
         log("@title: Validate button 'Send OTP' when player input number in Mobile Number textbox");
         String username = "Auto" + StringUtils.generateAlphabetic(5);
@@ -120,7 +121,7 @@ public class SignInPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3884")
-    @Test(groups = {"function_sat"})
+    @Test(groups = {"cash_site"})
     public void Register_Page_TC3884() {
         log("@title: Validate button 'Send OTP' when player input number in Mobile Number textbox");
         String username = "Auto" + StringUtils.generateAlphabetic(5);

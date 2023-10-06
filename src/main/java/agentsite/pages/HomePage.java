@@ -2,6 +2,7 @@ package agentsite.pages;
 
 import agentsite.controls.Table;
 import agentsite.pages.agentmanagement.*;
+import agentsite.pages.cashmanagement.DepositWithdrawalTransactionPage;
 import agentsite.pages.cashmanagement.PaymentChannelManagementPage;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.quicksearch.QuickSearch;
@@ -13,9 +14,14 @@ import agentsite.pages.report.*;
 import agentsite.pages.riskmanagement.AgentExposureLimitPage;
 import agentsite.pages.riskmanagement.NetExposurePage;
 import agentsite.pages.riskmanagement.VolumeMonitorPage;
+import agentsite.yopmail.YopmailMailBoxPage;
+import agentsite.yopmail.YopmailPage;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Icon;
 import com.paltech.utils.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static common.AGConstant.HomePage.*;
 
@@ -23,14 +29,12 @@ public class HomePage extends LoginPage {
     public Header header;
     public LeftMenu leftMenu;
     public QuickSearch quickSearch;
-    public int colName = 1;
-    public int colValue = 2;
     protected String successIcon = "//span[contains(@class,'psuccess')]";
     protected String errorIcon = "//span[contains(@class,'perror')]";
     public static SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     static Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     private int totalCol = 2;
-    Table tblSMAInfo = Table.xpath("//table[@class='ptable report ng-scope']", totalCol);
+
     public HomePage(String types) {
         super(types);
 //        footer = ComponentsFactory.footerObject(_type);
@@ -400,5 +404,30 @@ public class HomePage extends LoginPage {
         leftMenu.clickSubMenu(CASH_MANAGEMENT, PAYMENT_CHANNEL_MANAGEMENT);
         waitingLoadingSpinner();
         return new PaymentChannelManagementPage(_type);
+    }
+
+    public DepositWithdrawalTransactionPage navigateDepositWithdrawalTransaction() {
+        leftMenu.clickSubMenu(CASH_MANAGEMENT, DEPOSIT_WITHDRAWAL_TRANSACTION);
+        waitingLoadingSpinner();
+        return new DepositWithdrawalTransactionPage(_type);
+    }
+
+    private YopmailPage navigateToYopmail(String url){
+        DriverManager.getDriver().newTab();
+        DriverManager.getDriver().switchToWindow();
+        DriverManager.getDriver().get(url);
+        return new YopmailPage();
+    }
+    public List<ArrayList<String>> getFirstActiveMailBox(String url, String mailAđrress){
+        YopmailPage yopmailPage = navigateToYopmail(url);
+        YopmailMailBoxPage yopmailMailBoxPage = yopmailPage.navigateMailBox(mailAđrress);
+        List<ArrayList<String>> contentInfoLst = new ArrayList<>();
+        contentInfoLst.add(yopmailMailBoxPage.getInfo());
+        contentInfoLst.add(yopmailMailBoxPage.getbetListHeader());
+        for (ArrayList<String> row:yopmailMailBoxPage.getbetListInfo()
+        ) {
+            contentInfoLst.add(row);
+        }
+        return contentInfoLst;
     }
 }

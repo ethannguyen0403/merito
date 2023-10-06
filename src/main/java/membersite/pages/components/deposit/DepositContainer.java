@@ -14,5 +14,7 @@ public class DepositContainer {
 
     public void deposit(String paymentType, String amount, String transactionId, boolean isUploadImg, boolean isSubmit) {}
 
-    public void verifyDepositSuccessMessage(String brandName) {};
+    public void verifyDepositSuccessMessage(String brandName) {}
+
+    public String getRefNo() {return "";}
 }

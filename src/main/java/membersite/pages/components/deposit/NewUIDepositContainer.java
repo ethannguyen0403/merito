@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static common.MemberConstants.DepositPage.DEPOSIT_SUCCESS_HEADER_BRAND;
+import static common.MemberConstants.CashManagement.DEPOSIT_SUCCESS_HEADER_BRAND;
 
 
 public class NewUIDepositContainer extends DepositContainer {
@@ -27,6 +27,8 @@ public class NewUIDepositContainer extends DepositContainer {
     private Label lblDepositSuccessHeaderDetail = Label.xpath("(//app-deposit//div[contains(@class,'payment-detail')]//div[contains(@class,'detail')])[1]");
     private Label lblDepositSuccessHeaderRef = Label.xpath("(//app-deposit//div[contains(@class,'payment-detail')]//div[contains(@class,'detail')])[2]");
     private Label lblDepositSuccessHeaderEmail = Label.xpath("(//app-deposit//div[contains(@class,'payment-detail')]//div[contains(@class,'detail')])[3]");
+    private Label lblRefNo = Label.xpath("(//app-deposit//div[contains(@class,'payment-detail')]//div[contains(@class,'detail')])[2]//span");
+
     public List<String> getListPaymentChannel() {
         List<String> lstPayment = ddlPaymentChannel.getMenuList();
         return lstPayment;
@@ -109,6 +111,11 @@ public class NewUIDepositContainer extends DepositContainer {
         Assert.assertEquals(lblDepositSuccessHeaderEmail.getText().trim(), successEmail, String.format("FAILED! Email message expected %s but show %s", lblDepositSuccessHeaderEmail.getText().trim(), successEmail));
         Assert.assertTrue(lblDepositSuccessHeaderRef.getText().contains(successRef), String.format("FAILED! Ref message does not contain %s", successRef));
         Assert.assertTrue(lblDepositSuccessHeaderRef.getText().contains(successEst), String.format("FAILED! Ref message does not contain %s", successEst));
+    }
+
+    public String getRefNo() {
+        System.out.println(String.format("DEBUG! GET REF NO: %s", lblRefNo.getText()));
+        return lblRefNo.getText().trim();
     }
 
 }

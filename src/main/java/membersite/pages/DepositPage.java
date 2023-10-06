@@ -36,4 +36,6 @@ public class DepositPage extends HomePage {
     public void deposit(String paymentType, String amount, String transactionId, boolean isUploadImg, boolean isSubmit) { depositContainer.deposit(paymentType, amount, transactionId, isUploadImg, isSubmit);}
 
     public void verifyDepositSuccessMessage(String brandName) { depositContainer.verifyDepositSuccessMessage(brandName);}
+
+    public String getRefNo() {return depositContainer.getRefNo();}
 }

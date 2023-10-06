@@ -388,13 +388,14 @@ public class MemberConstants {
 
     }
 
-    public static class DepositPage {
+    public static class CashManagement {
         public final static String LBL_BANK_TRANSFER = "BANK TRANSFER";
         public final static String LBL_PAYTM = "PAYTM";
         public final static String LBL_PHONEPE = "PHONEPE";
         public final static String LBL_GPAY = "GPAY";
         public final static String LBL_UPI = "UPI";
         public final static String LBL_QR_CODE = "QR CODE";
+        public final static List<String> ACTION_LST = Arrays.asList("Approve", "Reject");
 
         public static final Map<String, String> DEPOSIT_SUCCESS_HEADER_BRAND = new HashMap<String, String>() {
             {
