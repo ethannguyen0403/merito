@@ -11,7 +11,7 @@
         <parameter name='language' value=''/>
         <parameter name='isLogin' value='false'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='sabella1'/>
+        <parameter name='username' value='isacashpl21'/>
         <parameter name='usernameSAT' value='03H'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='true'/>
@@ -19,20 +19,18 @@
         <parameter name="skinName" value="satsport"/>
         <parameter name="isCloseBanner" value="true"/>
         <parameter name="isCredit" value="false"/>
-        <parameter name="timeZone" value="GMT-04:00"/>
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
-
+        <parameter name='agentLoginAccount' value='CashIN1.AD'/>
         <groups>
             <run>
-                <include name="smoke"/>
-                <!--                <include name="satsport1" />-->
+                <include name="cash_site"/>
             </run>
         </groups>
 
         <classes>
-            <!--            <class name="membersite.testcases.exchange.LandingPageTest"/>-->
-            <class name="membersite.testcases.cashsite.SignInPageTest"/>
+            <class name="membersite.testcases.cashsite.SignUpPageTest"/>
+            <class name="membersite.testcases.cashsite.PaymentTest"/>
         </classes>
 
     </test>

@@ -1,5 +1,6 @@
 package membersite.testcases.cashsite;
 
+import agentsite.pages.cashmanagement.DepositWithdrawalTransactionPage;
 import agentsite.pages.cashmanagement.PaymentChannelManagementPage;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
@@ -8,13 +9,16 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import static common.MemberConstants.DEPOSIT_TAB;
-import static common.MemberConstants.DepositPage.*;
+import static common.MemberConstants.CashManagement.*;
 
 public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "3912")
-    @Test(groups = {"regression_deposit"})
+    @Test(groups = {"cash_site"})
     public void Register_Page_TC3912() {
         log("@title: Validate user can access deposit page when login is cash type in member site");
         log("Precondition: Login SAT account for cash site");
@@ -27,7 +31,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3913")
-    @Test(groups = {"regression"})
+    @Test(groups = {"cash_site"})
     public void Register_Page_TC3913() {
         log("@title: Validate deposit button not display if login account is not cash type member site");
         log("Precondition: Login SAT by the account is not for cash");
@@ -40,7 +44,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3914")
-    @Test(groups = {"regression_deposit"})
+    @Test(groups = {"cash_site"})
     @Parameters({"agentLoginAccount", "username", "password"})
     public void Register_Page_TC3914(String agentLoginAccount, String username, String password) throws Exception {
         log("@title: Validate the list Payment Channel in member site is corrected as the active list payment channel in agent site");
@@ -61,7 +65,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3915")
-    @Test(groups = {"regression_deposit1"})
+    @Test(groups = {"cash_site"})
     @Parameters({"agentLoginAccount", "username", "password"})
     public void Register_Page_TC3915() {
         String amount = "9";
@@ -86,7 +90,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3916")
-    @Test(groups = {"regression_deposit"})
+    @Test(groups = {"cash_site"})
     @Parameters({"agentLoginAccount", "username", "password"})
     public void Register_Page_TC3916() {
         String amount = "9";
@@ -111,7 +115,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3917")
-    @Test(groups = {"regression_deposit"})
+    @Test(groups = {"cash_site"})
     @Parameters({"agentLoginAccount", "username", "password"})
     public void Register_Page_TC3917() {
         String amount = "9";
@@ -136,7 +140,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3918")
-    @Test(groups = {"regression_deposit"})
+    @Test(groups = {"cash_site"})
     @Parameters({"agentLoginAccount", "username", "password"})
     public void Register_Page_TC3918() {
         String amount = "9";
@@ -161,7 +165,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3919")
-    @Test(groups = {"regression_deposit"})
+    @Test(groups = {"cash_site"})
     @Parameters({"agentLoginAccount", "username", "password"})
     public void Register_Page_TC3919() {
         String amount = "9";
@@ -186,7 +190,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "8576")
-    @Test(groups = {"regression_deposit"})
+    @Test(groups = {"cash_site"})
     @Parameters({"agentLoginAccount", "username", "password"})
     public void Register_Page_TC8576() {
         String amount = "9";
@@ -207,6 +211,37 @@ public class PaymentTest extends BaseCaseTest {
                 "Estimation time of approval 15mins\n" +
                 "You will get an approval message on your email once deposit is available in your account");
         depositPage.verifyDepositSuccessMessage(_brandname);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3920")
+    @Test(groups = {"cash_site"})
+    @Parameters({"agentLoginAccount", "password", "emailAddress"})
+    public void Register_Page_TC3920(String agentLoginAccount, String password, String emailAddress) throws Exception {
+        String amount = "9";
+        String transactionId = StringUtils.generateNumeric(10);
+        log("@title: Validate user receive an email when deposit amount is accepted by agent");
+        log("Precondition: BANK TRANSFER Payment Chanel is active" +
+                "Login SAT account for cash");
+        log("Step 1. Deposit by any payment channel");
+        DepositPage depositPage = memberHomePage.header.openDepositPage(_brandname);
+        depositPage.switchTab(DEPOSIT_TAB);
+        depositPage.deposit(LBL_BANK_TRANSFER, amount, transactionId, true, true);
+        String refNo = depositPage.getRefNo();
+        memberHomePage.logout();
+
+        log("Step 2. Agent approve the transaction");
+        loginAgentCash(agentLoginAccount, password, true);
+        DepositWithdrawalTransactionPage depositWithdrawalTransactionPage = agentHomePage.navigateDepositWithdrawalTransaction();
+
+        depositWithdrawalTransactionPage.filter("","","","","",refNo);
+        depositWithdrawalTransactionPage.actionTransaction(ACTION_LST.get(0), String.format("Automation QC Test Txn %s", refNo), true);
+        depositWithdrawalTransactionPage.closeActionTransactionAlertMessage();
+
+        log("Step 3. User login the email that register  when sign in");
+        List<ArrayList<String>> emailInfo = agentHomePage.getFirstActiveMailBox("https://yopmail.com/",emailAddress);
+        log("Verify user can receive email successfully");
+        Assert.assertTrue(emailInfo.get(0).contains("Your request has been approved"), "FAILED! User is not received approval email");
         log("INFO: Executed completely");
     }
 
