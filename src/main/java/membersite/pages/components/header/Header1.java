@@ -140,8 +140,8 @@ public class Header1 {
         return;
     }
 
-    public DepositPage openDepositPage(String type) {
-        return new DepositPage(type);
+    public DepositPage openDepositPage(String brand) {
+        return new DepositPage(brand);
     }
 
 }

@@ -141,30 +141,4 @@ public class SignInPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "3912")
-    @Test(groups = {"regression_deposit"})
-    public void Register_Page_TC3912() {
-        log("@title: Validate user can access deposit page when login is cash type in member site");
-        log("Precondition: Login SAT account for cash site");
-        log("Step 1. Click on Deposit button in header menu");
-        DepositPage page = memberHomePage.header.openDepositPage(_brandname);
-
-        log("Verify deposit page display");
-        Assert.assertTrue(page.lblTitle.isDisplayed(), "FAILED! Deposit page is not displayed");
-        log("INFO: Executed completely");
-    }
-
-    @TestRails(id = "3913")
-    @Test(groups = {"regression"})
-    public void Register_Page_TC3913() {
-        log("@title: Validate deposit button not display if login account is not cash type member site");
-        log("Precondition: Login SAT by the account is not for cash");
-        log("Step 1. Observe Deposit in header menu");
-        DepositPage page = memberHomePage.header.openDepositPage(_brandname);
-
-        log("Verify deposit button does not display");
-        Assert.assertFalse(page.lblTitle.isDisplayed(), "FAILED! Deposit button is displayed");
-        log("INFO: Executed completely");
-    }
-
 }

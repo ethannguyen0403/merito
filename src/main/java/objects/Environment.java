@@ -2,6 +2,7 @@ package objects;
 
 public class Environment {
     public static String satURL;
+    public static String satCashURL;
     public static String funsportURL;
     public static String fairenterURL;
     public static String laser365URL;
@@ -24,6 +25,7 @@ public class Environment {
        private String backofficeDomain;*/
     public static String directusURL;
     private String fairURL;
+    public String fairCashURL;
     private String securityCode;
     private String apiURL;
 
@@ -33,6 +35,14 @@ public class Environment {
 
     public static void setSatURL(String satURL) {
         Environment.satURL = satURL;
+    }
+
+    public String getSatCashURL() {
+        return satCashURL;
+    }
+
+    public void setSatCashURL(String satCashURL) {
+        Environment.satCashURL = satCashURL;
     }
 
     public static String getFunsportURL() {
@@ -81,6 +91,13 @@ public class Environment {
 
     public void setFairURL(String fairURL) {
         this.fairURL = fairURL;
+    }
+    public String getFairCashURL() {
+        return fairCashURL;
+    }
+
+    public void setFairCashURL(String fairCashURL) {
+        this.fairCashURL = fairCashURL;
     }
 
     public String getBackofficeURL() {
