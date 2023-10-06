@@ -61,7 +61,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3915")
-    @Test(groups = {"regression_deposit"})
+    @Test(groups = {"regression_deposit1"})
     @Parameters({"agentLoginAccount", "username", "password"})
     public void Register_Page_TC3915() {
         String amount = "9";
