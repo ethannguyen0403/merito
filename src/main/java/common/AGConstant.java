@@ -38,6 +38,7 @@ public class AGConstant {
     public final static String LBL_USERNAME_PLACE_HOLDER_SAT = "Username or Login ID";
     public final static List<String> MENULIST = Arrays.asList("Nickname", "Password", "Security code", "OTP");
     public final static List<String> MENULISTSAT = Arrays.asList("Password", "Security code", "OTP");
+    public final static String LBL_WITHOUT_PERMISSION_ACCESS = "You are not allowed to view this page!";
     public static final Map<String, String> LEVEL_TO_LEVEL_CODE = new HashMap<String, String>() {
         {
             put("Portal", "PO");
@@ -576,7 +577,7 @@ public class AGConstant {
 
         public static class SubUserListing {
             public final static String TITLE_PAGE = "Sub User Listing";
-            public final static List<String> PERMISSIONS_ALL = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management");
+            public final static List<String> PERMISSIONS_ALL = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management", "Deposit/Withdrawal Transactions", "Payment Channel Management", "Quick Deposit Configuration");
             public final static List<String> PERMISSIONSNONPO = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance");
         }
 

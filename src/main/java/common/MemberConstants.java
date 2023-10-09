@@ -30,9 +30,7 @@ public class MemberConstants {
     public static final String FANCY_MARKET_TYPE_CODE = "WICKET_FANCY";
     public final static String NOTES_GMT4 = "Note : Date will be based on time zone GMT-04:00";
     public final static String EXCHANGE = "Exchange";
-    public static final String DEPOSIT_TAB = "DEPOSIT";
-    public static final String WITHDRAWAL = "WITHDRAWAL";
-    public static final String TRANSACTION_HISTORY = "TRANSACTION HISTORY";
+
     public static final Map<String, String> TIMEZONE_BRAND = new HashMap<String, String>() {
         {
             put("satsport", "IST");
@@ -389,6 +387,10 @@ public class MemberConstants {
     }
 
     public static class CashManagement {
+        public static final String DEPOSIT_TAB = "DEPOSIT";
+        public static final String WITHDRAWAL = "WITHDRAWAL";
+        public static final String TRANSACTION_HISTORY = "TRANSACTION HISTORY";
+
         public final static String LBL_BANK_TRANSFER = "BANK TRANSFER";
         public final static String LBL_PAYTM = "PAYTM";
         public final static String LBL_PHONEPE = "PHONEPE";

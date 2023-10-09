@@ -21,15 +21,17 @@
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
         <parameter name='agentLoginAccount' value='CashIN1.AD'/>
+        <parameter name='agentWithoutPermissionLoginAccount' value='15CSUBTI'/>
         <parameter name="emailAddress" value="isacashstg01@yopmail.com"></parameter>
         <groups>
             <run>
-                <include name="cash_site1"/>
+                <include name="cashsite_stg"/>
+                <include name="cashsite"/>
             </run>
         </groups>
 
         <classes>
-<!--            <class name="membersite.testcases.cashsite.SignUpPageTest"/>-->
+            <class name="membersite.testcases.cashsite.SignUpPageTest"/>
             <class name="membersite.testcases.cashsite.PaymentTest"/>
         </classes>
 

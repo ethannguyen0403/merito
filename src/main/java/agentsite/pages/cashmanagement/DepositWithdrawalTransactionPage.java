@@ -17,4 +17,6 @@ public class DepositWithdrawalTransactionPage extends HomePage {
     public void actionTransaction(String action, String comment, boolean isSubmit) { depositWithdrawalTransaction.actionTransaction(action, comment, isSubmit);}
 
     public void closeActionTransactionAlertMessage() {depositWithdrawalTransaction.closeActionTransactionAlertMessage();}
+    public String getPageTitle() {return depositWithdrawalTransaction.getPageTitle();}
+
 }

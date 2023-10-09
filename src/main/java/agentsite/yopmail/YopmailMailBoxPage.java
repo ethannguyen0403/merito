@@ -6,7 +6,7 @@ import controls.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YopmailMailBoxPage {
+public class YopmailMailBoxPage extends YopmailPage {
     private Label lblMailTitle = Label.xpath("//body//div[contains(@class,'ellipsis nw b f18')]");
     private Label lblNameClient = Label.xpath("//body//div[@id='mail']/div[1]/div[1]");
     private Label lblPleaseFindEnclosed = Label.xpath("//body//div[@id='mail']/div[1]/div[2]");
@@ -33,7 +33,18 @@ public class YopmailMailBoxPage {
         return tblReport.getRows(false);
     }
 
-
+    public static List<ArrayList<String>> getFirstActiveMailBox(String url, String mailAddress){
+        YopmailPage yopmailPage = navigateToYopmail(url);
+        YopmailMailBoxPage yopmailMailBoxPage = yopmailPage.navigateMailBox(mailAddress);
+        List<ArrayList<String>> contentInfoLst = new ArrayList<>();
+        contentInfoLst.add(yopmailMailBoxPage.getInfo());
+        contentInfoLst.add(yopmailMailBoxPage.getbetListHeader());
+        for (ArrayList<String> row:yopmailMailBoxPage.getbetListInfo()
+        ) {
+            contentInfoLst.add(row);
+        }
+        return contentInfoLst;
+    }
 
 
 }
