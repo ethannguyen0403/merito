@@ -1,6 +1,5 @@
 package agentsite.pages.cashmanagement.depositwithdrawaltransaction;
 
-
 import agentsite.controls.Cell;
 import agentsite.controls.DateTimePicker;
 import agentsite.controls.Table;
@@ -25,7 +24,9 @@ public class OldUIDepositWithdrawalTransaction extends DepositWithdrawalTransact
     private RadioButton rdReject = RadioButton.id("reject");
     private Button btnSubmitTransactionDetail = Button.xpath("//app-transaction-detail//button[text()=' Submit']");
     private Button btnOk = Button.xpath("//app-alert//button[text()='OK']");
+    private Label lblTitle = Label.xpath(" //app-deposit-withdrawal-transaction//div[@class='title']//label");
 
+    public String getPageTitle() { return lblTitle.getText().trim();}
 
     public void filter (String userName, String transactionStatus, String paymentType, String fromDate, String toDate, String refNo) {
         if (!userName.isEmpty()) {
@@ -71,4 +72,5 @@ public class OldUIDepositWithdrawalTransaction extends DepositWithdrawalTransact
     public void closeActionTransactionAlertMessage() {
         btnOk.click();
     }
+
 }

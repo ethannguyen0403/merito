@@ -14,14 +14,10 @@ import agentsite.pages.report.*;
 import agentsite.pages.riskmanagement.AgentExposureLimitPage;
 import agentsite.pages.riskmanagement.NetExposurePage;
 import agentsite.pages.riskmanagement.VolumeMonitorPage;
-import agentsite.yopmail.YopmailMailBoxPage;
-import agentsite.yopmail.YopmailPage;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Icon;
+import com.paltech.element.common.Label;
 import com.paltech.utils.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static common.AGConstant.HomePage.*;
 
@@ -31,6 +27,7 @@ public class HomePage extends LoginPage {
     public QuickSearch quickSearch;
     protected String successIcon = "//span[contains(@class,'psuccess')]";
     protected String errorIcon = "//span[contains(@class,'perror')]";
+    public Label lblAlert = Label.xpath("//app-alert//div[contains(@class,'modal-body')]");
     public static SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     static Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     private int totalCol = 2;
@@ -410,24 +407,5 @@ public class HomePage extends LoginPage {
         leftMenu.clickSubMenu(CASH_MANAGEMENT, DEPOSIT_WITHDRAWAL_TRANSACTION);
         waitingLoadingSpinner();
         return new DepositWithdrawalTransactionPage(_type);
-    }
-
-    private YopmailPage navigateToYopmail(String url){
-        DriverManager.getDriver().newTab();
-        DriverManager.getDriver().switchToWindow();
-        DriverManager.getDriver().get(url);
-        return new YopmailPage();
-    }
-    public List<ArrayList<String>> getFirstActiveMailBox(String url, String mailAđrress){
-        YopmailPage yopmailPage = navigateToYopmail(url);
-        YopmailMailBoxPage yopmailMailBoxPage = yopmailPage.navigateMailBox(mailAđrress);
-        List<ArrayList<String>> contentInfoLst = new ArrayList<>();
-        contentInfoLst.add(yopmailMailBoxPage.getInfo());
-        contentInfoLst.add(yopmailMailBoxPage.getbetListHeader());
-        for (ArrayList<String> row:yopmailMailBoxPage.getbetListInfo()
-        ) {
-            contentInfoLst.add(row);
-        }
-        return contentInfoLst;
     }
 }
