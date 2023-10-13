@@ -30,7 +30,7 @@ import static common.MemberConstants.CashManagement.*;
 public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "3912")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3912() {
+    public void Payment_Page_TC3912() {
         log("@title: Validate user can access deposit page when login is cash type in member site");
         log("Precondition: Login SAT account for cash site");
         log("Step 1. Click on Deposit button in header menu");
@@ -43,7 +43,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3913")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3913() {
+    public void Payment_Page_TC3913() {
         log("@title: Validate deposit button not display if login account is not cash type member site");
         log("Precondition: Login SAT by the account is not for cash");
         log("Step 1. Observe Deposit in header menu");
@@ -57,7 +57,7 @@ public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "3914")
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "username", "password"})
-    public void Register_Page_TC3914(String agentLoginAccount, String username, String password) throws Exception {
+    public void Payment_Page_TC3914(String agentLoginAccount, String username, String password) throws Exception {
         log("@title: Validate the list Payment Channel in member site is corrected as the active list payment channel in agent site");
         log("Precondition: Get the list deposit method that in active status in agent site");
         memberHomePage.logout();
@@ -77,7 +77,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3915")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3915() {
+    public void Payment_Page_TC3915() {
         String amount = "9";
         String transactionId = StringUtils.generateNumeric(10);
         log("@title: Validate can deposit by Bank Transfer in member site");
@@ -101,7 +101,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3916")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3916() {
+    public void Payment_Page_TC3916() {
         String amount = "9";
         String transactionId = StringUtils.generateNumeric(10);
         log("@title: Validate can deposit by Bank Transfer in member site");
@@ -125,7 +125,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3917")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3917() {
+    public void Payment_Page_TC3917() {
         String amount = "9";
         String transactionId = StringUtils.generateNumeric(10);
         log("@title: Validate can deposit by Bank Transfer in member site");
@@ -149,7 +149,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3918")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3918() {
+    public void Payment_Page_TC3918() {
         String amount = "9";
         String transactionId = StringUtils.generateNumeric(10);
         log("@title: Validate can deposit by Bank Transfer in member site");
@@ -173,7 +173,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3919")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3919() {
+    public void Payment_Page_TC3919() {
         String amount = "9";
         String transactionId = StringUtils.generateNumeric(10);
         log("@title: Validate can deposit by Bank Transfer in member site");
@@ -197,7 +197,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "8576")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC8576() {
+    public void Payment_Page_TC8576() {
         String amount = "9";
         String transactionId = StringUtils.generateNumeric(10);
         log("@title: Validate can deposit by Bank Transfer in member site");
@@ -222,7 +222,7 @@ public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "3920")
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password", "emailAddress"})
-    public void Register_Page_TC3920(String agentLoginAccount, String password, String emailAddress) throws Exception {
+    public void Payment_Page_TC3920(String agentLoginAccount, String password, String emailAddress) throws Exception {
         String amount = "9";
         String transactionId = StringUtils.generateNumeric(10);
         log("@title: Validate user receive an email when deposit amount is accepted by agent");
@@ -253,7 +253,7 @@ public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "193")
     @Test(groups = {"cashsite_stg", "2022.10.31"})
     @Parameters({"agentLoginAccount", "agentWithoutPermissionLoginAccount", "password"})
-    public void Register_Page_TC193(String agentLoginAccount, String agentWithoutPermissionLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC193(String agentLoginAccount, String agentWithoutPermissionLoginAccount, String password) throws Exception {
         //only run in STG since unable to create account without permission for testing in PROD
         log("@title: Validate accounts without permission cannot see the menu item 'Deposit/Withdrawal Transactions'");
         log("Precondition: Account is inactivated permission 'Deposit/Withdrawal Transactions'");
@@ -288,7 +288,7 @@ public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "195")
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Register_Page_TC193(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC193(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate accounts without permission cannot see the menu item 'Deposit/Withdrawal Transactions'");
         log("Precondition: Account is inactivated permission 'Deposit/Withdrawal Transactions'");
         memberHomePage.logout();
@@ -304,7 +304,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3921")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3921() {
+    public void Payment_Page_TC3921() {
         String amount = "9";
         String transactionId = StringUtils.generateNumeric(10);
         String filterDate = DateUtils.getDate(0, "yyyy-MM-dd", GMT_5_30);
@@ -331,7 +331,7 @@ public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "3922")
     @Test(groups = {"cashsite_stg", "2022.10.31"})
     @Parameters({"agentLoginAccount", "username", "password"})
-    public void Register_Page_TC3922(String agentLoginAccount, String username, String password) throws Exception {
+    public void Payment_Page_TC3922(String agentLoginAccount, String username, String password) throws Exception {
         //This test case cannot run in PRO
         String amount = "9";
         String transactionId = StringUtils.generateNumeric(10);
@@ -374,7 +374,7 @@ public class PaymentTest extends BaseCaseTest {
 //    @TestRails(id = "3924")
 //    @Test(groups = {"cashsite_stg"})
 //    @Parameters({"agentLoginAccount", "username", "password"})
-//    public void Register_Page_TC3924(String agentLoginAccount, String username, String password) throws Exception {
+//    public void Payment_Page_TC3924(String agentLoginAccount, String username, String password) throws Exception {
 //        //This test case cannot run in PRO
 //        String amount = "9";
 //        String transactionId = StringUtils.generateNumeric(10);
@@ -417,7 +417,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3925")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3925() throws ParseException {
+    public void Payment_Page_TC3925() throws ParseException {
         String startDate = DateUtils.getDate(-2, "yyyy-MM-dd", GMT_5_30);
         String endDate = DateUtils.getDate(0, "yyyy-MM-dd", GMT_5_30);
 
@@ -437,7 +437,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3926")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3926() throws ParseException {
+    public void Payment_Page_TC3926() throws ParseException {
         String date = DateUtils.getDate(0, "yyyy-MM-dd", GMT_5_30);
 
         log("@title: Validate can filter transaction history  in today  in member site");
@@ -457,7 +457,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3927")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3927() throws ParseException {
+    public void Payment_Page_TC3927() throws ParseException {
         String date = DateUtils.getDate(-1, "yyyy-MM-dd", GMT_5_30);
 
         log("@title: Validate can filter transaction history in yesterday in member site");
@@ -477,7 +477,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3928")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3928() throws ParseException {
+    public void Payment_Page_TC3928() throws ParseException {
         log("@title: Validate can filter transaction history in this week in member site");
         log("Precondition: Login member site SAT by cash account");
         log("Step 1. Access deposit page and click on Transaction History");
@@ -498,7 +498,7 @@ public class PaymentTest extends BaseCaseTest {
 
     @TestRails(id = "3929")
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Register_Page_TC3929() throws ParseException {
+    public void Payment_Page_TC3929() throws ParseException {
         log("@title: Validate can filter transaction history in this month in member site");
         log("Precondition: Login member site SAT by cash account");
         log("Step 1. Access deposit page and click on Transaction History");
@@ -520,7 +520,7 @@ public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "3930")
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Register_Page_TC3930(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC3930(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate Cash Management section display when login agent site for cash domain");
         memberHomePage.logout();
 
@@ -540,7 +540,7 @@ public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "3931")
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentNonCashLoginAccount", "password"})
-    public void Register_Page_TC3931(String agentNonCashLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC3931(String agentNonCashLoginAccount, String password) throws Exception {
         log("@title: Validate Cash Management section is not display when login agent site none cash domain");
         memberHomePage.logout();
 
@@ -555,7 +555,7 @@ public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "3932")
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Register_Page_TC3932(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC3932(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate UI Deposit/Withdrawal Transaction in agent site is correct");
         memberHomePage.logout();
 
@@ -578,7 +578,7 @@ public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "3933")
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Register_Page_TC3933(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC3933(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate Cash Management section is not display when login agent site none cash domain");
         memberHomePage.logout();
 
@@ -597,9 +597,9 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3934")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "username", "password"})
-    public void Register_Page_TC3934(String agentLoginAccount, String username, String password) throws Exception {
+    public void Payment_Page_TC3934(String agentLoginAccount, String username, String password) throws Exception {
         log("@title: Validate Cash Management section is not display when login agent site none cash domain");
         memberHomePage.logout();
 
@@ -616,9 +616,9 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3935")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Register_Page_TC3935(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC3935(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate can filter deposit by status = Pending in Deposit/Withdrawal Transaction page Agent Site");
         memberHomePage.logout();
 
@@ -635,9 +635,9 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3936")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Register_Page_TC3936(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC3936(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate can filter deposit by status = Approved in Deposit/Withdrawal Transaction page Agent Site");
         memberHomePage.logout();
 
@@ -654,9 +654,9 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3937")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Register_Page_TC3937(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC3937(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate can filter deposit by status = Rejected in Deposit/Withdrawal Transaction page Agent Site");
         memberHomePage.logout();
 
@@ -672,9 +672,9 @@ public class PaymentTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3938")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Register_Page_TC3938(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC3938(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate can filter deposit by status = All in Deposit/Withdrawal Transaction page Agent Site");
         memberHomePage.logout();
 
@@ -691,9 +691,9 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3939")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Register_Page_TC3939(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC3939(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate can filter deposit by Payment Type =  All in Deposit/Withdrawal Transaction page Agent Site");
         memberHomePage.logout();
 
@@ -710,9 +710,9 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3940")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Register_Page_TC3940(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC3940(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate can filter deposit by Payment Type =  UPI in Deposit/Withdrawal Transaction page Agent Site");
         memberHomePage.logout();
 
@@ -729,10 +729,81 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3941")
+    @Test(groups = {"cashsite", "2022.10.31"})
+    @Parameters({"agentLoginAccount", "password"})
+    public void Payment_Page_TC3941(String agentLoginAccount, String password) throws Exception {
+        log("@title: Validate can filter deposit in valid date range Deposit/Withdrawal Transaction page Agent Site");
+        memberHomePage.logout();
+        String startDate = DateUtils.getDate(-2, "yyyy-MM-dd", GMT_5_30);
+        String endDate = DateUtils.getDate(0, "yyyy-MM-dd", GMT_5_30);
+        log("Step 1. Login SAT Cash site Agent Site");
+        loginAgentCash(agentLoginAccount, password, true);
+
+        log("Step 2. Click on menu Deposit/Withdrawal Transaction");
+        DepositWithdrawalTransactionPage depositWithdrawalTransactionPage = agentHomePage.navigateDepositWithdrawalTransaction();
+        log("Step 3. Select from and to range in a week");
+        depositWithdrawalTransactionPage.search("", "","",startDate,endDate,"");
+        log("Verify only transaction created in date range from/ to selected display");
+        depositWithdrawalTransactionPage.verifySearchResult("", "", "", "", startDate, endDate, "");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3942")
+    @Test(groups = {"cashsite", "2022.10.31"})
+    @Parameters({"agentLoginAccount", "password"})
+    public void Payment_Page_TC3942(String agentLoginAccount, String password) throws Exception {
+        log("@title: Validate message if input from date greater than to date in Deposit/Withdrawal Transaction page Agent Site");
+        memberHomePage.logout();
+        String startDate = DateUtils.getDate(0, "yyyy-MM-dd", GMT_5_30);
+        String endDate = DateUtils.getDate(-1, "yyyy-MM-dd", GMT_5_30);
+        log("Step 1. Login SAT Cash site Agent Site");
+        loginAgentCash(agentLoginAccount, password, true);
+
+        log("Step 2. Click on menu Deposit/Withdrawal Transaction");
+        DepositWithdrawalTransactionPage depositWithdrawalTransactionPage = agentHomePage.navigateDepositWithdrawalTransaction();
+        log("Step 3. Select from and to range in a week");
+        depositWithdrawalTransactionPage.search("", "","",startDate,endDate,"");
+        log("Verify validate message incorrect date range display \"To date cannot earlier than From date. Please redefine the search criteria.");
+        depositWithdrawalTransactionPage.verifyDateRangeErrorMessage("To date cannot earlier than From date. Please redefine the search criteria.");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "9142")
+    @Test(groups = {"cashsite", "2022.10.31"})
+    @Parameters({"agentLoginAccount", "password"})
+    public void Payment_Page_TC9142(String agentLoginAccount, String password) throws Exception {
+        log("@title: Validate message if input from date/ to date greater than 1 month in Deposit/Withdrawal Transaction page Agent Site");
+        memberHomePage.logout();
+        String startDate = DateUtils.getDate(-32, "yyyy-MM-dd", GMT_5_30);
+        String endDate = DateUtils.getDate(0, "yyyy-MM-dd", GMT_5_30);
+        log("Step 1. Login SAT Cash site Agent Site");
+        loginAgentCash(agentLoginAccount, password, true);
+
+        log("Step 2. Click on menu Deposit/Withdrawal Transaction");
+        DepositWithdrawalTransactionPage depositWithdrawalTransactionPage = agentHomePage.navigateDepositWithdrawalTransaction();
+        log("Step 3. Select from and to range in a week");
+        depositWithdrawalTransactionPage.search("", "","",startDate, endDate,"");
+        log("Verify validate message incorrect date range display \"Invalid time range. Please redefine the search criteria.");
+        depositWithdrawalTransactionPage.verifyDateRangeErrorMessage("Invalid time range. Please redefine the search criteria.");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3943")
     @Test(groups = {"cashsite1", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Register_Page_TC3941(String agentLoginAccount, String password) throws Exception {
-        log("@title: Validate can filter deposit in valid date range Deposit/Withdrawal Transaction page Agent Site");
+    public void Payment_Page_TC3943(String agentLoginAccount, String password) throws Exception {
+        log("@title: Validate valdiate can filter by Interal Ref No in Deposit/Withdrawal Transaction page Agent Site");
+        log("Precondition: The account has deposit transaction in any status");
+        String amount = "9";
+        String transactionId = StringUtils.generateNumeric(10);
+        log("@title: Validate user receive an email when deposit amount is accepted by agent");
+        log("Precondition: BANK TRANSFER Payment Chanel is active" +
+                "Login SAT account for cash");
+        log("Step 1. Deposit by any payment channel");
+        PaymentPage paymentPage = memberHomePage.header.openDepositPage(_brandname);
+        paymentPage.switchTab(DEPOSIT_TAB);
+        paymentPage.deposit(LBL_BANK_TRANSFER, amount, transactionId, true, true);
+        String refNo = paymentPage.getRefNo();
         memberHomePage.logout();
 
         log("Step 1. Login SAT Cash site Agent Site");
@@ -740,10 +811,10 @@ public class PaymentTest extends BaseCaseTest {
 
         log("Step 2. Click on menu Deposit/Withdrawal Transaction");
         DepositWithdrawalTransactionPage depositWithdrawalTransactionPage = agentHomePage.navigateDepositWithdrawalTransaction();
-        log("Step 3. Select Payment Type= All");
-        depositWithdrawalTransactionPage.search("", "","","","","");
-        log("Verify Transaction in any status display");
-        depositWithdrawalTransactionPage.verifySearchResult("", "", "", "", "2023-10-06", "2023-10-06", "");
+        log("Step 3. Select from and to range in a week");
+        depositWithdrawalTransactionPage.search("", "","","", "",refNo);
+        log("Verify validate message incorrect date range display \"Invalid time range. Please redefine the search criteria.");
+        depositWithdrawalTransactionPage.verifySearchResult("", "", "", "", "", "", refNo);
         log("INFO: Executed completely");
     }
 }
