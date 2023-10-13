@@ -1,6 +1,5 @@
 package agentsite.pages;
 
-import agentsite.controls.Table;
 import agentsite.pages.agentmanagement.*;
 import agentsite.pages.cashmanagement.DepositWithdrawalTransactionPage;
 import agentsite.pages.cashmanagement.PaymentChannelManagementPage;
@@ -108,6 +107,7 @@ public class HomePage extends LoginPage {
 
     public CreateUserPage navigateCreateUserPage(String securityCode) {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, CREATE_USER);
+        waitingLoadingSpinner();
         CreateUserPage page = new CreateUserPage(_type);
         page.confirmSecurityCode(securityCode);
         return page;

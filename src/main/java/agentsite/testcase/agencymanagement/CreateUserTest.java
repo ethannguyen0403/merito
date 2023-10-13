@@ -502,18 +502,15 @@ public class CreateUserTest extends BaseCaseTest {
      *          5. Click on Skip Home page display
      */
     @TestRails(id = "687")
-    @Test (groups = {"smoke"})
-    @Parameters("password")
-    public void Agent_AM_CreateUser_687(String password) throws Exception {
+    @Test (groups = {"smoke", "smoke_dev"})
+    @Parameters({"password", "currency", "isThrown"})
+    public void Agent_AM_CreateUser_687(String password, String currency, boolean isThrown) throws Exception {
         log("@title: Validate can Create User successfully");
         log("Step 1. Navigate Agency Management > Create User");
         String passwordDecrypt = StringUtils.decrypt(password);
         String loginId = RandomStringUtils.randomAlphabetic(10);
-
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
-
-        log("Step 2. Input required field and click on Submit button");
-        String loginID = page.createUser(loginId,passwordDecrypt);
+        String userCode = page.createUser(loginId, passwordDecrypt);
 
         log("Verify 1. Popup Create Downline with the message \"Downline was created successfully\"");
         Assert.assertTrue(page.successPopup.isDisplayed(),"FAILED! Success popup does not display after create user");
@@ -522,20 +519,14 @@ public class CreateUserTest extends BaseCaseTest {
         log("Verify 2. Validate the popup is disappear when click on OK button");
         page.successPopup.close();
         Assert.assertFalse(page.successPopup.isDisplayed(),"FAILED! Create Downline popup not disappear after clicking OK button");
+        agentHomePage.logout();
 
-//        log("Verify 3. Valid can login member site with the created account");
-//        page.logout().txtUsername.isDisplayed(1);
+        log("Step 2. Navigate to member site and login with new user created");
+        loginMember(userCode, password, false, "", currency, isThrown);
+        memberHomePage = landingPage.login(userCode, passwordDecrypt, true);
 
-        /*BaseCaseFE.loginMemberviaUI(environment.getMemberSiteURL(),loginID,passwordDecrypt);
-        ChangePasswordPage changePaswordPage = new ChangePasswordPage();
-
-        log("Verify 4. Verify change password page display after login");
-        Assert.assertEquals(changePaswordPage.lbltitle.getText(),String.format("Please change your password below"),"FAILED! Change password page not display when login member with new account");
-
-        log("Verify 5. Click on Skip Home page display");
-        pages.sat.tabexchange.HomePage memberHomePage = changePaswordPage.skip();
-        memberagentHomePage.waitMenuLoading();
-        Assert.assertTrue(memberagentHomePage.ddbMyAccount.isDisplayed(5), "ERROR: ddbMyAccount doesn't display after signed in");*/
+        log("Verify 3. Verify login success");
+        Assert.assertTrue(memberHomePage.isLoginSuccess(), "FAILED! Cannot login to member site");
 
         log("INFO: Executed completely");
     }

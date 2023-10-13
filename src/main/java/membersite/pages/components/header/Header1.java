@@ -3,7 +3,6 @@ package membersite.pages.components.header;
 import membersite.objects.AccountBalance;
 import membersite.pages.*;
 import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
-import membersite.pages.components.signinform.SATSignInPopup;
 import membersite.pages.components.signinform.SignInPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
@@ -31,6 +30,10 @@ public class Header1 {
     }
 
     public boolean isMyAccountDisplay() {
+        return true;
+    }
+
+    public boolean isLoginSuccess() {
         return true;
     }
 
@@ -97,6 +100,10 @@ public class Header1 {
         return null;
     }
 
+    public AccountBalance getUserCashBalance() {
+        return null;
+    }
+
     public boolean isProductActive(String productName) {
         return false;
     }
@@ -140,8 +147,8 @@ public class Header1 {
         return;
     }
 
-    public DepositPage openDepositPage(String brand) {
-        return new DepositPage(brand);
+    public PaymentPage openDepositPage(String brand) {
+        return new PaymentPage(brand);
     }
 
 }
