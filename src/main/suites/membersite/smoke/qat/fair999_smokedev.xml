@@ -10,9 +10,9 @@
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='qat'/>
         <parameter name='language' value=''/>
-        <parameter name='isLogin' value='true'/>
+        <parameter name='isLogin' value='false'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='02R0000003'/>
+        <parameter name='username' value='2R30000000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='true'/>
         <parameter name='currency' value='HKD'/>

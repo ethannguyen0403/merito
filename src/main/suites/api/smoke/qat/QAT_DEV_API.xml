@@ -19,7 +19,7 @@
 
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="smoke_dev"/>
             </run>
         </groups>
 
