@@ -52,6 +52,10 @@ public class HomePage extends LandingPage {
         return header.isMyAccountDisplay();
     }
 
+    public boolean isLoginSuccess() {
+        return header.isLoginSuccess();
+    }
+
     public boolean isMyAccountContains(String menu) {
         return header.isMyAccountContains(menu);
     }

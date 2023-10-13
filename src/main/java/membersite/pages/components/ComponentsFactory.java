@@ -6,9 +6,12 @@ import membersite.pages.components.accountstatement.NewViewAccountStatementConta
 import membersite.pages.components.accountstatement.OldUIAccountStatementContainer;
 import membersite.pages.components.betslipcontainer.BetsSlipContainer;
 import membersite.pages.components.betslipcontainer.NewUIBetsSlipContainer;
-import membersite.pages.components.deposit.DepositContainer;
-import membersite.pages.components.deposit.NewUIDepositContainer;
-import membersite.pages.components.deposit.NewViewDepositContainer;
+import membersite.pages.components.deposit.deposit.DepositContainer;
+import membersite.pages.components.deposit.deposit.NewUIDepositContainer;
+import membersite.pages.components.deposit.deposit.NewViewDepositContainer;
+import membersite.pages.components.deposit.transactionhistory.NewUITransactionHistoryContainer;
+import membersite.pages.components.deposit.transactionhistory.NewViewTransactionHistoryContainer;
+import membersite.pages.components.deposit.transactionhistory.TransactionHistoryContainer;
 import membersite.pages.components.eventcontainer.EventContainerControl;
 import membersite.pages.components.eventcontainer.Fair999EventContainerControl;
 import membersite.pages.components.eventcontainer.NewViewEventContainerControl;
@@ -208,6 +211,15 @@ public class ComponentsFactory {
                 return new NewUIDepositContainer();
             default:
                 return new NewViewDepositContainer();
+        }
+    }
+
+    public static TransactionHistoryContainer transactionHistoryContainerObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new NewUITransactionHistoryContainer();
+            default:
+                return new NewViewTransactionHistoryContainer();
         }
     }
 

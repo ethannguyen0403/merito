@@ -226,7 +226,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      *          3. Valid can login agent with the created account
      */
     @TestRails(id = "683")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke","smoke_dev"})
     public void Agent_AM_CreateDownline_Agent_683() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
         log("Step 1. Navigate Agency Management > Create Downline Agent");

@@ -1,4 +1,4 @@
-package membersite.pages.components.deposit;
+package membersite.pages.components.deposit.deposit;
 
 import java.util.List;
 import java.util.Map;

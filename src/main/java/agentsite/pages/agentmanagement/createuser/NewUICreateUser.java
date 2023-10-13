@@ -27,6 +27,6 @@ public class NewUICreateUser extends CreateUser {
     }
 
     public boolean isCreateUserSuccessCorrect() {
-        return successPopup.getContentMessage().equals(AGConstant.AgencyManagement.CreateUser.MEMBER_CREATE_SUCCEESS_MESSAGE);
+        return lblCreateSuccess.getText().equals(AGConstant.AgencyManagement.CreateUser.MEMBER_CREATE_SUCCEESS_MESSAGE);
     }
 }

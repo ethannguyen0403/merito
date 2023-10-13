@@ -23,7 +23,7 @@ import java.util.Objects;
 
 public class LandingPage extends BasePage {
     public Footer footer;
-    public Header1 header;
+    public static Header1 header;
     public LeftMenu leftMenu;
     public EventContainerControl eventContainerControl;
     protected String _type;
@@ -68,7 +68,7 @@ public class LandingPage extends BasePage {
         header.clickLogo();
     }
 
-    public void waitPageLoad() {
+    public static void waitPageLoad() {
         header.waitSpinLoad();
     }
 

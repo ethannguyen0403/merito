@@ -198,10 +198,6 @@ public class AGConstant {
         public final static String ANALYSIS_OF_RUNNING_MARKETS = "Analysis of Running Markets";
         public final static String SUB_USER_LISTING = "Sub User Listing";
         public final static String EVENT_BET_STIE_SETTINGS = "Event Bet Size Settings";
-        public final static String CASH_MANAGEMENT = "Cash Management";
-        public final static String DEPOSIT_WITHDRAWAL_TRANSACTION = "Deposit/Withdrawal Transactions";
-        public final static String PAYMENT_CHANNEL_MANAGEMENT = "Payment Channel Management";
-        public final static String QUICK_DEPOSIT_CONFIG = "Quick Deposit Configuration";
         public final static List<String> LST_QUICK_SEARCH_MENU_OLDUI = Arrays.asList("Balance", "Downline Listing", "Profit & Loss", "Client Ledger", "Settings", "Login");
         public final static List<String> LST_QUICK_SEARCH_MENU_NEWUI = Arrays.asList("Balance", "Unsettled Bet", "Client Ledger", "Settings", "Login");
         public final static List<String> LST_QUICK_SEARCH_LOGIN = Arrays.asList("Created Date", "Last Login Time", "Last Login IP");
@@ -209,8 +205,21 @@ public class AGConstant {
         public final static String PS38_SPORTS_RESULTS = "PS38 Sports Results";
         public final static List<String> PRODUCTS_LIST = Arrays.asList("Exchange", "Exchange Games", "Evolution", "Supernowa Casino");
 
+        public final static String CASH_MANAGEMENT = "Cash Management";
+        public final static String DEPOSIT_WITHDRAWAL_TRANSACTION = "Deposit/Withdrawal Transactions";
+        public final static String PAYMENT_CHANNEL_MANAGEMENT = "Payment Channel Management";
+        public final static String QUICK_DEPOSIT_CONFIG = "Quick Deposit Configuration";
+
     }
 
+    public static class CashManagement {
+        public static class DepositWithdrawalTransaction {
+            public final static String LBL_PAGE_TITLE = "Deposit/Withdrawal Transaction";
+            public final static List<String> TBL_HEADER = Arrays.asList("No.", "Username", "Login ID", "Internal Ref No", "Payment Type", "Currency", "Deposit Amount", "Created Date", "Updated Date", "Status", "Action");
+            public final static List<String> LST_TRANSACTION_STATUS = Arrays.asList("All", "Pending", "Approved", "Rejected");
+            public final static List<String> LST_PAYMENT_TYPE = Arrays.asList("All", "BANK TRANSFER", "PAYTM", "PHONEPE", "GPAY", "UPI", "QR Code");
+        }
+    }
     public static class SubUserListing {
         public final static String Create_Sub_User = "";
         public final static List<String> TBL_SUB_USER_TABLE_NONPO = Arrays.asList("No.", "Username", "Edit", "Status", "First Name", "Last Name", "Permissions", "Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management");

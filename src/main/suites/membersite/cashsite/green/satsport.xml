@@ -21,6 +21,7 @@
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
         <parameter name='agentLoginAccount' value='790SUBTS'/>
+        <parameter name='agentNonCashLoginAccount' value='QAAT.SAD'/>
         <parameter name="emailAddress" value="qatest1@yopmail.com"></parameter>
         <groups>
             <run>
