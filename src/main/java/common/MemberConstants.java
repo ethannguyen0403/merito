@@ -9,10 +9,13 @@ public class MemberConstants {
     public static final String TODAY = "Today";
     public static final String TOMORROW = "Tomorrow";
     public static final String YESTERDAY = "Yesterday";
+    public static final String THIS_WEEK = "This Week";
+    public static final String THIS_MONTH = "This Month";
     public static final String STARTINGIN = "Starting in";
     public static final String STARTINGSOON = "Starting soon";
     public static final String TIMEZONE = "IST";
-    public static final String GMT_TIMEZONE = "+5:30";
+    public static final String GMT_5_30 = "GMT+5:30";
+    public static final String GMT_LOCAL = "GMT+7:00";
     public static final String NO_RECORDs_FOUND = "No records found";
     public static final String NO_RECORD_FOUND = "No Record Found";
     public static final String WICKET_FANCY = "WICKET_FANCY";
@@ -388,8 +391,8 @@ public class MemberConstants {
 
     public static class CashManagement {
         public static final String DEPOSIT_TAB = "DEPOSIT";
-        public static final String WITHDRAWAL = "WITHDRAWAL";
-        public static final String TRANSACTION_HISTORY = "TRANSACTION HISTORY";
+        public static final String WITHDRAWAL_TAB = "WITHDRAWAL";
+        public static final String TRANSACTION_HISTORY_TAB = "TRANSACTION HISTORY";
 
         public final static String LBL_BANK_TRANSFER = "BANK TRANSFER";
         public final static String LBL_PAYTM = "PAYTM";

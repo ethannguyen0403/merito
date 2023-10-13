@@ -1,4 +1,4 @@
-package membersite.pages.components.deposit;
+package membersite.pages.components.deposit.deposit;
 
 import agentsite.controls.DropDownList;
 import com.paltech.element.common.Button;

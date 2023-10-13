@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 public class SignUpPageTest extends BaseCaseTest {
-    @Test(groups = {"cashsite"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     public void Register_Page_TC1213() {
         log("@title:Validate that user can sign in successfully");
         log("@Step 1 Navigate to  login page");
@@ -31,7 +31,7 @@ public class SignUpPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "196")
-    @Test(groups = {"cashsite"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     public void Register_Page_TC196() {
         log("@title: Validate 'Create Your Account' page show when click 'Join now' button");
         log("@Step 1 Navigate to member site");
@@ -46,7 +46,7 @@ public class SignUpPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "197")
-    @Test(groups = {"cashsite"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     public void Register_Page_TC197() {
         log("@title: Validate UI 'Create Your Account' page");
         log("@Step 1 Navigate to member site");
@@ -60,7 +60,7 @@ public class SignUpPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "198")
-    @Test(groups = {"cashsite"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     public void Register_Page_TC198() {
         log("@title: Validate the placeholder on all textboxs");
         log("@Step 1 Navigate to member site");
@@ -74,7 +74,7 @@ public class SignUpPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "199")
-    @Test(groups = {"cashsite"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     public void Register_Page_TC199() {
         log("@title: Validate behavior when signing up without data");
         log("@Step 1 Navigate to member site");
@@ -89,7 +89,7 @@ public class SignUpPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "200")
-    @Test(groups = {"cashsite"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     public void Register_Page_TC200() {
         log("@title: Validate button 'Send OTP' when player input number in Mobile Number textbox");
         String username = "Auto" + StringUtils.generateAlphabetic(5);
@@ -121,7 +121,7 @@ public class SignUpPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3884")
-    @Test(groups = {"cashsite"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     public void Register_Page_TC3884() {
         log("@title: Validate button 'Send OTP' when player input number in Mobile Number textbox");
         String username = "Auto" + StringUtils.generateAlphabetic(5);
