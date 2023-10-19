@@ -9,4 +9,5 @@ public class DepositWithdrawalTransaction {
     public void verifyUIDisplayCorrect() {}
 
     public void verifySearchResult(String username, String loginId, String transactionStatus, String paymentType, String fromDate, String toDate, String refNo) {}
+    public void openTransactionDetail(String action) {}
 }

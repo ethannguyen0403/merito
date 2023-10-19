@@ -215,9 +215,15 @@ public class AGConstant {
     public static class CashManagement {
         public static class DepositWithdrawalTransaction {
             public final static String LBL_PAGE_TITLE = "Deposit/Withdrawal Transaction";
-            public final static List<String> TBL_HEADER = Arrays.asList("No.", "Username", "Login ID", "Internal Ref No", "Payment Type", "Currency", "Deposit Amount", "Created Date", "Updated Date", "Status", "Action");
+            public final static List<String> TBL_DEPOSIT_WITHDRAWAL_HEADER = Arrays.asList("No.", "Username", "Login ID", "Internal Ref No", "Payment Type", "Currency", "Deposit Amount", "Created Date", "Updated Date", "Status", "Action");
             public final static List<String> LST_TRANSACTION_STATUS = Arrays.asList("All", "Pending", "Approved", "Rejected");
             public final static List<String> LST_PAYMENT_TYPE = Arrays.asList("All", "BANK TRANSFER", "PAYTM", "PHONEPE", "GPAY", "UPI", "QR Code");
+            public final static List<String> ACTION_LST = Arrays.asList("Approve", "Reject");
+            public final static List<String> TRANSACTION_DETAIL_ACTION_LST = Arrays.asList("Review", "Details");
+        }
+
+        public static class PaymentChannelManagement {
+            public final static List<String> TBL_HEADER_HISTORY_POPUP = Arrays.asList("No.", "Actions", "Last Updated Time", "Last Updated By");
         }
     }
     public static class SubUserListing {

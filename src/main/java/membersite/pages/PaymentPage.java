@@ -29,9 +29,8 @@ public class PaymentPage extends HomePage {
         return depositContainer.getListPaymentChannel();
     }
 
-    public void verifyListPaymentChannelDisplayCorrect(Map<String, String> mapPaymentSetting) {
-        depositContainer.verifyListPaymentChannelDisplayCorrect(mapPaymentSetting);
-        waitPageLoad();
+    public void verifyListPaymentChannelDisplayCorrect(Map<String, String> mapPaymentSetting, boolean isActive) {
+        depositContainer.verifyListPaymentChannelDisplayCorrect(mapPaymentSetting, isActive);
     }
 
     public void switchTab(String tabName) {
