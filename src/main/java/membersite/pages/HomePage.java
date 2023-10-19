@@ -142,6 +142,10 @@ public class HomePage extends LandingPage {
         return new MarketPage(_type);
     }
 
+    public boolean isProductDisplayed (String productName){
+        return header.isProductTabDisplay(productName);
+    }
+
     public LandingPage logout() {
         header.logout();
         return new LandingPage(_type);
