@@ -400,7 +400,6 @@ public class MemberConstants {
         public final static String LBL_GPAY = "GPAY";
         public final static String LBL_UPI = "UPI";
         public final static String LBL_QR_CODE = "QR CODE";
-        public final static List<String> ACTION_LST = Arrays.asList("Approve", "Reject");
 
         public static final Map<String, String> DEPOSIT_SUCCESS_HEADER_BRAND = new HashMap<String, String>() {
             {

@@ -6,7 +6,7 @@ import java.util.Map;
 public class DepositContainer {
     public List<String> getListPaymentChannel() {return null;}
 
-    public void verifyListPaymentChannelDisplayCorrect(Map<String, String> mapPaymentSetting) {
+    public void verifyListPaymentChannelDisplayCorrect(Map<String, String> mapPaymentSetting, boolean isActive) {
     }
     public void selectPaymentType(String paymentType) {
 
