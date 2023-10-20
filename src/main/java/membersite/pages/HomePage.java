@@ -127,6 +127,9 @@ public class HomePage extends LandingPage {
         return MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE;
 
     }
+    public boolean isEventDisplay(String eventName) {
+       return eventContainerControl.isEventDisplay(eventName);
+    }
 
     public MarketPage clickEventName(String eventName) {
         eventContainerControl.clickOnRowofEventName(eventName);
@@ -137,6 +140,10 @@ public class HomePage extends LandingPage {
     public MarketPage clickMenuIndex(int marketIndex) {
         leftMenu.clickMenuIndex(marketIndex);
         return new MarketPage(_type);
+    }
+
+    public boolean isProductDisplayed (String productName){
+        return header.isProductTabDisplay(productName);
     }
 
     public LandingPage logout() {

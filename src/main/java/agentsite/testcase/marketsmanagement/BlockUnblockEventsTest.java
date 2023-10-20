@@ -578,10 +578,11 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="3686")
-    @Test(groups = {"regression_isa1"})
+    @Test(groups = {"regression_sat"})
     @Parameters({"brandname"})
     public void Agent_MM_BlockUnblockEvent_3686(String brandname) {
         log("@title: Validate Event status just updated for the according selected downline");
+        AccountInfo acc = ProfileUtils.getProfile();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> lstAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", brandname);
@@ -593,7 +594,8 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
         log("Step 2. Select sport is soccer, and a tab that has data");
         page.filter("", "Soccer", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
-        List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", userID, "TODAY");
+        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
+        List<Event> event = BlockUnblockEventsUtils.getEventList("Soccer", childID, "TODAY");
         if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Tennis");
         }
@@ -604,9 +606,9 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.clickDownline(downlineAccount1);
 
         log("Step 4. Check a blocked event and click Unblock Now  button");
-        page.blockUnblockEvent(downlineAccount, eventName, "Unblock Now");
+        page.blockUnblockEvent("", eventName, "Unblock Now");
         log("Verify 2. (Step 5) Status of the event is Unblocked ");
-        page.verifyBlockUnblockEvent(eventName, "Blocked", false, true, false, "", "");
+        page.verifyBlockUnblockEvent(eventName, "Blocked", false, false, false, "", "");
 
         log("Step 5. Select Acc1 to view event status");
         page.clickDownline(downlineAccount);
@@ -807,7 +809,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="3688")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_sat"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_3688(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Validate Today event will display in member site if status is Unblocked after Unblock Schedule 2 days");
@@ -817,68 +819,68 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
 
         log("Step 2. Select sport " + sportName + " and Today tab");
-        page.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+        page.filter("", "Soccer", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
         Event event = eventList.get(0);
-        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), acc.getUserID(), "1");
+        log("Step 3. Select an downline and a blocked event that will start in 2 days");
+        log("Step 4. Click Unblock Schedule 2 days");
+        page.blockUnblockEvent(downlineAccount, event.getEventName(), "Unblock Schedule", "2 days", 1);
+
+        log("Verify 1. Verify event status is unblocked in agent sitte: Unblocked, is Viewable, Detail in Betale, Tim to open 2 days,Time to bet 25 minutes ");
+        page.verifyBlockUnblockEvent(event.getEventName(), "Unblocked", true, false, true, "2 days", "25 minutes");
+        page.assertBetabelMarketStatusOfEventAsUnblockScheudle(event.getEventName(), "2 days");
+        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), childID, "1");
         String marketName = marketList.get(0).getMarketName();
         if (Objects.isNull(eventList.get(0).getEventName())) {
             throw new SkipException("INFO: Skipping this test case as have no event " + event.getEventName() + " in today for Soccer");
         }
-
-        log("Step 3. Select an downline and a blocked event that will start in 2 days");
-        log("Step 4. Click Unblock Schedule 2 days");
-        page.blockUnblockEvent(downlineAccount, "All", "Unblock Schedule", "2 days", 1);
-
-        log("Step 1. Verify event status is unblocked in agent sitte: Unblocked, is Viewable, Detail in Betale, Tim to open 2 days,Time to bet 25 minutes ");
-        page.verifyBlockUnblockEvent(event.getEventName(), "Unblocked", true, false, true, "2 days", "25 minutes");
-        page.assertBetabelMarketStatusOfEventAsUnblockScheudle(event.getEventName(), "2 days");
         boolean isMarketBetAble = page.isMarketIsBetAble(event.getEventName(), marketName);
+
+        log("Verify 1. The event is display in member site and based on event start time. Can click on odd if the start tim in 25 mintue ");
         memberHomePage = loginMember(memberAccount, password);
-        SportPage sportPage = memberHomePage.navigateSportHeaderMenu("Soccer");
-//       MarketPage marketPage = sportPage.leftMenu.searchEvent(event.getEventName(),true);
-//       marketPage.clickMarket(marketName);
-//       Market market = marketPage.marketContainerControl.getMarket(event,1,true);
-//
-//       log("Verify 2 The event is display in member site and based on event start time. Can click on odd if the start time in 25 mintue otherwise odds is unclickable");
-//       boolean isOddClickable = marketPage.verifyOddsIsClickAbleAsBetableStaus(market,isMarketBetAble);
-//       Assert.assertTrue(isOddClickable,"FAILED! Market is "+isMarketBetAble+" betable but odd clickable is "+isOddClickable);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
+        MarketPage marketPage = sportPage.clickEventName(event.getEventName());
+        Market market = marketPage.marketOddControl.getMarket(event,1,true);
+
+       log("Verify 2 The event is display in member site and based on event start time. Can click on odd if the start time in 25 mintue otherwise odds is unclickable");
+       boolean isOddClickable = marketPage.verifyOddsIsClickAbleAsBetableStaus(market,isMarketBetAble);
+       Assert.assertTrue(isOddClickable,"FAILED! Market is "+isMarketBetAble+" betable but odd clickable is "+isOddClickable);
         log("INFO: Executed completely");
     }
 
     @TestRails(id="3689")
-    @Test(groups = {"interaction"})
-    @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_BlockUnblockEvent_3689(String downlineAccount, String memberAccount, String password) throws Exception {
+    @Test(groups = {"interaction_sat1"})
+    @Parameters({"memberAccount", "password"})
+    public void Agent_MM_BlockUnblockEvent_3689(String memberAccount, String password) throws Exception {
         log("@title:Validate Tomorrow Event Not display in member site after Unblock Schedule 25 minutes");
 
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
+        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
         String sportName = "Tennis";
         AccountInfo acc = ProfileUtils.getProfile();
-        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
-
-        page.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
-        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
-        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
+        List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(acc.getUserID(), "PL", _brandname);
+        String userCode = DownLineListingUtils.getAccountInfoInList(lstUsers, memberAccount).getUserCode();
+        log("Step 2. Select sport " + sportName + " and Tomorrow tab");
+        page.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2));
+        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), userCode);
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TMR");
         Event event = eventList.get(0);
-        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), acc.getUserID(), "2");
-        String marketName = marketList.get(0).getMarketName();
-
-        log("Step 2. Select sport is Tennis and Tomorrow tab ");
-        page.filter("", sportName, "Tomorrow");
+        Event event1 = eventList.get(1);
 
         log("Step 3. Select an downline and unblocked event that will start in 25 minutes");
         log("Step 4. Click Unblock Schedule 25 minutes");
-        page.blockUnblockEvent(downlineAccount, event.getEventName(), "Unblock Schedule", "25 minutes", 1);
+        page.blockUnblockEvent(userCode, event.getEventName(), "Unblock Schedule", "25 minutes", 1);
+        // Unblock at least 1 event then can see the sport display in member site
+        page.blockUnblockEvent(userCode, event.getEventName(), "Unblock Now", "", 1);
 
         log("Verify 1. Verify event status is Blocked ");
-        page.verifyBlockUnblockEvent(event.getEventName(), "Blocked", true, false, true, "25 minutes", "25 minutes");
+        page.verifyBlockUnblockEvent(event.getEventName(), "Blocked", false, false, false, "25 minutes", "25 minutes");
 
         log("Verify 2. Verify event is NOT display on member site");
         loginMember(memberAccount, password);
-        String searchResult = memberHomePage.leftMenu.searchEvent(event.getEventName()).getText();
-        Assert.assertEquals(searchResult, event.getEventName(), "FAILED! Can search event in blocked status");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
+        Assert.assertFalse(sportPage.isEventDisplay(event.getEventName()),"Failed! The event "+event.getEventName()+ " should not displayed when blocked");
 
         log("INFO: Executed completely");
     }

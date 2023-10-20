@@ -20,6 +20,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CurrentBlockingTest extends BaseCaseTest {
+
+    @TestRails(id = "3702")
+    @Test(groups = {"http_request"})
+    public void Agent_MM_CurrentBlocking_3702() {
+        log("@title: Validate there is no http responded error returned");
+        log("@Step 11. Navigate Markets Management > Current Blocking");
+        agentHomePage.navigateCurrentBlockingPage();
+
+        log("Verify 1. Verify there is no console error display");
+        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error displayed when navigate the page");
+
+        log("INFO: Executed completely");
+    }
+
     /**
      * @title: Validate Current Blocking UI display correctly
      * @pre-condition: 1. Log in successfully by SAD

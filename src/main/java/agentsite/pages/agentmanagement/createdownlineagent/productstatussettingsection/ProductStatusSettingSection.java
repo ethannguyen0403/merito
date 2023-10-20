@@ -126,4 +126,15 @@ public class ProductStatusSettingSection {
         }
     }
 
+    public List<String> getProductsTabs(){
+        List<String> lstProduct = new ArrayList<>();
+        String productCheckboxXpath = "//div[@id='product-settings']//ul[@class='nav nav-tabs']" + "//li[%s]//span[contains(@class,'tab-pro')]";
+        Label lblProducts = Label.xpath("//div[@id='product-settings']//ul[@class='nav nav-tabs']"+"//li");
+        for (int i = 0; i < lblProducts.getWebElements().size(); i++) {
+            Label lblProduct = Label.xpath(String.format(productCheckboxXpath, i+1));
+            lstProduct.add(lblProduct.getText());
+        }
+        return lstProduct;
+    }
+
 }

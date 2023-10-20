@@ -31,5 +31,9 @@ public class EditDownLinePage extends CreateDownLineAgentPage {
         getMessageUpdate(true);
     }
 
+    public List<String> getProductsTab(){
+        return productStatusSettingInforSection.getProductsTabs();
+    }
+
 
 }

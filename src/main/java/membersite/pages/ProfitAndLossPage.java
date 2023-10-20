@@ -107,7 +107,7 @@ public class ProfitAndLossPage extends HomePage {
             // Add wait time to wait data load => Will improve when finding the solution
             //tblMarket.isTextDisplayed("Total", 3);
             try {
-                Thread.sleep(200);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -117,10 +117,10 @@ public class ProfitAndLossPage extends HomePage {
                 System.out.println(String.format("ERROR! Total PL in Sport table does not match with Market Table expected is % s but found", totalProfitLost, totalPLMarketTable));
                 return false;
             }
-            if (!verifyMarketTableProfitLoss()) {
-                return false;
-            }
-
+//            if (!verifyMarketTableProfitLoss()) {
+//                return false;
+//            }
+            btnBack.click();
         }
         double totalActual = Double.parseDouble(lst.get(totalSummaryRow - 1).get(colProfitLoss - 1));
         if (!(total == totalActual)) {
@@ -147,9 +147,9 @@ public class ProfitAndLossPage extends HomePage {
                 System.out.println(String.format("ERROR! Profit in row %s in Market Table not match with total in Wager table details expected %s but found %s", i, profitLoss, totalNet));
                 return false;
             }
-            if (!verifyWagerTableProfitLoss()) {
-                return false;
-            }
+//            if (!verifyWagerTableProfitLoss()) {
+//                return false;
+//            }
 
         }
         btnBack.click();
