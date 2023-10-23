@@ -65,7 +65,7 @@ public class EditDownlineAgentTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Drilldown to an agent level SMA and active the below product: Exchange, Exchange Game");
-        page.downlineListing.searchDownline(controlBlockingAccount, "", "");
+        page.searchDownline(controlBlockingAccount, "", "");
         EditDownLinePage editDownLinePage= page.downlineListing.clickEditIcon(controlBlockingAccount);
         editDownLinePage.confirmSecurityCode(environment.getSecurityCode());
         final Map<String, Boolean> PRODUCTS1 = new HashMap<String, Boolean>() {
@@ -90,7 +90,7 @@ public class EditDownlineAgentTest extends BaseCaseTest {
 
         log("Step 4. Navigate to the Downline listing and select any downline account");
         page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(downlineAccount, "", "Agent");
+        page.searchDownline(downlineAccount, "", "Agent");
         editDownLinePage= page.downlineListing.clickEditIcon(downlineAccount);
         editDownLinePage.confirmSecurityCode(environment.getSecurityCode());
         List<String> lstProduct = editDownLinePage.getProductsTab();
