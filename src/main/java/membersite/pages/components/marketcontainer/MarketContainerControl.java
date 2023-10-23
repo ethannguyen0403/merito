@@ -81,4 +81,6 @@ public class MarketContainerControl {
 
     public enum Status {NA, IN_PLAY, COMING}
     public void clickRuleButton(){}
+
+    public boolean verifyOddsIsClickable(boolean isClickable) {return false;}
 }

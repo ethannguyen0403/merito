@@ -38,6 +38,7 @@ public class AGConstant {
     public final static String LBL_USERNAME_PLACE_HOLDER_SAT = "Username or Login ID";
     public final static List<String> MENULIST = Arrays.asList("Nickname", "Password", "Security code", "OTP");
     public final static List<String> MENULISTSAT = Arrays.asList("Password", "Security code", "OTP");
+    public final static String LBL_WITHOUT_PERMISSION_ACCESS = "You are not allowed to view this page!";
     public static final Map<String, String> LEVEL_TO_LEVEL_CODE = new HashMap<String, String>() {
         {
             put("Portal", "PO");
@@ -155,6 +156,7 @@ public class AGConstant {
         public final static String FOLLOW_BETS = "Follow Bets";
         public final static String DEPOSIT_WITHDRAW = "Deposit/Withdraw";
         public final static String TAX_SETTING_LISTING = "Tax Settings";
+        public final static String RISK_SETTING_LISTING = "Risk Setting Listing";
         public final static String POSITION_TAKING_LISTING = "Position Taking Listing";
         public final static String ANNOUNCEMENT = "Announcement";
         public final static String FRAUD_DETECTION = "Fraud Detection";
@@ -204,8 +206,27 @@ public class AGConstant {
         public final static List<String> PRODUCTS_LIST = Arrays.asList("Exchange", "Exchange Games", "Evolution", "Supernowa Casino","CMD Sportsbook","Live Dealer European", "Live Dealer Asian","Pragmatic", "Game Hall",
                 "ViVo", "Ion","Sabong");
 
+        public final static String CASH_MANAGEMENT = "Cash Management";
+        public final static String DEPOSIT_WITHDRAWAL_TRANSACTION = "Deposit/Withdrawal Transactions";
+        public final static String PAYMENT_CHANNEL_MANAGEMENT = "Payment Channel Management";
+        public final static String QUICK_DEPOSIT_CONFIG = "Quick Deposit Configuration";
+
     }
 
+    public static class CashManagement {
+        public static class DepositWithdrawalTransaction {
+            public final static String LBL_PAGE_TITLE = "Deposit/Withdrawal Transaction";
+            public final static List<String> TBL_DEPOSIT_WITHDRAWAL_HEADER = Arrays.asList("No.", "Username", "Login ID", "Internal Ref No", "Payment Type", "Currency", "Deposit Amount", "Created Date", "Updated Date", "Status", "Action");
+            public final static List<String> LST_TRANSACTION_STATUS = Arrays.asList("All", "Pending", "Approved", "Rejected");
+            public final static List<String> LST_PAYMENT_TYPE = Arrays.asList("All", "BANK TRANSFER", "PAYTM", "PHONEPE", "GPAY", "UPI", "QR Code");
+            public final static List<String> ACTION_LST = Arrays.asList("Approve", "Reject");
+            public final static List<String> TRANSACTION_DETAIL_ACTION_LST = Arrays.asList("Review", "Details");
+        }
+
+        public static class PaymentChannelManagement {
+            public final static List<String> TBL_HEADER_HISTORY_POPUP = Arrays.asList("No.", "Actions", "Last Updated Time", "Last Updated By");
+        }
+    }
     public static class SubUserListing {
         public final static String Create_Sub_User = "";
         public final static List<String> TBL_SUB_USER_TABLE_NONPO = Arrays.asList("No.", "Username", "Edit", "Status", "First Name", "Last Name", "Permissions", "Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management");
@@ -572,7 +593,7 @@ public class AGConstant {
 
         public static class SubUserListing {
             public final static String TITLE_PAGE = "Sub User Listing";
-            public final static List<String> PERMISSIONS_ALL = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management");
+            public final static List<String> PERMISSIONS_ALL = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management", "Deposit/Withdrawal Transactions", "Payment Channel Management", "Quick Deposit Configuration");
             public final static List<String> PERMISSIONSNONPO = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance");
         }
 
@@ -833,6 +854,9 @@ public class AGConstant {
             public final static List<String> TABLE_COMPETITION = Arrays.asList("Competition Name", "Current");
             public final static List<String> TABLE_EVENT = Arrays.asList("Competition Name", "Event Name", "Current");
             public final static List<String> TAB_DAYS = Arrays.asList("Old Events", "Today", "Tomorrow", "Future");
+        }
+        public static class BlockRacing {
+            public final static String LBL_UPDATE_SUCCESS_MSG = "Your settings updated successfully!";
         }
 
         public static class BlockedUserPopup {

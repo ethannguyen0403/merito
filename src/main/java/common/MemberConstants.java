@@ -9,10 +9,13 @@ public class MemberConstants {
     public static final String TODAY = "Today";
     public static final String TOMORROW = "Tomorrow";
     public static final String YESTERDAY = "Yesterday";
+    public static final String THIS_WEEK = "This Week";
+    public static final String THIS_MONTH = "This Month";
     public static final String STARTINGIN = "Starting in";
     public static final String STARTINGSOON = "Starting soon";
     public static final String TIMEZONE = "IST";
-    public static final String GMT_TIMEZONE = "+5:30";
+    public static final String GMT_5_30 = "GMT+5:30";
+    public static final String GMT_LOCAL = "GMT+7:00";
     public static final String NO_RECORDs_FOUND = "No records found";
     public static final String NO_RECORD_FOUND = "No Record Found";
     public static final String WICKET_FANCY = "WICKET_FANCY";
@@ -30,6 +33,7 @@ public class MemberConstants {
     public static final String FANCY_MARKET_TYPE_CODE = "WICKET_FANCY";
     public final static String NOTES_GMT4 = "Note : Date will be based on time zone GMT-04:00";
     public final static String EXCHANGE = "Exchange";
+
     public static final Map<String, String> TIMEZONE_BRAND = new HashMap<String, String>() {
         {
             put("satsport", "IST");
@@ -382,6 +386,28 @@ public class MemberConstants {
         public final static String IMG_PHONE_URL = "whatsapp";
         public final static String IMG_BETFAIR_URL = "ju21gofndjkcggoc";
         public final static String CONTACT_INSTA = "satsportofficial";
+
+    }
+
+    public static class CashManagement {
+        public static final String DEPOSIT_TAB = "DEPOSIT";
+        public static final String WITHDRAWAL_TAB = "WITHDRAWAL";
+        public static final String TRANSACTION_HISTORY_TAB = "TRANSACTION HISTORY";
+
+        public final static String LBL_BANK_TRANSFER = "BANK TRANSFER";
+        public final static String LBL_PAYTM = "PAYTM";
+        public final static String LBL_PHONEPE = "PHONEPE";
+        public final static String LBL_GPAY = "GPAY";
+        public final static String LBL_UPI = "UPI";
+        public final static String LBL_QR_CODE = "QR CODE";
+
+        public static final Map<String, String> DEPOSIT_SUCCESS_HEADER_BRAND = new HashMap<String, String>() {
+            {
+                put("satsport", "SAT Sport");
+                put("fairexchange", "Fairexchange");
+
+            }
+        };
 
     }
 }

@@ -47,7 +47,9 @@
     </bean>
     <bean name="stg" class="objects.Environment" scope="prototype">
         <property name="fairURL" value="${STG.FAIRURL}"/>
+        <property name="fairCashURL" value="${STG.FAIRCASHURL}"/>
         <property name="satURL" value="${STG.SATURL}"/>
+        <property name="satCashURL" value="${STG.SATCASHURL}"/>
         <property name="funsportURL" value="${STG.FUNSPORTURL}"/>
         <property name="fairenterURL" value="${STG.FAIRENTERURL}"/>
         <property name="laser365URL" value="${STG.LASER365URL}"/>
@@ -60,7 +62,9 @@
     </bean>
     <bean name="green" class="objects.Environment" scope="prototype">
         <property name="fairURL" value="${GREEN.FAIRURL}"/>
+        <property name="fairCashURL" value="${GREEN.FAIRCASHURL}"/>
         <property name="satURL" value="${GREEN.SATURL}"/>
+        <property name="satCashURL" value="${GREEN.SATCASHURL}"/>
         <property name="funsportURL" value="${GREEN.FUNSPORTURL}"/>
         <property name="fairenterURL" value="${GREEN.FAIRENTERURL}"/>
         <property name="betclubURL" value="${GREEN.LASER365URL}"/>

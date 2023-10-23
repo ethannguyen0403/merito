@@ -12,6 +12,7 @@ import org.testng.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
+import static agentsite.pages.HomePage.waitingLoadingSpinner;
 import static baseTest.BaseCaseTest._brandname;
 import static common.AGConstant.*;
 import static common.AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL;
@@ -19,14 +20,13 @@ import static common.AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STA
 import static common.AGConstant.AgencyManagement.DownlineListing.LST_DOWLINE_LISTING_TABLE_HEADER_OLDUI;
 import static common.AGConstant.BTN_SUBMIT;
 import static common.AGConstant.HomePage.DOWNLINE_LISTING;
+import static agentsite.pages.agentmanagement.DownLineListingPage.*;
 
 public class OldUIDownlineListing extends DownlineListing {
     private int accountStatusCol = 7;
+    public Label lblPageTitle = Label.xpath("//app-title-dashboard//div[contains(@class, 'title')]");
     private Button btnOK = Button.xpath("//button[text()='Ok']");
     private Button btnSubmit = Button.id("submitBtn");
-    public OldUIDownlineListing(String types) {
-        super(types);
-    }
 //    private int userCodeCol = 3;
 
     public EditDownLinePage clickEditIcon(String loginID, boolean inputSecurityCode) {
@@ -48,7 +48,7 @@ public class OldUIDownlineListing extends DownlineListing {
     public void verifyUIDisplayCorrect() {
         List<String> lstHeaderTable = tblDowlineListing.getHeaderNameOfRows();
 
-        Assert.assertEquals(header.lblPageTitle.getText(), DOWNLINE_LISTING, "FAILED! Page title is incorrect displayed");
+        Assert.assertEquals(lblPageTitle.getText(), DOWNLINE_LISTING, "FAILED! Page title is incorrect displayed");
         Assert.assertEquals(lblLoginId.getText(), LOGIN_ID, "FAILED! Login ID is incorrect displayed");
         Assert.assertEquals(lblAccountStatus.getText(), ACCOUNT_STATUS, "FAILED! Account Status is incorrect displayed");
         Assert.assertEquals(lblLevel.getText(), LEVEL, "FAILED! Account Status is incorrect displayed");

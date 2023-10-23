@@ -226,7 +226,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      *          3. Valid can login agent with the created account
      */
     @TestRails(id = "683")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke","smoke_dev"})
     public void Agent_AM_CreateDownline_Agent_683() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
@@ -236,7 +236,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("Step 2. Input required field and click on Submit button");
         page.confirmSecurityCode(environment.getSecurityCode());
         String loginID = "test.AG"+ StringUtils.generateAlphabetic(5);
-        page.createDownline(loginID, password,"Active");
+        String userName = page.createDownline(loginID, password,"Active");
 
         log("Verify 1. Popup Create Downline with the message \"Downline was created successfully\"");
         Assert.assertTrue(page.successPopup.isDisplayed(),"FAILED! Success popup does not display after create user");
@@ -248,8 +248,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         page.logout();
 
         log("Verify 3. Valid can login agent with the created account");
-        loginNewAccount(sosAgentURL,agentNewAccURL,loginID, StringUtils.encrypt(password),StringUtils.decrypt(environment.getSecurityCode()));
-        Assert.assertEquals(agentHomePage.leftMenu.lblLoginID.getText(),loginID,"Failed!, Login ID label display incorrect");
+        loginNewAccount(sosAgentURL,agentNewAccURL,userName, StringUtils.encrypt(password),StringUtils.decrypt(environment.getSecurityCode()));
+        Assert.assertEquals(agentHomePage.leftMenu.lblLoginID.getText(),userName,"Failed!, Login ID label display incorrect");
         log("INFO: Executed completely");
     }
 

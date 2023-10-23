@@ -6,17 +6,17 @@ import com.paltech.element.common.Label;
 import org.openqa.selenium.By;
 
 public class SuccessPopup extends BaseElement {
-    Label lblTitle;
-    Label lblContent;
-    Button btnOK;
+    public Label lblTitle = Label.xpath("//div[contains(@class,'modal-header')]");
+    public Label lblContent = Label.xpath("//div[contains(@class,'modal-body modal-body-fit-with-content')]");
+    public Button btnOK = Button.xpath("//div[contains(@class,'modal-footer')]/button");
     private String _xPath;
 
     public SuccessPopup(By locator, String xpathExpression) {
         super(locator);
         this._xPath = xpathExpression;
-        lblTitle = Label.xpath(String.format("%s//div[contains(@class,'modal-header')]", _xPath));
-        lblContent = Label.xpath(String.format("%s//div[contains(@class,'modal-body modal-body-fit-with-content')]", _xPath));
-        btnOK = Button.xpath(String.format("%s//div[contains(@class,'modal-footer')]/button", _xPath));
+//        lblTitle = Label.xpath(String.format("%s//div[contains(@class,'modal-header')]", _xPath));
+//        lblContent = Label.xpath(String.format("%s//div[contains(@class,'modal-body modal-body-fit-with-content')]", _xPath));
+//        btnOK = Button.xpath(String.format("%s//div[contains(@class,'modal-footer')]/button", _xPath));
     }
 
     public static SuccessPopup xpath(String xpathExpression) {

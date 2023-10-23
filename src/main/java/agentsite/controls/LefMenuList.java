@@ -69,7 +69,7 @@ public class LefMenuList extends BaseElement {
         // expand the root menu
         //(//div[@class='leftmenu']//div[contains(@class,'asia-menu-group')]/ancestor::div[1])[1]//div[@class='asia-menu-title']//span[2]
 
-        lblExpandSubMenu = Label.xpath(String.format("%s%s/ancestor::div[1])[%s]%s//span[2]",_xPath, groupMenuActiveXpath, menuIndex,groupMenuTitleXpath));
+        lblExpandSubMenu = Label.xpath(String.format("(%s%s/ancestor::div[1])[%s]%s//span[2]",_xPath, groupMenuActiveXpath, menuIndex,groupMenuTitleXpath));
         if (lblExpandSubMenu.isDisplayed()) {
             lblExpandSubMenu.click();
         }

@@ -170,7 +170,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
 
     @TestRails(id = "430")
     @Parameters({"username", "password"})
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void MA008_PlaceOrderTest_430(String username, String password) throws Exception {
         log("@title: Validate that can not place bet exposure greater than balance");
         log("Step 1 Access api url for merito");
@@ -223,7 +223,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         Assert.assertEquals(orderResult.getOrderList().get(0).getOrderType(), orderType, "FAILED! Order Type is incorrect");
         Assert.assertEquals(orderResult.getOrderList().get(0).getSizeMatched(), 0.0, "FAILED!Size Matched is incorrect");
         Assert.assertEquals(orderResult.getOrderList().get(0).getErrorMessage(), "ERROR.EXPOSURE.INSUFFICIENT", "FAILED! Error message is incorrect");
-        Assert.assertEquals(String.format("%.1f", orderResult.getOrderList().get(0).getPriceMatched()), 0.0, "FAILED!price matched is incorrect");
+        Assert.assertEquals(String.format("%.1f", orderResult.getOrderList().get(0).getPriceMatched()), "0.0", "FAILED!price matched is incorrect");
         // ERROR.EXPOSURE.INSUFFICIENT
         Assert.assertEquals(orderResult.getOrderList().size(), 1, "FAILED! List Order more than 1");
 

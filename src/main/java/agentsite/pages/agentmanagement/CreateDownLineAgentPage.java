@@ -27,6 +27,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     public Label lblPageTitle = Label.xpath("//app-title-dashboard//div[@class='title']");
     public SuccessPopup successPopup = SuccessPopup.xpath("//app-alert | //app-alert-create");
+    public Label lblCreateSuccess = Label.xpath("//div[contains(@class,'modal-body modal-body-fit-with-content')]");
 
     // Exchange Tab  - Risk Setting
     public Label lblRiskSetting = Label.xpath("//div[@id='EXCHANGE-risk-settings']/div[@class='psection']");
@@ -43,7 +44,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label lblEGTaxSettings = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']/div[@class='psection']");
     public Label lblPositionTakingListing = Label.xpath("//div[@id='EXCHANGE-position-taking']/div[@class='psection']");
     public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[@class='psection']");
-    public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@id='submitBtn']");
+    public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
     public Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
     public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg']");
 

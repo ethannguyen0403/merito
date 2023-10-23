@@ -51,12 +51,17 @@ public class BaseCaseTest {
     public static LandingPage landingPage;
     public static BrowserMobProxy browserMobProxy;
     public static String domainURL;
+    public static String domainCashURL;
     public static String memberLoginURL;
+    public static String memberLoginCashURL;
     public static String memberSOSUrl;
     public static String agentLoginURL;
+    public static String agentLoginCashURL;
     public static String sosAgentURL;
+    public static String sosAgentCashURL;
     public static String sosValidationAgentURL;
     public static String agentSecurityCodeURL;
+    public static String agentCashSecurityCodeURL;
     public static String agentNewAccURL;
     public static String agentFollowBetURL;
     public static String backofficeUrl;
@@ -136,6 +141,15 @@ public class BaseCaseTest {
         createDriver(agentLoginURL);
         if (isLogin) {
             agentHomePage = loginAgent(sosAgentURL, agentSecurityCodeURL, username, password, environment.getSecurityCode());
+        } else {
+            agentLoginPage = new agentsite.pages.LoginPage(_brandname);
+        }
+    }
+
+    public static void loginAgentCash(String username, String password, boolean isLogin) throws Exception {
+        createDriver(agentLoginCashURL);
+        if (isLogin) {
+            agentHomePage = loginAgent(sosAgentCashURL, agentCashSecurityCodeURL, username, password, environment.getSecurityCode());
         } else {
             agentLoginPage = new agentsite.pages.LoginPage(_brandname);
         }
@@ -296,6 +310,10 @@ public class BaseCaseTest {
         return String.format("%s%s", getURL(brandName), suffix);
     }
 
+    public static String defineCashURL(String brandName, String suffix) {
+        return String.format("%s%s", getCashURL(brandName), suffix);
+    }
+
     private static String defineMemberService(String brandName) {
         switch (brandName) {
             case "satsport":
@@ -338,6 +356,17 @@ public class BaseCaseTest {
         }
     }
 
+    private static String getCashURL(String brandName) {
+        switch (brandName) {
+            case "fairexchange":
+                return environment.getFairCashURL();
+            case "satsport":
+                return environment.getSatCashURL();
+            default:
+                return "";
+        }
+    }
+
     @Parameters({"browser", "env", "language", "brandname"})
     @BeforeClass(alwaysRun = true)
     public void beforeClass(String browser, String env, String language, String brandname) {
@@ -349,15 +378,20 @@ public class BaseCaseTest {
             memberMarketServiceURL = defineMemberService(brandname);
 
             domainURL = defineURL(brandname, "");
+            domainCashURL = defineCashURL(brandname, "");
             // Define Member Site URL
             memberLoginURL = defineURL(brandname, MEMBER_URL_SUFFIX.get(brandname));
             memberSOSUrl = defineURL(brandname, MEMBER_SOS_URL_SUFFIX);
+            memberLoginCashURL = defineCashURL(brandname, MEMBER_URL_SUFFIX.get(brandname));
 
             // define Agent site URLs
             agentLoginURL = defineURL(brandname, "/agent");
+            agentLoginCashURL = defineCashURL(brandname, "/agent");
             sosAgentURL = defineURL(brandname, AGENT_SOS_URL_SUFFIX);
+            sosAgentCashURL = defineCashURL(brandname, AGENT_SOS_URL_SUFFIX);
             sosValidationAgentURL = defineURL(brandname, AGENT_SOS_BY_PASS_CAPTCHA_URL_SUFFIX);
             agentSecurityCodeURL = defineURL(brandname, AGENT_SECURITY_CODE_URL_SUFFIX.get(brandname));
+            agentCashSecurityCodeURL = defineCashURL(brandname, AGENT_SECURITY_CODE_URL_SUFFIX.get(brandname));
             agentNewAccURL = defineURL(brandname, LOGIN_NEW_ACC_AGENT_URL_SUFFIX.get(brandname));
             agentFollowBetURL = defineURL(brandname, AGENT_FOLLOW_BETS_URL_SUFFIX);
 
