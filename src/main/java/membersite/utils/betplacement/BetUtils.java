@@ -323,7 +323,7 @@ public class BetUtils {
     public static List<ArrayList<String>> getAccountStatement(String fromDate, String toDate, String tz) {
         List<ArrayList<String>> lstReport = new ArrayList<>();
         String jsn = String.format("{\"fromDate\":\"%s\",\"toDate\":\"%s\",\"tz\":\"%s\"}", fromDate, toDate, tz);
-        String api = String.format("/member-report-service/report/sat/account-statement", domainURL);
+        String api = String.format("%s/member-report-service/report/sat/account-statement", domainURL);
         JSONArray jsonArray = WSUtils.getPOSTJSONArrayWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
 
         if (Objects.nonNull(jsonArray)) {

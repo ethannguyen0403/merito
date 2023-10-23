@@ -20,7 +20,7 @@ public class MarketDetailsPopup {
 
     public void assertBetStatusOfAllMarketForUnblockedEvent(int scheduleInMinute) {
         //The start time of event when from api is a long we need to convert to format yyyy-MM-DD hh:mm:ss
-        String formatDate = "yyyy-MM-DD hh:mm:ss";
+        String formatDate = "yyyy-MM-dd hh:mm:ss";
         int i = 1;
         Label lblMarketStartTime;
         String marketStartTime;
@@ -29,16 +29,15 @@ public class MarketDetailsPopup {
         String marketName;
         long timeDiff;
         while (true) {
-
             lblMarketStartTime = Label.xpath(tblMarket.getxPathOfCell(1, colMarketName, i, "span[1]/p[1]"));
             if (!lblMarketStartTime.isDisplayed()) {
                 return;
             }
-            marketName = Label.xpath(tblMarket.getxPathOfCell(1, colMarketName, i, "span[1]/p[1]")).getText();
+            marketName = Label.xpath(tblMarket.getxPathOfCell(1, colMarketName, i, "p[1]")).getText();
             marketStartTime = lblMarketStartTime.getText().trim();
             timeDiff = getDateDiffOfMarketStarTimeAndCurrentTime(marketStartTime, formatDate);
-            icBetableGreen = Icon.xpath(tblMarket.getxPathOfCell(1, colBetable, 1, "span[@class='psuccess']"));
-            icBetableRed = Icon.xpath(tblMarket.getxPathOfCell(1, colBetable, 1, "span[@class='perror']"));
+            icBetableGreen = Icon.xpath(tblMarket.getxPathOfCell(1, colBetable, i, "span[@class='psuccess']"));
+            icBetableRed = Icon.xpath(tblMarket.getxPathOfCell(1, colBetable, i, "span[@class='perror']"));
             if (scheduleInMinute <= 0) {
                 Assert.assertTrue(icBetableGreen.isDisplayed(), "FAILED! The Betable status of market " + marketName + " is not betable (green check icon) as time to bet is " + scheduleInMinute);
             } else if (timeDiff > scheduleInMinute) {
@@ -46,14 +45,15 @@ public class MarketDetailsPopup {
             } else {
                 Assert.assertTrue(icBetableGreen.isDisplayed(), "FAILED! The Betable status of market " + marketName + " should be green sign as start time in " + scheduleInMinute);
             }
-            i = i++;
+            i = i+1;
         }
 
     }
 
     private long getDateDiffOfMarketStarTimeAndCurrentTime(String marketStartTime, String formatDate) {
-        Date marketStartDate = DateUtils.convertToDate(DateUtils.convertMillisToDateTime(marketStartTime, formatDate), formatDate);
-        Date currentDate = DateUtils.convertToDate(DateUtils.convertMillisToDateTime(Long.toString(DateUtils.getMilliSeconds()), formatDate), formatDate);
+        Date marketStartDate = DateUtils.convertToDate(marketStartTime, formatDate);
+        String today = DateUtils.getDate(0,formatDate,"GMT-4");
+        Date currentDate =  DateUtils.convertToDate(today,formatDate);
         return DateUtils.getDateDiff(marketStartDate, currentDate, TimeUnit.MINUTES);
     }
 
@@ -69,7 +69,7 @@ public class MarketDetailsPopup {
         int i = 1;
         Label lblMarketStartTime;
         while (true) {
-            lblMarketStartTime = Label.xpath(tblMarket.getxPathOfCell(1, colMarketName, i, "span[1]/p[1]"));
+            lblMarketStartTime = Label.xpath(tblMarket.getxPathOfCell(1, colMarketName, i, "p[1]"));
             if (!lblMarketStartTime.isDisplayed()) {
                 System.out.println("DEBUG! Market " + marketNamORID + " does not display in the list");
                 return 0;
@@ -78,7 +78,7 @@ public class MarketDetailsPopup {
                 System.out.println("DEBUG! Found Market " + marketNamORID + " at row " + i);
                 return i;
             }
-            i = i++;
+            i = i +1;
         }
     }
 

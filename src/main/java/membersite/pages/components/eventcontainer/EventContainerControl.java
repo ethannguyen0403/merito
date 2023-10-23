@@ -76,4 +76,8 @@ public class EventContainerControl {
 
     }
 
+    public boolean isEventDisplay(String eventName){
+        return false;
+    }
+
 }

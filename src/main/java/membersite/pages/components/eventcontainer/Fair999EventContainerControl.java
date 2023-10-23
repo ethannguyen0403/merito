@@ -326,7 +326,10 @@ public class Fair999EventContainerControl extends EventContainerControl {
     }
 
     public enum Status {NA, IN_PLAY, COMING}
-
+    public boolean isEventDisplay(String eventName){
+        getEventIndex(eventName);
+        return false;
+    }
 
 
 /*
