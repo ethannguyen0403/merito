@@ -37,6 +37,15 @@ public class OldUIAccountInforSection extends AccountInforSection {
 
     }
 
+    public void inputInfo(String password, String accountStatus) {
+        if (!password.isEmpty()) {
+            txtPassword.sendKeys(password);
+        }
+        if (!accountStatus.isEmpty())
+            ddrAccountStatus.selectByVisibleText(accountStatus);
+
+    }
+
     public void inputInfo(String password, String accountStatus, String firstName, String lastName, String phone, String mobile, String fax) {
         if (!password.isEmpty()) {
             txtPassword.sendKeys(password);

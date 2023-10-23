@@ -188,7 +188,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
             }};
 
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(downlineAccount, "", "Agent");
+        page.searchDownline(downlineAccount, "", "Agent");
         EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(downlineAccount);
         editDownLinePage.confirmSecurityCode(environment.getSecurityCode());
         editDownLinePage.updateProducts(PRODUCTS);
@@ -206,7 +206,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
         log("Post-condition Step: Expand left menu and observe Tax Setting menu");
         page.logout();
         loginAgent(username,password,true);
-        page.downlineListing.searchDownline(downlineAccount, "", "Agent");
+        page.searchDownline(downlineAccount, "", "Agent");
         editDownLinePage = page.downlineListing.clickEditIcon(downlineAccount);
         editDownLinePage.confirmSecurityCode(environment.getSecurityCode());
         final Map<String, Boolean> PRODUCTS1 = new HashMap<String, Boolean>() {
@@ -226,7 +226,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
         log("Step 1. Login Agent Site");
         log("There is a downline agent is inactive Exchange and Exchange Game product");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(downlineAccount, "", "Agent");
+        page.searchDownline(downlineAccount, "", "Agent");
         EditDownLinePage editDownLinePage= page.downlineListing.clickEditIcon(downlineAccount);
         editDownLinePage.confirmSecurityCode(environment.getSecurityCode());
         final Map<String, Boolean> PRODUCTS1 = new HashMap<String, Boolean>() {

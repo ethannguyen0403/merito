@@ -1,13 +1,11 @@
 package agentsite.testcase.agencymanagement.downlinelisting;
 
 import agentsite.objects.agent.account.AccountInfo;
-import agentsite.pages.agentmanagement.CreateDownLineAgentPage;
 import agentsite.pages.agentmanagement.DownLineListingPage;
 import agentsite.pages.agentmanagement.EditDownLinePage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
-import com.paltech.utils.StringUtils;
 import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -42,8 +40,8 @@ public class EditDownlineAgentTest extends BaseCaseTest {
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
-        page.downlineListing.searchDownline(loginID, "", "Agent");
-        page.downlineListing.clickEditIcon(loginID);
+        page.searchDownline(loginID, "", "Agent");
+        page.clickEditIcon(loginID);
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Input Max player Credit greater than the limit");
@@ -52,7 +50,7 @@ public class EditDownlineAgentTest extends BaseCaseTest {
         page.editDownlinePopup.btnSubmit.click();
 
         log("Verify 1. Verify Message \"Max Player Credit is invalid\" display");
-        Assert.assertEquals(page.downlineListing.lblErrorMsg.getText(), AGConstant.AgencyManagement.DownlineListing.MSG_INVALID_MAX_PLAYER_CREDIT, "FAILED! Incorrect max player credit is invalid");
+        Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.DownlineListing.MSG_INVALID_MAX_PLAYER_CREDIT, "FAILED! Incorrect max player credit is invalid");
 
         log("INFO: Executed completely");
     }

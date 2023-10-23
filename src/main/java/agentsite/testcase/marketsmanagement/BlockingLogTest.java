@@ -1,11 +1,22 @@
 package agentsite.testcase.marketsmanagement;
 
+import agentsite.objects.agent.account.AccountInfo;
+import agentsite.pages.marketsmanagement.BlockUnblockEventPage;
 import agentsite.pages.marketsmanagement.BlockingLogPage;
+import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
 import baseTest.BaseCaseTest;
+import com.paltech.utils.DateUtils;
 import common.AGConstant;
+import membersite.objects.sat.Event;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
+
+import java.util.List;
+
+import static common.AGConstant.timeZone;
 
 public class BlockingLogTest extends BaseCaseTest {
 
@@ -44,6 +55,33 @@ public class BlockingLogTest extends BaseCaseTest {
         Assert.assertEquals(page.txtSearchEventName.getAttribute("placeholder").trim(), AGConstant.MarketsManagement.BlockingLog.SEARCH_EVENT_NAME, "FAILED! Search Event name place holder is not correct");
         Assert.assertEquals(page.txtSearchStatus.getAttribute("placeholder").trim(), AGConstant.MarketsManagement.BlockingLog.SEARCH_EVETS_STATUS, "FAILED! Search event status place holder is not correct");
         Assert.assertTrue(page.btnRefresh.isDisplayed(), "FAILED! Refresh button not display");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3711")
+    @Test(groups = {"regression"})
+    public void Agent_MM_Blocking_Log_TC3711() throws InterruptedException {
+        log("@title Validate can view log of an event");
+        log("Precondition: Log in successfully by SAD, There is a event is blocked/Unblocked by SAD");
+        String sportName = "Cricket";
+        AccountInfo acc = ProfileUtils.getProfile();
+        List<AccountInfo> lstUser = DownLineListingUtils.getAllDownLineUsers(_brandname, acc.getUserCode(),acc.getUserID());
+        BlockUnblockEventPage pageBlockEvent = agentHomePage.navigateBlockUnblockEventsPage();
+        pageBlockEvent.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, lstUser.get(0).getUserID(), "TODAY");
+        Event event = eventList.get(eventList.size()-1);
+        pageBlockEvent.searchEvent(event.getEventName());
+        pageBlockEvent.blockUnblockEvent(lstUser.get(0).getUserCode(), event.getEventName(), "Unblock Now");
+        String dateTimeUnblock = DateUtils.getDate(0, "yyyy-MM-dd HH:mm", timeZone);
+
+        log("Step 1. Navigate Markets Management > Blocking Log");
+        BlockingLogPage pageBlockingLog = agentHomePage.navigateBlockingLogPage();
+
+        log("Step 2. Filter the event date, the select Sport, Competition and Event in the precondition");
+        pageBlockingLog.search(DateUtils.getDate(0,"dd/MM/yyyy", timeZone), sportName, event.getCompetitionName(), event.getID(), "","");
+
+        log("Verify Event Show correctly as the time do Block/unblock");
+        pageBlockingLog.verifyEventLogDisplayCorrect(dateTimeUnblock, lstUser.get(0).getUserCode(), "Unblock Now", acc.getUserCode());
         log("INFO: Executed completely");
     }
 

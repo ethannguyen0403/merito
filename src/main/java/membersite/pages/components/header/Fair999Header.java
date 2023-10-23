@@ -23,6 +23,7 @@ public class Fair999Header extends Header1 {
     private Button btnLogin = Button.xpath("//header//button[contains(@class,'btn-in-out')]");
     private Button btnJoinNow = Button.xpath("//header//button[contains(@class,'join-now')]");
     private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[contains(@class,'account d-block')]", "", "//ul[contains(@class,'dropdown-menu')]//li");
+    public Label lblMyAccount = Label.xpath("//div[contains(@class,'account d-block')]//span[text()='My Account']");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
     private Label imgSpinner = Label.xpath("//div[@class='lds-spinner']");
     private Link lnkMyMarkets = Link.xpath("//span[@class='link mymarkets']");
@@ -84,7 +85,10 @@ public class Fair999Header extends Header1 {
     public boolean isMyAccountDisplay() {
         return ddmAccount.isDisplayed();
     }
-
+    @Override
+    public boolean isLoginSuccess() {
+        return lblMyAccount.isDisplayed();
+    }
     @Override
     public boolean isMyAccountContains(String menu) {
         return ddmAccount.isContainSubmenu(menu);

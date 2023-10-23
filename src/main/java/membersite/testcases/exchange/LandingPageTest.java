@@ -13,7 +13,7 @@ import util.testraildemo.TestRails;
 public class LandingPageTest extends BaseCaseTest {
 
     @TestRails(id = "1213")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_dev"})
     @Parameters({"username", "password"})
     public void Landing_Page_TC1213(String username, String password) throws Exception {
         log("@title:Validate that user can sign in successfully");

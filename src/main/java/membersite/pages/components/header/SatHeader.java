@@ -29,7 +29,7 @@ public class SatHeader extends Header1 {
     private Button btnJoinNow = Button.xpath("//header//button[contains(@class,'join-now')]");
     private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[contains(@class,'account d-block')]", "", "//ul[contains(@class,'dropdown-menu')]//li");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
-    private Label imgSpinner = Label.xpath("//div[contains(@class,lds-spinner')]");
+    private Label imgSpinner = Label.xpath("//div[contains(@class,'lds-spinner')]");
     private Image imgLeftMenu = Image.xpath("//div[@class='left-menu-icon']/img");
     private Menu menuSports = Menu.xpath("//app-sport-menu-bar//ul[@class='navbar-nav']//a");
     private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
@@ -38,9 +38,10 @@ public class SatHeader extends Header1 {
     private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='title']");
     private Label lblBalanceCurrency = Label.xpath("//app-top-panel//div[contains(@class,'header-content-info')]//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='bal-val'][1]");
     private Label lblBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance'][2]//span[@class='bal-val']");
+    private Label lblCashBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance']//span[@class='bal-val']");
     private Label lblLiabilityCurrency = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'lia-val')][1]");
     private Label lblLiability = Label.xpath("(//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')])[1]/span[@class='lia-val'][1]");
-
+    public Button btnDeposit = Button.xpath("//button[contains(@class,'btn-deposit')]");
     // Before Login
     public SATUnderageGamblingPopup clickLogin() {
         if (btnLogin.isDisplayed()) {
@@ -59,7 +60,8 @@ public class SatHeader extends Header1 {
         return satUnderageGamblingPopup.clickConfirmation();
     }
 
-    private SATSignInPopup openSigninPopup() {
+    @Override
+    public SATSignInPopup openSigninPopup() {
         btnJoinNow.click();
         return new SATSignInPopup();
     }
@@ -106,6 +108,13 @@ public class SatHeader extends Header1 {
         DriverManager.getDriver().switchToWindow();
         MyBetsPage page = new MyBetsPage(type);
         page.myBetsContainer.waitLoadReport();
+        return page;
+    }
+
+    public PaymentPage openDepositPage(String type) {
+        btnDeposit.click();
+        PaymentPage page = new PaymentPage(type);
+        page.lblTitle.waitForElementToBePresent(page.lblTitle.getLocator(), 2);
         return page;
     }
 
@@ -180,6 +189,14 @@ public class SatHeader extends Header1 {
         lblBalance.isDisplayed();
         return new AccountBalance.Builder()
                 .balance(lblBalance.getText())
+                .exposure(lblLiability.getText())
+                .build();
+    }
+
+    public AccountBalance getUserCashBalance() {
+        lblCashBalance.isDisplayed();
+        return new AccountBalance.Builder()
+                .balance(lblCashBalance.getText())
                 .exposure(lblLiability.getText())
                 .build();
     }

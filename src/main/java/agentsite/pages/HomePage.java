@@ -1,7 +1,9 @@
 package agentsite.pages;
 
-import agentsite.controls.Table;
 import agentsite.pages.agentmanagement.*;
+import agentsite.pages.cashmanagement.DepositWithdrawalTransactionPage;
+import agentsite.pages.cashmanagement.PaymentChannelManagementPage;
+import agentsite.pages.cashmanagement.QuickDepositConfigurationPage;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.quicksearch.QuickSearch;
 import agentsite.pages.components.SecurityPopup;
@@ -14,6 +16,7 @@ import agentsite.pages.riskmanagement.NetExposurePage;
 import agentsite.pages.riskmanagement.VolumeMonitorPage;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Icon;
+import com.paltech.element.common.Label;
 import com.paltech.utils.StringUtils;
 
 import static common.AGConstant.HomePage.*;
@@ -22,14 +25,13 @@ public class HomePage extends LoginPage {
     public Header header;
     public LeftMenu leftMenu;
     public QuickSearch quickSearch;
-    public int colName = 1;
-    public int colValue = 2;
     protected String successIcon = "//span[contains(@class,'psuccess')]";
     protected String errorIcon = "//span[contains(@class,'perror')]";
-    public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
+    public Label lblAlert = Label.xpath("//app-alert//div[contains(@class,'modal-body')]");
+    public static SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     static Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     private int totalCol = 2;
-    Table tblSMAInfo = Table.xpath("//table[@class='ptable report ng-scope']", totalCol);
+
     public HomePage(String types) {
         super(types);
 //        footer = ComponentsFactory.footerObject(_type);
@@ -38,7 +40,7 @@ public class HomePage extends LoginPage {
         quickSearch = ComponentsFactory.quickSearchObject(_type);
     }
 
-    public void confirmSecurityCode(String securityCode) {
+    public static void confirmSecurityCode(String securityCode) {
         try {
             securityPopup.submitSecurityCode(StringUtils.decrypt(securityCode));
             waitingLoadingSpinner();
@@ -106,6 +108,7 @@ public class HomePage extends LoginPage {
 
     public CreateUserPage navigateCreateUserPage(String securityCode) {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, CREATE_USER);
+        waitingLoadingSpinner();
         CreateUserPage page = new CreateUserPage(_type);
         page.confirmSecurityCode(securityCode);
         return page;
@@ -153,6 +156,12 @@ public class HomePage extends LoginPage {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, TAX_SETTING_LISTING);
         waitingLoadingSpinner();
         return new TaxSettingListingPage(_type);
+    }
+
+    public RiskSettingListingPage navigateRiskSettingListingPage() {
+        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, RISK_SETTING_LISTING);
+        waitingLoadingSpinner();
+        return new RiskSettingListingPage(_type);
     }
 
     public BetSettingListingPage navigateBetSettingListingPage() {
@@ -387,5 +396,23 @@ public class HomePage extends LoginPage {
         CreateCompanyPage page = new CreateCompanyPage(_type);
         page.confirmSecurityCode(securityCode);
         return page;
+    }
+
+    public PaymentChannelManagementPage navigatePaymentChannelManagement() {
+        leftMenu.clickSubMenu(CASH_MANAGEMENT, PAYMENT_CHANNEL_MANAGEMENT);
+        waitingLoadingSpinner();
+        return new PaymentChannelManagementPage(_type);
+    }
+
+    public DepositWithdrawalTransactionPage navigateDepositWithdrawalTransaction() {
+        leftMenu.clickSubMenu(CASH_MANAGEMENT, DEPOSIT_WITHDRAWAL_TRANSACTION);
+        waitingLoadingSpinner();
+        return new DepositWithdrawalTransactionPage(_type);
+    }
+
+    public QuickDepositConfigurationPage navigateQuickDepositConfiguration() {
+        leftMenu.clickSubMenu(CASH_MANAGEMENT, QUICK_DEPOSIT_CONFIG);
+        waitingLoadingSpinner();
+        return new QuickDepositConfigurationPage(_type);
     }
 }

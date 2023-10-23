@@ -75,6 +75,15 @@ import agentsite.pages.agentmanagement.taxsettinglisting.TaxSettingListing;
 import agentsite.pages.agentmanagement.transfer.NewUITransfer;
 import agentsite.pages.agentmanagement.transfer.OldUITransfer;
 import agentsite.pages.agentmanagement.transfer.Transfer;
+import agentsite.pages.cashmanagement.depositwithdrawaltransaction.DepositWithdrawalTransaction;
+import agentsite.pages.cashmanagement.depositwithdrawaltransaction.NewUIDepositWithdrawalTransaction;
+import agentsite.pages.cashmanagement.depositwithdrawaltransaction.OldUIDepositWithdrawalTransaction;
+import agentsite.pages.cashmanagement.paymentchannelmanagement.NewUIPaymentChannelManagement;
+import agentsite.pages.cashmanagement.paymentchannelmanagement.OldUIPaymentChannelManagement;
+import agentsite.pages.cashmanagement.paymentchannelmanagement.PaymentChannelManagement;
+import agentsite.pages.cashmanagement.quickdepositconfiguration.NewUIQuickDepositConfiguration;
+import agentsite.pages.cashmanagement.quickdepositconfiguration.OldUIQuickDepositConfiguration;
+import agentsite.pages.cashmanagement.quickdepositconfiguration.QuickDepositConfiguration;
 import agentsite.pages.components.header.Header;
 import agentsite.pages.components.header.NewUIHeader;
 import agentsite.pages.components.header.OldUIHeader;
@@ -279,9 +288,9 @@ public class ComponentsFactory {
     public static DownlineListing downlineListingPage(String types) {
         switch (types) {
             case "satsport":
-                return new OldUIDownlineListing(types);
+                return new OldUIDownlineListing();
             default:
-                return new NewUIDownlineListing(types);
+                return new NewUIDownlineListing();
         }
     }
 
@@ -375,4 +384,30 @@ public class ComponentsFactory {
         }
     }
 
+    public static DepositWithdrawalTransaction depositWithdrawalTransaction(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIDepositWithdrawalTransaction();
+            default:
+                return new NewUIDepositWithdrawalTransaction();
+        }
+    }
+
+    public static PaymentChannelManagement paymentChannelManagement(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIPaymentChannelManagement();
+            default:
+                return new NewUIPaymentChannelManagement();
+        }
+    }
+
+    public static QuickDepositConfiguration quickDepositConfiguration(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIQuickDepositConfiguration();
+            default:
+                return new NewUIQuickDepositConfiguration();
+        }
+    }
 }

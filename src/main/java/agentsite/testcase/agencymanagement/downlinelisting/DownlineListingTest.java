@@ -46,10 +46,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(_brandname, memberAccount, userID);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(loginID,"","");
+        page.searchDownline(loginID,"","");
 
         log("Step 2. Click on Edit icon of any agent");
-        page.downlineListing.clickEditIcon(loginID);
+        page.clickEditIcon(loginID);
 
         log("Verify There is no console error display");
         Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console Error display");
@@ -66,10 +66,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(loginID,"","");
+        page.searchDownline(loginID,"","");
 
         log("Step 2. Click on Edit icon of any Member level");
-        page.downlineListing.clickEditIcon(loginID);
+        page.clickEditIcon(loginID);
 
         log("Verify There is no console error display");
         Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console Error display");
@@ -88,7 +88,7 @@ public class DownlineListingTest extends BaseCaseTest {
                 "3. Root breadcrumb is login ID\n" +
                 "4. Account List table display with correct header: No., Login ID, Client Name, Credit Initiation, Account Status, Edit, Change Password, Level, Delay Bet, Downline, Created Date, Last Login Time, Last Login IP\n" +
                 "5 Pagingnation section in the bottom");
-        page.downlineListing.verifyUIDisplayCorrect();
+        page.verifyUIDisplayCorrect();
         log("INFO: Executed completely");
     }
 
@@ -102,10 +102,10 @@ public class DownlineListingTest extends BaseCaseTest {
 //        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(_brandname, memberAccount, userID);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(loginID,"","");
+        page.searchDownline(loginID,"","");
 
         log("Step 2. Click on Edit icon of any agent");
-        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("1. Verify Title is : Downline Listing\n" +
                 "2. Control display correctly\n" +
@@ -125,10 +125,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(loginID,"","");
+        page.searchDownline(loginID,"","");
 
         log("Step 2. Click on Edit icon of any agent");
-        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("1. Validate there is no Security Code popup pormpted");
         Assert.assertFalse(editDownLinePage.securityPopup.isDisplayed(), "FAILED! Security Popup displays");
@@ -146,10 +146,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(loginID,"","");
+        page.searchDownline(loginID,"","");
 
         log("Step 2. Click on Edit icon of any agent");
-        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("1. Validate UI at low levels(under SAD) display correctly\n" +
                 "Info, Cash Balance, Rate Setting, Product Settings, Bet Setting Sections");
@@ -166,10 +166,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(loginID,"","");
+        page.searchDownline(loginID,"","");
 
         log("Step 2. Click on Edit icon of any Member level");
-        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("Verify 2. Validate UI displays correct");
         editDownLinePage.editDownlineListing.verifyUIDisplayCorrect();
@@ -186,10 +186,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
         String loginID = listAccount.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(loginID,"","");
+        page.searchDownline(loginID,"","");
 
         log("Step 2. Click on Edit icon of any Member level");
-        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(loginID);
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("Verify 2. Validate Credit Initiation and Balance Textbox is disabled");
         Assert.assertFalse(editDownLinePage.cashBalanceInforSection.txtCreditInitiation.isEnabled());
@@ -209,20 +209,20 @@ public class DownlineListingTest extends BaseCaseTest {
         String userCode = listAccount.get(0).getUserCode();
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(listAccount.get(0).getUserID(), "", _brandname);
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode,"","");
+        page.searchDownline(userCode,"","");
 
         log("Step 2. Click on Edit icon of direct agent");
         log("Step 3. Select Soccer sport and click edit icon");
         log("Step 4. Uncheck a market (e.g.: Half Time) and submit");
-        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editPage = page.clickEditIcon(userCode);
         editPage.productStatusSettingInforSection.updateMarket("Soccer", "Match Odds (MATCH_ODDS)", false);
-        page.downlineListing.submitEditDownline();
-        String message = page.downlineListing.getMessageUpdate(true);
+        page.submitEditDownline();
+        String message = page.getMessageUpdate(true);
 
         log("Step 5. Drill down downline of the level in Step 2 and click on Edit icon");
-        page.downlineListing.searchDownline(listAccountDownline.get(0).getUserCode(),"","");
+        page.searchDownline(listAccountDownline.get(0).getUserCode(),"","");
         log("Step 6. Click Edit icon and observe the market inactive in step 4");
-        EditDownLinePage editDownLinePage = page.downlineListing.clickEditIcon(listAccountDownline.get(0).getUserCode());
+        EditDownLinePage editDownLinePage = page.clickEditIcon(listAccountDownline.get(0).getUserCode());
         editDownLinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","Match Odds (MATCH_ODDS)");
 
         log("Verify 6. The market inactive not display for downline");
@@ -243,10 +243,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode,"","");
+        page.searchDownline(userCode,"","");
 
         log("Step 2. Click on Edit icon of any Member level");
-        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editPage = page.clickEditIcon(userCode);
         List<ArrayList<String>> lstBetSettingValidation = editPage.betSettingInforSection.getBetSettingValidationValueLst(currency);
         String minBet =Double.toString(Double.parseDouble(lstBetSettingValidation.get(0).get(1))-1);
         List<ArrayList<String>> lstBetSetting = new ArrayList<>();
@@ -258,7 +258,7 @@ public class DownlineListingTest extends BaseCaseTest {
         editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
 
         log("Verified  1. Message \"Min Bet is invalid.\" and the valid is highlight");
-        Assert.assertEquals(page.downlineListing.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID, page.downlineListing.lblErrorMsg.getText()));
+        Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID, page.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
 
@@ -272,10 +272,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode,"","");
+        page.searchDownline(userCode,"","");
 
         log("Step 2. Click on Edit icon of any Member level");
-        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editPage = page.clickEditIcon(userCode);
         List<ArrayList<String>> lstBetSettingValidation = editPage.betSettingInforSection.getBetSettingValidationValueLst(currency);
         NumberFormat nf = NumberFormat.getInstance();
         String minBet = String.valueOf(nf.parse(lstBetSettingValidation.get(0).get(1)).intValue());
@@ -292,7 +292,7 @@ public class DownlineListingTest extends BaseCaseTest {
         editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
 
         log("Verified  1. Message \"Max Bet is invalid.\" and the valid is highlight");
-        Assert.assertEquals(page.downlineListing.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_INVALID, page.downlineListing.lblErrorMsg.getText()));
+        Assert.assertEquals(page.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_INVALID, page.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
 
@@ -306,10 +306,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode,"","");
+        page.searchDownline(userCode,"","");
 
         log("Step 2. Click on Edit icon of any Member level");
-        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editPage = page.clickEditIcon(userCode);
         List<ArrayList<String>> lstBetSettingValidation = editPage.betSettingInforSection.getBetSettingValidationValueLst(currency);
 
         NumberFormat nf = NumberFormat.getInstance();
@@ -331,7 +331,7 @@ public class DownlineListingTest extends BaseCaseTest {
         editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
 
         log("Verified  1. Message \"Max Liability Per Market is invalid.\" and the valid is highlight");
-        Assert.assertEquals(page.downlineListing.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_LIABILITY_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_LIABILITY_INVALID, page.downlineListing.lblErrorMsg.getText()));
+        Assert.assertEquals(page.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_LIABILITY_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_LIABILITY_INVALID, page.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
 
@@ -345,10 +345,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID,"PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode,"","");
+        page.searchDownline(userCode,"","");
 
         log("Step 2. Click on Edit icon of any Member level");
-        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editPage = page.clickEditIcon(userCode);
         List<ArrayList<String>> lstBetSettingValidation = editPage.betSettingInforSection.getBetSettingValidationValueLst(currency);
 
         NumberFormat nf = NumberFormat.getInstance();
@@ -374,7 +374,7 @@ public class DownlineListingTest extends BaseCaseTest {
         editPage.betSettingInforSection.inputBetSetting(lstBetSetting);
 
         log("Verified  1. Message \"Max Win Per Market is invalid.\" and the valid is highlight");
-        Assert.assertEquals(page.downlineListing.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID, page.downlineListing.lblErrorMsg.getText()));
+        Assert.assertEquals(page.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID, page.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
 
@@ -388,15 +388,15 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon of any Member level");
-        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editPage = page.clickEditIcon(userCode);
         log("Step 3. Input invalid password format");
         editPage.editDownlineListing.inputInfoSection(password,"","","","","","",true);
 
         log("Verified 3. Message \"Password is invalid.\" display next to Cancel button");
-        Assert.assertTrue(page.downlineListing.lblErrorMsg.getText().contains(AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID),String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID, page.downlineListing.lblErrorMsg.getText()));
+        Assert.assertTrue(page.lblErrorMsg.getText().contains(AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID),String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_PASSWORD_INVALID, page.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
 
@@ -412,16 +412,16 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon of any Member level");
-        EditDownLinePage editPage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editPage = page.clickEditIcon(userCode);
         log("Step 3. Input valid info of all fields and click Submit button");
         editPage.editDownlineListing.inputInfoSection("","",firstName,lastName,"",mobile,"",true);
 
         log("Verified 3. User info is updated with new data");
-        page.downlineListing.closeSubmitEditDownlinePopup();
-        page.downlineListing.clickEditIcon(userCode);
+        page.closeSubmitEditDownlinePopup();
+        page.clickEditIcon(userCode);
         Assert.assertEquals(editPage.accountInforSection.txtFirstName.getAttribute("value"), firstName, String.format("FAILED! First Name displays incorrect actual %s and expected %s", editPage.accountInforSection.txtFirstName.getText(), firstName));
         Assert.assertEquals(editPage.accountInforSection.txtLastName.getAttribute("value"), lastName, String.format("FAILED! First Name displays incorrect actual %s and expected %s", editPage.accountInforSection.txtLastName.getText(), lastName));
         Assert.assertEquals(editPage.accountInforSection.txtMobile.getAttribute("value"), mobile, String.format("FAILED! First Name displays incorrect actual %s and expected %s", editPage.accountInforSection.txtMobile.getText(), mobile));
@@ -437,13 +437,13 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon of any Member level");
-        page.downlineListing.clickEditIcon(userCode);
+        page.clickEditIcon(userCode);
 
         log("Verified 1. Validate there is no security popup display");
-        Assert.assertFalse(page.downlineListing.successPopup.isDisplayed(), "FAILED! Security Popup is displayed");
+        Assert.assertFalse(page.successPopup.isDisplayed(), "FAILED! Security Popup is displayed");
         log("INFO: Executed completely");
     }
 
@@ -457,10 +457,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon for member level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(userCode);
 
         log("Verified 1. Validate Edit User UI display correctly when view from SMA level:\n" +
                 "-Info section\n" +
@@ -486,10 +486,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon for member level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(userCode);
         log("Step 3. In product Setting Section, click on any edit button of any Sport");
         editDownlinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","Test");
 
@@ -515,10 +515,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon for member level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(userCode);
         log("Step 3. In product Setting Section, click on any edit button of any Sport");
         log("Step 4. Input a correct market and press Enter");
         editDownlinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","Match Odds (MATCH_ODDS)");
@@ -538,10 +538,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon for member level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(userCode);
         log("Step 3. In product Setting Section, click on any edit button of any Sport");
         log("Step 4. Input a prefix of market (e.g.: Over) and press Enter");
         editDownlinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","Over");
@@ -561,10 +561,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon for member level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(userCode);
         log("Step 3. In product Setting Section, click on any edit button of any Sport");
         log("Step 4. Input a invalid market and press Enter");
         editDownlinePage.productStatusSettingInforSection.searchMarketOfSport("Soccer","invalid market");
@@ -583,10 +583,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon for member level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(userCode);
         log("Step 3. In product Setting Section, click on any edit button of any Sport");
         editDownlinePage.productStatusSettingInforSection.openEditMarketOfSport("Soccer");
         log("Step 4. On the list markets mark them is checked");
@@ -606,10 +606,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon for member level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(userCode);
         log("Step 3. In product Setting Section, click on any edit button of any Sport");
         editDownlinePage.productStatusSettingInforSection.openEditMarketOfSport("Soccer");
         log("Step 4. On the list markets mark them is unchecked");
@@ -629,10 +629,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon for member level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(userCode);
         log("Step 3. In product Setting Section, click on any edit button of any Sport");
         editDownlinePage.productStatusSettingInforSection.openEditMarketOfSport("Soccer");
         log("Step 4. Click on Cancel button");
@@ -652,10 +652,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(userCode, "", "");
+        page.searchDownline(userCode, "", "");
 
         log("Step 2. Click on Edit icon for member level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(userCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(userCode);
         log("Step 3. In product Setting Section, click on any edit button of any Sport");
         editDownlinePage.productStatusSettingInforSection.openEditMarketOfSport("Soccer");
         log("Step 4. Click on X button of the popup");
@@ -677,10 +677,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getAllDownLineUsers(_brandname, userName, userID);
         String downlineUserCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(downlineUserCode, "", "");
+        page.searchDownline(downlineUserCode, "", "");
 
         log("Step 2. Click on Edit icon of any agent level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(downlineUserCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(downlineUserCode);
 
         log("Verify 2. Validate Control in Account Balance Transfer Condition display");
         Assert.assertEquals(editDownlinePage.accountBalanceTransferConditionInforSection.getAccountBalanceTransferConditionTitle(),
@@ -697,10 +697,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL",_brandname);
         String downlineUserCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(downlineUserCode, "", "");
+        page.searchDownline(downlineUserCode, "", "");
 
         log("Step 2. Click on Edit icon of any agent level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(downlineUserCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(downlineUserCode);
 
         log("Verify 2. Validate there is no section Account Balance Transfer Condition");
         Assert.assertEquals(editDownlinePage.accountBalanceTransferConditionInforSection.getAccountBalanceTransferConditionTitle(),
@@ -719,10 +719,10 @@ public class DownlineListingTest extends BaseCaseTest {
         List<AccountInfo> listAccountDownline = DownLineListingUtils.getAllDownLineUsers(_brandname, userName, userID);
         String downlineUserCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        page.downlineListing.searchDownline(downlineUserCode, "", "");
+        page.searchDownline(downlineUserCode, "", "");
 
         log("Step 2. Click on Edit icon of any agent level");
-        EditDownLinePage editDownlinePage = page.downlineListing.clickEditIcon(downlineUserCode);
+        EditDownLinePage editDownlinePage = page.clickEditIcon(downlineUserCode);
 
         log("Step 3. In Account Balance Transfer Condition, Select Weekly and not select any day then click Submit button");
         editDownlinePage.accountBalanceTransferConditionInforSection.setTransferPeriod(false, Collections.singletonList(""));
@@ -746,11 +746,11 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Input direct downline , account status is All, and level is All");
-        page.downlineListing.searchDownline(directDownline.getUserCode(), "All", "All");
+        page.searchDownline(directDownline.getUserCode(), "All", "All");
 
         log("Verify 1.Account is display in the list");
-        int totalRow = page.downlineListing.tblDowlineListing.getNumberOfRows(false, false);
-        List<String> lstRecord = page.downlineListing.tblDowlineListing.getColumn(page.downlineListing.userCodeCol, false);
+        int totalRow = page.tblDowlineListing.getNumberOfRows(false, false);
+        List<String> lstRecord = page.tblDowlineListing.getColumn(page.userCodeCol, false);
         Assert.assertEquals(totalRow, 1, String.format("Failed!There are more than 1 records when search login ID %s", directDownline.getUserCode()));
         Assert.assertEquals(lstRecord.get(0), directDownline.getUserCode(), String.format("Failed! Expected usser code %s display but found %s", directDownline.getUserCode(), lstRecord.get(0)));
         log("INFO: Executed completely");
@@ -767,11 +767,11 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Input direct downline , account status is All, and level is All");
-        page.downlineListing.searchDownline(indirectDownline.getUserCode(), "All", "All");
+        page.searchDownline(indirectDownline.getUserCode(), "All", "All");
 
         log("Verify 1.Account is display in the list");
-        int totalRow = page.downlineListing.tblDowlineListing.getNumberOfRows(false, false);
-        List<String> lstRecord = page.downlineListing.tblDowlineListing.getColumn(page.downlineListing.userCodeCol, false);
+        int totalRow = page.tblDowlineListing.getNumberOfRows(false, false);
+        List<String> lstRecord = page.tblDowlineListing.getColumn(page.userCodeCol, false);
         Assert.assertEquals(totalRow, 1, String.format("Failed!There are more than 1 records when search login ID %s", indirectDownline.getUserCode()));
         Assert.assertEquals(lstRecord.get(0), indirectDownline.getUserCode(), String.format("Failed! Expected login id %s display but found %s", indirectDownline.getUserCode(), lstRecord.get(0)));
 
@@ -785,10 +785,10 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Get the correct account and input the data that missing the last letter");
-        page.downlineListing.searchDownline("invalidloginID", "All", "All");
+        page.searchDownline("invalidloginID", "All", "All");
 
         log("Verify 1. No record found");
-        Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+        Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
 
         log("INFO: Executed completely");
     }
@@ -800,15 +800,15 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2.  Search Active status and click submit button");
-        page.downlineListing.searchDownline("", "Active", "All");
+        page.searchDownline("", "Active", "All");
 
         log("Verify1. All account in Active status display\n" +
                 "If have no active account => display message \"No record found\"");
-        if (!page.downlineListing.lblNoRecord.isDisplayed()) {
-            List<String> lstRecord = page.downlineListing.getAccountStatus();
+        if (!page.lblNoRecord.isDisplayed()) {
+            List<String> lstRecord = page.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Active")), "FAILED! List downline account contain account status not in Active");
         } else {
-            Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+            Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
         }
 
         log("INFO: Executed completely");
@@ -821,15 +821,15 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Select Inactive status and click submit button");
-        page.downlineListing.searchDownline("", "Inactive", "All");
+        page.searchDownline("", "Inactive", "All");
 
         log("Verify 1. All account in Inactive status display\n" +
                 "If have no Inactive account => display message \"No record found\"");
-        if (!page.downlineListing.lblNoRecord.isDisplayed()) {
-            List<String> lstRecord = page.downlineListing.getAccountStatus();
+        if (!page.lblNoRecord.isDisplayed()) {
+            List<String> lstRecord = page.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Inactive")), "FAILED! List downline account contain account status not in Inactive");
         } else {
-            Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+            Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
         }
 
         log("INFO: Executed completely");
@@ -842,15 +842,15 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Select Suspended status and click submit button");
-        page.downlineListing.searchDownline("", "Suspended", "All");
+        page.searchDownline("", "Suspended", "All");
 
         log("Verify 1. All account in Suspended status display\n" +
                 "If have no Suspended account => display message \"No record found\"");
-        if (!page.downlineListing.lblNoRecord.isDisplayed()) {
-            List<String> lstRecord = page.downlineListing.getAccountStatus();
+        if (!page.lblNoRecord.isDisplayed()) {
+            List<String> lstRecord = page.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Suspended")), "FAILED! List downline account contain account status not in Suspended");
         } else {
-            Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+            Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
         }
         log("INFO: Executed completely");
     }
@@ -862,15 +862,15 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Select Blocked status and click submit button");
-        page.downlineListing.searchDownline("", "Blocked", "All");
+        page.searchDownline("", "Blocked", "All");
 
         log("Verify 1. All account in Blocked status display\n" +
                 "If have no Blocked account => display message \"No record found\"");
-        if (!page.downlineListing.lblNoRecord.isDisplayed()) {
-            List<String> lstRecord = page.downlineListing.getAccountStatus();
+        if (!page.lblNoRecord.isDisplayed()) {
+            List<String> lstRecord = page.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Blocked")), "FAILED! List downline account contain account status not in Suspended");
         } else {
-            Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+            Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
         }
         log("INFO: Executed completely");
     }
@@ -882,15 +882,15 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step2.  Select Closed status and click submit button");
-        page.downlineListing.searchDownline("", "Closed", "All");
+        page.searchDownline("", "Closed", "All");
 
         log("Verify 1. All account in Closed status display\n" +
                 "If have no Closed account => display message \"No record found\"");
-        if (!page.downlineListing.lblNoRecord.isDisplayed()) {
-            List<String> lstRecord = page.downlineListing.getAccountStatus();
+        if (!page.lblNoRecord.isDisplayed()) {
+            List<String> lstRecord = page.getAccountStatus();
             Assert.assertTrue(lstRecord.containsAll(Collections.singleton("Closed")), "FAILED! List downline account contain account status not in Suspended");
         } else {
-            Assert.assertEquals(page.downlineListing.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
+            Assert.assertEquals(page.lblNoRecord.getText(), NO_RECORD_FOUND, "FAILED! No record message is incorrect displayed when searching downline with incorrect login ID");
         }
 
         log("INFO: Executed completely");
@@ -909,9 +909,9 @@ public class DownlineListingTest extends BaseCaseTest {
         log("Step 2. Select member account \n" +
                 "3. Update an active account to inactive status\n" +
                 "4. Click save icon next to the drop box");
-        page.downlineListing.searchDownline(userCode, "All", "All");
+        page.searchDownline(userCode, "All", "All");
         try {
-            SuccessPopup popup = page.downlineListing.updateAccountStatus(userCode, "Inactive");
+            SuccessPopup popup = page.updateAccountStatus(userCode, "Inactive");
 
             log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
                     "2. Click OK button => the popup is disappear\n" +
@@ -920,10 +920,10 @@ public class DownlineListingTest extends BaseCaseTest {
             popup.close();
 
             Assert.assertFalse(popup.isDisplayed(), "FAILED! Confirm popup is not disappear when closed");
-            Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
+            Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
         } finally {
             log("Postcondition change status to active");
-            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            page.updateAccountStatus(userCode, "Active").close();
 
             log("INFO: Executed completely");
         }
@@ -943,20 +943,20 @@ public class DownlineListingTest extends BaseCaseTest {
         log("Step 2. Select member account \n" +
                 "3. Update an active account to suspended status\n" +
                 "4. Click save icon next to the drop box");
-        page.downlineListing.searchDownline(userCode, "All", "All");
+        page.searchDownline(userCode, "All", "All");
         try {
-            SuccessPopup popup = page.downlineListing.updateAccountStatus(userCode, "Suspended");
+            SuccessPopup popup = page.updateAccountStatus(userCode, "Suspended");
             log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
                     "2. Click OK button => the popup is disappear\n" +
                     "3. Verify Account status Suspended\n ");
             Assert.assertEquals(popup.getContentMessage(), "Update is successful!");
             popup.close();
             Assert.assertFalse(popup.isDisplayed(), "FAILED! Confirm popup is not disappear when closed");
-            Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Suspended"), "FAILED! Status is incorrect display");
+            Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Suspended"), "FAILED! Status is incorrect display");
         } finally {
 
             log("Postcondition change status to active");
-            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            page.updateAccountStatus(userCode, "Active").close();
             log("INFO: Executed completely");
         }
     }
@@ -973,8 +973,8 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Select member account in any status\n" +
                 "3. Close the account");
-        page.downlineListing.searchDownline(userCode, "All", "All");
-        SuccessPopup popup = page.downlineListing.updateAccountStatus(userCode, "Closed");
+        page.searchDownline(userCode, "All", "All");
+        SuccessPopup popup = page.updateAccountStatus(userCode, "Closed");
 
         log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
                 "2. Click OK button => the popup is disappear\n" +
@@ -982,7 +982,7 @@ public class DownlineListingTest extends BaseCaseTest {
         Assert.assertEquals(popup.getContentMessage(), "Update is successful!");
         popup.close();
         Assert.assertFalse(popup.isDisplayed(), "FAILED! Confirm popup is not disappear when closed");
-        Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Closed"), "FAILED! Status is incorrect display");
+        Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Closed"), "FAILED! Status is incorrect display");
 
         log("INFO: Executed completely");
     }
@@ -998,19 +998,19 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Select member account that inactivated\n");
-        page.downlineListing.searchDownline(userCode, "All", "All");
-        page.downlineListing.updateAccountStatus(userCode, "Inactive").close();
+        page.searchDownline(userCode, "All", "All");
+        page.updateAccountStatus(userCode, "Inactive").close();
 
         try {
             log("Step 3 Active the account");
-            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            page.updateAccountStatus(userCode, "Active").close();
             log("Verify 1. Update popup display with the message \"Update is successful!\"\n" +
                     "2. Click OK button => the popup is disappear\n" +
                     "3. Verify Account status Active\n");
-            Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Active"), "FAILED! Status is incorrect display");
+            Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Active"), "FAILED! Status is incorrect display");
         } finally {
             log("Postcondition change status to active");
-            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            page.updateAccountStatus(userCode, "Active").close();
             log("INFO: Executed completely");
         }
 
@@ -1029,19 +1029,19 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Search an account");
-        page.downlineListing.searchDownline(userCode, "All", "All");
+        page.searchDownline(userCode, "All", "All");
         try {
             log("Step 3 Suspend account");
-            page.downlineListing.updateAccountStatus(userCode, "Suspended").close();
+            page.updateAccountStatus(userCode, "Suspended").close();
 
             log("Step 3 Active the account");
-            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            page.updateAccountStatus(userCode, "Active").close();
 
             log("Verify 1. Verify Account status Active");
-            Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Active"), "FAILED! Status is incorrect display");
+            Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Active"), "FAILED! Status is incorrect display");
         } finally {
             log("Postcondition change status to active");
-            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            page.updateAccountStatus(userCode, "Active").close();
             log("INFO: Executed completely");
         }
     }
@@ -1059,12 +1059,12 @@ public class DownlineListingTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Search an account");
-        page.downlineListing.searchDownline(userCode, "All", "All");
+        page.searchDownline(userCode, "All", "All");
 //        log("Step 3 Closed account");
-//        page.downlineListing.updateAccountStatus(userCode, "Closed").close();
+//        page.updateAccountStatus(userCode, "Closed").close();
 
         log("Verify 1. Verify cannot active the closed account");
-        Assert.assertFalse(page.downlineListing.getAccountStatusDropdown(userCode).isEnabled(), "FAILED! Account is closed should disable Account status dropdwon");
+        Assert.assertFalse(page.getAccountStatusDropdown(userCode).isEnabled(), "FAILED! Account is closed should disable Account status dropdwon");
 
         log("INFO: Executed completely");
     }
@@ -1081,17 +1081,17 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Select agent account in any level\n" +
                 "3. Update to Inactive status\n");
-        page.downlineListing.searchDownline(userCode, "All", "Agent");
+        page.searchDownline(userCode, "All", "Agent");
 
         try {
             log("Step 3 Inactive agent account");
-            page.downlineListing.updateAccountStatus(userCode, "Inactive").close();
+            page.updateAccountStatus(userCode, "Inactive").close();
 
             log("Verify 1. Verify status is change to Inactive");
-            Assert.assertTrue(page.downlineListing.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
+            Assert.assertTrue(page.isAccountStatusCorrect(userCode, "Inactive"), "FAILED! Status is incorrect display");
         } finally {
             log("Postcondition change status to active");
-            page.downlineListing.updateAccountStatus(userCode, "Active").close();
+            page.updateAccountStatus(userCode, "Active").close();
             log("INFO: Executed completely");
         }
 
@@ -1107,7 +1107,7 @@ public class DownlineListingTest extends BaseCaseTest {
         log("Step2. Select agent account in any level\n" +
                 "3. Click Delay bet icon\n" +
                 "4. Input valid delay amount and click on submit button");
-        page.downlineListing.searchDownline("invalidloginID", "All", "All");
+        page.searchDownline("invalidloginID", "All", "All");
 
         log("Verify1. Verify Delay popup display with correct UI");
 
@@ -1129,8 +1129,8 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Click Login ID that level is not Member\n" +
                 "3. Click until only Member display");
-        page.downlineListing.clickUserName(directDownline.getUserCode());
-        String actualBreadcrumb = page.downlineListing.getBreadcrumb();
+        page.clickUserName(directDownline.getUserCode());
+        String actualBreadcrumb = page.getBreadcrumb();
 
         log("Verify 1. Can drill down to the member level, the breadcrumb is correct\n" +
                 "2. Login ID at Member level is not a Link");
@@ -1159,11 +1159,11 @@ public class DownlineListingTest extends BaseCaseTest {
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Input a Username exist indirect/direct downline");
-        page.downlineListing.searchDownline(loginID, "", "");
+        page.searchDownline(loginID, "", "");
 
         log("Verify 1. Corresponding account display in the list");
-        int totalRow = page.downlineListing.tblDowlineListing.getNumberOfRows(false, false);
-        List<String> lstRecord = page.downlineListing.tblDowlineListing.getColumn(page.downlineListing.userCodeCol, false);
+        int totalRow = page.tblDowlineListing.getNumberOfRows(false, false);
+        List<String> lstRecord = page.tblDowlineListing.getColumn(page.userCodeCol, false);
         Assert.assertEquals(totalRow, 1, String.format("Failed!There are more than 1 records when search login ID %s", loginID));
         Assert.assertEquals(lstRecord.get(0), loginID, String.format("Failed! Expected login id %s display but found %s", loginID, lstRecord.get(0)));
 
@@ -1194,13 +1194,13 @@ public class DownlineListingTest extends BaseCaseTest {
         log("Step 3. Click change password icon");
         log("Step 4. Update password");
         try {
-            String message = page.downlineListing.changePassword(loginID, "1234qwert");
+            String message = page.changePassword(loginID, "1234qwert");
             log("Verify 1. Verify can change password successfully");
             Assert.assertEquals(message, AgencyManagement.DownlineListing.MSG_CHANGE_PASSWORD_SUCCESS, "FAILED, Success message is incorrect when updating password");
             log("INFO: Executed completely");
         } finally {
             log("Post Condition: Re-change to old pw");
-            page.downlineListing.changePassword(loginID, StringUtils.decrypt(password));
+            page.changePassword(loginID, StringUtils.decrypt(password));
         }
 
 
