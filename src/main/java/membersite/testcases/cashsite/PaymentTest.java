@@ -943,7 +943,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3948")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
     public void Payment_Page_TC3948(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate Clear button works");
@@ -962,7 +962,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3949")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
     public void Payment_Page_TC3949(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate Clear button works");
@@ -971,19 +971,77 @@ public class PaymentTest extends BaseCaseTest {
         loginAgentCash(agentLoginAccount, password, true);
         log("Step 1. Click Quick Deposit Configuration  menu");
         QuickDepositConfigurationPage quickDepositConfigurationPage = agentHomePage.navigateQuickDepositConfiguration();
-        log("Step 2. Click clear button");
         List<String> lstBeforeUpdate = quickDepositConfigurationPage.getListQuickDepositAmount();
         List<String> lstUpdateValue = Arrays.asList("1", "2", "3", "4", "5", "6");
         try {
+            log("Step 2. Update the value in 6 quick buttons and click submit");
             quickDepositConfigurationPage.updateQuickDepositAmount(lstUpdateValue);
 
-            log("Verify all values in 6 buttons is reset to 0");
+            log("Verify a success popup display with message Update Quick Deposit Success");
+            Assert.assertEquals(quickDepositConfigurationPage.lblAlert.getText(), "Update Quick Deposit Success");
+            quickDepositConfigurationPage.closeAlertPopup();
             quickDepositConfigurationPage.verifyQuickDepositAmount(lstUpdateValue);
 
         } finally {
             log("Post-condition: Revert all updated Quick Deposit amount value");
             quickDepositConfigurationPage.updateQuickDepositAmount(lstBeforeUpdate);
         }
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3950")
+    @Test(groups = {"cashsite", "2022.10.31"})
+    @Parameters({"agentLoginAccount", "password"})
+    public void Payment_Page_TC3950(String agentLoginAccount, String password) throws Exception {
+        log("@title: Validate pending transaction display correct in Deposit Withdraw Transaction in summary and detail");
+        memberHomePage.logout();
+        loginAgentCash(agentLoginAccount, password, true);
+
+        log("Step 1. Search the transaction in precondition verify data in the summary row");
+        DepositWithdrawalTransactionPage depositWithdrawalTransactionPage = agentHomePage.navigateDepositWithdrawalTransaction();
+        String fromDate = DateUtils.getDate(-29, "yyyy-MM-dd", GMT_5_30);
+        String toDate = DateUtils.getDate(0, "yyyy-MM-dd", GMT_5_30);
+        String refNo = depositWithdrawalTransactionPage.getFirstRefNoByStatus(LST_TRANSACTION_STATUS.get(1), fromDate, toDate);
+        depositWithdrawalTransactionPage.search("", LST_TRANSACTION_STATUS.get(1), "", fromDate, toDate, refNo);
+
+        log("Verify the pending transaction displays correctly info in summary and status Pending and Action Review");
+        depositWithdrawalTransactionPage.verifySearchResult("","",LST_TRANSACTION_STATUS.get(1), "","","", refNo);
+
+        log("Step 2. Click on Review link in Action column and check the transaction details");
+        TransactionDetailPopup popup = depositWithdrawalTransactionPage.openTransactionDetail(TRANSACTION_DETAIL_ACTION_LST.get(0));
+
+        log("Verify the pending transaction displays correctly transaction details + Approve, Reject radio button display");
+        popup.verifyInfoDetailDisplayCorrect("", refNo,"", LST_TRANSACTION_STATUS.get(1), "", "");
+        Assert.assertTrue(popup.rdReject.isDisplayed(), "FAILED! Reject radio button does not display");
+        Assert.assertTrue(popup.rdApprove.isDisplayed(), "FAILED! Approve radio button does not display");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3947")
+    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Parameters({"agentLoginAccount", "password", "username"})
+    public void Payment_Page_TC3947(String agentLoginAccount, String password, String username) throws Exception {
+        log("@title: Validate quick-selected deposit amounts in member site display as agent setting Quick Deposit Configuration");
+        log("Precondition: Login Agent Site Cash account");
+        memberHomePage.logout();
+        loginAgentCash(agentLoginAccount, password, true);
+        log("Step 1. Click Quick Deposit Configuration  menu");
+        QuickDepositConfigurationPage quickDepositConfigurationPage = agentHomePage.navigateQuickDepositConfiguration();
+        log("Step 2. Get the list quick-selected deposit amounts");
+        List<String> lstAmountAgentSite = quickDepositConfigurationPage.getListQuickDepositAmount();
+        log("Step 3. Login member site > Deposit page and click on All payment method");
+        agentHomePage.logout();
+
+        log("Step 1. Login member site SAT by cash account");
+        loginMember(username, password);
+
+        log("Step 2. Active deposit site and check the list deposit method is correct as agent");
+        PaymentPage depositPage = memberHomePage.header.openDepositPage(_brandname);
+        log("Verify the list deposit method is correct");
+        depositPage.selectPaymentType(LBL_BANK_TRANSFER);
+        List<String> lstAmountMemberSite = depositPage.getListQuickDepositAmount();
+        Assert.assertEquals(lstAmountMemberSite, lstAmountAgentSite, String.format("FAILED! List Quick Deposit amount shows incorrectly expected %s but found %s", lstAmountAgentSite, lstAmountMemberSite));
+        log("INFO: Executed completely");
         log("INFO: Executed completely");
     }
 }

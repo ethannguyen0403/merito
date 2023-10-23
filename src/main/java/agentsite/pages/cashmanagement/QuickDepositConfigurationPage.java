@@ -22,4 +22,6 @@ public class QuickDepositConfigurationPage extends HomePage {
     public void updateQuickDepositAmount(List<String> lstUpdateValue) {quickDepositConfiguration.updateQuickDepositAmount(lstUpdateValue);}
 
     public void verifyQuickDepositAmount(List<String> lstUpdateValue) {quickDepositConfiguration.verifyQuickDepositAmount(lstUpdateValue);}
+
+    public void closeAlertPopup() {quickDepositConfiguration.closeAlertPopup();}
 }

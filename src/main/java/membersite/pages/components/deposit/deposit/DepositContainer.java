@@ -17,4 +17,6 @@ public class DepositContainer {
     public void verifyDepositSuccessMessage(String brandName) {}
 
     public String getRefNo() {return "";}
+
+    public List<String> getListQuickDepositAmount() {return null;}
 }

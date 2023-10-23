@@ -45,7 +45,11 @@ public class DepositWithdrawalTransactionPage extends HomePage {
     }
 
     public TransactionDetailPopup openTransactionDetail(String action) {
-        depositWithdrawalTransaction.openTransactionDetail(action);
-        return new TransactionDetailPopup();
+        return depositWithdrawalTransaction.openTransactionDetail(action);
     }
+
+    public String getFirstRefNoByStatus(String status, String fromDate, String toDate) {
+        return depositWithdrawalTransaction.getFirstRefNoByStatus(status, fromDate, toDate);
+    }
+
 }

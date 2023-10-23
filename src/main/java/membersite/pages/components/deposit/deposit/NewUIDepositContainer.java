@@ -29,6 +29,7 @@ public class NewUIDepositContainer extends DepositContainer {
     private Label lblDepositSuccessHeaderEmail = Label.xpath("(//app-deposit//div[contains(@class,'payment-detail')]//div[contains(@class,'detail')])[3]");
     private Label lblRefNo = Label.xpath("(//app-deposit//div[contains(@class,'payment-detail')]//div[contains(@class,'detail')])[2]//span");
 
+    private Label lblQuickDepositAmountValue = Label.xpath("//app-deposit//div[@class='quick-amount row']//button");
     public List<String> getListPaymentChannel() {
         List<String> lstPayment = ddlPaymentChannel.getMenuList();
         return lstPayment;
@@ -132,6 +133,16 @@ public class NewUIDepositContainer extends DepositContainer {
     public String getRefNo() {
         System.out.println(String.format("DEBUG! GET REF NO: %s", lblRefNo.getText()));
         return lblRefNo.getText().trim();
+    }
+
+    public List<String> getListQuickDepositAmount() {
+        String xpathAmount = "(//app-deposit//div[@class='quick-amount row']//button)[%s]";
+        List<String> lstAmount = new ArrayList<>();
+        for (int i = 0; i < lblQuickDepositAmountValue.getWebElements().size(); i++) {
+            Label lblAmount = Label.xpath(String.format(xpathAmount, i+1));
+            lstAmount.add(lblAmount.getText().trim());
+        }
+        return lstAmount;
     }
 
 }
