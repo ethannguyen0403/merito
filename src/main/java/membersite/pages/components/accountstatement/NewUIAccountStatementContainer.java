@@ -55,10 +55,10 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
     public void filter(String startDate, String endDate) {
         tblReport.isDisplayed();
         tblReport.getColumnNamesOfTable();
-        if (startDate.equalsIgnoreCase(DateUtils.getDate(0, "yyyy-MM-dd", "IST"))) {
+        if (!startDate.isEmpty()) {
             dtpStartDate.selectDate(startDate, "yyyy-MM-dd");
         }
-        if (endDate.equalsIgnoreCase(DateUtils.getDate(0, "yyyy-MM-dd", "IST"))) {
+        if (!endDate.isEmpty()) {
             dtpEndDate.selectDate(endDate, "yyyy-MM-dd");
         }
         btnLoadReport.click();
@@ -72,7 +72,7 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
         String expectedBalance;
         String exepectedNarration;
         String settleDate;
-        for (int i = 1; i < recordNumber; i++) {
+        for (int i = 1; i < recordNumber + 1; i++) {
             lst = tblReport.getRow(i, 1);
             if (lst.get(colNarration - 1).equals(OPENING_BALANCE)) {
                 System.out.println("Verify Opening balance row");
@@ -135,7 +135,7 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
         }
 
         AccountBalance acBalance = getUserBalance();
-        String balance = String.format("%.2f", Double.parseDouble(acBalance.getBalance()) + Double.parseDouble(acBalance.getExposure()));
+        String balance = String.format("%.2f", Double.parseDouble(acBalance.getBalance()) + Double.parseDouble(acBalance.getExposure())*(-1));
         if (!data.get(colBalance - 1).equals(balance)) {
             System.out.println(String.format("FAILED! Balance on header not match with the report. Header is %s but report show %s", balance, data.get(colBalance - 1)));
             return false;

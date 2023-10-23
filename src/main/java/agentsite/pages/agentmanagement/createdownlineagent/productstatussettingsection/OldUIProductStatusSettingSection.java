@@ -8,4 +8,5 @@ public class OldUIProductStatusSettingSection extends ProductStatusSettingSectio
     public String getProductSettingSectionTitle() {
         return lblProductSettingTitle.getText().trim();
     }
+
 }

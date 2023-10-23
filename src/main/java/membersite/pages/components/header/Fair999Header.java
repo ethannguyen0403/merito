@@ -33,7 +33,7 @@ public class Fair999Header extends Header1 {
     private Label lblLiabilityCurrency = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'lia-val')][1]");
     private Label lblLiability = Label.xpath("(//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')])[1]/span[@class='lia-val'][1]");
     private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
-
+    String productMenuXpath = "//app-product-tab//a[(text()=' %s ')]";
     // Before Login
     public SATUnderageGamblingPopup clickLogin() {
         if (btnLogin.isDisplayed()) {
@@ -159,6 +159,22 @@ public class Fair999Header extends Header1 {
         return new MyMarketPopup();
     }
 
+    public boolean isProductTabDisplay(String productName) {
+        String productTab = productName;
+        if (!productName.equals(MemberConstants.HomePage.PRODUCTS.get("SUPER_SPADE")) && !productName.equals(MemberConstants.HomePage.PRODUCTS.get("EZUGI"))) {
+            if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("EXCHANGE"))) {
+                productTab = "Exchange";
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("DIGIENT"))) {
+                productTab = "Lottery & Slots";
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("EXCH_GAMES"))) {
+                productTab = "Exchange Games";
+            }
+        } else {
+            productTab = "Live Dealer";
+        }
+
+        return Tab.xpath(String.format(this.productMenuXpath, productTab, productTab, productTab)).isDisplayed();
+    }
     public void logout() {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"));
     }
