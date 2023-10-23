@@ -7,22 +7,18 @@ import membersite.pages.components.deposit.deposit.DepositContainer;
 import membersite.pages.components.deposit.transactionhistory.TransactionHistoryContainer;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class PaymentPage extends HomePage {
 
     public Label lblTitle = Label.xpath("//app-deposit//h5");
-    public Label lblNoRecordFound = Label.xpath("//app-transaction//tbody/tr[1]/td[@class='text-center']");
+    public Label lblNoRecordFound = Label.xpath("//tbody/tr[1]/td[@class='text-center']");
+
     private DropDownList ddlMenuTab = DropDownList.xpath("//app-payments//div[@class='top-navbar-container']", "//ul[@class='navbar-nav align-items-center']//li");
     public DepositContainer depositContainer;
     public TransactionHistoryContainer transactionHistoryContainer;
+
     public PaymentPage(String types) {
         super(types);
         depositContainer = ComponentsFactory.depositContainerObject(types);
@@ -33,9 +29,8 @@ public class PaymentPage extends HomePage {
         return depositContainer.getListPaymentChannel();
     }
 
-    public void verifyListPaymentChannelDisplayCorrect(Map<String, String> mapPaymentSetting) {
-        depositContainer.verifyListPaymentChannelDisplayCorrect(mapPaymentSetting);
-        waitPageLoad();
+    public void verifyListPaymentChannelDisplayCorrect(Map<String, String> mapPaymentSetting, boolean isActive) {
+        depositContainer.verifyListPaymentChannelDisplayCorrect(mapPaymentSetting, isActive);
     }
 
     public void switchTab(String tabName) {
@@ -75,5 +70,7 @@ public class PaymentPage extends HomePage {
         transactionHistoryContainer.verifyFilterDateTimeShowCorrect(startDate, endDate);
     }
 
-    public String getValueOfEndDate() {return transactionHistoryContainer.getValueOfEndDate();}
+    public String getValueOfEndDate() {
+        return transactionHistoryContainer.getValueOfEndDate();
+    }
 }

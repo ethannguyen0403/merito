@@ -6,7 +6,7 @@
         <!--        <listener class-name="utils.testraildemo.Listener"/>-->
     </listeners>
 
-    <test name="SMOKE_Chrome">
+    <test name="API_SMOKE_DEV_Chrome">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='qat'/>
         <parameter name='language' value='en'/>

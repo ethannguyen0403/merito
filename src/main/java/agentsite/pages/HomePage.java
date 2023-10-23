@@ -3,6 +3,7 @@ package agentsite.pages;
 import agentsite.pages.agentmanagement.*;
 import agentsite.pages.cashmanagement.DepositWithdrawalTransactionPage;
 import agentsite.pages.cashmanagement.PaymentChannelManagementPage;
+import agentsite.pages.cashmanagement.QuickDepositConfigurationPage;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.quicksearch.QuickSearch;
 import agentsite.pages.components.SecurityPopup;
@@ -407,5 +408,11 @@ public class HomePage extends LoginPage {
         leftMenu.clickSubMenu(CASH_MANAGEMENT, DEPOSIT_WITHDRAWAL_TRANSACTION);
         waitingLoadingSpinner();
         return new DepositWithdrawalTransactionPage(_type);
+    }
+
+    public QuickDepositConfigurationPage navigateQuickDepositConfiguration() {
+        leftMenu.clickSubMenu(CASH_MANAGEMENT, QUICK_DEPOSIT_CONFIG);
+        waitingLoadingSpinner();
+        return new QuickDepositConfigurationPage(_type);
     }
 }

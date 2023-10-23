@@ -5,7 +5,7 @@
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="FE_SMOKE_DEV_Chrome">
+    <test name="FE_SMOKE_DEV_AGENT_Chrome">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='qat'/>
         <parameter name='language' value='en'/>

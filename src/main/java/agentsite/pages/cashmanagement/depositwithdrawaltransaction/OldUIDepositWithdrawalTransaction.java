@@ -16,7 +16,6 @@ import java.util.List;
 
 import static agentsite.pages.HomePage.waitingLoadingSpinner;
 import static common.AGConstant.CashManagement.DepositWithdrawalTransaction.*;
-import static common.AGConstant.HomePage.DEPOSIT_WITHDRAWAL_TRANSACTION;
 import static common.AGConstant.LBL_USERNAME_PLACE_HOLDER_SAT;
 
 public class OldUIDepositWithdrawalTransaction extends DepositWithdrawalTransaction {
@@ -73,8 +72,7 @@ public class OldUIDepositWithdrawalTransaction extends DepositWithdrawalTransact
     }
 
     public void actionTransaction(String action, String comment, boolean isSubmit) {
-        Cell reviewCell = tblDeposit.getCellByName("Review", false);
-        reviewCell.click();
+        openTransactionDetail(TRANSACTION_DETAIL_ACTION_LST.get(0));
         txtComment.waitForElementToBePresent(txtComment.getLocator(), 2);
         if (!comment.isEmpty()) {
             txtComment.sendKeys(comment);
@@ -111,30 +109,12 @@ public class OldUIDepositWithdrawalTransaction extends DepositWithdrawalTransact
         Assert.assertTrue(txtTo.isDisplayed(), "FAILED! To textbox does not display");
         Assert.assertTrue(txtInternalRefNo.isDisplayed(), "FAILED! Internal Ref No textbox does not display");
         List<String> lstTableHeader = tblDeposit.getHeaderList();
-        Assert.assertEquals(lstTableHeader, TBL_HEADER, "FAILED! Header list of table does not show correct");
+        Assert.assertEquals(lstTableHeader, TBL_DEPOSIT_WITHDRAWAL_HEADER, "FAILED! Header list of table does not show correct");
         Assert.assertEquals(txtUsername.getAttribute("placeholder"), LBL_USERNAME_PLACE_HOLDER_SAT, "FAILED! Placeholder of username textbox does not display correct");
         Assert.assertEquals(ddbTransactionStatus.getOptions(), LST_TRANSACTION_STATUS, "FAILED! List options of Transaction Status does not display correct");
         Assert.assertEquals(ddbPaymentType.getOptions(), LST_PAYMENT_TYPE, "FAILED! List options of Payment Type does not display correct");
         Assert.assertTrue(isDateFollowFormat(txtFrom.getAttribute("value"), "yyyy-MM-dd"));
         Assert.assertTrue(isDateFollowFormat(txtTo.getAttribute("value"), "yyyy-MM-dd"));
-    }
-
-    public boolean isThisDateValid(String dateToValidate, String dateFormat){
-        if(dateToValidate == null){
-            return false;
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-        sdf.setLenient(false);
-        try {
-            //if not valid, it will throw ParseException
-            Date date = sdf.parse(dateToValidate);
-            System.out.println(date);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
     }
 
     public boolean isDateFollowFormat(String dateValidate, String format) {
@@ -213,6 +193,11 @@ public class OldUIDepositWithdrawalTransaction extends DepositWithdrawalTransact
             }
         }
 
+    }
+
+    public void openTransactionDetail(String action) {
+        Cell reviewCell = tblDeposit.getCellByName(action, false);
+        reviewCell.click();
     }
 
 }

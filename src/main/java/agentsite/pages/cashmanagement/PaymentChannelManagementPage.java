@@ -1,30 +1,30 @@
 package agentsite.pages.cashmanagement;
 
-import agentsite.controls.Table;
 import agentsite.pages.HomePage;
-import com.paltech.element.common.Label;
+import agentsite.pages.cashmanagement.paymentchannelmanagement.PaymentChannelManagement;
+import agentsite.pages.components.ComponentsFactory;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 
 public class PaymentChannelManagementPage extends HomePage {
-    private int totalCol = 6;
-    private int colPaymentChannel = 2;
-    private int colStatus = 4;
-    protected Label lblTitle = Label.xpath("//app-payment-channel//div[@class='title']");
-    protected Table tblPaymentChannel = Table.xpath("//app-payment-channel//table[contains(@class,'payment-channel-table')]", totalCol);
+    public PaymentChannelManagement paymentChannelManagement;
     public PaymentChannelManagementPage(String types) {
         super(types);
+        _type = types;
+        paymentChannelManagement = ComponentsFactory.paymentChannelManagement(_type);
     }
 
     public Map<String, String> getListPaymentStatus() {
-        Map<String, String> mapChannel = new HashMap<>();
-        int totalRow = tblPaymentChannel.getNumberOfRows(false, false);
-        for (int i = 0; i < totalRow; i++) {
-            String paymentChannel = Label.xpath(tblPaymentChannel.getxPathOfCell(1, colPaymentChannel, i + 1, "span")).getText();
-            String status =  Label.xpath(tblPaymentChannel.getxPathOfCell(1, colStatus, i + 1, "span")).getText();
-            mapChannel.put(paymentChannel, status);
-        }
-        return mapChannel;
+        return paymentChannelManagement.getListPaymentStatus();
+    }
+
+    public void verifyListChannelDisplayCorrect() {
+        paymentChannelManagement.verifyListChannelDisplayCorrect();
+    }
+
+    public PaymentHistoryPopup clickViewLink(String paymentChannel) {
+        paymentChannelManagement.clickViewLink(paymentChannel);
+        return new PaymentHistoryPopup();
     }
 }

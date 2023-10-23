@@ -33,18 +33,34 @@ public class NewUIDepositContainer extends DepositContainer {
         List<String> lstPayment = ddlPaymentChannel.getMenuList();
         return lstPayment;
     }
-    public void verifyListPaymentChannelDisplayCorrect(Map<String, String> mapPaymentSetting) {
+
+    public void verifyListPaymentChannelDisplayCorrect(Map<String, String> mapPaymentSetting, boolean isActive) {
         List<String> lstChannelAgent = new ArrayList<>();
         for (Map.Entry<String, String> entry : mapPaymentSetting.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            if(value.equalsIgnoreCase("Active")) {
-                lstChannelAgent.add(key);
+            if (isActive) {
+                if (value.equalsIgnoreCase("Active")) {
+                    lstChannelAgent.add(key);
+                }
+            } else {
+                if (value.equalsIgnoreCase("Inactive")) {
+                    lstChannelAgent.add(key);
+                }
             }
+
         }
         List<String> lstChannelMember = getListPaymentChannel();
-        for (int i = 0; i < lstChannelAgent.size(); i++) {
-            Assert.assertTrue(lstChannelMember.contains(lstChannelAgent.get(i).toUpperCase()),"FAILED!");
+        if(lstChannelAgent.size() > 0) {
+            for (int i = 0; i < lstChannelAgent.size(); i++) {
+                if (isActive) {
+                    Assert.assertTrue(lstChannelMember.contains(lstChannelAgent.get(i).toUpperCase()), String.format("FAILED! Active Channel %s does not show in member site", lstChannelAgent.get(i)));
+                } else {
+                    Assert.assertFalse(lstChannelMember.contains(lstChannelAgent.get(i).toUpperCase()), String.format("FAILED! Inactive Channel %s show in member site", lstChannelAgent.get(i)));
+                }
+            }
+        } else {
+            throw new SkipException("SKIPPED! Does not any channel payment inactive for testing");
         }
     }
 
@@ -90,7 +106,7 @@ public class NewUIDepositContainer extends DepositContainer {
         }
         if (isUploadImg) {
             TextBox fileInput = TextBox.xpath("//input[@type='file']");
-            String uploadPath = System.getProperty("user.dir")+"\\src\\main\\resources\\image\\payment.png";
+            String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\image\\payment.png";
             System.out.println(String.format("Upload image path %s", uploadPath));
             fileInput.sendKeys(uploadPath);
         }
