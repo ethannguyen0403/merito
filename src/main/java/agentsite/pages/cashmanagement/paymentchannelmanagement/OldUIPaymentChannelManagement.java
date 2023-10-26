@@ -6,7 +6,6 @@ import org.testng.Assert;
 
 import java.util.*;
 
-import static agentsite.pages.HomePage.waitingLoadingSpinner;
 import static common.AGConstant.CashManagement.DepositWithdrawalTransaction.LST_PAYMENT_TYPE;
 
 public class OldUIPaymentChannelManagement extends PaymentChannelManagement {
@@ -47,9 +46,14 @@ public class OldUIPaymentChannelManagement extends PaymentChannelManagement {
         colPaymentChannel = tblPaymentChannel.getColumnIndexByName("Payment Channel");
         for (int i = 0; i < totalRow; i++) {
             if(tblPaymentChannel.getControlOfCell(1, colPaymentChannel, i+1, "span").getText().equalsIgnoreCase(paymentChannel)) {
-                tblPaymentChannel.getControlOfCell(1, colHistory, i + 1, "a").click();
-                waitingLoadingSpinner();
-                break;
+                try {
+                    tblPaymentChannel.getControlOfCell(1, colHistory, i + 1, "a").click();
+                    Thread.sleep(1000);
+                    break;
+                } catch (Exception e) {
+                    e.getCause();
+                }
+
             }
         }
     }

@@ -166,7 +166,7 @@ public class OldUIDepositWithdrawalTransaction extends DepositWithdrawalTransact
         }
         //verify Payment Type
         if (!paymentType.isEmpty()) {
-            colIndex = tblDeposit.getColumnIndexByName("Status");
+            colIndex = tblDeposit.getColumnIndexByName("Payment Type");
             if(paymentType.equalsIgnoreCase("All")) {
                 List<String> lstPaymentType = Arrays.asList("BANK TRANSFER", "PAYTM", "PHONEPE", "GPAY", "UPI", "QR Code");
                 for (int i = 0; i < totalRow; i++) {

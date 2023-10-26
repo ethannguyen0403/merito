@@ -38,7 +38,7 @@ public class TransactionDetailPopup {
         if(status.equalsIgnoreCase("approved")) {
             Assert.assertEquals(txtCommentApprove.getText().trim(), comment, String.format("FAILED! Comment displays incorrectly expected %s but actual %s", comment, txtCommentApprove.getText()));
         } else {
-            Assert.assertEquals(txtCommentReject.getText().trim(), comment, String.format("FAILED! Comment displays incorrectly expected %s but actual %s", comment, txtCommentReject.getText()));
+            Assert.assertEquals(txtCommentReject.getAttribute("value").trim(), comment, String.format("FAILED! Comment displays incorrectly expected %s but actual %s", comment, txtCommentReject.getText()));
         }
     }
  }
