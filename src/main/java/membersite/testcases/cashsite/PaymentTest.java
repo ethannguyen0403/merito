@@ -40,16 +40,19 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3913")
+    @Parameters({"memberNonCashLoginAccount", "password"})
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Payment_Page_TC3913() {
+    public void Payment_Page_TC3913(String memberNonCashLoginAccount, String password) throws Exception {
         log("@title: Validate deposit button not display if login account is not cash type member site");
         log("Precondition: Login SAT by the account is not for cash");
         log("Step 1. Observe Deposit in header menu");
-        PaymentPage page = memberHomePage.header.openDepositPage(_brandname);
+        memberHomePage.logout();
 
+        loginMember(memberNonCashLoginAccount, password);
         log("Verify deposit button does not display");
-        Assert.assertFalse(page.lblTitle.isDisplayed(), "FAILED! Deposit button is displayed");
+        Assert.assertFalse(memberHomePage.header.isDepositButtonDisplayed(),"FAILED! Deposit button displays for account non-cash type");
         log("INFO: Executed completely");
+
     }
 
     @TestRails(id = "3914")
@@ -286,7 +289,7 @@ public class PaymentTest extends BaseCaseTest {
     @TestRails(id = "195")
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Payment_Page_TC193(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC195(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate accounts without permission cannot see the menu item 'Deposit/Withdrawal Transactions'");
         log("Precondition: Account is inactivated permission 'Deposit/Withdrawal Transactions'");
         memberHomePage.logout();
@@ -296,7 +299,7 @@ public class PaymentTest extends BaseCaseTest {
         DepositWithdrawalTransactionPage depositWithdrawalTransactionPage = agentHomePage.navigateDepositWithdrawalTransaction();
 
         log("Verify. User can access 'Deposit/Withdrawal Transactions' page successfully");
-        Assert.assertEquals(depositWithdrawalTransactionPage.getPageTitle(), DEPOSIT_WITHDRAWAL_TRANSACTION, "FAILED! Deposit/ Withdrawal Transaction page does not display");
+        Assert.assertEquals(depositWithdrawalTransactionPage.getPageTitle(), LBL_PAGE_TITLE, "FAILED! Deposit/ Withdrawal Transaction page does not display");
         log("INFO: Executed completely");
     }
 
@@ -338,13 +341,12 @@ public class PaymentTest extends BaseCaseTest {
         log("@title: Validate transaction history is correctly in member site when user submit a success deposit transaction");
         log("Precondition: Login member site SAT by cash account");
         log("Step 1. Login member site SAT by cash account and get the balance before deposit");
-        AccountBalance accountBalanceBefore = memberHomePage.header.getUserCashBalance();
-
         log("Step 2. Access deposit page and deposit by any payment channel");
         PaymentPage paymentPage = memberHomePage.header.openDepositPage(_brandname);
         paymentPage.switchTab(DEPOSIT_TAB);
         paymentPage.deposit(LBL_BANK_TRANSFER, amount, transactionId, true, true);
         String refNo = paymentPage.getRefNo();
+        AccountBalance accountBalanceBefore = memberHomePage.header.getUserCashBalance();
         memberHomePage.logout();
 
         log("Step 3. Login agent site > Deposit/withdrawal transaction and reject the transaction");
@@ -363,7 +365,7 @@ public class PaymentTest extends BaseCaseTest {
         paymentPage.filterTransactionHistory(filterDate, filterDate);
 
         log("Verify. User balance does not update\n" +
-                "Verify the deposit transaction in reject  status with correct info: Reference No., Type, Status ,Start Balance, Amount ,End Balance Transaction Date\n" +
+                "Verify the deposit transaction in reject  status with correct info: Reference No., Type, Status , Start Balance, Amount ,End Balance Transaction Date\n" +
                 "Start Balance = End Balance");
         paymentPage.verifyTransactionHistoryInfo(refNo, "DEPOSIT", "Rejected", accountBalanceBefore.getBalance(), "9.00", accountBalanceBefore.getBalance(), depositDateTime);
         log("INFO: Executed completely");

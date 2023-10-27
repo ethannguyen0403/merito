@@ -41,6 +41,7 @@ public class DepositWithdrawalTransactionPage extends HomePage {
     }
 
     public void verifyDateRangeErrorMessage(String message) {
+        lblDateRangeError.waitForElementToBePresent(lblDateRangeError.getLocator(), 1);
         Assert.assertEquals(lblDateRangeError.getText().trim(), message, String.format("FAILED! Date range filter error message displays incorrect expected %s but actual %s", message, lblDateRangeError.getText().trim()));
     }
 

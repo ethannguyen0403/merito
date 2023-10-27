@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="SAT_GREEN_SMOKE_TEST" verbose="1">
+<suite name="SAT_STG_REG_TEST" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="SAT_Interaction_Chrome">
+    <test name="SAT_REG_Chrome">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value=''/>
@@ -21,6 +21,8 @@
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
         <parameter name='agentLoginAccount' value='CashIN1.AD'/>
+        <parameter name="agentNonCashLoginAccount" value="SASUBTI"></parameter>
+        <parameter name="memberNonCashLoginAccount" value="sabella3"></parameter>
         <parameter name='agentWithoutPermissionLoginAccount' value='15CSUBTI'/>
         <parameter name="emailAddress" value="isacashstg01@yopmail.com"></parameter>
         <groups>

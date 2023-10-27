@@ -41,7 +41,7 @@ public class SatHeader extends Header1 {
     private Label lblCashBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance']//span[@class='bal-val']");
     private Label lblLiabilityCurrency = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'lia-val')][1]");
     private Label lblLiability = Label.xpath("(//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')])[1]/span[@class='lia-val'][1]");
-    public Button btnDeposit = Button.xpath("//button[contains(@class,'btn-deposit')]");
+    public static Button btnDeposit = Button.xpath("//button[contains(@class,'btn-deposit')]");
     // Before Login
     public SATUnderageGamblingPopup clickLogin() {
         if (btnLogin.isDisplayed()) {
@@ -63,6 +63,11 @@ public class SatHeader extends Header1 {
     @Override
     public SATSignInPopup openSigninPopup() {
         btnJoinNow.click();
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.getCause();
+        }
         return new SATSignInPopup();
     }
 
@@ -94,6 +99,9 @@ public class SatHeader extends Header1 {
     public boolean isMyAccountContains(String menu) {
         return ddmAccount.isContainSubmenu(menu);
     }
+
+    @Override
+    public boolean isDepositButtonDisplayed() {return btnDeposit.isDisplayed();}
 
     public AccountStatementPage openAccountStatement(String type) {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"));

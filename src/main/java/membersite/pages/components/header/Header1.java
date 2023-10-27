@@ -151,4 +151,6 @@ public class Header1 {
         return new PaymentPage(brand);
     }
 
+    public boolean isDepositButtonDisplayed() {return false;}
+
 }
