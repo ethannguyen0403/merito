@@ -26,7 +26,7 @@
 
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="smoke_123"/>
             </run>
         </groups>
 
