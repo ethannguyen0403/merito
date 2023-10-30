@@ -50,7 +50,7 @@ public class LandingPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1215")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_123"})
     @Parameters({"username"})
     public void Landing_Page_TC1215(String username) {
         log("@title: Validate that user cannot login with incorrect username");
