@@ -63,7 +63,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "556")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void Place_Bet_Function_TC556() {
         log("@title: Validate that user can place Matched Back bet on Soccer market");
         String minBet = BetUtils.getMinBet("SOCCER", "BACK");
