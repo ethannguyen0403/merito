@@ -142,7 +142,7 @@ public class Fair999Header extends Header1 {
     }
 
     public void clickMainMenu(String menu) {
-        Label lblMenu = Label.xpath(String.format("//app-sport-menu-bar//ul[@class='navbar-nav']//a/*[text()=' %s ']"));
+        Label lblMenu = Label.xpath(String.format("//app-sport-menu-bar//ul[@class='navbar-nav']//a/*[text()=' %s ']", menu));
         lblMenu.click();
     }
 

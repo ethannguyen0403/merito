@@ -286,6 +286,37 @@ public class PaymentTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "194")
+    @Test(groups = {"cashsite_stg", "2022.10.31"})
+    @Parameters({"agentLoginAccount", "agentWithoutPermissionLoginAccount", "password"})
+    public void Payment_Page_TC194(String agentLoginAccount, String agentWithoutPermissionLoginAccount, String password) throws Exception {
+        //only run in STG since unable to create account without permission for testing in PROD
+        log("@title: Validate accounts without permission cannot access 'Deposit/Withdrawal Transactions' page by url'");
+        log("Precondition: Account is inactivated permission 'Deposit/Withdrawal Transactions'");
+        memberHomePage.logout();
+        HashMap<String, Boolean> permissions = new HashMap<String, Boolean>() {
+            {
+                put("Deposit/Withdrawal Transactions", false);
+                put("Payment Channel Management", true);
+                put("Quick Deposit Configuration", true);
+            }
+        };
+        loginAgentCash(agentLoginAccount, password, true);
+        SubUserListingPage subUserListingPage = agentHomePage.navigateSubUserListingPage();
+        subUserListingPage.subUserListing.editSubUser(agentWithoutPermissionLoginAccount, "", "Active", "", "", permissions);
+        agentHomePage.logout();
+
+        log("Step 1. Login the Cash Backend site agent site");
+        loginAgentCash(agentWithoutPermissionLoginAccount, password, true);
+
+        log("Step 2. Trying to access page by using url");
+        String bypassURL = domainCashURL + "/agent-management-ui/#/home/deposit-transaction";
+        openNewTab(bypassURL);
+        log("Verify. User cannot access 'Deposit/Withdrawal Transactions' page");
+        Assert.assertEquals(agentHomePage.lblAlert.getText(), LBL_WITHOUT_PERMISSION_ACCESS, "FAILED! Alert message does not appear when user access by bypass URL");
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "195")
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
@@ -844,7 +875,7 @@ public class PaymentTest extends BaseCaseTest {
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "username", "password"})
     public void Payment_Page_TC3945(String agentLoginAccount, String username, String password) throws Exception {
-        log("@title: Validate the list Payment Channel in member site is corrected as the active list payment channel in agent site");
+        log("@title: Validate an inactive payment channel not display in member site");
         log("Precondition: Get the list deposit method that in active status in agent site");
         memberHomePage.logout();
         loginAgentCash(agentLoginAccount, password, true);
@@ -854,9 +885,9 @@ public class PaymentTest extends BaseCaseTest {
         log("Step 1. Login member site SAT by cash account");
         loginMember(username, password);
 
-        log("Step 2. Active deposit site and check the list deposit method is correct as agent");
+        log("Step 2. Login member site and click deposit button");
         PaymentPage depositPage = memberHomePage.header.openDepositPage(_brandname);
-        log("Verify the list deposit method is correct");
+        log("Verify this list payment inactive not display in member site");
         depositPage.verifyListPaymentChannelDisplayCorrect(mapPaymentStatus, false);
         log("INFO: Executed completely");
     }
