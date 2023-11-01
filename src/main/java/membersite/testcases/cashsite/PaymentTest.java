@@ -995,10 +995,10 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3949")
-    @Test(groups = {"cashsite", "2022.10.31"})
+    @Test(groups = {"cashsite_stg", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
     public void Payment_Page_TC3949(String agentLoginAccount, String password) throws Exception {
-        log("@title: Validate Clear button works");
+        log("@title: Validate can update Quick-selected Deposit Amounts in Quick-selected Deposit Amounts Agent Site");
         log("Precondition: Login Agent Site Cash account");
         memberHomePage.logout();
         loginAgentCash(agentLoginAccount, password, true);
@@ -1051,7 +1051,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3947")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password", "username"})
     public void Payment_Page_TC3947(String agentLoginAccount, String password, String username) throws Exception {
         log("@title: Validate quick-selected deposit amounts in member site display as agent setting Quick Deposit Configuration");
@@ -1074,7 +1074,6 @@ public class PaymentTest extends BaseCaseTest {
         depositPage.selectPaymentType(LBL_BANK_TRANSFER);
         List<String> lstAmountMemberSite = depositPage.getListQuickDepositAmount();
         Assert.assertEquals(lstAmountMemberSite, lstAmountAgentSite, String.format("FAILED! List Quick Deposit amount shows incorrectly expected %s but found %s", lstAmountAgentSite, lstAmountMemberSite));
-        log("INFO: Executed completely");
         log("INFO: Executed completely");
     }
 }
