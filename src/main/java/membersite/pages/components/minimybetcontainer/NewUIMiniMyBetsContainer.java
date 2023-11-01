@@ -97,10 +97,10 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     }
 
     public List<ArrayList> getBookmakerMatchBets() {
-        return bookMakerMiniMyBet.getMatchBets();
+        return bookMakerMiniMyBet.getMatchBets(false);
     }
 
     public List<ArrayList> getMatchedFancyInMiniMyBet() {
-        return fancyMiniMyBet.getMatchBets();
+        return fancyMiniMyBet.getMatchBets(true);
     }
 }

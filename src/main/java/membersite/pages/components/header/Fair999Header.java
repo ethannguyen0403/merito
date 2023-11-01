@@ -26,7 +26,7 @@ public class Fair999Header extends Header1 {
     public Label lblMyAccount = Label.xpath("//div[contains(@class,'account d-block')]//span[text()='My Account']");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
     private Label imgSpinner = Label.xpath("//div[@class='lds-spinner']");
-    private Link lnkMyMarkets = Link.xpath("//span[@class='link mymarkets']");
+    private Link lnkMyMarkets = Link.xpath("//div[contains(@class,'header-content-info')]//span[text()='My Markets']");
     private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='title']");
     private Label lblBalanceCurrency = Label.xpath("//app-top-panel//div[@class='balance'][1]//span[@class='bal-val'][1]");
     private Label lblBalance = Label.xpath("//app-top-panel//div[@class='balance'][1]//span[@class='bal-val'][2]");

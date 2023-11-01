@@ -220,7 +220,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Soccer page display with the title: Soccer Highlights
      */
     @TestRails(id = "505")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_newview"})
     public void HeaderSection_TC505() {
         log("@title: Validate can navigate to Soccer menu");
         log("Step 1. Click on Soccer menu");
@@ -247,7 +247,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Tennis page display with the title: Tennis Highlights
      */
     @TestRails(id = "506")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_newview"})
     public void HeaderSection_TC506() {
         log("@title: Validate can navigate to Tennis menu");
         log("Step 1. Click on Tennis menu");
@@ -299,7 +299,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Cricket page display with the title: Cricket Highlights
      */
     @TestRails(id = "508")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_newview"})
     public void HeaderSection_TC508() {
         log("@title: Validate can navigate to Cricket menu");
         log("Step 1. Click on Cricket menu");
