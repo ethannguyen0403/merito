@@ -59,9 +59,9 @@ public class WicketFancyTest extends BaseCaseTest {
         List<ArrayList> lstFCBet = marketPage.getFancyMiniMyBet();
         Assert.assertTrue(Objects.nonNull(lstFCBet), "FAILED! FC my bet section does NOT display");
         Assert.assertEquals(lstFCBet.get(0).get(0), expectedWager.getMarketName(), "FAILED! FC Market Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(0), expectedWager.getRunnerName(), "FAILED! Market Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(1), expectedWager.displayFancyOdds(), "FAILED! Odds is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(2), String.format("%.2f", (double) fcMarket.getMinSetting()), "FAILED! Stake is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(1), expectedWager.getRunnerName(), "FAILED! Market Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(2), expectedWager.displayFancyOdds(), "FAILED! Odds is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(3), String.format("%.2f", (double) fcMarket.getMinSetting()), "FAILED! Stake is incorrect");
         Assert.assertEquals(lstFCBet.get(1).get(3), String.format("%.2f", expectedWager.getLiabilityFancyWager()), "FAILED! Liability is incorrect");
 
         log("INFO: Executed completely");

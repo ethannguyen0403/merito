@@ -42,9 +42,11 @@ public class MiniMyBetControl extends BaseElement {
         return headerLst;
     }
 
-    public List<ArrayList> getMatchBets() {
-        List<ArrayList> lstWagers = new ArrayList<>();
 
+    public List<ArrayList> getMatchBets(boolean isFancy) {
+        List<ArrayList> lstWagers = new ArrayList<>();
+        if(isFancy)
+            colPnl = 5;
         if (!this.isDisplayed()) {
             System.out.println("===DEBUG! Mini My bet does NOT display!===");
             return null;
@@ -61,7 +63,6 @@ public class MiniMyBetControl extends BaseElement {
                 LblCell = Label.xpath(String.format("%s/div[%s]/div[%s]", bodyXpath, i, j));
                 if (!LblCell.isDisplayed())
                     break;
-                ;
                 for (int index = 1; index <= colPnl; index++) {
 
                     LblCell = Label.xpath(String.format("%s/div[%s]/div[%s]/span[%s]", bodyXpath, i, j, index));
