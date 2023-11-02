@@ -12,7 +12,7 @@
         <parameter name='language' value=''/>
         <parameter name='isLogin' value='false'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='timinr'/>
+        <parameter name='username' value='feinrisa'/>
         <parameter name='usernameSAT' value='03H'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='true'/>
@@ -22,11 +22,11 @@
         <parameter name="isCredit" value="false"/>
         <parameter name="timeZone" value="GMT-04:00"/>
         <parameter name='appname' value='membersite'/>
-        <parameter name='brandname' value="fairexchange"/>
+        <parameter name='brandname' value="funsport"/>
 
         <groups>
             <run>
-                <include name="smoke_dev"/>
+                <include name="smoke_123"/>
             </run>
         </groups>
 
