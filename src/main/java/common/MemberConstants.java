@@ -18,8 +18,6 @@ public class MemberConstants {
     public static final String GMT_LOCAL = "GMT+7:00";
     public static final String NO_RECORDs_FOUND = "No records found";
     public static final String NO_RECORD_FOUND = "No Record Found";
-    public static final String WICKET_FANCY = "WICKET_FANCY";
-    public static final String WICKET_BOOKMAKER_TITILE = "Wicket Bookmaker";
     public static final String WICKET_FANCY_TITILE = "Wicket Fancy";
     public static final String FANCY_TITILE = "Fancy";
     public static final String CENTRAL_FANCY_TITILE = "Central Fancy";
@@ -29,8 +27,7 @@ public class MemberConstants {
     public static final String CENTRAL_BOOKMAKER_CODE = "MANUAL_ODDS";
     public static final String CENTRAL_BOOKMAKER_TITLE = "Manual Odds";
     public static final String WICKET_BOOKMAKER_CODE = "WICKET_BOOKMAKER";
-    public static final String WICKET_BOOKMAKER_TITLE = "Wicket Bookmaker";
-    public static final String FANCY_MARKET_TYPE_CODE = "WICKET_FANCY";
+    public static final String WICKET_BOOKMAKER_TITLE = "Bookmaker";
     public final static String NOTES_GMT4 = "Note : Date will be based on time zone GMT-04:00";
     public final static String EXCHANGE = "Exchange";
 
