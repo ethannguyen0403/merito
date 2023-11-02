@@ -16,6 +16,7 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
     public Label lblNoBetInBetSlipMessage = Label.xpath("//div[contains(@class,'message-empty')]");
     public EditStakeControl editStakeControl = EditStakeControl.xpath("//div[contains(@class,'edit-stakes-body')]");
     public Label lblMinMaxStakeErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
+    private Label lblSelectionHeader = Label.xpath("//div[contains(@class,'betslip-title')]//span[1]");
     Label lblBetSlipErrorMessage = Label.xpath("//div[contains(@class,'betslip-error')]");
     private Button btnPlaceBet = Button.xpath("//button[contains(@class,'button-primary')]");
     private Button btnClearAll = Button.xpath("//button[contains(@class,'btn-cancel')]");
@@ -41,6 +42,7 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
     public void inputStake(String stake) {
         txtStake.click();
         txtStake.sendKeys(stake);
+        lblSelectionHeader.click();
         // waiting for loading completely
         btnPlaceBet.isInvisible(2);
     }

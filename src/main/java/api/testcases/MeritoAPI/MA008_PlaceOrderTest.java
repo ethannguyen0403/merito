@@ -115,7 +115,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
 
         log("Step 4 Access get event of the competition get in step 3");
         EventListResult resultObj = GetEventsUtils.getEventsAPI(token, sportID, "", Integer.toString(competitionId));
-        String eventId = Integer.toString(resultObj.getEventList().get(0).getId());
+        String eventId = Integer.toString(resultObj.getEventList().get(3).getId()); //3 is for TENNIS
 
         log("Step 5 Access get all market of the event get in step 4 to get a market");
         MarketResult marketResultObj = GetMarketCatalogUtils.getMarketCatalogAPI(token, sportID, eventId, Integer.toString(competitionId), "", "FIRST_TO_START");
@@ -124,7 +124,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
 
         log("Step 6 Get Market Book");
         MarketResult marketBookResultObj = GetMarketBookUtils.getMarketBookAPI(token, marketCatalog.getMarketId());
-        Market marketBook = marketBookResultObj.getMarketList().get(1);
+        Market marketBook = marketBookResultObj.getMarketList().get(0);
         String runnerId = Integer.toString(marketBook.getSelectionList().get(0).getid());
         String handicap = Double.toString(marketBook.getSelectionList().get(0).gethandicap());
         String price = Integer.toString(marketBook.getSelectionList().get(0).get_availableBack().intValue() + 20);
@@ -133,7 +133,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         String side = "BACK";
         String persistenceType = "LAPSE";
 
-        log("Step 7 Place a unmatched bet");
+        log(String.format("Step 7 Place a unmatched bet on event %s market id:%s price %s size %s and side %s",eventId,marketBook.getMarketId(),price,size,side));
         OrderResult orderResult = PlaceOrderUtils.placeOrder(token, eventId, runnerId, marketBook.getMarketId(), handicap, price, size, orderType, side, persistenceType);
         if (!Objects.nonNull(orderResult)) {
             log("Skip place bet as odds is empty");
@@ -271,7 +271,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         String runnerId = Integer.toString(marketBook.getSelectionList().get(0).getid());
         String handicap = Double.toString(marketBook.getSelectionList().get(0).gethandicap());
         String price = Double.toString(marketBook.getSelectionList().get(0).get_availableBack() == 0 ? 1.01 : marketBook.getSelectionList().get(0).get_availableBack());
-        String size = Double.toString(memberInfo.getLstBetSetting().get(0).getMinBet() - 1);
+        String size = Double.toString(memberInfo.getLstBetSetting().get(3).getMinBet() - 1);
         String orderType = "LIMIT";
         String side = "BACK";
         String persistenceType = "LAPSE";
