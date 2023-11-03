@@ -17,28 +17,19 @@ import java.util.List;
 import java.util.Objects;
 
 import static common.MemberConstants.*;
+import static common.MemberConstants.HomePage.SPORT_ID;
 
 public class WicketBookmakerTest extends BaseCaseTest {
-    /**
-     * @title Validate can place bet on Wicket Bookmaker on Match odds market page
-     * @Precondition: 1. Get the event that have Central Bookmaker market
-     * @Step 1/ Login member site
-     * 2/ Active the event that have Central Bookmaker market
-     * 3/ Click Match odds
-     * 4/ Click on an odds of a Central Bookmaker market then place bet
-     * @Expected 1. Can place bet
-     */
     @TestRails(id = "535")
     @Test(groups = {"smoke"})
     public void WicketBookmakerTest_535() {
         log("@title: Validate can place bet on Wicket Bookmaker on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
-        String stake = BetUtils.getMinBet("CRICKET", "BACK");
-        String sportName = "Cricket";
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
+        String stake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
 
         log("Step 2 Get the event that has Wicket Bookmaker market");
-        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket("4", WICKET_BOOKMAKER_CODE, "ONLINE");
+        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_BOOKMAKER_CODE, "ONLINE");
         if (Objects.isNull(bookmakerMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true, "By passed as has no Fancy Wicket on all available event");
@@ -65,36 +56,26 @@ public class WicketBookmakerTest extends BaseCaseTest {
         log("Verify 1. Can place bet. Info in my bet is correct");
         List<ArrayList> lstFCBet = marketPage.getBookmakerMiniMyBet();
         Assert.assertTrue(Objects.nonNull(lstFCBet), "FAILED! FC my bet section does NOT display");
-        Assert.assertEquals(lstFCBet.get(0).get(0), market.getMarketName(), "FAILED! Selection Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(0), expectedWager.getRunnerName(), "FAILED! Selection Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(1), String.format("%,.f", Double.valueOf(expectedWager.getOdds())), "FAILED! Odd is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(2), String.format("%,.2f", Double.valueOf(stake)), "FAILED! Stake is incorrect");
-        Assert.assertEquals(lstFCBet.get(1).get(3), String.format("%,.2f", expectedWager.getProfitWicketBookmakerWager()), "FAILED! Liability is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(0), market.getSelectionName(), "FAILED! Selection Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(0), expectedWager.getRunnerName(), "FAILED! Selection Name is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(1), String.valueOf(expectedWager.getOdds()), "FAILED! Odds is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(2), String.format("%,.2f", Double.valueOf(stake)), "FAILED! Stake is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(3), String.format("%,.2f", expectedWager.getProfitWicketBookmakerWager()), "FAILED! Liability is incorrect");
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title Verify Cannot place bet if stake less than min bet
-     * @Precondition: 1. Get the event that have Central Bookmaker market
-     * @Step 1/ Login member site
-     * 2/Active the event that have Bookmaker market
-     * 3/Click on a Bookmaker market
-     * 4/ Click on an odds of a Bookmaker market then place bet with the stake less than min bet
-     * @Expected 1. Can NOT place bet
-     */
     @TestRails(id = "536")
     @Test(groups = {"smoke"})
     public void WicketBookmakerTest_536() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
-        String minBet = BetUtils.getMinBet("CRICKET", "BACK");
-        String maxBet = BetUtils.getMaxBet("CRICKET", "LAY");
+        String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
+        String maxBet = BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_LAY_TYPE);
         String stake = Integer.toString(Integer.parseInt(minBet) - 1);
-        String sportName = "Cricket";
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
 
         log("Step 2 Get the event that has Wicket Bookmaker market");
-        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket("4", WICKET_BOOKMAKER_CODE, "ONLINE");
+        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_BOOKMAKER_CODE, "ONLINE");
         if (Objects.isNull(bookmakerMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true, "By passed as has no Fancy Wicket on all available event");
@@ -115,35 +96,25 @@ public class WicketBookmakerTest extends BaseCaseTest {
         market.getBtnOdd().click();
         marketPage.betsSlipContainer.placeBet("", stake);
 
-        log("Verify 1. Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
-        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        String expectedError = String.format(BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f", Double.parseDouble(minBet)), String.format("%(,.2f", Double.parseDouble(maxBet)), String.format("%.2f", Double.parseDouble(stake)));
+        log("Verify 1. Error Cannot place bet display: The stake must be from <min> to <max>. Current Stake is <stake>.");
+        String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
+        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID, minBet, maxBet, stake);
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title Verify Cannot place bet if stake greater than max bet
-     * @Precondition: 1. Get the event that have Wicket Bookmaker market
-     * @Step 1/ Login member site
-     * 2/Active the event that have Bookmaker market
-     * 3/Click on a Bookmaker market
-     * 4/ Click on an odds of a Bookmaker market then place bet with the stake greater than max bet
-     * @Expected 1. Can NOT place bet
-     */
     @TestRails(id = "537")
     @Test(groups = {"smoke"})
     public void WicketBookmakerTest_537() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
-        String minBet = BetUtils.getMinBet("CRICKET", "BACK");
-        String maxBet = BetUtils.getMaxBet("CRICKET", "LAY");
+        String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
+        String maxBet = BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_LAY_TYPE);
         String stake = Integer.toString(Integer.parseInt(maxBet) + 1);
-        String sportName = "Cricket";
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
 
         log("Step 2 Get the event that has Wicket Bookmaker market");
-        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket("4", WICKET_BOOKMAKER_CODE, "ONLINE");
+        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_BOOKMAKER_CODE, "ONLINE");
         if (Objects.isNull(bookmakerMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true, "By passed as has no Fancy Wicket on all available event");
@@ -163,34 +134,24 @@ public class WicketBookmakerTest extends BaseCaseTest {
         market.getBtnOdd().click();
         marketPage.betsSlipContainer.placeBet("", stake);
 
-        log("Verify 1. Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
-        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake), Double.parseDouble(minBet), Double.parseDouble(maxBet), BetUtils.getUserBalance());
+        log("Verify 1. Error Cannot place bet display: Error : Cannot place bet. The stake must be from <min> to <max>. Current Stake is <stake>.");
+        String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
+        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID, minBet, maxBet, stake);
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title Verify Cannot place bet if stake less is greater than available balance
-     * @Precondition: 1. Get the event that have Wicket Bookmaker market
-     * @Step 1/ Login member site
-     * 2/Active the event that have Bookmaker market
-     * 3/Click on a Bookmaker market
-     * 4/ Click on an odds of a Bookmaker market then place bet with the stake  greater than available balance
-     * @Expected 1. Can NOT place bet
-     */
     @TestRails(id = "538")
     @Test(groups = {"smoke"})
     public void WicketBookmakerTest_538() {
-        log("@title: Verify Cannot place bet if stake less is greater than availablie balance");
+        log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and click on Cricket");
         AccountBalance balance = BetUtils.getUserBalance();
         String stake = String.format("%d", (int) (Double.valueOf(balance.getBalance().replaceAll(",", "").toString()) + 1));
-        String sportName = "Cricket";
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(sportName, _brandname);
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
 
         log("Step 2 Get the event that has Wicket Bookmaker market");
-        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket("4", WICKET_BOOKMAKER_CODE, "ONLINE");
+        BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_BOOKMAKER_CODE, "ONLINE");
         if (Objects.isNull(bookmakerMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true, "By passed as has no Fancy Wicket on all available event");
@@ -212,7 +173,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         market.getBtnOdd().click();
         marketPage.betsSlipContainer.placeBet("", stake);
 
-        log("Verify 1. Error Cannot place bet display: \"Error : Cannot place bet. The stake must be from %s to %s. Current Stake is %s.");
+        log("Verify 1. Error Cannot place bet display: Error: Cannot place bet. Your Main balance is insufficient.");
         String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
         Assert.assertEquals(actualError, BetSlip.ERROR_INSUFFICIENT_BALANCE, String.format("ERROR! Expected error message is %s but found %s", BetSlip.ERROR_INSUFFICIENT_BALANCE, actualError));
 

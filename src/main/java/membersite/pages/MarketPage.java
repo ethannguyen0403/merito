@@ -48,10 +48,10 @@ public class MarketPage extends HomePage {
         WicketBookmakerContainerControl wcBookmakerContainerControl;
         switch (bookmakerMarket.getMaketType()) {
             case "WICKET_BOOKMAKER":
-                wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//span[text()='Wicket Bookmaker']//ancestor::div[contains(@class,'fancy-container')]//wicket-bookmarker-odds//div[contains(@class,'table-odds')]");
+                wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//wicket-bookmarker-odds//div[contains(@class,'table-odds')]");
                 return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket, isBack);
             default:
-                wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//span[text()='Manual Odds']//ancestor::div[contains(@class,'fancy-container')]//central-bookmarker-odds//div[contains(@class,'table-odds')]");
+                wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//central-bookmarker-odds//div[contains(@class,'table-odds')]");
                 return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket, isBack);
         }
     }
