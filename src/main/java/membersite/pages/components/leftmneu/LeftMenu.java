@@ -51,11 +51,16 @@ public class LeftMenu {
     }
 
     public void clickMarket(String marketName) {
-        return;
+    }
+
+    public void openFancyMarket(String fancyMarketType, String marketName) {
+
+    }
+
+    public void openBookmakerMarket(String bookMakerMarketType) {
     }
 
     public void clickMenuIndex(int index) {
-        return;
     }
 
     public void clickCompetition(String competition) {

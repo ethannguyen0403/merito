@@ -439,8 +439,8 @@ public class AGConstant {
 
         public static class PositionTakingListing {
             public final static String TITLE_PAGE = "Position Taking Listing";
-            public final static List<String> TABLE_PT_EXCHANGE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
-            public final static List<String> TABLE_PT_EXCHANGE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
+            public final static List<String> TABLE_PT_EXCHANGE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Soccer", "Cricket", "Line Market", "Fancy", "Bookmakers", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
+            public final static List<String> TABLE_PT_EXCHANGE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Soccer", "Cricket", "Line Market", "Fancy", "Bookmakers", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
             public final static List<String> TABLE_PT_EXCHANGE_GAME_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Baccarat", "Blackjack", "Racing", "Hilo", "Hold'em", "Omaha Hi", "Other", "Update Status");
             public final static List<String> TABLE_PT_EXCHANGE_GAME_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Baccarat", "Blackjack", "Racing", "Hilo", "Hold'em", "Omaha Hi", "Other", "Update Status");
             public final static List<String> TABLE_PT_LOTTERY_SLOT_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Lottery & Slots", "Update Status");
@@ -474,7 +474,9 @@ public class AGConstant {
                 {
                     put("Soccer", true);
                     put("Cricket", true);
+                    put("Line Market", true);
                     put("Fancy", true);
+                    put("Bookmakers", true);
                     put("Tennis", true);
                     put("Basketball", true);
                     put("Horse Racing", true);
@@ -487,7 +489,9 @@ public class AGConstant {
                 {
                     put("Soccer", false);
                     put("Cricket", false);
+                    put("Line Market", false);
                     put("Fancy", false);
+                    put("Bookmakers", false);
                     put("Tennis", false);
                     put("Basketball", false);
                     put("Horse Racing", false);
@@ -567,9 +571,10 @@ public class AGConstant {
                 {
                     put("Soccer", false);
                     put("Cricket", false);
+                    put("Fancy", false);
+                    put("Bookmaker", false);
                     put("Tennis", false);
                     put("Basketball", false);
-                    put("Fancy", false);
                     put("Other", false);
                 }
             };
@@ -577,9 +582,10 @@ public class AGConstant {
                 {
                     put("Soccer", true);
                     put("Cricket", true);
+                    put("Fancy", true);
+                    put("Bookmaker", true);
                     put("Tennis", true);
                     put("Basketball", true);
-                    put("Fancy", true);
                     put("Other", true);
                 }
             };

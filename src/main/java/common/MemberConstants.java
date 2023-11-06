@@ -18,9 +18,10 @@ public class MemberConstants {
     public static final String GMT_LOCAL = "GMT+7:00";
     public static final String NO_RECORDs_FOUND = "No records found";
     public static final String NO_RECORD_FOUND = "No Record Found";
-    public static final String WICKET_FANCY_TITILE = "Wicket Fancy";
+    public static final String WICKET_FANCY_TITLE = "Wicket Fancy";
+    public static final String WICKET_BOOKMAKER = "Wicket Bookmaker";
     public static final String FANCY_TITILE = "Fancy";
-    public static final String CENTRAL_FANCY_TITILE = "Central Fancy";
+    public static final String CENTRAL_FANCY_TITLE = "Central Fancy";
     public static final String WICKET_FANCY_CODE = "WICKET_FANCY";
     public static final String CENTRAL_FANCY_CODE = "CENTRAL_FANCY";
     public static final String FANCY_CODE = "FAIR_27FANCY";

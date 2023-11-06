@@ -31,7 +31,7 @@ public class DownLineListingUtils {
     private static JSONObject getDownLineJson(String brandName, String userName, String loginID) {
         String api = defineAPIUrl(brandName);
         //String jsn = String.format("{\"userName\":%s,\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", userName,loginID, DateUtils.getMilliSeconds());
-        String jsn = String.format("{\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":20}",loginID, DateUtils.getMilliSeconds());
+        String jsn = String.format("{\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":50}",loginID, DateUtils.getMilliSeconds());
         return WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
     }
 

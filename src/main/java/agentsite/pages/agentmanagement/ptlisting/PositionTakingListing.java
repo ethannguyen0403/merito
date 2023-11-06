@@ -15,15 +15,7 @@ public class PositionTakingListing {
     public int loginIDCol = 3;
     public int chbCol = 5;
     public int soccerCol = 8;
-    public int cricketCol = 9;
-    public int fancytCol = 10;
     public int levelCol = 6;
-    public int tennisCol = 11;
-    public int basketballCol = 12;
-    public int horseRacingCol = 13;
-    public int greyhoundCol = 14;
-    public int otherCol = 15;
-    public int updateStatusCol = 16;
     public Button btnUpdate = Button.xpath("//div[contains(@class,'paction2')]//button[contains(@class,'pbtn')]");
     public TextBox txtUsername = TextBox.xpath("//input[contains(@class,'user-name')]");
     public DropDownBox ddbAccountStatus = DropDownBox.xpath("//td[text()='Account Status']//following::select[1]");
@@ -44,7 +36,9 @@ public class PositionTakingListing {
     public CheckBox cbAll = CheckBox.xpath("//span[contains(text(),'Select All')]/preceding::input[1]");
     public CheckBox cbSoccer = CheckBox.xpath("//input[@id='SOCCER']");
     public CheckBox cbCricket = CheckBox.xpath("//input[@id='CRICKET']");
+    public CheckBox cbLineMarket = CheckBox.xpath("//input[@id='LINE']");
     public CheckBox cbFancy = CheckBox.xpath("//input[@id='FANCY']");
+    public CheckBox cbBookmaker = CheckBox.xpath("//input[@id='BOOKMAKER']");
     public CheckBox cbTennis = CheckBox.xpath("//input[@id='TENNIS']");
     public CheckBox cbBasketball = CheckBox.xpath("//input[@id='BASKETBALL']");
     public CheckBox cbHorseRacing = CheckBox.xpath("//input[@id='HORSE']");
@@ -122,8 +116,16 @@ public class PositionTakingListing {
         if (!map.get("Cricket")) {
             chb.click();
         }
+        chb = CheckBox.xpath(String.format(xPathSport, "Line Market"));
+        if (!map.get("Line Market")) {
+            chb.click();
+        }
         chb = CheckBox.xpath(String.format(xPathSport, "Fancy"));
         if (!map.get("Fancy")) {
+            chb.click();
+        }
+        chb = CheckBox.xpath(String.format(xPathSport, "Bookmakers"));
+        if (!map.get("Bookmakers")) {
             chb.click();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Tennis"));
@@ -150,14 +152,16 @@ public class PositionTakingListing {
 
     public List<String> definePTSettingList(String member, int inputValue) {
         List<String> lstPTSetting = getPTofAccount(member);
-        lstPTSetting.set(soccerCol - 1, Integer.toString(inputValue));
-        lstPTSetting.set(cricketCol - 1, Integer.toString(inputValue));
-        lstPTSetting.set(fancytCol - 1, Integer.toString(inputValue));
-        lstPTSetting.set(tennisCol - 1, Integer.toString(inputValue));
-        lstPTSetting.set(basketballCol - 1, Integer.toString(inputValue));
-        lstPTSetting.set(horseRacingCol - 1, Integer.toString(inputValue));
-        lstPTSetting.set(greyhoundCol - 1, Integer.toString(inputValue));
-        lstPTSetting.set(otherCol - 1, Integer.toString(inputValue));
+        lstPTSetting.set(tblDownline.getColumnIndexByName("Soccer") - 1, Integer.toString(inputValue));
+        lstPTSetting.set(tblDownline.getColumnIndexByName("Cricket") - 1, Integer.toString(inputValue));
+        lstPTSetting.set(tblDownline.getColumnIndexByName("Line Market") - 1, Integer.toString(inputValue));
+        lstPTSetting.set(tblDownline.getColumnIndexByName("Fancy") - 1, Integer.toString(inputValue));
+        lstPTSetting.set(tblDownline.getColumnIndexByName("Bookmakers") - 1, Integer.toString(inputValue));
+        lstPTSetting.set(tblDownline.getColumnIndexByName("Tennis") - 1, Integer.toString(inputValue));
+        lstPTSetting.set(tblDownline.getColumnIndexByName("Basketball") - 1, Integer.toString(inputValue));
+        lstPTSetting.set(tblDownline.getColumnIndexByName("Horse Racing") - 1, Integer.toString(inputValue));
+        lstPTSetting.set(tblDownline.getColumnIndexByName("Greyhound Racing") - 1, Integer.toString(inputValue));
+        lstPTSetting.set(tblDownline.getColumnIndexByName("Other") - 1, Integer.toString(inputValue));
         return lstPTSetting;
     }
 
@@ -169,9 +173,13 @@ public class PositionTakingListing {
                 return cbCricket;
             case "Tennis":
                 return cbTennis;
+            case "Line Market":
+                return cbLineMarket;
             case "Fancy":
                 return cbFancy;
-            case "Baseketball":
+            case "Bookmakers":
+                return cbBookmaker;
+            case "Basketball":
                 return cbBasketball;
             case "Horse Racing":
                 return cbHorseRacing;

@@ -12,7 +12,6 @@ import membersite.objects.sat.Event;
 import membersite.objects.sat.FancyMarket;
 import membersite.objects.sat.Market;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
-import membersite.pages.popup.RulePopup;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -46,8 +45,8 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
     private String lblSelectionName = "//div[contains(@class,'runner-name')]//span[2]";
     private String lblOddListXPath = "//div[contains(@class,'cell-odds')]";
     private String lblOddItem = "//div[contains(@class,'pending-odds')]";
-    private Tab tabWicketFancy = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.WICKET_FANCY_TITILE));
-    private Tab tabCentralFancy = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.CENTRAL_FANCY_TITILE));
+    private Tab tabWicketFancy = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.WICKET_FANCY_TITLE));
+    private Tab tabCentralFancy = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.CENTRAL_FANCY_TITLE));
     private Tab tabManualOdds = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.CENTRAL_BOOKMAKER_TITLE));
     private Tab tabWicketBookmaker = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.WICKET_BOOKMAKER_TITLE));
     private Tab tabFancy = Tab.xpath(String.format("//div[contains(@class,'fancy-container')]//span[text()='%s']", MemberConstants.FANCY_TITILE));
@@ -334,6 +333,11 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
     }
 
     public void activeProduct(String products) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         switch (products) {
             case "Wicket Fancy":
                 tabWicketFancy.click();

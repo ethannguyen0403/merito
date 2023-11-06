@@ -41,7 +41,7 @@ public class BetSettingListingTest extends BaseCaseTest {
      * 2. Update Status column display green check
      */
     @TestRails(id = "743")
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke"})
     public void Agent_AM_Bet_Setting_Listing_743() {
         log("@title: Can update Min Bet, Max Bet, Max Liability per Market, Max Win per Market, for all sport of Exchange Product");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");

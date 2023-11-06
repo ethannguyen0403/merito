@@ -179,6 +179,10 @@ public class Fair999Header extends Header1 {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"));
     }
 
+    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Double liabilityBack, Double liabilityLay) {
+        return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - (liabilityBack + liabilityLay));
+    }
+
 }
 
 
