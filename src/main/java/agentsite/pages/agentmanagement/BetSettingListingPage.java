@@ -12,15 +12,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class BetSettingListingPage extends HomePage {
-    private static int totalColum = 10;
+    private static int totalColum = 16;
     private static int soccerCol = 10;
     private static int cricketCol = 11;
-    private static int tennisCol = 12;
-    private static int basketballCol = 13;
-    private static int fancyCol = 14;
-    private static int otherCol = 15;
+    private static int fancyCol = 12;
+    private static int bookmakerCol = 13;
+    private static int tennisCol = 14;
+    private static int basketballCol = 15;
+    private static int otherCol = 16;
     private static int chbCol = 6;
-    private int updateStatusCol = 16;
+    private int updateStatusCol = 17;
     public int usernameCol = 2;
     public static Table tblDownline = Table.xpath("//table[contains(@class,'ptable report')]", totalColum);
     public TextBox txtMinBet = TextBox.xpath("(//table[@class='ptable info search-region']//input)[1]");
@@ -84,6 +85,14 @@ public class BetSettingListingPage extends HomePage {
             i = i + 1;
         }
 
+        if (map.get("Fancy")) {
+            fancyCol = (totalColum - 1) + i;
+            i = i + 1;
+        }
+        if (map.get("Bookmaker")) {
+            bookmakerCol = (totalColum - 1) + i;
+            i = i + 1;
+        }
         if (map.get("Tennis")) {
             tennisCol = (totalColum - 1) + i;
             i = i + 1;
@@ -93,11 +102,6 @@ public class BetSettingListingPage extends HomePage {
             basketballCol = (totalColum - 1) + i;
             i = i + 1;
         }
-        if (map.get("Fancy")) {
-            fancyCol = (totalColum - 1) + i;
-            i = i + 1;
-        }
-
         if (map.get("Other")) {
             otherCol = (totalColum - 1) + i;
             i = i + 1;
@@ -165,6 +169,16 @@ public class BetSettingListingPage extends HomePage {
             chb.click();
             //waitingLoadingSpinner();
         }
+        chb = CheckBox.xpath(String.format(xPathSport, "Fancy"));
+        if (!map.get("Fancy")) {
+            chb.click();
+            //  waitingLoadingSpinner();
+        }
+        chb = CheckBox.xpath(String.format(xPathSport, "Bookmakers"));
+        if (!map.get("Bookmaker")) {
+            chb.click();
+            //  waitingLoadingSpinner();
+        }
         chb = CheckBox.xpath(String.format(xPathSport, "Tennis"));
         if (!map.get("Tennis")) {
             chb.click();
@@ -174,11 +188,6 @@ public class BetSettingListingPage extends HomePage {
         if (!map.get("Basketball")) {
             chb.click();
             //waitingLoadingSpinner();
-        }
-        chb = CheckBox.xpath(String.format(xPathSport, "Fancy"));
-        if (!map.get("Fancy")) {
-            chb.click();
-            //  waitingLoadingSpinner();
         }
 
         chb = CheckBox.xpath(String.format(xPathSport, "Other"));
