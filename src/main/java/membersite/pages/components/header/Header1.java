@@ -135,6 +135,8 @@ public class Header1 {
         return "";
     }
 
+    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Double liabilityBack, Double liabilityLay) {return "";}
+
     public String getMarqueeMessage() {
         return "";
     }

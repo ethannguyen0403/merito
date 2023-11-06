@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static common.MemberConstants.FANCY_CODE;
-import static common.MemberConstants.FANCY_TITILE;
+import static common.MemberConstants.*;
+import static common.MemberConstants.HomePage.SPORT_ID;
 
 public class FancyTest extends BaseCaseTest {
     /**
@@ -34,12 +34,10 @@ public class FancyTest extends BaseCaseTest {
     public void FancyTest_001() {
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
-        String sportName = "Cricket";
-        String sportID = "4";
-        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has 27 Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(sportID, FANCY_CODE);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true, "By passed as has no 27 Fancy on all available event");

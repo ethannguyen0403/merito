@@ -40,8 +40,10 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
     }
 
     public void inputStake(String stake) {
-        txtStake.click();
-        txtStake.sendKeys(stake);
+        if(txtStake.isDisplayed(2)) {
+            txtStake.click();
+            txtStake.sendKeys(stake);
+        }
         lblSelectionHeader.click();
         // waiting for loading completely
         btnPlaceBet.isInvisible(2);

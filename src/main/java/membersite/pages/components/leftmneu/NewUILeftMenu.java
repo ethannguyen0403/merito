@@ -13,6 +13,8 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static common.MemberConstants.WICKET_BOOKMAKER_TITLE;
+
 public class NewUILeftMenu extends LeftMenu {
     public Image imgLoading = Image.xpath("//div[@class='loading-icon']/img");
     public TextBox txtSearch = TextBox.id("searchMarket");
@@ -74,6 +76,41 @@ public class NewUILeftMenu extends LeftMenu {
             }
         }
         System.out.println(String.format("*** Debug: Cannot click on the market %s", marketName));
+    }
+
+    public void clickFancyMarket(String fancyMarketType, String subMarketName) {
+        Label lblMenu = Label.xpath(String.format("%s/following::div[@class='downs-levels']//span[text()='%s']", eventActiveXpath, fancyMarketType));
+        if (lblMenu.isDisplayed()) {
+            lblMenu.scrollToThisControl(true);
+            lblMenu.click();
+        }
+        Label lblSubMenu = Label.xpath(String.format("%s/following::div[@class='downs-levels']//span[text()='%s']", eventActiveXpath, subMarketName));
+        if (lblSubMenu.isDisplayed()) {
+            lblSubMenu.scrollToThisControl(true);
+            lblSubMenu.doubleClick();
+            imgLoading.isInvisible(300);
+        }
+    }
+
+    public void clickBookmakerMarket(String bookmakerType) {
+        Label lblMenu = Label.xpath(String.format("%s/following::div[@class='downs-levels']//span[text()='%s']", eventActiveXpath, WICKET_BOOKMAKER_TITLE));
+        if (lblMenu.isDisplayed()) {
+            lblMenu.scrollToThisControl(true);
+            lblMenu.click();
+        }
+        Label lblSubMenu = Label.xpath(String.format("%s/following::div[@class='downs-levels']//span[text()='%s']", eventActiveXpath, bookmakerType));
+        if (lblSubMenu.isDisplayed()) {
+            lblSubMenu.scrollToThisControl(true);
+            lblSubMenu.doubleClick();
+            imgLoading.isInvisible(300);
+        }
+    }
+    public void openFancyMarket(String fancyMarketType, String marketName) {
+        clickFancyMarket(fancyMarketType, marketName);
+    }
+
+    public void openBookmakerMarket(String bookMakerMarketType) {
+        clickBookmakerMarket(bookMakerMarketType);
     }
 
     public void clickCompetition(String competition) {

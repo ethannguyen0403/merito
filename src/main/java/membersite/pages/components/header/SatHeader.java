@@ -255,6 +255,10 @@ public class SatHeader extends Header1 {
         return String.format(Locale.getDefault(), "%,.2f", balanceReturn);
     }
 
+    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Double liabilityBack, Double liabilityLay) {
+        return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - (liabilityBack + liabilityLay));
+    }
+
     public String getMarqueeMessage() {
         String announcementMessage = "";
         if (lblMarquee.isDisplayed()) {

@@ -39,7 +39,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(bookmakerMarket.getEventName());
 
         log("Step 4 Active Wicket Bookmaker tab");
-        marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);
+        memberHomePage.leftMenu.openBookmakerMarket(WICKET_BOOKMAKER);
 
         log("Step 5 Get Wicket Bookmaker market has runner available");
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket, true);
@@ -85,7 +85,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(bookmakerMarket.getEventName());
 
         log("Step 4 Active Wicket Bookmaker tab");
-        marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);
+        memberHomePage.leftMenu.openBookmakerMarket(WICKET_BOOKMAKER);
 
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket, true);
         if (Objects.isNull(marketPage)) {
@@ -124,7 +124,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(bookmakerMarket.getEventName());
 
         log("Step 4 Active Wicket Bookmaker tab");
-        marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);
+        memberHomePage.leftMenu.openBookmakerMarket(WICKET_BOOKMAKER);
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket, false);
         if (Objects.isNull(marketPage)) {
             log("DEBUG: Skip as have no event has Wicket Bookmaker market");
@@ -161,7 +161,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(bookmakerMarket.getEventName());
 
         log("Step 4 Active Wicket Bookmaker tab");
-        marketPage.activeProduct(WICKET_BOOKMAKER_TITLE);
+        memberHomePage.leftMenu.openBookmakerMarket(WICKET_BOOKMAKER);
 
         log("Step 5 Click on an odds of a Bookmaker market then place bet with the stake  greater than available balance");
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket, true);
