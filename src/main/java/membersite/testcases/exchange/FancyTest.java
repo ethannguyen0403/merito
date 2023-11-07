@@ -20,18 +20,9 @@ import static common.MemberConstants.*;
 import static common.MemberConstants.HomePage.SPORT_ID;
 
 public class FancyTest extends BaseCaseTest {
-    /**
-     * @title Validate can place bet on Fancy on Match odds market page
-     * @Precondition: 1. Get the event that have Fancy market
-     * @Step 1/ Login member site
-     * 2/ Active the event that have Fancy market
-     * 3/ Click Match odds
-     * 4/ Click on an odds of a fancy market then place bet
-     * @Expected 1. Can place bet
-     */
     @TestRails(id = "549")
     @Test(groups = {"smoke"})
-    public void FancyTest_001() {
+    public void FancyTest_549() {
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
@@ -46,10 +37,10 @@ public class FancyTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active 27 Fancy tab");
-        marketPage.activeProduct(FANCY_TITILE);
+        marketPage.activeProduct(FANCY_TITLE);
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, true, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
         String oddsActual = expectedWager.displayFancyOdds();
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
@@ -67,24 +58,15 @@ public class FancyTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title Verify exposure is kept correctly when place on No
-     * @Precondition: 1. Get the event that have Fancy market
-     * @Step 1/ Login member site
-     * 2/ Active the event that have Fancy market
-     * 3/ Click on a Fancy market
-     * 4/ Click on an odds of a fancy market then place bet
-     * @Expected 1. Exposure kept correctly when place on No section
-     */
     @TestRails(id = "550")
     @Test(groups = {"smoke"})
-    public void FancyTest_002() {
+    public void FancyTest_550() {
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
         String sportID = "4";
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(sportID, FANCY_CODE);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
         log("Step 2 Get and click on the event that has 27 Fancy");
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has 27 Fancy");
@@ -94,10 +76,10 @@ public class FancyTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active 27 Fancy tab");
-        marketPage.activeProduct(FANCY_TITILE);
+        marketPage.activeProduct(FANCY_TITLE);
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, false, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
 
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fancyMarket, false, minStake);
@@ -114,18 +96,9 @@ public class FancyTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title Verify exposure is kept correctly when place on Yes and No
-     * @Precondition: 1. Get the event that have Fancy market
-     * @Step 1/ Login member site
-     * 2/ Active the event that have Fancy market
-     * 3/ Click on a Fancy market
-     * 4/ Click on an odds and place on Yes and No option
-     * @Expected 1. Exposure kept correctly when place on No section
-     */
     @TestRails(id = "551")
     @Test(groups = {"smoke"})
-    public void FancyTest_003() {
+    public void FancyTest_551() {
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
@@ -147,14 +120,14 @@ public class FancyTest extends BaseCaseTest {
         marketPage = marketPage.clickMarketonLeftMenu(fcMarket.getMarketName());
 
         log("Step 4 Active 27 Fancy tab");
-        marketPage.activeProduct(FANCY_TITILE);
+        marketPage.activeProduct(FANCY_TITLE);
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        List<Wager> lstMatchedBets = BetUtils.getMatchedOpenBet("4", fancyMarket.getEventID(), fancyMarket.getMarketID(), "FANCY");
+        List<Wager> lstMatchedBets = BetUtils.getMatchedOpenBet(SPORT_ID.get(LBL_CRICKET_SPORT), fancyMarket.getEventID(), fancyMarket.getMarketID(), "FANCY");
         Double liabilityBeforePlaceBet = marketPage.liabilityFCMarket(lstMatchedBets);
 
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, true, Double.parseDouble(minStake));
-        Wager expectedWager2 = marketPage.defineFamcyWager(fancyMarket, false, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+        Wager expectedWager2 = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
 
 
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
@@ -188,25 +161,16 @@ public class FancyTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title Verify Cannot place bet if stake less than min bet
-     * @Precondition: 1. Get the event that have Fancy market
-     * @Step 1/ Login member site
-     * 2/ Active the event that have Fancy market
-     * 3/ Click on a Fancy market
-     * 4/ Click on an odds of a fancy market then place bet with the stake less than min bet
-     * @Expected 1. Verify cannot place bet
-     */
     @TestRails(id = "552")
     @Test(groups = {"smoke"})
-    public void FancyTest_004() {
+    public void FancyTest_552() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
 
         log("Step 2 Get and click on the event that has 27 Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4", FANCY_CODE);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true, "By passed as has no 27 Fancy on all available event");
@@ -216,7 +180,7 @@ public class FancyTest extends BaseCaseTest {
 
         log("Step 3. Get 27 Fancy available");
         log("Step 4 Active 27 Fancy tab");
-        marketPage.activeProduct(FANCY_TITILE);
+        marketPage.activeProduct(FANCY_TITLE);
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minMax = marketPage.getMinMaxLable(fcMarket);
         String minStake = marketPage.getMinMaxOFFancyMarket(minMax, true);
@@ -234,25 +198,16 @@ public class FancyTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title Verify Cannot place bet if stake greater than max bet
-     * @Precondition: 1. Get the event that have Fancy market
-     * @Step 1/ Login member site
-     * 2/ Active the event that have Fancy market
-     * 3/ Click on a Fancy market
-     * 4/ Click on an odds of a fancy market then place bet with the stake  greater than available balance
-     * @Expected 1. Verify cannot place bet
-     */
     @TestRails(id = "553")
     @Test(groups = {"smoke"})
-    public void FancyTest_005() {
+    public void FancyTest_553() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
         String sportName = "Cricket";
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
 
         log("Step 2 Get and click on the event that has 27 Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4", FANCY_CODE);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true, "By passed as has no 27 Fancy on all available event");
@@ -261,7 +216,7 @@ public class FancyTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         log("Step 3. Get 27 Fancy available");
         log("Step 4 Active 27 Fancy tab");
-        marketPage.activeProduct(FANCY_TITILE);
+        marketPage.activeProduct(FANCY_TITLE);
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minMax = marketPage.getMinMaxLable(fcMarket);
         String minStake = marketPage.getMinMaxOFFancyMarket(minMax, true);
@@ -278,27 +233,17 @@ public class FancyTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title Verify Cannot place bet if stake less is greater than available balance
-     * @Precondition: 1. Get the event that have Fancy market
-     * @Step 1/ Login member site
-     * 2/ Active the event that have Fancy market
-     * 3/ Click on a Fancy market
-     * 4/ Click on an odds of a fancy market then place bet with the stake  greater than available balance
-     * @Expected 1. Verify cannot place bet
-     */
     @TestRails(id = "554")
     @Test(groups = {"smoke"})
-    public void FancyTest_006() {
+    public void FancyTest_554() {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
         AccountBalance balance = BetUtils.getUserBalance();
         String stake = Double.toString(Double.valueOf(balance.getBalance().replaceAll(",", "").toString()) + 1);
-        String sportName = "Cricket";
-        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has 27 Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket("4", FANCY_CODE);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true, "By passed as has no 27 Fancy on all available event");
@@ -307,7 +252,7 @@ public class FancyTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Fancy tab");
-        marketPage.activeProduct(FANCY_TITILE);
+        marketPage.activeProduct(FANCY_TITLE);
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minMax = marketPage.getMinMaxLable(fcMarket);
         String minStake = marketPage.getMinMaxOFFancyMarket(minMax, true);

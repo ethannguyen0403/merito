@@ -49,7 +49,7 @@ public class CentralFancyTest extends BaseCaseTest {
         marketPage.activeProduct(CENTRAL_FANCY_TITLE);
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, true, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fcMarket, true, minStake);
@@ -96,7 +96,7 @@ public class CentralFancyTest extends BaseCaseTest {
         marketPage.activeProduct(CENTRAL_FANCY_TITLE);
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, false, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
 
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fcMarket, false, minStake);
@@ -146,8 +146,8 @@ public class CentralFancyTest extends BaseCaseTest {
         Double liabilityBeforePlaceBet = marketPage.liabilityFCMarket(lstMatchedBets);
 
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, true, Double.parseDouble(minStake));
-        Wager expectedWager2 = marketPage.defineFamcyWager(fancyMarket, false, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+        Wager expectedWager2 = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fancyMarket, true, minStake);
         marketPage.placeFancy(fancyMarket, false, minStake);
