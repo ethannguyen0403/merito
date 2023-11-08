@@ -49,7 +49,7 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
     private Tab tabCentralFancy = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.CENTRAL_FANCY_TITLE));
     private Tab tabManualOdds = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.CENTRAL_BOOKMAKER_TITLE));
     private Tab tabWicketBookmaker = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.WICKET_BOOKMAKER_TITLE));
-    private Tab tabFancy = Tab.xpath(String.format("//div[contains(@class,'fancy-container')]//span[text()='%s']", MemberConstants.FANCY_TITILE));
+    private Tab tabFancy = Tab.xpath(String.format("//div[contains(@class,'fancy-container')]//span[text()='%s']", MemberConstants.FANCY_TITLE));
 
     public List<ArrayList<String>> getUIForeCast() {
         List<ArrayList<String>> forecastList = new ArrayList<>();

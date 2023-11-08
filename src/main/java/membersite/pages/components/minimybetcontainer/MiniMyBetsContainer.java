@@ -43,4 +43,7 @@ public class MiniMyBetsContainer {
     public List<ArrayList> getMatchedFancyInMiniMyBet() {
         return null;
     }
+
+    public List<ArrayList> getFancyBetSlipInfo(boolean isBack) { return null;}
+    public List<ArrayList> getBookmakerBetSlipInfo(boolean isBack) { return null;}
 }

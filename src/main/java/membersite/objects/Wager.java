@@ -225,7 +225,7 @@ public class Wager {
         if (_payout == 0 || _payout == 100) {
             return String.format("%d", (int) _odds);
         }
-        return String.format("%d:%,.1f", (int) _odds, _payout);
+        return String.format("%d:%d", (int) _odds, (int) _payout);
 
     }
 

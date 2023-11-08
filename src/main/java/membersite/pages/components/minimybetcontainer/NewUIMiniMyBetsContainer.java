@@ -12,6 +12,8 @@ import java.util.List;
 public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     public MiniMyBetControl fancyMiniMyBet = MiniMyBetControl.xpath("//app-fancy-bets");
     public MiniMyBetControl bookMakerMiniMyBet = MiniMyBetControl.xpath("//app-bookmaker-bets");
+    public MiniMyBetControl fancyMiniBetSlip = MiniMyBetControl.xpath("//app-fancy-betslip");
+    public MiniMyBetControl bookMakerMiniBetSlip = MiniMyBetControl.xpath("//app-normal-betslip");
     private String xPathSelection = "//div[contains(@class,'%s') and contains(@class,'row-open-bet')]";
     private Label lblBetslipErrorMessage = Label.xpath("//div[contains(@class,'betslip-error')]");
     private Label lblErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
@@ -102,5 +104,13 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
 
     public List<ArrayList> getMatchedFancyInMiniMyBet() {
         return fancyMiniMyBet.getMatchBets(true);
+    }
+
+    public List<ArrayList> getFancyBetSlipInfo(boolean isBack) {
+        return fancyMiniBetSlip.getBetSlipInfo(true, isBack);
+    }
+
+    public List<ArrayList> getBookmakerBetSlipInfo(boolean isBack) {
+        return bookMakerMiniBetSlip.getBetSlipInfo(false, isBack);
     }
 }

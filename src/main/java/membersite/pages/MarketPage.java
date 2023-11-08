@@ -50,6 +50,9 @@ public class MarketPage extends HomePage {
             case "WICKET_BOOKMAKER":
                 wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//wicket-bookmarker-odds//div[contains(@class,'table-odds')]");
                 return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket, isBack);
+            case "ARTEMIS_BOOKMAKER":
+                wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//app-artmis-bookmaker-odds//div[contains(@class,'table-odds')]");
+                return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket, isBack);
             default:
                 wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//central-bookmarker-odds//div[contains(@class,'table-odds')]");
                 return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket, isBack);
@@ -89,7 +92,7 @@ public class MarketPage extends HomePage {
         betsSlipContainer.placeBet(stake);
     }
 
-    public Wager defineFamcyWager(FancyMarket fcMarket, boolean isBack, double stake) {
+    public Wager defineFancyWager(FancyMarket fcMarket, boolean isBack, double stake) {
         String betType = isBack ? "BACK" : "LAY";
         double odds = isBack ? fcMarket.getOddsYes() : fcMarket.getOddsNo();
         int payout = isBack ? fcMarket.getRateYes() : fcMarket.getRateNo();
@@ -101,6 +104,20 @@ public class MarketPage extends HomePage {
                 .payout(payout)
                 .stake(stake)
                 .runnerName(runnerName)
+                .build();
+    }
+
+    public Wager defineBookmakerWager(BookmakerMarket market, boolean isBack, double stake) {
+        String betType = isBack ? "BACK" : "LAY";
+        String odds = isBack? market.getOddsBack() : market.getOddsLay();
+        String runnerName = market.getSelectionName().trim();
+        return new Wager.Builder()
+                .betType(betType)
+                .marketName(market.getMarketName())
+                .odds(Double.parseDouble(odds))
+                .stake(stake)
+                .runnerName(runnerName)
+                .marketType(market.getMaketType())
                 .build();
     }
 
@@ -233,6 +250,14 @@ public class MarketPage extends HomePage {
             return minMaxArr[0].trim().replaceAll(",", "");
         return minMaxArr[1].trim().replaceAll(",", "");
 
+    }
+
+    public List<ArrayList> getFancyBetSlipMiniMyBet(boolean isBack) {
+        return myBetsContainer.getFancyBetSlipInfo(isBack);
+    }
+
+    public List<ArrayList> geBookmakerBetSlipMiniMyBet(boolean isBack) {
+        return myBetsContainer.getBookmakerBetSlipInfo(isBack);
     }
 
 

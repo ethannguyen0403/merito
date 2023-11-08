@@ -20,7 +20,8 @@ public class MemberConstants {
     public static final String NO_RECORD_FOUND = "No Record Found";
     public static final String WICKET_FANCY_TITLE = "Wicket Fancy";
     public static final String WICKET_BOOKMAKER = "Wicket Bookmaker";
-    public static final String FANCY_TITILE = "Fancy";
+    public static final String ARTEMIS_BOOKMAKER = "Fair Bookmaker";
+    public static final String FANCY_TITLE = "Fancy";
     public static final String CENTRAL_FANCY_TITLE = "Central Fancy";
     public static final String WICKET_FANCY_CODE = "WICKET_FANCY";
     public static final String CENTRAL_FANCY_CODE = "CENTRAL_FANCY";
@@ -28,6 +29,7 @@ public class MemberConstants {
     public static final String CENTRAL_BOOKMAKER_CODE = "MANUAL_ODDS";
     public static final String CENTRAL_BOOKMAKER_TITLE = "Manual Odds";
     public static final String WICKET_BOOKMAKER_CODE = "WICKET_BOOKMAKER";
+    public static final String ARTEMIS_BOOKMAKER_CODE = "ARTEMIS_BOOKMAKER";
     public static final String WICKET_BOOKMAKER_TITLE = "Bookmaker";
     public final static String NOTES_GMT4 = "Note : Date will be based on time zone GMT-04:00";
     public final static String EXCHANGE = "Exchange";

@@ -40,7 +40,7 @@ public class WicketFancyTest extends BaseCaseTest {
         memberHomePage.leftMenu.openFancyMarket(WICKET_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minStake = String.valueOf(fcMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fcMarket, true, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fcMarket, true, Double.parseDouble(minStake));
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fcMarket, true, minStake);
@@ -81,7 +81,7 @@ public class WicketFancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, false, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
         marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Validate Can place bet");
@@ -126,8 +126,8 @@ public class WicketFancyTest extends BaseCaseTest {
 
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, true, Double.parseDouble(minStake));
-        Wager expectedWager2 = marketPage.defineFamcyWager(fancyMarket, false, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+        Wager expectedWager2 = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
 
         marketPage.placeFancy(fancyMarket, true, minStake);
         marketPage.placeFancy(fancyMarket, false, minStake);
