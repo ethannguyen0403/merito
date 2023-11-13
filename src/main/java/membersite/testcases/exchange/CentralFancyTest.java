@@ -46,10 +46,10 @@ public class CentralFancyTest extends BaseCaseTest {
             return;
         }
         log("Step 4 Active Central Fancy tab");
-        marketPage.activeProduct(CENTRAL_FANCY_TITILE);
+        marketPage.activeProduct(CENTRAL_FANCY_TITLE);
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, true, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fcMarket, true, minStake);
@@ -93,10 +93,10 @@ public class CentralFancyTest extends BaseCaseTest {
         }
 
         log("Step 4 Active Central Fancy tab");
-        marketPage.activeProduct(CENTRAL_FANCY_TITILE);
+        marketPage.activeProduct(CENTRAL_FANCY_TITLE);
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, false, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
 
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fcMarket, false, minStake);
@@ -140,14 +140,14 @@ public class CentralFancyTest extends BaseCaseTest {
             return;
         }
         log("Step 4 Active Central Fancy tab");
-        marketPage.activeProduct(CENTRAL_FANCY_TITILE);
+        marketPage.activeProduct(CENTRAL_FANCY_TITLE);
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         List<Wager> lstMatchedBets = BetUtils.getMatchedOpenBet("4", fancyMarket.getEventID(), fancyMarket.getMarketID(), "CENTRAL_FANCY");
         Double liabilityBeforePlaceBet = marketPage.liabilityFCMarket(lstMatchedBets);
 
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFamcyWager(fancyMarket, true, Double.parseDouble(minStake));
-        Wager expectedWager2 = marketPage.defineFamcyWager(fancyMarket, false, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+        Wager expectedWager2 = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fancyMarket, true, minStake);
         marketPage.placeFancy(fancyMarket, false, minStake);
@@ -204,7 +204,7 @@ public class CentralFancyTest extends BaseCaseTest {
         }
 
         log("Step 4 Active Central Fancy tab");
-        marketPage.activeProduct(CENTRAL_FANCY_TITILE);
+        marketPage.activeProduct(CENTRAL_FANCY_TITLE);
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String stake = Double.toString(Double.valueOf(fcMarket.getMinSetting()) - 1);
         String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
@@ -246,7 +246,7 @@ public class CentralFancyTest extends BaseCaseTest {
         }
 
         log("Step 4 Active Central Fancy tab");
-        marketPage.activeProduct(CENTRAL_FANCY_TITILE);
+        marketPage.activeProduct(CENTRAL_FANCY_TITLE);
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String stake = Double.toString(Double.valueOf(fcMarket.getMaxSetting()) + 1);
         String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
@@ -291,7 +291,7 @@ public class CentralFancyTest extends BaseCaseTest {
         }
 
         log("Step 4 Active Central Fancy tab");
-        marketPage.activeProduct(CENTRAL_FANCY_TITILE);
+        marketPage.activeProduct(CENTRAL_FANCY_TITLE);
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));

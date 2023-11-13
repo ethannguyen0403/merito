@@ -3,6 +3,7 @@ package agentsite.pages.cashmanagement.depositwithdrawaltransaction;
 import agentsite.controls.Cell;
 import agentsite.controls.DateTimePicker;
 import agentsite.controls.Table;
+import agentsite.pages.cashmanagement.TransactionDetailPopup;
 import com.paltech.element.common.*;
 import com.paltech.utils.DateUtils;
 import org.testng.Assert;
@@ -39,9 +40,6 @@ public class OldUIDepositWithdrawalTransaction extends DepositWithdrawalTransact
     private Button btnSearch = Button.xpath("//app-deposit-withdrawal-transaction//button[text()='Search']");
     private Table tblDeposit = Table.xpath("//app-deposit-withdrawal-transaction//table", totalCol);
     private TextBox txtComment = TextBox.xpath("//app-transaction-detail//textarea");
-    private RadioButton rdApprove = RadioButton.id("approve");
-    private RadioButton rdReject = RadioButton.id("reject");
-    private Button btnSubmitTransactionDetail = Button.xpath("//app-transaction-detail//button[text()=' Submit']");
     private Button btnOk = Button.xpath("//app-alert//button[text()='OK']");
     private Label lblTitle = Label.xpath(" //app-deposit-withdrawal-transaction//div[@class='title']//label");
     private Label lblNoRecordFound = Label.xpath("//app-deposit-withdrawal-transaction//table//td[text()='No records found.']");
@@ -72,18 +70,18 @@ public class OldUIDepositWithdrawalTransaction extends DepositWithdrawalTransact
     }
 
     public void actionTransaction(String action, String comment, boolean isSubmit) {
-        openTransactionDetail(TRANSACTION_DETAIL_ACTION_LST.get(0));
+        TransactionDetailPopup popup = openTransactionDetail(TRANSACTION_DETAIL_ACTION_LST.get(0));
         txtComment.waitForElementToBePresent(txtComment.getLocator(), 2);
         if (!comment.isEmpty()) {
             txtComment.sendKeys(comment);
         }
         if(action.equalsIgnoreCase("approve")) {
-            rdApprove.click();
+            popup.rdApprove.click();
         } else if (action.equalsIgnoreCase("reject")) {
-            rdReject.click();
+            popup.rdReject.click();
         }
         if (isSubmit) {
-            btnSubmitTransactionDetail.click();
+            popup.btnSubmitTransactionDetail.click();
             txtComment.waitForControlInvisible();
         }
     }
@@ -168,7 +166,7 @@ public class OldUIDepositWithdrawalTransaction extends DepositWithdrawalTransact
         }
         //verify Payment Type
         if (!paymentType.isEmpty()) {
-            colIndex = tblDeposit.getColumnIndexByName("Status");
+            colIndex = tblDeposit.getColumnIndexByName("Payment Type");
             if(paymentType.equalsIgnoreCase("All")) {
                 List<String> lstPaymentType = Arrays.asList("BANK TRANSFER", "PAYTM", "PHONEPE", "GPAY", "UPI", "QR Code");
                 for (int i = 0; i < totalRow; i++) {
@@ -195,9 +193,20 @@ public class OldUIDepositWithdrawalTransaction extends DepositWithdrawalTransact
 
     }
 
-    public void openTransactionDetail(String action) {
+    public TransactionDetailPopup openTransactionDetail(String action) {
         Cell reviewCell = tblDeposit.getCellByName(action, false);
         reviewCell.click();
+        return new TransactionDetailPopup();
+    }
+
+    public String getFirstRefNoByStatus(String status, String fromDate, String toDate) {
+        search("", status, "",fromDate, toDate, "");
+        if (lblNoRecordFound.isDisplayed()) {
+            throw new SkipException("There is no Pending transaction for testing");
+        }
+        int columnOrder = tblDeposit.getColumnIndexByName("Internal Ref No");
+        List<String> lstRow = tblDeposit.getColumnByRow(columnOrder, false);
+        return lstRow.get(0);
     }
 
 }

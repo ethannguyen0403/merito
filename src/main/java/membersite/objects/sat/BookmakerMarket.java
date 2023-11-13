@@ -18,6 +18,9 @@ public class BookmakerMarket {
     private int _minBet;
     private int _maxBet;
     private Link _lnkOdds;
+    private String _oddsBack;
+    private String _oddsLay;
+    private String _selectionName;
 
     public BookmakerMarket(Builder builder) {
         this._marketID = builder._marketID;
@@ -31,7 +34,9 @@ public class BookmakerMarket {
         this._status = builder._status;
         this._marketTime = builder._marketTime;
         this._lnkOdds = builder._lnkOdds;
-
+        this._oddsBack = builder._oddsBack;
+        this._oddsLay = builder._oddsLay;
+        this._selectionName = builder._selectionName;
     }
 
     public String getEventName() {
@@ -122,6 +127,30 @@ public class BookmakerMarket {
         _marketType = val;
     }
 
+    public String getOddsBack() {
+        return _oddsBack;
+    }
+
+    public void setOddsBack(String _oddsBack) {
+        this._oddsBack = _oddsBack;
+    }
+
+    public String getOddsLay() {
+        return _oddsLay;
+    }
+
+    public void setOddsLay(String _oddsLay) {
+        this._oddsBack = _oddsLay;
+    }
+
+    public String getSelectionName() {
+        return _selectionName;
+    }
+
+    public void setSelectionName(String val) {
+        _selectionName = val;
+    }
+
     public static class Builder {
         // Optional parameters
         private String _marketID = "";
@@ -134,8 +163,10 @@ public class BookmakerMarket {
         private String _marketType;
         private String _status = "";
         private String _marketTime = "";
-
         private Link _lnkOdds;
+        private String _oddsBack;
+        private String _oddsLay;
+        private String _selectionName = "";
 
         public Builder() {
         }
@@ -192,6 +223,21 @@ public class BookmakerMarket {
 
         public Builder btnNo(Link val) {
             _lnkOdds = val;
+            return this;
+        }
+
+        public Builder oddsBack(String val) {
+            _oddsBack = val;
+            return this;
+        }
+
+        public Builder oddsLay(String val) {
+            _oddsLay = val;
+            return this;
+        }
+
+        public Builder selectionName(String val) {
+            _selectionName = val;
             return this;
         }
 

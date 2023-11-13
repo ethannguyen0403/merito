@@ -10,8 +10,9 @@ import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 public class SignUpPageTest extends BaseCaseTest {
-    @Test(groups = {"cashsite", "2022.10.31"})
+    @Test(groups = {"cashsite_nologin"})
     public void Register_Page_TC1213() {
+        //only run with isLogin = false
         log("@title:Validate that user can sign in successfully");
         log("@Step 1 Navigate to  login page");
         log("@Step 2 Click login button to open login popup or underage gambling popup");
@@ -55,6 +56,7 @@ public class SignUpPageTest extends BaseCaseTest {
         SATSignInPopup satSignInPopup = (SATSignInPopup) landingPage.header.openSigninPopup();
 
         log("Verify The page 'Create Your Account' is shown with the following controls");
+        //Failed in STG by there's no capcha in the environment
         satSignInPopup.verifyUIDisplayCorrect();
         log("INFO: Executed completely");
     }
@@ -114,7 +116,7 @@ public class SignUpPageTest extends BaseCaseTest {
         log("@Step 3 Enter number in Mobile Number textbox and observe button 'Send OTP'");
         landingPage.signin(username, password, email, currency, phoneValid);
         log("Verify Button 'Send OTP' is enabled when player inputs valid number for Mobile Number field");
-        Assert.assertEquals(satSignInPopup.btnSendOTP.getAttribute("disabled"), "false", "FAILED! Send OTP button is not enabled");
+        Assert.assertEquals(satSignInPopup.btnSendOTP.getAttribute("disabled"), null, "FAILED! Send OTP button is not enabled");
         log("Verify 'Please enter a valid Mobile Number!' message does not appear");
         Assert.assertFalse(satSignInPopup.errorPhoneNumber.isDisplayed(), "FAILED! Error message invalid phone number is displayed");
         log("INFO: Executed completely");
@@ -138,7 +140,7 @@ public class SignUpPageTest extends BaseCaseTest {
         landingPage.signin(username, password, email, currency, phoneInvalid);
 
         log("Verify user cannot input phone number more than 10 numbers");
-        Assert.assertEquals(satSignInPopup.txtPhoneNumber.getAttribute("value"), 10, "FAILED! User able to input more than 10 number into Phone Number");
+        Assert.assertEquals(satSignInPopup.txtPhoneNumber.getAttribute("value").length(), 10, "FAILED! User able to input more than 10 number into Phone Number");
         log("INFO: Executed completely");
     }
 

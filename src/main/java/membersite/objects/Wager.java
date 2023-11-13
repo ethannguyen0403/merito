@@ -208,13 +208,13 @@ public class Wager {
     }
 
     public double getProfitWicketBookmakerWager() {
-        if (_bettingType == "BACK")
+        if (_betType == "BACK")
             return _stake * (_odds / 100);
         return _stake;
     }
 
     public double getLiabilityWicketBookmakerWager() {
-        if (_bettingType == "BACK")
+        if (_betType == "BACK")
             return _stake;
         return _stake * (_odds / 100);
 

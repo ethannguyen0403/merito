@@ -40,16 +40,19 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3913")
+    @Parameters({"memberNonCashLoginAccount", "password"})
     @Test(groups = {"cashsite", "2022.10.31"})
-    public void Payment_Page_TC3913() {
+    public void Payment_Page_TC3913(String memberNonCashLoginAccount, String password) throws Exception {
         log("@title: Validate deposit button not display if login account is not cash type member site");
         log("Precondition: Login SAT by the account is not for cash");
         log("Step 1. Observe Deposit in header menu");
-        PaymentPage page = memberHomePage.header.openDepositPage(_brandname);
+        memberHomePage.logout();
 
+        loginMember(memberNonCashLoginAccount, password);
         log("Verify deposit button does not display");
-        Assert.assertFalse(page.lblTitle.isDisplayed(), "FAILED! Deposit button is displayed");
+        Assert.assertFalse(memberHomePage.header.isDepositButtonDisplayed(),"FAILED! Deposit button displays for account non-cash type");
         log("INFO: Executed completely");
+
     }
 
     @TestRails(id = "3914")
@@ -283,10 +286,41 @@ public class PaymentTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "194")
+    @Test(groups = {"cashsite_stg", "2022.10.31"})
+    @Parameters({"agentLoginAccount", "agentWithoutPermissionLoginAccount", "password"})
+    public void Payment_Page_TC194(String agentLoginAccount, String agentWithoutPermissionLoginAccount, String password) throws Exception {
+        //only run in STG since unable to create account without permission for testing in PROD
+        log("@title: Validate accounts without permission cannot access 'Deposit/Withdrawal Transactions' page by url'");
+        log("Precondition: Account is inactivated permission 'Deposit/Withdrawal Transactions'");
+        memberHomePage.logout();
+        HashMap<String, Boolean> permissions = new HashMap<String, Boolean>() {
+            {
+                put("Deposit/Withdrawal Transactions", false);
+                put("Payment Channel Management", true);
+                put("Quick Deposit Configuration", true);
+            }
+        };
+        loginAgentCash(agentLoginAccount, password, true);
+        SubUserListingPage subUserListingPage = agentHomePage.navigateSubUserListingPage();
+        subUserListingPage.subUserListing.editSubUser(agentWithoutPermissionLoginAccount, "", "Active", "", "", permissions);
+        agentHomePage.logout();
+
+        log("Step 1. Login the Cash Backend site agent site");
+        loginAgentCash(agentWithoutPermissionLoginAccount, password, true);
+
+        log("Step 2. Trying to access page by using url");
+        String bypassURL = domainCashURL + "/agent-management-ui/#/home/deposit-transaction";
+        openNewTab(bypassURL);
+        log("Verify. User cannot access 'Deposit/Withdrawal Transactions' page");
+        Assert.assertEquals(agentHomePage.lblAlert.getText(), LBL_WITHOUT_PERMISSION_ACCESS, "FAILED! Alert message does not appear when user access by bypass URL");
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "195")
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
-    public void Payment_Page_TC193(String agentLoginAccount, String password) throws Exception {
+    public void Payment_Page_TC195(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate accounts without permission cannot see the menu item 'Deposit/Withdrawal Transactions'");
         log("Precondition: Account is inactivated permission 'Deposit/Withdrawal Transactions'");
         memberHomePage.logout();
@@ -296,7 +330,7 @@ public class PaymentTest extends BaseCaseTest {
         DepositWithdrawalTransactionPage depositWithdrawalTransactionPage = agentHomePage.navigateDepositWithdrawalTransaction();
 
         log("Verify. User can access 'Deposit/Withdrawal Transactions' page successfully");
-        Assert.assertEquals(depositWithdrawalTransactionPage.getPageTitle(), DEPOSIT_WITHDRAWAL_TRANSACTION, "FAILED! Deposit/ Withdrawal Transaction page does not display");
+        Assert.assertEquals(depositWithdrawalTransactionPage.getPageTitle(), LBL_PAGE_TITLE, "FAILED! Deposit/ Withdrawal Transaction page does not display");
         log("INFO: Executed completely");
     }
 
@@ -338,13 +372,12 @@ public class PaymentTest extends BaseCaseTest {
         log("@title: Validate transaction history is correctly in member site when user submit a success deposit transaction");
         log("Precondition: Login member site SAT by cash account");
         log("Step 1. Login member site SAT by cash account and get the balance before deposit");
-        AccountBalance accountBalanceBefore = memberHomePage.header.getUserCashBalance();
-
         log("Step 2. Access deposit page and deposit by any payment channel");
         PaymentPage paymentPage = memberHomePage.header.openDepositPage(_brandname);
         paymentPage.switchTab(DEPOSIT_TAB);
         paymentPage.deposit(LBL_BANK_TRANSFER, amount, transactionId, true, true);
         String refNo = paymentPage.getRefNo();
+        AccountBalance accountBalanceBefore = memberHomePage.header.getUserCashBalance();
         memberHomePage.logout();
 
         log("Step 3. Login agent site > Deposit/withdrawal transaction and reject the transaction");
@@ -363,7 +396,7 @@ public class PaymentTest extends BaseCaseTest {
         paymentPage.filterTransactionHistory(filterDate, filterDate);
 
         log("Verify. User balance does not update\n" +
-                "Verify the deposit transaction in reject  status with correct info: Reference No., Type, Status ,Start Balance, Amount ,End Balance Transaction Date\n" +
+                "Verify the deposit transaction in reject  status with correct info: Reference No., Type, Status , Start Balance, Amount ,End Balance Transaction Date\n" +
                 "Start Balance = End Balance");
         paymentPage.verifyTransactionHistoryInfo(refNo, "DEPOSIT", "Rejected", accountBalanceBefore.getBalance(), "9.00", accountBalanceBefore.getBalance(), depositDateTime);
         log("INFO: Executed completely");
@@ -842,7 +875,7 @@ public class PaymentTest extends BaseCaseTest {
     @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "username", "password"})
     public void Payment_Page_TC3945(String agentLoginAccount, String username, String password) throws Exception {
-        log("@title: Validate the list Payment Channel in member site is corrected as the active list payment channel in agent site");
+        log("@title: Validate an inactive payment channel not display in member site");
         log("Precondition: Get the list deposit method that in active status in agent site");
         memberHomePage.logout();
         loginAgentCash(agentLoginAccount, password, true);
@@ -852,9 +885,9 @@ public class PaymentTest extends BaseCaseTest {
         log("Step 1. Login member site SAT by cash account");
         loginMember(username, password);
 
-        log("Step 2. Active deposit site and check the list deposit method is correct as agent");
+        log("Step 2. Login member site and click deposit button");
         PaymentPage depositPage = memberHomePage.header.openDepositPage(_brandname);
-        log("Verify the list deposit method is correct");
+        log("Verify this list payment inactive not display in member site");
         depositPage.verifyListPaymentChannelDisplayCorrect(mapPaymentStatus, false);
         log("INFO: Executed completely");
     }
@@ -943,7 +976,7 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3948")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
     public void Payment_Page_TC3948(String agentLoginAccount, String password) throws Exception {
         log("@title: Validate Clear button works");
@@ -962,28 +995,85 @@ public class PaymentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3949")
-    @Test(groups = {"cashsite1", "2022.10.31"})
+    @Test(groups = {"cashsite_stg", "2022.10.31"})
     @Parameters({"agentLoginAccount", "password"})
     public void Payment_Page_TC3949(String agentLoginAccount, String password) throws Exception {
-        log("@title: Validate Clear button works");
+        log("@title: Validate can update Quick-selected Deposit Amounts in Quick-selected Deposit Amounts Agent Site");
         log("Precondition: Login Agent Site Cash account");
         memberHomePage.logout();
         loginAgentCash(agentLoginAccount, password, true);
         log("Step 1. Click Quick Deposit Configuration  menu");
         QuickDepositConfigurationPage quickDepositConfigurationPage = agentHomePage.navigateQuickDepositConfiguration();
-        log("Step 2. Click clear button");
         List<String> lstBeforeUpdate = quickDepositConfigurationPage.getListQuickDepositAmount();
         List<String> lstUpdateValue = Arrays.asList("1", "2", "3", "4", "5", "6");
         try {
+            log("Step 2. Update the value in 6 quick buttons and click submit");
             quickDepositConfigurationPage.updateQuickDepositAmount(lstUpdateValue);
 
-            log("Verify all values in 6 buttons is reset to 0");
+            log("Verify a success popup display with message Update Quick Deposit Success");
+            Assert.assertEquals(quickDepositConfigurationPage.lblAlert.getText(), "Update Quick Deposit Success");
+            quickDepositConfigurationPage.closeAlertPopup();
             quickDepositConfigurationPage.verifyQuickDepositAmount(lstUpdateValue);
 
         } finally {
             log("Post-condition: Revert all updated Quick Deposit amount value");
             quickDepositConfigurationPage.updateQuickDepositAmount(lstBeforeUpdate);
         }
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3950")
+    @Test(groups = {"cashsite", "2022.10.31"})
+    @Parameters({"agentLoginAccount", "password"})
+    public void Payment_Page_TC3950(String agentLoginAccount, String password) throws Exception {
+        log("@title: Validate pending transaction display correct in Deposit Withdraw Transaction in summary and detail");
+        memberHomePage.logout();
+        loginAgentCash(agentLoginAccount, password, true);
+
+        log("Step 1. Search the transaction in precondition verify data in the summary row");
+        DepositWithdrawalTransactionPage depositWithdrawalTransactionPage = agentHomePage.navigateDepositWithdrawalTransaction();
+        String fromDate = DateUtils.getDate(-29, "yyyy-MM-dd", GMT_5_30);
+        String toDate = DateUtils.getDate(0, "yyyy-MM-dd", GMT_5_30);
+        String refNo = depositWithdrawalTransactionPage.getFirstRefNoByStatus(LST_TRANSACTION_STATUS.get(1), fromDate, toDate);
+        depositWithdrawalTransactionPage.search("", LST_TRANSACTION_STATUS.get(1), "", fromDate, toDate, refNo);
+
+        log("Verify the pending transaction displays correctly info in summary and status Pending and Action Review");
+        depositWithdrawalTransactionPage.verifySearchResult("","",LST_TRANSACTION_STATUS.get(1), "","","", refNo);
+
+        log("Step 2. Click on Review link in Action column and check the transaction details");
+        TransactionDetailPopup popup = depositWithdrawalTransactionPage.openTransactionDetail(TRANSACTION_DETAIL_ACTION_LST.get(0));
+
+        log("Verify the pending transaction displays correctly transaction details + Approve, Reject radio button display");
+        popup.verifyInfoDetailDisplayCorrect("", refNo,"", LST_TRANSACTION_STATUS.get(1), "", "");
+        Assert.assertTrue(popup.rdReject.isDisplayed(), "FAILED! Reject radio button does not display");
+        Assert.assertTrue(popup.rdApprove.isDisplayed(), "FAILED! Approve radio button does not display");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3947")
+    @Test(groups = {"cashsite", "2022.10.31"})
+    @Parameters({"agentLoginAccount", "password", "username"})
+    public void Payment_Page_TC3947(String agentLoginAccount, String password, String username) throws Exception {
+        log("@title: Validate quick-selected deposit amounts in member site display as agent setting Quick Deposit Configuration");
+        log("Precondition: Login Agent Site Cash account");
+        memberHomePage.logout();
+        loginAgentCash(agentLoginAccount, password, true);
+        log("Step 1. Click Quick Deposit Configuration  menu");
+        QuickDepositConfigurationPage quickDepositConfigurationPage = agentHomePage.navigateQuickDepositConfiguration();
+        log("Step 2. Get the list quick-selected deposit amounts");
+        List<String> lstAmountAgentSite = quickDepositConfigurationPage.getListQuickDepositAmount();
+        log("Step 3. Login member site > Deposit page and click on All payment method");
+        agentHomePage.logout();
+
+        log("Step 1. Login member site SAT by cash account");
+        loginMember(username, password);
+
+        log("Step 2. Active deposit site and check the list deposit method is correct as agent");
+        PaymentPage depositPage = memberHomePage.header.openDepositPage(_brandname);
+        log("Verify the list deposit method is correct");
+        depositPage.selectPaymentType(LBL_BANK_TRANSFER);
+        List<String> lstAmountMemberSite = depositPage.getListQuickDepositAmount();
+        Assert.assertEquals(lstAmountMemberSite, lstAmountAgentSite, String.format("FAILED! List Quick Deposit amount shows incorrectly expected %s but found %s", lstAmountAgentSite, lstAmountMemberSite));
         log("INFO: Executed completely");
     }
 }

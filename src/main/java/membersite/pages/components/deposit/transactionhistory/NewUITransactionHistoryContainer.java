@@ -34,7 +34,11 @@ public class NewUITransactionHistoryContainer extends TransactionHistoryContaine
             dtpEndDateDate.selectDate(endDate, "yyyy-MM-dd");
         }
         btnSearch.click();
-        waitPageLoad();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void clickPeriodTime(String periodTime) {
@@ -70,7 +74,7 @@ public class NewUITransactionHistoryContainer extends TransactionHistoryContaine
         lstData.remove(6);
         lstData.add(dateTime);
         List<String> lstExpected = Arrays.asList(refNo, type, status, startBalance, amount, endBalance, transactionDate);
-        Assert.assertEquals(lstData, lstExpected, "FAILED! ");
+        Assert.assertEquals(lstData, lstExpected, String.format("FAILED! List History does not match %s expected but found %s", lstData, lstExpected));
     }
 
     public void verifyFilterDateTimeShowCorrect(String startDate, String endDate) throws ParseException {

@@ -73,4 +73,6 @@ public class PaymentPage extends HomePage {
     public String getValueOfEndDate() {
         return transactionHistoryContainer.getValueOfEndDate();
     }
+
+    public List<String> getListQuickDepositAmount() {return depositContainer.getListQuickDepositAmount();}
 }

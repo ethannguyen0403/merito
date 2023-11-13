@@ -11,4 +11,6 @@ public class QuickDepositConfiguration {
     public void updateQuickDepositAmount(List<String> lstUpdateValue) {}
 
     public void verifyQuickDepositAmount(List<String> lstUpdateValue) {}
+
+    public void closeAlertPopup() {}
 }

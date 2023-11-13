@@ -114,7 +114,7 @@ public class DropDownMenu extends BaseElement {
         if (subMenu.isDisplayed())
             return subMenu;
         else {
-            System.out.println(String.format("The menu %s does not exist"));
+            System.out.println(String.format("The menu %s does not exist", name));
             return null;
         }
     }

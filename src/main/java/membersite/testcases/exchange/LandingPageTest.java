@@ -33,6 +33,7 @@ public class LandingPageTest extends BaseCaseTest {
 
     }
 
+
     @TestRails(id = "1214")
     @Test(groups = {"smoke"})
     @Parameters({"password"})
@@ -80,7 +81,7 @@ public class LandingPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "1216")
+    @TestRails(id = "1217")
     @Test(groups = {"satsport", "funsport", "fairenter"})// other whitelabel except Fair999
     public void Landing_Page_TC1217() throws Exception {
         log("@title: Validate Google page display when click on Exit");
@@ -93,6 +94,7 @@ public class LandingPageTest extends BaseCaseTest {
         Assert.assertEquals(landingPage.getPageUrl(), "https://www.google.com/", "Failed! Google page is dispplay after clicking on Exit");
         log("INFO: Executed completely");
     }
+
 /*
     @Test (groups = {"smoke"})
     public void Login_TC_004() throws Exception {

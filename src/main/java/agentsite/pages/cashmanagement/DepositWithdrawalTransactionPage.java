@@ -41,11 +41,16 @@ public class DepositWithdrawalTransactionPage extends HomePage {
     }
 
     public void verifyDateRangeErrorMessage(String message) {
+        lblDateRangeError.waitForElementToBePresent(lblDateRangeError.getLocator(), 1);
         Assert.assertEquals(lblDateRangeError.getText().trim(), message, String.format("FAILED! Date range filter error message displays incorrect expected %s but actual %s", message, lblDateRangeError.getText().trim()));
     }
 
     public TransactionDetailPopup openTransactionDetail(String action) {
-        depositWithdrawalTransaction.openTransactionDetail(action);
-        return new TransactionDetailPopup();
+        return depositWithdrawalTransaction.openTransactionDetail(action);
     }
+
+    public String getFirstRefNoByStatus(String status, String fromDate, String toDate) {
+        return depositWithdrawalTransaction.getFirstRefNoByStatus(status, fromDate, toDate);
+    }
+
 }

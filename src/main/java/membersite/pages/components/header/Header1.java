@@ -135,6 +135,8 @@ public class Header1 {
         return "";
     }
 
+    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Double liabilityBack, Double liabilityLay) {return "";}
+
     public String getMarqueeMessage() {
         return "";
     }
@@ -150,5 +152,7 @@ public class Header1 {
     public PaymentPage openDepositPage(String brand) {
         return new PaymentPage(brand);
     }
+
+    public boolean isDepositButtonDisplayed() {return false;}
 
 }

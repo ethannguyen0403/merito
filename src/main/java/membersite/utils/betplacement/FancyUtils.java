@@ -39,6 +39,11 @@ public class FancyUtils {
         return null;
     }
 
+    private static JSONArray getArtemisMarketJSON(String eventId) {
+        String api = String.format("%s/member-market/api/event/artemis-fancy-markets.json?eventIds=%s", domainURL, eventId);
+        return WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+    }
+
     private static JSONArray getFancyJSON(String eventId) {
         String api = String.format("%s/f27f-gateway/event/%s/market-by-event", domainURL, eventId);
         // Workarround to special cookies to get 27 fancy
@@ -507,6 +512,49 @@ public class FancyUtils {
         System.out.println("Not get boomaker market in Event " + eventID + "-DEBUG: getGETJSONResponse is null");
         return null;
     }
+
+    public static List<BookmakerMarket> getListArtemisBookmakerInEvent(String eventId) {
+        JSONArray backOdds = null;
+        JSONArray layOdds = null;
+        String selection = "";
+        List<BookmakerMarket> lstMarket = new ArrayList<>();
+        JSONArray marketJSONArray = getArtemisMarketJSON(eventId);
+        if (Objects.nonNull(marketJSONArray)) {
+            if (marketJSONArray.length() == 0) {
+                System.out.println("DEBUG: No data get bookmaker market api of event id" + eventId);
+                return null;
+            }
+            if (Objects.nonNull(marketJSONArray)) {
+                for (int i = 0; i < marketJSONArray.length(); i++) {
+                    JSONObject marketObj = marketJSONArray.getJSONObject(i);
+                    if(marketObj.getString("marketType").equalsIgnoreCase("ARTEMIS_BOOKMAKER")) {
+                        JSONArray runnerArr = marketObj.getJSONArray("runners");
+                        if (Objects.nonNull(runnerArr)) {
+                            //get Odds - Selection from first Runner
+                            JSONObject firstRunnerObj = runnerArr.getJSONObject(0);
+                            selection = firstRunnerObj.getString("name");
+                            backOdds = firstRunnerObj.getJSONArray("back");
+                            layOdds = firstRunnerObj.getJSONArray("lay");
+                        }
+                        lstMarket.add(new BookmakerMarket.Builder()
+                                .eventName(marketObj.getString("eventName"))
+                                .marketID(Integer.toString(marketObj.getInt("marketId")))
+                                .marketName(marketObj.getString("marketName"))
+                                .eventID(eventId)
+                                .status(marketObj.getString("status"))
+                                .marketType(marketObj.getString("marketType"))
+                                .oddsBack(String.valueOf(backOdds.get(0)))
+                                .oddsLay(String.valueOf(layOdds.get(0)))
+                                .selectionName(selection)
+                                .build());
+                    }
+                }
+                return lstMarket;
+            }
+        }
+        System.out.println("Not get bookmaker market in Event " + eventId + "-DEBUG: getGETJSONResponse is null");
+        return null;
+    }
   /*  public static BookmakerMarket findOpenBookmakerMarket(String sportID, String providerFancyCode){
         // Get all available event of a sport
         JSONObject sportObj = getEvent(sportID);
@@ -549,6 +597,8 @@ public class FancyUtils {
         switch (provider) {
             case "WICKET_BOOKMAKER":
                 return getListWicketBookmakerInEvent(eventId);
+            case "ARTEMIS_BOOKMAKER":
+                return getListArtemisBookmakerInEvent(eventId);
             default:
                 return getListCentralBookmakerInEvent(eventId);
         }

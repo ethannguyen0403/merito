@@ -34,9 +34,9 @@ public class SATSignInPopup extends SignInPopup {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        DriverManager.getDriver().switchTo().frame(0);
+//        DriverManager.getDriver().switchTo().frame(0);
 //        cbCapcha.click();
-        DriverManager.getDriver().switchTo().defaultContent();
+//        DriverManager.getDriver().switchTo().defaultContent();
 
         try {
             Thread.sleep(200);
