@@ -37,7 +37,7 @@ public class FancyTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active 27 Fancy tab");
-        marketPage.activeProduct(FANCY_TITLE);
+        memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
@@ -63,9 +63,7 @@ public class FancyTest extends BaseCaseTest {
     public void FancyTest_550() {
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
-        String sportName = "Cricket";
-        String sportID = "4";
-        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
         log("Step 2 Get and click on the event that has 27 Fancy");
         if (Objects.isNull(fcMarket)) {
@@ -76,7 +74,7 @@ public class FancyTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active 27 Fancy tab");
-        marketPage.activeProduct(FANCY_TITLE);
+        memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
@@ -101,13 +99,11 @@ public class FancyTest extends BaseCaseTest {
     public void FancyTest_551() {
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
-        String sportName = "Cricket";
-        String sportID = "4";
-        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
         AccountBalance balance = sportPage.header.getUserBalance();
 
         log("Step 2 Get and click on the event that has 27 Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(sportID, FANCY_CODE);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true, "By passed as has no 27 Fancy on all available event");
@@ -120,7 +116,7 @@ public class FancyTest extends BaseCaseTest {
         marketPage = marketPage.clickMarketonLeftMenu(fcMarket.getMarketName());
 
         log("Step 4 Active 27 Fancy tab");
-        marketPage.activeProduct(FANCY_TITLE);
+        memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         List<Wager> lstMatchedBets = BetUtils.getMatchedOpenBet(SPORT_ID.get(LBL_CRICKET_SPORT), fancyMarket.getEventID(), fancyMarket.getMarketID(), "FANCY");
         Double liabilityBeforePlaceBet = marketPage.liabilityFCMarket(lstMatchedBets);
@@ -148,7 +144,7 @@ public class FancyTest extends BaseCaseTest {
         Assert.assertEquals(lstFCBet.get(3).get(2), String.format("%.2f", (double) fancyMarket.getMinSetting()), "FAILED! Stake is incorrect");
         Assert.assertEquals(lstFCBet.get(3).get(3), String.format("%.2f", expectedWager2.getLiabilityFancyWager()), "FAILED! Liability is incorrect");
 
-        List<Wager> lstMatchedBetsAfterPlaceBet = BetUtils.getMatchedOpenBet("4", fancyMarket.getEventID(), fancyMarket.getMarketID(), "FANCY");
+        List<Wager> lstMatchedBetsAfterPlaceBet = BetUtils.getMatchedOpenBet(SPORT_ID.get(LBL_CRICKET_SPORT), fancyMarket.getEventID(), fancyMarket.getMarketID(), "FANCY");
         //      Double liabilityBeforePlaceBetAfterPlaceBet = marketPage.liabilityFCMarket(lstMatchedBets);
         fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityAfterPlaceBet = marketPage.liabilityFCMarket(lstMatchedBetsAfterPlaceBet);
@@ -166,8 +162,7 @@ public class FancyTest extends BaseCaseTest {
     public void FancyTest_552() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
-        String sportName = "Cricket";
-        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has 27 Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
@@ -180,7 +175,7 @@ public class FancyTest extends BaseCaseTest {
 
         log("Step 3. Get 27 Fancy available");
         log("Step 4 Active 27 Fancy tab");
-        marketPage.activeProduct(FANCY_TITLE);
+        memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minMax = marketPage.getMinMaxLable(fcMarket);
         String minStake = marketPage.getMinMaxOFFancyMarket(minMax, true);
@@ -203,8 +198,7 @@ public class FancyTest extends BaseCaseTest {
     public void FancyTest_553() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
-        String sportName = "Cricket";
-        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has 27 Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
@@ -216,7 +210,7 @@ public class FancyTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         log("Step 3. Get 27 Fancy available");
         log("Step 4 Active 27 Fancy tab");
-        marketPage.activeProduct(FANCY_TITLE);
+        memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minMax = marketPage.getMinMaxLable(fcMarket);
         String minStake = marketPage.getMinMaxOFFancyMarket(minMax, true);
@@ -252,7 +246,7 @@ public class FancyTest extends BaseCaseTest {
         MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Fancy tab");
-        marketPage.activeProduct(FANCY_TITLE);
+        memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minMax = marketPage.getMinMaxLable(fcMarket);
         String minStake = marketPage.getMinMaxOFFancyMarket(minMax, true);
