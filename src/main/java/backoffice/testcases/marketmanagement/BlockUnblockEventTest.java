@@ -2,10 +2,13 @@ package backoffice.testcases.marketmanagement;
 
 import backoffice.common.BOConstants;
 import backoffice.pages.bo.marketmanagement.BlockUnblockEventPage;
+import backoffice.pages.bo.marketmanagement.CompetitionBlockingPage;
 import backoffice.utils.marketmanagement.BlockUnblockEventUtils;
 import baseTest.BaseCaseTest;
+import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
@@ -13,6 +16,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import static backoffice.common.BOConstants.NO_RECORDS_FOUND;
 
 public class BlockUnblockEventTest extends BaseCaseTest {
     @TestRails(id = "1661")
@@ -364,5 +369,128 @@ public class BlockUnblockEventTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "15728")
+    @Test(groups = {"regression","2023.11.3"})
+    @Parameters("fair999PortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_15728(String fair999PortalCode) {
+        log("@title: Validate a competition is blocked at BO - Competition Blocking does not display when filtering when filtering in Old Events tab");
+        log("Precondition step  1. Login BO > Competition Blocking");
+        CompetitionBlockingPage competitionBlockingPage = backofficeHomePage.navigateCompetitionBlocking();
+        log("Precondition step  2. Get the blocked event of soccer");
+        String sport = "Soccer";
+        competitionBlockingPage.filter(sport,"","Blocked","","");
+        String eventID = competitionBlockingPage.getFirstEventIDofTheFirstCompetition();
+        competitionBlockingPage.closeActiveTab();
+        if(eventID.equalsIgnoreCase(NO_RECORDS_FOUND)) {
+            log("By passed test case as has no Soccer competition is blocked");
+            return;
+        }
 
+        DriverManager.getDriver().switchToDefaultContent();
+        log("Step 1. Active Block/Unblock Event page");
+        BlockUnblockEventPage page = competitionBlockingPage.navigateBlockUnblockEvents();
+
+        log("Step 2. Select any portal , sport: soccer and Old Event Tab");
+        page.filter(fair999PortalCode, sport, "Old Events");
+
+        log("Step 3. Search the event blocked in precondition");
+        page.filterEvent(eventID);
+
+        log("Step 3. Verify the event does not display");
+        Assert.assertFalse(page.isNoRecordFoundDisplays(), "FAILED!The event display");
+
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "15729")
+    @Test(groups = {"regression","2023.11.30"})
+    @Parameters("fair999PortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_15729(String fair999PortalCode) {
+        log("@title: Validate a competition is blocked at BO - Competition Blocking does not display when filtering when filtering in Today tab");
+        log("Precondition step  1. Login BO > Competition Blocking");
+        CompetitionBlockingPage competitionBlockingPage = backofficeHomePage.navigateCompetitionBlocking();
+        log("Precondition step  2. Get the blocked event of soccer");
+        String sport = "Soccer";
+        competitionBlockingPage.filter(sport,"","Blocked","","");
+        String eventID = competitionBlockingPage.getFirstEventIDofTheFirstCompetition();
+        if(eventID.equalsIgnoreCase(NO_RECORDS_FOUND)) {
+            log("By passed test case as has no Soccer competition is blocked");
+            return;
+        }
+
+        log("Step 1. Active Block/Unblock Event page");
+        BlockUnblockEventPage page = competitionBlockingPage.navigateBlockUnblockEvents();
+
+        log("Step 2. Select any portal , sport: soccer and Today Tab");
+        page.filter(fair999PortalCode, sport, "Today");
+
+        log("Step 3. Search the event blocked in precondition");
+        page.filterEvent(eventID);
+
+        log("Step 3. Verify the event does not display");
+        Assert.assertFalse(page.isNoRecordFoundDisplays(), "FAILED!The event display");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15730")
+    @Test(groups = {"regression","2023.11.30"})
+    @Parameters("fair999PortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_15730(String fair999PortalCode) {
+        log("@title: Validate a competition is blocked at BO - Competition Blocking does not display when filtering when filtering in Tomorrow tab");
+        log("Precondition step  1. Login BO > Competition Blocking");
+        CompetitionBlockingPage competitionBlockingPage = backofficeHomePage.navigateCompetitionBlocking();
+        log("Precondition step  2. Get the blocked event of soccer");
+        String sport = "Soccer";
+        competitionBlockingPage.filter(sport,"","Blocked","","");
+        String eventID = competitionBlockingPage.getFirstEventIDofTheFirstCompetition();
+        if(eventID.equalsIgnoreCase(NO_RECORDS_FOUND)) {
+            log("By passed test case as has no Soccer competition is blocked");
+            return;
+        }
+
+        log("Step 1. Active Block/Unblock Event page");
+        BlockUnblockEventPage page = competitionBlockingPage.navigateBlockUnblockEvents();
+
+        log("Step 2. Select any portal , sport: soccer and Tomorrow Tab");
+        page.filter(fair999PortalCode, sport, "Tomorrow");
+
+        log("Step 3. Search the event blocked in precondition");
+        page.filterEvent(eventID);
+
+        log("Step 3. Verify the event does not display");
+        Assert.assertFalse(page.isNoRecordFoundDisplays(), "FAILED!The event display");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15731")
+    @Test(groups = {"regression","2023.11.30"})
+    @Parameters("fair999PortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_15731(String fair999PortalCode) {
+        log("@title: Validate a competition is blocked at BO - Competition Blocking does not display when filtering when filtering in Future tab");
+        log("Precondition step  1. Login BO > Competition Blocking");
+        CompetitionBlockingPage competitionBlockingPage = backofficeHomePage.navigateCompetitionBlocking();
+        log("Precondition step  2. Get the blocked event of soccer");
+        String sport = "Soccer";
+        competitionBlockingPage.filter(sport,"","Blocked","","");
+        String eventID = competitionBlockingPage.getFirstEventIDofTheFirstCompetition();
+        if(eventID.equalsIgnoreCase(NO_RECORDS_FOUND)) {
+            log("By passed test case as has no Soccer competition is blocked");
+            return;
+        }
+
+        log("Step 1. Active Block/Unblock Event page");
+        BlockUnblockEventPage page = competitionBlockingPage.navigateBlockUnblockEvents();
+
+        log("Step 2. Select any portal , sport: soccer and Future Tab");
+        page.filter(fair999PortalCode, sport, "Future");
+
+        log("Step 3. Search the event blocked in precondition");
+        page.filterEvent(eventID);
+
+        log("Step 3. Verify the event does not display");
+        Assert.assertFalse(page.isNoRecordFoundDisplays(), "FAILED!The event display");
+
+        log("INFO: Executed completely");
+    }
 }

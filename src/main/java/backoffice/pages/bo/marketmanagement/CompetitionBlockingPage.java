@@ -7,9 +7,12 @@ import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import com.paltech.element.common.TextBox;
+import org.openqa.selenium.Keys;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static backoffice.common.BOConstants.NO_RECORDS_FOUND;
 
 public class CompetitionBlockingPage extends HomePage {
     public Button btnBlock = Button.xpath("//div[@class='margin-top']/button[1]");
@@ -29,8 +32,31 @@ public class CompetitionBlockingPage extends HomePage {
     // "/div[contains(@class,'custom-scrollbar')]/")
     public StaticTable tblCompetition = StaticTable.xpath("//div[@class='competition-container']", "div[contains(@class,'custom-scrollbar')]", "div[contains(@class,'tr-event')]/div[contains(@class,'row')]", "div[contains(@class,'col')]", 5);
     public Label lblNoCompetition = Label.xpath("//div[@class='competition-container']//div[contains(@class,'no-record')]");
+    int colEventId = 1;
+    int colEventName = 2;
     public StaticTable tblEvent = StaticTable.xpath("//div[@class='event-container']", "div[contains(@class,'custom-scrollbar')]", "div[contains(@class,'row')]", "div[contains(@class,'col')]", 3);
 
+    public void filter(String sportName, String competition,String status, String eventID, String eventName) {
+        if(!sportName.isEmpty()) {
+            searchSport(sportName);
+            selectSport(sportName);
+        }
+        if(!competition.isEmpty())
+        {
+            txtSearchCompetition.sendKeys(competition);
+            selectCompetition(competition);
+        }
+        if(!status.isEmpty()) {
+            txtSearchStatus.sendKeys(status);
+            txtSearchStatus.sendKeys(Keys.ENTER);
+        }
+        if(!eventID.isEmpty()) {
+            txtSearchEventID.sendKeys(status);
+        }
+        if(!eventName.isEmpty()) {
+            txtSearchEventName.sendKeys(status);
+        }
+    }
     public void selectSport(String sportName) {
         List<String> lstSport = tblSport.getColumn(colSport, true);
         Link lnk;
@@ -65,7 +91,7 @@ public class CompetitionBlockingPage extends HomePage {
         lnk = (Link) tblSport.getControlOfCell(1, colSport, index, null);
         lnk.scrollToThisControl(false);
         lnk.click();
-        // waitSpinIcon();
+        waitSpinIcon();
         return;
     }
 
@@ -123,5 +149,27 @@ public class CompetitionBlockingPage extends HomePage {
             }
         }
         return true;
+    }
+
+    /**
+     * This method is to click return on the fist competition name. In case data show "No records found." we return this message
+     * @return competiton name or 'No records found.'"
+     */
+    public String clickAndGetFirstCompetition(){
+        if(tblCompetition.isNoRecordFound())
+            return NO_RECORDS_FOUND;
+        tblCompetition.getControlOfCell(1,colCompetition,1, null).click();
+        return tblCompetition.getControlOfCell(1,colCompetition,1, null).getText();
+    }
+    /**
+     * This method is to click return on the fist competition name. In case data show "No records found." we return this message
+     * @return competiton name or 'No records found.'"
+     */
+    public String getFirstEventIDofTheFirstCompetition(){
+        clickAndGetFirstCompetition();
+        waitSpinIcon();
+        if(tblEvent.isNoRecordFound())
+            return NO_RECORDS_FOUND;
+        return tblEvent.getControlOfCell(1,colEventId,1, null).getText();
     }
 }
