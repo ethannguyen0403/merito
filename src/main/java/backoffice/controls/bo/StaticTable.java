@@ -2,6 +2,7 @@ package backoffice.controls.bo;
 
 import backoffice.controls.Cell;
 import com.paltech.element.BaseElement;
+import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -394,6 +395,12 @@ public class StaticTable extends BaseElement {
             }
             i += 1;
         }
+    }
+
+    public boolean isNoRecordFound(){
+        if (Label.xpath(String.format("%s//div[contains(@class,'no-record')]",_xpathTable)).isDisplayed())
+            return true;
+        return false;
     }
 
 //	public Cell getCellByName(String name, boolean isMoved){
