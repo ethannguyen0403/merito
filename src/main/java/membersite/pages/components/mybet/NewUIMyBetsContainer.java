@@ -4,6 +4,8 @@ import com.paltech.element.common.*;
 import common.MemberConstants;
 import controls.DateTimePicker;
 import controls.Table;
+import membersite.objects.Wager;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +58,25 @@ public class NewUIMyBetsContainer extends MyBetsContainer {
         return false;
     }
 */
-
+    public void verifyWagerInfo(Wager wager) {
+        int colMarketName;
+        int colSelection;
+        int colOdds;
+        int colStake;
+        if(!lblNoRecord.isDisplayed()){
+            List<ArrayList<String>> lstRecords = tblReport.getRowsWithoutHeader(1,false);
+            colMarketName = tblReport.getColumnIndexByName("Market Name");
+            colSelection = tblReport.getColumnIndexByName("Selection");
+            colOdds = tblReport.getColumnIndexByName("Odds");
+            colStake = tblReport.getColumnIndexByName("Stake");
+            Assert.assertTrue(lstRecords.get(0).get(colMarketName-1).contains(wager.getMarketName()), "FAILED! Market Name does not show correct");
+            Assert.assertTrue(lstRecords.get(0).get(colSelection-1).equals(wager.getRunnerName()), "FAILED! Selection does not show correct");
+            Assert.assertTrue(lstRecords.get(0).get(colOdds-1).equals(wager.getOdds()), "FAILED! Odds does not show correct");
+            Assert.assertTrue(lstRecords.get(0).get(colStake-1).equals(wager.getStake()), "FAILED! Stake does not show correct");
+        } else {
+            Assert.assertTrue(false, "No record found");
+        }
+    }
     public void filter(String productName, String orderType) {
         filter(productName, orderType, "", "");
     }

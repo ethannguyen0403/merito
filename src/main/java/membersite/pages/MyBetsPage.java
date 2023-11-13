@@ -1,5 +1,6 @@
 package membersite.pages;
 
+import membersite.objects.Wager;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.mybet.MyBetsContainer;
 
@@ -64,6 +65,10 @@ public class MyBetsPage extends HomePage {
 
     public boolean verifyWagerDisplayInReport(String wagerID) {
         return myBetsContainer.verifyWagerDisplayInReport(wagerID);
+    }
+
+    public void verifyWagerInfo(Wager wager) {
+        myBetsContainer.verifyWagerInfo(wager);
     }
 
     public void filter(String productName, String orderType) {
