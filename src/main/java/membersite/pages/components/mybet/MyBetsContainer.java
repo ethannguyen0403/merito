@@ -1,5 +1,7 @@
 package membersite.pages.components.mybet;
 
+import membersite.objects.Wager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,8 @@ public class MyBetsContainer {
         return false;
     }
 
+    public void verifyWagerInfo(Wager wager) {
+    }
     public void filter(String productName, String orderType) {
         filter(productName, orderType, "", "");
     }
