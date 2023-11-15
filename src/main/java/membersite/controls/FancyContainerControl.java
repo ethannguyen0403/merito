@@ -111,7 +111,7 @@ public class FancyContainerControl extends BaseElement {
 
     }
 
-    private String defineFancyTableXpath(String marketType) {
+    public String defineFancyTableXpath(String marketType) {
         switch (marketType) {
             case "WICKET_FANCY":
                 return tblXpath;
