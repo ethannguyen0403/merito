@@ -256,9 +256,12 @@ public class MarketPage extends HomePage {
         return myBetsContainer.getFancyBetSlipInfo(isBack);
     }
 
-    public List<ArrayList> geBookmakerBetSlipMiniMyBet(boolean isBack) {
+    public List<ArrayList> getBookmakerBetSlipMiniMyBet(boolean isBack) {
         return myBetsContainer.getBookmakerBetSlipInfo(isBack);
     }
 
+    public void openFancyLadderForecast(FancyMarket fcMarket) { marketOddControl.openFancyLadderForecast(fcMarket);}
+
+    public boolean isLadderForecastDisplay(FancyMarket fcMarket) {return marketOddControl.isLadderForecastDisplay(fcMarket);}
 
 }
