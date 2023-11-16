@@ -4,6 +4,7 @@ import baseTest.BaseCaseTest;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
+import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.FancyMarket;
 import membersite.pages.MarketPage;
 import membersite.pages.MyBetsPage;
@@ -357,4 +358,43 @@ public class FancyTest extends BaseCaseTest {
         Assert.assertTrue(marketPage.isLadderForecastDisplay(fancyMarket), "FAILED! Ladder forecast does not show correct");
         log("INFO: Executed completely");
     }
+
+    @TestRails(id = "15757")
+    @Test(groups = {"smoke"})
+    public void FancyTest_15757() {
+        log("@title: Validate bet slip is cleared when navigate to another market");
+        log("@Precondition: Get the event that have Fancy market");
+        log("Step 1. Login member site and click on Cricket");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+
+        log("Step 2. Active the event that have Fancy market");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has 27 Fancy");
+            Assert.assertTrue(true, "By passed as has no 27 Fancy on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+
+        log("Step 3. From the left menu open Competition > Event > Fancy > select any market from the one at precondition");
+        memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
+        FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
+
+        marketPage.addFancyOdds(fancyMarket, true);
+        List<ArrayList> lstBefore = marketPage.getFancyBetSlipMiniMyBet(true);
+        Assert.assertFalse(Objects.isNull(lstBefore), "FAILED! There is no record found in mini my bet bet slip");
+
+        log("Step 3. Navigate to any another event and observe bet slip");
+        memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+        BookmakerMarket bmMarket = BetUtils.findOpenBookmakerMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_BOOKMAKER_CODE, "ONLINE");
+        marketPage = sportPage.clickEventName(bmMarket.getEventName());
+        memberHomePage.leftMenu.openBookmakerMarket(WICKET_BOOKMAKER);
+        List<ArrayList> lstAfter = marketPage.getBookmakerBetSlipMiniMyBet(true);
+
+        log("Validate Bet slip is cleared");
+        Assert.assertTrue(Objects.isNull(lstAfter), "FAILED! Bet slip is not cleared correctly");
+
+        log("INFO: Executed completely");
+    }
+
 }

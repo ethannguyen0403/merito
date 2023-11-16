@@ -87,56 +87,60 @@ public class MiniMyBetControl extends BaseElement {
         Label lblCellValue = null;
         TextBox txtCellValue;
         ArrayList rowLst = new ArrayList();
-        if (isFancy) {
-            for (int i = 1; i <= lblCellValue.xpath(bodyFancyBetSlipXpath).getWebElements().size(); i++) {
-                if (i % 2 != 0) {
-                    //add market name
-                    lblCellValue = Label.xpath(String.format("(%s)[%s]//span", bodyFancyBetSlipXpath, i));
-                    rowLst.add(lblCellValue.getText().trim());
-                } else {
-                    //add selection name
-                    lblCellValue = Label.xpath(String.format("(%s)[%s]//strong", bodyFancyBetSlipXpath, i));
-                    rowLst.add(lblCellValue.getText().trim());
-                    //add odds info
-                    txtCellValue = TextBox.xpath(String.format("(%s)[%s]/span[1]//input", bodyFancyBetSlipXpath, i));
-                    rowLst.add(txtCellValue.getAttribute("value").trim());
-                    //add stake info
-                    txtCellValue = TextBox.xpath(String.format("(%s)[%s]//input[contains(@class,'stake input-betslip')]", bodyFancyBetSlipXpath, i));
-                    rowLst.add(txtCellValue.getAttribute("value").trim());
-                    //add liability info
-                    if(isBack) {
-                        lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'profit-text')]", bodyFancyBetSlipXpath, i));
+        try {
+            if (isFancy) {
+                for (int i = 1; i <= lblCellValue.xpath(bodyFancyBetSlipXpath).getWebElements().size(); i++) {
+                    if (i % 2 != 0) {
+                        //add market name
+                        lblCellValue = Label.xpath(String.format("(%s)[%s]//span", bodyFancyBetSlipXpath, i));
                         rowLst.add(lblCellValue.getText().trim());
                     } else {
-                        lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'liability-text')]", bodyFancyBetSlipXpath, i));
+                        //add selection name
+                        lblCellValue = Label.xpath(String.format("(%s)[%s]//strong", bodyFancyBetSlipXpath, i));
+                        rowLst.add(lblCellValue.getText().trim());
+                        //add odds info
+                        txtCellValue = TextBox.xpath(String.format("(%s)[%s]/span[1]//input", bodyFancyBetSlipXpath, i));
+                        rowLst.add(txtCellValue.getAttribute("value").trim());
+                        //add stake info
+                        txtCellValue = TextBox.xpath(String.format("(%s)[%s]//input[contains(@class,'stake input-betslip')]", bodyFancyBetSlipXpath, i));
+                        rowLst.add(txtCellValue.getAttribute("value").trim());
+                        //add liability info
+                        if(isBack) {
+                            lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'profit-text')]", bodyFancyBetSlipXpath, i));
+                            rowLst.add(lblCellValue.getText().trim());
+                        } else {
+                            lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'liability-text')]", bodyFancyBetSlipXpath, i));
+                            rowLst.add(lblCellValue.getText().trim());
+                        }
+
+                    }
+                }
+                return rowLst;
+            } else {
+                for (int i = 1; i <= lblCellValue.xpath(bodyBookmakerBetSlipXpath).getWebElements().size(); i++) {
+                    //add market name
+                    lblCellValue = Label.xpath(String.format("(%s)[%s]//span[@class='runner-market']", bodyBookmakerBetSlipXpath, i));
+                    rowLst.add(lblCellValue.getText().trim());
+                    //add odds
+                    txtCellValue = TextBox.xpath(String.format("(%s)[%s]//div[contains(@class,'odds-ladder')]//input", bodyBookmakerBetSlipXpath, i));
+                    rowLst.add(txtCellValue.getAttribute("value").trim());
+                    //add stake
+                    txtCellValue = TextBox.xpath(String.format("(%s)[%s]//input[contains(@class,'input-betslip stake')]", bodyBookmakerBetSlipXpath, i));
+                    rowLst.add(txtCellValue.getAttribute("value").trim());
+                    //add liability
+                    if(isBack) {
+                        lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'profit-text')]", bodyBookmakerBetSlipXpath, i));
+                        rowLst.add(lblCellValue.getText().trim());
+                    } else {
+                        lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'liability-text')]", bodyBookmakerBetSlipXpath, i));
                         rowLst.add(lblCellValue.getText().trim());
                     }
 
                 }
+                return rowLst;
             }
-            return rowLst;
-        } else {
-            for (int i = 1; i <= lblCellValue.xpath(bodyBookmakerBetSlipXpath).getWebElements().size(); i++) {
-                //add market name
-                lblCellValue = Label.xpath(String.format("(%s)[%s]//span[@class='runner-market']", bodyBookmakerBetSlipXpath, i));
-                rowLst.add(lblCellValue.getText().trim());
-                //add odds
-                txtCellValue = TextBox.xpath(String.format("(%s)[%s]//div[contains(@class,'odds-ladder')]//input", bodyBookmakerBetSlipXpath, i));
-                rowLst.add(txtCellValue.getAttribute("value").trim());
-                //add stake
-                txtCellValue = TextBox.xpath(String.format("(%s)[%s]//input[contains(@class,'input-betslip stake')]", bodyBookmakerBetSlipXpath, i));
-                rowLst.add(txtCellValue.getAttribute("value").trim());
-                //add liability
-                if(isBack) {
-                    lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'profit-text')]", bodyBookmakerBetSlipXpath, i));
-                    rowLst.add(lblCellValue.getText().trim());
-                } else {
-                    lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'liability-text')]", bodyBookmakerBetSlipXpath, i));
-                    rowLst.add(lblCellValue.getText().trim());
-                }
-
-            }
-            return rowLst;
+        } catch (Exception e) {
+            return null;
         }
     }
 }
