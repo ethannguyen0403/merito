@@ -18,11 +18,10 @@ public class MiniMyBetControl extends BaseElement {
     private int colOdds = 2;
     private int colStake = 3;
     private int colPnl = 4;
-    private String headerXpath;//= String.format("%s//div[@class='row bets-header']", _xpath);
+    private String headerXpath;
     private String bodyXpath;
     private String bodyFancyBetSlipXpath;
     private String bodyBookmakerBetSlipXpath;
-
 
     private MiniMyBetControl(By locator, String xpath) {
         super(locator);
@@ -31,7 +30,6 @@ public class MiniMyBetControl extends BaseElement {
         bodyXpath = String.format("%s/div/div[@class='row']", _xpath);
         bodyFancyBetSlipXpath = String.format("%s/div//div[contains(@class,'row mx-0')]", _xpath);
         bodyBookmakerBetSlipXpath = String.format("%s/div//div[contains(@class,'mx-0 row selection')]", _xpath);
-        //app-fancy-bets/div/div[@class='row']/div[1]
     }
 
     public static MiniMyBetControl xpath(String xpathExpression) {
@@ -83,7 +81,7 @@ public class MiniMyBetControl extends BaseElement {
         }
     }
 
-    public List<ArrayList> getBetSlipInfo(boolean isFancy, boolean isBack) {
+    public List<ArrayList> getBetSlipInfo(boolean isFancy) {
         Label lblCellValue = null;
         TextBox txtCellValue;
         ArrayList rowLst = new ArrayList();
@@ -105,8 +103,9 @@ public class MiniMyBetControl extends BaseElement {
                         txtCellValue = TextBox.xpath(String.format("(%s)[%s]//input[contains(@class,'stake input-betslip')]", bodyFancyBetSlipXpath, i));
                         rowLst.add(txtCellValue.getAttribute("value").trim());
                         //add liability info
-                        if(isBack) {
-                            lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'profit-text')]", bodyFancyBetSlipXpath, i));
+                        //define xpath of back liability, if not found will get value of lay liability
+                        lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'profit-text')]", bodyFancyBetSlipXpath, i));
+                        if(lblCellValue.isDisplayed()) {
                             rowLst.add(lblCellValue.getText().trim());
                         } else {
                             lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'liability-text')]", bodyFancyBetSlipXpath, i));
@@ -128,8 +127,9 @@ public class MiniMyBetControl extends BaseElement {
                     txtCellValue = TextBox.xpath(String.format("(%s)[%s]//input[contains(@class,'input-betslip stake')]", bodyBookmakerBetSlipXpath, i));
                     rowLst.add(txtCellValue.getAttribute("value").trim());
                     //add liability
-                    if(isBack) {
-                        lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'profit-text')]", bodyBookmakerBetSlipXpath, i));
+                    //define xpath of back liability, if not found will get value of lay liability
+                    lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'profit-text')]", bodyBookmakerBetSlipXpath, i));
+                    if (lblCellValue.isDisplayed()) {
                         rowLst.add(lblCellValue.getText().trim());
                     } else {
                         lblCellValue = Label.xpath(String.format("(%s)[%s]//span[contains(@class,'liability-text')]", bodyBookmakerBetSlipXpath, i));

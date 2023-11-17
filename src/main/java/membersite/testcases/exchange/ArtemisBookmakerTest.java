@@ -51,7 +51,7 @@ public class ArtemisBookmakerTest extends BaseCaseTest {
         marketPage.betsSlipContainer.inputStake(maxBet);
 
         log("Validate The correct forecast liability with the same formula of Wicket Bookmaker displays");
-        List<ArrayList> lstBMBetSlip = marketPage.getBookmakerBetSlipMiniMyBet(true);
+        List<ArrayList> lstBMBetSlip = marketPage.getBookmakerBetSlipMiniMyBet();
         Wager wg = marketPage.defineBookmakerWager(bookmakerMarket, true, Double.valueOf(maxBet));
         Assert.assertEquals(Double.valueOf(String.valueOf(lstBMBetSlip.get(3)).replace(",","")), wg.getProfitWicketBookmakerWager(), "FAILED! Profit/Liability does not show correct");
         log("INFO: Executed completely");

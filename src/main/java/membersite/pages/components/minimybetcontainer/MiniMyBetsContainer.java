@@ -44,6 +44,13 @@ public class MiniMyBetsContainer {
         return null;
     }
 
-    public List<ArrayList> getFancyBetSlipInfo(boolean isBack) { return null;}
-    public List<ArrayList> getBookmakerBetSlipInfo(boolean isBack) { return null;}
+    public List<ArrayList> getFancyBetSlipInfo() { return null;}
+    public List<ArrayList> getBookmakerBetSlipInfo() { return null;}
+
+    public boolean isMultiTabBetSlipEnabled() {return false;}
+
+    public void clickMultiTabBetSlip() {}
+    public boolean isMultiTabBetSlipSelected() {
+        return false;
+    }
 }
