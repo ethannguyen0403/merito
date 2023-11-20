@@ -25,6 +25,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     private Label lblUnMatched = Label.xpath("//div[@class='unmatched-bets']");
     private Icon iconRemoveBet;
     private Image imgSpin = Image.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
+    public Button btnMultipleBetslip = Button.xpath("//app-bet-slip//button[text()='Multiple']");
 
     public void cancelAllBetUnmatched() {
         if (lnkCancelAll.isDisplayed())
@@ -106,11 +107,20 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
         return fancyMiniMyBet.getMatchBets(true);
     }
 
-    public List<ArrayList> getFancyBetSlipInfo(boolean isBack) {
-        return fancyMiniBetSlip.getBetSlipInfo(true, isBack);
+    public List<ArrayList> getFancyBetSlipInfo() {
+        return fancyMiniBetSlip.getBetSlipInfo(true);
     }
 
-    public List<ArrayList> getBookmakerBetSlipInfo(boolean isBack) {
-        return bookMakerMiniBetSlip.getBetSlipInfo(false, isBack);
+    public List<ArrayList> getBookmakerBetSlipInfo() {
+        return bookMakerMiniBetSlip.getBetSlipInfo(false);
+    }
+
+    public boolean isMultiTabBetSlipEnabled() {
+        return btnMultipleBetslip.isEnabled();
+    }
+
+    public void clickMultiTabBetSlip() { btnMultipleBetslip.click();}
+    public boolean isMultiTabBetSlipSelected() {
+        return btnMultipleBetslip.getAttribute("className").contains("mode-active");
     }
 }
