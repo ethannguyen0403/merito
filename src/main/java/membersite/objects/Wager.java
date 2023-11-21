@@ -256,7 +256,7 @@ public class Wager {
 
     public double getLiabilityFancyWager() {
         double liability;
-        if (_bettingType == "BACK") {
+        if (_betType == "BACK") {
             if (_payout != 0)
                 liability = _stake;
             else

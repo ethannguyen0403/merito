@@ -34,6 +34,8 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
     private FancyLadderForecastControl wcFancyLadderControl = FancyLadderForecastControl.xpath("//wicket-fancy-odds//div[@class='fancy-rate']");
     private FancyLadderForecastControl fancyLadderControl = FancyLadderForecastControl.xpath("//fancy-odds//div[@class='fancy-rate']");
     private FancyLadderForecastControl artemisFancyLadderControl = FancyLadderForecastControl.xpath("//app-artemis-fancy-odds//div[@class='fancy-rate']");
+    private FancyLadderForecastControl centralFancyLadderControl = FancyLadderForecastControl.xpath("//central-fancy-odds//div[@class='fancy-rate']");
+
     private Label lblEventStarTime = Label.xpath("//div[contains(@class,'market-wrapper-info')]//div[@class='float-left']");
     private Label lblInplay = Label.xpath("//div[contains(@class,'text-inplay')]");
     private Button btnRule = Button.xpath("//span[contains(@class,'market-rules-span')]");
@@ -138,6 +140,8 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
                 return wcFancyLadderControl.getTitle().equalsIgnoreCase(fcMarket.getMarketName());
             case "ARTEMIS_FANCY":
                 return artemisFancyLadderControl.getTitle().equalsIgnoreCase(fcMarket.getMarketName());
+            case "CENTRAL_FANCY":
+                return centralFancyLadderControl.getTitle().equalsIgnoreCase(fcMarket.getMarketName());
             default:
                 return fancyLadderControl.getTitle().equalsIgnoreCase(fcMarket.getMarketName());
         }

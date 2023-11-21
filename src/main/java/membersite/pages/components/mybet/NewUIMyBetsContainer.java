@@ -71,7 +71,11 @@ public class NewUIMyBetsContainer extends MyBetsContainer {
             colStake = tblReport.getColumnIndexByName("Stake");
             Assert.assertTrue(lstRecords.get(0).get(colMarketName-1).contains(wager.getMarketName()), "FAILED! Market Name does not show correct");
             Assert.assertTrue(lstRecords.get(0).get(colSelection-1).equals(wager.getRunnerName()), "FAILED! Selection does not show correct");
-            Assert.assertTrue(lstRecords.get(0).get(colOdds-1).equals(String.format("%,.0f",wager.getOdds())), "FAILED! Odds does not show correct");
+            if(wager.getPayout() != 0) {
+                Assert.assertTrue(lstRecords.get(0).get(colOdds-1).equals(String.format("%,.0f:%,.0f",wager.getOdds(),wager.getPayout())), "FAILED! Odds does not show correct");
+            } else {
+                Assert.assertTrue(lstRecords.get(0).get(colOdds-1).equals(String.format("%,.0f",wager.getOdds())), "FAILED! Odds does not show correct");
+            }
             Assert.assertTrue(lstRecords.get(0).get(colStake-1).equals(String.format("%,.2f",wager.getStake())), "FAILED! Stake does not show correct");
         } else {
             Assert.assertTrue(false, "No record found");
