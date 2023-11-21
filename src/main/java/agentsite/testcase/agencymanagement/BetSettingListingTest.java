@@ -31,15 +31,6 @@ import static common.AGConstant.HomePage.AGENCY_MANAGEMENT;
 import static common.AGConstant.HomePage.BET_SETTING_LISTING;
 
 public class BetSettingListingTest extends BaseCaseTest {
-    /**
-     * @title: Can update Min Bet, Max Bet, Max Liability per Market, Max Win per Market, for all sport of Exchange Product
-     * @pre-condition: 1. Log in successfully by SAD
-     * @steps: 1. Navigate Agency Management > Bet Setting Listing
-     * 2. Select All sport and  search  an PL account
-     * 3. Select PL account then Input valid Min Bet, Max Bet, Max Liability per Market, Max Win per Market and click Submit button
-     * @expect: 1. Min Bet, Max Bet, Max Liability per Market, Max Win per Market is update for all sports type : Soccer, Cricket, Tennis, Basketball, Fancy, Other
-     * 2. Update Status column display green check
-     */
     @TestRails(id = "743")
     @Test(groups = {"smoke"})
     public void Agent_AM_Bet_Setting_Listing_743() {
@@ -54,9 +45,9 @@ public class BetSettingListingTest extends BaseCaseTest {
         page.search(loginID, "", "", "");
         List<ArrayList<String>> lstActualData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
         double minBet = Double.parseDouble(lstActualData.get(0).get(9).replace(",","")) + 1;
-        double maxBet = Double.parseDouble(lstActualData.get(1).get(1).replace(",","")) + 1;
-        double maxLiabilityPerMarket = Double.parseDouble(lstActualData.get(2).get(1).replace(",","")) + 1;
-        double maxWinPerMarket = Double.parseDouble(lstActualData.get(3).get(1).replace(",","")) + 1;
+        double maxBet = Double.parseDouble(lstActualData.get(1).get(1).replace(",","")) - 1;
+        double maxLiabilityPerMarket = Double.parseDouble(lstActualData.get(2).get(1).replace(",","")) - 1;
+        double maxWinPerMarket = Double.parseDouble(lstActualData.get(3).get(1).replace(",","")) - 1;
 
         log("Step 3. Select PL account then Input valid Min Bet, Max Bet, Max Liability per Market, Max Win per Market and click Submit button");
         page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
@@ -72,21 +63,11 @@ public class BetSettingListingTest extends BaseCaseTest {
             Assert.assertTrue(page.verifyUpdateStatus(lstActualData, true, AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE), "FAILED! Green check not display on Update Status column");
             log("INFO: Executed completely");
         } finally {
-            page.updateBetSetting(loginID, (int) minBet - 1, (int) maxBet - 1, (int) maxLiabilityPerMarket - 1, (int) maxWinPerMarket - 1);
+            page.updateBetSetting(loginID, (int) minBet - 1, (int) maxBet + 1, (int) maxLiabilityPerMarket + 1, (int) maxWinPerMarket + 1);
         }
 
     }
 
-    /**
-     * @title: Verify update bet setting with valid min bet Setting
-     * @pre-condition: 1. Log in successfully by SAD
-     * @steps: 1. Navigate Agency Management > Bet Setting Listing
-     * 2. Search PL account and Exchange Product
-     * 3. Select Soccer only
-     * 4. Input valid Min bet
-     * 5. Click Update
-     * @expect: 1. Verify Soccer Min bet is update correctly, Update Status column display green check
-     */
     @TestRails(id = "744")
     @Test(groups = {"smoke"})
     public void Agent_AM_Bet_Setting_Listing_744() {
@@ -102,7 +83,7 @@ public class BetSettingListingTest extends BaseCaseTest {
             page.search(loginID, "", "", "");
 
             List<ArrayList<String>> lstSetting = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
-            minBet = Double.parseDouble(lstSetting.get(0).get(9).replace(",","")) + 1;
+            minBet = Double.parseDouble(lstSetting.get(0).get(9).replace(",", "")) + 1;
 
             log("Step 3. Get current bet setting all sports");
             List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, minBet, -1, -1, -1);
@@ -118,7 +99,7 @@ public class BetSettingListingTest extends BaseCaseTest {
             log("Step 5. Select All Sports");
             page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
 
-            List<ArrayList<String>> lstActualData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
+            List<ArrayList<String>> lstActualData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
             log("Verify 5. Verify Soccer Min bet is update correctly");
             Assert.assertEquals(lstActualData, lstExpectedData, "FAILED! Expected not match with the actual");
             log("INFO: Executed completely");
@@ -130,16 +111,6 @@ public class BetSettingListingTest extends BaseCaseTest {
 
     }
 
-    /**
-     * @title: Verify update bet setting with valid max bet Setting
-     * @pre-condition: 1. Log in successfully by SAD
-     * @steps: 1. Navigate Agency Management > Bet Setting Listing
-     * 2. Search PL account and Exchange Product
-     * 3. Select Tennis only
-     * 4. Input valid Max bet
-     * 5. Click Update
-     * @expect: 1. Verify Tennis Max bet is update correctly, Update Status column display green check
-     */
     @TestRails(id = "745")
     @Test(groups = {"smoke"})
     public void Agent_AM_Bet_Setting_Listing_745() {
@@ -155,10 +126,10 @@ public class BetSettingListingTest extends BaseCaseTest {
             page.search(loginID, "", "", "");
 
             List<ArrayList<String>> lstSetting = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
-            maxBet = Double.parseDouble(lstSetting.get(1).get(2).replace(",","")) + 1;
+            maxBet = Double.parseDouble(lstSetting.get(1).get(2).replace(",","")) - 1;
 
             log("Step 3. Get current bet setting all sports");
-            List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, -1, maxBet, -1, -1);
+            List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, -1, maxBet, -1, -1);
 
             log("Step 3.1 Select Soccer only");
             page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
@@ -178,21 +149,11 @@ public class BetSettingListingTest extends BaseCaseTest {
 
         } finally {
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Soccer", false);
-            page.updateBetSetting(loginID, -1, (int) maxBet - 1, -1, -1);
+            page.updateBetSetting(loginID, -1, (int) maxBet + 1, -1, -1);
         }
 
     }
 
-    /**
-     * @title: Verify update bet setting with valid  Max Liability Per Market Setting
-     * @pre-condition: 1. Log in successfully by SAD
-     * @steps: 1. Navigate Agency Management > Bet Setting Listing
-     * 2. Search PL account and Exchange Product
-     * 3. Select Cricket only
-     * 4. Input valid Max Liability Per Market
-     * 5. Click Update
-     * @expect: 1. Verify Max Liability Per Market is updated, Update Status column display green check
-     */
     @TestRails(id = "746")
     @Test(groups = {"smoke"})
     public void Agent_AM_Bet_Setting_Listing_746() {
@@ -208,7 +169,7 @@ public class BetSettingListingTest extends BaseCaseTest {
             page.search(loginID, "", "", "");
 
             List<ArrayList<String>> lstSetting = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
-            maxLiability = Double.parseDouble(lstSetting.get(2).get(2).replace(",","")) + 1;
+            maxLiability = Double.parseDouble(lstSetting.get(2).get(2).replace(",","")) - 1;
 
             log("Step 3. Get current bet setting all sports");
             List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, -1, -1, maxLiability, -1);
@@ -231,7 +192,7 @@ public class BetSettingListingTest extends BaseCaseTest {
 
         } finally {
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Soccer", false);
-            page.updateBetSetting(loginID, -1, -1, (int) maxLiability - 1, -1);
+            page.updateBetSetting(loginID, -1, -1, (int) maxLiability + 1, -1);
         }
 
     }
@@ -251,7 +212,7 @@ public class BetSettingListingTest extends BaseCaseTest {
             page.search(loginID, "", "", "");
 
             List<ArrayList<String>> lstSetting = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
-            maxWin = Double.parseDouble(lstSetting.get(2).get(2).replace(",","")) + 1;
+            maxWin = Double.parseDouble(lstSetting.get(2).get(2).replace(",","")) - 1;
 
             log("Step 3. Get current bet setting all sports");
             List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, -1, -1, -1, maxWin);
@@ -274,7 +235,7 @@ public class BetSettingListingTest extends BaseCaseTest {
 
         } finally {
             AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put("Soccer", false);
-            page.updateBetSetting(loginID, -1, -1, -1, (int) maxWin - 1);
+            page.updateBetSetting(loginID, -1, -1, -1, (int) maxWin + 1);
         }
 
     }
