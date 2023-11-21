@@ -505,8 +505,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
     @TestRails(id = "3585")
     @Test(groups = {"regression_sat"})
-    @Parameters({"username", "portalSubAccount", "popassword"})
-    public void Agent_AM_Event_Bet_Site_Settings_3585(String username, String portalSubAccount, String popassword) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3585() {
         log("@title:Verify can update min-max for Fancy");
         log("Step 1.Log in successfully by SAD level > Navigate Agency Management > Event Bet Size Settings");
         String sportName = "Cricket";
@@ -707,8 +706,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
     @TestRails(id = "3591")
     @Test(groups = {"interaction"})
-    @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Event_Bet_Site_Settings_3591(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3591() {
         log("@title:Cannot place bet when stake less than max setting in Event Bet Site Setting for normal market");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -732,8 +730,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
     @TestRails(id = "3592")
     @Test(groups = {"interaction"})
-    @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Event_Bet_Site_Settings_3592(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3592() throws Exception {
         log("@title: Cannot place bet when stake less than min setting in Event Bet Site Setting for Fancy market");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -757,8 +754,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
     @TestRails(id = "3593")
     @Test(groups = {"interaction"})
-    @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Event_Bet_Site_Settings_3593(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3593() {
         log("@title:Cannot place bet when stake greater than max setting in Event Bet Site Setting for Fancy market");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -808,8 +804,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
     @TestRails(id = "3595")
     @Test(groups = {"interaction"})
-    @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Event_Bet_Site_Settings_3595(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Event_Bet_Site_Settings_3595() {
         log("@title:Cannot place bet when stake greater than max setting in Event Bet Site Setting for Bookmaker market");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();

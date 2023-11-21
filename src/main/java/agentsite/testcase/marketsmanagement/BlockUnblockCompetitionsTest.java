@@ -135,8 +135,8 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
      */
     @TestRails(id = "3705")
     @Test(groups = {"regression"})
-    @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_BlockUnblockCompetitions_TC3705(String downlineAccount, String memberAccount, String password) throws Exception {
+    @Parameters({"downlineAccount"})
+    public void Agent_MM_BlockUnblockCompetitions_TC3705(String downlineAccount) {
         log("@title: Verify Unblock competition display in Block unblock event page");
         AccountInfo acc = ProfileUtils.getProfile();
         String sportName = "Soccer";
@@ -183,8 +183,8 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
      */
     @TestRails(id = "3706")
     @Test(groups = {"regression"})
-    @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_BlockUnblockCompetitions_TC3706(String downlineAccount, String memberAccount, String password) throws Exception {
+    @Parameters({"downlineAccount"})
+    public void Agent_MM_BlockUnblockCompetitions_TC3706(String downlineAccount) {
         log("@title: Verify Blocked Competition not display Block/Unblock Event");
         AccountInfo acc = ProfileUtils.getProfile();
         String sportName = "Soccer";

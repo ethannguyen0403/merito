@@ -59,7 +59,6 @@ public class UnsettledBetTest extends BaseCaseTest {
 
     @TestRails(id = "3726")
     @Test(groups = {"regression_po"})
-    @Parameters("memberAccount")
     public void Agent_Report_Unsettled_Bet_3726() {
         log("@title:Validate Unsettled Bet - Hierarchy Mode UI display correctly");
         log("Step 1. Navigate Report > Unsettled Bet");

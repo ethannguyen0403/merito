@@ -304,8 +304,8 @@ public class BetSettingListingTest extends BaseCaseTest {
     }
 
     @Test(groups = {"interaction"})
-    @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Bet_Setting_Listing_0011(String downlineAccount, String memeberAccount, String password) throws Exception {
+    @Parameters({"memberAccount", "password", "downlineAccount"})
+    public void Agent_AM_Bet_Setting_Listing_0011(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Cannot place bet when potential win is greater than the setting");
         log("Step 1 Active Bet Setting Listing and update Max Win per market for Soccer");
         String sportName = "Cricket";
@@ -335,7 +335,7 @@ public class BetSettingListingTest extends BaseCaseTest {
             List<ArrayList<String>> lstActualData = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
 
             log("Step 2 Login member site with the player  in step 1");
-            loginMember(memeberAccount, password);
+            loginMember(memberAccount, password);
             SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
             event = sportPage.setEventLink(event);
             MarketPage marketPage = sportPage.clickEvent(event);

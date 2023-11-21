@@ -53,7 +53,7 @@ public class LiquidityThresholdTest extends BaseCaseTest {
      */
     @TestRails(id = "781")
     @Test(groups = {"smoke_po"})
-    @Parameters({"username", "controlBlockingAccount"})
+    @Parameters({"controlBlockingAccount"})
     public void Agent_MM_Liquidity_Threshold_TC781(String controlBlockingAccount) {
         log("@title: Can Active/Inactive Liquidity Threshold Status");
 

@@ -220,8 +220,8 @@ public class TaxSettingListingTest extends BaseCaseTest {
     }
     @TestRails(id = "3974")
     @Test(groups = {"regression_newui"})
-    @Parameters({"username","downlineAccount","password"})
-    public void Agent_AM_Tax_Setting_Listing_3974(String username,String downlineAccount,String password) throws Exception {
+    @Parameters({"downlineAccount","password"})
+    public void Agent_AM_Tax_Setting_Listing_3974(String downlineAccount,String password) throws Exception {
         log("@title: Validate the Tax Setting pa ge is hidden when Exchange and Exchange Game product is inactive");
         log("Step 1. Login Agent Site");
         log("There is a downline agent is inactive Exchange and Exchange Game product");
