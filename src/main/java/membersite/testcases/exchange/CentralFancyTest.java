@@ -423,5 +423,109 @@ public class CentralFancyTest extends BaseCaseTest {
         Assert.assertEquals(lstBetslip.get(5), fcMarket.getMarketName(), "FAILED! Bet 2 selection does not add into bet slip correctly");
         log("INFO: Executed completely");
     }
+    @TestRails(id = "15769")
+    @Test(groups = {"smoke_stg"})
+    public void FancyTest_15769() {
+        log("@title: Validate multi tab (bet slip) is disabled");
+        log("@Precondition: Get the event that have Central Fancy market");
+        log("Step 1. Login member site and click on Cricket");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+
+        log("Step 2. Active the event that have Central Fancy market");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), CENTRAL_FANCY_CODE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has Central Fancy");
+            Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+
+        log("Step 3. From the left menu open Competition > Event > Fancy > select multi selection from any market");
+        memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
+        FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
+
+        marketPage.addFancyOdds(fancyMarket, true);
+        marketPage.addFancyOdds(fancyMarket, false);
+
+        log("Validate Multi tab (bet slip) is disabled and does not work when click on");
+        Assert.assertFalse(marketPage.myBetsContainer.isMultiTabBetSlipEnabled(), "FAILED! Multi tab in bet slip is enabled");
+        marketPage.myBetsContainer.clickMultiTabBetSlip();
+        Assert.assertFalse(marketPage.myBetsContainer.isMultiTabBetSlipSelected(), "FAILED! Multi tab in bet slip is enabled");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15770")
+    @Test(groups = {"smoke_sat"})
+    public void FancyTest_15770() {
+        log("@title: Validate bet slip information show correctly for selection Yes");
+        log("@Precondition: Get the event that have Central Fancy market");
+        log("Step 1. Login member site and click on Cricket");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+
+        log("Step 2. Active the event that have Central Fancy market");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), CENTRAL_FANCY_CODE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has Central Fancy");
+            Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+
+        log("Step 3. From the left menu open Competition > Event > Fancy > select any Yes selection");
+        memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
+        FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
+        String minStake = String.valueOf(fancyMarket.getMinSetting());
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+
+        log("Step 4. Input stake and observe bet slip information");
+        marketPage.addFancyOdds(fancyMarket, true);
+        marketPage.betsSlipContainer.inputStake(minStake);
+
+        log("Validate Bet slip displays with info market name, selection (Yes [L]), stake inputted and liability (stake * (payout/100))");
+        List<ArrayList> lstBetslip = marketPage.getFancyBetSlipMiniMyBet();
+        Assert.assertEquals(lstBetslip.get(0), expectedWager.getMarketName(), String.format("FAILED! Market name does not display correctly in bet slip expected %s actual %s", expectedWager.getMarketName(), lstBetslip.get(0)));
+        Assert.assertEquals(lstBetslip.get(1), "Yes [L]", String.format("FAILED! Selection does not display correct expected Yes [L] actual %s", lstBetslip.get(1)));
+        Assert.assertEquals(lstBetslip.get(2), String.format("%.0f", expectedWager.getOdds()), String.format("FAILED! Odds does not display correct expected %s actual %s", String.format("%.0f", expectedWager.getOdds()), lstBetslip.get(2)));
+        Assert.assertEquals(lstBetslip.get(3), String.format("%.0f", expectedWager.getStake()), String.format("FAILED! Stake does not display correct expected %s actual %s", String.format("%.0f", expectedWager.getStake()), lstBetslip.get(3)));
+        Assert.assertEquals(lstBetslip.get(4), String.format("%.2f", expectedWager.getProfitFancyWager()),String.format("FAILED! Stake does not display correct expected %s actual %s", String.format("%.2f", expectedWager.getProfitFancyWager()), lstBetslip.get(4)));
+    }
+
+    @TestRails(id = "15771")
+    @Test(groups = {"smoke_sat"})
+    public void FancyTest_15771() {
+        log("@title: Validate bet slip information show correctly for selection Yes");
+        log("@Precondition: Get the event that have Central Fancy market");
+        log("Step 1. Login member site and click on Cricket");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+
+        log("Step 2. Active the event that have Central Fancy market");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), CENTRAL_FANCY_CODE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has Central Fancy");
+            Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+
+        log("Step 3. From the left menu open Competition > Event > Fancy > select any Yes selection");
+        memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
+        FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
+        String minStake = String.valueOf(fancyMarket.getMinSetting());
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
+
+        log("Step 4. Input stake and observe bet slip information");
+        marketPage.addFancyOdds(fancyMarket, false);
+        marketPage.betsSlipContainer.inputStake(minStake);
+
+        log("Validate Bet slip displays with info market name, selection (Yes [L]), stake inputted and liability (stake * (payout/100))");
+        List<ArrayList> lstBetslip = marketPage.getFancyBetSlipMiniMyBet();
+        Assert.assertEquals(lstBetslip.get(0), expectedWager.getMarketName(), String.format("FAILED! Market name does not display correctly in bet slip expected %s actual %s", expectedWager.getMarketName(), lstBetslip.get(0)));
+        Assert.assertEquals(lstBetslip.get(1), "No [K]", String.format("FAILED! Selection does not display correct expected Yes [L] actual %s", lstBetslip.get(1)));
+        Assert.assertEquals(lstBetslip.get(2), String.format("%.0f", expectedWager.getOdds()), String.format("FAILED! Odds does not display correct expected %s actual %s", String.format("%.0f", expectedWager.getOdds()), lstBetslip.get(2)));
+        Assert.assertEquals(lstBetslip.get(3), String.format("%.0f", expectedWager.getStake()), String.format("FAILED! Stake does not display correct expected %s actual %s", String.format("%.0f", expectedWager.getStake()), lstBetslip.get(3)));
+        Assert.assertEquals(lstBetslip.get(4), String.format("%.2f", expectedWager.getLiabilityFancyWager()),String.format("FAILED! Stake does not display correct expected %s actual %s", String.format("%.2f", expectedWager.getLiabilityFancyWager()), lstBetslip.get(4)));
+    }
+
 }
 

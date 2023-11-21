@@ -6,6 +6,7 @@ import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
 import membersite.objects.sat.FancyMarket;
 import membersite.pages.MarketPage;
+import membersite.pages.MyBetsPage;
 import membersite.pages.SportPage;
 import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
@@ -18,6 +19,8 @@ import java.util.Objects;
 
 import static common.MemberConstants.*;
 import static common.MemberConstants.HomePage.SPORT_ID;
+import static common.MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER;
+import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 
 public class WicketFancyTest extends BaseCaseTest {
     @TestRails(id = "611")
@@ -228,6 +231,41 @@ public class WicketFancyTest extends BaseCaseTest {
         String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
         Assert.assertEquals(actualError, BetSlip.ERROR_INSUFFICIENT_BALANCE, String.format("ERROR! Expected error message is %s but found %s", BetSlip.ERROR_INSUFFICIENT_BALANCE, actualError));
 
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15773")
+    @Test(groups = {"smoke"})
+    public void CentralFancyTest_15773() {
+        log("@title: Validate My Bet display correct after place bet on Wicket Fancy market");
+        log("@Precondition: Get the event that have Wicket Fancy market");
+        log("Step 1. Login member site and click on Cricket");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+
+        log("Step 2. Active the event that have Wicket Fancy market");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_FANCY_CODE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has Central Fancy");
+            Assert.assertTrue(true, "By passed as has no Wicket Fancy on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+
+        log("Step 3. Click on an odds of a fancy market then place bet (wait until bet matched)");
+        memberHomePage.leftMenu.openFancyMarket(WICKET_FANCY_TITLE, fcMarket.getMarketName());
+        FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
+        String minStake = String.valueOf(fancyMarket.getMinSetting());
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+
+        log(String.format("INFO: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
+        marketPage.placeFancy(fancyMarket, true, minStake);
+
+        log("Step 4. Navigate to My Bets page and filter the matched bet and observe information");
+        MyBetsPage myBetsPage = memberHomePage.openMyBet();
+        myBetsPage.filter(DDB_PRODUCT_FILTER.get("Exchange"), DDB_ORDER_TYPE_FILTER.get("MATCHED"));
+
+        log("Validate Information of placed bet displays correctly");
+        myBetsPage.verifyWagerInfo(expectedWager);
         log("INFO: Executed completely");
     }
 

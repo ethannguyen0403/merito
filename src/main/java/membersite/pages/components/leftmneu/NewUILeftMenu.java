@@ -87,8 +87,13 @@ public class NewUILeftMenu extends LeftMenu {
             }
         }
         Label lblSubMenu = Label.xpath(String.format("%s/following::div[@class='downs-levels']//span[text()='%s']", eventActiveXpath, subMarketName));
-        if (lblSubMenu.isDisplayed()) {
+        if (lblSubMenu.getText().equalsIgnoreCase(subMarketName)) {
             lblSubMenu.scrollToThisControl(true);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             lblSubMenu.doubleClick();
             imgLoading.isInvisible(300);
         }
@@ -105,6 +110,11 @@ public class NewUILeftMenu extends LeftMenu {
         Label lblSubMenu = Label.xpath(String.format("%s/following::div[@class='downs-levels']//span[text()='%s']", eventActiveXpath, bookmakerType));
         if (lblSubMenu.isDisplayed()) {
             lblSubMenu.scrollToThisControl(true);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             lblSubMenu.doubleClick();
             imgLoading.isInvisible(300);
         }
