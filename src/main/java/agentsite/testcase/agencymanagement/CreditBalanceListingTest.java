@@ -13,7 +13,7 @@ import util.testraildemo.TestRails;
 public class CreditBalanceListingTest extends BaseCaseTest {
     @TestRails(id = "3607")
     @Test(groups = {"smoke_sat"})
-    @Parameters({"memberAccount", "password"})
+    @Parameters({"memberAccount"})
     public void Credit_Balance_Listing_3607(String memberAccount) {
         log("@title: Validate can update Credit Balance");
         log("Step 1. Navigate Agency Management > Credit Balance Listing");
@@ -31,7 +31,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
     }
     @TestRails(id = "3608")
     @Test(groups = {"smoke_sat"})
-    @Parameters({"memberAccount", "password"})
+    @Parameters({"memberAccount"})
     public void Credit_Balance_Listing_3608(String memberAccount) {
         log("@title: Validate can search by username");
         log("Step 1. Navigate Agency Management > Credit Balance Listing");

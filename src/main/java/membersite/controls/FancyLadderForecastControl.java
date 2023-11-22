@@ -1,14 +1,9 @@
 package membersite.controls;
 
-import com.paltech.constant.StopWatch;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Label;
-import com.paltech.element.common.Link;
-import controls.Table;
-import membersite.objects.sat.FancyMarket;
 import org.openqa.selenium.By;
 
-import java.util.Objects;
 
 /**
  * @author by isabella.huynh
@@ -16,11 +11,12 @@ import java.util.Objects;
  */
 public class FancyLadderForecastControl extends BaseElement {
     private String _xpath;
-    private Label lblTitle = Label.xpath(String.format("%s//h2", _xpath));
+    private String titleXpath ="%s//h2";
+    private Label lblTitle;
     public FancyLadderForecastControl(By locator, String xpath) {
         super(locator);
-        _xpath = xpath;
-
+        this._xpath = xpath;
+        lblTitle = Label.xpath(String.format(titleXpath, _xpath));
     }
 
     public static FancyLadderForecastControl xpath(String xpathExpression) {

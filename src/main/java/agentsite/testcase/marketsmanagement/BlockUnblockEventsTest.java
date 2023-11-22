@@ -31,7 +31,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     @TestRails(id = "757")
     @Test(groups = {"smoke_po"})
     @Parameters({"downlineAccount", "controlBlockingAccount", "passwordNonePO", "controlBlockingLevel"})
-    public void Agent_MM_BlockUnblockEvent_757(String downlineAccount, String controlBlockingAccount, String password, String controlBlockingLevel) throws Exception {
+    public void Agent_MM_BlockUnblockEvent_757(String downlineAccount, String controlBlockingAccount, String passwordNonePO, String controlBlockingLevel) throws Exception {
         log("@title: Validate that Unblock Now an event successfully from PO level");
 
         log("Step 1. Navigate Markets Management > Block/Unblock Events");
@@ -62,7 +62,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("Step 6: Login agent site at Level control blocking account:" + controlBlockingAccount);
         DriverManager.getDriver().getToAvoidTimeOut(agentLoginURL);
         //loginAgent(controlBlockingAccount,password);
-        loginAgent(sosAgentURL, agentSecurityCodeURL, controlBlockingAccount, password, environment.getSecurityCode());
+        loginAgent(sosAgentURL, agentSecurityCodeURL, controlBlockingAccount, passwordNonePO, environment.getSecurityCode());
         agentHomePage.navigateBlockUnblockEventsPage();
         page.filter("", "Tennis", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
 
@@ -229,8 +229,8 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
     @TestRails(id = "759")
     @Test(groups = {"smoke"})
-    @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_BlockUnblockEvent_759(String downlineAccount, String memberAccount, String password) throws Exception {
+    @Parameters({"downlineAccount"})
+    public void Agent_MM_BlockUnblockEvent_759(String downlineAccount) {
         log("@title: Validate that can block an unblocked event successfully from SAD level");
         AccountInfo acc = ProfileUtils.getProfile();
 
@@ -352,8 +352,8 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
     @TestRails(id="762")
     @Test(groups = {"smoke"})
-    @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_BlockUnblockEvent_762(String downlineAccount, String memberAccount, String password) throws Exception {
+    @Parameters({"downlineAccount"})
+    public void Agent_MM_BlockUnblockEvent_762(String downlineAccount) {
         log("@title: Validate that can suspend an unblocked event");
         AccountInfo acc = ProfileUtils.getProfile();
 

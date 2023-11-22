@@ -118,7 +118,7 @@ public class FancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
 
         log(String.format("INFO: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fancyMarket, true, minStake);
@@ -386,10 +386,10 @@ public class FancyTest extends BaseCaseTest {
 
         log("Step 3. Navigate to any another event and observe bet slip");
         memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
-        BookmakerMarket bmMarket = BetUtils.findOpenBookmakerMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_BOOKMAKER_CODE, "ONLINE");
+        BookmakerMarket bmMarket = BetUtils.findOpenBookmakerMarket(SPORT_ID.get(LBL_CRICKET_SPORT), ARTEMIS_BOOKMAKER_CODE, "OPEN");
         marketPage = sportPage.clickEventName(bmMarket.getEventName());
-        memberHomePage.leftMenu.openBookmakerMarket(WICKET_BOOKMAKER);
-        List<ArrayList> lstAfter = marketPage.getBookmakerBetSlipMiniMyBet();
+        memberHomePage.leftMenu.openBookmakerMarket(ARTEMIS_BOOKMAKER);
+        List<ArrayList> lstAfter = marketPage.getFancyBetSlipMiniMyBet();
 
         log("Validate Bet slip is cleared");
         Assert.assertTrue(Objects.isNull(lstAfter), "FAILED! Bet slip is not cleared correctly");
