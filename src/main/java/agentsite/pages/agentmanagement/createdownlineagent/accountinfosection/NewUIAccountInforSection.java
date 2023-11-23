@@ -47,6 +47,14 @@ public class NewUIAccountInforSection extends AccountInforSection {
         }
         ddpLevel.selectByVisibleText(levelName);
     }
+    public void inputInfo(String loginID, String password, String accountStatus) {
+        if (!password.isEmpty()) {
+            txtPassword.sendKeys(password);
+        }
+        if (!accountStatus.isEmpty())
+            ddrAccountStatus.selectByVisibleText(accountStatus);
+
+    }
 
     public void inputInfo(String password, String accountStatus) {
         if (!password.isEmpty()) {

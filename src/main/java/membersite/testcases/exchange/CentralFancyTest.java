@@ -159,7 +159,7 @@ public class CentralFancyTest extends BaseCaseTest {
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fcMarket, true, minStake);
 
-        log("Verify 1. Validate Exposure kept correctly when place on No section");
+        log("Verify 1. Validate Exposure kept correctly when place on Yes section");
         Double liabilityWager = expectedWager.getLiabilityFancyWager();
         String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, 0.0);
         String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
@@ -494,7 +494,7 @@ public class CentralFancyTest extends BaseCaseTest {
     @TestRails(id = "15771")
     @Test(groups = {"smoke_sat"})
     public void FancyTest_15771() {
-        log("@title: Validate bet slip information show correctly for selection Yes");
+        log("@title: Validate bet slip information show correctly for selection No");
         log("@Precondition: Get the event that have Central Fancy market");
         log("Step 1. Login member site and click on Cricket");
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
