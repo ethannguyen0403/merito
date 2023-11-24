@@ -6,7 +6,6 @@ import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.report.components.TransactionDetailsPopup;
 import com.paltech.element.common.Button;
-import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 
@@ -39,7 +38,7 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
     public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]", tblReportTotalCol);
     public String rwSportGroupxPath = "//td[contains(@class,'sportName')]";
     public String rMarketPerSport = "//tr[@class='%s']";
-    public String rwTotalRowOfSport = "//tr[contains(@class,'total %s')]";
+    public String rwTotalRowOfSport = "//tr[contains(@class,'total mtotal')]";
     public Row rGrandTotal = Row.xpath("//tr[contains(@class,'gtotal')]");
     private int colTurnover = 2;
     private String turnoverPerSportAndMarketXpath = "//tr[@class='%s']//span[text()='%s']//following::td[contains(@ng-bind,'localTurnover')][1]";
@@ -192,7 +191,7 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
      * @return total row data
      */
     public ArrayList<String> getTotalRowOfSport(String sportName) {
-        return Row.xpath(String.format(rwTotalRowOfSport, sportName)).getRow(tblReportTotalCol, false);
+        return Row.xpath(rwTotalRowOfSport).getRow(tblReportTotalCol, false);
     }
 
     public ArrayList<String> getGrandTotalRow() {
