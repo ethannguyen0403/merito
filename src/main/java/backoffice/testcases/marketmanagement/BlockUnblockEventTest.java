@@ -493,4 +493,35 @@ public class BlockUnblockEventTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
+    @TestRails(id = "15732")
+    @Test(groups = {"regression","2023.11.30"})
+    @Parameters("fair999PortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_15732(String fair999PortalCode) {
+        log("@title: Validate an unblocked competition at BO - Competition Blocking display when filtering when filtering");
+        log("Precondition step  1. Login BO > Competition Blocking");
+        CompetitionBlockingPage competitionBlockingPage = backofficeHomePage.navigateCompetitionBlocking();
+        log("Precondition step  2. GGet the unblocked event of soccer");
+        String sport = "Soccer";
+        competitionBlockingPage.filter(sport,"","Unblocked","","");
+        String eventID = competitionBlockingPage.getFirstEventIDofTheFirstCompetition();
+        if(eventID.equalsIgnoreCase(NO_RECORDS_FOUND)) {
+            log("By passed test case as has no Soccer competition is blocked");
+            return;
+        }
+
+        log("Step 1. Active Block/Unblock Event page");
+        BlockUnblockEventPage page = competitionBlockingPage.navigateBlockUnblockEvents();
+
+        log("Step 2. Select any portal , sport: soccer and Future Tab");
+        page.filter(fair999PortalCode, sport, "Today");
+
+        log("Step 3. Search the event blocked in precondition");
+        page.filterEvent(eventID);
+
+        log("Step 3. Verify the event does not display");
+        Assert.assertFalse(page.isNoRecordFoundDisplays(), "FAILED!The event display");
+
+        log("INFO: Executed completely");
+    }
 }
