@@ -165,7 +165,7 @@ public class LefMenuList extends BaseElement {
         Label lblExpandSubMenu;
         while (true) {
             lblSubMenu1 = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i));
-            lblSubMenu2 = Label.xpath(String.format("(%s%s)[%s]", rootMenuXpath, subMenuXpath, i+1));
+            lblSubMenu2 = Label.xpath(String.format("(%s%s)//a[text()='%s']", rootMenuXpath, subMenuXpath, subMenu2));
             lblExpandSubMenu = Label.xpath(String.format("(%s%s)[%s]%s", rootMenuXpath, subMenuXpath, i, collapseSubMenuXpath));
             if (!lblSubMenu1.isDisplayed()) {
                 return null;

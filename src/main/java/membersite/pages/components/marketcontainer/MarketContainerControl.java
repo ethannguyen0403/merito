@@ -83,4 +83,8 @@ public class MarketContainerControl {
     public void clickRuleButton(){}
 
     public boolean verifyOddsIsClickable(boolean isClickable) {return false;}
+
+    public void openFancyLadderForecast(FancyMarket fcMarket) {}
+
+    public boolean isLadderForecastDisplay(FancyMarket fcMarket) {return false;}
 }

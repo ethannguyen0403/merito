@@ -115,8 +115,8 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
 
     @TestRails(id = "785")
     @Test(groups = {"smoke"})
-    @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC785(String downlineAccount, String memberAccount, String password) throws Exception {
+    @Parameters({"downlineAccount", "password"})
+    public void Agent_MM_SuspendUnsuspendMarkets_TC785(String downlineAccount, String password) throws Exception {
         log("@title: Verify can suspend line market");
         log("Step Precondition: Unblock an event has Line market at level control blocking");
         String sportName = "Cricket";

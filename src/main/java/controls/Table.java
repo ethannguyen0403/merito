@@ -608,4 +608,13 @@ public class Table extends BaseElement {
         logEndAction(String.format("Debug: There is no value '%s' you want", name));
         return null;
     }
+
+    public int getColumnIndexByName(String columnName) {
+        ArrayList<String> lstHeader = getHeaderNameOfRows();
+        for (int i = 0, n = lstHeader.size(); i < n; i++) {
+            if (lstHeader.get(i).equals(columnName))
+                return i + 1;
+        }
+        return -1;
+    }
 }

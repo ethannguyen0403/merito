@@ -240,7 +240,7 @@ public class Wager {
 
     public double getProfitFancyWager() {
         double profit;
-        if (_bettingType == "BACK") {
+        if (_betType == "BACK") {
             if (_payout != 0)
                 profit = _stake * (_payout / 100);
             else
@@ -256,7 +256,7 @@ public class Wager {
 
     public double getLiabilityFancyWager() {
         double liability;
-        if (_bettingType == "BACK") {
+        if (_betType == "BACK") {
             if (_payout != 0)
                 liability = _stake;
             else

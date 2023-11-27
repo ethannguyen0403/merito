@@ -36,7 +36,7 @@ public class MemberConstants {
     public static final String LBL_CRICKET_SPORT = "Cricket";
     public static final String LBL_BACK_TYPE = "Back";
     public static final String LBL_LAY_TYPE = "Lay";
-
+    public static final String MATCH_ODDS_TITLE = "Match Odds";
     public static final Map<String, String> TIMEZONE_BRAND = new HashMap<String, String>() {
         {
             put("satsport", "IST");

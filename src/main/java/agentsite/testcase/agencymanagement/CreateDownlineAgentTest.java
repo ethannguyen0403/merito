@@ -189,8 +189,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      */
     @TestRails(id = "682")
     @Test (groups = {"smoke_creditcash"})
-    @Parameters({"currency"})
-    public void Agent_AM_CreateDownline_Agent_682(String currency) {
+    public void Agent_AM_CreateDownline_Agent_682() {
         log("@title: Validate display Cash Balance for Credit Cash account");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());

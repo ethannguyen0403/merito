@@ -252,13 +252,16 @@ public class MarketPage extends HomePage {
 
     }
 
-    public List<ArrayList> getFancyBetSlipMiniMyBet(boolean isBack) {
-        return myBetsContainer.getFancyBetSlipInfo(isBack);
+    public List<ArrayList> getFancyBetSlipMiniMyBet() {
+        return myBetsContainer.getFancyBetSlipInfo();
     }
 
-    public List<ArrayList> geBookmakerBetSlipMiniMyBet(boolean isBack) {
-        return myBetsContainer.getBookmakerBetSlipInfo(isBack);
+    public List<ArrayList> getBookmakerBetSlipMiniMyBet() {
+        return myBetsContainer.getBookmakerBetSlipInfo();
     }
 
+    public void openFancyLadderForecast(FancyMarket fcMarket) { marketOddControl.openFancyLadderForecast(fcMarket);}
+
+    public boolean isLadderForecastDisplay(FancyMarket fcMarket) {return marketOddControl.isLadderForecastDisplay(fcMarket);}
 
 }

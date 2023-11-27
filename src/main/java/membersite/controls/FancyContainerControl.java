@@ -111,7 +111,7 @@ public class FancyContainerControl extends BaseElement {
 
     }
 
-    private String defineFancyTableXpath(String marketType) {
+    public String defineFancyTableXpath(String marketType) {
         switch (marketType) {
             case "WICKET_FANCY":
                 return tblXpath;
@@ -136,7 +136,8 @@ public class FancyContainerControl extends BaseElement {
                 return newFancy;
             }
             marketName = tblMarket.getControlOfCell(1, colMarketName, 1, lblMarketNameXpath).getText().trim();
-            if (marketName.equalsIgnoreCase(fcMarket.getMarketName())) {
+            //remove all whitespace to handle case double space in string (e.g. 6 OVER RUNS AS-W ADV and 6 OVER RUNS AS-W  ADV) -> loop forever
+            if (marketName.replaceAll("\\s","").equalsIgnoreCase(fcMarket.getMarketName().replaceAll("\\s",""))) {
                 System.out.println(String.format("Debug: found fancy market : %s at row %d", fcMarket.getMarketName(), i));
                 String minMax = tblMarket.getControlOfCell(1, colMinMax, 1, "div[contains(@class,'value-mm-bet')]/div" +
                         "").getText();

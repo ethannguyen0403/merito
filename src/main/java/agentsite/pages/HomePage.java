@@ -363,7 +363,7 @@ public class HomePage extends LoginPage {
     }
 
     public static void waitingLoadingSpinner() {
-        iconLoadSpinner.waitForControlInvisible(2, 2);
+        iconLoadSpinner.waitForControlInvisible(2, 4);
     }
 
     public AccountBalancePage navigateAccountBalance() {

@@ -62,12 +62,10 @@ public class WinLossDetailTest extends BaseCaseTest {
      */
     @TestRails(id = "795")
     @Test(groups = {"smoke"})
-    @Parameters("memberAccount")
-    public void Agent_Report_WinLossDetail_795(String memberAccount) {
+    @Parameters("downlineAccount")
+    public void Agent_Report_WinLossDetail_795(String downlineAccount) {
         log("@title: Validate can filter Win Loss Detail report");
         log("Step 1. Navigate Report > Win Loss Detail");
-//        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-//        String winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
         WinLossDetailPage page = agentHomePage.navigateWinLossDetailPage();
 
         log("Step 2. Search the data range that have data");
@@ -82,7 +80,7 @@ public class WinLossDetailTest extends BaseCaseTest {
         }
         log("Verify 1. Verify can display data");
         for (String observed : lstAccount) {
-            Assert.assertTrue(observed.contains(memberAccount), String.format("ERROR: The expected username not containt account is '%s' but found '%s'", memberAccount, observed));
+            Assert.assertTrue(observed.equals(downlineAccount), String.format("ERROR: The expected username not contain account is '%s' but found '%s'", downlineAccount, observed));
         }
         log("INFO: Executed completely");
     }
@@ -93,8 +91,6 @@ public class WinLossDetailTest extends BaseCaseTest {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Detail");
         List<String> lstAllProductsExpected = ReportslUtils.getAllProducts(ReportslUtils.getProductActive());
-//        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-//        String winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
         WinLossDetailPage page = agentHomePage.navigateWinLossDetailPage();
 
         log("Step 2: Get all products in dropdown");

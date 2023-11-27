@@ -13,15 +13,14 @@ import java.util.List;
 
 public class BetSettingListingPage extends HomePage {
     private static int totalColum = 16;
-    private static int soccerCol = 10;
-    private static int cricketCol = 11;
-    private static int fancyCol = 12;
-    private static int bookmakerCol = 13;
-    private static int tennisCol = 14;
-    private static int basketballCol = 15;
-    private static int otherCol = 16;
+    private static int soccerCol;
+    private static int cricketCol;
+    private static int fancyCol;
+    private static int bookmakerCol;
+    private static int tennisCol;
+    private static int basketballCol;
+    private static int otherCol;
     private static int chbCol = 6;
-    private int updateStatusCol = 17;
     public int usernameCol = 2;
     public static Table tblDownline = Table.xpath("//table[contains(@class,'ptable report')]", totalColum);
     public TextBox txtMinBet = TextBox.xpath("(//table[@class='ptable info search-region']//input)[1]");
@@ -110,26 +109,7 @@ public class BetSettingListingPage extends HomePage {
     }
 
     public boolean verifyUpdateStatus(List<ArrayList<String>> lstData, boolean isSuccess, HashMap<String, Boolean> sportList) {
-        int sportColumn = getSpotColumn(sportList);
-        int totalColum = 10;
-        totalColum = sportColumn + totalColum;
-        tblDownline = Table.xpath("//table[contains(@class,'ptable report table-responsive')]", totalColum);
-        updateStatusCol = totalColum;
-        String cell_xpath;
-        for (int i = 0; i < lstData.size(); i++) {
-            if (i % 4 == 0) {
-                cell_xpath = String.format("%s//tr[%s]//td[%s]", "//table[contains(@class,'ptable report table-responsive')]", i + 1, updateStatusCol);
-                Label lblIcon;
-                if (isSuccess) {
-                    lblIcon = Label.xpath(String.format("%s%s", cell_xpath, successIcon));
-                } else {
-                    lblIcon = Label.xpath(String.format("%s%s", cell_xpath, errorIcon));
-                }
-                if (!lblIcon.isDisplayed())
-                    return false;
-            }
-        }
-        return true;
+        return betSettingListing.verifyUpdateStatus(lstData, isSuccess, sportList);
     }
 
     public void updateBetSetting(String loginID, int minBet, int maxBet, int maxLiabilityPerMarket, int maxWinPerMarket) {

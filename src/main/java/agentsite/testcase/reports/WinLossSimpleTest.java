@@ -12,7 +12,6 @@ import util.testraildemo.TestRails;
 import java.util.List;
 
 import static common.AGConstant.BTN_SUBMIT;
-import static common.AGConstant.HomePage.WIN_LOSS_SIMPLE_OLDUI;
 import static common.AGConstant.Report.*;
 import static common.AGConstant.Report.WinLossSimple.TABLE_HEADER;
 
@@ -33,7 +32,6 @@ public class WinLossSimpleTest extends BaseCaseTest {
 
     @TestRails(id = "3737")
     @Test(groups = {"regression"})
-    @Parameters("memberAccount")
     public void Agent_Report_WinLossSimple_3737() {
         log("@title: Validate Win Loss Simple UI display correctly");
         log("Step 1: Navigate Report > Win Loss Simple");
