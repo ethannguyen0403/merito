@@ -56,7 +56,6 @@ public class CurrentBlockingPage extends HomePage {
                 return;
         }
         waitingLoadingSpinner();
-        return;
     }
 
     public void filter(String type, String sport, String tabTime) {
@@ -74,7 +73,6 @@ public class CurrentBlockingPage extends HomePage {
             clickTab(tabTime);
             waitingLoadingSpinner();
         }
-
     }
 
     public int getEventIndex(String event, boolean isEvent) {
@@ -152,10 +150,13 @@ public class CurrentBlockingPage extends HomePage {
     }
 
     private void clickCurrentCell(int row, boolean isEvent) {
-        if (isEvent)
+        if (isEvent) {
             tblEvent.getControlOfCell(1, colCurrent, row, null).click();
-        else
+            waitingLoadingSpinner();
+        }
+        else {
             tblEvent.getControlOfCell(1, colCompetitionCurrent, row, null).click();
-
+            waitingLoadingSpinner();
+        }
     }
 }

@@ -8,7 +8,6 @@ import agentsite.pages.marketsmanagement.currentblocking.BlockedUserPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
 import baseTest.BaseCaseTest;
-import com.paltech.driver.DriverManager;
 import common.AGConstant;
 import membersite.objects.sat.Event;
 import org.testng.Assert;
@@ -18,6 +17,8 @@ import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static common.AGConstant.MarketsManagement.BlockedUserPopup.LBL_NO_USER_BLOCKED;
 
 public class CurrentBlockingTest extends BaseCaseTest {
 
@@ -75,7 +76,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * 2. The number blocked in the list matched with the number in current column
      */
     @TestRails(id = "773")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1"})
     public void Agent_MM_CurrentBlocking_TC773() {
         log("@title: Verify can view blocked user for an event");
         log("Step 1. Navigate Markets Management > Current Blocking");
@@ -105,7 +106,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
         if (!expectedCurrent.isEmpty()) {
             Assert.assertEquals(expectedCurrent, number, "FAILED!, Current number not match with list login ID ");
         } else {
-            Assert.assertEquals(popup.tblBlockedUser.getColumn(1, true).get(0), number, "FAILED!, Current number not match with list login ID ");
+            Assert.assertEquals(popup.tblBlockedUser.getColumn(1, true).get(0), LBL_NO_USER_BLOCKED, "FAILED!, Current number not match with list login ID ");
         }
 
         log("INFO: Executed completely");
@@ -123,7 +124,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * 2. Close the popup and verify the blocked number is deducted
      */
     @TestRails(id = "774")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1"})
     @Parameters("downlineAccount")
     public void Agent_MM_CurrentBlocking_TC774(String downlineAccount) {
         log("@title: Verify can unblocked Now event for a user");
@@ -142,7 +143,6 @@ public class CurrentBlockingTest extends BaseCaseTest {
         blockEventPage.blockUnblockEvent(downlineAccount, eventName, "Block");
 
         log("Step 1. Navigate Markets Management > Current Blocking");
-        DriverManager.getDriver().switchToParentFrame();
         CurrentBlockingPage page = agentHomePage.navigateCurrentBlockingPage();
 
         log("Step 2. Select  Type = Event, Sport = Soccer, and Today tab");
@@ -162,9 +162,8 @@ public class CurrentBlockingTest extends BaseCaseTest {
             String blockedUserNumberAfter = page.getBlockedUser(eventName);
             Assert.assertEquals(blockedUserNumberAfter, currentBlockedUser, "FAILED! block number does not deducted after unblock now event for an account");
         } else {
-            Assert.assertEquals(popup.tblBlockedUser.getColumn(1, false).get(0), "There is no user blocked", "FAILED! Message no user blocked is incorrect");
+            Assert.assertEquals(popup.tblBlockedUser.getColumn(1, false).get(0), LBL_NO_USER_BLOCKED, "FAILED! Message no user blocked is incorrect");
         }
-
         log("INFO: Executed completely");
     }
 
@@ -212,7 +211,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * 2. Close the popup and verify the blocked number is deducted
      */
     @TestRails(id = "776")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1"})
     @Parameters("downlineAccount")
     public void Agent_MM_CurrentBlocking_TC776(String downlineAccount) {
         log("@title:Verify can unblock competition");
@@ -222,12 +221,10 @@ public class CurrentBlockingTest extends BaseCaseTest {
         page.filter("Competition", "Soccer", "");
         String competitionName = page.tblEvent.getRowsWithoutHeader(1, false).get(0).get(0);
 
-        DriverManager.getDriver().switchToParentFrame();
         BlockUnblockCompetitionPage blockCompetitionPage = agentHomePage.navigateBlockUnblockCompetitionPage();
         blockCompetitionPage.blockUblockCompetition("Soccer", downlineAccount, competitionName, true);
 
         log("Step 1. Navigate Markets Management > Current Blocking");
-        DriverManager.getDriver().switchToParentFrame();
         page = agentHomePage.navigateCurrentBlockingPage();
 
         log("Step 2. Select  Type = Competition, Sport = Soccer");
@@ -235,8 +232,8 @@ public class CurrentBlockingTest extends BaseCaseTest {
 
         log("Step 3. Search the competition that blocked in precondition");
         log("Step 4. Click on Current column");
-        String currentBlockedCompeitionNumber = page.getBlockedUser(competitionName, false, true);
-        BlockedUserPopup popup = new BlockedUserPopup();
+        String blockedUserNumberBefore = page.getBlockedUser(competitionName, false);
+        BlockedUserPopup popup = page.openBlockedUser(competitionName, false);
 
         log("Step 5. Select the user and click on Unblock");
         popup.unblockCompeition(downlineAccount);
@@ -248,8 +245,8 @@ public class CurrentBlockingTest extends BaseCaseTest {
         String blockedUserNumberAfter = page.getBlockedUser(competitionName, false);
 
         log("Verify 2. Close the popup and verify the blocked number is deducted");
-        if (!currentBlockedUser.equals(AGConstant.MarketsManagement.BlockedUserPopup.LBL_NO_USER_BLOCKED)) {
-            Assert.assertEquals(blockedUserNumberAfter, currentBlockedUser, "FAILED! block number does not deducted after unblock competition for an account");
+        if (!currentBlockedUser.equals(LBL_NO_USER_BLOCKED)) {
+            Assert.assertEquals(blockedUserNumberAfter, String.valueOf(String.format("%.0f",Double.valueOf(blockedUserNumberBefore) - 1)), "FAILED! block number does not deducted after unblock competition for an account");
         } else {
             Assert.assertEquals(blockedUserNumberAfter, "", "FAILED! block number does not deducted after unblock competition for an account");
         }
