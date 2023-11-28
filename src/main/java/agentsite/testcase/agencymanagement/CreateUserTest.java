@@ -471,7 +471,7 @@ public class CreateUserTest extends BaseCaseTest {
      *
      */
     @TestRails(id = "693")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke_creditcash"})
     @Parameters("currency")
     public void Agent_AM_CreateUser_693(String currency) {
         log("@title: Validate cannot  create downline if  deposit/ update credit limit over the valid");

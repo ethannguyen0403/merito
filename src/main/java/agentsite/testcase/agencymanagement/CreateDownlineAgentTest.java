@@ -151,7 +151,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      *      2. There is no Credit Balance section display
      */
     @TestRails(id = "681")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke_creditcash"})
     public void Agent_AM_CreateDownline_Agent_681() {
         log("@title: Validate display Cash Balance for Cash account");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
