@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static common.MemberConstants.MATCH_ODDS_TITLE;
+
 /**
  * @author by isabella.huynh
  * created on 10/3/2020
@@ -196,11 +198,12 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
 
     public String getTitle(boolean isEventName) {
         String title = getTitle();
-        if (Objects.isNull(title)) {
-            lblEventMarketName.getText(1);
-        }
-        String[] titles = title.split("/");
-        return isEventName ? titles[0].trim() : titles[1].trim();
+//        if (Objects.isNull(title)) {
+//            lblEventMarketName.getText(1);
+//        }
+//        String[] titles = title.split("/");
+//        return isEventName ? titles[0].trim() : titles[1].trim();
+        return lblEventMarketName.getText();
     }
 
     public String getTitle() {
@@ -246,10 +249,8 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
 
     public Market getMarket(Event event, int selectionIndex, boolean isBack) {
         waitControlLoadCompletely(2);
-        String marketName = getTitle(false);
         String selectionName = Label.xpath(String.format("%s[%d]%s", lblSelectionListXPath, selectionIndex, lblSelectionName)).getText();
-
-        return getMarket(event, marketName, selectionName, isBack, getOddsListLabel(selectionIndex, isBack).get(0));
+        return getMarket(event, MATCH_ODDS_TITLE, selectionName, isBack, getOddsListLabel(selectionIndex, isBack).get(0));
     }
 
     public UnderageGamblingPopup clickOdd(Market market) {
