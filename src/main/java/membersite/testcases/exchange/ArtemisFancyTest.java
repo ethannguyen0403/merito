@@ -501,7 +501,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15814")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1"})
     public void ArtemisFancyTest_15814() {
         log("@title: Validate correct odds display when place on single runner market");
         log("Step 1. Open Artemis Fancy which has 1 runner market");
