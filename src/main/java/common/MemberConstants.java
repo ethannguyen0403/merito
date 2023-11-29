@@ -20,16 +20,18 @@ public class MemberConstants {
     public static final String NO_RECORD_FOUND = "No Record Found";
     public static final String WICKET_FANCY_TITLE = "Wicket Fancy";
     public static final String WICKET_BOOKMAKER = "Wicket Bookmaker";
-    public static final String ARTEMIS_BOOKMAKER = "Fair Bookmaker";
     public static final String FANCY_TITLE = "Fancy";
+    public static final String FANCY_CODE = "FAIR_27FANCY";
     public static final String CENTRAL_FANCY_TITLE = "Central Fancy";
     public static final String WICKET_FANCY_CODE = "WICKET_FANCY";
     public static final String CENTRAL_FANCY_CODE = "CENTRAL_FANCY";
-    public static final String FANCY_CODE = "FAIR_27FANCY";
     public static final String CENTRAL_BOOKMAKER_CODE = "MANUAL_ODDS";
     public static final String CENTRAL_BOOKMAKER_TITLE = "Manual Odds";
     public static final String WICKET_BOOKMAKER_CODE = "WICKET_BOOKMAKER";
     public static final String ARTEMIS_BOOKMAKER_CODE = "ARTEMIS_BOOKMAKER";
+    public static final String ARTEMIS_BOOKMAKER = "Fair Bookmaker";
+    public static final String ARTEMIS_FANCY_CODE = "ARTEMIS_FANCY";
+    public static final String ARTEMIS_FANCY_TITLE = "Fair Fancy";
     public static final String WICKET_BOOKMAKER_TITLE = "Bookmaker";
     public final static String NOTES_GMT4 = "Note : Date will be based on time zone GMT-04:00";
     public final static String EXCHANGE = "Exchange";
@@ -37,6 +39,10 @@ public class MemberConstants {
     public static final String LBL_BACK_TYPE = "Back";
     public static final String LBL_LAY_TYPE = "Lay";
     public static final String MATCH_ODDS_TITLE = "Match Odds";
+    public static final String SINGLE_RUNNER_TYPE = "Single Runner";
+    public static final String MULTI_RUNNER_TYPE = "Multiple Runner";
+    public static final String MULTI_BET_TYPE = "Multiple Bet";
+    public static final String MULTI_BET_TYPE_CODE = "ARTEMIS_MULTI_BET";
     public static final Map<String, String> TIMEZONE_BRAND = new HashMap<String, String>() {
         {
             put("satsport", "IST");

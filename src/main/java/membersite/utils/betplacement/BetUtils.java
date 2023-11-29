@@ -80,6 +80,24 @@ public class BetUtils {
         return null;
     }
 
+    public static FancyMarket findOpenArtemisFancyMarketByRunner(String sportID, String runnerType) {
+        // Get all available event of a sport
+        JSONObject sportObj = getEvent(sportID);
+        JSONArray eventArr = sportObj.getJSONArray(sportID);
+        if (Objects.isNull(eventArr)) {
+            System.out.println("DEBUG: getGETJSONResponse is null");
+            return null;
+        }
+        for (int i = 0; i < eventArr.length(); i++) {
+            // Get the first artemis fancy with runner based on inputted (Single Runner, Multiple Runner, Multiple Bet)
+            FancyMarket fancyMaket = FancyUtils.getFancyWithRunnerHasExpectedStatusInEvent(Integer.toString(eventArr.getInt(i)), runnerType,"OPEN");
+            if (Objects.nonNull(fancyMaket)) {
+                return fancyMaket;
+            }
+        }
+        return null;
+    }
+
    /* public static FancyMarket findOpen27FancyMarket(String sportID){
         JSONObject sportObj = getEvent(sportID);
         JSONArray eventArr = sportObj.getJSONArray(sportID);
