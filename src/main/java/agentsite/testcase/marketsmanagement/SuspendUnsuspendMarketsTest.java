@@ -114,7 +114,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "785")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_ma"})
     @Parameters({"downlineAccount", "password"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC785(String downlineAccount, String password) throws Exception {
         log("@title: Verify can suspend line market");

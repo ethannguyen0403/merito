@@ -27,7 +27,7 @@ public class MA006_GetMarketCatalogTest extends BaseCaseAPI {
      */
     @TestRails(id = "423")
     @Parameters({"username", "password"})
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke"})
     public void MA006_GetMarketCatalogTest_423(String username, String password) throws Exception {
         log("@title: Validate that can get Event Type");
         log("Step 1 Access api url for merito");
