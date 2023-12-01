@@ -23,6 +23,7 @@ import static common.MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER;
 import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 
 public class ArtemisFancyTest extends BaseCaseTest {
+    //Single Runner cases
     @TestRails(id = "2249")
     @Test(groups = {"smoke"})
     public void ArtemisFancyTest_2249() {
@@ -501,7 +502,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15814")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1"})
     public void ArtemisFancyTest_15814() {
         log("@title: Validate correct odds display when place on single runner market");
         log("Step 1. Open Artemis Fancy which has 1 runner market");
@@ -533,6 +534,71 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Validate Odds displays correctly (if payout = 100 it will displays odds only -> 48, otherwise it will show along with payout -> 48:90)");
         myBetsPage.verifyWagerInfo(expectedWager);
 
+        log("INFO: Executed completely");
+    }
+
+    //Multi Runner cases
+    @TestRails(id = "2766")
+    @Test(groups = {"smoke"})
+    public void ArtemisFancyTest_2766() {
+        log("@title: Validate correct odds display when place on multi runners market");
+        log("Step 1. Open Artemis Fancy which has 2 runners market");
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_RUNNER_TYPE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has Fancy Artemis");
+            Assert.assertTrue(true, "By passed as has no Fancy Artemis on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+        String stake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
+        memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
+        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
+
+        log("Step 2. Place matched bets");
+        marketPage.placeFancy(fcMarket, true, stake);
+        Wager expectedWager = marketPage.defineFancyWager(fcMarket, true, Double.parseDouble(stake));
+
+        log("Step 3. Observe odds show on mini my bet");
+        List<ArrayList> lstFCBet = marketPage.getFancyMiniMyBet();
+        log("Validate Odds displays correctly (if payout = 100 it will displays odds only -> 48, otherwise it will show along with payout -> 48:90)");
+        Assert.assertTrue(Objects.nonNull(lstFCBet), "FAILED! FC my bet section does NOT display");
+        Assert.assertEquals(lstFCBet.get(0).get(2), String.format("%.2f",expectedWager.getOdds()), "FAILED! Odds is incorrect");
+
+        log("Step 4. Navigate to My Bets page and search the matched bet and observe odds");
+        MyBetsPage myBetsPage = memberHomePage.openMyBet();
+        myBetsPage.filter(DDB_PRODUCT_FILTER.get("Exchange"), DDB_ORDER_TYPE_FILTER.get("MATCHED"));
+        log("Validate Odds displays correctly (if payout = 100 it will displays odds only -> 48, otherwise it will show along with payout -> 48:90)");
+        myBetsPage.verifyWagerInfo(expectedWager);
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15795")
+    @Test(groups = {"smoke"})
+    public void ArtemisFancyTest_15795() {
+        log("@title: Validate Ladder forecast score does not display");
+        log("@Precondition: Get the event that have Artemis Fancy market");
+        log("Step 1. Login member site and click on Cricket");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+
+        log("Step 2. Active the event that have Artemis Fancy market");
+        FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), SINGLE_RUNNER_TYPE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has Artemis Fancy");
+            Assert.assertTrue(true, "By passed as has no Artemis Fancy on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+
+        log("Step 3. From the left menu open Competition > Event > Fancy > select any market from the one at precondition");
+        memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
+        FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
+
+        log("Step 4. Click on ladder icon on any Fancy market");
+        marketPage.openFancyLadderForecast(fancyMarket);
+        log("Validate Forecast popup displays with name of selecting market");
+        Assert.assertFalse(marketPage.isLadderForecastDisplay(fancyMarket), "FAILED! Ladder forecast does not show correct");
         log("INFO: Executed completely");
     }
 
