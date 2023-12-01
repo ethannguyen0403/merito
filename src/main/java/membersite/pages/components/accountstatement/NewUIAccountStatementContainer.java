@@ -49,7 +49,7 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
     private int colPlaceDate = 6;
     private int colProfitLost = 7;
     private int colStatus = 8;
-    private Table tblDetailReport = Table.xpath("//app-group-betdetail//table", totalDetailColumn);
+    public Table tblDetailReport = Table.xpath("//app-group-betdetail//table", totalDetailColumn);
 
 
     public void filter(String startDate, String endDate) {
@@ -158,6 +158,7 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
             return;
         }
         plofMarketLnk.click();
+        tblReport.isClickable(1);
     }
 
     public List<ArrayList<String>> getAPIReport(String startDate, String endDate, String timeZone) {
@@ -183,6 +184,10 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
     public List<String> getReportHeader() {
         return tblReport.getColumnNamesOfTable(1);
     }
+    public List<String> getReportDetailHeader() {
+        return tblDetailReport.getColumnNamesOfTable(1);
+    }
+
 
 
 }

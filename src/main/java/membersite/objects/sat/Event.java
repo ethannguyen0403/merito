@@ -24,6 +24,7 @@ public class Event {
     private String _away;
     private String _awayBack;
     private String _awayLay;
+    private String _marketName;
     private Link _lnkEvent;
     private String _startTime;
     private List<Market> _listMarket;
@@ -41,6 +42,7 @@ public class Event {
         this._away = builder._away;
         this._awayBack = builder._awayBack;
         this._awayLay = builder._awayLay;
+        this._marketName = builder._marketName;
         this._draw = builder._draw;
         this._drawBack = builder._drawBack;
         this._drawLay = builder._drawLay;
@@ -132,6 +134,13 @@ public class Event {
         return _awayLay;
     }
 
+    public String getMarketName() {
+        return _marketName;
+    }
+
+    public void setMarketName(String _marketName) {
+        this._marketName = _marketName;
+    }
     public String getRaw() {
         return _draw;
     }
@@ -188,6 +197,7 @@ public class Event {
         private String _draw = "x";
         private String _drawBack = "";
         private String _drawLay = "";
+        private String _marketName = "";
         private boolean _isSuspend = false;
         private Link _lnkEvent;
         private String _startTime = "";
@@ -259,6 +269,10 @@ public class Event {
 
         public Builder awayBack(String val) {
             _awayBack = val;
+            return this;
+        }
+        public Builder marketName(String val) {
+            _marketName = val;
             return this;
         }
 

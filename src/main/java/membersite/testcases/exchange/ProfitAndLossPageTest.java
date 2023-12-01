@@ -32,7 +32,7 @@ public class ProfitAndLossPageTest extends BaseCaseTest {
     @Test(groups = {"smoke"})
     @Parameters("timeZone")
     public void ProfitAndLossPage_TC522(String timeZone) {
-        log("@title: Validate Product display correctly");
+        log("@title: Validate Data Profit display correctly");
         log("Step 1. Active My Account> Profit and loss");
         ProfitAndLossPage page = memberHomePage.header.openProfitAndLoss(_brandname);
         String startDate = DateUtils.getDate(-14, "yyyy-MM-dd", timeZone);
