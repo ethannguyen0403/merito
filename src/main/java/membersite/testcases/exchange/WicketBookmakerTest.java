@@ -21,7 +21,7 @@ import static common.MemberConstants.HomePage.SPORT_ID;
 
 public class WicketBookmakerTest extends BaseCaseTest {
     @TestRails(id = "535")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void WicketBookmakerTest_535() {
         log("@title: Validate can place bet on Wicket Bookmaker on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
@@ -65,7 +65,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
     }
 
     @TestRails(id = "536")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void WicketBookmakerTest_536() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
@@ -104,7 +104,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
     }
 
     @TestRails(id = "537")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void WicketBookmakerTest_537() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
@@ -142,7 +142,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
     }
 
     @TestRails(id = "538")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void WicketBookmakerTest_538() {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and click on Cricket");
