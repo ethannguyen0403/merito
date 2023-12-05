@@ -69,7 +69,7 @@ public class FancyContainerControlOldUI extends BaseElement {
         Link lblOddLay = (Link) tblOdds.getControlOfCell(1, colLayOdds, 1, "span[contains(@class,'odds-value')]");
         Link lblRateLay = (Link) tblOdds.getControlOfCell(1, colLayOdds, 1, "span[contains(@class,'payout-value')]");
         if (lblOddLay.isDisplayed())
-            newFancy.set_oddsNo(Double.parseDouble(lblOddLay.getText().trim()));
+            newFancy.setOddsNo(Double.parseDouble(lblOddLay.getText().trim()));
         if (lblRateLay.isDisplayed()) {
             rate = lblRateLay.getText().trim().replace(":", "");
             newFancy.setRateNo(Integer.parseInt(rate));

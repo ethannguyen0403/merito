@@ -702,7 +702,7 @@ public class EditUserTest extends BaseCaseTest {
         editUserPage = page.clickEditIcon(loginID);
 
         log("Step 6. Change account status to Active and Submit and click Ok button");
-        editUserPage.accountInforSection.inputInfo("","", "Suspended");
+        editUserPage.accountInforSection.inputInfo("","", "Active");
         page.submitEditDownline();
 
         log("Verify 4. Downline Listing display Account Status is Active");

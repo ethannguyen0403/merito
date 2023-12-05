@@ -166,7 +166,7 @@ public class NewUIFancyContainerControl extends FancyContainerControl {
                 Link lblOddLay = (Link) tblMarket.getControlOfCell(1, colLayOdds, 1, "span[1]");
                 Link lblRateLay = (Link) tblMarket.getControlOfCell(1, colLayOdds, 1, "span[2]");
                 if (lblOddLay.isDisplayed())
-                    newFancy.set_oddsNo(Double.parseDouble(lblOddLay.getText().trim()));
+                    newFancy.setOddsNo(Double.parseDouble(lblOddLay.getText().trim()));
                 if (lblRateLay.isDisplayed()) {
                     rate = lblRateLay.getText().trim().replace(":", "");
                     newFancy.setRateNo(Integer.parseInt(rate));
