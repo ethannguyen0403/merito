@@ -77,11 +77,9 @@ public class AccountStatementTest extends BaseCaseTest {
             Assert.assertTrue(true, "By pass as there is no account statement report in search range");
             return;
         }
-
         log("Step 4. Click on the first Narration and check header details");
-
         page.clickNarrationOnTheFirstRow();
-        tblHeaders = page.getTblReport().getColumnNamesOfTable();
+        tblHeaders = page.getHeadersDetails();
 
         log("Verify 2. Report detail table header display correctly");
         Assert.assertEquals(tblHeaders, TABLE_DETAIL_HEADER, "ERROR!Detail table header not match as expected");
@@ -96,8 +94,9 @@ public class AccountStatementTest extends BaseCaseTest {
      * @expect: 1. Home page is displayed
      */
     @TestRails(id = "526")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     public void AccountStatement_TC526() {
+        // This test case cannot run on Fair999 as this brand is remove logo as ticket #ITS-1298
         log("@title: Validate Home page display when clicking on home icon");
         log("Step 1.Active My Account> Account Statement");
         AccountStatementPage page = memberHomePage.header.openAccountStatement(_brandname);

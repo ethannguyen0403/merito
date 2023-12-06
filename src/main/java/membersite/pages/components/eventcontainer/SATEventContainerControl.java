@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static common.MemberConstants.MATCH_ODDS_TITLE;
+
 /**
  * @author by isabella.huynh
  * created on 10/3/2020

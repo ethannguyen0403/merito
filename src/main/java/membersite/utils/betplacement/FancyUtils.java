@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static baseTest.BaseCaseTest.domainURL;
-import static common.MemberConstants.WICKET_BOOKMAKER_CODE;
+import static common.MemberConstants.*;
 
 public class FancyUtils {
 
@@ -143,10 +143,12 @@ public class FancyUtils {
                 return getWicketFancyJSON(eventID);
             case "CENTRAL_FANCY":
                 return getCentralFancyJSON(eventID);
-            case "WICKET_BOOKMAKER":
-                return getWicketBookMarkerJSON(eventID);
-            case "CENTRAL_BOOKMAKER":
-                return getCentraltBookMarkerJSON(eventID);
+//            case "WICKET_BOOKMAKER":
+//                return getWicketBookMarkerJSON(eventID);
+//            case "CENTRAL_BOOKMAKER":
+//                return getCentraltBookMarkerJSON(eventID);
+            case "ARTEMIS_FANCY":
+                return getArtemisMarketJSON(eventID);
             default:
                 return getFancyJSON(eventID);
         }
@@ -189,6 +191,44 @@ public class FancyUtils {
                         .minBet(marketObj.getInt("minBet"))
                         .maxBet(marketObj.getInt("maxBet"))
                         .build());
+            }
+            return lstMarket;
+        }
+        System.out.println("DEBUG: getGETJSONResponse is null" + marketJSONArray.toString());
+        return null;
+    }
+
+    public static List<FancyMarket> getListArtemisFancyInEvent(String eventID, String runnerType) {
+        List<FancyMarket> lstMarket = new ArrayList<>();
+        JSONArray marketJSONArray = getFancyJSONByProvider(eventID, ARTEMIS_FANCY_CODE);
+        if (marketJSONArray.length() == 0) {
+            System.out.println("DEBUG: No data get fancy market api of event id" + eventID);
+            return null;
+        }
+        int numberOfRunner = 0;
+        if (Objects.nonNull(marketJSONArray)) {
+            for (int i = 0; i < marketJSONArray.length(); i++) {
+                JSONObject marketObj = marketJSONArray.getJSONObject(i);
+                if(marketObj.getString("marketType").equalsIgnoreCase(ARTEMIS_FANCY_CODE))
+                {
+                    if(runnerType.equalsIgnoreCase(SINGLE_RUNNER_TYPE)) {
+                        numberOfRunner = 1;
+                    } else if (runnerType.equalsIgnoreCase(MULTI_RUNNER_TYPE) || runnerType.equalsIgnoreCase(MULTI_BET_TYPE)) {
+                        numberOfRunner = marketObj.getInt("numberOfActiveRunners");
+                    }
+                    lstMarket.add(new FancyMarket.Builder()
+                            .eventName(marketObj.getString("eventName"))
+                            .marketID(Integer.toString(marketObj.getInt("marketId")))
+                            .marketName(marketObj.getString("marketName"))
+                            .eventID(eventID)
+                            .status(marketObj.getString("status"))
+                            .marketType(marketObj.getString("marketType"))
+                            .minBet(marketObj.getInt("minBet"))
+                            .maxBet(marketObj.getInt("maxBet"))
+                            .bettingType(marketObj.getString("bettingType"))
+                            .numberOfActiveRunner(numberOfRunner)
+                            .build());
+                }
             }
             return lstMarket;
         }
@@ -325,6 +365,34 @@ public class FancyUtils {
         List<FancyMarket> lstMarket = getListFancyInEvent(eventID, fancyProviderCode);
         if (Objects.nonNull(lstMarket)) {
             for (FancyMarket market : lstMarket) {
+                if (market.getStatus().equalsIgnoreCase(status)) {
+                    return market;
+                }
+            }
+        }
+        System.out.println(String.format("DEBUG: There is no wicket fancy display in the event %s", eventID));
+        return null;
+    }
+
+    public static FancyMarket getFancyWithRunnerHasExpectedStatusInEvent(String eventID, String runnerType, String status) {
+        List<FancyMarket> lstMarket = getListArtemisFancyInEvent(eventID, runnerType);
+        if (Objects.nonNull(lstMarket)) {
+            for (FancyMarket market : lstMarket) {
+                if(runnerType.equalsIgnoreCase(SINGLE_RUNNER_TYPE)) {
+                    if(market.getBettingType().equalsIgnoreCase(MULTI_BET_TYPE_CODE) || market.getNumberOfActiveRunner() > 1)
+                    {
+                        return null;
+                    }
+                } else if (runnerType.equalsIgnoreCase(MULTI_RUNNER_TYPE)) {
+                    if(market.getBettingType().equalsIgnoreCase(MULTI_BET_TYPE_CODE) || market.getNumberOfActiveRunner() <= 1)
+                    {
+                        return null;
+                    }
+                } else if (runnerType.equalsIgnoreCase(MULTI_BET_TYPE)) {
+                    if(!market.getBettingType().equalsIgnoreCase(MULTI_BET_TYPE_CODE)) {
+                        return null;
+                    }
+                }
                 if (market.getStatus().equalsIgnoreCase(status)) {
                     return market;
                 }

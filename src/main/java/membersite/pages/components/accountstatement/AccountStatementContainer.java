@@ -53,4 +53,7 @@ public class AccountStatementContainer {
     public List<String> getReportHeader() {
         return null;
     }
+    public List<String> getReportDetailHeader() {
+        return null;
+    }
 }

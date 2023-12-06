@@ -35,6 +35,10 @@ public class AccountStatementPage extends HomePage {
         return accountStatementContainer.getTblReport();
     }
 
+    public List<String> getHeadersDetails(){
+        return accountStatementContainer.getReportHeader();
+    }
+
     public void clickNarrationOnTheFirstRow() {
         accountStatementContainer.clickNarration();
     }
