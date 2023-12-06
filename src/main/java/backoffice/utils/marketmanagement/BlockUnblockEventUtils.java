@@ -15,9 +15,9 @@ import java.util.Objects;
 import static baseTest.BaseCaseTest.backofficeUrl;
 
 public class BlockUnblockEventUtils {
-    public static List<ArrayList<String>> getDownlineList(String userId) {
+    public static List<ArrayList<String>> getDownlineList(String userId,String levelPT) {
         List<ArrayList<String>> lstDownline = new ArrayList<>();
-        String api = String.format("%s/system-manager/block-unlock-event/child-po.sv?userId=%s&levelPT=SMA", backofficeUrl, userId);
+        String api = String.format("%s/system-manager/block-unlock-event/child-po.sv?userId=%s&levelPT=%s", backofficeUrl, userId,levelPT);
         JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonArray)) {
             for (int i = 0; i < jsonArray.length(); i++) {
