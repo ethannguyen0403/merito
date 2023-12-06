@@ -114,7 +114,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
 
         log("Step 4 Access get event of the competition get in step 3");
         EventListResult resultObj = GetEventsUtils.getEventsAPI(token, sportID, "", Integer.toString(competitionId));
-        String eventId = Integer.toString(resultObj.getEventList().get(0).getId()); //3 is for TENNIS
+        String eventId = Integer.toString(resultObj.getEventList().get(0).getId());
 
         log("Step 5 Access get all market of the event get in step 4 to get a market");
         MarketResult marketResultObj = GetMarketCatalogUtils.getMarketCatalogAPI(token, sportID, eventId, Integer.toString(competitionId), "", "FIRST_TO_START");
