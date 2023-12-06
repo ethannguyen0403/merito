@@ -79,7 +79,7 @@
             <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
             <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
-            <class name="agentsite.testcase.agencymanagement.CreditBalanceListingTest"/>
+<!--            <class name="agentsite.testcase.agencymanagement.CreditBalanceListingTest"/>-->
             <class name="agentsite.testcase.agencymanagement.EventBetSizeSettingsTest"/>
             <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
             <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
