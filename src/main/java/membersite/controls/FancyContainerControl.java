@@ -88,15 +88,24 @@ public class FancyContainerControl extends BaseElement {
     }
 
     public void clickArtemisFancyOdds(FancyMarket fcMarket, boolean isBack, int runnerNo) {
-        Table tbl = getFancyMarketRow(fcMarket);
+        Table tbl;
         Link lnk;
-        if (Objects.isNull(tbl))
-            return;
-        if (isBack) {
-            lnk = (Link) tbl.getControlOfCell(1, colBackOdds, runnerNo + 1, null);
-        } else
-            lnk = (Link) tbl.getControlOfCell(1, colLayOdds, runnerNo + 1, null);
-        lnk.click();
+        if(fcMarket.getMarketName().equalsIgnoreCase("Multi Bet")) {
+            tbl =Table.xpath("//app-artemis-multi-market//table", totalColumn);
+            if (Objects.isNull(tbl))
+                return;
+            lnk = (Link) tbl.getControlOfCell(1, colBackOdds, runnerNo, null);
+            lnk.click();
+        } else {
+            tbl = getFancyMarketRow(fcMarket);
+            if (Objects.isNull(tbl))
+                return;
+            if (isBack) {
+                lnk = (Link) tbl.getControlOfCell(1, colBackOdds, runnerNo + 1, null);
+            } else
+                lnk = (Link) tbl.getControlOfCell(1, colLayOdds, runnerNo + 1, null);
+            lnk.click();
+        }
 
     }
 

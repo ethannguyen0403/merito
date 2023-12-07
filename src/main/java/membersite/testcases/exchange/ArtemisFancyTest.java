@@ -189,7 +189,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15778")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"smoke_stg", "2024.01.19"})
     public void ArtemisFancyTest_15778() {
         log("@title: Validate multi tab (bet slip) is disabled");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -673,7 +673,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15798")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"smoke_stg", "2024.01.19"})
     public void ArtemisFancyTest_15798() {
         log("@title: Validate multi tab (bet slip) is disabled");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -1009,6 +1009,107 @@ public class ArtemisFancyTest extends BaseCaseTest {
         marketPage.openFancyLadderForecast(fancyMarket);
         log("Validate Forecast popup displays with name of selecting market");
         Assert.assertFalse(marketPage.isLadderForecastDisplay(fancyMarket), "FAILED! Ladder forecast does not show correct");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15808")
+    @Test(groups = {"smoke_stg", "2024.01.19"})
+    public void ArtemisFancyTest_15808() {
+        log("@title: Validate multi tab (bet slip) is disabled");
+        log("@Precondition: Get the event that have Artemis Fancy has multi bet selection");
+        log("Step 1. Login member site and click on Cricket");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+
+        log("Step 2. Active the event that have Artemis Fancy market");
+        FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_BET_TYPE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has Artemis Fancy");
+            Assert.assertTrue(true, "By passed as has no Artemis Fancy on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+
+        log("Step 3. From the left menu open Competition > Event > Fancy > select multi selection from any market");
+        memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
+        FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
+
+        marketPage.addArtemisFancyOdds(fancyMarket, true, 1);
+
+        log("Validate Multi tab (bet slip) is disabled and does not work when click on");
+        Assert.assertFalse(marketPage.myBetsContainer.isMultiTabBetSlipEnabled(), "FAILED! Multi tab in bet slip is enabled");
+        marketPage.myBetsContainer.clickMultiTabBetSlip();
+        Assert.assertFalse(marketPage.myBetsContainer.isMultiTabBetSlipSelected(), "FAILED! Multi tab in bet slip is enabled");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15809")
+    @Test(groups = {"smoke1", "2024.01.19"})
+    public void ArtemisFancyTest_15809() {
+        log("@title: Validate bet slip information show correctly for multi bet selection");
+        log("@Precondition: Get the event that have Artemis Fancy has multi bet selection");
+        log("Step 1. Login member site and click on Cricket");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+
+        log("Step 2. Active the event that have Artemis Fancy market");
+        FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_BET_TYPE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has Artemis Fancy");
+            Assert.assertTrue(true, "By passed as has no Artemis Fancy on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+
+        log("Step 3. From the left menu open Competition > Event > Fancy > select any Yes selection");
+        memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
+        FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
+        String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+
+        log("Step 4. Input stake and observe bet slip information");
+        marketPage.addArtemisFancyOdds(fancyMarket, true, 1);
+        marketPage.betsSlipContainer.inputStake(minStake);
+
+        log("Validate Bet slip displays with info market name, selection (Yes [L]), stake inputted and liability (stake * (payout/100))");
+        List<ArrayList> lstBetslip = marketPage.getFancyBetSlipMiniMyBet();
+        Assert.assertEquals(lstBetslip.get(0), expectedWager.getMarketName(), String.format("FAILED! Market name does not display correctly in bet slip expected %s actual %s", expectedWager.getMarketName(), lstBetslip.get(0)));
+        Assert.assertEquals(lstBetslip.get(2), String.format("%.0f", expectedWager.getOdds()), String.format("FAILED! Odds does not display correct expected %s actual %s", String.format("%.0f", expectedWager.getOdds()), lstBetslip.get(2)));
+        Assert.assertEquals(lstBetslip.get(3), String.format("%.0f", expectedWager.getStake()), String.format("FAILED! Stake does not display correct expected %s actual %s", String.format("%.0f", expectedWager.getStake()), lstBetslip.get(3)));
+        Assert.assertEquals(lstBetslip.get(4), String.format("%.2f", expectedWager.getProfitFancyWager()), String.format("FAILED! Stake does not display correct expected %s actual %s", String.format("%.2f", expectedWager.getProfitFancyWager()), lstBetslip.get(4)));
+    }
+
+    @TestRails(id = "15810")
+    @Test(groups = {"smoke1", "2024.01.19"})
+    public void ArtemisFancyTest_15810() {
+        log("@title: Validate exposure is kept correctly when place multi bet");
+        log("Step 1. Login member site and click on Cricket");
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+
+        log("Step 2 Get and click on the event that has Artemis Fancy");
+        FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_BET_TYPE);
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+        if (Objects.isNull(marketPage)) {
+            log("DEBUG: Skip as have no event has Fancy Artemis");
+            Assert.assertTrue(true, "By passed as has no Artemis Fancy on all available event");
+            return;
+        }
+
+        log("Step 4 Active Artemis Fancy tab");
+        memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
+        FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
+        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+
+        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
+        marketPage.placeArtemisFancy(fcMarket, true, minStake, 1);
+
+        log("Verify 1. Validate Exposure kept correctly when place on Yes section");
+        Double liabilityWager = expectedWager.getLiabilityFancyWager();
+        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, 0.0);
+        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
+        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+
         log("INFO: Executed completely");
     }
 }

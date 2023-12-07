@@ -213,15 +213,15 @@ public class FancyUtils {
                 {
                     if(runnerType.equalsIgnoreCase(SINGLE_RUNNER_TYPE)) {
                         if(!(marketObj.getInt("numberOfActiveRunners") == 1)) {
-                            break;
+                            continue;
                         }
                     } else if (runnerType.equalsIgnoreCase(MULTI_RUNNER_TYPE)) {
                         if(!(marketObj.getInt("numberOfActiveRunners") > 1)) {
-                            break;
+                            continue;
                         }
                     } else if (runnerType.equalsIgnoreCase(MULTI_BET_TYPE)) {
                         if(!(marketObj.getString("marketName").equalsIgnoreCase("Multi Bet"))) {
-                            break;
+                            continue;
                         }
                     }
                     numberOfRunner = marketObj.getInt("numberOfActiveRunners");
