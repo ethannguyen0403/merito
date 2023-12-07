@@ -34,7 +34,8 @@ public class BlockUnblockEventTest extends BaseCaseTest {
 
     @TestRails(id = "1662")
     @Test(groups = {"regression"})
-    public void BO_Market_Management_BlockUnblock_Event_1662() {
+    @Parameters("fair999PortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_1662(String fair999PortalCode) {
         log("@title: Validate can filter Upline");
         log("Step 1. Access Operations > Block/Unblock Events");
         BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
@@ -43,13 +44,12 @@ public class BlockUnblockEventTest extends BaseCaseTest {
         String user = page.ddbUplineUser.getFirstSelectedOption();
         page.filter(user, BOConstants.Operations.BlockUnblockEvent.SPORTS.get(0), "");
         String userId = page.lblUplineUser.getAttribute("value");
-        List<ArrayList<String>> lstDownlineApi = BlockUnblockEventUtils.getDownlineList(userId);
-        List<String> lstDownlineUI = page.getListDownlineUsers();
+        List<ArrayList<String>> lstDownlineApi = BlockUnblockEventUtils.getDownlineList(userId,"SMA");
+        List<String> lstDownlineUI = page.getFullListDownlineUsers();
 
         log("Step 2. Validate when filter with Upline the result show with downline of selected Upline accordingly");
         for (int i = 0; i < lstDownlineApi.size(); i++) {
-            Assert.assertTrue(lstDownlineApi.get(i).get(4).equalsIgnoreCase(lstDownlineUI.get(i)), "FAILED! List downline does not match expected: " + lstDownlineApi.get(i).get(4) +
-                    " and actual: " + lstDownlineUI.get(i));
+            Assert.assertEquals(page.defineDownLineAlias(lstDownlineApi.get(i).get(1),lstDownlineApi.get(i).get(4),lstDownlineApi.get(i).get(2)),lstDownlineUI.get(i), "FAILED! List downline does not match expected");
         }
         log("INFO: Executed completely");
     }
@@ -170,16 +170,16 @@ public class BlockUnblockEventTest extends BaseCaseTest {
 
     @TestRails(id = "1664")
     @Test(groups = {"regression"})
-    public void BO_Market_Management_BlockUnblock_Event_1664() {
+    @Parameters("fair999PortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_1664(String fair999PortalCode) {
         log("@title: Validate can filter Downline User Name for selected portal");
         log("Step 1. Access Operations > Block/Unblock Events");
         BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
 
         log("Step 2. Filter for a downline username and observe");
-        String user = page.ddbUplineUser.getFirstSelectedOption();
-        page.filter(user, BOConstants.Operations.BlockUnblockEvent.SPORTS.get(0), "");
+        page.filter(fair999PortalCode, BOConstants.Operations.BlockUnblockEvent.SPORTS.get(0), "");
         String userId = page.lblUplineUser.getAttribute("value");
-        List<ArrayList<String>> lstDownlineApi = BlockUnblockEventUtils.getDownlineList(userId);
+        List<ArrayList<String>> lstDownlineApi = BlockUnblockEventUtils.getDownlineList(userId,"SMA");
         String firstUsername = String.valueOf(lstDownlineApi.get(0).get(4));
         page.filterDownlineUser(firstUsername);
 
@@ -255,16 +255,16 @@ public class BlockUnblockEventTest extends BaseCaseTest {
 
     @TestRails(id = "1668")
     @Test(groups = {"regression"})
-    public void BO_Market_Management_BlockUnblock_Event_1668() {
+    @Parameters("fair999PortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_1668(String fair999PortalCode) {
         log("@title: Validate can add/remove favourites");
         log("Step 1. Access Operations > Block/Unblock Events");
         BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
 
         log("Step 2. Filter a user to click favourites");
-        String user = page.ddbUplineUser.getFirstSelectedOption();
-        page.filter(user, BOConstants.Operations.BlockUnblockEvent.SPORTS.get(0), "");
+        page.filter(fair999PortalCode, BOConstants.Operations.BlockUnblockEvent.SPORTS.get(0), "");
         String userId = page.lblUplineUser.getAttribute("value");
-        List<ArrayList<String>> lstDownlineApi = BlockUnblockEventUtils.getDownlineList(userId);
+        List<ArrayList<String>> lstDownlineApi = BlockUnblockEventUtils.getDownlineList(userId,"SMA");
         String firstUsername = String.valueOf(lstDownlineApi.get(0).get(4));
         page.filterDownlineUser(firstUsername);
         log("Step 3. Click star icon on options under Select All and observe");
@@ -282,16 +282,16 @@ public class BlockUnblockEventTest extends BaseCaseTest {
 
     @TestRails(id = "1669")
     @Test(groups = {"regression"})
-    public void BO_Market_Management_BlockUnblock_Event_1669() {
+    @Parameters("fair999PortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_1669(String fair999PortalCode) {
         log("@title: Validate can select all for Favourites section");
         log("Step 1. Access Operations > Block/Unblock Events");
         BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
 
         log("Step 2. Filter a user to click favourites");
-        String user = page.ddbUplineUser.getFirstSelectedOption();
-        page.filter(user, BOConstants.Operations.BlockUnblockEvent.SPORTS.get(0), "");
+        page.filter(fair999PortalCode, BOConstants.Operations.BlockUnblockEvent.SPORTS.get(0), "");
         String userId = page.lblUplineUser.getAttribute("value");
-        List<ArrayList<String>> lstDownlineApi = BlockUnblockEventUtils.getDownlineList(userId);
+        List<ArrayList<String>> lstDownlineApi = BlockUnblockEventUtils.getDownlineList(userId,"SMA");
         String firstUsername = String.valueOf(lstDownlineApi.get(0).get(4));
         page.filterDownlineUser(firstUsername);
         log("Step 3. Click star icon on a downline user then click Select All in Favourite section and observe");
@@ -308,16 +308,16 @@ public class BlockUnblockEventTest extends BaseCaseTest {
 
     @TestRails(id = "1670")
     @Test(groups = {"regression"})
-    public void BO_Market_Management_BlockUnblock_Event_1670() {
+    @Parameters("fair999PortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_1670(String fair999PortalCode) {
         log("@title: Validate can select all for Un-favourites  section");
         log("Step 1. Access Operations > Block/Unblock Events");
         BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
 
         log("Step 2. Filter a user to click favourites");
-        String user = page.ddbUplineUser.getFirstSelectedOption();
-        page.filter(user, BOConstants.Operations.BlockUnblockEvent.SPORTS.get(0), "");
+        page.filter(fair999PortalCode, BOConstants.Operations.BlockUnblockEvent.SPORTS.get(0), "");
         String userId = page.lblUplineUser.getAttribute("value");
-        List<ArrayList<String>> lstDownlineApi = BlockUnblockEventUtils.getDownlineList(userId);
+        List<ArrayList<String>> lstDownlineApi = BlockUnblockEventUtils.getDownlineList(userId,"SMA");
         String firstUsername = String.valueOf(lstDownlineApi.get(0).get(4));
         page.filterDownlineUser(firstUsername);
         log("Step 3. Click star icon on a downline user then click Select All in Favourite section and observe");
@@ -519,8 +519,77 @@ public class BlockUnblockEventTest extends BaseCaseTest {
         log("Step 3. Search the event blocked in precondition");
         page.filterEvent(eventID);
 
-        log("Step 3. Verify the event does not display");
+        log("Verify 3. Verify the event does not display");
         Assert.assertFalse(page.isNoRecordFoundDisplays(), "FAILED!The event display");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15733")
+    @Test(groups = {"regression","2023.11.301"})
+    @Parameters({"fair999PortalCode","fair999ControlLevel","agentPassword"})
+    public void BO_Market_Management_BlockUnblock_Event_15733(String fair999PortalCode,String fair999ControlLevel,String agentPassword) {
+        log("@title: Validate event is blocked will be reflected in agent");
+        log("Precondition step 1/Login BO");
+        String sport = "Soccer";
+
+        log("Step 1. Active Block/Unblock Event page");
+        BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
+
+        log("Step 2.  Select PO of Fair999 brand");
+        page.filter(fair999PortalCode, sport, "Today");
+
+        log("Step 3. Select Soccer and Today tab and select a control level blocking");
+        page.filterDownlineUser(fair999ControlLevel);
+
+        log("Step 4. Get the first event and block it");
+        log("Step 5. Login agent site of Fair999 brand at the level control blocking in step 3");
+        //agentHomePage = loginAgent(fair999ControlLevel, agentPassword,true);
+        log("Step 6. Active Block/Unblock Event page and search the event in step 3 and check the status");
+        Assert.assertFalse(page.isNoRecordFoundDisplays(), "FAILED!The event display");
+
+        log("Verify 1: Verify the status of the event is blocked");
+
+        log("INFO: Executed completely");
+    }
+
+
+    @TestRails(id = "15737")
+    @Test(groups = {"regression","2023.11.30"})
+    @Parameters("satPortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_15737(String satPortalCode) {
+        log("@title: Validate display level control blocking if selection a PO is not level control blocking ");
+
+        log("Step 1. Active Block/Unblock Event page");
+        BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
+
+        log("Step 2.  Select PO of SAT brand");
+        page.filter(satPortalCode, "", "");
+        String userId = page.lblUplineUser.getAttribute("value");
+        List<ArrayList<String>> lstDownlineApi = BlockUnblockEventUtils.getDownlineList(userId,"SAD");
+        List<String> lstDownlineUI = page.getFullListDownlineUsers();
+
+        log("Verify 1: Verify all downline display SAD");
+        for (int i = 0; i < lstDownlineApi.size(); i++) {
+            Assert.assertEquals(lstDownlineUI.get(i),page.defineDownLineAlias(lstDownlineApi.get(i).get(1),lstDownlineApi.get(i).get(4),lstDownlineApi.get(i).get(2)),"FAILED! List downline does not match expected");
+        }
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "15738")
+    @Test(groups = {"regression","2023.11.30"})
+    @Parameters("funsportPortalCode")
+    public void BO_Market_Management_BlockUnblock_Event_15738(String funsportPortalCode) {
+        log("@title: Validate only display PO level if it is level control blocking");
+
+        log("Step 1. Active Block/Unblock Event page");
+        BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
+
+        log("Step 2. Select PO of Funsport brand");
+        page.filter(funsportPortalCode, "", "Today");
+
+        log("Verify 1: Verify only display PO");
+        Assert.assertTrue(page.getFullListDownlineUsers().size() == 1, "FAILED! Only display 1 item PO ");
+        Assert.assertEquals(page.getFullListDownlineUsers().get(0),String.format("PO:%s",funsportPortalCode), "FAILED! Display list value is incorrect");
 
         log("INFO: Executed completely");
     }

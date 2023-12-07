@@ -65,10 +65,20 @@ public class BlockUnblockEventPage extends HomePage {
         }
     }
 
-    public List<String> getListDownlineUsers() {
+    public String defineDownLineAlias(String level, String userCode, String loginId){
+        if(!loginId.isEmpty())
+            return String.format("%s:%s (%s)",level,userCode,loginId);
+        return String.format("%s:%s",level,userCode);
+    }
+
+    /**
+     * This method to get full downline list : [Level:Account]
+     * @return the list downline full text
+     */
+    public List<String> getFullListDownlineUsers() {
         List<String> lstUsers = new ArrayList<>();
         for (int i = 1; i <= lblDownlineUsers.getWebElements().size(); i++) {
-            String xpath = String.format("//table[@aria-describedby='block-unblock-table']//div[@class='ps-content']//div//div[%s]//span[2]", i + 2);
+            String xpath = String.format("//table[@aria-describedby='block-unblock-table']//div[@class='ps-content']//div//div[%s]/div", i + 2);
             Label lblUserDownline = Label.xpath(xpath);
             lblUserDownline.scrollToThisControl(true);
             lstUsers.add(lblUserDownline.getText());

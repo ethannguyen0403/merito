@@ -81,8 +81,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         Assert.assertEquals(orderResult.getOrderList().get(0).getHandicap(), handicap, "FAILED! Handicap is incorrect");
         Assert.assertEquals(orderResult.getOrderList().get(0).getOrderType(), orderType, "FAILED! Order Type is incorrect");
         // Assert.assertEquals(orderResult.getOrderList().get(0).getSizeMatched(),memberInfo.getLstBetSetting().get(0).getMinBet(),"FAILED!Size Matched is incorrect");
-        Assert.assertTrue(orderResult.getOrderList().get(0).getPriceMatched() >= marketBook.getSelectionList().get(0).get_availableBack(),
-                String.format("FAILED!price matched is incorrect. Expected price match is %.2f but found %.2f", orderResult.getOrderList().get(0).getPriceMatched(), marketBook.getSelectionList().get(0).get_availableBack()));
+        Assert.assertTrue(orderResult.getOrderList().get(0).getPriceMatched() >= marketBook.getSelectionList().get(0).get_availableBack(), String.format("FAILED!price matched is incorrect. Expected price match is %.2f but found %.2f", orderResult.getOrderList().get(0).getPriceMatched(), marketBook.getSelectionList().get(0).get_availableBack()));
         Assert.assertEquals(orderResult.getOrderList().size(), 1, "FAILED! List Order more than 1");
 
         log("INFO: Executed completely");
@@ -103,7 +102,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         log("@title: Validate Place a unmatch bet");
         log("Step 1 Access api url for merito");
         log("Step 2 Login with valid username and password");
-        String sportID = "2";
+        String sportID = "2"; // 2 is Tennis sport ID
         String passDes = StringUtils.decrypt(password);
         String token = LoginMemberUtils.loginAPISuccess(username, passDes).getMessage();
 
@@ -115,7 +114,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
 
         log("Step 4 Access get event of the competition get in step 3");
         EventListResult resultObj = GetEventsUtils.getEventsAPI(token, sportID, "", Integer.toString(competitionId));
-        String eventId = Integer.toString(resultObj.getEventList().get(3).getId()); //3 is for TENNIS
+        String eventId = Integer.toString(resultObj.getEventList().get(0).getId());
 
         log("Step 5 Access get all market of the event get in step 4 to get a market");
         MarketResult marketResultObj = GetMarketCatalogUtils.getMarketCatalogAPI(token, sportID, eventId, Integer.toString(competitionId), "", "FIRST_TO_START");
@@ -140,7 +139,8 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
             Assert.assertTrue(true, "By pass this test case");
             return;
         }
-        log(String.format("Verify can place unmatched  order: Bet ID: %s", orderResult.getOrderList().get(0).getBetId()));
+        String betID = Integer.toString(orderResult.getOrderList().get(0).getBetId());
+        log(String.format("Verify can place unmatched  order: Bet ID: %s", betID));
         Assert.assertTrue(orderResult.getIsSuccess(), "FAILED! isSuccess should be true but cannnot get as expected");
         Assert.assertTrue(orderResult.getOrderList().get(0).getBetId() != 0, "FAILED! price matched is incorrect");
         Assert.assertEquals(Integer.toString(orderResult.getOrderList().get(0).getEventId()), eventId, "FAILED! Event id is incorrect");
@@ -149,11 +149,10 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         Assert.assertEquals(Double.toString(orderResult.getOrderList().get(0).getHandicap()), handicap, "FAILED! Handicap is incorrect");
         Assert.assertEquals(orderResult.getOrderList().get(0).getOrderType(), orderType, "FAILED! Order Type is incorrect");
         Assert.assertEquals(orderResult.getOrderList().get(0).getSizeMatched(), 0.0, "FAILED!Size Matched is incorrect");
-        Assert.assertEquals(Integer.toString(orderResult.getOrderList().get(0).getPriceMatched().intValue()), price, "FAILED!price matched is incorrect");
+        Assert.assertEquals(Integer.toString(orderResult.getOrderList().get(0).getPriceMatched().intValue()), "0", "FAILED!price matched is incorrect");
         Assert.assertEquals(orderResult.getOrderList().size(), 1, "FAILED! List Order more than 1");
 
         log("Step 9 Post-condition: Cancel Unmatched bet");
-        String betID = Integer.toString(orderResult.getOrderList().get(0).getBetId());
         CancelOrderUtils.cancelOrder(token, betID, "0");
 
         log("INFO: Executed completely");

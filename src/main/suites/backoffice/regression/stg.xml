@@ -23,6 +23,9 @@
         <parameter name='brandname' value='IPL688'/>
         <parameter name='feMemberLoginId' value='feinrisa'/>
         <parameter name='feMemberLoginPwd' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='fair999PortalCode' value='AN'/>
+        <parameter name='satPortalCode' value='SA'/>
+        <parameter name="funsportPortalCode" value="FS"/>
         <groups>
             <run>
                 <include name="regression"/>

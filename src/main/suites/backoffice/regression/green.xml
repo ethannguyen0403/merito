@@ -20,6 +20,7 @@
         <parameter name='brandname' value='backoffice'/>
         <parameter name='feMemberLoginId' value='03H0000000'/>
         <parameter name='feMemberLoginPwd' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
+        <parameter name='fair999PortalCode' value='FB'/>
         <groups>
             <run>
                 <include name="regression"/>
