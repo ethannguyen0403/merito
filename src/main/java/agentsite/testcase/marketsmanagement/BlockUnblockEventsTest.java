@@ -341,7 +341,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.blockUnblockEvent(downlineAccount, eventName, "Block", "", 1);
 
         log("Step 4.Click Unblock Schedule and select 25minutes and click Save");
-        page.blockUnblockEvent("", eventName, "Unblock Schedule", "25 minutes", 1);
+        page.blockUnblockEvent(downlineAccount, eventName, "Unblock Schedule", "25 minutes", 1);
 
         log("1. Verify if Event start time <= Current time => Status is Unblocked, is Viewable, is Betable, Time to open and time to bet = 25minutes and " +
                 "the event is display on member site otherwise status is Blocked, Not Viewable, Not Betable, and the event not display on member site");

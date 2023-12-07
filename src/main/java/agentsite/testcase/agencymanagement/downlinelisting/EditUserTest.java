@@ -624,7 +624,7 @@ public class EditUserTest extends BaseCaseTest {
         EditDownLinePage editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3.1 In-acctive the account");
-        editDownLinePage.accountInforSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(2));
+        editDownLinePage.accountInforSection.selectAccountStatus(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(2));
         page.submitEditDownline();
         page.closeSubmitEditDownlinePopup();
         page.logout();
@@ -647,7 +647,7 @@ public class EditUserTest extends BaseCaseTest {
         EditDownLinePage editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3. Suspend the account");
-        page.editDownlinePopup.accountInforSection.ddrAccountStatus.selectByVisibleText(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(3));
+        page.editDownlinePopup.accountInforSection.selectAccountStatus(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(3));
         page.submitEditDownline();
         page.closeSubmitEditDownlinePopup();
         page.logout();

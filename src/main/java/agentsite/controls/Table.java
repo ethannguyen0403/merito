@@ -653,4 +653,13 @@ public class Table extends BaseElement {
         }
         return -1;
     }
+
+    public List<Integer> getListColumnIndexByListName(List<String> lstColumnName) {
+        ArrayList<String> lstHeader = getHeaderNameOfRows();
+        List<Integer> lstIndex = new ArrayList<>();
+        for (int i = 0; i < lstColumnName.size(); i++) {
+            lstIndex.add(lstHeader.indexOf(lstColumnName.get(i)));
+        }
+        return lstIndex;
+    }
 }
