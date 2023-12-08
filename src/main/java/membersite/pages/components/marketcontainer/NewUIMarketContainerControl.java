@@ -156,18 +156,18 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
         return Label.xpath(String.format("%s%s", lblSelectionListXPath, lblSelectionName)).getWebElements().size();
     }
 
-    public List<Label> getOddsListLabel(int selectionIndex, boolean isBack) {
+    public List<Label> getOddsListLabel(String marketName, int selectionIndex, boolean isBack) {
         List<Label> list = new ArrayList<>();
-        String xPathOddsList = String.format("(%s)[%d]%s", lblSelectionListXPath, selectionIndex, lblOddListXPath);
+       // String xPathOddsList = String.format("(%s)[%d]%s", lblSelectionListXPath, selectionIndex, lblOddListXPath);
+        String xPathOddsList = String.format("(//span[text()='%s']/ancestor::ul/following::div[1]//tab[contains(@class,'active')]//div[contains(@class,'market-runner')]//div[contains(@class,'market-container')])[%d]//div[contains(@class,'cell-odds')]", marketName, selectionIndex);
         int countOddsLabel = Label.xpath(xPathOddsList).getWebElements().size();
-
         if (isBack) {
             for (int i = countOddsLabel / 2; i > 0; i--) {
-                list.add(Label.xpath(String.format("(%s%s)[%d]", xPathOddsList, lblOddItem, i)));
+                list.add(Label.xpath(String.format("%s[%d]//div[contains(@class,'pending-odds')]",xPathOddsList, i)));
             }
         } else {
             for (int i = countOddsLabel / 2; i < countOddsLabel; i++) {
-                list.add(Label.xpath(String.format("(%s%s)[%d]", xPathOddsList, lblOddItem, i + 1)));
+                list.add(Label.xpath(String.format("%s[%d]//div[contains(@class,'pending-odds')]",xPathOddsList, i)));
             }
         }
         return list;
@@ -177,7 +177,6 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
         List<Label> list = new ArrayList<>();
         String xPathOddsList = String.format("(%s)[%d]%s", lblSelectionListXPath, selectionIndex, lblOddListXPath);
         int countOddsLabel = Label.xpath(xPathOddsList).getWebElements().size();
-
         if (isBack) {
             for (int i = countOddsLabel / 2; i > 0; i--) {
                 list.add(Label.xpath(String.format("(%s)[%d]", xPathOddsList, i)));
@@ -211,16 +210,16 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
         return lblEventMarketName.getText();
     }
 
-    public int getSelectionHaveMinOdds(boolean isBack) {
+    public int getSelectionHaveMinOdds(String marketName,boolean isBack) {
         Label lblSelections = Label.xpath(lblSelectionListXPath);
         int totalSelection = lblSelections.getWebElements().size();
         int index = 1;
         Double odd = 0.0;
-        Double min = Double.parseDouble(getOddsListLabel(index, isBack).get(0).getText());
+        Double min = Double.parseDouble(getOddsListLabel(marketName,index, isBack).get(0).getText());
 
         // find the selection have BACK/ODDS odds is min
         for (int i = 0; i < totalSelection; i++) {
-            odd = Double.parseDouble(getOddsListLabel(i + 1, isBack).get(0).getText());
+            odd = Double.parseDouble(getOddsListLabel(marketName,i + 1, isBack).get(0).getText());
             if (min > odd) {
                 min = odd;
                 index = i + 1;
@@ -249,8 +248,8 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
 
     public Market getMarket(Event event, int selectionIndex, boolean isBack) {
         waitControlLoadCompletely(2);
-        String selectionName = Label.xpath(String.format("%s[%d]%s", lblSelectionListXPath, selectionIndex, lblSelectionName)).getText();
-        return getMarket(event, MATCH_ODDS_TITLE, selectionName, isBack, getOddsListLabel(selectionIndex, isBack).get(0));
+        String selectionName = Label.xpath(String.format("(//span[text()='%s']/ancestor::ul/following::div[1]//tab[contains(@class,'active')]//div[contains(@class,'market-runner')]//div[contains(@class,'market-container')])[%d]//div[contains(@class,'runner-name')]",event.getMarketName(), selectionIndex)).getText();
+        return getMarket(event, event.getMarketName(), selectionName, isBack, getOddsListLabel(event.getMarketName(),selectionIndex, isBack).get(0));
     }
 
     public UnderageGamblingPopup clickOdd(Market market) {
