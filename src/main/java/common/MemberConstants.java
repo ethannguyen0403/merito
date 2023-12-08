@@ -366,6 +366,7 @@ public class MemberConstants {
         public final static String SMG_BET_SLIP_EMPTY = "Click on the odds to add selections to the Bet Slip.";
         public final static String ERROR_SMG_MARKET_NOT_AVAILABLE_TO_PLACE_BET = "Error :This market is not available to place bet!";
         public final static String VALIDATE_STAKE_NOT_VALID = "The stake must be from %s to %s. Current Stake is %s";
+        public final static String VALIDATE_STAKE_NOT_VALID_ARTEMIS = "The stake must be from %s to %s, and max profit/loss should not be greater than %s. Current Stake is %s";
         public final static String ERROR_STAKE_NOT_VALID = "Error :Cannot place bet. The stake must be from %s to %s. Current Stake is %s";
         public final static String ERROR_EXCEED_LIABILITY = String.format("Error :Cannot place bet. The total liability exceeds max amount that is allowed per market. Total Exposure Per Market is %.2f. Max Allowed Per Market is %.2f.");
         public final static String ERROR_INSUFFICIENT_BALANCE = "Error: Cannot place bet. Your Main balance is insufficient.";
