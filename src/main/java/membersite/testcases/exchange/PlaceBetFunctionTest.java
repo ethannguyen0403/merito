@@ -122,7 +122,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         }
         MarketPage marketPage = page.clickEvent(event);
         log("Step 3. Update odds > offer odds and Input valid stake");
-        int selectionIndex = marketPage.marketOddControl.getSelectionHaveMinOdds(false);
+        int selectionIndex = marketPage.marketOddControl.getSelectionHaveMinOdds(event.getMarketName(),false);
         Market market = marketPage.marketOddControl.getMarket(event, selectionIndex, false);
         String odds = market.getBtnOdd().getText();
         String expectedLiability = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
@@ -726,7 +726,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
 
     @TestRails(id = "584")
-    @Test(groups = {"smoke3"})
+    @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC025() {
         log("@title: Validate that user can NOT place Lay bet if Stake less than min setting");
         String odds = "1.01";

@@ -66,7 +66,7 @@ public class MarketContainerControl {
         return null;
     }
 
-    public int getSelectionHaveMinOdds(boolean isBack) {
+    public int getSelectionHaveMinOdds(String marketName,boolean isBack) {
         return 0;
     }
 

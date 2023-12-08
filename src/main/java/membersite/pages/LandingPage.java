@@ -87,7 +87,8 @@ public class LandingPage extends BasePage {
     }
 
     public SportPage navigateSportHeaderMenu(String sportName) {
-        return header.navigateSportMenu(sportName, this._type);
+        leftMenu.waitMenuLoading();
+        return header.navigateSportMenu(sportName,this._type);
     }
 
 

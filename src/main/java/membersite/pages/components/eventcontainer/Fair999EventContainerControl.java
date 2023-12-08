@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static common.MemberConstants.MATCH_ODDS_TITLE;
+
 /**
  * @author by isabella.huynh
  * created on 10/3/2020
@@ -24,7 +26,7 @@ public class Fair999EventContainerControl extends EventContainerControl {
     private Label lblNoEvent = Label.xpath("//div[@class='text-center']");
     private Button btnOdds;
     private String lblEventStartTimeXpath = "//div[contains(@class,'item-child inplay-it')]";
-    private String lblHomeNameXpath = "//span[contains(@class,'home-team-name')]";
+    private String lblHomeNameXpath = "//div[contains(@class,'home-team-name')]";
     private String lblAwayNameXpath = "//div[contains(@class,'away-team-name')]";
     private String lblTotalMatchXpath = "//div[contains(@class,'total-matched')]";
     private String iconAddFavoritXPath = "//i[contains(@class,'far fa-star')]";
@@ -103,6 +105,7 @@ public class Fair999EventContainerControl extends EventContainerControl {
         return getEvent(isInPlay, isSuspend, limit, eventIndex);
     }
 
+    // Get event has Match Odds market by default
     public Event getEvent(boolean isInplay, boolean isSuspend, int limit, int eventIndex) {
         if (!lblNoEvent.isDisplayed()) {
             String xpathEvents = lblListEventXPath;
@@ -135,6 +138,7 @@ public class Fair999EventContainerControl extends EventContainerControl {
                             .eventName(eventName)
                             .lnkEvent(lnkEventName)
                             .isSuspend(isSuspend)
+                            .marketName(MATCH_ODDS_TITLE)
                             .inPlay(isInplay)
                             .startTime(eventStartTime)
                             .build();
@@ -149,6 +153,7 @@ public class Fair999EventContainerControl extends EventContainerControl {
 
     }
 
+    // Get event has Match Odds market by default
     public Event getEventRandom(boolean isInplay, boolean isSuspend) {
         if (!lblNoEvent.isDisplayed()) {
             //	String xpathEvents = String.format("%s%s",lblListEventXPath, _xpath);
@@ -185,6 +190,7 @@ public class Fair999EventContainerControl extends EventContainerControl {
                     return new Event.Builder()
                             .eventName(eventName)
                             .lnkEvent(lnkEventName)
+                            .marketName(MATCH_ODDS_TITLE)
                             .isSuspend(isSuspend)
                             .inPlay(isInplay)
                             .startTime(eventStartTime)
