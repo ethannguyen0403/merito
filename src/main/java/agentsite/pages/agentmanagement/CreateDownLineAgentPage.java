@@ -96,6 +96,7 @@ public class CreateDownLineAgentPage extends HomePage {
         switch (_type) {
             case "satsport":
                 accountInforSection.inputInfo(loginID, password, accountStatus);
+                username = accountInforSection.getUserName();
                 btnSubmit.click();
                 waitingLoadingSpinner();
                 break;

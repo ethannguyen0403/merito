@@ -28,6 +28,7 @@ public class FancyMarket {
     private Link _btnYes;
     private Link _btnNo;
     private String _bettingType;
+    private String _selection;
     private int _numberOfActiveRunner;
 
     public FancyMarket(Builder builder) {
@@ -52,6 +53,7 @@ public class FancyMarket {
         this._btnNo = builder._btnNo;
         this._btnYes = builder._btnYes;
         this._bettingType = builder._bettingType;
+        this._selection = builder._selection;
         this._numberOfActiveRunner = builder._numberOfActiveRunner;
     }
 
@@ -207,7 +209,7 @@ public class FancyMarket {
         _marketType = val;
     }
 
-    public void set_oddsNo(double val) {
+    public void setOddsNo(double val) {
         _oddsNo = val;
     }
     public String getBettingType() {
@@ -216,6 +218,13 @@ public class FancyMarket {
 
     public void setBettingType(String val) {
         _bettingType = val;
+    }
+    public String getSelection() {
+        return _selection;
+    }
+
+    public void setSelection(String val) {
+        _selection = val;
     }
     public int getNumberOfActiveRunner() {
         return _numberOfActiveRunner;
@@ -243,6 +252,7 @@ public class FancyMarket {
         private Link _btnYes;
         private Link _btnNo;
         private String _bettingType = "";
+        private String _selection = "";
         private int _numberOfActiveRunner;
 
         public Builder() {
@@ -349,6 +359,10 @@ public class FancyMarket {
         }
         public Builder bettingType(String val) {
             _bettingType = val;
+            return this;
+        }
+        public Builder selection(String val) {
+            _selection = val;
             return this;
         }
         public Builder numberOfActiveRunner(int val) {

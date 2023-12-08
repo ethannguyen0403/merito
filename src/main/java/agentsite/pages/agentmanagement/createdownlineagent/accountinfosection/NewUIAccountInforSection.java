@@ -26,11 +26,11 @@ public class NewUIAccountInforSection extends AccountInforSection {
     private String lblUsernameCharXpath
             = String.format("%s//div[contains(@class,'column data')][1]/span/span", _xPath);
     private String ddpUsernameCharXPath = String.format("//select[@name='userNameChar']");
+    public DropDownBox ddrAccountStatus = DropDownBox.xpath("//select[@name='status']");
     String listLabel = String.format("%s//div[contains(@class,'column header')]", _xPath);
     private Label lblBaseCurrencyValue = Label.xpath(String.format("%s//div[contains(@class,'column data')][10]", _xPath));
     private CheckBox cbAllowExtraPT = CheckBox.xpath(String.format("%s//input[@name='allowAutoPT']", _xPath));
     private CheckBox cbAllowCashout = CheckBox.xpath(String.format("%s//input[@name='allowCashOut']", _xPath));
-
 
     //Controls in Create Company
     private DropDownBox ddbCurrency = DropDownBox.xpath(String.format("%s//div[contains(@class,'column data')][9]//select", _xPath));
@@ -162,5 +162,13 @@ public class NewUIAccountInforSection extends AccountInforSection {
             ddbCurrency.selectByVisibleText(currency);
             waitingLoadingSpinner();
         }
+    }
+
+    public boolean isAccountStatusDropdownLoadCorrect(List<String> lstStatus) {
+        return ddrAccountStatus.areOptionsMatched(lstStatus);
+    }
+
+    public void selectAccountStatus(String status) {
+        ddrAccountStatus.selectByVisibleText(status);
     }
 }

@@ -20,6 +20,7 @@ public class OldUIAccountInforSection extends AccountInforSection {
     //Controls in Create Company
     private DropDownBox ddbCurrency = DropDownBox.xpath(String.format("%s//tr[2]//td[8]//select", _xPath));
     String listLabel = String.format("%s//td[contains(@class,'label')]", _xPath);
+    public DropDownBox ddrAccountStatus = DropDownBox.xpath("//td[text()='Account Status']//..//select");
 
     public void selectAgentLevel(String levelName) {
         ddpLevel.selectByVisibleText(levelName);
@@ -112,4 +113,15 @@ public class OldUIAccountInforSection extends AccountInforSection {
         }
     }
 
+    public String getUserName() {
+        return txtLoginID.getAttribute("value").trim();
+    }
+
+    public boolean isAccountStatusDropdownLoadCorrect(List<String> lstStatus) {
+        return ddrAccountStatus.areOptionsMatched(lstStatus);
+    }
+
+    public void selectAccountStatus(String status) {
+        ddrAccountStatus.selectByVisibleText(status);
+    }
 }

@@ -28,6 +28,7 @@ public class FancyContainerControl extends BaseElement {
     private String tblXpath = "//wicket-fancy-odds//span[contains(text(),'%s')]//ancestor::table";
     private String tblCentralFancyXpath = "//central-fancy-odds//span[contains(text(),'%s')]//ancestor::table";
     private String tblFancyXpath = "//fancy-odds//span[contains(text(),'%s')]//ancestor::table";
+    private String tblArtemisFancyXpath = "//app-artemis-fancy-odds//span[contains(text(),'%s')]//ancestor::table";
     private Table tblFCMarket = Table.xpath(String.format("%s//table", _xpath), totalColumn);
     private String minMaxXPath = "//div[@class='value-mm-bet']";
     private String marketRow = "//tr[contains(@class,'%s')]";// market ID
@@ -65,7 +66,7 @@ public class FancyContainerControl extends BaseElement {
         Table tblMarket;
         String xpathTable;
         xpathTable = defineFancyTableXpath(fcMarket.getMaketType());
-        tblMarket = Table.xpath(String.format(xpathTable,fcMarket.getMarketName()), totalColumn);
+        tblMarket = Table.xpath(String.format(xpathTable, fcMarket.getMarketName()), totalColumn);
         if (!tblMarket.isDisplayed()) {
             System.out.println(String.format("Debug: NOT found fancy market : %s in the Fancy container", fcMarket.getMarketName()));
             return null;
@@ -86,9 +87,31 @@ public class FancyContainerControl extends BaseElement {
 
     }
 
+    public void clickArtemisFancyOdds(FancyMarket fcMarket, boolean isBack, int runnerNo) {
+        Table tbl;
+        Link lnk;
+        if(fcMarket.getMarketName().equalsIgnoreCase("Multi Bet")) {
+            tbl =Table.xpath("//app-artemis-multi-market//table", totalColumn);
+            if (Objects.isNull(tbl))
+                return;
+            lnk = (Link) tbl.getControlOfCell(1, colBackOdds, runnerNo, null);
+            lnk.click();
+        } else {
+            tbl = getFancyMarketRow(fcMarket);
+            if (Objects.isNull(tbl))
+                return;
+            if (isBack) {
+                lnk = (Link) tbl.getControlOfCell(1, colBackOdds, runnerNo + 1, null);
+            } else
+                lnk = (Link) tbl.getControlOfCell(1, colLayOdds, runnerNo + 1, null);
+            lnk.click();
+        }
+
+    }
+
     private boolean waitSuspendLabelDisapper(Table tblMarket) {
         Label lblSuspend = Label.xpath(String.format("%s//div[contains(@class,'suspended')]/span", tblMarket.getLocator().toString().replace(" By.xpath: ", "")));
-        if(!lblSuspend.isDisplayed()) {
+        if (!lblSuspend.isDisplayed()) {
             StopWatch stopWatch = new StopWatch();
             stopWatch.start();
             // wait suspend lable display in 3minutes
@@ -117,6 +140,8 @@ public class FancyContainerControl extends BaseElement {
                 return tblXpath;
             case "CENTRAL_FANCY":
                 return tblCentralFancyXpath;
+            case "ARTEMIS_FANCY":
+                return tblArtemisFancyXpath;
             default:
                 return tblFancyXpath;
         }
@@ -137,7 +162,7 @@ public class FancyContainerControl extends BaseElement {
             }
             marketName = tblMarket.getControlOfCell(1, colMarketName, 1, lblMarketNameXpath).getText().trim();
             //remove all whitespace to handle case double space in string (e.g. 6 OVER RUNS AS-W ADV and 6 OVER RUNS AS-W  ADV) -> loop forever
-            if (marketName.replaceAll("\\s","").equalsIgnoreCase(fcMarket.getMarketName().replaceAll("\\s",""))) {
+            if (marketName.replaceAll("\\s", "").equalsIgnoreCase(fcMarket.getMarketName().replaceAll("\\s", ""))) {
                 System.out.println(String.format("Debug: found fancy market : %s at row %d", fcMarket.getMarketName(), i));
                 String minMax = tblMarket.getControlOfCell(1, colMinMax, 1, "div[contains(@class,'value-mm-bet')]/div" +
                         "").getText();
@@ -161,7 +186,7 @@ public class FancyContainerControl extends BaseElement {
                 }
 
                 if (lblOddLay.isDisplayed())
-                    newFancy.set_oddsNo(Double.parseDouble(lblOddLay.getText().trim()));
+                    newFancy.setOddsNo(Double.parseDouble(lblOddLay.getText().trim()));
                 if (lblRateLay.isDisplayed()) {
                     rate = lblRateLay.getText().trim().replace(":", "");
                     newFancy.setRateNo(Integer.parseInt(rate));
@@ -170,8 +195,78 @@ public class FancyContainerControl extends BaseElement {
                 if (lnkLiability.isDisplayed())
                     newFancy.setMarketLiability(Double.parseDouble(lnkLiability.getText().trim()));
                 return newFancy;
+
             }
             i++;
         }
     }
+
+    public FancyMarket getArtemisFancyRunnerMarketInfo(FancyMarket fcMarket, int runnerNo) {
+        FancyMarket newFancy = fcMarket;
+        Table tblMarket;
+        String xpathTable;
+        String marketName;
+        //get market info for Artermis Single/Multi Runner
+        if (!fcMarket.getMarketName().equalsIgnoreCase("Multi Bet")) {
+            xpathTable = defineFancyTableXpath(fcMarket.getMaketType());
+            tblMarket = Table.xpath(String.format(xpathTable, fcMarket.getMarketName()), totalColumn);
+            if (!tblMarket.isDisplayed()) {
+                System.out.println(String.format("Debug: NOT found fancy market : %s in the Fancy container", fcMarket.getMarketName()));
+                return newFancy;
+            }
+            marketName = tblMarket.getControlOfCell(1, colMarketName, 1, lblMarketNameXpath).getText().trim();
+            //remove all whitespace to handle case double space in string (e.g. 6 OVER RUNS AS-W ADV and 6 OVER RUNS AS-W  ADV) -> loop forever
+            if (marketName.replaceAll("\\s", "").equalsIgnoreCase(fcMarket.getMarketName().replaceAll("\\s", ""))) {
+                if (fcMarket.getNumberOfActiveRunner() > 1) {
+                    String minMax = tblMarket.getControlOfCell(1, colMinMax, 1, null).getText();
+                    String[] minMaxArr = minMax.split("/");
+                    String[] minArr = minMaxArr[0].split(":");
+                    String[] maxArr = minMaxArr[1].split(":");
+                    newFancy.setMin(Integer.parseInt(minArr[1].trim().replaceAll(",", "")));
+                    newFancy.setMmax(Integer.parseInt(maxArr[1].trim().replaceAll(",", "")));
+                    newFancy.setBtnYes((Link) tblMarket.getControlOfCell(1, colBackOdds, runnerNo + 1, null));
+                    newFancy.setBtnNo((Link) tblMarket.getControlOfCell(1, colLayOdds, runnerNo + 1, null));
+                    newFancy.setSelection(tblMarket.getControlOfCell(1, colMarketName, runnerNo + 1, "span").getText().trim());
+                    Link lblOdd = (Link) tblMarket.getControlOfCell(1, colBackOdds, runnerNo + 1, "span");
+                    Link lblOddLay = (Link) tblMarket.getControlOfCell(1, colLayOdds, runnerNo + 1, "span");
+                    Link lnkForecast = (Link) tblMarket.getControlOfCell(1, colMarketName, runnerNo + 1, "div[contains(@class,'artemis-liability')]//span");
+                    if (lblOdd.isDisplayed()) {
+                        newFancy.setOddsYes(Double.parseDouble(lblOdd.getText().trim()));
+                        newFancy.setRateYes(Integer.parseInt(lblOdd.getText().trim()));
+                    }
+                    if (lblOddLay.isDisplayed()) {
+                        newFancy.setOddsNo(Double.parseDouble(lblOddLay.getText().trim()));
+                        newFancy.setRateNo(Integer.parseInt(lblOddLay.getText().trim()));
+                    }
+                    if (lnkForecast.isDisplayed())
+                        newFancy.setMarketLiability(Double.parseDouble(lnkForecast.getText().trim()));
+                    return newFancy;
+                } else {
+                    return getFancyMarketInfo(fcMarket);
+                }
+            }
+
+        }
+        //get market info for Artermis Multi Bet
+        else {
+            tblMarket = Table.xpath("//app-artemis-multi-market//table", totalColumn);
+            if (!tblMarket.isDisplayed()) {
+                System.out.println(String.format("Debug: NOT found fancy market : %s in the Fancy container", fcMarket.getMarketName()));
+                return newFancy;
+            }
+            String minMax = tblMarket.getControlOfCell(1, colMinMax, 1, "div[@class='value-mm-bet']").getText();
+            String[] minMaxArr = minMax.split("/");
+            newFancy.setMin(Integer.parseInt(minMaxArr[0].trim().replaceAll(",", "")));
+            newFancy.setMmax(Integer.parseInt(minMaxArr[1].trim().replaceAll(",", "")));
+            newFancy.setBtnYes((Link) tblMarket.getControlOfCell(1, colBackOdds, 1, "span"));
+            Link lblOdd = (Link) tblMarket.getControlOfCell(1, colBackOdds, 1, "span");
+            if (lblOdd.isDisplayed()) {
+                newFancy.setOddsYes(Double.parseDouble(lblOdd.getText().trim()));
+                newFancy.setRateYes(Integer.parseInt(lblOdd.getText().trim()));
+            }
+            return newFancy;
+        }
+        return newFancy;
+    }
 }
+

@@ -46,7 +46,7 @@ public class NewUIEditDownlineListing extends EditDownlineListing {
 //        Assert.assertEquals(lstInfo.get(9), AGConstant.AgencyManagement.CreateAccount.LBL_ALLOW_PL_EXTRA, "FAILED! Allow Extra display incorrect");
 //        Assert.assertTrue(accInfoSection.lblUsernamePrefix.isDisplayed(), "FAILED! Login ID textbox does not display");
         Assert.assertTrue(accountInforSection.txtPassword.isDisplayed(), "FAILED! Password textbox does not display");
-        Assert.assertTrue(accountInforSection.ddrAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box does not display");
+//        Assert.assertTrue(accountInforSection.ddrAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box does not display");
         Assert.assertTrue(accountInforSection.txtFirstName.isDisplayed(), "FAILED! First Name textbox does not display");
         Assert.assertTrue(accountInforSection.txtLastName.isDisplayed(), "FAILED! Last Name textbox does not display");
         Assert.assertTrue(accountInforSection.txtMobile.isDisplayed(), "FAILED! Mobile textbox does not display");

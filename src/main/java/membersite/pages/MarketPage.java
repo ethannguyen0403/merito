@@ -67,6 +67,10 @@ public class MarketPage extends HomePage {
         return marketOddControl.getFancyMarketInfo(fcMarket);
     }
 
+    public FancyMarket getArtemisFancyMarketInfo(FancyMarket fcMarket, int runnerNo) {
+        return marketOddControl.getArtemisFancyMarketInfo(fcMarket, runnerNo);
+    }
+
     public RulePopup openRules(){
         marketOddControl.clickRuleButton();
         return new RulePopup();
@@ -86,9 +90,19 @@ public class MarketPage extends HomePage {
 
     }
 
+    public void addArtemisFancyOdds(FancyMarket fcMarket, boolean isBack, int runnerNo) {
+        fancyContainerControl.clickArtemisFancyOdds(fcMarket, isBack, runnerNo);
+    }
+
     public void placeFancy(FancyMarket fancyMarket, boolean isBack, String stake) {
         System.out.println("Click on odds");
         addFancyOdds(fancyMarket, isBack);
+        betsSlipContainer.placeBet(stake);
+    }
+
+    public void placeArtemisFancy(FancyMarket fancyMarket, boolean isBack, String stake, int runnerNo) {
+        System.out.println("Click on odds");
+        addArtemisFancyOdds(fancyMarket, isBack, runnerNo);
         betsSlipContainer.placeBet(stake);
     }
 

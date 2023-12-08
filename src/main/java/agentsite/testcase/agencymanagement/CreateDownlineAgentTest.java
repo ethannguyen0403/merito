@@ -111,7 +111,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 
         List<ArrayList<String>> lstBalance = page.cashBalanceInforSection.tblCashBalance.getRowsWithoutHeader(1,false);
         Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
-        Assert.assertEquals(lstBalance.get(0).get(0), AGConstant.AgencyManagement.CreateAccount.LBL_INITIATION_DEPOSIT,"FAILED! Credit Initiation label displays incorrect");
+        Assert.assertEquals(lstBalance.get(0).get(0), AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_INITIATION,"FAILED! Credit Initiation label displays incorrect");
 //
         log("Verify 3. Product Setting, select Exchange product");
         Assert.assertEquals(page.lblProductSetting.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
@@ -206,7 +206,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         Assert.assertEquals(page.accountInforSection.lblPasswordHint.getAttribute("title").trim(), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD_HINT.trim(),"FAILED! Password Hint message not correct");
 
         log("Verify 3. Account Status: Active and Inactive");
-        Assert.assertTrue(page.accountInforSection.ddrAccountStatus.areOptionsMatched(AGConstant.AgencyManagement.CreateAccount.LST_ACCOUNTS_STATUS_CREATE),"FAILED! Account status default value not include Active and Inactive Status");
+        Assert.assertTrue(page.accountInforSection.isAccountStatusDropdownLoadCorrect(AGConstant.AgencyManagement.CreateAccount.LST_ACCOUNTS_STATUS_CREATE),"FAILED! Account status default value not include Active and Inactive Status");
 
 //        log("Verify 4.Verify Currency");
 //        Assert.assertEquals(page.accInfoSection.lblBaseCurrencyValue.getText(),currency,"FAILED! Account status default value not include Active and Inactive Status");
