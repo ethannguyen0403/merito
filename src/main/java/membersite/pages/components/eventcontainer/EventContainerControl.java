@@ -35,6 +35,7 @@ public class EventContainerControl {
         return null;
     }
 
+    // get Event has Match Odds Market by default
     public Event getEventRandom(boolean isInplay, boolean isSuspend) {
         return null;
     }

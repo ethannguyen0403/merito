@@ -31,7 +31,7 @@ public class ForecastFunctionTest extends BaseCaseTest {
         MarketPage marketPage = page.clickEvent(event);
 
         log("Step 3. Update odds > offer odds and Input valid stake");
-        int selectionIndex = marketPage.marketOddControl.getSelectionHaveMinOdds(true);
+        int selectionIndex = marketPage.marketOddControl.getSelectionHaveMinOdds(event.getMarketName(),true);
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
         // check if there is unmatched before place, if have clear unmatched
         marketPage.myBetsContainer.cancelAllBetUnmatched();
@@ -80,7 +80,7 @@ public class ForecastFunctionTest extends BaseCaseTest {
         MarketPage marketPage = page.clickEvent(event);
 
         log("Step 3 Get Back and Lay odds on a selection");
-        int selectionIndex = marketPage.marketOddControl.getSelectionHaveMinOdds(false);
+        int selectionIndex = marketPage.marketOddControl.getSelectionHaveMinOdds(event.getMarketName(),false);
         Market market = marketPage.marketOddControl.getMarket(event, selectionIndex, true);
         Market market2 = marketPage.marketOddControl.getMarket(event, selectionIndex, false);
         // Calulate profit and lost of back bet
@@ -135,7 +135,7 @@ public class ForecastFunctionTest extends BaseCaseTest {
         MarketPage marketPage = page.clickEvent(event);
 
         log("Step 3. Update odds > offer odds and Input valid stake");
-        int selectionIndex = marketPage.marketOddControl.getSelectionHaveMinOdds(false);
+        int selectionIndex = marketPage.marketOddControl.getSelectionHaveMinOdds(event.getMarketName(),false);
         Market market = marketPage.marketOddControl.getMarket(event, selectionIndex, false);
 
         String odds = market.getBtnOdd().getText();
