@@ -167,7 +167,7 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
             }
         } else {
             for (int i = countOddsLabel / 2; i < countOddsLabel; i++) {
-                list.add(Label.xpath(String.format("%s[%d]//div[contains(@class,'pending-odds')]",xPathOddsList, i)));
+                list.add(Label.xpath(String.format("%s[%d]//div[contains(@class,'pending-odds')]",xPathOddsList, i+1)));
             }
         }
         return list;
