@@ -5,6 +5,7 @@ import com.paltech.element.common.*;
 import common.MemberConstants;
 import membersite.controls.DropDownMenu;
 import membersite.objects.AccountBalance;
+import membersite.objects.Wager;
 import membersite.pages.*;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
@@ -255,8 +256,37 @@ public class SatHeader extends Header1 {
         return String.format(Locale.getDefault(), "%,.2f", balanceReturn);
     }
 
-    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Double liabilityBack, Double liabilityLay) {
-        return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - (liabilityBack + liabilityLay));
+    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Wager wagerBack, Wager wagerLay) {
+        double liabilityBack = 0.0;
+        double liabilityLay = 0.0;
+        if(!Objects.isNull(wagerBack)) {
+            if(!Objects.isNull(wagerLay)) {
+                if(wagerLay.getLiabilityFancyWager() >= wagerBack.getLiabilityFancyWager()) {
+                    liabilityBack = wagerBack.getProfitFancyWager();
+                } else {
+                    liabilityBack = wagerBack.getLiabilityFancyWager();
+                }
+            } else {
+                liabilityBack = wagerBack.getLiabilityFancyWager();
+            }
+        }
+        if(!Objects.isNull(wagerLay)) {
+            if(!Objects.isNull(wagerBack)) {
+                if(wagerBack.getLiabilityFancyWager() >= wagerLay.getLiabilityFancyWager()) {
+                    liabilityLay = wagerLay.getProfitFancyWager();
+                } else {
+                    liabilityLay = wagerLay.getLiabilityFancyWager();
+                }
+            } else {
+                liabilityLay = wagerLay.getLiabilityFancyWager();
+            }
+            liabilityLay = 0 - liabilityLay;
+        }
+        if(wagerBack.getPayout() == 100.0 || wagerBack.getPayout() == 0.0) {
+            return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - (liabilityBack + Math.abs(liabilityLay)));
+        } else {
+            return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - Math.abs(liabilityBack + liabilityLay));
+        }
     }
 
     public String getMarqueeMessage() {

@@ -320,8 +320,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         marketPage.placeFancy(fcMarket, true, minStake);
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, 0.0);
+        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, null);
         String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
         Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
 
@@ -346,18 +345,17 @@ public class ArtemisFancyTest extends BaseCaseTest {
 
         log("Step 3. Click on a Fancy market");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
-        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
+//        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
+        FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 4. Click on an odds of a fancy market then place bet");
-        FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_LAY_TYPE);
         Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
         marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Validate Exposure kept correctly when place on No section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), 0.0, liabilityWager);
+        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), null, expectedWager);
         String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
         Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
         log("INFO: Executed completely");
@@ -381,11 +379,9 @@ public class ArtemisFancyTest extends BaseCaseTest {
 
         log("Step 3. Click on a Fancy market");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
-        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
-
-        log("Step 4 Click on an odds and place on Yes and No option");
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
 
+        log("Step 4 Click on an odds and place on Yes and No option");
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
         Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
@@ -395,9 +391,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Validate Exposure kept correctly when place on Yes and No section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        Double liabilityWager2 = expectedWager2.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, liabilityWager2);
+        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, expectedWager2);
         String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
         Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
         log("INFO: Executed completely");
@@ -812,7 +806,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes section");
         Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, 0.0);
+        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, null);
         String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
         Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
 
@@ -847,7 +841,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes section");
         Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, 0.0);
+        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, null);
         String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
         Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
 
@@ -1122,8 +1116,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         marketPage.placeArtemisFancy(fcMarket, true, minStake, 1);
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, 0.0);
+        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, null);
         String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
         Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
 

@@ -88,8 +88,7 @@ public class CentralFancyTest extends BaseCaseTest {
         marketPage.placeFancy(fcMarket, false, minStake);
 
         log("Verify 1. Validate Exposure kept correctly when place on No section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), 0.0, liabilityWager);
+        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), null, expectedWager);
         String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
         Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
 
@@ -124,9 +123,7 @@ public class CentralFancyTest extends BaseCaseTest {
         marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes and No section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        Double liabilityWager2 = expectedWager2.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, liabilityWager2);
+        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, expectedWager2);
         String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
         Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
 
@@ -160,8 +157,7 @@ public class CentralFancyTest extends BaseCaseTest {
         marketPage.placeFancy(fcMarket, true, minStake);
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, 0.0);
+        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, null);
         String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
         Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
 
