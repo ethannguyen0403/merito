@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static common.AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_HEADER;
+
 public class PositionTakingListing {
     public int totalColum = 32;
     public int usernameCol = 2;
@@ -152,16 +154,17 @@ public class PositionTakingListing {
 
     public List<String> definePTSettingList(String member, int inputValue) {
         List<String> lstPTSetting = getPTofAccount(member);
-        lstPTSetting.set(tblDownline.getColumnIndexByName("Soccer") - 1, Integer.toString(inputValue));
-        lstPTSetting.set(tblDownline.getColumnIndexByName("Cricket") - 1, Integer.toString(inputValue));
-        lstPTSetting.set(tblDownline.getColumnIndexByName("Line Market") - 1, Integer.toString(inputValue));
-        lstPTSetting.set(tblDownline.getColumnIndexByName("Fancy") - 1, Integer.toString(inputValue));
-        lstPTSetting.set(tblDownline.getColumnIndexByName("Bookmakers") - 1, Integer.toString(inputValue));
-        lstPTSetting.set(tblDownline.getColumnIndexByName("Tennis") - 1, Integer.toString(inputValue));
-        lstPTSetting.set(tblDownline.getColumnIndexByName("Basketball") - 1, Integer.toString(inputValue));
-        lstPTSetting.set(tblDownline.getColumnIndexByName("Horse Racing") - 1, Integer.toString(inputValue));
-        lstPTSetting.set(tblDownline.getColumnIndexByName("Greyhound Racing") - 1, Integer.toString(inputValue));
-        lstPTSetting.set(tblDownline.getColumnIndexByName("Other") - 1, Integer.toString(inputValue));
+        List<Integer> lstIndex = tblDownline.getListColumnIndexByListName(LST_POSITION_TAKING_HEADER);
+        lstPTSetting.set(lstIndex.get(1), Integer.toString(inputValue));
+        lstPTSetting.set(lstIndex.get(2), Integer.toString(inputValue));
+        lstPTSetting.set(lstIndex.get(3), Integer.toString(inputValue));
+        lstPTSetting.set(lstIndex.get(4), Integer.toString(inputValue));
+        lstPTSetting.set(lstIndex.get(5), Integer.toString(inputValue));
+        lstPTSetting.set(lstIndex.get(6), Integer.toString(inputValue));
+        lstPTSetting.set(lstIndex.get(7), Integer.toString(inputValue));
+        lstPTSetting.set(lstIndex.get(8), Integer.toString(inputValue));
+        lstPTSetting.set(lstIndex.get(9), Integer.toString(inputValue));
+        lstPTSetting.set(lstIndex.get(10), Integer.toString(inputValue));
         return lstPTSetting;
     }
 

@@ -15,7 +15,6 @@ public class AccountInforSection {
     protected CheckBox cbCreditCash = CheckBox.xpath(String.format("%s//input[@name='creditcash']", _xPath));
     public Label lblTitlePage = Label.xpath("//div[@class='title']//label");
     public TextBox txtPassword = TextBox.xpath("//input[@name='password']");
-    public DropDownBox ddrAccountStatus = DropDownBox.xpath("//select[@name='status']");
     public TextBox txtFirstName = TextBox.xpath("//input[@name='firstName']");
     public TextBox txtLastName = TextBox.xpath("//input[@name='lastName']");
     public TextBox txtPhone = TextBox.xpath("//input[@name='phone']");
@@ -61,5 +60,9 @@ public class AccountInforSection {
     }
 
     public void selectCurrency(String currency) {};
+
+    public boolean isAccountStatusDropdownLoadCorrect(List<String> lstStatus) {return false;}
+
+    public void selectAccountStatus(String status) {}
 
 }

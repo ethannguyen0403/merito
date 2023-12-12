@@ -11,6 +11,7 @@ import util.testraildemo.TestRails;
 import static common.AGConstant.Announcement.ADD_ANNOUNCEMENT;
 import static common.AGConstant.Announcement.INFO;
 import static common.AGConstant.HomePage.ANNOUNCEMENT;
+import static common.AGConstant.timeZone;
 
 public class AnnouncementTest extends BaseCaseTest {
     @TestRails(id = "752")
@@ -47,7 +48,8 @@ public class AnnouncementTest extends BaseCaseTest {
         log("@title: Verify can add, update and deleted announcement");
         log("Step 1. Navigate Agency Management >Announcement");
         AnnoucementPage page = agentHomePage.navigateAnnoucementPage();
-        String announcementMsg = "This is announcement is created by auto scrips at 16/02/2022 05:14:15";
+        String dateTime = DateUtils.getDate(0, "yyyy/MM/dd", timeZone) + " " + DateUtils.getMilliSeconds();
+        String announcementMsg = String.format("This is announcement is created by auto scrips at %s", dateTime);
 
         log("Step 2. Click on Add Announcement button");
         log("Step 3. Input Announcement message and click Save button");
@@ -78,8 +80,8 @@ public class AnnouncementTest extends BaseCaseTest {
     public void Agent_AM_Announcement_3653(String username, String memberAccount, String password) throws Exception {
         log("@title: Member display announcement when agent set for a Specific player");
         log("Step 1. Navigate Agency Management >Announcement");
-        //String announcementMsg = "This is announcement is created by auto scrips " + DateUtils.getMilliSeconds();
-        String announcementMsg = "This is announcement is created by auto scrips 1665731123774";
+        String dateTime = DateUtils.getDate(0, "yyyy/MM/dd", timeZone) + " " + DateUtils.getMilliSeconds();
+        String announcementMsg = String.format("This is announcement is created by auto scrips at %s", dateTime);
         AnnoucementPage page = agentHomePage.navigateAnnoucementPage();
         String todate = DateUtils.getDate(2, "d/MMM/YYYY hh:mm", "GMT-4");
         try {
@@ -110,7 +112,8 @@ public class AnnouncementTest extends BaseCaseTest {
     public void Agent_AM_Announcement_3654(String username, String memberAccount, String password) throws Exception {
         log("@title: The announcement not display when inactive");
         log("Step 1. Navigate Agency Management >Announcement");
-        String announcementMsg = "This is announcement is created by auto scrips " + DateUtils.getMilliSeconds();
+        String dateTime = DateUtils.getDate(0, "yyyy/MM/dd", timeZone) + " " + DateUtils.getMilliSeconds();
+        String announcementMsg = String.format("This is announcement is created by auto scrips at %s", dateTime);
         AnnoucementPage page = agentHomePage.navigateAnnoucementPage();
         String todate = DateUtils.getDate(2, "d/MMM/YYYY hh:mm", "GMT-4");
         try {
@@ -141,7 +144,8 @@ public class AnnouncementTest extends BaseCaseTest {
     public void Agent_AM_Announcement_3655(String username, String memberAccount, String password) throws Exception {
         log("@title: The announcement not display if set invalid time range");
         log("Step 1. Navigate Agency Management >Announcement");
-        String announcementMsg = "This is announcement is created by auto scrips " + DateUtils.getMilliSeconds();
+        String dateTime = DateUtils.getDate(0, "yyyy/MM/dd", timeZone) + " " + DateUtils.getMilliSeconds();
+        String announcementMsg = String.format("This is announcement is created by auto scrips at %s", dateTime);
         AnnoucementPage page = agentHomePage.navigateAnnoucementPage();
         String yesterday = DateUtils.getDate(-1, "d/MMM/YYYY hh:mm", "GMT-4");
         try {

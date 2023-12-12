@@ -18,7 +18,6 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import static common.MemberConstants.MATCH_ODDS_TITLE;
 
@@ -127,7 +126,7 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
     }
     public void openFancyLadderForecast(FancyMarket fcMarket) {
         String xpathTableFC = String.format(fancyContainerControl.defineFancyTableXpath(fcMarket.getMaketType()), fcMarket.getMarketName());
-        String xpathBody = String.format("%s%s",xpathTableFC,"/tbody/tr/td[5]//i[contains(@class,'ladder-book')]");
+        String xpathBody = String.format("%s%s",xpathTableFC,"/tbody/tr/td[5]//*[contains(@class,'ladder-book')]");
         Label lblLadder = Label.xpath(String.format("(%s)[1]", xpathBody));
         if (!lblLadder.isDisplayed()) {
             System.out.println(String.format("Debug: NOT found ladder forecast icon in fancy market : %s", fcMarket.getMarketName()));
@@ -394,6 +393,10 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
             default:
                 return fancyContainerControl.getFancyMarketInfo(fcMarket);
         }
+    }
+
+    public FancyMarket getArtemisFancyMarketInfo(FancyMarket fcMarket, int runnerNo) {
+        return fancyContainerControl.getArtemisFancyRunnerMarketInfo(fcMarket, runnerNo);
     }
 
     public enum Status {NA, IN_PLAY, COMING}

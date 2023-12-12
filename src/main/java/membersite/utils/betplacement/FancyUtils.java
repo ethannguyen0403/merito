@@ -205,17 +205,26 @@ public class FancyUtils {
             System.out.println("DEBUG: No data get fancy market api of event id" + eventID);
             return null;
         }
-        int numberOfRunner = 0;
+        int numberOfRunner = -1;
         if (Objects.nonNull(marketJSONArray)) {
             for (int i = 0; i < marketJSONArray.length(); i++) {
                 JSONObject marketObj = marketJSONArray.getJSONObject(i);
                 if(marketObj.getString("marketType").equalsIgnoreCase(ARTEMIS_FANCY_CODE))
                 {
                     if(runnerType.equalsIgnoreCase(SINGLE_RUNNER_TYPE)) {
-                        numberOfRunner = 1;
-                    } else if (runnerType.equalsIgnoreCase(MULTI_RUNNER_TYPE) || runnerType.equalsIgnoreCase(MULTI_BET_TYPE)) {
-                        numberOfRunner = marketObj.getInt("numberOfActiveRunners");
+                        if(!(marketObj.getInt("numberOfActiveRunners") == 1)) {
+                            continue;
+                        }
+                    } else if (runnerType.equalsIgnoreCase(MULTI_RUNNER_TYPE)) {
+                        if(!(marketObj.getInt("numberOfActiveRunners") > 1)) {
+                            continue;
+                        }
+                    } else if (runnerType.equalsIgnoreCase(MULTI_BET_TYPE)) {
+                        if(!(marketObj.getString("marketName").equalsIgnoreCase("Multi Bet"))) {
+                            continue;
+                        }
                     }
+                    numberOfRunner = marketObj.getInt("numberOfActiveRunners");
                     lstMarket.add(new FancyMarket.Builder()
                             .eventName(marketObj.getString("eventName"))
                             .marketID(Integer.toString(marketObj.getInt("marketId")))

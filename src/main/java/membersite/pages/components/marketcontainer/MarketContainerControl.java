@@ -77,6 +77,10 @@ public class MarketContainerControl {
         return null;
     }
 
+    public FancyMarket getArtemisFancyMarketInfo(FancyMarket fcMarket, int runnerNo) {
+        return null;
+    }
+
     public enum Team {HOME, DRAW, AWAY}
 
     public enum Status {NA, IN_PLAY, COMING}

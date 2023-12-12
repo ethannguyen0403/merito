@@ -271,6 +271,7 @@ public class BlockUnblockEventPage extends HomePage {
             Button button = Button.xpath(String.format(btnActionDynamic, action, btnIndex));
             button.isClickable(timeOutShortInSeconds);
             button.click();
+            waitingLoadingSpinner();
             if (!unblockScheduleTime.equals("")) {
                 ddbSelectTime.selectByVisibleText(unblockScheduleTime);
                 btnSaveUnblockSchedule.click();

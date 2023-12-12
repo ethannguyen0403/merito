@@ -104,6 +104,8 @@ public class AnnoucementPage extends HomePage {
         if (!newMessage.isEmpty()) {
             textArea.sendKeys(newMessage);
         }
+        btnSave.click();
+        waitingLoadingSpinner();
     }
 
     private String setAnnouncementInRange(int index, String from, String to, boolean isCloseMessage) {
