@@ -57,8 +57,9 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         log("Verify: Error Cannot place bet display");
         String actualError = page.myBetsContainer.getBetslipErrorMessage();
-        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID, String.format("%.0f", Double.parseDouble(minBet)), String.format("%,.0f", Double.parseDouble(maxBet)), String.format("%.0f", Double.parseDouble(stake)));
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID, String.format("%d", Integer.parseInt(minBet)), String.format("%d",Integer.parseInt(maxBet)), String.format("%d", Integer.parseInt(stake)));
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
+        log("INFO: Executed completely");
         log("INFO: Executed completely");
     }
 
