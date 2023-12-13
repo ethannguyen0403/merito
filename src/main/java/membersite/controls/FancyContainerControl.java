@@ -179,14 +179,14 @@ public class FancyContainerControl extends BaseElement {
                 String rate;
 //                waitSuspendLabelDisapper(tblMarket);
                 if (lblOdd.isDisplayed())
-                    newFancy.setOddsYes(Double.parseDouble(lblOdd.getText().trim()));
+                    newFancy.setOddsYes(Double.parseDouble(lblOdd.getText().trim().replaceAll(",", "")));
                 if (lblRate.isDisplayed()) {
                     rate = lblRate.getText().trim().replace(":", "");
                     newFancy.setRateYes(Integer.parseInt(rate));
                 }
 
                 if (lblOddLay.isDisplayed())
-                    newFancy.setOddsNo(Double.parseDouble(lblOddLay.getText().trim()));
+                    newFancy.setOddsNo(Double.parseDouble(lblOddLay.getText().trim().replaceAll(",", "")));
                 if (lblRateLay.isDisplayed()) {
                     rate = lblRateLay.getText().trim().replace(":", "");
                     newFancy.setRateNo(Integer.parseInt(rate));
