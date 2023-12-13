@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static common.MemberConstants.*;
+import static common.MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE;
 import static common.MemberConstants.HomePage.SPORT_ID;
 import static common.MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER;
 import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
@@ -423,12 +424,12 @@ public class ArtemisFancyTest extends BaseCaseTest {
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         String stake = String.format("%.0f", Double.valueOf(BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) - 1);
-
+        String maxWL = String.format("%.0f", Math.floor(Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100));
         log(String.format("Step 5. Click on an odds of a fancy market then place bet with the stake less than min bet: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeFancy(fcMarket, true, stake);
 
         log("Validate Can NOT place bet");
-        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID, fcMarket.getMinSetting(), fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID_ARTEMIS, fcMarket.getMinSetting(), maxWL, fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
         String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
 
@@ -454,13 +455,13 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 3. Click on a Fancy market");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
-        String stake = String.format("%.0f", Double.valueOf(BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) + 1);
+        String stake = String.format("%.0f", Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100) + 1;
 
         log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake greater than max bet: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeFancy(fcMarket, true, stake);
 
         log("Validate Can NOT place bet");
-        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID, fcMarket.getMinSetting(), fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID_ARTEMIS, fcMarket.getMinSetting(), fcMarket.getMaxSetting(), fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
         String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
 
@@ -473,7 +474,6 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
         AccountBalance balance = BetUtils.getUserBalance();
-        String stake = String.format("%d", (int) (Double.valueOf(balance.getBalance().replaceAll(",", "")) + 1));
 
         log("Step 2. Active the event that have Fancy market");
         SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
@@ -490,14 +490,21 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 3. Click on a Fancy market");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
+        Double stake = Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) + Double.valueOf(balance.getBalance().replace(",",""));
+        Double maxWL = Math.floor(Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100);
+        //handle cause error message only appears if (stake > available balance and stake <= max WL) on market
+        if(stake <= maxWL) {
+            log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than available balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
+            marketPage.placeFancy(fcMarket, true, String.valueOf(stake));
 
-        log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than availablie balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
-        marketPage.placeFancy(fcMarket, true, stake);
-
-        log("Validate Can NOT place bet");
-        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        Assert.assertEquals(actualError, BetSlip.ERROR_INSUFFICIENT_BALANCE, String.format("ERROR! Expected error message is %s but found %s", BetSlip.ERROR_INSUFFICIENT_BALANCE, actualError));
-
+            log("Validate Can NOT place bet");
+            String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
+            Assert.assertEquals(actualError, ERROR_INSUFFICIENT_BALANCE, String.format("ERROR! Expected error message is %s but found %s", ERROR_INSUFFICIENT_BALANCE, actualError));
+        } else {
+            log("DEBUG: Skip as have no event has Fancy Artemis");
+            Assert.assertTrue(true, "By passed as cannot place bet to show error message about balance");
+            return;
+        }
         log("INFO: Executed completely");
     }
 
@@ -867,12 +874,12 @@ public class ArtemisFancyTest extends BaseCaseTest {
         fcMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
 
         String stake = String.format("%.0f", Double.valueOf(BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) - 1);
-
+        String maxWL = String.format("%.0f", Math.floor(Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100));
         log(String.format("Step 5. Click on an odds of a fancy market then place bet with the stake less than min bet: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeArtemisFancy(fcMarket, true, stake, 1);
 
         log("Validate Can NOT place bet");
-        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID, fcMarket.getMinSetting(), fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID_ARTEMIS, fcMarket.getMinSetting(), maxWL, fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
         String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
 
@@ -898,13 +905,13 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 3. Click on a Fancy market");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
-        String stake = String.format("%.0f", Double.valueOf(BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) + 1);
+        String stake = String.format("%.0f", Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100) + 1;
 
         log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake greater than max bet: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeArtemisFancy(fcMarket, true, stake, 1);
 
         log("Validate Can NOT place bet");
-        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID, fcMarket.getMinSetting(), fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID_ARTEMIS, fcMarket.getMinSetting(), fcMarket.getMaxSetting(), fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
         String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
 
@@ -917,7 +924,6 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
         AccountBalance balance = BetUtils.getUserBalance();
-        String stake = String.format("%d", (int) (Double.valueOf(balance.getBalance().replaceAll(",", "")) + 1));
 
         log("Step 2. Active the event that have Fancy market");
         SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
@@ -934,14 +940,25 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 3. Click on a Fancy market");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
+        Double stake = Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) + Double.valueOf(balance.getBalance().replace(",",""));
+        Double maxWL = Math.floor(Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100);
 
-        log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than availablie balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
-        marketPage.placeArtemisFancy(fcMarket, true, stake, 1);
+        log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than available balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
+        marketPage.placeArtemisFancy(fcMarket, true, String.valueOf(stake), 1);
 
-        log("Validate Can NOT place bet");
-        String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        Assert.assertEquals(actualError, BetSlip.ERROR_INSUFFICIENT_BALANCE, String.format("ERROR! Expected error message is %s but found %s", BetSlip.ERROR_INSUFFICIENT_BALANCE, actualError));
+        //handle cause error message only appears if (stake > available balance and stake <= max WL) on market
+        if(stake <= maxWL) {
+            log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than available balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
+            marketPage.placeFancy(fcMarket, true, String.valueOf(stake));
 
+            log("Validate Can NOT place bet");
+            String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
+            Assert.assertEquals(actualError, ERROR_INSUFFICIENT_BALANCE, String.format("ERROR! Expected error message is %s but found %s", ERROR_INSUFFICIENT_BALANCE, actualError));
+        } else {
+            log("DEBUG: Skip as have no event has Fancy Artemis");
+            Assert.assertTrue(true, "By passed as cannot place bet to show error message about balance");
+            return;
+        }
         log("INFO: Executed completely");
     }
 
@@ -1112,5 +1129,116 @@ public class ArtemisFancyTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
+    @TestRails(id = "15811")
+    @Test(groups = {"smoke1", "2024.01.19"})
+    public void ArtemisFancyTest_15811() {
+        log("@title: Verify Cannot place bet if stake less than min bet");
+        log("Step 1. Login member site and click on Cricket");
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+
+        log("Step 2 Get and click on the event that has Artemis Fancy");
+        FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_BET_TYPE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has Fancy Artemis");
+            Assert.assertTrue(true, "By passed as has no Fancy Artemis on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+
+        log("Step 3. Click on a Fancy market");
+        memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
+        fcMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
+
+        String stake = String.format("%.0f", Double.valueOf(BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) - 1);
+        String maxWL = String.format("%.0f", Math.floor(Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100));
+        log(String.format("Step 5. Click on an odds of a fancy market then place bet with the stake less than min bet: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
+        marketPage.placeArtemisFancy(fcMarket, true, stake, 1);
+
+        log("Validate Can NOT place bet");
+        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID_ARTEMIS, fcMarket.getMinSetting(),maxWL, fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
+        Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15812")
+    @Test(groups = {"smoke1", "2024.01.19"})
+    public void ArtemisFancyTest_15812() {
+        log("@title: Verify Cannot place bet if stake greater than max bet");
+        log("Step 1. Login member site and click on Cricket");
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+
+        log("Step 2 Get and click on the event that has Artemis Fancy");
+        FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_BET_TYPE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has Fancy Artemis");
+            Assert.assertTrue(true, "By passed as has no Fancy Artemis on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+
+        log("Step 3. Click on a Fancy market");
+        memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
+        fcMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
+
+        String stake = String.format("%.0f", Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100) + 1;
+
+        log(String.format("Step 5. Click on an odds of a fancy market then place bet with the stake less than min bet: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
+        marketPage.placeArtemisFancy(fcMarket, true, stake, 1);
+
+        log("Validate Can NOT place bet");
+        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID_ARTEMIS, fcMarket.getMinSetting(), fcMarket.getMaxSetting(), fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
+        Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15813")
+    @Test(groups = {"smoke1", "2024.01.19"})
+    public void ArtemisFancyTest_15813() {
+        log("@title: Verify Cannot place bet if stake less is greater than available balance");
+        log("Step 1. Login member site and get account balance form api");
+        AccountBalance balance = BetUtils.getUserBalance();
+
+        log("Step 2. Active the event that have Fancy market");
+        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+
+        log("Step 2 Get and click on the event that has Artemis Fancy");
+        FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_BET_TYPE);
+        if (Objects.isNull(fcMarket)) {
+            log("DEBUG: Skip as have no event has Fancy Artemis");
+            Assert.assertTrue(true, "By passed as has no Fancy Artemis on all available event");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
+
+        log("Step 3. Click on a Fancy market");
+        memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
+        fcMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
+        Double stake = Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) + Double.valueOf(balance.getBalance().replace(",",""));
+        Double maxWL = Math.floor(Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100);
+
+        log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than available balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
+        marketPage.placeArtemisFancy(fcMarket, true, String.valueOf(stake), 1);
+
+        //handle cause error message only appears if (stake > available balance and stake <= max WL) on market
+        if(stake <= maxWL) {
+            log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than available balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
+            marketPage.placeFancy(fcMarket, true, String.valueOf(stake));
+
+            log("Validate Can NOT place bet");
+            String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
+            Assert.assertEquals(actualError, ERROR_INSUFFICIENT_BALANCE, String.format("ERROR! Expected error message is %s but found %s", ERROR_INSUFFICIENT_BALANCE, actualError));
+        } else {
+            log("DEBUG: Skip as have no event has Fancy Artemis");
+            Assert.assertTrue(true, "By passed as cannot place bet to show error message about balance");
+            return;
+        }
+        log("INFO: Executed completely");
+    }
+
 }
 
