@@ -116,6 +116,18 @@ public class Header1 {
         return "";
     }
 
+    public String getMyBetsLabel() {
+        return "";
+    }
+
+    public String getMyMarketLabel() {
+        return "";
+    }
+
+    public String getMyAccountLabel() {
+        return "";
+    }
+
     public String getLiabilityTextColor() {
         return "";
     }

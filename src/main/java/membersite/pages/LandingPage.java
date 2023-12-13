@@ -90,6 +90,10 @@ public class LandingPage extends BasePage {
         leftMenu.waitMenuLoading();
         return header.navigateSportMenu(sportName,this._type);
     }
+    public RacingPage navigateRacing(String sportName) {
+        leftMenu.waitMenuLoading();
+        return header.navigateRacing(sportName,this._type);
+    }
 
 
     public MyBetsPage openMyBet() {

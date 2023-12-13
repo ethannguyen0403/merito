@@ -64,7 +64,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "556")
-    @Test(groups = {"smoke", "smoke_dev"})
+    @Test(groups = {"smoke", "smoke_dev","isa"})
     public void Place_Bet_Function_TC556() {
         log("@title: Validate that user can place Matched Back bet on Soccer market");
         String minBet = BetUtils.getMinBet("SOCCER", "BACK");
@@ -106,7 +106,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "557")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa"})
     public void Place_Bet_Function_TC557() {
         log("@title: Validate that user can place Matched Lay bet on Soccer market");
         String minBet = BetUtils.getMinBet("SOCCER", "LAY");
@@ -433,7 +433,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "563")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa"})
     public void Place_Bet_Function_TC563() {
         log("@title: Validate can place unmatched Lay bet successfully for Cricket");
         String odds = "1.01";
@@ -493,7 +493,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
         log("Step 1. Active any market of Horse Racing");
-        RacingPage page = memberHomePage.header.navigateRacing("Horse Racing", _brandname);
+        RacingPage page = memberHomePage.navigateRacing("Horse Racing");
         if (page.racingContainer.isNoRace()) {
             log("DEBUG: There is no event available");
             return;
@@ -547,7 +547,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     public void Place_Bet_Function_TC565() {
         log("@title: Validate Lay odds is empty and are not allowed to click to add on bet slip");
         log("Step 1. Active any market of Horse Racing");
-        RacingPage page = memberHomePage.header.navigateRacing("Horse Racing", _brandname);
+        RacingPage page = memberHomePage.navigateRacing("Horse Racing");
         if (page.racingContainer.isNoRace()) {
             log("DEBUG: There is no event available");
             return;
@@ -613,7 +613,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
 
     @TestRails(id = "567")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa"})
     public void Place_Bet_Function_TC567() {
         log("@title: Validate that user can place unmatched Lay bet on Soccer market");
         String odds = "1.01";
@@ -671,8 +671,6 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     public void Place_Bet_Function_TC568() {
         log("@title: Validate that cannot place Back bet if exposure exceed available balance");
         AccountBalance balance = BetUtils.getUserBalance();
-        String minBet = BetUtils.getMinBet("SOCCER", "BACK");
-        String maxBet = BetUtils.getMaxBet("SOCCER", "BACK");
         log("Step 1.Active any market, and place  Back odds");
         SportPage page = memberHomePage.navigateSportHeaderMenu("Soccer");
         Event event = page.eventContainerControl.getEvent(false, false, 20, 1);
@@ -689,10 +687,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         log("Verify: Error message \"Error : Cannot place bet. Your Main balance is insufficient.\" display");
         String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
-        String expectedError = String.format(MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE, String.format("%.2f", Double.parseDouble(minBet)), String.format("%(,.2f", Double.parseDouble(maxBet)), String.format("%s", stake));
-        //   String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake),Double.valueOf(minBet),Double.valueOf(maxBet),BetUtils.getUserBalance());
-        //  String expectedError = FEMemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE;
-        Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
+        Assert.assertEquals(actualError, MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE, String.format("ERROR! Expected error message is %s but found %s", MemberConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE, actualError));
 
 
         log("INFO: Executed completely");
@@ -728,7 +723,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id = "584")
     @Test(groups = {"smoke"})
-    public void Place_Bet_Function_TC025() {
+    public void Place_Bet_Function_TC584() {
         log("@title: Validate that user can NOT place Lay bet if Stake less than min setting");
         String odds = "1.01";
 
@@ -768,7 +763,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id = "585")
     @Test(groups = {"smoke"})
-    public void Place_Bet_Function_TC026() {
+    public void Place_Bet_Function_TC585() {
         log("@title: Validate that user can NOT place Back bet if Stake greater than max setting");
         String minBet = BetUtils.getMinBet("SOCCER", "BACK");
         String maxBet = BetUtils.getMaxBet("SOCCER", "BACK");
@@ -806,7 +801,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id = "586")
     @Test(groups = {"smoke"})
-    public void Place_Bet_Function_TC027() {
+    public void Place_Bet_Function_TC586() {
         log("@title: Validate that user can NOT place Lay bet if Stake greater than max setting");
         String odds = "1.01";
         String minBet = BetUtils.getMinBet("SOCCER", "LAY");

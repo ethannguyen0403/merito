@@ -35,7 +35,7 @@ public class SatHeader extends Header1 {
     private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
     private String sportMenuOldUIXpath = "//a[contains(@data-sport-name,'%s')]";
     private Link lnkMyMarkets = Link.xpath("//div[contains(@class,'account d-none')]");
-    private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='title']");
+    private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance'][1]/span[@class='title']");
     private Label lblBalanceCurrency = Label.xpath("//app-top-panel//div[contains(@class,'header-content-info')]//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='bal-val'][1]");
     private Label lblBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance'][2]//span[@class='bal-val']");
     private Label lblCashBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance']//span[@class='bal-val']");
@@ -292,7 +292,9 @@ public class SatHeader extends Header1 {
         clickHeaderMenu(pageName);
         return new RacingPage(brand);
     }
-
+    public String getBalanceLabel() {
+        return lblBalanceTitle.getText();
+    }
 }
 
 

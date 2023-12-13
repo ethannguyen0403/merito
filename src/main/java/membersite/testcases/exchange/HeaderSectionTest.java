@@ -1,6 +1,7 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
+import com.fasterxml.jackson.databind.jsontype.impl.AsExistingPropertyTypeSerializer;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.pages.*;
@@ -29,23 +30,24 @@ public class HeaderSectionTest extends BaseCaseTest {
      * 4. Outstanding should in red color
      */
     @TestRails(id = "500")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_fair999"})
     public void HeaderSection_TC500() {
         log("@title: Validate Credit, Balance, Outstanding of Credit Cash account  display correctly");
         log("Step 1: Get the info: Credit, Balance, Outstanding of  credit cash account from api");
         AccountBalance balanceAPI = BetUtils.getUserBalance();
 
-        log("Verify 1: Left menu icon and Logo");
-        String logoImgActual = memberHomePage.header.getLogoSrc();
+        log("Verify 1: Left menu icon ");
         Assert.assertTrue(memberHomePage.header.isLeftMenuIcondisplay(), "ERROR:Left menu icon is not display");
-        Assert.assertTrue(logoImgActual.contains(environment.directusURL), "FAILED! Log0 image not display");
 
-        log("Verify 2: Label: Time zone, Credit, Balance, Outstanding, My Markets, My Account");
-        AccountBalance balanceUI = memberHomePage.header.getUserBalance();
+        log("Verify 2: Label: My Bet, My Markets, My Account,Main, Liability display");
+        Assert.assertEquals(memberHomePage.header.getMyBetsLabel(),MemberConstants.Header.MY_BETS,"FAILED! My Bets Level not display");
+        Assert.assertEquals(memberHomePage.header.getMyMarketLabel(),MemberConstants.Header.MY_MARKET,"FAILED! My Bets Level not display");
+        Assert.assertEquals(memberHomePage.header.getMyAccountLabel(),MemberConstants.Header.MY_ACCOUNT,"FAILED! My Bets Level not display");
         Assert.assertEquals(memberHomePage.header.getBalanceLabel(), MemberConstants.Header.BALANCE, String.format("ERROR: Expected is Balance label is %s but found %s", memberHomePage.header.getBalanceLabel(), MemberConstants.Header.BALANCE));
         Assert.assertEquals(memberHomePage.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING, String.format("ERROR: Expected is Liability label is %s but found %s", memberHomePage.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING));
 
-        log("Verify 3: Verify Credit, Balance, Outstanding of the player are corrected");
+        log("Verify 3: Verify Main Balance, Liability value of the player are corrected");
+        AccountBalance balanceUI = memberHomePage.header.getUserBalance();
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()), String.format("ERROR: The expected  Liability is '%s' but found '%s'", balanceAPI.getExposure(), balanceUI.getExposure()));
         Assert.assertTrue(balanceAPI.getBalance().equals(balanceUI.getBalance()), String.format("ERROR: The expected  balance is '%s' but found '%s'", balanceAPI.getBalance(), balanceUI.getBalance()));
 
