@@ -5,18 +5,18 @@
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="FAIR_REG_Chrome">
+    <test name="Regression test cases Fair99 Agent Site in STG">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='03H'/>
+        <parameter name='username' value='C3Z'/>
         <parameter name='levelLogin' value='Parter'/>
-        <parameter name='downlineAccount' value='03H00'/>
+        <parameter name='downlineAccount' value='C3Z00'/>
         <parameter name='donwlineLevel' value='SAD'/>
         <parameter name='portalSubAccount' value='ANSUBCT'/>
-        <parameter name='memberAccount' value='03H0000000'/>
+        <parameter name='memberAccount' value='C3Z0000000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
