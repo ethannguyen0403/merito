@@ -147,9 +147,11 @@ public class SATEventContainerControl extends EventContainerControl {
                 .isSuspend(isSuspend)
                 .inPlay(isInplay)
                 .startTime(startTime)
+                .marketName(MATCH_ODDS_TITLE)
                 .build();
     }
 
+    // Get Event has Match odds by default
     public Event getEventRandom(boolean isInplay, boolean isSuspend) {
         if (!lblNoEvent.isDisplayed()) {
             //	String xpathEvents = String.format("%s%s",lblListEventXPath, _xpath);
@@ -182,12 +184,14 @@ public class SATEventContainerControl extends EventContainerControl {
                     eventStartTime = Label.xpath(String.format("%s%s", xpathEvent, lblEventStartTimeXpath)).getText().trim();
                     homeName = Label.xpath(String.format("%s%s", xpathEvent, lblHomeNameXpath)).getText().trim();
                     eventName = homeName;
-                    return new Event.Builder()
+                    //return getEvent(lnkEventName,isInplay,isSuspend,eventStartTime);
+                    return  new Event.Builder()
                             .eventName(eventName)
                             .lnkEvent(lnkEventName)
                             .isSuspend(isSuspend)
                             .inPlay(isInplay)
                             .startTime(eventStartTime)
+                            .marketName(MATCH_ODDS_TITLE)
                             .build();
                 }
                 if (j > lstTotal)
