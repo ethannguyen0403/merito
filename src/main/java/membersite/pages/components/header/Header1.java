@@ -1,6 +1,7 @@
 package membersite.pages.components.header;
 
 import membersite.objects.AccountBalance;
+import membersite.objects.Wager;
 import membersite.pages.*;
 import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
 import membersite.pages.components.signinform.SignInPopup;
@@ -147,7 +148,7 @@ public class Header1 {
         return "";
     }
 
-    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Double liabilityBack, Double liabilityLay) {return "";}
+    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Wager wagerBack, Wager wagerLay) {return "";}
 
     public String getMarqueeMessage() {
         return "";

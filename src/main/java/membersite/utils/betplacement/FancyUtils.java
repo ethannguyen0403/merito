@@ -681,5 +681,64 @@ public class FancyUtils {
         }
     }
 
+    private static JSONArray getFancyHasSameOddsJSON(String eventId) {
+        String api = String.format("%s/member-market/api/event/markets-v2.json?eventIds=%s", domainURL, eventId);
+        // Workarround to special cookies to get 27 fancy
+        String coookie = DriverManager.getDriver().getCookies().toString();
+        int index = coookie.indexOf("MESESSION");
+        String aa = coookie.substring(index, coookie.length());
+        coookie = aa.split(";")[0];
+        //end workarround
+        return WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON, coookie, Configs.HEADER_JSON_CHARSET);
+    }
+
+    public static List<FancyMarket> getFancyHasSameOddsInEvent(String eventID) {
+        JSONArray marketJSONArray = getFancyHasSameOddsJSON(eventID);
+        List<FancyMarket> lstMarket = new ArrayList<>();
+        if (marketJSONArray.length() == 0) {
+            System.out.println("DEBUG: No data get fancy market api of event id" + eventID);
+            return null;
+        }
+        if (Objects.nonNull(marketJSONArray)) {
+            for (int i = 0; i < marketJSONArray.length(); i++) {
+                JSONObject marketObj = marketJSONArray.getJSONObject(i);
+                if (marketObj.has("runners")) {
+                    JSONArray runnerArr = marketObj.getJSONArray("runners");
+                    String backArr = runnerArr.getJSONObject(0).getJSONArray("back").get(0).toString();
+                    String layArr = runnerArr.getJSONObject(0).getJSONArray("lay").get(0).toString();
+                    String[] backOdds = backArr.split(":");
+                    String[] layOdds = layArr.split(":");
+                    if(backOdds[0].equalsIgnoreCase(layOdds[0])) {
+                        lstMarket.add(new FancyMarket.Builder()
+                                .eventName(marketObj.getString("eventName"))
+                                .marketID(Integer.toString(marketObj.getInt("marketId")))
+                                .marketName(marketObj.getString("marketName"))
+                                .eventID(eventID)
+                                .status(marketObj.getString("status"))
+                                .marketType(marketObj.getString("marketType"))
+                                .minBet(marketObj.getInt("minBet"))
+                                .maxBet(marketObj.getInt("maxBet"))
+                                .build());
+                    }
+                }
+            }
+            return lstMarket;
+        }
+        System.out.println("DEBUG: getGETJSONResponse is null" + marketJSONArray.toString());
+        return null;
+    }
+
+    public static FancyMarket getFancyHasExpectedOddsInEvent(String eventID) {
+        List<FancyMarket> lstMarket = getFancyHasSameOddsInEvent(eventID);
+        if (Objects.nonNull(lstMarket)) {
+            for (FancyMarket market : lstMarket) {
+                if (market.getStatus().equalsIgnoreCase("ACTIVE")) {
+                    return market;
+                }
+            }
+        }
+        System.out.println(String.format("DEBUG: There is no wicket fancy display in the event %s", eventID));
+        return null;
+    }
 
 }

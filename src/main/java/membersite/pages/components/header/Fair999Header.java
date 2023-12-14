@@ -6,10 +6,17 @@ import common.MemberConstants;
 import membersite.controls.DropDownMenu;
 import membersite.objects.AccountBalance;
 import membersite.pages.*;
+import membersite.objects.Wager;
+import membersite.pages.AccountStatementPage;
+import membersite.pages.MyBetsPage;
+import membersite.pages.ProfitAndLossPage;
+import membersite.pages.SportPage;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
+
+import java.util.Objects;
 
 public class Fair999Header extends Header1 {
     public TextBox txtUsername = TextBox.name("username");
@@ -188,8 +195,38 @@ public class Fair999Header extends Header1 {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"));
     }
 
-    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Double liabilityBack, Double liabilityLay) {
-        return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - (liabilityBack + liabilityLay));
+    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Wager wagerBack, Wager wagerLay) {
+        double liabilityBack = 0.0;
+        double liabilityLay = 0.0;
+        if(!Objects.isNull(wagerBack)) {
+            if(!Objects.isNull(wagerLay)) {
+                if(wagerLay.getLiabilityFancyWager() >= wagerBack.getLiabilityFancyWager()) {
+                    liabilityBack = wagerBack.getProfitFancyWager();
+                } else {
+                    liabilityBack = wagerBack.getLiabilityFancyWager();
+                }
+            } else {
+                liabilityBack = wagerBack.getLiabilityFancyWager();
+            }
+        }
+        if(!Objects.isNull(wagerLay)) {
+            if(!Objects.isNull(wagerBack)) {
+                if(wagerBack.getLiabilityFancyWager() >= wagerLay.getLiabilityFancyWager()) {
+                    liabilityLay = wagerLay.getProfitFancyWager();
+                } else {
+                    liabilityLay = wagerLay.getLiabilityFancyWager();
+                }
+            } else {
+                liabilityLay = wagerLay.getLiabilityFancyWager();
+            }
+            liabilityLay = 0 - liabilityLay;
+        }
+        if(wagerBack.getPayout() == 100.0 || wagerBack.getPayout() == 0.0) {
+            return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - (liabilityBack + Math.abs(liabilityLay)));
+        } else {
+            return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - Math.abs(liabilityBack + liabilityLay));
+        }
+
     }
     public String getBalanceLabel() {
        return lblBalanceTitle.getText();

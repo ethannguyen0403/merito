@@ -726,4 +726,22 @@ public class BetUtils {
         }
         return lstRunner;
     }
+
+    public static FancyMarket findOpenFancyMarketWithSameOdds(String sportID) {
+        // Get all available event of a sport
+        JSONObject sportObj = getEvent(sportID);
+        JSONArray eventArr = sportObj.getJSONArray(sportID);
+        if (Objects.isNull(eventArr)) {
+            System.out.println("DEBUG: getGETJSONResponse is null");
+            return null;
+        }
+        for (int i = 0; i < eventArr.length(); i++) {
+            // Get the first Open Fancy markets according provider(27 Fancy, Wicket Fancy, Central Fancy of an event )
+            FancyMarket fancyMaket = FancyUtils.getFancyHasExpectedOddsInEvent(Integer.toString(eventArr.getInt(i)));
+            if (Objects.nonNull(fancyMaket)) {
+                return fancyMaket;
+            }
+        }
+        return null;
+    }
 }
