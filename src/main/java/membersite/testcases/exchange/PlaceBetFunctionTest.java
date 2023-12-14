@@ -29,6 +29,22 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC555() {
         log("@title: Validate that user can NOT place matched Back bet if Stake less than min setting");
+        log("Step 1. Click Soccer menu");
+        SportPage page = memberHomePage.navigateSportHeaderMenu("Soccer");
+
+        log("Step 2: Click on an event");
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEventName(event.getEventName());
+        event.setMarketName(MATCH_ODDS_TITLE);
+
+        log("Step 3:Click on an Back odds without empty of the selection have the high potential win");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+
         String odds = "20.00";
         String minBet = BetUtils.getMinBet("SOCCER", "BACK");
         String maxBet = BetUtils.getMaxBet("SOCCER", "BACK");
@@ -39,21 +55,6 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             return;
         }
 
-        log("Step 1. Click Soccer menu");
-        SportPage page = memberHomePage.navigateSportHeaderMenu("Soccer");
-
-        log("Step 2: Click on an event");
-        Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
-            log("DEBUG: There is no event available");
-            return;
-        }
-        MarketPage marketPage = page.clickEvent(event);
-
-        log("Step 3:Click on an Back odds without empty of the selection have the high potential win");
-        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
-        market.getBtnOdd().click();
-
         log("Step 4. Input stake and click submit");
         page.betsSlipContainer.placeBet(odds, stake);
 
@@ -61,7 +62,6 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         String actualError = page.myBetsContainer.getBetslipErrorMessage();
         String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID, String.format("%d", Integer.parseInt(minBet)), String.format("%d",Integer.parseInt(maxBet)), String.format("%d", Integer.parseInt(stake)));
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
-        log("INFO: Executed completely");
         log("INFO: Executed completely");
     }
 
