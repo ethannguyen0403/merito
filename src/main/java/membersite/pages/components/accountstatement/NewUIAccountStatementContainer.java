@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static common.MemberConstants.AccountStatementPage.LOAD_REPORT;
-import static common.MemberConstants.AccountStatementPage.OPENING_BALANCE;
+import static common.MemberConstants.AccountStatementPage.*;
 import static membersite.utils.betplacement.BetUtils.getUserBalance;
 
 public class NewUIAccountStatementContainer extends AccountStatementContainer {
@@ -49,7 +48,7 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
     private int colPlaceDate = 6;
     private int colProfitLost = 7;
     private int colStatus = 8;
-    public Table tblDetailReport = Table.xpath("//app-group-betdetail//table", totalDetailColumn);
+    public Table tblDetailReport = Table.xpath("//app-group-betdetail//table[contains(@aria-describedby,'table')]", totalDetailColumn);
 
 
     public void filter(String startDate, String endDate) {
@@ -62,7 +61,7 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
             dtpEndDate.selectDate(endDate, "yyyy-MM-dd");
         }
         btnLoadReport.click();
-        btnLoadReport.isTextDisplayed(LOAD_REPORT, 5);
+       // btnLoadReport.isTextDisplayed(LOAD_REPORT, 5);
     }
 
     public boolean verifyBalance(List<ArrayList<String>> lstAPIReport) {
@@ -152,13 +151,23 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
     }
 
     public void clickNarration() {
-        Link plofMarketLnk = (Link) tblReport.getControlOfCell(1, colNarration, 1, "span[@class='hover hyperlink']");
+        Link plofMarketLnk = (Link) tblReport.getControlOfCell(1, colNarration, 1, null);
         if (!plofMarketLnk.isDisplayed()) {
             System.out.println("The report has no event settled");
             return;
         }
+        else
+        {
+            String text = plofMarketLnk.getText();
+            if( text.contains(OPENING_BALANCE) || text.contains(WITHDRAW) || text.contains(DEPOSIT))
+                // get the seconrow if the first row is not hyperlink
+                plofMarketLnk = (Link) tblReport.getControlOfCell(1, colNarration, 2, "span[@class='hover hyperlink']");
+            else
+                // Get the first row if is hyperlink
+                plofMarketLnk = (Link) tblReport.getControlOfCell(1, colNarration, 1, "span[@class='hover hyperlink']");
+        }
         plofMarketLnk.click();
-        tblReport.isClickable(1);
+        tblReport.isClickable(2);
     }
 
     public List<ArrayList<String>> getAPIReport(String startDate, String endDate, String timeZone) {
@@ -182,7 +191,7 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
     }
 
     public List<String> getReportHeader() {
-        return tblReport.getColumnNamesOfTable(1);
+        return tblDetailReport.getColumnNamesOfTable(1);
     }
     public List<String> getReportDetailHeader() {
         return tblDetailReport.getColumnNamesOfTable(1);
