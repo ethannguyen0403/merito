@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import static common.MemberConstants.*;
+
 public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id = "555")
@@ -156,10 +158,6 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC558() {
         log("@title: Validate can place unmatched Back bet successfully for Tennis");
-        String odds = "20.00";
-        String minBet = BetUtils.getMinBet("TENNIS", "BACK");
-        String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
-
         log("Step 1. Active any market of Tennis");
         SportPage page = memberHomePage.navigateSportHeaderMenu("Tennis");
 
@@ -170,15 +168,19 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         try {
             log("Step 3. Update odds > offer odds and Input valid stake");
+            event.setMarketName(MATCH_ODDS_TITLE);
             Market market = marketPage.marketOddControl.getMarket(event, 1, true);
             market.getBtnOdd().click();
+            double odds = Double.parseDouble(market.getOdds()) + 2;
+            String minBet = BetUtils.getMinBet("Tennis", LBL_BACK_TYPE);
+            String expectedProfit = String.format("%.2f", (odds - 1) * Double.parseDouble(minBet));
 
             log("Step 4. Input stake and click submit");
             AccountBalance balance = memberHomePage.header.getUserBalance();
-            marketPage.betsSlipContainer.placeBet(odds, minBet);
+            marketPage.betsSlipContainer.placeBet(String.valueOf(odds), minBet);
             List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
 
             AccountBalance balanceExpected = marketPage.header.getUserBalance();
