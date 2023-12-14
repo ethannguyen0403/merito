@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OldUITaxSettingListing extends TaxSettingListing {
-    private int otherCol = 11;
-    private int updateStatusCol = 12;
+    private int otherCol = 12;
+    private int updateStatusCol = 13;
+    public int virtualCricketCol = 11;
 
     public List<ArrayList<String>> defineListTaxSetting(double inputValue) {
         List<ArrayList<String>> lstTaxSetting = tblTax.getRowsWithoutHeader(1, false);
@@ -17,11 +18,13 @@ public class OldUITaxSettingListing extends TaxSettingListing {
         double cricketTax = Double.parseDouble(lstTaxSetting.get(0).get(cricketCol - 1).split("%")[0]) + inputValue;
         double tennisTax = Double.parseDouble(lstTaxSetting.get(0).get(tennisCol - 1).split("%")[0]) + inputValue;
         double basketballTax = Double.parseDouble(lstTaxSetting.get(0).get(basketballCol - 1).split("%")[0]) + inputValue;
+        double virtualCricketTax = Double.parseDouble(lstTaxSetting.get(0).get(virtualCricketCol - 1).split("%")[0]) + inputValue;
         double otherTax = Double.parseDouble(lstTaxSetting.get(0).get(otherCol - 1).split("%")[0]) + inputValue;
         lstTaxSetting.get(0).set(soccerCol - 1, String.format("%.2f", soccerTax) + "%");
         lstTaxSetting.get(0).set(cricketCol - 1, String.format("%.2f", cricketTax) + "%");
         lstTaxSetting.get(0).set(tennisCol - 1, String.format("%.2f", tennisTax) + "%");
         lstTaxSetting.get(0).set(basketballCol - 1, String.format("%.2f", basketballTax) + "%");
+        lstTaxSetting.get(0).set(virtualCricketCol - 1, String.format("%.2f", virtualCricketTax) + "%");
         lstTaxSetting.get(0).set(otherCol - 1, String.format("%.2f", otherTax) + "%");
         return lstTaxSetting;
     }
@@ -42,16 +45,18 @@ public class OldUITaxSettingListing extends TaxSettingListing {
     }
 
     public void inputValue(List<ArrayList<String>> lstData) {
-        double soccerValue = Double.valueOf(lstData.get(0).get(6).split("%")[0]);
-        double cricketValue = Double.valueOf(lstData.get(0).get(7).split("%")[0]);
-        double tennisValue = Double.valueOf(lstData.get(0).get(8).split("%")[0]);
+        double soccerValue = Double.valueOf(lstData.get(0).get(soccerCol-1).split("%")[0]);
+        double cricketValue = Double.valueOf(lstData.get(0).get(cricketCol-1).split("%")[0]);
+        double tennisValue = Double.valueOf(lstData.get(0).get(tennisCol-1).split("%")[0]);
         double basketballValue = Double.valueOf(lstData.get(0).get(basketballCol - 1).split("%")[0]);
+        double virtualCricketValue = Double.valueOf(lstData.get(0).get(virtualCricketCol - 1).split("%")[0]);
         double otherTaxValue = Double.valueOf(lstData.get(0).get(otherCol - 1).split("%")[0]);
 
         txtSoccer.sendKeys(String.format("%.2f", soccerValue));
         txtCricket.sendKeys(String.format("%.2f", cricketValue));
         txtTennis.sendKeys(String.format("%.2f", tennisValue));
         txtBasketball.sendKeys(String.format("%.2f", basketballValue));
+        txtVirtualCricket.sendKeys(String.format("%.2f", virtualCricketValue));
         txtOther.sendKeys(String.format("%.2f", otherTaxValue));
     }
 

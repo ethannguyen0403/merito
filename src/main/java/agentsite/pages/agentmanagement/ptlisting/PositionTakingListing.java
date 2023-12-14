@@ -40,6 +40,7 @@ public class PositionTakingListing {
     public CheckBox cbCricket = CheckBox.xpath("//input[@id='CRICKET']");
     public CheckBox cbLineMarket = CheckBox.xpath("//input[@id='LINE']");
     public CheckBox cbFancy = CheckBox.xpath("//input[@id='FANCY']");
+    public CheckBox cbVirtualCricket = CheckBox.xpath("//input[@id='KIRON']");
     public CheckBox cbBookmaker = CheckBox.xpath("//input[@id='BOOKMAKER']");
     public CheckBox cbTennis = CheckBox.xpath("//input[@id='TENNIS']");
     public CheckBox cbBasketball = CheckBox.xpath("//input[@id='BASKETBALL']");
@@ -126,6 +127,10 @@ public class PositionTakingListing {
         if (!map.get("Fancy")) {
             chb.click();
         }
+        chb = CheckBox.xpath(String.format(xPathSport, "Virtual Cricket"));
+        if (!map.get("Virtual Cricket")) {
+            chb.click();
+        }
         chb = CheckBox.xpath(String.format(xPathSport, "Bookmakers"));
         if (!map.get("Bookmakers")) {
             chb.click();
@@ -165,6 +170,7 @@ public class PositionTakingListing {
         lstPTSetting.set(lstIndex.get(8), Integer.toString(inputValue));
         lstPTSetting.set(lstIndex.get(9), Integer.toString(inputValue));
         lstPTSetting.set(lstIndex.get(10), Integer.toString(inputValue));
+        lstPTSetting.set(lstIndex.get(11), Integer.toString(inputValue));
         return lstPTSetting;
     }
 
@@ -180,6 +186,8 @@ public class PositionTakingListing {
                 return cbLineMarket;
             case "Fancy":
                 return cbFancy;
+            case "Virtual Cricket":
+                return cbVirtualCricket;
             case "Bookmakers":
                 return cbBookmaker;
             case "Basketball":
