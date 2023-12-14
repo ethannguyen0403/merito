@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="SAT_GREEN_SMOKE_TEST" verbose="1">
+<suite name="SAT_STG_REG_Chrome" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
@@ -11,8 +11,8 @@
         <parameter name='language' value=''/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='sabella3'/>
-        <parameter name='usernameSAT' value='corpinr2'/>
+        <parameter name='username' value='autoplayerinr01'/>
+        <parameter name='usernameSAT' value='corpinr3'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='true'/>
         <parameter name='currency' value='HKD'/>
