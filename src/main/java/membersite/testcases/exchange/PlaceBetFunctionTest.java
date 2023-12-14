@@ -60,7 +60,6 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID, String.format("%d", Integer.parseInt(minBet)), String.format("%d",Integer.parseInt(maxBet)), String.format("%d", Integer.parseInt(stake)));
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
         log("INFO: Executed completely");
-        log("INFO: Executed completely");
     }
 
     @TestRails(id = "556")
@@ -724,7 +723,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     @TestRails(id = "584")
     @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC584() {
-        log("@title: Validate that user can NOT place Lay bet if Stake less than min setting");
+        log("@title: Validate that user can NOT place Lay bet if Stake le ss than min setting");
         String odds = "1.01";
 
         String minBet = BetUtils.getMinBet("SOCCER", "LAY");
@@ -762,7 +761,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "585")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa1"})
     public void Place_Bet_Function_TC585() {
         log("@title: Validate that user can NOT place Back bet if Stake greater than max setting");
         String minBet = BetUtils.getMinBet("SOCCER", "BACK");
