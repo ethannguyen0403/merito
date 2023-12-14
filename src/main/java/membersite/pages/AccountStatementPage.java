@@ -25,6 +25,7 @@ public class AccountStatementPage extends HomePage {
 
     public void filter(String startDate, String endDate) {
         accountStatementContainer.filter(startDate, endDate);
+        waitPageLoad();
     }
 
     public boolean verifyBalance(List<ArrayList<String>> lstAPIReport) {

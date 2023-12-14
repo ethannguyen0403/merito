@@ -5,6 +5,7 @@ import com.paltech.element.common.*;
 import common.MemberConstants;
 import membersite.controls.DropDownMenu;
 import membersite.objects.AccountBalance;
+import membersite.pages.*;
 import membersite.objects.Wager;
 import membersite.pages.AccountStatementPage;
 import membersite.pages.MyBetsPage;
@@ -29,10 +30,12 @@ public class Fair999Header extends Header1 {
     public Label lblMyAccount = Label.xpath("//div[contains(@class,'account d-block')]//span[text()='My Account']");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
     private Label imgSpinner = Label.xpath("//div[@class='lds-spinner']");
+    private Label lblMyBet = Label.xpath("//a[contains(@class,'menu-mybet')]");
     private Link lnkMyMarkets = Link.xpath("//div[contains(@class,'header-content-info')]//span[text()='My Markets']");
-    private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='title']");
+    private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance'][1]/span[@class='title']");
     private Label lblBalanceCurrency = Label.xpath("//app-top-panel//div[@class='balance'][1]//span[@class='bal-val'][1]");
     private Label lblBalance = Label.xpath("//app-top-panel//div[@class='balance'][1]//span[@class='bal-val'][2]");
+    private Label lblLiabilityTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'title')]");
     private Label lblLiabilityCurrency = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'lia-val')][1]");
     private Label lblLiability = Label.xpath("(//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')])[1]/span[@class='lia-val'][1]");
     private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
@@ -62,13 +65,20 @@ public class Fair999Header extends Header1 {
      * @return
      */
     public SportPage navigateSportMenu(String pageName, String brand) {
-        Menu menu = Menu.xpath(String.format(sportMenuXpath, pageName));
+        clickHeaderMenu(pageName);
+        return new SportPage(brand);
+    }
+    private void clickHeaderMenu(String sportMenu){
+        Menu menu = Menu.xpath(String.format(sportMenuXpath, sportMenu));
         if (!menu.isDisplayed(5)) {
-            System.out.println(String.format("There is no %s menu display", pageName));
-            return null;
+            System.out.println(String.format("There is no %s menu display", sportMenu));
+            return;
         }
         menu.click();
-        return new SportPage(brand);
+    }
+    public RacingPage navigateRacing(String pageName, String brand) {
+        clickHeaderMenu(pageName);
+        return new RacingPage(brand);
     }
 
     @Override
@@ -81,6 +91,9 @@ public class Fair999Header extends Header1 {
         SATLoginPopup loginPopup = openLoginPopup();
         loginPopup.login(username, password, false);
         return loginPopup.lblErrorMessage.getText();
+    }
+    public boolean isLeftMenuIcondisplay() {
+        return imgLeftMenu.isDisplayed();
     }
 
     // AfterLogin
@@ -215,7 +228,26 @@ public class Fair999Header extends Header1 {
         }
 
     }
+    public String getBalanceLabel() {
+       return lblBalanceTitle.getText();
+    }
+    public String getLiabilityLabel() {
+        return lblLiabilityTitle.getText();
+    }
+    public String getMyBetsLabel() {
+        return lblMyBet.getText();
+    }
 
+    public String getMyMarketLabel() {
+        return lnkMyMarkets.getText();
+    }
+
+    public String getMyAccountLabel() {
+        return lblMyAccount.getText();
+    }
+    public String getLiabilityTextColor() {
+            return lblLiability.getColour("color");
+    }
 }
 
 

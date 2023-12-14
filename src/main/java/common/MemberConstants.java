@@ -201,7 +201,7 @@ public class MemberConstants {
         public final static String OUTSTANDING = "Liability:";
         public final static String MY_BETS = "My Bets";
         public final static String MY_MARKET = "My Markets";
-        public final static String My_ACCOUNT = "My Account";
+        public final static String MY_ACCOUNT = "My Account";
         public final static String LEFT_MENU_ICON_COLLAPSE = "images/skins/%s/collapse-menu.svg";
         public final static String LEFT_MENU_ICON_EXPAND = "images/skins/%s/menu.svg";
 //        public final static String SAT_LEFT_MENU_ICON_COLLAPSE ="images/skins/%s/menu.svg";
@@ -238,10 +238,12 @@ public class MemberConstants {
         public final static String START_DATE = "Start Date";
         public final static String END_DATE = "End Date";
         public final static String NOTES = "Note : Date will be based on time zone %s";
-        public final static List<String> TABLE_SUMMARY_HEADER = Arrays.asList("Event/Market ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
+        public final static List<String> TABLE_SUMMARY_HEADER = Arrays.asList("Event/Market ID/Arena ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
         public final static List<String> TABLE_DETAIL_HEADER = Arrays.asList("Bet ID", "Selection", "Type", "Odds", "Turnover", "Place Date", "Profit/Loss", "Status");
         public final static String LOAD_REPORT = "Load Report";
         public final static String OPENING_BALANCE = "OPENING BALANCE";
+        public final static String WITHDRAW = "Withdraw";
+        public final static String DEPOSIT = "Deposit";
         public final static String MAIN_WALLET_STATEMENT = "Main Wallet Statement";
         public final static List<String> TABLE_SUMMARY_HEADER_FS = Arrays.asList("Sport/Games", "Remarks", "Turnover", "Profit & Loss", "Tax/Commission", "Cash Balance");
         public final static List<String> TABLE_DETAIL_SPORT_HEADER = Arrays.asList("Date", "Turnover", "Profit & Loss", "Tax", "Cash Balance");
