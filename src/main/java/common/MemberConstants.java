@@ -242,6 +242,8 @@ public class MemberConstants {
         public final static List<String> TABLE_DETAIL_HEADER = Arrays.asList("Bet ID", "Selection", "Type", "Odds", "Turnover", "Place Date", "Profit/Loss", "Status");
         public final static String LOAD_REPORT = "Load Report";
         public final static String OPENING_BALANCE = "OPENING BALANCE";
+        public final static String WITHDRAW = "Withdraw";
+        public final static String DEPOSIT = "Deposit";
         public final static String MAIN_WALLET_STATEMENT = "Main Wallet Statement";
         public final static List<String> TABLE_SUMMARY_HEADER_FS = Arrays.asList("Sport/Games", "Remarks", "Turnover", "Profit & Loss", "Tax/Commission", "Cash Balance");
         public final static List<String> TABLE_DETAIL_SPORT_HEADER = Arrays.asList("Date", "Turnover", "Profit & Loss", "Tax", "Cash Balance");
