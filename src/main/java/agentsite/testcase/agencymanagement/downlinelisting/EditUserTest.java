@@ -162,7 +162,7 @@ public class EditUserTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
-        String loginID = listAccount.get(0).getUserCode();
+        String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(loginID, "Active", "Member");
@@ -272,7 +272,7 @@ public class EditUserTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
-        String loginID = listAccount.get(0).getUserCode();
+        String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Click on Edit icon of any Member level");
         page.searchDownline(loginID, "Active", "Member");

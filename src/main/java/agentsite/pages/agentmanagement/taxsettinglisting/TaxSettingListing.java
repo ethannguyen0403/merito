@@ -16,7 +16,8 @@ public class TaxSettingListing {
     public int tennisCol = 9;
     public int basketballCol = 10;
     public int fancyCol = 11;
-    public int otherCol = 12;
+    public int virtualCricketCol = 12;
+    public int otherCol = 13;
     protected String successIcon = "//span[contains(@class,'psuccess')]";
     protected String errorIcon = "//span[contains(@class,'perror')]";
     public Label lblBreadcrumb = Label.xpath("//span[@class='my-breadcrumb']");
@@ -29,6 +30,7 @@ public class TaxSettingListing {
     public TextBox txtCricket = TextBox.xpath("//input[@id='backCRICKET']");
     public TextBox txtBasketball = TextBox.xpath("//input[@id='backBASKETBALL']");
     public TextBox txtFancy = TextBox.xpath("//input[@id='backFANCY']");
+    public TextBox txtVirtualCricket = TextBox.xpath("//input[@id='backKIRON']");
     public TextBox txtOther = TextBox.xpath("//input[@id='backOTHER']");
     public Table tblTax = Table.xpath("//table[contains(@class,'ptable report')]", totalColum);
     public Button btnUpdate = Button.id("bntUpdate");
