@@ -21,10 +21,10 @@
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
         <parameter name='agentLoginAccount' value='CashIN1.AD'/>
-        <parameter name="agentNonCashLoginAccount" value="SASUBTI"></parameter>
-        <parameter name="memberNonCashLoginAccount" value="sabella3"></parameter>
+        <parameter name="agentNonCashLoginAccount" value="SASUBTI"/>
+        <parameter name="memberNonCashLoginAccount" value="sabella3"/>
         <parameter name='agentWithoutPermissionLoginAccount' value='15CSUBTI'/>
-        <parameter name="emailAddress" value="isacashstg01@yopmail.com"></parameter>
+        <parameter name="emailAddress" value="isacashstg01@yopmail.com"/>
         <groups>
             <run>
                 <include name="cashsite_nologin"/>

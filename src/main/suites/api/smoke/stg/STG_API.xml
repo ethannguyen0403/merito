@@ -15,7 +15,7 @@
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='INR'/>
-
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="smoke"/>

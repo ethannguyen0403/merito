@@ -20,7 +20,7 @@
         <parameter name="password" value=""/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
-
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="smoke"/>
