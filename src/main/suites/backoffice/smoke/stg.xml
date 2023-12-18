@@ -28,6 +28,7 @@
         <parameter name="cryptoAccount" value="fs2crypto"/>
         <parameter name='appname' value='backoffice'/>
         <parameter name='brandname' value='satsport'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="smoke"/>

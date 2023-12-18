@@ -25,6 +25,7 @@
         <parameter name="isCredit" value="false"/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value="fairexchange"/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="regression_po"/>

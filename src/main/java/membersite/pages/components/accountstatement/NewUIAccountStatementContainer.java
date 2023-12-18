@@ -191,7 +191,7 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
     }
 
     public List<String> getReportHeader() {
-        return tblDetailReport.getColumnNamesOfTable(1);
+        return tblReport.getColumnNamesOfTable(1);
     }
     public List<String> getReportDetailHeader() {
         return tblDetailReport.getColumnNamesOfTable(1);
