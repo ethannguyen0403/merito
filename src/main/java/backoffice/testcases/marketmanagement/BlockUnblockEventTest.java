@@ -526,9 +526,9 @@ public class BlockUnblockEventTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15733")
-    @Test(groups = {"regression","2023.11.301"})
+    @Test(groups = {"regression","2023.11.302"})
     @Parameters({"fair999PortalCode","fair999ControlLevel","agentPassword"})
-    public void BO_Market_Management_BlockUnblock_Event_15733(String fair999PortalCode,String fair999ControlLevel,String agentPassword) {
+    public void BO_Market_Management_BlockUnblock_Event_15733(String fair999PortalCode,String fair999ControlLevel,String agentPassword) throws Exception {
         log("@title: Validate event is blocked will be reflected in agent");
         log("Precondition step 1/Login BO");
         String sport = "Soccer";
@@ -537,19 +537,129 @@ public class BlockUnblockEventTest extends BaseCaseTest {
         BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
 
         log("Step 2.  Select PO of Fair999 brand");
+        log("Step 3. Select Soccer and Today tab and select a control level blocking");
         page.filter(fair999PortalCode, sport, "Today");
 
-        log("Step 3. Select Soccer and Today tab and select a control level blocking");
-        page.filterDownlineUser(fair999ControlLevel);
-
         log("Step 4. Get the first event and block it");
+        String userId = page.lblUplineUser.getAttribute("value");
+        String sportId = page.lblSport.getAttribute("value");
+        List<ArrayList<String>> lstLeagueAndEventApi = BlockUnblockEventUtils.getLeagueAndEventList(userId, sportId);
+        String eventId = lstLeagueAndEventApi.get(0).get(0);
+        page.blockUnblockEvent(fair999ControlLevel,eventId,"Block","");
+
         log("Step 5. Login agent site of Fair999 brand at the level control blocking in step 3");
-        //agentHomePage = loginAgent(fair999ControlLevel, agentPassword,true);
+        loginAgent(fair999ControlLevel, agentPassword,"fairexchange");
         log("Step 6. Active Block/Unblock Event page and search the event in step 3 and check the status");
-        Assert.assertFalse(page.isNoRecordFoundDisplays(), "FAILED!The event display");
+        agentsite.pages.marketsmanagement.BlockUnblockEventPage blockUnblockEventPage =  agentHomePage.navigateBlockUnblockEventsPage();
+        blockUnblockEventPage.searchEvent(eventId);
 
         log("Verify 1: Verify the status of the event is blocked");
+        blockUnblockEventPage.verifyBlockUnblockEvent(eventId, "Blocked", false, false, false, "", "");
+        log("INFO: Executed completely");
+    }
 
+    @TestRails(id = "15734")
+    @Test(groups = {"regression","2023.11.301"})
+    @Parameters({"satPortalCode","satSADAgentLoginID","agentPassword"})
+    public void BO_Market_Management_BlockUnblock_Event_15734(String satPortalCode,String satSADAgentLoginID,String agentPassword) throws Exception {
+        log("@title: Validate event is unblocked will be reflected in agent");
+        log("Precondition step 1/Login BO");
+        String sport = "Soccer";
+
+        log("Step 1. Active Block/Unblock Event page");
+        BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
+
+        log("Step 2.  Select PO of SAT brand");
+        log("Step 3. Select Soccer and Today tab and select a control level blocking");
+        page.filter(satPortalCode, sport, "Today");
+
+        log("Step 4. Get the first event and unblock it");
+        String userId = page.lblUplineUser.getAttribute("value");
+        String sportId = page.lblSport.getAttribute("value");
+        List<ArrayList<String>> lstLeagueAndEventApi = BlockUnblockEventUtils.getLeagueAndEventList(userId, sportId);
+        String eventId = lstLeagueAndEventApi.get(0).get(0);
+        page.blockUnblockEvent(satSADAgentLoginID,eventId,"Unblock","");
+        page.logout();
+
+        log("Step 5. Login agent site of Fair999 brand at the level control blocking in step 4");
+        loginAgent(satSADAgentLoginID, agentPassword,true);
+        log("Step 6. Active Block/Unblock Event page and search the event in step 3 and check the status");
+        agentsite.pages.marketsmanagement.BlockUnblockEventPage blockUnblockEventPage =  agentHomePage.navigateBlockUnblockEventsPage();
+        blockUnblockEventPage.searchDownline("abc");
+        blockUnblockEventPage.searchEvent(eventId);
+
+        log("Verify 1: Verify the status of the event is blocked");
+        blockUnblockEventPage.verifyBlockUnblockEvent(eventId, "Unblocked", true, false, true, "Now", "Now");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15735")
+    @Test(groups = {"regression","2023.11.301"})
+    @Parameters({"satPortalCode","satSADAgentLoginID","agentPassword"})
+    public void BO_Market_Management_BlockUnblock_Event_15735(String satPortalCode,String satSADAgentLoginID,String agentPassword) throws Exception {
+        log("@title: Validate event is unblocked scheduler in 25 minutes will be reflected in agent");
+        log("Precondition step 1/Login BO");
+        String sport = "Soccer";
+
+        log("Step 1. Active Block/Unblock Event page");
+        BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
+
+        log("Step 2. Select PO of SAT brand");
+        log("Step 3. Select Soccer and Tomorrow tab and select a control level blocking");
+        page.filter(satPortalCode, sport, "Tomorrow");
+
+        log("Step 4. Get the first event and unblock schedule in 25 minutes");
+        String userId = page.lblUplineUser.getAttribute("value");
+        String sportId = page.lblSport.getAttribute("value");
+        List<ArrayList<String>> lstLeagueAndEventApi = BlockUnblockEventUtils.getLeagueAndEventList(userId, sportId);
+        String eventId = lstLeagueAndEventApi.get(0).get(0);
+        page.blockUnblockEvent(satSADAgentLoginID,eventId,"Unblock Schedule","25 minutes");
+        page.logout();
+
+        log("Step 5. Login agent site of Fair999 brand at the level control blocking in step 4");
+        loginAgent(satSADAgentLoginID, agentPassword,true);
+        log("Step 6.  Active Block/Unblock Event page and search the event in step 4 and check the status");
+        agentsite.pages.marketsmanagement.BlockUnblockEventPage blockUnblockEventPage =  agentHomePage.navigateBlockUnblockEventsPage();
+        blockUnblockEventPage.searchDownline("abc");
+        blockUnblockEventPage.searchEvent(eventId);
+
+        log("Verify 1: Verify the status of the event is unblocked in 25 minutes");
+        blockUnblockEventPage.verifyBlockUnblockEvent(eventId, "Blocked", true, false, true, "25 minutes", "25 minutes");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "15736")
+    @Test(groups = {"regression","2023.11.301"})
+    @Parameters({"satPortalCode","satSADAgentLoginID","agentPassword"})
+    public void BO_Market_Management_BlockUnblock_Event_15736(String satPortalCode,String satSADAgentLoginID,String agentPassword) throws Exception {
+        log("@title: Validate event is unblocked scheduler in 24 hours will be reflected in agent");
+        log("Precondition step 1/Login BO");
+        String sport = "Soccer";
+
+        log("Step 1. Active Block/Unblock Event page");
+        BlockUnblockEventPage page = backofficeHomePage.navigateBlockUnblockEvents();
+
+        log("Step 2. Select PO of SAT brand");
+        log("Step 3. Select Soccer and Tomorrow tab and select a control level blocking");
+        page.filter(satPortalCode, sport, "Tomorrow");
+
+        log("Step 4. Get the first event and unblock schedule in 25 minutes");
+        String userId = page.lblUplineUser.getAttribute("value");
+        String sportId = page.lblSport.getAttribute("value");
+        List<ArrayList<String>> lstLeagueAndEventApi = BlockUnblockEventUtils.getLeagueAndEventList(userId, sportId);
+        String eventId = lstLeagueAndEventApi.get(0).get(0);
+        page.blockUnblockEvent(satSADAgentLoginID,eventId,"Unblock Schedule","24 hours");
+        page.logout();
+
+        log("Step 5. Login agent site of Fair999 brand at the level control blocking in step 4");
+        loginAgent(satSADAgentLoginID, agentPassword,true);
+        log("Step 6.  Active Block/Unblock Event page and search the event in step 4 and check the status");
+        agentsite.pages.marketsmanagement.BlockUnblockEventPage blockUnblockEventPage =  agentHomePage.navigateBlockUnblockEventsPage();
+        blockUnblockEventPage.searchDownline("abc");
+        blockUnblockEventPage.searchEvent(eventId);
+
+        log("Verify 1: Verify the status of the event is unblocked in 25 minutes");
+        blockUnblockEventPage.verifyBlockUnblockEvent(eventId, "Unblocked", true, false, true, "24 hours", "25 minutes");
         log("INFO: Executed completely");
     }
 

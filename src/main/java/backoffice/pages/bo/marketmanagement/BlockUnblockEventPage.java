@@ -4,11 +4,8 @@ import backoffice.pages.bo.home.HomePage;
 import com.paltech.element.common.*;
 import com.paltech.utils.DateUtils;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +27,12 @@ public class BlockUnblockEventPage extends HomePage {
     Button btnFuture = Button.xpath("//button[text()='Future ']");
     TextBox txtDownlineFilter = TextBox.xpath("//input[@placeholder='Search By Username/Nickname']");
     TextBox txtEventFilter = TextBox.xpath("//input[@placeholder='Search By Event ID/Name']");
-
     CheckBox cbSelectAllFavourite = CheckBox.xpath("//span[text()=' Select All ']//input");
     CheckBox cbSelectAllUnfavourite = CheckBox.xpath("//span[text() = 'Select All']//..//following-sibling::input");
     CheckBox cbDownlineChecked = CheckBox.xpath("//div[@class='child-item d-flex justify-content-between align-items-center ng-star-inserted active']//div[@class='pl-2']//following-sibling::input");
-
     CheckBox cbSeletAllEvent = CheckBox.xpath("//table[@aria-describedby='block-unblock-table']//span[text()='Event']//..//..//input");
+    DropDownBox ddbSelectTime = DropDownBox.xpath("//select[contains(@class,'select-time')]");
+    Button btnSave = Button.xpath("//select[contains(@class,'select-time')]");
 
     public void filter(String userUpline, String sport, String filterPeriod) {
         if (!userUpline.isEmpty()) {
@@ -86,6 +83,8 @@ public class BlockUnblockEventPage extends HomePage {
         return lstUsers;
     }
 
+
+
     public ArrayList<String>[] getListCompetitionAndEvent() {
         ArrayList<String>[] arr = new ArrayList[2];
         ArrayList<String> lstCompetitions = new ArrayList<>();
@@ -105,6 +104,48 @@ public class BlockUnblockEventPage extends HomePage {
         return arr;
     }
 
+    private Button getActionButton(String action){
+        if(!action.isEmpty()){
+            return Button.xpath(String.format("//button[contains(@class,'btn-core') and text()='%s']", action));
+        }
+        return null;
+    }
+
+    private Label getLblDownline(String downline){
+        for (int i = 1; i <= lblDownlineUsers.getWebElements().size(); i++) {
+            String xpath = String.format("//table[@aria-describedby='block-unblock-table']//div[@class='ps-content']//div//div[%s]/div", i + 2);
+            Label lblUserDownline = Label.xpath(xpath);
+            lblUserDownline.scrollToThisControl(true);
+            if(lblDownlineUsers.getText().contains(downline))
+                return lblUserDownline;
+        }
+        System.out.println("Not found the downline account "+ downline);
+        return null;
+    }
+    /**
+     * Do action Block or Un-block an event
+     * @param downline            It is direct downline under a portal, can input username or login ID of the level control blocking
+     * @param event               the even name/ event id, can input all to select all event
+     * @param action              input action: block, Unblock Now, Unblock Schedule
+     * @param unblockScheduleTime in Action is Unblock Schedule, input the schedule value like: 25 minute, 2 days...
+     */
+    public void blockUnblockEvent(String downline,  String event, String action, String unblockScheduleTime) {
+        filterDownlineUser(downline);
+        getLblDownline(downline).click();
+
+        // select the downline
+        filterEvent(event);
+        //select event
+
+        // select action
+        Button btnAction =getActionButton(action);
+        btnAction.click();
+        if(!unblockScheduleTime.isEmpty()){
+            ddbSelectTime.selectByVisibleText(unblockScheduleTime);
+            btnSave.click();
+        }
+        waitSpinIcon();
+    }
     public List<String> getListEventDateTime() {
         List<String> lstEventDateTime = new ArrayList<>();
         for (int i = 1; i <= lblEventDateTime.getWebElements().size(); i++) {
