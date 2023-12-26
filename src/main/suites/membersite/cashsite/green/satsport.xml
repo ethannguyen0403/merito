@@ -22,8 +22,9 @@
         <parameter name='brandname' value='satsport'/>
         <parameter name='agentLoginAccount' value='790SUBTS'/>
         <parameter name='agentNonCashLoginAccount' value='QAAT.SAD'/>
-        <parameter name="memberNonCashLoginAccount" value="QAAT.PL01"></parameter>
-        <parameter name="emailAddress" value="qatest1@yopmail.com"></parameter>
+        <parameter name="memberNonCashLoginAccount" value="QAAT.PL01"/>
+        <parameter name="emailAddress" value="qatest1@yopmail.com"/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="cashsite"/>

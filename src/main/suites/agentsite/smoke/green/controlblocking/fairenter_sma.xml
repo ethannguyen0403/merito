@@ -24,6 +24,7 @@
         <parameter name='prefix' value='QAZ'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='fairenter'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="smoke"/>

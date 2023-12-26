@@ -24,6 +24,7 @@
         <parameter name='level' value='SMA'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value="fairexchange"/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="regression_newui"/>

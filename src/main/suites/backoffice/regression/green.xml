@@ -21,6 +21,7 @@
         <parameter name='feMemberLoginId' value='03H0000000'/>
         <parameter name='feMemberLoginPwd' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
         <parameter name='fair999PortalCode' value='FB'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="regression"/>

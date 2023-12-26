@@ -23,6 +23,7 @@
         <parameter name='currency' value='HKD'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='satsport'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="smoke"/>

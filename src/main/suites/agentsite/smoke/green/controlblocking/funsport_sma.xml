@@ -24,6 +24,7 @@
         <parameter name='prefix' value='30H'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='funsport'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="smoke"/>

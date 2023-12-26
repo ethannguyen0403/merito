@@ -73,7 +73,7 @@ public class BaseCaseTest {
     public static String PROJECT_ID = "1";
     public static APIClient client;
     private static ApplicationContext context;
-    private static boolean isAddTestRailResult = true;
+    private static boolean isAddTestRailResult;
     private static List<Long> lstCases = new ArrayList<>();
 
     @BeforeSuite(alwaysRun = true)
@@ -86,6 +86,8 @@ public class BaseCaseTest {
         }
         // Create Test Run in Test Rails
         ctx.getName();
+        isAddTestRailResult = ctx.getCurrentXmlTest().getLocalParameters().get("isAddTestRailResult") != null ?
+                Boolean.valueOf(ctx.getCurrentXmlTest().getLocalParameters().get("isAddTestRailResult")) : false;
         if (isAddTestRailResult) {
             System.out.println("Add New Test Run in TestRails");
             client = new APIClient("https://paltech.testrail.io/");

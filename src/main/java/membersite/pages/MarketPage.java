@@ -6,6 +6,7 @@ import membersite.controls.FancyContainerControl;
 import membersite.controls.FancyContainerControlOldUI;
 import membersite.controls.OneClickBettingControl;
 import membersite.controls.WicketBookmakerContainerControl;
+import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
 import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.FancyMarket;
@@ -41,6 +42,19 @@ public class MarketPage extends HomePage {
         fancyContainerControl = FancyContainerControl.xpath("//span[text()='Fancy']//ancestor::div[contains(@class,'fancy-container')]");
     }
 
+    public void placeBet(Market market,String stake){
+        String odds;
+        // Handle place bet when place bet if empty odds
+        if(!market.getBtnOdd().isDisplayed())
+            odds ="1.01";
+        else if( market.getBtnOdd().getText().equals(""))
+            odds = "1.01";
+        else
+            odds = market.getBtnOdd().getText();
+        market.getBtnOdd().click();
+        // Place bet with odds:%s Stake: %s", odds, stake))
+        betsSlipContainer.placeBet(odds, stake);
+    }
     public void activeProduct(String products) {
         marketOddControl.activeProduct(products);
     }
