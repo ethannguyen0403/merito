@@ -74,6 +74,13 @@ public class MiniMyBetControl extends BaseElement {
                     }
                     rowLst.add(LblCell.getText().trim());
                 }
+                LblCell = Label.xpath(String.format("%s/div[%s]/div[%s]", bodyXpath, i, j));
+                boolean isBack = LblCell.getAttribute("class").contains("back");
+                if(isBack) {
+                    rowLst.add("BACK");
+                } else {
+                    rowLst.add("LAY");
+                }
                 lstWagers.add(rowLst);
             }
 

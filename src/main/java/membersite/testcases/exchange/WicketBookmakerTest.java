@@ -26,7 +26,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         log("@title: Validate can place bet on Wicket Bookmaker on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
         String stake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get the event that has Wicket Bookmaker market");
         BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_BOOKMAKER_CODE, "ONLINE");
@@ -58,7 +58,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         Assert.assertTrue(Objects.nonNull(lstFCBet), "FAILED! FC my bet section does NOT display");
         Assert.assertEquals(lstFCBet.get(0).get(0), market.getSelectionName(), "FAILED! Selection Name is incorrect");
         Assert.assertEquals(lstFCBet.get(0).get(0), expectedWager.getRunnerName(), "FAILED! Selection Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(0).get(1), String.valueOf(expectedWager.getOdds()), "FAILED! Odds is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(1), String.format("%,.0f", expectedWager.getOdds()), "FAILED! Odds is incorrect");
         Assert.assertEquals(lstFCBet.get(0).get(2), String.format("%,.2f", Double.valueOf(stake)), "FAILED! Stake is incorrect");
         Assert.assertEquals(lstFCBet.get(0).get(3), String.format("%,.2f", expectedWager.getProfitWicketBookmakerWager()), "FAILED! Liability is incorrect");
         log("INFO: Executed completely");
@@ -72,7 +72,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
         String maxBet = BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_LAY_TYPE);
         String stake = Integer.toString(Integer.parseInt(minBet) - 1);
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get the event that has Wicket Bookmaker market");
         BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_BOOKMAKER_CODE, "ONLINE");
@@ -111,7 +111,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
         String maxBet = BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_LAY_TYPE);
         String stake = Integer.toString(Integer.parseInt(maxBet) + 1);
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get the event that has Wicket Bookmaker market");
         BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_BOOKMAKER_CODE, "ONLINE");
@@ -148,7 +148,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         log("Step 1. Login member site and click on Cricket");
         AccountBalance balance = BetUtils.getUserBalance();
         String stake = String.format("%d", (int) (Double.valueOf(balance.getBalance().replaceAll(",", "").toString()) + 1));
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get the event that has Wicket Bookmaker market");
         BookmakerMarket bookmakerMarket = BetUtils.findOpenBookmakerMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_BOOKMAKER_CODE, "ONLINE");

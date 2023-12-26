@@ -175,7 +175,7 @@ public class FancyContainerControl extends BaseElement {
                 Link lblRate = (Link) tblMarket.getControlOfCell(1, colBackOdds, 1, "span[2]");
                 Link lblOddLay = (Link) tblMarket.getControlOfCell(1, colLayOdds, 1, "span[1]");
                 Link lblRateLay = (Link) tblMarket.getControlOfCell(1, colLayOdds, 1, "span[2]");
-                Link lnkLiability = (Link) tblMarket.getControlOfCell(1, colMarketName, 1, "div[contains(@class,'liability')]//span[@class='fancy-liability-value']");
+                Link lnkLiability = (Link) tblMarket.getControlOfCell(1, colMarketName, 1, "div[contains(@class,'liability')]//span[contains(@class,'fancy-liability-value')]");
                 String rate;
 //                waitSuspendLabelDisapper(tblMarket);
                 if (lblOdd.isDisplayed())
