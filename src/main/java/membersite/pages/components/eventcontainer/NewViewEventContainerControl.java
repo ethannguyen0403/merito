@@ -218,27 +218,41 @@ public class NewViewEventContainerControl extends EventContainerControl {
         event.getLinkEvent().click();
     }
 
-    public void clickOnRowofEventName(String eventName) {
-        // On Highlight page, click on the event in input parameter
-        int i = 1;
-        Link lnkEvent;
-        while (true) {
-            lnkEvent = (Link) tblEvents.getControlOfCell(1, 1, i, "div[contains(@class,'home-team-name')]");
-            if (!lnkEvent.isDisplayed()) {
-                System.out.println("Debug! Not found event to click");
+    //    public void clickOnRowofEventName(String eventName) {
+////        // On Highlight page, click on the event in input parameter
+////        int i = 1;
+////        Link lnkEvent;
+////        while (true) {
+////            lnkEvent = (Link) tblEvents.getControlOfCell(1, 1, i, "div[contains(@class,'home-team-name')]");
+////            if (!lnkEvent.isDisplayed()) {
+////                System.out.println("Debug! Not found event to click");
+////                return;
+////            }
+////            String homnTeam = lnkEvent.getText().trim();
+////            lnkEvent = (Link) tblEvents.getControlOfCell(1, 1, i, "div[contains(@class,'away-team-name')]");
+////            String awayTeam = lnkEvent.getText().trim();
+////            String expectedName = String.format("%s v %s", homnTeam, awayTeam);
+////            if (expectedName.equalsIgnoreCase(eventName)) {
+////                lnkEvent.click();
+////                lnkEvent.isDisplayedShort(2);
+////                return;
+////            }
+////            i++;
+////            // check api tha has fany
+////        }
+////    }
+    public void clickOnRowofEventName(String event) {
+        String homeTeamXpath = "//div[contains(text(),'%s')]";
+        String homeTeamRootLocator = "(//div[contains(text(),'%s')])[%s]";
+        String[] arrTeamName = event.split(" v ");
+        Label lblHomeTeam = Label.xpath(String.format(homeTeamXpath, arrTeamName[0]));
+        for (int i = 0; i < lblHomeTeam.getWebElements().size(); i++) {
+            Label lblAwayTeam = Label.xpath(String.format(homeTeamRootLocator + "//..//div[contains(@class,'away-team-name')]", arrTeamName[0], i + 1));
+            if (lblAwayTeam.getText().equalsIgnoreCase(arrTeamName[1])) {
+                lblAwayTeam.click();
+                lblAwayTeam.isDisplayedShort(2);
                 return;
             }
-            String homnTeam = lnkEvent.getText().trim();
-            lnkEvent = (Link) tblEvents.getControlOfCell(1, 1, i, "div[contains(@class,'away-team-name')]");
-            String awayTeam = lnkEvent.getText().trim();
-            String expectedName = String.format("%s v %s", homnTeam, awayTeam);
-            if (expectedName.equalsIgnoreCase(eventName)) {
-                lnkEvent.click();
-                lnkEvent.isDisplayedShort(2);
-                return;
-            }
-            i++;
-            // check api tha has fany
         }
     }
 

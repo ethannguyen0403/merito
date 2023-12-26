@@ -30,7 +30,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_2249() {
         log("@title: Validate can place bet on Artemis Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2. Active the event that has Fancy market");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), SINGLE_RUNNER_TYPE);
@@ -56,7 +56,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         Assert.assertEquals(lstFCBet.get(0).get(0), expectedWager.getMarketName(), "FAILED! FC Market Name is incorrect");
         Assert.assertEquals(lstFCBet.get(0).get(1), expectedWager.getRunnerName(), "FAILED! Market Name is incorrect");
         Assert.assertEquals(lstFCBet.get(0).get(2), expectedWager.displayFancyOdds(), "FAILED! Odds is incorrect");
-        Assert.assertEquals(lstFCBet.get(0).get(3), String.format("%s.00", minStake), "FAILED! Stake is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(3), String.format("%.2f", Double.valueOf(minStake)), "FAILED! Stake is incorrect");
         Assert.assertEquals(lstFCBet.get(0).get(3), String.format("%.2f", expectedWager.getLiabilityFancyWager()), "FAILED! Liability is incorrect");
 
         log("Validate Information of placed bet displays correctly");
@@ -298,7 +298,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15789() {
         log("@title: Validate exposure is kept correctly when place on Yes");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), SINGLE_RUNNER_TYPE);
@@ -314,15 +314,13 @@ public class ArtemisFancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
-        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
-        marketPage.placeFancy(fcMarket, true, minStake);
+        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fancyMarket.getMarketID(), minStake));
+        marketPage.placeFancy(fancyMarket, true, minStake);
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes section");
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, null);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
 
         log("INFO: Executed completely");
     }
@@ -332,7 +330,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15790() {
         log("@title: Validate exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2. Active the event that has Fancy market");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), SINGLE_RUNNER_TYPE);
@@ -345,19 +343,16 @@ public class ArtemisFancyTest extends BaseCaseTest {
 
         log("Step 3. Click on a Fancy market");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
-//        fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 4. Click on an odds of a fancy market then place bet");
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_LAY_TYPE);
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
         marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Validate Exposure kept correctly when place on No section");
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), null, expectedWager);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
         log("INFO: Executed completely");
     }
 
@@ -366,7 +361,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15791() {
         log("@title: Validate exposure is kept correctly when place on Yes and No");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2. Active the event that has Fancy market");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), SINGLE_RUNNER_TYPE);
@@ -384,16 +379,12 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 4 Click on an odds and place on Yes and No option");
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
-        Wager expectedWager2 = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
-
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
         marketPage.placeFancy(fancyMarket, true, minStake);
         marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Validate Exposure kept correctly when place on Yes and No section");
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, expectedWager2);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
         log("INFO: Executed completely");
     }
 
@@ -402,7 +393,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15792() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), SINGLE_RUNNER_TYPE);
@@ -418,7 +409,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         String stake = String.format("%.0f", Double.valueOf(BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) - 1);
-        String maxWL = String.format("%.0f", Math.floor(Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100));
+        String maxWL = String.format("%.0f", marketPage.getMaxWinLoseMarket(fcMarket, true));
         log(String.format("Step 5. Click on an odds of a fancy market then place bet with the stake less than min bet: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeFancy(fcMarket, true, stake);
 
@@ -435,7 +426,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15793() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), SINGLE_RUNNER_TYPE);
@@ -470,7 +461,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         AccountBalance balance = BetUtils.getUserBalance();
 
         log("Step 2. Active the event that have Fancy market");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), SINGLE_RUNNER_TYPE);
@@ -484,8 +475,8 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 3. Click on a Fancy market");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double stake = Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) + Double.valueOf(balance.getBalance().replace(",",""));
-        Double maxWL = Math.floor(Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100);
+        Double stake = Double.valueOf(balance.getBalance().replace(",","")) + 10;
+        Double maxWL = marketPage.getMaxWinLoseMarket(fcMarket, true);
         //handle cause error message only appears if (stake > available balance and stake <= max WL) on market
         if(stake <= maxWL) {
             log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than available balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
@@ -507,7 +498,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15814() {
         log("@title: Validate correct odds display when place on single runner market");
         log("Step 1. Open Artemis Fancy which has 1 runner market");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), SINGLE_RUNNER_TYPE);
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Artemis");
@@ -538,13 +529,13 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    //Multi Runner cases
+//    //Multi Runner cases
     @TestRails(id = "2766")
     @Test(groups = {"smoke1", "2024.01.19"})
     public void ArtemisFancyTest_2766() {
         log("@title: Validate correct odds display when place on multi runners market");
         log("Step 1. Open Artemis Fancy which has 2 runners market");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_RUNNER_TYPE);
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Artemis");
@@ -564,7 +555,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         List<ArrayList> lstFCBet = marketPage.getFancyMiniMyBet();
         log("Validate Odds displays correctly (e.g 90, there is no payout in suffix)");
         Assert.assertTrue(Objects.nonNull(lstFCBet), "FAILED! FC my bet section does NOT display");
-        Assert.assertEquals(lstFCBet.get(0).get(2), String.format("%.2f",expectedWager.getOdds()), "FAILED! Odds is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(2), String.format("%.0f",expectedWager.getOdds()), "FAILED! Odds is incorrect");
 
         log("Step 4. Navigate to My Bets page and search the matched bet and observe odds");
         MyBetsPage myBetsPage = memberHomePage.openMyBet();
@@ -783,32 +774,28 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15801() {
         log("@title: Validate exposure is kept correctly when place on Runner 1");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_RUNNER_TYPE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Artemis");
             Assert.assertTrue(true, "By passed as has no Artemis Fancy on all available event");
             return;
         }
-
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         log("Step 4 Active Artemis Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
-        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
-        marketPage.placeArtemisFancy(fcMarket, true, minStake, 1);
+        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fancyMarket.getMarketID(), minStake));
+        marketPage.placeArtemisFancy(fancyMarket, true, minStake, 1);
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, null);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
 
         log("INFO: Executed completely");
     }
@@ -818,41 +805,39 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15802() {
         log("@title: Validate exposure is kept correctly when place on Runner 2");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_RUNNER_TYPE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Artemis");
             Assert.assertTrue(true, "By passed as has no Artemis Fancy on all available event");
             return;
         }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Artemis Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 2);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
-        marketPage.placeArtemisFancy(fcMarket, true, minStake, 2);
+        marketPage.placeArtemisFancy(fancyMarket, true, minStake, 2);
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, null);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "15803")
     @Test(groups = {"smoke1", "2024.01.19"})
     public void ArtemisFancyTest_15803() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_RUNNER_TYPE);
@@ -868,12 +853,12 @@ public class ArtemisFancyTest extends BaseCaseTest {
         fcMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
 
         String stake = String.format("%.0f", Double.valueOf(BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) - 1);
-        String maxWL = String.format("%.0f", Math.floor(Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100));
+        double maxWL = marketPage.getMaxWinLoseMarket(fcMarket, true);
         log(String.format("Step 5. Click on an odds of a fancy market then place bet with the stake less than min bet: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeArtemisFancy(fcMarket, true, stake, 1);
 
         log("Validate Can NOT place bet");
-        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID_ARTEMIS, fcMarket.getMinSetting(), maxWL, fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String expectedError = String.format(BetSlip.VALIDATE_STAKE_NOT_VALID_ARTEMIS, fcMarket.getMinSetting(), String.format("%.0f",maxWL), fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
         String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
 
@@ -885,7 +870,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15804() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_RUNNER_TYPE);
@@ -920,7 +905,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         AccountBalance balance = BetUtils.getUserBalance();
 
         log("Step 2. Active the event that have Fancy market");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_RUNNER_TYPE);
@@ -934,17 +919,14 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 3. Click on a Fancy market");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
-        Double stake = Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) + Double.valueOf(balance.getBalance().replace(",",""));
-        Double maxWL = Math.floor(Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100);
+        Double stake = Double.valueOf(balance.getBalance().replace(",","")) + 10;
+        Double maxWL = marketPage.getMaxWinLoseMarket(fcMarket, true);
 
         log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than available balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeArtemisFancy(fcMarket, true, String.valueOf(stake), 1);
 
         //handle cause error message only appears if (stake > available balance and stake <= max WL) on market
         if(stake <= maxWL) {
-            log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than available balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
-            marketPage.placeFancy(fcMarket, true, String.valueOf(stake));
-
             log("Validate Can NOT place bet");
             String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
             Assert.assertEquals(actualError, ERROR_INSUFFICIENT_BALANCE, String.format("ERROR! Expected error message is %s but found %s", ERROR_INSUFFICIENT_BALANCE, actualError));
@@ -961,7 +943,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15806() {
         log("@title: Validate forecast displays correctly when place matched bet");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_RUNNER_TYPE);
@@ -975,6 +957,8 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 3 Active Artemis Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
+        double foreCastRunner1 = fancyMarket.getMarketLiability();
+        double foreCastRunner2 = marketPage.getArtemisFancyMarketInfo(fcMarket, 2).getMarketLiability();
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
         Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
 
@@ -987,9 +971,11 @@ public class ArtemisFancyTest extends BaseCaseTest {
                 "Runner 1 = stake *(odds/100)\n" +
                 "Runner 2 = - stake");
         FancyMarket fancyMarketRunner1 = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
+        double foreCastExpectedRunner1 = foreCastRunner1 + expectedWager.getProfitFancyWager();
+        Assert.assertEquals(String.format("%.2f",fancyMarketRunner1.getMarketLiability()), String.format("%.2f",foreCastExpectedRunner1),"FAILED! Forecast runner 1 is not correct");
         FancyMarket fancyMarketRunner2 = marketPage.getArtemisFancyMarketInfo(fcMarket, 2);
-        Assert.assertEquals(String.format("%.2f",fancyMarketRunner1.getMarketLiability()), String.format("%.2f",expectedWager.getProfitFancyWager()), "FAILED! Forecast runner 1 is not correct");
-        Assert.assertEquals(String.format("%.2f",fancyMarketRunner2.getMarketLiability()), String.format("%s%.2f","-",expectedWager.getLiabilityFancyWager()), "FAILED! Forecast runner 1 is not correct");
+        double foreCastExpectedRunner2 = foreCastRunner2 - expectedWager.getLiabilityFancyWager();
+        Assert.assertEquals(String.format("%.2f",fancyMarketRunner2.getMarketLiability()), String.format("%.2f",foreCastExpectedRunner2), "FAILED! Forecast runner 1 is not correct");
 
         log("INFO: Executed completely");
     }
@@ -1094,7 +1080,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15810() {
         log("@title: Validate exposure is kept correctly when place multi bet");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_BET_TYPE);
@@ -1110,15 +1096,13 @@ public class ArtemisFancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeArtemisFancy(fcMarket, true, minStake, 1);
 
-        log("Verify 1. Validate Exposure kept correctly when place on Yes section");
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, null);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        log("Verify 1. Validate Exposure kept correctly when place multi bet");
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
 
         log("INFO: Executed completely");
     }
@@ -1128,7 +1112,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15811() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_BET_TYPE);
@@ -1161,7 +1145,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     public void ArtemisFancyTest_15812() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_BET_TYPE);
@@ -1197,7 +1181,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         AccountBalance balance = BetUtils.getUserBalance();
 
         log("Step 2. Active the event that have Fancy market");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_BET_TYPE);
@@ -1212,16 +1196,13 @@ public class ArtemisFancyTest extends BaseCaseTest {
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
         Double stake = Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) + Double.valueOf(balance.getBalance().replace(",",""));
-        Double maxWL = Math.floor(Double.valueOf(BetUtils.getMaxBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE)) / fcMarket.getRateYes()*100);
+        Double maxWL = marketPage.getMaxWinLoseMarket(fcMarket, true);
 
         log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than available balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeArtemisFancy(fcMarket, true, String.valueOf(stake), 1);
 
         //handle cause error message only appears if (stake > available balance and stake <= max WL) on market
         if(stake <= maxWL) {
-            log(String.format("Step 4. Click on an odds of a fancy market then place bet with the stake  greater than available balance: market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
-            marketPage.placeFancy(fcMarket, true, String.valueOf(stake));
-
             log("Validate Can NOT place bet");
             String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
             Assert.assertEquals(actualError, ERROR_INSUFFICIENT_BALANCE, String.format("ERROR! Expected error message is %s but found %s", ERROR_INSUFFICIENT_BALANCE, actualError));

@@ -215,7 +215,6 @@ public class PositionTakingListing {
             cb.click();
     }
 
-    public boolean isTableHeaderProductDisplayCorrect(String product) {
-        return false;
+    public void verifyTableHeaderProductDisplayCorrect(List<String> lstProduct) {
     }
 }

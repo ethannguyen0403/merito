@@ -91,9 +91,9 @@ public class ArtemisBookmakerTest extends BaseCaseTest {
         List<ArrayList> lstBMBetSlip = marketPage.getBookmakerMiniMyBet();
 
         Assert.assertTrue(Objects.nonNull(lstBMBetSlip), "FAILED! Artemis Bookmaker my bet section does NOT display");
-        Assert.assertEquals(lstBMBetSlip.get(0).get(0), expectedWager.getMarketName(), "FAILED! Artemis Bookmaker Market Name is incorrect");
+        Assert.assertEquals(WICKET_BOOKMAKER_TITLE, expectedWager.getMarketName(), "FAILED! Artemis Bookmaker Market Name is incorrect");
         Assert.assertEquals(lstBMBetSlip.get(0).get(0), expectedWager.getRunnerName(), "FAILED! Runner Name is incorrect");
-        Assert.assertEquals(lstBMBetSlip.get(0).get(1), expectedWager.getOdds(), "FAILED! Odd is incorrect");
+        Assert.assertEquals(lstBMBetSlip.get(0).get(1), String.format("%.0f", expectedWager.getOdds()), "FAILED! Odd is incorrect");
         Assert.assertEquals(lstBMBetSlip.get(0).get(2), String.format("%.2f", Double.valueOf(minBet)), "FAILED! Stake is incorrect");
         Assert.assertEquals(lstBMBetSlip.get(0).get(3), String.format("%.2f", expectedWager.getProfitWicketBookmakerWager()), "FAILED! Liability is incorrect");
         log("INFO: Executed completely");
@@ -169,7 +169,7 @@ public class ArtemisBookmakerTest extends BaseCaseTest {
         log("Validate Placed bet is displayed with correct info (odd, stake, pnl) on mini My Bets");
         List<ArrayList> lstBMBetSlip = marketPage.getBookmakerMiniMyBet();
         Assert.assertTrue(Objects.nonNull(lstBMBetSlip), "FAILED! Artemis Bookmaker my bet section does NOT display");
-        Assert.assertEquals(lstBMBetSlip.get(0).get(1), expectedWager.getOdds(), "FAILED! Odd is incorrect");
+        Assert.assertEquals(lstBMBetSlip.get(0).get(1), String.format("%.0f", expectedWager.getOdds()), "FAILED! Odd is incorrect");
         log("Step 5. Navigate to My Bets page and search the matched bet then observe odds");
         MyBetsPage page = memberHomePage.header.openMyBets(_brandname);
         page.filter(DDB_PRODUCT_FILTER.get("Exchange"), DDB_ORDER_TYPE_FILTER.get("MATCHED"));

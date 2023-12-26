@@ -148,8 +148,6 @@ public class Header1 {
         return "";
     }
 
-    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Wager wagerBack, Wager wagerLay) {return "";}
-
     public String getMarqueeMessage() {
         return "";
     }
