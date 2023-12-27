@@ -947,13 +947,12 @@ public class ArtemisFancyTest extends BaseCaseTest {
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_RUNNER_TYPE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Artemis");
             Assert.assertTrue(true, "By passed as has no Artemis Fancy on all available event");
             return;
         }
-
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         log("Step 3 Active Artemis Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
@@ -1084,13 +1083,12 @@ public class ArtemisFancyTest extends BaseCaseTest {
 
         log("Step 2 Get and click on the event that has Artemis Fancy");
         FancyMarket fcMarket = BetUtils.findOpenArtemisFancyMarketByRunner(SPORT_ID.get(LBL_CRICKET_SPORT), MULTI_BET_TYPE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Artemis");
             Assert.assertTrue(true, "By passed as has no Artemis Fancy on all available event");
             return;
         }
-
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         log("Step 4 Active Artemis Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
