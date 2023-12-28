@@ -608,7 +608,7 @@ public class FancyUtils {
                         JSONArray runnerArr = marketObj.getJSONArray("runners");
                         if (Objects.nonNull(runnerArr)) {
                             //get Odds - Selection from first Runner
-                            JSONObject firstRunnerObj = runnerArr.getJSONObject(1);
+                            JSONObject firstRunnerObj = runnerArr.getJSONObject(0);
                             selection = firstRunnerObj.getString("name");
                             backOdds = firstRunnerObj.getJSONArray("back");
                             layOdds = firstRunnerObj.getJSONArray("lay");
