@@ -22,7 +22,7 @@
         <parameter name="timeZone" value="GMT-04:00"/>
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
-        <parameter name='isAddTestRailResult' value='false'/>
+        <parameter name='isAddTestRailResult' value='true'/>
 
         <groups>
             <run>
