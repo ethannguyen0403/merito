@@ -168,7 +168,7 @@ public class DepositTest extends BaseCaseTest {
      * 2. Verify available balance of deposit account is updated
      */
     @TestRails(id = "724")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     public void Agent_AM_DepositWithdrawal_Deposit_724() {
         log("@title: Validate can deposited successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
