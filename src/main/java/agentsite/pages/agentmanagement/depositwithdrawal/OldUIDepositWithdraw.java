@@ -7,17 +7,17 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import com.paltech.utils.DoubleUtils;
 import org.openqa.selenium.Keys;
+import org.testng.Assert;
 
 import java.util.*;
 
-import static agentsite.pages.HomePage.waitingLoadingSpinner;
 import static agentsite.pages.agentmanagement.DepositWithdrawalPage.*;
 
 public class OldUIDepositWithdraw extends DepositWithdraw {
     int totalCol = 13;
-    int colSubBalance = 9;
-    int colTotalBalance = 8;
-    int colAvailableBalance = 10;
+    int colSubBalance = 10;
+    int colTotalBalance = 9;
+    int colAvailableBalance = 11;
     public int colCreditInitiation = 8;
     private int totalColAccountBalanceTable = 4;
     private Label lblLoginAccountAvailableBalance = Label.xpath("//app-agency-deposit-withdraw//table[@class='ptable report']//tbody[1]//tr[1]//td[4]");
@@ -28,15 +28,21 @@ public class OldUIDepositWithdraw extends DepositWithdraw {
     private int colTransfer = 14;
     private int colUpdateStatus = 16;
     private int colLog = 15;
-    public boolean isTotalBalanceCalculatedCorrect() {
-        List<ArrayList<String>> lstData = tblWithdrawalDeposit.getRowsWithoutHeader(20,false);
-        for (int i = 0; i < lstData.size(); i++){
-            double totalBalance = Double.parseDouble(lstData.get(i).get(colSubBalance)) + Double.parseDouble(lstData.get(i).get(colAvailableBalance));
-            if (lstData.get(i).get(colTotalBalance).equals(String.format("%,.2f",totalBalance))){
-                return true;
+
+    public void verifyTotalBalanceCalculatedCorrect() {
+        List<String> subBalance = tblWithdrawalDeposit.getColumn(colSubBalance, 200, false);
+        List<String> availableBalance = tblWithdrawalDeposit.getColumn(colAvailableBalance, 200, false);
+        List<String> totalBalance = tblWithdrawalDeposit.getColumn(colTotalBalance, 200, false);
+        for (int i = 0; i < subBalance.size(); i++) {
+            String subBalanceText = subBalance.get(i).trim().replaceAll(",", "");
+            if(subBalanceText.equalsIgnoreCase("-")) {
+                subBalanceText = "0.00";
             }
+            double subBalanceValue = Double.parseDouble(subBalanceText);
+            double availableBalanceValue = Double.parseDouble(availableBalance.get(i).trim().replaceAll(",", ""));
+            double totalBalanceCalculate =  subBalanceValue + availableBalanceValue;
+            Assert.assertEquals(Double.parseDouble(totalBalance.get(i)), Math.floor(totalBalanceCalculate * 100)/ 100, 0.1, "");
         }
-        return false;
     }
 
     public String getLabelText(String controlNameString) {
@@ -161,8 +167,8 @@ public class OldUIDepositWithdraw extends DepositWithdraw {
             return false;
         }
         for (int i = 0; i < lstDownlineBefore.size(); i++) {
-            expecteddownlineBalance = Double.valueOf(lstDownlineBefore.get(i).get(colAvailableBalance).replaceAll(",", "").toString());
-            actualDownlineBalance = Double.valueOf(lstDownlineAfter.get(i).get(colAvailableBalance).replaceAll(",", "").toString());
+            expecteddownlineBalance = Double.valueOf(lstDownlineBefore.get(i).get(colAvailableBalance).replaceAll(",", ""));
+            actualDownlineBalance = Double.valueOf(lstDownlineAfter.get(i).get(colAvailableBalance).replaceAll(",", ""));
             // Calculate downline balance
             if (isDeposit) {
                 expecteddownlineBalance = expecteddownlineBalance + amount;
