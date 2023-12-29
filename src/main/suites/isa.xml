@@ -8,25 +8,25 @@
 
     <test name="FAIR999 STG Smoke Chrome ">
         <parameter name='browser' value='window10.local.chrome'/>
-        <parameter name='env' value='stg'/>
+        <parameter name='env' value='green'/>
         <parameter name='language' value=''/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='03H0000000'/>
-        <parameter name='usernameSAT' value='03H'/>
-        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='username' value='QAAT.PL01'/>
+        <parameter name='usernameSAT' value='QAAT.SAD'/>
+        <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
         <parameter name='isThrown' value='true'/>
         <parameter name='currency' value='HKD'/>
-        <parameter name="skinName" value="fairexchange"/>
+        <parameter name="skinName" value="satsport"/>
         <parameter name="isCloseBanner" value="true"/>
         <parameter name="isCredit" value="false"/>
-        <parameter name="timeZone" value="GMT-04:00"/>
+        <parameter name="timeZone" value="GMT +5:30"/>
         <parameter name='appname' value='membersite'/>
-        <parameter name='brandname' value='fairexchange'/>
+        <parameter name='brandname' value='satsport'/>
 
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="isa1"/>
             </run>
         </groups>
 

@@ -1,5 +1,6 @@
 package membersite.pages;
 
+import agentsite.pages.report.PS38SportsResultsPage;
 import com.paltech.driver.DriverManager;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
@@ -10,9 +11,13 @@ import membersite.pages.components.minimybetcontainer.MiniMyBetsContainer;
 import membersite.pages.components.nextupracingcontainer.NextUpRacingContainer;
 import membersite.pages.exchangegames.EGHomePage;
 import membersite.pages.popup.BannerPopup;
+import membersite.pages.proteus.ProteusHomePage;
+import membersite.testcases.proteus.ProteusHomePageTest;
 import membersite.utils.betplacement.BetUtils;
 
 import java.util.Locale;
+
+import static common.MemberConstants.PS38;
 
 public class HomePage extends LandingPage {
     public BetsSlipContainer betsSlipContainer;
@@ -69,7 +74,13 @@ public class HomePage extends LandingPage {
     }
 
     public void clickProduct(String product) {
-
+        header.clickProduct(product);
+    }
+    public ProteusHomePage activePS38Product() {
+        header.clickProduct(PS38);
+        DriverManager.getDriver().switchToFrame(0);
+        ProteusHomePage page = new ProteusHomePage(this._type);
+        return page;
     }
 
     public MarketPage clickEvent(Event event) {
