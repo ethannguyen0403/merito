@@ -465,6 +465,22 @@ public class AGConstant {
             public final static List<String> TABLE_PT_PRAGMATIC_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Pragmatic", "Update Status");
             public final static List<String> TABLE_PT_CMD_SPORTSBOOK_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "CMD Sportsbook", "Update Status");
             public final static List<String> TABLE_PT_CMD_SPORTSBOOK_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "CMD Sportsbook", "Update Status");
+
+            public final static List<String> TABLE_PT_RWB_SPORTSBOOK_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "RWB Sports", "Update Status");
+            public final static List<String> TABLE_PT_RWB_SPORTSBOOK_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "RWB Sports", "Update Status");
+            public final static List<String> TABLE_PT_PS38_SPORTSBOOK_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Esports", "Non-esports", "Update Status");
+            public final static List<String> TABLE_PT_PS38_SPORTSBOOK_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Esports", "Non-esports", "Update Status");
+            public final static List<String> TABLE_PT_PS38_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Customised PT", "Settings", "Soccer General", "Soccer General (InPlay)", "Baseball General","Baseball General (InPlay)",
+                    "Basketball General","Basketball General (InPlay)","Football General","Football General (InPlay)","E Sports General","E Sports General (InPlay)","Others General","Others General (InPlay)","Mix Parlay General","Teasers General","Update Status",
+                    "OU","ML","HDP","OU","TT","ML","HDP","OU","ML");
+            public final static List<String> TABLE_PT_PS38_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Customised PT", "Settings", "Soccer General", "Soccer General (InPlay)", "Baseball General","Baseball General (InPlay)",
+                    "Basketball General","Basketball General (InPlay)","Football General","Football General (InPlay)","E Sports General","E Sports General (InPlay)","Others General","Others General (InPlay)","Mix Parlay General","Teasers General","Update Status",
+                    "OU","ML","HDP","OU","TT","ML","HDP","OU","ML");
+            public final static List<String> TABLE_PT_QTECH_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Q-tech", "Update Status");
+            public final static List<String> TABLE_PT_QTECH_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Q-tech",  "Update Status");
+            public final static List<String> TABLE_PT_EVOLUTION_WHITECLIFF_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Premium games", "Other games", "Update Status");
+            public final static List<String> TABLE_PT_EVOLUTION_WHITECLIFF_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Premium games", "Other games", "Update Status");
+
             public final static String LBL_USERNAME = "Username";
             public final static String LBL_ACCOUNTSTATUS = "Account Status";
             public final static String LBL_PRODUCT = "Product";
@@ -677,8 +693,8 @@ public class AGConstant {
         public final static String ERROR_PRODUCT = "Please select at least 1 product.";
         public final static String ERROR_DATE_RANGE = "End date cannot earlier than start date. Please redefine the search criteria";
         public final static List<String> LIST_EXTRA_RPODUCTS_PO = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Central Fancy", "Central Bookmaker", "Follow Bets");
-        public final static List<String> LIST_EXTRA_PRODUCTS_NEWUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Premium Cricket", "Evolution (WhiteCliff)");
-        public final static List<String> LIST_EXTRA_PRODUCTS_OLDUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Central Fancy", "Central Bookmaker", "Premium Cricket", "Evolution (WhiteCliff)");
+        public final static List<String> LIST_EXTRA_PRODUCTS_NEWUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Premium Cricket", "Virtual Cricket", "Q-tech");
+        public final static List<String> LIST_EXTRA_PRODUCTS_OLDUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Central Fancy", "Central Bookmaker", "Premium Cricket", "Virtual Cricket", "Q-tech");
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS = "You can see report data up to 6 months";
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_1_TO_6 = "You can see report data up to 1 month and back to previous 6 months.";
         public final static String LBL_PRODUCT = "Product";

@@ -5,6 +5,7 @@ import agentsite.pages.agentmanagement.PositionTakingListingPage;
 import agentsite.pages.components.ConfirmPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
+import agentsite.ultils.agencymanagement.PositionTakingListingUtils;
 import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -142,72 +143,10 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
-        log("Step 2. Select Exchange Game product");
-        page.positionTakingListing.search("", "", EXCHANGE_GAMES, "");
-
-        log("Verify 2. Verify Position Taking table of Exchange Game display");
-        Assert.assertTrue(page.positionTakingListing.isTableHeaderProductDisplayCorrect(EXCHANGE_GAMES), "FAILED! Position Taking table of Exchange Games does not match");
-
-        log("Step 3.Select Game Hall product");
-        page.positionTakingListing.search("", "", GAME_HALL, "");
-
-        log("Verify 3. Verify Position Taking table of Game Hall display");
-        Assert.assertTrue(page.positionTakingListing.isTableHeaderProductDisplayCorrect(GAME_HALL), "FAILED! Position Taking table of Game Hall does not match");
-
-        log("Step 4.Select Live Dealer Asian product");
-        page.positionTakingListing.search("", "", LIVE_DEALER_ASIAN, "");
-
-        log("Verify 4. Verify Position Taking table of Live Dealer Asian display");
-        Assert.assertTrue(page.positionTakingListing.isTableHeaderProductDisplayCorrect(LIVE_DEALER_ASIAN), "FAILED! Position Taking table of Live Dealer Asian does not match");
-
-        log("Step 5.Select Live Dealer European product");
-        page.positionTakingListing.search("", "", LIVE_DEALER_EUROPEAN, "");
-
-        log("Verify 5. Verify Position Taking table of Live Dealer European display");
-        Assert.assertTrue(page.positionTakingListing.isTableHeaderProductDisplayCorrect(LIVE_DEALER_EUROPEAN), "FAILED! Position Taking table of Live Dealer European does not match");
-
-        log("Step 6.Select Evolution product");
-        page.positionTakingListing.search("", "", EVOLUTION, "");
-
-        log("Verify 6. Verify Position Taking table of Evolution display");
-        Assert.assertTrue(page.positionTakingListing.isTableHeaderProductDisplayCorrect(EVOLUTION), "FAILED! Position Taking table of Evolution does not match");
-
-        log("Step 7.Select Supernowa Casino product");
-        page.positionTakingListing.search("", "", SUPERNOWA_CASINO, "");
-
-        log("Verify 7. Verify Position Taking table of Supernowa Casino display");
-        Assert.assertTrue(page.positionTakingListing.isTableHeaderProductDisplayCorrect(SUPERNOWA_CASINO), "FAILED! Position Taking table of Supernowa Casino does not match");
-
-        log("Step 8.Select Exchange product");
-        page.positionTakingListing.search("", "", EXCHANGE, "");
-
-        log("Verify 8. Verify Position Taking table of Exchange display");
-        Assert.assertTrue(page.positionTakingListing.isTableHeaderProductDisplayCorrect(EXCHANGE), "FAILED! Position Taking table of Exchange does not match");
-
-        log("Step 9.Select Vivo product");
-        page.positionTakingListing.search("", "", VIVO, "");
-
-        log("Verify 9. Verify Position Taking table of Vivo display");
-        Assert.assertTrue(page.positionTakingListing.isTableHeaderProductDisplayCorrect(VIVO), "FAILED! Position Taking table of Vivo does not match");
-
-        log("Step 10.Select Pragmatic product");
-        page.positionTakingListing.search("", "", PRAGMATIC, "");
-
-        log("Verify 10. Verify Position Taking table of Pragmatic display");
-        Assert.assertTrue(page.positionTakingListing.isTableHeaderProductDisplayCorrect(PRAGMATIC), "FAILED! Position Taking table of Pragmatic does not match");
-
-        log("Step 11.Select ION product");
-        page.positionTakingListing.search("", "", ION, "");
-
-        log("Verify 11. Verify Position Taking table of ION display");
-        Assert.assertTrue(page.positionTakingListing.isTableHeaderProductDisplayCorrect(ION), "FAILED! Position Taking table of ION does not match");
-
-        log("Step 12.Select CMD Sportsbook product");
-        page.positionTakingListing.search("", "", CMD_SPORTSBOOK, "");
-
-        log("Verify 12. Verify Position Taking table of CMD Sportsbook display");
-        Assert.assertTrue(page.positionTakingListing.isTableHeaderProductDisplayCorrect(CMD_SPORTSBOOK), "FAILED! Position Taking table of CMD Sportsbook does not match");
-
+        List<String> lstProduct = PositionTakingListingUtils.getListProductsActive();
+        log("Step 2. Select product");
+        log("Verify 2. Verify Position Taking table of selected products display correct");
+        page.positionTakingListing.verifyTableHeaderProductDisplayCorrect(lstProduct);
         log("INFO: Executed completely");
     }
 

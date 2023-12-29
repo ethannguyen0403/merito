@@ -185,7 +185,7 @@ public class SATEventContainerControl extends EventContainerControl {
                     homeName = Label.xpath(String.format("%s%s", xpathEvent, lblHomeNameXpath)).getText().trim();
                     eventName = homeName;
                     //return getEvent(lnkEventName,isInplay,isSuspend,eventStartTime);
-                    return  new Event.Builder()
+                    return new Event.Builder()
                             .eventName(eventName)
                             .lnkEvent(lnkEventName)
                             .isSuspend(isSuspend)
@@ -221,14 +221,21 @@ public class SATEventContainerControl extends EventContainerControl {
         event.getLinkEvent().click();
     }
 
-    public void clickOnRowofEventName(String event) {
-
-        int i = getEventIndex(event);
-        if (i ==0) {
-            System.out.println("Debug! Not found event to click");
-            return;
+    //    public void clickOnRowofEventName(String event) {
+//
+//        int i = getEventIndex(event);
+//        if (i ==0) {
+//            System.out.println("Debug! Not found event to click");
+//            return;
+//        }
+//        tblEvents.getControlOfCell(1, 1, i, "span[contains(@class,'home-team')]").click();
+//    }
+    public void clickOnRowofEventName(String eventName) {
+        Label lblEvent = Label.xpath(String.format("//app-market-highlight//span[text()='%s']", eventName));
+        if (lblEvent.isDisplayed()) {
+            lblEvent.click();
+            lblEvent.isDisplayedShort(2);
         }
-        tblEvents.getControlOfCell(1, 1, i, "span[contains(@class,'home-team')]").click();
     }
 
     private int getEventIndex(String eventName) {
@@ -312,7 +319,7 @@ public class SATEventContainerControl extends EventContainerControl {
         }
     }
 
-    public boolean isEventDisplay(String eventName){
+    public boolean isEventDisplay(String eventName) {
         getEventIndex(eventName);
         return false;
     }

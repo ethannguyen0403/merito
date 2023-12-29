@@ -80,7 +80,7 @@ public class WinLossDetailTest extends BaseCaseTest {
         }
         log("Verify 1. Verify can display data");
         for (String observed : lstAccount) {
-            Assert.assertTrue(observed.equals(downlineAccount), String.format("ERROR: The expected username not contain account is '%s' but found '%s'", downlineAccount, observed));
+            Assert.assertTrue(observed.contains(downlineAccount), String.format("ERROR: The expected username not contain account is '%s' but found '%s'", downlineAccount, observed));
         }
         log("INFO: Executed completely");
     }

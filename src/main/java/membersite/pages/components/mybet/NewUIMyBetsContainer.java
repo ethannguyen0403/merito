@@ -8,6 +8,7 @@ import membersite.objects.Wager;
 import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,24 +60,18 @@ public class NewUIMyBetsContainer extends MyBetsContainer {
     }
 */
     public void verifyWagerInfo(Wager wager) {
-        int colMarketName;
-        int colSelection;
-        int colOdds;
-        int colStake;
+        List<String> lstColumnName = Arrays.asList("Market Name", "Selection", "Odds", "Stake");
         if(!lblNoRecord.isDisplayed()){
             List<ArrayList<String>> lstRecords = tblReport.getRowsWithoutHeader(1,false);
-            colMarketName = tblReport.getColumnIndexByName("Market Name");
-            colSelection = tblReport.getColumnIndexByName("Selection");
-            colOdds = tblReport.getColumnIndexByName("Odds");
-            colStake = tblReport.getColumnIndexByName("Stake");
-            Assert.assertTrue(lstRecords.get(0).get(colMarketName-1).contains(wager.getMarketName()), "FAILED! Market Name does not show correct");
-            Assert.assertTrue(lstRecords.get(0).get(colSelection-1).equals(wager.getRunnerName()), "FAILED! Selection does not show correct");
-            if(wager.getPayout() != 0) {
-                Assert.assertTrue(lstRecords.get(0).get(colOdds-1).equals(String.format("%,.0f:%,.0f",wager.getOdds(),wager.getPayout())), "FAILED! Odds does not show correct");
+            List<Integer> lstColumnIndex = tblReport.getListColumnIndexByListName(lstColumnName);
+            Assert.assertTrue(lstRecords.get(0).get(lstColumnIndex.get(0)).contains(wager.getMarketName()), "FAILED! Market Name does not show correct");
+            Assert.assertTrue(lstRecords.get(0).get(lstColumnIndex.get(1)).equals(wager.getRunnerName()), "FAILED! Selection does not show correct");
+            if(wager.getPayout() != 0 && wager.getPayout() != 100.0 && wager.getNumberOfActiveRunner() < 2) {
+                Assert.assertTrue(lstRecords.get(0).get(lstColumnIndex.get(2)).equals(String.format("%,.0f:%,.0f",wager.getOdds(),wager.getPayout())), "FAILED! Odds does not show correct");
             } else {
-                Assert.assertTrue(lstRecords.get(0).get(colOdds-1).equals(String.format("%,.0f",wager.getOdds())), "FAILED! Odds does not show correct");
+                Assert.assertTrue(lstRecords.get(0).get(lstColumnIndex.get(2)).equals(String.format("%,.0f",wager.getOdds())), "FAILED! Odds does not show correct");
             }
-            Assert.assertTrue(lstRecords.get(0).get(colStake-1).equals(String.format("%,.2f",wager.getStake())), "FAILED! Stake does not show correct");
+            Assert.assertTrue(lstRecords.get(0).get(lstColumnIndex.get(3)).equals(String.format("%,.2f",wager.getStake())), "FAILED! Stake does not show correct");
         } else {
             Assert.assertTrue(false, "No record found");
         }

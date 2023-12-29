@@ -29,7 +29,7 @@ public class WicketFancyTest extends BaseCaseTest {
     public void WicketFancyTest_611() {
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2. Active the event that has Fancy market");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_FANCY_CODE);
@@ -66,7 +66,7 @@ public class WicketFancyTest extends BaseCaseTest {
     public void WicketFancyTest_612() {
         log("@title: Validate exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2. Active the event that has Fancy market");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_FANCY_CODE);
@@ -84,13 +84,11 @@ public class WicketFancyTest extends BaseCaseTest {
         log("Step 4. Click on an odds of a fancy market then place bet");
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
         marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Validate Exposure kept correctly when place on No section");
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), null, expectedWager);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
         log("INFO: Executed completely");
     }
 
@@ -99,7 +97,7 @@ public class WicketFancyTest extends BaseCaseTest {
     public void WicketFancyTest_613() {
         log("@title: Validate exposure is kept correctly when place on Yes and No");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2. Active the event that has Fancy market");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_FANCY_CODE);
@@ -117,16 +115,12 @@ public class WicketFancyTest extends BaseCaseTest {
         log("Step 4 Click on an odds and place on Yes and No option");
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
-        Wager expectedWager2 = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
-
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
         marketPage.placeFancy(fancyMarket, true, minStake);
         marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Validate Exposure kept correctly when place on Yes and No section");
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, expectedWager2);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
         log("INFO: Executed completely");
     }
 
@@ -135,7 +129,7 @@ public class WicketFancyTest extends BaseCaseTest {
     public void WicketFancyTest_614() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has wicket Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_FANCY_CODE);
@@ -168,7 +162,7 @@ public class WicketFancyTest extends BaseCaseTest {
     public void WicketFancyTest_615() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has wicket Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_FANCY_CODE);
@@ -201,10 +195,10 @@ public class WicketFancyTest extends BaseCaseTest {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
         AccountBalance balance = BetUtils.getUserBalance();
-        String stake = String.format("%d", (int) (Double.valueOf(balance.getBalance().replaceAll(",", "").toString()) + 1));
+        String stake = String.format("%d", (int) (Double.valueOf(balance.getBalance().replaceAll(",", "").toString()) + 10));
 
         log("Step 2. Active the event that have Fancy market");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has wicket Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_FANCY_CODE);
@@ -496,33 +490,28 @@ public class WicketFancyTest extends BaseCaseTest {
     public void WicketFancyTest_15781() {
         log("@title: Validate exposure is kept correctly when place on Yes");
         log("Step 1. Login member site and click on Cricket");
-        SportPage sportPage = memberHomePage.header.navigateSportMenu(LBL_CRICKET_SPORT, _brandname);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2 Get and click on the event that has Wicket Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), WICKET_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true, "By passed as has no Wicket Fancy on all available event");
             return;
         }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Wicket Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(WICKET_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
-
-        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
-        marketPage.placeFancy(fcMarket, true, minStake);
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
+        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fancyMarket.getMarketID(), minStake));
+        marketPage.placeFancy(fancyMarket, true, minStake);
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), expectedWager, null);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
-
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
         log("INFO: Executed completely");
     }
 }

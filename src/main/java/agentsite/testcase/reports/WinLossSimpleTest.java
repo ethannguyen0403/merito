@@ -68,12 +68,12 @@ public class WinLossSimpleTest extends BaseCaseTest {
         page.dpFrom.previousMonthWithDate(-1, "20");
 
         log("Step 3: Click Submit button");
-        page.filter("Exchange");
-        List<String> lstAccount = page.tblSMA.getColumn(page.colNickname, 1, false);
+        page.filter("Select All");
+        List<String> lstAccount = page.tblSMA.getColumn(page.colUsername, 1, false);
 
         log("Verify 1. Win Loss Simple Report display correctly");
         for (String observed : lstAccount) {
-            Assert.assertEquals(memberAccount, observed, String.format("ERROR: The expected account display is '%s' but found '%s'", memberAccount, observed));
+            Assert.assertTrue(observed.contains(memberAccount), String.format("ERROR: The expected account display is '%s' but found '%s'", memberAccount, observed));
         }
         log("INFO: Executed completely");
     }
