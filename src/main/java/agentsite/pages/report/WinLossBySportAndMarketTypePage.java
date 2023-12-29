@@ -6,6 +6,7 @@ import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.report.components.TransactionDetailsPopup;
 import com.paltech.element.common.Button;
+import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 
@@ -179,7 +180,7 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
         List<String> lsSportName = new ArrayList<>();
         int n = getTotalSportInReport();
         for (int i = 0; i < n; i++) {
-            lsSportName.add(i, Label.xpath(String.format("%s[%s]", rwSportGroupxPath, i + 1)).getText());
+            lsSportName.add(i, Label.xpath(String.format("(%s)[%s]", rwSportGroupxPath, i + 1)).getText());
         }
         return lsSportName;
     }
@@ -187,11 +188,15 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
     /**
      * Get total row of a Sport
      *
-     * @param sportName
+     * @param sportIndex
      * @return total row data
      */
-    public ArrayList<String> getTotalRowOfSport(String sportName) {
-        return Row.xpath(rwTotalRowOfSport).getRow(tblReportTotalCol, false);
+    public ArrayList<String> getTotalRowOfSport(int sportIndex) {
+        Icon iconExpandCollapseSport = Icon.xpath(String.format("(%s)[%s]", rwSportGroupxPath, sportIndex));
+        if(iconExpandCollapseSport.getAttribute("class").contains("wl-expand")) {
+            iconExpandCollapseSport.click();
+        }
+        return Row.xpath(String.format("(%s)[%s]",rwTotalRowOfSport, sportIndex)).getRow(tblReportTotalCol, false);
     }
 
     public ArrayList<String> getGrandTotalRow() {
@@ -225,14 +230,16 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
      */
     public ArrayList<String> sumSportData(List<String> sports) {
         ArrayList<String> totalRow = new ArrayList<>();
-        ArrayList<String> expectedData = getTotalRowOfSport(sports.get(0));
-        for (int i = 1; i < sports.size(); i++) {
-            totalRow = getTotalRowOfSport(sports.get(i));
-            for (int j = 1; j < expectedData.size(); j++) {
-                if (!expectedData.get(j).isEmpty()) {
-                    double data = Double.parseDouble(expectedData.get(j));
-                    double data1 = Double.parseDouble(totalRow.get(j));
-                    expectedData.set(j, String.format("%.2f", data + data1));
+        ArrayList<String> expectedData = getTotalRowOfSport(1);
+        if(sports.size() > 1) {
+            for (int i = 1; i < sports.size(); i++) {
+                totalRow = getTotalRowOfSport(i+1);
+                for (int j = 1; j < expectedData.size(); j++) {
+                    if (!expectedData.get(j).isEmpty()) {
+                        double data = Double.parseDouble(expectedData.get(j));
+                        double data1 = Double.parseDouble(totalRow.get(j));
+                        expectedData.set(j, String.format("%.2f", data + data1));
+                    }
                 }
             }
         }

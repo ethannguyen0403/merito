@@ -189,9 +189,9 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "15778")
+    @TestRails(id = "15786")
     @Test(groups = {"smoke_stg", "2024.01.19"})
-    public void ArtemisFancyTest_15778() {
+    public void ArtemisFancyTest_15786() {
         log("@title: Validate multi tab (bet slip) is disabled");
         log("@Precondition: Get the event that have Artemis Fancy market");
         log("Step 1. Login member site and click on Cricket");
