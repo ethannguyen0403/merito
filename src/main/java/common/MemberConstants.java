@@ -35,6 +35,7 @@ public class MemberConstants {
     public static final String WICKET_BOOKMAKER_TITLE = "Bookmaker";
     public final static String NOTES_GMT4 = "Note : Date will be based on time zone GMT-04:00";
     public final static String EXCHANGE = "Exchange";
+    public final static String PS38 = "PS38";
     public static final String LBL_CRICKET_SPORT = "Cricket";
     public static final String LBL_BACK_TYPE = "Back";
     public static final String LBL_LAY_TYPE = "Lay";

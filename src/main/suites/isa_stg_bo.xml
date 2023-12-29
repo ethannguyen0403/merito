@@ -14,7 +14,6 @@
         <parameter name='isProxy' value='false'/>
         <parameter name='username' value='autoqa'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
-        <parameter name='satSADAgentLoginID' value='Auto.SAD1'/>
         <parameter name='usernameDepositTransaction' value='FAP000000R'/>
         <parameter name='isThrown' value='true'/>
         <parameter name='currency' value='HKD'/>
@@ -23,10 +22,15 @@
         <parameter name='feMemberLoginId' value='feinrisa'/>
         <parameter name='feMemberLoginPwd' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='fair999PortalCode' value='AN'/>
+        <parameter name='fair999ControlLevel' value='03H'/>
+        <parameter name='satPortalCode' value='SA'/>
+        <parameter name='satSADAgentLoginID' value='Auto.SAD1'/>
+        <parameter name='isAddTestRailResult' value='false'/>
+        <parameter name='agentPassword' value='5pjguoEh1fnSILpykWt1vQ=='/>
 
         <groups>
             <run>
-                <include name="2023.11.3"/>
+                <include name="2023.11.302"/>
             </run>
         </groups>
 
