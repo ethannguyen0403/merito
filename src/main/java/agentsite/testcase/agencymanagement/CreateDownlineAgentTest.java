@@ -19,57 +19,29 @@ import static common.AGConstant.HomePage.AGENCY_MANAGEMENT;
 import static common.AGConstant.HomePage.CREATE_DOWNLINE_AGENT;
 
 public class CreateDownlineAgentTest extends BaseCaseTest {
-    /**
-     * @title: Validate UI in Create Downline Agent with Exchange Product setting
-     * @pre-condition:
-     *           1. Log in successfully
-     * @steps: 1. Navigate Agency Management > Create Downline Agent
-     * @expect: 1. Account info section
-     *          2. Rate Setting
-     *          3. Product Setting, select Exchange product
-     *          4. Verify Sport setting, Bet Settings, Tax Setting. Position Taking Setting
-     *          5. Submit and Cancel button
-     */
-
     @TestRails(id = "678")
     @Test (groups = {"smoke","isa1"})
     public void Agent_AM_CreateDownline_Agent_678() {
         log("@title: Validate UI in Create Downline Agent with Exchange Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
-        log("Step 2. Enter Security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
-        page.waitingLoadingSpinner();
 
         log("Verify 1. Account info section");
         Assert.assertEquals(page.header.lblPageTitle.getText().trim(), AGConstant.AgencyManagement.CreateDownlineAgent.TITLE_PAGE, "Failed! Page title is incorrect");
         page.accountInforSection.verifyUIDisplayedCorrect();
 
-        log("Verify 2. Cash Balance");
-        List<ArrayList<String>> lstBalance = page.cashBalanceInforSection.tblCashBalance.getRowsWithoutHeader(1,false);
-        Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Title display incorrect");
-        //Assert.assertEquals(lstBalance.get(0).get(0), FEAGConstant.AgencyManagement.CreateAccount.LBL_INITIATION_DEPOSIT,"FAILED! Initiation Deposit label displays incorrect");
-
-
         log("Verify 3. Product Setting, select Exchange product");
         Assert.assertEquals(page.lblProductSetting.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
 
         log("Verify 4. Verify Sport setting, Bet Settings, Tax Setting. Position Taking Setting");
-        List<String> lstBetSettingHeader = page.tblBetSettings.getHeaderNameOfRows();
-        List<String> lstBetSettingOption = page.tblBetSettings.getColumn(1,false);
-        List<String> lstTaxSettingHeader = page.tblTaxSettings.getHeaderNameOfRows();
-        List<String> lstTaxSettingOption = page.tblTaxSettings.getColumn(1,false);
-        List<String> lstPositionTakingHeader = page.tblPositionTakingListing.getHeaderNameOfRows();
         Assert.assertEquals(page.lblBetSettings.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_BET_SETTING,"FAILED! Bet Setting Section Label display incorrect");
-        Assert.assertEquals(lstBetSettingHeader, AGConstant.AgencyManagement.CreateAccount.LST_BET_SETTING_HEADER,"FAILED! Bet Setting Header does not display as expected");
-        Assert.assertEquals(lstBetSettingOption, AGConstant.AgencyManagement.CreateAccount.LST_BET_SETTING_OPTION,"FAILED! Bet Setting options in the first column does not display as expected");
+        page.betSettingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         Assert.assertEquals(page.lblTaxSettings.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_TAX_SETTING,"FAILED! Tax Setting Section Label display incorrect");
-        Assert.assertEquals(lstTaxSettingHeader, AGConstant.AgencyManagement.CreateAccount.LST_TAX_SETTING_HEADER_NEWUI,"FAILED! Tax Setting Header does not display as expected");
-        Assert.assertEquals(lstTaxSettingOption, AGConstant.AgencyManagement.CreateAccount.LST_TAX_SETTING_OPTION,"FAILED! Tax Setting options in the first column does not display as expected");
+        page.taxSettingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         Assert.assertEquals(page.lblPositionTakingListing.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_POSITION_TAKING,"FAILED! Position Taking Section Label display incorrect");
-        Assert.assertEquals(lstPositionTakingHeader, AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_HEADER,"FAILED! Position Taking Header does not display as expected");
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         log("Verify 5. Submit and Cancel button");
         Assert.assertEquals(page.btnSubmit.getText(), AGConstant.BTN_SUBMIT,"FAILED! Submit button display incorrect");
@@ -139,17 +111,6 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate display Cash Balance for Cash account
-     * @pre-condition:
-     *           1. Log in successfully with Cash Account
-     * @steps:  1. Navigate Agency Management > Create Downline Agent
-     * @expect: 1.Cash Balance section display
-     *      - Credit Initiation
-     *      - Max Player Credit
-     *      - First  Time Deposit
-     *      2. There is no Credit Balance section display
-     */
     @TestRails(id = "681")
     @Test (groups = {"smoke_creditcash"})
     public void Agent_AM_CreateDownline_Agent_681() {
@@ -174,19 +135,6 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate default value in Create Downline Agent
-     * @pre-condition:
-     *           1. Log in successfully with Credit Cash Account
-     * @steps:  1. Navigate Agency Management > Create Downline Agent
-     * @expect: 1. Hover to Login hint icon. The hint message display correctly "Login ID must be unique and at least a minimum of 6 characters and maximum of 15 characters"
-     *          2. Hover to Password hint icon. The title should be "New Password:
-     *          1. Should be between 8 to 15 characters.
-     *          2. Only alphanumeric characters are allowed.
-     *          3. Should contains at least 1 letter and 1 number."
-     *          3. Account Status: Active and Inactive
-     *          4. The agent level under login level
-     */
     @TestRails(id = "682")
     @Test (groups = {"smoke_creditcash"})
     public void Agent_AM_CreateDownline_Agent_682() {
@@ -214,16 +162,6 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate can Create Downline Agent successfully
-     * @pre-condition:
-     *           1. Log in successfully with Credit Cash Account
-     * @steps:  1. Navigate Agency Management > Create Downline Agent
-     *          2. Input required field and click on Submit button
-     * @expect: 1. Popup Create Downline with the message "Downline was created successfully"
-     *          2. Validate the popup is disappear when click on OK button
-     *          3. Valid can login agent with the created account
-     */
     @TestRails(id = "683")
     @Test (groups = {"smoke","smoke_dev"})
     public void Agent_AM_CreateDownline_Agent_683() throws Exception {
@@ -252,14 +190,6 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate if input incorrect Change Password format
-     * @pre-condition:
-     *           1. Log in successfully with Credit Cash Account
-     * @steps:  1. Navigate Agency Management > Create Downline Agent
-     *          2. Input correct Login ID and incorrect password format
-     * @expect: 1. Message "Password is invalid." display next to Cancel button
-     */
     @TestRails(id = "685")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_685() {
@@ -374,18 +304,6 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate display Cash Balance and Risk Setting for Credit account
-     * @pre-condition:
-     *           1. Log in successfully with Credit Account
-     * @steps:  1. Navigate Agency Management > Create Downline Agent
-     * @expect: 1.Credit Balance section display
-     *      - Credit Limit
-     *      - SMA Max Credit
-     *      - PL Max Credit
-     *      2. Risk Setting section display
-     *      3. There is no cash Balance section display
-     */
     @TestRails(id = "680")
     @Test (groups = {"regression_credit"})
     public void Agent_AM_CreateDownline_Agent_680() throws Exception {

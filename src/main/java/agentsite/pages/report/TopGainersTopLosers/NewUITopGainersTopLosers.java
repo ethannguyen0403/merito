@@ -30,23 +30,19 @@ public class NewUITopGainersTopLosers extends TopGainersTopLosers{
             case "Top Gainers":
                 tblHeader = tblTopGainers.getHeaderNameOfRows();
                 lstHeader = AGConstant.Report.TopGainersTopLosers.AGENT_SMA_TABLE_TOP_GAINERS_HEADER_NEWUI;
-                break;
+                return tblHeader.equals(lstHeader);
             case "Top Losers":
                 tblHeader = tblTopLoser.getHeaderNameOfRows();
                 lstHeader = AGConstant.Report.TopGainersTopLosers.AGENT_SMA_TABLE_TOP_LOSERS_HEADER_NEWUI;
-                break;
+                return tblHeader.equals(lstHeader);
             case "Big Stake":
                 tblHeader = tblBigStake.getHeaderNameOfRows();
                 lstHeader = AGConstant.Report.TopGainersTopLosers.TABLE_BIG_STAKE_HEADER_NEWUI;
-                break;
+                return tblHeader.equals(lstHeader);
             default:
                 System.out.println("There are not "+ tableName);
+                return false;
         }
-        if (tblHeader.equals(lstHeader)){
-            System.out.println("Display "+tableName+" Header Table Old UI correct");
-            return true;
-        }
-        return false;
     }
 
     @Override

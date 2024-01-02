@@ -3,6 +3,7 @@ package agentsite.pages.agentmanagement.createdownlineagent.accountinfosection;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
@@ -134,6 +135,8 @@ public class NewUIAccountInforSection extends AccountInforSection {
             Assert.assertTrue(cbAllowCashout.isDisplayed(), "FAILED! Allow Cashout checkbox does not display");
             Assert.assertTrue(cbCreditCash.isDisplayed(), "FAILED! Credit Cash checkbox does not display");
         } else {
+            List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), accountInfo.getUserCode(), accountInfo.getUserID());
+            String allowExtraPT = String.format("Allow %s Extra PT", ProfileUtils.convertDownlineByBrand(listAccount.get(0).getLevel(), ProfileUtils.getAppName()));
             Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_USERNAME, "FAILED! Login ID label display incorrect");
             Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
             Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
@@ -144,7 +147,7 @@ public class NewUIAccountInforSection extends AccountInforSection {
             Assert.assertEquals(lstInfo.get(7), AGConstant.AgencyManagement.CreateAccount.LBL_MOBILE, "FAILED! Mobile display incorrect");
             Assert.assertEquals(lstInfo.get(8), AGConstant.AgencyManagement.CreateAccount.LBL_FAX, "FAILED! Fax display incorrect");
             Assert.assertEquals(lstInfo.get(9), AGConstant.AgencyManagement.CreateAccount.LBL_BASE_CURRENCY, "FAILED! Base Currency display incorrect");
-            Assert.assertEquals(lstInfo.get(10), AGConstant.AgencyManagement.CreateAccount.LBL_ALLOW_AG_EXTRA, "FAILED! Allow Extra display incorrect");
+            Assert.assertEquals(lstInfo.get(10), allowExtraPT, "FAILED! Allow Extra display incorrect");
             Assert.assertTrue(ddpLevel.isDisplayed(), "FAILED! Level dropdown box does not display");
             Assert.assertTrue(cbAllowExtraPT.isDisplayed(), "FAILED! Allow Extra PT checkbox does not display");
         }
