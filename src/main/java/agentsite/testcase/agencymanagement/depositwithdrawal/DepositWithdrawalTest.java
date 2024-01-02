@@ -414,9 +414,9 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         log("Verify 1. In viewied level data My Credit, Total Balance, Sub Balance, Available Balance\n" +
                 "     * In downline table  veify data to Total Balance, Sub Balance, Available Balance");
         //TODO: need handle tolerance value e.g calculate 403.06 but UI show 403.08
-        Assert.assertTrue(page.isTotalBalanceHeaderCalculatedCorrect(), "ToTal Balance Header's value is wrong");
-        Assert.assertTrue(page.isSubBalanceHeaderCalculatedCorrect(), "Sub Balance Header's value is wrong");
-        Assert.assertTrue(page.isTotalBalanceCalculatedCorrect(), "Total Balance Of Downline's value is wrong");
+        page.verifyTotalBalanceHeaderCalculatedCorrect();
+        page.verifySubBalanceHeaderCalculatedCorrect();
+        page.verifyTotalBalanceCalculatedCorrect();
         log("INFO: Executed completely");
     }
 

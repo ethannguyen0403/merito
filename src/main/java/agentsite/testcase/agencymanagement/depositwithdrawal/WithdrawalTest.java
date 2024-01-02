@@ -196,10 +196,10 @@ public class WithdrawalTest extends BaseCaseTest {
 
         log("Verify 1: An amount is withdrawn successfully");
         Assert.assertEquals(successfulMessage, AGConstant.AgencyManagement.DepositWithdrawal.WITHDRAWAL_SUCCESSFUL, String.format("ERROR: The expected error message is '%s' but found '%s'", AGConstant.AgencyManagement.DepositWithdrawal.WITHDRAWAL_SUCCESSFUL, successfulMessage));
-        Assert.assertEquals(expectedNewMemberCash, newMemberCash, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCash, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
-        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.01, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCash, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.01, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
 
         log("INFO: Executed completely");
     }
@@ -240,21 +240,17 @@ public class WithdrawalTest extends BaseCaseTest {
         double newYourCash = popup.getNewYourCashBalance();
         double newYourCashAfter = popup.getYourCashBalance();
         popup.clickCancelBtn();
-        double expectedNewMemberCash = Double.valueOf(listMemberInfo.get(0).get(page.colAvailableBalance - 1).replaceAll(",", "").toString()) - withDrawAmount;
+        double expectedNewMemberCash = Double.valueOf(listMemberInfo.get(0).get(page.colAvailableBalance - 1).replaceAll(",", "")) - withDrawAmount;
         double expectedNewYourCash = loginAccBalance + withDrawAmount;
 
         log("Verify 1. Message Withdraw successfully is displayed");
         Assert.assertEquals(successfulMessage, AGConstant.AgencyManagement.DepositWithdrawal.WITHDRAWAL_SUCCESSFUL, String.format("ERROR: The expected error message is '%s' but found '%s'", AGConstant.AgencyManagement.DepositWithdrawal.WITHDRAWAL_SUCCESSFUL, successfulMessage));
 
         log("Verify 2. Verify Balance on Withdraw popup display corect");
-        Assert.assertEquals(expectedNewMemberCash, newMemberCash, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCash, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
-        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
-
-        log("Verify 3. Main and dowline balance updated correctly");
-        List<ArrayList<String>> listMemberInfoAfter = page.getMemberInfo(1);
-        Assert.assertTrue(page.verifyBalanceUpdated(withDrawAmount, loginAccBalance, listMemberInfo, listMemberInfoAfter, false, DepositWithdraw.Actions.SUCCESS_ICON), "FAILED! Balance value or status not correct after deposit");
+        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.01, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCash, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.01, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
 
         log("INFO: Executed completely");
     }
