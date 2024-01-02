@@ -5,6 +5,7 @@ import com.paltech.element.common.*;
 import common.MemberConstants;
 import membersite.controls.DropDownMenu;
 import membersite.objects.AccountBalance;
+import membersite.objects.Wager;
 import membersite.pages.*;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
@@ -35,7 +36,7 @@ public class SatHeader extends Header1 {
     private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
     private String sportMenuOldUIXpath = "//a[contains(@data-sport-name,'%s')]";
     private Link lnkMyMarkets = Link.xpath("//div[contains(@class,'account d-none')]");
-    private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='title']");
+    private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance'][1]/span[@class='title']");
     private Label lblBalanceCurrency = Label.xpath("//app-top-panel//div[contains(@class,'header-content-info')]//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='bal-val'][1]");
     private Label lblBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance'][2]//span[@class='bal-val']");
     private Label lblCashBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance']//span[@class='bal-val']");
@@ -255,9 +256,37 @@ public class SatHeader extends Header1 {
         return String.format(Locale.getDefault(), "%,.2f", balanceReturn);
     }
 
-    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Double liabilityBack, Double liabilityLay) {
-        return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - (liabilityBack + liabilityLay));
-    }
+//    public String calculateExposureKept(String liabilityBeforePlaceBet, Wager wagerBack, Wager wagerLay) {
+//        double profitBack = 0.0;
+//        double liabilityLay = 0.0;
+//        if(!Objects.isNull(wagerBack) && !Objects.isNull(wagerLay)) {
+//            profitBack = wagerBack.getProfitFancyWager();
+//        } else {
+//            if(wagerBack.getPayout() == 100.0 || wagerBack.getPayout() == 0) {
+//                profitBack = wagerBack.getProfitFancyWager();
+//            } else {
+//                profitBack = wagerBack.getStake();
+//            }
+//        }
+//        if(!Objects.isNull(wagerLay)) {
+//            liabilityLay = wagerLay.getLiabilityFancyWager();
+//        }
+//        //return liability calculation (if wagerBack is null will use the wagerLay to return)
+//        if(!Objects.isNull(wagerBack)) {
+//            if(wagerBack.getPayout() == 100 || wagerBack.getPayout() == 0) {
+//                return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - (profitBack + liabilityLay));
+//            } else {
+//                return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - Math.abs(liabilityLay - profitBack));
+//            }
+//        } else {
+//            if(wagerLay.getPayout() == 100 || wagerLay.getPayout() == 0) {
+//                return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - (profitBack + liabilityLay));
+//            } else {
+//                return String.format("%,.2f",Double.valueOf(liabilityBeforePlaceBet.replace(",","")) - Math.abs(liabilityLay - profitBack));
+//            }
+//        }
+//
+//    }
 
     public String getMarqueeMessage() {
         String announcementMessage = "";
@@ -292,7 +321,9 @@ public class SatHeader extends Header1 {
         clickHeaderMenu(pageName);
         return new RacingPage(brand);
     }
-
+    public String getBalanceLabel() {
+        return lblBalanceTitle.getText();
+    }
 }
 
 

@@ -73,7 +73,7 @@ public class BaseCaseTest {
     public static String PROJECT_ID = "1";
     public static APIClient client;
     private static ApplicationContext context;
-    private static boolean isAddTestRailResult = false;
+    private static boolean isAddTestRailResult;
     private static List<Long> lstCases = new ArrayList<>();
 
     @BeforeSuite(alwaysRun = true)
@@ -86,6 +86,8 @@ public class BaseCaseTest {
         }
         // Create Test Run in Test Rails
         ctx.getName();
+        isAddTestRailResult = ctx.getCurrentXmlTest().getLocalParameters().get("isAddTestRailResult") != null ?
+                Boolean.valueOf(ctx.getCurrentXmlTest().getLocalParameters().get("isAddTestRailResult")) : false;
         if (isAddTestRailResult) {
             System.out.println("Add New Test Run in TestRails");
             client = new APIClient("https://paltech.testrail.io/");
@@ -136,6 +138,22 @@ public class BaseCaseTest {
             browserMobProxy = driverProperties.getBrowserMobProxy();
         }
     }
+
+    public agentsite.pages.HomePage loginAgent(String username, String password, String brandName) throws Exception {
+        // define Agent site URLs
+        agentLoginURL = defineURL(brandName, "/agent");
+        agentLoginCashURL = defineCashURL(brandName, "/agent");
+        sosAgentURL = defineURL(brandName, AGENT_SOS_URL_SUFFIX);
+        sosAgentCashURL = defineCashURL(brandName, AGENT_SOS_URL_SUFFIX);
+        sosValidationAgentURL = defineURL(brandName, AGENT_SOS_BY_PASS_CAPTCHA_URL_SUFFIX);
+        agentSecurityCodeURL = defineURL(brandName, AGENT_SECURITY_CODE_URL_SUFFIX.get(brandName));
+        agentCashSecurityCodeURL = defineCashURL(brandName, AGENT_SECURITY_CODE_URL_SUFFIX.get(brandName));
+        agentNewAccURL = defineURL(brandName, LOGIN_NEW_ACC_AGENT_URL_SUFFIX.get(brandName));
+        agentFollowBetURL = defineURL(brandName, AGENT_FOLLOW_BETS_URL_SUFFIX);
+        createDriver(agentLoginURL);
+        return loginAgent(sosAgentURL, agentSecurityCodeURL, username, password, environment.getSecurityCode());
+    }
+
 
     public static void loginAgent(String username, String password, boolean isLogin) throws Exception {
         createDriver(agentLoginURL);
@@ -394,7 +412,6 @@ public class BaseCaseTest {
             agentCashSecurityCodeURL = defineCashURL(brandname, AGENT_SECURITY_CODE_URL_SUFFIX.get(brandname));
             agentNewAccURL = defineURL(brandname, LOGIN_NEW_ACC_AGENT_URL_SUFFIX.get(brandname));
             agentFollowBetURL = defineURL(brandname, AGENT_FOLLOW_BETS_URL_SUFFIX);
-
 
             // define Backoffice url: Login url, loginByPassCaptcha URL, Dashboard url
             backofficeUrl = environment.getBackofficeURL();

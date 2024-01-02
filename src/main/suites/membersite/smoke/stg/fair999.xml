@@ -23,9 +23,11 @@
         <parameter name="timeZone" value="GMT-04:00"/>
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='fairexchange'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="smoke"/>
+                <include name="smoke_fair999"/>
             </run>
         </groups>
 

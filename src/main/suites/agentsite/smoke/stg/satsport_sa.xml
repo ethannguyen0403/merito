@@ -5,7 +5,7 @@
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="SAT_SMOKE_Chrome">
+    <test name="Smoke test cases Satsport Agent Site in STG">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
@@ -22,6 +22,7 @@
         <parameter name='currency' value='INR'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='satsport'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="smoke"/>

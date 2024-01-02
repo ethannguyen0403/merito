@@ -175,18 +175,18 @@ public class FancyContainerControl extends BaseElement {
                 Link lblRate = (Link) tblMarket.getControlOfCell(1, colBackOdds, 1, "span[2]");
                 Link lblOddLay = (Link) tblMarket.getControlOfCell(1, colLayOdds, 1, "span[1]");
                 Link lblRateLay = (Link) tblMarket.getControlOfCell(1, colLayOdds, 1, "span[2]");
-                Link lnkLiability = (Link) tblMarket.getControlOfCell(1, colMarketName, 1, "div[contains(@class,'liability')]//span[@class='fancy-liability-value']");
+                Link lnkLiability = (Link) tblMarket.getControlOfCell(1, colMarketName, 1, "div[contains(@class,'liability')]//span[contains(@class,'fancy-liability-value')]");
                 String rate;
 //                waitSuspendLabelDisapper(tblMarket);
                 if (lblOdd.isDisplayed())
-                    newFancy.setOddsYes(Double.parseDouble(lblOdd.getText().trim()));
+                    newFancy.setOddsYes(Double.parseDouble(lblOdd.getText().trim().replaceAll(",", "")));
                 if (lblRate.isDisplayed()) {
                     rate = lblRate.getText().trim().replace(":", "");
                     newFancy.setRateYes(Integer.parseInt(rate));
                 }
 
                 if (lblOddLay.isDisplayed())
-                    newFancy.setOddsNo(Double.parseDouble(lblOddLay.getText().trim()));
+                    newFancy.setOddsNo(Double.parseDouble(lblOddLay.getText().trim().replaceAll(",", "")));
                 if (lblRateLay.isDisplayed()) {
                     rate = lblRateLay.getText().trim().replace(":", "");
                     newFancy.setRateNo(Integer.parseInt(rate));

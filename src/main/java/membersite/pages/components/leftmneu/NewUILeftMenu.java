@@ -90,7 +90,7 @@ public class NewUILeftMenu extends LeftMenu {
         if (lblSubMenu.getText().equalsIgnoreCase(subMarketName)) {
             lblSubMenu.scrollToThisControl(true);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -121,6 +121,10 @@ public class NewUILeftMenu extends LeftMenu {
     }
     public void openFancyMarket(String fancyMarketType, String marketName) {
         clickFancyMarket(fancyMarketType, marketName);
+        //workaround for Central Fancy, cannot click properly so need to reclick
+        if(fancyMarketType.equalsIgnoreCase("Central Fancy")) {
+            clickFancyMarket(fancyMarketType, marketName);
+        }
     }
 
     public void openBookmakerMarket(String bookMakerMarketType) {

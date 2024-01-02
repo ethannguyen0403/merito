@@ -6,6 +6,7 @@ import membersite.controls.FancyContainerControl;
 import membersite.controls.FancyContainerControlOldUI;
 import membersite.controls.OneClickBettingControl;
 import membersite.controls.WicketBookmakerContainerControl;
+import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
 import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.FancyMarket;
@@ -14,6 +15,7 @@ import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.marketcontainer.MarketContainerControl;
 import membersite.pages.components.racingmarketcontainer.RacingMarketContainer;
 import membersite.pages.popup.RulePopup;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +42,19 @@ public class MarketPage extends HomePage {
         fancyContainerControl = FancyContainerControl.xpath("//span[text()='Fancy']//ancestor::div[contains(@class,'fancy-container')]");
     }
 
+    public void placeBet(Market market,String stake){
+        String odds;
+        // Handle place bet when place bet if empty odds
+        if(!market.getBtnOdd().isDisplayed())
+            odds ="1.01";
+        else if( market.getBtnOdd().getText().equals(""))
+            odds = "1.01";
+        else
+            odds = market.getBtnOdd().getText();
+        market.getBtnOdd().click();
+        // Place bet with odds:%s Stake: %s", odds, stake))
+        betsSlipContainer.placeBet(odds, stake);
+    }
     public void activeProduct(String products) {
         marketOddControl.activeProduct(products);
     }
@@ -107,10 +122,15 @@ public class MarketPage extends HomePage {
     }
 
     public Wager defineFancyWager(FancyMarket fcMarket, boolean isBack, double stake) {
+        String runnerName;
         String betType = isBack ? "BACK" : "LAY";
         double odds = isBack ? fcMarket.getOddsYes() : fcMarket.getOddsNo();
         int payout = isBack ? fcMarket.getRateYes() : fcMarket.getRateNo();
-        String runnerName = isBack ? "Yes [L]" : "No [K]";
+        if(fcMarket.getNumberOfActiveRunner() >= 2) {
+            runnerName = fcMarket.getSelection();
+        } else {
+            runnerName = isBack ? "Yes [L]" : "No [K]";
+        }
         return new Wager.Builder()
                 .betType(betType)
                 .marketName(fcMarket.getMarketName())
@@ -118,6 +138,7 @@ public class MarketPage extends HomePage {
                 .payout(payout)
                 .stake(stake)
                 .runnerName(runnerName)
+                .numberOfActiveRunner(fcMarket.getNumberOfActiveRunner())
                 .build();
     }
 
@@ -277,5 +298,66 @@ public class MarketPage extends HomePage {
     public void openFancyLadderForecast(FancyMarket fcMarket) { marketOddControl.openFancyLadderForecast(fcMarket);}
 
     public boolean isLadderForecastDisplay(FancyMarket fcMarket) {return marketOddControl.isLadderForecastDisplay(fcMarket);}
+
+    public double getMaxWinLoseMarket(FancyMarket fcMarket, boolean isBack) {
+        double maxWLCalculate;
+        if(isBack) {
+            if (fcMarket.getRateYes() <= 100) {
+                return fcMarket.getMaxSetting();
+            } else {
+                return maxWLCalculate = Math.floor(fcMarket.getMaxSetting() / fcMarket.getRateYes() * 100);
+            }
+        } else {
+            if (fcMarket.getRateNo() <= 100) {
+                return fcMarket.getMaxSetting();
+            } else {
+                return maxWLCalculate = Math.floor(fcMarket.getMaxSetting() / fcMarket.getRateNo() * 100);
+            }
+        }
+
+    }
+
+    public void verifyExposureKeptCorrectly(double originalExposure, FancyMarket fcMarket) {
+        double sumBackWin = 0.0;
+        double sumBackLose = 0.0;
+        double sumLayWin = 0.0;
+        double sumLayLose = 0.0;
+        double forecast = 0.0;
+        List<ArrayList> lstMatchedBet = getFancyMiniMyBet();
+        List<ArrayList> lstMatchedBetByMarket = new ArrayList<>();
+        if(Objects.nonNull(lstMatchedBet)) {
+            for (int i = 0; i < lstMatchedBet.size(); i++) {
+                if(lstMatchedBet.get(i).get(0).toString().equalsIgnoreCase(fcMarket.getMarketName())) {
+                    lstMatchedBetByMarket.add(lstMatchedBet.get(i));
+                    String betType = lstMatchedBet.get(i).get(5).toString();
+                    if (betType.equalsIgnoreCase("BACK")) {
+                        sumBackWin += Double.valueOf(lstMatchedBet.get(i).get(4).toString());
+                        sumBackLose += Double.valueOf(lstMatchedBet.get(i).get(3).toString());
+                    } else {
+                        sumLayWin += Double.valueOf(lstMatchedBet.get(i).get(4).toString());
+                        sumLayLose += Double.valueOf(lstMatchedBet.get(i).get(3).toString());
+                    }
+                }
+            }
+            if(lstMatchedBetByMarket.size() > 1) {
+                if(fcMarket.getRateYes() == 100 || fcMarket.getRateYes() == 0) {
+                    forecast = -sumLayWin - sumBackWin;
+                } else {
+                    forecast = -sumLayWin + sumBackWin;
+                }
+            } else {
+                if(lstMatchedBet.get(0).get(5).toString().equalsIgnoreCase("BACK")) {
+                    forecast = -sumBackLose;
+                } else {
+                    forecast = -sumLayWin;
+                }
+            }
+        }
+        FancyMarket fancyMarket = getFancyMarketInfo(fcMarket);
+        double newExposure = Double.parseDouble(header.getUserBalance().getExposure()) ;
+        double calculateExposure = newExposure - fancyMarket.getMarketLiability();
+        Assert.assertEquals(originalExposure, (double) Math.round(calculateExposure * 100)/ 100, String.format("FAILED! Exposure kept is not correct expected is %s, actual is %s", originalExposure, (double) Math.round(calculateExposure * 100)/ 100));
+        Assert.assertEquals((double) Math.round(forecast * 100)/ 100, fancyMarket.getMarketLiability(), String.format("FAILED! Liability forecast is not correct expected is %s, actual is %s", (double) Math.round(forecast * 100)/ 100, fancyMarket.getMarketLiability()));
+    }
 
 }

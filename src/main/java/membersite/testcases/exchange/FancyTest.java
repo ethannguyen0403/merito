@@ -25,15 +25,16 @@ import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 
 public class FancyTest extends BaseCaseTest {
     @TestRails(id = "549")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_549() {
         log("@title: Validate can place bet on Fancy market page");
         log("@Precondition: Get the event that have Fancy market");
         log("Step 1. Login member site and click on Cricket");
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
-        log("Step 2. Get and click on the event that has 27 Fancy");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
+        log("Step 2. Active the event that have Fancy market");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarketWithSameOdds(SPORT_ID.get(LBL_CRICKET_SPORT));
+//        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true, "By passed as has no 27 Fancy on all available event");
@@ -47,30 +48,35 @@ public class FancyTest extends BaseCaseTest {
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
         String oddsActual = expectedWager.displayFancyOdds();
+        try {
+            log(String.format("INFO: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
+            marketPage.placeFancy(fancyMarket, true, minStake);
 
-        log(String.format("INFO: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
-        marketPage.placeFancy(fancyMarket, true, minStake);
+            log("Validate Can place bet");
+            List<ArrayList> lstFCBet = marketPage.getFancyMiniMyBet();
+            Assert.assertTrue(Objects.nonNull(lstFCBet), "FAILED! FC my bet section does NOT display");
+            Assert.assertEquals(lstFCBet.get(0).get(0), expectedWager.getMarketName(), "FAILED! FC Market Name is incorrect");
+            Assert.assertEquals(lstFCBet.get(0).get(1), expectedWager.getRunnerName(), "FAILED! Runner Name is incorrect");
+            Assert.assertEquals(lstFCBet.get(0).get(2), oddsActual, "FAILED! Odd is incorrect");
+            Assert.assertEquals(lstFCBet.get(0).get(3), String.format("%.2f", (double) fancyMarket.getMinSetting()), "FAILED! Stake is incorrect");
+            Assert.assertEquals(lstFCBet.get(0).get(4), String.format("%.2f", expectedWager.getProfitFancyWager()), "FAILED! Liability is incorrect");
 
-        log("Validate Can place bet");
-        List<ArrayList> lstFCBet = marketPage.getFancyMiniMyBet();
-        Assert.assertTrue(Objects.nonNull(lstFCBet), "FAILED! FC my bet section does NOT display");
-        Assert.assertEquals(lstFCBet.get(0).get(0), expectedWager.getMarketName(), "FAILED! FC Market Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(0).get(1), expectedWager.getRunnerName(), "FAILED! Runner Name is incorrect");
-        Assert.assertEquals(lstFCBet.get(0).get(2), oddsActual, "FAILED! Odd is incorrect");
-        Assert.assertEquals(lstFCBet.get(0).get(3), String.format("%.2f", (double) fancyMarket.getMinSetting()), "FAILED! Stake is incorrect");
-        Assert.assertEquals(lstFCBet.get(0).get(4), String.format("%.2f", expectedWager.getLiabilityFancyWager()), "FAILED! Liability is incorrect");
+            log("INFO: Executed completely");
+        } finally {
+            log("Post-condition: Place on opposite selection to reduce liability");
+            marketPage.placeFancy(fancyMarket, false, minStake);
+        }
 
-        log("INFO: Executed completely");
     }
 
     @TestRails(id = "550")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_550() {
         log("@title: Validate exposure is kept correctly when place on No");
         log("@Precondition: Get the event that have Fancy market");
         log("Step 1. Login member site and click on Cricket");
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarketWithSameOdds(SPORT_ID.get(LBL_CRICKET_SPORT));
         log("Step 2 Get and click on the event that has 27 Fancy");
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has 27 Fancy");
@@ -84,28 +90,29 @@ public class FancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
+        try {
+            double originalExposure = liabilityBeforePlaceBet - fcMarket.getMarketLiability();
+            log(String.format("INFO: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
+            marketPage.placeFancy(fancyMarket, false, minStake);
 
-        log(String.format("INFO: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
-        marketPage.placeFancy(fancyMarket, false, minStake);
-
-        log("Validate Exposure kept correctly when place on No section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), 0.0, liabilityWager);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
-        log("INFO: Executed completely");
+            log("Validate Exposure kept correctly when place on No section");
+            marketPage.verifyExposureKeptCorrectly(originalExposure, fcMarket);
+            log("INFO: Executed completely");
+        } finally {
+            log("Post-condition: Place on opposite selection to reduce liability");
+            marketPage.placeFancy(fancyMarket, true, minStake);
+        }
     }
 
     @TestRails(id = "15753")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_15753() {
         log("@title: Validate exposure is kept correctly when place on Yes");
         log("@Precondition: Get the event that have Fancy market");
         log("Step 1. Login member site and click on Cricket");
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
-        log("Step 2 Get and click on the event that has 27 Fancy");
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarketWithSameOdds(SPORT_ID.get(LBL_CRICKET_SPORT));
+        log("Step 2 Active the event that have Fancy market");
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true, "By passed as has no 27 Fancy on all available event");
@@ -118,27 +125,29 @@ public class FancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+        try {
+            double originalExposure = liabilityBeforePlaceBet - fcMarket.getMarketLiability();
+            log(String.format("INFO: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
+            marketPage.placeFancy(fancyMarket, true, minStake);
 
-        log(String.format("INFO: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
-        marketPage.placeFancy(fancyMarket, true, minStake);
+            log("Validate Exposure kept correctly when place on Yes selection (current liability + (stake * (payout/100)))");
+            marketPage.verifyExposureKeptCorrectly(originalExposure, fcMarket);
+            log("INFO: Executed completely");
+        } finally {
+            log("Post-condition: Place on opposite selection to reduce liability");
+            marketPage.placeFancy(fancyMarket, false, minStake);
+        }
 
-        log("Validate Exposure kept correctly when place on Yes section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, 0.0);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
-        log("INFO: Executed completely");
     }
 
     @TestRails(id = "551")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_551() {
         log("@title: Validate exposure is kept correctly when place on Yes and No");
         log("@Precondition: Get the event that have Fancy market");
         log("Step 1. Login member site and click on Cricket");
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarketWithSameOdds(SPORT_ID.get(LBL_CRICKET_SPORT));
         log("Step 2 Get and click on the event that has 27 Fancy");
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has 27 Fancy");
@@ -152,24 +161,18 @@ public class FancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
-        Wager expectedWager2 = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
-
+        double originalExposure = liabilityBeforePlaceBet - fcMarket.getMarketLiability();
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fancyMarket, true, minStake);
         marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Validate Exposure kept correctly when place on Yes and No section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        Double liabilityWager2 = expectedWager2.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, liabilityWager2);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fcMarket);
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "552")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_552() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
@@ -189,7 +192,7 @@ public class FancyTest extends BaseCaseTest {
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String minMax = marketPage.getMinMaxLable(fcMarket);
         String minStake = marketPage.getMinMaxOFFancyMarket(minMax, true);
-        String stake = Double.toString(Double.valueOf(minStake) - 1);
+        String stake = String.format("%.0f",Double.valueOf(minStake) - 1);
         String maxStake = marketPage.getMinMaxOFFancyMarket(minMax, false);
 
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
@@ -197,14 +200,14 @@ public class FancyTest extends BaseCaseTest {
 
         log("Verify 1. Can NOT place bet");
         String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
-        String expectedError = String.format(MemberConstants.BetSlip.ERROR_STAKE_NOT_VALID, String.format("%.2f", Double.parseDouble(minStake)), String.format("%(,.2f", Double.parseDouble(maxStake)), String.format("%.2f", Double.parseDouble(stake)));
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID, minStake, maxStake, stake);
         Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
 
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "553")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_553() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
@@ -225,8 +228,8 @@ public class FancyTest extends BaseCaseTest {
         String minMax = marketPage.getMinMaxLable(fcMarket);
         String minStake = marketPage.getMinMaxOFFancyMarket(minMax, true);
         String maxStake = marketPage.getMinMaxOFFancyMarket(minMax, false);
-        String stake = Double.toString(Double.valueOf(maxStake) + 1);
-        String expectedError = marketPage.defineErrorMessage(Double.valueOf(stake), Double.parseDouble(minStake), Double.parseDouble(maxStake), BetUtils.getUserBalance());
+        String stake = String.format("%.0f",Double.valueOf(maxStake) + 1);
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID, minStake, maxStake, stake);
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
         marketPage.placeFancy(fcMarket, true, stake);
@@ -238,7 +241,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "554")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_554() {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
@@ -274,7 +277,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15755")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_15755() {
         log("@title: Validate able navigate to Fancy market page");
         log("@Precondition: Get the event that have Fancy market");
@@ -297,7 +300,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15763")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_15763() {
         log("@title: Validate My Bet display correct after place bet on Fancy market");
         log("@Precondition: Get the event that have Fancy market");
@@ -305,7 +308,8 @@ public class FancyTest extends BaseCaseTest {
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
 
         log("Step 2. Active the event that have Fancy market");
-        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
+        FancyMarket fcMarket = BetUtils.findOpenFancyMarketWithSameOdds(SPORT_ID.get(LBL_CRICKET_SPORT));
+//        FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), FANCY_CODE);
         if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has 27 Fancy");
             Assert.assertTrue(true, "By passed as has no 27 Fancy on all available event");
@@ -320,6 +324,8 @@ public class FancyTest extends BaseCaseTest {
         Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
 
         log(String.format("INFO: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
+        //place on opposite selection (Lay) to reduce liability
+        marketPage.placeFancy(fancyMarket, false, minStake);
         marketPage.placeFancy(fancyMarket, true, minStake);
 
         log("Step 4. Navigate to My Bets page and filter the matched bet and observe information");
@@ -332,7 +338,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15756")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_15756() {
         log("@title: Validate able to open Ladder forecast score");
         log("@Precondition: Get the event that have Fancy market");
@@ -360,7 +366,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15757")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_15757() {
         log("@title: Validate bet slip is cleared when navigate to another market");
         log("@Precondition: Get the event that have Fancy market");
@@ -398,7 +404,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15758")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_15758() {
         log("@title: Validate able to choose multi selection");
         log("@Precondition: Get the event that have Fancy market");
@@ -429,7 +435,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15759")
-    @Test(groups = {"smoke_stg"})
+    @Test(groups = {"smoke_stg", "2024.01.19"})
     public void FancyTest_15759() {
         log("@title: Validate multi tab (bet slip) is disabled");
         log("@Precondition: Get the event that have Fancy market");
@@ -461,7 +467,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15760")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_15760() {
         log("@title: Validate bet slip information show correctly for selection Yes");
         log("@Precondition: Get the event that have Fancy market");
@@ -497,7 +503,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15761")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke1", "2024.01.19"})
     public void FancyTest_15761() {
         log("@title: Validate bet slip information show correctly for selection Yes");
         log("@Precondition: Get the event that have Fancy market");

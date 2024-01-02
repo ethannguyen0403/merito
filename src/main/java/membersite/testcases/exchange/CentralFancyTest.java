@@ -34,12 +34,12 @@ public class CentralFancyTest extends BaseCaseTest {
 
         log("Step 2 Get and click on the event that has Central Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
             return;
         }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         log("Step 4 Active Central Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
@@ -62,7 +62,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "544")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_sat1"})
     public void CentralFancyTest_544() {
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
@@ -70,34 +70,30 @@ public class CentralFancyTest extends BaseCaseTest {
 
         log("Step 2 Get and click on the event that has Central Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
             return;
         }
-
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         log("Step 4 Active Central Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
-        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
-        marketPage.placeFancy(fcMarket, false, minStake);
+        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fancyMarket.getMarketID(), minStake));
+        marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Verify 1. Validate Exposure kept correctly when place on No section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), 0.0, liabilityWager);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
 
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "545")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_sat1"})
     public void CentralFancyTest_545() {
         log("@title: Verify exposure is kept correctly when place on Yes and No");
         log("Step 1. Login member site and click on Cricket");
@@ -105,30 +101,25 @@ public class CentralFancyTest extends BaseCaseTest {
 
         log("Step 2 Get and click on the event that has Central Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
             return;
         }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         log("Step 4 Active Central Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
-        Wager expectedWager2 = marketPage.defineFancyWager(fancyMarket, false, Double.parseDouble(minStake));
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
-        log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), minStake));
+        log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fancyMarket.getMarketID(), minStake));
         marketPage.placeFancy(fancyMarket, true, minStake);
         marketPage.placeFancy(fancyMarket, false, minStake);
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes and No section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        Double liabilityWager2 = expectedWager2.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, liabilityWager2);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
 
         log("INFO: Executed completely");
     }
@@ -142,28 +133,25 @@ public class CentralFancyTest extends BaseCaseTest {
 
         log("Step 2 Get and click on the event that has Central Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy Wicket");
             Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
             return;
         }
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
 
         log("Step 4 Active Central Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
         Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
-        Wager expectedWager = marketPage.defineFancyWager(fancyMarket, true, Double.parseDouble(minStake));
+        double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
-        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
-        marketPage.placeFancy(fcMarket, true, minStake);
+        log(String.format("Step 5: On market %s Place on No odds with stake %s ", fancyMarket.getMarketID(), minStake));
+        marketPage.placeFancy(fancyMarket, true, minStake);
 
         log("Verify 1. Validate Exposure kept correctly when place on Yes section");
-        Double liabilityWager = expectedWager.getLiabilityFancyWager();
-        String liabilityExpected = memberHomePage.header.calculateLiabilityAfterPlaceBet(String.valueOf(liabilityBeforePlaceBet), liabilityWager, 0.0);
-        String liabilityAfterPlaceBet = marketPage.header.getUserBalance().getExposure();
-        Assert.assertEquals(liabilityAfterPlaceBet, liabilityExpected, String.format("FAILED! Liability does not show correct expected %s but actual %s", liabilityExpected, liabilityAfterPlaceBet));
+        marketPage.verifyExposureKeptCorrectly(originalExposure, fancyMarket);
 
         log("INFO: Executed completely");
     }
@@ -177,13 +165,12 @@ public class CentralFancyTest extends BaseCaseTest {
 
         log("Step 2 Get and click on the event that has Central Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Fancy");
             Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
             return;
         }
-
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         log("Step 4 Active Central Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
@@ -209,13 +196,12 @@ public class CentralFancyTest extends BaseCaseTest {
 
         log("Step 2 Get and click on the event that has Central Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Central Fancy");
             Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
             return;
         }
-
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         log("Step 4 Active Central Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
@@ -245,13 +231,12 @@ public class CentralFancyTest extends BaseCaseTest {
 
         log("Step 2 Get and click on the event that has Central Fancy");
         FancyMarket fcMarket = BetUtils.findOpenFancyMarket(SPORT_ID.get(LBL_CRICKET_SPORT), CENTRAL_FANCY_CODE);
-        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(fcMarket)) {
             log("DEBUG: Skip as have no event has Central Fancy");
             Assert.assertTrue(true, "By passed as has no Central Fancy on all available event");
             return;
         }
-
+        MarketPage marketPage = sportPage.clickEventName(fcMarket.getEventName());
         log("Step 4 Active Central Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
@@ -425,7 +410,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
     @TestRails(id = "15769")
     @Test(groups = {"smoke_stg", "2024.01.19"})
-    public void FancyTest_15769() {
+    public void CentralFancyTest_15769() {
         log("@title: Validate multi tab (bet slip) is disabled");
         log("@Precondition: Get the event that have Central Fancy market");
         log("Step 1. Login member site and click on Cricket");
@@ -457,7 +442,7 @@ public class CentralFancyTest extends BaseCaseTest {
 
     @TestRails(id = "15770")
     @Test(groups = {"smoke_sat1", "2024.01.19"})
-    public void FancyTest_15770() {
+    public void CentralFancyTest_15770() {
         log("@title: Validate bet slip information show correctly for selection Yes");
         log("@Precondition: Get the event that have Central Fancy market");
         log("Step 1. Login member site and click on Cricket");
@@ -493,7 +478,7 @@ public class CentralFancyTest extends BaseCaseTest {
 
     @TestRails(id = "15771")
     @Test(groups = {"smoke_sat1", "2024.01.19"})
-    public void FancyTest_15771() {
+    public void CentralFancyTest_15771() {
         log("@title: Validate bet slip information show correctly for selection No");
         log("@Precondition: Get the event that have Central Fancy market");
         log("Step 1. Login member site and click on Cricket");

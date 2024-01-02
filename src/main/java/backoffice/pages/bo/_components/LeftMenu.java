@@ -488,7 +488,9 @@ public class LeftMenu extends Header {
         int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
         DriverManager.getDriver().switchToFrame(countIframesInPage-1);
         smBlockUnblockEvent.isInvisible(2);
-        return new BlockUnblockEventPage();
+        BlockUnblockEventPage page = new BlockUnblockEventPage();
+        page.waitSpinIcon();
+        return page;
     }
     public BeforeLoginManagementPage navigateBeforeLoginManagement() {
         smBeforeLoginManagement.click();

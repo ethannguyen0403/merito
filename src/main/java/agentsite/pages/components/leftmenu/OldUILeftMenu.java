@@ -150,9 +150,10 @@ public class OldUILeftMenu extends LeftMenu {
         clickSubMenu(REPORT, STATEMENT_REPORT);
     }
     public void navigateWinLossDetailPage() {
-        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         String winLossDetailMenu;
-        winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_OLDUI, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
+        AccountInfo accountInfo = ProfileUtils.getProfile();
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), accountInfo.getUserCode(), accountInfo.getUserID());
+        winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_OLDUI, ProfileUtils.convertDownlineByBrand(listAccount.get(0).getLevel(), ProfileUtils.getAppName()));
         clickSubMenu(REPORT, winLossDetailMenu);
     }
 

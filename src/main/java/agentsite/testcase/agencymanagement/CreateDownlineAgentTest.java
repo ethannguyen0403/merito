@@ -32,7 +32,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      */
 
     @TestRails(id = "678")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke","isa1"})
     public void Agent_AM_CreateDownline_Agent_678() {
         log("@title: Validate UI in Create Downline Agent with Exchange Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");

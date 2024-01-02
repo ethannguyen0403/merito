@@ -21,6 +21,7 @@ public class Wager {
     private String _runnerName;
     private String _selectionId;
     private double _stake;
+    private int _numberOfActiveRunner;
 
     public Wager(Builder builder) {
         this._betID = builder._betID;
@@ -39,6 +40,7 @@ public class Wager {
         this._runnerName = builder._runnerName;
         this._selectionId = builder._selectionID;
         this._betType = builder._betType;
+        this._numberOfActiveRunner = builder._numberOfActiveRunner;
     }
 
     public int getBetID() {
@@ -176,7 +178,9 @@ public class Wager {
     public void setSelectionID(String val) {
         _selectionId = val;
     }
-
+    public int getNumberOfActiveRunner() {
+        return _numberOfActiveRunner;
+    }
     public double getPnlatHandicapPoint(int handicap) {
         double _handicap = this.getHandicap();
         String _betType = this.getBetType();
@@ -288,7 +292,7 @@ public class Wager {
         private String _runnerName;
         private String _selectionID;
         private double _stake;
-
+        private int _numberOfActiveRunner;
 
         public Builder() {
         }
@@ -378,7 +382,10 @@ public class Wager {
             _liabilty = val;
             return this;
         }
-
+        public Builder numberOfActiveRunner(int val) {
+            _numberOfActiveRunner = val;
+            return this;
+        }
         public Wager build() {
             return new Wager(this);
         }

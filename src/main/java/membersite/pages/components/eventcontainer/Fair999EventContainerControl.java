@@ -6,6 +6,7 @@ import com.paltech.element.common.Link;
 import controls.Table;
 import membersite.objects.sat.Event;
 import membersite.utils.betplacement.FancyUtils;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -223,24 +224,39 @@ public class Fair999EventContainerControl extends EventContainerControl {
         event.getLinkEvent().click();
     }
 
+//    public void clickOnRowofEventName(String event) {
+//        int i = 2;
+//        Link lnkEventHome;
+//        Link lnkEventAway;
+//        while (true) {
+//            lnkEventHome = (Link) tblEvents.getControlOfCell(1, 1, i, "div[contains(@class,'home-team-name')]");
+//            lnkEventAway = (Link) tblEvents.getControlOfCell(1, 1, i, "div[contains(@class,'away-team-name')]");
+//            if (!lnkEventHome.isDisplayed()) {
+//                System.out.println("Debug! Not found event to click");
+//                return;
+//            }
+//            String eventName = String.format("%s v %s",lnkEventHome.getText().trim(),lnkEventAway.getText().trim());
+//            if (eventName.equalsIgnoreCase(event)) {
+//                lnkEventHome.click();
+//                lnkEventHome.isDisplayedShort(2);
+//                return;
+//            }
+//            i++;
+//        }
+//    }
+
     public void clickOnRowofEventName(String event) {
-        int i = 1;
-        Link lnkEventHome;
-        Link lnkEventAway;
-        while (true) {
-            lnkEventHome = (Link) tblEvents.getControlOfCell(1, 1, i, "div[contains(@class,'home-team-name')]");
-            lnkEventAway = (Link) tblEvents.getControlOfCell(1, 1, i, "div[contains(@class,'away-team-name')]");
-            if (!lnkEventHome.isDisplayed()) {
-                System.out.println("Debug! Not found event to click");
+        String homeTeamXpath = "//div[contains(text(),'%s')]";
+        String homeTeamRootLocator = "(//div[contains(text(),'%s')])[%s]";
+        String[] arrTeamName = event.split(" v ");
+        Label lblHomeTeam = Label.xpath(String.format(homeTeamXpath, arrTeamName[0]));
+        for (int i = 0; i < lblHomeTeam.getWebElements().size(); i++) {
+            Label lblAwayTeam = Label.xpath(String.format(homeTeamRootLocator + "//..//div[contains(@class,'away-team-name')]", arrTeamName[0], i+1));
+            if (lblAwayTeam.getText().equalsIgnoreCase(arrTeamName[1])) {
+                lblAwayTeam.click();
+                lblAwayTeam.isDisplayedShort(2);
                 return;
             }
-            String eventName = String.format("%s v %s",lnkEventHome.getText().trim(),lnkEventAway.getText().trim());
-            if (eventName.equalsIgnoreCase(event)) {
-                lnkEventHome.click();
-                lnkEventHome.isDisplayedShort(2);
-                return;
-            }
-            i++;
         }
     }
 

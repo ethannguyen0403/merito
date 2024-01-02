@@ -1,6 +1,7 @@
 package membersite.pages.components.header;
 
 import membersite.objects.AccountBalance;
+import membersite.objects.Wager;
 import membersite.pages.*;
 import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
 import membersite.pages.components.signinform.SignInPopup;
@@ -116,6 +117,18 @@ public class Header1 {
         return "";
     }
 
+    public String getMyBetsLabel() {
+        return "";
+    }
+
+    public String getMyMarketLabel() {
+        return "";
+    }
+
+    public String getMyAccountLabel() {
+        return "";
+    }
+
     public String getLiabilityTextColor() {
         return "";
     }
@@ -134,8 +147,6 @@ public class Header1 {
     public String calculateBalanceAfterPlaceBet(String balance, Double liabilityBeforePlaceBetOnMarket, Double liabilityAfterPlaceOnMarket) {
         return "";
     }
-
-    public String calculateLiabilityAfterPlaceBet(String liabilityBeforePlaceBet, Double liabilityBack, Double liabilityLay) {return "";}
 
     public String getMarqueeMessage() {
         return "";
