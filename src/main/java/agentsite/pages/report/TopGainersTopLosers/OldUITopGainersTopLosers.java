@@ -1,13 +1,15 @@
 package agentsite.pages.report.TopGainersTopLosers;
 
 import agentsite.controls.Table;
-import agentsite.ultils.report.TopGainerLoserUtils;
+import agentsite.ultils.topgainerslosers.BigStakeUtils;
 import com.paltech.element.common.Label;
 import common.AGConstant;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static common.AGConstant.Report.TopGainersTopLosers.LBL_BIG_STAKE_TABLE_HEADER;
 
 public class OldUITopGainersTopLosers extends TopGainersTopLosers{
     int colUsernameInWinLossLSimple = 1;
@@ -33,23 +35,22 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
             case "Top Gainers":
                 tblHeader = tblTopGainers.getHeaderNameOfRows();
                 lstHeader = AGConstant.Report.TopGainersTopLosers.AGENT_SAD_TABLE_TOP_GAINERS_HEADER_OLDUI;
-                break;
+                return tblHeader.equals(lstHeader);
             case "Top Losers":
                 tblHeader = tblTopLoser.getHeaderNameOfRows();
                 lstHeader = AGConstant.Report.TopGainersTopLosers.AGENT_SAD_TABLE_TOP_LOSERS_HEADER_OLDUI;
-                break;
+                return tblHeader.equals(lstHeader);
             case "Big Stake":
                 tblHeader = tblBigStake.getHeaderNameOfRows();
+                int bigStake = BigStakeUtils.getBigStakeConfigValue();
                 lstHeader = AGConstant.Report.TopGainersTopLosers.TABLE_BIG_STAKE_HEADER_OLDUI;
-                break;
+                ArrayList<String> lstHeaderReturn = new ArrayList<>(lstHeader);
+                lstHeaderReturn.add(0, String.format(LBL_BIG_STAKE_TABLE_HEADER, bigStake));
+                return tblHeader.equals(lstHeaderReturn);
             default:
                 System.out.println("There are not "+ tableName);
+                return false;
         }
-        if (tblHeader.equals(lstHeader)){
-            System.out.println("Display "+tableName+" Header Table Old UI correct");
-            return true;
-        }
-        return false;
     }
 
     @Override

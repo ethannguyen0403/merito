@@ -33,7 +33,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label lblRiskSetting = Label.xpath("//div[@id='EXCHANGE-risk-settings']/div[@class='psection']");
 
     // Product Settings - Exchange Tab
-    public Label lblProductSetting = Label.xpath("//div[@id='product-settings']/div[@class='psection']");
+    public Label lblProductSetting = Label.xpath("//div[contains(@id,'product-settings')]/div[@class='psection']");
     public Tab tabExchangeGames = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange Games']");
 
     //Exchange Product - Bet Settings
@@ -61,17 +61,17 @@ public class CreateDownLineAgentPage extends HomePage {
     public TransferSettingSection transferSettingInforSection;
     public CommissionSettingSection commissionSettingSection;
     protected String _type;
-    private int totalBetSettingsColumns = 7;
+    private int totalBetSettingsColumns = 9;
     public Table tblBetSettings = Table.xpath("//div[@id='EXCHANGE-bet-settings']//table[contains(@class,'betTable')]", totalBetSettingsColumns);
     private int totalEGBetSettingColumns = 8;
     public Table tblEGBetSettings = Table.xpath("//div[@id='EXCH_GAMES-bet-settings']//table[contains(@class,'betTable')]", totalEGBetSettingColumns);
     public Table tblEGTaxSettings = Table.xpath("//div[@id='EXCH_GAMES-tax-settings']//table[contains(@class,'betTable')]", totalEGBetSettingColumns);
     public Table tblEGPositionTakingListing = Table.xpath("//div[@id='EXCH_GAMES-position-taking']//table[contains(@class,'ptable info betTable')]", totalEGBetSettingColumns);
     //Exchange Product - Tax Settings
-    private int totalTaxSettingsColumns = 6;
+    private int totalTaxSettingsColumns = 7;
     public Table tblTaxSettings = Table.xpath("//div[@id='EXCHANGE-tax-settings']//table[contains(@class,'betTable')]", totalTaxSettingsColumns);
     //Exchange Product - Position Taking
-    private int totalPositionTakingColumns = 7;
+    private int totalPositionTakingColumns = 12;
     public Table tblPositionTakingListing = Table.xpath("//div[@id='EXCHANGE-position-taking']//table[contains(@class,'ptable info betTable')]", totalPositionTakingColumns);
 
     public CreateDownLineAgentPage(String types) {

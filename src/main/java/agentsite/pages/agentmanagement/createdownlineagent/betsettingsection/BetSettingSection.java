@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BetSettingSection {
-    int totalColumn = 7;
+    int totalColumn = 9;
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     protected Label lblMinBetEG = Label.xpath("//div[@id[starts-with(.,'product-settings')]]//div[@id='EXCH_GAMES-bet-settings']//td[text()='Min Bet']");
     protected Label lblMaxBetEG = Label.xpath("//div[@id[starts-with(.,'product-settings')]]//div[@id='EXCH_GAMES-bet-settings']//td[text()='Max Bet']");
