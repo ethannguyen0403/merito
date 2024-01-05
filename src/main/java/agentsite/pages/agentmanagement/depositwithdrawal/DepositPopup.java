@@ -2,6 +2,8 @@ package agentsite.pages.agentmanagement.depositwithdrawal;
 
 import com.paltech.element.common.*;
 
+import static agentsite.pages.HomePage.waitingLoadingSpinner;
+
 public class DepositPopup {
     public Popup popupDepositWithDraw = Popup.xpath("//app-adjust-credit-cash-dialog//div[@id ='adjustCreditCashDialog']");
     public Label lblTitle = Label.xpath("//div[@id='adjustCreditCashDialog']//div[contains(@class,'modal-header')]//div[contains(@class,'title')]");
@@ -44,6 +46,7 @@ public class DepositPopup {
         }
         if (isSubmit) {
             btnSubmit.click();
+            waitingLoadingSpinner();
         }
     }
 

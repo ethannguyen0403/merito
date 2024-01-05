@@ -3,6 +3,8 @@ package agentsite.pages.agentmanagement.depositwithdrawal;
 import com.paltech.element.common.Popup;
 import com.paltech.element.common.TextBox;
 
+import static agentsite.pages.HomePage.waitingLoadingSpinner;
+
 public class WithdrawalPopup extends DepositToPopup {
     public Popup popupWithdrawal = Popup.xpath("//app-adjust-credit-cash-dialog//div[@id ='adjustCreditCashDialog']");
     private TextBox txtWithdrawalToAmount = TextBox.xpath("//div[@class='comp']//input");
@@ -32,6 +34,7 @@ public class WithdrawalPopup extends DepositToPopup {
         }
         if (isSubmit) {
             btnSubmit.click();
+            waitingLoadingSpinner();
         }
     }
 }
