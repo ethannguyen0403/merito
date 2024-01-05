@@ -78,8 +78,9 @@ public class HomePage extends LandingPage {
     }
     public ProteusHomePage activePS38Product() {
         header.clickProduct(PS38);
-        DriverManager.getDriver().switchToFrame(0);
         ProteusHomePage page = new ProteusHomePage(this._type);
+        page.waitiFrameLoad();
+        DriverManager.getDriver().switchToFrame(0);
         return page;
     }
 
