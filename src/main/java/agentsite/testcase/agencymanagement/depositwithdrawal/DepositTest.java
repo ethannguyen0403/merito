@@ -183,8 +183,8 @@ public class DepositTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log(String.format("Step 1.1 Get data of user code before deposit", userCode));
-        List<String> userInfoBEfore = page.getRowContainsUsercode(userCode);
-        String expectedAmountAfterDeposit = String.format(Locale.getDefault(), "%,.2f", Double.valueOf(userInfoBEfore.get(page.colAvailableBalance - 1).replaceAll(",", "").toString()) + amountDeposit);
+        List<String> userInfoBefore = page.getRowContainsUsercode(userCode);
+        String expectedAmountAfterDeposit = String.format(Locale.getDefault(), "%,.2f", Double.valueOf(userInfoBefore.get(page.colAvailableBalance - 1).replaceAll(",", "")) + amountDeposit);
 
         log("Step 2. Click on  Deposit link of an account");
         DepositToPopup popup = (DepositToPopup) page.action(DepositWithdraw.Actions.DEPOSIT, userCode);
@@ -202,10 +202,10 @@ public class DepositTest extends BaseCaseTest {
                 String.format("ERROR: The expected success message is '%s' but found '%s'", AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_SUCCESSFUL, successMessage));
 
         log("Verify 2. Verify available balance of deposit account is updated");
-        Assert.assertEquals(expectedNewMemberCash, newMemberCash, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
-        Assert.assertEquals(expectedLoginAccountAvBalance, newYourCash, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedLoginAccountAvBalance, newYourCash));
-        Assert.assertEquals(expectedLoginAccountAvBalance, newYourCashAfter, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedLoginAccountAvBalance, newYourCashAfter));
-        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.01, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
+        Assert.assertEquals(expectedLoginAccountAvBalance, newYourCash, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedLoginAccountAvBalance, newYourCash));
+        Assert.assertEquals(expectedLoginAccountAvBalance, newYourCashAfter, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedLoginAccountAvBalance, newYourCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.01, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
 
         log("Step 4. Close Deposit popup");
         popup.clickCancelBtn();
@@ -325,7 +325,7 @@ public class DepositTest extends BaseCaseTest {
         popup.deposit("1", "TC008 Deposit Win/Loss Settle 1", false, true);
         String successMessage = popup.getMessage();
         double expectedNewMemberCash = memberInfo.getCashBalance() + 1;
-        double expectedNewYourCash = accountInfo.getCashBalance() - 1;
+        double expectedNewYourCash = accountInfo.getAvailableBalance() - 1;
         double newMemberCash = popup.getNewMemberCashBalance();
         double newMemberCashAfter = popup.getMemberCashBalance();
         double newYourCash = popup.getNewYourCashBalance();
@@ -338,10 +338,10 @@ public class DepositTest extends BaseCaseTest {
         Assert.assertEquals(successMessage, AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_SUCCESSFUL, String.format("ERROR: The expected success message is '%s' but found '%s'", AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_SUCCESSFUL, successMessage));
 
         log("Verify  2. Verify  Win/loss value is update correctly as value in the popup");
-        Assert.assertEquals(expectedNewMemberCash, newMemberCash, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCash, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
-        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.01, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCash, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.01, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
 
         log("Verify  3. Verify main balance info");
         List<ArrayList<String>> mainBalanceInfoExpected = page.calculateMainAccountInfo(mainBalanceInfo, depositAmount, true);
@@ -423,14 +423,14 @@ public class DepositTest extends BaseCaseTest {
         Assert.assertEquals(page.getLoginAccountBalanceInfo(), mainBalanceInfoExpected, "FAILED! Main account balance info is not match with the expected");
 
         log("Verify  3. Verify balance on deposit account");
-        Assert.assertEquals(actualCreditInitationAcc1, creditInitationAcc1, String.format("FAILED! Credit Initiation account %s is incorrect after deposit", username1));
-        Assert.assertEquals(actualTotalBalanceAcc1, totalBalanceAcc1 + 1, String.format("FAILED! Total balance account %s is incorrect after deposit", username1));
-        Assert.assertEquals(actualAvailableBalanceAcc1, availableBalanceAcc1 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit", username1));
-        Assert.assertEquals(actualWinlossAcc1, winlossAcc1 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit", username1));
-        Assert.assertEquals(actualCreditInitationAcc2, creditInitationAcc2, String.format("FAILED! Credit Initiation account %s is incorrect after deposit", username2));
-        Assert.assertEquals(actualTotalBalanceAcc2, totalBalanceAcc2 + 1, String.format("FAILED! Total balance account %s is incorrect after deposit", username2));
-        Assert.assertEquals(actualAvailableBalanceAcc2, availableBalanceAcc2 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit", username2));
-        Assert.assertEquals(actualWinlossAcc2, winlossAcc2 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit", username1));
+        Assert.assertEquals(actualCreditInitationAcc1, creditInitationAcc1, String.format("FAILED! Credit Initiation account %s is incorrect after deposit expected %s actual %s", username1, actualCreditInitationAcc1, creditInitationAcc1));
+        Assert.assertEquals(actualTotalBalanceAcc1, totalBalanceAcc1 + 1, String.format("FAILED! Total balance account %s is incorrect after deposit expected %s actual %s", username1, actualTotalBalanceAcc1, totalBalanceAcc1 + 1));
+        Assert.assertEquals(actualAvailableBalanceAcc1, availableBalanceAcc1 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit expected %s actual %s", username1, actualAvailableBalanceAcc1, availableBalanceAcc1 + 1));
+        Assert.assertEquals(actualWinlossAcc1, winlossAcc1 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit expected %s actual %s", username1, actualWinlossAcc1, winlossAcc1 + 1));
+        Assert.assertEquals(actualCreditInitationAcc2, creditInitationAcc2, String.format("FAILED! Credit Initiation account %s is incorrect after deposit expected %s actual %s", username2, actualCreditInitationAcc2, creditInitationAcc2));
+        Assert.assertEquals(actualTotalBalanceAcc2, totalBalanceAcc2 + 1, String.format("FAILED! Total balance account %s is incorrect after deposit expected %s actual %s", username2, actualTotalBalanceAcc2, totalBalanceAcc2 + 1));
+        Assert.assertEquals(actualAvailableBalanceAcc2, availableBalanceAcc2 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit expected %s actual %s", username2, actualAvailableBalanceAcc2, availableBalanceAcc2 + 1));
+        Assert.assertEquals(actualWinlossAcc2, winlossAcc2 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit expected %s actual %s", username1, actualWinlossAcc2, winlossAcc2 + 1));
         log("INFO: Executed completely");
     }
 

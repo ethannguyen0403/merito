@@ -3,7 +3,7 @@ package agentsite.pages.agentmanagement.createdownlineagent.positiontakingsectio
 import static common.AGConstant.AgencyManagement.CommissionSettingListing.PRODUCT_NAME_TO_CODE;
 
 public class PositionTakingSection {
-    protected int totalColumnExchange = 9;
+    protected int totalColumnExchange = 12;
     protected int totalColumnExchangeGames = 8;
     protected int totalOther = 2;
     protected String positionTakingTableXpath = "//div[@id='%s-position-taking']//table";

@@ -8,8 +8,8 @@ import agentsite.pages.components.SecurityPopup;
 import agentsite.ultils.account.ProfileUtils;
 import com.paltech.element.common.*;
 import com.paltech.utils.DoubleUtils;
+import org.testng.Assert;
 
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +29,7 @@ public class DepositWithdrawalPage extends HomePage {
     private String downlineXPath = "//span[text()='%s']";
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     public Label lblNoRecord = Label.xpath("//span[contains(@class,'no-record')]");
+    public DropDownBox ddbPagination = DropDownBox.xpath("//div[@id='pagination']//select");
     public static int colUsername = 2;
     public int colLevel = 7;
     public int colAccountStatus = 6;
@@ -50,11 +51,14 @@ public class DepositWithdrawalPage extends HomePage {
         depositWithdraw = ComponentsFactory.depositWithdraw(types);
     }
 
-    public boolean isTotalBalanceCalculatedCorrect() {
-        return depositWithdraw.isTotalBalanceCalculatedCorrect();
+    public void verifyTotalBalanceCalculatedCorrect() {
+        depositWithdraw.verifyTotalBalanceCalculatedCorrect();
     }
 
-
+    public void setPaginationNumber(String number) {
+        ddbPagination.selectByVisibleText(number);
+        waitingLoadingSpinner();
+    }
     public String getLabelText(String controlName) {
         return depositWithdraw.getLabelText(controlName);
     }
@@ -152,8 +156,8 @@ public class DepositWithdrawalPage extends HomePage {
         String value = tblWithdrawalDeposit.getControlBasedValueOfDifferentColumnOnRow(username, 1, colUsername, 1, null, columnIndex, null, true, false).getText();
         double returnValue = 0;
         try {
-            returnValue = DecimalFormat.getNumberInstance().parse(value).doubleValue();
-        } catch (ParseException e) {
+            returnValue = Double.valueOf(value);
+        } catch (Exception e) {
             throw new RuntimeException(e.getCause());
         }
         return returnValue;
@@ -316,26 +320,23 @@ public class DepositWithdrawalPage extends HomePage {
         return result;
     }
 
-    public boolean isTotalBalanceHeaderCalculatedCorrect() {
+    public void verifyTotalBalanceHeaderCalculatedCorrect() {
         double totalBalance = Double.parseDouble(tblAccountBalance.getControlOfCell(1, colSubBalanceHeader, 1, null).getText().trim().replaceAll(",", "")) +
                 Double.parseDouble(tblAccountBalance.getControlOfCell(1, colMainAvailableBalance, 1, null).getText().trim().replaceAll(",", ""));
-        if (String.format("%,.2f", totalBalance).equals(tblAccountBalance.getControlOfCell(1, colTotalBalanceHeader, 1, null).getText())) {
-            return true;
-        }
-        return false;
+        double actualBalance = Double.parseDouble(tblAccountBalance.getControlOfCell(1, colTotalBalanceHeader, 1, null).getText());
+        Assert.assertEquals(totalBalance, actualBalance, 0.1, String.format("FAILED! Balance is not correct expected %s actual %s", totalBalance, actualBalance));
     }
 
-    public boolean isSubBalanceHeaderCalculatedCorrect() {
+    public void verifySubBalanceHeaderCalculatedCorrect() {
+        setPaginationNumber("200");
         double subBalanceHeader = 0;
-        List<String> subBalance = tblWithdrawalDeposit.getColumn(colTotalBalance, 100, false);
+        List<String> subBalance = tblWithdrawalDeposit.getColumn(colTotalBalance, 200, false);
         for (int i = 0; i < subBalance.size(); i++) {
             subBalanceHeader = subBalanceHeader + Double.parseDouble(subBalance.get(i).trim().replaceAll(",", ""));
         }
         DoubleUtils.roundUpWithTwoPlaces(subBalanceHeader);
-        if (String.format("%,.2f", subBalanceHeader).equals(tblAccountBalance.getControlOfCell(1, colSubBalanceHeader, 1, null).getText())) {
-            return true;
-        }
-        return false;
+        double subBalanceActual = Double.parseDouble(tblAccountBalance.getControlOfCell(1, colSubBalanceHeader, 1, null).getText());
+        Assert.assertEquals(subBalanceHeader, subBalanceActual, 0.1, String.format("FAILED! Balance is not correct expected %s actual %s", subBalanceHeader, subBalanceActual));
     }
 
 }

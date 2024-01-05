@@ -1,7 +1,5 @@
 package agentsite.pages.agentmanagement.depositwithdrawal;
 
-import agentsite.pages.agentmanagement.DepositWithdrawalPage;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,10 +8,9 @@ public class DepositWithdraw {
     public Object action(DepositWithdraw.Actions type, int rowIndex) {
         return null;
     }
-    public boolean isTotalBalanceCalculatedCorrect() {
-        return false;
-    }
 
+    public void verifyTotalBalanceCalculatedCorrect() {
+    }
 
     public String getLabelText(String controlName) {
         return "";
