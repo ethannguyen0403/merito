@@ -323,6 +323,7 @@ public class MarketPage extends HomePage {
         double sumLayWin = 0.0;
         double sumLayLose = 0.0;
         double forecast = 0.0;
+        //TODO need update to get list matched bets by API
         List<ArrayList> lstMatchedBet = getFancyMiniMyBet();
         List<ArrayList> lstMatchedBetByMarket = new ArrayList<>();
         if(Objects.nonNull(lstMatchedBet)) {
