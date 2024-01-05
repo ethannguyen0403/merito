@@ -10,11 +10,15 @@ import membersite.pages.HomePage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static common.ProteusConstant.ASIAN_VIEW;
+import static common.ProteusConstant.EURO_VIEW;
+
 public class ProteusHomePage extends HomePage {
     private String sportHeaderMenuXpath = "//app-slider-sport//em[contains(@class,'menu-%s')]";
     private String sportLeftMenuXpath = "//app-left-menu-euro//div[contains(@class,'menu-item')]//div[text()='%s']";
     private String marketTabXpath = "//app-sport-euro//div[contains(@class,'market-group')]//button[text()='%s']";
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
+    public Label lblLoading = Label.xpath("//div[contains(@class,'loading-text')]/p");
     public Button btnEarlyEuro = Button.xpath("//app-left-menu-euro//button[text()=' Early ']");
     private Button btnLiveEuro = Button.xpath("//app-left-menu-euro//button[text()=' Live ']");
     private Image imgSpinner = Image.xpath("//em[contains(@class,'fa-4x fa-spin')]");
@@ -33,13 +37,36 @@ public class ProteusHomePage extends HomePage {
         super(types);
     }
 
+    public void waitiFrameLoad(){
+        lblLoading.waitForControlInvisible(2,2);
+    }
+
+    public EuroViewPage selectEuroView(){
+        selectView(EURO_VIEW);
+        EuroViewPage euroViewPage = new EuroViewPage(this._type);
+        euroViewPage.waitContentLoad();
+        return euroViewPage;
+    }
+    public AsianViewPage selectAsianView(){
+        selectView(ASIAN_VIEW);
+        AsianViewPage asianViewPage = new AsianViewPage(this._type);
+        asianViewPage.waitContentLoad();
+        return asianViewPage;
+    }
+
+    private void selectView(String view){
+        // Display view
+        String currentView = lblView.getText();
+        if (currentView.equals(view))
+            lblView.click();
+    }
+
     public void switchView(String view) {
         if(lblView.getText().equalsIgnoreCase(view)) {
             lblView.click();
             waitForSpinnerLoading();
         }
     }
-
     public void waitForSpinnerLoading() {
         imgSpinner.waitForControlInvisible(2, 5);
     }
