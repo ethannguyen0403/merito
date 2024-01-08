@@ -1,18 +1,20 @@
 package membersite.testcases.proteus;
 
 import baseTest.BaseCaseTest;
+import membersite.objects.proteus.ProteusEvent;
+import membersite.objects.proteus.ProteusMarket;
+import membersite.pages.proteus.AsianViewPage;
 import membersite.pages.proteus.EuroViewPage;
 import membersite.pages.proteus.ProteusHomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static common.MemberConstants.LBL_SOCCER_SPORT;
 import static common.MemberConstants.LBL_TENNIS_SPORT;
-import static common.MemberConstants.PS38.LBL_ASIAN_VIEW;
-import static common.MemberConstants.PS38.LBL_EURO_VIEW;
 import static common.ProteusConstant.*;
 import static membersite.utils.proteus.MarketUtils.getMarketInfo;
 
@@ -124,14 +126,14 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 1.Select Ps38 product");
         log("Step 2.Select Euro View");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
-        proteusHomePage.switchView(LBL_EURO_VIEW);
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
 
         log("Step 3. Select Early the left menu Click on Soccer in Header menu");
-        proteusHomePage.btnEarlyEuro.click();
-        proteusHomePage.selectSportHeaderMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportHeaderMenu(LBL_SOCCER_SPORT);
 
         log("Verify Soccer is active and Soccer Match title displays");
-        Assert.assertEquals(proteusHomePage.lblSportHeader.getText(),LBL_SOCCER_SPORT, "FAILED! Deposit page is not displayed");
+        Assert.assertEquals(euroViewPage.lblSportHeader.getText(),LBL_SOCCER_SPORT, "FAILED! Deposit page is not displayed");
         log("INFO: Executed completely");
     }
 
@@ -143,14 +145,14 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 1.Select Ps38 product");
         log("Step 2.Select Euro View");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
-        proteusHomePage.switchView(LBL_EURO_VIEW);
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
 
         log("Step 3. Select Early the left menu Click on Tennis in Header menu");
-        proteusHomePage.btnEarlyEuro.click();
-        proteusHomePage.selectSportHeaderMenu(LBL_TENNIS_SPORT);
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportHeaderMenu(LBL_TENNIS_SPORT);
 
         log("Verify Soccer is active and Tennis Match title displays");
-        Assert.assertEquals(proteusHomePage.lblSportHeader.getText(),LBL_TENNIS_SPORT, "FAILED! Deposit page is not displayed");
+        Assert.assertEquals(euroViewPage.lblSportHeader.getText(),LBL_TENNIS_SPORT, "FAILED! Deposit page is not displayed");
         log("INFO: Executed completely");
     }
 
@@ -162,14 +164,14 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 1.Select Ps38 product");
         log("Step 2.Select Euro View");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
-        proteusHomePage.switchView(LBL_EURO_VIEW);
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
 
         log("Step 3. Click on Early > Soccer in Left menu");
-        proteusHomePage.btnEarlyEuro.click();
-        proteusHomePage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
 
         log("Verify Soccer is active and Soccer Match title displays");
-        Assert.assertEquals(proteusHomePage.lblSportHeader.getText(),LBL_SOCCER_SPORT, "FAILED! Deposit page is not displayed");
+        Assert.assertEquals(euroViewPage.lblSportHeader.getText(),LBL_SOCCER_SPORT, "FAILED! Deposit page is not displayed");
         log("INFO: Executed completely");
     }
 
@@ -182,7 +184,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
 
         log("Validate PS38 product displays on top menu in member site , user can access into PS38 product page");
-        Assert.assertEquals(proteusHomePage.lblView.getText(), LBL_ASIAN_VIEW, "FAILED! Deposit page is not displayed");
+        Assert.assertEquals(proteusHomePage.lblView.getText(), ASIAN_VIEW, "FAILED! Deposit page is not displayed");
         log("INFO: Executed completely");
     }
 
@@ -203,23 +205,82 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4126")
-    @Test(groups = {"Proteus.2024.V.1.01"})
+    @Test(groups = {"Proteus.2024.V.1.0"})
     public void PS38_Member_TC4126() {
         log("@title: Validate can add Handicap Soccer market odds to bet slip in EU view list event");
         log("Precondition: Login member site-  the player active PS38 product");
         log("Step 1.Select Ps38 product");
         log("Step 2.Select Euro View");
         ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
-        proteusHomePage.switchView(LBL_EURO_VIEW);
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
 
-        log("Step 3. Click on Early > Soccer in Left menu");
-        proteusHomePage.btnEarlyEuro.click();
-        proteusHomePage.selectSportLeftMenu(LBL_SOCCER_SPORT);
-        log("Verify Soccer is active and Soccer Match title displays");
-        proteusHomePage.selectMarketTypeTab("Handicap");
-        List<String> lstEventInfo = proteusHomePage.getFirstEventInfo();
-        getMarketInfo(Integer.parseInt(lstEventInfo.get(2)), "SPREAD", 0);
-//        getMarketInfo(1583785765, "SPREAD", -0.5);
-//        ProteusMarket proteusMarket = proteusHomePage.getFirstEventInfo("Handicap");
+        log("Step 3. Select Early the left menu and click on Soccer");
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        log("Step 4. Click on Handicap tab");
+        euroViewPage.selectMarketTypeTab(HDP_TEXT);
+        ProteusEvent event = euroViewPage.getFirstEventInfo();
+        ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get("HDP"), Double.valueOf(event.getHDPPoint()));
+
+        //workaround to get odds group of current user
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
+        proteusHomePage.selectEuroView();
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectMarketTypeTab(HDP_TEXT);
+        //end workaround
+
+        log("Step 5. Add an handicap odds of Home team to bet slip");
+        euroViewPage.placeBet(event, "10", false);
+        List<Double> lstBaseOdds = new ArrayList<>();
+        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getFirstOdds())));
+        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getSecondOdds())));
+        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getThirdOdds())));
+        List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("Decimal"));
+        log("Verify Check odds handicap info display in bet slip correctly:\n" +
+                "Selection, handicap point (negative/positive sign), odds");
+        euroViewPage.verifyBetSlipInfoShowCorrect(event, market, "10", HDP_TEXT, lstOddsConvert);
+    }
+
+    @TestRails(id = "4127")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4127() {
+        log("@title: Validate can add Over Under Soccer market odds to bet slip in EU view list event");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        log("Step 4. Click on Over Under tab");
+        euroViewPage.selectMarketTypeTab(OVER_UNDER_TEXT);
+        ProteusEvent event = euroViewPage.getFirstEventInfo();
+        ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get("Over Under"), Double.valueOf(event.getHDPPoint()));
+
+        //workaround to get odds group of current user
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
+        proteusHomePage.selectEuroView();
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectMarketTypeTab(OVER_UNDER_TEXT);
+        //end workaround
+
+        log("Step 5. Add an Over Under odds of Home team to bet slip");
+        euroViewPage.placeBet(event, "10", false);
+        List<Double> lstBaseOdds = new ArrayList<>();
+        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getFirstOdds())));
+        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getSecondOdds())));
+        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getThirdOdds())));
+        List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("Decimal"));
+        log("Verify Check odds handicap info display in bet slip correctly:\n" +
+                "Selection, over under point (negative/positive sign), odds");
+        euroViewPage.verifyBetSlipInfoShowCorrect(event, market, "10", OVER_UNDER_TEXT, lstOddsConvert);
     }
 }

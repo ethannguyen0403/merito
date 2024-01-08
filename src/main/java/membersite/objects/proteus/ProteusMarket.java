@@ -5,12 +5,15 @@ public class ProteusMarket {
     private double _firstOdds;
     private double _firstOriginalOdds;
     private String _firstSelectionName;
+    private double _firstHDPPoint;
     private double _secondOdds;
     private double _secondOriginalOdds;
     private String _secondSelectionName;
+    private double _secondHDPPoint;
     private double _thirdOdds;
     private double _thirdOriginalOdds;
     private String _thirdSelectionName;
+    private double _thirdHDPPoint;
     private String _betType;
     private String _oddsFormat;
     private double _maxBet;
@@ -20,12 +23,15 @@ public class ProteusMarket {
         this._firstOdds = builder._firstOdds;
         this._firstOriginalOdds = builder._firstOriginalOdds;
         this._firstSelectionName = builder._firstSelectionName;
+        this._firstHDPPoint = builder._firstHDPPoint;
         this._secondOdds = builder._secondOdds;
         this._secondOriginalOdds = builder._secondOriginalOdds;
         this._secondSelectionName = builder._secondSelectionName;
+        this._secondHDPPoint = builder._secondHDPPoint;
         this._thirdOdds = builder._thirdOdds;
         this._thirdOriginalOdds = builder._thirdOriginalOdds;
         this._thirdSelectionName = builder._thirdSelectionName;
+        this._thirdHDPPoint = builder._thirdHDPPoint;
         this._secondOdds = builder._secondOdds;
         this._thirdOdds = builder._thirdOdds;
         this._betType = builder._betType;
@@ -64,6 +70,13 @@ public class ProteusMarket {
     public void setFirstSelectionName(String val) {
         _firstSelectionName = val;
     }
+    public double getFirstHDPPoint() {
+        return _firstHDPPoint;
+    }
+
+    public void setFirstHDPPoint(double val) {
+        _firstHDPPoint = val;
+    }
 
     public double getSecondOdds() {
         return _secondOdds;
@@ -88,7 +101,13 @@ public class ProteusMarket {
     public void setSecondSelectionName(String val) {
         _secondSelectionName = val;
     }
+    public double getSecondHDPPoint() {
+        return _secondHDPPoint;
+    }
 
+    public void setSecondHDPPoint(double val) {
+        _secondHDPPoint = val;
+    }
     public double getThirdOdds() {
         return _thirdOdds;
     }
@@ -112,7 +131,13 @@ public class ProteusMarket {
     public void setThirdSelectionName(String val) {
         _thirdSelectionName = val;
     }
+    public double getThirdHDPPoint() {
+        return _thirdHDPPoint;
+    }
 
+    public void setThirdHDPPoint(double val) {
+        _thirdHDPPoint = val;
+    }
     public String getBetType() {
         return _betType;
     }
@@ -149,6 +174,9 @@ public class ProteusMarket {
         private String _firstSelectionName;
         private String _secondSelectionName;
         private String _thirdSelectionName;
+        private double _firstHDPPoint;
+        private double _secondHDPPoint;
+        private double _thirdHDPPoint;
         private String _betType;
         private String _oddsFormat;
         private double _maxBet;
@@ -190,6 +218,22 @@ public class ProteusMarket {
             _thirdOriginalOdds = val;
             return this;
         }
+
+        public Builder firstHDPPoint(double val) {
+            _firstHDPPoint = val;
+            return this;
+        }
+
+        public Builder secondHDPPoint(double val) {
+            _secondHDPPoint = val;
+            return this;
+        }
+
+        public Builder thirdHDPPoint(double val) {
+            _thirdHDPPoint = val;
+            return this;
+        }
+
         public Builder maxBet(double val) {
             _maxBet = val;
             return this;

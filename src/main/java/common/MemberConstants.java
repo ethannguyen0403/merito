@@ -424,17 +424,4 @@ public class MemberConstants {
         };
 
     }
-
-    public static class PS38 {
-        public static final String LBL_EURO_VIEW = "Euro View";
-        public static final String LBL_ASIAN_VIEW = "Asian View";
-        public static final Map<String, String> DEPOSIT_SUCCESS_HEADER_BRAND = new HashMap<String, String>() {
-            {
-                put("satsport", "SAT Sport");
-                put("fairexchange", "Fairexchange");
-
-            }
-        };
-
-    }
 }

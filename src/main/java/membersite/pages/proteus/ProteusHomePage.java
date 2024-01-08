@@ -1,38 +1,20 @@
 package membersite.pages.proteus;
 
-import com.paltech.element.common.Button;
 import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
-import com.paltech.element.common.TextBox;
-import controls.Table;
 import membersite.pages.HomePage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import static common.ProteusConstant.ASIAN_VIEW;
-import static common.ProteusConstant.EURO_VIEW;
+import static common.ProteusConstant.*;
 
 public class ProteusHomePage extends HomePage {
-    private String sportHeaderMenuXpath = "//app-slider-sport//em[contains(@class,'menu-%s')]";
-    private String sportLeftMenuXpath = "//app-left-menu-euro//div[contains(@class,'menu-item')]//div[text()='%s']";
-    private String marketTabXpath = "//app-sport-euro//div[contains(@class,'market-group')]//button[text()='%s']";
+
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
     public Label lblLoading = Label.xpath("//div[contains(@class,'loading-text')]/p");
-    public Button btnEarlyEuro = Button.xpath("//app-left-menu-euro//button[text()=' Early ']");
-    private Button btnLiveEuro = Button.xpath("//app-left-menu-euro//button[text()=' Live ']");
     private Image imgSpinner = Image.xpath("//em[contains(@class,'fa-4x fa-spin')]");
-    public Label lblSportHeader = Label.xpath("(//app-sport-euro//div[contains(@class,'sport-header')]//h3)[1]");
-    private TextBox txtStake = TextBox.xpath("//app-bet-item//input[contains(@class,'stake-input')]");
-    private Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
-    private Label lblCompetitionInfo = Label.xpath("(//app-sport-euro//app-league-euro//th[@class='opponent-column'])[1]");
-    private Label lblHomeNameInfo = Label.xpath("(//app-sport-euro//app-league-euro//table[contains(@class,'odd-pages')]//tr)[1]//th[3]//div[@class='opponent']");
-    private Table tblFirstLeague = Table.xpath("(//app-league-euro/table[contains(@class,'league-header')])[1]", 5);
-    private Table tblFirstEvent = Table.xpath("(//app-league-euro//table[contains(@class,'odd-page')])[1]", 6);
-    private Label lblFirstLeague = Label.xpath("(//app-league-euro/table[contains(@class,'league-header')])[1]//th[contains(@class,'opponent-column')]");
-    private Label lblFirstEventHomeName = Label.xpath("(//app-league-euro//table[contains(@class,'odd-page')])[1]//div[@class='opponent']/div[1]");
-    private Label lblFirstEventAwayName = Label.xpath("(//app-league-euro//table[contains(@class,'odd-page')])[1]//div[@class='opponent']/div[2]");
-    private Label lblFirstHDP = Label.xpath("((//app-league-euro//table[contains(@class,'odd-page')])[1]//th[contains(@class,'odd-column')]//span[contains(@class,'d-lg-inline')])[1]");
     public ProteusHomePage(String types) {
         super(types);
     }
@@ -40,17 +22,20 @@ public class ProteusHomePage extends HomePage {
     public void waitiFrameLoad(){
         lblLoading.waitForControlInvisible(2,2);
     }
+    public void waitForSpinnerLoading() {
+        imgSpinner.waitForControlInvisible(2, 5);
+    }
 
     public EuroViewPage selectEuroView(){
         selectView(EURO_VIEW);
         EuroViewPage euroViewPage = new EuroViewPage(this._type);
-        euroViewPage.waitContentLoad();
+        euroViewPage.waitForSpinnerLoading();
         return euroViewPage;
     }
     public AsianViewPage selectAsianView(){
         selectView(ASIAN_VIEW);
         AsianViewPage asianViewPage = new AsianViewPage(this._type);
-        asianViewPage.waitContentLoad();
+        asianViewPage.waitForSpinnerLoading();
         return asianViewPage;
     }
 
@@ -61,74 +46,101 @@ public class ProteusHomePage extends HomePage {
             lblView.click();
     }
 
-    public void switchView(String view) {
-        if(lblView.getText().equalsIgnoreCase(view)) {
-            lblView.click();
-            waitForSpinnerLoading();
+    public String getCurrentUserOddsGroup(int eventId) {
+        Label lblEvent = Label.xpath(String.format("//app-events//table[@eventid='%s']", eventId));
+        if(lblEvent.isDisplayed()) {
+            return lblEvent.getAttribute("oddgroup");
+        } else {
+            return null;
         }
     }
-    public void waitForSpinnerLoading() {
-        imgSpinner.waitForControlInvisible(2, 5);
+
+    public List<Double> getListOddsByGroup(String oddsGroup, List<Double> lstBaseOdds, String oddsType) {
+        switch (oddsGroup) {
+            case "B":
+            case "C":
+            case "D":
+            case "E":
+                return lstAdjustOddsByGroup(oddsGroup, lstBaseOdds, oddsType);
+            default:
+                //group A return same list odds
+                return lstBaseOdds;
+        }
     }
 
-    public void selectSportHeaderMenu(String sportName) {
-        Button btnSport = Button.xpath(String.format(sportHeaderMenuXpath, sportName));
-        btnSport.click();
-        waitForSpinnerLoading();
-    }
-
-    public void selectSportLeftMenu(String sportName) {
-        Button btnSport = Button.xpath(String.format(sportLeftMenuXpath, sportName));
-        btnSport.click();
-        waitForSpinnerLoading();
-    }
-
-    public void selectMarketTypeTab(String marketType) {
-        Label lblMarketType = Label.xpath(String.format(marketTabXpath, marketType));
-        lblMarketType.click();
-        waitForSpinnerLoading();
-    }
-
-    public List<String> getFirstEventInfo() {
-        List<String> lstEventInfo = new ArrayList<>();
-        lstEventInfo.add(tblFirstLeague.getAttribute("leagueid"));
-        lstEventInfo.add(lblFirstLeague.getText().trim());
-        lstEventInfo.add(tblFirstEvent.getAttribute("eventid"));
-        lstEventInfo.add(lblFirstEventHomeName.getText().trim());
-        lstEventInfo.add(lblFirstEventAwayName.getText().trim());
-        if(lblFirstHDP.isDisplayed()) {
-            String hdpText = lblFirstHDP.getText().trim();
-            if(hdpText.contains(",")) {
-                String[] lstHdp = hdpText.split(",");
-                double firstHDP = Double.parseDouble(lstHdp[0].trim());
-                double secondHDP = Double.parseDouble(lstHdp[1].trim());
-
+    public static List<Double> lstAdjustOddsByGroup(String oddsGroup, List<Double> lstBaseOdds, String oddsType) {
+        List<Double> lstOddsAdjust = new ArrayList<>();
+        if (!oddsGroup.equalsIgnoreCase("A")) {
+            double vigAdjustment = Double.parseDouble(ODDS_GROUP_ADJUSTMENT_MAPPING.get(oddsGroup));
+            if(Objects.nonNull(lstBaseOdds)) {
+                lstBaseOdds.removeIf(n -> n == 0);
+                double vig = 0;
+                List<Double> lstProbabilityBase = new ArrayList<>();
+                List<Double> lstFairProbability = new ArrayList<>();
+                List<Double> lstFattenedProbability = new ArrayList<>();
+                List<Double> lstDecimalOdds = new ArrayList<>();
+                List<Double> lstRoundedDecimalOdds = new ArrayList<>();
+                for (int i = 0; i < lstBaseOdds.size(); i++) {
+                    lstProbabilityBase.add((1/Double.valueOf(lstBaseOdds.get(i))));
+                    vig += (1/Double.valueOf(lstBaseOdds.get(i)));
+                }
+                if(Objects.nonNull(lstProbabilityBase)) {
+                    for (int i = 0; i < lstProbabilityBase.size(); i++) {
+                        lstFairProbability.add(lstProbabilityBase.get(i) / vig);
+                    }
+                }
+                if(Objects.nonNull(lstFairProbability)) {
+                    for (int i = 0; i < lstFairProbability.size(); i++) {
+                        lstFattenedProbability.add(lstFairProbability.get(i) * (vig + (vigAdjustment/100)));
+                        lstDecimalOdds.add(1/ lstFattenedProbability.get(i));
+                    }
+                }
+                if (Objects.nonNull(lstDecimalOdds)) {
+                    for (int i = 0; i < lstDecimalOdds.size(); i++) {
+                        if(lstDecimalOdds.get(i) > 2) {
+                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 100) / 100);
+                        } else {
+                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 1000) / 1000);
+                        }
+                    }
+                }
+                if(oddsType.equalsIgnoreCase("DEC")) {
+                    return lstRoundedDecimalOdds;
+                } else if (oddsType.equalsIgnoreCase("HK")) {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        lstOddsAdjust.add((lstRoundedDecimalOdds.get(i) - 1) * 100 / 100);
+                    }
+                    return lstOddsAdjust;
+                } else if (oddsType.equalsIgnoreCase("ID")) {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        if(lstRoundedDecimalOdds.get(i) >= 2) {
+                            lstOddsAdjust.add((lstRoundedDecimalOdds.get(i) - 1) * 100 / 100);
+                        } else {
+                            lstOddsAdjust.add(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 100 / 100));
+                        }
+                    }
+                    return lstOddsAdjust;
+                } else if (oddsType.equalsIgnoreCase("MY")) {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        if(lstRoundedDecimalOdds.get(i) <= 2) {
+                            lstOddsAdjust.add((lstRoundedDecimalOdds.get(i) - 1) * 100 / 100);
+                        } else {
+                            lstOddsAdjust.add(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 1000 / 1000));
+                        }
+                    }
+                    return lstOddsAdjust;
+                } else {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        if(lstRoundedDecimalOdds.get(i) < 2) {
+                            lstOddsAdjust.add(-100/ (lstRoundedDecimalOdds.get(i) - 1));
+                        } else {
+                            lstOddsAdjust.add((lstRoundedDecimalOdds.get(i) - 1) * 100);
+                        }
+                    }
+                    return lstOddsAdjust;
+                }
             }
         }
-        return lstEventInfo;
+        return lstOddsAdjust;
     }
-
-//    public void placeBet(ProteusMarket market, String stake) {
-//        market.getBtnFirstSelection().click();
-//        txtStake.sendKeys(stake);
-//        btnPlaceBet.click();
-//        waitForSpinnerLoading();
-//    }
-
-//    public void clickOddsSelection(ProteusMarket market, int selectionIndex) {
-//        switch (selectionIndex) {
-//            case 1:
-//                market.getBtnFirstSelection().click();
-//                break;
-//            case 2:
-//                market.getBtnSecondSelection().click();
-//                break;
-//            case 3:
-//                market.getBtnThirdSelection().click();
-//                break;
-//            default:
-//                System.out.println("Invalid selection index should be from 1 to 3");
-//                break;
-//        }
-//    }
 }
