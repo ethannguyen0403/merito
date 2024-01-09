@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class MarketUtils extends BaseCaseTest {
 
-    public static ProteusMarket getMarketInfo(int eventId, String betType, double hdpPoint) {
+    public static ProteusMarket getMarketInfo(int eventId, String betType, Double hdpPoint) {
         JSONObject jsonObject = getMarketJSON(eventId, betType);
         if(Objects.nonNull(jsonObject)) {
             JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -19,35 +19,37 @@ public class MarketUtils extends BaseCaseTest {
             proteusMarket.setEventId(eventId);
             proteusMarket.setBetType(betType);
             if(betType.equalsIgnoreCase("moneyline")) {
-                //get FULL-TIME MONEYLINE info
-                JSONObject jsonObject1 = jsonArray.getJSONObject(0);
-                double maxBet = jsonObject1.getDouble("max");
-                String oddsFormat = jsonObject1.getString("oddsFormat");
-                if(jsonObject1.getInt("altLineId") == -1) {
-                    JSONArray jsonArray1 = jsonObject1.getJSONArray("odds");
-                    proteusMarket.setMaxBet(maxBet);
-                    proteusMarket.setOddsFormat(oddsFormat);
-                    for (int j = 0; j < jsonArray1.length(); j++) {
-                        JSONObject jsonObject2 = jsonArray1.getJSONObject(j);
-                        //Order of odds is HOME/ DRAW/ AWAY
-                        if(j == 0) {
-                            proteusMarket.setFirstOdds(jsonObject2.getDouble("odds"));
-                            proteusMarket.setFirstOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                            proteusMarket.setFirstSelectionName(jsonObject2.getString("team"));
-                            proteusMarket.setFirstHDPPoint(jsonObject2.getDouble("hdp"));
-                        } else if (j == 1) {
-                            proteusMarket.setSecondOdds(jsonObject2.getDouble("odds"));
-                            proteusMarket.setSecondOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                            proteusMarket.setSecondSelectionName(jsonObject2.getString("team"));
-                            proteusMarket.setSecondHDPPoint(jsonObject2.getDouble("hdp"));
-                        } else if (j == 2) {
-                            proteusMarket.setThirdOdds(jsonObject2.getDouble("odds"));
-                            proteusMarket.setThirdOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                            proteusMarket.setThirdSelectionName(jsonObject2.getString("team"));
-                            proteusMarket.setThirdHDPPoint(jsonObject2.getDouble("hdp"));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                    //get FULL-TIME MONEYLINE info
+                    if(jsonObject1.getInt("periodId") == 0) {
+                        double maxBet = jsonObject1.getDouble("max");
+                        String oddsFormat = jsonObject1.getString("oddsFormat");
+                        JSONArray jsonArray1 = jsonObject1.getJSONArray("odds");
+                        proteusMarket.setMaxBet(maxBet);
+                        proteusMarket.setOddsFormat(oddsFormat);
+                        for (int j = 0; j < jsonArray1.length(); j++) {
+                            JSONObject jsonObject2 = jsonArray1.getJSONObject(j);
+                            //Order of odds is HOME/ DRAW/ AWAY
+                            if(j == 0) {
+                                proteusMarket.setFirstOdds(jsonObject2.getDouble("odds"));
+                                proteusMarket.setFirstOriginalOdds(jsonObject2.getDouble("originalOdds"));
+                                proteusMarket.setFirstSelectionName(jsonObject2.getString("team"));
+                                proteusMarket.setFirstHDPPoint(jsonObject2.getDouble("hdp"));
+                            } else if (j == 1) {
+                                proteusMarket.setSecondOdds(jsonObject2.getDouble("odds"));
+                                proteusMarket.setSecondOriginalOdds(jsonObject2.getDouble("originalOdds"));
+                                proteusMarket.setSecondSelectionName(jsonObject2.getString("team"));
+                                proteusMarket.setSecondHDPPoint(jsonObject2.getDouble("hdp"));
+                            } else if (j == 2) {
+                                proteusMarket.setThirdOdds(jsonObject2.getDouble("odds"));
+                                proteusMarket.setThirdOriginalOdds(jsonObject2.getDouble("originalOdds"));
+                                proteusMarket.setThirdSelectionName(jsonObject2.getString("team"));
+                                proteusMarket.setThirdHDPPoint(jsonObject2.getDouble("hdp"));
+                            }
                         }
+                        return proteusMarket;
                     }
-                    return proteusMarket;
                 }
             } else {
                 for (int i = 0; i < jsonArray.length(); i++) {

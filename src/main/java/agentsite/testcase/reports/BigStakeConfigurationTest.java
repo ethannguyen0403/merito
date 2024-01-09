@@ -65,12 +65,13 @@ public class BigStakeConfigurationTest extends BaseCaseTest {
     public void Agent_Report_Big_Stake_Configuration_814(String username) {
         log("@title:Validate can configure big stake ");
         log("Step 1. Navigate Report > Top Gainers & Top Losers > Big Stake Configuration");
+        int stake = 13;
         BigStakeConfigurationPage page = agentHomePage.navigateBigStakeConfigurationPage();
 
         log("Step 2. Update Big stake = 13");
         String currentDateTime = DateUtils.getDate(0, "dd/MMM/yyyy HH:mm", AGConstant.timeZone);
         try {
-            String message = page.configureBigStake("13");
+            String message = page.configureBigStake(String.valueOf(stake));
 
             log("Verify 1. Can update big stake successfully\" Big stake configuration is saved successfully.\"");
             Assert.assertEquals(message, AGConstant.Report.BigStakeConfiguration.LBL_SUCCESS_MESSAGE, "FAILED! Success message is incorrect");
@@ -78,7 +79,7 @@ public class BigStakeConfigurationTest extends BaseCaseTest {
             page.btnOK.click();
             List<ArrayList<String>> configuredData = page.tblBigStakeConfiguration.getRowsWithoutHeader(1, false);
             Assert.assertTrue(configuredData.get(0).get(0).contains(currentDateTime), "FAILED! configure date time not correctly");
-            Assert.assertTrue(configuredData.get(0).get(1).contains("13.00"), "FAILED! configure date time not correctly");
+            Assert.assertTrue(configuredData.get(0).get(1).contains(String.format("%.2f", stake)), "FAILED! configure date time not correctly");
             Assert.assertTrue(configuredData.get(0).get(2).contains(username), "FAILED! configure date time not correctly");
             log("INFO: Executed completely");
         } finally {

@@ -9,6 +9,8 @@ import membersite.objects.proteus.ProteusBetslip;
 import membersite.objects.proteus.ProteusEvent;
 import membersite.objects.proteus.ProteusMarket;
 import org.testng.Assert;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +48,7 @@ public class EuroViewPage extends ProteusHomePage {
 
     public void selectOddsType (String oddsType){
         ddmOddsType.clickSubMenu(oddsType);
-        waitContentLoad();
+        waitForSpinnerLoading();
     }
 
     public String getOddsType(){
@@ -150,9 +152,21 @@ public class EuroViewPage extends ProteusHomePage {
             Assert.assertEquals(betslip.getHDPPoint(), event.getHomeName(), String.format("FAILED! HDP Point does not show correct expected %s actual %s", event.getHomeName(), betslip.getHDPPoint()));
         }
         Assert.assertTrue(betslip.getSummaryEventInfo().contains(event.getLeagueName()), String.format("FAILED! Summary Info %s does not contains league name %s", betslip.getSummaryEventInfo(), event.getLeagueName()));
-        Assert.assertEquals(betslip.getOdds(), String.valueOf(lstOddsConvert.get(0)), String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsConvert.get(0), betslip.getOdds()));
+        Assert.assertEquals(betslip.getOdds(), String.valueOf(String.format("%.3f", lstOddsConvert.get(0))), String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsConvert.get(0), betslip.getOdds()));
         Assert.assertEquals(betslip.getStake(), stake, String.format("FAILED! Stake does not show correct expected %s actual %s", stake, betslip.getStake()));
     }
 
+    public List<Double> getListOddsFirstEvent(ProteusEvent event, String marketType) {
+        List<Double> lstOdds = new ArrayList<>();
+        if(marketType.equalsIgnoreCase("1x2")) {
+            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().substring(1, 6)));
+            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().substring(1, 6)));
+            lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText().substring(1, 6)));
+        } else {
+            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().substring(1, 6)));
+            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().substring(1, 6)));
+        }
+        return lstOdds;
+    }
 
 }

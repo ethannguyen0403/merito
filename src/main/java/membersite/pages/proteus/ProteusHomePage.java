@@ -47,11 +47,14 @@ public class ProteusHomePage extends HomePage {
     }
 
     public String getCurrentUserOddsGroup(int eventId) {
+        AsianViewPage asianViewPage = selectAsianView();
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
         Label lblEvent = Label.xpath(String.format("//app-events//table[@eventid='%s']", eventId));
         if(lblEvent.isDisplayed()) {
             return lblEvent.getAttribute("oddgroup");
         } else {
-            return null;
+            asianViewPage.selectPeriodTab(TODAY_PERIOD);
+            return lblEvent.getAttribute("oddgroup");
         }
     }
 
@@ -108,24 +111,24 @@ public class ProteusHomePage extends HomePage {
                     return lstRoundedDecimalOdds;
                 } else if (oddsType.equalsIgnoreCase("HK")) {
                     for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-                        lstOddsAdjust.add((lstRoundedDecimalOdds.get(i) - 1) * 100 / 100);
+                        lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 100) / 100);
                     }
                     return lstOddsAdjust;
                 } else if (oddsType.equalsIgnoreCase("ID")) {
                     for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
                         if(lstRoundedDecimalOdds.get(i) >= 2) {
-                            lstOddsAdjust.add((lstRoundedDecimalOdds.get(i) - 1) * 100 / 100);
+                            lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 100) / 100);
                         } else {
-                            lstOddsAdjust.add(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 100 / 100));
+                            lstOddsAdjust.add(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 100) / 100);
                         }
                     }
                     return lstOddsAdjust;
                 } else if (oddsType.equalsIgnoreCase("MY")) {
                     for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
                         if(lstRoundedDecimalOdds.get(i) <= 2) {
-                            lstOddsAdjust.add((lstRoundedDecimalOdds.get(i) - 1) * 100 / 100);
+                            lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 100) / 100);
                         } else {
-                            lstOddsAdjust.add(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 1000 / 1000));
+                            lstOddsAdjust.add(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 1000) / 1000);
                         }
                     }
                     return lstOddsAdjust;

@@ -52,7 +52,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         euroViewPage.selectOddsType(DECIMAL);
 
         log("Verify 1: Verify odds type change to DECIMAL");
-        Assert.assertEquals(euroViewPage.getOddsType(),DECIMAL.toUpperCase(),"Failed! Odds Type is incorrect after selecting");
+        Assert.assertEquals(euroViewPage.getOddsType(),DECIMAL.toUpperCase().trim(),"Failed! Odds Type is incorrect after selecting");
 
         log("INFO: Executed completely");
     }
@@ -72,7 +72,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         euroViewPage.selectOddsType(HONGKONG);
 
         log("Verify 1: Verify odds type change to HONGKONG");
-        Assert.assertEquals(euroViewPage.getOddsType(),HONGKONG.toUpperCase(),"Failed! Odds Type is incorrect after selecting");
+        Assert.assertEquals(euroViewPage.getOddsType(),HONGKONG.toUpperCase().trim(),"Failed! Odds Type is incorrect after selecting");
 
         log("INFO: Executed completely");
     }
@@ -93,7 +93,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         euroViewPage.selectOddsType(MALAY);
 
         log("Verify 1: Verify odds type change to MALAY");
-        Assert.assertEquals(euroViewPage.getOddsType(),MALAY.toUpperCase(),"Failed! Odds Type is incorrect after selecting");
+        Assert.assertEquals(euroViewPage.getOddsType(),MALAY.toUpperCase().trim(),"Failed! Odds Type is incorrect after selecting");
 
         log("INFO: Executed completely");
     }
@@ -113,7 +113,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         euroViewPage.selectOddsType(AMERICAN);
 
         log("Verify 1: Verify odds type change to AMERICAN");
-        Assert.assertEquals(euroViewPage.getOddsType(),AMERICAN.toUpperCase(),"Failed! Odds Type is incorrect after selecting");
+        Assert.assertEquals(euroViewPage.getOddsType(),AMERICAN.toUpperCase().trim(),"Failed! Odds Type is incorrect after selecting");
 
         log("INFO: Executed completely");
     }
@@ -223,8 +223,6 @@ public class ProteusHomePageTest extends BaseCaseTest {
         ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get("HDP"), Double.valueOf(event.getHDPPoint()));
 
         //workaround to get odds group of current user
-        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-        asianViewPage.selectPeriodTab(EARLY_PERIOD);
         String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
         proteusHomePage.selectEuroView();
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
@@ -235,9 +233,9 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 5. Add an handicap odds of Home team to bet slip");
         euroViewPage.placeBet(event, "10", false);
         List<Double> lstBaseOdds = new ArrayList<>();
-        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getFirstOdds())));
-        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getSecondOdds())));
-        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getThirdOdds())));
+        lstBaseOdds.add(market.getFirstOdds());
+        lstBaseOdds.add(market.getSecondOdds());
+        lstBaseOdds.add(market.getThirdOdds());
         List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("Decimal"));
         log("Verify Check odds handicap info display in bet slip correctly:\n" +
                 "Selection, handicap point (negative/positive sign), odds");
@@ -263,8 +261,6 @@ public class ProteusHomePageTest extends BaseCaseTest {
         ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get("Over Under"), Double.valueOf(event.getHDPPoint()));
 
         //workaround to get odds group of current user
-        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-        asianViewPage.selectPeriodTab(EARLY_PERIOD);
         String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
         proteusHomePage.selectEuroView();
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
@@ -275,12 +271,275 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 5. Add an Over Under odds of Home team to bet slip");
         euroViewPage.placeBet(event, "10", false);
         List<Double> lstBaseOdds = new ArrayList<>();
-        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getFirstOdds())));
-        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getSecondOdds())));
-        lstBaseOdds.add(Double.valueOf(String.format("%.3f", market.getThirdOdds())));
+        lstBaseOdds.add(market.getFirstOdds());
+        lstBaseOdds.add(market.getSecondOdds());
+        lstBaseOdds.add(market.getThirdOdds());
         List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("Decimal"));
         log("Verify Check odds handicap info display in bet slip correctly:\n" +
                 "Selection, over under point (negative/positive sign), odds");
         euroViewPage.verifyBetSlipInfoShowCorrect(event, market, "10", OVER_UNDER_TEXT, lstOddsConvert);
+    }
+
+    @TestRails(id = "4128")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4128() {
+        log("@title: Validate odds of 1x2 market display in Decimal when selecting Malay odds in EU view list event");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectMarketTypeTab(MONEYLINE_TEXT);
+
+        log("Step 4. Get Decimal odds and change odds type to Malay");
+        ProteusEvent event = euroViewPage.getFirstEventInfo();
+        ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(MONEYLINE_TEXT), null);
+
+        //workaround to get odds group of current user
+        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
+        proteusHomePage.selectEuroView();
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectMarketTypeTab(MONEYLINE_TEXT);
+        //end workaround
+
+        List<Double> lstBaseOdds = new ArrayList<>();
+        lstBaseOdds.add(market.getFirstOdds());
+        lstBaseOdds.add(market.getSecondOdds());
+        lstBaseOdds.add(market.getThirdOdds());
+        List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("Decimal"));
+        euroViewPage.selectOddsType(MALAY);
+
+        log("Verify Check odds when changing to Malay is same as odds when selected Decimal odds type");
+        List<Double> lstOddsActual = euroViewPage.getListOddsFirstEvent(event, MONEYLINE_TEXT);
+        Assert.assertTrue(lstOddsActual.equals(lstOddsConvert), String.format("FAILED! Odds List between DEC and MY type is not the same expected %s actual %s", lstOddsConvert, lstOddsActual));
+    }
+    @TestRails(id = "4129")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4129() {
+        log("@title: Validate odds of 1x2 market display in Decimal when selecting HK odds in EU view list event");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectMarketTypeTab(MONEYLINE_TEXT);
+
+        log("Step 4. Get Decimal odds and change odds type to HK");
+        ProteusEvent event = euroViewPage.getFirstEventInfo();
+        ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(MONEYLINE_TEXT), null);
+
+        //workaround to get odds group of current user
+        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
+        proteusHomePage.selectEuroView();
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectMarketTypeTab(MONEYLINE_TEXT);
+        //end workaround
+
+        List<Double> lstBaseOdds = new ArrayList<>();
+        lstBaseOdds.add(market.getFirstOdds());
+        lstBaseOdds.add(market.getSecondOdds());
+        lstBaseOdds.add(market.getThirdOdds());
+        List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("Decimal"));
+        euroViewPage.selectOddsType(HONGKONG);
+
+        log("Verify Check odds when changing to HK is same as odds when selected Decimal odds type");
+        List<Double> lstOddsActual = euroViewPage.getListOddsFirstEvent(event, MONEYLINE_TEXT);
+        Assert.assertTrue(lstOddsActual.equals(lstOddsConvert), String.format("FAILED! Odds List between DEC and MY type is not the same expected %s actual %s", lstOddsConvert, lstOddsActual));
+    }
+
+    @TestRails(id = "4151")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4151() {
+        log("@title: Validate Player group E display the correct Decimal odds in 1x2 market in Asian View");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+
+        log("Step 4. Select Decimal odds type");
+        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
+        log("Step 5. From Decimal odds off account group A, calculate and check odds on account group E is correct");
+        ProteusEvent event = asianViewPage.getFirstEventInfo(MONEYLINE_TEXT);
+        ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(MONEYLINE_TEXT), null);
+        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
+        List<Double> lstBaseOdds = new ArrayList<>();
+        lstBaseOdds.add(market.getFirstOdds());
+        lstBaseOdds.add(market.getSecondOdds());
+        lstBaseOdds.add(market.getThirdOdds());
+        List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("Decimal"));
+
+        log("Verify Odds of 1x2 market is display correctly based on user group");
+        List<Double> lstOddsActual = asianViewPage.getListOddsFirstEvent(event, MONEYLINE_TEXT);
+        Assert.assertTrue(lstOddsConvert.containsAll(lstOddsActual), String.format("FAILED! Odds List does not show correct expected %s actual %s", lstOddsConvert, lstOddsActual));
+    }
+
+    @TestRails(id = "4152")
+    @Test(groups = {"Proteus.2024.V.1.011"})
+    public void PS38_Member_TC4152() {
+        log("@title: Validate Player group E display the correct Hongkong odds in 1x2 market in Asian View");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+
+        log("Step 4. Select Hongkong odds type");
+        asianViewPage.selectOddsType(ASIAN_HONGKONG_ODDS);
+        log("Step 5. From Decimal odds off account group A, calculate and check odds on account group E is correct");
+        ProteusEvent event = asianViewPage.getFirstEventInfo(MONEYLINE_TEXT);
+        ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(MONEYLINE_TEXT), null);
+        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
+        List<Double> lstBaseOdds = new ArrayList<>();
+        lstBaseOdds.add(market.getFirstOdds());
+        lstBaseOdds.add(market.getSecondOdds());
+        lstBaseOdds.add(market.getThirdOdds());
+        List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("Hongkong"));
+
+        log("Verify Odds of 1x2 market is display correctly based on user group");
+        List<Double> lstOddsActual = asianViewPage.getListOddsFirstEvent(event, MONEYLINE_TEXT);
+        Assert.assertTrue(lstOddsConvert.containsAll(lstOddsActual), String.format("FAILED! Odds List does not show correct expected %s actual %s", lstOddsConvert, lstOddsActual));
+    }
+
+    @TestRails(id = "4153")
+    @Test(groups = {"Proteus.2024.V.1.011"})
+    public void PS38_Member_TC4153() {
+        log("@title: Validate Player group E display the correct Malay odds in 1x2 market in Asian View");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+
+        log("Step 4. Select Malay odds type");
+        asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
+        log("Step 5. From Decimal odds off account group A, calculate and check odds on account group E is correct");
+        ProteusEvent event = asianViewPage.getFirstEventInfo("1X2");
+        ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(MONEYLINE_TEXT), null);
+        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
+        List<Double> lstBaseOdds = new ArrayList<>();
+        lstBaseOdds.add(market.getFirstOdds());
+        lstBaseOdds.add(market.getSecondOdds());
+        lstBaseOdds.add(market.getThirdOdds());
+        List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("Malay"));
+
+        log("Verify Odds of 1x2 market is display correctly based on user group");
+        List<Double> lstOddsActual = asianViewPage.getListOddsFirstEvent(event, MONEYLINE_TEXT);
+        Assert.assertTrue(lstOddsConvert.containsAll(lstOddsActual), String.format("FAILED! Odds List does not show correct expected %s actual %s", lstOddsConvert, lstOddsActual));
+    }
+
+    @TestRails(id = "4154")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4154() {
+        log("@title: Validate Player group E display the correct American odds in 1x2 market in Asian View");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+
+        log("Step 4. Select American odds type");
+        asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
+        log("Step 5. From Decimal odds off account group A, calculate and check odds on account group E is correct");
+        ProteusEvent event = asianViewPage.getFirstEventInfo(MONEYLINE_TEXT);
+        ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(MONEYLINE_TEXT), null);
+        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
+        List<Double> lstBaseOdds = new ArrayList<>();
+        lstBaseOdds.add(market.getFirstOdds());
+        lstBaseOdds.add(market.getSecondOdds());
+        lstBaseOdds.add(market.getThirdOdds());
+        List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("American"));
+
+        log("Verify Odds of 1x2 market is display correctly based on user group");
+        List<Double> lstOddsActual = asianViewPage.getListOddsFirstEvent(event, MONEYLINE_TEXT);
+        Assert.assertTrue(lstOddsConvert.containsAll(lstOddsActual), String.format("FAILED! Odds List does not show correct expected %s actual %s", lstOddsConvert, lstOddsActual));
+    }
+
+    @TestRails(id = "4155")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4155() {
+        log("@title: Validate Player group E display the correct Decimal odds in Over Under market Asian View");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+
+        log("Step 4. Select American odds type");
+        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
+        log("Step 5. From Decimal odds off account group A, calculate and check odds on account group E is correct");
+        ProteusEvent event = asianViewPage.getFirstEventInfo(OVER_UNDER_TEXT);
+        ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(OVER_UNDER_TEXT), Double.valueOf(event.getHDPPoint()));
+        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
+        List<Double> lstBaseOdds = new ArrayList<>();
+        lstBaseOdds.add(market.getFirstOdds());
+        lstBaseOdds.add(market.getSecondOdds());
+        lstBaseOdds.add(market.getThirdOdds());
+        List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("Decimal"));
+
+        log("Verify Odds of 1x2 market is display correctly based on user group");
+        List<Double> lstOddsActual = asianViewPage.getListOddsFirstEvent(event, OVER_UNDER_TEXT);
+        Assert.assertTrue(lstOddsConvert.containsAll(lstOddsActual), String.format("FAILED! Odds List does not show correct expected %s actual %s", lstOddsConvert, lstOddsActual));
+    }
+
+    @TestRails(id = "4156")
+    @Test(groups = {"Proteus.2024.V.1.01"})
+    public void PS38_Member_TC4156() {
+        log("@title: Validate Player group E display the correct Decimal odds in Over Under market Asian View");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+
+        log("Step 4. Select American odds type");
+        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
+        log("Step 5. From Decimal odds off account group A, calculate and check odds on account group E is correct");
+        ProteusEvent event = asianViewPage.getFirstEventInfo(OVER_UNDER_TEXT);
+        ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(OVER_UNDER_TEXT), Double.valueOf(event.getHDPPoint()));
+        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
+        List<Double> lstBaseOdds = new ArrayList<>();
+        lstBaseOdds.add(market.getFirstOdds());
+        lstBaseOdds.add(market.getSecondOdds());
+        lstBaseOdds.add(market.getThirdOdds());
+        List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get("Hongkong"));
+
+        log("Verify Odds of 1x2 market is display correctly based on user group");
+        List<Double> lstOddsActual = asianViewPage.getListOddsFirstEvent(event, OVER_UNDER_TEXT);
+        Assert.assertTrue(lstOddsConvert.containsAll(lstOddsActual), String.format("FAILED! Odds List does not show correct expected %s actual %s", lstOddsConvert, lstOddsActual));
     }
 }
