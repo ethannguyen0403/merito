@@ -35,7 +35,9 @@ public class CreateDownLineAgentPage extends HomePage {
     // Product Settings - Exchange Tab
     public Label lblProductSetting = Label.xpath("//div[contains(@id,'product-settings')]/div[@class='psection']");
     public Tab tabExchangeGames = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange Games']");
-
+    // Switch Tabs PS38
+    public Button btnCancelSwitchTab = Button.xpath("//button[contains(@class, 'btn-cancel')]");
+    public Button btnSwitchTab = Button.xpath("//button[contains(@class, 'btn') and contains(text(), 'Switch Tabs')]");
     //Exchange Product - Bet Settings
 
     public Label lblBetSettings = Label.xpath("//div[@id='EXCHANGE-bet-settings']/div[@class='psection']");
