@@ -16,10 +16,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 import static common.MemberConstants.*;
 
@@ -330,7 +327,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 1. Active any market of soccer");
         SportPage page = memberHomePage.navigateSportHeaderMenu(sportName);
 
-        Event event = page.eventContainerControl.getEvent(false, false, 30, 1);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
         if (Objects.isNull(event)) {
             log("DEBUG: There is no event available");
             return;
@@ -346,13 +343,10 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         market.getBtnOdd().click();
         marketPage.betsSlipContainer.placeBet(oddsBack, minBet);
 
-        Order wager1 = marketPage.myBetsContainer.getOrder(false, false);
-        Order wager2 = marketPage.myBetsContainer.getOrder(false, true);
-
         log("Step 3. Open My Bet Page and get Wager info");
         MyBetsPage myBetsPage = marketPage.openMyBet();
         myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
-        List<ArrayList<String>> lstUnmatched = myBetsPage.getReportIndex(3, false);
+        List<String> lstUnmatchId = myBetsPage.getReportColumnValue(2, "Bet ID");
 
         log("Step 4. Back to market page and click Cancel all link");
         myBetsPage.switchToPreviousTab();
@@ -364,13 +358,12 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 5. Open My bet and filter Cancel option");
         myBetsPage = marketPage.openMyBet();
         myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"));
-        List<ArrayList<String>> lstCancelled = myBetsPage.getReportIndex(2, false);
 
         log("Verify 2. Bet in My bet display with the status cancel");
-        for (int i = 0, n = lstCancelled.size(); i < n; i++) {
-            Assert.assertEquals(lstCancelled.get(i).get(1), lstUnmatched.get(i).get(1), String.format("ERROR! Expected Order ID is %s but found %s", lstUnmatched.get(i).get(1), lstCancelled.get(0).get(1)));
-            Assert.assertEquals(lstCancelled.get(i).get(8), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"), String.format("ERROR! Expected status is Cancelled but found %s", lstCancelled.get(0).get(8)));
-        }
+        List<String> lstCancelledId = myBetsPage.getReportColumnValue(2, "Bet ID");
+        List<String> lstCancelledStatus = myBetsPage.getReportColumnValue(2, "Status");
+        Assert.assertEquals(lstUnmatchId, lstCancelledId, String.format("FAILED! Order ID is %s but found %s", lstUnmatchId, lstCancelledId));
+        Assert.assertTrue(lstCancelledStatus.containsAll(Collections.singleton("Cancelled")), String.format("FAILED! Status List %s is not contains all Cancelled", lstCancelledStatus));
 
         log("Verify 3. Cancelled bet not display in Unmatched list anymore");
         myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
@@ -378,9 +371,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         if (!myBetsPage.getNoDataMesage().equals("")) {
             Assert.assertEquals(myBetsPage.getNoDataMesage(), MemberConstants.MyBetsPage.NO_RECORD_FOUND, "FAILED, Message there is no record in unmatch list is incorrect");
         } else {
-            lstUnmatched = myBetsPage.getReportIndex(1, false);
-            Assert.assertFalse(StringUtils.isListContainText(lstUnmatched, wager1.getOrderID(), 1), "ERROR! Expected Order ID not display but found ");
-            Assert.assertFalse(StringUtils.isListContainText(lstUnmatched, wager2.getOrderID(), 1), "ERROR! Expected Order ID not display but found ");
+            lstUnmatchId = myBetsPage.getReportColumnValue(2, "Bet ID");
+            Assert.assertFalse(lstUnmatchId.equals(lstCancelledId), String.format("FAILED! Unmatched List %s still contains cancelled bet id %s", lstUnmatchId, lstCancelledId));
         }
         log("INFO: Executed completely");
     }

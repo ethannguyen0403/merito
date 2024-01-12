@@ -6,7 +6,7 @@ import com.paltech.element.common.TextBox;
 import controls.Table;
 import membersite.controls.DropDownMenu;
 import membersite.objects.proteus.ProteusBetslip;
-import membersite.objects.proteus.ProteusEvent;
+import membersite.objects.proteus.ProteusGeneralEvent;
 import membersite.objects.proteus.ProteusMarket;
 import org.testng.Assert;
 
@@ -83,16 +83,16 @@ public class EuroViewPage extends ProteusHomePage {
         }
     }
 
-    public ProteusEvent getFirstEventInfo() {
-        ProteusEvent proteusEvent = new ProteusEvent.Builder().build();
-        proteusEvent.setEventId(Integer.valueOf(tblFirstEvent.getAttribute("eventid")));
-        proteusEvent.setLeagueId(Integer.valueOf(tblFirstLeague.getAttribute("leagueid")));
-        proteusEvent.setLeagueName(lblFirstLeague.getText().trim());
-        proteusEvent.setHomeName(lblFirstEventHomeName.getText().trim());
-        proteusEvent.setAwayName(lblFirstEventAwayName.getText().trim());
-        proteusEvent.setBtnFirstSelection(lblFirstSelection);
-        proteusEvent.setBtnSecondSelection(lblSecondSelection);
-        proteusEvent.setBtnThirdSelection(lblThirdSelection);
+    public ProteusGeneralEvent getFirstEventInfo() {
+        ProteusGeneralEvent proteusGeneralEvent = new ProteusGeneralEvent.Builder().build();
+        proteusGeneralEvent.setEventId(Integer.valueOf(tblFirstEvent.getAttribute("eventid")));
+        proteusGeneralEvent.setLeagueId(Integer.valueOf(tblFirstLeague.getAttribute("leagueid")));
+        proteusGeneralEvent.setLeagueName(lblFirstLeague.getText().trim());
+        proteusGeneralEvent.setHomeName(lblFirstEventHomeName.getText().trim());
+        proteusGeneralEvent.setAwayName(lblFirstEventAwayName.getText().trim());
+        proteusGeneralEvent.setBtnFirstSelection(lblFirstSelection);
+        proteusGeneralEvent.setBtnSecondSelection(lblSecondSelection);
+        proteusGeneralEvent.setBtnThirdSelection(lblThirdSelection);
         if(lblFirstHDP.isDisplayed()) {
             double hdp;
             String hdpText = lblFirstHDP.getText().trim().replace(" ","");
@@ -101,15 +101,15 @@ public class EuroViewPage extends ProteusHomePage {
                 double firstHDP = Double.parseDouble(lstHdp[0].trim());
                 double secondHDP = Double.parseDouble(lstHdp[1].trim());
                 hdp = (firstHDP + secondHDP)/2;
-                proteusEvent.setHDPPoint(String.valueOf(hdp));
+                proteusGeneralEvent.setHDPPoint(String.valueOf(hdp));
             } else {
-                proteusEvent.setHDPPoint(hdpText);
+                proteusGeneralEvent.setHDPPoint(hdpText);
             }
         }
-        return proteusEvent;
+        return proteusGeneralEvent;
     }
 
-    public void placeBet(ProteusEvent event, String stake, boolean isSubmit) {
+    public void placeBet(ProteusGeneralEvent event, String stake, boolean isSubmit) {
         if(Objects.nonNull(event)) {
             event.getBtnFirstSelection().click();
             txtStake.sendKeys(stake);
@@ -134,7 +134,7 @@ public class EuroViewPage extends ProteusHomePage {
                 .stake(lblStake.getAttribute("value")).build();
     }
 
-    public void verifyBetSlipInfoShowCorrect(ProteusEvent event, ProteusMarket market, String stake, String marketType, List<Double> lstOddsConvert) {
+    public void verifyBetSlipInfoShowCorrect(ProteusGeneralEvent event, ProteusMarket market, String stake, String marketType, List<Double> lstOddsConvert) {
         String hdpPoint;
         String eventName = event.getHomeName() + " vs " + event.getAwayName();
         ProteusBetslip betslip = getBetSlipInfo(String.valueOf(event.getEventId()));
@@ -156,7 +156,7 @@ public class EuroViewPage extends ProteusHomePage {
         Assert.assertEquals(betslip.getStake(), stake, String.format("FAILED! Stake does not show correct expected %s actual %s", stake, betslip.getStake()));
     }
 
-    public List<Double> getListOddsFirstEvent(ProteusEvent event, String marketType) {
+    public List<Double> getListOddsFirstEvent(ProteusGeneralEvent event, String marketType) {
         List<Double> lstOdds = new ArrayList<>();
         if(marketType.equalsIgnoreCase("1x2")) {
             lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().substring(1, 6)));

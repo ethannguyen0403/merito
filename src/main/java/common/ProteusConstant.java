@@ -10,9 +10,10 @@ public class ProteusConstant {
     public static final String HONGKONG = " Hongkong ";
     public static final String MALAY = " Malay ";
     public static final String AMERICAN = " American ";
-    public static final String HDP_TEXT = "Handicap";
-    public static final String MONEYLINE_TEXT = "1X2";
-    public static final String OVER_UNDER_TEXT = "Over Under";
+    public static final String TEXT_HDP = "Handicap";
+    public static final String TEXT_1X2 = "1X2";
+    public static final String TEXT_OVER_UNDER = "Over Under";
+    public static final String TEXT_MATCH_TOTAL = "Match - Team Totals";
     public static final String EARLY_PERIOD = "Early";
     public static final String LIVE_PERIOD = "Live";
     public static final String TODAY_PERIOD = "Today";
@@ -31,9 +32,10 @@ public class ProteusConstant {
 
     public static final Map<String, String> MARKET_TYPE_MAPPING = new HashMap<String, String>() {
         {
-            put("HDP", "SPREAD");
+            put("Handicap", "SPREAD");
             put("1X2", "MONEYLINE");
             put("Over Under", "TOTAL_POINTS");
+            put("Match - Team Totals", "TEAM_TOTAL_POINTS");
         }
     };
 

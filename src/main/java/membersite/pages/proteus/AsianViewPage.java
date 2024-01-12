@@ -4,10 +4,12 @@ import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import controls.Table;
 import membersite.controls.DropDownMenu;
-import membersite.objects.proteus.ProteusEvent;
+import membersite.objects.proteus.ProteusGeneralEvent;
+import membersite.objects.proteus.ProteusTeamTotalEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AsianViewPage extends ProteusHomePage {
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
@@ -24,6 +26,7 @@ public class AsianViewPage extends ProteusHomePage {
     private String secondSelectionXpath =  "((//app-league-asian//th[contains(@class,'odd-column')])[%s]//span[contains(@class,'odd-number')])[2]";
     private Label lblThirdSelection =  Label.xpath("((//app-league-asian//th[contains(@class,'odd-column')])[1]//span[contains(@class,'odd-number')])[3]");
     private String firstHDPXpath = "((//app-league-asian//table)[1]//div[contains(@class,'normal hdp')])[%s]";
+    private Table tblMoreMarket = Table.xpath("//app-market-asian//div[@class='market-detail']/div[2]//table[contains(@class,'table market')]", 6);
     String sportLeftMenuXpath = "//app-left-menu-asian//div[contains(@class,'live-title')]//span[text()=' Sports ']//..//following-sibling::div//div[text()='%s']";
     public AsianViewPage(String types) {
         super(types);
@@ -56,56 +59,56 @@ public class AsianViewPage extends ProteusHomePage {
         waitForSpinnerLoading();
     }
 
-    public ProteusEvent getFirstEventInfo(String marketType) {
+    public ProteusGeneralEvent getFirstEventInfo(String marketType) {
         double hdp;
-        ProteusEvent proteusEvent = new ProteusEvent.Builder().build();
-        proteusEvent.setEventId(Integer.valueOf(tblFirstEvent.getAttribute("eventid")));
-        proteusEvent.setLeagueName(lblFirstLeague.getText().trim());
-        proteusEvent.setHomeName(lblFirstEventHomeName.getText().trim());
-        proteusEvent.setAwayName(lblFirstEventAwayName.getText().trim());
+        ProteusGeneralEvent proteusGeneralEvent = new ProteusGeneralEvent.Builder().build();
+        proteusGeneralEvent.setEventId(Integer.valueOf(tblFirstEvent.getAttribute("eventid")));
+        proteusGeneralEvent.setLeagueName(lblFirstLeague.getText().trim());
+        proteusGeneralEvent.setHomeName(lblFirstEventHomeName.getText().trim());
+        proteusGeneralEvent.setAwayName(lblFirstEventAwayName.getText().trim());
         if(marketType.equalsIgnoreCase("1x2")) {
             Label lblFirstSelection = Label.xpath(String.format(firstSelectionXpath, 1));
             Label lblSecondSelection = Label.xpath(String.format(secondSelectionXpath, 1));
-            proteusEvent.setBtnFirstSelection(lblFirstSelection);
-            proteusEvent.setBtnSecondSelection(lblSecondSelection);
-            proteusEvent.setBtnThirdSelection(lblThirdSelection);
+            proteusGeneralEvent.setBtnFirstSelection(lblFirstSelection);
+            proteusGeneralEvent.setBtnSecondSelection(lblSecondSelection);
+            proteusGeneralEvent.setBtnThirdSelection(lblThirdSelection);
         } else if (marketType.equalsIgnoreCase("Handicap")) {
             Label lblFirstSelection = Label.xpath(String.format(firstSelectionXpath, 2));
             Label lblSecondSelection = Label.xpath(String.format(secondSelectionXpath, 2));
             Label lblFirstHDP = Label.xpath(String.format(firstHDPXpath, 1));
-            proteusEvent.setBtnFirstSelection(lblFirstSelection);
-            proteusEvent.setBtnSecondSelection(lblSecondSelection);
+            proteusGeneralEvent.setBtnFirstSelection(lblFirstSelection);
+            proteusGeneralEvent.setBtnSecondSelection(lblSecondSelection);
             String hdpText = lblFirstHDP.getText().trim().replaceAll("[\nu]","");
             if(hdpText.contains("-")) {
                 String[] lstHdp = hdpText.split("-");
                 double firstHDP = Double.parseDouble(lstHdp[0].trim());
                 double secondHDP = Double.parseDouble(lstHdp[1].trim());
                 hdp = 0 - ((firstHDP + secondHDP)/2);
-                proteusEvent.setHDPPoint(String.valueOf(hdp));
+                proteusGeneralEvent.setHDPPoint(String.valueOf(hdp));
             } else {
-                proteusEvent.setHDPPoint(hdpText);
+                proteusGeneralEvent.setHDPPoint(hdpText);
             }
         } else {
             Label lblFirstSelection = Label.xpath(String.format(firstSelectionXpath, 3));
             Label lblSecondSelection = Label.xpath(String.format(secondSelectionXpath, 3));
             Label lblFirstHDP = Label.xpath(String.format(firstHDPXpath, 2));
-            proteusEvent.setBtnFirstSelection(lblFirstSelection);
-            proteusEvent.setBtnSecondSelection(lblSecondSelection);
+            proteusGeneralEvent.setBtnFirstSelection(lblFirstSelection);
+            proteusGeneralEvent.setBtnSecondSelection(lblSecondSelection);
             String hdpText = lblFirstHDP.getText().trim().replaceAll("[\nu]","");
             if(hdpText.contains("-")) {
                 String[] lstHdp = hdpText.split("-");
                 double firstHDP = Double.parseDouble(lstHdp[0].trim());
                 double secondHDP = Double.parseDouble(lstHdp[1].trim());
                 hdp = 0 - ((firstHDP + secondHDP)/2);
-                proteusEvent.setHDPPoint(String.valueOf(hdp));
+                proteusGeneralEvent.setHDPPoint(String.valueOf(hdp));
             } else {
-                proteusEvent.setHDPPoint(hdpText);
+                proteusGeneralEvent.setHDPPoint(hdpText);
             }
         }
-        return proteusEvent;
+        return proteusGeneralEvent;
     }
 
-    public List<Double> getListOddsFirstEvent(ProteusEvent event, String marketType) {
+    public List<Double> getListOddsFirstEvent(ProteusGeneralEvent event, String marketType) {
         List<Double> lstOdds = new ArrayList<>();
         if(marketType.equalsIgnoreCase("1x2")) {
             //workaround in case odds contains special character
@@ -114,19 +117,50 @@ public class AsianViewPage extends ProteusHomePage {
                 lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().substring(1,6)));
                 lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText().substring(1,6)));
             } else {
-                lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText()));
-                lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText()));
-                lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText()));
+                //handle for odds AM
+                if(event.getBtnFirstSelection().getText().contains("−") || event.getBtnFirstSelection().getText().contains("+")) {
+                    lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[−+]","")));
+                    lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[−+]","")));
+                    lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText().replaceAll("[−+]","")));
+                } else {
+                    lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText()));
+                    lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText()));
+                    lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText()));
+                }
             }
         } else {
             if(event.getBtnFirstSelection().getText().length() > 5) {
                 lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().substring(1,6)));
                 lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().substring(1,6)));
             } else {
-                lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText()));
-                lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText()));
+                //handle for odds AM
+                if(event.getBtnFirstSelection().getText().contains("−") || event.getBtnFirstSelection().getText().contains("+")) {
+                    lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[−+]", "")));
+                    lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[−+]", "")));
+                } else {
+                    lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText()));
+                    lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText()));
+                }
             }
         }
         return lstOdds;
+    }
+
+    public ProteusTeamTotalEvent getFirstMatchTeamTotalEventInfo() {
+        ProteusTeamTotalEvent proteusTeamTotalEvent = new ProteusTeamTotalEvent.Builder().build();
+        proteusTeamTotalEvent.setEventId(Integer.valueOf(tblFirstEvent.getAttribute("eventid")));
+        proteusTeamTotalEvent.setLeagueName(lblFirstLeague.getText().trim());
+        proteusTeamTotalEvent.setHomeName(lblFirstEventHomeName.getText().trim());
+        proteusTeamTotalEvent.setAwayName(lblFirstEventAwayName.getText().trim());
+        ArrayList<String> lstRow = tblMoreMarket.getRow(1);
+        if(Objects.nonNull(lstRow)) {
+            proteusTeamTotalEvent.setHomeGoals(Double.valueOf(lstRow.get(0)));
+            proteusTeamTotalEvent.setHomeOver(Double.valueOf(lstRow.get(1)));
+            proteusTeamTotalEvent.setHomeUnder(Double.valueOf(lstRow.get(2)));
+            proteusTeamTotalEvent.setAwayGoals(Double.valueOf(lstRow.get(3)));
+            proteusTeamTotalEvent.setAwayOver(Double.valueOf(lstRow.get(4)));
+            proteusTeamTotalEvent.setAwayUnder(Double.valueOf(lstRow.get(5)));
+        }
+        return proteusTeamTotalEvent;
     }
 }

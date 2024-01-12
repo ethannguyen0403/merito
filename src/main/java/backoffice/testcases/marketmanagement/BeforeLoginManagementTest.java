@@ -175,7 +175,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         log("@title: Validate can search market type");
         log("Step 1. Access Operations > Before Login Management");
         String sport = "Ice Hockey";
-        String marketTye = "To Qualify";
+        String marketTye = "Handicap";
         BeforeLoginManagementPage page = backofficeHomePage.navigateBeforeLoginManagement();
         page.filter("Sport & Market Type","","","",true);
 
