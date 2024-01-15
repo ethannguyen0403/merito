@@ -1,12 +1,14 @@
 package agentsite.pages.agentmanagement.createdownlineagent.betsettingsection;
 
+import agentsite.controls.DropDownBox;
 import agentsite.controls.Table;
+import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
+import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class BetSettingSection {
     int totalColumn = 9;
