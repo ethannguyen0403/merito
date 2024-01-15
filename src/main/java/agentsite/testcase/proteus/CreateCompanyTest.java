@@ -411,4 +411,32 @@ public class CreateCompanyTest extends BaseCaseTest {
         Assert.assertTrue(page.betSettingSectionPS38.btnView.isDisplayed(), "FAILED! View button is not displayed");
     }
 
+    @TestRails(id = "4058")
+    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Parameters({"currency"})
+    public void PS38_Agent_TC4058(String currency) {
+        log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, Special league inherit the setting of the according general sport");
+        log("Precondition: Log in successfully by PO level");
+        log("Step 1: Navigate Agency Management > Create Company");
+        CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
+        log("Step 2: Select base currency: " + currency);
+        page.accountInforSection.selectCurrency(currency);
+        log("Step 3: Under Product Settings , select product PS38");
+        page.productStatusSettingInforSection.selectProduct(PS38);
+        log("Step 4:  Select Sport = Soccer, League = General. Observe the setting of General row");
+        page.betSettingSectionPS38.ddbSportsPS38.selectByVisibleText(LBL_SOCCER_SPORT);
+        page.betSettingSectionPS38.ddbLeaguePS38.selectByVisibleText("General");
+        log("Step 5: Add other league");
+        page.betSettingSectionPS38.ddbLeaguePS38.selectByIndex(1);
+        page.betSettingSectionPS38.btnAdd.click();
+
+        String lblLeagueSetting = String.format("%s: %s", LBL_SOCCER_SPORT,  page.betSettingSectionPS38.ddbLeaguePS38.getFirstSelectedOption().trim());
+        log(String.format("Verify 1: The league: %s is add under sport and inherit value and setting of General sport", lblLeagueSetting));
+        Assert.assertEquals(page.betSettingSectionPS38.getControlTxtBoxBetSettingPS38(lblLeagueSetting, HEADER_BET_SETTING_PS38.get(1)).getAttribute("value").trim(), AMOUNT_MIN_BET_PS38_HKD,
+                String.format("FAILED! Value of league: %s at colum: %s is not inherit", lblLeagueSetting, HEADER_BET_SETTING_PS38.get(1)));
+        Assert.assertEquals(page.betSettingSectionPS38.getControlTxtBoxBetSettingPS38(lblLeagueSetting, HEADER_BET_SETTING_PS38.get(2)).getAttribute("value").trim(), AMOUNT_MAX_BET_PS38_HKD,
+                String.format("FAILED! Value of league: %s at colum: %s is not inherit", lblLeagueSetting, HEADER_BET_SETTING_PS38.get(2)));
+        Assert.assertEquals(page.betSettingSectionPS38.getControlTxtBoxBetSettingPS38(lblLeagueSetting, HEADER_BET_SETTING_PS38.get(3)).getAttribute("value").trim(), AMOUNT_MAX_PER_MATCH_PS38_HKD,
+                String.format("FAILED! Value of league: %s at colum: %s is not inherit", lblLeagueSetting, HEADER_BET_SETTING_PS38.get(3)));
+    }
 }
