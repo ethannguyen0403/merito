@@ -2,7 +2,7 @@ package membersite.objects.proteus;
 
 import com.paltech.element.common.Label;
 
-public class ProteusEvent {
+public class ProteusGeneralEvent {
     private int _leagueId;
     private int _eventId;
     private String _leagueName;
@@ -12,7 +12,7 @@ public class ProteusEvent {
     private Label _btnFirstSelection;
     private Label _btnSecondSelection;
     private Label _btnThirdSelection;
-    public ProteusEvent(Builder builder) {
+    public ProteusGeneralEvent(Builder builder) {
         this._leagueId = builder._leagueId;
         this._eventId = builder._eventId;
         this._leagueName = builder._leagueName;
@@ -149,8 +149,8 @@ public class ProteusEvent {
             return this;
         }
 
-        public ProteusEvent build() {
-            return new ProteusEvent(this);
+        public ProteusGeneralEvent build() {
+            return new ProteusGeneralEvent(this);
         }
 
     }

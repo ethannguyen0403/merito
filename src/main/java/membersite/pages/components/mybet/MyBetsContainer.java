@@ -66,6 +66,10 @@ public class MyBetsContainer {
         return null;
     }
 
+    public List<String> getReportColumnValue(int rowIndex, String columnName) {
+        return null;
+    }
+
     public String getNoRecord() {
         return "";
     }

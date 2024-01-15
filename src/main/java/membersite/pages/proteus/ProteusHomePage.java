@@ -3,6 +3,7 @@ package membersite.pages.proteus;
 import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
 import membersite.pages.HomePage;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,8 @@ public class ProteusHomePage extends HomePage {
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
     public Label lblLoading = Label.xpath("//div[contains(@class,'loading-text')]/p");
     private Image imgSpinner = Image.xpath("//em[contains(@class,'fa-4x fa-spin')]");
+    private String moreMarketXpath = "//app-league-asian//table[@eventid='%s']//th[contains(@class,'more-markets')]";
+    private Label lblMoreMarketDetails = Label.xpath("(//app-market-asian//div[@class='market-detail']//div[contains(@class,'market-item')]/span)");
     public ProteusHomePage(String types) {
         super(types);
     }
@@ -47,11 +50,14 @@ public class ProteusHomePage extends HomePage {
     }
 
     public String getCurrentUserOddsGroup(int eventId) {
+        AsianViewPage asianViewPage = selectAsianView();
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
         Label lblEvent = Label.xpath(String.format("//app-events//table[@eventid='%s']", eventId));
         if(lblEvent.isDisplayed()) {
             return lblEvent.getAttribute("oddgroup");
         } else {
-            return null;
+            asianViewPage.selectPeriodTab(TODAY_PERIOD);
+            return lblEvent.getAttribute("oddgroup");
         }
     }
 
@@ -108,33 +114,37 @@ public class ProteusHomePage extends HomePage {
                     return lstRoundedDecimalOdds;
                 } else if (oddsType.equalsIgnoreCase("HK")) {
                     for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-                        lstOddsAdjust.add((lstRoundedDecimalOdds.get(i) - 1) * 100 / 100);
+                        //rounding to 3 decimal places
+                        lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
                     }
                     return lstOddsAdjust;
                 } else if (oddsType.equalsIgnoreCase("ID")) {
                     for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        //rounding to 3 decimal places
                         if(lstRoundedDecimalOdds.get(i) >= 2) {
-                            lstOddsAdjust.add((lstRoundedDecimalOdds.get(i) - 1) * 100 / 100);
+                            lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
                         } else {
-                            lstOddsAdjust.add(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 100 / 100));
+                            lstOddsAdjust.add(Math.abs(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 10000) / 10000));
                         }
                     }
                     return lstOddsAdjust;
                 } else if (oddsType.equalsIgnoreCase("MY")) {
                     for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        //rounding to 3 decimal places
                         if(lstRoundedDecimalOdds.get(i) <= 2) {
-                            lstOddsAdjust.add((lstRoundedDecimalOdds.get(i) - 1) * 100 / 100);
+                            lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
                         } else {
-                            lstOddsAdjust.add(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 1000 / 1000));
+                            lstOddsAdjust.add(Math.abs(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 10000) / 10000));
                         }
                     }
                     return lstOddsAdjust;
                 } else {
                     for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        //return list no matter negative number
                         if(lstRoundedDecimalOdds.get(i) < 2) {
-                            lstOddsAdjust.add(-100/ (lstRoundedDecimalOdds.get(i) - 1));
+                            lstOddsAdjust.add(Double.valueOf(Math.abs(Math.round(-100/ (lstRoundedDecimalOdds.get(i) - 1)))));
                         } else {
-                            lstOddsAdjust.add((lstRoundedDecimalOdds.get(i) - 1) * 100);
+                            lstOddsAdjust.add(Math.floor(((lstRoundedDecimalOdds.get(i) - 1) * 100) * 10000) / 10000);
                         }
                     }
                     return lstOddsAdjust;
@@ -142,5 +152,30 @@ public class ProteusHomePage extends HomePage {
             }
         }
         return lstOddsAdjust;
+    }
+
+    public void compareOddsShowCorrect(List<Double> lstOddsConvert, List<Double> lstOddsActual, double tolerance) {
+        Assert.assertEquals(lstOddsConvert.size(), lstOddsActual.size(), String.format("FAILED! Number of odds between 2 compare list is not same convert %s actual %s", lstOddsConvert, lstOddsActual));
+        for (int i = 0; i < lstOddsConvert.size(); i++) {
+            Assert.assertEquals(lstOddsConvert.get(i), lstOddsActual.get(i), tolerance, String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsConvert, lstOddsActual));
+        }
+    }
+
+    public void openMoreMarkets(String eventId) {
+        Label lblMoreMarket = Label.xpath(String.format(moreMarketXpath, eventId));
+        if(lblMoreMarket.isDisplayed()) {
+            lblMoreMarket.click();
+            waitForSpinnerLoading();
+        }
+    }
+
+    public void selectMoreMarket(String marketName) {
+        for (int i = 0; i < lblMoreMarketDetails.getWebElements().size(); i++) {
+            String xpath = lblMoreMarketDetails.getLocator().toString().replace("By.xpath: ","") + String.format("[%s]", i + 1);
+            Label lblMarketName = Label.xpath(xpath);
+            if(lblMarketName.getText().trim().contains(marketName)) {
+                lblMarketName.click();
+            }
+        }
     }
 }
