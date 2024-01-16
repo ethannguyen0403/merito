@@ -11,7 +11,6 @@ import static common.ProteusConstant.*;
 
 public class ProteusHomePageTest extends BaseCaseTest {
 
-
     @TestRails(id = "4062")
     @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4062() {
