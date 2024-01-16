@@ -73,10 +73,10 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
         String stake = Label.xpath(String.format("%s[%d]//span[3]", matchUnmatchXpath, 1)).getText();
         return new Order.Builder()
                 .selectionName(Label.xpath(String.format("%s[%d]//span[contains(@class,'runner-name')]", matchUnmatchXpath, 1)).getText())
-                .odds(Label.xpath(String.format("%s[%d]//span[2]", matchUnmatchXpath, 1)).getText())
+                .odds(Label.xpath(String.format("%s[%d]/span[2]", matchUnmatchXpath, 1)).getText())
                 .stake(stake)
-                .profit(isBack ? Label.xpath(String.format("%s[%d]//span[4]", matchUnmatchXpath, 1)).getText() : stake)
-                .liablity(isBack ? stake : Label.xpath(String.format("%s[%d]//span[4]", matchUnmatchXpath, 1)).getText())
+                .profit(isBack ? Label.xpath(String.format("%s[%d]/span[4]", matchUnmatchXpath, 1)).getText() : stake)
+                .liablity(isBack ? stake : Label.xpath(String.format("%s[%d]/span[4]", matchUnmatchXpath, 1)).getText())
                 .build();
     }
 

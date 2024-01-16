@@ -14,6 +14,7 @@ import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.Ra
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.RiskSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.TransferSettingSection;
+import agentsite.pages.agentmanagement.proteus.BetSettingSectionPS38;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.SuccessPopup;
@@ -35,7 +36,9 @@ public class CreateDownLineAgentPage extends HomePage {
     // Product Settings - Exchange Tab
     public Label lblProductSetting = Label.xpath("//div[contains(@id,'product-settings')]/div[@class='psection']");
     public Tab tabExchangeGames = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange Games']");
-
+    // Switch Tabs PS38
+    public Button btnCancelSwitchTab = Button.xpath("//button[contains(@class, 'btn-cancel')]");
+    public Button btnSwitchTab = Button.xpath("//button[contains(@class, 'btn') and contains(text(), 'Switch Tabs')]");
     //Exchange Product - Bet Settings
 
     public Label lblBetSettings = Label.xpath("//div[@id='EXCHANGE-bet-settings']/div[@class='psection']");
@@ -60,6 +63,9 @@ public class CreateDownLineAgentPage extends HomePage {
     public PositionTakingSection positionTakingInforSection;
     public TransferSettingSection transferSettingInforSection;
     public CommissionSettingSection commissionSettingSection;
+    //proteus
+    public BetSettingSectionPS38 betSettingSectionPS38;
+
     protected String _type;
     private int totalBetSettingsColumns = 9;
     public Table tblBetSettings = Table.xpath("//div[@id='EXCHANGE-bet-settings']//table[contains(@class,'betTable')]", totalBetSettingsColumns);
@@ -89,6 +95,7 @@ public class CreateDownLineAgentPage extends HomePage {
         productStatusSettingInforSection = ComponentsFactory.productStatusSettingInfoObject(_type);
         accountBalanceTransferConditionInforSection = ComponentsFactory.accountBalanceTransferConditionInfoObject(_type);
         transferSettingInforSection = ComponentsFactory.transferSettingInfoObject(_type);
+        betSettingSectionPS38 = new BetSettingSectionPS38();
     }
 
     public String createDownline(String loginID, String password, String accountStatus) {
