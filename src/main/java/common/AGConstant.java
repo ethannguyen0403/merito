@@ -257,7 +257,20 @@ public class AGConstant {
             public final static String LBL_ALLOW_CASHOUT = "Allow Cash Out";
             public final static String LBL_IS_CREDIT_CASH = "Credit Cash";
             public final static String LBL_CURRENCY = "Currency";
-
+            public final static List<String>
+                    LIST_SPORTS_PS38 = Arrays.asList("Soccer", "Baseball", "Basketball", "Football", "E Sports", "Others", "Mix Parlay", "Teaser");
+            public final static List<String>
+                    HEADER_BET_SETTING_PS38 = Arrays.asList("", "Min Bet", "Max Bet", "Max Per Match");
+            public final static String PREGAME_TAB_PS38 = "Pregame";
+            public final static String INPLAY_TAB_PS38 = "Inplay";
+            public final static String CHECKBOX_MESSAGE_PS38 = "Copy all Limits for all Sports and Leagues for %s ONLY from the sport below";
+            public final static String AMOUNT_MIN_BET_PS38_HKD = "1";
+            public final static String AMOUNT_MAX_BET_PS38_HKD = "100,000,000";
+            public final static String AMOUNT_MAX_PER_MATCH_PS38_HKD = "100,000,000";
+            public final static String AMOUNT_MIN_BET_PS38_INR = "9";
+            public final static String AMOUNT_MAX_BET_PS38_INR = "881,849,768";
+            public final static String AMOUNT_MAX_PER_MATCH_PS38_INR = "881,849,768";
+            public final static String SWITCH_TAB_MESSAGE_PS38 = "You have unsaved changes on this tab. Switching tabs will result in losing your changes. Do you wish to switch tabs?";
         }
         public static class CreateAccount {
             public final static String LBL_LOGIN_ID = "Login ID";
