@@ -75,5 +75,13 @@
         <property name="apiURL" value="${GREEN.APIURL}"/>
         <property name="domainURL" value="${GREEN.Domain}"/>
     </bean>
+    <bean name="blue" class="objects.Environment" scope="prototype">
+        <property name="fairURL" value="${BLUE.FAIRURL}"/>
+        <property name="satURL" value="${BLUE.SATURL}"/>
+        <property name="funsportURL" value="${BLUE.FUNSPORTURL}"/>
+        <property name="fairenterURL" value="${BLUE.FAIRENTERURL}"/>
+        <property name="backofficeURL" value="${BLUE.BackofficeURL}"/>
+        <property name="securityCode" value="${BLUE.SecurityCode}"/>
+    </bean>
 
 </beans>

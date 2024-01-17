@@ -17,7 +17,7 @@ import java.util.Objects;
 public class EuroViewPage extends ProteusHomePage {
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
     public Label lblLoading = Label.xpath("//div[contains(@class,'loading-text')]/p");
-    public DropDownMenu ddmOddsType = DropDownMenu.xpath("//ul[contains(@class,'control-list')]/li[2]","span[@class='mx-2 text-uppercase']","//ul[contains(@class,'sub-selections')]//li");
+    public DropDownMenu ddmOddsType = DropDownMenu.xpath("//ul[contains(@class,'control-list')]/li[contains(@class,'odd')]","//span[@class='mx-2 text-uppercase']","//ul[contains(@class,'sub-selections')]//li");
     private String sportHeaderMenuXpath = "//app-slider-sport//em[contains(@class,'menu-%s')]";
     private String sportLeftMenuXpath = "//app-left-menu-euro//div[contains(@class,'menu-item')]//div[text()='%s']";
     private String marketTabXpath = "//app-sport-euro//div[contains(@class,'market-group')]//button[text()='%s']";
