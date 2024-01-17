@@ -21,6 +21,8 @@ public class ProteusConstant {
     public static final String ASIAN_HONGKONG_ODDS = " Hong Kong Odds ";
     public static final String ASIAN_MALAY_ODDS = " Malay Odds ";
     public static final String ASIAN_AMERICAN_ODDS = " American Odds ";
+    public static final String PENDING_BETS_TAB = "PENDING BETS";
+    public static final String BET_SLIP_TAB = "BET SLIP";
     public static final Map<String, String> ODDS_GROUP_ADJUSTMENT_MAPPING = new HashMap<String, String>() {
         {
             put("B", "0.28");
