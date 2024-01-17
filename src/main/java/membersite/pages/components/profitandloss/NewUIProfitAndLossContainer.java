@@ -6,8 +6,10 @@ import com.paltech.element.common.TextBox;
 import common.MemberConstants;
 import controls.DateTimePicker;
 import controls.Table;
+import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class NewUIProfitAndLossContainer extends ProfitAndLossContainer {
@@ -46,6 +48,7 @@ public class NewUIProfitAndLossContainer extends ProfitAndLossContainer {
     private int colWagerTotalTax = 3;
     private int colWagerTotalNet = 4;
     private Table tblWager = Table.xpath("//app-profit-group-betdetail//table", colWagerTotal);
+    private Table tblPS38BetDetail = Table.xpath("//app-sportsbook-bet//div[contains(@class,'table-responsive')]//table[contains(@class,'table-sm')]", 12);
     private TextBox txtStartDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.START_DATE));
     private DateTimePicker dtpStartDate = DateTimePicker.xpath(txtStartDate, "//bs-datepicker-container//div[contains(@class,'bs-datepicker-container')]");
     private TextBox txtEndDate = TextBox.xpath(String.format("//label[text()='%s']/following::input[1]", MemberConstants.MyBetsPage.END_DATE));
@@ -196,5 +199,44 @@ public class NewUIProfitAndLossContainer extends ProfitAndLossContainer {
 
     public boolean isExportButtonDisplay() {
         return btnExport.isDisplayed();
+    }
+
+    public void openBetDetailsOfSportsBook(String sportGameName, String eventName) {
+        int totalRow = tblSport.getNumberOfRows(false, true);
+        int colIndex = tblSport.getColumnIndexByName("Sport/Game");
+        for (int i = 0; i < totalRow - 1; i++) {
+            Label lblCellValue = (Label) tblSport.getLabelOfCell(1, colIndex, i + 1, "span");
+            if(lblCellValue.getText().trim().equalsIgnoreCase(sportGameName)) {
+                lblCellValue.click();
+            }
+        }
+        if(tblMarket.isDisplayed()) {
+            colIndex = tblMarket.getColumnIndexByName("Event Name");
+            totalRow = tblMarket.getNumberOfRows(false, true);
+            for (int i = 0; i < totalRow - 1; i++) {
+                Label lblCellValue = (Label) tblMarket.getLabelOfCell(1, colIndex, i + 1, "span");
+                if(lblCellValue.getText().trim().equalsIgnoreCase(eventName)) {
+                    lblCellValue.click();
+                }
+            }
+        }
+    }
+
+    public void verifyCommissionProteusSportsBook(double commissionConfig) {
+        double expectedComm;
+        List<String> lstColumnsName = Arrays.asList("Risk", "To Win", "Commission");
+        List<Integer> lstColumnIndex = tblPS38BetDetail.getListColumnIndexByListName(lstColumnsName);
+        Label lblToRiskCell = (Label) tblPS38BetDetail.getLabelOfCell(1, lstColumnIndex.get(0) + 1, 1, null);
+        Label lblToWinCell = (Label) tblPS38BetDetail.getLabelOfCell(1, lstColumnIndex.get(1) + 1, 1, null);
+        Label lblCommissionCell = (Label) tblPS38BetDetail.getLabelOfCell(1, lstColumnIndex.get(2) + 1, 1, null);
+        double toRiskValue = Double.valueOf(lblToRiskCell.getText().trim());
+        double toWinValue = Double.valueOf(lblToWinCell.getText().trim());
+        double commissionValue = Double.valueOf(lblCommissionCell.getText().trim());
+        if(toRiskValue <= toWinValue) {
+            expectedComm = Math.floor((toRiskValue * commissionConfig) * 1000) / 1000;
+        } else {
+            expectedComm = Math.floor((toWinValue * commissionConfig) * 1000) / 1000;
+        }
+        Assert.assertEquals(commissionValue, expectedComm, 0.01, String.format("FAILED! Commission is not correct expected %s actual %s", commissionValue, expectedComm));
     }
 }

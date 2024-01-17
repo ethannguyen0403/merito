@@ -50,4 +50,7 @@ public class ProfitAndLossContainer {
     public boolean isExportButtonDisplay() {
         return false;
     }
+
+    public void openBetDetailsOfSportsBook(String sportGameName, String eventName) {}
+    public void verifyCommissionProteusSportsBook(double commissionConfig) {}
 }

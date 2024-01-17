@@ -38,6 +38,7 @@ public class EuroViewPage extends ProteusHomePage {
     private Label lblFirstSelection = Label.xpath("((//app-league-euro//table[contains(@class,'odd-page')])[1]//th[contains(@class,'odd-column')])[1]");
     private Label lblSecondSelection = Label.xpath("((//app-league-euro//table[contains(@class,'odd-page')])[1]//th[contains(@class,'odd-column')])[2]");
     private Label lblThirdSelection = Label.xpath("((//app-league-euro//table[contains(@class,'odd-page')])[1]//th[contains(@class,'odd-column')])[3]");
+    private Button btnOK = Button.xpath("//app-confirm-modal//button[contains(@class,'btn-ok')]");
     public EuroViewPage(String types) {
         super(types);
     }
@@ -115,6 +116,8 @@ public class EuroViewPage extends ProteusHomePage {
             txtStake.sendKeys(stake);
             if(isSubmit) {
                 btnPlaceBet.jsClick();
+                btnOK.waitForElementToBePresent(btnOK.getLocator());
+                btnOK.jsClick();
                 waitForSpinnerLoading();
             }
         }
@@ -159,12 +162,12 @@ public class EuroViewPage extends ProteusHomePage {
     public List<Double> getListOddsFirstEvent(ProteusGeneralEvent event, String marketType) {
         List<Double> lstOdds = new ArrayList<>();
         if(marketType.equalsIgnoreCase("1x2")) {
-            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().substring(1, 6)));
-            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().substring(1, 6)));
-            lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText().substring(1, 6)));
+            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[⠀−+]","")));
+            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[⠀−+]","")));
+            lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText().replaceAll("[⠀−+]","")));
         } else {
-            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().substring(1, 6)));
-            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().substring(1, 6)));
+            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[⠀−+]","")));
+            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[⠀−+]","")));
         }
         return lstOdds;
     }
