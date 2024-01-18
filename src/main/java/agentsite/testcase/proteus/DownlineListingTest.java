@@ -67,7 +67,7 @@ public class DownlineListingTest extends BaseCaseTest {
         editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
         editPage.editDownlineListing.positionTakingSectionPS38.expandPositionSection(true);
         log("Step 4: Select Sport as Soccer and and League is General and click View");
-        editPage.editDownlineListing.positionTakingSectionPS38.addSport("Soccer", "General");
+        editPage.editDownlineListing.positionTakingSectionPS38.addSport("Soccer", GENERAL);
         log("Step 5: Update PT for any market of Soccer sport then click Submit");
         String positionValue = StringUtils.generateNumeric(10,20);
         Map<String, String> betType = new HashMap<>();

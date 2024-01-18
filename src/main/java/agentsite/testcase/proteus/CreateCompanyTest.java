@@ -425,7 +425,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         page.productStatusSettingInforSection.selectProduct(PS38);
         log("Step 4:  Select Sport = Soccer, League = General. Observe the setting of General row");
         page.betSettingSectionPS38.ddbSportsPS38.selectByVisibleText(LBL_SOCCER_SPORT);
-        page.betSettingSectionPS38.ddbLeaguePS38.selectByVisibleText("General");
+        page.betSettingSectionPS38.ddbLeaguePS38.selectByVisibleText(GENERAL);
         log("Step 5: Add other league");
         page.betSettingSectionPS38.ddbLeaguePS38.selectByIndex(1);
         page.betSettingSectionPS38.btnAdd.click();
