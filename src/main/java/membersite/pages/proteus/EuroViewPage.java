@@ -6,16 +6,18 @@ import com.paltech.element.common.TextBox;
 import controls.Table;
 import membersite.controls.DropDownMenu;
 import membersite.objects.proteus.ProteusBetslip;
-import membersite.objects.proteus.ProteusEvent;
+import membersite.objects.proteus.ProteusGeneralEvent;
 import membersite.objects.proteus.ProteusMarket;
 import org.testng.Assert;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class EuroViewPage extends ProteusHomePage {
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
     public Label lblLoading = Label.xpath("//div[contains(@class,'loading-text')]/p");
-    public DropDownMenu ddmOddsType = DropDownMenu.xpath("//ul[contains(@class,'control-list')]/li[2]","span[@class='mx-2 text-uppercase']","//ul[contains(@class,'sub-selections')]//li");
+    public DropDownMenu ddmOddsType = DropDownMenu.xpath("//ul[contains(@class,'control-list')]/li[contains(@class,'odd')]","//span[@class='mx-2 text-uppercase']","//ul[contains(@class,'sub-selections')]//li");
     private String sportHeaderMenuXpath = "//app-slider-sport//em[contains(@class,'menu-%s')]";
     private String sportLeftMenuXpath = "//app-left-menu-euro//div[contains(@class,'menu-item')]//div[text()='%s']";
     private String marketTabXpath = "//app-sport-euro//div[contains(@class,'market-group')]//button[text()='%s']";
@@ -36,6 +38,7 @@ public class EuroViewPage extends ProteusHomePage {
     private Label lblFirstSelection = Label.xpath("((//app-league-euro//table[contains(@class,'odd-page')])[1]//th[contains(@class,'odd-column')])[1]");
     private Label lblSecondSelection = Label.xpath("((//app-league-euro//table[contains(@class,'odd-page')])[1]//th[contains(@class,'odd-column')])[2]");
     private Label lblThirdSelection = Label.xpath("((//app-league-euro//table[contains(@class,'odd-page')])[1]//th[contains(@class,'odd-column')])[3]");
+    private Button btnOK = Button.xpath("//app-confirm-modal//button[contains(@class,'btn-ok')]");
     public EuroViewPage(String types) {
         super(types);
     }
@@ -46,7 +49,7 @@ public class EuroViewPage extends ProteusHomePage {
 
     public void selectOddsType (String oddsType){
         ddmOddsType.clickSubMenu(oddsType);
-        waitContentLoad();
+        waitForSpinnerLoading();
     }
 
     public String getOddsType(){
@@ -81,16 +84,16 @@ public class EuroViewPage extends ProteusHomePage {
         }
     }
 
-    public ProteusEvent getFirstEventInfo() {
-        ProteusEvent proteusEvent = new ProteusEvent.Builder().build();
-        proteusEvent.setEventId(Integer.valueOf(tblFirstEvent.getAttribute("eventid")));
-        proteusEvent.setLeagueId(Integer.valueOf(tblFirstLeague.getAttribute("leagueid")));
-        proteusEvent.setLeagueName(lblFirstLeague.getText().trim());
-        proteusEvent.setHomeName(lblFirstEventHomeName.getText().trim());
-        proteusEvent.setAwayName(lblFirstEventAwayName.getText().trim());
-        proteusEvent.setBtnFirstSelection(lblFirstSelection);
-        proteusEvent.setBtnSecondSelection(lblSecondSelection);
-        proteusEvent.setBtnThirdSelection(lblThirdSelection);
+    public ProteusGeneralEvent getFirstEventInfo() {
+        ProteusGeneralEvent proteusGeneralEvent = new ProteusGeneralEvent.Builder().build();
+        proteusGeneralEvent.setEventId(Integer.valueOf(tblFirstEvent.getAttribute("eventid")));
+        proteusGeneralEvent.setLeagueId(Integer.valueOf(tblFirstLeague.getAttribute("leagueid")));
+        proteusGeneralEvent.setLeagueName(lblFirstLeague.getText().trim());
+        proteusGeneralEvent.setHomeName(lblFirstEventHomeName.getText().trim());
+        proteusGeneralEvent.setAwayName(lblFirstEventAwayName.getText().trim());
+        proteusGeneralEvent.setBtnFirstSelection(lblFirstSelection);
+        proteusGeneralEvent.setBtnSecondSelection(lblSecondSelection);
+        proteusGeneralEvent.setBtnThirdSelection(lblThirdSelection);
         if(lblFirstHDP.isDisplayed()) {
             double hdp;
             String hdpText = lblFirstHDP.getText().trim().replace(" ","");
@@ -99,20 +102,22 @@ public class EuroViewPage extends ProteusHomePage {
                 double firstHDP = Double.parseDouble(lstHdp[0].trim());
                 double secondHDP = Double.parseDouble(lstHdp[1].trim());
                 hdp = (firstHDP + secondHDP)/2;
-                proteusEvent.setHDPPoint(String.valueOf(hdp));
+                proteusGeneralEvent.setHDPPoint(String.valueOf(hdp));
             } else {
-                proteusEvent.setHDPPoint(hdpText);
+                proteusGeneralEvent.setHDPPoint(hdpText);
             }
         }
-        return proteusEvent;
+        return proteusGeneralEvent;
     }
 
-    public void placeBet(ProteusEvent event, String stake, boolean isSubmit) {
+    public void placeBet(ProteusGeneralEvent event, String stake, boolean isSubmit) {
         if(Objects.nonNull(event)) {
             event.getBtnFirstSelection().click();
             txtStake.sendKeys(stake);
             if(isSubmit) {
                 btnPlaceBet.jsClick();
+                btnOK.waitForElementToBePresent(btnOK.getLocator());
+                btnOK.jsClick();
                 waitForSpinnerLoading();
             }
         }
@@ -132,7 +137,7 @@ public class EuroViewPage extends ProteusHomePage {
                 .stake(lblStake.getAttribute("value")).build();
     }
 
-    public void verifyBetSlipInfoShowCorrect(ProteusEvent event, ProteusMarket market, String stake, String marketType, List<Double> lstOddsConvert) {
+    public void verifyBetSlipInfoShowCorrect(ProteusGeneralEvent event, ProteusMarket market, String stake, String marketType, List<Double> lstOddsConvert) {
         String hdpPoint;
         String eventName = event.getHomeName() + " vs " + event.getAwayName();
         ProteusBetslip betslip = getBetSlipInfo(String.valueOf(event.getEventId()));
@@ -150,9 +155,21 @@ public class EuroViewPage extends ProteusHomePage {
             Assert.assertEquals(betslip.getHDPPoint(), event.getHomeName(), String.format("FAILED! HDP Point does not show correct expected %s actual %s", event.getHomeName(), betslip.getHDPPoint()));
         }
         Assert.assertTrue(betslip.getSummaryEventInfo().contains(event.getLeagueName()), String.format("FAILED! Summary Info %s does not contains league name %s", betslip.getSummaryEventInfo(), event.getLeagueName()));
-        Assert.assertEquals(betslip.getOdds(), String.valueOf(lstOddsConvert.get(0)), String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsConvert.get(0), betslip.getOdds()));
+        Assert.assertEquals(betslip.getOdds(), String.valueOf(String.format("%.3f", lstOddsConvert.get(0))), String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsConvert.get(0), betslip.getOdds()));
         Assert.assertEquals(betslip.getStake(), stake, String.format("FAILED! Stake does not show correct expected %s actual %s", stake, betslip.getStake()));
     }
 
+    public List<Double> getListOddsFirstEvent(ProteusGeneralEvent event, String marketType) {
+        List<Double> lstOdds = new ArrayList<>();
+        if(marketType.equalsIgnoreCase("1x2")) {
+            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[⠀−+]","")));
+            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[⠀−+]","")));
+            lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText().replaceAll("[⠀−+]","")));
+        } else {
+            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[⠀−+]","")));
+            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[⠀−+]","")));
+        }
+        return lstOdds;
+    }
 
 }

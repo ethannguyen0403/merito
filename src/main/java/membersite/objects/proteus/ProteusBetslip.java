@@ -6,12 +6,16 @@ public class ProteusBetslip {
     private String _hdpPoint;
     private String _odds;
     private String _stake;
+    private String _toRisk;
+    private String _toWin;
     public ProteusBetslip(Builder builder) {
         this._eventName = builder._eventName;
         this._summaryEventInfo = builder._summaryEventInfo;
         this._odds = builder._odds;
         this._stake = builder._stake;
         this._hdpPoint = builder._hdpPoint;
+        this._toRisk = builder._toRisk;
+        this._toWin = builder._toWin;
     }
 
     public void setEventName(String val) {
@@ -49,7 +53,20 @@ public class ProteusBetslip {
     public String getHDPPoint() {
         return _hdpPoint;
     }
+    public void setToRisk(String toRisk) {
+        _toRisk = toRisk;
+    }
 
+    public String getToRisk() {
+        return _toRisk;
+    }
+    public void setToWin(String toWin) {
+        _toWin = toWin;
+    }
+
+    public String getToWin() {
+        return _toWin;
+    }
     public static class Builder {
         // Optional parameters
         private String _eventName;
@@ -57,6 +74,8 @@ public class ProteusBetslip {
         private String _hdpPoint;
         private String _odds;
         private String _stake;
+        private String _toRisk;
+        private String _toWin;
         public Builder() {
         }
 
@@ -82,6 +101,16 @@ public class ProteusBetslip {
 
         public Builder stake(String val) {
             _stake = val;
+            return this;
+        }
+
+        public Builder toRisk(String val) {
+            _toRisk = val;
+            return this;
+        }
+
+        public Builder toWin(String val) {
+            _toWin = val;
             return this;
         }
 

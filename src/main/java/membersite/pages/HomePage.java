@@ -90,7 +90,7 @@ public class HomePage extends LandingPage {
             eventContainerControl.clickEvent(event);
         } else
             eventContainerControl.clickEvent(event);
-        waitMenuLoading();
+        waitPageLoad();
         return new MarketPage(this._type);
     }
 

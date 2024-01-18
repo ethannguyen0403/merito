@@ -207,5 +207,11 @@ public class ProfitAndLossPage extends HomePage {
         return String.format("%.2f", loss * (-1));
     }
 
+    public void openBetDetailsOfSportsBook(String sportGameName, String eventName) {
+        profitAndLossContainer.openBetDetailsOfSportsBook(sportGameName, eventName);
+    }
+    public void verifyCommissionProteusSportsBook(double commissionConfig) {
+        profitAndLossContainer.verifyCommissionProteusSportsBook(commissionConfig);
+    }
 
 }
