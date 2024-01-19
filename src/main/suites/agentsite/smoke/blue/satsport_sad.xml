@@ -7,7 +7,7 @@
 
     <test name="Smoke SAT Agent Site in Blue">
         <parameter name='browser' value='window10.local.chrome'/>
-        <parameter name='env' value='Blue'/>
+        <parameter name='env' value='blue'/>
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
