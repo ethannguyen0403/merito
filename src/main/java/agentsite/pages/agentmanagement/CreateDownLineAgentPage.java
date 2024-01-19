@@ -14,13 +14,13 @@ import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.Ra
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.RiskSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.TransferSettingSection;
-import agentsite.pages.agentmanagement.proteus.BetSettingSectionPS38;
+import agentsite.pages.agentmanagement.proteus.createdownlineagent.BetSettingSectionPS38;
+import agentsite.pages.agentmanagement.proteus.createdownlineagent.PositionTakingSectionPS38;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.SuccessPopup;
 import com.paltech.element.common.*;
 
-import java.util.List;
 import java.util.Map;
 
 public class CreateDownLineAgentPage extends HomePage {
@@ -65,6 +65,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public CommissionSettingSection commissionSettingSection;
     //proteus
     public BetSettingSectionPS38 betSettingSectionPS38;
+    public PositionTakingSectionPS38 positionTakingSectionPS38;
 
     protected String _type;
     private int totalBetSettingsColumns = 9;
@@ -96,6 +97,7 @@ public class CreateDownLineAgentPage extends HomePage {
         accountBalanceTransferConditionInforSection = ComponentsFactory.accountBalanceTransferConditionInfoObject(_type);
         transferSettingInforSection = ComponentsFactory.transferSettingInfoObject(_type);
         betSettingSectionPS38 = new BetSettingSectionPS38();
+        positionTakingSectionPS38 = new PositionTakingSectionPS38();
     }
 
     public String createDownline(String loginID, String password, String accountStatus) {

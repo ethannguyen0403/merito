@@ -4,6 +4,7 @@ import agentsite.controls.Table;
 import agentsite.pages.agentmanagement.downlinelisting.ChangePasswordPopup;
 import agentsite.pages.agentmanagement.downlinelisting.DownlineListing;
 import agentsite.pages.agentmanagement.downlinelisting.EditDownlinePopup;
+import agentsite.pages.agentmanagement.proteus.editdownlinelisting.EditDownlineListingPS38;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.SuccessPopup;
 import com.paltech.element.common.*;
@@ -30,10 +31,12 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
     public Label lblNoRecord = Label.xpath("//table[contains(@class,'ptable report')]//span[contains(@class,'no-record')]");
     public EditDownlinePopup editDownlinePopup;
     public DownlineListing downlineListing;
+    public EditDownlineListingPS38 editDownlineListingPS38;
     public DownLineListingPage(String type) {
         super(type);
         _type = type;
         downlineListing = ComponentsFactory.downlineListingPage(_type);
+        editDownlineListingPS38 = new EditDownlineListingPS38();
     }
 
     public void searchDownline(String loginId, String accountStatus, String level) {
@@ -78,6 +81,19 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
             }
             index = index + 1;
         }
+    }
+
+    public void submitEditDownlinePS38(boolean isClose){
+        submitEditDownline();
+        if(editDownlineListingPS38.btnYes.isDisplayed()){
+            editDownlineListingPS38.btnYes.click();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        getMessageUpdate(isClose);
     }
 
     public void submitEditDownline() {
