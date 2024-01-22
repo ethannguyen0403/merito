@@ -40,6 +40,10 @@ public class AccountStatementPage extends HomePage {
         return accountStatementContainer.getReportHeader();
     }
 
+    public List<String> getReportDetailHeader(){
+        return accountStatementContainer.getReportDetailHeader();
+    }
+
     public void clickNarrationOnTheFirstRow() {
         accountStatementContainer.clickNarration();
     }

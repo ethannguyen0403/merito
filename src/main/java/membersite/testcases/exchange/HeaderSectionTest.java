@@ -341,11 +341,11 @@ public class HeaderSectionTest extends BaseCaseTest {
             return;
         }
         log("Step 2. Click on market in my market popup");
-        MarketPage page = memberHomePage.openMarketInMyMarketPopup(marketInfo.get(0));
+        MarketPage page = memberHomePage.openMarketInMyMarketPopup(marketInfo.get(popup.colMarketName - 1));
 
         log("Verify: 1. The corresponding market is navigate");
-        String actual = String.format("%s / %s", page.marketOddControl.getTitle(), page.marketOddControl.getTitle());
-        Assert.assertEquals(actual, marketInfo.get(popup.colMarketName - 1), String.format("ERROR: Click on %s but my market display the title %s", marketInfo.get(popup.colMarketName - 1), actual));
+        String marketName = marketInfo.get(popup.colMarketName - 1).split("/")[0].trim();
+        Assert.assertEquals(page.marketOddControl.getTitle(), marketName, String.format("ERROR: Click on %s but my market display the title %s", page.marketOddControl.getTitle(), marketName));
         log("INFO: Executed completely");
     }
 

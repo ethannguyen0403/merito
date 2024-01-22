@@ -21,7 +21,7 @@ public class BaccaratPage extends GamePage {
         super(types);
     }
 
-    public boolean clickOdd(String selection, boolean isBack) {
+    public boolean clickOdds(String selection, boolean isBack) {
         List<String> lstSelection = tbtOdds.getColumn(selectionCol, false);
         Link lnk;
         for (int i = 0; i < lstSelection.size(); i++) {
@@ -46,22 +46,28 @@ public class BaccaratPage extends GamePage {
         return false;
     }
 
-    public void placebet(String selection, boolean isBack, String odds, String stake) {
-        addOddToBetSlip(selection, isBack, odds, stake);
+    public void placeBet(String selection, boolean isBack, String odds, String stake) {
+        addOddsToBetSlip(selection, isBack, odds, stake);
         betSlipControl.btnPlaceBet.click();
         if (betSlipControl.btnConfirm.isDisplayed(2)) {
             betSlipControl.btnConfirm.click();
+            try {
+                Thread.sleep(3000);
+            } catch (Exception e) {
+                e.getCause();
+            }
+
         }
     }
 
-    public void addOddToBetSlip(String selection, boolean isBack, String odds, String stake) {
-        if (!clickOdd(selection, isBack)) {
+    public void addOddsToBetSlip(String selection, boolean isBack, String odds, String stake) {
+        if (!clickOdds(selection, isBack)) {
             System.out.println("DEBUG! Cannot click on Odds!");
         }
         betSlipControl.inputdata(isBack, odds, stake);
     }
 
-    public String getUmatchedBetId() {
+    public String getUnmatchedBetId() {
         MyBetControl myBetControl1 = activeMyBet();
         return myBetControl1.unmatchedBetControl.getBetId();
     }

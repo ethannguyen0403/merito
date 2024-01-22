@@ -79,7 +79,7 @@ public class AccountStatementTest extends BaseCaseTest {
         }
         log("Step 4. Click on the first Narration and check header details");
         page.clickNarrationOnTheFirstRow();
-        tblHeaders = page.getHeadersDetails();
+        tblHeaders = page.getReportDetailHeader();
 
         log("Verify 2. Report detail table header display correctly");
         Assert.assertEquals(tblHeaders, TABLE_DETAIL_HEADER, "ERROR!Detail table header not match as expected");
