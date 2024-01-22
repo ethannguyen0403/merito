@@ -34,6 +34,9 @@ public class AsianViewPage extends ProteusHomePage {
     private TextBox txtStake = TextBox.xpath("//app-bet-item//input[contains(@class,'stake-input')]");
     private Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
     private Button btnOK = Button.xpath("//app-confirm-modal//button[contains(@class,'btn-ok')]");
+    private TextBox txtSearchLeagueOrTeamName = TextBox.xpath("//app-event-filter-desktop//input[@formcontrolname='eventKeySearch']");
+    private Button btnSearch = Button.xpath("//app-event-filter-desktop//button[contains(@class,'btn-search')]");
+    public Label lblNoRecordFound = Label.xpath("//app-event-filter-desktop//div[contains(@class,'result-box show')]//div[contains(@class,'search-result-empty')]");
     public AsianViewPage(String types) {
         super(types);
     }
@@ -212,5 +215,27 @@ public class AsianViewPage extends ProteusHomePage {
             return lstRiskWin;
         }
         return lstRiskWin;
+    }
+
+    public void searchLeagueOrTeamName(String leagueOrTeamName) {
+        txtSearchLeagueOrTeamName.sendKeys(leagueOrTeamName);
+        btnSearch.click();
+        waitForSpinnerLoading();
+    }
+
+    public List<String> getListSearchResult() {
+        List<String> lstResult = new ArrayList<>();
+        Label lblOptions = Label.xpath("//app-event-filter-desktop//div[contains(@class,'result-box show')]//li");
+        for (int i = 0; i < lblOptions.getWebElements().size(); i++) {
+            Label lblOption = Label.xpath(String.format("(//app-event-filter-desktop//div[contains(@class,'result-box show')]//li)[%s]",i + 1));
+            lstResult.add(lblOption.getText().trim());
+        }
+        return lstResult;
+    }
+
+    public void selectFirstSearchOption() {
+        Label lblOption = Label.xpath("(//app-event-filter-desktop//div[contains(@class,'result-box show')]//li)[1]");
+        lblOption.click();
+        waitForSpinnerLoading();
     }
 }

@@ -12,7 +12,6 @@ import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1241,6 +1240,61 @@ public class ProteusHomePageTest extends BaseCaseTest {
         double expectedExposure = exposureBeforePlaceBet - lstToRiskToWin.get(0);
         Assert.assertEquals(expectedExposure, exposureAfterPlaceBet, 0.01, String.format("FAILED! Exposure kept is not correct expected %s actual %s", expectedExposure, exposureAfterPlaceBet));
         Assert.assertEquals(expectedBalance, balanceAfterPlaceBet, 0.01, String.format("FAILED! Balance is not correct expected %s actual %s", expectedBalance, balanceAfterPlaceBet));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4073")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4073() {
+        log("@title: Validate top menu displays correctly items on PS38 product");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View and observe top menu");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Verify The items on top menu displays correctly (refer to PS38 Sport)");
+        List<String> lstHeaders = euroViewPage.getSportsHeaderMenuList();
+        Assert.assertEquals(lstHeaders, EURO_VIEW_HEADER_MENU_LST, String.format("FAILED! List Header is not matched expected %s actual %s", lstHeaders, EURO_VIEW_HEADER_MENU_LST));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4074")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4074() {
+        log("@title: Validate the league list or team names displays correctly when input the match values in search textbox");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Input the match values in search textbox and Observe");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        AsianViewPage asianView = proteusHomePage.selectAsianView();
+        ProteusGeneralEvent event = asianView.getFirstEventInfo(TEXT_1X2);
+        asianView.searchLeagueOrTeamName(event.getLeagueName());
+
+        log("Verify The league list or team names displays below search textbox, user can view league or team name corresponding after clicking on any");
+        List<String> lstSearchResult = asianView.getListSearchResult();
+        for (int i = 0; i < lstSearchResult.size(); i++) {
+            Assert.assertTrue(lstSearchResult.get(i).equalsIgnoreCase(event.getLeagueName().trim()),String.format("FAILED! List search result %s does not contain all input value %s", lstSearchResult.get(i), event.getLeagueName()));
+        }
+        asianView.selectFirstSearchOption();
+        ProteusGeneralEvent event2 = asianView.getFirstEventInfo(TEXT_1X2);
+        Assert.assertEquals(event.getLeagueName(), event2.getLeagueName(), String.format("FAILED! Selected league is not correct expected %s actual %s", event.getLeagueName(), event2.getLeagueName()));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4075")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4075() {
+        log("@title: Validate the league list or team names displays corectly when input the un-match values in search textbox");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Input the un-match values in search textbox and Observe");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        AsianViewPage asianView = proteusHomePage.selectAsianView();
+        asianView.searchLeagueOrTeamName("no record search");
+
+        log("Verify Displays the message \"No records found.\"  below search textbox");
+        Assert.assertEquals(asianView.lblNoRecordFound.getText().trim(), NO_RECORDS_FOUND, String.format("FAILED! No record found displays incorrectly expected %s actual %s", asianView.lblNoRecordFound.getText().trim(), NO_RECORDS_FOUND));
         log("INFO: Executed completely");
     }
 }
