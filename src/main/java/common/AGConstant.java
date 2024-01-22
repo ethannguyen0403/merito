@@ -34,6 +34,7 @@ public class AGConstant {
     public final static String LOGIN_ID = "Login ID";
     public final static String ACCOUNT_STATUS = "Account Status";
     public final static String LEVEL = "Level";
+    public final static String GENERAL = "General";
     public final static String LBL_USERNAME_PLACE_HOLDER = "Username or Nickname";
     public final static String LBL_USERNAME_PLACE_HOLDER_SAT = "Username or Login ID";
     public final static List<String> MENULIST = Arrays.asList("Nickname", "Password", "Security code", "OTP");
@@ -489,6 +490,7 @@ public class AGConstant {
             public final static List<String> TABLE_PT_PS38_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Customised PT", "Settings", "Soccer General", "Soccer General (InPlay)", "Baseball General","Baseball General (InPlay)",
                     "Basketball General","Basketball General (InPlay)","Football General","Football General (InPlay)","E Sports General","E Sports General (InPlay)","Others General","Others General (InPlay)","Mix Parlay General","Teasers General","Update Status",
                     "OU","ML","HDP","OU","TT","ML","HDP","OU","ML");
+            public final static List<String> TABLE_SELECTION_PT = Arrays.asList("Min Pos", "Max Pos", "%s Preset", "%s Extra PT");
             public final static List<String> TABLE_PT_QTECH_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Q-tech", "Update Status");
             public final static List<String> TABLE_PT_QTECH_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Q-tech",  "Update Status");
             public final static List<String> TABLE_PT_EVOLUTION_WHITECLIFF_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Premium games", "Other games", "Update Status");

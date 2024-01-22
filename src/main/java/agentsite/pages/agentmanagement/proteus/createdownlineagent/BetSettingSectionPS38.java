@@ -1,4 +1,4 @@
-package agentsite.pages.agentmanagement.proteus;
+package agentsite.pages.agentmanagement.proteus.createdownlineagent;
 
 
 import agentsite.controls.Table;
