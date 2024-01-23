@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import static common.MemberConstants.TIMEZONE_BRAND;
@@ -341,11 +342,11 @@ public class HeaderSectionTest extends BaseCaseTest {
             return;
         }
         log("Step 2. Click on market in my market popup");
-        MarketPage page = memberHomePage.openMarketInMyMarketPopup(marketInfo.get(0));
+        MarketPage page = memberHomePage.openMarketInMyMarketPopup(marketInfo.get(2));
 
         log("Verify: 1. The corresponding market is navigate");
-        String actual = String.format("%s / %s", page.marketOddControl.getTitle(), page.marketOddControl.getTitle());
-        Assert.assertEquals(actual, marketInfo.get(popup.colMarketName - 1), String.format("ERROR: Click on %s but my market display the title %s", marketInfo.get(popup.colMarketName - 1), actual));
+        String actual = String.format("%s", page.marketOddControl.getTitle());
+        Assert.assertEquals(actual, marketInfo.get(2).split("/")[0].trim(), "ERROR: Click on %s but my market display the title %s");
         log("INFO: Executed completely");
     }
 
