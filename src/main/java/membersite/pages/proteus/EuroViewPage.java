@@ -51,6 +51,7 @@ public class EuroViewPage extends ProteusHomePage {
     private String awayTeamXpath ="//app-league-euro[1]/app-event-item-parent-euro[1]//div[@class='opponent']/div[2]";
     private String oddsHomeXpath ="//app-league-euro[1]/app-event-item-parent-euro[1]//th[contains(@class,'odd-column')][1]//span[contains(@class,'odd-number')][1]//span";
 
+    private Button btnOK = Button.xpath("//app-confirm-modal//button[contains(@class,'btn-ok')]");
     public EuroViewPage(String types) {
         super(types);
     }
@@ -156,13 +157,14 @@ public class EuroViewPage extends ProteusHomePage {
         return proteusGeneralEvent;
     }
 
-
     public void placeBet(ProteusGeneralEvent event, String stake, boolean isSubmit) {
         if(Objects.nonNull(event)) {
             event.getBtnFirstSelection().click();
             txtStake.sendKeys(stake);
             if(isSubmit) {
                 btnPlaceBet.jsClick();
+                btnOK.waitForElementToBePresent(btnOK.getLocator());
+                btnOK.jsClick();
                 waitForSpinnerLoading();
             }
         }
@@ -207,14 +209,24 @@ public class EuroViewPage extends ProteusHomePage {
     public List<Double> getListOddsFirstEvent(ProteusGeneralEvent event, String marketType) {
         List<Double> lstOdds = new ArrayList<>();
         if(marketType.equalsIgnoreCase("1x2")) {
-            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().substring(1, 6)));
-            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().substring(1, 6)));
-            lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText().substring(1, 6)));
+            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[⠀−+]","")));
+            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[⠀−+]","")));
+            lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText().replaceAll("[⠀−+]","")));
         } else {
-            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().substring(1, 6)));
-            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().substring(1, 6)));
+            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[⠀−+]","")));
+            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[⠀−+]","")));
         }
         return lstOdds;
+    }
+
+    public List<String> getSportsHeaderMenuList() {
+        List<String> lstHeader = new ArrayList<>();
+        Label lblSportHeaders = Label.xpath("//app-slider-sport//li");
+        for (int i = 0; i < lblSportHeaders.getWebElements().size(); i++) {
+            Label lblHeaderItem = Label.xpath(String.format("(//app-slider-sport//li)[%s]", i + 1));
+            lstHeader.add(lblHeaderItem.getText().trim());
+        }
+        return lstHeader;
     }
 
 }

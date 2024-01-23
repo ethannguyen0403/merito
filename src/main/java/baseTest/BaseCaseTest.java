@@ -62,6 +62,7 @@ public class BaseCaseTest {
     public static String sosValidationAgentURL;
     public static String agentSecurityCodeURL;
     public static String agentCashSecurityCodeURL;
+    public static String proteusUrl;
     public static String agentNewAccURL;
     public static String agentFollowBetURL;
     public static String backofficeUrl;
@@ -333,6 +334,10 @@ public class BaseCaseTest {
         return String.format("%s%s", getCashURL(brandName), suffix);
     }
 
+    public static String defineProteusURL() {
+        return environment.getProteusURL();
+    }
+
     private static String defineMemberService(String brandName) {
         switch (brandName) {
             case "satsport":
@@ -402,6 +407,7 @@ public class BaseCaseTest {
             memberLoginURL = defineURL(brandname, MEMBER_URL_SUFFIX.get(brandname));
             memberSOSUrl = defineURL(brandname, MEMBER_SOS_URL_SUFFIX);
             memberLoginCashURL = defineCashURL(brandname, MEMBER_URL_SUFFIX.get(brandname));
+            proteusUrl = defineProteusURL();
 
             // define Agent site URLs
             agentLoginURL = defineURL(brandname, "/agent");

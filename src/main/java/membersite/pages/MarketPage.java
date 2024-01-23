@@ -6,7 +6,6 @@ import membersite.controls.FancyContainerControl;
 import membersite.controls.FancyContainerControlOldUI;
 import membersite.controls.OneClickBettingControl;
 import membersite.controls.WicketBookmakerContainerControl;
-import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
 import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.FancyMarket;
@@ -15,6 +14,7 @@ import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.marketcontainer.MarketContainerControl;
 import membersite.pages.components.racingmarketcontainer.RacingMarketContainer;
 import membersite.pages.popup.RulePopup;
+import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -355,7 +355,7 @@ public class MarketPage extends HomePage {
             }
         }
         FancyMarket fancyMarket = getFancyMarketInfo(fcMarket);
-        double newExposure = Double.parseDouble(header.getUserBalance().getExposure()) ;
+        double newExposure = Double.parseDouble(BetUtils.getUserBalance().getExposure()) ;
         double calculateExposure = newExposure - fancyMarket.getMarketLiability();
         Assert.assertEquals(originalExposure, (double) Math.round(calculateExposure * 100)/ 100, String.format("FAILED! Exposure kept is not correct expected is %s, actual is %s", originalExposure, (double) Math.round(calculateExposure * 100)/ 100));
         Assert.assertEquals((double) Math.round(forecast * 100)/ 100, fancyMarket.getMarketLiability(), String.format("FAILED! Liability forecast is not correct expected is %s, actual is %s", (double) Math.round(forecast * 100)/ 100, fancyMarket.getMarketLiability()));

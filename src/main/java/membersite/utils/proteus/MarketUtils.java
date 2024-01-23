@@ -178,7 +178,7 @@ public class MarketUtils extends BaseCaseTest {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                     if (isHome) {
-                        if (jsonObject1.getDouble("handicap") == hdpPoint) {
+                        if (jsonObject1.getDouble("handicap") == hdpPoint && jsonObject1.getInt("periodId") == 0) {
                             //get HOME info
                             if (jsonObject1.getString("team").equalsIgnoreCase("HOME")) {
                                 double maxBet = jsonObject1.getDouble("max");
@@ -205,7 +205,7 @@ public class MarketUtils extends BaseCaseTest {
                             }
                         }
                     } else {
-                        if (jsonObject1.getDouble("handicap") == hdpPoint) {
+                        if (jsonObject1.getDouble("handicap") == hdpPoint && jsonObject1.getInt("periodId") == 0) {
                             //get AWAY info
                             if (jsonObject1.getString("team").equalsIgnoreCase("AWAY")) {
                                 double maxBet = jsonObject1.getDouble("max");

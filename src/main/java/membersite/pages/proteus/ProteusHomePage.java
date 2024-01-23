@@ -6,6 +6,7 @@ import membersite.pages.HomePage;
 import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,6 +19,8 @@ public class ProteusHomePage extends HomePage {
     private Image imgSpinner = Image.xpath("//em[contains(@class,'fa-4x fa-spin')]");
     private String moreMarketXpath = "//app-league-asian//table[@eventid='%s']//th[contains(@class,'more-markets')]";
     private Label lblMoreMarketDetails = Label.xpath("(//app-market-asian//div[@class='market-detail']//div[contains(@class,'market-item')]/span)");
+    private Label lblBetSlipTab = Label.xpath("//app-bet-slip//div[text()='BET SLIP']");
+    private Label lblPendingTab = Label.xpath("//app-bet-slip//div[text()='PENDING BETS']");
     public ProteusHomePage(String types) {
         super(types);
     }
@@ -155,6 +158,8 @@ public class ProteusHomePage extends HomePage {
     }
 
     public void compareOddsShowCorrect(List<Double> lstOddsConvert, List<Double> lstOddsActual, double tolerance) {
+        Collections.sort(lstOddsConvert);
+        Collections.sort(lstOddsActual);
         Assert.assertEquals(lstOddsConvert.size(), lstOddsActual.size(), String.format("FAILED! Number of odds between 2 compare list is not same convert %s actual %s", lstOddsConvert, lstOddsActual));
         for (int i = 0; i < lstOddsConvert.size(); i++) {
             Assert.assertEquals(lstOddsConvert.get(i), lstOddsActual.get(i), tolerance, String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsConvert, lstOddsActual));
@@ -177,5 +182,19 @@ public class ProteusHomePage extends HomePage {
                 lblMarketName.click();
             }
         }
+    }
+
+    public void switchTabBetSlip(String tabName) {
+        if (tabName.equalsIgnoreCase("bet slip")) {
+            lblBetSlipTab.click();
+        } else if (tabName.equalsIgnoreCase("pending bets")) {
+            lblPendingTab.click();
+        }
+    }
+
+    public void verifyToRiskToWinShowCorrect(String stake, String odds) {
+        String oddsFormat = odds.replace("−","");
+        double toRisk = Math.floor(Double.valueOf(stake) * Double.valueOf(oddsFormat) * 100) / 100;
+        double toWin = Math.floor(toRisk / Double.valueOf(oddsFormat) * 100) / 100;
     }
 }

@@ -1,6 +1,8 @@
 package common;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProteusConstant {
@@ -21,6 +23,11 @@ public class ProteusConstant {
     public static final String ASIAN_HONGKONG_ODDS = " Hong Kong Odds ";
     public static final String ASIAN_MALAY_ODDS = " Malay Odds ";
     public static final String ASIAN_AMERICAN_ODDS = " American Odds ";
+    public static final String PENDING_BETS_TAB = "PENDING BETS";
+    public static final String BET_SLIP_TAB = "BET SLIP";
+    public static final String NO_RECORDS_FOUND = "No records found.";
+    public static final List<String> EURO_VIEW_HEADER_MENU_LST = Arrays.asList("Favourites","Soccer","Tennis","Basketball","Hockey","Volleyball","Cricket","Badminton", "Alpine Skiing","Biathlon",
+            "Boxing","Cross Country","Curling","Darts","Football","Futsal","Golf","Handball","Mixed Martial Arts","Rugby Union","Snooker");
     public static final Map<String, String> ODDS_GROUP_ADJUSTMENT_MAPPING = new HashMap<String, String>() {
         {
             put("B", "0.28");

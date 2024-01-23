@@ -83,6 +83,14 @@ public class ProfitAndLossPage extends HomePage {
         tblSport.getControlOfCell(1, colSportGame, 1, "span[@class='hover hyperlink']").click();
     }
 
+    public void clickFirstEvent() {
+        if (lblNoRecord.isDisplayed()) {
+            System.out.println("Skip step as there is no data");
+            return;
+        }
+        tblMarket.getControlOfCell(1, colMarketName, 1, "span[@class='hover hyperlink']").click();
+    }
+
     public void filter(String startDate, String endDate) {
         tblSport.isDisplayed();
         tblSport.getColumnNamesOfTable();
@@ -207,5 +215,11 @@ public class ProfitAndLossPage extends HomePage {
         return String.format("%.2f", loss * (-1));
     }
 
+    public void openBetDetailsOfSportsBook(String sportGameName, String eventName) {
+        profitAndLossContainer.openBetDetailsOfSportsBook(sportGameName, eventName);
+    }
+    public void verifyCommissionProteusSportsBook(double commissionConfig) {
+        profitAndLossContainer.verifyCommissionProteusSportsBook(commissionConfig);
+    }
 
 }
