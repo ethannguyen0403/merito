@@ -536,9 +536,14 @@ public class AGConstant {
 
         public static class CommissionSettingListing {
             public final static String TITLE_PAGE = "Commission Setting Listing";
+            public final static String ODDS_GROUP = "Odds Group";
             public final static List<String> LST_LIVE_DEALER_ASIAN_GAMES = Arrays.asList("Andar Bahar", "Baccarat", "Casinowar", "Dragon Tiger", "Roulette", "Teen Patti", "Teenpatti 20-20", "Three card poker");
             public final static List<String> LST_LIVE_DEALER_EUROPEAN_GAMES = Arrays.asList("Auto roulette", "Baccarat", "Bet on Numbers", "Blackjack", "Holdem", "Keno", "Roulette", "Sic Bo", "Lucky 7", "Other");
             public final static List<String> LST_LOTTERY_SLOT_GAMES = Arrays.asList("Lottery & Slots");
+            public final static String CHECKBOX_APPLY_SOCCER_PS38 = "Apply soccer games setting to other commission types";
+            public final static List<String> TABLE_HEADER_COMMISSION_SECTION = Arrays.asList("Group", "Commission on", "Group A", "Group B", "Group C", "Group D", "Group E");
+            public final static List<String>
+                    TABLE_COLUMN_GROUP_COMMISSION_SECTION = Arrays.asList("Soccer games", "Very high commission", "High commission", "Normal commission", "Parlays", "Teasers");
             public final static ArrayList<String> TABLE_AGENT_HEADER_LIVE_DEALER_ASIAN_NEWUI = new ArrayList<String>() {
                 {
                     add("No.");

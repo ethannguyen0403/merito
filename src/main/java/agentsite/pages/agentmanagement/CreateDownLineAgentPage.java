@@ -15,6 +15,7 @@ import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.Ri
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.TransferSettingSection;
 import agentsite.pages.agentmanagement.proteus.createdownlineagent.BetSettingSectionPS38;
+import agentsite.pages.agentmanagement.proteus.createdownlineagent.commissionsettingsection.CommissionSectionPS38;
 import agentsite.pages.agentmanagement.proteus.createdownlineagent.PositionTakingSectionPS38;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.SecurityPopup;
@@ -66,6 +67,7 @@ public class CreateDownLineAgentPage extends HomePage {
     //proteus
     public BetSettingSectionPS38 betSettingSectionPS38;
     public PositionTakingSectionPS38 positionTakingSectionPS38;
+    public CommissionSectionPS38 commissionSectionPS38;
 
     protected String _type;
     private int totalBetSettingsColumns = 9;
@@ -98,6 +100,7 @@ public class CreateDownLineAgentPage extends HomePage {
         transferSettingInforSection = ComponentsFactory.transferSettingInfoObject(_type);
         betSettingSectionPS38 = new BetSettingSectionPS38();
         positionTakingSectionPS38 = new PositionTakingSectionPS38();
+        commissionSectionPS38 = new CommissionSectionPS38();
     }
 
     public String createDownline(String loginID, String password, String accountStatus) {
