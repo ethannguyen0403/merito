@@ -34,7 +34,7 @@ public class BaseCaseAPI {
     public static APIClient client;
     public static boolean isAddHeader = true;
     private static ApplicationContext context;
-    private static boolean isAddTestRailResult = true;
+    private static boolean isAddTestRailResult;
     private static List<Long> lstCases = new ArrayList<>();
 
     @BeforeSuite(alwaysRun = true)
@@ -46,6 +46,8 @@ public class BaseCaseAPI {
             throw new NullPointerException(String.format("ERROR: Exception occurs beforeSuite by '%s'", ex.getMessage()));
         }
         ctx.getName();
+        isAddTestRailResult = ctx.getCurrentXmlTest().getLocalParameters().get("isAddTestRailResult") != null ?
+                Boolean.valueOf(ctx.getCurrentXmlTest().getLocalParameters().get("isAddTestRailResult")) : false;
         if (isAddTestRailResult) {
             System.out.println("Add New Test Run in TestRails");
             client = new APIClient("https://paltech.testrail.io");

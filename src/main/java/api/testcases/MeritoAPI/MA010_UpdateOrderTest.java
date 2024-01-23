@@ -43,16 +43,17 @@ public class MA010_UpdateOrderTest extends BaseCaseAPI {
         int competitionId = competitionResult.getCompetitionList().get(1).getId();
 
         log("Step 4 Access get event of the competition get in step 3");
-        EventListResult resultObj = GetEventsUtils.getEventsAPI(token, sportID, "", Integer.toString(competitionId));
-        String eventId = Integer.toString(resultObj.getEventList().get(0).getId());
-
         log("Step 5 Access get all market of the event get in step 4 to get a market");
-        MarketResult marketResultObj = GetMarketCatalogUtils.getMarketCatalogAPI(token, sportID, eventId, Integer.toString(competitionId), "", "FIRST_TO_START");
-        int totalMarket = marketResultObj.getMarketList().size();
-        Market marketCatalog = marketResultObj.getMarketList().get(totalMarket - 1);
+        Market marketCatalog =  GetMarketCatalogUtils.getEventHasLiveMarketOnly(token, sportID, "", Integer.toString(competitionId), "", "FIRST_TO_START");
+        if(Objects.isNull(marketCatalog))
+        {
+            log("By Passed this test case as has no Event that have live market to place with persistenceType = PERSIST ");
+            return;
+        }
 
         log("Step 6 Get Market Book");
         MarketResult marketBookResultObj = GetMarketBookUtils.getMarketBookAPI(token, marketCatalog.getMarketId());
+        String eventId = Integer.toString(marketCatalog.getEvent().getId());
         Market marketBook = marketBookResultObj.getMarketList().get(0);
         String runnerId = Integer.toString(marketBook.getSelectionList().get(0).getid());
         String handicap = Double.toString(marketBook.getSelectionList().get(0).gethandicap());
