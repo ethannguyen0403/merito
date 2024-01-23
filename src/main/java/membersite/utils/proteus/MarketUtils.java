@@ -90,7 +90,7 @@ public class MarketUtils extends BaseCaseTest {
 
     public static JSONObject getMarketJSON(int eventId, String betType) {
 //        String url = "https://www.ps388win.com/proteus-member-service/odds/v3/decimal";
-        String url = "https://prostg.beatus88.com/proteus-member-service/odds/v3/decimal";
+        String url = String.format("%s/proteus-member-service/odds/v3/decimal", proteusUrl);
         String jsn = String.format("{\n" +
                         "    \"eventId\": [\n" +
                         "        %s\n" +

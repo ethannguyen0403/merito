@@ -45,6 +45,7 @@ public class MemberConstants {
     public static final String MULTI_BET_TYPE_CODE = "ARTEMIS_MULTI_BET";
     public static final String LBL_SOCCER_SPORT = "Soccer";
     public static final String LBL_TENNIS_SPORT = "Tennis";
+    public static final String LBL_HORSE_RACING_SPORT = "Horse Racing";
     public static final Map<String, String> TIMEZONE_BRAND = new HashMap<String, String>() {
         {
             put("satsport", "IST");
@@ -240,7 +241,7 @@ public class MemberConstants {
         public final static String START_DATE = "Start Date";
         public final static String END_DATE = "End Date";
         public final static String NOTES = "Note : Date will be based on time zone %s";
-        public final static List<String> TABLE_SUMMARY_HEADER = Arrays.asList("Event/Market ID/Arena ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
+        public final static List<String> TABLE_SUMMARY_HEADER = Arrays.asList("Event/Market ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
         public final static List<String> TABLE_DETAIL_HEADER = Arrays.asList("Bet ID", "Selection", "Type", "Odds", "Turnover", "Place Date", "Profit/Loss", "Status");
         public final static String LOAD_REPORT = "Load Report";
         public final static String OPENING_BALANCE = "OPENING BALANCE";

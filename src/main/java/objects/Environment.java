@@ -28,6 +28,7 @@ public class Environment {
     public String fairCashURL;
     private String securityCode;
     private String apiURL;
+    public static String proteusURL;
 
     public static String getSatURL() {
         return satURL;
@@ -131,6 +132,14 @@ public class Environment {
     public void setSecurityCode(String val) {
         this.securityCode = val;
     }
+    public String getProteusURL() {
+        return proteusURL;
+    }
+
+    public void setProteusURL(String url) {
+        this.proteusURL = url;
+    }
+
 
 //    public String getMemberSiteURL() {
 //    }
