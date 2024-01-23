@@ -75,6 +75,7 @@ public class BaseCaseTest {
     private static ApplicationContext context;
     private static boolean isAddTestRailResult;
     private static List<Long> lstCases = new ArrayList<>();
+    public static String proteusAPIDomainURL;
 
     @BeforeSuite(alwaysRun = true)
     public static void beforeSuite(ITestContext ctx) throws APIException, IOException {
@@ -417,6 +418,7 @@ public class BaseCaseTest {
             backofficeUrl = environment.getBackofficeURL();
             backofficeSOSUrl = String.format("%s%s", environment.getBackofficeURL(), BACKOFFICE_SOS_URL);
             backofficeDashboardUrl = String.format("%s%s", environment.getBackofficeURL(), BACKOFFICE_DASHBOARD_URL);
+            proteusAPIDomainURL = environment.getproteusAPIProviderDomain();
         } catch (Exception ex) {
             throw new NullPointerException(String.format("ERROR: Exception occurs beforeClass by '%s'", ex.getMessage()));
         }
