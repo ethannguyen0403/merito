@@ -172,4 +172,14 @@ public class EuroViewPage extends ProteusHomePage {
         return lstOdds;
     }
 
+    public List<String> getSportsHeaderMenuList() {
+        List<String> lstHeader = new ArrayList<>();
+        Label lblSportHeaders = Label.xpath("//app-slider-sport//li");
+        for (int i = 0; i < lblSportHeaders.getWebElements().size(); i++) {
+            Label lblHeaderItem = Label.xpath(String.format("(//app-slider-sport//li)[%s]", i + 1));
+            lstHeader.add(lblHeaderItem.getText().trim());
+        }
+        return lstHeader;
+    }
+
 }

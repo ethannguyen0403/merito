@@ -59,6 +59,7 @@
         <property name="directusURL" value="${STG.DriectusURL}"/>
         <property name="apiURL" value="${STG.APIURL}"/>
         <property name="domainURL" value="${STG.Domain}"/>
+        <property name="proteusURL" value="${STG.PROTEUSURL}"/>
     </bean>
     <bean name="green" class="objects.Environment" scope="prototype">
         <property name="fairURL" value="${GREEN.FAIRURL}"/>
@@ -74,6 +75,7 @@
         <property name="directusURL" value="${GREEN.DriectusURL}"/>
         <property name="apiURL" value="${GREEN.APIURL}"/>
         <property name="domainURL" value="${GREEN.Domain}"/>
+        <property name="proteusURL" value="${GREEN.PROTEUSURL}"/>
     </bean>
     <bean name="blue" class="objects.Environment" scope="prototype">
         <property name="fairURL" value="${BLUE.FAIRURL}"/>
