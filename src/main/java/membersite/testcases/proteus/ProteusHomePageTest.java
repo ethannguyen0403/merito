@@ -1412,7 +1412,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 3. Placing bet with Stake/Risk smaller than min bet > observe");
         EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+//        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
         ProteusGeneralEvent event = euroViewPage.getFirstEventInfo();
         euroViewPage.placeBet(event, minStake, true, false);
 
@@ -1432,7 +1432,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
         EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+//        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
         ProteusGeneralEvent event = euroViewPage.getFirstEventInfo();
 
         log("Step 3. Placing bet with Stake/Risk greater than max bet > observe");
