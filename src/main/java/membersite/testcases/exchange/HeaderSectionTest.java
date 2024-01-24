@@ -331,7 +331,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. The corresponding market is navigate
      */
     @TestRails(id = "509")
-    @Test(groups = {"smoke"}, priority = 3)
+    @Test(groups = {"smoke","isa"}, priority = 3)
     public void HeaderSection_C509() {
         log("@title: Validate can navigate to correct market when click on market in My market");
         log("Step 1. Click on My market ");
