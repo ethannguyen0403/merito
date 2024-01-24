@@ -57,7 +57,7 @@ public class MA012_GetListClearedOrdersTest extends BaseCaseAPI {
         String betId = Integer.toString(orderResult.getOrderList().get(0).getBetId());
         CancelOrderUtils.cancelOrder(token, betId, "0");
 
-        log("Step 4 Get cleared order with input canceled bet");
+        log("Step 4 Get cleared order with input canceled bet id "+betId);
         OrderResult lstOrderResut = GetClearedOderUtils.getClearedOrder(token, "CANCELLED", betId, marketBook.getMarketId(), eventId, sportID, side);
         Assert.assertTrue(orderResult.getIsSuccess(), "FAILED! isSuccess should be true but cannnot get as expected");
         Assert.assertEquals(Integer.toString(lstOrderResut.getOrderList().get(0).getBetId()), betId, "FAILED! Bet ID matched is incorrect");
