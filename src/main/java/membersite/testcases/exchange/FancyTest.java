@@ -25,7 +25,7 @@ import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 
 public class FancyTest extends BaseCaseTest {
     @TestRails(id = "549")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19"})
     public void FancyTest_549() {
         log("@title: Validate can place bet on Fancy market page");
         log("@Precondition: Get the event that have Fancy market");
@@ -70,7 +70,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "550")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19"})
     public void FancyTest_550() {
         log("@title: Validate exposure is kept correctly when place on No");
         log("@Precondition: Get the event that have Fancy market");
@@ -88,7 +88,7 @@ public class FancyTest extends BaseCaseTest {
         log("Step 3. Active 27 Fancy tab, Click on an odds of No selection of a fancy market then place bet");
         memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         try {
             double originalExposure = liabilityBeforePlaceBet - fcMarket.getMarketLiability();
@@ -123,7 +123,7 @@ public class FancyTest extends BaseCaseTest {
         log("Step 3. Active 27 Fancy tab, Click on an odds of No selection of a fancy market then place bet");
         memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         try {
             double originalExposure = liabilityBeforePlaceBet - fcMarket.getMarketLiability();
@@ -159,7 +159,7 @@ public class FancyTest extends BaseCaseTest {
         log("Step 3. Active 27 Fancy tab, Click on an odds of No and Yes selection of a fancy market then place bet");
         memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         double originalExposure = liabilityBeforePlaceBet - fcMarket.getMarketLiability();
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
