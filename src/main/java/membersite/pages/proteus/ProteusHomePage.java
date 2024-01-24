@@ -21,6 +21,7 @@ public class ProteusHomePage extends HomePage {
     private Label lblMoreMarketDetails = Label.xpath("(//app-market-asian//div[@class='market-detail']//div[contains(@class,'market-item')]/span)");
     private Label lblBetSlipTab = Label.xpath("//app-bet-slip//div[text()='BET SLIP']");
     private Label lblPendingTab = Label.xpath("//app-bet-slip//div[text()='PENDING BETS']");
+    public Label lblPlaceBetError = Label.xpath("//app-confirm-modal//div[contains(@class,'modal-body')]//div");
     public ProteusHomePage(String types) {
         super(types);
     }

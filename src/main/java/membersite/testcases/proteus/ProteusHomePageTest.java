@@ -1,6 +1,8 @@
 package membersite.testcases.proteus;
 
 import baseTest.BaseCaseTest;
+import com.paltech.utils.DateUtils;
+import membersite.objects.proteus.ProteusBetslip;
 import membersite.objects.proteus.ProteusGeneralEvent;
 import membersite.objects.proteus.ProteusMarket;
 import membersite.objects.proteus.ProteusTeamTotalEvent;
@@ -15,11 +17,9 @@ import util.testraildemo.TestRails;
 import java.util.ArrayList;
 import java.util.List;
 
-import static common.MemberConstants.LBL_SOCCER_SPORT;
-import static common.MemberConstants.LBL_TENNIS_SPORT;
+import static common.MemberConstants.*;
 import static common.ProteusConstant.*;
-import static membersite.utils.proteus.MarketUtils.getMarketInfo;
-import static membersite.utils.proteus.MarketUtils.getMatchTeamTotalMarketInfo;
+import static membersite.utils.proteus.MarketUtils.*;
 
 public class ProteusHomePageTest extends BaseCaseTest {
 
@@ -233,7 +233,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         //end workaround
 
         log("Step 5. Add an handicap odds of Home team to bet slip");
-        euroViewPage.placeBet(event, "10", false);
+        euroViewPage.placeBet(event, "10", false, false);
         List<Double> lstBaseOdds = new ArrayList<>();
         lstBaseOdds.add(market.getFirstOdds());
         lstBaseOdds.add(market.getSecondOdds());
@@ -272,7 +272,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         //end workaround
 
         log("Step 5. Add an Over Under odds of Home team to bet slip");
-        euroViewPage.placeBet(event, "10", false);
+        euroViewPage.placeBet(event, "10", false, false);
         List<Double> lstBaseOdds = new ArrayList<>();
         lstBaseOdds.add(market.getFirstOdds());
         lstBaseOdds.add(market.getSecondOdds());
@@ -1296,5 +1296,156 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Verify Displays the message \"No records found.\"  below search textbox");
         Assert.assertEquals(asianView.lblNoRecordFound.getText().trim(), NO_RECORDS_FOUND, String.format("FAILED! No record found displays incorrectly expected %s actual %s", asianView.lblNoRecordFound.getText().trim(), NO_RECORDS_FOUND));
         log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4076")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4076() {
+        log("@title: Validate the filter result displays correctly after filtering Time");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Active Ps38 product active Asian View");
+        String date = DateUtils.getDate(1, "yyyy-MM-dd", GMT_MINUS_4_30);
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+
+        log("Step 4. Click All Times dropdown and Select any time range ");
+        asianViewPage.filterByDate(date);
+        log("Verify The filter result displays correctly and correspond to the filter condition");
+        asianViewPage.verifyFilterByDateShowCorrect(date);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4079")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4079() {
+        log("@title: Validate the filter result displays correctly after filtering Odds");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Asian View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+
+        log("Step 4. Select Decimal odds type, get odds and calculate to account group E");
+        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
+        ProteusGeneralEvent event = asianViewPage.getFirstEventInfo(TEXT_OVER_UNDER);
+        ProteusMarket market = getMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(TEXT_OVER_UNDER), Double.valueOf(event.getHDPPoint()));
+        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
+        List<Double> lstBaseOdds = new ArrayList<>();
+        lstBaseOdds.add(market.getFirstOdds());
+        lstBaseOdds.add(market.getSecondOdds());
+        lstBaseOdds.add(market.getThirdOdds());
+        List<Double> lstOddsConvert = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOdds,ODDS_TYPE_MAPPING.get(HONGKONG.trim()));
+
+        log("Step 5. Click on any Odds type (HK) and observe");
+        asianViewPage.selectOddsType(ASIAN_HONGKONG_ODDS);
+
+        log("Verify The filter result displays correctly and correspond to the filter condition");
+        List<Double> lstOddsActual = asianViewPage.getListOddsFirstEvent(event, TEXT_OVER_UNDER);
+        proteusHomePage.compareOddsShowCorrect(lstOddsConvert, lstOddsActual, 0.01);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4080")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4080() {
+        log("@title: Validate the filter result displays correctly after filtering Leagues");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Active Ps38 product active Asian View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+
+        log("Step 4. Click on any League name filter and Observe");
+        ArrayList<String> lstLeagues = getListLeagues(EARLY_PERIOD);
+        String leagueExpected = lstLeagues.get(0);
+        asianViewPage.filterByLeague(leagueExpected, false);
+        ProteusGeneralEvent event = asianViewPage.getFirstEventInfo(TEXT_1X2);
+
+        log("Verify The filter result displays correctly and correspond to the filter condition");
+        Assert.assertTrue(event.getLeagueName().equalsIgnoreCase(leagueExpected), String.format("FAILED! Filter by League is not correct expected %s actual %s", leagueExpected, event.getLeagueName()));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4078")
+    @Test(groups = {"Proteus.2024.V.1.01"})
+    public void PS38_Member_TC4078() {
+        log("@title: Validate the filter result displays correctly after filtering By Time");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Active Ps38 product active Asian View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+
+        log("Step 4. Click on By Time and observe");
+        asianViewPage.selectSortBy("By Time");
+        log("Verify The filter result displays correctly and correspond to the filter condition");
+        //Bug
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4037")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4037() {
+        log("@title: Validate cannot place bet when place bet in member site smaller than min bet setting");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        String minStake = "1.00";
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        log("Step 3. Placing bet with Stake/Risk smaller than min bet > observe");
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+//        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        ProteusGeneralEvent event = euroViewPage.getFirstEventInfo();
+        euroViewPage.placeBet(event, minStake, true, false);
+
+        log("Validate An error message should display as:\n" +
+                "Your stake cannot be lower than the minimum bet. It has been automatically adjusted to the minimum bet amount.");
+        String errorMessage = proteusHomePage.lblPlaceBetError.getText();
+        Assert.assertEquals(errorMessage, MIN_STAKE_ERROR_MSG, String.format("FAILED! Stake error message does not show correct expected %s actual %s", errorMessage, MIN_STAKE_ERROR_MSG));
+    }
+
+    @TestRails(id = "4038")
+    @Test(groups = {"Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4038() {
+        log("@title: Validate cannot place bet when place bet in member site greater than max bet setting");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+//        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        ProteusGeneralEvent event = euroViewPage.getFirstEventInfo();
+
+        log("Step 3. Placing bet with Stake/Risk greater than max bet > observe");
+        euroViewPage.placeBet(event, "", false, false);
+        ProteusBetslip betSlipInfo = euroViewPage.getBetSlipInfo(String.valueOf(event.getEventId()));
+        String maxBet = betSlipInfo.getMaxBet();
+        double maxBetStake = Double.valueOf(maxBet.replace(",","")) + 1;
+        euroViewPage.inputStake(String.valueOf(event.getEventId()), String.valueOf(maxBetStake));
+        euroViewPage.btnPlaceBet.click();
+
+        log("Validate An error message should display as:\n" +
+                "Your stake cannot be greater than the maximum bet. It has been automatically adjusted to the maximum bet amount.");
+        String errorMessage = proteusHomePage.lblPlaceBetError.getText();
+        Assert.assertEquals(errorMessage, MAX_STAKE_ERROR_MSG, String.format("FAILED! Stake error message does not show correct expected %s actual %s", errorMessage, MAX_STAKE_ERROR_MSG));
     }
 }

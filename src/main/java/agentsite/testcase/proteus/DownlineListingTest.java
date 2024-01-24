@@ -3,18 +3,22 @@ package agentsite.testcase.proteus;
 import agentsite.pages.agentmanagement.DownLineListingPage;
 import agentsite.pages.agentmanagement.EditDownLinePage;
 import static common.AGConstant.*;
+import static common.AGConstant.AgencyManagement.CommissionSettingListing.*;
 import static common.AGConstant.AgencyManagement.CreateCompany.*;
+import static common.AGConstant.PS38;
+import static common.MemberConstants.*;
 
 
+import agentsite.pages.agentmanagement.proteus.createdownlineagent.commissionsettingsection.CommissionSectionPS38;
 import baseTest.BaseCaseTest;
+import com.paltech.utils.DoubleUtils;
 import com.paltech.utils.StringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DownlineListingTest extends BaseCaseTest {
 
@@ -170,5 +174,175 @@ public class DownlineListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "4130")
+    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Parameters({"downlineAccount"})
+    public void PS38_Agent_TC4130(String downlineAccount)  {
+        log("@title: Validate in Agent site > Edit downline UI Commission is displayed correctly");
+        log("Precondition: Login agent at Agent level: CO that active PS38 product");
+        log("Step 1: Access Agent > Downline Listing");
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        log("Step 2: Filter with any player and click Edit button");
+        page.searchDownline(downlineAccount, "", "");
+        EditDownLinePage editPage = page.clickEditIcon(downlineAccount, true);
+        log("Step 3: Click on PS38 product and scroll down to Commission");
+        page.productStatusSettingInforSection.selectProduct(PS38);
+        log("Verify 1: Odds Group dropdown: should follow upline setting if having no setting yet");
+        Assert.assertTrue(editPage.commissionSectionPS38.ddbOddsGroup.isDisplayed(), "FAILED! Odds Group dropdown is not displayed");
+        CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Agent",true);
+        log("Verify 2: Checkbox:Apply soccer games setting to other commission types and uncheck by default");
+        Assert.assertEquals(editPage.commissionSectionPS38.lblApply.getText().trim(),  CHECKBOX_APPLY_SOCCER_PS38, "FAILED! Check box label is not correct");
+        log("Verify 3: Table with headers: Group, Commission on, Group A, Group B,  Group C, Group D, Group E\n" +
+                "Row under Group column is: Soccer Games, Very high commission, High commission , Normal commission , Parlays, Teasers");
+        Assert.assertEquals(commissionSection.getTableHeader(),  TABLE_HEADER_COMMISSION_SECTION, "FAILED! Table commission header is not correct");
+        Assert.assertEquals(commissionSection.getTableColumnList(1),
+                TABLE_COLUMN_GROUP_COMMISSION_SECTION, "FAILED! Column list value are not correct");
+        log("Verify 4: All row under Commission on column are: Volume");
+        Assert.assertEquals(new HashSet<>(commissionSection.getTableColumnList(2)), new HashSet<>(Arrays.asList("Volume"))
+                , "FAILED! Column list value are not correct");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4189")
+    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Parameters({"memberAccount"})
+    public void PS38_Agent_TC4189(String memberAccount)  {
+        log("@title: Validate can set commission for direct players on specific sport with general league");
+        log("Precondition: Login Agent site with CO level");
+        log("Step 1: Access Agent > Downline Listing");
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        log("Step 2: Filter with any player and click Edit button. Player account: " + memberAccount);
+        page.searchDownline(memberAccount, "", "");
+        EditDownLinePage editPage = page.clickEditIcon(memberAccount, true);
+        log("Step 3: Click on PS38 product and scroll down to Commission");
+        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
+        log("Step 4: Select any specific sport and leagues is General and click Add");
+        String amountCommission = String.format("%.2f", commissionSection.randomDouble(0.01, 0.09));
+        Map<String, String> commissionList= new HashMap<String, String>(){
+            {
+                put("", amountCommission);
+            }
+        };
+        commissionSection.addSport(LBL_SOCCER_SPORT, GENERAL);
+        log("Step 5: Select commission on added sport/league below then Submit it");
+        commissionSection.updateComSpecificSport(LBL_SOCCER_SPORT, GENERAL, Arrays.asList(commissionList), TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0));
+        page.submitEditDownlinePS38(true);
+        log("Verify 1: Commission for sport: Soccer with general league is set successfully");
+        page.clickEditIcon(memberAccount, true);
+        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        Assert.assertEquals(
+                commissionSection.getAmountCommission(null, TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0), LBL_SOCCER_SPORT, GENERAL)
+                        .get(TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0)), amountCommission, "Failed! Commission is not updated.");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4190")
+    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Parameters({"memberAccount"})
+    public void PS38_Agent_TC4190(String memberAccount)  {
+        log("@title: Validate can set commission for direct players on specific sport with specific league");
+        log("Precondition: Login Agent site with CO level");
+        log("Step 1: Access Agent > Downline Listing");
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        log("Step 2: Filter with any player and click Edit button. Player account: " + memberAccount);
+        page.searchDownline(memberAccount, "", "");
+        EditDownLinePage editPage = page.clickEditIcon(memberAccount, true);
+        log("Step 3: Click on PS38 product and scroll down to Commission");
+        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
+        log("Step 4:  Select any specific sport and specific leagues and click Add");
+        String amountCommission = String.format("%.2f", commissionSection.randomDouble(0.01, 0.09));
+        Map<String, String> commissionList= new HashMap<String, String>(){
+            {
+                put("", amountCommission);
+            }
+        };
+        commissionSection.addSport(LBL_SOCCER_SPORT, "1");
+        String league = commissionSection.getLeague();
+        log(String.format("Step 5: Select commission on added sport: %s league: %s below then Submit it", LBL_SOCCER_SPORT, league));
+        commissionSection.updateComSpecificSport(LBL_SOCCER_SPORT, league, Arrays.asList(commissionList), TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0));
+        page.submitEditDownlinePS38(true);
+
+        log("Verify 1: Commission for sport: Soccer with league " +league + " is set successfully");
+        page.clickEditIcon(memberAccount, true);
+        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        Assert.assertEquals(
+                commissionSection.getAmountCommission(null, TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0), LBL_SOCCER_SPORT, league)
+                        .get(TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0)), amountCommission, "Failed! Commission is not updated.");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4191")
+    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Parameters({"memberAccount"})
+    public void PS38_Agent_TC4191(String memberAccount)  {
+        log("@title: Validate can set odd groups for direct players on specific sport with general league");
+        log("Precondition: Login Agent site with CO level");
+        log("Step 1: Access Agent > Downline Listing");
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        log("Step 2: Filter with any player and click Edit button. Player account: " + memberAccount);
+        page.searchDownline(memberAccount, "", "");
+        EditDownLinePage editPage = page.clickEditIcon(memberAccount, true);
+        log("Step 3: Click on PS38 product and scroll down to Commission");
+        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
+        log("Step 4:  Select any specific sport and leagues is General and click Add");
+        String groupValue = String.valueOf("ABCDE".charAt(new Random().nextInt(5)));
+        Map<String, String> commissionList= new HashMap<String, String>(){
+            {
+                put(groupValue, "");
+            }
+        };
+        commissionSection.addSport(LBL_SOCCER_SPORT, GENERAL);
+        String league = commissionSection.getLeague();
+        log(String.format("Step 5: Select odds group on added sport: %s league: %s below then Submit it", LBL_SOCCER_SPORT, GENERAL));
+        commissionSection.updateComSpecificSport(LBL_SOCCER_SPORT, league, Arrays.asList(commissionList), null);
+        page.submitEditDownlinePS38(true);
+
+        log("Verify 1: Odds group for sport: Soccer with league " +league + " is set successfully");
+        page.clickEditIcon(memberAccount, true);
+        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        Assert.assertEquals(
+                commissionSection.getAmountCommission(null, null, LBL_SOCCER_SPORT, league)
+                        .get(ODDS_GROUP), groupValue, "Failed! Odds group value is not updated.");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4192")
+    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Parameters({"memberAccount"})
+    public void PS38_Agent_TC4192(String memberAccount)  {
+        log("@title: Validate can set odd groups for direct players on specific sport with specific league");
+        log("Precondition: Login Agent site with CO level");
+        log("Step 1: Access Agent > Downline Listing");
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        log("Step 2: Filter with any player and click Edit button. Player account: " + memberAccount);
+        page.searchDownline(memberAccount, "", "");
+        EditDownLinePage editPage = page.clickEditIcon(memberAccount, true);
+        log("Step 3: Click on PS38 product and scroll down to Commission");
+        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
+        log("Step 4:  Select any specific sport and leagues is General and click Add");
+        String groupValue = String.valueOf("ABCDE".charAt(new Random().nextInt(5)));
+        Map<String, String> commissionList= new HashMap<String, String>(){
+            {
+                put(groupValue, "");
+            }
+        };
+        commissionSection.addSport(LBL_SOCCER_SPORT, "1");
+        String league = commissionSection.getLeague();
+        log(String.format("Step 5: Select odds group on added sport: %s league: %s below then Submit it", LBL_SOCCER_SPORT, league));
+        commissionSection.updateComSpecificSport(LBL_SOCCER_SPORT, league, Arrays.asList(commissionList), null);
+        page.submitEditDownlinePS38(true);
+
+        log("Verify 1: Odds group for sport: Soccer with league " +league + " is set successfully");
+        page.clickEditIcon(memberAccount, true);
+        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        Assert.assertEquals(
+                commissionSection.getAmountCommission(null, null, LBL_SOCCER_SPORT, league)
+                        .get(ODDS_GROUP), groupValue, "Failed! Odds group value is not updated.");
+        log("INFO: Executed completely");
+    }
 }
 
