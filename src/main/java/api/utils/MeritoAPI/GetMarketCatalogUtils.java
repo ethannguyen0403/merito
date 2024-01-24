@@ -53,6 +53,28 @@ public class GetMarketCatalogUtils {
         return getMarketCatalog(jsonObject);
     }
 
+    /**
+     * This method get the live market under an event except the market type ("WINNER , PROMOTION, TOP_6_FINISH,RELEGATION")
+     * @param token
+     * @param eventTypeId
+     * @param eventId
+     * @param competitionId
+     * @param marketId
+     * @param sort
+     * @return
+     */
+    public static Market getEventHasLiveMarketOnly(String token, String eventTypeId, String eventId, String competitionId, String marketId, String sort) {
+        MarketResult marketResult = getMarketCatalogAPI(token, eventTypeId, eventId, competitionId,marketId , sort);
+        String listMarketNonLive = "WINNER , PROMOTION, TOP_6_FINISH,RELEGATION, ODDS";
+        for (int i = 0; i < marketResult.getMarketList().size(); i++) {
+            Market marketCatalog = marketResult.getMarketList().get(i);
+            if (listMarketNonLive.contains(marketCatalog.getMarketDescription().getmarketType())) {
+                continue;
+            }else
+               return marketCatalog;
+        }
+        return null;
+    }
     private static MarketResult getMarketCatalog(JSONObject jsonObject) {
         List<Market> lst = new ArrayList<>();
         Market market;
@@ -64,11 +86,11 @@ public class GetMarketCatalogUtils {
                 resultObj = resultArr.getJSONObject(i);
                 market = getMarket(resultObj);
                 lst.add(market);
-                return new MarketResult.Builder()
-                        .isSuccess(isSuccess)
-                        .marketList(lst)
-                        .build();
             }
+            return new MarketResult.Builder()
+                    .isSuccess(isSuccess)
+                    .marketList(lst)
+                    .build();
         }
         return null;
     }
@@ -88,10 +110,15 @@ public class GetMarketCatalogUtils {
     }
 
     private static Event getEvent(JSONObject jsObj) {
+        String countryCode = "";
+        if (jsObj.has("countryCode")) {
+            // handle for Winner market does not return countryCode from API
+            countryCode = jsObj.getString("countryCode");
+        }
         return new Event.Builder()
                 .id(jsObj.getInt("id"))
                 .name(jsObj.getString("name"))
-                .countryCode(jsObj.getString("countryCode"))
+                .countryCode(countryCode)
                 .timezone(jsObj.getString("timezone"))
                 .openDate(jsObj.getString("openDate"))
                 .build();

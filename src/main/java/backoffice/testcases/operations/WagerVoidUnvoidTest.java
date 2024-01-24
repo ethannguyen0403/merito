@@ -255,9 +255,10 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
      * 3. Verify the message  display after unvoid "Un-void Wager successful. Report might take 30 minutes to regenerate.".
      */
     @TestRails(id = "646")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_stg"})
     @Parameters({"wagerID"})
     public void BO_Operations_Wager_Void_Unvoid_646(String wagerID) {
+        // This test case cannot auto run because effect user data, high risk, should create data for testing only
         log("@title:Validate void/unvoid exchange wager in Match status on the market have 1 wager");
         log("Step 1. Access Operations > Wager Void/Un-void");
         // String wagerID ="101851";

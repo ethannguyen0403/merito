@@ -170,7 +170,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
 
         log("Step 3. Click on Early > Soccer in Left menu");
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
 
         log("Verify Soccer is active and Soccer Match title displays");
         Assert.assertEquals(euroViewPage.lblSportHeader.getText(),LBL_SOCCER_SPORT, "FAILED! Deposit page is not displayed");
@@ -218,7 +218,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
 
         log("Step 3. Select Early the left menu and click on Soccer");
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         log("Step 4. Click on Handicap tab");
         euroViewPage.selectMarketTypeTab(TEXT_HDP);
         ProteusGeneralEvent event = euroViewPage.getFirstEventInfo();
@@ -228,7 +228,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
         proteusHomePage.selectEuroView();
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         euroViewPage.selectMarketTypeTab(TEXT_HDP);
         //end workaround
 
@@ -257,7 +257,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
 
         log("Step 3. Select Early the left menu and click on Soccer");
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         log("Step 4. Click on Over Under tab");
         euroViewPage.selectMarketTypeTab(TEXT_OVER_UNDER);
         ProteusGeneralEvent event = euroViewPage.getFirstEventInfo();
@@ -267,7 +267,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
         proteusHomePage.selectEuroView();
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         euroViewPage.selectMarketTypeTab(TEXT_OVER_UNDER);
         //end workaround
 
@@ -296,7 +296,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
 
         log("Step 3. Select Early the left menu and click on Soccer");
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         euroViewPage.selectMarketTypeTab(TEXT_1X2);
 
         log("Step 4. Get Decimal odds and change odds type to Malay");
@@ -307,7 +307,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
         proteusHomePage.selectEuroView();
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         euroViewPage.selectMarketTypeTab(TEXT_1X2);
         //end workaround
 
@@ -335,7 +335,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
 
         log("Step 3. Select Early the left menu and click on Soccer");
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         euroViewPage.selectMarketTypeTab(TEXT_1X2);
 
         log("Step 4. Get Decimal odds and change odds type to HK");
@@ -346,7 +346,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
         proteusHomePage.selectEuroView();
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         euroViewPage.selectMarketTypeTab(TEXT_1X2);
         //end workaround
 
