@@ -30,7 +30,7 @@ public class EuroViewPage extends ProteusHomePage {
 //    private Image imgSpinner = Image.xpath("//em[contains(@class,'fa-4x fa-spin')]");
     public Label lblSportHeader = Label.xpath("(//app-sport-euro//div[contains(@class,'sport-header')]//h3)[1]");
     private TextBox txtStake = TextBox.xpath("//app-bet-item//input[contains(@class,'stake-input')]");
-    private Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
+    public Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
     private Label lblCompetitionInfo = Label.xpath("(//app-sport-euro//app-league-euro//th[@class='opponent-column'])[1]");
     private Label lblHomeNameInfo = Label.xpath("(//app-sport-euro//app-league-euro//table[contains(@class,'odd-pages')]//tr)[1]//th[3]//div[@class='opponent']");
     private Table tblFirstLeague = Table.xpath("(//app-league-euro/table[contains(@class,'league-header')])[1]", 5);
@@ -157,17 +157,25 @@ public class EuroViewPage extends ProteusHomePage {
         return proteusGeneralEvent;
     }
 
-    public void placeBet(ProteusGeneralEvent event, String stake, boolean isSubmit) {
+    public void placeBet(ProteusGeneralEvent event, String stake, boolean isSubmit, boolean isConfirm) {
         if(Objects.nonNull(event)) {
             event.getBtnFirstSelection().click();
             txtStake.sendKeys(stake);
             if(isSubmit) {
                 btnPlaceBet.jsClick();
                 btnOK.waitForElementToBePresent(btnOK.getLocator());
-                btnOK.jsClick();
-                waitForSpinnerLoading();
+                if(isConfirm) {
+                    btnOK.jsClick();
+                    waitForSpinnerLoading();
+                }
             }
         }
+    }
+
+    public void inputStake(String eventId, String stake) {
+        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", eventId);
+        TextBox txtStake = TextBox.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
+        txtStake.sendKeys(stake);
     }
 
     public ProteusBetslip getBetSlipInfo(String eventId) {
@@ -177,11 +185,18 @@ public class EuroViewPage extends ProteusHomePage {
         Label lblHDPPoint = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'fw-semibold')]"));
         Label lblOdds = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'odds-text')]//span"));
         Label lblStake = Label.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
+        Label lblMinBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Min bet')]/span"));
+        Label lblMaxBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Max bet')]/span"));
+        Label lblMatchMax = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span"));
         return new ProteusBetslip.Builder().eventName(lblEventName.getText().trim())
                 .summaryEventInfo(lblSummaryInfo.getText().trim())
                 .hdpPoint(lblHDPPoint.getText().trim())
                 .odds(lblOdds.getText().trim())
-                .stake(lblStake.getAttribute("value")).build();
+                .stake(lblStake.getAttribute("value"))
+                .minBet(lblMinBet.getText().trim())
+                .maxBet(lblMaxBet.getText().trim())
+                .maxMatch(lblMatchMax.getText().trim())
+                .build();
     }
 
     public void verifyBetSlipInfoShowCorrect(ProteusGeneralEvent event, ProteusMarket market, String stake, String marketType, List<Double> lstOddsConvert) {

@@ -1,8 +1,10 @@
 package membersite.pages.proteus;
 
 import com.paltech.element.common.Button;
+import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
+import com.paltech.utils.DateUtils;
 import controls.Table;
 import membersite.controls.DropDownMenu;
 import membersite.objects.proteus.ProteusBetslip;
@@ -11,8 +13,11 @@ import membersite.objects.proteus.ProteusTeamTotalEvent;
 import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
+import static common.MemberConstants.GMT_MINUS_4_30;
 
 public class AsianViewPage extends ProteusHomePage {
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
@@ -21,6 +26,9 @@ public class AsianViewPage extends ProteusHomePage {
     public Button btnTodayAsian =  Button.xpath("//app-left-menu-asian//button[text()=' TODAY ']");
     public Button btnLiveAsian =  Button.xpath("//app-left-menu-asian//button[text()=' LIVE ']");
     public DropDownMenu ddmOddsType = DropDownMenu.xpath("//app-event-filter-desktop//ul[contains(@class,'control-list')]/li[4]","span[@class='mx-2 text-capitalize']","//ul[contains(@class,'sub-selections')]//li");
+    public DropDownMenu ddmDateTime = DropDownMenu.xpath("//app-event-filter-desktop//ul[contains(@class,'control-list')]/li[1]","span[@class='mx-2 text-capitalize']","//ul[contains(@class,'sub-selections')]//li");
+    public DropDownMenu ddmLeagues = DropDownMenu.xpath("//app-event-filter-desktop//ul[contains(@class,'control-list')]/li[5]","span[@class='me-2 text-capitalize']","//div[@class='leagues-box']");
+    public DropDownMenu ddmSortBy = DropDownMenu.xpath("//app-event-filter-desktop//ul[contains(@class,'control-list')]/li[3]","span[@class='mx-2 text-capitalize']","//ul[contains(@class,'sub-selections')]//li");
     private Table tblFirstEvent = Table.xpath("(//app-league-asian//table[contains(@class,'odds-page')])[1]", 10);
     private Label lblFirstLeague = Label.xpath("(//app-league-asian//div[contains(@class,'league-name')])[1]");
     private Label lblFirstEventAwayName = Label.xpath("(//app-league-asian//div[contains(@class,'weak-team')])[1]");
@@ -37,6 +45,10 @@ public class AsianViewPage extends ProteusHomePage {
     private TextBox txtSearchLeagueOrTeamName = TextBox.xpath("//app-event-filter-desktop//input[@formcontrolname='eventKeySearch']");
     private Button btnSearch = Button.xpath("//app-event-filter-desktop//button[contains(@class,'btn-search')]");
     public Label lblNoRecordFound = Label.xpath("//app-event-filter-desktop//div[contains(@class,'result-box show')]//div[contains(@class,'search-result-empty')]");
+    private Table tblOdds = Table.xpath("//app-sport-asian//table[contains(@class,'odds-page')]", 15);
+    private Button btnApply = Button.xpath("//app-event-filter-desktop//div[@class='leagues-box']//button[contains(@class,'btn-apply')]");
+    private Button btnCancel = Button.xpath("//app-event-filter-desktop//div[@class='leagues-box']//button[contains(@class,'btn-cancel')]");
+    private CheckBox chbSelectAll = CheckBox.xpath("//div[@class='leagues-box']//span[text()='Select all']//..//em");
     public AsianViewPage(String types) {
         super(types);
     }
@@ -237,5 +249,47 @@ public class AsianViewPage extends ProteusHomePage {
         Label lblOption = Label.xpath("(//app-event-filter-desktop//div[contains(@class,'result-box show')]//li)[1]");
         lblOption.click();
         waitForSpinnerLoading();
+    }
+
+    public void filterByDate(String date) {
+        //add space before and after the value input
+        ddmDateTime.clickSubMenu(String.format("%s%s%s"," ",date," "));
+        waitForSpinnerLoading();
+    }
+
+    public void filterByLeague(String leagueName, boolean isSelectAll) {
+        if(!isSelectAll) {
+            ddmLeagues.click();
+            chbSelectAll.click();
+            btnCancel.click();
+        }
+        ddmLeagues.clickSubMenu(leagueName);
+        btnApply.click();
+        waitForSpinnerLoading();
+    }
+
+    public void verifyFilterByDateShowCorrect(String date) {
+        Date expectedDate = DateUtils.convertToDate(date, "yyyy-MM-dd");
+        String xpathDateColumn = "(//app-sport-asian//table[contains(@class,'odds-page')])[%s]//th[1]//div[contains(@class,'time')]";
+        List<String> lstDate = new ArrayList<>();
+        String year = String.valueOf(DateUtils.getYear(GMT_MINUS_4_30));
+        for (int i = 0; i < tblOdds.getWebElements().size(); i++) {
+            Label lblDate = Label.xpath(String.format(xpathDateColumn, i + 1));
+            String dateActual = String.format("%s-%s", year, lblDate.getText());
+            lstDate.add(dateActual);
+        }
+        for (int i = 0; i < lstDate.size(); i++) {
+            Date actualDate = DateUtils.convertToDate(lstDate.get(i), "yyyy-MM-dd");
+            Assert.assertFalse(actualDate.before(expectedDate), String.format("FAILED! Date filter is not correct expected %s but actual %s", expectedDate, actualDate));
+        }
+    }
+
+    public void selectSortBy(String sortBy) {
+        ddmSortBy.clickSubMenu(sortBy);
+        waitForSpinnerLoading();
+    }
+
+    public void verifySortByTimeShowCorrect() {
+
     }
 }
