@@ -3,11 +3,15 @@ package membersite.utils.proteus;
 import baseTest.BaseCaseTest;
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
+import com.paltech.utils.DateUtils;
 import com.paltech.utils.WSUtils;
 import membersite.objects.proteus.ProteusMarket;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.util.ArrayList;
 import java.util.Objects;
+
+import static common.MemberConstants.GMT_MINUS_4_30;
 
 public class MarketUtils extends BaseCaseTest {
 
@@ -88,7 +92,7 @@ public class MarketUtils extends BaseCaseTest {
         return null;
     }
 
-    public static JSONObject getMarketJSON(int eventId, String betType) {
+    private static JSONObject getMarketJSON(int eventId, String betType) {
 //        String url = "https://www.ps388win.com/proteus-member-service/odds/v3/decimal";
         String url = String.format("%s/proteus-member-service/odds/v3/decimal", proteusUrl);
         String jsn = String.format("{\n" +
@@ -173,4 +177,24 @@ public class MarketUtils extends BaseCaseTest {
         }
         return null;
     }
+
+    private static JSONObject getListLeagueJSON(String periodType) {
+        String fromDate = DateUtils.getDate(0, "yyyy-MM-dd", GMT_MINUS_4_30);
+        String url = String.format("%s/proteus-member-service/before-login/league-period/league/v1/sport-id/29/market-type/ALL/period-type/%s/from-date/%sT00:00:00/to-date/9998-12-31T13:00:00/timezone/-04:00/locale/en-US", proteusUrl, periodType, fromDate);
+        return WSUtils.getGETJSONObjectWithCookies(url, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+    }
+
+    public static ArrayList<String> getListLeagues(String periodType) {
+        ArrayList<String> lstLeagues = new ArrayList<>();
+        JSONObject object = getListLeagueJSON(periodType);
+        if (Objects.nonNull(object)) {
+            JSONArray array = object.getJSONArray("data");
+            for (int i = 0; i < array.length(); i++) {
+                lstLeagues.add(array.getJSONObject(i).getString("leagueName"));
+            }
+            return lstLeagues;
+        }
+        return lstLeagues;
+    }
+
 }
