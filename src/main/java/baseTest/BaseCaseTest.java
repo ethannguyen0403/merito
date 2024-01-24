@@ -335,7 +335,7 @@ public class BaseCaseTest {
     }
 
     public static String defineProteusURL() {
-        return environment.getProteusURL();
+        return environment.getproteusAPIProviderDomain();
     }
 
     private static String defineMemberService(String brandName) {
