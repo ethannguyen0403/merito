@@ -32,6 +32,7 @@ public class MyMarketPopup {
     }
 
     public List<String> getMarketInfo(int index) {
+        lblNoRecord.waitForControlInvisible(1,2);
         return tbMyMarkets.getRowsWithoutHeader(index, false).get(index - 1);
     }
 

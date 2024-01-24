@@ -169,7 +169,9 @@ public class Fair999Header extends Header1 {
 
     public MyMarketPopup openMyMarketPopup() {
         lnkMyMarkets.click();
-        return new MyMarketPopup();
+        MyMarketPopup myMarketPopup = new MyMarketPopup();
+        myMarketPopup.lblNoRecord.isDisplayed();
+        return myMarketPopup;
     }
 
     public boolean isProductTabDisplay(String productName) {

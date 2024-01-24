@@ -9,26 +9,20 @@ public class Environment {
     public static String betclubURL;
     public static String backofficeURL;
     public static String domainULR;
-    /*   private String loginAgentURL;
-       public static String memberSOSUrl;
-       public static String sosAgentURL;
-       public static String sosValidationAgentURL;
-       public static String backofficeSOSUrl;
-       public static String backofficeDashboardUrl;
-       private String loginNewAccAgentURL;
-       private String securityCodeAgentUrl;
-       private String dashboardAgentURL;
-
-       private String domainAgentMemberULR;
-       private String memberSiteURL;
-       private String memberDashboardUrl;
-       private String backofficeDomain;*/
     public static String directusURL;
     private String fairURL;
     public String fairCashURL;
     private String securityCode;
     private String apiURL;
-    public static String proteusURL;
+    private String proteusAPIProviderDomain;
+
+    public String getproteusAPIProviderDomain() {
+        return proteusAPIProviderDomain;
+    }
+
+    public void setProteusAPIProviderDomain(String proteusAPIDomain) {
+        this.proteusAPIProviderDomain = proteusAPIDomain;
+    }
 
     public static String getSatURL() {
         return satURL;
@@ -132,14 +126,6 @@ public class Environment {
     public void setSecurityCode(String val) {
         this.securityCode = val;
     }
-    public String getProteusURL() {
-        return proteusURL;
-    }
-
-    public void setProteusURL(String url) {
-        this.proteusURL = url;
-    }
-
 
 //    public String getMemberSiteURL() {
 //    }

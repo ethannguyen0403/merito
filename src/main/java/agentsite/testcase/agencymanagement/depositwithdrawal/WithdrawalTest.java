@@ -391,7 +391,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Amount is updated correctly
      */
     @TestRails(id = "737")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     public void Agent_AM_DepositWithdrawal_Withdraw_737() {
         log("@title: Validate can withdraw Win/Loss Settle successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
