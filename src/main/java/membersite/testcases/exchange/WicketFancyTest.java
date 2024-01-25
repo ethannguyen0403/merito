@@ -82,7 +82,7 @@ public class WicketFancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 4. Click on an odds of a fancy market then place bet");
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
         marketPage.placeFancy(fancyMarket, false, minStake);
@@ -113,7 +113,7 @@ public class WicketFancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 4 Click on an odds and place on Yes and No option");
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
         marketPage.placeFancy(fancyMarket, true, minStake);
@@ -504,7 +504,7 @@ public class WicketFancyTest extends BaseCaseTest {
         log("Step 4 Active Wicket Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(WICKET_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fancyMarket.getMarketID(), minStake));

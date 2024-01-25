@@ -312,7 +312,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 4 Active Artemis Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
@@ -346,7 +346,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 4. Click on an odds of a fancy market then place bet");
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_LAY_TYPE);
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
         marketPage.placeFancy(fancyMarket, false, minStake);
@@ -377,7 +377,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 4 Click on an odds and place on Yes and No option");
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
         marketPage.placeFancy(fancyMarket, true, minStake);
@@ -787,7 +787,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 4 Active Artemis Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
@@ -819,7 +819,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 4 Active Artemis Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 2);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
@@ -1092,7 +1092,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         log("Step 4 Active Artemis Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(ARTEMIS_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getArtemisFancyMarketInfo(fcMarket, 1);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 

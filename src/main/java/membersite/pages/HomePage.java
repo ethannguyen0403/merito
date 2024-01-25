@@ -149,7 +149,6 @@ public class HomePage extends LandingPage {
 
     public MarketPage clickEventName(String eventName) {
         eventContainerControl.clickOnRowofEventName(eventName);
-//        waitMenuLoading();
         waitPageLoad();
         return new MarketPage(_type);
     }
