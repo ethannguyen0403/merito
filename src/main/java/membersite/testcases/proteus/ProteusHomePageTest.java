@@ -1401,7 +1401,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4037")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"Proteus.2024.V.1.02"})
     public void PS38_Member_TC4037() {
         log("@title: Validate cannot place bet when place bet in member site smaller than min bet setting");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1412,7 +1412,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 3. Placing bet with Stake/Risk smaller than min bet > observe");
         EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-//        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         ProteusGeneralEvent event = euroViewPage.getFirstEventInfo();
         euroViewPage.placeBet(event, minStake, true, false);
 
@@ -1432,7 +1432,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
         EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
-//        euroViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         ProteusGeneralEvent event = euroViewPage.getFirstEventInfo();
 
         log("Step 3. Placing bet with Stake/Risk greater than max bet > observe");
