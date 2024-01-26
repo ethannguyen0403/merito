@@ -5,6 +5,7 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 import controls.Table;
 import membersite.controls.DropDownMenu;
+import membersite.objects.proteus.Event;
 import membersite.objects.proteus.ProteusBetslip;
 import membersite.objects.proteus.ProteusGeneralEvent;
 import membersite.objects.proteus.ProteusMarket;
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static common.ProteusConstant.EARLY_PERIOD;
+import static common.ProteusConstant.LIVE_PERIOD;
+
 public class EuroViewPage extends ProteusHomePage {
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
     public Label lblLoading = Label.xpath("//div[contains(@class,'loading-text')]/p");
@@ -21,12 +25,12 @@ public class EuroViewPage extends ProteusHomePage {
     private String sportHeaderMenuXpath = "//app-slider-sport//em[contains(@class,'menu-%s')]";
     private String sportLeftMenuXpath = "//app-left-menu-euro//div[contains(@class,'menu-item')]//div[text()='%s']";
     private String marketTabXpath = "//app-sport-euro//div[contains(@class,'market-group')]//button[text()='%s']";
-    public Button btnEarlyEuro = Button.xpath("//app-left-menu-euro//button[text()=' Early ']");
-    private Button btnLiveEuro = Button.xpath("//app-left-menu-euro//button[text()=' Live ']");
+    public Button btnEarlyEuro = Button.xpath(String.format("//app-left-menu-euro//button[text()=' %s ']",EARLY_PERIOD));
+    private Button btnLiveEuro = Button.xpath(String.format("//app-left-menu-euro//button[text()=' %s ']",LIVE_PERIOD));
 //    private Image imgSpinner = Image.xpath("//em[contains(@class,'fa-4x fa-spin')]");
     public Label lblSportHeader = Label.xpath("(//app-sport-euro//div[contains(@class,'sport-header')]//h3)[1]");
     private TextBox txtStake = TextBox.xpath("//app-bet-item//input[contains(@class,'stake-input')]");
-    private Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
+    public Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
     private Label lblCompetitionInfo = Label.xpath("(//app-sport-euro//app-league-euro//th[@class='opponent-column'])[1]");
     private Label lblHomeNameInfo = Label.xpath("(//app-sport-euro//app-league-euro//table[contains(@class,'odd-pages')]//tr)[1]//th[3]//div[@class='opponent']");
     private Table tblFirstLeague = Table.xpath("(//app-league-euro/table[contains(@class,'league-header')])[1]", 5);
@@ -38,6 +42,15 @@ public class EuroViewPage extends ProteusHomePage {
     private Label lblFirstSelection = Label.xpath("((//app-league-euro//table[contains(@class,'odd-page')])[1]//th[contains(@class,'odd-column')])[1]");
     private Label lblSecondSelection = Label.xpath("((//app-league-euro//table[contains(@class,'odd-page')])[1]//th[contains(@class,'odd-column')])[2]");
     private Label lblThirdSelection = Label.xpath("((//app-league-euro//table[contains(@class,'odd-page')])[1]//th[contains(@class,'odd-column')])[3]");
+
+    private String leagueIndexXpath = "//app-league-euro[%d]";
+    private String eventIndexXpath = "//app-event-item-parent-euro[%d]";
+    private String leagueNameXpath ="//app-league-euro[1]//th[@class='opponent-column']//div[contains(@class,'text-row')]";
+    private String timeColumXpath = "//app-league-euro[1]/app-event-item-parent-euro[1]//th[contains(@class,'time-column')]";
+    private String homeTeamXpath ="//app-league-euro[1]/app-event-item-parent-euro[1]//div[@class='opponent']/div[1]";
+    private String awayTeamXpath ="//app-league-euro[1]/app-event-item-parent-euro[1]//div[@class='opponent']/div[2]";
+    private String oddsHomeXpath ="//app-league-euro[1]/app-event-item-parent-euro[1]//th[contains(@class,'odd-column')][1]//span[contains(@class,'odd-number')][1]//span";
+
     private Button btnOK = Button.xpath("//app-confirm-modal//button[contains(@class,'btn-ok')]");
     public EuroViewPage(String types) {
         super(types);
@@ -62,16 +75,50 @@ public class EuroViewPage extends ProteusHomePage {
         waitForSpinnerLoading();
     }
 
-    public void selectSportLeftMenu(String sportName) {
-        Button btnSport = Button.xpath(String.format(sportLeftMenuXpath, sportName));
+    /**
+     * This method select all item in left menu in ALL SPORT section: Sport, Country, League,or Event
+     * @param menu
+     */
+    public void selectItemOnLeftMenu(String menu) {
+        Button btnSport = Button.xpath(String.format(sportLeftMenuXpath, menu));
+        if(!btnSport.isDisplayed())
+            System.err.println(String.format("Cannot found %s in the left menu",menu));
         btnSport.click();
         waitForSpinnerLoading();
     }
 
+    /**
+     * This method select an event in the left menu. To select sport, only input sportName. To select eventNAme, input all fields with valid infor
+     * @param sportName
+     * @param country
+     * @param leagueName
+     * @param eventName
+     */
+    public void selectEventOnLeftMenu(String period,String sportName, String country, String leagueName, String eventName){
+        selectPeriodTab(period);
+        if (!sportName.isEmpty())
+            selectItemOnLeftMenu(sportName);
+        if(!country.isEmpty())
+            selectItemOnLeftMenu(country);
+        if(!leagueName.isEmpty())
+            selectItemOnLeftMenu(leagueName);
+        if(!eventName.isEmpty())
+            selectItemOnLeftMenu(eventName);
+    }
+    public void selectEventOnLeftMenu(String period,String sportName){
+        selectEventOnLeftMenu(period,sportName,"", "","");
+    }
+    public void selectEventOnLeftMenu(String period,String sportName, String country){
+        selectEventOnLeftMenu(period,sportName,country, "","");
+    }
     public void selectMarketTypeTab(String marketType) {
         Label lblMarketType = Label.xpath(String.format(marketTabXpath, marketType));
         lblMarketType.click();
         waitForSpinnerLoading();
+    }
+
+    public Event getEventInfo(int index) {
+        return new Event.Builder().build();
     }
 
     public void selectPeriodTab(String period) {
@@ -110,17 +157,25 @@ public class EuroViewPage extends ProteusHomePage {
         return proteusGeneralEvent;
     }
 
-    public void placeBet(ProteusGeneralEvent event, String stake, boolean isSubmit) {
+    public void placeBet(ProteusGeneralEvent event, String stake, boolean isSubmit, boolean isConfirm) {
         if(Objects.nonNull(event)) {
             event.getBtnFirstSelection().click();
             txtStake.sendKeys(stake);
             if(isSubmit) {
                 btnPlaceBet.jsClick();
                 btnOK.waitForElementToBePresent(btnOK.getLocator());
-                btnOK.jsClick();
-                waitForSpinnerLoading();
+                if(isConfirm) {
+                    btnOK.jsClick();
+                    waitForSpinnerLoading();
+                }
             }
         }
+    }
+
+    public void inputStake(String eventId, String stake) {
+        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", eventId);
+        TextBox txtStake = TextBox.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
+        txtStake.sendKeys(stake);
     }
 
     public ProteusBetslip getBetSlipInfo(String eventId) {
@@ -130,11 +185,18 @@ public class EuroViewPage extends ProteusHomePage {
         Label lblHDPPoint = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'fw-semibold')]"));
         Label lblOdds = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'odds-text')]//span"));
         Label lblStake = Label.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
+        Label lblMinBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Min bet')]/span"));
+        Label lblMaxBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Max bet')]/span"));
+        Label lblMatchMax = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span"));
         return new ProteusBetslip.Builder().eventName(lblEventName.getText().trim())
                 .summaryEventInfo(lblSummaryInfo.getText().trim())
                 .hdpPoint(lblHDPPoint.getText().trim())
                 .odds(lblOdds.getText().trim())
-                .stake(lblStake.getAttribute("value")).build();
+                .stake(lblStake.getAttribute("value"))
+                .minBet(lblMinBet.getText().trim())
+                .maxBet(lblMaxBet.getText().trim())
+                .maxMatch(lblMatchMax.getText().trim())
+                .build();
     }
 
     public void verifyBetSlipInfoShowCorrect(ProteusGeneralEvent event, ProteusMarket market, String stake, String marketType, List<Double> lstOddsConvert) {

@@ -86,11 +86,11 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         market.getBtnOdd().click();
 
         log(String.format("Step 4. Place bet with odds:%s Stake: %s", odds, minBet));
-        AccountBalance balance = memberHomePage.header.getUserBalance();
+        AccountBalance balance = memberHomePage.getUserBalance();
         marketPage.betsSlipContainer.placeBet(odds, minBet);
         List<Order> wagers = marketPage.myBetsContainer.getOrder(true, true, 1);
 
-        AccountBalance balanceExpected = memberHomePage.header.getUserBalance();
+        AccountBalance balanceExpected = memberHomePage.getUserBalance();
         String expectedBalance = marketPage.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
 
         log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
@@ -130,11 +130,11 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         log("Step 4. Input stake and click submit");
         log(String.format("----- Place bet  %s@%s ------", odds, minBet));
-        AccountBalance balance = marketPage.header.getUserBalance();
+        AccountBalance balance = marketPage.getUserBalance();
         marketPage.betsSlipContainer.placeBet(odds, minBet);
         List<Order> wagers = marketPage.myBetsContainer.getOrder(true, false, 1);
 
-        AccountBalance balanceExpected = marketPage.header.getUserBalance();
+        AccountBalance balanceExpected = marketPage.getUserBalance();
         String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
 
         log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
@@ -176,11 +176,11 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             String expectedProfit = String.format("%.2f", (odds - 1) * Double.parseDouble(minBet));
 
             log("Step 4. Input stake and click submit");
-            AccountBalance balance = memberHomePage.header.getUserBalance();
+            AccountBalance balance = memberHomePage.getUserBalance();
             marketPage.betsSlipContainer.placeBet(String.valueOf(odds), minBet);
             List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
 
-            AccountBalance balanceExpected = marketPage.header.getUserBalance();
+            AccountBalance balanceExpected = marketPage.getUserBalance();
             String expectedBalance = marketPage.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
 
             log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
@@ -204,8 +204,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     public void Place_Bet_Function_TC559() {
         log("@title: Validate can place unmatched Lay bet successfully for Tennis");
         String odds = "1.01";
-        AccountBalance balance = BetUtils.getUserBalance();
-        String minBet = BetUtils.getMinBet(LBL_TENNIS_SPORT, LBL_LAY_TYPE);
+        AccountBalance balance = memberHomePage.getUserBalance();
+        String minBet = BetUtils.getMinBet("TENNIS", "LAY");
         String expectedLiability = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
         log("Step 1. Active any market of Tennis");
@@ -238,7 +238,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("Verify 4. At in-play will check  on Cancel option by default");
             log("Verify 5. Lay bet background is pink #F9E6ED");
             log("Verify 6. Account Balance/Outstanding updated correctly");
-            AccountBalance balanceExpected = marketPage.header.getUserBalance();
+            AccountBalance balanceExpected = marketPage.getUserBalance();
             String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
             Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
             Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
@@ -380,7 +380,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     public void Place_Bet_Function_TC562() {
         log("@title: Validate can place unmatched Back bet successfully for Cricket");
         String odds = "30";
-        AccountBalance balance = BetUtils.getUserBalance();
+        AccountBalance balance = memberHomePage.getUserBalance();
         String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
 
         log("Step 1. Active any market of Cricket");
@@ -413,7 +413,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("Verify 4. At in-play will check  on Cancel option by default");
             log("Verify 5. Back bet background is green #C9E6EF");
             log("Verify 6. Account Balance/Outstanding updated correctly");
-            AccountBalance balanceExpected = page.header.getUserBalance();
+            AccountBalance balanceExpected = page.getUserBalance();
             String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
             Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
             Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
@@ -425,22 +425,22 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "563")
-    @Test(groups = {"smoke","isa"})
+    @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC563() {
         log("@title: Validate can place unmatched Lay bet successfully for Cricket");
         String odds = "1.01";
-        AccountBalance balance = BetUtils.getUserBalance();
-        String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_LAY_TYPE);
+        AccountBalance balance = memberHomePage.getUserBalance();
+        String minBet = BetUtils.getMinBet("CRICKET", "LAY");
         String expectedLiability = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
         log("Step 1. Active any market of Cricket");
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
-
         Event event = page.eventContainerControl.getEventRandom(false, false);
         if (Objects.isNull(event)) {
             log("DEBUG: There is no event available");
             return;
         }
+        log("Step 1.1. Click on the event "+ event.getEventName());
         MarketPage marketPage = page.clickEvent(event);
         try {
             log("Step 2. Click on any Lay odds");
@@ -463,7 +463,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("Verify 4. At in-play will check  on Cancel option by default");
             log("Verify 5. Lay bet background is pink #F9E6ED");
             log("Verify 6. Account Balance/Outstanding updated correctly");
-            AccountBalance balanceExpected = page.header.getUserBalance();
+            AccountBalance balanceExpected = page.getUserBalance();
             String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
             Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
             Assert.assertEquals(balanceExpected.getExposure(), String.format(Locale.getDefault(), "%,.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
@@ -504,7 +504,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             market.getBtnOdd().click();
 
             log("Step 2.1 Get balance before place bet");
-            AccountBalance balance = memberHomePage.header.getUserBalance();
+            AccountBalance balance = memberHomePage.getUserBalance();
             log("Step 3. Place bet - Update odd to 100, Input valid stake");
 
             marketPage.betsSlipContainer.placeBet(odds, minBet);
@@ -513,7 +513,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             List<Order> wagers = marketPage.myBetsContainer.getOrder(false, isBack, 1);
 
             log("Step 6. Get balance after place bet");
-            AccountBalance balanceExpected = page.header.getUserBalance();
+            AccountBalance balanceExpected = page.getUserBalance();
             String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
 
             log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
@@ -581,10 +581,10 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             market.getBtnOdd().click();
 
             log("Step 4. Input stake and click submit");
-            AccountBalance balance = memberHomePage.header.getUserBalance();
+            AccountBalance balance = memberHomePage.getUserBalance();
             marketPage.betsSlipContainer.placeBet(odds, minBet);
             List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
-            AccountBalance balanceExpected = BetUtils.getUserBalance();
+            AccountBalance balanceExpected = marketPage.getUserBalance();
             String expectedBalance = marketPage.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
 
             log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
@@ -605,16 +605,16 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
 
     @TestRails(id = "567")
-    @Test(groups = {"smoke","isa"})
+    @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC567() {
         log("@title: Validate that user can place unmatched Lay bet on Soccer market");
         String odds = "1.01";
-        AccountBalance balance = BetUtils.getUserBalance();
-        String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_LAY_TYPE);
+        AccountBalance balance = memberHomePage.getUserBalance();
+        String minBet = BetUtils.getMinBet("SOCCER", "LAY");
         String expectedLiability = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
         log("Step 1. Active any market of Soccer");
-        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
+        SportPage page = memberHomePage.navigateSportHeaderMenu("Soccer");
 
         Event event = page.eventContainerControl.getEventRandom(false, false);
         if (Objects.isNull(event)) {
@@ -644,7 +644,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("Verify 4. At in-play will check  on Cancel option by default");
             log("Verify 5. Back bet background is green #C9E6EF");
             log("Verify 6. Account Balance/Outstanding updated correctly");
-            AccountBalance balanceExpected = marketPage.header.getUserBalance();
+            AccountBalance balanceExpected = marketPage.getUserBalance();
             String expectedBalance = marketPage.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
             String expectedExposure = marketPage.calculateBalance(balance.getExposure(), wagers.get(0).getLiability());
             Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
@@ -751,7 +751,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "585")
-    @Test(groups = {"smoke","isa1"})
+    @Test(groups = {"smoke"})
     public void Place_Bet_Function_TC585() {
         log("@title: Validate that user can NOT place Back bet if Stake greater than max setting");
         String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_BACK_TYPE);

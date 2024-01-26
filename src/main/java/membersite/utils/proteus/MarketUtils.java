@@ -4,12 +4,78 @@ import baseTest.BaseCaseTest;
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.WSUtils;
+import membersite.objects.proteus.Event;
+import membersite.objects.proteus.Odds;
 import membersite.objects.proteus.ProteusMarket;
+import membersite.objects.sat.Odd;
+import membersite.objects.sat.Order;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import com.paltech.utils.DateUtils;
+import static common.MemberConstants.GMT_MINUS_4_30;
+
 public class MarketUtils extends BaseCaseTest {
+
+    private static JSONObject getAllMarketUnderEventFromProviderAPI(int eventId) {
+        String url = String.format("%s/proteus-member-service/odds/v3/decimal",proteusAPIDomainURL);
+        String jsn = String.format("{\n" +
+                        "    \"eventId\": [\n" +
+                        "        %s\n" +
+                        "    ],\n" +
+                        "    \"betType\": \"%s\"\n" +
+                        "}"
+                , eventId, "");
+        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(url, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+        return jsonObject;
+    }
+
+    private static Odds getOddsAllSelectionUnderAMarketFromProviderAPI(JSONObject obj){
+        return new Odds.Builder()
+                .odds(obj.getDouble("odds"))
+                .odds(obj.getDouble("team"))
+                .odds(obj.getDouble("originalOdds"))
+                .odds(obj.getDouble("hdp"))
+                .build();
+    }
+
+    public List<Event> getSportbookEventAPI(int eventId){
+        JSONObject jsonObject = getAllMarketUnderEventFromProviderAPI(eventId);
+        List<Event> lstEvents = new ArrayList<>();
+        Event event;
+        if (Objects.nonNull(jsonObject)) {
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject obj = jsonArray.getJSONObject(i);
+                JSONArray oddObjLst = obj.getJSONArray("odds");
+                List<Odds> lstOdds =  new ArrayList<>();
+                for (int j = 0; j < oddObjLst.length(); j++) {
+                    JSONObject oddsObj = oddObjLst.getJSONObject(j);
+                    lstOdds.add(getOddsAllSelectionUnderAMarketFromProviderAPI(oddsObj));
+                }
+                event = new Event.Builder()
+                        .eventId(obj.getInt("eventId"))
+                        .lineID(obj.getInt("lineID"))
+                        .betType(obj.getString("betType"))
+                        .handicap(obj.getDouble("handicap"))
+                        .oddsKey(obj.getString("oddsKey"))
+                        .team(obj.getString("team"))
+                        .status(obj.getString("status"))
+                        .oddsType(obj.getString("oddsType"))
+                        .oddsFormat(obj.getString("oddsFormat"))
+                        .marketKey(obj.getString("marketKey"))
+                        .odds(lstOdds)
+                        .build();
+                lstEvents.add(event);
+            }
+        }
+        return lstEvents;
+    }
+
 
     public static ProteusMarket getMarketInfo(int eventId, String betType, Double hdpPoint) {
         JSONObject jsonObject = getMarketJSON(eventId, betType);
@@ -90,7 +156,7 @@ public class MarketUtils extends BaseCaseTest {
 
     public static JSONObject getMarketJSON(int eventId, String betType) {
 //        String url = "https://www.ps388win.com/proteus-member-service/odds/v3/decimal";
-        String url = String.format("%s/proteus-member-service/odds/v3/decimal", proteusUrl);
+        String url = String.format("%s/proteus-member-service/odds/v3/decimal",proteusAPIDomainURL);
         String jsn = String.format("{\n" +
                         "    \"eventId\": [\n" +
                         "        %s\n" +
@@ -101,6 +167,8 @@ public class MarketUtils extends BaseCaseTest {
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(url, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         return jsonObject;
     }
+
+
 
     public static ProteusMarket getMatchTeamTotalMarketInfo(int eventId, String betType, Double hdpPoint, boolean isHome) {
         JSONObject jsonObject = getMarketJSON(eventId, betType);
@@ -172,5 +240,24 @@ public class MarketUtils extends BaseCaseTest {
             return proteusMarket;
         }
         return null;
+    }
+
+    private static JSONObject getListLeagueJSON(String periodType) {
+        String fromDate = DateUtils.getDate(0, "yyyy-MM-dd", GMT_MINUS_4_30);
+        String url = String.format("%s/proteus-member-service/before-login/league-period/league/v1/sport-id/29/market-type/ALL/period-type/%s/from-date/%sT00:00:00/to-date/9998-12-31T13:00:00/timezone/-04:00/locale/en-US", proteusAPIDomainURL, periodType, fromDate);
+        return WSUtils.getGETJSONObjectWithCookies(url, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+    }
+
+    public static ArrayList<String> getListLeagues(String periodType) {
+        ArrayList<String> lstLeagues = new ArrayList<>();
+        JSONObject object = getListLeagueJSON(periodType);
+        if (Objects.nonNull(object)) {
+            JSONArray array = object.getJSONArray("data");
+            for (int i = 0; i < array.length(); i++) {
+                lstLeagues.add(array.getJSONObject(i).getString("leagueName"));
+            }
+            return lstLeagues;
+        }
+        return lstLeagues;
     }
 }
