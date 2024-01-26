@@ -29,9 +29,9 @@ public class EditDownlineAgentTest extends BaseCaseTest {
      * @expect: 1. Verify Message "Max Player Credit is invalid" display
      */
     @TestRails(id = "696")
-    @Test(groups = {"smoke_credit"})
-    @Parameters({"level"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_696(String level) throws Exception {
+    @Test(groups = {"smoke_credit","isa"})
+    @Parameters({"level","currency"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_696(String level,String currency) throws Exception {
         log("@title: Validate cannot update if Max Player Credit exceed the limit");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -41,13 +41,13 @@ public class EditDownlineAgentTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any agent");
         page.searchDownline(loginID, "", "Agent");
-        page.clickEditIcon(loginID);
+        EditDownLinePage editDownLinePage =  page.clickEditIcon(loginID);
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Input Max player Credit greater than the limit");
-        String maxPlayerCreditLitmit = String.format("%d", page.editDownlinePopup.creditBalanceInforSection.getMaxPlayerLitmitCredit() + 1);
-        page.editDownlinePopup.creditBalanceInforSection.updateCashBalance(maxPlayerCreditLitmit);
-        page.editDownlinePopup.btnSubmit.click();
+        String maxPlayerCreditLitmit = String.format("%d", editDownLinePage.creditBalanceInforSection.getMaxPlayerLitmitCredit(currency) + 1);
+        editDownLinePage.creditBalanceInforSection.updateCashBalance(maxPlayerCreditLitmit);
+        editDownLinePage.btnSubmit.click();
 
         log("Verify 1. Verify Message \"Max Player Credit is invalid\" display");
         Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.DownlineListing.MSG_INVALID_MAX_PLAYER_CREDIT, "FAILED! Incorrect max player credit is invalid");

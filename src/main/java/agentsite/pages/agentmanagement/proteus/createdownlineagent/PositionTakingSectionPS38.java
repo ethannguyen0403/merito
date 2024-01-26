@@ -39,6 +39,7 @@ public class PositionTakingSectionPS38 {
     }
 
     public void addSport(String sport, String league){
+        expandPositionSection(true);
         ddbSport.selectByVisibleText(sport);
         if(!league.isEmpty()){
             try {
@@ -49,6 +50,7 @@ public class PositionTakingSectionPS38 {
         }
         btnView.click();
     }
+
 
     /***
      * @param sportName name of Sport. E.g: Soccer
@@ -110,15 +112,15 @@ public class PositionTakingSectionPS38 {
     }
 
     public void expandPositionSection(boolean isExpanded) {
-        if (isExpanded) {
-            if (btnPositionSection.getAttribute("class").contains("fa-chevron-up")) {
-                btnPositionSection.click();
-            }
-        } else {
-            if (btnPositionSection.getAttribute("class").contains("fa-chevron-down")) {
-                btnPositionSection.click();
-            }
+        //expand
+        if (isExpanded && !ddbSport.isDisplayed()) {
+            btnPositionSection.click();
         }
+        //collapse
+        if (!isExpanded && ddbSport.isDisplayed()) {
+            btnPositionSection.click();
+        }
+
     }
 
     public void expandSport(String sportName, boolean isExpanded){

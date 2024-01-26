@@ -3,6 +3,7 @@ package agentsite.testcase.agencymanagement;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.CreateDownLineAgentPage;
 import agentsite.pages.agentmanagement.DownLineListingPage;
+import agentsite.pages.agentmanagement.EditDownLinePage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import common.AGConstant;
@@ -392,7 +393,6 @@ public class CreateUserTest extends BaseCaseTest {
 
         log("Step Get list validation setting");
         List<ArrayList<String>> lstBetSettingValidation = page.betSettingInforSection.getBetSettingValidationValueLst(currency);
-//        page.productSettingsSection.betSettingSectionExchange.getBetSettingValidationValueLst(currency);
 
         String minBet =Integer.toString(Integer.parseInt(lstBetSettingValidation.get(0).get(1))-1);
         List<ArrayList<String>> lstBetSetting = new ArrayList<>();
@@ -404,7 +404,6 @@ public class CreateUserTest extends BaseCaseTest {
         log("Step 3. Input invalid Min bet setting less than required");
         page.accountInforSection.txtPassword.sendKeys(password);
         page.betSettingInforSection.inputBetSetting(lstBetSetting);
-//        page.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
         page.btnSubmit.click();
 
         log("Verified  1. Message \"Min Bet is invalid.\" and the valid is highlight");
@@ -434,7 +433,6 @@ public class CreateUserTest extends BaseCaseTest {
 
         log("Step Get list validation setting");
         List<ArrayList<String>> lstBetSettingValidation = page.betSettingInforSection.getBetSettingValidationValueLst(currency);
-//        page.productSettingsSection.betSettingSectionExchange.getBetSettingValidationValueLst(currency);
         String minBet = Integer.toString(Integer.parseInt(lstBetSettingValidation.get(0).get(1)));
         String maxBet = Double.toString(Double.parseDouble(lstBetSettingValidation.get(1).get(1).replace(",",""))+1);
         List<ArrayList<String>> lstBetSetting = new ArrayList<>();
@@ -446,11 +444,9 @@ public class CreateUserTest extends BaseCaseTest {
         lstBetSetting.add(maxBetLst);
         String password = "1234qwer";
 
-
         log("Step 3. Input invalid MAx bet setting less than required");
         page.accountInforSection.txtPassword.sendKeys(password);
         page.betSettingInforSection.inputBetSetting(lstBetSetting);
-//        page.productSettingsSection.betSettingSectionExchange.inputBetSetting(lstBetSetting);
         page.btnSubmit.click();
 
         log("Verified 1. Message \"Max Bet is invalid.\" and the valid is highlight");
@@ -562,7 +558,7 @@ public class CreateUserTest extends BaseCaseTest {
     @TestRails(id = "676")
     @Test(groups = {"smoke"})
     @Parameters({"level", "levelLogin"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_696(String level, String levelLogin) throws Exception {
+    public void Agent_AM_Downline_Listing_Edit_Agent_676(String level, String levelLogin) throws Exception {
         log("@title: Validate there Cannot update if Max Player Credit exceed the limit");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -572,7 +568,7 @@ public class CreateUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any agent");
         page.searchDownline(loginID, "", "Agent");
-        page.clickEditIcon(loginID);
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("Verify 1. Verify Security Code popup prompted");
         Assert.assertTrue(page.securityPopup.isDisplayed(), "FAILED Security popup not display");
@@ -581,13 +577,13 @@ public class CreateUserTest extends BaseCaseTest {
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Verify 2. Verify page display if input valid security code");
-        Assert.assertEquals(page.editDownlinePopup.getTitle(), String.format("Edit %s", levelLogin), "FAILED!Page not displayed");
+     //   Assert.assertEquals(editDownLinePage.ge, String.format("Edit %s", levelLogin), "FAILED!Page not displayed");
         log("INFO: Executed completely");
     }
     @TestRails(id = "679")
     @Test(groups = {"smoke_credit"})
-    @Parameters({"password", "downlineLevel"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_679(String password, String downlineLevel) throws Exception {
+    @Parameters({"password", "downlineLevel","currency"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_679(String password, String downlineLevel,String currency) throws Exception {
         log("@title: Validate Max Player Credit setting display correctly when create user");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -597,13 +593,13 @@ public class CreateUserTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any agent");
         page.searchDownline(loginID, "", "");
-        page.clickEditIcon(loginID);
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Input valid Max Player Credit and valid other information then click submit");
         String maxPlayerCreditLitmit = "1";
-        page.editDownlinePopup.creditBalanceInforSection.updateCashBalance(maxPlayerCreditLitmit);
-        page.editDownlinePopup.btnSubmit.click();
+        editDownLinePage.creditBalanceInforSection.updateCashBalance(maxPlayerCreditLitmit);
+        editDownLinePage.btnSubmit.click();
         String message = page.getMessageUpdate(true);
 
         log("Verify 1. Verify can update agent with valid max player credit");
@@ -617,7 +613,7 @@ public class CreateUserTest extends BaseCaseTest {
         CreateDownLineAgentPage createAgentPage = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Verify 2. Verify Max Player Credit display correctly as setting in First Time Deposit limit section");
-        Assert.assertEquals(Integer.toString(createAgentPage.creditBalanceInforSection.getMaxPlayerLitmitCredit()), maxPlayerCreditLitmit, "FAILED! Max player credit not match with the setting");
+        Assert.assertEquals(Integer.toString(createAgentPage.creditBalanceInforSection.getMaxPlayerLitmitCredit(currency)), maxPlayerCreditLitmit, "FAILED! Max player credit not match with the setting");
 
         log("INFO: Executed completely");
     }

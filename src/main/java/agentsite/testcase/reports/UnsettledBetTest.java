@@ -107,8 +107,9 @@ public class UnsettledBetTest extends BaseCaseTest {
         UnsettledBetPage page = agentHomePage.navigateUnsettledBetPage();
 
         log("Step 2. Select Last Best Mode > Select Matched and click Submit");
-        page.dpFrom.previousMonthWithDate(-1, "25");
-        page.search("Matched", "", memberAccount, "", "", "");
+        page.selectMode("Last Best Mode");
+        String fromDate = DateUtils.getDate(-15, "dd/MM/yyyy", "GMT-4:00");
+        page.search("Matched", "", memberAccount, "", "", "",fromDate,"");
 
         log("Verify 1. Match bet display correctly");
         if (page.lblNoRecord.isDisplayed()) {
@@ -130,8 +131,8 @@ public class UnsettledBetTest extends BaseCaseTest {
         UnsettledBetPage page = agentHomePage.navigateUnsettledBetPage();
 
         log("Step Select Last Best Mode > Select Unmatched and click Submit");
-        page.dpFrom.previousMonthWithDate(-1, "25");
-        page.search("Un-matched", "", memberAccount, "", "", "");
+        String fromDate = DateUtils.getDate(-15, "dd/MM/yyyy", "GMT-4:00");
+        page.search("Un-matched", "", memberAccount, "", "", "",fromDate,"");
 
         log("Verify 1. Unmatch bet display correctly");
         List<ArrayList<String>> data = page.tblLastBetsMode.getRowsWithoutHeader(false);
@@ -153,8 +154,8 @@ public class UnsettledBetTest extends BaseCaseTest {
         UnsettledBetPage page = agentHomePage.navigateUnsettledBetPage();
 
         log("Step Select Last Best Mode > Select Cancelled and click Submit");
-        page.dpFrom.previousMonthWithDate(-1, "25");
-        page.search("Cancelled", "", memberAccount, "", "", "");
+        String fromDate = DateUtils.getDate(-15, "dd/MM/yyyy", "GMT-4:00");
+        page.search("Cancelled", "", memberAccount, "", "", "",fromDate,"");
 
         log("Verify 1. Unmatch bet display correctly");
         List<ArrayList<String>> data = page.tblLastBetsMode.getRowsWithoutHeader(false);
@@ -192,7 +193,7 @@ public class UnsettledBetTest extends BaseCaseTest {
             return;
         }
         String sport = page.unsettleBetSportModeContainer.getAllSports().get(0);
-        String totalBetFirstRow = page.unsettleBetSportModeContainer.getdataofSport(sport).get(0).get(2).split("Total Bets")[1];
+        String totalBetFirstRow = page.unsettleBetSportModeContainer.getdataofSport(sport).get(0).get(2).split("Total Bets")[1].trim();
 
         log("Verify  4. Click on event");
         page.unsettleBetSportModeContainer.tblSportMode.scrollToTop();
@@ -200,7 +201,6 @@ public class UnsettledBetTest extends BaseCaseTest {
 
         List<ArrayList<String>> betListInfo = page.unsettleBetSportModeContainer.tblSportModeDetail.getRowsWithoutHeader(true);
         Assert.assertEquals(betListInfo.size(), Integer.parseInt(totalBetFirstRow.trim()), "Failed! Bet list number not display as total bet");
-
         log("INFO: Executed completely");
     }
 
