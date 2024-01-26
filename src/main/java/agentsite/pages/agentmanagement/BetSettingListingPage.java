@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class BetSettingListingPage extends HomePage {
-    private static int totalColum = 16;
+    private static int totalColum = 19;
     private static int soccerCol;
     private static int cricketCol;
     private static int fancyCol;
@@ -21,6 +21,7 @@ public class BetSettingListingPage extends HomePage {
     private static int tennisCol;
     private static int basketballCol;
     private static int otherCol;
+    private static int decimalCricketCol;
     private static int chbCol = 6;
     public int usernameCol = 2;
     public static Table tblDownline = Table.xpath("//table[contains(@class,'ptable report')]", totalColum);
@@ -112,6 +113,10 @@ public class BetSettingListingPage extends HomePage {
             otherCol = (totalColum - 1) + i;
             i = i + 1;
         }
+        if (map.get("Decimal Cricket")) {
+            decimalCricketCol = (totalColum - 1) + i;
+            i = i + 1;
+        }
         return i - 1;
     }
 
@@ -149,43 +154,40 @@ public class BetSettingListingPage extends HomePage {
         CheckBox chb = CheckBox.xpath(String.format(xPathSport, "Soccer"));
         if (!map.get("Soccer")) {
             chb.click();
-            waitingLoadingSpinner();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Cricket"));
         if (!map.get("Cricket")) {
             chb.click();
-            waitingLoadingSpinner();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Fancy"));
         if (!map.get("Fancy")) {
             chb.click();
-            waitingLoadingSpinner();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Virtual Cricket"));
         if (!map.get("Virtual Cricket")) {
             chb.click();
-            waitingLoadingSpinner();
         }
-        chb = CheckBox.xpath(String.format(xPathSport, "Bookmakers"));
+        chb = CheckBox.xpath(String.format(xPathSport, "Bookmaker"));
         if (!map.get("Bookmaker")) {
             chb.click();
-            waitingLoadingSpinner();
+        }
+        chb = CheckBox.xpath(String.format(xPathSport, "Decimal Cricket"));
+        if (!map.get("Bookmaker")) {
+            chb.click();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Tennis"));
         if (!map.get("Tennis")) {
             chb.click();
-            waitingLoadingSpinner();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Basketball"));
         if (!map.get("Basketball")) {
             chb.click();
-            waitingLoadingSpinner();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Other"));
         if (!map.get("Other")) {
             chb.click();
-            waitingLoadingSpinner();
         }
+        waitingLoadingSpinner();
     }
 
     public void search(String username, String level, String accountStatus, String product) {
