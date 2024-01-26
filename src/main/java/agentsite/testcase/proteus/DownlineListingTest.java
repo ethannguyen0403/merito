@@ -1,5 +1,6 @@
 package agentsite.testcase.proteus;
 
+import agentsite.objects.agent.proteus.PS38PTSetting;
 import agentsite.pages.agentmanagement.DownLineListingPage;
 import agentsite.pages.agentmanagement.EditDownLinePage;
 import static common.AGConstant.*;
@@ -11,7 +12,6 @@ import static common.MemberConstants.*;
 
 import agentsite.pages.agentmanagement.proteus.createdownlineagent.commissionsettingsection.CommissionSectionPS38;
 import baseTest.BaseCaseTest;
-import com.paltech.utils.DoubleUtils;
 import com.paltech.utils.StringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -35,25 +35,22 @@ public class DownlineListingTest extends BaseCaseTest {
         EditDownLinePage editPage = page.clickEditIcon(downlineAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Position Taking");
         editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
-        editPage.editDownlineListing.positionTakingSectionPS38.expandPositionSection(true);
         log("Step 4: Select Sport as All and click View");
-        editPage.editDownlineListing.positionTakingSectionPS38.addSport("All", "");
+        editPage.editDownlineListing.positionTakingSectionPS38.addOrViewSport("All", "");
         log("Step 5: Update PT for any market of Soccer sport then click Submit");
         String positionValue = StringUtils.generateNumeric(10,20);
-        Map<String, String> betType = new HashMap<>();
-        betType.put("Full time", "1X2");
-
-        editPage.editDownlineListing.positionTakingSectionPS38.updatePTMarket("Soccer", betType, PREGAME_TAB_PS38, "Preset", positionValue);
+        PS38PTSetting ptSettingSoccer = new PS38PTSetting.Builder().sport(LBL_SOCCER_SPORT).ps38Tab(PREGAME_TAB_PS38).betTime(FULL_TIME).betType("1X2")
+                .pos("Preset").amountPT(Double.valueOf(positionValue)).build();
+        editPage.editDownlineListing.positionTakingSectionPS38.updateProteusPTMarket(Arrays.asList(ptSettingSoccer), false);
         page.submitEditDownlinePS38(true);
 
         log("Verify 1: Updated PT is applied correctly for all sports");
-        betType.put("Full time", "ML");
+        PS38PTSetting ptSettingTennis = new PS38PTSetting.Builder().sport("Baseball").ps38Tab(PREGAME_TAB_PS38).betTime(FULL_TIME).betType("ML")
+                .pos("Preset").amountPT(Double.valueOf(positionValue)).build();
+
         page.clickEditIcon(downlineAccount, true);
         editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
-        editPage.editDownlineListing.positionTakingSectionPS38.expandPositionSection(true);
-        editPage.editDownlineListing.positionTakingSectionPS38.expandSport("Baseball", true);
-        Assert.assertEquals(editPage.editDownlineListing.positionTakingSectionPS38.getDropDownPTControl("Baseball", betType, PREGAME_TAB_PS38, "Preset", "select")
-                .getFirstSelectedOption(), positionValue, "FAILED! PT of others sports is not updated accordingly");
+        editPage.editDownlineListing.positionTakingSectionPS38.verifyProteusPTMarket(Arrays.asList(ptSettingTennis));
     }
 
     @TestRails(id = "4040")
@@ -69,24 +66,21 @@ public class DownlineListingTest extends BaseCaseTest {
         EditDownLinePage editPage = page.clickEditIcon(downlineAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Position Taking");
         editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
-        editPage.editDownlineListing.positionTakingSectionPS38.expandPositionSection(true);
+
         log("Step 4: Select Sport as Soccer and and League is General and click View");
-        editPage.editDownlineListing.positionTakingSectionPS38.addSport("Soccer", GENERAL);
+        editPage.editDownlineListing.positionTakingSectionPS38.addOrViewSport("Soccer", GENERAL);
         log("Step 5: Update PT for any market of Soccer sport then click Submit");
         String positionValue = StringUtils.generateNumeric(10,20);
-        Map<String, String> betType = new HashMap<>();
-        betType.put("Full time", "1X2");
+        PS38PTSetting ptSettingSoccer = new PS38PTSetting.Builder().sport(LBL_SOCCER_SPORT).ps38Tab(PREGAME_TAB_PS38).betTime(FULL_TIME).betType("1X2")
+                .pos("Preset").amountPT(Double.valueOf(positionValue)).build();
 
-        editPage.editDownlineListing.positionTakingSectionPS38.updatePTMarket("Soccer", betType, PREGAME_TAB_PS38, "Preset", positionValue);
+        editPage.editDownlineListing.positionTakingSectionPS38.updateProteusPTMarket(Arrays.asList(ptSettingSoccer), false);
         page.submitEditDownlinePS38(true);
 
         log("Verify 1: Updated PT is applied correctly for all sports");
         page.clickEditIcon(downlineAccount, true);
         editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
-        editPage.editDownlineListing.positionTakingSectionPS38.expandPositionSection(true);
-        editPage.editDownlineListing.positionTakingSectionPS38.expandSport("Soccer", true);
-        Assert.assertEquals(editPage.editDownlineListing.positionTakingSectionPS38.getDropDownPTControl("Soccer", betType, PREGAME_TAB_PS38, "Preset", "select")
-                .getFirstSelectedOption(), positionValue, "FAILED! PT of Soccer sports is not updated accordingly");
+        editPage.editDownlineListing.positionTakingSectionPS38.verifyProteusPTMarket(Arrays.asList(ptSettingSoccer));
     }
 
     @TestRails(id = "4041")
@@ -102,26 +96,22 @@ public class DownlineListingTest extends BaseCaseTest {
         EditDownLinePage editPage = page.clickEditIcon(downlineAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Position Taking");
         editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
-        editPage.editDownlineListing.positionTakingSectionPS38.expandPositionSection(true);
-        editPage.editDownlineListing.positionTakingSectionPS38.addSport("Soccer", "1");
+
+        editPage.editDownlineListing.positionTakingSectionPS38.addOrViewSport("Soccer", "1");
         String leagueName = editPage.editDownlineListing.positionTakingSectionPS38.ddbLeague.getFirstSelectedOption();
-        log("Step 4: Select Sport as Soccer and and League is " +  leagueName +" and click Adđ");
-        editPage.editDownlineListing.positionTakingSectionPS38.btnView.click();
+        log("Step 4: Select Sport as Soccer and and League is " +  leagueName +" and click Add");
+
         log("Step 5: Update PT for any market of " + leagueName + " sport then click Submit");
         String positionValue = StringUtils.generateNumeric(10,20);
-        Map<String, String> betType = new HashMap<>();
-        betType.put("Full time", "1X2");
-
-        editPage.editDownlineListing.positionTakingSectionPS38.updatePTMarket(leagueName, betType, PREGAME_TAB_PS38, "Preset", positionValue);
+        PS38PTSetting ptSettingSoccer = new PS38PTSetting.Builder().sport(leagueName).ps38Tab(PREGAME_TAB_PS38).betTime(FULL_TIME).betType("1X2")
+                .pos("Preset").amountPT(Double.valueOf(positionValue)).build();
+        editPage.editDownlineListing.positionTakingSectionPS38.updateProteusPTMarket(Arrays.asList(ptSettingSoccer), false);
         page.submitEditDownlinePS38(true);
 
         log("Verify 1: Updated PT is applied correctly for all sports");
         page.clickEditIcon(downlineAccount, true);
         editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
-        editPage.editDownlineListing.positionTakingSectionPS38.expandPositionSection(true);
-        editPage.editDownlineListing.positionTakingSectionPS38.expandSport(leagueName, true);
-        Assert.assertEquals(editPage.editDownlineListing.positionTakingSectionPS38.getDropDownPTControl(leagueName, betType, PREGAME_TAB_PS38, "Preset", "select")
-                .getFirstSelectedOption(), positionValue, "FAILED! PT of Soccer sports is not updated accordingly");
+        editPage.editDownlineListing.positionTakingSectionPS38.verifyProteusPTMarket(Arrays.asList(ptSettingSoccer));
     }
 
 
