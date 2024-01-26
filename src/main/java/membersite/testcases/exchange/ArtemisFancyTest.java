@@ -26,7 +26,7 @@ import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 public class ArtemisFancyTest extends BaseCaseTest {
     //Single Runner cases
     @TestRails(id = "2249")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_2249() {
         log("@title: Validate can place bet on Artemis Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
@@ -67,7 +67,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15782")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15782() {
         log("@title: Validate able navigate to Artemis Fancy market page");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -93,7 +93,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15783")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15783() {
         log("@title: Validate able to open Ladder forecast score");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -121,7 +121,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15784")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15784() {
         log("@title: Validate bet slip is cleared when navigate to another market");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -159,7 +159,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15785")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15785() {
         log("@title: Validate able to choose multi selection");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -190,7 +190,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15786")
-    @Test(groups = {"smoke_stg", "2024.01.19"})
+    @Test(groups = {"regression_stg", "2024.01.19"})
     public void ArtemisFancyTest_15786() {
         log("@title: Validate multi tab (bet slip) is disabled");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -222,7 +222,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15787")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15787() {
         log("@title: Validate bet slip information show correctly for selection Yes");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -258,7 +258,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15788")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15788() {
         log("@title: Validate bet slip information show correctly for selection No");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -294,7 +294,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15789")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15789() {
         log("@title: Validate exposure is kept correctly when place on Yes");
         log("Step 1. Login member site and click on Cricket");
@@ -357,7 +357,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15791")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15791() {
         log("@title: Validate exposure is kept correctly when place on Yes and No");
         log("Step 1. Login member site and click on Cricket");
@@ -389,7 +389,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15792")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15792() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
@@ -422,7 +422,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15793")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15793() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
@@ -454,7 +454,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15794")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15794() {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
@@ -494,7 +494,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15814")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15814() {
         log("@title: Validate correct odds display when place on single runner market");
         log("Step 1. Open Artemis Fancy which has 1 runner market");
@@ -531,7 +531,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
 
 //    //Multi Runner cases
     @TestRails(id = "2766")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_2766() {
         log("@title: Validate correct odds display when place on multi runners market");
         log("Step 1. Open Artemis Fancy which has 2 runners market");
@@ -567,7 +567,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15795")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15795() {
         log("@title: Validate Ladder forecast score does not display");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -595,7 +595,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15796")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15796() {
         log("@title: Validate bet slip is cleared when navigate to another market");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -633,7 +633,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15797")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15797() {
         log("@title: Validate able to choose multi runners");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -665,7 +665,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15798")
-    @Test(groups = {"smoke_stg", "2024.01.19"})
+    @Test(groups = {"regression_stg", "2024.01.19"})
     public void ArtemisFancyTest_15798() {
         log("@title: Validate multi tab (bet slip) is disabled");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -698,7 +698,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15799")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15799() {
         log("@title: Validate bet slip information show correctly for Runner 1");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -734,7 +734,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15800")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15800() {
         log("@title: Validate bet slip information show correctly for Runner 2");
         log("@Precondition: Get the event that have Artemis Fancy market");
@@ -770,7 +770,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15801")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15801() {
         log("@title: Validate exposure is kept correctly when place on Runner 1");
         log("Step 1. Login member site and click on Cricket");
@@ -801,7 +801,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15802")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15802() {
         log("@title: Validate exposure is kept correctly when place on Runner 2");
         log("Step 1. Login member site and click on Cricket");
@@ -833,7 +833,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15803")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15803() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
@@ -866,7 +866,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15804")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15804() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
@@ -898,7 +898,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15805")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15805() {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
@@ -939,7 +939,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15806")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15806() {
         log("@title: Validate forecast displays correctly when place matched bet");
         log("Step 1. Login member site and click on Cricket");
@@ -981,7 +981,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
 
     //Multi Bet cases
     @TestRails(id = "15807")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15807() {
         log("@title: Validate Ladder forecast score does not display");
         log("@Precondition: Get the event that have Artemis Fancy has multi bet selection");
@@ -1009,7 +1009,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15808")
-    @Test(groups = {"smoke_stg", "2024.01.19"})
+    @Test(groups = {"regression_stg", "2024.01.19"})
     public void ArtemisFancyTest_15808() {
         log("@title: Validate multi tab (bet slip) is disabled");
         log("@Precondition: Get the event that have Artemis Fancy has multi bet selection");
@@ -1040,7 +1040,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15809")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15809() {
         log("@title: Validate bet slip information show correctly for multi bet selection");
         log("@Precondition: Get the event that have Artemis Fancy has multi bet selection");
@@ -1075,7 +1075,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15810")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15810() {
         log("@title: Validate exposure is kept correctly when place multi bet");
         log("Step 1. Login member site and click on Cricket");
@@ -1106,7 +1106,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15811")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15811() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
@@ -1139,7 +1139,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15812")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15812() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
@@ -1172,7 +1172,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15813")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void ArtemisFancyTest_15813() {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");

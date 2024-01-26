@@ -263,6 +263,8 @@ public class AGConstant {
             public final static List<String>
                     HEADER_BET_SETTING_PS38 = Arrays.asList("", "Min Bet", "Max Bet", "Max Per Match");
             public final static String PREGAME_TAB_PS38 = "Pregame";
+            public final static String FULL_TIME = "Full time";
+            public final static String FIRST_HALF= "1st Half";
             public final static String INPLAY_TAB_PS38 = "Inplay";
             public final static String CHECKBOX_MESSAGE_PS38 = "Copy all Limits for all Sports and Leagues for %s ONLY from the sport below";
             public final static String AMOUNT_MIN_BET_PS38_HKD = "1";

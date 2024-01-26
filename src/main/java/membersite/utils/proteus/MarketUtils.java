@@ -244,7 +244,7 @@ public class MarketUtils extends BaseCaseTest {
 
     private static JSONObject getListLeagueJSON(String periodType) {
         String fromDate = DateUtils.getDate(0, "yyyy-MM-dd", GMT_MINUS_4_30);
-        String url = String.format("%s/proteus-member-service/before-login/league-period/league/v1/sport-id/29/market-type/ALL/period-type/%s/from-date/%sT00:00:00/to-date/9998-12-31T13:00:00/timezone/-04:00/locale/en-US", proteusUrl, periodType, fromDate);
+        String url = String.format("%s/proteus-member-service/before-login/league-period/league/v1/sport-id/29/market-type/ALL/period-type/%s/from-date/%sT00:00:00/to-date/9998-12-31T13:00:00/timezone/-04:00/locale/en-US", proteusAPIDomainURL, periodType, fromDate);
         return WSUtils.getGETJSONObjectWithCookies(url, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
     }
 

@@ -5,6 +5,7 @@ import agentsite.controls.Table;
 import com.paltech.element.common.*;
 import org.testng.Assert;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class BetSettingSectionPS38 {
@@ -22,6 +23,11 @@ public class BetSettingSectionPS38 {
 
     public void inputBetSettingPS38(String sportName, String colName, String amount) {
         getControlTxtBoxBetSettingPS38(sportName, colName).sendKeys(amount);
+    }
+
+    public String addCommaFormat(double number){
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(number);
     }
 
     public TextBox getControlTxtBoxBetSettingPS38(String sportName, String colName) {
