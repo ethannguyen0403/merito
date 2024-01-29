@@ -160,7 +160,7 @@ public class EuroViewPage extends ProteusHomePage {
     public void placeBet(ProteusGeneralEvent event, String stake, boolean isSubmit, boolean isConfirm) {
         if(Objects.nonNull(event)) {
             event.getBtnFirstSelection().click();
-            txtStake.sendKeys(stake);
+            inputStake(String.valueOf(event.getEventId()), stake);
             if(isSubmit) {
                 btnPlaceBet.jsClick();
                 btnOK.waitForElementToBePresent(btnOK.getLocator());
@@ -176,27 +176,6 @@ public class EuroViewPage extends ProteusHomePage {
         String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", eventId);
         TextBox txtStake = TextBox.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
         txtStake.sendKeys(stake);
-    }
-
-    public ProteusBetslip getBetSlipInfo(String eventId) {
-        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", eventId);
-        Label lblEventName = Label.xpath(String.format("%s%s", betslipRootXpath, "//span[@class='teams-name']"));
-        Label lblSummaryInfo = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'bet-title')]"));
-        Label lblHDPPoint = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'fw-semibold')]"));
-        Label lblOdds = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'odds-text')]//span"));
-        Label lblStake = Label.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
-        Label lblMinBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Min bet')]/span"));
-        Label lblMaxBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Max bet')]/span"));
-        Label lblMatchMax = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span"));
-        return new ProteusBetslip.Builder().eventName(lblEventName.getText().trim())
-                .summaryEventInfo(lblSummaryInfo.getText().trim())
-                .hdpPoint(lblHDPPoint.getText().trim())
-                .odds(lblOdds.getText().trim())
-                .stake(lblStake.getAttribute("value"))
-                .minBet(lblMinBet.getText().trim())
-                .maxBet(lblMaxBet.getText().trim())
-                .maxMatch(lblMatchMax.getText().trim())
-                .build();
     }
 
     public void verifyBetSlipInfoShowCorrect(ProteusGeneralEvent event, ProteusMarket market, String stake, String marketType, List<Double> lstOddsConvert) {
