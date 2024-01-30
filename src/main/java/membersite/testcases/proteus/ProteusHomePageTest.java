@@ -11,6 +11,7 @@ import membersite.pages.proteus.AsianViewPage;
 import membersite.pages.proteus.EuroViewPage;
 import membersite.pages.proteus.ProteusHomePage;
 import membersite.utils.betplacement.BetUtils;
+import membersite.utils.proteus.MarketUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
@@ -186,7 +187,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
 
         log("Validate PS38 product displays on top menu in member site , user can access into PS38 product page");
-        Assert.assertEquals(proteusHomePage.lblView.getText(), ASIAN_VIEW, "FAILED! Deposit page is not displayed");
+        Assert.assertEquals(proteusHomePage.lblView.getText(), EURO_VIEW, "FAILED! Cannot access PS39 product");
         log("INFO: Executed completely");
     }
 
@@ -1257,7 +1258,9 @@ public class ProteusHomePageTest extends BaseCaseTest {
 
         log("Verify The items on top menu displays correctly (refer to PS38 Sport)");
         List<String> lstHeaders = euroViewPage.getSportsHeaderMenuList();
-        Assert.assertEquals(lstHeaders, EURO_VIEW_HEADER_MENU_LST, String.format("FAILED! List Header is not matched expected %s actual %s", lstHeaders, EURO_VIEW_HEADER_MENU_LST));
+        List<String> lstActiveSports = MarketUtils.getListActiveSports();
+        lstActiveSports.add(0,"Favourites");
+        Assert.assertEquals(lstHeaders, lstActiveSports, String.format("FAILED! List Header is not matched expected %s actual %s", lstHeaders, lstActiveSports));
         log("INFO: Executed completely");
     }
 

@@ -28,8 +28,6 @@ public class ProteusConstant {
     public static final String NO_RECORDS_FOUND = "No records found.";
     public static final String MIN_STAKE_ERROR_MSG = "Your stake cannot be lower than the minimum bet. It has been automatically adjusted to the minimum bet amount.";
     public static final String MAX_STAKE_ERROR_MSG = "Your stake cannot be greater than the maximum bet. It has been automatically adjusted to the maximum bet amount.";
-    public static final List<String> EURO_VIEW_HEADER_MENU_LST = Arrays.asList("Favourites","Soccer","Tennis","Basketball","Hockey","Volleyball","Cricket","Badminton", "Alpine Skiing","Biathlon",
-            "Boxing","Cross Country","Curling","Darts","Football","Futsal","Golf","Handball","Mixed Martial Arts","Rugby Union","Snooker");
     public static final Map<String, String> ODDS_GROUP_ADJUSTMENT_MAPPING = new HashMap<String, String>() {
         {
             put("B", "0.28");
