@@ -1,12 +1,15 @@
 package agentsite.testcase.proteus;
 
 import agentsite.pages.agentmanagement.CreateCompanyPage;
+import backoffice.utils.system.CurrencyManagementUtils;
 import baseTest.BaseCaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -89,11 +92,19 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4044")
+    @Parameters({"BOLoginId", "BOLoginPwd", "username", "password"})
     @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
-    public void PS38_Agent_TC4044(){
+    public void PS38_Agent_TC4044(String BOLoginId, String BOLoginPwd, String username, String password) throws Exception {
         log("@title: Validate in Agent site > Create Company Min, Max, Max per Match is converted correct");
+
+        //Login BO to get currency rate
+        loginBackoffice(BOLoginId, BOLoginPwd, true);
         String currency = "INR";
+        Double rate = new BigDecimal(Double.toString(Double.valueOf(CurrencyManagementUtils.getCurrencyRate(currency))
+        )).setScale(6, RoundingMode.HALF_UP).doubleValue();
+
         log("Precondition: Log in successfully by PO level");
+        loginAgent(username, password, true);
         log("Step 1: Navigate Agency Management > Create Company");
         CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
         log("Step 2: Select base currency: " + currency);
@@ -105,17 +116,21 @@ public class CreateCompanyTest extends BaseCaseTest {
                 "Max = maxHKD * rateCurrencyBO = 100000000 / 0.113398 ~881,849,768.073 INR\n" +
                 "Max per Match = maxHKD * rateCurrencyBO = 100000000 / 0.113398 ~881,849,768.073 INR\n" +
                 "\n");
-        String conditionMinBet = String.format(">= %s %s", currency, AMOUNT_MIN_BET_PS38_INR);
-        String conditionMaxBet = String.format("<= %s %s", currency, AMOUNT_MAX_BET_PS38_INR);
-        String conditionMaxPerMatch = String.format("<= %s %s", currency, AMOUNT_MAX_PER_MATCH_PS38_INR);
+        String amountMinBetINR = page.betSettingSectionPS38.addCommaFormat(Double.valueOf(AMOUNT_MIN_BET_PS38_HKD.replace(",", ""))/rate);
+        String amountMaxBetINR = page.betSettingSectionPS38.addCommaFormat(Double.valueOf(AMOUNT_MAX_BET_PS38_HKD.replace(",", ""))/rate);
+        String amountMaxPerMatchINR = page.betSettingSectionPS38.addCommaFormat(Integer.valueOf(AMOUNT_MAX_PER_MATCH_PS38_HKD.replace(",", ""))/rate);
+
+        String conditionMinBet = String.format(">= %s %s", currency, amountMinBetINR);
+        String conditionMaxBet = String.format("<= %s %s", currency, amountMaxBetINR);
+        String conditionMaxPerMatch = String.format("<= %s %s", currency, amountMaxPerMatchINR);
         page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(1), conditionMinBet);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(1), AMOUNT_MIN_BET_PS38_INR);
+        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(1), amountMinBetINR);
 
         page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(2), conditionMaxBet);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(2), AMOUNT_MAX_BET_PS38_INR);
+        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(2), amountMaxBetINR);
 
         page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(3), conditionMaxPerMatch);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(3), AMOUNT_MAX_PER_MATCH_PS38_INR);
+        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(3), amountMaxPerMatchINR);
     }
 
     @TestRails(id = "4045")

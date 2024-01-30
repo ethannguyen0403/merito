@@ -1,13 +1,18 @@
 package agentsite.pages.agentmanagement.proteus.createdownlineagent;
 
 
-import agentsite.controls.Table;
+import agentsite.objects.agent.proteus.PS38PTSetting;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
+import controls.Table;
+import org.openqa.selenium.By;
+import org.testng.Assert;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static common.AGConstant.AgencyManagement.CreateCompany.*;
@@ -17,135 +22,127 @@ public class PositionTakingSectionPS38 {
     public DropDownBox ddbSport = DropDownBox.xpath("//app-proteus-ptsetting//select[contains(@class, 'sport-select')]");
     public DropDownBox ddbLeague = DropDownBox.xpath("//app-proteus-ptsetting//select[contains(@class, 'leagues-select')]");
 
-    public Button btnView = Button.xpath("//app-proteus-ptsetting//button[contains(@class, 'pbtn')]");
+    public Button btnAddOrView = Button.xpath("//app-proteus-ptsetting//button[contains(@class, 'pbtn')]");
     public CheckBox chkCopyAll = CheckBox.xpath("//app-proteus-ptsetting//label[contains(text(), 'Position Taking')]//input");
     public Button btnPositionSection = Button.xpath("//app-proteus-ptsetting//div[contains(@class, 'psection')]//i");
+    BaseElement blkPTContainer = new BaseElement(By.xpath("//app-proteus-ptsetting//div[contains(@class, 'proteus-container settings')]"));
+    private String xpathLblExpandSport = "//div[contains(@class, 'sport-title') and contains(., '%s')]";
+    private String xpathSportTable = "//div[contains(@class, 'sport-title') and contains(., '%s')]/following-sibling::div/table[contains(., '%s')]";
     private int tolTalCol = 10;
-    public final static String FULL_TIME = "Full time";
-    public final static String FIRST_HALF= "1st Half";
-
-
-    public void updatePTMarket(String sportName, Map<String, String> betType, String ps38TabName, String position, String amount){
-        expandSport(sportName, true);
-        DropDownBox ddbPosition = getDropDownPTControl(sportName, betType, ps38TabName, position, "select");
-        new BaseElement(ddbPosition.getLocator()).scrollToThisControl(false);
-        try {
-            Thread.sleep(600);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+    private Map<String, Integer> indexPos = new HashMap<String, Integer>() {
+        {
+            put("Min Position", 1);
+            put("Max Position", 2);
+            put("Preset", 3);
+            put("Extra PT", 4);
         }
-        new BaseElement(ddbPosition.getLocator()).click();new BaseElement(ddbPosition.getLocator()).click();
-        ddbPosition.selectByVisibleText(amount);
+    };
+
+
+    public void updateProteusPTMarket(List<PS38PTSetting> listPT, boolean isAll) {
+        expandPositionSection(true);
+
+        for (PS38PTSetting ptSettings : listPT) {
+            expandSport(ptSettings.getSport(), true);
+
+            Table tblPT = Table.xpath(String.format(xpathSportTable, ptSettings.getSport(), ptSettings.getPS38Tab()), tolTalCol);
+            int colIndex = findColIndexOfBetTypeProteusTable(ptSettings.getPS38Tab(), ptSettings.getBetTime(), ptSettings.getBetType());
+            int rowIndex = indexPos.get(ptSettings.getPos());
+            String ptAmount = String.valueOf(ptSettings.getAmountPT()).replaceAll(".0", "");
+
+            if (isAll) {
+                CheckBox chkAll = CheckBox.xpath(
+                        String.format(xpathSportTable, ptSettings.getSport(), ptSettings.getPS38Tab() + "/thead//tr[2]//th[1]"));
+                if (!chkAll.isSelected())
+                    chkAll.select();
+            }
+            DropDownBox ddbPT = DropDownBox.xpath(tblPT.getControlXPathOfCell(1, colIndex, rowIndex, "select"));
+            //Handle for sometimes dropdown list value is not load
+            new BaseElement(ddbPT.getLocator()).click();
+            new BaseElement(ddbPT.getLocator()).click();
+            ddbPT.selectByVisibleText(ptAmount);
+        }
     }
 
-    public void addSport(String sport, String league){
+    public void verifyProteusPTMarket(List<PS38PTSetting> listPT) {
+        expandPositionSection(true);
+        for (PS38PTSetting ptSettings : listPT) {
+            expandSport(ptSettings.getSport(), true);
+
+            Table tblPT = Table.xpath(String.format(xpathSportTable, ptSettings.getSport(), ptSettings.getPS38Tab()), tolTalCol);
+            int colIndex = findColIndexOfBetTypeProteusTable(ptSettings.getPS38Tab(), ptSettings.getBetTime(), ptSettings.getBetType());
+            int rowIndex = indexPos.get(ptSettings.getPos());
+            Assert.assertEquals(DropDownBox.xpath(tblPT.getControlXPathOfCell(1, colIndex, rowIndex, "select")).getFirstSelectedOption(),
+                    String.valueOf(ptSettings.getAmountPT()).replace(".0", ""),
+                    String.format("FAILED! PT of sport %s at %s table - %s - %s is not correct", ptSettings.getSport(),
+                            ptSettings.getPS38Tab(), ptSettings.getBetTime(), ptSettings.getBetType()));
+        }
+    }
+
+    public void addOrViewSport(String sport, String league){
+        expandPositionSection(true);
         ddbSport.selectByVisibleText(sport);
         if(!league.isEmpty()){
             try {
                 ddbLeague.selectByVisibleText(league);
             }catch (Exception e){
+                System.out.println("Select League by Index: " + league);
                 ddbLeague.selectByIndex(Integer.valueOf(league));
             }
         }
-        btnView.click();
+        btnAddOrView.click();
     }
 
-    /***
-     * @param sportName name of Sport. E.g: Soccer
-     * @param betType bet type E.g: Full time-HDP, 1st Half-HDP. This variable should contain one entry
-     * @param ps38TabName table Ingame or Pregame
-     * @param position name of Position. E.g: Min Position, Max Position...*/
-    public DropDownBox getDropDownPTControl(String sportName, Map<String, String> betType, String ps38TabName, String position, String subtag){
-        int colIndex = findColIndexBetType(sportName, betType, ps38TabName) + 1;
-        int rowIndex = findRowIndexPositionLabel(position);
-        return DropDownBox.xpath(getTableControlBySport(sportName,tolTalCol, ps38TabName).getxPathOfCell(1, colIndex, rowIndex, subtag));
-    }
-
-    /**
-     * @param betType bet type E.g: Full time-HDP, 1st Half-HDP*/
-    public int findColIndexBetType(String sportName, Map<String, String> betType, String ps38TabName) {
-        String xpathBetType = getTableControlBySport(sportName, tolTalCol, ps38TabName).getLocator().toString().replace("By.xpath: ", "");
-        String lblXpathFullTime = String.format("%s/thead//tr[1]//th[2]", xpathBetType);
-        int colIndex = -1;
-        //use attribute colspan to define total colum of Full time or 1st Half
-        int totalBetColFullTime = Integer.valueOf(Label.xpath(lblXpathFullTime).getAttribute("colspan"));
-        for (Map.Entry<String, String> entry : betType.entrySet()) {
-            int startColIndex = 1;
-            //Because the bet type of Full time and 1st Half could be the same so if it is 1st Half, the startIndex should start with total Cols of Full time
-            if (entry.getKey().equalsIgnoreCase(FIRST_HALF)) {
-                startColIndex += totalBetColFullTime;
-            }
-            while (true) {
-                Label lblBetType = Label.xpath(String.format("%s/thead/tr[2]/th[%s]", xpathBetType, startColIndex));
-                if (lblBetType.getText().trim().equalsIgnoreCase(entry.getValue())) {
-                    System.out.println(
-                            String.format("FOUND col index %s at Value: %s of sport: %s at tab: %s", startColIndex, betType, sportName, ps38TabName));
-                    return startColIndex;
-                }
-                startColIndex++;
-                if (!lblBetType.isDisplayed()) {
-                    System.out.println(
-                            String.format("NOT Found col index at Value: %s of sport: %s at tab: %s", betType, sportName, ps38TabName));
-                    return colIndex;
-                }
-            }
-        }
-        System.out.println(String.format("NOT Found col index at Value: %s of sport: %s at tab: %s", betType, sportName, ps38TabName));
-        return colIndex;
-    }
-
-    public int findRowIndexPositionLabel(String positionLabel) {
-        if (positionLabel.contains("Min Position")) {
-            return 1;
-        } else if (positionLabel.contains("Max Position")) {
-            return 2;
-        } else if (positionLabel.contains("Preset")) {
-            return 3;
-        } else if (positionLabel.contains("Extra PT")) {
-            return 4;
+    public int findColIndexOfBetTypeProteusTable(String tableName, String betTime, String betType) {
+        int startIndex;
+        if (tableName.equalsIgnoreCase(PREGAME_TAB_PS38)) {
+            startIndex = betTime.equalsIgnoreCase(FULL_TIME) ? 2 : 8;
         } else {
-            System.out.println("NOT Found row index with label: " + positionLabel);
-            return -1;
+            startIndex = betTime.equalsIgnoreCase(FULL_TIME) ? 2 : 5;
+        }
+        switch (betType.toUpperCase()) {
+            case "1X2":
+            case "ML":
+            case "MIX PARLAY":
+            case "TEASERS":
+                return startIndex;
+            case "HDP":
+                return startIndex + 1;
+            case "OU":
+                return startIndex + 2;
+            case "TT":
+                return startIndex + 3;
+            case "Others":
+                return startIndex + 4;
+            case "Outright":
+                return startIndex + 5;
+            default:
+                System.out.println("NOT found matched bet type with: " + betType);
+                return -1;
         }
     }
 
     public void expandPositionSection(boolean isExpanded) {
         if (isExpanded) {
-            if (btnPositionSection.getAttribute("class").contains("fa-chevron-up")) {
+            if(!blkPTContainer.isDisplayed())
                 btnPositionSection.click();
-            }
         } else {
-            if (btnPositionSection.getAttribute("class").contains("fa-chevron-down")) {
+            if(blkPTContainer.isDisplayed())
                 btnPositionSection.click();
-            }
         }
     }
 
-    public void expandSport(String sportName, boolean isExpanded){
-        Button btnExpandSport = Button.xpath(String.format("//div[contains(@class, 'sport-title') and contains(., '%s')]//div[contains(@class, 'toggle-active')]", sportName));
-        if(isExpanded){
-            if(btnExpandSport.getAttribute("class").contains("plightExpand")){
-                btnExpandSport.click();
-            }
-        }else {
-            if(!btnExpandSport.getAttribute("class").contains("plightExpand")){
-                btnExpandSport.click();
-            }
-        }
-    }
+    public void expandSport(String sportName, boolean isExpanded) {
+        Label lblExpandSport = Label.xpath(String.format(xpathLblExpandSport, sportName));
+        BaseElement blkSport = new BaseElement(By.xpath(String.format(xpathLblExpandSport, sportName) + "/following-sibling::div"));
+        if (isExpanded) {
+            if (!blkSport.isDisplayed())
+                lblExpandSport.click();
+            lblExpandSport.scrollToThisControl(true);
 
-    public Table getTableControlBySport(String sportName, int totalCol, String ps38TabName) {
-        switch (ps38TabName) {
-            case PREGAME_TAB_PS38:
-                return Table.xpath(
-                        String.format("//div[contains(@class, 'sport-title') and contains(., '%s')]/following::table[1]", sportName),
-                        totalCol);
-            case INPLAY_TAB_PS38:
-                return Table.xpath(
-                        String.format("//div[contains(@class, 'sport-title') and contains(., '%s')]/following::table[2]", sportName),
-                        totalCol);
-            default:
-                return null;
+        } else {
+            if (blkSport.isDisplayed())
+                lblExpandSport.click();
         }
     }
 
