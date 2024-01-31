@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BaccaratPage extends GamePage {
     public Table tbtOdds = Table.xpath("//app-game-odds//table[contains(@class,'tb-game-odds')]", 8);
-    public Label lblMyBetsTab = Label.xpath("//app-bet-slip//ul[contains(@class,'nav-tabs ')]/li[2]");
+    public Label lblMyBetsTab = Label.xpath("//app-bet-slip//ul[contains(@class,'nav-tabs ')]/li[2]//span");
     public BetSlipControl betSlipControl = BetSlipControl.xpath("//app-bet-slip");
     public MyBetControl myBetControl = MyBetControl.xpath("//div[@class='open-bets']");
     public int backColumn = 4;
@@ -49,14 +49,10 @@ public class BaccaratPage extends GamePage {
     public void placeBet(String selection, boolean isBack, String odds, String stake) {
         addOddsToBetSlip(selection, isBack, odds, stake);
         betSlipControl.btnPlaceBet.click();
-        if (betSlipControl.btnConfirm.isDisplayed(2)) {
-            betSlipControl.btnConfirm.click();
-            try {
-                Thread.sleep(3000);
-            } catch (Exception e) {
-                e.getCause();
+        if(_type.equalsIgnoreCase("satsport")) {
+            if (betSlipControl.btnConfirm.isPresent(3)) {
+                betSlipControl.btnConfirm.click();
             }
-
         }
     }
 
@@ -67,14 +63,18 @@ public class BaccaratPage extends GamePage {
         betSlipControl.inputdata(isBack, odds, stake);
     }
 
-    public String getUnmatchedBetId() {
+    public String isUnmatchedBetDisplayed() {
         MyBetControl myBetControl1 = activeMyBet();
-        return myBetControl1.unmatchedBetControl.getBetId();
+        return myBetControl1.unmatchedBetControl.getBetUnmatch();
     }
 
     public MyBetControl activeMyBet() {
-        lblMyBetsTab.click();
-        return MyBetControl.xpath("//div[@class='open-bets']");
+        if(!lblMyBetsTab.getAttribute("class").contains("nav-link active")) {
+            lblMyBetsTab.click();
+            return MyBetControl.xpath("//div[@class='open-bets']");
+        } else {
+            return MyBetControl.xpath("//div[@class='open-bets']");
+        }
     }
 
 }
