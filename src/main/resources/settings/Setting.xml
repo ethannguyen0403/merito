@@ -60,6 +60,7 @@
         <property name="apiURL" value="${STG.APIURL}"/>
         <property name="domainURL" value="${STG.Domain}"/>
         <property name="proteusAPIProviderDomain" value="${STG.ProteusAPIProviderDomain}"/>
+        <property name="proteusProviderAPIURL" value="${STG.ProteusProviderAPIURL}"/>
     </bean>
     <bean name="green" class="objects.Environment" scope="prototype">
         <property name="fairURL" value="${GREEN.FAIRURL}"/>
@@ -76,6 +77,7 @@
         <property name="apiURL" value="${GREEN.APIURL}"/>
         <property name="domainURL" value="${GREEN.Domain}"/>
         <property name="proteusAPIProviderDomain" value="${GREEN.ProteusAPIProviderDomain}"/>
+        <property name="proteusProviderAPIURL" value="${GREEN.ProteusProviderAPIURL}"/>
     </bean>
     <bean name="blue" class="objects.Environment" scope="prototype">
         <property name="fairURL" value="${BLUE.FAIRURL}"/>
