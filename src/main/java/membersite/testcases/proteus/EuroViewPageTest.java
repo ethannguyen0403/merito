@@ -150,7 +150,40 @@ public class EuroViewPageTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+    @TestRails(id = "4118")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4118() {
+        log("@title: Validate can place bet on DC odds Euro view when input in Stake");
+        log("Precondition: 11/Login member site-  the player active PS38 product");
+        log("Step 1. Select Ps38 product");
+        log("Step 2. Select Euro View");
+        AccountBalance userBalance = memberHomePage.getUserBalance();
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
 
+        log("Step 3. Select Decimal odds type");
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+        euroViewPage.selectOddsType(AMERICAN);
+
+        log("Step 4. Search Early tab in the left menu and select on Soccer");
+        euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+        Market market = euroViewPage.getEventInfo(SOCCER,AMERICAN);
+
+        log("Step 5. Click on any Event 1x2 odds and input risk = min bet then place bet");
+        euroViewPage.clickOdds(market,"HOME");
+        euroViewPage.placeNoBet(market,"15",false,true);
+
+        log("Step 6. Click on pending bet and observer the info");
+        // check order
+
+        log("Verify 1Check user balance and exposure is correct:\n" +
+                "Exposure = Before place bet exposure - risk of bet\n" +
+                "Balance = Balance before place bet - exposure\n" +
+                "2 Check Pending bet display correctly info:\n" +
+                "League, event name, market type, market name, selection name, odds, odds type, risk, stake, potential win");
+        euroViewPage.verifyBetSlipInfo(market,"HOME",AMERICAN);
+
+        log("INFO: Executed completely");
+    }
 
 
 
