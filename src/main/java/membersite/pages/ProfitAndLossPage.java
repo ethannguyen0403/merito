@@ -110,7 +110,7 @@ public class ProfitAndLossPage extends HomePage {
         int totalSummaryRow = lst.size();
         for (int i = 0, n = totalSummaryRow - 1; i < n; i++) {
             String totalProfitLost = lst.get(i).get(colProfitLoss - 1);
-            total = Double.parseDouble(totalProfitLost) + total;
+            total = Math.floor((Double.parseDouble(totalProfitLost) + total)  * 100) / 100;
             tblSport.getControlOfCell(1, colSportGame, i + 1, "span[@class='hover hyperlink']").click();
             // Add wait time to wait data load => Will improve when finding the solution
             //tblMarket.isTextDisplayed("Total", 3);
