@@ -7,6 +7,7 @@ import com.paltech.element.common.TextBox;
 import com.paltech.utils.DateUtils;
 import controls.Table;
 import membersite.controls.DropDownMenu;
+import membersite.controls.Row;
 import membersite.objects.proteus.ProteusBetslip;
 import membersite.objects.proteus.ProteusGeneralEvent;
 import membersite.objects.proteus.ProteusTeamTotalEvent;
@@ -162,8 +163,16 @@ public class AsianViewPage extends ProteusHomePage {
 
     public String selectFirstNegativeOdds() {
         Label lblFirstOdds = Label.xpath("(//span[contains(@class,'color-negative-odd')])[1]/span");
+        Row rowEventSection = Row.xpath("(//span[contains(@class,'color-negative-odd')])[1]/span//ancestor::th");
         lblFirstOdds.click();
-        return lblFirstOdds.getText().trim();
+        return rowEventSection.getAttribute("eventid");
+    }
+
+    public String selectFirstPositiveOdds() {
+        Label lblFirstOdds = Label.xpath("(//span[contains(@class,'odd-number')]//span[not(contains(text(),'−'))])[1]");
+        Row rowEventSection = Row.xpath("(//span[contains(@class,'odd-number')]//span[not(contains(text(),'−'))])[1]//ancestor::th");
+        lblFirstOdds.click();
+        return rowEventSection.getAttribute("eventid");
     }
 
     public void placeBet(String stake, boolean isSubmit) {
@@ -290,6 +299,33 @@ public class AsianViewPage extends ProteusHomePage {
     }
 
     public void verifySortByTimeShowCorrect() {
-
+        Label lblLeagues = Label.xpath("//app-sport-asian//div[@class='league']");
+        for (int i = 0; i < lblLeagues.getWebElements().size(); i++) {
+            Label lblRows = Label.xpath(String.format("(//app-sport-asian//div[@class='league'])[%s]//table[contains(@class,'odds-page')]//th[contains(@class,'time')]", i + 1));
+            String xpathDate = "((//app-sport-asian//div[@class='league'])[%s]//table[contains(@class,'odds-page')]//th[contains(@class,'time')])[%s]//div[1]";
+            String xpathTime = "((//app-sport-asian//div[@class='league'])[%s]//table[contains(@class,'odds-page')]//th[contains(@class,'time')])[%s]//div[2]";
+            List<String> lstDateTime = new ArrayList<>();
+            String year = String.valueOf(DateUtils.getYear(GMT_MINUS_4_30));
+            for (int j = 0; j < lblRows.getWebElements().size(); j++) {
+                Label lblDate = Label.xpath(String.format(xpathDate, i + 1,j + 1));
+                Label lblTime = Label.xpath(String.format(xpathTime, i + 1,j + 1));
+                String dateTime = String.format("%s-%s %s",year, lblDate.getText(),lblTime.getText());
+                lstDateTime.add(dateTime);
+            }
+            for (int k = 0; k < lstDateTime.size(); k++) {
+                if(k == lstDateTime.size() - 1) {
+                    System.out.println(String.format("Last index %s of list size %s: cannot continue compare", k, lstDateTime.size()));
+                    break;
+                } else {
+                    Date actualDateCurrent = DateUtils.convertToDate(lstDateTime.get(k), "yyyy-MM-dd HH:mm");
+                    Date actualDateNext = DateUtils.convertToDate(lstDateTime.get(k + 1), "yyyy-MM-dd HH:mm");
+                    if(actualDateCurrent.getTime() > actualDateNext.getTime()) {
+                        Assert.assertTrue(false, String.format("FAILED! Date is not sorted correctly %s compare to %s", actualDateCurrent, actualDateNext));
+                    } else {
+                        Assert.assertTrue(true, "Date is sorted ASC correctly");
+                    }
+                }
+            }
+        }
     }
 }
