@@ -56,7 +56,7 @@ public class CentralFancyTest extends BaseCaseTest {
         Assert.assertEquals(lstFCBet.get(0).get(1), expectedWager.getRunnerName(), "FAILED! Market Name is incorrect");
         Assert.assertEquals(lstFCBet.get(0).get(2), expectedWager.displayFancyOdds(), "FAILED! Odd is incorrect");
         Assert.assertEquals(lstFCBet.get(0).get(3), String.format("%.2f", (double) fancyMarket.getMinSetting()), "FAILED! Stake is incorrect");
-        Assert.assertEquals(lstFCBet.get(0).get(4), String.format("%.2f", expectedWager.getLiabilityFancyWager()), "FAILED! Liability is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(4), String.format("%.2f", expectedWager.getProfitFancyWager()), "FAILED! Liability is incorrect");
 
         log("INFO: Executed completely");
     }
@@ -175,7 +175,7 @@ public class CentralFancyTest extends BaseCaseTest {
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String stake = Double.toString(Double.valueOf(fcMarket.getMinSetting()) - 1);
-        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(),Double.parseDouble(stake));
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeFancy(fcMarket, true, stake);
@@ -206,7 +206,7 @@ public class CentralFancyTest extends BaseCaseTest {
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String stake = Double.toString(Double.valueOf(fcMarket.getMaxSetting()) + 1);
-        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), Double.parseDouble(stake));
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeFancy(fcMarket, true, stake);
@@ -223,7 +223,7 @@ public class CentralFancyTest extends BaseCaseTest {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
         AccountBalance balance = BetUtils.getUserBalance();
-        String stake = Double.toString(Double.valueOf(balance.getBalance().replaceAll(",", "").toString()) + 1);
+        String stake = Double.toString(Double.valueOf(balance.getBalance().replaceAll(",", "")) + 1);
         log("Step 2/ Active the event that have Fancy market");
         log("Step Debug Click Cricket menu");
         String sportName = "Cricket";
@@ -242,7 +242,8 @@ public class CentralFancyTest extends BaseCaseTest {
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
-        marketPage.betsSlipContainer.placeBet(stake);
+//        marketPage.betsSlipContainer.placeBet(stake);
+        marketPage.placeFancy(fcMarket, true, stake);
 
         log("Verify 1. Can NOT place bet");
         String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();

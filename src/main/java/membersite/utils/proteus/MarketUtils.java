@@ -307,4 +307,23 @@ public class MarketUtils extends BaseCaseTest {
         }
         return lstLeagues;
     }
+    private static JSONObject getListActiveSportJSON() {
+        String url = String.format("%s/proteus-member-service/before-login/left-menu/menu-item/euro_view/id/sports/tz/-04:00/locale/en-US", proteusAPIDomainURL);
+        return WSUtils.getGETJSONObjectWithCookies(url, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+    }
+
+    public static List<String> getListActiveSports() {
+        JSONObject jsonObject = getListActiveSportJSON();
+        List<String> lstSports = new ArrayList<>();
+        if (Objects.nonNull(jsonObject)) {
+            JSONObject jsonObjectMenu = jsonObject.getJSONObject("data").getJSONObject("menu");
+            JSONArray jsonArray = jsonObjectMenu.getJSONArray("child");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                lstSports.add(jsonArray.getJSONObject(i).getString("name"));
+            }
+            return lstSports;
+        }
+        return lstSports;
+    }
+
 }

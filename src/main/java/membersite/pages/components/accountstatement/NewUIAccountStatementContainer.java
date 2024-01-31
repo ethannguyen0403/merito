@@ -4,11 +4,9 @@ import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import com.paltech.element.common.TextBox;
-import com.paltech.utils.DateUtils;
 import common.MemberConstants;
 import controls.DateTimePicker;
 import controls.Table;
-import membersite.objects.AccountBalance;
 import membersite.utils.betplacement.BetUtils;
 
 import java.util.ArrayList;
@@ -16,7 +14,6 @@ import java.util.List;
 import java.util.Locale;
 
 import static common.MemberConstants.AccountStatementPage.*;
-import static membersite.utils.betplacement.BetUtils.getUserBalance;
 
 public class NewUIAccountStatementContainer extends AccountStatementContainer {
     // This containner available for /x UI
@@ -67,37 +64,39 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
     public boolean verifyBalance(List<ArrayList<String>> lstAPIReport) {
         int recordNumber = tblReport.getNumberOfRows(false, false);
         List<String> lst = new ArrayList<String>();
-        tblReport.getRow(1, 1);
         String expectedBalance;
         String exepectedNarration;
-        String settleDate;
         for (int i = 1; i < recordNumber + 1; i++) {
             lst = tblReport.getRow(i, 1);
-            if (lst.get(colNarration - 1).equals(OPENING_BALANCE)) {
-                System.out.println("Verify Opening balance row");
-                return veifyOpeningBalanceRow(lst);
-            }
-            if (!lst.get(colMarketID - 1).equalsIgnoreCase(lstAPIReport.get(i - 1).get(6))) {
-                System.out.println(String.format("FAILED! Expected Market ID at row %s is %s but found %s", i, lstAPIReport.get(i - 1).get(6), lst.get(colMarketID - 1)));
-                return false;
-            }
-            if (!lst.get(colDebit - 1).equals(getDebitFromAPI(lstAPIReport.get(i - 1).get(14)))) {
-                System.out.println(String.format("FAILED! Expected Debit at row %s is %s but found %s", i, getDebitFromAPI(lstAPIReport.get(i - 1).get(14)), lst.get(colDebit - 1)));
-                return false;
-            }
-            if (!lst.get(colCredit - 1).equals(String.format("%.2f", Double.valueOf(lstAPIReport.get(i - 1).get(15))))) {
-                System.out.println(String.format("FAILED! Expected Credit at row %s is %s but found %s", i, String.format("%.2f", Double.valueOf(lstAPIReport.get(i - 1).get(15))), lst.get(colCredit - 1)));
-                return false;
-            }
-            expectedBalance = String.format(Locale.getDefault(), "%,.2f", Double.valueOf(lstAPIReport.get(i - 1).get(11).replaceAll(",", "")));
-            if (!lst.get(colBalance - 1).equals(expectedBalance)) {
-                System.out.println(String.format("FAILED! Expected Balance at row %s is %s but found %s", i, expectedBalance, lst.get(colBalance - 1)));
-                return false;
-            }
-            exepectedNarration = defineNarration(lstAPIReport.get(i - 1).get(10), lstAPIReport.get(i - 1).get(2), lstAPIReport.get(i - 1).get(12), lstAPIReport.get(i - 1).get(9));
-            if (!lst.get(colNarration - 1).equals(exepectedNarration)) {
-                System.out.println(String.format("FAILED! Expected Balance at row %s is %s but found %s", i, exepectedNarration, lst.get(colNarration - 1)));
-                return false;
+            if(lst.get(colNarration - 1).equalsIgnoreCase(OPENING_BALANCE)) {
+                if (lst.get(colNarration - 1).equals(OPENING_BALANCE)) {
+                    System.out.println("Verify Opening balance row");
+                    return verifyOpeningBalanceRow(lst);
+                }
+                if (!lst.get(colMarketID - 1).equalsIgnoreCase(lstAPIReport.get(i - 1).get(6))) {
+                    System.out.println(String.format("FAILED! Expected Market ID at row %s is %s but found %s", i, lstAPIReport.get(i - 1).get(6), lst.get(colMarketID - 1)));
+                    return false;
+                }
+                if (!lst.get(colDebit - 1).equals(getDebitFromAPI(lstAPIReport.get(i - 1).get(14)))) {
+                    System.out.println(String.format("FAILED! Expected Debit at row %s is %s but found %s", i, getDebitFromAPI(lstAPIReport.get(i - 1).get(14)), lst.get(colDebit - 1)));
+                    return false;
+                }
+                if (!lst.get(colCredit - 1).equals(String.format("%.2f", Double.valueOf(lstAPIReport.get(i - 1).get(15))))) {
+                    System.out.println(String.format("FAILED! Expected Credit at row %s is %s but found %s", i, String.format("%.2f", Double.valueOf(lstAPIReport.get(i - 1).get(15))), lst.get(colCredit - 1)));
+                    return false;
+                }
+                expectedBalance = String.format(Locale.getDefault(), "%,.2f", Double.valueOf(lstAPIReport.get(i - 1).get(11).replaceAll(",", "")));
+                if (!lst.get(colBalance - 1).equals(expectedBalance)) {
+                    System.out.println(String.format("FAILED! Expected Balance at row %s is %s but found %s", i, expectedBalance, lst.get(colBalance - 1)));
+                    return false;
+                }
+                exepectedNarration = defineNarration(lstAPIReport.get(i - 1).get(10), lstAPIReport.get(i - 1).get(2), lstAPIReport.get(i - 1).get(12), lstAPIReport.get(i - 1).get(9));
+                if (!lst.get(colNarration - 1).equals(exepectedNarration)) {
+                    System.out.println(String.format("FAILED! Expected Balance at row %s is %s but found %s", i, exepectedNarration, lst.get(colNarration - 1)));
+                    return false;
+                }
+            } else {
+                continue;
             }
         }
         return true;
@@ -119,7 +118,7 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
         }
     }
 
-    private boolean veifyOpeningBalanceRow(List<String> data) {
+    private boolean verifyOpeningBalanceRow(List<String> data) {
         if (!data.get(colNarration - 1).equals(OPENING_BALANCE)) {
             System.out.println(String.format("FAILED! OPENING BALANCE lable display incorrect. UI is %s", data.get(colNarration - 1)));
             return false;
@@ -133,8 +132,9 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
             return false;
         }
 
-        AccountBalance acBalance = getUserBalance();
-        String balance = String.format("%.2f", Double.parseDouble(acBalance.getBalance()) + Double.parseDouble(acBalance.getExposure())*(-1));
+//        AccountBalance acBalance = getUserBalance();
+//        String balance = String.format("%.2f", Double.parseDouble(acBalance.getBalance()) + Double.parseDouble(acBalance.getExposure())*(-1));
+        String balance = String.format("%.2f",Double.parseDouble(data.get(colCredit - 1)) + Double.parseDouble(data.get(colDebit - 1)) * (-1));
         if (!data.get(colBalance - 1).equals(balance)) {
             System.out.println(String.format("FAILED! Balance on header not match with the report. Header is %s but report show %s", balance, data.get(colBalance - 1)));
             return false;
