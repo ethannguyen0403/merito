@@ -1,15 +1,22 @@
 package membersite.pages.proteus;
 
+import backoffice.pages.bo._components.ConfirmPopup;
+import com.paltech.element.common.Button;
 import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
+import com.paltech.element.common.TextBox;
+import com.paltech.utils.DateUtils;
+import membersite.controls.proteus.AppConfirmModulePopup;
+import membersite.objects.proteus.Market;
+import membersite.objects.proteus.Odds;
+import membersite.objects.proteus.ProteusBetslip;
+import membersite.objects.proteus.ProteusGeneralEvent;
 import membersite.pages.HomePage;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
+import static common.MemberConstants.GMT_7;
 import static common.ProteusConstant.*;
 
 public class ProteusHomePage extends HomePage {
@@ -22,6 +29,21 @@ public class ProteusHomePage extends HomePage {
     private Label lblBetSlipTab = Label.xpath("//app-bet-slip//div[text()='BET SLIP']");
     private Label lblPendingTab = Label.xpath("//app-bet-slip//div[text()='PENDING BETS']");
     public Label lblPlaceBetError = Label.xpath("//app-confirm-modal//div[contains(@class,'modal-body')]//div");
+    // Bet Slip UI
+    String betslipRootXpath = "//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]";
+    String lblEventNameXpath = "//span[@class='teams-name']";
+    String lblLiveScoreXpath ="//span[@class='live-score']";
+    String lblSummaryInfoXpath = "//div[contains(@class,'bet-title')]";
+    String lblHDPPointXpath = "//div[contains(@class,'fw-semibold')]";
+    String lblOddsXpath = "//div[contains(@class,'odds-text')]";
+    String lblStakeXpath = "//input[contains(@class,'stake-input')]";
+    String lblMinBetXpath = "//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][1]/span[1]";
+    String lblMaxBetXpath =  "//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][1]/span[1]";
+    String lblMatchMaxXpath = "//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][2]/span[1]";
+    String  txtStakeXpath = "//input[contains(@class,'stake-input')]";
+    Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
+    AppConfirmModulePopup confirmModulePopup = AppConfirmModulePopup.xpath("//app-confirm-modal");
+
     public ProteusHomePage(String types) {
         super(types);
     }
@@ -198,4 +220,144 @@ public class ProteusHomePage extends HomePage {
         double toRisk = Math.floor(Double.valueOf(stake) * Double.valueOf(oddsFormat) * 100) / 100;
         double toWin = Math.floor(toRisk / Double.valueOf(oddsFormat) * 100) / 100;
     }
+
+    // Start Bet Slip, Pending Bets section
+
+    private String definePeriod(Market market) {
+        String match = "";
+        if (market.getPeriodId() == 0)
+            match = "Match";
+        else
+            match = "1st Half";
+        return match;
+    }
+    private String defineMarketName(Market market) {
+        String sportName = market.getSportName();
+        switch (sportName){
+            case "Soccer":
+                switch (market.getBetType())
+                {
+                    case "MONEYLINE":
+                        return "1X2";
+                    case "SPREAD":
+                        return "Handicap";
+                    case "TOTAL_POINTS":
+                        return "Total";
+                    default:
+                        return "";
+                }
+            case "Tennis":
+                switch (market.getBetType())
+                {
+                    case "MONEYLINE":
+                        return "Money Line";
+                    case "SPREAD":
+                        return "Handicap";
+                    case "TOTAL_POINTS":
+                        return "Total Points";
+                    default:
+                        return " ";
+                }
+                default:
+                    return "";
+        }
+    }
+    private String defineSelectionName(Market market,String selection) {
+        switch (market.getBetType())
+        {
+            case "MONEYLINE":
+                switch (selection){
+                    case "HOME":
+                        return market.getHomeName();
+                    case "AWAY":
+                        return market.getAwayName();
+                    default:
+                        return "Draw";}
+            case "SPREAD":
+                switch (selection){
+                    case "HOME":
+                        return String.format("%s %.2f",market.getHomeName(),market.getOddsInfoBySelection(selection).getHdp());
+                    default:
+                        return String.format("%s %.2f",market.getAwayName(),market.getOddsInfoBySelection(selection).getHdp());
+                }
+            case "TOTAL_POINTS":
+                switch (selection){
+                    case "OVER":
+                        return String.format("Over %.2f",market.getOddsInfoBySelection(selection).getHdp());
+                    default:
+                        return String.format("Under %.2f",market.getOddsInfoBySelection(selection).getHdp());
+                }
+            default:
+                return "";
+        }
+
+    }
+
+    /** This method define template of summary info in Bet Slip
+     * Format: yyyy-MM-DD marketType match leagueNAme
+     * @param market
+     * @return the format yyyy-MM-DD marketType match leagueNAme
+     */
+    private String defineSummaryInfoInBetSlip(Market market){
+        String match= definePeriod(market);
+        String marketName = defineMarketName(market);
+        String eventStartTime = market.getEventStartTime().replace("Z",".00+00:00");
+        String eventDate = DateUtils.convertDateToNewTimeZone(eventStartTime,"yyyy-MM-dd'T'HH:mm:ss.SSSXXX","","yyyy-MM-dd",GMT_7);
+        return String.format("%s %s - %s - %s",eventDate,marketName, match, market.getLeagueName());
+
+    }
+
+    public void verifyBetSlipInfo(Market market, String selection, String oddsType) {
+        String expectedSelection= defineSelectionName(market,selection);
+        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", market.getEventId());
+        String eventName = Label.xpath(String.format("%s%s", betslipRootXpath,lblEventNameXpath)).getText();
+        String summaryInfo = Label.xpath(String.format("%s%s", betslipRootXpath, lblSummaryInfoXpath)).getText();
+        String selectionName = Label.xpath(String.format("%s%s", betslipRootXpath, lblHDPPointXpath)).getText();
+        String odds = Label.xpath(String.format("%s%s", betslipRootXpath,lblOddsXpath)).getText();
+        String expectedOdds = String.format("@%.3f",market.getOddsInfoBySelection("HOME").getOdds());
+        if(oddsType.toLowerCase().equalsIgnoreCase(AMERICAN)){
+            expectedOdds = String.format("@%.0f",market.getOddsInfoBySelection("HOME").getOdds());
+        }
+        // handle special character get from UI for negative odds actual @−253, expected @-253 but return assert failed
+        if(odds.contains("−"))
+            odds = odds.replace("−","-");
+        Assert.assertEquals(odds,expectedOdds,"FAILED! Odds is incorrect");
+        Assert.assertEquals(eventName,market.getEventName(),"FAILED! Event Name is incorect");
+        Assert.assertEquals(summaryInfo,defineSummaryInfoInBetSlip(market),"FAILED! Summary info is incorrect");
+        Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
+//      min/max/maxpermatch will check in other method
+//        String stake = Label.xpath(String.format("%s%s", betslipRootXpath, lblStakeXpath)).getText();
+//        String minBet = Label.xpath(String.format("%s%s", betslipRootXpath,lblMinBetXpath)).getText();
+//        String maxBet = Label.xpath(String.format("%s%s", betslipRootXpath, lblMaxBetXpath)).getText();
+//        String matchMax = Label.xpath(String.format("%s%s", betslipRootXpath,lblMatchMaxXpath)).getText();
+
+    }
+
+    private void clickPlaceBet(boolean isConfirm) {
+        btnPlaceBet.jsClick();
+        if(isConfirm)
+            confirmModulePopup.getContent();
+    }
+
+    private void inputStake(Market market,String stake) {
+        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", market.getEventId());
+        TextBox txtStake = TextBox.xpath(String.format("%s%s", betslipRootXpath, txtStakeXpath));
+        txtStake.sendKeys(stake);
+    }
+    public void placeNoBet(Market market,String stake, boolean isAcceptedBetterOdds,boolean isPlaceBet) {
+        inputStake(market,stake);
+        //if(isAcceptedBetterOdds)
+            //handle check on Accept Better Odds checkbox here
+        if(isPlaceBet)
+            // click place bet button and confirm Ok
+            clickPlaceBet(true);
+        else
+            // click place bet and do nothing
+            clickPlaceBet(false);
+       // return a Order object
+    }
+
+    // End Bet Slip, Pending Bets section
+
+
 }
