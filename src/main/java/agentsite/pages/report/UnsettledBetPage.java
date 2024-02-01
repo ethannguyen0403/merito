@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnsettledBetPage extends HomePage {
-    /*    public RadioButton rbLastBetMode = RadioButton.xpath("//app-unsettled-bet//input[contains(@id,'last-bets-mode')]");
-        public RadioButton rbSportMode = RadioButton.xpath("//app-unsettled-bet//input[contains(@id,'sport-mode')]");
-        public RadioButton rbHierarchyMode = RadioButton.xpath("//app-unsettled-bet//input[contains(@id,'hierarchy-mode')]");*/
     public TextBox txtFrom = TextBox.id("fromDate");
     public TextBox txtTo = TextBox.id("toDate");
     public DateTimePicker dpFrom = DateTimePicker.xpath(txtFrom, "//bs-days-calendar-view");
@@ -33,19 +30,13 @@ public class UnsettledBetPage extends HomePage {
     public RadioGroup rdModeGroup = RadioGroup.xpath("//div[@id='unsettled-bet']//div[@name='check-box-view-mode']/div[@class='form-filter']");
     public RadioGroup rdBetType = RadioGroup.xpath("//div[@id='unsettled-bet']//div[@name='check-box-bet-type']/div[@class='form-filter']");
     public Label lblInfo = Label.xpath("//div[@id='unsettled-bet']//i//..//..//span");
-    /*  public RadioButton rbAll = RadioButton.xpath("//input[@id='all']");
-      public Label lblAll = Label.xpath("//input[@id='all']/following::label[@for='all']");
-      public RadioButton rbMatched = RadioButton.xpath("//app-last-bets-mode//input[@id='matched']");
-      public RadioButton rbUnmatched = RadioButton.xpath("//app-last-bets-mode//input[@id='unmatched']");
-      public RadioButton rbCancelled = RadioButton.xpath("//app-last-bets-mode//input[@id='cancelled']");
-      public RadioButton rbVoided = RadioButton.xpath("//app-last-bets-mode//input[@id='voided']");
-      public RadioButton rbLapsed = RadioButton.xpath("//app-last-bets-mode//input[@id='lapsed']");*/
+
     public int tbtLastBetsModeTotalCol = 12;
     public int colUsername = 2;
     public int colLoginID = 3;
     public int colStaus = 10;
-    public Table tblLastBetsMode = Table.xpath("//div[@class='last-bet-table']//table", tbtLastBetsModeTotalCol);
-    public Label lblLastBetsModeNoRecord = Label.xpath("//div[@class='last-bet-table']//table//td[@class='text-center']");
+    public Table tblLastBetsMode = Table.xpath("//div[contains(@class,'last-bet-table')]//table", tbtLastBetsModeTotalCol);
+    public Label lblLastBetsModeNoRecord = Label.xpath("//div[contains(@class,'last-bet-table')]//table//td[@class='text-center']");
 
     public Label lblNoRecord = Label.xpath("//td[@class='text-center']");
     public Label lblSatkeAll = Label.xpath("//div[@class='form-control select']");
@@ -84,8 +75,7 @@ public class UnsettledBetPage extends HomePage {
         rdBetType.clickRadio(status);
     }
 
-    public void search(String status, String stake, String username, String wagerID, String sportName, String eventName) {
-        selectMode(status);
+    public void search(String status, String stake, String username, String wagerID, String sportName, String eventName, String fromDate,String toDate) {
         selectStatus(status);
         if (!stake.isEmpty()) {
             lblStake.click();
@@ -102,6 +92,10 @@ public class UnsettledBetPage extends HomePage {
             ddbSport.selectByVisibleText(sportName);
         if (!eventName.isEmpty())
             ddbEvent.selectByVisibleText(eventName);
+        if(!fromDate.isEmpty())
+            dpFrom.selectDate(fromDate,"dd/MM/yyyy");
+        if(!toDate.isEmpty())
+            dpTo.selectDate(toDate,"dd/MM/yyyy");
         btnSearch.click();
         waitingLoadingSpinner();
     }

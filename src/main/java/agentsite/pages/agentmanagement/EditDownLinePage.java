@@ -3,6 +3,9 @@ package agentsite.pages.agentmanagement;
 import agentsite.pages.agentmanagement.editdownlinelisting.EditDownlineListing;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.SuccessPopup;
+import com.paltech.element.BaseElement;
+import com.paltech.element.common.DropDownBox;
+import com.paltech.element.common.Label;
 
 import java.util.List;
 import java.util.Map;
@@ -35,5 +38,8 @@ public class EditDownLinePage extends CreateDownLineAgentPage {
         return productStatusSettingInforSection.getProductsTabs();
     }
 
-
+    public void selectProduct(String productName) {
+        Label lblProduct = Label.xpath(String.format("//span[text()='%s']", productName));
+        lblProduct.click();
+    }
 }

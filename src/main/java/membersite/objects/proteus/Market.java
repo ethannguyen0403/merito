@@ -2,14 +2,14 @@ package membersite.objects.proteus;
 
 import java.util.List;
 
-public class Event {
+public class Market {
     private String _sportName;
     private String _leagueName;
     private String _eventName;
     private String _marketName;
     private String _eventStartTime;
     private int _eventId;
-    private int _lineID;
+    private Long _lineID;
     private String _betType;
     private String _oddsKey;
     private double _handicap;
@@ -19,15 +19,18 @@ public class Event {
     private String _oddsType;
     private String _oddsFormat;
     private String _marketKey;
+    private String _homeName;
+    private String _awayName;
+    private int _periodId;
     private List<Odds> _odds;
 
-    public Event(Builder builder) {
+    public Market(Builder builder) {
         this._sportName = builder._sportName;
         this._leagueName = builder._leagueName;
-        this._eventName = builder._leagueName;
+        this._eventName = builder._eventName;
         this._marketName =builder._marketName;
         this._eventStartTime = builder._eventStartTime;
-        this._eventId = builder._lineID;
+        this._eventId = builder._eventId;
         this._lineID = builder._lineID;
         this._betType = builder._betType;
         this._oddsKey = builder._oddsKey;
@@ -39,9 +42,12 @@ public class Event {
         this._oddsFormat = builder._oddsFormat;
         this._marketKey = builder._marketKey;
         this._odds = builder._odds;
+        this._homeName = builder._homeName;
+        this._awayName = builder._awayName;
+        this._periodId = builder._periodId;
 
     }
-    public String get_sportName() {
+    public String getSportName() {
         return _sportName;
     }
 
@@ -89,11 +95,11 @@ public class Event {
         this._eventId = _eventId;
     }
 
-    public int getLineID() {
+    public Long getLineID() {
         return _lineID;
     }
 
-    public void setLineID(int _lineID) {
+    public void setLineID(Long _lineID) {
         this._lineID = _lineID;
     }
 
@@ -168,13 +174,40 @@ public class Event {
     public void setMarketKey(String _marketKey) {
         this._marketKey = _marketKey;
     }
+    public String getHomeName() {        return _homeName;    }
 
+    public void setHomeName(String _homeName) {
+        this._homeName = _homeName;
+    }
+
+    public String getAwayName() {
+        return _awayName;
+    }
+
+    public void setAwayName(String _awayName) {
+        this._awayName = _awayName;
+    }
+    public int getPeriodId() {
+        return _periodId;
+    }
+
+    public void setPeriodId(int _periodId) {
+        this._periodId = _periodId;
+    }
     public List<Odds> getOdds() {
         return _odds;
     }
 
     public void setOdds(List<Odds> _odds) {
         this._odds = _odds;
+    }
+
+    public Odds getOddsInfoBySelection(String selection){
+        for (Odds o: _odds) {
+            if(o.getTeam().equalsIgnoreCase(selection))
+                return o;
+        }
+        return null;
     }
 
     public static class Builder {
@@ -184,7 +217,7 @@ public class Event {
         private String _marketName;
         private String _eventStartTime;
         private int _eventId;
-        private int _lineID;
+        private Long _lineID;
         private String _betType;
         private String _oddsKey;
         private double _handicap;
@@ -194,6 +227,9 @@ public class Event {
         private String _oddsType;
         private String _oddsFormat;
         private String _marketKey;
+        private String _homeName;
+        private String _awayName;
+        private int _periodId;
         private List<Odds> _odds;
         public Builder() {
         }
@@ -221,7 +257,7 @@ public class Event {
             _eventId = val;
             return this;
         }
-        public Builder lineID(int val) {
+        public Builder lineID(Long val) {
             _lineID = val;
             return this;
         }
@@ -261,12 +297,24 @@ public class Event {
             _marketKey = val;
             return this;
         }
+        public Builder homeName(String val) {
+            _homeName = val;
+            return this;
+        }
+        public Builder awayName(String val) {
+            _awayName = val;
+            return this;
+        }
+        public Builder periodId(int val) {
+            _periodId = val;
+            return this;
+        }
         public Builder odds(List<Odds> val) {
             _odds = val;
             return this;
         }
-        public Event build() {
-            return new Event(this);
+        public Market build() {
+            return new Market(this);
         }
 
     }

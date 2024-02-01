@@ -169,7 +169,7 @@ public class EditUserTest extends BaseCaseTest {
         EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
 
         log("Step  3. Change account status to Inactive and click on Submit button\n" +
-                "     *              Click Ok button on Edit Member popup");
+                "Click Ok button on Edit Member popup");
         editDownLinePage.accountInforSection.inputInfo("", "Inactive");
         page.submitEditDownline();
         String message = page.getMessageUpdate(true);
@@ -285,9 +285,7 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_MEMBER_SUCCESS, "FAILED! Message update downline is not correct");
-
         editDownLinePage = page.clickEditIcon(loginID);
-
         editDownLinePage.productStatusSettingInforSection.updateLiveNonLive(true, true);
         page.submitEditDownline();
         message = page.getMessageUpdate(true);
@@ -647,7 +645,7 @@ public class EditUserTest extends BaseCaseTest {
         EditDownLinePage editDownLinePage = page.clickEditIcon(memberAccount);
 
         log("Step 3. Suspend the account");
-        page.editDownlinePopup.accountInforSection.selectAccountStatus(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(3));
+        editDownLinePage.accountInforSection.selectAccountStatus(AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(3));
         page.submitEditDownline();
         page.closeSubmitEditDownlinePopup();
         page.logout();

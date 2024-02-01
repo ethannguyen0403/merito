@@ -16,7 +16,7 @@ public class UnsettleBetSportModeContainer extends BaseElement {
     Label lblNoRecord;
     int totalColumnSummary = 3;
     public Table tblSportMode = Table.xpath("//div[@id='accordion']//table",totalColumnSummary);
-    public Table tblSportModeDetail = Table.xpath("//div[@class='bet-list-detail-table-sport']//table", 10);
+    public Table tblSportModeDetail = Table.xpath("//div[contains(@class,'bet-list-detail-table-sport')]//table", 10);
     private String _xPath;
 
     public UnsettleBetSportModeContainer(By locator, String xpathExpression) {

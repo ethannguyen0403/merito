@@ -1,6 +1,7 @@
 package agentsite.pages.agentmanagement.downlinelisting;
 
 import agentsite.pages.agentmanagement.EditDownLinePage;
+import agentsite.pages.agentmanagement.createdownlineagent.creditbalancesection.CreditBalanceSection;
 import agentsite.pages.agentmanagement.createdownlineagent.productstatussettingsection.ProductStatusSettingSection;
 import agentsite.pages.components.ComponentsFactory;
 import com.paltech.element.common.Button;
@@ -10,6 +11,7 @@ public class EditDownlinePopup extends EditDownLinePage {
     public Label lblTitle;
     public Button btnOK = Button.xpath("//button[contains(@class,'btn btn-warning')]");
     public ProductStatusSettingSection productStatusSettingSection;
+    public CreditBalanceSection creditBalanceInforSection;
     public Button btnSubmit = Button.xpath("//button[contains(@id,'submitBtn')]");
     private String _xPath = "//div[@id='account']//app-agency-account-ui";
     private Label lblMessage = Label.xpath("//div[contains(@class,'modal-body-fit-with-content')]");
@@ -18,7 +20,7 @@ public class EditDownlinePopup extends EditDownLinePage {
         super(type);
         _type = type;
         productStatusSettingSection = ComponentsFactory.productStatusSettingInfoObject(_type);
-
+        creditBalanceInforSection = ComponentsFactory.creditBalanceInfoObject(_type);
     }
 
     public String getMessage() {
