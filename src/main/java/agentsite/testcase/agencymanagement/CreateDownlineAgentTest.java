@@ -20,7 +20,7 @@ import static common.AGConstant.HomePage.CREATE_DOWNLINE_AGENT;
 
 public class CreateDownlineAgentTest extends BaseCaseTest {
     @TestRails(id = "678")
-    @Test (groups = {"smoke","isa1"})
+    @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_678() {
         log("@title: Validate UI in Create Downline Agent with Exchange Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
@@ -62,29 +62,25 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      *          6. Submit and Cancel button
      */
     @TestRails(id = "679")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke_creditcash"})
     public void Agent_AM_CreateDownline_Agent_679() {
         log("@title: Validate UI in Create Downline Agent with Exchange Game Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
-
         log("Step 2. Enter Security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
-        page.waitingLoadingSpinner();
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Step 2. Select Exchange Game Tab");
         page.tabExchangeGames.click();
 
         log("Verify 1. Account info section");
-       // List<ArrayList<String>> lstInfo = page.tblAccountInfo.getRowsWithoutHeader(2,false);
         Assert.assertEquals(page.header.lblPageTitle.getText().trim(), AGConstant.AgencyManagement.CreateDownlineAgent.TITLE_PAGE, "Failed! Page title is incorrect");
         page.accountInforSection.verifyUIDisplayedCorrect();
-        log("Verify 2. Cash Balance");
 
+        log("Verify 2. Cash Balance");
         List<ArrayList<String>> lstBalance = page.cashBalanceInforSection.tblCashBalance.getRowsWithoutHeader(1,false);
         Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(), AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
         Assert.assertEquals(lstBalance.get(0).get(0), AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_INITIATION,"FAILED! Credit Initiation label displays incorrect");
-//
+
         log("Verify 3. Product Setting, select Exchange product");
         Assert.assertEquals(page.lblProductSetting.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
 

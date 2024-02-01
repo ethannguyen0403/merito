@@ -11,9 +11,11 @@ import membersite.pages.proteus.AsianViewPage;
 import membersite.pages.proteus.EuroViewPage;
 import membersite.pages.proteus.ProteusHomePage;
 import membersite.utils.betplacement.BetUtils;
+import membersite.utils.proteus.MarketUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,7 +123,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4123")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4123() {
         log("@title: Validate can navigate Soccer in header menu EU view");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -140,7 +142,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4124")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4124() {
         log("@title: Validate can navigate Tennis in header menu EU view");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -159,7 +161,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4125")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4125() {
         log("@title: Validate can navigate Soccer Early in left menu EU view");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -178,7 +180,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4071")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4071() {
         log("@title: Validate the ability to access the PS38 product on the member site");
         log("Precondition: Login member site");
@@ -186,12 +188,12 @@ public class ProteusHomePageTest extends BaseCaseTest {
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
 
         log("Validate PS38 product displays on top menu in member site , user can access into PS38 product page");
-        Assert.assertEquals(proteusHomePage.lblView.getText(), ASIAN_VIEW, "FAILED! Deposit page is not displayed");
+        Assert.assertEquals(proteusHomePage.lblView.getText(), EURO_VIEW, "FAILED! Cannot access PS39 product");
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4072")
-    @Test(groups = {"Proteus.2024.V.1.0_product_inactive"})
+    @Test(groups = {"ps38_inactive_product","Proteus.2024.V.1.0_product_inactive"})
     public void PS38_Member_TC4072() {
         log("@title: Validate PS38 product doesn't display on member site");
         log("Precondition: Login member site");
@@ -207,7 +209,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4126")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4126() {
         log("@title: Validate can add Handicap Soccer market odds to bet slip in EU view list event");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -246,7 +248,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4127")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4127() {
         log("@title: Validate can add Over Under Soccer market odds to bet slip in EU view list event");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -285,7 +287,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4128")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4128() {
         log("@title: Validate odds of 1x2 market display in Decimal when selecting Malay odds in EU view list event");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -324,7 +326,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "4129")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4129() {
         log("@title: Validate odds of 1x2 market display in Decimal when selecting HK odds in EU view list event");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -364,7 +366,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4151")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4151() {
         log("@title: Validate Player group E display the correct Decimal odds in 1x2 market in Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -397,7 +399,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4152")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4152() {
         log("@title: Validate Player group E display the correct Hongkong odds in 1x2 market in Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -431,7 +433,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4153")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4153() {
         log("@title: Validate Player group E display the correct Malay odds in 1x2 market in Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -465,7 +467,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4154")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4154() {
         log("@title: Validate Player group E display the correct American odds in 1x2 market in Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -498,7 +500,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4155")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4155() {
         log("@title: Validate Player group E display the correct Decimal odds in Over Under market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -531,7 +533,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4156")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4156() {
         log("@title: Validate Player group E display the correct Hong Kong odds in Over Under market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -567,7 +569,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4157")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4157() {
         log("@title: Validate Player group E display the correct Malay odds in Over Under market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -603,7 +605,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4158")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4158() {
         log("@title: Validate Player group E display the correct American odds in Over Under market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -639,7 +641,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4159")
-    @Test(groups = {"Proteus.2024.V.1.0_group_C"})
+    @Test(groups = {"ps38_groupC","Proteus.2024.V.1.0_group_C"})
     public void PS38_Member_TC4159() {
         log("@title: Validate Player group C display the correct Decimal odds in Over Under market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -672,7 +674,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4160")
-    @Test(groups = {"Proteus.2024.V.1.0_group_C"})
+    @Test(groups = {"ps38_groupC","Proteus.2024.V.1.0_group_C"})
     public void PS38_Member_TC4160() {
         log("@title: Validate Player group E display the correct Hong Kong odds in Over Under market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -708,7 +710,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4161")
-    @Test(groups = {"Proteus.2024.V.1.0_group_C"})
+    @Test(groups = {"ps38_groupC","Proteus.2024.V.1.0_group_C"})
     public void PS38_Member_TC4161() {
         log("@title: Validate Player group E display the correct Malay odds in Over Under market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -744,7 +746,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4162")
-    @Test(groups = {"Proteus.2024.V.1.0_group_C"})
+    @Test(groups = {"ps38_groupC","Proteus.2024.V.1.0_group_C"})
     public void PS38_Member_TC4162() {
         log("@title: Validate Player group E display the correct American odds in Over Under market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -780,7 +782,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4163")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4163() {
         log("@title: Validate Player group E display the correct Decimal odds in Handicap market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -813,7 +815,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4164")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4164() {
         log("@title: Validate Player group E display the correct Hong Kong odds in Handicap market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -849,7 +851,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4165")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4165() {
         log("@title: Validate Player group E display the correct Malay odds in Handicap market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -885,7 +887,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4166")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4166() {
         log("@title: Validate Player group E display the correct American odds in HDP market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -921,7 +923,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4167")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4167() {
         log("@title: Validate Player group E display the correct Decimal odds in Match - Team Totals market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -971,7 +973,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4168")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4168() {
         log("@title: Validate Player group E display the correct Hong Kong odds in Match - Team Totals market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1024,7 +1026,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4169")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4169() {
         log("@title: Validate Player group E display the correct Malay odds in Match - Team Totals market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1077,7 +1079,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4170")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4170() {
         log("@title: Validate Player group E display the correct American odds in Match - Team Totals market Asian View");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1130,7 +1132,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4174")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4174() {
         log("@title: Validate to commission is correctly in Profit and loss report when bet is full settled for Verify high commission");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1152,7 +1154,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4173")
-    @Test(groups = {"Proteus.2024.V.1.01"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4173() {
         log("@title: Validate to commission is correctly in Profit and loss report when bet is full settled for Soccer commission");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1174,7 +1176,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4171")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4171() {
         log("@title: Validate toWin and toRisk correctly when placing on better negative MY odds");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1192,15 +1194,16 @@ public class ProteusHomePageTest extends BaseCaseTest {
 
         log("Step 4. Select MY odds odds type, pick a negative odds and place bet. @-0.71 with stake = 40 => toRisk = 28.4 and toWin= 40");
         asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
-        String oddsValue = asianViewPage.selectFirstNegativeOdds();
+        String eventId = asianViewPage.selectFirstNegativeOdds();
+        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
         asianViewPage.placeBet(stake, true);
 
         log("Verify toRisk and toWin of this bet in Pending bet and Balance and exposure");
         proteusHomePage.switchTabBetSlip(PENDING_BETS_TAB);
-        asianViewPage.verifyToRiskToWinCorrect(stake, oddsValue, MALAY.trim());
+        asianViewPage.verifyToRiskToWinCorrect(stake, betslipInfo.getOdds(), MALAY.trim());
         double exposureAfterPlaceBet = Double.valueOf(BetUtils.getUserBalance().getExposure());
         double balanceAfterPlaceBet = Double.valueOf(BetUtils.getUserBalance().getBalance());
-        List<Double> lstToRiskToWin = asianViewPage.calculateToRiskToWin(stake, oddsValue, MALAY.trim());
+        List<Double> lstToRiskToWin = asianViewPage.calculateToRiskToWin(stake, betslipInfo.getOdds(), MALAY.trim());
         double expectedBalance = balanceBeforePlaceBet - lstToRiskToWin.get(0);
         double expectedExposure = exposureBeforePlaceBet - lstToRiskToWin.get(0);
         Assert.assertEquals(expectedExposure, exposureAfterPlaceBet, 0.01, String.format("FAILED! Exposure kept is not correct expected %s actual %s", expectedExposure, exposureAfterPlaceBet));
@@ -1209,7 +1212,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4172")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4172() {
         log("@title: Validate toWin and toRisk correctly when placing on better negative AM odds");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1227,15 +1230,16 @@ public class ProteusHomePageTest extends BaseCaseTest {
 
         log("Step 4. Select AM odds odds type, pick a negative odds and place bet. @-103 with stake = 20 => toRisk = 20.6 and toWin=20");
         asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
-        String oddsValue = asianViewPage.selectFirstNegativeOdds();
+        String eventId = asianViewPage.selectFirstNegativeOdds();
+        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
         asianViewPage.placeBet(stake, true);
 
         log("Verify toRisk and toWin of this bet in Pending bet and Balance and exposure");
         proteusHomePage.switchTabBetSlip(PENDING_BETS_TAB);
-        asianViewPage.verifyToRiskToWinCorrect(stake, oddsValue, AMERICAN.trim());
+        asianViewPage.verifyToRiskToWinCorrect(stake, betslipInfo.getOdds(), AMERICAN.trim());
         double exposureAfterPlaceBet = Double.valueOf(BetUtils.getUserBalance().getExposure());
         double balanceAfterPlaceBet = Double.valueOf(BetUtils.getUserBalance().getBalance());
-        List<Double> lstToRiskToWin = asianViewPage.calculateToRiskToWin(stake, oddsValue, AMERICAN.trim());
+        List<Double> lstToRiskToWin = asianViewPage.calculateToRiskToWin(stake, betslipInfo.getOdds(), AMERICAN.trim());
         double expectedBalance = balanceBeforePlaceBet - lstToRiskToWin.get(0);
         double expectedExposure = exposureBeforePlaceBet - lstToRiskToWin.get(0);
         Assert.assertEquals(expectedExposure, exposureAfterPlaceBet, 0.01, String.format("FAILED! Exposure kept is not correct expected %s actual %s", expectedExposure, exposureAfterPlaceBet));
@@ -1244,7 +1248,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4073")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4073() {
         log("@title: Validate top menu displays correctly items on PS38 product");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1255,12 +1259,14 @@ public class ProteusHomePageTest extends BaseCaseTest {
 
         log("Verify The items on top menu displays correctly (refer to PS38 Sport)");
         List<String> lstHeaders = euroViewPage.getSportsHeaderMenuList();
-        Assert.assertEquals(lstHeaders, EURO_VIEW_HEADER_MENU_LST, String.format("FAILED! List Header is not matched expected %s actual %s", lstHeaders, EURO_VIEW_HEADER_MENU_LST));
+        List<String> lstActiveSports = MarketUtils.getListActiveSports();
+        lstActiveSports.add(0,"Favourites");
+        Assert.assertEquals(lstHeaders, lstActiveSports, String.format("FAILED! List Header is not matched expected %s actual %s", lstHeaders, lstActiveSports));
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4074")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4074() {
         log("@title: Validate the league list or team names displays correctly when input the match values in search textbox");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1283,7 +1289,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4075")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4075() {
         log("@title: Validate the league list or team names displays corectly when input the un-match values in search textbox");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1299,7 +1305,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4076")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4076() {
         log("@title: Validate the filter result displays correctly after filtering Time");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1321,7 +1327,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4079")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4079() {
         log("@title: Validate the filter result displays correctly after filtering Odds");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1355,7 +1361,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4080")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4080() {
         log("@title: Validate the filter result displays correctly after filtering Leagues");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1380,7 +1386,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4078")
-    @Test(groups = {"Proteus.2024.V.1.01"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4078() {
         log("@title: Validate the filter result displays correctly after filtering By Time");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1394,14 +1400,14 @@ public class ProteusHomePageTest extends BaseCaseTest {
         asianViewPage.selectPeriodTab(EARLY_PERIOD);
 
         log("Step 4. Click on By Time and observe");
-        asianViewPage.selectSortBy("By Time");
+        asianViewPage.selectSortBy(" By Time ");
         log("Verify The filter result displays correctly and correspond to the filter condition");
-        //Bug
+        asianViewPage.verifySortByTimeShowCorrect();
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4037")
-    @Test(groups = {"Proteus.2024.V.1.02"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4037() {
         log("@title: Validate cannot place bet when place bet in member site smaller than min bet setting");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1423,7 +1429,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4038")
-    @Test(groups = {"Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4038() {
         log("@title: Validate cannot place bet when place bet in member site greater than max bet setting");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -1447,5 +1453,94 @@ public class ProteusHomePageTest extends BaseCaseTest {
                 "Your stake cannot be greater than the maximum bet. It has been automatically adjusted to the maximum bet amount.");
         String errorMessage = proteusHomePage.lblPlaceBetError.getText();
         Assert.assertEquals(errorMessage, MAX_STAKE_ERROR_MSG, String.format("FAILED! Stake error message does not show correct expected %s actual %s", errorMessage, MAX_STAKE_ERROR_MSG));
+    }
+
+    @TestRails(id = "4146")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4146() {
+        log("@title: Validate Max per match is calculated correctly for AM negative odds");
+        log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
+        log("Step 1.Select Ps38 product and select AM odds");
+        log("Step 2.Click any AM negative odd of sport that already config Max per match and observe");
+        double settingMaxPerMatch = 500.0;
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        String eventId = asianViewPage.selectFirstNegativeOdds();
+        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
+        double oddsValue = Double.parseDouble(betslipInfo.getOdds().replace("−",""));
+        double matchMaxExpected = (settingMaxPerMatch / oddsValue) * 100;
+        log("Validate Max per match should be calculated correctly for Am negative odds following the formula\n" +
+                "\n" +
+                "AM negative odds: Max per match = (setting max per match/odds) * 100");
+        Assert.assertEquals(Double.valueOf(betslipInfo.getMaxMatch()), Double.valueOf(Math.floor(matchMaxExpected * 100 / 100)), 0.01, String.format("FAILED! Stake error message does not show correct expected %s actual %s", betslipInfo.getMaxMatch(), matchMaxExpected));
+    }
+
+    @TestRails(id = "20264")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC20264() {
+        log("@title: Validate Max per match is calculated correctly for AM positive odds");
+        log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
+        log("Step 1.Select Ps38 product and select AM odds");
+        log("Step 2.Click any AM positive odd of sport that already config Max per match and observe");
+        double settingMaxPerMatch = 500.0;
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        String eventId = asianViewPage.selectFirstPositiveOdds();
+        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
+        log("Validate Max per match should be calculated correctly for Am positive odds following the formula\n" +
+                "\n" +
+                "AM positive odds: Max per match = setting max per match");
+        Assert.assertEquals(betslipInfo.getMaxMatch(), String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Stake error message does not show correct expected %s actual %s", betslipInfo.getMaxMatch(), settingMaxPerMatch));
+    }
+
+    @TestRails(id = "4147")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4147() {
+        log("@title: Validate Max per match is calculated correctly for MY negative odds");
+        log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
+        log("Step 1.Select Ps38 product and select AM odds");
+        log("Step 2.Click any AM negative odd of sport that already config Max per match and observe");
+        double settingMaxPerMatch = 500.0;
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        String eventId = asianViewPage.selectFirstNegativeOdds();
+        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
+        double oddsValue = Double.parseDouble(betslipInfo.getOdds().replace("−",""));
+        double matchMaxExpected = settingMaxPerMatch / oddsValue;
+        log("Validate Max per match should be calculated correctly for Am negative odds following the formula\n" +
+                "\n" +
+                "AM negative odds: Max per match = (setting max per match/odds) * 100");
+        Assert.assertEquals(Double.valueOf(betslipInfo.getMaxMatch()), Double.valueOf(Math.floor(matchMaxExpected * 100) / 100), 0.01, String.format("FAILED! Stake error message does not show correct expected %s actual %s", betslipInfo.getMaxMatch(), matchMaxExpected));
+    }
+
+    @TestRails(id = "4144")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4144() {
+        log("@title: Validate Max per match field should match with agent setting");
+        log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
+        log("Step 1.Select Ps38 product and select AM odds");
+        log("Step 2. Click any odd of sport that already config Max per match");
+        double settingMaxPerMatch = 500.0;
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        String eventId = asianViewPage.selectFirstPositiveOdds();
+
+        log("Step 3. Compare Max Per Match with Agent site");
+        ProteusBetslip betSlipInfo = asianViewPage.getBetSlipInfo(eventId);
+
+        log("Validate Match Max value should matched correctly with Agent Site setting");
+        Assert.assertEquals(betSlipInfo.getMaxMatch(), String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Stake error message does not show correct expected %s actual %s", betSlipInfo.getMaxMatch(), settingMaxPerMatch));
     }
 }

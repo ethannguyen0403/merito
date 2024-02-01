@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 public class ProteusConstant {
+    // The value use for API and added to Header. Contact dev when this value is changed
+    public static final String AUTHORIZATION_API = "Basic UFpBMDIwMDAwMTpuaWNlMjQzNTE=";
     public static final String EURO_VIEW = "Euro View";
     public static final String ASIAN_VIEW = "Asian View";
-    public static final String DECIMAL = " Decimal ";
-    public static final String HONGKONG = " Hongkong ";
-    public static final String MALAY = " Malay ";
-    public static final String AMERICAN = " American ";
+    public static final String DECIMAL = "Decimal";
+    public static final String HONGKONG = "Hongkong";
+    public static final String MALAY = "Malay";
+    public static final String AMERICAN = "American";
     public static final String TEXT_HDP = "Handicap";
     public static final String TEXT_1X2 = "1X2";
     public static final String TEXT_OVER_UNDER = "Over Under";
@@ -19,17 +21,16 @@ public class ProteusConstant {
     public static final String EARLY_PERIOD = "Early";
     public static final String LIVE_PERIOD = "Live";
     public static final String TODAY_PERIOD = "Today";
-    public static final String ASIAN_DECIMAL_ODDS = " Decimal Odds ";
-    public static final String ASIAN_HONGKONG_ODDS = " Hong Kong Odds ";
-    public static final String ASIAN_MALAY_ODDS = " Malay Odds ";
-    public static final String ASIAN_AMERICAN_ODDS = " American Odds ";
+    public static final String ASIAN_DECIMAL_ODDS = "Decimal Odds";
+    public static final String ASIAN_HONGKONG_ODDS = "Hong Kong Odds";
+    public static final String ASIAN_MALAY_ODDS = "Malay Odds";
+    public static final String ASIAN_AMERICAN_ODDS = "American Odds";
     public static final String PENDING_BETS_TAB = "PENDING BETS";
     public static final String BET_SLIP_TAB = "BET SLIP";
+    public static final String SOCCER = "Soccer";
     public static final String NO_RECORDS_FOUND = "No records found.";
     public static final String MIN_STAKE_ERROR_MSG = "Your stake cannot be lower than the minimum bet. It has been automatically adjusted to the minimum bet amount.";
     public static final String MAX_STAKE_ERROR_MSG = "Your stake cannot be greater than the maximum bet. It has been automatically adjusted to the maximum bet amount.";
-    public static final List<String> EURO_VIEW_HEADER_MENU_LST = Arrays.asList("Favourites","Soccer","Tennis","Basketball","Hockey","Volleyball","Cricket","Badminton", "Alpine Skiing","Biathlon",
-            "Boxing","Cross Country","Curling","Darts","Football","Futsal","Golf","Handball","Mixed Martial Arts","Rugby Union","Snooker");
     public static final Map<String, String> ODDS_GROUP_ADJUSTMENT_MAPPING = new HashMap<String, String>() {
         {
             put("B", "0.28");
@@ -55,6 +56,13 @@ public class ProteusConstant {
             put("Malay", "MY");
             put("American", "AM");
             put("Indo", "ID");
+        }
+    };
+    public static final Map<String, String> SPORTBOOK_SPORT_ID = new HashMap<String, String>() {
+        {
+            put("SOCCER", "29");
+            put("CRICKET", "4");
+            put("TENNIS", "2");
         }
     };
 }

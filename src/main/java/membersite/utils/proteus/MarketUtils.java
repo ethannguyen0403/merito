@@ -4,25 +4,22 @@ import baseTest.BaseCaseTest;
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.WSUtils;
-import membersite.objects.proteus.Event;
+import membersite.objects.proteus.Market;
 import membersite.objects.proteus.Odds;
 import membersite.objects.proteus.ProteusMarket;
-import membersite.objects.sat.Odd;
-import membersite.objects.sat.Order;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import com.paltech.utils.DateUtils;
 import static common.MemberConstants.GMT_MINUS_4_30;
+import static common.ProteusConstant.AUTHORIZATION_API;
 
 public class MarketUtils extends BaseCaseTest {
 
-    private static JSONObject getAllMarketUnderEventFromProviderAPI(int eventId) {
-        String url = String.format("%s/proteus-member-service/odds/v3/decimal",proteusAPIDomainURL);
+    private static JSONObject getAllMarketUnderEventFromProviderAPI(String oddsType,int eventId) {
+        String url = String.format("%s/proteus-member-service/odds/v3/%s",proteusAPIDomainURL,oddsType.toLowerCase());
         String jsn = String.format("{\n" +
                         "    \"eventId\": [\n" +
                         "        %s\n" +
@@ -34,19 +31,59 @@ public class MarketUtils extends BaseCaseTest {
         return jsonObject;
     }
 
+    private static JSONObject getAllEventUnderSport(int sportID) {
+        String url = String.format("%s/v3/fixtures?sportId=%s",proteusProviderAPIURL,sportID);
+        Map<String, String> headersParam = new HashMap<String, String>() {
+            {
+                put("Authorization",AUTHORIZATION_API);
+                put("Content-Type", Configs.HEADER_JSON);
+            }
+        };
+        return WSUtils.getGETJSONObjectWithDynamicHeaders(url,headersParam);
+    }
+
+
+    public static Market getEventInfoUnderLeague(int sportID, String leagueName, String eventID) {
+        JSONObject sportObj = getAllEventUnderSport(sportID);
+        if (Objects.nonNull(sportObj)) {
+            JSONArray leagueArr = sportObj.getJSONArray("league");
+            for (int i = 0; i < leagueArr.length(); i++) {
+                JSONObject objLeague = leagueArr.getJSONObject(i);
+                if(objLeague.getString("name").equalsIgnoreCase(leagueName)) {
+                    JSONArray eventArr = objLeague.getJSONArray("events");
+                    for (int j = 0; j < eventArr.length(); j++) {
+                        JSONObject eventObj = eventArr.getJSONObject(j);
+                        if (Integer.toString(eventObj.getInt("id")).equals(eventID)) {
+                            return new Market.Builder()
+                                    .leagueName(objLeague.getString("name"))
+                                    .eventStartTime(eventObj.getString("starts"))
+                                    .homeName(eventObj.getString("home"))
+                                    .awayName(eventObj.getString("away"))
+                                    .build();
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println(String.format(" There is no league under sport id %s has the event id %s",sportID, eventID));
+        return null;
+
+    }
+
     private static Odds getOddsAllSelectionUnderAMarketFromProviderAPI(JSONObject obj){
         return new Odds.Builder()
                 .odds(obj.getDouble("odds"))
-                .odds(obj.getDouble("team"))
-                .odds(obj.getDouble("originalOdds"))
-                .odds(obj.getDouble("hdp"))
+                .team(obj.getString("team"))
+                .side(obj.getString("side"))
+                .originalOdds(obj.getDouble("originalOdds"))
+                .hdp(obj.getDouble("hdp"))
                 .build();
     }
 
-    public List<Event> getSportbookEventAPI(int eventId){
-        JSONObject jsonObject = getAllMarketUnderEventFromProviderAPI(eventId);
-        List<Event> lstEvents = new ArrayList<>();
-        Event event;
+    public static List<Market> getSportbookEventAPI(String oddsType, int eventId){
+        JSONObject jsonObject = getAllMarketUnderEventFromProviderAPI(oddsType,eventId);
+        List<Market> lstEvents = new ArrayList<>();
+        Market market;
         if (Objects.nonNull(jsonObject)) {
             JSONArray jsonArray = jsonObject.getJSONArray("data");
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -57,9 +94,11 @@ public class MarketUtils extends BaseCaseTest {
                     JSONObject oddsObj = oddObjLst.getJSONObject(j);
                     lstOdds.add(getOddsAllSelectionUnderAMarketFromProviderAPI(oddsObj));
                 }
-                event = new Event.Builder()
+                market = new Market.Builder()
+                        .periodId(obj.getInt("periodId"))
+                        .eventStartTime(obj.getString("cutoff"))
                         .eventId(obj.getInt("eventId"))
-                        .lineID(obj.getInt("lineID"))
+                        .lineID(obj.getLong("lineId"))
                         .betType(obj.getString("betType"))
                         .handicap(obj.getDouble("handicap"))
                         .oddsKey(obj.getString("oddsKey"))
@@ -70,12 +109,20 @@ public class MarketUtils extends BaseCaseTest {
                         .marketKey(obj.getString("marketKey"))
                         .odds(lstOdds)
                         .build();
-                lstEvents.add(event);
+                lstEvents.add(market);
             }
         }
         return lstEvents;
     }
 
+    public static Market getMarketByOddsKey(String oddsType, int eventID, String oddsKey){
+        List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID);
+        for (Market m: lstMarket) {
+            if(m.getOddsKey().equalsIgnoreCase(oddsKey))
+                return m;
+        }
+        return null;
+    }
 
     public static ProteusMarket getMarketInfo(int eventId, String betType, Double hdpPoint) {
         JSONObject jsonObject = getMarketJSON(eventId, betType);
@@ -260,4 +307,23 @@ public class MarketUtils extends BaseCaseTest {
         }
         return lstLeagues;
     }
+    private static JSONObject getListActiveSportJSON() {
+        String url = String.format("%s/proteus-member-service/before-login/left-menu/menu-item/euro_view/id/sports/tz/-04:00/locale/en-US", proteusAPIDomainURL);
+        return WSUtils.getGETJSONObjectWithCookies(url, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+    }
+
+    public static List<String> getListActiveSports() {
+        JSONObject jsonObject = getListActiveSportJSON();
+        List<String> lstSports = new ArrayList<>();
+        if (Objects.nonNull(jsonObject)) {
+            JSONObject jsonObjectMenu = jsonObject.getJSONObject("data").getJSONObject("menu");
+            JSONArray jsonArray = jsonObjectMenu.getJSONArray("child");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                lstSports.add(jsonArray.getJSONObject(i).getString("name"));
+            }
+            return lstSports;
+        }
+        return lstSports;
+    }
+
 }

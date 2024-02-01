@@ -22,9 +22,9 @@ public class CreditBalanceSection {
         return -1;
     }
 
-    public int getMaxPlayerLitmitCredit() {
+    public int getMaxPlayerLitmitCredit(String currency) {
         String value = lblMemberMaxCreditLimit.getText();
-        int convertoInt = (int) (Double.parseDouble(value.split("<=")[1].replace(",", "").trim()));
+        int convertoInt = (int) (Double.parseDouble(value.split("<=")[1].replace(",", "").replace(currency,"").trim()));
         return convertoInt;
     }
 

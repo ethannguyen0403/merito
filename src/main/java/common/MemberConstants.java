@@ -15,6 +15,7 @@ public class MemberConstants {
     public static final String STARTINGSOON = "Starting soon";
     public static final String TIMEZONE = "IST";
     public static final String GMT_5_30 = "GMT+5:30";
+    public static final String GMT_7 = "GMT+7";
     public static final String GMT_MINUS_4_30 = "GMT-4:30";
     public static final String NO_RECORD_FOUND = "No Record Found";
     public static final String WICKET_FANCY_TITLE = "Wicket Fancy";

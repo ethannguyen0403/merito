@@ -35,7 +35,7 @@ public class EGBaccaratTest extends BaseCaseTest {
         baccaratPage.placeBet("Player", false, "1.02", minBet);
 
         log("Verify Verify can place bet");
-        Assert.assertTrue(baccaratPage.getUnmatchedBetId().startsWith("Bet Id:"), "Failed! Cannot place bet as unmatched section not display");
+        Assert.assertTrue(baccaratPage.isUnmatchedBetDisplayed().contains("Player"), "Failed! Cannot place bet as unmatched section not display");
 
         log("INFO: Executed completely");
     }
