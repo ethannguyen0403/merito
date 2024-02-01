@@ -425,4 +425,9 @@ public class MemberConstants {
         };
 
     }
+
+    public static class Casino{
+        public static final String SUPERNOWA = "SUPERNOWA";
+        public static final List<String> ERROR_CODE_LIST = Arrays.asList("403", "405");
+    }
 }
