@@ -3,15 +3,14 @@ package membersite.testcases.proteus;
 import baseTest.BaseCaseTest;
 import membersite.objects.AccountBalance;
 import membersite.objects.proteus.Market;
-import membersite.objects.proteus.Order;
 import membersite.pages.proteus.EuroViewPage;
 import membersite.pages.proteus.ProteusHomePage;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import static common.ProteusConstant.*;
-public class EuroViewPageTest extends BaseCaseTest {
+
+public class AsianViewTest extends BaseCaseTest {
 
     @TestRails(id = "4067")
     @Test(groups = {"ps38","Proteus.2024.V.1.0"})
@@ -38,6 +37,7 @@ public class EuroViewPageTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "4068")
     @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4068() {
@@ -54,6 +54,7 @@ public class EuroViewPageTest extends BaseCaseTest {
         log("Step 4. Select Early tab in the left meu and any sport has events available");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);        
         Market market = euroViewPage.getEventInfo(SOCCER,HONGKONG);
+       
 
         log("Step 5. Click on event of 1x2 market has odds");
         euroViewPage.clickOdds(market,"HOME");
@@ -103,10 +104,9 @@ public class EuroViewPageTest extends BaseCaseTest {
         EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
         euroViewPage.selectOddsType(AMERICAN);
 
-        log("Step 4. Select Early tab in the left meu and any sport has events available");
+        log("Step 4. Select[ Early tab in the left meu and any sport has events available");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
         Market market = euroViewPage.getEventInfo(SOCCER,AMERICAN);
-
 
         log("Step 5. Click on event of 1x2 market has odds");
         euroViewPage.clickOdds(market,"HOME");
@@ -117,18 +117,17 @@ public class EuroViewPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "4117")
+    @TestRails(id = "4119")
     @Test(groups = {"ps38","Proteus.2024.V.1.0"})
-    @Parameters({"currency"})
-    public void PS38_Member_TC4117(String currency) {
-        log("@title: Validate can place bet on AM odds Euro view when input in Stake");
+    public void PS38_Member_TC4119() {
+        log("@title: Validate can place bet on DC odds Euro view when inputting Stake = min bet");
         log("Precondition: 11/Login member site-  the player active PS38 product");
         log("Step 1. Select Ps38 product");
         log("Step 2. Select Euro View");
         AccountBalance userBalance = memberHomePage.getUserBalance();
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
 
-        log("Step 3. Select American odds type");
+        log("Step 3. Select Decimal odds type");
         EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
         euroViewPage.selectOddsType(AMERICAN);
 
@@ -137,26 +136,23 @@ public class EuroViewPageTest extends BaseCaseTest {
         Market market = euroViewPage.getEventInfo(SOCCER,AMERICAN);
 
         log("Step 5. Click on any Event 1x2 odds and input risk = min bet then place bet");
-        euroViewPage.clickOdds(market,"HOME");
-        Order order = euroViewPage.placeNoBet(market,"15",false,true);
+        euroViewPage.placeNoBet(market,"minBEt",false,true);
 
         log("Step 6. Click on pending bet and observer the info");
-        log("Verify 1 Check user balance and exposure is correct:\n" +
-                "Exposure = Before place bet exposure - risk of bet\n" +
-                "Balance = Balance before place bet - exposure");
+        // check order
 
-        log("Verify 2 Check Pending bet display correctly info:\n" +
+        log("Verify 1Check user balance and exposure is correct:\n" +
+                "Exposure = Before place bet exposure - risk of bet\n" +
+                "Balance = Balance before place bet - exposure\n" +
+                "2 Check Pending bet display correctly info:\n" +
                 "League, event name, market type, market name, selection name, odds, odds type, risk, stake, potential win");
-        euroViewPage.verifyPendingBetInfo(order,currency);
-        euroViewPage.verifyUserBalanceAfterPlacePS38(euroViewPage.calculateExpecteBalance(userBalance, order));
+        euroViewPage.verifyBetSlipInfo(market,"HOME",AMERICAN);
 
         log("INFO: Executed completely");
     }
-
-    @TestRails(id = "4119")
+    @TestRails(id = "4118")
     @Test(groups = {"ps38","Proteus.2024.V.1.0"})
-    @Parameters({"currency"})
-    public void PS38_Member_TC4119(String currency) {
+    public void PS38_Member_TC4118() {
         log("@title: Validate can place bet on DC odds Euro view when input in Stake");
         log("Precondition: 11/Login member site-  the player active PS38 product");
         log("Step 1. Select Ps38 product");
@@ -166,59 +162,25 @@ public class EuroViewPageTest extends BaseCaseTest {
 
         log("Step 3. Select Decimal odds type");
         EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
-        euroViewPage.selectOddsType(DECIMAL);
+        euroViewPage.selectOddsType(AMERICAN);
 
         log("Step 4. Search Early tab in the left menu and select on Soccer");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
-        Market market = euroViewPage.getEventInfo(SOCCER,DECIMAL);
+        Market market = euroViewPage.getEventInfo(SOCCER,AMERICAN);
 
         log("Step 5. Click on any Event 1x2 odds and input risk = min bet then place bet");
         euroViewPage.clickOdds(market,"HOME");
-        Order order = euroViewPage.placeNoBet(market,"15",false,true);
+        euroViewPage.placeNoBet(market,"15",false,true);
 
         log("Step 6. Click on pending bet and observer the info");
-        log("Verify 1 Check user balance and exposure is correct:\n" +
-                "Exposure = Before place bet exposure - risk of bet\n" +
-                "Balance = Balance before place bet - exposure");
+        // check order
 
-        log("Verify 2 Check Pending bet display correctly info:\n" +
-                "League, event name, market type, market name, selection name, odds, odds type, risk, stake, potential win");
-        euroViewPage.verifyPendingBetInfo(order,currency);
-        euroViewPage.verifyUserBalanceAfterPlacePS38(euroViewPage.calculateExpecteBalance(userBalance, order));
-
-        log("INFO: Executed completely");
-    }
-    @TestRails(id = "4118")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
-    @Parameters({"currency"})
-    public void PS38_Member_TC4118(String currency) {
-        log("@title: Validate can place bet on MY odds Euro view when input in Stake = min bet");
-        log("Precondition: 11/Login member site-  the player active PS38 product");
-        log("Step 1. Select Ps38 product");
-        log("Step 2. Select Euro View");
-        AccountBalance userBalance = memberHomePage.getUserBalance();
-        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
-
-        log("Step 3. Select Malay odds type");
-        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
-        euroViewPage.selectOddsType(MALAY);
-
-        log("Step 4. Search Early tab in the left menu and select on Soccer");
-        euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
-        Market market = euroViewPage.getEventInfo(SOCCER,MALAY);
-
-        log("Step 5. Click on any Event 1x2 odds and input risk = min bet then place bet");
-        euroViewPage.clickOdds(market,"HOME");
-        Order order = euroViewPage.placeNoBet(market,"15",false,true);
-
-        log("Step 6. Observer the info in Pending bet");
         log("Verify 1Check user balance and exposure is correct:\n" +
                 "Exposure = Before place bet exposure - risk of bet\n" +
                 "Balance = Balance before place bet - exposure\n" +
                 "2 Check Pending bet display correctly info:\n" +
                 "League, event name, market type, market name, selection name, odds, odds type, risk, stake, potential win");
-        euroViewPage.verifyPendingBetInfo(order,currency);
-        euroViewPage.verifyUserBalanceAfterPlacePS38(euroViewPage.calculateExpecteBalance(userBalance, order));
+        euroViewPage.verifyBetSlipInfo(market,"HOME",AMERICAN);
 
         log("INFO: Executed completely");
     }

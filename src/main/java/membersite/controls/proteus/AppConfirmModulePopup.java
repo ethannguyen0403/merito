@@ -31,6 +31,7 @@ public class AppConfirmModulePopup extends BaseElement {
     }
 
     public void confirm() {
+        btnOK.waitForElementToBePresent(btnOK.getLocator());
         btnOK.click();
     }
 

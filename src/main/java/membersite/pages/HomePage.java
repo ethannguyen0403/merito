@@ -4,6 +4,7 @@ import agentsite.pages.report.PS38SportsResultsPage;
 import com.paltech.driver.DriverManager;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
+import membersite.objects.proteus.Order;
 import membersite.objects.sat.Event;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.betslipcontainer.BetsSlipContainer;
@@ -14,6 +15,7 @@ import membersite.pages.popup.BannerPopup;
 import membersite.pages.proteus.ProteusHomePage;
 import membersite.testcases.proteus.ProteusHomePageTest;
 import membersite.utils.betplacement.BetUtils;
+import org.testng.Assert;
 
 import java.util.Locale;
 
@@ -165,6 +167,16 @@ public class HomePage extends LandingPage {
     public LandingPage logout() {
         header.logout();
         return new LandingPage(_type);
+    }
+
+    public void verifyUserBalanceAfterPlacePS38(AccountBalance accountBalance){
+        //switch to main frame
+        DriverManager.getDriver().switchToDefaultContent();
+        AccountBalance actualBalance = getUserBalance();
+        Assert.assertEquals(actualBalance.getBalance(),accountBalance.getBalance(),"Failed! User Balance is incorrect");
+        Assert.assertEquals(actualBalance.getExposure(),accountBalance.getExposure(),"Failed! User Exposure is incorrect");
+        //switch to proteus iFrame
+        DriverManager.getDriver().switchToFrame(0);
     }
 
 }
