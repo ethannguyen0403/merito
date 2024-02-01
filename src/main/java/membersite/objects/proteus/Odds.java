@@ -11,6 +11,7 @@ public class Odds {
         this._team = builder._team;
         this._side = builder._side;
         this._originalOdds = builder._originalOdds;
+        this._hdp = builder._hdp;
     }
 
     public double getOdds() {

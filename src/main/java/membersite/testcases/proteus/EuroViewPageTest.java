@@ -5,10 +5,14 @@ import membersite.objects.AccountBalance;
 import membersite.objects.proteus.Market;
 import membersite.pages.proteus.EuroViewPage;
 import membersite.pages.proteus.ProteusHomePage;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import static common.MemberConstants.LBL_SOCCER_SPORT;
+import static common.MemberConstants.LBL_TENNIS_SPORT;
 import static common.ProteusConstant.*;
+
 public class EuroViewPageTest extends BaseCaseTest {
 
     @TestRails(id = "4067")
@@ -185,7 +189,111 @@ public class EuroViewPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "4126")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4126() {
+        log("@title: Validate can add Handicap Soccer market odds to bet slip in EU view list event");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
 
+        log("Step 3. Select Early the left menu and click on Soccer");
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
+        log("Step 4. Click on Handicap tab");
+        euroViewPage.selectMarketTypeTab(TEXT_HDP);
+        Market market = euroViewPage.getEventInfo(SOCCER,DECIMAL);
 
+        log("Step 5. Add an handicap odds of Home team to bet slip");
+        euroViewPage.clickOdds(market,"HOME");
+        log("Verify Check odds handicap info display in bet slip correctly:\n" +
+                "Selection, handicap point (negative/positive sign), odds");
+        euroViewPage.verifyBetSlipInfo(market,"HOME",DECIMAL);
+        log("INFO: Executed completely");
+    }
 
+    @TestRails(id = "4127")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4127() {
+        log("@title: Validate can add Over Under Soccer market odds to bet slip in EU view list event");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
+        log("Step 4. Click on Handicap tab");
+        euroViewPage.selectMarketTypeTab(TEXT_OVER_UNDER);
+        Market market = euroViewPage.getEventInfo(SOCCER,DECIMAL);
+
+        log("Step 5. Add an Over Under odds of Home team to bet slip");
+        euroViewPage.clickOdds(market,"HOME");
+
+        log("Verify Check odds handicap info display in bet slip correctly:\n" +
+                "Selection, over under point (negative/positive sign), odds");
+        euroViewPage.verifyBetSlipInfo(market,"OVER",DECIMAL);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4123")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4123() {
+        log("@title: Validate can navigate Soccer in header menu EU view");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 3. Select Early the left menu Click on Soccer in Header menu");
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportHeaderMenu(LBL_SOCCER_SPORT);
+
+        log("Verify Soccer is active and Soccer Match title displays");
+        Assert.assertEquals(euroViewPage.lblSportHeader.getText(),LBL_SOCCER_SPORT, "FAILED! Deposit page is not displayed");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4124")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4124() {
+        log("@title: Validate can navigate Tennis in header menu EU view");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 3. Select Early the left menu Click on Tennis in Header menu");
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectSportHeaderMenu(LBL_TENNIS_SPORT);
+
+        log("Verify Soccer is active and Tennis Match title displays");
+        Assert.assertEquals(euroViewPage.lblSportHeader.getText(),LBL_TENNIS_SPORT, "FAILED! Deposit page is not displayed");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4125")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4125() {
+        log("@title: Validate can navigate Soccer Early in left menu EU view");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 3. Click on Early > Soccer in Left menu");
+        euroViewPage.selectPeriodTab(EARLY_PERIOD);
+        euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
+
+        log("Verify Soccer is active and Soccer Match title displays");
+        Assert.assertEquals(euroViewPage.lblSportHeader.getText(),LBL_SOCCER_SPORT, "FAILED! Deposit page is not displayed");
+        log("INFO: Executed completely");
+    }
 }

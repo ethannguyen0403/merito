@@ -203,9 +203,17 @@ public class Market {
     }
 
     public Odds getOddsInfoBySelection(String selection){
-        for (Odds o: _odds) {
-            if(o.getTeam().equalsIgnoreCase(selection))
-                return o;
+        //handle case OVER/UNDER > getSide
+        if(selection.equalsIgnoreCase("OVER") || selection.equalsIgnoreCase("UNDER")) {
+            for (Odds o: _odds) {
+                if(o.getSide().equalsIgnoreCase(selection))
+                    return o;
+            }
+        } else {
+            for (Odds o: _odds) {
+                if(o.getTeam().equalsIgnoreCase(selection))
+                    return o;
+            }
         }
         return null;
     }
