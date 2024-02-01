@@ -358,6 +358,25 @@ public class ProteusHomePage extends HomePage {
     }
 
     // End Bet Slip, Pending Bets section
-
+    public ProteusBetslip getBetSlipInfo(String eventId) {
+        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", eventId);
+        Label lblEventName = Label.xpath(String.format("%s%s", betslipRootXpath, "//span[@class='teams-name']"));
+        Label lblSummaryInfo = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'bet-title')]"));
+        Label lblHDPPoint = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'fw-semibold')]"));
+        Label lblOdds = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'odds-text')]//span"));
+        Label lblStake = Label.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
+        Label lblMinBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Min bet')]/span"));
+        Label lblMaxBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Max bet')]/span"));
+        Label lblMatchMax = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span"));
+        return new ProteusBetslip.Builder().eventName(lblEventName.getText().trim())
+                .summaryEventInfo(lblSummaryInfo.getText().trim())
+                .hdpPoint(lblHDPPoint.getText().trim())
+                .odds(lblOdds.getText().trim())
+                .stake(lblStake.getAttribute("value"))
+                .minBet(lblMinBet.getText().trim())
+                .maxBet(lblMaxBet.getText().trim())
+                .maxMatch(lblMatchMax.getText().trim())
+                .build();
+    }
 
 }
