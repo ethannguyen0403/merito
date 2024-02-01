@@ -60,8 +60,10 @@ public class PositionTakingListingPS38 {
         BaseElement rowList = new BaseElement(By.xpath(String.format("%s/tbody[%s]/tr[%s]/td",xpathPtTable , tbodyOrder, rowAccount)));
         for (WebElement lbl: rowList.getWebElements()){
             String lblEle = lbl.getText().trim();
-            if(Character.isDigit(lblEle.charAt(0))){
-                ptList.add(lblEle);
+            if(!lblEle.isEmpty()){
+                if(Character.isDigit(lblEle.charAt(0))){
+                    ptList.add(lblEle);
+                }
             }
         }
         return ptList;
@@ -69,12 +71,12 @@ public class PositionTakingListingPS38 {
 
     public boolean verifyUpdateStatus(String loginID, boolean isSuccess) {
         String cell_xpath = String.format("%s%s", xpathPtTable,
-                String.format("//td[contains(., '%s')]/following::td[contains(@class, 'status color')][1]", loginID));
+                String.format("//td[contains(., '%s')]/following::td", loginID));
         Label lblIcon;
         if (isSuccess) {
-            lblIcon = Label.xpath(String.format("%s%s", cell_xpath, successIcon));
+            lblIcon = Label.xpath(String.format("(%s%s)[1]", cell_xpath, successIcon));
         } else {
-            lblIcon = Label.xpath(String.format("%s%s", cell_xpath, errorIcon));
+            lblIcon = Label.xpath(String.format("(%s%s)[1]", cell_xpath, errorIcon));
         }
         return lblIcon.isDisplayed();
     }
@@ -163,9 +165,12 @@ public class PositionTakingListingPS38 {
         if (!accountStatus.isEmpty())
             ddbAccountStatus.selectByVisibleText(accountStatus);
         if (!sport.isEmpty()) {
-            new BaseElement(ddbSport.getLocator()).click();
-            ddbSport.selectByVisibleText(sport);
+            // handle for options list dropdown not load
+            BaseElement dropdown = new BaseElement(ddbSport.getLocator());
+            dropdown.click();
+            dropdown.click();
             waitingLoadingSpinner();
+            ddbSport.selectByVisibleText(sport);
         }
         if (!league.isEmpty()) {
             try {
