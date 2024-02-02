@@ -45,16 +45,7 @@ public class AccountBalance {
         private String _exposure = "";
         private String _balance = "";
         private String _creditRefer = "";
-        /*outstanding(exposure)
-        retainTax
-        cashBalance
-        walletCurrency
-        currencySymbol
-        giveCredit
-        walletCode
-        betCredit
-        status
-        */
+
 
         public Builder() {
         }
