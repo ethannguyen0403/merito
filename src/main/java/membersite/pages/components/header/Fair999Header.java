@@ -138,6 +138,7 @@ public class Fair999Header extends Header1 {
 
 
     public AccountBalance getUserBalance() {
+        waitSpinLoad();
         lblBalance.isDisplayed();
         return new AccountBalance.Builder()
                 .balance(lblBalance.getText())

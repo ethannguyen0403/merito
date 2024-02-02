@@ -5,10 +5,7 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 import controls.Table;
 import membersite.controls.DropDownMenu;
-import membersite.objects.proteus.Market;
-import membersite.objects.proteus.ProteusBetslip;
-import membersite.objects.proteus.ProteusGeneralEvent;
-import membersite.objects.proteus.ProteusMarket;
+import membersite.objects.proteus.*;
 import membersite.utils.proteus.MarketUtils;
 import org.json.JSONObject;
 import org.testng.Assert;
@@ -203,11 +200,23 @@ public class EuroViewPage extends ProteusHomePage {
         }
     }
 
-    public void addOddToBetSlipAndPlaceBet(Market market, String selection, String stake,boolean isAcceptBetterOdds,boolean isPlace){
+    /**
+     * Click on an Odds and input stake then click place bet button
+     * @param market
+     * @param selection
+     * @param stake
+     * @param isAcceptBetterOdds
+     * @param isPlace
+     * @return
+     */
+    public Order addOddToBetSlipAndPlaceBet(Market market, String selection, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+        // click odds
         clickOdds(market, selection);
-       // if(stake.equalsIgnoreCase("minbet"))
-            //
-        placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
+        //input stake and click place bet and confirm
+        Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
+        // set Odd info of the team name that placed on
+        order.setOdds(market.getOddsInfoBySelection(selection));
+        return order;
     }
 
     public void waitContentLoad(){

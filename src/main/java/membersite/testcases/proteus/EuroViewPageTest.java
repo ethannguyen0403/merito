@@ -137,14 +137,12 @@ public class EuroViewPageTest extends BaseCaseTest {
         Market market = euroViewPage.getEventInfo(SOCCER,AMERICAN);
 
         log("Step 5. Click on any Event 1x2 odds and input risk = min bet then place bet");
-        euroViewPage.clickOdds(market,"HOME");
-        Order order = euroViewPage.placeNoBet(market,"15",false,true);
+        Order order =euroViewPage.addOddToBetSlipAndPlaceBet(market,"HOME","minbet",false,true);
 
         log("Step 6. Click on pending bet and observer the info");
         log("Verify 1 Check user balance and exposure is correct:\n" +
                 "Exposure = Before place bet exposure - risk of bet\n" +
                 "Balance = Balance before place bet - exposure");
-
         log("Verify 2 Check Pending bet display correctly info:\n" +
                 "League, event name, market type, market name, selection name, odds, odds type, risk, stake, potential win");
         euroViewPage.verifyPendingBetInfo(order,currency);
@@ -173,14 +171,12 @@ public class EuroViewPageTest extends BaseCaseTest {
         Market market = euroViewPage.getEventInfo(SOCCER,DECIMAL);
 
         log("Step 5. Click on any Event 1x2 odds and input risk = min bet then place bet");
-        euroViewPage.clickOdds(market,"HOME");
-        Order order = euroViewPage.placeNoBet(market,"15",false,true);
+        Order order =euroViewPage.addOddToBetSlipAndPlaceBet(market,"HOME","minbet",false,true);
 
         log("Step 6. Click on pending bet and observer the info");
         log("Verify 1 Check user balance and exposure is correct:\n" +
                 "Exposure = Before place bet exposure - risk of bet\n" +
                 "Balance = Balance before place bet - exposure");
-
         log("Verify 2 Check Pending bet display correctly info:\n" +
                 "League, event name, market type, market name, selection name, odds, odds type, risk, stake, potential win");
         euroViewPage.verifyPendingBetInfo(order,currency);
@@ -189,7 +185,7 @@ public class EuroViewPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "4118")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0","isa"})
     @Parameters({"currency"})
     public void PS38_Member_TC4118(String currency) {
         log("@title: Validate can place bet on MY odds Euro view when input in Stake = min bet");
@@ -208,8 +204,7 @@ public class EuroViewPageTest extends BaseCaseTest {
         Market market = euroViewPage.getEventInfo(SOCCER,MALAY);
 
         log("Step 5. Click on any Event 1x2 odds and input risk = min bet then place bet");
-        euroViewPage.clickOdds(market,"HOME");
-        Order order = euroViewPage.placeNoBet(market,"15",false,true);
+        Order order =euroViewPage.addOddToBetSlipAndPlaceBet(market,"HOME","minbet",false,true);
 
         log("Step 6. Observer the info in Pending bet");
         log("Verify 1Check user balance and exposure is correct:\n" +
@@ -223,7 +218,37 @@ public class EuroViewPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "4061")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0","isa"})
+    @Parameters({"currency"})
+    public void PS38_Member_TC4061(String currency) {
+        log("@title: Validate user balance and exposure is correct when placing an order on HK odds");
+        log("Precondition:  The player is active PS38 product and has balance to place a minimum bet");
+        log("Step 1. Login member site and get user balance/exposure before place bet");
+        log("Step 2. Active PS38 product");
+        AccountBalance userBalance = memberHomePage.getUserBalance();
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
 
+        log("Step 3. Select Euro View and HK odds type");
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+        euroViewPage.selectOddsType(HONGKONG);
+
+        log("Step 4. Select an early event of any sports");
+        log("Step 5. Click on an odds of the selection that has higher potential win");
+        euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+        Market market = euroViewPage.getEventInfo(SOCCER,MALAY);
+
+        log("Step 6 Input stake = min bet");
+        log("Step 7 Click Place bet and confirm to place");
+        log("Step 8. Get the risk of the order and check user balance and exposure");
+        Order order =euroViewPage.addOddToBetSlipAndPlaceBet(market,"HOME","minbet",false,true);
+
+        log("Verify 1. Verify user exposure = exposure before place bet - risk of bet\n" +
+                "user balance = balance before place bet - user exposure" );
+        euroViewPage.verifyUserBalanceAfterPlacePS38(euroViewPage.calculateExpecteBalance(userBalance, order));
+
+        log("INFO: Executed completely");
+    }
 
 
 }

@@ -14,6 +14,7 @@ import membersite.objects.proteus.ProteusBetslip;
 import membersite.pages.HomePage;
 import org.testng.Assert;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 import static common.MemberConstants.GMT_7;
@@ -50,9 +51,9 @@ public class ProteusHomePage extends HomePage {
     String lblPendingBetEventNameXpath = "//div[contains(@class,'event-name')]";
     String lblPendingOrderIdXpath = "//div[contains(@class,'item-header')]/div[1]";
     String lblPendingBetPlaceDateXpath = "//div[contains(@class,'item-header')]/div[1]/span";
-    String lblPendingBetStatusXpath = "//div[contains(@class,'item-header')]/div[2]";
+    String lblPendingBetStatusXpath = "//div[contains(@class,'order-status')]/div";
     String lblPendingLeagueNameXpath = "//div[contains(@class,'league-name')]";
-    String lblPendingSelectionXpath = "//div[contains(@class,'team-name')]";
+    String lblPendingSelectionXpath = "//span[contains(@class,'team-name')]";
     String lblPendingOddsXpath = "//span[contains(@class,'odds')]";
     String lblPendingStakeLabelXpath = "//div[contains(@class,'item-content')][2]/div[1]/span[1]";
     String lblPendingStakeValueXpath = "//div[contains(@class,'item-content')][2]/div[1]/span[2]";
@@ -79,7 +80,7 @@ public class ProteusHomePage extends HomePage {
    public AccountBalance calculateExpecteBalance(AccountBalance beforeBalance, Order order){
         double toRisk = order.getRisk();
         double balance = Double.parseDouble(beforeBalance.getBalance()) - toRisk;
-        double exposure = Double.parseDouble(beforeBalance.getExposure()+toRisk);
+        double exposure = Double.parseDouble(beforeBalance.getExposure()) + (toRisk * (-1));
         return new AccountBalance.Builder()
                 .balance(String.format("%,.2f",balance))
                 .exposure(String.format("%,.2f",exposure))
@@ -375,18 +376,7 @@ public class ProteusHomePage extends HomePage {
     }
 
     private void inputStake(Market market,String stake) {
-        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", market.getEventId());
-        if(stake.equalsIgnoreCase("minbet")){
-            Label lblMinBetValue =  Label.xpath(String.format("%s%s",betslipRootXpath,lblMinBetValueXpath));
-            lblMinBetValue.waitForElementToBePresent(lblMinBetValue.getLocator(),1);
-            stake = lblMinBetValue.getText().trim();
-        }
-
-        if(stake.equalsIgnoreCase("maxbet")){
-            Label lblMaxBetValue =  Label.xpath(String.format("%s%s",betslipRootXpath,lblMaxBetValueXpath));
-            lblMaxBetValue.waitForElementToBePresent(lblMaxBetValue.getLocator(),1);
-            stake = lblMaxBetValue.getText().trim();
-        }
+        betslipRootXpath = String.format(betslipRootXpath,market.getEventId());
         TextBox txtStake = TextBox.xpath(String.format("%s%s", betslipRootXpath, txtStakeXpath));
         txtStake.sendKeys(stake);
     }
@@ -420,6 +410,7 @@ public class ProteusHomePage extends HomePage {
         else
             // click place bet and do nothing
             clickPlaceBet(false);
+
        // get the first order in Pending Bet after place a bet and define the expected order info
         Order fistPendingOrder = getTheFistPendingOrder();
         return new Order.Builder()
@@ -440,12 +431,12 @@ public class ProteusHomePage extends HomePage {
     private int getOrderByID(String orderID){
         int i = 1;
         while (true){
-            String pendingBetXpath = String.format("%s[%d]",pendingBetRootXpath,i);
+            String pendingBetXpath = String.format(pendingBetRootXpath,i);
             // get value from the UI
             Label lblID = Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingOrderIdXpath));
             if(!lblID.isDisplayed())
                 return 0;
-            if(lblID.getText().trim().equalsIgnoreCase(orderID))
+            if(lblID.getText().contains(orderID))
                 return i;
             i = i +1;
         }
@@ -458,61 +449,61 @@ public class ProteusHomePage extends HomePage {
      * @return Order
      */
     private Order getTheFistPendingOrder(){
-        String pendingBetXpath = String.format("%s[%d]",pendingBetRootXpath,1);
-        String id = Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingOrderIdXpath)).getText();
-        String placeDate = Label.xpath(String.format("%s%s", lblPendingOrderIdXpath, lblPendingBetPlaceDateXpath)).getText();
-        String status = Label.xpath(String.format("%s%s", lblPendingOrderIdXpath, lblPendingBetStatusXpath)).getText();
-        String odds =Label.xpath(String.format("%s%s", lblPendingOrderIdXpath,lblOddsXpath)).getText();
+        String pendingBetXpath = String.format(pendingBetRootXpath,1);
+        String idValue = Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingOrderIdXpath)).getText();
+        String orderId = idValue.split("\n")[0].split("ID:")[1].trim();
+        String placeDate = idValue.split("\n")[1].trim();
+        String status = Label.xpath(String.format("%s%s", pendingBetXpath, lblPendingBetStatusXpath)).getText();
+        String odds =Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingOrderIdXpath)).getText();
         return new Order.Builder()
-                .orderID(Integer.parseInt(id))
+                .orderID(Integer.parseInt(orderId))
                 .placeDate(placeDate)
                 .status(status)
-                .oddsAccept(Double.valueOf(odds))
+                //.oddsAccept(Double.valueOf(odds))
                 .placeDate(placeDate)
                 .build();
     }
     private void verifyPendingBetInfo(int index, Order orderExpected, String currency){
-        String pendingBetXpath = String.format("%s[%d]",pendingBetRootXpath,index);
+        String pendingBetXpath = String.format(pendingBetRootXpath,index);
         // get value from the UI
         String id = Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingOrderIdXpath)).getText();
-        String placeDate = Label.xpath(String.format("%s%s", lblPendingOrderIdXpath, lblPendingBetPlaceDateXpath)).getText();
-        String status = Label.xpath(String.format("%s%s", lblPendingOrderIdXpath, lblPendingBetStatusXpath)).getText();
-        String eventName = Label.xpath(String.format("%s%s", lblPendingOrderIdXpath,lblPendingBetEventNameXpath)).getText();
-        String leagueName =Label.xpath(String.format("%s%s", lblPendingOrderIdXpath,lblPendingBetEventNameXpath)).getText();
-        String odds =Label.xpath(String.format("%s%s", lblPendingOrderIdXpath,lblOddsXpath)).getText();
-        String teamName =Label.xpath(String.format("%s%s", lblPendingOrderIdXpath,lblPendingSelectionXpath)).getText();
-        String stakeLabel = Label.xpath(String.format("%s%s", lblPendingOrderIdXpath,lblPendingStakeLabelXpath)).getText();
-        String stakeValue = Label.xpath(String.format("%s%s", lblPendingOrderIdXpath,lblPendingStakeValueXpath)).getText();
-        String riskLabel= Label.xpath(String.format("%s%s", lblPendingOrderIdXpath,lblPendingStakeLabelXpath)).getText();
-        String riskValue = Label.xpath(String.format("%s%s", lblPendingOrderIdXpath,lblPendingStakeValueXpath)).getText();
-        String winLabel = Label.xpath(String.format("%s%s", lblPendingOrderIdXpath,lblPendingStakeLabelXpath)).getText();
-        String winValue = Label.xpath(String.format("%s%s", lblPendingOrderIdXpath,lblPendingStakeValueXpath)).getText();
+        String placeDate = Label.xpath(String.format("%s%s", pendingBetXpath, lblPendingBetPlaceDateXpath)).getText();
+        String status = Label.xpath(String.format("%s%s", pendingBetXpath, lblPendingBetStatusXpath)).getText();
+        String eventName = Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingBetEventNameXpath)).getText();
+        String leagueName =Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingLeagueNameXpath)).getText();
+        String odds =Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingOddsXpath)).getText();
+        String teamName =Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingSelectionXpath)).getText();
+        String stakeLabel = Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingStakeLabelXpath)).getText();
+        String stakeValue = Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingStakeValueXpath)).getText();
+        String riskLabel= Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingRiskLabelXpath)).getText();
+        String riskValue = Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingRiskValueXpath)).getText();
+        String winLabel = Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingWinLabelXpath)).getText();
+        String winValue = Label.xpath(String.format("%s%s", pendingBetXpath,lblPendingWinValueXpath)).getText();
 
         // Verify UI value with the expected
         if(Objects.nonNull(orderExpected.getOrderID()))
-            Assert.assertEquals(id, orderExpected.getOrderID(),"FAILED! Order ID is incorrect");
-        if(Objects.nonNull(orderExpected.getPlaceDate()))
-            Assert.assertEquals(id, orderExpected.getPlaceDate(),"FAILED! Place Date is incorrect");
+            Assert.assertEquals(id.trim(), String.format("ID: %d\n" +
+                    "%s",orderExpected.getOrderID(),orderExpected.getPlaceDate()),"FAILED! Order ID header is incorrect");
         Assert.assertEquals(status, orderExpected.getStatus(),"FAILED! Status is incorrect");
         Assert.assertEquals(eventName, orderExpected.getMarket().getEventName(),"FAILED! Event Name is incorrect");
-        Assert.assertEquals(leagueName, String.format(""),"FAILED! League is incorrect");
+        Assert.assertEquals(leagueName, defineSummaryInfoInBetSlip(orderExpected.getMarket()),"FAILED! League is incorrect");
         Assert.assertEquals(teamName,defineSelectionName(orderExpected.getMarket(), orderExpected.getOdds().getTeam()),"FAILED! Team name is incorrect");
-        String expectedOdds = String.format("@%.3f(%s)",orderExpected.getOdds().getOdds(),orderExpected.getOddsSign());
-        if(orderExpected.getMarket().getOddsType().toLowerCase().equalsIgnoreCase(AMERICAN)){
-            expectedOdds = String.format("@%.0f", orderExpected.getOdds().getOdds());
+        DecimalFormat df = new DecimalFormat("0.#");
+        double oddsValue = Double.parseDouble(df.format(orderExpected.getOdds().getOdds()));
+        String expectedOdds = String.format(oddsValue +" (%s)",orderExpected.getOddsSign());
+        if(orderExpected.getMarket().getOddsFormat().toLowerCase().equalsIgnoreCase(AMERICAN)){
+            expectedOdds = String.format("@%.0f (%s)", orderExpected.getOdds().getOdds(),orderExpected.getOddsSign());
         }
         // handle special character get from UI for negative odds actual @−253, expected @-253 but return assert failed
         if(odds.contains("−"))
             odds = odds.replace("−","-");
         Assert.assertEquals(odds,expectedOdds,"FAILED! Odds is incorrect");
         Assert.assertEquals(stakeLabel,"Stake:","Failed! Stake label is incorrect");
-        Assert.assertEquals(stakeValue, String.format("%s %.2f",currency, orderExpected.getStake())," Failed! Stake valueis incorrect");
+        Assert.assertEquals(stakeValue, String.format("%s %.2f",currency, orderExpected.getStake())," Failed! Stake value is incorrect");
         Assert.assertEquals(riskLabel,"Risk:","Failed! Risk label is incorrect");
         Assert.assertEquals(riskValue, String.format("%s %.2f",currency, orderExpected.getRisk())," Failed! Risk value is incorrect");
-        Assert.assertEquals(stakeLabel,"Stake:","Failed! Stake label is incorrect");
-        Assert.assertEquals(stakeValue, String.format("%s %.2f",currency, orderExpected.getWin())," Failed! Win value is incorrect");
-
-
+        Assert.assertEquals(winLabel,"Win:","Failed! Win label is incorrect");
+        Assert.assertEquals(winValue, String.format("%s %.2f",currency, orderExpected.getWin())," Failed! Win value is incorrect");
     }
 
     // End Bet Slip, Pending Bets section

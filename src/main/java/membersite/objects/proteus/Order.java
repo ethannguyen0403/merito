@@ -9,7 +9,7 @@ public class Order {
     private String _placeDate;
     private Odds _odds;
     private double _stake;
-    private double _oddsAccept;// odds match by provider
+    private double _oddsAccept;// odds match by provider to recalculate toWin toRisk if have better odds
     private String _status;
     private int _orderID;
 
@@ -69,17 +69,20 @@ public class Order {
     }
 
     public String getOddsSign(){
-        String oddsSign = ODDS_SIGN_MAPPING.get(_market.getOddsType().toUpperCase());
+        String oddsFormat = _market.getOddsFormat();
+        String oddsSign = ODDS_SIGN_MAPPING.get(oddsFormat.toUpperCase());
         String marketType = _market.getBetType();
-        // handle odds display is decimal if the order is place on 1X2/Moneylin market (match, 1st Haft)
-        if(marketType.equals("MONEYLINE"))
-            oddsSign =ODDS_SIGN_MAPPING.get(DECIMAL.toUpperCase());
+        // handle odds display is decimal if the order is place on 1X2/Moneyline market (match, 1st Haft) except for American odds
+        if(!oddsFormat.equalsIgnoreCase(AMERICAN)){
+            if(marketType.equals("MONEYLINE"))
+                oddsSign =ODDS_SIGN_MAPPING.get(DECIMAL.toUpperCase());
+        }
         return oddsSign;
     }
 
     public double getRisk(){
         double risk = _stake;
-        if(_market.getOddsType().equalsIgnoreCase(MALAY))
+        if(_market.getOddsFormat().equalsIgnoreCase(MALAY))
         {
             // Malay odds, except for moneyline market, Negative odds is has other formular
             if(!_market.getBetType().equalsIgnoreCase("MONEYLINE")){
@@ -88,7 +91,7 @@ public class Order {
             }
 
         }
-        if(_market.getOddsType().equalsIgnoreCase(AMERICAN))
+        if(_market.getOddsFormat().equalsIgnoreCase(AMERICAN))
         {
             if(_odds.getOdds()<0)
                 risk = (_stake * Math.abs(_odds.getOdds()))/100;
@@ -98,13 +101,13 @@ public class Order {
     }
     public double getWin(){
         double win = _stake;
-        if(_market.getOddsType().equalsIgnoreCase(DECIMAL))
+        if(_market.getOddsFormat().equalsIgnoreCase(DECIMAL))
             win = _stake * (_odds.getOdds()-1);
 
-        if(_market.getOddsType().equalsIgnoreCase(HONGKONG))
+        if(_market.getOddsFormat().equalsIgnoreCase(HONGKONG))
             win = _stake * _odds.getOdds();
 
-        if(_market.getOddsType().equalsIgnoreCase(MALAY))
+        if(_market.getOddsFormat().equalsIgnoreCase(MALAY))
         {
             // Malay odds, except for moneyline market, positive odds has Malay odds formular to calculate Win
             if(!_market.getBetType().equalsIgnoreCase("MONEYLINE")){
@@ -113,10 +116,10 @@ public class Order {
             }
 
         }
-        if(_market.getOddsType().equalsIgnoreCase(AMERICAN))
+        if(_market.getOddsFormat().equalsIgnoreCase(AMERICAN))
         {
             if(_odds.getOdds()>=0)
-                win = (_stake * 100)/Math.abs(_odds.getOdds());
+                win = (_stake * Math.abs(_odds.getOdds()))/100;
         }
         //handle to get Risk for the orther odds type
         return win;
