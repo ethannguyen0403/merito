@@ -54,7 +54,7 @@ public class CommissionSectionPS38 {
     public CommissionSectionPS38 expandCommissionSection(String accountType, boolean isExpanded) {
         this._accountType = accountType;
         if (isExpanded) {
-            if (btnCommissionSection.getAttribute("class").contains("fa-chevron-down")) {
+            if (btnCommissionSection.getAttribute("class").contains("fa-chevron-up")) {
                 btnCommissionSection.click();
             }
         } else {

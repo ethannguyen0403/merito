@@ -5,6 +5,8 @@ import com.paltech.driver.DriverManager;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.objects.sat.Event;
+import membersite.pages.casino.CasinoHomePage;
+import membersite.pages.casino.CasinoProduct;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.betslipcontainer.BetsSlipContainer;
 import membersite.pages.components.minimybetcontainer.MiniMyBetsContainer;
@@ -12,7 +14,6 @@ import membersite.pages.components.nextupracingcontainer.NextUpRacingContainer;
 import membersite.pages.exchangegames.EGHomePage;
 import membersite.pages.popup.BannerPopup;
 import membersite.pages.proteus.ProteusHomePage;
-import membersite.testcases.proteus.ProteusHomePageTest;
 import membersite.utils.betplacement.BetUtils;
 
 import java.util.Locale;
@@ -71,6 +72,12 @@ public class HomePage extends LandingPage {
         exPage.gcBaccarat.waitForControlInvisible(2, 1);
         DriverManager.getDriver().switchToFrame(0);
         return exPage;
+    }
+
+    public CasinoHomePage openCasinoGame(CasinoProduct product){
+        header.openCasinoGame(product);
+        CasinoHomePage page = new CasinoHomePage(_type, product);
+        return page;
     }
 
     public void clickProduct(String product) {
