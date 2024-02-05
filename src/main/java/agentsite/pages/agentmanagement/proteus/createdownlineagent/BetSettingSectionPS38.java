@@ -2,7 +2,9 @@ package agentsite.pages.agentmanagement.proteus.createdownlineagent;
 
 
 import agentsite.controls.Table;
+import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 
 import java.text.DecimalFormat;
@@ -19,10 +21,52 @@ public class BetSettingSectionPS38 {
     public Button btnView = Button.id("viewBtn");
     public Button btnAdd = Button.id("addBtn");
     public Table tblBetSettingPS38 = Table.xpath("//div[@id='EXCHANGE-bet-settings']//table[contains(@class, 'ptable info betTable')]", 4);
-
+    private static List<String> sportBetSettingList;
 
     public void inputBetSettingPS38(String sportName, String colName, String amount) {
         getControlTxtBoxBetSettingPS38(sportName, colName).sendKeys(amount);
+    }
+
+    private void handleDropdownNotLoad(By locator){
+        BaseElement dropdown = new BaseElement(locator);
+        dropdown.click();
+        dropdown.click();
+        try{
+            Thread.sleep(1500);
+        }catch (Exception e){
+        }
+    }
+
+    public void addSport(String sport, String league, boolean isAddOrView) {
+        if (!sport.isEmpty()){
+            //handle to load dropdown options list
+            BaseElement dropdown = new BaseElement(ddbSportsPS38.getLocator());
+            dropdown.click();
+            dropdown.click();
+            try{
+                Thread.sleep(1500);
+            }catch (Exception e){
+            }
+            ddbSportsPS38.selectByVisibleText(sport);
+        }
+        if (!league.isEmpty()) {
+                try {
+                    ddbLeaguePS38.selectByVisibleText(league);
+                }catch (Exception e){
+                    System.out.println("Select by index: " + league);
+                    ddbLeaguePS38.selectByIndex(Integer.valueOf(league));
+                }
+
+        }
+        if(isAddOrView){
+            if(btnAdd.isDisplayed()){
+                btnAdd.click();
+                //clear sport list when adding new sport
+                sportBetSettingList = null;
+            }else {
+                btnView.click();
+            }
+        }
     }
 
     public String addCommaFormat(double number){
@@ -30,9 +74,26 @@ public class BetSettingSectionPS38 {
         return decimalFormat.format(number);
     }
 
+    public int defineColIndex(String colName){
+        switch (colName.toLowerCase()){
+            case "min bet":
+                return 2;
+            case "max bet":
+                return 3;
+            case "max per match":
+                return 4;
+            default:
+                System.out.println("Not match value col of BetSetting table");
+                return -1;
+        }
+    }
+
     public TextBox getControlTxtBoxBetSettingPS38(String sportName, String colName) {
+        if (sportBetSettingList == null) {
+            setSportList();
+        }
         int rowIndex = findRowSportIndex(sportName);
-        int colIndex = tblBetSettingPS38.getColumnIndexByName(colName);
+        int colIndex = defineColIndex(colName);
         if(rowIndex == -1 | colIndex == -1){
             return null;
         }
@@ -86,20 +147,22 @@ public class BetSettingSectionPS38 {
         return true;
     }
 
+    private void setSportList(){
+            sportBetSettingList = tblBetSettingPS38.getColumn(1, false);
+    }
+
     private int findRowSportIndex(String sportName){
-        int index = 1;
-        while(true){
-            Label lblSport = Label.xpath(tblBetSettingPS38.getxPathOfCell(1,1, index, null));
-            if(!lblSport.isDisplayed()){
-                System.out.println("NOT found cell locator");
-                return -1;
+        if(sportBetSettingList == null){
+            System.out.println("SPORT LIST IS NOT SET");
+        }else {
+            for (int i = 0; i< sportBetSettingList.size(); i++){
+                if(sportName.equalsIgnoreCase(sportBetSettingList.get(i))){
+                    System.out.println("FOUND " + sportName +" at Row index: "+ i+1);
+                    return i + 1;
+                }
             }
-            if(lblSport.getText().trim().equalsIgnoreCase(sportName)){
-                System.out.println("Found cell value: " + sportName);
-                return index;
-            }
-            index++;
         }
+        return -1;
     }
 
     public void selectPS38Tab(String tabName){

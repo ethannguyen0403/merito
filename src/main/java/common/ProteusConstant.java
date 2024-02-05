@@ -40,6 +40,14 @@ public class ProteusConstant {
             put("E", "2.00");
         }
     };
+    public static final Map<String, String> ODDS_SIGN_MAPPING = new HashMap<String, String>() {
+        {
+            put("DECIMAL", "D");
+            put("AMERICAN", "A");
+            put("HONGKONG", "H");
+            put("MALAY", "M");
+        }
+    };
 
     public static final Map<String, String> MARKET_TYPE_MAPPING = new HashMap<String, String>() {
         {

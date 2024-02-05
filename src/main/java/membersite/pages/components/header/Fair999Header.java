@@ -10,6 +10,7 @@ import membersite.pages.AccountStatementPage;
 import membersite.pages.MyBetsPage;
 import membersite.pages.ProfitAndLossPage;
 import membersite.pages.SportPage;
+import membersite.pages.casino.CasinoProduct;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
@@ -138,6 +139,7 @@ public class Fair999Header extends Header1 {
 
 
     public AccountBalance getUserBalance() {
+        waitSpinLoad();
         lblBalance.isDisplayed();
         return new AccountBalance.Builder()
                 .balance(lblBalance.getText())
@@ -147,6 +149,11 @@ public class Fair999Header extends Header1 {
 
     public void openExchangeGame() {
         tabExchangeGames.click();
+    }
+
+    @Override
+    public void openCasinoGame(CasinoProduct product) {
+        clickProduct(product.toString());
     }
 
     public void clickProduct(String product) {

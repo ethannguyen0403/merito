@@ -22,7 +22,7 @@ public class CreateCompanyTest extends BaseCaseTest {
 
 
     @TestRails(id = "4042")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4042(String currency) {
         log("@title: Validate in Agent site > Create Company: default value in HKD currency of PS38 Bet Setitng is correct");
@@ -57,7 +57,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4043")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4043(String currency) {
         log("@title: Validate in Agent site > Create Company: default value in HKD currency of PS38 Bet Setting , Inlay tab is correct");
@@ -93,7 +93,7 @@ public class CreateCompanyTest extends BaseCaseTest {
 
     @TestRails(id = "4044")
     @Parameters({"BOLoginId", "BOLoginPwd", "username", "password"})
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     public void PS38_Agent_TC4044(String BOLoginId, String BOLoginPwd, String username, String password) throws Exception {
         log("@title: Validate in Agent site > Create Company Min, Max, Max per Match is converted correct");
 
@@ -134,7 +134,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4045")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4045(String currency) {
         log("@title: Validate in Agent site > Create Company, confirm message display if update setting in Pregame then switch to In-play tab");
@@ -154,7 +154,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4046")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4046(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Betsetting, confirm message display if update setting in In-Play then switch to Pregame tab");
@@ -177,7 +177,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4047")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4047(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, can switch to new tab if confirm to switch");
@@ -201,7 +201,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4048")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4048(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, can not switch to new tab if do not confirm to switch");
@@ -225,7 +225,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4049")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4049(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, UI in Pregame tab when checkbox \"Copy all Limits for all Sport...\" is ticked ");
@@ -250,7 +250,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4050")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4050(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, UI in Pregame tab when checkbox \"Copy all Limits for all Sport...\" is unticked");
@@ -271,7 +271,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4051")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4051(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, UI in Inplay tab when checkbox \"Copy all Limits for all Sport...\" is ticked");
@@ -286,8 +286,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
 
         log("Verify 1: In Inplay tab, only Min, Max textbox of Soccer is enable, other is disable");
-        List<String> betSettingList = new ArrayList<>(HEADER_BET_SETTING_PS38);
-        betSettingList.remove(0); // remove blank cell in header list
+        List<String> betSettingList = new ArrayList<>(Arrays.asList(HEADER_BET_SETTING_PS38.get(1), HEADER_BET_SETTING_PS38.get(2)));
         Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(Arrays.asList(LIST_SPORTS_PS38.get(0)), betSettingList, true),
                 String.format("FAILED! Sport row: %s is not Enable", LIST_SPORTS_PS38.get(0)));
 
@@ -298,7 +297,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4052")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4052(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, UI in Inplay tab when checkbox \"Copy all Limits for all Sport...\" is unticked");
@@ -322,7 +321,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4053")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4053(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, Max per Match value in In-Play tab is correct as Pregame tab");
@@ -346,7 +345,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4054")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4054(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, League dropdown display when select a sport");
@@ -366,7 +365,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4055")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4055(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, League dropdown does not display when sport is Other, Teaser, Mix Parlay");
@@ -385,7 +384,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4056")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4056(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, Add button display if a League does not add");
@@ -399,13 +398,13 @@ public class CreateCompanyTest extends BaseCaseTest {
 
         log("Step 4: Select sport dropdown with sport: Alpine Skiing and a league not added yet");
         log("*Note: sport should not included in default sports list: \"Soccer\", \"Baseball\", \"Basketball\", \"Football\", \"E Sports\", \"Others\", \"Mix Parlay\", \"Teaser\"\n");
-        page.betSettingSectionPS38.ddbSportsPS38.selectByVisibleText("Alpine Skiing");
+        page.betSettingSectionPS38.addSport("Alpine Skiing", "", false);
         log("Verify 1: Verify the button Add display");
-        Assert.assertTrue(page.betSettingSectionPS38.btnAdd.isDisplayed(), "FAILED! View button is NOT displayed");
+        Assert.assertTrue(page.betSettingSectionPS38.btnAdd.isDisplayed(), "FAILED! Add button is NOT displayed");
     }
 
     @TestRails(id = "4057")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4057(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, View button display if a League was added");
@@ -418,16 +417,14 @@ public class CreateCompanyTest extends BaseCaseTest {
         page.productStatusSettingInforSection.selectProduct(PS38);
 
         log("Step 4: Select sport dropdown with sport: Alpine Skiing and a league added");
-        page.betSettingSectionPS38.ddbSportsPS38.selectByVisibleText("Alpine Skiing");
-        page.betSettingSectionPS38.ddbLeaguePS38.selectByIndex(2);
-        page.betSettingSectionPS38.btnAdd.click();
+        page.betSettingSectionPS38.addSport("Alpine Skiing", "2", true);
 
         log("Verify 1: Verify the button View  displays");
         Assert.assertTrue(page.betSettingSectionPS38.btnView.isDisplayed(), "FAILED! View button is not displayed");
     }
 
     @TestRails(id = "4058")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4058(String currency) {
         log("@title: Validate in Agent site > Create Company, Ps38 Bet Setting, Special league inherit the setting of the according general sport");
@@ -439,11 +436,9 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 3: Under Product Settings , select product PS38");
         page.productStatusSettingInforSection.selectProduct(PS38);
         log("Step 4:  Select Sport = Soccer, League = General. Observe the setting of General row");
-        page.betSettingSectionPS38.ddbSportsPS38.selectByVisibleText(LBL_SOCCER_SPORT);
-        page.betSettingSectionPS38.ddbLeaguePS38.selectByVisibleText(GENERAL);
+        page.betSettingSectionPS38.addSport(LBL_SOCCER_SPORT, GENERAL, true);
         log("Step 5: Add other league");
-        page.betSettingSectionPS38.ddbLeaguePS38.selectByIndex(1);
-        page.betSettingSectionPS38.btnAdd.click();
+        page.betSettingSectionPS38.addSport("", "1", true);
 
         String lblLeagueSetting = String.format("%s: %s", LBL_SOCCER_SPORT,  page.betSettingSectionPS38.ddbLeaguePS38.getFirstSelectedOption().trim());
         log(String.format("Verify 1: The league: %s is add under sport and inherit value and setting of General sport", lblLeagueSetting));
