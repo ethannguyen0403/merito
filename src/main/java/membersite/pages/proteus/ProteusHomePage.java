@@ -1,6 +1,5 @@
 package membersite.pages.proteus;
 
-import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
@@ -9,6 +8,7 @@ import com.paltech.utils.DateUtils;
 import membersite.controls.proteus.AppConfirmModulePopup;
 import membersite.objects.AccountBalance;
 import membersite.objects.proteus.Market;
+import membersite.objects.proteus.Odds;
 import membersite.objects.proteus.Order;
 import membersite.objects.proteus.ProteusBetslip;
 import membersite.pages.HomePage;
@@ -212,6 +212,80 @@ public class ProteusHomePage extends HomePage {
         return lstOddsAdjust;
     }
 
+    public static List<Odds> convertOddsToGroup(Market market, String oddsGroup, String oddsType) {
+        List<Odds> lstOddsAdjusted = new ArrayList<>();
+        List<Odds> lstBaseOdds = market.getOdds();
+        if (!oddsGroup.equalsIgnoreCase("A")) {
+            double vigAdjustment = Double.parseDouble(ODDS_GROUP_ADJUSTMENT_MAPPING.get(oddsGroup));
+            if(Objects.nonNull(lstBaseOdds)) {
+                double vig = 0;
+                List<Double> lstProbabilityBase = new ArrayList<>();
+                List<Double> lstFairProbability = new ArrayList<>();
+                List<Double> lstFattenedProbability = new ArrayList<>();
+                List<Double> lstDecimalOdds = new ArrayList<>();
+                List<Double> lstRoundedDecimalOdds = new ArrayList<>();
+                for (int i = 0; i < lstBaseOdds.size(); i++) {
+                    lstProbabilityBase.add((1/Double.valueOf(lstBaseOdds.get(i).getOdds())));
+                    vig += (1/Double.valueOf(lstBaseOdds.get(i).getOdds()));
+                }
+                if(Objects.nonNull(lstProbabilityBase)) {
+                    for (int i = 0; i < lstProbabilityBase.size(); i++) {
+                        lstFairProbability.add(lstProbabilityBase.get(i) / vig);
+                    }
+                }
+                if(Objects.nonNull(lstFairProbability)) {
+                    for (int i = 0; i < lstFairProbability.size(); i++) {
+                        lstFattenedProbability.add(lstFairProbability.get(i) * (vig + (vigAdjustment/100)));
+                        lstDecimalOdds.add(1/ lstFattenedProbability.get(i));
+                    }
+                }
+                if (Objects.nonNull(lstDecimalOdds)) {
+                    for (int i = 0; i < lstDecimalOdds.size(); i++) {
+                        if(lstDecimalOdds.get(i) > 2) {
+                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 100) / 100);
+                        } else {
+                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 1000) / 1000);
+                        }
+                    }
+                }
+                if(oddsType.equalsIgnoreCase(DECIMAL)) {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                       market.getOdds().get(i).setOdds(lstRoundedDecimalOdds.get(i));
+                    }
+                    return market.getOdds();
+                } else if (oddsType.equalsIgnoreCase(HONGKONG)) {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        //rounding to 3 decimal places
+                        market.getOdds().get(i).setOdds(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
+                    }
+                    return market.getOdds();
+                }
+                else if (oddsType.equalsIgnoreCase(MALAY)) {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        //rounding to 3 decimal places
+                        if (lstRoundedDecimalOdds.get(i) <= 2) {
+                            market.getOdds().get(i).setOdds(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
+                        } else {
+                            market.getOdds().get(i).setOdds(Math.abs(Math.floor((-1 / (lstRoundedDecimalOdds.get(i) - 1)) * 10000) / 10000));
+                        }
+                    }
+                    return market.getOdds();
+                }
+                else {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        //return list no matter negative number
+                        if(lstRoundedDecimalOdds.get(i) < 2) {
+                            market.getOdds().get(i).setOdds(Double.valueOf(Math.ceil(Math.abs(-100/ (lstRoundedDecimalOdds.get(i) - 1)))));
+                        } else {
+                            market.getOdds().get(i).setOdds(Math.floor(((lstRoundedDecimalOdds.get(i) - 1) * 100) * 10000) / 10000);
+                        }
+                    }
+                    return market.getOdds();
+                }
+            }
+        }
+        return lstOddsAdjusted;
+    }
     public void compareOddsShowCorrect(List<Double> lstOddsConvert, List<Double> lstOddsActual, double tolerance) {
         Collections.sort(lstOddsConvert);
         Collections.sort(lstOddsActual);
@@ -308,16 +382,16 @@ public class ProteusHomePage extends HomePage {
             case "SPREAD":
                 switch (selection){
                     case "HOME":
-                        return String.format("%s %.2f",market.getHomeName(),market.getOddsInfoBySelection(selection).getHdp());
+                        return String.format("%s %s",market.getHomeName(),market.getOddsInfoBySelection(selection).getHdp());
                     default:
-                        return String.format("%s %.2f",market.getAwayName(),market.getOddsInfoBySelection(selection).getHdp());
+                        return String.format("%s %s",market.getAwayName(),market.getOddsInfoBySelection(selection).getHdp());
                 }
             case "TOTAL_POINTS":
                 switch (selection){
                     case "OVER":
-                        return String.format("Over %.2f",market.getOddsInfoBySelection(selection).getHdp());
+                        return String.format("Over %s",market.getOddsInfoBySelection(selection).getHdp());
                     default:
-                        return String.format("Under %.2f",market.getOddsInfoBySelection(selection).getHdp());
+                        return String.format("Under %s",market.getOddsInfoBySelection(selection).getHdp());
                 }
             default:
                 return "";
@@ -346,9 +420,9 @@ public class ProteusHomePage extends HomePage {
         String summaryInfo = Label.xpath(String.format("%s%s", betslipRootXpath, lblSummaryInfoXpath)).getText();
         String selectionName = Label.xpath(String.format("%s%s", betslipRootXpath, lblHDPPointXpath)).getText();
         String odds = Label.xpath(String.format("%s%s", betslipRootXpath,lblOddsXpath)).getText();
-        String expectedOdds = String.format("@%.3f",market.getOddsInfoBySelection("HOME").getOdds());
+        String expectedOdds = String.format("@%.3f",market.getOddsInfoBySelection(selection).getOdds());
         if(oddsType.toLowerCase().equalsIgnoreCase(AMERICAN)){
-            expectedOdds = String.format("@%.0f",market.getOddsInfoBySelection("HOME").getOdds());
+            expectedOdds = String.format("@%.0f",market.getOddsInfoBySelection(selection).getOdds());
         }
         // handle special character get from UI for negative odds actual @−253, expected @-253 but return assert failed
         if(odds.contains("−"))
