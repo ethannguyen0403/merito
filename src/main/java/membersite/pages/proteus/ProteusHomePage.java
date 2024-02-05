@@ -1,6 +1,5 @@
 package membersite.pages.proteus;
 
-import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
@@ -9,6 +8,7 @@ import com.paltech.utils.DateUtils;
 import membersite.controls.proteus.AppConfirmModulePopup;
 import membersite.objects.AccountBalance;
 import membersite.objects.proteus.Market;
+import membersite.objects.proteus.Odds;
 import membersite.objects.proteus.Order;
 import membersite.objects.proteus.ProteusBetslip;
 import membersite.pages.HomePage;
@@ -212,7 +212,7 @@ public class ProteusHomePage extends HomePage {
         return lstOddsAdjust;
     }
 
-    public static List<Odds> convertOddsToGroup(Market market,String oddsGroup, String oddsType) {
+    public static List<Odds> convertOddsToGroup(Market market, String oddsGroup, String oddsType) {
         List<Odds> lstOddsAdjusted = new ArrayList<>();
         List<Odds> lstBaseOdds = market.getOdds();
         if (!oddsGroup.equalsIgnoreCase("A")) {

@@ -11,11 +11,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
-
 import java.util.List;
 
-import static common.MemberConstants.LBL_SOCCER_SPORT;
-import static common.MemberConstants.LBL_TENNIS_SPORT;
 import static common.ProteusConstant.*;
 
 public class AsianViewPageTest extends BaseCaseTest {
