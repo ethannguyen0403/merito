@@ -23,7 +23,7 @@ import java.util.*;
 public class DownlineListingTest extends BaseCaseTest {
 
     @TestRails(id = "4039")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"downlineAccount"})
     public void PS38_Agent_TC4039(String downlineAccount)  {
         log("@title: Validate can update PT setting of PS38 product for all sports successfully on Edit Downline Listing ");
@@ -54,7 +54,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4040")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"downlineAccount"})
     public void PS38_Agent_TC4040(String downlineAccount)  {
         log("@title: Validate can update PT setting of PS38 product for specific sport with all League successfully on Edit Downline Listing");
@@ -84,7 +84,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4041")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"downlineAccount"})
     public void PS38_Agent_TC4041(String downlineAccount)  {
         log("@title: Validate can update PT setting of PS38 product for specific Sport and League successfully on Edit Downline Listing");
@@ -165,7 +165,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4130")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_co", "Proteus.2024.V.1.0"})
     @Parameters({"downlineAccount"})
     public void PS38_Agent_TC4130(String downlineAccount)  {
         log("@title: Validate in Agent site > Edit downline UI Commission is displayed correctly");
@@ -194,16 +194,16 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4189")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
-    @Parameters({"memberAccount"})
-    public void PS38_Agent_TC4189(String memberAccount)  {
+    @Test(groups = {"ps38_co", "Proteus.2024.V.1.0"})
+    @Parameters({"directCOMemberAccount"})
+    public void PS38_Agent_TC4189(String directCOMemberAccount)  {
         log("@title: Validate can set commission for direct players on specific sport with general league");
         log("Precondition: Login Agent site with CO level");
         log("Step 1: Access Agent > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        log("Step 2: Filter with any player and click Edit button. Player account: " + memberAccount);
-        page.searchDownline(memberAccount, "", "");
-        EditDownLinePage editPage = page.clickEditIcon(memberAccount, true);
+        log("Step 2: Filter with any player and click Edit button. Player account: " + directCOMemberAccount);
+        page.searchDownline(directCOMemberAccount, "", "");
+        EditDownLinePage editPage = page.clickEditIcon(directCOMemberAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Commission");
         editPage.productStatusSettingInforSection.selectProduct(PS38);
         CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
@@ -219,7 +219,7 @@ public class DownlineListingTest extends BaseCaseTest {
         commissionSection.updateComSpecificSport(LBL_SOCCER_SPORT, GENERAL, Arrays.asList(commissionList), TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0));
         page.submitEditDownlinePS38(true);
         log("Verify 1: Commission for sport: Soccer with general league is set successfully");
-        page.clickEditIcon(memberAccount, true);
+        page.clickEditIcon(directCOMemberAccount, true);
         editPage.productStatusSettingInforSection.selectProduct(PS38);
         Assert.assertEquals(
                 commissionSection.getAmountCommission(null, TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0), LBL_SOCCER_SPORT, GENERAL)
@@ -228,16 +228,16 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4190")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
-    @Parameters({"memberAccount"})
-    public void PS38_Agent_TC4190(String memberAccount)  {
+    @Test(groups = {"ps38_co", "Proteus.2024.V.1.0"})
+    @Parameters({"directCOMemberAccount"})
+    public void PS38_Agent_TC4190(String directCOMemberAccount)  {
         log("@title: Validate can set commission for direct players on specific sport with specific league");
         log("Precondition: Login Agent site with CO level");
         log("Step 1: Access Agent > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        log("Step 2: Filter with any player and click Edit button. Player account: " + memberAccount);
-        page.searchDownline(memberAccount, "", "");
-        EditDownLinePage editPage = page.clickEditIcon(memberAccount, true);
+        log("Step 2: Filter with any player and click Edit button. Player account: " + directCOMemberAccount);
+        page.searchDownline(directCOMemberAccount, "", "");
+        EditDownLinePage editPage = page.clickEditIcon(directCOMemberAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Commission");
         editPage.productStatusSettingInforSection.selectProduct(PS38);
         CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
@@ -255,7 +255,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.submitEditDownlinePS38(true);
 
         log("Verify 1: Commission for sport: Soccer with league " +league + " is set successfully");
-        page.clickEditIcon(memberAccount, true);
+        page.clickEditIcon(directCOMemberAccount, true);
         editPage.productStatusSettingInforSection.selectProduct(PS38);
         Assert.assertEquals(
                 commissionSection.getAmountCommission(null, TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0), LBL_SOCCER_SPORT, league)
@@ -264,16 +264,16 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4191")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
-    @Parameters({"memberAccount"})
-    public void PS38_Agent_TC4191(String memberAccount)  {
+    @Test(groups = {"ps38_co", "Proteus.2024.V.1.0"})
+    @Parameters({"directCOMemberAccount"})
+    public void PS38_Agent_TC4191(String directCOMemberAccount)  {
         log("@title: Validate can set odd groups for direct players on specific sport with general league");
         log("Precondition: Login Agent site with CO level");
         log("Step 1: Access Agent > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        log("Step 2: Filter with any player and click Edit button. Player account: " + memberAccount);
-        page.searchDownline(memberAccount, "", "");
-        EditDownLinePage editPage = page.clickEditIcon(memberAccount, true);
+        log("Step 2: Filter with any player and click Edit button. Player account: " + directCOMemberAccount);
+        page.searchDownline(directCOMemberAccount, "", "");
+        EditDownLinePage editPage = page.clickEditIcon(directCOMemberAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Commission");
         editPage.productStatusSettingInforSection.selectProduct(PS38);
         CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
@@ -291,7 +291,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.submitEditDownlinePS38(true);
 
         log("Verify 1: Odds group for sport: Soccer with league " +league + " is set successfully");
-        page.clickEditIcon(memberAccount, true);
+        page.clickEditIcon(directCOMemberAccount, true);
         editPage.productStatusSettingInforSection.selectProduct(PS38);
         Assert.assertEquals(
                 commissionSection.getAmountCommission(null, null, LBL_SOCCER_SPORT, league)
@@ -300,16 +300,16 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4192")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
-    @Parameters({"memberAccount"})
-    public void PS38_Agent_TC4192(String memberAccount)  {
+    @Test(groups = {"ps38_co", "Proteus.2024.V.1.0"})
+    @Parameters({"directCOMemberAccount"})
+    public void PS38_Agent_TC4192(String directCOMemberAccount)  {
         log("@title: Validate can set odd groups for direct players on specific sport with specific league");
         log("Precondition: Login Agent site with CO level");
         log("Step 1: Access Agent > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        log("Step 2: Filter with any player and click Edit button. Player account: " + memberAccount);
-        page.searchDownline(memberAccount, "", "");
-        EditDownLinePage editPage = page.clickEditIcon(memberAccount, true);
+        log("Step 2: Filter with any player and click Edit button. Player account: " + directCOMemberAccount);
+        page.searchDownline(directCOMemberAccount, "", "");
+        EditDownLinePage editPage = page.clickEditIcon(directCOMemberAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Commission");
         editPage.productStatusSettingInforSection.selectProduct(PS38);
         CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
@@ -327,7 +327,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.submitEditDownlinePS38(true);
 
         log("Verify 1: Odds group for sport: Soccer with league " +league + " is set successfully");
-        page.clickEditIcon(memberAccount, true);
+        page.clickEditIcon(directCOMemberAccount, true);
         editPage.productStatusSettingInforSection.selectProduct(PS38);
         Assert.assertEquals(
                 commissionSection.getAmountCommission(null, null, LBL_SOCCER_SPORT, league)

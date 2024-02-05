@@ -14,6 +14,7 @@ public class ProteusConstant {
     public static final String HONGKONG = "Hongkong";
     public static final String MALAY = "Malay";
     public static final String AMERICAN = "American";
+    public static final String TEXT_MONEYLINE = "Moneyline";
     public static final String TEXT_HDP = "Handicap";
     public static final String TEXT_1X2 = "1X2";
     public static final String TEXT_OVER_UNDER = "Over Under";

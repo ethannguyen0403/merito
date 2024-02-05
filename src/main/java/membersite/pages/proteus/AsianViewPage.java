@@ -8,20 +8,21 @@ import com.paltech.utils.DateUtils;
 import controls.Table;
 import membersite.controls.DropDownMenu;
 import membersite.controls.Row;
-import membersite.objects.proteus.ProteusBetslip;
-import membersite.objects.proteus.ProteusGeneralEvent;
-import membersite.objects.proteus.ProteusTeamTotalEvent;
+import membersite.objects.proteus.*;
+import membersite.utils.proteus.MarketUtils;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static common.MemberConstants.GMT_MINUS_4_30;
+import static common.ProteusConstant.*;
 
 public class AsianViewPage extends ProteusHomePage {
+    private String leagueIndexXpath = "(//app-league-asian)[%d]";
+    private String leagueNameXpath ="(//app-league-asian)[%d]//div[contains(@class,'league-name')]";
+    private String firstOddsCellXpath = "(//app-league-asian)[%d]//app-event-item-parent//th[contains(@class,'odd-column')][%d]";
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
+    private String tableEventXpath = "//table[contains(@class,'odds-page') and @eventid='%d']";
     public Label lblLoading = Label.xpath("//div[contains(@class,'loading')]");
     public Button btnEarlyAsian =  Button.xpath("//app-left-menu-asian//button[text()=' EARLY ']");
     public Button btnTodayAsian =  Button.xpath("//app-left-menu-asian//button[text()=' TODAY ']");
@@ -30,6 +31,7 @@ public class AsianViewPage extends ProteusHomePage {
     public DropDownMenu ddmDateTime = DropDownMenu.xpath("//app-event-filter-desktop//ul[contains(@class,'control-list')]/li[1]","span[@class='mx-2 text-capitalize']","//ul[contains(@class,'sub-selections')]//li");
     public DropDownMenu ddmLeagues = DropDownMenu.xpath("//app-event-filter-desktop//ul[contains(@class,'control-list')]/li[5]","span[@class='me-2 text-capitalize']","//div[@class='leagues-box']");
     public DropDownMenu ddmSortBy = DropDownMenu.xpath("//app-event-filter-desktop//ul[contains(@class,'control-list')]/li[3]","span[@class='mx-2 text-capitalize']","//ul[contains(@class,'sub-selections')]//li");
+    private Table tblMoreMarket = Table.xpath("//app-market-asian//table[contains(@class,'market-table')]", 7);
     private Table tblFirstEvent = Table.xpath("(//app-league-asian//table[contains(@class,'odds-page')])[1]", 10);
     private Label lblFirstLeague = Label.xpath("(//app-league-asian//div[contains(@class,'league-name')])[1]");
     private Label lblFirstEventAwayName = Label.xpath("(//app-league-asian//div[contains(@class,'weak-team')])[1]");
@@ -38,8 +40,9 @@ public class AsianViewPage extends ProteusHomePage {
     private String secondSelectionXpath =  "((//app-league-asian//th[contains(@class,'odd-column')])[%s]//span[contains(@class,'odd-number')])[2]";
     private Label lblThirdSelection =  Label.xpath("((//app-league-asian//th[contains(@class,'odd-column')])[1]//span[contains(@class,'odd-number')])[3]");
     private String firstHDPXpath = "((//app-league-asian//table)[1]//div[contains(@class,'normal hdp')])[%s]";
-    private Table tblMoreMarket = Table.xpath("//app-market-asian//div[@class='market-detail']/div[2]//table[contains(@class,'table market')]", 6);
+//    private Table tblMoreMarket = Table.xpath("//app-market-asian//div[@class='market-detail']/div[2]//table[contains(@class,'table market')]", 6);
     String sportLeftMenuXpath = "//app-left-menu-asian//div[contains(@class,'live-title')]//span[text()=' Sports ']//..//following-sibling::div//div[text()='%s']";
+    String marketLeftMenuXpath = "//app-left-menu-asian//div[contains(@class,'live-title')]//span[text()=' Sports ']//..//following-sibling::div//span[text()=' %s ']";
     private TextBox txtStake = TextBox.xpath("//app-bet-item//input[contains(@class,'stake-input')]");
     private Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
     private Button btnOK = Button.xpath("//app-confirm-modal//button[contains(@class,'btn-ok')]");
@@ -77,6 +80,7 @@ public class AsianViewPage extends ProteusHomePage {
         waitForSpinnerLoading();
     }
     public void selectOddsType (String oddsType){
+        oddsType = String.format(" %s ",oddsType);
         ddmOddsType.clickSubMenu(oddsType);
         waitForSpinnerLoading();
     }
@@ -328,4 +332,233 @@ public class AsianViewPage extends ProteusHomePage {
             }
         }
     }
+
+    public void selectEventOnLeftMenu(String period, String sportName, String marketType){
+        if (!sportName.isEmpty())
+            selectSportOnLeftMenu(sportName);
+        selectPeriodTab(period);
+        if(!marketType.isEmpty())
+            selectMarketOnLeftMenu(marketType);
+    }
+    public void selectEventOnLeftMenu(String period,String sportName){
+        selectEventOnLeftMenu(period,sportName,"");
+    }
+    public void selectSportOnLeftMenu(String sport) {
+        Button btnSport = Button.xpath(String.format(sportLeftMenuXpath, sport));
+        if(!btnSport.isDisplayed())
+            System.err.println(String.format("Cannot found %s in the left menu",sport));
+        btnSport.click();
+        waitForSpinnerLoading();
+    }
+
+    public void selectMarketOnLeftMenu(String marketName) {
+        Button btnMarket = Button.xpath(String.format(marketLeftMenuXpath, marketName));
+        if(!btnMarket.isDisplayed())
+            System.err.println(String.format("Cannot found %s in the left menu",marketName));
+        btnMarket.click();
+        waitForSpinnerLoading();
+    }
+
+    public Market getEventInfo(String sportName, String oddsType, String marketType, boolean isFullMatch) {
+        int leagueIndex = 1;
+        Market market;
+        while (true)
+        {
+            market = getEventInfo(sportName,oddsType,leagueIndex, marketType, isFullMatch);
+            if(Objects.nonNull(market))
+                return market;
+            leagueIndex = leagueIndex + 1;
+        }
+    }
+
+    /**
+     * Get the first market available under a league
+     * @param leagueIndex
+     * @return
+     */
+    public Market getEventInfo(String sportName, String oddsType,int leagueIndex, String marketType, boolean isFullMatch) {
+        int eventIndex = 1;
+        Market market;
+        while (true)
+        {
+            market = getEventInfo(sportName,oddsType,leagueIndex,eventIndex, marketType, isFullMatch);
+            if(Objects.nonNull(market))
+                return market;
+            eventIndex = eventIndex + 1;
+        }
+    }
+
+    /**
+     * Get event info with odds type = Decimal odds bases on inputed index, if index = 0 mean get random
+     * @param leagueIndex
+     * @param eventIndex
+     * @return a Market Info
+     */
+    private Market getEventInfo(String sportName, String oddsType, int leagueIndex, int eventIndex, String marketType, boolean isFullMatch) {
+        Market market;
+        Label lblLeague = Label.xpath(String.format(leagueIndexXpath,leagueIndex));
+        if (!lblLeague.isDisplayed())
+            return null;
+        // get event id from UI xpath property
+        String eventID = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("eventid");
+        String oddsKey = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("key");
+
+
+        //handle incase no odds display in the UI, move to the next row
+        if(Objects.isNull(eventID)) {
+            return null;
+        }
+        String leagueName = Label.xpath(String.format(leagueNameXpath,leagueIndex)).getText();
+        // Get the market info from API with the eventID get from UI
+        market = MarketUtils.getMarketByOddsKey(oddsType,Integer.valueOf(eventID),oddsKey);
+        market.setLeagueName(leagueName);
+        // Get more info of the event in other API: league Name, home, away,event startTime
+        String sportID = SPORTBOOK_SPORT_ID.get(sportName.toUpperCase());
+        Market temp =  MarketUtils.getEventInfoUnderLeague(Integer.valueOf(sportID),leagueName,eventID);
+        market.setSportName(sportName);
+        market.setEventName(String.format("%s vs %s",temp.getHomeName(),temp.getAwayName()));
+        market.setHomeName(temp.getHomeName());
+        market.setAwayName(temp.getAwayName());
+        market.setEventStartTime(temp.getEventStartTime());
+        return market;
+    }
+
+    public Market getEventInfoUI(int eventId, String marketType) {
+        Market market = new Market.Builder().build();
+        List<Odds> lstOddsObject = new ArrayList<>();
+        String rootXpath = String.format(tableEventXpath, eventId);
+        Table tblEvent = Table.xpath(rootXpath, 7);
+        Label lblLeague = Label.xpath(String.format("%s%s", tblEvent.getLocator().toString().replace("By.xpath: ",""),"//ancestor::app-league-asian//div[contains(@class,'league-name')]"));
+        Label lblEventStartTime = Label.xpath(String.format("%s%s", rootXpath, "//th[contains(@class,'time-column')]"));
+        Label lblHomeName = Label.xpath(String.format("%s%s", rootXpath, "//th[contains(@class,'opponent')]//div[contains(@class,'weak-team')]"));
+        Label lblAwayName = Label.xpath(String.format("%s%s", rootXpath, "//th[contains(@class,'opponent')]//div[contains(@class,'strong-team')]"));
+        Label lblOdds = Label.xpath(String.format("(%s%s)[%d]%s", rootXpath, "//th[contains(@class,'odd-column')]", defineOddsColumn(marketType, true), "//span[contains(@class,'odd-number')]"));
+        //add odds from UI to list odds object
+        for (int i = 0; i < lblOdds.getWebElements().size(); i++) {
+            Label lblOddsValue = Label.xpath(String.format("(%s)[%s]", lblOdds.getLocator().toString().replace("By.xpath: ", ""), i + 1));
+            //handle special character " -+" > ignore all, just get value
+            lstOddsObject.add(i, new Odds.Builder().odds(Double.valueOf(lblOddsValue.getText().replaceAll("[⠀+−]",""))).build());
+        }
+        market.setOdds(lstOddsObject);
+        market.setLeagueName(lblLeague.getText().trim());
+        market.setEventStartTime(lblEventStartTime.getText().trim());
+        market.setEventName(String.format("%s v %s", lblHomeName.getText().trim(), lblAwayName.getText().trim()));
+        return market;
+    }
+
+    private int defineOddsColumn(String marketType, boolean isFullMatch){
+        if(isFullMatch) {
+            if (marketType.equalsIgnoreCase("MONEYLINE")) {
+                return 1;
+            } else if (marketType.equalsIgnoreCase("HANDICAP")) {
+                return 2;
+            } else {
+                return 3;
+            }
+        } else {
+            if (marketType.equalsIgnoreCase("MONEYLINE")) {
+                return 4;
+            } else if (marketType.equalsIgnoreCase("HANDICAP")) {
+                return 5;
+            } else {
+                return 6;
+            }
+        }
+    }
+
+    public void verifyOddsShowCorrect(List<Odds> lstOddsExpected, List<Odds> lstOddsActual) {
+        //sort before verifying cause order odds between API and UI is different HOME/AWAY/DRAW
+        lstOddsExpected.sort(Comparator.comparingDouble(Odds::getOdds));
+        lstOddsActual.sort(Comparator.comparingDouble(Odds::getOdds));
+        for (int i = 0; i < lstOddsExpected.size(); i++) {
+            Assert.assertEquals(lstOddsExpected.get(i).getOdds(), lstOddsActual.get(i).getOdds(), String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsExpected.get(i).getOdds(), lstOddsActual.get(i).getOdds()));
+        }
+    }
+
+//    public String getFirstEventId() {
+//        return Label.xpath(String.format(firstOddsCellXpath, 1, 1)).getAttribute("eventid");
+//    }
+//
+//    public List<Market> getEventInfoMoreMarket(String eventId, String sportName, String oddsType, String marketType, String selection) {
+//        int leagueIndex = 1;
+//        List<Market> lstMarket;
+//        while (true)
+//        {
+//            lstMarket = getEventInfoMoreMarket(eventId, sportName,oddsType, marketType,selection, leagueIndex);
+//            if(Objects.nonNull(lstMarket))
+//                return lstMarket;
+//            leagueIndex = leagueIndex + 1;
+//        }
+//    }
+//
+//    /**
+//     * Get event info with odds type = Decimal odds bases on inputed index, if index = 0 mean get random
+//     * @param leagueIndex
+//     * @return a Market Info
+//     */
+//    private List<Market> getEventInfoMoreMarket(String eventId, String sportName, String oddsType, String marketType, String selection, int leagueIndex) {
+//        List<Market> lstMarket = new ArrayList<>();
+//        Market market;
+//        String keyId = "";
+//        Label lblLeague = Label.xpath(String.format(leagueIndexXpath,leagueIndex));
+//        if (!lblLeague.isDisplayed())
+//            return null;
+//        String oddsRowXpath = String.format("//span[contains(@eventid,'%s')]", eventId);
+//        String leagueName = Label.xpath(String.format(leagueNameXpath,leagueIndex)).getText();
+//        int rowCount = tblMoreMarket.getNumberOfRows(false, true);
+//        for (int i = 0; i < rowCount; i++) {
+//            Label lblOddsKey = Label.xpath(String.format("(%s)[%s]%s", tblMoreMarket.getLocator().toString().replace("By.xpath: ",""), i + 1, oddsRowXpath));
+//            List<String> lstKeys = new ArrayList<>();
+//            for (int j = 0; j < lblOddsKey.getWebElements().size(); j++) {
+//                lstKeys.add(Label.xpath(String.format("(%s)[%s]", lblOddsKey.getLocator().toString().replace("By.xpath: ",""), j + 1)).getAttribute("key"));
+//            }
+//            if (marketType.equalsIgnoreCase(MARKET_TYPE_MAPPING.get("Match - Team Totals"))) {
+//                if(!selection.isEmpty()) {
+//                    for(String s: lstKeys) {
+//                        if(s.contains(selection)) {
+//                            keyId = s;
+//                            break;
+//                        }
+//                    }
+//                }
+//            } else {
+//                for(String s: lstKeys) {
+//                    if(s.contains(marketType)) {
+//                        keyId = s;
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            market = MarketUtils.getMarketByOddsKey(oddsType,Integer.valueOf(eventId),keyId);
+//            market.setLeagueName(leagueName);
+//            String sportID = SPORTBOOK_SPORT_ID.get(sportName.toUpperCase());
+//            Market temp =  MarketUtils.getEventInfoUnderLeague(Integer.valueOf(sportID),leagueName,eventId);
+//            market.setSportName(sportName);
+//            market.setEventName(String.format("%s vs %s",temp.getHomeName(),temp.getAwayName()));
+//            market.setHomeName(temp.getHomeName());
+//            market.setAwayName(temp.getAwayName());
+//            market.setEventStartTime(temp.getEventStartTime());
+//            lstMarket.add(market);
+//        }
+////        String eventID = Label.xpath(String.format(rootXpath,eventId)).getAttribute("eventid");
+////        String oddsKey = Label.xpath(String.format(firstOddsCellXpath,leagueIndex)).getAttribute("key");
+////
+////        //handle incase no odds display in the UI, move to the next row
+////        if(Objects.isNull(eventID)) {
+////            return null;
+////        }
+//        // Get the market info from API with the eventID get from UI
+////        market = MarketUtils.getMarketByOddsKey(oddsType,Integer.valueOf(eventID),oddsKey);
+////        market.setLeagueName(leagueName);
+//        // Get more info of the event in other API: league Name, home, away,event startTime
+////        String sportID = SPORTBOOK_SPORT_ID.get(sportName.toUpperCase());
+////        Market temp =  MarketUtils.getEventInfoUnderLeague(Integer.valueOf(sportID),leagueName,eventID);
+////        market.setSportName(sportName);
+////        market.setEventName(String.format("%s vs %s",temp.getHomeName(),temp.getAwayName()));
+////        market.setHomeName(temp.getHomeName());
+////        market.setAwayName(temp.getAwayName());
+////        market.setEventStartTime(temp.getEventStartTime());
+//        return lstMarket;
+//    }
 }
