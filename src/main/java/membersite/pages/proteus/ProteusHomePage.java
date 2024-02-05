@@ -180,89 +180,80 @@ public class ProteusHomePage extends HomePage {
         return lstOddsAdjust;
     }
 
-//    public static List<Odds> convertOddsToGroup(Market market,String oddsGroup, List<Odds> lstBaseOdds, String oddsType) {
-//        List<Double> lstOddsAdjust = new ArrayList<>();
-//        List<Odds> lstOddsAdjusted = new ArrayList<>();
-//        if (!oddsGroup.equalsIgnoreCase("A")) {
-//            double vigAdjustment = Double.parseDouble(ODDS_GROUP_ADJUSTMENT_MAPPING.get(oddsGroup));
-//            if(Objects.nonNull(lstBaseOdds)) {
-//                double vig = 0;
-//                List<Double> lstProbabilityBase = new ArrayList<>();
-//                List<Double> lstFairProbability = new ArrayList<>();
-//                List<Double> lstFattenedProbability = new ArrayList<>();
-//                List<Double> lstDecimalOdds = new ArrayList<>();
-//                List<Double> lstRoundedDecimalOdds = new ArrayList<>();
-//                for (int i = 0; i < lstBaseOdds.size(); i++) {
-//                    lstProbabilityBase.add((1/Double.valueOf(lstBaseOdds.get(i).getOdds())));
-//                    vig += (1/Double.valueOf(lstBaseOdds.get(i).getOdds()));
-//                }
-//                if(Objects.nonNull(lstProbabilityBase)) {
-//                    for (int i = 0; i < lstProbabilityBase.size(); i++) {
-//                        lstFairProbability.add(lstProbabilityBase.get(i) / vig);
-//                    }
-//                }
-//                if(Objects.nonNull(lstFairProbability)) {
-//                    for (int i = 0; i < lstFairProbability.size(); i++) {
-//                        lstFattenedProbability.add(lstFairProbability.get(i) * (vig + (vigAdjustment/100)));
-//                        lstDecimalOdds.add(1/ lstFattenedProbability.get(i));
-//                    }
-//                }
-//                if (Objects.nonNull(lstDecimalOdds)) {
-//                    for (int i = 0; i < lstDecimalOdds.size(); i++) {
-//                        if(lstDecimalOdds.get(i) > 2) {
-//                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 100) / 100);
-//                        } else {
-//                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 1000) / 1000);
-//                        }
-//                    }
-//                }
-//                if(oddsType.equalsIgnoreCase(DECIMAL)) {
-//                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-//                       market.getOdds().get(i).setOdds(lstRoundedDecimalOdds.get(i));
-//                    }
-//                    return market.getOdds();
-//                }
-////                else if (oddsType.equalsIgnoreCase(HONGKONG)) {
-////                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-////                        //rounding to 3 decimal places
-////                        lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
-////                    }
-////                    return lstOddsAdjust;
-////                } else if (oddsType.equalsIgnoreCase("Indo")) {
-////                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-////                        //rounding to 3 decimal places
-////                        if(lstRoundedDecimalOdds.get(i) >= 2) {
-////                            lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
-////                        } else {
-////                            lstOddsAdjust.add(Math.abs(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 10000) / 10000));
-////                        }
-////                    }
-////                    return lstOddsAdjust;
-////                } else if (oddsType.equalsIgnoreCase(MALAY)) {
-////                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-////                        //rounding to 3 decimal places
-////                        if(lstRoundedDecimalOdds.get(i) <= 2) {
-////                            lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
-////                        } else {
-////                            lstOddsAdjust.add(Math.abs(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 10000) / 10000));
-////                        }
-////                    }
-////                    return lstOddsAdjust;
-////                } else {
-////                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-////                        //return list no matter negative number
-////                        if(lstRoundedDecimalOdds.get(i) < 2) {
-////                            lstOddsAdjust.add(Double.valueOf(Math.abs(Math.round(-100/ (lstRoundedDecimalOdds.get(i) - 1)))));
-////                        } else {
-////                            lstOddsAdjust.add(Math.floor(((lstRoundedDecimalOdds.get(i) - 1) * 100) * 10000) / 10000);
-////                        }
-////                    }
-////                    return lstOddsAdjust;
-////                }
-//            }
-//        }
-//        return lstOddsAdjusted;
-//    }
+    public static List<Odds> convertOddsToGroup(Market market,String oddsGroup, String oddsType) {
+        List<Odds> lstOddsAdjusted = new ArrayList<>();
+        List<Odds> lstBaseOdds = market.getOdds();
+        if (!oddsGroup.equalsIgnoreCase("A")) {
+            double vigAdjustment = Double.parseDouble(ODDS_GROUP_ADJUSTMENT_MAPPING.get(oddsGroup));
+            if(Objects.nonNull(lstBaseOdds)) {
+                double vig = 0;
+                List<Double> lstProbabilityBase = new ArrayList<>();
+                List<Double> lstFairProbability = new ArrayList<>();
+                List<Double> lstFattenedProbability = new ArrayList<>();
+                List<Double> lstDecimalOdds = new ArrayList<>();
+                List<Double> lstRoundedDecimalOdds = new ArrayList<>();
+                for (int i = 0; i < lstBaseOdds.size(); i++) {
+                    lstProbabilityBase.add((1/Double.valueOf(lstBaseOdds.get(i).getOdds())));
+                    vig += (1/Double.valueOf(lstBaseOdds.get(i).getOdds()));
+                }
+                if(Objects.nonNull(lstProbabilityBase)) {
+                    for (int i = 0; i < lstProbabilityBase.size(); i++) {
+                        lstFairProbability.add(lstProbabilityBase.get(i) / vig);
+                    }
+                }
+                if(Objects.nonNull(lstFairProbability)) {
+                    for (int i = 0; i < lstFairProbability.size(); i++) {
+                        lstFattenedProbability.add(lstFairProbability.get(i) * (vig + (vigAdjustment/100)));
+                        lstDecimalOdds.add(1/ lstFattenedProbability.get(i));
+                    }
+                }
+                if (Objects.nonNull(lstDecimalOdds)) {
+                    for (int i = 0; i < lstDecimalOdds.size(); i++) {
+                        if(lstDecimalOdds.get(i) > 2) {
+                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 100) / 100);
+                        } else {
+                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 1000) / 1000);
+                        }
+                    }
+                }
+                if(oddsType.equalsIgnoreCase(DECIMAL)) {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                       market.getOdds().get(i).setOdds(lstRoundedDecimalOdds.get(i));
+                    }
+                    return market.getOdds();
+                } else if (oddsType.equalsIgnoreCase(HONGKONG)) {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        //rounding to 3 decimal places
+                        market.getOdds().get(i).setOdds(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
+                    }
+                    return market.getOdds();
+                }
+                else if (oddsType.equalsIgnoreCase(MALAY)) {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        //rounding to 3 decimal places
+                        if (lstRoundedDecimalOdds.get(i) <= 2) {
+                            market.getOdds().get(i).setOdds(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
+                        } else {
+                            market.getOdds().get(i).setOdds(Math.abs(Math.floor((-1 / (lstRoundedDecimalOdds.get(i) - 1)) * 10000) / 10000));
+                        }
+                    }
+                    return market.getOdds();
+                }
+                else {
+                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
+                        //return list no matter negative number
+                        if(lstRoundedDecimalOdds.get(i) < 2) {
+                            market.getOdds().get(i).setOdds(Double.valueOf(Math.ceil(Math.abs(-100/ (lstRoundedDecimalOdds.get(i) - 1)))));
+                        } else {
+                            market.getOdds().get(i).setOdds(Math.floor(((lstRoundedDecimalOdds.get(i) - 1) * 100) * 10000) / 10000);
+                        }
+                    }
+                    return market.getOdds();
+                }
+            }
+        }
+        return lstOddsAdjusted;
+    }
     public void compareOddsShowCorrect(List<Double> lstOddsConvert, List<Double> lstOddsActual, double tolerance) {
         Collections.sort(lstOddsConvert);
         Collections.sort(lstOddsActual);

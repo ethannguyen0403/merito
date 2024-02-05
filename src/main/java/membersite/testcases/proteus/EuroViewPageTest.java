@@ -3,15 +3,21 @@ package membersite.testcases.proteus;
 import baseTest.BaseCaseTest;
 import membersite.objects.AccountBalance;
 import membersite.objects.proteus.Market;
+import membersite.objects.proteus.ProteusGeneralEvent;
+import membersite.objects.proteus.ProteusMarket;
 import membersite.pages.proteus.EuroViewPage;
 import membersite.pages.proteus.ProteusHomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static common.MemberConstants.LBL_SOCCER_SPORT;
 import static common.MemberConstants.LBL_TENNIS_SPORT;
 import static common.ProteusConstant.*;
+import static membersite.utils.proteus.MarketUtils.getMarketInfo;
 
 public class EuroViewPageTest extends BaseCaseTest {
 
@@ -227,7 +233,7 @@ public class EuroViewPageTest extends BaseCaseTest {
         log("Step 3. Select Early the left menu and click on Soccer");
         euroViewPage.selectPeriodTab(EARLY_PERIOD);
         euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
-        log("Step 4. Click on Handicap tab");
+        log("Step 4. Click on Over Under tab");
         euroViewPage.selectMarketTypeTab(TEXT_OVER_UNDER);
         Market market = euroViewPage.getEventInfo(SOCCER,DECIMAL);
 
@@ -294,6 +300,151 @@ public class EuroViewPageTest extends BaseCaseTest {
 
         log("Verify Soccer is active and Soccer Match title displays");
         Assert.assertEquals(euroViewPage.lblSportHeader.getText(),LBL_SOCCER_SPORT, "FAILED! Deposit page is not displayed");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4062")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4062() {
+        log("@title: Validate player can switch to Euro View");
+        log("Precondition: The player is active PS38 product");
+        log("Step 1. Login member site");
+        log("Step 2.Active PS38 product");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Step 3.Select Euro View");
+        proteusHomePage.selectEuroView();
+
+        log("Verify View name change to Asia View");
+        Assert.assertEquals(proteusHomePage.lblView.getText(),"Asian View", "FAILED! Deposit page is not displayed");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4063")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4063() {
+        log("@title: Validate player can select Decimal odds type in Euro View");
+        log("Precondition: The player is active PS38 product");
+        log("Step 1. Login member site");
+        log("Step 2.Active PS38 product");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Step 3.Select Euro View");
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 4: Select Euro View and select odds type = Decimal");
+        euroViewPage.selectOddsType(DECIMAL);
+
+        log("Verify 1: Verify odds type change to DECIMAL");
+        Assert.assertEquals(euroViewPage.getOddsType(),DECIMAL.toUpperCase(),"Failed! Odds Type is incorrect after selecting");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4064")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4064() {
+        log("@title: Validate player can select HONGKONG odds type in Euro View");
+        log("Precondition: The player is active PS38 product");
+        log("Step 1. Login member site");
+        log("Step 2.Active PS38 product");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Step 3.Select Euro View");
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 4: Select Euro View and select odds type = HONGKONG");
+        euroViewPage.selectOddsType(HONGKONG);
+
+        log("Verify 1: Verify odds type change to HONGKONG");
+        Assert.assertEquals(euroViewPage.getOddsType(),HONGKONG.toUpperCase(),"Failed! Odds Type is incorrect after selecting");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4065")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4065() {
+        log("@title: Validate player can select MALAY odds type in Euro View");
+        log("Precondition: The player is active PS38 product");
+        log("Step 1. Login member site");
+        log("Step 2.Active PS38 product");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+
+        log("Step 3.Select Euro View");
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 4: Select Euro View and select odds type = MALAY");
+        euroViewPage.selectOddsType(MALAY);
+
+        log("Verify 1: Verify odds type change to MALAY");
+        Assert.assertEquals(euroViewPage.getOddsType(),MALAY.toUpperCase(),"Failed! Odds Type is incorrect after selecting");
+
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "4066")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4066() {
+        log("@title: Validate player can select AMERICAN odds type in Euro View");
+        log("Precondition: The player is active PS38 product");
+        log("Step 1. Login member site");
+        log("Step 2.Active PS38 product");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+
+        log("Step 3.Select Euro View");
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 4: Select Euro View and select odds type = AMERICAN");
+        euroViewPage.selectOddsType(AMERICAN);
+
+        log("Verify 1: Verify odds type change to AMERICAN");
+        Assert.assertEquals(euroViewPage.getOddsType(),AMERICAN.toUpperCase(),"Failed! Odds Type is incorrect after selecting");
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4128")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4128() {
+        log("@title: Validate odds of 1x2 market display in Decimal when selecting Malay odds in EU view list event");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+        euroViewPage.selectMarketTypeTab(TEXT_1X2);
+
+        log("Step 4. Get Decimal odds and change odds type to Malay");
+        Market market = euroViewPage.getEventInfo(SOCCER,DECIMAL);
+        euroViewPage.selectOddsType(MALAY);
+
+        log("Verify Check odds when changing to Malay is same as odds when selected Decimal odds type");
+        Market marketUI = euroViewPage.getEventInfoUI(market.getEventId());
+        euroViewPage.verifyOddsShowCorrect(market.getOdds(), marketUI.getOdds());
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4129")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4129() {
+        log("@title: Validate odds of 1x2 market display in Decimal when selecting HK odds in EU view list event");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+        euroViewPage.selectMarketTypeTab(TEXT_1X2);
+
+        log("Step 4. Get Decimal odds and change odds type to Malay");
+        Market market = euroViewPage.getEventInfo(SOCCER,DECIMAL);
+        euroViewPage.selectOddsType(HONGKONG);
+
+        log("Verify Check odds when changing to Malay is same as odds when selected Hongkong odds type");
+        Market marketUI = euroViewPage.getEventInfoUI(market.getEventId());
+        euroViewPage.verifyOddsShowCorrect(market.getOdds(), marketUI.getOdds());
         log("INFO: Executed completely");
     }
 }

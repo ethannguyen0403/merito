@@ -5,10 +5,7 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 import controls.Table;
 import membersite.controls.DropDownMenu;
-import membersite.objects.proteus.Market;
-import membersite.objects.proteus.ProteusBetslip;
-import membersite.objects.proteus.ProteusGeneralEvent;
-import membersite.objects.proteus.ProteusMarket;
+import membersite.objects.proteus.*;
 import membersite.utils.proteus.MarketUtils;
 import org.json.JSONObject;
 import org.testng.Assert;
@@ -27,6 +24,7 @@ public class EuroViewPage extends ProteusHomePage {
     private String sportLeftMenuXpath = "//app-left-menu-euro//div[contains(@class,'menu-item')]//div[text()='%s']";
     private String marketTabXpath = "//app-sport-euro//div[contains(@class,'market-group')]//button[text()='%s']";
     private String eventTableXpath = "//app-league-euro//table[contains(@class,'odd-page')]";
+    private String tableEventXpath = "//table[contains(@class,'odd-pages') and @eventid='%s']";
     public Button btnEarlyEuro = Button.xpath(String.format("//app-left-menu-euro//button[text()=' %s ']",EARLY_PERIOD));
     private Button btnLiveEuro = Button.xpath(String.format("//app-left-menu-euro//button[text()=' %s ']",LIVE_PERIOD));
     public Label lblSportHeader = Label.xpath("(//app-sport-euro//div[contains(@class,'sport-header')]//h3)[1]");
@@ -375,6 +373,33 @@ public class EuroViewPage extends ProteusHomePage {
             lstHeader.add(lblHeaderItem.getText().trim());
         }
         return lstHeader;
+    }
+
+    public Market getEventInfoUI(int eventId) {
+        Market market = new Market.Builder().build();
+        List<Odds> lstOddsObject = new ArrayList<>();
+        String rootXpath = String.format(tableEventXpath, eventId);
+        Table tblEvent = Table.xpath(rootXpath, 7);
+        Label lblLeague = Label.xpath(String.format("%s%s", tblEvent.getLocator().toString().replace("By.xpath: ",""),"//ancestor::app-league-euro//table[contains(@class,'league-header')]//th[@class='opponent-column']"));
+        Label lblEventStartTime = Label.xpath(String.format("%s%s", rootXpath, "//th[contains(@class,'time-column')]"));
+        Label lblEventName = Label.xpath(String.format("%s%s", rootXpath, "//div[contains(@class,'opponent')]"));
+        Label lblOdds = Label.xpath(String.format("%s%s", rootXpath, "//span[contains(@class,'odd-number')]"));
+        //add odds from UI to list odds object
+        for (int i = 0; i < lblOdds.getWebElements().size(); i++) {
+            Label lblOddsValue = Label.xpath(String.format("(%s)[%s]", lblOdds.getLocator().toString().replace("By.xpath: ", ""), i + 1));
+            lstOddsObject.add(i, new Odds.Builder().odds(Double.valueOf(lblOddsValue.getText().replace("⠀", ""))).build());
+        }
+        market.setOdds(lstOddsObject);
+        market.setLeagueName(lblLeague.getText().trim());
+        market.setEventStartTime(lblEventStartTime.getText().trim());
+        market.setEventName(lblEventName.getText().trim().replace("\n"," v "));
+        return market;
+    }
+
+    public void verifyOddsShowCorrect(List<Odds> lstOddsExpected, List<Odds> lstOddsActual) {
+        for (int i = 0; i < lstOddsExpected.size(); i++) {
+            Assert.assertEquals(lstOddsExpected.get(i).getOdds(), lstOddsActual.get(i).getOdds(), String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsExpected.get(i).getOdds(), lstOddsActual.get(i).getOdds()));
+        }
     }
 
 }
