@@ -46,8 +46,7 @@ public class EditDownlineAgentTest extends BaseCaseTest {
 
         log("Step 3. Input Max player Credit greater than the limit");
         String maxPlayerCreditLitmit = String.format("%d", editDownLinePage.creditBalanceInforSection.getMaxPlayerLitmitCredit(currency) + 1);
-        editDownLinePage.creditBalanceInforSection.updateCashBalance(maxPlayerCreditLitmit);
-        editDownLinePage.btnSubmit.click();
+        editDownLinePage.updateCashBalance(maxPlayerCreditLitmit,true);
 
         log("Verify 1. Verify Message \"Max Player Credit is invalid\" display");
         Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.DownlineListing.MSG_INVALID_MAX_PLAYER_CREDIT, "FAILED! Incorrect max player credit is invalid");
