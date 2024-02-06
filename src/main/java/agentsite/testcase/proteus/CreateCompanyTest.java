@@ -112,7 +112,6 @@ public class CreateCompanyTest extends BaseCaseTest {
         page.selectProduct(PS38);
         log("Step 4: Update any fields in Pregame tab then click on In-Play tab");
         page.betSettingSectionPS38.updateValueInputSportPS38(Arrays.asList(LBL_SOCCER_SPORT), Arrays.asList(HEADER_BET_SETTING_PS38.get(1)), Arrays.asList("2"));
-//        page.betSettingSectionPS38.inputBetSettingPS38(LBL_SOCCER_SPORT, HEADER_BET_SETTING_PS38.get(1), "2");
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
         log("Verify 1: Verify confirm message display and Switch tab, Cancel button");
         Assert.assertEquals(page.getMessageUpdate(false), SWITCH_TAB_MESSAGE_PS38, "FAILED! The message when switching tab is not correct");
@@ -134,7 +133,6 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 4: Do not update any value in Pregame tab, just click on Inplay tab then input any value");
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
         page.betSettingSectionPS38.updateValueInputSportPS38(Arrays.asList(LBL_SOCCER_SPORT), Arrays.asList(HEADER_BET_SETTING_PS38.get(1)), Arrays.asList("2"));
-//        page.betSettingSectionPS38.inputBetSettingPS38(LBL_SOCCER_SPORT, HEADER_BET_SETTING_PS38.get(1), "2");
         log("Step 5: Click on Pregame tab");
         page.betSettingSectionPS38.selectPS38Tab(PREGAME_TAB_PS38);
 
@@ -157,7 +155,6 @@ public class CreateCompanyTest extends BaseCaseTest {
         page.selectProduct(PS38);
         log("Step 4: Update any fields in Pregame tab then click on In-Play tab");
         page.betSettingSectionPS38.updateValueInputSportPS38(Arrays.asList(LBL_SOCCER_SPORT), Arrays.asList(HEADER_BET_SETTING_PS38.get(1)), Arrays.asList("2"));
-//        page.betSettingSectionPS38.inputBetSettingPS38(LBL_SOCCER_SPORT, HEADER_BET_SETTING_PS38.get(1), "2");
         log("Step 5: Click on Inplay tab");
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
         log("Step 6: Click on Switch tab button");
@@ -182,7 +179,6 @@ public class CreateCompanyTest extends BaseCaseTest {
         page.selectProduct(PS38);
         log("Step 4: Update any fields in Pregame tab then click on In-Play tab");
         page.betSettingSectionPS38.updateValueInputSportPS38(Arrays.asList(LBL_SOCCER_SPORT), Arrays.asList(HEADER_BET_SETTING_PS38.get(1)), Arrays.asList("2"));
-//        page.betSettingSectionPS38.inputBetSettingPS38(LBL_SOCCER_SPORT, HEADER_BET_SETTING_PS38.get(1), "2");
         log("Step 5: Click on Inplay tab");
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
         log("Step 6: Click on Cancel button");
