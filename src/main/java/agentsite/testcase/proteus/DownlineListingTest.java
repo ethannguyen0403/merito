@@ -128,7 +128,7 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Step 2. Click on Edit icon of any agent");
         EditDownLinePage editDownLinePage = page.clickEditIcon(memberAccount);
-        editDownLinePage.inActiveProduct("PS38",true);
+        editDownLinePage.activeInactiveProduct("PS38",false,true);
 
         log("Step 1. Login Member site the account under agent in precondition");
         log("Step 2. Observe product name");
@@ -141,7 +141,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4060")
-    @Test(groups = {"ps38"})
+    @Test(groups = {"ps38","isa"})
     @Parameters({"memberAccount","password"})
     public void PS38_Agent_TC4060(String memberAccount,String password) throws Exception {
         log("@title: Validate PS38 product displays in member site if the product is active");
@@ -152,7 +152,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.searchDownline(memberAccount,"","");
         log("Step 2. Click on Edit icon of any agent");
         EditDownLinePage editDownLinePage = page.clickEditIcon(memberAccount);
-        editDownLinePage.activeProduct("PS38",true);
+        editDownLinePage.activeInactiveProduct("PS38",true,true);
 
         log("Step 1. Login Member site the account under agent in precondition");
         log("Step 2. Observe product name");

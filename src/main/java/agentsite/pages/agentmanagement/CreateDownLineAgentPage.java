@@ -48,8 +48,8 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label lblEGTaxSettings = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']/div[@class='psection']");
     public Label lblPositionTakingListing = Label.xpath("//div[@id='EXCHANGE-position-taking']/div[@class='psection']");
     public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[@class='psection']");
-    public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
-    public Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
+    private Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
+    private Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
     public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg']");
 
     public AccountInforSection accountInforSection;
@@ -142,10 +142,24 @@ public class CreateDownLineAgentPage extends HomePage {
         btnSubmit.click();
         return getMessageUpdate(isClose);
     }
-
+    public String activeInactiveProduct(String productName, boolean isActive,boolean isClose) {
+        productStatusSettingInforSection.updateProduct(productName,isActive);
+        btnSubmit.click();
+        return getMessageUpdate(isClose);
+    }
     public void updateProducts(Map<String, Boolean> products){
         productStatusSettingInforSection.updateProducts(products);
         btnSubmit.click();
         getMessageUpdate(true);
     }
+
+    public Button getSubmitBtn()
+    {
+        return btnSubmit;
+    }
+    public Button getBtnCancel()
+    {
+        return btnCancel;
+    }
+
 }

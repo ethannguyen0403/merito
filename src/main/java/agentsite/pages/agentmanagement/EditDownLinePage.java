@@ -4,15 +4,16 @@ import agentsite.pages.agentmanagement.editdownlinelisting.EditDownlineListing;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.SuccessPopup;
 import com.paltech.element.BaseElement;
+import com.paltech.element.common.Button;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
 
 import java.util.List;
-import java.util.Map;
 
 public class EditDownLinePage extends CreateDownLineAgentPage {
     public EditDownlineListing editDownlineListing;
     private SuccessPopup successPopup = SuccessPopup.xpath("//app-alert");
+    private Button btnSubmit = Button.id("submitBtn");
     public EditDownLinePage(String types) {
         super(types);
         _type = types;
@@ -28,11 +29,12 @@ public class EditDownLinePage extends CreateDownLineAgentPage {
         return message;
     }
     @Override
-    public void updateProducts(Map<String, Boolean> products){
-        productStatusSettingInforSection.updateProducts(products);
+    public String activeInactiveProduct(String productName,boolean isActive, boolean isClose){
+        productStatusSettingInforSection.updateProduct(productName,isActive);
         btnSubmit.click();
-        getMessageUpdate(true);
+        return getMessageUpdate(isClose);
     }
+
 
     public List<String> getProductsTab(){
         return productStatusSettingInforSection.getProductsTabs();
@@ -41,5 +43,11 @@ public class EditDownLinePage extends CreateDownLineAgentPage {
     public void selectProduct(String productName) {
         Label lblProduct = Label.xpath(String.format("//span[text()='%s']", productName));
         lblProduct.click();
+    }
+
+    public void updateCashBalance(String maxPlayerCredit, boolean isSubmit) {
+        creditBalanceInforSection.updateCashBalance(maxPlayerCredit);
+        if(isSubmit)
+            btnSubmit.click();
     }
 }

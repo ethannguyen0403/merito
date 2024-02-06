@@ -4,6 +4,7 @@ import baseTest.BaseCaseTest;
 import membersite.objects.AccountBalance;
 import membersite.objects.proteus.Market;
 import membersite.objects.proteus.Order;
+import membersite.pages.proteus.EuroViewDetailsPage;
 import membersite.pages.proteus.EuroViewPage;
 import membersite.pages.proteus.ProteusHomePage;
 import org.testng.Assert;
@@ -507,6 +508,30 @@ public class EuroViewPageTest extends BaseCaseTest {
         log("Verify Check odds when changing to Malay is same as odds when selected Hongkong odds type");
         Market marketUI = euroViewPage.getEventInfoUI(market.getEventId());
         euroViewPage.verifyOddsShowCorrect(market.getOdds(), marketUI.getOdds());
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4122")
+    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4122() {
+        log("@title: Validate detail page display when clicking on soccer event name ");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Step 3. Click on Early tab and click on Soccer in left menu");
+        euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+
+        log("Step 4. Click on any event name");
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
+        EuroViewDetailsPage euroViewDetailsPage = euroViewPage.opentDetail(market);
+
+        log("Verify 1. Check details page display correctly info:League name\n" +
+                "Event name\n" +
+                "Home and Away name of 1x2 market");
+        euroViewDetailsPage.verifyPageContainsMarketInfo(market);
         log("INFO: Executed completely");
     }
 
