@@ -34,7 +34,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.searchDownline(downlineAccount, "", "");
         EditDownLinePage editPage = page.clickEditIcon(downlineAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Position Taking");
-        editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         log("Step 4: Select Sport as All and click View");
         editPage.editDownlineListing.positionTakingSectionPS38.addOrViewSport("All", "");
         log("Step 5: Update PT for any market of Soccer sport then click Submit");
@@ -49,7 +49,7 @@ public class DownlineListingTest extends BaseCaseTest {
                 .pos("Preset").amountPT(Double.valueOf(positionValue)).build();
 
         page.clickEditIcon(downlineAccount, true);
-        editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         editPage.editDownlineListing.positionTakingSectionPS38.verifyProteusPTMarket(Arrays.asList(ptSettingTennis));
     }
 
@@ -65,7 +65,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.searchDownline(downlineAccount, "", "");
         EditDownLinePage editPage = page.clickEditIcon(downlineAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Position Taking");
-        editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
 
         log("Step 4: Select Sport as Soccer and and League is General and click View");
         editPage.editDownlineListing.positionTakingSectionPS38.addOrViewSport("Soccer", GENERAL);
@@ -79,7 +79,7 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Verify 1: Updated PT is applied correctly for all sports");
         page.clickEditIcon(downlineAccount, true);
-        editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         editPage.editDownlineListing.positionTakingSectionPS38.verifyProteusPTMarket(Arrays.asList(ptSettingSoccer));
     }
 
@@ -95,7 +95,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.searchDownline(downlineAccount, "", "");
         EditDownLinePage editPage = page.clickEditIcon(downlineAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Position Taking");
-        editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
 
         editPage.editDownlineListing.positionTakingSectionPS38.addOrViewSport("Soccer", "1");
         String leagueName = editPage.editDownlineListing.positionTakingSectionPS38.ddbLeague.getFirstSelectedOption();
@@ -110,7 +110,7 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Verify 1: Updated PT is applied correctly for all sports");
         page.clickEditIcon(downlineAccount, true);
-        editPage.editDownlineListing.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         editPage.editDownlineListing.positionTakingSectionPS38.verifyProteusPTMarket(Arrays.asList(ptSettingSoccer));
     }
 
@@ -176,7 +176,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.searchDownline(downlineAccount, "", "");
         EditDownLinePage editPage = page.clickEditIcon(downlineAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Commission");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Verify 1: Odds Group dropdown: should follow upline setting if having no setting yet");
         Assert.assertTrue(editPage.commissionSectionPS38.ddbOddsGroup.isDisplayed(), "FAILED! Odds Group dropdown is not displayed");
         CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Agent",true);
@@ -205,7 +205,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.searchDownline(directCOMemberAccount, "", "");
         EditDownLinePage editPage = page.clickEditIcon(directCOMemberAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Commission");
-        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
         log("Step 4: Select any specific sport and leagues is General and click Add");
         String amountCommission = String.format("%.2f", commissionSection.randomDouble(0.01, 0.09));
@@ -220,7 +220,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.submitEditDownlinePS38(true);
         log("Verify 1: Commission for sport: Soccer with general league is set successfully");
         page.clickEditIcon(directCOMemberAccount, true);
-        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         Assert.assertEquals(
                 commissionSection.getAmountCommission(null, TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0), LBL_SOCCER_SPORT, GENERAL)
                         .get(TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0)), amountCommission, "Failed! Commission is not updated.");
@@ -239,7 +239,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.searchDownline(directCOMemberAccount, "", "");
         EditDownLinePage editPage = page.clickEditIcon(directCOMemberAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Commission");
-        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
         log("Step 4:  Select any specific sport and specific leagues and click Add");
         String amountCommission = String.format("%.2f", commissionSection.randomDouble(0.01, 0.09));
@@ -256,7 +256,7 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Verify 1: Commission for sport: Soccer with league " +league + " is set successfully");
         page.clickEditIcon(directCOMemberAccount, true);
-        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         Assert.assertEquals(
                 commissionSection.getAmountCommission(null, TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0), LBL_SOCCER_SPORT, league)
                         .get(TABLE_COLUMN_GROUP_COMMISSION_SECTION.get(0)), amountCommission, "Failed! Commission is not updated.");
@@ -275,7 +275,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.searchDownline(directCOMemberAccount, "", "");
         EditDownLinePage editPage = page.clickEditIcon(directCOMemberAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Commission");
-        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
         log("Step 4:  Select any specific sport and leagues is General and click Add");
         String groupValue = String.valueOf("ABCDE".charAt(new Random().nextInt(5)));
@@ -292,7 +292,7 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Verify 1: Odds group for sport: Soccer with league " +league + " is set successfully");
         page.clickEditIcon(directCOMemberAccount, true);
-        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         Assert.assertEquals(
                 commissionSection.getAmountCommission(null, null, LBL_SOCCER_SPORT, league)
                         .get(ODDS_GROUP), groupValue, "Failed! Odds group value is not updated.");
@@ -311,7 +311,7 @@ public class DownlineListingTest extends BaseCaseTest {
         page.searchDownline(directCOMemberAccount, "", "");
         EditDownLinePage editPage = page.clickEditIcon(directCOMemberAccount, true);
         log("Step 3: Click on PS38 product and scroll down to Commission");
-        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         CommissionSectionPS38 commissionSection = editPage.commissionSectionPS38.expandCommissionSection("Member",true);
         log("Step 4:  Select any specific sport and leagues is General and click Add");
         String groupValue = String.valueOf("ABCDE".charAt(new Random().nextInt(5)));
@@ -328,7 +328,7 @@ public class DownlineListingTest extends BaseCaseTest {
 
         log("Verify 1: Odds group for sport: Soccer with league " +league + " is set successfully");
         page.clickEditIcon(directCOMemberAccount, true);
-        editPage.productStatusSettingInforSection.selectProduct(PS38);
+        editPage.selectProduct(PS38);
         Assert.assertEquals(
                 commissionSection.getAmountCommission(null, null, LBL_SOCCER_SPORT, league)
                         .get(ODDS_GROUP), groupValue, "Failed! Odds group value is not updated.");

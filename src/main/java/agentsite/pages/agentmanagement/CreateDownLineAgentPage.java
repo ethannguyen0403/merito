@@ -123,6 +123,15 @@ public class CreateDownLineAgentPage extends HomePage {
         return username;
     }
 
+    public void selectProduct(String productName) {
+        Label lblProduct = Label.xpath(String.format("//span[text()='%s']", productName));
+        lblProduct.click();
+        //Wait 1s for element of PS38 dropdown data loaded
+        try {
+            Thread.sleep(1000);
+        }catch (Exception e){
+        }
+    }
 
     public String getMessageUpdate(boolean isClose) {
         String message = successPopup.getContentMessage();
