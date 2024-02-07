@@ -35,233 +35,24 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "4072")
-    @Test(groups = {"ps38_inactive_product","Proteus.2024.V.1.0_product_inactive"})
-    public void PS38_Member_TC4072() {
-        log("@title: Validate PS38 product doesn't display on member site");
-        log("Precondition: Login member site");
-        log("Step 1. Observe");
-        log("Validate PS38 product doesn't displays on top menu in member site");
-        try {
-            memberHomePage.activePS38Product();
-            Assert.assertTrue(false, "FAILED! PS38 product still display in member site while inactivated");
-        } catch (NullPointerException npe) {
-            Assert.assertTrue(true);
-        }
-        log("INFO: Executed completely");
-    }
-
-    @TestRails(id = "4167")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
-    public void PS38_Member_TC4167() {
-        log("@title: Validate Player group E display the correct Decimal odds in Match - Team Totals market Asian View");
-        log("Precondition: Login member site-  the player active PS38 product");
-        log("Step 1.Select Ps38 product");
-        log("Step 2.Select Asian View");
-        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
-        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-
-        log("Step 3. Select Early the left menu and click on Soccer");
-        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
-        asianViewPage.selectPeriodTab(EARLY_PERIOD);
-
-        log("Step 4. Select Decimal odds type and pick a Match - Team Totals market");
-        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
-        ProteusGeneralEvent event = asianViewPage.getFirstEventInfo(TEXT_HDP);
-        proteusHomePage.openMoreMarkets(String.valueOf(event.getEventId()));
-        proteusHomePage.selectMoreMarket(TEXT_MATCH_TOTAL);
-        ProteusTeamTotalEvent proteusTeamTotalEvent = asianViewPage.getFirstMatchTeamTotalEventInfo();
-
-        log("Step 5. From Decimal odds off account group A, calculate and check odds on account group E is correct");
-        ProteusMarket marketHome = getMatchTeamTotalMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), proteusTeamTotalEvent.getHomeGoals(), true);
-        ProteusMarket marketAway = getMatchTeamTotalMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), proteusTeamTotalEvent.getAwayGoals(), false);
-        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
-
-        //convert odds of Home/Away to group
-        List<Double> lstBaseOddsHome = new ArrayList<>();
-        lstBaseOddsHome.add(marketHome.getFirstOdds());
-        lstBaseOddsHome.add(marketHome.getSecondOdds());
-        List<Double> lstOddsConvertMarket1 = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOddsHome,ODDS_TYPE_MAPPING.get(DECIMAL));
-        List<Double> lstBaseOddsAway = new ArrayList<>();
-        lstBaseOddsAway.add(marketAway.getFirstOdds());
-        lstBaseOddsAway.add(marketAway.getSecondOdds());
-        List<Double> lstOddsConvertMarket2 = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOddsAway,ODDS_TYPE_MAPPING.get(DECIMAL));
-
-        //get odds list Home/Away from market
-        List<Double> lstActualOddsHome = new ArrayList<>();
-        List<Double> lstActualOddsAway = new ArrayList<>();
-        lstActualOddsHome.add(proteusTeamTotalEvent.getHomeOver());
-        lstActualOddsHome.add(proteusTeamTotalEvent.getHomeUnder());
-        lstActualOddsAway.add(proteusTeamTotalEvent.getAwayOver());
-        lstActualOddsAway.add(proteusTeamTotalEvent.getAwayUnder());
-
-        log("Verify Odds of HDP market is display correctly based on user group");
-        proteusHomePage.compareOddsShowCorrect(lstOddsConvertMarket1, lstActualOddsHome, 0.01);
-        proteusHomePage.compareOddsShowCorrect(lstOddsConvertMarket2, lstActualOddsAway, 0.01);
-        log("INFO: Executed completely");
-    }
-
-    @TestRails(id = "4168")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
-    public void PS38_Member_TC4168() {
-        log("@title: Validate Player group E display the correct Hong Kong odds in Match - Team Totals market Asian View");
-        log("Precondition: Login member site-  the player active PS38 product");
-        log("Step 1.Select Ps38 product");
-        log("Step 2.Select Asian View");
-        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
-        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-
-        log("Step 3. Select Early the left menu and click on Soccer");
-        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
-        asianViewPage.selectPeriodTab(EARLY_PERIOD);
-
-        log("Step 4. Select HongKong odds type and pick a Match - Team Totals market");
-        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
-        ProteusGeneralEvent event = asianViewPage.getFirstEventInfo(TEXT_HDP);
-        proteusHomePage.openMoreMarkets(String.valueOf(event.getEventId()));
-        proteusHomePage.selectMoreMarket(TEXT_MATCH_TOTAL);
-        ProteusTeamTotalEvent proteusTeamTotalEvent = asianViewPage.getFirstMatchTeamTotalEventInfo();
-
-        log("Step 5. From Decimal odds off account group A, calculate and check odds on account group E is correct");
-        ProteusMarket marketHome = getMatchTeamTotalMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), proteusTeamTotalEvent.getHomeGoals(), true);
-        ProteusMarket marketAway = getMatchTeamTotalMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), proteusTeamTotalEvent.getAwayGoals(), false);
-        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
-
-        //convert odds of Home/Away to group
-        List<Double> lstBaseOddsHome = new ArrayList<>();
-        lstBaseOddsHome.add(marketHome.getFirstOdds());
-        lstBaseOddsHome.add(marketHome.getSecondOdds());
-        List<Double> lstOddsConvertMarket1 = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOddsHome,ODDS_TYPE_MAPPING.get(HONGKONG));
-        List<Double> lstBaseOddsAway = new ArrayList<>();
-        lstBaseOddsAway.add(marketAway.getFirstOdds());
-        lstBaseOddsAway.add(marketAway.getSecondOdds());
-        List<Double> lstOddsConvertMarket2 = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOddsAway,ODDS_TYPE_MAPPING.get(HONGKONG));
-
-        asianViewPage.selectOddsType(ASIAN_HONGKONG_ODDS);
-        proteusHomePage.selectMoreMarket(TEXT_MATCH_TOTAL);
-        proteusTeamTotalEvent = asianViewPage.getFirstMatchTeamTotalEventInfo();
-        //get odds list Home/Away from market
-        List<Double> lstActualOddsHome = new ArrayList<>();
-        List<Double> lstActualOddsAway = new ArrayList<>();
-        lstActualOddsHome.add(proteusTeamTotalEvent.getHomeOver());
-        lstActualOddsHome.add(proteusTeamTotalEvent.getHomeUnder());
-        lstActualOddsAway.add(proteusTeamTotalEvent.getAwayOver());
-        lstActualOddsAway.add(proteusTeamTotalEvent.getAwayUnder());
-
-        log("Verify Odds of HDP market is display correctly based on user group");
-        proteusHomePage.compareOddsShowCorrect(lstOddsConvertMarket1, lstActualOddsHome, 0.01);
-        proteusHomePage.compareOddsShowCorrect(lstOddsConvertMarket2, lstActualOddsAway, 0.01);
-        log("INFO: Executed completely");
-    }
-
-    @TestRails(id = "4169")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
-    public void PS38_Member_TC4169() {
-        log("@title: Validate Player group E display the correct Malay odds in Match - Team Totals market Asian View");
-        log("Precondition: Login member site-  the player active PS38 product");
-        log("Step 1.Select Ps38 product");
-        log("Step 2.Select Asian View");
-        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
-        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-
-        log("Step 3. Select Early the left menu and click on Soccer");
-        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
-        asianViewPage.selectPeriodTab(EARLY_PERIOD);
-
-        log("Step 4. Select Malay odds type and pick a Match - Team Totals market");
-        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
-        ProteusGeneralEvent event = asianViewPage.getFirstEventInfo(TEXT_HDP);
-        proteusHomePage.openMoreMarkets(String.valueOf(event.getEventId()));
-        proteusHomePage.selectMoreMarket(TEXT_MATCH_TOTAL);
-        ProteusTeamTotalEvent proteusTeamTotalEvent = asianViewPage.getFirstMatchTeamTotalEventInfo();
-
-        log("Step 5. From Decimal odds off account group A, calculate and check odds on account group E is correct");
-        ProteusMarket marketHome = getMatchTeamTotalMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), proteusTeamTotalEvent.getHomeGoals(), true);
-        ProteusMarket marketAway = getMatchTeamTotalMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), proteusTeamTotalEvent.getAwayGoals(), false);
-        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
-
-        //convert odds of Home/Away to group
-        List<Double> lstBaseOddsHome = new ArrayList<>();
-        lstBaseOddsHome.add(marketHome.getFirstOdds());
-        lstBaseOddsHome.add(marketHome.getSecondOdds());
-        List<Double> lstOddsConvertMarket1 = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOddsHome,ODDS_TYPE_MAPPING.get(MALAY));
-        List<Double> lstBaseOddsAway = new ArrayList<>();
-        lstBaseOddsAway.add(marketAway.getFirstOdds());
-        lstBaseOddsAway.add(marketAway.getSecondOdds());
-        List<Double> lstOddsConvertMarket2 = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOddsAway,ODDS_TYPE_MAPPING.get(MALAY));
-
-        asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
-        proteusHomePage.selectMoreMarket(TEXT_MATCH_TOTAL);
-        proteusTeamTotalEvent = asianViewPage.getFirstMatchTeamTotalEventInfo();
-        //get odds list Home/Away from market
-        List<Double> lstActualOddsHome = new ArrayList<>();
-        List<Double> lstActualOddsAway = new ArrayList<>();
-        lstActualOddsHome.add(proteusTeamTotalEvent.getHomeOver());
-        lstActualOddsHome.add(proteusTeamTotalEvent.getHomeUnder());
-        lstActualOddsAway.add(proteusTeamTotalEvent.getAwayOver());
-        lstActualOddsAway.add(proteusTeamTotalEvent.getAwayUnder());
-
-        log("Verify Odds of HDP market is display correctly based on user group");
-        proteusHomePage.compareOddsShowCorrect(lstOddsConvertMarket1, lstActualOddsHome, 0.01);
-        proteusHomePage.compareOddsShowCorrect(lstOddsConvertMarket2, lstActualOddsAway, 0.01);
-        log("INFO: Executed completely");
-    }
-
-    @TestRails(id = "4170")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
-    public void PS38_Member_TC4170() {
-        log("@title: Validate Player group E display the correct American odds in Match - Team Totals market Asian View");
-        log("Precondition: Login member site-  the player active PS38 product");
-        log("Step 1.Select Ps38 product");
-        log("Step 2.Select Asian View");
-        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
-        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-
-        log("Step 3. Select Early the left menu and click on Soccer");
-        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
-        asianViewPage.selectPeriodTab(EARLY_PERIOD);
-
-        log("Step 4. Select American odds type and pick a Match - Team Totals market");
-        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
-        ProteusGeneralEvent event = asianViewPage.getFirstEventInfo(TEXT_HDP);
-        proteusHomePage.openMoreMarkets(String.valueOf(event.getEventId()));
-        proteusHomePage.selectMoreMarket(TEXT_MATCH_TOTAL);
-        ProteusTeamTotalEvent proteusTeamTotalEvent = asianViewPage.getFirstMatchTeamTotalEventInfo();
-
-        log("Step 5. From Decimal odds off account group A, calculate and check odds on account group E is correct");
-        ProteusMarket marketHome = getMatchTeamTotalMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), proteusTeamTotalEvent.getHomeGoals(), true);
-        ProteusMarket marketAway = getMatchTeamTotalMarketInfo(event.getEventId(), MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), proteusTeamTotalEvent.getAwayGoals(), false);
-        String oddsGroup = proteusHomePage.getCurrentUserOddsGroup(event.getEventId());
-
-        //convert odds of Home/Away to group
-        List<Double> lstBaseOddsHome = new ArrayList<>();
-        lstBaseOddsHome.add(marketHome.getFirstOdds());
-        lstBaseOddsHome.add(marketHome.getSecondOdds());
-        List<Double> lstOddsConvertMarket1 = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOddsHome,ODDS_TYPE_MAPPING.get(AMERICAN));
-        List<Double> lstBaseOddsAway = new ArrayList<>();
-        lstBaseOddsAway.add(marketAway.getFirstOdds());
-        lstBaseOddsAway.add(marketAway.getSecondOdds());
-        List<Double> lstOddsConvertMarket2 = proteusHomePage.getListOddsByGroup(oddsGroup, lstBaseOddsAway,ODDS_TYPE_MAPPING.get(AMERICAN));
-
-        asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
-        proteusHomePage.selectMoreMarket(TEXT_MATCH_TOTAL);
-        proteusTeamTotalEvent = asianViewPage.getFirstMatchTeamTotalEventInfo();
-        //get odds list Home/Away from market
-        List<Double> lstActualOddsHome = new ArrayList<>();
-        List<Double> lstActualOddsAway = new ArrayList<>();
-        lstActualOddsHome.add(proteusTeamTotalEvent.getHomeOver());
-        lstActualOddsHome.add(proteusTeamTotalEvent.getHomeUnder());
-        lstActualOddsAway.add(proteusTeamTotalEvent.getAwayOver());
-        lstActualOddsAway.add(proteusTeamTotalEvent.getAwayUnder());
-
-        log("Verify Odds of HDP market is display correctly based on user group");
-        proteusHomePage.compareOddsShowCorrect(lstOddsConvertMarket1, lstActualOddsHome, 0.01);
-        proteusHomePage.compareOddsShowCorrect(lstOddsConvertMarket2, lstActualOddsAway, 0.01);
-        log("INFO: Executed completely");
-    }
+//    @TestRails(id = "4072")
+//    @Test(groups = {"ps38_inactive_product","Proteus.2024.V.1.0_product_inactive"})
+//    public void PS38_Member_TC4072() {
+//        log("@title: Validate PS38 product doesn't display on member site");
+//        log("Precondition: Login member site");
+//        log("Step 1. Observe");
+//        log("Validate PS38 product doesn't displays on top menu in member site");
+//        try {
+//            memberHomePage.activePS38Product();
+//            Assert.assertTrue(false, "FAILED! PS38 product still display in member site while inactivated");
+//        } catch (NullPointerException npe) {
+//            Assert.assertTrue(true);
+//        }
+//        log("INFO: Executed completely");
+//    }
 
     @TestRails(id = "4174")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_groupe","Proteus.2024.V.1.0_groupe"})
     public void PS38_Member_TC4174() {
         log("@title: Validate to commission is correctly in Profit and loss report when bet is full settled for Verify high commission");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -283,7 +74,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4173")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_groupe","Proteus.2024.V.1.0_groupe"})
     public void PS38_Member_TC4173() {
         log("@title: Validate to commission is correctly in Profit and loss report when bet is full settled for Soccer commission");
         log("Precondition: Login member site-  the player active PS38 product");
@@ -318,8 +109,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
 
         log("Step 3. Select Early the left menu and click on Soccer");
-        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
-        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
 
         log("Step 4. Select MY odds odds type, pick a negative odds and place bet. @-0.71 with stake = 40 => toRisk = 28.4 and toWin= 40");
         asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);

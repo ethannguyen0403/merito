@@ -58,6 +58,14 @@ public class ProteusConstant {
         }
     };
 
+    public static final Map<String, String> MARKET_CODE_MAPPING = new HashMap<String, String>() {
+        {
+            put("SPREAD", "Handicap");
+            put("MONEYLINE", "Moneyline");
+            put("TOTAL_POINTS", "Over Under");
+        }
+    };
+
     public static final Map<String, String> ODDS_TYPE_MAPPING = new HashMap<String, String>() {
         {
             put("Decimal", "DEC");
