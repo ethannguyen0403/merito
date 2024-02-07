@@ -414,4 +414,8 @@ public class EuroViewPage extends ProteusHomePage {
         }
     }
 
+    public EuroViewDetailsPage opentDetail(Market market){
+
+        return new EuroViewDetailsPage(_type);
+    }
 }

@@ -770,7 +770,7 @@ public class EditUserTest extends BaseCaseTest {
         EditDownLinePage editUserPage = page.clickEditIcon(loginID);
 
         log("Step 3 Click Cancel Button on Edit User page");
-        editUserPage.btnCancel.click();
+        editUserPage.getBtnCancel().click();
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(page.header.lblPageTitle.getText(), AGConstant.HomePage.DOWNLINE_LISTING, "FAILED! Dowline Listing page not display when clicking Cancel from Edit User page");

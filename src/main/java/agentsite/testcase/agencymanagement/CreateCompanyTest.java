@@ -44,8 +44,8 @@ public class CreateCompanyTest extends BaseCaseTest {
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE), LBL_POSITION_TAKING);
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
         log("Verify Submit and Cancel button");
-        Assert.assertTrue(page.btnSubmit.isDisplayed(), "FAILED! Submit button does not display");
-        Assert.assertTrue(page.btnCancel.isDisplayed(), "FAILED! Cancel button does not display");
+        Assert.assertTrue(page.getSubmitBtn().isDisplayed(), "FAILED! Submit button does not display");
+        Assert.assertTrue(page.getBtnCancel().isDisplayed(), "FAILED! Cancel button does not display");
         log("INFO: Executed completely");
     }
 
@@ -58,7 +58,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Step 2. Select Exchange Game Product");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.EXCHANGE_GAMES);
+        page.selectProduct(AGConstant.EXCHANGE_GAMES);
 
         log("Verify 1. Validate Create Company UI when active Exchange Game product display correct");
         log("Verify Account Information section");
@@ -86,8 +86,8 @@ public class CreateCompanyTest extends BaseCaseTest {
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE_GAMES), LBL_POSITION_TAKING);
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE_GAMES);
         log("Verify Submit and Cancel button");
-        Assert.assertTrue(page.btnSubmit.isDisplayed(), "FAILED! Submit button does not display");
-        Assert.assertTrue(page.btnCancel.isDisplayed(), "FAILED! Cancel button does not display");
+        Assert.assertTrue(page.getSubmitBtn().isDisplayed(), "FAILED! Submit button does not display");
+        Assert.assertTrue(page.getBtnCancel().isDisplayed(), "FAILED! Cancel button does not display");
         log("INFO: Executed completely");
     }
 
@@ -100,7 +100,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Step 2. Select Live Dealer Asian Product");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.LIVE_DEALER_ASIAN);
+        page.selectProduct(AGConstant.LIVE_DEALER_ASIAN);
 
         log("Verify 1. Validate Create Company UI when active Live Dealer Asian product display correct");
         log("Verify Account Information section");
@@ -125,8 +125,8 @@ public class CreateCompanyTest extends BaseCaseTest {
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.LIVE_DEALER_ASIAN), LBL_POSITION_TAKING);
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.LIVE_DEALER_ASIAN);
         log("Verify Submit and Cancel button");
-        Assert.assertTrue(page.btnSubmit.isDisplayed(), "FAILED! Submit button does not display");
-        Assert.assertTrue(page.btnCancel.isDisplayed(), "FAILED! Cancel button does not display");
+        Assert.assertTrue(page.getSubmitBtn().isDisplayed(), "FAILED! Submit button does not display");
+        Assert.assertTrue(page.getBtnCancel().isDisplayed(), "FAILED! Cancel button does not display");
         log("INFO: Executed completely");
     }
 
@@ -139,7 +139,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Step 2. Select Live Dealer Asian Product");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.LIVE_DEALER_EUROPEAN);
+        page.selectProduct(AGConstant.LIVE_DEALER_EUROPEAN);
 
         log("Verify 1. Validate Create Company UI when active Live Dealer European product display correct");
         log("Verify Account Information section");
@@ -164,8 +164,8 @@ public class CreateCompanyTest extends BaseCaseTest {
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.LIVE_DEALER_EUROPEAN), LBL_POSITION_TAKING);
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.LIVE_DEALER_EUROPEAN);
         log("Verify Submit and Cancel button");
-        Assert.assertTrue(page.btnSubmit.isDisplayed(), "FAILED! Submit button does not display");
-        Assert.assertTrue(page.btnCancel.isDisplayed(), "FAILED! Cancel button does not display");
+        Assert.assertTrue(page.getSubmitBtn().isDisplayed(), "FAILED! Submit button does not display");
+        Assert.assertTrue(page.getBtnCancel().isDisplayed(), "FAILED! Cancel button does not display");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3661")
@@ -178,7 +178,7 @@ public class CreateCompanyTest extends BaseCaseTest {
 
         log("Step 2. Select Live Dealer Asian Product");
         page.accountInforSection.selectCurrency("INR");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.LOTTERY_SLOT);
+        page.selectProduct(AGConstant.LOTTERY_SLOT);
 
         log("Verify 1. Validate Create Company UI when active Live Dealer European product display correct");
         log("Verify Account Information section");
@@ -203,8 +203,8 @@ public class CreateCompanyTest extends BaseCaseTest {
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.LOTTERY_SLOT), LBL_POSITION_TAKING);
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.LOTTERY_SLOT);
         log("Verify Submit and Cancel button");
-        Assert.assertTrue(page.btnSubmit.isDisplayed(), "FAILED! Submit button does not display");
-        Assert.assertTrue(page.btnCancel.isDisplayed(), "FAILED! Cancel button does not display");
+        Assert.assertTrue(page.getSubmitBtn().isDisplayed(), "FAILED! Submit button does not display");
+        Assert.assertTrue(page.getBtnCancel().isDisplayed(), "FAILED! Cancel button does not display");
         log("INFO: Executed completely");
     }
 

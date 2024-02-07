@@ -90,8 +90,8 @@ public class CreateUserTest extends BaseCaseTest {
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         log(" 6. Submit and Cancel button");
-        Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
-        Assert.assertEquals(page.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is incorrect displayed");
+        Assert.assertEquals(page.getSubmitBtn().getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
+        Assert.assertEquals(page.getBtnCancel().getText(), BTN_CANCEL, "FAILED! Submit button is incorrect displayed");
 
         log("INFO: Executed completely");
     }
@@ -145,8 +145,8 @@ public class CreateUserTest extends BaseCaseTest {
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         log(" 6. Submit and Cancel button");
-        Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
-        Assert.assertEquals(page.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is incorrect displayed");
+        Assert.assertEquals(page.getSubmitBtn().getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
+        Assert.assertEquals(page.getBtnCancel().getText(), BTN_CANCEL, "FAILED! Submit button is incorrect displayed");
 
         log("INFO: Executed completely");
     }
@@ -159,7 +159,7 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Step 2 Product Setting, select Exchange Game product ");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.EXCHANGE_GAMES);
+        page.selectProduct(AGConstant.EXCHANGE_GAMES);
 
         Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
 //        List<String> lstProducts = page.productStatusSettingInforSection.mnProductSetting.getListSubMenu();
@@ -184,8 +184,8 @@ public class CreateUserTest extends BaseCaseTest {
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE_GAMES);
 
         log("Verify 2. Submit and Cancel button");
-        Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
-        Assert.assertEquals(page.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is incorrect displayed");
+        Assert.assertEquals(page.getSubmitBtn().getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
+        Assert.assertEquals(page.getBtnCancel().getText(), BTN_CANCEL, "FAILED! Submit button is incorrect displayed");
 
         log("INFO: Executed completely");
     }
@@ -198,7 +198,7 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Step 2 Product Setting, select Exchange Game product ");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.EXCHANGE_GAMES);
+        page.selectProduct(AGConstant.EXCHANGE_GAMES);
 
         Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
 //        List<String> lstProducts = page.productStatusSettingInforSection.mnProductSetting.getListSubMenu();
@@ -223,8 +223,8 @@ public class CreateUserTest extends BaseCaseTest {
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE_GAMES);
 
         log("Verify 2. Submit and Cancel button");
-        Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
-        Assert.assertEquals(page.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is incorrect displayed");
+        Assert.assertEquals(page.getSubmitBtn().getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
+        Assert.assertEquals(page.getBtnCancel().getText(), BTN_CANCEL, "FAILED! Submit button is incorrect displayed");
 
         log("INFO: Executed completely");
     }
@@ -404,7 +404,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("Step 3. Input invalid Min bet setting less than required");
         page.accountInforSection.txtPassword.sendKeys(password);
         page.betSettingInforSection.inputBetSetting(lstBetSetting);
-        page.btnSubmit.click();
+       page.getSubmitBtn().click();
 
         log("Verified  1. Message \"Min Bet is invalid.\" and the valid is highlight");
         Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID, page.lblErrorMsg.getText()));
@@ -447,7 +447,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("Step 3. Input invalid MAx bet setting less than required");
         page.accountInforSection.txtPassword.sendKeys(password);
         page.betSettingInforSection.inputBetSetting(lstBetSetting);
-        page.btnSubmit.click();
+        page.getSubmitBtn().click();
 
         log("Verified 1. Message \"Max Bet is invalid.\" and the valid is highlight");
         Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_MAX_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_INVALID, page.lblErrorMsg.getText()));
@@ -598,8 +598,7 @@ public class CreateUserTest extends BaseCaseTest {
 
         log("Step 3. Input valid Max Player Credit and valid other information then click submit");
         String maxPlayerCreditLitmit = "1";
-        editDownLinePage.creditBalanceInforSection.updateCashBalance(maxPlayerCreditLitmit);
-        editDownLinePage.btnSubmit.click();
+        editDownLinePage.updateCashBalance(maxPlayerCreditLitmit,true);
         String message = page.getMessageUpdate(true);
 
         log("Verify 1. Verify can update agent with valid max player credit");

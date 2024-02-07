@@ -12,13 +12,13 @@ public class OldUICreateUser extends CreateUser {
     public void createUserWithDeposit(String loginId, String password, String creditLimit, String firsTimeDeposit) {
         accountInforSection.inputInfo(loginId, password, "");
         cashBalanceInforSection.inputCashBalanceInfo(creditLimit, firsTimeDeposit);
-        btnSubmit.click();
+        getSubmitBtn().click();
         waitingLoadingSpinner();
     }
 
     public String createUser(String loginId, String password) {
         accountInforSection.inputInfo(loginId, password, "Active");
-        btnSubmit.click();
+        getSubmitBtn().click();
         waitingLoadingSpinner();
         return null;
     }

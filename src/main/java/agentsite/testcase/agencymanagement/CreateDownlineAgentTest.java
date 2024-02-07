@@ -44,8 +44,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         log("Verify 5. Submit and Cancel button");
-        Assert.assertEquals(page.btnSubmit.getText(), AGConstant.BTN_SUBMIT,"FAILED! Submit button display incorrect");
-        Assert.assertEquals(page.btnCancel.getText(), AGConstant.BTN_CANCEL,"FAILED! Cancel button display incorrect");
+        Assert.assertEquals(page.getSubmitBtn().getText(), AGConstant.BTN_SUBMIT,"FAILED! Submit button display incorrect");
+        Assert.assertEquals(page.getBtnCancel().getText(), AGConstant.BTN_CANCEL,"FAILED! Cancel button display incorrect");
         log("INFO: Executed completely");
     }
 
@@ -102,8 +102,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         Assert.assertEquals(lstPositionTakingHeader, AGConstant.AgencyManagement.CreateAccount.LST_EG_GAME_GROUP_HEADER,"FAILED! Exchange Game Position Taking Header does not display as expected");
 
         log("Verify 5. Submit and Cancel button");
-        Assert.assertEquals(page.btnSubmit.getText(), AGConstant.BTN_SUBMIT,"FAILED! Submit button display incorrect");
-        Assert.assertEquals(page.btnCancel.getText(), AGConstant.BTN_CANCEL,"FAILED! Cancel button display incorrect");
+        Assert.assertEquals(page.getSubmitBtn().getText(), AGConstant.BTN_SUBMIT,"FAILED! Submit button display incorrect");
+        Assert.assertEquals(page.getBtnCancel().getText(), AGConstant.BTN_CANCEL,"FAILED! Cancel button display incorrect");
         log("INFO: Executed completely");
     }
 

@@ -48,8 +48,8 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label lblEGTaxSettings = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']/div[@class='psection']");
     public Label lblPositionTakingListing = Label.xpath("//div[@id='EXCHANGE-position-taking']/div[@class='psection']");
     public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[@class='psection']");
-    public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
-    public Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
+    private Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
+    private Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
     public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg']");
 
     public AccountInforSection accountInforSection;
@@ -123,6 +123,15 @@ public class CreateDownLineAgentPage extends HomePage {
         return username;
     }
 
+    public void selectProduct(String productName) {
+        Label lblProduct = Label.xpath(String.format("//span[text()='%s']", productName));
+        lblProduct.click();
+        //Wait 1s for element of PS38 dropdown data loaded
+        try {
+            Thread.sleep(1000);
+        }catch (Exception e){
+        }
+    }
 
     public String getMessageUpdate(boolean isClose) {
         String message = successPopup.getContentMessage();
@@ -142,10 +151,24 @@ public class CreateDownLineAgentPage extends HomePage {
         btnSubmit.click();
         return getMessageUpdate(isClose);
     }
-
+    public String activeInactiveProduct(String productName, boolean isActive,boolean isClose) {
+        productStatusSettingInforSection.updateProduct(productName,isActive);
+        btnSubmit.click();
+        return getMessageUpdate(isClose);
+    }
     public void updateProducts(Map<String, Boolean> products){
         productStatusSettingInforSection.updateProducts(products);
         btnSubmit.click();
         getMessageUpdate(true);
     }
+
+    public Button getSubmitBtn()
+    {
+        return btnSubmit;
+    }
+    public Button getBtnCancel()
+    {
+        return btnCancel;
+    }
+
 }

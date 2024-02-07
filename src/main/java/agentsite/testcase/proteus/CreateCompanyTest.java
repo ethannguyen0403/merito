@@ -32,7 +32,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38 and observe bet setting");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Verify 1: Sport dropdown with selected value = All by default");
         Assert.assertTrue(page.betSettingSectionPS38.ddbSportsPS38.getFirstSelectedOption().equals(ALL), "FAILED! Sport dropdown selected value is NOT All");
         log("Verify 2: Pregame tab is active with the checkbox \"Copy all Limits for all Sports and Leagues for Pregame ONLY from the sport below\" is ticked by default");
@@ -43,17 +43,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Verify 4: Min bet value and setting 1 and >= HKD 1 for all sports\n" +
                 "Max bet value and setting 10 and <= HKD 100,000,000 for all sports\n" +
                 "Max per Match value and setting = 10,000,000 and <= HKD 100,000,000");
-        String conditionMinBet = String.format(">= %s %s", currency, AMOUNT_MIN_BET_PS38_HKD);
-        String conditionMaxBet = String.format("<= %s %s", currency, AMOUNT_MAX_BET_PS38_HKD);
-        String conditionMaxPerMatch = String.format("<= %s %s", currency, AMOUNT_MAX_PER_MATCH_PS38_HKD);
-        page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(1), conditionMinBet);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(1), AMOUNT_MIN_BET_PS38_HKD);
-
-        page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(2), conditionMaxBet);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(2), AMOUNT_MAX_BET_PS38_HKD);
-
-        page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(3), conditionMaxPerMatch);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(3), AMOUNT_MAX_PER_MATCH_PS38_HKD);
+        page.betSettingSectionPS38.verifyBetSettingAllSportsConvertToCurrency(currency, 1, AMOUNT_MIN_BET_PS38_HKD, AMOUNT_MAX_BET_PS38_HKD, AMOUNT_MAX_PER_MATCH_PS38_HKD);
     }
 
     @TestRails(id = "4043")
@@ -67,7 +57,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38 and observe bet setting");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Step 4: Click on Inlay tab");
         log("Verify 1: Inplay tab is active with the checkbox \"Copy all Limits for all Sports and Leagues for Inlay ONLY from the sport below\" is ticked by default");
         page.betSettingSectionPS38.verifyPS38TabIsCorrect(INPLAY_TAB_PS38, CHECKBOX_MESSAGE_PS38);
@@ -77,18 +67,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Verify 4: Min bet value and setting 1 and >= HKD 1 for all sports\n" +
                 "Max bet value and setting 10 and <= HKD 100,000,000 for all sports\n" +
                 "Max per Match value and setting = 10,000,000 and <= HKD 100,000,000");
-        String conditionMinBet = String.format(">= %s %s", currency, AMOUNT_MIN_BET_PS38_HKD);
-        String conditionMaxBet = String.format("<= %s %s", currency, AMOUNT_MAX_BET_PS38_HKD);
-        String conditionMaxPerMatch = String.format("<= %s %s", currency, AMOUNT_MAX_PER_MATCH_PS38_HKD);
-        page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(1), conditionMinBet);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(1), AMOUNT_MIN_BET_PS38_HKD);
-
-        page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(2), conditionMaxBet);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(2), AMOUNT_MAX_BET_PS38_HKD);
-
-        page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(3), conditionMaxPerMatch);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(3), AMOUNT_MAX_PER_MATCH_PS38_HKD);
-
+        page.betSettingSectionPS38.verifyBetSettingAllSportsConvertToCurrency(currency, 1, AMOUNT_MIN_BET_PS38_HKD, AMOUNT_MAX_BET_PS38_HKD, AMOUNT_MAX_PER_MATCH_PS38_HKD);
     }
 
     @TestRails(id = "4044")
@@ -110,27 +89,13 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38 and observe bet setting");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Verify 1: Pregame and Inlay tab, Min, Max, Max per Match value should be correctly converted\n" +
                 "Min = minHKD * rateCurrencyBO = 1 /0.113398 ~ 9 INR\n" +
                 "Max = maxHKD * rateCurrencyBO = 100000000 / 0.113398 ~881,849,768.073 INR\n" +
                 "Max per Match = maxHKD * rateCurrencyBO = 100000000 / 0.113398 ~881,849,768.073 INR\n" +
                 "\n");
-        String amountMinBetINR = page.betSettingSectionPS38.addCommaFormat(Double.valueOf(AMOUNT_MIN_BET_PS38_HKD.replace(",", ""))/rate);
-        String amountMaxBetINR = page.betSettingSectionPS38.addCommaFormat(Double.valueOf(AMOUNT_MAX_BET_PS38_HKD.replace(",", ""))/rate);
-        String amountMaxPerMatchINR = page.betSettingSectionPS38.addCommaFormat(Integer.valueOf(AMOUNT_MAX_PER_MATCH_PS38_HKD.replace(",", ""))/rate);
-
-        String conditionMinBet = String.format(">= %s %s", currency, amountMinBetINR);
-        String conditionMaxBet = String.format("<= %s %s", currency, amountMaxBetINR);
-        String conditionMaxPerMatch = String.format("<= %s %s", currency, amountMaxPerMatchINR);
-        page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(1), conditionMinBet);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(1), amountMinBetINR);
-
-        page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(2), conditionMaxBet);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(2), amountMaxBetINR);
-
-        page.betSettingSectionPS38.verifyBetSettingLabelValuePS38AllSports(HEADER_BET_SETTING_PS38.get(3), conditionMaxPerMatch);
-        page.betSettingSectionPS38.verifyBetSettingInputValuePS38AllSports(HEADER_BET_SETTING_PS38.get(3), amountMaxPerMatchINR);
+        page.betSettingSectionPS38.verifyBetSettingAllSportsConvertToCurrency(currency, rate, AMOUNT_MIN_BET_PS38_HKD, AMOUNT_MAX_BET_PS38_HKD, AMOUNT_MAX_PER_MATCH_PS38_HKD);
     }
 
     @TestRails(id = "4045")
@@ -144,9 +109,9 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38 and observe bet setting");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Step 4: Update any fields in Pregame tab then click on In-Play tab");
-        page.betSettingSectionPS38.inputBetSettingPS38(LBL_SOCCER_SPORT, HEADER_BET_SETTING_PS38.get(1), "2");
+        page.betSettingSectionPS38.updateValueInputSportPS38(Arrays.asList(LBL_SOCCER_SPORT), Arrays.asList(HEADER_BET_SETTING_PS38.get(1)), Arrays.asList("2"));
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
         log("Verify 1: Verify confirm message display and Switch tab, Cancel button");
         Assert.assertEquals(page.getMessageUpdate(false), SWITCH_TAB_MESSAGE_PS38, "FAILED! The message when switching tab is not correct");
@@ -164,10 +129,10 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38 and observe bet setting");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Step 4: Do not update any value in Pregame tab, just click on Inplay tab then input any value");
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
-        page.betSettingSectionPS38.inputBetSettingPS38(LBL_SOCCER_SPORT, HEADER_BET_SETTING_PS38.get(1), "2");
+        page.betSettingSectionPS38.updateValueInputSportPS38(Arrays.asList(LBL_SOCCER_SPORT), Arrays.asList(HEADER_BET_SETTING_PS38.get(1)), Arrays.asList("2"));
         log("Step 5: Click on Pregame tab");
         page.betSettingSectionPS38.selectPS38Tab(PREGAME_TAB_PS38);
 
@@ -187,9 +152,9 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38 and observe bet setting");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Step 4: Update any fields in Pregame tab then click on In-Play tab");
-        page.betSettingSectionPS38.inputBetSettingPS38(LBL_SOCCER_SPORT, HEADER_BET_SETTING_PS38.get(1), "2");
+        page.betSettingSectionPS38.updateValueInputSportPS38(Arrays.asList(LBL_SOCCER_SPORT), Arrays.asList(HEADER_BET_SETTING_PS38.get(1)), Arrays.asList("2"));
         log("Step 5: Click on Inplay tab");
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
         log("Step 6: Click on Switch tab button");
@@ -211,9 +176,9 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38 and observe bet setting");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Step 4: Update any fields in Pregame tab then click on In-Play tab");
-        page.betSettingSectionPS38.inputBetSettingPS38(LBL_SOCCER_SPORT, HEADER_BET_SETTING_PS38.get(1), "2");
+        page.betSettingSectionPS38.updateValueInputSportPS38(Arrays.asList(LBL_SOCCER_SPORT), Arrays.asList(HEADER_BET_SETTING_PS38.get(1)), Arrays.asList("2"));
         log("Step 5: Click on Inplay tab");
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
         log("Step 6: Click on Cancel button");
@@ -235,7 +200,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38 and observe bet setting");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
 
         log("Verify 1: In Pregame tab, only Min, Max, Max per Match textbox of Soccer is enable, other is disable");
         List<String> betSettingList = new ArrayList<>(HEADER_BET_SETTING_PS38);
@@ -260,7 +225,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38 ");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Step 4: Uncheck tick box ");
         page.betSettingSectionPS38.chkTabPS38.deSelect();
         log("Verify 1: In Pregame tab. All texboxes are enable to edit");
@@ -281,7 +246,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38 ");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Step 4: Select tab InPlay");
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
 
@@ -307,17 +272,17 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Step 4: Select tab InPlay");
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
         log("Step 5: Uncheck tick box");
         page.betSettingSectionPS38.chkTabPS38.deSelect();
 
-        log("Verify 1: In Pregame tab. All text boxes are enable to edit");
-        List<String> betSettingList = new ArrayList<>(HEADER_BET_SETTING_PS38);
-        betSettingList.remove(0); // remove blank cell in header list
-        Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(LIST_SPORTS_PS38, betSettingList, true),
-                "FAILED! Some sport rows is not enable. List sport row: " + LIST_SPORTS_PS38);
+        log("Verify 1: In Inplay tab. All Min, Max texboxes are enable to edit, Max per Match is disable");
+        Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(LIST_SPORTS_PS38, Arrays.asList(HEADER_BET_SETTING_PS38.get(1), HEADER_BET_SETTING_PS38.get(2)), true),
+                "FAILED! Some sport rows with Min, max are not enable. List sport row: " + LIST_SPORTS_PS38);
+        Assert.assertTrue(!page.betSettingSectionPS38.isSportPS38InputEnable(LIST_SPORTS_PS38, Arrays.asList(HEADER_BET_SETTING_PS38.get(3)), true),
+                "FAILED! Some sport rows with Match per match is not disable. List sport row: " + LIST_SPORTS_PS38);
     }
 
     @TestRails(id = "4053")
@@ -331,17 +296,12 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Step 4: Select tab InPlay");
         page.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
-        log("Step 4: Uncheck tick box");
-        page.betSettingSectionPS38.chkTabPS38.deSelect();
 
-        log("Verify 1: In Pregame tab. All text boxes are enable to edit");
-        List<String> betSettingList = new ArrayList<>(HEADER_BET_SETTING_PS38);
-        betSettingList.remove(0); // remove blank cell in header list
-        Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(LIST_SPORTS_PS38, betSettingList, true),
-                "FAILED! Some sport rows is not enable. List sport row: " + LIST_SPORTS_PS38);
+        log("Verify 1: Check Max per Match value is corrected as value in Pregame tab");
+        page.betSettingSectionPS38.verifyBetSettingSpecificSportConvertToCurrency(LBL_SOCCER_SPORT, 1, AMOUNT_MIN_BET_PS38_HKD, AMOUNT_MAX_BET_PS38_HKD, AMOUNT_MAX_PER_MATCH_PS38_HKD);
     }
 
     @TestRails(id = "4054")
@@ -355,10 +315,10 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
 
         log("Step 4: Select sport dropdown with sport: " + LBL_SOCCER_SPORT);
-        page.betSettingSectionPS38.ddbSportsPS38.selectByVisibleText(LBL_SOCCER_SPORT);
+        page.betSettingSectionPS38.addSport(LBL_SOCCER_SPORT, "", false);
 
         log("Verify 1: Verify League dropdown displays");
         Assert.assertTrue(page.betSettingSectionPS38.ddbLeaguePS38.isDisplayed(), "FAILED! League dropdown is NOT displayed");
@@ -375,9 +335,9 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Step 4: Select sport dropdown with sport: Teaser" );
-        page.betSettingSectionPS38.ddbSportsPS38.selectByVisibleText("Teaser");
+        page.betSettingSectionPS38.addSport("Teaser", "", false);
 
         log("Verify 1: Verify League dropdown displays");
         Assert.assertTrue(!page.betSettingSectionPS38.ddbLeaguePS38.isDisplayed(), "FAILED! League dropdown is displayed");
@@ -394,7 +354,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
 
         log("Step 4: Select sport dropdown with sport: Alpine Skiing and a league not added yet");
         log("*Note: sport should not included in default sports list: \"Soccer\", \"Baseball\", \"Basketball\", \"Football\", \"E Sports\", \"Others\", \"Mix Parlay\", \"Teaser\"\n");
@@ -414,7 +374,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
 
         log("Step 4: Select sport dropdown with sport: Alpine Skiing and a league added");
         page.betSettingSectionPS38.addSport("Alpine Skiing", "2", true);
@@ -434,7 +394,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Step 2: Select base currency: " + currency);
         page.accountInforSection.selectCurrency(currency);
         log("Step 3: Under Product Settings , select product PS38");
-        page.productStatusSettingInforSection.selectProduct(PS38);
+        page.selectProduct(PS38);
         log("Step 4:  Select Sport = Soccer, League = General. Observe the setting of General row");
         page.betSettingSectionPS38.addSport(LBL_SOCCER_SPORT, GENERAL, true);
         log("Step 5: Add other league");
@@ -442,11 +402,6 @@ public class CreateCompanyTest extends BaseCaseTest {
 
         String lblLeagueSetting = String.format("%s: %s", LBL_SOCCER_SPORT,  page.betSettingSectionPS38.ddbLeaguePS38.getFirstSelectedOption().trim());
         log(String.format("Verify 1: The league: %s is add under sport and inherit value and setting of General sport", lblLeagueSetting));
-        Assert.assertEquals(page.betSettingSectionPS38.getControlTxtBoxBetSettingPS38(lblLeagueSetting, HEADER_BET_SETTING_PS38.get(1)).getAttribute("value").trim(), AMOUNT_MIN_BET_PS38_HKD,
-                String.format("FAILED! Value of league: %s at colum: %s is not inherit", lblLeagueSetting, HEADER_BET_SETTING_PS38.get(1)));
-        Assert.assertEquals(page.betSettingSectionPS38.getControlTxtBoxBetSettingPS38(lblLeagueSetting, HEADER_BET_SETTING_PS38.get(2)).getAttribute("value").trim(), AMOUNT_MAX_BET_PS38_HKD,
-                String.format("FAILED! Value of league: %s at colum: %s is not inherit", lblLeagueSetting, HEADER_BET_SETTING_PS38.get(2)));
-        Assert.assertEquals(page.betSettingSectionPS38.getControlTxtBoxBetSettingPS38(lblLeagueSetting, HEADER_BET_SETTING_PS38.get(3)).getAttribute("value").trim(), AMOUNT_MAX_PER_MATCH_PS38_HKD,
-                String.format("FAILED! Value of league: %s at colum: %s is not inherit", lblLeagueSetting, HEADER_BET_SETTING_PS38.get(3)));
+        page.betSettingSectionPS38.verifyBetSettingSpecificSportConvertToCurrency(lblLeagueSetting, 1, AMOUNT_MIN_BET_PS38_HKD, AMOUNT_MAX_BET_PS38_HKD, AMOUNT_MAX_PER_MATCH_PS38_HKD);
     }
 }

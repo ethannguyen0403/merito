@@ -2,6 +2,7 @@ package membersite.pages.casino;
 
 import com.paltech.driver.DriverManager;
 import membersite.pages.LandingPage;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 
@@ -11,6 +12,7 @@ public class CasinoHomePage extends LandingPage {
     private CasinoProduct product;
 
     public SupernowaCasino supernowa;
+    public Pragmatic pragmatic;
 
     public CasinoProduct getCasinoProduct(){
         return product;
@@ -30,14 +32,17 @@ public class CasinoHomePage extends LandingPage {
             case QTECH:
             case GAME_HALL:
             case PRAGMATIC:
+                pragmatic = new Pragmatic();
+                break;
             case SUPERNOWA_CASINO:
                 supernowa = new SupernowaCasino();
+                break;
             case LOTTERY_SLOTS:
             case LIVE_DEALER_ASIAN:
             case LIVE_DEALER_EUROPEAN:
             case EVOLUTION_WHITE_CLIFF:
             default:
-                return;
+                break;
         }
     }
 
