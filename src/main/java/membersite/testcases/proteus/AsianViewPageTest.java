@@ -1,13 +1,17 @@
 package membersite.testcases.proteus;
 
 import baseTest.BaseCaseTest;
+import membersite.objects.AccountBalance;
 import membersite.objects.proteus.Market;
+import membersite.objects.proteus.ProteusBetslip;
 import membersite.pages.proteus.AsianViewPage;
 import membersite.pages.proteus.ProteusHomePage;
+import membersite.utils.betplacement.BetUtils;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import static common.MemberConstants.LBL_SOCCER_SPORT;
 import static common.ProteusConstant.*;
 
 public class AsianViewPageTest extends BaseCaseTest {
@@ -504,5 +508,60 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.verifyMoreMarketOddsCorrect(AMERICAN,groupOdds, MARKET_TYPE_MAPPING.get("Match - Team Totals"),true);
         log("INFO: Executed completely");
     }
+    @TestRails(id = "4171")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4171() {
+        log("@title: Validate toWin and toRisk correctly when placing on better negative MY odds");
+        log("Precondition: Login member site-  the player active PS38 product");
+        AccountBalance accountBalanceBeforeBet = BetUtils.getUserBalance();
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Active Ps38 product active Asian View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
 
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+
+        log("Step 4. Select MY odds odds type, pick a negative odds and place bet. @-0.71 with stake = 40 => toRisk = 28.4 and toWin= 40");
+        asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
+        String eventId = asianViewPage.selectFirstNegativeOdds();
+        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
+        double stake = Double.valueOf(betslipInfo.getMinBet()) + 1;
+        asianViewPage.placeBet(stake, true, true);
+
+        log("Verify toRisk and toWin of this bet in Pending bet and Balance and exposure");
+        proteusHomePage.switchTabBetSlip(PENDING_BETS_TAB);
+        AccountBalance accountBalanceAfterBet = BetUtils.getUserBalance();
+        asianViewPage.verifyToRiskToWinAndBalanceCorrect(stake, betslipInfo.getOdds(), MALAY, accountBalanceBeforeBet, accountBalanceAfterBet);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4172")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4172() {
+        log("@title: Validate toWin and toRisk correctly when placing on better negative AM odds");
+        log("Precondition: Login member site-  the player active PS38 product");
+        AccountBalance accountBalanceBeforeBet = BetUtils.getUserBalance();
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Active Ps38 product active Asian View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
+        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+
+        log("Step 4. Select AM odds odds type, pick a negative odds and place bet. @-103 with stake = 20 => toRisk = 20.6 and toWin=20");
+        asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
+        String eventId = asianViewPage.selectFirstNegativeOdds();
+        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
+        double stake = Double.valueOf(betslipInfo.getMinBet()) + 1;
+        asianViewPage.placeBet(stake, true, true);
+
+        log("Verify toRisk and toWin of this bet in Pending bet and Balance and exposure");
+        proteusHomePage.switchTabBetSlip(PENDING_BETS_TAB);
+        AccountBalance accountBalanceAfterBet = BetUtils.getUserBalance();
+        asianViewPage.verifyToRiskToWinAndBalanceCorrect(stake, betslipInfo.getOdds(), AMERICAN, accountBalanceBeforeBet,accountBalanceAfterBet);
+        log("INFO: Executed completely");
+    }
 }

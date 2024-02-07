@@ -8,6 +8,7 @@ import com.paltech.utils.DateUtils;
 import controls.Table;
 import membersite.controls.DropDownMenu;
 import membersite.controls.Row;
+import membersite.objects.AccountBalance;
 import membersite.objects.proteus.*;
 import membersite.utils.proteus.MarketUtils;
 import org.testng.Assert;
@@ -182,13 +183,15 @@ public class AsianViewPage extends ProteusHomePage {
         return rowEventSection.getAttribute("eventid");
     }
 
-    public void placeBet(String stake, boolean isSubmit) {
-        txtStake.sendKeys(stake);
+    public void placeBet(double stake, boolean isSubmit, boolean isConfirm) {
+        txtStake.sendKeys(String.valueOf(stake));
         if(isSubmit) {
             btnPlaceBet.jsClick();
-            btnOK.waitForElementToBePresent(btnOK.getLocator());
-            btnOK.jsClick();
-            waitForSpinnerLoading();
+            if(isConfirm) {
+                btnOK.waitForElementToBePresent(btnOK.getLocator());
+                btnOK.jsClick();
+                waitForSpinnerLoading();
+            }
         }
     }
 
@@ -214,19 +217,27 @@ public class AsianViewPage extends ProteusHomePage {
                 .build();
     }
 
-    public void verifyToRiskToWinCorrect(String stake, String odds, String oddsType) {
+    public void verifyToRiskToWinAndBalanceCorrect(double stake, String odds, String oddsType, AccountBalance balanceBeforeBet, AccountBalance balanceAfterBet) {
         ProteusBetslip betslip = getFirstPendingBetSlipInfo();
-        List<Double> lstRiskWin = calculateToRiskToWin(stake, odds, oddsType);
-        Assert.assertEquals(Double.valueOf(betslip.getToRisk()), lstRiskWin.get(0), 0.01, "FAILED!");
-        Assert.assertEquals(Double.valueOf(betslip.getToWin()), lstRiskWin.get(1), 0.01, "FAILED!");
+        double exposureBeforePlaceBet = Double.valueOf(balanceBeforeBet.getExposure());
+        double balanceBeforePlaceBet = Double.valueOf(balanceBeforeBet.getBalance());
+        double exposureAfterPlaceBet = Double.valueOf(balanceAfterBet.getExposure());
+        double balanceAfterPlaceBet = Double.valueOf(balanceAfterBet.getBalance());
+        List<Double> lstToRiskToWin = calculateToRiskToWin(stake, odds, oddsType);
+        double expectedBalance = balanceBeforePlaceBet - lstToRiskToWin.get(0);
+        double expectedExposure = exposureBeforePlaceBet - lstToRiskToWin.get(0);
+        Assert.assertEquals(expectedExposure, exposureAfterPlaceBet, 0.01, String.format("FAILED! Exposure kept is not correct expected %s actual %s", expectedExposure, exposureAfterPlaceBet));
+        Assert.assertEquals(expectedBalance, balanceAfterPlaceBet, 0.01, String.format("FAILED! Balance is not correct expected %s actual %s", expectedBalance, balanceAfterPlaceBet));
+        Assert.assertEquals(Double.valueOf(betslip.getToRisk()), lstToRiskToWin.get(0), 0.01, "FAILED!");
+        Assert.assertEquals(Double.valueOf(betslip.getToWin()), lstToRiskToWin.get(1), 0.01, "FAILED!");
     }
 
-    public List<Double> calculateToRiskToWin(String stake, String odds, String oddsType) {
+    public List<Double> calculateToRiskToWin(double stake, String odds, String oddsType) {
         List<Double> lstRiskWin = new ArrayList<>();
         if(oddsType.equalsIgnoreCase("Malay")) {
             if(odds.contains("−")) {
                 String oddsFormat = odds.replace("−","");
-                double toRisk = Math.floor(Double.valueOf(stake) * Double.valueOf(oddsFormat) * 100) / 100;
+                double toRisk = Math.floor(stake * Double.valueOf(oddsFormat) * 100) / 100;
                 double toWin = Math.floor(toRisk / Double.valueOf(oddsFormat) * 100) / 100;
                 lstRiskWin.add(toRisk);
                 lstRiskWin.add(toWin);
@@ -235,7 +246,7 @@ public class AsianViewPage extends ProteusHomePage {
         } else if (oddsType.equalsIgnoreCase("American")) {
             if(odds.contains("−")) {
                 String oddsFormat = odds.replace("−","");
-                double toRisk = Math.floor((Double.valueOf(stake) * Double.valueOf(oddsFormat) / 100) * 100) / 100;
+                double toRisk = Math.floor((stake * Double.valueOf(oddsFormat) / 100) * 100) / 100;
                 double toWin = Math.floor((toRisk / Double.valueOf(oddsFormat) * 100) * 100) / 100;
                 lstRiskWin.add(toRisk);
                 lstRiskWin.add(toWin);
@@ -767,6 +778,67 @@ public class AsianViewPage extends ProteusHomePage {
                 }
 
             }
+        }
+    }
+
+    public Order addOddToBetSlipAndPlaceBet(Market market, String selection, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+        // click odds
+        clickOdds(market, isFullMatch);
+        //input stake and click place bet and confirm
+        Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
+        // set Odd info of the team name that placed on
+        order.setOdds(market.getOddsInfoBySelection(selection));
+        return order;
+    }
+
+    public void clickOdds(Market market, boolean isFullMatch){
+        String oddsHomeXpath ="//th[contains(@class,'odd-column')][%s]//span[contains(@class,'odd-number')][1]//span";
+        // get the row index has expected ID
+        String eventXpath = getEventIndexXpath(String.valueOf(market.getEventId()));
+        int column = defineOddsColumn(market.getBetType(),isFullMatch);
+        oddsHomeXpath = String.format(oddsHomeXpath,column);
+        Label lblOdds = Label.xpath(String.format("(%s%s)[1]",eventXpath,oddsHomeXpath));
+        lblOdds.click();
+    }
+
+    private String getEventIndexXpath(String eventID){
+        int leagueIndex = 1;
+        Label lblLeague;
+        while (true){
+            lblLeague = Label.xpath(String.format(leagueIndexXpath,leagueIndex));
+            if (!lblLeague.isDisplayed())
+                return "";
+            // find the row has the expected event id
+            int eventIndex = getEventIndexUnderALeague(leagueIndex,eventID);
+            if(eventIndex != 0)
+                return String.format("//app-league-asian[%d]//app-event-item-parent[%d]",leagueIndex,eventIndex);
+            leagueIndex = leagueIndex +1;
+        }
+    }
+    private int getEventIndexUnderALeague(int leagueIndex,String eventID){
+        int eventIndex = 1;
+        Label lblEvent;
+        while (true) {
+            lblEvent = Label.xpath(String.format(firstOddsCellXpath, leagueIndex, eventIndex));
+            if (!lblEvent.isDisplayed())
+                return 0;
+            if(Objects.isNull(lblEvent.getAttribute("eventid"))) {
+                eventIndex = eventIndex + 1;
+                continue;
+            }
+            else {
+                if (lblEvent.getAttribute("eventid").equalsIgnoreCase(eventID))
+                    return eventIndex;
+            }
+            eventIndex = eventIndex + 1;
+
+        }
+    }
+
+    public void verifySearchByLeagueDropdownCorrect(String leagueName) {
+        List<String> lstSearchResult = getListSearchResult();
+        for (int i = 0; i < lstSearchResult.size(); i++) {
+            Assert.assertTrue(lstSearchResult.get(i).equalsIgnoreCase(leagueName.trim()),String.format("FAILED! List search result %s does not contain all input value %s", lstSearchResult.get(i), leagueName.trim()));
         }
     }
 }

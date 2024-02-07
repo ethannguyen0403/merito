@@ -7,7 +7,6 @@ import membersite.pages.ProfitAndLossPage;
 import membersite.pages.proteus.AsianViewPage;
 import membersite.pages.proteus.EuroViewPage;
 import membersite.pages.proteus.ProteusHomePage;
-import membersite.utils.betplacement.BetUtils;
 import membersite.utils.proteus.MarketUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -95,77 +94,6 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "4171")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
-    public void PS38_Member_TC4171() {
-        log("@title: Validate toWin and toRisk correctly when placing on better negative MY odds");
-        log("Precondition: Login member site-  the player active PS38 product");
-        String stake = "20";
-        double exposureBeforePlaceBet = Double.valueOf(BetUtils.getUserBalance().getExposure());
-        double balanceBeforePlaceBet = Double.valueOf(BetUtils.getUserBalance().getBalance());
-        log("Step 1.Select Ps38 product");
-        log("Step 2.Active Ps38 product active Asian View");
-        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
-        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-
-        log("Step 3. Select Early the left menu and click on Soccer");
-        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
-
-        log("Step 4. Select MY odds odds type, pick a negative odds and place bet. @-0.71 with stake = 40 => toRisk = 28.4 and toWin= 40");
-        asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
-        String eventId = asianViewPage.selectFirstNegativeOdds();
-        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
-        asianViewPage.placeBet(stake, true);
-
-        log("Verify toRisk and toWin of this bet in Pending bet and Balance and exposure");
-        proteusHomePage.switchTabBetSlip(PENDING_BETS_TAB);
-        asianViewPage.verifyToRiskToWinCorrect(stake, betslipInfo.getOdds(), MALAY);
-        double exposureAfterPlaceBet = Double.valueOf(BetUtils.getUserBalance().getExposure());
-        double balanceAfterPlaceBet = Double.valueOf(BetUtils.getUserBalance().getBalance());
-        List<Double> lstToRiskToWin = asianViewPage.calculateToRiskToWin(stake, betslipInfo.getOdds(), MALAY);
-        double expectedBalance = balanceBeforePlaceBet - lstToRiskToWin.get(0);
-        double expectedExposure = exposureBeforePlaceBet - lstToRiskToWin.get(0);
-        Assert.assertEquals(expectedExposure, exposureAfterPlaceBet, 0.01, String.format("FAILED! Exposure kept is not correct expected %s actual %s", expectedExposure, exposureAfterPlaceBet));
-        Assert.assertEquals(expectedBalance, balanceAfterPlaceBet, 0.01, String.format("FAILED! Balance is not correct expected %s actual %s", expectedBalance, balanceAfterPlaceBet));
-        log("INFO: Executed completely");
-    }
-
-    @TestRails(id = "4172")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
-    public void PS38_Member_TC4172() {
-        log("@title: Validate toWin and toRisk correctly when placing on better negative AM odds");
-        log("Precondition: Login member site-  the player active PS38 product");
-        String stake = "20";
-        double exposureBeforePlaceBet = Double.valueOf(BetUtils.getUserBalance().getExposure());
-        double balanceBeforePlaceBet = Double.valueOf(BetUtils.getUserBalance().getBalance());
-        log("Step 1.Select Ps38 product");
-        log("Step 2.Active Ps38 product active Asian View");
-        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
-        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-
-        log("Step 3. Select Early the left menu and click on Soccer");
-        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
-        asianViewPage.selectPeriodTab(EARLY_PERIOD);
-
-        log("Step 4. Select AM odds odds type, pick a negative odds and place bet. @-103 with stake = 20 => toRisk = 20.6 and toWin=20");
-        asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
-        String eventId = asianViewPage.selectFirstNegativeOdds();
-        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
-        asianViewPage.placeBet(stake, true);
-
-        log("Verify toRisk and toWin of this bet in Pending bet and Balance and exposure");
-        proteusHomePage.switchTabBetSlip(PENDING_BETS_TAB);
-        asianViewPage.verifyToRiskToWinCorrect(stake, betslipInfo.getOdds(), AMERICAN);
-        double exposureAfterPlaceBet = Double.valueOf(BetUtils.getUserBalance().getExposure());
-        double balanceAfterPlaceBet = Double.valueOf(BetUtils.getUserBalance().getBalance());
-        List<Double> lstToRiskToWin = asianViewPage.calculateToRiskToWin(stake, betslipInfo.getOdds(), AMERICAN);
-        double expectedBalance = balanceBeforePlaceBet - lstToRiskToWin.get(0);
-        double expectedExposure = exposureBeforePlaceBet - lstToRiskToWin.get(0);
-        Assert.assertEquals(expectedExposure, exposureAfterPlaceBet, 0.01, String.format("FAILED! Exposure kept is not correct expected %s actual %s", expectedExposure, exposureAfterPlaceBet));
-        Assert.assertEquals(expectedBalance, balanceAfterPlaceBet, 0.01, String.format("FAILED! Balance is not correct expected %s actual %s", expectedBalance, balanceAfterPlaceBet));
-        log("INFO: Executed completely");
-    }
-
     @TestRails(id = "4073")
     @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4073() {
@@ -197,10 +125,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         asianView.searchLeagueOrTeamName(event.getLeagueName());
 
         log("Verify The league list or team names displays below search textbox, user can view league or team name corresponding after clicking on any");
-        List<String> lstSearchResult = asianView.getListSearchResult();
-        for (int i = 0; i < lstSearchResult.size(); i++) {
-            Assert.assertTrue(lstSearchResult.get(i).equalsIgnoreCase(event.getLeagueName().trim()),String.format("FAILED! List search result %s does not contain all input value %s", lstSearchResult.get(i), event.getLeagueName()));
-        }
+        asianView.verifySearchByLeagueDropdownCorrect(event.getLeagueName());
         asianView.selectFirstSearchOption();
         ProteusGeneralEvent event2 = asianView.getFirstEventInfo(TEXT_1X2);
         Assert.assertEquals(event.getLeagueName(), event2.getLeagueName(), String.format("FAILED! Selected league is not correct expected %s actual %s", event.getLeagueName(), event2.getLeagueName()));
