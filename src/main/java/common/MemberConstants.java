@@ -429,6 +429,9 @@ public class MemberConstants {
 
     public static class Casino{
         public static final String SUPERNOWA = "SUPERNOWA";
+        public static final String SUPERNOWA_SUFFIX_LINK = "/#/1/home/veronica/supernowa";
+        public static final String PRAGMATIC_SUFFIX_LINK = "/#/1/home/pragmatic";
         public static final List<String> ERROR_CODE_LIST = Arrays.asList("403", "405");
+        public static final List<String> PRAGMATIC_HEADER_MENU = Arrays.asList("", "Video Slots", "Blackjack", "Classic Slots", "Baccarat", "Baccarat New", "Roulette", "Scratch card", "Live games", "RGS - VSB");
     }
 }

@@ -28,7 +28,7 @@ public class PositionTakingListTest extends BaseCaseTest {
         log("Step 3. Select Sport as All then click Submit");
         page.positionTakingListingPS38.search(directDownlineAccount, "", PS38, ALL, "");
         log("Step 4. Update level Preset for any downline level of Soccer sort");
-        int ptAmount = 10;
+        String ptAmount = "10";
         page.positionTakingListingPS38.updatePT(directDownlineAccount, "Preset", "" + ptAmount);
         log("Verify 1: Success icon is displayed");
         Assert.assertTrue(page.positionTakingListingPS38.verifyUpdateStatus(directDownlineAccount, true), "FAILED! Success icon is not displayed");
@@ -51,7 +51,7 @@ public class PositionTakingListTest extends BaseCaseTest {
         log("Step 3. Select Sport as Soccer, League: All then click Submit");
         page.positionTakingListingPS38.search(directDownlineAccount, "", PS38, LBL_SOCCER_SPORT, GENERAL);
         log("Step 4. Update level Preset for any downline level of Soccer sort");
-        int ptAmount = 10;
+        String ptAmount = "10";
         page.positionTakingListingPS38.updatePT(directDownlineAccount, "Preset", "" + ptAmount);
         log("Verify 1: Success icon is displayed");
         Assert.assertTrue(page.positionTakingListingPS38.verifyUpdateStatus(directDownlineAccount, true), "FAILED! Success icon is not displayed");
@@ -74,7 +74,7 @@ public class PositionTakingListTest extends BaseCaseTest {
         log("Step 3. Select Sport as Soccer, specific League then click Submit");
         page.positionTakingListingPS38.search(directDownlineAccount, "", PS38, LBL_SOCCER_SPORT, "1");
         log("Step 4. Update level Preset for any downline level of Soccer sort");
-        int ptAmount = 10;
+        String ptAmount = "10";
         page.positionTakingListingPS38.updatePT(directDownlineAccount, "Preset", "" + ptAmount);
         log("Verify 1: Success icon is displayed");
         Assert.assertTrue(page.positionTakingListingPS38.verifyUpdateStatus(directDownlineAccount, true), "FAILED! Success icon is not displayed");

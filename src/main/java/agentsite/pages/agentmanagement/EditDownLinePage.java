@@ -40,9 +40,9 @@ public class EditDownLinePage extends CreateDownLineAgentPage {
         return productStatusSettingInforSection.getProductsTabs();
     }
 
+    @Override
     public void selectProduct(String productName) {
-        Label lblProduct = Label.xpath(String.format("//span[text()='%s']", productName));
-        lblProduct.click();
+       super.selectProduct(productName);
     }
 
     public void updateCashBalance(String maxPlayerCredit, boolean isSubmit) {

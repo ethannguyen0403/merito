@@ -58,7 +58,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Step 2. Select Exchange Game Product");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.EXCHANGE_GAMES);
+        page.selectProduct(AGConstant.EXCHANGE_GAMES);
 
         log("Verify 1. Validate Create Company UI when active Exchange Game product display correct");
         log("Verify Account Information section");
@@ -100,7 +100,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Step 2. Select Live Dealer Asian Product");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.LIVE_DEALER_ASIAN);
+        page.selectProduct(AGConstant.LIVE_DEALER_ASIAN);
 
         log("Verify 1. Validate Create Company UI when active Live Dealer Asian product display correct");
         log("Verify Account Information section");
@@ -139,7 +139,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
 
         log("Step 2. Select Live Dealer Asian Product");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.LIVE_DEALER_EUROPEAN);
+        page.selectProduct(AGConstant.LIVE_DEALER_EUROPEAN);
 
         log("Verify 1. Validate Create Company UI when active Live Dealer European product display correct");
         log("Verify Account Information section");
@@ -178,7 +178,7 @@ public class CreateCompanyTest extends BaseCaseTest {
 
         log("Step 2. Select Live Dealer Asian Product");
         page.accountInforSection.selectCurrency("INR");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.LOTTERY_SLOT);
+        page.selectProduct(AGConstant.LOTTERY_SLOT);
 
         log("Verify 1. Validate Create Company UI when active Live Dealer European product display correct");
         log("Verify Account Information section");
