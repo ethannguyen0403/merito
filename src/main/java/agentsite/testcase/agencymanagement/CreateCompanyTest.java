@@ -44,8 +44,8 @@ public class CreateCompanyTest extends BaseCaseTest {
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE), LBL_POSITION_TAKING);
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
         log("Verify Submit and Cancel button");
-        Assert.assertTrue(page.btnSubmit.isDisplayed(), "FAILED! Submit button does not display");
-        Assert.assertTrue(page.btnCancel.isDisplayed(), "FAILED! Cancel button does not display");
+        Assert.assertTrue(page.getSubmitBtn().isDisplayed(), "FAILED! Submit button does not display");
+        Assert.assertTrue(page.getBtnCancel().isDisplayed(), "FAILED! Cancel button does not display");
         log("INFO: Executed completely");
     }
 
@@ -86,8 +86,8 @@ public class CreateCompanyTest extends BaseCaseTest {
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE_GAMES), LBL_POSITION_TAKING);
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE_GAMES);
         log("Verify Submit and Cancel button");
-        Assert.assertTrue(page.btnSubmit.isDisplayed(), "FAILED! Submit button does not display");
-        Assert.assertTrue(page.btnCancel.isDisplayed(), "FAILED! Cancel button does not display");
+        Assert.assertTrue(page.getSubmitBtn().isDisplayed(), "FAILED! Submit button does not display");
+        Assert.assertTrue(page.getBtnCancel().isDisplayed(), "FAILED! Cancel button does not display");
         log("INFO: Executed completely");
     }
 
@@ -125,8 +125,8 @@ public class CreateCompanyTest extends BaseCaseTest {
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.LIVE_DEALER_ASIAN), LBL_POSITION_TAKING);
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.LIVE_DEALER_ASIAN);
         log("Verify Submit and Cancel button");
-        Assert.assertTrue(page.btnSubmit.isDisplayed(), "FAILED! Submit button does not display");
-        Assert.assertTrue(page.btnCancel.isDisplayed(), "FAILED! Cancel button does not display");
+        Assert.assertTrue(page.getSubmitBtn().isDisplayed(), "FAILED! Submit button does not display");
+        Assert.assertTrue(page.getBtnCancel().isDisplayed(), "FAILED! Cancel button does not display");
         log("INFO: Executed completely");
     }
 
@@ -164,8 +164,8 @@ public class CreateCompanyTest extends BaseCaseTest {
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.LIVE_DEALER_EUROPEAN), LBL_POSITION_TAKING);
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.LIVE_DEALER_EUROPEAN);
         log("Verify Submit and Cancel button");
-        Assert.assertTrue(page.btnSubmit.isDisplayed(), "FAILED! Submit button does not display");
-        Assert.assertTrue(page.btnCancel.isDisplayed(), "FAILED! Cancel button does not display");
+        Assert.assertTrue(page.getSubmitBtn().isDisplayed(), "FAILED! Submit button does not display");
+        Assert.assertTrue(page.getBtnCancel().isDisplayed(), "FAILED! Cancel button does not display");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3661")
@@ -203,8 +203,8 @@ public class CreateCompanyTest extends BaseCaseTest {
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.LOTTERY_SLOT), LBL_POSITION_TAKING);
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.LOTTERY_SLOT);
         log("Verify Submit and Cancel button");
-        Assert.assertTrue(page.btnSubmit.isDisplayed(), "FAILED! Submit button does not display");
-        Assert.assertTrue(page.btnCancel.isDisplayed(), "FAILED! Cancel button does not display");
+        Assert.assertTrue(page.getSubmitBtn().isDisplayed(), "FAILED! Submit button does not display");
+        Assert.assertTrue(page.getBtnCancel().isDisplayed(), "FAILED! Cancel button does not display");
         log("INFO: Executed completely");
     }
 

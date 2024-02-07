@@ -31,6 +31,7 @@ public class CreditBalanceSection {
     public void updateCashBalance(String maxPlayerCredit) {
         if (!maxPlayerCredit.isEmpty())
             txtMemberMaxCredit.sendKeys(maxPlayerCredit);
+
     }
 
     public void verifyUIDisplayCorrect() {

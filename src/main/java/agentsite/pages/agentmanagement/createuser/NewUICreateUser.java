@@ -12,7 +12,7 @@ public class NewUICreateUser extends CreateUser {
     public void createUserWithDeposit(String loginId, String password, String creditLimit, String firsTimeDeposit) {
         accountInforSection.inputInfo(password, "");
         cashBalanceInforSection.inputCashBalanceInfo(firsTimeDeposit);
-        btnSubmit.click();
+        getSubmitBtn().click();
         waitingLoadingSpinner();
     }
 
@@ -21,7 +21,7 @@ public class NewUICreateUser extends CreateUser {
         username = accountInforSection.getUserName();
         accountInforSection.txtPassword.sendKeys(password);
         waitingLoadingSpinner();
-        btnSubmit.click();
+        getSubmitBtn().click();
         waitingLoadingSpinner();
         return username;
     }

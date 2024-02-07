@@ -14,6 +14,7 @@ public class ProteusConstant {
     public static final String HONGKONG = "Hongkong";
     public static final String MALAY = "Malay";
     public static final String AMERICAN = "American";
+    public static final String TEXT_MONEYLINE = "Moneyline";
     public static final String TEXT_HDP = "Handicap";
     public static final String TEXT_1X2 = "1X2";
     public static final String TEXT_OVER_UNDER = "Over Under";
@@ -37,6 +38,14 @@ public class ProteusConstant {
             put("C", "0.56");
             put("D", "0.84");
             put("E", "2.00");
+        }
+    };
+    public static final Map<String, String> ODDS_SIGN_MAPPING = new HashMap<String, String>() {
+        {
+            put("DECIMAL", "D");
+            put("AMERICAN", "A");
+            put("HONGKONG", "H");
+            put("MALAY", "M");
         }
     };
 
