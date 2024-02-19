@@ -70,14 +70,26 @@ public class MarketUtils extends BaseCaseTest {
 
     }
 
-    private static Odds getOddsAllSelectionUnderAMarketFromProviderAPI(JSONObject obj){
-        return new Odds.Builder()
-                .odds(obj.getDouble("odds"))
-                .team(obj.getString("team"))
-                .side(obj.getString("side"))
-                .originalOdds(obj.getDouble("originalOdds"))
-                .hdp(obj.getDouble("hdp"))
-                .build();
+    private static Odds getOddsAllSelectionUnderAMarketFromProviderAPI(JSONObject obj) {
+        //handle when odds is null
+        if (obj.get("odds").equals(JSONObject.NULL) || obj.get("originalOdds").equals(JSONObject.NULL)) {
+            return new Odds.Builder()
+                    .odds(0)
+                    .team(obj.getString("team"))
+                    .side(obj.getString("side"))
+                    .originalOdds(0)
+                    .hdp(obj.getDouble("hdp"))
+                    .build();
+
+        } else {
+            return new Odds.Builder()
+                    .odds(obj.getDouble("odds"))
+                    .team(obj.getString("team"))
+                    .side(obj.getString("side"))
+                    .originalOdds(obj.getDouble("originalOdds"))
+                    .hdp(obj.getDouble("hdp"))
+                    .build();
+        }
     }
 
     public static List<Market> getSportbookEventAPI(String oddsType, int eventId){
@@ -99,6 +111,7 @@ public class MarketUtils extends BaseCaseTest {
                         .eventStartTime(obj.getString("cutoff"))
                         .eventId(obj.getInt("eventId"))
                         .lineID(obj.getLong("lineId"))
+                        .altLineID(obj.getLong("altLineId"))
                         .betType(obj.getString("betType"))
                         .handicap(obj.getDouble("handicap"))
                         .oddsKey(obj.getString("oddsKey"))
@@ -325,5 +338,25 @@ public class MarketUtils extends BaseCaseTest {
         }
         return lstSports;
     }
-
+    public static List<Market> getListMarketByMarketType(String oddsType, int eventID, String marketType, boolean isFullMatch){
+        int periodId;
+        if(isFullMatch) {
+            periodId = 0;
+        } else {
+            periodId = 1;
+        }
+        List<Market> lstMarketApi = getSportbookEventAPI(oddsType, eventID);
+        List<Market> lstMarketReturn = new ArrayList<>();
+        for (Market m: lstMarketApi) {
+            if(marketType.equalsIgnoreCase("TEAM_TOTAL_POINTS")) {
+                if(m.getBetType().equalsIgnoreCase(marketType) && m.getPeriodId() == periodId)
+                    lstMarketReturn.add(m);
+            } else {
+                //for market HDP/OverUnder there is redundant record (altLineId = -1) from api without show on UI > need to exclude this
+                if(m.getBetType().equalsIgnoreCase(marketType) && m.getPeriodId() == periodId && m.getAltLineID() != -1)
+                    lstMarketReturn.add(m);
+            }
+        }
+        return lstMarketReturn;
+    }
 }

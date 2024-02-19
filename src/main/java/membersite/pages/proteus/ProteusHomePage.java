@@ -25,8 +25,6 @@ public class ProteusHomePage extends HomePage {
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
     public Label lblLoading = Label.xpath("//div[contains(@class,'loading-text')]/p");
     private Image imgSpinner = Image.xpath("//em[contains(@class,'fa-4x fa-spin')]");
-    private String moreMarketXpath = "//app-league-asian//table[@eventid='%s']//th[contains(@class,'more-markets')]";
-    private Label lblMoreMarketDetails = Label.xpath("(//app-market-asian//div[@class='market-detail']//div[contains(@class,'market-item')]/span)");
     private Label lblBetSlipTab = Label.xpath("//app-bet-slip//div[text()='BET SLIP']");
     private Label lblPendingTab = Label.xpath("//app-bet-slip//div[text()='PENDING BETS']");
     public Label lblPlaceBetError = Label.xpath("//app-confirm-modal//div[contains(@class,'modal-body')]//div");
@@ -292,24 +290,6 @@ public class ProteusHomePage extends HomePage {
         Assert.assertEquals(lstOddsConvert.size(), lstOddsActual.size(), String.format("FAILED! Number of odds between 2 compare list is not same convert %s actual %s", lstOddsConvert, lstOddsActual));
         for (int i = 0; i < lstOddsConvert.size(); i++) {
             Assert.assertEquals(lstOddsConvert.get(i), lstOddsActual.get(i), tolerance, String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsConvert, lstOddsActual));
-        }
-    }
-
-    public void openMoreMarkets(String eventId) {
-        Label lblMoreMarket = Label.xpath(String.format(moreMarketXpath, eventId));
-        if(lblMoreMarket.isDisplayed()) {
-            lblMoreMarket.click();
-            waitForSpinnerLoading();
-        }
-    }
-
-    public void selectMoreMarket(String marketName) {
-        for (int i = 0; i < lblMoreMarketDetails.getWebElements().size(); i++) {
-            String xpath = lblMoreMarketDetails.getLocator().toString().replace("By.xpath: ","") + String.format("[%s]", i + 1);
-            Label lblMarketName = Label.xpath(xpath);
-            if(lblMarketName.getText().trim().contains(marketName)) {
-                lblMarketName.click();
-            }
         }
     }
 
