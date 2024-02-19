@@ -329,7 +329,7 @@ public class ProteusHomePage extends HomePage {
 
     // Start Bet Slip, Pending Bets section
 
-    private String definePeriod(Market market) {
+    public String definePeriod(Market market) {
         String match = "";
         if (market.getPeriodId() == 0)
             match = "Match";
@@ -337,7 +337,7 @@ public class ProteusHomePage extends HomePage {
             match = "1st Half";
         return match;
     }
-    private String defineMarketName(Market market) {
+    public String defineMarketName(Market market) {
         String sportName = market.getSportName();
         switch (sportName){
             case "Soccer":
@@ -368,7 +368,7 @@ public class ProteusHomePage extends HomePage {
                     return "";
         }
     }
-    private String defineSelectionName(Market market,String selection) {
+    protected String defineSelectionName(Market market,String selection) {
         switch (market.getBetType())
         {
             case "MONEYLINE":
@@ -475,6 +475,7 @@ public class ProteusHomePage extends HomePage {
     }
     public Order placeNoBet(Market market,String stake, boolean isAcceptedBetterOdds,boolean isPlaceBet) {
         String stakeIn = defineStakeIn(market,stake);
+        System.out.println("Input stake :" +stakeIn);
         inputStake(market,stakeIn);
         //if(isAcceptedBetterOdds)
             //handle check on Accept Better Odds checkbox here

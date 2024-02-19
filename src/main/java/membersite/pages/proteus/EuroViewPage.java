@@ -125,7 +125,7 @@ public class EuroViewPage extends ProteusHomePage {
         return market;
     }
 
-    private int defineOddsColumn(Market market, String selection){
+    protected int defineOddsColumn(Market market, String selection){
         String sport = market.getSportName();
         String marketType = market.getBetType();
         // For Soccer/ Handball, UI has three column 1-HOME X-DRAW 2-AWAY, other sport only has 2 columns: 1-HOME 2-AWAY
@@ -152,6 +152,7 @@ public class EuroViewPage extends ProteusHomePage {
         int column = defineOddsColumn(market,selection);
         oddsHomeXpath = String.format(oddsHomeXpath,column);
         Label lblOdds = Label.xpath(String.format("%s%s",eventXpath,oddsHomeXpath));
+        System.out.println(String.format("Click on Odds %s of Team(%s) Event (%s) under League (%s)",lblOdds.getText(),market.getOddsInfoBySelection(selection),market.getEventName(), market.getLeagueName()));
         lblOdds.click();
     }
 
@@ -415,7 +416,10 @@ public class EuroViewPage extends ProteusHomePage {
     }
 
     public EuroViewDetailsPage opentDetail(Market market){
-
-        return new EuroViewDetailsPage(_type);
+        String eventXpath = getEventIndexXpath(String.valueOf(market.getEventId()));
+        Label.xpath( String.format("%s%s",eventXpath,homeTeamXpath)).click();
+        EuroViewDetailsPage euroViewDetailsPage = new EuroViewDetailsPage(_type);
+        euroViewDetailsPage.lblLeagueName.isDisplayed();
+        return euroViewDetailsPage;
     }
 }
