@@ -2,6 +2,8 @@ package membersite.objects.proteus;
 
 import java.util.List;
 
+import static common.ProteusConstant.*;
+
 public class Market {
     private String _sportName;
     private String _leagueName;
@@ -22,6 +24,7 @@ public class Market {
     private String _homeName;
     private String _awayName;
     private int _periodId;
+    private Long _altLineID;
     private List<Odds> _odds;
 
     public Market(Builder builder) {
@@ -45,6 +48,7 @@ public class Market {
         this._homeName = builder._homeName;
         this._awayName = builder._awayName;
         this._periodId = builder._periodId;
+        this._altLineID = builder._altLineID;
 
     }
     public String getSportName() {
@@ -202,6 +206,14 @@ public class Market {
         this._odds = _odds;
     }
 
+    public Long getAltLineID() {
+        return _altLineID;
+    }
+
+    public void setAltLineID(Long _altLineID) {
+        this._altLineID = _altLineID;
+    }
+
     public Odds getOddsInfoBySelection(String selection){
         //handle case OVER/UNDER > getSide
         if(selection.equalsIgnoreCase("OVER") || selection.equalsIgnoreCase("UNDER")) {
@@ -219,7 +231,64 @@ public class Market {
     }
 
     // Calculate Odds group here
+    private double getVig(List<Odds> odds) {
+        double vig = 0.00;
+        for (Odds o: odds
+             ) {
+            vig += o.getProbability(o);
+        }
+        return vig;
+    }
 
+    public List<Odds> getDecimalOdds(List<Odds> odds, double vigAdjustment) {
+        double vig = getVig(odds);
+        for (int i = 0; i < odds.size(); i++) {
+            odds.get(i).setOdds(odds.get(i).getDECOdds(odds.get(i), vig, vigAdjustment));
+        }
+        return odds;
+    }
+
+    public List<Odds> getHongkongOdds(List<Odds> odds, double vigAdjustment) {
+        double vig = getVig(odds);
+        for (int i = 0; i < odds.size(); i++) {
+            odds.get(i).setOdds(odds.get(i).getHKOdds(odds.get(i), vig, vigAdjustment));
+        }
+        return odds;
+    }
+
+    public List<Odds> getMalayOdds(List<Odds> odds, double vigAdjustment) {
+        double vig = getVig(odds);
+        for (int i = 0; i < odds.size(); i++) {
+            odds.get(i).setOdds(odds.get(i).getMYOdds(odds.get(i), vig, vigAdjustment));
+        }
+        return odds;
+    }
+
+    public List<Odds> getAmericanOdds(List<Odds> odds, double vigAdjustment) {
+        double vig = getVig(odds);
+        for (int i = 0; i < odds.size(); i++) {
+            odds.get(i).setOdds(odds.get(i).getAMOdds(odds.get(i), vig, vigAdjustment));
+        }
+        return odds;
+    }
+
+    public List<Odds> getConvertedOddsByGroup(List<Odds> odds, String oddsType, String oddsGroup) {
+        double vigAdjustment = Double.parseDouble(ODDS_GROUP_ADJUSTMENT_MAPPING.get(oddsGroup));
+        if(oddsGroup.equalsIgnoreCase("A")) {
+            return odds;
+        } else {
+            switch (oddsType) {
+                case AMERICAN:
+                    return getAmericanOdds(odds, vigAdjustment);
+                case HONGKONG:
+                    return getHongkongOdds(odds, vigAdjustment);
+                case MALAY:
+                    return getMalayOdds(odds, vigAdjustment);
+                default:
+                    return getDecimalOdds(odds, vigAdjustment);
+            }
+        }
+    }
     public static class Builder {
         private String _sportName;
         private String _leagueName;
@@ -241,6 +310,7 @@ public class Market {
         private String _awayName;
         private int _periodId;
         private List<Odds> _odds;
+        private Long _altLineID;
         public Builder() {
         }
         public Builder sportName(String val) {
@@ -321,6 +391,11 @@ public class Market {
         }
         public Builder odds(List<Odds> val) {
             _odds = val;
+            return this;
+        }
+
+        public Builder altLineID(Long val) {
+            _altLineID = val;
             return this;
         }
         public Market build() {

@@ -9,4 +9,8 @@ public class CreateCompanyPage extends CreateDownLineAgentPage {
         _type = types;
     }
 
+    @Override
+    public void selectProduct(String productName) {
+        super.selectProduct(productName);
+    }
 }

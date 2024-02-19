@@ -82,6 +82,12 @@ public class HomePage extends LandingPage {
         return page;
     }
 
+    public CasinoHomePage openCasinoGameByLink(CasinoProduct product, String url){
+        DriverManager.getDriver().get(url);
+        CasinoHomePage page = new CasinoHomePage(_type, product);
+        return page;
+    }
+
     public void clickProduct(String product) {
         header.clickProduct(product);
     }

@@ -159,7 +159,7 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Step 2 Product Setting, select Exchange Game product ");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.EXCHANGE_GAMES);
+        page.selectProduct(AGConstant.EXCHANGE_GAMES);
 
         Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
 //        List<String> lstProducts = page.productStatusSettingInforSection.mnProductSetting.getListSubMenu();
@@ -198,7 +198,7 @@ public class CreateUserTest extends BaseCaseTest {
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Step 2 Product Setting, select Exchange Game product ");
-        page.productStatusSettingInforSection.selectProduct(AGConstant.EXCHANGE_GAMES);
+        page.selectProduct(AGConstant.EXCHANGE_GAMES);
 
         Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
 //        List<String> lstProducts = page.productStatusSettingInforSection.mnProductSetting.getListSubMenu();

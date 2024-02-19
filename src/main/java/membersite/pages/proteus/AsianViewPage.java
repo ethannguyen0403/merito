@@ -8,6 +8,7 @@ import com.paltech.utils.DateUtils;
 import controls.Table;
 import membersite.controls.DropDownMenu;
 import membersite.controls.Row;
+import membersite.objects.AccountBalance;
 import membersite.objects.proteus.*;
 import membersite.utils.proteus.MarketUtils;
 import org.testng.Assert;
@@ -23,6 +24,9 @@ public class AsianViewPage extends ProteusHomePage {
     private String firstOddsCellXpath = "(//app-league-asian)[%d]//app-event-item-parent//th[contains(@class,'odd-column')][%d]";
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
     private String tableEventXpath = "//table[contains(@class,'odds-page') and @eventid='%d']";
+    private String moreMarketXpath = "//app-league-asian//table[@eventid='%s']//th[contains(@class,'more-markets')]";
+    private Label lblMoreMarketDetails = Label.xpath("(//app-market-asian//div[@class='market-detail']//div[contains(@class,'market-item')]/span)");
+
     public Label lblLoading = Label.xpath("//div[contains(@class,'loading')]");
     public Button btnEarlyAsian =  Button.xpath("//app-left-menu-asian//button[text()=' EARLY ']");
     public Button btnTodayAsian =  Button.xpath("//app-left-menu-asian//button[text()=' TODAY ']");
@@ -179,13 +183,15 @@ public class AsianViewPage extends ProteusHomePage {
         return rowEventSection.getAttribute("eventid");
     }
 
-    public void placeBet(String stake, boolean isSubmit) {
-        txtStake.sendKeys(stake);
+    public void placeBet(double stake, boolean isSubmit, boolean isConfirm) {
+        txtStake.sendKeys(String.valueOf(stake));
         if(isSubmit) {
             btnPlaceBet.jsClick();
-            btnOK.waitForElementToBePresent(btnOK.getLocator());
-            btnOK.jsClick();
-            waitForSpinnerLoading();
+            if(isConfirm) {
+                btnOK.waitForElementToBePresent(btnOK.getLocator());
+                btnOK.jsClick();
+                waitForSpinnerLoading();
+            }
         }
     }
 
@@ -211,19 +217,27 @@ public class AsianViewPage extends ProteusHomePage {
                 .build();
     }
 
-    public void verifyToRiskToWinCorrect(String stake, String odds, String oddsType) {
+    public void verifyToRiskToWinAndBalanceCorrect(double stake, String odds, String oddsType, AccountBalance balanceBeforeBet, AccountBalance balanceAfterBet) {
         ProteusBetslip betslip = getFirstPendingBetSlipInfo();
-        List<Double> lstRiskWin = calculateToRiskToWin(stake, odds, oddsType);
-        Assert.assertEquals(Double.valueOf(betslip.getToRisk()), lstRiskWin.get(0), 0.01, "FAILED!");
-        Assert.assertEquals(Double.valueOf(betslip.getToWin()), lstRiskWin.get(1), 0.01, "FAILED!");
+        double exposureBeforePlaceBet = Double.valueOf(balanceBeforeBet.getExposure());
+        double balanceBeforePlaceBet = Double.valueOf(balanceBeforeBet.getBalance());
+        double exposureAfterPlaceBet = Double.valueOf(balanceAfterBet.getExposure());
+        double balanceAfterPlaceBet = Double.valueOf(balanceAfterBet.getBalance());
+        List<Double> lstToRiskToWin = calculateToRiskToWin(stake, odds, oddsType);
+        double expectedBalance = balanceBeforePlaceBet - lstToRiskToWin.get(0);
+        double expectedExposure = exposureBeforePlaceBet - lstToRiskToWin.get(0);
+        Assert.assertEquals(expectedExposure, exposureAfterPlaceBet, 0.01, String.format("FAILED! Exposure kept is not correct expected %s actual %s", expectedExposure, exposureAfterPlaceBet));
+        Assert.assertEquals(expectedBalance, balanceAfterPlaceBet, 0.01, String.format("FAILED! Balance is not correct expected %s actual %s", expectedBalance, balanceAfterPlaceBet));
+        Assert.assertEquals(Double.valueOf(betslip.getToRisk()), lstToRiskToWin.get(0), 0.01, "FAILED!");
+        Assert.assertEquals(Double.valueOf(betslip.getToWin()), lstToRiskToWin.get(1), 0.01, "FAILED!");
     }
 
-    public List<Double> calculateToRiskToWin(String stake, String odds, String oddsType) {
+    public List<Double> calculateToRiskToWin(double stake, String odds, String oddsType) {
         List<Double> lstRiskWin = new ArrayList<>();
         if(oddsType.equalsIgnoreCase("Malay")) {
             if(odds.contains("−")) {
                 String oddsFormat = odds.replace("−","");
-                double toRisk = Math.floor(Double.valueOf(stake) * Double.valueOf(oddsFormat) * 100) / 100;
+                double toRisk = Math.floor(stake * Double.valueOf(oddsFormat) * 100) / 100;
                 double toWin = Math.floor(toRisk / Double.valueOf(oddsFormat) * 100) / 100;
                 lstRiskWin.add(toRisk);
                 lstRiskWin.add(toWin);
@@ -232,7 +246,7 @@ public class AsianViewPage extends ProteusHomePage {
         } else if (oddsType.equalsIgnoreCase("American")) {
             if(odds.contains("−")) {
                 String oddsFormat = odds.replace("−","");
-                double toRisk = Math.floor((Double.valueOf(stake) * Double.valueOf(oddsFormat) / 100) * 100) / 100;
+                double toRisk = Math.floor((stake * Double.valueOf(oddsFormat) / 100) * 100) / 100;
                 double toWin = Math.floor((toRisk / Double.valueOf(oddsFormat) * 100) * 100) / 100;
                 lstRiskWin.add(toRisk);
                 lstRiskWin.add(toWin);
@@ -423,27 +437,34 @@ public class AsianViewPage extends ProteusHomePage {
         return market;
     }
 
-    public Market getEventInfoUI(int eventId, String marketType) {
+    public Market getEventInfoUI(Market marketBase, boolean isFullMatch) {
         Market market = new Market.Builder().build();
         List<Odds> lstOddsObject = new ArrayList<>();
-        String rootXpath = String.format(tableEventXpath, eventId);
+        String rootXpath = String.format(tableEventXpath, marketBase.getEventId());
         Table tblEvent = Table.xpath(rootXpath, 7);
         Label lblLeague = Label.xpath(String.format("%s%s", tblEvent.getLocator().toString().replace("By.xpath: ",""),"//ancestor::app-league-asian//div[contains(@class,'league-name')]"));
         Label lblEventStartTime = Label.xpath(String.format("%s%s", rootXpath, "//th[contains(@class,'time-column')]"));
         Label lblHomeName = Label.xpath(String.format("%s%s", rootXpath, "//th[contains(@class,'opponent')]//div[contains(@class,'weak-team')]"));
         Label lblAwayName = Label.xpath(String.format("%s%s", rootXpath, "//th[contains(@class,'opponent')]//div[contains(@class,'strong-team')]"));
-        Label lblOdds = Label.xpath(String.format("(%s%s)[%d]%s", rootXpath, "//th[contains(@class,'odd-column')]", defineOddsColumn(marketType, true), "//span[contains(@class,'odd-number')]"));
+        Label lblOdds = Label.xpath(String.format("(%s%s)[%d]%s", rootXpath, "//th[contains(@class,'odd-column')]", defineOddsColumn(MARKET_CODE_MAPPING.get(marketBase.getBetType()), isFullMatch), "//span[contains(@class,'odd-number')]"));
         //add odds from UI to list odds object
         for (int i = 0; i < lblOdds.getWebElements().size(); i++) {
             Label lblOddsValue = Label.xpath(String.format("(%s)[%s]", lblOdds.getLocator().toString().replace("By.xpath: ", ""), i + 1));
-            //handle special character " -+" > ignore all, just get value
-            lstOddsObject.add(i, new Odds.Builder().odds(Double.valueOf(lblOddsValue.getText().replaceAll("[⠀+−]",""))).build());
+            String oddsValue = lblOddsValue.getText();
+            //handle special character " -+" from UI cannot add to list double
+            if(oddsValue.contains("⠀") || oddsValue.contains("−") || oddsValue.contains("+")) {
+                oddsValue = oddsValue.replace("⠀","");
+                oddsValue = oddsValue.replace("−","-");
+                oddsValue = oddsValue.replace("+","+");
+            }
+            lstOddsObject.add(i, new Odds.Builder().odds(Double.parseDouble(oddsValue)).build());
         }
         market.setOdds(lstOddsObject);
         market.setLeagueName(lblLeague.getText().trim());
         market.setEventStartTime(lblEventStartTime.getText().trim());
         market.setEventName(String.format("%s v %s", lblHomeName.getText().trim(), lblAwayName.getText().trim()));
         return market;
+
     }
 
     private int defineOddsColumn(String marketType, boolean isFullMatch){
@@ -466,99 +487,358 @@ public class AsianViewPage extends ProteusHomePage {
         }
     }
 
-    public void verifyOddsShowCorrect(List<Odds> lstOddsExpected, List<Odds> lstOddsActual) {
-        //sort before verifying cause order odds between API and UI is different HOME/AWAY/DRAW
-        lstOddsExpected.sort(Comparator.comparingDouble(Odds::getOdds));
-        lstOddsActual.sort(Comparator.comparingDouble(Odds::getOdds));
-        for (int i = 0; i < lstOddsExpected.size(); i++) {
-            Assert.assertEquals(lstOddsExpected.get(i).getOdds(), lstOddsActual.get(i).getOdds(), String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsExpected.get(i).getOdds(), lstOddsActual.get(i).getOdds()));
+    public void verifyOddsShowCorrect(String oddsType, String oddsGroup, Market marketBase, boolean isFullMatch) {
+        Market marketUI = getEventInfoUI(marketBase, isFullMatch);
+        List<Odds> lstOddsUI = marketUI.getOdds();
+        List<Odds> lstOddsApiConverted = marketBase.getConvertedOddsByGroup(marketBase.getOdds(), oddsType, oddsGroup);
+        //sort before verifying cause order odds between API and UI is different HOME/DRAW/AWAY > HOME/AWAY/DRAW
+        lstOddsUI.sort(Comparator.comparingDouble(Odds::getOdds));
+        lstOddsApiConverted.sort(Comparator.comparingDouble(Odds::getOdds));
+        if(oddsType.equalsIgnoreCase("American")) {
+            for (int i = 0; i < lstOddsUI.size(); i++) {
+                Assert.assertEquals(lstOddsUI.get(i).getOdds(),  Double.valueOf(String.format("%.0f",lstOddsApiConverted.get(i).getOdds())), "FAILED! Odds does not show correct expected");
+            }
+        } else {
+            for (int i = 0; i < lstOddsUI.size(); i++) {
+                Assert.assertEquals(lstOddsUI.get(i).getOdds(), Double.valueOf(String.format("%.3f", lstOddsApiConverted.get(i).getOdds())), "FAILED! Odds does not show correct expected");
+            }
         }
     }
 
-//    public String getFirstEventId() {
-//        return Label.xpath(String.format(firstOddsCellXpath, 1, 1)).getAttribute("eventid");
-//    }
-//
-//    public List<Market> getEventInfoMoreMarket(String eventId, String sportName, String oddsType, String marketType, String selection) {
-//        int leagueIndex = 1;
-//        List<Market> lstMarket;
-//        while (true)
-//        {
-//            lstMarket = getEventInfoMoreMarket(eventId, sportName,oddsType, marketType,selection, leagueIndex);
-//            if(Objects.nonNull(lstMarket))
-//                return lstMarket;
-//            leagueIndex = leagueIndex + 1;
-//        }
-//    }
-//
-//    /**
-//     * Get event info with odds type = Decimal odds bases on inputed index, if index = 0 mean get random
-//     * @param leagueIndex
-//     * @return a Market Info
-//     */
-//    private List<Market> getEventInfoMoreMarket(String eventId, String sportName, String oddsType, String marketType, String selection, int leagueIndex) {
-//        List<Market> lstMarket = new ArrayList<>();
-//        Market market;
-//        String keyId = "";
-//        Label lblLeague = Label.xpath(String.format(leagueIndexXpath,leagueIndex));
-//        if (!lblLeague.isDisplayed())
-//            return null;
-//        String oddsRowXpath = String.format("//span[contains(@eventid,'%s')]", eventId);
-//        String leagueName = Label.xpath(String.format(leagueNameXpath,leagueIndex)).getText();
-//        int rowCount = tblMoreMarket.getNumberOfRows(false, true);
-//        for (int i = 0; i < rowCount; i++) {
-//            Label lblOddsKey = Label.xpath(String.format("(%s)[%s]%s", tblMoreMarket.getLocator().toString().replace("By.xpath: ",""), i + 1, oddsRowXpath));
-//            List<String> lstKeys = new ArrayList<>();
-//            for (int j = 0; j < lblOddsKey.getWebElements().size(); j++) {
-//                lstKeys.add(Label.xpath(String.format("(%s)[%s]", lblOddsKey.getLocator().toString().replace("By.xpath: ",""), j + 1)).getAttribute("key"));
-//            }
-//            if (marketType.equalsIgnoreCase(MARKET_TYPE_MAPPING.get("Match - Team Totals"))) {
-//                if(!selection.isEmpty()) {
-//                    for(String s: lstKeys) {
-//                        if(s.contains(selection)) {
-//                            keyId = s;
-//                            break;
-//                        }
-//                    }
-//                }
-//            } else {
-//                for(String s: lstKeys) {
-//                    if(s.contains(marketType)) {
-//                        keyId = s;
-//                        break;
-//                    }
-//                }
-//            }
-//
-//            market = MarketUtils.getMarketByOddsKey(oddsType,Integer.valueOf(eventId),keyId);
-//            market.setLeagueName(leagueName);
-//            String sportID = SPORTBOOK_SPORT_ID.get(sportName.toUpperCase());
-//            Market temp =  MarketUtils.getEventInfoUnderLeague(Integer.valueOf(sportID),leagueName,eventId);
-//            market.setSportName(sportName);
-//            market.setEventName(String.format("%s vs %s",temp.getHomeName(),temp.getAwayName()));
-//            market.setHomeName(temp.getHomeName());
-//            market.setAwayName(temp.getAwayName());
-//            market.setEventStartTime(temp.getEventStartTime());
-//            lstMarket.add(market);
-//        }
-////        String eventID = Label.xpath(String.format(rootXpath,eventId)).getAttribute("eventid");
-////        String oddsKey = Label.xpath(String.format(firstOddsCellXpath,leagueIndex)).getAttribute("key");
-////
-////        //handle incase no odds display in the UI, move to the next row
-////        if(Objects.isNull(eventID)) {
-////            return null;
-////        }
-//        // Get the market info from API with the eventID get from UI
-////        market = MarketUtils.getMarketByOddsKey(oddsType,Integer.valueOf(eventID),oddsKey);
-////        market.setLeagueName(leagueName);
-//        // Get more info of the event in other API: league Name, home, away,event startTime
-////        String sportID = SPORTBOOK_SPORT_ID.get(sportName.toUpperCase());
-////        Market temp =  MarketUtils.getEventInfoUnderLeague(Integer.valueOf(sportID),leagueName,eventID);
-////        market.setSportName(sportName);
-////        market.setEventName(String.format("%s vs %s",temp.getHomeName(),temp.getAwayName()));
-////        market.setHomeName(temp.getHomeName());
-////        market.setAwayName(temp.getAwayName());
-////        market.setEventStartTime(temp.getEventStartTime());
-//        return lstMarket;
-//    }
+    public String getFirstEventId() {
+        return Label.xpath(String.format(firstOddsCellXpath, 1, 1)).getAttribute("eventid");
+    }
+    public void openMoreMarkets() {
+        String eventId = getFirstEventId();
+        Label lblMoreMarket = Label.xpath(String.format(moreMarketXpath, eventId));
+        if(lblMoreMarket.isDisplayed()) {
+            lblMoreMarket.click();
+            waitForSpinnerLoading();
+        }
+    }
+
+    public void selectMoreMarket(String marketName) {
+        for (int i = 0; i < lblMoreMarketDetails.getWebElements().size(); i++) {
+            String xpath = lblMoreMarketDetails.getLocator().toString().replace("By.xpath: ","") + String.format("[%s]", i + 1);
+            Label lblMarketName = Label.xpath(xpath);
+            if(lblMarketName.getText().trim().contains(marketName)) {
+                lblMarketName.click();
+            }
+        }
+    }
+    public List<Market> getEventInfoMoreMarket(String eventId, String oddsType, String marketType) {
+        int leagueIndex = 1;
+        List<Market> lstMarket;
+        while (true)
+        {
+            lstMarket = getEventInfoMoreMarket(eventId,oddsType, marketType, true);
+            if(Objects.nonNull(lstMarket))
+                return lstMarket;
+            leagueIndex = leagueIndex + 1;
+        }
+    }
+
+    /**
+     * Get event info with odds type = Decimal odds bases on inputed index, if index = 0 mean get random
+     * @param
+     * @return a Market Info
+     */
+    public List<Market> getEventInfoMoreMarket(String eventId, String oddsType, String marketType, boolean isFullMatch) {
+        return MarketUtils.getListMarketByMarketType(oddsType,Integer.valueOf(eventId), marketType, isFullMatch);
+    }
+
+    public void verifyMoreMarketOddsCorrect(String oddsType, String oddsGroup, String marketType, boolean isFullMatch) {
+        String eventId = getFirstEventId();
+        //always get odds from DEC as base odds to calculate for other odds type
+        List<Market> lstMarket = getEventInfoMoreMarket(eventId, DECIMAL, marketType, isFullMatch);
+        //handle for Team Totals markets
+        if(marketType.equalsIgnoreCase(MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL))) {
+            verifyTeamTotalOddsMoreMarket(lstMarket, oddsType, oddsGroup);
+        }
+        //handle for HDP and OverUnder markets
+        else {
+            //handle for HDP market
+            if(marketType.equalsIgnoreCase(MARKET_TYPE_MAPPING.get(TEXT_HDP))) {
+                verifyHandicapOddsMoreMarket(lstMarket, oddsType, oddsGroup);
+            }
+            //handle for OverUnder market
+            else if (marketType.equalsIgnoreCase(MARKET_TYPE_MAPPING.get(TEXT_OVER_UNDER))) {
+                verifyOverUnderOddsMoreMarket(lstMarket, oddsType, oddsGroup);
+            }
+        }
+    }
+
+    private int defineOddsMoreMarketColumn(String marketType, String selection){
+        if(marketType.equalsIgnoreCase(MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL))) {
+            if (selection.equalsIgnoreCase("HOME OVER")) {
+                return 2;
+            } else if (selection.equalsIgnoreCase("HOME UNDER")) {
+                return 3;
+            } else if (selection.equalsIgnoreCase("AWAY OVER")){
+                return 5;
+            } else {
+                return 6;
+            }
+        } else if (marketType.equalsIgnoreCase(MARKET_TYPE_MAPPING.get(TEXT_HDP))){
+            if (selection.equalsIgnoreCase("HOME")) {
+                return 3;
+            } else {
+                return 4;
+            }
+        } else {
+            if (selection.equalsIgnoreCase("OVER")) {
+                return 6;
+            } else {
+                return 7;
+            }
+        }
+    }
+
+    public void verifyTeamTotalOddsMoreMarket(List<Market> lstMarket, String oddsType, String oddsGroup) {
+        String xpathRow = "(//app-market-asian//table//tbody)[%s]//td[%s]/span";
+        for (int i = 0; i < lstMarket.size(); i++) {
+            List<Odds> lstOdds = lstMarket.get(i).getConvertedOddsByGroup(lstMarket.get(i).getOdds(), oddsType, oddsGroup);
+            //verify for HOME section
+            if(lstMarket.get(i).getTeam().equalsIgnoreCase("HOME")) {
+                Label lblOddsHomeOver = Label.xpath(String.format(xpathRow, 1, defineOddsMoreMarketColumn(MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), "HOME OVER")));
+                Label lblOddsHomeUnder = Label.xpath(String.format(xpathRow, 1, defineOddsMoreMarketColumn(MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), "HOME UNDER")));
+                String oddsHomeOver = lblOddsHomeOver.getText();
+                String oddsHomeUnder = lblOddsHomeUnder.getText();
+                //handle to replace special character from UI for negative/positive odds actual −253/ 253 , expected -253/ 253 but return assert failed
+                if(oddsType.equalsIgnoreCase("Malay") || oddsType.equalsIgnoreCase("American")) {
+                    oddsHomeOver = oddsHomeOver.replace("⠀","");
+                    oddsHomeOver = oddsHomeOver.replace("−","-");
+                    oddsHomeOver = oddsHomeOver.replace("+","+");
+                    oddsHomeUnder = oddsHomeUnder.replace("⠀","");
+                    oddsHomeUnder = oddsHomeUnder.replace("−","-");
+                    oddsHomeUnder = oddsHomeUnder.replace("+","+");
+                }
+                for (Odds o: lstOdds
+                ) {
+                    //handle for AM > odds does not show decimal place and list odds return does not have "+"
+                    if(oddsType.equalsIgnoreCase("American")) {
+                        String oddsExpected;
+                        if(o.getOdds() >= 0) {
+                            oddsExpected = String.format("%s%.0f","+",o.getOdds());
+                        } else {
+                            oddsExpected = String.format("%.0f",o.getOdds());
+                        }
+                        if(o.getSide().equalsIgnoreCase("OVER")) {
+                            Assert.assertEquals(oddsExpected, oddsHomeOver, String.format("FAILED! Odds not show correct expected %s actual %s", oddsExpected, oddsHomeOver));
+                        } else {
+                            Assert.assertEquals(oddsExpected, oddsHomeUnder, String.format("FAILED! Odds not show correct expected %s actual %s", oddsExpected, oddsHomeUnder));
+                        }
+                    } else {
+                        if(o.getSide().equalsIgnoreCase("OVER")) {
+                            Assert.assertEquals(String.format("%.3f",o.getOdds()), oddsHomeOver, String.format("FAILED! Odds not show correct expected %s actual %s", String.format("%.3f",o.getOdds()), oddsHomeOver));
+                        } else {
+                            Assert.assertEquals(String.format("%.3f",o.getOdds()), oddsHomeUnder, String.format("FAILED! Odds not show correct expected %s actual %s", String.format("%.3f",o.getOdds()), oddsHomeUnder));
+                        }
+                    }
+
+                }
+            }
+            //verify for AWAY section
+            else {
+                Label lblOddsAwayOver = Label.xpath(String.format(xpathRow, 1, defineOddsMoreMarketColumn(MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), "AWAY OVER")));
+                Label lblOddsAwayUnder = Label.xpath(String.format(xpathRow, 1, defineOddsMoreMarketColumn(MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), "AWAY UNDER")));
+                String oddsAwayOver = lblOddsAwayOver.getText();
+                String oddsAwayUnder = lblOddsAwayUnder.getText();
+                //handle to replace special character from UI for negative/positive odds actual −253/ 253/ +253 , expected -253/ 253/ +253 but return assert failed
+                if(oddsType.equalsIgnoreCase("Malay") || oddsType.equalsIgnoreCase("American")) {
+                    oddsAwayOver = oddsAwayOver.replace("⠀","");
+                    oddsAwayOver = oddsAwayOver.replace("−","-");
+                    oddsAwayOver = oddsAwayOver.replace("+","+");
+                    oddsAwayUnder = oddsAwayUnder.replace("⠀","");
+                    oddsAwayUnder = oddsAwayUnder.replace("−","-");
+                    oddsAwayUnder = oddsAwayUnder.replace("+","+");
+
+                }
+                for (Odds o: lstOdds
+                ) {
+                    //handle for AM > odds does not show decimal place and list odds return does not have "+"
+                    if(oddsType.equalsIgnoreCase("American")) {
+                        String oddsExpected;
+                        if(o.getOdds() >= 0) {
+                            oddsExpected = String.format("%s%.0f","+",o.getOdds());
+                        } else {
+                            oddsExpected = String.format("%.0f",o.getOdds());
+                        }
+                        if(o.getSide().equalsIgnoreCase("OVER")) {
+                            Assert.assertEquals(oddsExpected, oddsAwayOver, String.format("FAILED! Odds not show correct expected %s actual %s", oddsExpected, oddsAwayOver));
+                        } else {
+                            Assert.assertEquals(oddsExpected, oddsAwayUnder, String.format("FAILED! Odds not show correct expected %s actual %s", oddsExpected, oddsAwayUnder));
+                        }
+                    } else {
+                        if(o.getSide().equalsIgnoreCase("OVER")) {
+                            Assert.assertEquals(String.format("%.3f",o.getOdds()), oddsAwayOver, String.format("FAILED! Odds not show correct expected %s actual %s", String.format("%.3f",o.getOdds()), oddsAwayOver));
+                        } else {
+                            Assert.assertEquals(String.format("%.3f",o.getOdds()), oddsAwayUnder, String.format("FAILED! Odds not show correct expected %s actual %s", String.format("%.3f",o.getOdds()), oddsAwayUnder));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void verifyHandicapOddsMoreMarket(List<Market> lstMarket, String oddsType, String oddsGroup) {
+        String xpathRow = "(//app-market-asian//table//tbody)[%s]//td[%s]/span";
+        lstMarket.sort(Comparator.comparingDouble(Market::getHandicap));
+        for (int i = 0; i < tblMoreMarket.getWebElements().size(); i++) {
+            //verify for HDP market
+            Label lblOddsHome = Label.xpath(String.format(xpathRow, i + 1, defineOddsMoreMarketColumn(MARKET_TYPE_MAPPING.get(TEXT_HDP), "HOME")));
+            Label lblOddsAway = Label.xpath(String.format(xpathRow, i + 1, defineOddsMoreMarketColumn(MARKET_TYPE_MAPPING.get(TEXT_HDP), "AWAY")));
+            String oddsHome = lblOddsHome.getText();
+            String oddsAway = lblOddsAway.getText();
+            //handle to replace special character from UI for negative/positive odds actual −253/ 253 , expected -253/ 253 but return assert failed
+            if(oddsType.equalsIgnoreCase("Malay") || oddsType.equalsIgnoreCase("American")) {
+                oddsHome = oddsHome.replace("⠀","");
+                oddsHome = oddsHome.replace("−","-");
+                oddsHome = oddsHome.replace("+","+");
+                oddsAway = oddsAway.replace("⠀","");
+                oddsAway = oddsAway.replace("−","-");
+                oddsAway = oddsAway.replace("+","+");
+            }
+            if(oddsHome.isEmpty() && oddsAway.isEmpty()) {
+                System.out.println("The current record have no odds for verifying");
+                break;
+            }
+            List<Odds> lstOdds = lstMarket.get(i).getConvertedOddsByGroup(lstMarket.get(i).getOdds(), oddsType, oddsGroup);
+            for (Odds o : lstOdds
+            ) {
+                //handle for AM > odds does not show decimal place and list odds return does not have "+"
+                if(oddsType.equalsIgnoreCase("American")) {
+                    String oddsExpected;
+                    if (o.getOdds() >= 0) {
+                        oddsExpected = String.format("%s%.0f", "+", o.getOdds());
+                    } else {
+                        oddsExpected = String.format("%.0f", o.getOdds());
+                    }
+                    if (o.getTeam().equalsIgnoreCase("HOME")) {
+                        Assert.assertEquals(oddsExpected, oddsHome, String.format("FAILED! Odds not show correct expected %s actual %s", oddsExpected, oddsHome));
+                    } else {
+                        Assert.assertEquals(oddsExpected, oddsAway, String.format("FAILED! Odds not show correct expected %s actual %s", oddsExpected, oddsAway));
+                    }
+                } else {
+                    if (o.getTeam().equalsIgnoreCase("HOME")) {
+                        Assert.assertEquals(String.format("%.3f", o.getOdds()), oddsHome, String.format("FAILED! Odds not show correct expected %s actual %s", String.format("%.3f", o.getOdds()), oddsHome));
+                    } else {
+                        Assert.assertEquals(String.format("%.3f", o.getOdds()), oddsAway, String.format("FAILED! Odds not show correct expected %s actual %s", String.format("%.3f", o.getOdds()), oddsAway));
+                    }
+                }
+
+            }
+        }
+    }
+
+    public void verifyOverUnderOddsMoreMarket(List<Market> lstMarket, String oddsType, String oddsGroup) {
+        String xpathRow = "(//app-market-asian//table//tbody)[%s]//td[%s]/span";
+        lstMarket.sort(Comparator.comparingDouble(Market::getHandicap).reversed());
+        for (int i = 0; i < tblMoreMarket.getWebElements().size(); i++) {
+            //verify for OverUnder market
+            Label lblOddsOver = Label.xpath(String.format(xpathRow, i+1, defineOddsMoreMarketColumn(MARKET_TYPE_MAPPING.get(TEXT_OVER_UNDER), "OVER")));
+            Label lblOddsUnder = Label.xpath(String.format(xpathRow, i+1, defineOddsMoreMarketColumn(MARKET_TYPE_MAPPING.get(TEXT_OVER_UNDER), "UNDER")));
+            String oddsOver = lblOddsOver.getText();
+            String oddsUnder = lblOddsUnder.getText();
+            //handle to replace special character from UI for negative/positive odds actual −253/ 253 , expected -253/ 253 but return assert failed
+            if(oddsType.equalsIgnoreCase("Malay") || oddsType.equalsIgnoreCase("American")) {
+                oddsOver = oddsOver.replace("⠀","");
+                oddsOver = oddsOver.replace("−","-");
+                oddsOver = oddsOver.replace("+","+");
+                oddsUnder = oddsUnder.replace("⠀","");
+                oddsUnder = oddsUnder.replace("−","-");
+                oddsUnder = oddsUnder.replace("+","+");
+            }
+            if(oddsOver.isEmpty() && oddsUnder.isEmpty()) {
+                System.out.println("The current record have no odds for verifying");
+                break;
+            }
+            List<Odds> lstOdds = lstMarket.get(i).getConvertedOddsByGroup(lstMarket.get(i).getOdds(), oddsType, oddsGroup);
+            for (Odds o : lstOdds
+            ) {
+                //handle for AM > odds does not show decimal place and list odds return does not have "+"
+                if(oddsType.equalsIgnoreCase("American")) {
+                    String oddsExpected;
+                    if (o.getOdds() >= 0) {
+                        oddsExpected = String.format("%s%.0f", "+", o.getOdds());
+                    } else {
+                        oddsExpected = String.format("%.0f", o.getOdds());
+                    }
+                    if (o.getSide().equalsIgnoreCase("OVER")) {
+                        Assert.assertEquals(oddsExpected, oddsOver, String.format("FAILED! Odds not show correct expected %s actual %s",oddsExpected, oddsOver));
+                    } else {
+                        Assert.assertEquals(oddsExpected, oddsUnder, String.format("FAILED! Odds not show correct expected %s actual %s", oddsExpected, oddsUnder));
+                    }
+                } else {
+                    if (o.getSide().equalsIgnoreCase("OVER")) {
+                        Assert.assertEquals(String.format("%.3f", o.getOdds()), oddsOver, String.format("FAILED! Odds not show correct expected %s actual %s",String.format("%.3f", o.getOdds()), oddsOver));
+                    } else {
+                        Assert.assertEquals(String.format("%.3f", o.getOdds()), oddsUnder, String.format("FAILED! Odds not show correct expected %s actual %s", String.format("%.3f", o.getOdds()), oddsUnder));
+                    }
+                }
+
+            }
+        }
+    }
+
+    public Order addOddToBetSlipAndPlaceBet(Market market, String selection, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+        // click odds
+        clickOdds(market, isFullMatch);
+        //input stake and click place bet and confirm
+        Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
+        // set Odd info of the team name that placed on
+        order.setOdds(market.getOddsInfoBySelection(selection));
+        return order;
+    }
+
+    public void clickOdds(Market market, boolean isFullMatch){
+        String oddsHomeXpath ="//th[contains(@class,'odd-column')][%s]//span[contains(@class,'odd-number')][1]//span";
+        // get the row index has expected ID
+        String eventXpath = getEventIndexXpath(String.valueOf(market.getEventId()));
+        int column = defineOddsColumn(market.getBetType(),isFullMatch);
+        oddsHomeXpath = String.format(oddsHomeXpath,column);
+        Label lblOdds = Label.xpath(String.format("(%s%s)[1]",eventXpath,oddsHomeXpath));
+        lblOdds.click();
+    }
+
+    private String getEventIndexXpath(String eventID){
+        int leagueIndex = 1;
+        Label lblLeague;
+        while (true){
+            lblLeague = Label.xpath(String.format(leagueIndexXpath,leagueIndex));
+            if (!lblLeague.isDisplayed())
+                return "";
+            // find the row has the expected event id
+            int eventIndex = getEventIndexUnderALeague(leagueIndex,eventID);
+            if(eventIndex != 0)
+                return String.format("//app-league-asian[%d]//app-event-item-parent[%d]",leagueIndex,eventIndex);
+            leagueIndex = leagueIndex +1;
+        }
+    }
+    private int getEventIndexUnderALeague(int leagueIndex,String eventID){
+        int eventIndex = 1;
+        Label lblEvent;
+        while (true) {
+            lblEvent = Label.xpath(String.format(firstOddsCellXpath, leagueIndex, eventIndex));
+            if (!lblEvent.isDisplayed())
+                return 0;
+            if(Objects.isNull(lblEvent.getAttribute("eventid"))) {
+                eventIndex = eventIndex + 1;
+                continue;
+            }
+            else {
+                if (lblEvent.getAttribute("eventid").equalsIgnoreCase(eventID))
+                    return eventIndex;
+            }
+            eventIndex = eventIndex + 1;
+
+        }
+    }
+
+    public void verifySearchByLeagueDropdownCorrect(String leagueName) {
+        List<String> lstSearchResult = getListSearchResult();
+        for (int i = 0; i < lstSearchResult.size(); i++) {
+            Assert.assertTrue(lstSearchResult.get(i).equalsIgnoreCase(leagueName.trim()),String.format("FAILED! List search result %s does not contain all input value %s", lstSearchResult.get(i), leagueName.trim()));
+        }
+    }
 }
