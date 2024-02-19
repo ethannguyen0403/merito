@@ -274,7 +274,7 @@ public class Market {
 
     public List<Odds> getConvertedOddsByGroup(List<Odds> odds, String oddsType, String oddsGroup) {
         double vigAdjustment = Double.parseDouble(ODDS_GROUP_ADJUSTMENT_MAPPING.get(oddsGroup));
-        if(oddsGroup.equalsIgnoreCase("A")) {
+        if(oddsGroup.equalsIgnoreCase("A") && oddsType.equalsIgnoreCase("Decimal")) {
             return odds;
         } else {
             switch (oddsType) {
