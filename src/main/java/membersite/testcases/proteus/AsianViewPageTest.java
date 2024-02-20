@@ -1,18 +1,23 @@
 package membersite.testcases.proteus;
 
 import baseTest.BaseCaseTest;
+import com.paltech.utils.DateUtils;
 import membersite.objects.AccountBalance;
 import membersite.objects.proteus.Market;
 import membersite.objects.proteus.ProteusBetslip;
 import membersite.pages.proteus.AsianViewPage;
 import membersite.pages.proteus.ProteusHomePage;
 import membersite.utils.betplacement.BetUtils;
+import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import static common.MemberConstants.LBL_SOCCER_SPORT;
+import java.util.ArrayList;
+
+import static common.MemberConstants.GMT_MINUS_4_30;
 import static common.ProteusConstant.*;
+import static membersite.utils.proteus.MarketUtils.getListLeagues;
 
 public class AsianViewPageTest extends BaseCaseTest {
 
@@ -548,8 +553,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
 
         log("Step 3. Select Early the left menu and click on Soccer");
-        asianViewPage.selectSportLeftMenu(LBL_SOCCER_SPORT);
-        asianViewPage.selectPeriodTab(EARLY_PERIOD);
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
 
         log("Step 4. Select AM odds odds type, pick a negative odds and place bet. @-103 with stake = 20 => toRisk = 20.6 and toWin=20");
         asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
@@ -562,6 +566,224 @@ public class AsianViewPageTest extends BaseCaseTest {
         proteusHomePage.switchTabBetSlip(PENDING_BETS_TAB);
         AccountBalance accountBalanceAfterBet = BetUtils.getUserBalance();
         asianViewPage.verifyToRiskToWinAndBalanceCorrect(stake, betslipInfo.getOdds(), AMERICAN, accountBalanceBeforeBet,accountBalanceAfterBet);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4079")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    @Parameters({"groupOdds"})
+    public void PS38_Member_TC4079(String groupOdds) {
+        log("@title: Validate the filter result displays correctly after filtering Odds");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Asian View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+
+        log("Step 4. Select Decimal odds type, get odds and calculate to account group E");
+        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
+        Market marketBase = asianViewPage.getEventInfo(SOCCER,DECIMAL,TEXT_HDP,true);
+        asianViewPage.selectOddsType(ASIAN_HONGKONG_ODDS);
+
+        log("Step 6. From Decimal odds off account group A, calculate and check odds on account group E is correct");
+        log("Verify Hongkong Odds of Handicap market is display correctly based on user group");
+        asianViewPage.verifyOddsShowCorrect(HONGKONG, groupOdds, marketBase, true);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4074")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4074() {
+        log("@title: Validate the league list or team names displays correctly when input the match values in search textbox");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Input the match values in search textbox and Observe");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        AsianViewPage asianView = proteusHomePage.selectAsianView();
+        asianView.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+
+        Market marketBase = asianView.getEventInfo(SOCCER,DECIMAL,TEXT_MONEYLINE,true);
+        asianView.searchLeagueOrTeamName(marketBase.getLeagueName());
+
+        log("Verify The league list or team names displays below search textbox, user can view league or team name corresponding after clicking on any");
+        asianView.verifySearchByLeagueDropdownCorrect(marketBase.getLeagueName());
+        asianView.selectFirstSearchOption();
+
+        Market marketBase2 = asianView.getEventInfoUI(marketBase, true);
+        Assert.assertEquals(marketBase.getLeagueName(), marketBase2.getLeagueName(), String.format("FAILED! Selected league is not correct expected %s actual %s", marketBase.getLeagueName(), marketBase2.getLeagueName()));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4075")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4075() {
+        log("@title: Validate the league list or team names displays corectly when input the un-match values in search textbox");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Input the un-match values in search textbox and Observe");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        AsianViewPage asianView = proteusHomePage.selectAsianView();
+        asianView.searchLeagueOrTeamName("no record search");
+
+        log("Verify Displays the message \"No records found.\"  below search textbox");
+        Assert.assertEquals(asianView.lblNoRecordFound.getText().trim(), NO_RECORDS_FOUND, String.format("FAILED! No record found displays incorrectly expected %s actual %s", asianView.lblNoRecordFound.getText().trim(), NO_RECORDS_FOUND));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4076")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4076() {
+        log("@title: Validate the filter result displays correctly after filtering Time");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Active Ps38 product active Asian View");
+        String date = DateUtils.getDate(1, "yyyy-MM-dd", GMT_MINUS_4_30);
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+
+        log("Step 4. Click All Times dropdown and Select any time range ");
+        asianViewPage.filterByDate(date);
+        log("Verify The filter result displays correctly and correspond to the filter condition");
+        asianViewPage.verifyFilterByDateShowCorrect(date);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4080")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4080() {
+        log("@title: Validate the filter result displays correctly after filtering Leagues");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Active Ps38 product active Asian View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+
+        log("Step 4. Click on any League name filter and Observe");
+        ArrayList<String> lstLeagues = getListLeagues(EARLY_PERIOD);
+        String leagueExpected = lstLeagues.get(0);
+        asianViewPage.filterByLeague(leagueExpected, false);
+
+        Market marketBase = asianViewPage.getEventInfo(SOCCER,DECIMAL,TEXT_MONEYLINE,true);
+
+        log("Verify The filter result displays correctly and correspond to the filter condition");
+        Assert.assertTrue(marketBase.getLeagueName().equalsIgnoreCase(leagueExpected), String.format("FAILED! Filter by League is not correct expected %s actual %s", leagueExpected, marketBase.getLeagueName()));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4078")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4078() {
+        log("@title: Validate the filter result displays correctly after filtering By Time");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Active Ps38 product active Asian View");
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+
+        log("Step 3. Select Early the left menu and click on Soccer");
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+
+        log("Step 4. Click on By Time and observe");
+        asianViewPage.selectSortBy(" By Time ");
+        log("Verify The filter result displays correctly and correspond to the filter condition");
+        asianViewPage.verifySortByTimeShowCorrect();
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4146")
+    @Test(groups = {"ps38_groupe","Proteus.2024.V.1.0_groupe"})
+    public void PS38_Member_TC4146() {
+        log("@title: Validate Max per match is calculated correctly for AM negative odds");
+        log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
+        log("Step 1.Select Ps38 product and select AM odds");
+        log("Step 2.Click any AM negative odd of sport that already config Max per match and observe");
+        double settingMaxPerMatch = 500.0;
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
+        String eventId = asianViewPage.selectFirstNegativeOdds();
+        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
+
+        log("Validate Max per match should be calculated correctly for Am negative odds following the formula\n" +
+                "\n" +
+                "AM negative odds: Max per match = (setting max per match/odds) * 100");
+        asianViewPage.verifyMaxPerMatchShowCorrect(betslipInfo, settingMaxPerMatch, AMERICAN, true);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "20264")
+    @Test(groups = {"ps38_groupe","Proteus.2024.V.1.0_groupe"})
+    public void PS38_Member_TC20264() {
+        log("@title: Validate Max per match is calculated correctly for AM positive odds");
+        log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
+        log("Step 1.Select Ps38 product and select AM odds");
+        log("Step 2.Click any AM positive odd of sport that already config Max per match and observe");
+        double settingMaxPerMatch = 500.0;
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
+        String eventId = asianViewPage.selectFirstPositiveOdds();
+        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
+
+        log("Validate Max per match should be calculated correctly for Am positive odds following the formula\n" +
+                "\n" +
+                "AM positive odds: Max per match = setting max per match");
+        asianViewPage.verifyMaxPerMatchShowCorrect(betslipInfo, settingMaxPerMatch, AMERICAN, false);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4147")
+    @Test(groups = {"ps38_groupe","Proteus.2024.V.1.0_groupe"})
+    public void PS38_Member_TC4147() {
+        log("@title: Validate Max per match is calculated correctly for MY negative odds");
+        log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
+        log("Step 1.Select Ps38 product and select AM odds");
+        log("Step 2.Click any AM negative odd of sport that already config Max per match and observe");
+        double settingMaxPerMatch = 500.0;
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
+        String eventId = asianViewPage.selectFirstNegativeOdds();
+        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
+
+        log("Validate Max per match should be calculated correctly for Am negative odds following the formula\n" +
+                "\n" +
+                "AM negative odds: Max per match = (setting max per match/odds) * 100");
+        asianViewPage.verifyMaxPerMatchShowCorrect(betslipInfo, settingMaxPerMatch, MALAY, true);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4144")
+    @Test(groups = {"ps38_groupe","Proteus.2024.V.1.0_groupe"})
+    public void PS38_Member_TC4144() {
+        log("@title: Validate Max per match field should match with agent setting");
+        log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
+        log("Step 1.Select Ps38 product and select AM odds");
+        log("Step 2. Click any odd of sport that already config Max per match");
+        double settingMaxPerMatch = 500.0;
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
+        String eventId = asianViewPage.selectFirstPositiveOdds();
+
+        log("Step 3. Compare Max Per Match with Agent site");
+        ProteusBetslip betSlipInfo = asianViewPage.getBetSlipInfo(eventId);
+
+        log("Validate Match Max value should matched correctly with Agent Site setting");
+        asianViewPage.verifyMaxPerMatchShowCorrect(betSlipInfo, settingMaxPerMatch, DECIMAL, false);
         log("INFO: Executed completely");
     }
 }
