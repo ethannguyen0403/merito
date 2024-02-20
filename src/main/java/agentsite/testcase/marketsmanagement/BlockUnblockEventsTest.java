@@ -1102,27 +1102,26 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @Test(groups = {"precondition"})
-    @Parameters({"controlBlockingAccount"})
-    public void Agent_MM_BlockUnblockEvent_UnblockNow_0100(String controlBlockingAccount) {
+    @Parameters({"downlineAccount"})
+    public void Agent_MM_BlockUnblockEvent_UnblockNow_0100(String downlineAccount) {
         log("@title:Validate Event display in member site after unblock");
-
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
 
-        log(String.format("Step 2: Unblock all Today Tennis event of for all downline of the account %s ", controlBlockingAccount));
+        log(String.format("Step 2: Unblock all Today Tennis event of for all downline of the account %s ", downlineAccount));
 
-        page.filter(controlBlockingAccount, "Tennis", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
-        page.blockUnblockEvent("All", "All", "Unblock Now", "", 1);
+        page.filter("", "Tennis", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+        page.blockUnblockEvent(downlineAccount, "All", "Unblock Now", "", 1);
 
-        log(String.format("Step 3: Unblock all Today Soccer event of for all downline of the account %s ", controlBlockingAccount));
+        log(String.format("Step 3: Unblock all Today Soccer event of for all downline of the account %s ", downlineAccount));
         page.filter("", "Soccer", "");
         page.blockUnblockEvent("", "All", "Unblock Now", "", 1);
 
-        log(String.format("Step 4: Unblock all Today Cricket event of for all downline of the account %s ", controlBlockingAccount));
+        log(String.format("Step 4: Unblock all Today Cricket event of for all downline of the account %s ", downlineAccount));
         page.filter("", "Cricket", "");
         page.blockUnblockEvent("", "All", "Unblock Now", "", 1);
 
-        log(String.format("Step 5: Unblock all Today Horse Racing event of for all downline of the account %s ", controlBlockingAccount));
+        log(String.format("Step 5: Unblock all Today Horse Racing event of for all downline of the account %s ", downlineAccount));
         page.filter("", "Horse Racing", "");
         page.blockUnblockEvent("", "All", "Unblock Now", "", 1);
 

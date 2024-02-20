@@ -3,6 +3,7 @@ package membersite.pages.components.header;
 import membersite.objects.AccountBalance;
 import membersite.objects.Wager;
 import membersite.pages.*;
+import membersite.pages.casino.CasinoProduct;
 import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
 import membersite.pages.components.signinform.SignInPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
@@ -61,6 +62,8 @@ public class Header1 {
     public void openExchangeGame() {
         return;
     }
+
+    public void openCasinoGame(CasinoProduct product){return;}
 
     public void clickProduct(String product) {
     }

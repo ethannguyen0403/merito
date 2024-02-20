@@ -21,7 +21,6 @@ public class DropDownMenu extends BaseElement {
 
     public DropDownMenu(By locator, String xpathMenu, String locatorSelectedItem, String locatorChildren) {
         super(locator);
-        ;
         _xpathMenu = xpathMenu;
         xpathSelectedControl = _xpathMenu + locatorSelectedItem;
         xpathLocatorItems = locatorChildren;
@@ -110,7 +109,7 @@ public class DropDownMenu extends BaseElement {
 
     private Label getMenu(String name) {
         this.click();
-        Label subMenu = Label.xpath(String.format("%s//*[text()='%s']", this.xpathLocatorItems, name));
+        Label subMenu = Label.xpath(String.format("%s//*[contains(text(),'%s')]", this.xpathLocatorItems, name));
         if (subMenu.isDisplayed())
             return subMenu;
         else {

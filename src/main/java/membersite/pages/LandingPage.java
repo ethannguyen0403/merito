@@ -5,6 +5,7 @@ import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
 import com.paltech.utils.WSUtils;
+import membersite.objects.AccountBalance;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.eventcontainer.EventContainerControl;
 import membersite.pages.components.footer.Footer;
@@ -83,18 +84,26 @@ public class LandingPage extends BasePage {
         }
         myMarketPopup.navigateToMarket(marketName);
         DriverManager.getDriver().switchToWindow();
-        return new MarketPage(_type);
+        MarketPage marketPage = new MarketPage(_type);
+        marketPage.waitMenuLoading();
+        return marketPage;
     }
 
     public SportPage navigateSportHeaderMenu(String sportName) {
         leftMenu.waitMenuLoading();
-        return header.navigateSportMenu(sportName,this._type);
+        SportPage sportPage = header.navigateSportMenu(sportName,this._type);
+        return sportPage;
     }
     public RacingPage navigateRacing(String sportName) {
         leftMenu.waitMenuLoading();
-        return header.navigateRacing(sportName,this._type);
+        RacingPage racingPage = header.navigateRacing(sportName,this._type);
+        return racingPage;
     }
 
+    public AccountBalance getUserBalance(){
+        waitPageLoad();
+        return header.getUserBalance();
+    }
 
     public MyBetsPage openMyBet() {
         return header.openMyBets(this._type);

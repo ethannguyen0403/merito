@@ -1,5 +1,6 @@
 package membersite.pages.components.mybet;
 
+import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
 import common.MemberConstants;
 import controls.DateTimePicker;
@@ -171,6 +172,21 @@ public class NewUIMyBetsContainer extends MyBetsContainer {
 
     public List<ArrayList<String>> getReportIndex(int index, boolean isMove) {
         return tblReport.getRowsWithoutHeader(index, isMove);
+    }
+
+    public List<String> getReportColumnValue(int rowIndex, String columnName) {
+        List<String> lstValue = new ArrayList<>();
+        if(rowIndex > 1) {
+            int colIndex = tblReport.getColumnIndexByName(columnName);
+            for (int i = 0; i < rowIndex; i++) {
+                lstValue.add(tblReport.getLabelOfCell(i + 1, colIndex, 1, null).getText().trim());
+            }
+
+        } else {
+            System.out.println(String.format("Invalid row index value %s", rowIndex));
+            return null;
+        }
+        return lstValue;
     }
 
     public String getNoRecord() {

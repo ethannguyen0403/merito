@@ -6,12 +6,22 @@ public class ProteusBetslip {
     private String _hdpPoint;
     private String _odds;
     private String _stake;
+    private String _minBet;
+    private String _maxBet;
+    private String _maxMatch;
+    private String _toRisk;
+    private String _toWin;
     public ProteusBetslip(Builder builder) {
         this._eventName = builder._eventName;
         this._summaryEventInfo = builder._summaryEventInfo;
         this._odds = builder._odds;
         this._stake = builder._stake;
+        this._minBet = builder._minBet;
+        this._maxBet = builder._maxBet;
+        this._maxMatch = builder._maxMatch;
         this._hdpPoint = builder._hdpPoint;
+        this._toRisk = builder._toRisk;
+        this._toWin = builder._toWin;
     }
 
     public void setEventName(String val) {
@@ -42,6 +52,27 @@ public class ProteusBetslip {
     public String getStake() {
         return _stake;
     }
+    public void setMinBet(String val) {
+        _minBet = val;
+    }
+
+    public String getMinBet() {
+        return _minBet;
+    }
+    public void setMaxBet(String val) {
+        _maxBet = val;
+    }
+
+    public String getMaxBet() {
+        return _maxBet;
+    }
+    public void setMaxMatch(String val) {
+        _maxMatch = val;
+    }
+
+    public String getMaxMatch() {
+        return _maxMatch;
+    }
     public void setHDPPoint(String val) {
         _hdpPoint = val;
     }
@@ -49,7 +80,20 @@ public class ProteusBetslip {
     public String getHDPPoint() {
         return _hdpPoint;
     }
+    public void setToRisk(String toRisk) {
+        _toRisk = toRisk;
+    }
 
+    public String getToRisk() {
+        return _toRisk;
+    }
+    public void setToWin(String toWin) {
+        _toWin = toWin;
+    }
+
+    public String getToWin() {
+        return _toWin;
+    }
     public static class Builder {
         // Optional parameters
         private String _eventName;
@@ -57,6 +101,11 @@ public class ProteusBetslip {
         private String _hdpPoint;
         private String _odds;
         private String _stake;
+        private String _minBet;
+        private String _maxBet;
+        private String _maxMatch;
+        private String _toRisk;
+        private String _toWin;
         public Builder() {
         }
 
@@ -82,6 +131,28 @@ public class ProteusBetslip {
 
         public Builder stake(String val) {
             _stake = val;
+            return this;
+        }
+        public Builder minBet(String val) {
+            _minBet = val;
+            return this;
+        }
+        public Builder maxBet(String val) {
+            _maxBet = val;
+            return this;
+        }
+        public Builder maxMatch(String val) {
+            _maxMatch = val;
+            return this;
+        }
+
+        public Builder toRisk(String val) {
+            _toRisk = val;
+            return this;
+        }
+
+        public Builder toWin(String val) {
+            _toWin = val;
             return this;
         }
 

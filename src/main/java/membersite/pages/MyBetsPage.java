@@ -91,4 +91,10 @@ public class MyBetsPage extends HomePage {
     public List<ArrayList<String>> getReportIndex(int index, boolean isMove) {
         return myBetsContainer.getReportIndex(index, isMove);
     }
+    public List<String> getReportColumnValue(int rowIndex, String columnName) {
+        return myBetsContainer.getReportColumnValue(rowIndex, columnName);
+    }
+
+
+
 }

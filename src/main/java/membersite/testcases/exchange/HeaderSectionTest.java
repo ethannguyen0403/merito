@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import static common.MemberConstants.TIMEZONE_BRAND;
@@ -47,7 +48,7 @@ public class HeaderSectionTest extends BaseCaseTest {
         Assert.assertEquals(memberHomePage.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING, String.format("ERROR: Expected is Liability label is %s but found %s", memberHomePage.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING));
 
         log("Verify 3: Verify Main Balance, Liability value of the player are corrected");
-        AccountBalance balanceUI = memberHomePage.header.getUserBalance();
+        AccountBalance balanceUI = memberHomePage.getUserBalance();
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()), String.format("ERROR: The expected  Liability is '%s' but found '%s'", balanceAPI.getExposure(), balanceUI.getExposure()));
         Assert.assertTrue(balanceAPI.getBalance().equals(balanceUI.getBalance()), String.format("ERROR: The expected  balance is '%s' but found '%s'", balanceAPI.getBalance(), balanceUI.getBalance()));
 
@@ -111,7 +112,7 @@ public class HeaderSectionTest extends BaseCaseTest {
         log("Step 1. Get outstanding value");
         log("Step 2. Click on My market");
         log("Step 3. Sum liability of all market");
-        AccountBalance balanceUI = memberHomePage.header.getUserBalance();
+        AccountBalance balanceUI = memberHomePage.getUserBalance();
         MyMarketPopup popup = memberHomePage.header.openMyMarketPopup();
 
         log("Verify 1:  Liability matched with outstanding\n" +
@@ -330,7 +331,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. The corresponding market is navigate
      */
     @TestRails(id = "509")
-    @Test(groups = {"smoke"}, priority = 3)
+    @Test(groups = {"smoke","isa1"}, priority = 3)
     public void HeaderSection_C509() {
         log("@title: Validate can navigate to correct market when click on market in My market");
         log("Step 1. Click on My market ");
@@ -369,7 +370,7 @@ public class HeaderSectionTest extends BaseCaseTest {
         Assert.assertTrue(logoImgActual.contains(environment.directusURL), "FAILED! Log0 image not display");
 
         log("Verify 2: Label: Time zone, Credit, Balance, Outstanding, My Markets, My Account");
-        AccountBalance balanceUI = page.header.getUserBalance();
+        AccountBalance balanceUI = page.getUserBalance();
         Assert.assertEquals(page.header.getBalanceLabel(), MemberConstants.Header.BALANCE, String.format("ERROR: Expected is Balance label is %s but found %s", page.header.getBalanceLabel(), MemberConstants.Header.BALANCE));
         Assert.assertEquals(page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING, String.format("ERROR: Expected is Liability label is %s but found %s", page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING));
 

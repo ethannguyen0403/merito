@@ -21,7 +21,7 @@ public class EGBaccaratTest extends BaseCaseTest {
      */
     @TestRails(id = "533")
     @Test(groups = {"smoke"})
-    public void EG_Baccarat_TC001() {
+    public void EG_Baccarat_TC533() {
         log("@title: Validate can place BACCARAT standard");
         log("Step precondition. get min bet of Baccarat");
         String minBet = GetDataUtils.getMinBet("BACCARAT", "BACK");
@@ -32,10 +32,10 @@ public class EGBaccaratTest extends BaseCaseTest {
         BaccaratPage baccaratPage = new BaccaratPage(_brandname);
 
         log("Step 2: Place on Player  with Lay 1.02 and min stake");
-        baccaratPage.placebet("Player", false, "1.02", minBet);
+        baccaratPage.placeBet("Player", false, "1.02", minBet);
 
         log("Verify Verify can place bet");
-        Assert.assertTrue(baccaratPage.getUmatchedBetId().startsWith("Bet Id:"), "Failed! Cannot place bet as unmatched section not display");
+        Assert.assertTrue(baccaratPage.isUnmatchedBetDisplayed().contains("Player"), "Failed! Cannot place bet as unmatched section not display");
 
         log("INFO: Executed completely");
     }
@@ -49,7 +49,7 @@ public class EGBaccaratTest extends BaseCaseTest {
      */
     @TestRails(id = "534")
     @Test(groups = {"smoke"})
-    public void EG_Baccarat_TC002() {
+    public void EG_Baccarat_TC534() {
         log("@title: Validate can Not place BACCARAT if exceed available balance");
         AccountBalance balanceAPI = BetUtils.getUserBalance();
         String minBet = GetDataUtils.getMinBet(EGConstants.BACCARAT, "BACK");
@@ -60,7 +60,7 @@ public class EGBaccaratTest extends BaseCaseTest {
         BaccaratPage baccaratPage = (BaccaratPage) egHomePage.navigateGameFromMainMenu(EGConstants.BACCARAT);
 
         log("Step 2. Place a Back bet that exceed available balance");
-        baccaratPage.placebet("Player", true, "", stake);
+        baccaratPage.placeBet("Player", true, "", stake);
 
         log("Verify 1: Verify error message display");
         Assert.assertEquals(baccaratPage.betSlipControl.lblErrorMessage.getText(), EGConstants.BetSlip.ERROR_INSUFFICIENT_BALANCE, "FAILED! Error message is incorrect");

@@ -20,7 +20,7 @@ public class ProductStatusSettingSection {
     public CheckBox chbNoneLive = CheckBox.id("nonlive");
     public Menu mnProduct = Menu.xpath("//tabset[@id='productSetting']//ul[@class='nav nav-tabs']");
     public Table tblSportTable = Table.xpath("//div[contains(@class,'marketSettingWrapper')]//table[contains(@class,'sportTable')]", totalSportCol);
-    String cbSportXPath = "//td[contains(@class,'betTitle back')]//label[@title='%s']/input";
+    String cbSportXPath = "//label[@title='%s' and @class='sport-title']/input";
     String cbProdudctXpath = ".//span[text()='%s']/../input[@type='checkbox']";
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     public void waitingLoadingSpinner() {
@@ -82,10 +82,6 @@ public class ProductStatusSettingSection {
         }
     }
 
-    public void selectProduct(String productName) {
-        Label lblProduct = Label.xpath(String.format("//span[text()='%s']", productName));
-        lblProduct.click();
-    }
     public void searchMarketOfSport(String sportName, String marketName) {
         openEditMarketOfSport(sportName);
         editMarketPopup.txtSearchMarket.isDisplayed();

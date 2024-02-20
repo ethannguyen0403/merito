@@ -15,6 +15,7 @@ public class MemberConstants {
     public static final String STARTINGSOON = "Starting soon";
     public static final String TIMEZONE = "IST";
     public static final String GMT_5_30 = "GMT+5:30";
+    public static final String GMT_7 = "GMT+7";
     public static final String GMT_MINUS_4_30 = "GMT-4:30";
     public static final String NO_RECORD_FOUND = "No Record Found";
     public static final String WICKET_FANCY_TITLE = "Wicket Fancy";
@@ -45,6 +46,7 @@ public class MemberConstants {
     public static final String MULTI_BET_TYPE_CODE = "ARTEMIS_MULTI_BET";
     public static final String LBL_SOCCER_SPORT = "Soccer";
     public static final String LBL_TENNIS_SPORT = "Tennis";
+    public static final String LBL_HORSE_RACING_SPORT = "Horse Racing";
     public static final Map<String, String> TIMEZONE_BRAND = new HashMap<String, String>() {
         {
             put("satsport", "IST");
@@ -240,7 +242,7 @@ public class MemberConstants {
         public final static String START_DATE = "Start Date";
         public final static String END_DATE = "End Date";
         public final static String NOTES = "Note : Date will be based on time zone %s";
-        public final static List<String> TABLE_SUMMARY_HEADER = Arrays.asList("Event/Market ID/Arena ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
+        public final static List<String> TABLE_SUMMARY_HEADER = Arrays.asList("Event/Market ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
         public final static List<String> TABLE_DETAIL_HEADER = Arrays.asList("Bet ID", "Selection", "Type", "Odds", "Turnover", "Place Date", "Profit/Loss", "Status");
         public final static String LOAD_REPORT = "Load Report";
         public final static String OPENING_BALANCE = "OPENING BALANCE";
@@ -423,5 +425,13 @@ public class MemberConstants {
             }
         };
 
+    }
+
+    public static class Casino{
+        public static final String SUPERNOWA = "SUPERNOWA";
+        public static final String SUPERNOWA_SUFFIX_LINK = "/#/1/home/veronica/supernowa";
+        public static final String PRAGMATIC_SUFFIX_LINK = "/#/1/home/pragmatic";
+        public static final List<String> ERROR_CODE_LIST = Arrays.asList("403", "405");
+        public static final List<String> PRAGMATIC_HEADER_MENU = Arrays.asList("", "Video Slots", "Blackjack", "Classic Slots", "Baccarat", "Baccarat New", "Roulette", "Scratch card", "Live games", "RGS - VSB");
     }
 }

@@ -87,14 +87,14 @@ public class ProfitAndLossPageTest extends BaseCaseTest {
         }
 
         log("Step 4. Click on a sport");
-        page.tblSport.getControlOfCell(1, page.colSportGame, 1, "span[@class='hover hyperlink']").click();
+        page.clickFirstSport();
         tblHeaders = page.tblMarket.getColumnNamesOfTable();
 
         log("Verify 2. Market table header display correctly");
         Assert.assertEquals(tblHeaders, TABLE_MARKET_HEADER, "ERROR! Market header table not match as expected");
 
         log("Step 5. Click on an event ");
-        page.tblMarket.getControlOfCell(1, page.colMarketName, 1, "span[@class='hover hyperlink']").click();
+        page.clickFirstEvent();
         tblHeaders = page.tblWager.getColumnNamesOfTable();
 
         log("Verify 3. Wager table header display correctly");

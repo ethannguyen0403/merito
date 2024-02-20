@@ -26,7 +26,7 @@ import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 public class CentralFancyTest extends BaseCaseTest {
 
     @TestRails(id = "543")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke"})
     public void CentralFancyTest_543() {
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
@@ -56,13 +56,13 @@ public class CentralFancyTest extends BaseCaseTest {
         Assert.assertEquals(lstFCBet.get(0).get(1), expectedWager.getRunnerName(), "FAILED! Market Name is incorrect");
         Assert.assertEquals(lstFCBet.get(0).get(2), expectedWager.displayFancyOdds(), "FAILED! Odd is incorrect");
         Assert.assertEquals(lstFCBet.get(0).get(3), String.format("%.2f", (double) fancyMarket.getMinSetting()), "FAILED! Stake is incorrect");
-        Assert.assertEquals(lstFCBet.get(0).get(4), String.format("%.2f", expectedWager.getLiabilityFancyWager()), "FAILED! Liability is incorrect");
+        Assert.assertEquals(lstFCBet.get(0).get(4), String.format("%.2f", expectedWager.getProfitFancyWager()), "FAILED! Liability is incorrect");
 
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "544")
-    @Test(groups = {"smoke_sat1"})
+    @Test(groups = {"smoke"})
     public void CentralFancyTest_544() {
         log("@title: Verify exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
@@ -79,7 +79,7 @@ public class CentralFancyTest extends BaseCaseTest {
         log("Step 4 Active Central Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
@@ -93,7 +93,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "545")
-    @Test(groups = {"smoke_sat1"})
+    @Test(groups = {"smoke"})
     public void CentralFancyTest_545() {
         log("@title: Verify exposure is kept correctly when place on Yes and No");
         log("Step 1. Login member site and click on Cricket");
@@ -110,7 +110,7 @@ public class CentralFancyTest extends BaseCaseTest {
         log("Step 4 Active Central Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
@@ -143,7 +143,7 @@ public class CentralFancyTest extends BaseCaseTest {
         log("Step 4 Active Central Fancy tab");
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.header.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
 
@@ -157,7 +157,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "546")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke"})
     public void CentralFancyTest_546() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
@@ -175,7 +175,7 @@ public class CentralFancyTest extends BaseCaseTest {
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String stake = Double.toString(Double.valueOf(fcMarket.getMinSetting()) - 1);
-        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(),Double.parseDouble(stake));
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeFancy(fcMarket, true, stake);
@@ -188,7 +188,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "547")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke"})
     public void CentralFancyTest_547() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
@@ -206,7 +206,7 @@ public class CentralFancyTest extends BaseCaseTest {
         memberHomePage.leftMenu.openFancyMarket(CENTRAL_FANCY_TITLE, fcMarket.getMarketName());
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
         String stake = Double.toString(Double.valueOf(fcMarket.getMaxSetting()) + 1);
-        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), String.format("%.0f", Double.parseDouble(stake)));
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,fcMarket.getMinSetting(),fcMarket.getMaxSetting(), Double.parseDouble(stake));
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
         marketPage.placeFancy(fcMarket, true, stake);
@@ -218,12 +218,12 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "548")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke"})
     public void CentralFancyTest_548() {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
         AccountBalance balance = BetUtils.getUserBalance();
-        String stake = Double.toString(Double.valueOf(balance.getBalance().replaceAll(",", "").toString()) + 1);
+        String stake = Double.toString(Double.valueOf(balance.getBalance().replaceAll(",", "")) + 1);
         log("Step 2/ Active the event that have Fancy market");
         log("Step Debug Click Cricket menu");
         String sportName = "Cricket";
@@ -242,7 +242,8 @@ public class CentralFancyTest extends BaseCaseTest {
         fcMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log(String.format("Step 5: On market %s Place on Back odds with stake %s ", fcMarket.getMarketID(), stake));
-        marketPage.betsSlipContainer.placeBet(stake);
+//        marketPage.betsSlipContainer.placeBet(stake);
+        marketPage.placeFancy(fcMarket, true, stake);
 
         log("Verify 1. Can NOT place bet");
         String actualError = marketPage.myBetsContainer.getPlaceBetErrorMessage();
@@ -252,7 +253,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15764")
-    @Test(groups = {"smoke_sat1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void CentralFancyTest_15764() {
         log("@title: Validate My Bet display correct after place bet on Central Fancy market");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -287,7 +288,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15765")
-    @Test(groups = {"smoke_sat1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void CentralFancyTest_15765() {
         log("@title: Validate able navigate to Central Fancy market page");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -313,7 +314,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15766")
-    @Test(groups = {"smoke_sat1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void CentralFancyTest_15766() {
         log("@title: Validate able to open Ladder forecast score");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -341,7 +342,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15767")
-    @Test(groups = {"smoke_sat1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void CentralFancyTest_15767() {
         log("@title: Validate bet slip is cleared when navigate to another market");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -379,7 +380,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15768")
-    @Test(groups = {"smoke_sat1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void CentralFancyTest_15768() {
         log("@title: Validate able to choose multi selection");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -409,7 +410,7 @@ public class CentralFancyTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "15769")
-    @Test(groups = {"smoke_stg", "2024.01.19"})
+    @Test(groups = {"regression_stg", "2024.01.19"})
     public void CentralFancyTest_15769() {
         log("@title: Validate multi tab (bet slip) is disabled");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -441,7 +442,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15770")
-    @Test(groups = {"smoke_sat1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void CentralFancyTest_15770() {
         log("@title: Validate bet slip information show correctly for selection Yes");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -477,7 +478,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15771")
-    @Test(groups = {"smoke_sat1", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19"})
     public void CentralFancyTest_15771() {
         log("@title: Validate bet slip information show correctly for selection No");
         log("@Precondition: Get the event that have Central Fancy market");

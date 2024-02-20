@@ -4,7 +4,10 @@ import agentsite.pages.report.PS38SportsResultsPage;
 import com.paltech.driver.DriverManager;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
+import membersite.objects.proteus.Order;
 import membersite.objects.sat.Event;
+import membersite.pages.casino.CasinoHomePage;
+import membersite.pages.casino.CasinoProduct;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.betslipcontainer.BetsSlipContainer;
 import membersite.pages.components.minimybetcontainer.MiniMyBetsContainer;
@@ -12,8 +15,8 @@ import membersite.pages.components.nextupracingcontainer.NextUpRacingContainer;
 import membersite.pages.exchangegames.EGHomePage;
 import membersite.pages.popup.BannerPopup;
 import membersite.pages.proteus.ProteusHomePage;
-import membersite.testcases.proteus.ProteusHomePageTest;
 import membersite.utils.betplacement.BetUtils;
+import org.testng.Assert;
 
 import java.util.Locale;
 
@@ -73,6 +76,18 @@ public class HomePage extends LandingPage {
         return exPage;
     }
 
+    public CasinoHomePage openCasinoGame(CasinoProduct product){
+        header.openCasinoGame(product);
+        CasinoHomePage page = new CasinoHomePage(_type, product);
+        return page;
+    }
+
+    public CasinoHomePage openCasinoGameByLink(CasinoProduct product, String url){
+        DriverManager.getDriver().get(url);
+        CasinoHomePage page = new CasinoHomePage(_type, product);
+        return page;
+    }
+
     public void clickProduct(String product) {
         header.clickProduct(product);
     }
@@ -90,7 +105,7 @@ public class HomePage extends LandingPage {
             eventContainerControl.clickEvent(event);
         } else
             eventContainerControl.clickEvent(event);
-        waitMenuLoading();
+        waitPageLoad();
         return new MarketPage(this._type);
     }
 
@@ -149,7 +164,6 @@ public class HomePage extends LandingPage {
 
     public MarketPage clickEventName(String eventName) {
         eventContainerControl.clickOnRowofEventName(eventName);
-//        waitMenuLoading();
         waitPageLoad();
         return new MarketPage(_type);
     }
@@ -166,6 +180,16 @@ public class HomePage extends LandingPage {
     public LandingPage logout() {
         header.logout();
         return new LandingPage(_type);
+    }
+
+    public void verifyUserBalanceAfterPlacePS38(AccountBalance accountBalance){
+        //switch to main frame
+        DriverManager.getDriver().switchToDefaultContent();
+        AccountBalance actualBalance = getUserBalance();
+        Assert.assertEquals(actualBalance.getBalance(),accountBalance.getBalance(),"Failed! User Balance is incorrect");
+        Assert.assertEquals(actualBalance.getExposure(),accountBalance.getExposure(),"Failed! User Exposure is incorrect");
+        //switch to proteus iFrame
+        DriverManager.getDriver().switchToFrame(0);
     }
 
 }

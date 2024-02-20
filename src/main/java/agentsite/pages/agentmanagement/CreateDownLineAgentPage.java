@@ -14,12 +14,14 @@ import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.Ra
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.RiskSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.transfersettingsection.TransferSettingSection;
+import agentsite.pages.agentmanagement.proteus.createdownlineagent.BetSettingSectionPS38;
+import agentsite.pages.agentmanagement.proteus.createdownlineagent.commissionsettingsection.CommissionSectionPS38;
+import agentsite.pages.agentmanagement.proteus.createdownlineagent.PositionTakingSectionPS38;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.SuccessPopup;
 import com.paltech.element.common.*;
 
-import java.util.List;
 import java.util.Map;
 
 public class CreateDownLineAgentPage extends HomePage {
@@ -35,7 +37,9 @@ public class CreateDownLineAgentPage extends HomePage {
     // Product Settings - Exchange Tab
     public Label lblProductSetting = Label.xpath("//div[contains(@id,'product-settings')]/div[@class='psection']");
     public Tab tabExchangeGames = Tab.xpath("//tabset[@id='productSetting']//span[text()='Exchange Games']");
-
+    // Switch Tabs PS38
+    public Button btnCancelSwitchTab = Button.xpath("//button[contains(@class, 'btn-cancel')]");
+    public Button btnSwitchTab = Button.xpath("//button[contains(@class, 'btn') and contains(text(), 'Switch Tabs')]");
     //Exchange Product - Bet Settings
 
     public Label lblBetSettings = Label.xpath("//div[@id='EXCHANGE-bet-settings']/div[@class='psection']");
@@ -44,8 +48,8 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label lblEGTaxSettings = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']/div[@class='psection']");
     public Label lblPositionTakingListing = Label.xpath("//div[@id='EXCHANGE-position-taking']/div[@class='psection']");
     public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[@class='psection']");
-    public Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
-    public Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
+    private Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
+    private Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
     public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg']");
 
     public AccountInforSection accountInforSection;
@@ -60,6 +64,11 @@ public class CreateDownLineAgentPage extends HomePage {
     public PositionTakingSection positionTakingInforSection;
     public TransferSettingSection transferSettingInforSection;
     public CommissionSettingSection commissionSettingSection;
+    //proteus
+    public BetSettingSectionPS38 betSettingSectionPS38;
+    public PositionTakingSectionPS38 positionTakingSectionPS38;
+    public CommissionSectionPS38 commissionSectionPS38;
+
     protected String _type;
     private int totalBetSettingsColumns = 9;
     public Table tblBetSettings = Table.xpath("//div[@id='EXCHANGE-bet-settings']//table[contains(@class,'betTable')]", totalBetSettingsColumns);
@@ -89,6 +98,9 @@ public class CreateDownLineAgentPage extends HomePage {
         productStatusSettingInforSection = ComponentsFactory.productStatusSettingInfoObject(_type);
         accountBalanceTransferConditionInforSection = ComponentsFactory.accountBalanceTransferConditionInfoObject(_type);
         transferSettingInforSection = ComponentsFactory.transferSettingInfoObject(_type);
+        betSettingSectionPS38 = new BetSettingSectionPS38();
+        positionTakingSectionPS38 = new PositionTakingSectionPS38();
+        commissionSectionPS38 = new CommissionSectionPS38();
     }
 
     public String createDownline(String loginID, String password, String accountStatus) {
@@ -111,6 +123,15 @@ public class CreateDownLineAgentPage extends HomePage {
         return username;
     }
 
+    public void selectProduct(String productName) {
+        Label lblProduct = Label.xpath(String.format("//span[text()='%s']", productName));
+        lblProduct.click();
+        //Wait 1s for element of PS38 dropdown data loaded
+        try {
+            Thread.sleep(1000);
+        }catch (Exception e){
+        }
+    }
 
     public String getMessageUpdate(boolean isClose) {
         String message = successPopup.getContentMessage();
@@ -130,10 +151,24 @@ public class CreateDownLineAgentPage extends HomePage {
         btnSubmit.click();
         return getMessageUpdate(isClose);
     }
-
+    public String activeInactiveProduct(String productName, boolean isActive,boolean isClose) {
+        productStatusSettingInforSection.updateProduct(productName,isActive);
+        btnSubmit.click();
+        return getMessageUpdate(isClose);
+    }
     public void updateProducts(Map<String, Boolean> products){
         productStatusSettingInforSection.updateProducts(products);
         btnSubmit.click();
         getMessageUpdate(true);
     }
+
+    public Button getSubmitBtn()
+    {
+        return btnSubmit;
+    }
+    public Button getBtnCancel()
+    {
+        return btnCancel;
+    }
+
 }

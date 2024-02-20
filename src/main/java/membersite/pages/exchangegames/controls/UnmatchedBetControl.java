@@ -15,7 +15,7 @@ public class UnmatchedBetControl extends BaseElement {
     private UnmatchedBetControl(By locator, String xpath) {
         super(locator);
         _xpath = xpath;
-        lblBetId = Label.xpath(String.format("%s//div[@class='bet-info']/span[1]", _xpath));
+        lblBetId = Label.xpath(String.format("%s//div[contains(@class,'row')]/span[1]", _xpath));
 
     }
 
@@ -23,7 +23,7 @@ public class UnmatchedBetControl extends BaseElement {
         return new UnmatchedBetControl(By.xpath(xpathExpression), xpathExpression);
     }
 
-    public String getBetId() {
+    public String getBetUnmatch() {
         if (lblBetId.isDisplayed(10)) {
             return lblBetId.getText();
         }
