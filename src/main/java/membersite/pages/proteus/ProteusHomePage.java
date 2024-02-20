@@ -399,7 +399,7 @@ public class ProteusHomePage extends HomePage {
         String eventName = Label.xpath(String.format("%s%s", betslipRootXpath,lblEventNameXpath)).getText();
         String summaryInfo = Label.xpath(String.format("%s%s", betslipRootXpath, lblSummaryInfoXpath)).getText();
         String selectionName = Label.xpath(String.format("%s%s", betslipRootXpath, lblHDPPointXpath)).getText();
-        String odds = Label.xpath(String.format("%s%s", betslipRootXpath,lblOddsXpath)).getText();
+        String odds = Label.xpath(String.format("%s%s", betslipRootXpath,lblOddsXpath)).getText().replace("⠀","");
         String expectedOdds = String.format("@%.3f",market.getOddsInfoBySelection(selection).getOdds());
         if(oddsType.toLowerCase().equalsIgnoreCase(AMERICAN)){
             expectedOdds = String.format("@%.0f",market.getOddsInfoBySelection(selection).getOdds());
@@ -421,6 +421,7 @@ public class ProteusHomePage extends HomePage {
 
     private void clickPlaceBet(boolean isConfirm) {
         btnPlaceBet.jsClick();
+        confirmModulePopup.waitForElementToBePresent(confirmModulePopup.getLocator(), 2);
         if(isConfirm)
         {
             confirmModulePopup.confirm();
@@ -476,6 +477,20 @@ public class ProteusHomePage extends HomePage {
                 .status(fistPendingOrder.getStatus())
                 .placeDate(fistPendingOrder.getPlaceDate())
                 .build();
+    }
+
+    public void placeNoBetWithoutReturnOrder(Market market,String stake, boolean isAcceptedBetterOdds, boolean isPlaceBet) {
+        String stakeIn = defineStakeIn(market,stake);
+        inputStake(market,stakeIn);
+        //if(isAcceptedBetterOdds)
+        //handle check on Accept Better Odds checkbox here
+        if(isPlaceBet)
+            // click place bet button and confirm Ok
+            clickPlaceBet(true);
+        else
+            // click place bet and do nothing
+            waitForSpinnerLoading();
+            clickPlaceBet(false);
     }
 
     public void verifyPendingBetInfo(Order order,String currency){

@@ -38,6 +38,7 @@ public class ProteusConstant {
             put("C", "0.56");
             put("D", "0.84");
             put("E", "2.00");
+            put("A", "0.00");
         }
     };
     public static final Map<String, String> ODDS_SIGN_MAPPING = new HashMap<String, String>() {

@@ -7,7 +7,6 @@ import controls.Table;
 import membersite.controls.DropDownMenu;
 import membersite.objects.proteus.*;
 import membersite.utils.proteus.MarketUtils;
-import org.json.JSONObject;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -221,6 +220,13 @@ public class EuroViewPage extends ProteusHomePage {
         return order;
     }
 
+    public void addOddToBetSlipAndPlaceBetWithoutReturnOrder(Market market, String selection, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+        // click odds
+        clickOdds(market, selection);
+        //input stake and click place bet and confirm
+        placeNoBetWithoutReturnOrder(market,stake,isAcceptBetterOdds,isPlace);
+    }
+
     public void waitContentLoad(){
         lblLoading.waitForControlInvisible(2,3);
     }
@@ -320,11 +326,12 @@ public class EuroViewPage extends ProteusHomePage {
         return proteusGeneralEvent;
     }
 
-    public void placeBet(ProteusGeneralEvent event, String stake, boolean isSubmit, boolean isConfirm) {
-        if(Objects.nonNull(event)) {
-            event.getBtnFirstSelection().click();
+    public void placeBet(Market market, String stake, String selection, boolean isSubmit, boolean isConfirm) {
+        if(Objects.nonNull(market)) {
+            // click odds
+            clickOdds(market, selection);
             btnPlaceBet.waitForElementToBePresent(btnPlaceBet.getLocator(), 2);
-            inputStake(String.valueOf(event.getEventId()), stake);
+            inputStake(String.valueOf(market.getEventId()), stake);
             if(isSubmit) {
                 btnPlaceBet.jsClick();
                 btnOK.waitForElementToBePresent(btnOK.getLocator());
@@ -421,5 +428,12 @@ public class EuroViewPage extends ProteusHomePage {
         EuroViewDetailsPage euroViewDetailsPage = new EuroViewDetailsPage(_type);
         euroViewDetailsPage.lblLeagueName.isDisplayed();
         return euroViewDetailsPage;
+    }
+
+    public void verifyTopMenuShowCorrect() {
+        List<String> lstHeaders = getSportsHeaderMenuList();
+        List<String> lstActiveSports = MarketUtils.getListActiveSports();
+        lstActiveSports.add(0,"Favourites");
+        Assert.assertEquals(lstHeaders, lstActiveSports, String.format("FAILED! List Header is not matched expected %s actual %s", lstHeaders, lstActiveSports));
     }
 }

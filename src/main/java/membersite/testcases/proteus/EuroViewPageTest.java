@@ -84,8 +84,8 @@ public class EuroViewPageTest extends BaseCaseTest {
 
         log("Step 4. Select Early tab in the left meu and any sport has events available");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
-        Market market = euroViewPage.getEventInfo(SOCCER, MALAY);
         euroViewPage.selectOddsType(MALAY);
+        Market market = euroViewPage.getEventInfo(SOCCER, MALAY);
 
         log("Step 5. Click on event of 1x2 market has odds");
         euroViewPage.clickOdds(market, "HOME");
@@ -535,4 +535,62 @@ public class EuroViewPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "4073")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4073() {
+        log("@title: Validate top menu displays correctly items on PS38 product in Euro View");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View and observe top menu");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+
+        log("Verify The items on top menu displays correctly (refer to PS38 Sport)");
+        euroViewPage.verifyTopMenuShowCorrect();
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4037")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4037() {
+        log("@title: Validate cannot place bet when place bet in member site smaller than min bet setting");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        String minStake = "1.00";
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        log("Step 3. Placing bet with Stake/Risk smaller than min bet > observe");
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+        euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
+        euroViewPage.addOddToBetSlipAndPlaceBetWithoutReturnOrder(market, "HOME", minStake, false, false);
+
+        log("Validate An error message should display as:\n" +
+                "Your stake cannot be lower than the minimum bet. It has been automatically adjusted to the minimum bet amount.");
+        String errorMessage = proteusHomePage.lblPlaceBetError.getText();
+        Assert.assertEquals(errorMessage, MIN_STAKE_ERROR_MSG, String.format("FAILED! Stake error message does not show correct expected %s actual %s", errorMessage, MIN_STAKE_ERROR_MSG));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4038")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4038() {
+        log("@title: Validate cannot place bet when place bet in member site greater than max bet setting");
+        log("Precondition: Login member site-  the player active PS38 product");
+        log("Step 1.Select Ps38 product");
+        log("Step 2.Select Euro View");
+        String maxStake = "100000000";
+        ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
+        EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
+        euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        log("Step 3. Placing bet with Stake/Risk greater than max bet > observe");
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
+        euroViewPage.addOddToBetSlipAndPlaceBetWithoutReturnOrder(market, "HOME", maxStake, false, false);
+
+        log("Validate An error message should display as:\n" +
+                "Your stake cannot be greater than the maximum bet. It has been automatically adjusted to the maximum bet amount.");
+        String errorMessage = proteusHomePage.lblPlaceBetError.getText();
+        Assert.assertEquals(errorMessage, MAX_STAKE_ERROR_MSG, String.format("FAILED! Stake error message does not show correct expected %s actual %s", errorMessage, MAX_STAKE_ERROR_MSG));
+        log("INFO: Executed completely");
+    }
 }
