@@ -2,7 +2,6 @@ package membersite.pages.casino;
 
 import com.paltech.driver.DriverManager;
 import membersite.pages.LandingPage;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 
@@ -13,6 +12,8 @@ public class CasinoHomePage extends LandingPage {
 
     public SupernowaCasino supernowa;
     public Pragmatic pragmatic;
+    public LotterySlots lotterySlots;
+    public Evolution evolution;
 
     public CasinoProduct getCasinoProduct(){
         return product;
@@ -27,6 +28,8 @@ public class CasinoHomePage extends LandingPage {
     private void loadCasinoPageGame(CasinoProduct product) {
         switch (product) {
             case EVOLUTION:
+                evolution = new Evolution();
+                break;
             case ION:
             case VIVO:
             case QTECH:
@@ -38,6 +41,8 @@ public class CasinoHomePage extends LandingPage {
                 supernowa = new SupernowaCasino();
                 break;
             case LOTTERY_SLOTS:
+                lotterySlots = new LotterySlots();
+                break;
             case LIVE_DEALER_ASIAN:
             case LIVE_DEALER_EUROPEAN:
             case EVOLUTION_WHITE_CLIFF:
@@ -51,6 +56,7 @@ public class CasinoHomePage extends LandingPage {
         for (String value : values) {
             for (LogEntry entry : entriesConsole) {
                 if (entry.getMessage().contains(value)) {
+                    System.out.println("Log console contains the value: " + value);
                     return false;
                 }
             }

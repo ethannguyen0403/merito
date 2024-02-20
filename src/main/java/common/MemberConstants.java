@@ -431,7 +431,11 @@ public class MemberConstants {
         public static final String SUPERNOWA = "SUPERNOWA";
         public static final String SUPERNOWA_SUFFIX_LINK = "/#/1/home/veronica/supernowa";
         public static final String PRAGMATIC_SUFFIX_LINK = "/#/1/home/pragmatic";
+        public static final String LOTTERY_SLOTS_SUFFIX_LINK = "/#/1/home/lottery-slots";
+        public static final String EVOLUTION_SUFFIX_LINK = "/#/1/home/live-dealer/ezugi";
         public static final List<String> ERROR_CODE_LIST = Arrays.asList("403", "405");
+        public static final List<String> LOTTERY_SLOTS_HEADER_MENU = Arrays.asList("", "Slots games", "Table games", "Draw games", "Sport games", "Roulette games");
         public static final List<String> PRAGMATIC_HEADER_MENU = Arrays.asList("", "Video Slots", "Blackjack", "Classic Slots", "Baccarat", "Baccarat New", "Roulette", "Scratch card", "Live games", "RGS - VSB");
+        public static final List<String> EVOLUTION_PRODUCTS_MENU = Arrays.asList("Evolution Black Jack", "Evolution Roulette", "Evolution Poker", "Evolution Game Shows", "Evolution Baccarat & Sic Bo");
     }
 }
