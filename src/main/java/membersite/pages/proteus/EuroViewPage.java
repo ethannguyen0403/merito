@@ -300,33 +300,7 @@ public class EuroViewPage extends ProteusHomePage {
         }
     }
 
-    public ProteusGeneralEvent getFirstEventInfo() {
-        ProteusGeneralEvent proteusGeneralEvent = new ProteusGeneralEvent.Builder().build();
-        proteusGeneralEvent.setEventId(Integer.valueOf(tblFirstEvent.getAttribute("eventid")));
-        proteusGeneralEvent.setLeagueId(Integer.valueOf(tblFirstLeague.getAttribute("leagueid")));
-        proteusGeneralEvent.setLeagueName(lblFirstLeague.getText().trim());
-        proteusGeneralEvent.setHomeName(lblFirstEventHomeName.getText().trim());
-        proteusGeneralEvent.setAwayName(lblFirstEventAwayName.getText().trim());
-        proteusGeneralEvent.setBtnFirstSelection(lblFirstSelection);
-        proteusGeneralEvent.setBtnSecondSelection(lblSecondSelection);
-        proteusGeneralEvent.setBtnThirdSelection(lblThirdSelection);
-        if(lblFirstHDP.isDisplayed()) {
-            double hdp;
-            String hdpText = lblFirstHDP.getText().trim().replace(" ","");
-            if(hdpText.contains(",")) {
-                String[] lstHdp = hdpText.split(",");
-                double firstHDP = Double.parseDouble(lstHdp[0].trim());
-                double secondHDP = Double.parseDouble(lstHdp[1].trim());
-                hdp = (firstHDP + secondHDP)/2;
-                proteusGeneralEvent.setHDPPoint(String.valueOf(hdp));
-            } else {
-                proteusGeneralEvent.setHDPPoint(hdpText);
-            }
-        }
-        return proteusGeneralEvent;
-    }
-
-    public void placeBet(Market market, String stake, String selection, boolean isSubmit, boolean isConfirm) {
+     public void placeBet(Market market, String stake, String selection, boolean isSubmit, boolean isConfirm) {
         if(Objects.nonNull(market)) {
             // click odds
             clickOdds(market, selection);
@@ -348,41 +322,6 @@ public class EuroViewPage extends ProteusHomePage {
         TextBox txtStake = TextBox.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
         txtStake.sendKeys(stake);
         txtStake.waitForAttributeChange("value", stake, 2);
-    }
-
-    public void verifyBetSlipInfoShowCorrect(ProteusGeneralEvent event, ProteusMarket market, String stake, String marketType, List<Double> lstOddsConvert) {
-        String hdpPoint;
-        String eventName = event.getHomeName() + " vs " + event.getAwayName();
-        ProteusBetslip betslip = getBetSlipInfo(String.valueOf(event.getEventId()));
-        Assert.assertEquals(betslip.getEventName(), eventName, String.format("FAILED! Event Name show incorrect expected %s actual %s", eventName,betslip.getEventName()));
-        if(marketType.equalsIgnoreCase("Over Under")) {
-            hdpPoint = "Over " + market.getFirstHDPPoint();
-            Assert.assertTrue(betslip.getSummaryEventInfo().contains("Total"), String.format("FAILED! Summary Info %s does not contains market type Total", betslip.getSummaryEventInfo()));
-            Assert.assertEquals(betslip.getHDPPoint(), hdpPoint, String.format("FAILED! HDP Point does not show correct expected %s actual %s", hdpPoint, event.getHomeName()));
-        } else if (marketType.equalsIgnoreCase("Handicap")) {
-            hdpPoint = event.getHomeName() + " " + market.getFirstHDPPoint();
-            Assert.assertTrue(betslip.getSummaryEventInfo().contains(marketType), String.format("FAILED! Summary Info %s does not contains market type %s", betslip.getSummaryEventInfo(), marketType));
-            Assert.assertEquals(betslip.getHDPPoint(), hdpPoint, String.format("FAILED! HDP Point does not show correct expected %s actual %s", hdpPoint, betslip.getHDPPoint()));
-        } else {
-            Assert.assertTrue(betslip.getSummaryEventInfo().contains(marketType), String.format("FAILED! Summary Info %s does not contains market type %s", betslip.getSummaryEventInfo(), marketType));
-            Assert.assertEquals(betslip.getHDPPoint(), event.getHomeName(), String.format("FAILED! HDP Point does not show correct expected %s actual %s", event.getHomeName(), betslip.getHDPPoint()));
-        }
-        Assert.assertTrue(betslip.getSummaryEventInfo().contains(event.getLeagueName()), String.format("FAILED! Summary Info %s does not contains league name %s", betslip.getSummaryEventInfo(), event.getLeagueName()));
-        Assert.assertEquals(betslip.getOdds(), String.valueOf(String.format("%.3f", lstOddsConvert.get(0))), String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsConvert.get(0), betslip.getOdds()));
-        Assert.assertEquals(betslip.getStake(), stake, String.format("FAILED! Stake does not show correct expected %s actual %s", stake, betslip.getStake()));
-    }
-
-    public List<Double> getListOddsFirstEvent(ProteusGeneralEvent event, String marketType) {
-        List<Double> lstOdds = new ArrayList<>();
-        if(marketType.equalsIgnoreCase("1x2")) {
-            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[⠀−+]","")));
-            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[⠀−+]","")));
-            lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText().replaceAll("[⠀−+]","")));
-        } else {
-            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[⠀−+]","")));
-            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[⠀−+]","")));
-        }
-        return lstOdds;
     }
 
     public List<String> getSportsHeaderMenuList() {
