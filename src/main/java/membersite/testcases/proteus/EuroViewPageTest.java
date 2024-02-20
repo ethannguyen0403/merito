@@ -512,7 +512,7 @@ public class EuroViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4122")
-    @Test(groups = {"ps38", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38", "Proteus.2024.V.1.0","isa"})
     public void PS38_Member_TC4122() {
         log("@title: Validate detail page display when clicking on soccer event name ");
         log("Precondition: Login member site-  the player active PS38 product");
