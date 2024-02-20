@@ -36,15 +36,6 @@ public class AsianViewPage extends ProteusHomePage {
     public DropDownMenu ddmLeagues = DropDownMenu.xpath("//app-event-filter-desktop//ul[contains(@class,'control-list')]/li[5]","span[@class='me-2 text-capitalize']","//div[@class='leagues-box']");
     public DropDownMenu ddmSortBy = DropDownMenu.xpath("//app-event-filter-desktop//ul[contains(@class,'control-list')]/li[3]","span[@class='mx-2 text-capitalize']","//ul[contains(@class,'sub-selections')]//li");
     private Table tblMoreMarket = Table.xpath("//app-market-asian//table[contains(@class,'market-table')]", 7);
-    private Table tblFirstEvent = Table.xpath("(//app-league-asian//table[contains(@class,'odds-page')])[1]", 10);
-    private Label lblFirstLeague = Label.xpath("(//app-league-asian//div[contains(@class,'league-name')])[1]");
-    private Label lblFirstEventAwayName = Label.xpath("(//app-league-asian//div[contains(@class,'weak-team')])[1]");
-    private Label lblFirstEventHomeName = Label.xpath("(//app-league-asian//div[contains(@class,'strong-team')])[1]");
-    private String firstSelectionXpath = "((//app-league-asian//th[contains(@class,'odd-column')])[%s]//span[contains(@class,'odd-number')])[1]";
-    private String secondSelectionXpath =  "((//app-league-asian//th[contains(@class,'odd-column')])[%s]//span[contains(@class,'odd-number')])[2]";
-    private Label lblThirdSelection =  Label.xpath("((//app-league-asian//th[contains(@class,'odd-column')])[1]//span[contains(@class,'odd-number')])[3]");
-    private String firstHDPXpath = "((//app-league-asian//table)[1]//div[contains(@class,'normal hdp')])[%s]";
-//    private Table tblMoreMarket = Table.xpath("//app-market-asian//div[@class='market-detail']/div[2]//table[contains(@class,'table market')]", 6);
     String sportLeftMenuXpath = "//app-left-menu-asian//div[contains(@class,'live-title')]//span[text()=' Sports ']//..//following-sibling::div//div[text()='%s']";
     String marketLeftMenuXpath = "//app-left-menu-asian//div[contains(@class,'live-title')]//span[text()=' Sports ']//..//following-sibling::div//span[text()=' %s ']";
     private TextBox txtStake = TextBox.xpath("//app-bet-item//input[contains(@class,'stake-input')]");
@@ -405,7 +396,7 @@ public class AsianViewPage extends ProteusHomePage {
     public void verifyOddsShowCorrect(String oddsType, String oddsGroup, Market marketBase, boolean isFullMatch) {
         Market marketUI = getEventInfoUI(marketBase, isFullMatch);
         List<Odds> lstOddsUI = marketUI.getOdds();
-        List<Odds> lstOddsApiConverted = marketBase.getConvertedOddsByGroup(marketBase.getOdds(), oddsType, oddsGroup);
+        List<Odds> lstOddsApiConverted = marketBase.getConvertedOddsByGroup(oddsType, oddsGroup);
         //sort before verifying cause order odds between API and UI is different HOME/DRAW/AWAY > HOME/AWAY/DRAW
         lstOddsUI.sort(Comparator.comparingDouble(Odds::getOdds));
         lstOddsApiConverted.sort(Comparator.comparingDouble(Odds::getOdds));
@@ -420,11 +411,8 @@ public class AsianViewPage extends ProteusHomePage {
         }
     }
 
-    public String getFirstEventId() {
-        return Label.xpath(String.format(firstOddsCellXpath, 1, 1)).getAttribute("eventid");
-    }
-    public void openMoreMarkets() {
-        String eventId = getFirstEventId();
+    public void openMoreMarkets(Market market) {
+        int eventId = market.getEventId();
         Label lblMoreMarket = Label.xpath(String.format(moreMarketXpath, eventId));
         if(lblMoreMarket.isDisplayed()) {
             lblMoreMarket.click();
@@ -462,8 +450,8 @@ public class AsianViewPage extends ProteusHomePage {
         return MarketUtils.getListMarketByMarketType(oddsType,Integer.valueOf(eventId), marketType, isFullMatch);
     }
 
-    public void verifyMoreMarketOddsCorrect(String oddsType, String oddsGroup, String marketType, boolean isFullMatch) {
-        String eventId = getFirstEventId();
+    public void verifyMoreMarketOddsCorrect(Market market, String oddsType, String oddsGroup, String marketType, boolean isFullMatch) {
+        String eventId = String.valueOf(market.getEventId());
         //always get odds from DEC as base odds to calculate for other odds type
         List<Market> lstMarket = getEventInfoMoreMarket(eventId, DECIMAL, marketType, isFullMatch);
         //handle for Team Totals markets
@@ -512,7 +500,7 @@ public class AsianViewPage extends ProteusHomePage {
     public void verifyTeamTotalOddsMoreMarket(List<Market> lstMarket, String oddsType, String oddsGroup) {
         String xpathRow = "(//app-market-asian//table//tbody)[%s]//td[%s]/span";
         for (int i = 0; i < lstMarket.size(); i++) {
-            List<Odds> lstOdds = lstMarket.get(i).getConvertedOddsByGroup(lstMarket.get(i).getOdds(), oddsType, oddsGroup);
+            List<Odds> lstOdds = lstMarket.get(i).getConvertedOddsByGroup(oddsType, oddsGroup);
             //verify for HOME section
             if(lstMarket.get(i).getTeam().equalsIgnoreCase("HOME")) {
                 Label lblOddsHomeOver = Label.xpath(String.format(xpathRow, 1, defineOddsMoreMarketColumn(MARKET_TYPE_MAPPING.get(TEXT_MATCH_TOTAL), "HOME OVER")));
@@ -618,7 +606,7 @@ public class AsianViewPage extends ProteusHomePage {
                 System.out.println("The current record have no odds for verifying");
                 break;
             }
-            List<Odds> lstOdds = lstMarket.get(i).getConvertedOddsByGroup(lstMarket.get(i).getOdds(), oddsType, oddsGroup);
+            List<Odds> lstOdds = lstMarket.get(i).getConvertedOddsByGroup(oddsType, oddsGroup);
             for (Odds o : lstOdds
             ) {
                 //handle for AM > odds does not show decimal place and list odds return does not have "+"
@@ -668,7 +656,7 @@ public class AsianViewPage extends ProteusHomePage {
                 System.out.println("The current record have no odds for verifying");
                 break;
             }
-            List<Odds> lstOdds = lstMarket.get(i).getConvertedOddsByGroup(lstMarket.get(i).getOdds(), oddsType, oddsGroup);
+            List<Odds> lstOdds = lstMarket.get(i).getConvertedOddsByGroup(oddsType, oddsGroup);
             for (Odds o : lstOdds
             ) {
                 //handle for AM > odds does not show decimal place and list odds return does not have "+"
