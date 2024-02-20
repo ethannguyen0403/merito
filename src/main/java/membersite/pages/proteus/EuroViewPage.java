@@ -7,7 +7,6 @@ import controls.Table;
 import membersite.controls.DropDownMenu;
 import membersite.objects.proteus.*;
 import membersite.utils.proteus.MarketUtils;
-import org.json.JSONObject;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -28,26 +27,9 @@ public class EuroViewPage extends ProteusHomePage {
     public Button btnEarlyEuro = Button.xpath(String.format("//app-left-menu-euro//button[text()=' %s ']",EARLY_PERIOD));
     private Button btnLiveEuro = Button.xpath(String.format("//app-left-menu-euro//button[text()=' %s ']",LIVE_PERIOD));
     public Label lblSportHeader = Label.xpath("(//app-sport-euro//div[contains(@class,'sport-header')]//h3)[1]");
-    private TextBox txtStake = TextBox.xpath("//app-bet-item//input[contains(@class,'stake-input')]");
     public Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
-    private Label lblCompetitionInfo = Label.xpath("(//app-sport-euro//app-league-euro//th[@class='opponent-column'])[1]");
-    private Label lblHomeNameInfo = Label.xpath("(//app-sport-euro//app-league-euro//table[contains(@class,'odd-pages')]//tr)[1]//th[3]//div[@class='opponent']");
-    private Table tblFirstLeague = Table.xpath("(//app-league-euro/table[contains(@class,'league-header')])[1]", 5);
-    private Table tblFirstEvent = Table.xpath(String.format("(%s)[1]", eventTableXpath), 6);
-    private Label lblFirstLeague = Label.xpath("(//app-league-euro/table[contains(@class,'league-header')])[1]//th[contains(@class,'opponent-column')]");
-    private Label lblFirstEventHomeName = Label.xpath(String.format("(%s)[1]//div[@class='opponent']/div[1]", eventTableXpath));
-    private Label lblFirstEventAwayName = Label.xpath(String.format("(%s)[1]//div[@class='opponent']/div[2]", eventTableXpath));
-    private Label lblFirstHDP = Label.xpath(String.format("((%s)[1]//th[contains(@class,'odd-column')]//span[contains(@class,'d-lg-inline')])[1]", eventTableXpath));
-    private Label lblFirstSelection = Label.xpath(String.format("((%s)[1]//th[contains(@class,'odd-column')])[1]", eventTableXpath));
-    private Label lblSecondSelection = Label.xpath(String.format("((%s)[1]//th[contains(@class,'odd-column')])[2]", eventTableXpath));
-    private Label lblThirdSelection = Label.xpath(String.format("((%s)[1]//th[contains(@class,'odd-column')])[3]", eventTableXpath));
-
     private String leagueIndexXpath = "//app-league-euro[%d]";
-    private String eventIndexXpath = "//app-league-euro[%d]//app-event-item-parent-euro[%d]//table";
     private String leagueNameXpath ="//app-league-euro[%d]//th[@class='opponent-column']//div[contains(@class,'text-row')]";
-    private String timeColumXpath = "//app-league-euro[%d]/app-event-item-parent-euro[%d]//th[contains(@class,'time-column')]";
-    private String homeTeamXpath ="//app-league-euro[%d]/app-event-item-parent-euro[%d]//div[@class='opponent']/div[1]";
-    private String awayTeamXpath ="//app-league-euro[%d]/app-event-item-parent-euro[%d]//div[@class='opponent']/div[2]";
     private String firstOddsCellXpath = "//app-league-euro[%d]/app-event-item-parent-euro[%d]//th[contains(@class,'odd-column')][1]";
     private String oddsHomeXpath ="//th[contains(@class,'odd-column')][%s]//span[contains(@class,'odd-number')][1]//span";
 
@@ -220,6 +202,13 @@ public class EuroViewPage extends ProteusHomePage {
         return order;
     }
 
+    public void addOddToBetSlipAndPlaceBetWithoutReturnOrder(Market market, String selection, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+        // click odds
+        clickOdds(market, selection);
+        //input stake and click place bet and confirm
+        placeNoBetWithoutReturnOrder(market,stake,isAcceptBetterOdds,isPlace);
+    }
+
     public void waitContentLoad(){
         lblLoading.waitForControlInvisible(2,3);
     }
@@ -293,37 +282,12 @@ public class EuroViewPage extends ProteusHomePage {
         }
     }
 
-    public ProteusGeneralEvent getFirstEventInfo() {
-        ProteusGeneralEvent proteusGeneralEvent = new ProteusGeneralEvent.Builder().build();
-        proteusGeneralEvent.setEventId(Integer.valueOf(tblFirstEvent.getAttribute("eventid")));
-        proteusGeneralEvent.setLeagueId(Integer.valueOf(tblFirstLeague.getAttribute("leagueid")));
-        proteusGeneralEvent.setLeagueName(lblFirstLeague.getText().trim());
-        proteusGeneralEvent.setHomeName(lblFirstEventHomeName.getText().trim());
-        proteusGeneralEvent.setAwayName(lblFirstEventAwayName.getText().trim());
-        proteusGeneralEvent.setBtnFirstSelection(lblFirstSelection);
-        proteusGeneralEvent.setBtnSecondSelection(lblSecondSelection);
-        proteusGeneralEvent.setBtnThirdSelection(lblThirdSelection);
-        if(lblFirstHDP.isDisplayed()) {
-            double hdp;
-            String hdpText = lblFirstHDP.getText().trim().replace(" ","");
-            if(hdpText.contains(",")) {
-                String[] lstHdp = hdpText.split(",");
-                double firstHDP = Double.parseDouble(lstHdp[0].trim());
-                double secondHDP = Double.parseDouble(lstHdp[1].trim());
-                hdp = (firstHDP + secondHDP)/2;
-                proteusGeneralEvent.setHDPPoint(String.valueOf(hdp));
-            } else {
-                proteusGeneralEvent.setHDPPoint(hdpText);
-            }
-        }
-        return proteusGeneralEvent;
-    }
-
-    public void placeBet(ProteusGeneralEvent event, String stake, boolean isSubmit, boolean isConfirm) {
-        if(Objects.nonNull(event)) {
-            event.getBtnFirstSelection().click();
+    public void placeBet(Market market, String stake, String selection, boolean isSubmit, boolean isConfirm) {
+        if(Objects.nonNull(market)) {
+            // click odds
+            clickOdds(market, selection);
             btnPlaceBet.waitForElementToBePresent(btnPlaceBet.getLocator(), 2);
-            inputStake(String.valueOf(event.getEventId()), stake);
+            inputStake(String.valueOf(market.getEventId()), stake);
             if(isSubmit) {
                 btnPlaceBet.jsClick();
                 btnOK.waitForElementToBePresent(btnOK.getLocator());
@@ -340,41 +304,6 @@ public class EuroViewPage extends ProteusHomePage {
         TextBox txtStake = TextBox.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
         txtStake.sendKeys(stake);
         txtStake.waitForAttributeChange("value", stake, 2);
-    }
-
-    public void verifyBetSlipInfoShowCorrect(ProteusGeneralEvent event, ProteusMarket market, String stake, String marketType, List<Double> lstOddsConvert) {
-        String hdpPoint;
-        String eventName = event.getHomeName() + " vs " + event.getAwayName();
-        ProteusBetslip betslip = getBetSlipInfo(String.valueOf(event.getEventId()));
-        Assert.assertEquals(betslip.getEventName(), eventName, String.format("FAILED! Event Name show incorrect expected %s actual %s", eventName,betslip.getEventName()));
-        if(marketType.equalsIgnoreCase("Over Under")) {
-            hdpPoint = "Over " + market.getFirstHDPPoint();
-            Assert.assertTrue(betslip.getSummaryEventInfo().contains("Total"), String.format("FAILED! Summary Info %s does not contains market type Total", betslip.getSummaryEventInfo()));
-            Assert.assertEquals(betslip.getHDPPoint(), hdpPoint, String.format("FAILED! HDP Point does not show correct expected %s actual %s", hdpPoint, event.getHomeName()));
-        } else if (marketType.equalsIgnoreCase("Handicap")) {
-            hdpPoint = event.getHomeName() + " " + market.getFirstHDPPoint();
-            Assert.assertTrue(betslip.getSummaryEventInfo().contains(marketType), String.format("FAILED! Summary Info %s does not contains market type %s", betslip.getSummaryEventInfo(), marketType));
-            Assert.assertEquals(betslip.getHDPPoint(), hdpPoint, String.format("FAILED! HDP Point does not show correct expected %s actual %s", hdpPoint, betslip.getHDPPoint()));
-        } else {
-            Assert.assertTrue(betslip.getSummaryEventInfo().contains(marketType), String.format("FAILED! Summary Info %s does not contains market type %s", betslip.getSummaryEventInfo(), marketType));
-            Assert.assertEquals(betslip.getHDPPoint(), event.getHomeName(), String.format("FAILED! HDP Point does not show correct expected %s actual %s", event.getHomeName(), betslip.getHDPPoint()));
-        }
-        Assert.assertTrue(betslip.getSummaryEventInfo().contains(event.getLeagueName()), String.format("FAILED! Summary Info %s does not contains league name %s", betslip.getSummaryEventInfo(), event.getLeagueName()));
-        Assert.assertEquals(betslip.getOdds(), String.valueOf(String.format("%.3f", lstOddsConvert.get(0))), String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsConvert.get(0), betslip.getOdds()));
-        Assert.assertEquals(betslip.getStake(), stake, String.format("FAILED! Stake does not show correct expected %s actual %s", stake, betslip.getStake()));
-    }
-
-    public List<Double> getListOddsFirstEvent(ProteusGeneralEvent event, String marketType) {
-        List<Double> lstOdds = new ArrayList<>();
-        if(marketType.equalsIgnoreCase("1x2")) {
-            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[⠀−+]","")));
-            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[⠀−+]","")));
-            lstOdds.add(Double.valueOf(event.getBtnThirdSelection().getText().replaceAll("[⠀−+]","")));
-        } else {
-            lstOdds.add(Double.valueOf(event.getBtnFirstSelection().getText().replaceAll("[⠀−+]","")));
-            lstOdds.add(Double.valueOf(event.getBtnSecondSelection().getText().replaceAll("[⠀−+]","")));
-        }
-        return lstOdds;
     }
 
     public List<String> getSportsHeaderMenuList() {
@@ -417,5 +346,12 @@ public class EuroViewPage extends ProteusHomePage {
     public EuroViewDetailsPage opentDetail(Market market){
 
         return new EuroViewDetailsPage(_type);
+    }
+
+    public void verifyTopMenuShowCorrect() {
+        List<String> lstHeaders = getSportsHeaderMenuList();
+        List<String> lstActiveSports = MarketUtils.getListActiveSports();
+        lstActiveSports.add(0,"Favourites");
+        Assert.assertEquals(lstHeaders, lstActiveSports, String.format("FAILED! List Header is not matched expected %s actual %s", lstHeaders, lstActiveSports));
     }
 }
