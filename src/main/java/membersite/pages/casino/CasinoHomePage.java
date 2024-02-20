@@ -14,6 +14,7 @@ public class CasinoHomePage extends LandingPage {
     public Pragmatic pragmatic;
     public LotterySlots lotterySlots;
     public Evolution evolution;
+    public LiveDealerAsian dealerAsian;
 
     public CasinoProduct getCasinoProduct(){
         return product;
@@ -44,6 +45,8 @@ public class CasinoHomePage extends LandingPage {
                 lotterySlots = new LotterySlots();
                 break;
             case LIVE_DEALER_ASIAN:
+                dealerAsian = new LiveDealerAsian();
+                break;
             case LIVE_DEALER_EUROPEAN:
             case EVOLUTION_WHITE_CLIFF:
             default:
