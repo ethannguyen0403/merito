@@ -429,13 +429,15 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Step 3. Select Early the left menu and click on Soccer");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+        Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_MONEYLINE, true);
+
         log("Step 4. Pick a Match - Team Totals market");
-        asianViewPage.openMoreMarkets();
+        asianViewPage.openMoreMarkets(market);
         asianViewPage.selectMoreMarket(TEXT_MATCH_TOTAL);
 
         log("Step 5. From Decimal odds of account group A, calculate and check odds on account group E are corrected");
         log("Verify Odds of Match - Team Totals market is display correctly");
-        asianViewPage.verifyMoreMarketOddsCorrect(DECIMAL,groupOdds,MARKET_TYPE_MAPPING.get("Match - Team Totals"),true);
+        asianViewPage.verifyMoreMarketOddsCorrect(market, DECIMAL,groupOdds,MARKET_TYPE_MAPPING.get("Match - Team Totals"),true);
         log("INFO: Executed completely");
     }
 
@@ -454,13 +456,15 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Step 3. Select Early the left menu and click on Soccer");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+        Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_MONEYLINE, true);
+
         log("Step 4. Pick a Match - Team Totals market");
-        asianViewPage.openMoreMarkets();
+        asianViewPage.openMoreMarkets(market);
         asianViewPage.selectMoreMarket(TEXT_MATCH_TOTAL);
 
         log("Step 5. From Decimal odds of account group A, calculate and check odds on account group E are corrected");
         log("Verify Odds of Match - Team Totals market is display correctly");
-        asianViewPage.verifyMoreMarketOddsCorrect(HONGKONG,groupOdds,MARKET_TYPE_MAPPING.get("Match - Team Totals"),true);
+        asianViewPage.verifyMoreMarketOddsCorrect(market, HONGKONG,groupOdds,MARKET_TYPE_MAPPING.get("Match - Team Totals"),true);
         log("INFO: Executed completely");
     }
 
@@ -479,13 +483,15 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Step 3. Select Early the left menu and click on Soccer");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+        Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_MONEYLINE, true);
+
         log("Step 4. Pick a Match - Team Totals market");
-        asianViewPage.openMoreMarkets();
+        asianViewPage.openMoreMarkets(market);
         asianViewPage.selectMoreMarket(TEXT_MATCH_TOTAL);
 
         log("Step 5. From Decimal odds of account group A, calculate and check odds on account group E are corrected");
         log("Verify Odds of Match - Team Totals market is display correctly");
-        asianViewPage.verifyMoreMarketOddsCorrect(MALAY,groupOdds,MARKET_TYPE_MAPPING.get("Match - Team Totals"),true);
+        asianViewPage.verifyMoreMarketOddsCorrect(market, MALAY,groupOdds,MARKET_TYPE_MAPPING.get("Match - Team Totals"),true);
         log("INFO: Executed completely");
     }
 
@@ -504,13 +510,15 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Step 3. Select Early the left menu and click on Soccer");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
+        Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_MONEYLINE, true);
+
         log("Step 4. Pick a Match - Team Totals market");
-        asianViewPage.openMoreMarkets();
+        asianViewPage.openMoreMarkets(market);
         asianViewPage.selectMoreMarket(TEXT_MATCH_TOTAL);
 
         log("Step 5. From Decimal odds of account group A, calculate and check odds on account group E are corrected");
         log("Verify Odds of Match - Team Totals market is display correctly");
-        asianViewPage.verifyMoreMarketOddsCorrect(AMERICAN,groupOdds, MARKET_TYPE_MAPPING.get("Match - Team Totals"),true);
+        asianViewPage.verifyMoreMarketOddsCorrect(market, AMERICAN,groupOdds, MARKET_TYPE_MAPPING.get("Match - Team Totals"),true);
         log("INFO: Executed completely");
     }
     @TestRails(id = "4171")
