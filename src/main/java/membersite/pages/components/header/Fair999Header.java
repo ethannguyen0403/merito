@@ -153,8 +153,12 @@ public class Fair999Header extends Header1 {
 
     @Override
     public void openCasinoGame(CasinoProduct product) {
-        if (product.equals(CasinoProduct.EVOLUTION)) {
+        if (product.equals(CasinoProduct.EVOLUTION) || product.equals(CasinoProduct.LIVE_DEALER_ASIAN)) {
             clickProduct("Live Dealer");
+            if(product.equals(CasinoProduct.LIVE_DEALER_ASIAN)){
+                clickProduct(product.toString());
+                return;
+            }
             clickProduct("European Room");
             Tab.xpath(String.format("//div[contains(@class, 'european-room')]//span[text()='%s']", product.toString())).click();
             return;

@@ -20,6 +20,7 @@ public class LogoutTest extends BaseCaseTest {
         log("Step 1: Log in with a valid username and password");
         log("Step 2: Click Logout button");
         LoginPage loginPage = backofficeHomePage.logout();
+        DriverManager.getDriver().refresh();
 
         log("Verify: Logout is successful");
         Assert.assertTrue(loginPage.txtUsername.isDisplayed(), "ERROR: Username text-box is not displayed after logging out");

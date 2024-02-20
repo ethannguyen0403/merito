@@ -36,7 +36,7 @@ public class CountryIPMappingTest extends BaseCaseTest {
     @Test(groups = {"smoke"})
     public void BO_System_Country_IP_Mapping_650() throws InterruptedException {
         log("@title: Validate UI Country - IP Mapping display correctly");
-        log("Step 1. Access Operations > Currency - Country Mapping");
+        log("Step 1. Access Operations > Country - IP Mapping");
         String countryName = "Albania";
         String ip = "192.168.10.120";
         CountryIPMappingPage page = backofficeHomePage.navigateCountryIPMapping();

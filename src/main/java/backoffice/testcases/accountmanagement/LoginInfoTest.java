@@ -6,6 +6,7 @@ import com.paltech.driver.DriverManager;
 import com.paltech.utils.StringUtils;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
+import membersite.pages.HomePage;
 import membersite.pages.MarketPage;
 import membersite.pages.SportPage;
 import org.testng.Assert;
@@ -33,7 +34,7 @@ public class LoginInfoTest extends BaseCaseTest {
         log("@pre-condition:\n" +
                 "  1. Have an member account place bet\n" +
                 "   2. Login BO");
-        BaseCaseTest.loginMember(satMemberLoginID, StringUtils.decrypt(memberPassword));
+        BaseCaseTest.loginMember(satMemberLoginID, memberPassword);
         String odds = "30";
         String minBet = "2";
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu("Cricket");
@@ -104,10 +105,13 @@ public class LoginInfoTest extends BaseCaseTest {
     public void BO_MM_Login_Info_003(String satMemberLoginID, String username, String password) throws Exception {
         log("@title:Validate display activity log when account login failed");
         log("@pre-condition: 1. Have an member account just login failed");
-        BaseCaseTest.loginMember("satsport", satMemberLoginID, "incorrectps12");
+        createDriver(memberLoginURL);
+        String invalidPwd = StringUtils.encrypt("incorrectps12");
+        new HomePage("satsport").loginInvalid(satMemberLoginID, invalidPwd);
+//        BaseCaseTest.loginMember("satsport", satMemberLoginID, invalidPwd);
 
         log("Step 1. Access Member Management > Login Info");
-        DriverManager.getDriver().get(backofficeUrl);
+//        DriverManager.getDriver().get(backofficeUrl);
         BaseCaseTest.loginBackoffice(username, password, true);
         LoginInfoPage page = backofficeHomePage.navigateLoginInfo();
 

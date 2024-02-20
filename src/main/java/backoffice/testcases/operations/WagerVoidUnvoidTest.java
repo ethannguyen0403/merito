@@ -73,7 +73,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
         page.searchByUsername("Exchange", satMemberLoginID, fromDate, toDate);
 
         log("Verify 1. Verify Wager info display correctly as pre-condition and has place date in search date range");
-        List<String> lstWagerInfo = page.tblWager.getColumn(page.colNickname, false);
+        List<String> lstWagerInfo = page.tblWager.getColumn(page.colUsername, false);
         for (String acutalUsername : lstWagerInfo) {
             Assert.assertEquals(acutalUsername, satMemberLoginID, "FAILED! Result table not display the searching data");
         }
