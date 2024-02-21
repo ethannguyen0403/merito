@@ -36,7 +36,7 @@ public class BannerManagementUtils {
         List<Brand> lstBrands = getBrands();
         List<String> lstBrandNames = new ArrayList<>();
         for (Brand brand : lstBrands) {
-            lstBrandNames.add(brand.getDisplayName());
+            lstBrandNames.add(brand.getDisplayName().trim());
         }
         return lstBrandNames;
     }

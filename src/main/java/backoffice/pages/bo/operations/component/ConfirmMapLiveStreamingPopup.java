@@ -22,6 +22,14 @@ public class ConfirmMapLiveStreamingPopup {
         btnCancel.click();
     }
 
+    public ConfirmMapLiveStreamingPopup waitForPopUpAppear(){
+        try {
+            Thread.sleep(1500);
+        }catch (Exception e){
+        }
+        return this;
+    }
+
     public boolean isDisplayed() {
         popupAutoMapping.isInvisible(2);
         return popupAutoMapping.isDisplayed();

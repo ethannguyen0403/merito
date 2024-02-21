@@ -40,7 +40,7 @@ public class BannerManagementPage extends HomePage {
     Button btnSearch = Button.name("submit");
     Button btnCreateBanner = Button.name("create-banner");
     private int totalCols = 11;
-    //public Table tblBannerManagement = Table.xpath("//table[contains(@class,'table-sm')]", totalCols);
+    public Table tblBanner = Table.xpath("//table[contains(@class,'table-banner-content')]", totalCols);
     public StaticTable tblBannerManagement = StaticTable.xpath("//div[@class='custom-table']", "div[contains(@class,'custom-table-body')]", "div[contains(@class,'custom-table-row')]", "div[contains(@class,'custom-table-cell')]", totalCols);
     //public Label lblNoRecord = Label.xpath("//table[contains(@class,'table-sm')]//div[contains(@class,'no-record')]");
     public Table tblResult = Table.xpath("//div[@class='container-fluid pb-4 table-responsive']", totalCols);

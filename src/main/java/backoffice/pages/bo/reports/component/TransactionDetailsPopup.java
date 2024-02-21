@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionDetailsPopup {
-    public Tab tabProduct = Tab.xpath("//ul[@class='nav nav-tabs']//li//span");
+    public Tab tabProduct = Tab.xpath("//app-transaction-detail//ul[@class='nav nav-tabs']//li//span");
 
     public List<String> getProductTab() {
         List<String> lstProduct = new ArrayList<>();

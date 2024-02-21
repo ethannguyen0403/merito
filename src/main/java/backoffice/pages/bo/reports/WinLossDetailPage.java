@@ -24,8 +24,8 @@ public class WinLossDetailPage extends HomePage {
     public CheckBox chkShowTotalOnly = CheckBox.xpath("//div[@id='winLossDetailType']//input[@name='show-total-only']");
     public int colUsername = 1;
     public int colLevel = 2;
-    public int colTotalWager = 4;
-    public int colTurnOverL = 5;
+    public int colTotalWager = 5;
+    public int colTurnOverL = 6;
     public Table tblWinLossDetail = Table.xpath("//table[@class='ptable report']", 6);
     Button btnYesterday = Button.xpath("//div[@id='winLossDetailType']//button[@name='yesterday']");
     Button btnLastWeek = Button.xpath("//div[@id='winLossDetailType']//button[@name='lastweek']");
@@ -153,7 +153,7 @@ public class WinLossDetailPage extends HomePage {
             if (lstLelvel.get(i).equals(username)) {
                 Link lnk = (Link) tblWinLossDetail.getControlOfCell(1, colTotalWager, i + 1, null);
                 if (Objects.nonNull(lnk)) {
-                    lnk.click();
+                    lnk.jsClick();
                     return new TransactionDetailsPopup();
                 }
             }

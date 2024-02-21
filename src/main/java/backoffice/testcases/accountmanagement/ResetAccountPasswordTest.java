@@ -5,6 +5,7 @@ import backoffice.pages.bo._components.NotificationPopup;
 import backoffice.pages.bo.accountmanagement.ResetAccountPasswordPage;
 import baseTest.BaseCaseTest;
 import com.paltech.driver.DriverManager;
+import com.paltech.utils.StringUtils;
 import membersite.pages.ChangePasswordPage;
 import org.openqa.selenium.Alert;
 import org.testng.Assert;
@@ -30,7 +31,7 @@ public class ResetAccountPasswordTest extends BaseCaseTest {
         log("@title: Validate can reset password of member account");
         log("Step 1. Access Member Management > Reset Account Password");
         ResetAccountPasswordPage page = backofficeHomePage.navigateResetAccountPassword();
-        String newPassword = "1234qwert";
+        String newPassword = "1234qwer";
 
         log("Step 2. Input member account, new password, confirm password and click submit button");
         page.resetAccountPassword(resetAccountPW, newPassword, newPassword);
@@ -43,7 +44,8 @@ public class ResetAccountPasswordTest extends BaseCaseTest {
         Assert.assertTrue(confirmMsg.contains(String.format("Reset password successful for user with login ID: %s", resetAccountPW)), "FAILED!, Reset password success is not correct");
 
         log("Step 4. Login member site with the account reset password");
-        BaseCaseTest.loginMember(resetAccountPW, newPassword, true, "", "", true);
+        BaseCaseTest.loginMember(resetAccountPW, StringUtils.encrypt(newPassword), true, "", "", true);
+        memberHomePage.login(resetAccountPW, newPassword, false);
 
         log("Verify 3. Verify change password display");
         ChangePasswordPage changePasswordPage = new ChangePasswordPage();
