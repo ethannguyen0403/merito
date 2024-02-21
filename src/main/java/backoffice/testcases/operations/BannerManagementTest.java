@@ -58,9 +58,10 @@ public class BannerManagementTest extends BaseCaseTest {
         log("Step 1: Navigate Operations > Banner Management");
         BannerManagementPage page = backofficeHomePage.navigateBannerManagement();
 
+        page.ddbBrand.isDisplayed();
         boolean isBrandCorrect = page.ddbBrand.areOptionsMatched(lstBrandNames);
         boolean isStatusCorrect = page.ddbStatus.areOptionsMatched(BOConstants.Operations.BannerManagement.DDB_STATUS);
-        List<String> lstHeaderNames = page.tblBannerManagement.getColumnNamesOfTable();
+        List<String> lstHeaderNames = page.tblBanner.getHeaderNameOfRows();
         int expectedTotalColumns = BOConstants.Operations.BannerManagement.TABLE_HEADER.size();
 
         log("Verify 1: Items on Brand dropdown-box are loaded correctly");

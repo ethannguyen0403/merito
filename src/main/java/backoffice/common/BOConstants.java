@@ -136,8 +136,8 @@ public class BOConstants {
 
         public static class BannerManagement {
             public final static String TITLE = "Banner Management";
-            public final static List<String> TABLE_HEADER = Arrays.asList("ID", "Banner", "Background Color", "Status", "Sequence", "Brands", "Valid From", "Valid Till", "Date Created", "Created By", "Action");
-            public final static List<String> DDB_STATUS = Arrays.asList("All", "Active", "Inactive");
+            public final static List<String> TABLE_HEADER = Arrays.asList("ID", "Banner", "Background Color", "Status", "Sequence", "Brands", "Valid From", "Valid Till", "Date Created", "Created By", "Actions");
+            public final static List<String> DDB_STATUS = Arrays.asList("All", "Active", "Inactive", "Expired");
 
             // Popup
             public final static String POPUP_UPDATE_TITLE = "Update Banner";

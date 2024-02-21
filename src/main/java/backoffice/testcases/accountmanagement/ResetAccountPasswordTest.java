@@ -31,7 +31,7 @@ public class ResetAccountPasswordTest extends BaseCaseTest {
         log("@title: Validate can reset password of member account");
         log("Step 1. Access Member Management > Reset Account Password");
         ResetAccountPasswordPage page = backofficeHomePage.navigateResetAccountPassword();
-        String newPassword = "1234qwert";
+        String newPassword = "1234qwer";
 
         log("Step 2. Input member account, new password, confirm password and click submit button");
         page.resetAccountPassword(resetAccountPW, newPassword, newPassword);

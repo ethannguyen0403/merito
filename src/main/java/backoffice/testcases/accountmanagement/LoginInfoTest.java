@@ -144,7 +144,7 @@ public class LoginInfoTest extends BaseCaseTest {
 
         log("Step 2. Select Type: Log");
         log("Step 3. Search Today log");
-        page.search(LoginInfoPage.TYPE.LOG, "", "", "", "", LoginInfoPage.SEARCHBUTTON.TODAY);
+        page.search(LoginInfoPage.TYPE.LOG, satMemberLoginID, "", "", "", LoginInfoPage.SEARCHBUTTON.TODAY);
 
         log("Step 4. If have today log then click on a IP address of a log");
         page.clickIPAddress(satMemberLoginID);
