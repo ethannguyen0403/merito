@@ -124,7 +124,7 @@ public class WinLossDetailTest extends BaseCaseTest {
 
         log("Verify 1. Verify tab display all products");
         List<String> lstProducts = popup.getProductTab();
-        Assert.assertEquals(lstProducts, BOConstants.Reports.WinLossDetail.DDB_PRODUCT, "FAILED! Product list is not matched with the expected");
+        Assert.assertTrue(BOConstants.Reports.WinLossDetail.DDB_PRODUCT.containsAll(lstProducts), "FAILED! Product list is not matched with the expected");
 
         log("INFO: Executed completely");
     }

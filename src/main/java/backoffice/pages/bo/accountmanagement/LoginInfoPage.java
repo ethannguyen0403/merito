@@ -12,17 +12,18 @@ import java.util.List;
 
 public class LoginInfoPage extends HomePage {
     public RadioButton rbActivity = RadioButton.xpath("//input[@value='activity']");
-    public RadioButton rbLog = RadioButton.name("//input[@value='log']");
-    public TextBox txtLoginId = TextBox.xpath("username");
+    public RadioButton rbLog = RadioButton.xpath("//input[@value='log']");
+    public TextBox txtLoginIdActivity = TextBox.name("username");
+    public TextBox txtLoginIdLog = TextBox.xpath("//input[contains(@class, 'user-name')]");
     public DropDownBox ddbStatus = DropDownBox.name("status");
     public TextBox txtDateRangeFrom = TextBox.name("from-date");
     public DateTimePicker dtpDateRangeFrom = DateTimePicker.xpath(txtDateRangeFrom, "//bs-days-calendar-view");
     public TextBox txtDateRangeTo = TextBox.name("to-date");
     public DateTimePicker dtpDateRangeTo = DateTimePicker.xpath(txtDateRangeTo, "//bs-days-calendar-view");
-    public Button btnToday = Button.name("today");
-    public Button btnLast7Days = Button.name("last7d");
-    public Button btnLast30Days = Button.name("last30d");
-    public Button btnSearch = Button.name("search");
+    public Button btnToday = Button.xpath("//button[contains(text(), 'Today')]");
+    public Button btnLast7Days = Button.xpath("//button[contains(text(), 'Last 7 Days')]");
+    public Button btnLast30Days = Button.xpath("//button[contains(text(), 'Last 30 Days')]");
+    public Button btnSearch = Button.xpath("//button[contains(text(), 'Search')]");
     public int colLoginID = 1;
     public int colDateTime = 2;
     public int colStatus = 3;
@@ -71,8 +72,10 @@ public class LoginInfoPage extends HomePage {
 
     public void search(TYPE type, String loginID, String status, String from, String to, SEARCHBUTTON btn) {
         selectType(type);
-        if (!loginID.isEmpty())
-            txtLoginId.sendKeys(loginID);
+        if (!loginID.isEmpty()) {
+            TextBox targetTxt = type.equals(TYPE.LOG) ? txtLoginIdLog : txtLoginIdActivity;
+            targetTxt.sendKeys(loginID);
+        }
         if (!status.isEmpty())
             ddbStatus.selectByVisibleText(status);
         if (!from.isEmpty())

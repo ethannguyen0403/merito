@@ -25,7 +25,7 @@ public class BlockingSettingsPage extends HomePage {
                 System.out.println(String.format("Expected PO Account is %s but found %s", apiData.get(i).get(colPOAccount - 1), uiData.get(i).get(colPOAccount - 1)));
                 return false;
             }
-            if (!uiData.get(i).get(colBrand - 1).equals(apiData.get(i).get(colBrand - 1))) {
+            if (!uiData.get(i).get(colBrand - 1).trim().equals(apiData.get(i).get(colBrand - 1).trim())) {
                 System.out.println(String.format("Expected Brand is \n %s but found \n %s", apiData.get(i).get(colBrand - 1), uiData.get(i).get(colBrand - 1)));
                 return false;
             }

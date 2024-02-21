@@ -71,7 +71,7 @@ public class LiveStreamingManagementPage extends HomePage {
     }
 
     public void selectFEEvent(String event) {
-        List<String> lstFEEvents = tblFairExchange.getColumn(colFEEvent, true);
+        List<String> lstFEEvents = tblFairExchange.getColumn(colFEEvent, false);
         for (int i = 0; i < lstFEEvents.size(); i++) {
             if (lstFEEvents.get(i).equalsIgnoreCase(event)) {
                 tblFairExchange.getControlOfCell(1, colFESelect, i + 1, "span[@class='checkmark']").click();
@@ -82,7 +82,7 @@ public class LiveStreamingManagementPage extends HomePage {
     }
 
     public void selectProviderEvent(String event) {
-        List<String> lstFEEvents = tblProvider.getColumn(colProviderEvent, true);
+        List<String> lstFEEvents = tblProvider.getColumn(colProviderEvent, false);
         for (int i = 0; i < lstFEEvents.size(); i++) {
             if (lstFEEvents.get(i).equalsIgnoreCase(event)) {
                 tblProvider.getControlOfCell(1, colProviderSelect, i + 1, "span[@class='checkmark']").click();
@@ -96,7 +96,7 @@ public class LiveStreamingManagementPage extends HomePage {
         selectFEEvent(feEvent);
         selectProviderEvent(lcEvent);
         btnMap.click();
-        return new ConfirmMapLiveStreamingPopup();
+        return new ConfirmMapLiveStreamingPopup().waitForPopUpAppear();
     }
 
     public List<String> getMappedEventList(int column) {
