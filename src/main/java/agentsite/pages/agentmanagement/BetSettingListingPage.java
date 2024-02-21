@@ -5,11 +5,14 @@ import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
 import agentsite.pages.components.ComponentsFactory;
+import agentsite.pages.components.ConfirmPopup;
 import com.paltech.element.common.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static common.AGConstant.AgencyManagement.BetSettingListing.PS38_COPY_SETTING_TO_ALL_SPECIFIC_SPORT_LEAGUES;
 
 public class BetSettingListingPage extends HomePage {
     private static int totalColum = 19;
@@ -40,6 +43,14 @@ public class BetSettingListingPage extends HomePage {
     public Row sportsRow = Row.xpath("//div[@id='betSetting']//table[@class='ptable info ng-star-inserted']/tr");
     public Label lblTitlePage = Label.xpath("//app-title-dashboard//div[@class='title']//label");
     public BetSettingListing betSettingListing;
+    // UI when select PS38 product
+    public DropDownBox ddbSport = DropDownBox.xpath("//label[text()='Sport']//following::select[1]");
+    public DropDownBox ddbLeagues = DropDownBox.xpath("//label[text()='Leagues']//following::select[1]");
+    public CheckBox cbCopySettingToAllSpecificSportLeagues = CheckBox.xpath("//label[contains(text(),'"+PS38_COPY_SETTING_TO_ALL_SPECIFIC_SPORT_LEAGUES+"')]/input");
+    public Label lblPregameTab = Label.xpath("//ul[@class='list-unstyled']/li/div[1]");
+    public Label lblInplayTab = Label.xpath("//ul[@class='list-unstyled']/li/div[2]");
+    public TextBox txtMaxPerMatch = TextBox.xpath("(//table[@class='ptable info search-region']//input)[3]");
+    public Label lblValuePrefixWithDirect  = Label.xpath("(//table[@class='ptable info search-region'])//tr[2]//span");
 
     public BetSettingListingPage(String types) {
         super(types);
@@ -124,15 +135,19 @@ public class BetSettingListingPage extends HomePage {
         return betSettingListing.verifyUpdateStatus(lstData, isSuccess, sportList);
     }
 
+    public void selectAccount(String username){
+        // Select the checkbox corresponding with login ID
+        String chbDownlinexPath = tblDownline.getControlxPathBasedValueOfDifferentColumnOnRow(username, 1, usernameCol, 1, null, chbCol, "input[@id='cItem']", false, false);
+        CheckBox chb = CheckBox.xpath(chbDownlinexPath);
+        chb.click();
+    }
+
     public void updateBetSetting(String loginID, int minBet, int maxBet, int maxLiabilityPerMarket, int maxWinPerMarket) {
 
         //input Min, Max, Max Liability per Market, Max Win Per Market
         inputValue(minBet, maxBet, maxLiabilityPerMarket, maxWinPerMarket);
 
-        // Select the checkbox corresponding with login ID
-        String chbDownlinexPath = tblDownline.getControlxPathBasedValueOfDifferentColumnOnRow(loginID, 1, usernameCol, 1, null, chbCol, "input[@id='cItem']", false, false);
-        CheckBox chb = CheckBox.xpath(chbDownlinexPath);
-        chb.click();
+        selectAccount(loginID);
 
         //Click update
         btnUpdate.click();
@@ -191,6 +206,12 @@ public class BetSettingListingPage extends HomePage {
     }
 
     public void search(String username, String level, String accountStatus, String product) {
+        inputSearchFilter(username,level,accountStatus,product);
+        btnSubmit.click();
+        waitingLoadingSpinner();
+    }
+
+    private void inputSearchFilter(String username, String level, String accountStatus, String product){
         if (!username.isEmpty())
             txtUsername.sendKeys(username);
         if (!accountStatus.isEmpty())
@@ -199,7 +220,49 @@ public class BetSettingListingPage extends HomePage {
             ddbProduct.selectByVisibleText(product);
         if (!level.isEmpty())
             ddbLevel.selectByVisibleText(level);
+    }
+
+    // Start method for PS38 product
+    public void filterPS38Product(String username, String level, String accountStatus, String product, String sport, String league){
+        inputSearchFilter(username,level,accountStatus,product);
+        if (!sport.isEmpty())
+            ddbSport.selectByVisibleText(sport);
+        if (!league.isEmpty())
+            ddbLeagues.selectByVisibleText(level);
         btnSubmit.click();
         waitingLoadingSpinner();
     }
+
+    public void updateBetSettingPS38(String username,String pregameOrInplay, boolean isCopySetting, String min, String max, String maxPerMatch, boolean isConfirm){
+        boolean currentCopySetting = cbCopySettingToAllSpecificSportLeagues.isSelected();
+        if(currentCopySetting != isCopySetting)
+            cbCopySettingToAllSpecificSportLeagues.click();
+        if (pregameOrInplay.equalsIgnoreCase("PREGAME"))
+            lblPregameTab.click();
+        else
+            lblInplayTab.click();
+        selectAccount(username);
+        if(!min.isEmpty())
+            txtMinBet.sendKeys(min);
+        if(!max.isEmpty())
+            txtMaxBet.sendKeys(max);
+        if(!maxPerMatch.isEmpty())
+            txtMaxPerMatch.sendKeys(maxPerMatch);
+        btnUpdate.click();
+        ConfirmPopup popup = new ConfirmPopup();
+        if(!popup.isPopupDisplay()) {
+            System.err.println("There is no confirm popup display to do confirm action");
+            return;
+        }
+        else {
+            if(isConfirm)
+                popup.confirm();
+            else
+                popup.cancel();
+        }
+    }
+
+
+
+    // End method for PS38 product
 }

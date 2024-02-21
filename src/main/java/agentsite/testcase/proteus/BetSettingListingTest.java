@@ -27,7 +27,9 @@ public class BetSettingListingTest extends BaseCaseTest {
         log("Step Precondition. Login Agent Site with PO level");
         log("Step 1. Click Bet Setting Listing");
         BetSettingListingPage page = agentHomePage.navigateBetSettingListingPage();
+
         log("Step 2. Select PS38 product and Sport as ALL > click Submit");
+        page.filterPS38Product(directDownlineAccount,"","All",PS38,"ALL","");
 
         log("Step 3. Select an agency/player");
         log("Step 4: Enter valid Min Bet. Max Bet and Max Per Match > click Update");
@@ -58,7 +60,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
     @Parameters({"directDownlineAccount"})
     public void PS38_Agent_TC4033(String directDownlineAccount) {
-        log("@title: Validate update bet setting with valid max bet Setting \t ");
+        log("@title: Validate update bet setting with valid max bet Setting");
         log("Step Precondition. Login Agent Site with PO level");
         log("Step 1. Click Bet Setting Listing");
         BetSettingListingPage page = agentHomePage.navigateBetSettingListingPage();

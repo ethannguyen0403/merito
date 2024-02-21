@@ -11,7 +11,7 @@ public class ConfirmPopup {
     Button btnClose = Button.xpath("//div[contains(@class,'dialog')]//div[contains(@class,'modal-header')]/button");
     Label lblContent = Label.xpath("//div[contains(@class,'dialog')]//div[contains(@class,'modal-body')]");
     Button btnOK = Button.xpath("//div[contains(@class,'modal-footer')]//button[contains(text(),'Ok') or contains(@class,'btn-warning')or contains(text(),'OK')]");
-    Button btnCancel = Button.xpath("//div[contains(@class,'dialog')]//div[contains(@class,'footer')]//button[contains(@ng-click,'cancel')]");
+    Button btnCancel = Button.xpath("//div[contains(@class,'dialog')]//div[contains(@class,'footer')]//button[contains(@class,'cancel')]");
 
 
     public String getContentMessage() {

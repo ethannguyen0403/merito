@@ -353,7 +353,7 @@ public class AsianViewPage extends ProteusHomePage {
     }
 
     public Market getEventInfoUI(Market marketBase, boolean isFullMatch) {
-        Market market = new Market.Builder().build();
+            Market market = new Market.Builder().build();
         List<Odds> lstOddsObject = new ArrayList<>();
         String rootXpath = String.format(tableEventXpath, marketBase.getEventId());
         Table tblEvent = Table.xpath(rootXpath, 7);
