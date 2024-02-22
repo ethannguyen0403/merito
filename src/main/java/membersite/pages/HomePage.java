@@ -82,14 +82,25 @@ public class HomePage extends LandingPage {
         return page;
     }
 
+    public Object openCasinoGame2(CasinoProduct product){
+        return header.openCasinoGame2(product);
+    }
     public CasinoHomePage openCasinoGameByLink(CasinoProduct product, String url){
         DriverManager.getDriver().get(url);
         CasinoHomePage page = new CasinoHomePage(_type, product);
         return page;
     }
 
+    public void openCasinoGameByLink2(String url){
+        DriverManager.getDriver().get(url);
+    }
+
     public void clickProduct(String product) {
         header.clickProduct(product);
+    }
+
+    public boolean isCasinoProductDisplayed(String product) {
+        return header.isCasinoProductDisplayed(product);
     }
     public ProteusHomePage activePS38Product() {
         header.clickProduct(PS38);

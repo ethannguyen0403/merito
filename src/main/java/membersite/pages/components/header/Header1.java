@@ -64,10 +64,13 @@ public class Header1 {
     }
 
     public void openCasinoGame(CasinoProduct product){return;}
+    public Object openCasinoGame2(CasinoProduct product){return null;}
 
     public void clickProduct(String product) {
     }
 
+    public boolean isCasinoProductDisplayed(String product) { return false;
+    }
     public void clickMainMenu(String menu) {
     }
 

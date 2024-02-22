@@ -166,9 +166,35 @@ public class Fair999Header extends Header1 {
         clickProduct(product.toString());
     }
 
+    @Override
+    public Object openCasinoGame2(CasinoProduct product) {
+        if (product.equals(CasinoProduct.EVOLUTION) || product.equals(CasinoProduct.LIVE_DEALER_ASIAN) || product.equals(CasinoProduct.LIVE_DEALER_EUROPEAN)) {
+            clickProduct("Live Dealer");
+            if(product.equals(CasinoProduct.LIVE_DEALER_ASIAN)){
+                clickProduct(product.toString());
+                return product.mappingCasinoProductObject();
+            } else {
+                clickProduct("European Room");
+                if(product.equals(CasinoProduct.EVOLUTION) || product.equals("Teen Patti"))
+                {
+                    Tab.xpath(String.format("//div[contains(@class, 'european-room')]//span[text()='%s']", product)).click();
+                    return product.mappingCasinoProductObject();
+                }
+                return product.mappingCasinoProductObject();
+            }
+        }
+        clickProduct(product.toString());
+        return product.mappingCasinoProductObject();
+    }
+
     public void clickProduct(String product) {
         Tab productTab = Tab.xpath(String.format("//a[contains(text(),'%s')]", product));
         productTab.click();
+    }
+
+    public boolean isCasinoProductDisplayed(String product) {
+        Tab productTab = Tab.xpath(String.format("//a[contains(text(),'%s')]", product));
+        return productTab.isDisplayed();
     }
 
     public void clickMainMenu(String menu) {
