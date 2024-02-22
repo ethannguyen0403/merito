@@ -7,8 +7,6 @@ import com.paltech.element.common.TextBox;
 import com.paltech.utils.DateUtils;
 import controls.Table;
 import membersite.controls.DropDownMenu;
-import membersite.controls.Row;
-import membersite.objects.AccountBalance;
 import membersite.objects.proteus.*;
 import membersite.utils.proteus.MarketUtils;
 import org.testng.Assert;
@@ -75,19 +73,19 @@ public class AsianViewPage extends ProteusHomePage {
         waitForSpinnerLoading();
     }
 
-    public String selectFirstNegativeOdds() {
-        Label lblFirstOdds = Label.xpath("(//span[contains(@class,'color-negative-odd')])[1]/span");
-        Row rowEventSection = Row.xpath("(//span[contains(@class,'color-negative-odd')])[1]/span//ancestor::th");
-        lblFirstOdds.click();
-        return rowEventSection.getAttribute("eventid");
-    }
-
-    public String selectFirstPositiveOdds() {
-        Label lblFirstOdds = Label.xpath("(//span[contains(@class,'odd-number')]//span[not(contains(text(),'−'))])[1]");
-        Row rowEventSection = Row.xpath("(//span[contains(@class,'odd-number')]//span[not(contains(text(),'−'))])[1]//ancestor::th");
-        lblFirstOdds.click();
-        return rowEventSection.getAttribute("eventid");
-    }
+//    public String selectFirstNegativeOdds() {
+//        Label lblFirstOdds = Label.xpath("(//span[contains(@class,'color-negative-odd')])[1]/span");
+//        Row rowEventSection = Row.xpath("(//span[contains(@class,'color-negative-odd')])[1]/span//ancestor::th");
+//        lblFirstOdds.click();
+//        return rowEventSection.getAttribute("eventid");
+//    }
+//
+//    public String selectFirstPositiveOdds() {
+//        Label lblFirstOdds = Label.xpath("(//span[contains(@class,'odd-number')]//span[not(contains(text(),'−'))])[1]");
+//        Row rowEventSection = Row.xpath("(//span[contains(@class,'odd-number')]//span[not(contains(text(),'−'))])[1]//ancestor::th");
+//        lblFirstOdds.click();
+//        return rowEventSection.getAttribute("eventid");
+//    }
 
     public void placeBet(double stake, boolean isSubmit, boolean isConfirm) {
         txtStake.sendKeys(String.valueOf(stake));
@@ -99,67 +97,6 @@ public class AsianViewPage extends ProteusHomePage {
                 waitForSpinnerLoading();
             }
         }
-    }
-
-    public ProteusBetslip getFirstPendingBetSlipInfo() {
-        String firstBetXpath = "(//app-bet-slip//app-pending-bets//div[contains(@class,'pending-item')])[1]";
-        Label lblEventName = Label.xpath(String.format("%s%s", firstBetXpath, "//div[contains(@class,'event-name')]"));
-        Label lblSummaryInfo = Label.xpath(String.format("%s%s", firstBetXpath, "//div[contains(@class,'league-name')]"));
-        Label lblOdds = Label.xpath(String.format("%s%s", firstBetXpath, "//span[contains(@class,'odd')]"));
-        Label lblStake = Label.xpath(String.format("%s%s", firstBetXpath, "//span[text()='Stake: ']//following-sibling::span"));
-        Label lblRisk = Label.xpath(String.format("%s%s", firstBetXpath, "//span[text()='Risk: ']//following-sibling::span"));
-        Label lblWin = Label.xpath(String.format("%s%s", firstBetXpath, "//span[text()='Win: ']//following-sibling::span"));
-        String[] oddsSplit = lblOdds.getText().trim().split("@");
-        String[] odds = oddsSplit[1].split(" ");
-        String[] stake = lblStake.getText().trim().split("HKD");
-        String[] risk = lblRisk.getText().trim().split("HKD");
-        String[] win = lblWin.getText().trim().split("HKD");
-        return new ProteusBetslip.Builder().eventName(lblEventName.getText().trim())
-                .summaryEventInfo(lblSummaryInfo.getText().trim())
-                .odds(odds[0])
-                .stake(stake[1].trim())
-                .toRisk(risk[1].trim())
-                .toWin(win[1].trim())
-                .build();
-    }
-
-    public void verifyToRiskToWinAndBalanceCorrect(double stake, String odds, String oddsType, AccountBalance balanceBeforeBet, AccountBalance balanceAfterBet) {
-        ProteusBetslip betslip = getFirstPendingBetSlipInfo();
-        double exposureBeforePlaceBet = Double.valueOf(balanceBeforeBet.getExposure());
-        double balanceBeforePlaceBet = Double.valueOf(balanceBeforeBet.getBalance());
-        double exposureAfterPlaceBet = Double.valueOf(balanceAfterBet.getExposure());
-        double balanceAfterPlaceBet = Double.valueOf(balanceAfterBet.getBalance());
-        List<Double> lstToRiskToWin = calculateToRiskToWin(stake, odds, oddsType);
-        double expectedBalance = balanceBeforePlaceBet - lstToRiskToWin.get(0);
-        double expectedExposure = exposureBeforePlaceBet - lstToRiskToWin.get(0);
-        Assert.assertEquals(expectedExposure, exposureAfterPlaceBet, 0.02, String.format("FAILED! Exposure kept is not correct expected %s actual %s", expectedExposure, exposureAfterPlaceBet));
-        Assert.assertEquals(expectedBalance, balanceAfterPlaceBet, 0.02, String.format("FAILED! Balance is not correct expected %s actual %s", expectedBalance, balanceAfterPlaceBet));
-        Assert.assertEquals(Double.valueOf(betslip.getToRisk()), lstToRiskToWin.get(0), 0.01, "FAILED!");
-        Assert.assertEquals(Double.valueOf(betslip.getToWin()), lstToRiskToWin.get(1), 0.01, "FAILED!");
-    }
-
-    public List<Double> calculateToRiskToWin(double stake, String odds, String oddsType) {
-        List<Double> lstRiskWin = new ArrayList<>();
-        if(oddsType.equalsIgnoreCase("Malay")) {
-            if(odds.contains("−")) {
-                String oddsFormat = odds.replace("−","");
-                double toRisk = Math.floor(stake * Double.valueOf(oddsFormat) * 100) / 100;
-                double toWin = Math.floor(toRisk / Double.valueOf(oddsFormat) * 100) / 100;
-                lstRiskWin.add(toRisk);
-                lstRiskWin.add(toWin);
-            }
-            return lstRiskWin;
-        } else if (oddsType.equalsIgnoreCase("American")) {
-            if(odds.contains("−")) {
-                String oddsFormat = odds.replace("−","");
-                double toRisk = Math.floor((stake * Double.valueOf(oddsFormat) / 100) * 100) / 100;
-                double toWin = Math.floor((toRisk / Double.valueOf(oddsFormat) * 100) * 100) / 100;
-                lstRiskWin.add(toRisk);
-                lstRiskWin.add(toWin);
-            }
-            return lstRiskWin;
-        }
-        return lstRiskWin;
     }
 
     public void searchLeagueOrTeamName(String leagueOrTeamName) {
@@ -309,6 +246,23 @@ public class AsianViewPage extends ProteusHomePage {
     }
 
     /**
+     * Get the market available under a league with odds condition is negative or positive
+     * @param
+     * @return
+     */
+    public Market getEventInfo(String sportName, String oddsType, String marketType, boolean isFullMatch, boolean isNegativeOdds) {
+        int leagueIndex = 1;
+        Market market;
+        while (true)
+        {
+            market = getEventInfo(sportName,oddsType,leagueIndex, marketType, isFullMatch, isNegativeOdds);
+            if(Objects.nonNull(market))
+                return market;
+            leagueIndex = leagueIndex + 1;
+        }
+    }
+
+    /**
      * Get event info with odds type = Decimal odds bases on inputed index, if index = 0 mean get random
      * @param leagueIndex
      * @param eventIndex
@@ -331,6 +285,38 @@ public class AsianViewPage extends ProteusHomePage {
         String leagueName = Label.xpath(String.format(leagueNameXpath,leagueIndex)).getText();
         // Get the market info from API with the eventID get from UI
         market = MarketUtils.getMarketByOddsKey(oddsType,Integer.valueOf(eventID),oddsKey);
+        market.setLeagueName(leagueName);
+        // Get more info of the event in other API: league Name, home, away,event startTime
+        String sportID = SPORTBOOK_SPORT_ID.get(sportName.toUpperCase());
+        Market temp =  MarketUtils.getEventInfoUnderLeague(Integer.valueOf(sportID),leagueName,eventID);
+        market.setSportName(sportName);
+        market.setEventName(String.format("%s vs %s",temp.getHomeName(),temp.getAwayName()));
+        market.setHomeName(temp.getHomeName());
+        market.setAwayName(temp.getAwayName());
+        market.setEventStartTime(temp.getEventStartTime());
+        return market;
+    }
+    /**
+     * Get event info of odds condition negative or positive bases on inputted league index
+     * @param leagueIndex
+     * @return a Market Info
+     */
+    private Market getEventInfo(String sportName, String oddsType, int leagueIndex, String marketType, boolean isFullMatch, boolean isNegativeOdds) {
+        Market market;
+        Label lblLeague = Label.xpath(String.format(leagueIndexXpath,leagueIndex));
+        if (!lblLeague.isDisplayed())
+            return null;
+        // get event id from UI xpath property
+        String eventID = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("eventid");
+        String oddsKey = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("key");
+
+        //handle incase no odds display in the UI, move to the next row
+        if(Objects.isNull(eventID)) {
+            return null;
+        }
+        String leagueName = Label.xpath(String.format(leagueNameXpath,leagueIndex)).getText();
+        // Get the market info from API with the eventID get from UI
+        market = MarketUtils.getMarketByOddsKey(oddsType,Integer.valueOf(eventID),oddsKey, isNegativeOdds);
         market.setLeagueName(leagueName);
         // Get more info of the event in other API: league Name, home, away,event startTime
         String sportID = SPORTBOOK_SPORT_ID.get(sportName.toUpperCase());
@@ -377,7 +363,7 @@ public class AsianViewPage extends ProteusHomePage {
         if(isFullMatch) {
             if (marketType.equalsIgnoreCase("MONEYLINE")) {
                 return 1;
-            } else if (marketType.equalsIgnoreCase("HANDICAP")) {
+            } else if (marketType.equalsIgnoreCase("HANDICAP") || marketType.equalsIgnoreCase("SPREAD")) {
                 return 2;
             } else {
                 return 3;
@@ -385,7 +371,7 @@ public class AsianViewPage extends ProteusHomePage {
         } else {
             if (marketType.equalsIgnoreCase("MONEYLINE")) {
                 return 4;
-            } else if (marketType.equalsIgnoreCase("HANDICAP")) {
+            } else if (marketType.equalsIgnoreCase("HANDICAP") || marketType.equalsIgnoreCase("SPREAD")) {
                 return 5;
             } else {
                 return 6;
@@ -694,13 +680,34 @@ public class AsianViewPage extends ProteusHomePage {
         return order;
     }
 
+    public Order addOddToBetSlipAndPlaceBet(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+        // click odds
+        clickOdds(market, isFullMatch);
+        //input stake and click place bet and confirm
+        Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
+        if (isPlace) {
+            // set Odd info of the team name that placed on
+            order.setOdds(market.getOdds().get(0));
+            return order;
+        } else {
+            return null;
+        }
+    }
+
     public void clickOdds(Market market, boolean isFullMatch){
-        String oddsHomeXpath ="//th[contains(@class,'odd-column')][%s]//span[contains(@class,'odd-number')][1]//span";
+        //handle when get negative/positive odds we base on odds team to know which selection should click
+        int rowIndex = 0;
+        String oddsHomeXpath ="//th[contains(@class,'odd-column')][%s]//span[contains(@class,'odd-number')]";
+        if(market.getOdds().get(0).getTeam().equalsIgnoreCase("HOME")) {
+            rowIndex = 1;
+        } else {
+            rowIndex = 2;
+        }
         // get the row index has expected ID
         String eventXpath = getEventIndexXpath(String.valueOf(market.getEventId()));
         int column = defineOddsColumn(market.getBetType(),isFullMatch);
         oddsHomeXpath = String.format(oddsHomeXpath,column);
-        Label lblOdds = Label.xpath(String.format("(%s%s)[1]",eventXpath,oddsHomeXpath));
+        Label lblOdds = Label.xpath(String.format("(%s%s)[%s]",eventXpath,oddsHomeXpath, rowIndex));
         lblOdds.click();
     }
 
@@ -745,26 +752,31 @@ public class AsianViewPage extends ProteusHomePage {
         }
     }
 
-    public void verifyMaxPerMatchShowCorrect(ProteusBetslip betslip, double settingMaxPerMatch, String oddsType, boolean isNegativeOdds) {
+    public void verifyMaxPerMatchShowCorrect(Market market, double settingMaxPerMatch, String oddsType, boolean isNegativeOdds) {
+        String rootXpath = "(//app-bet-slip//div[contains(@class,'bet-slip-item')])[%s]";
+        String betslipXpath = String.format(rootXpath,1);
+//        String minBet = Label.xpath(String.format("%s%s", betslipXpath,lblMinBetXpath)).getText();
+//        String maxBet = Label.xpath(String.format("%s%s", betslipXpath,lblMaxBetXpath)).getText();
+        String matchMax = Label.xpath(String.format("%s%s", betslipXpath,lblMatchMaxXpath)).getText();
         if(isNegativeOdds) {
             double oddsValue;
             double matchMaxExpected;
             if(oddsType.equalsIgnoreCase("American")) {
-                oddsValue = Double.parseDouble(betslip.getOdds().replace("−",""));
+                oddsValue = Double.parseDouble(String.valueOf(market.getOdds().get(0).getOdds()));
                 matchMaxExpected = (settingMaxPerMatch / oddsValue) * 100;
-                Assert.assertEquals(Double.valueOf(betslip.getMaxMatch()), Double.valueOf(Math.floor(matchMaxExpected * 100) / 100), 0.01, String.format("FAILED! Max Per Match does not show correct expected %s actual %s", betslip.getMaxMatch(), matchMaxExpected));
+                Assert.assertEquals(Double.valueOf(matchMax), Double.valueOf(Math.floor(Math.abs(matchMaxExpected) * 100) / 100), 0.01, String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, matchMaxExpected));
             } else if (oddsType.equalsIgnoreCase("Malay")) {
-                oddsValue = Double.parseDouble(betslip.getOdds().replace("−",""));
+                oddsValue = Double.parseDouble(String.valueOf(market.getOdds().get(0).getOdds()));
                 matchMaxExpected = settingMaxPerMatch / oddsValue;
-                Assert.assertEquals(Double.valueOf(betslip.getMaxMatch()), Double.valueOf(Math.floor(matchMaxExpected * 100) / 100), 0.01, String.format("FAILED! Max Per Match does not show correct expected %s actual %s", betslip.getMaxMatch(), matchMaxExpected));
+                Assert.assertEquals(Double.valueOf(matchMax), Double.valueOf(Math.floor(Math.abs(matchMaxExpected) * 100) / 100), 0.01, String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, matchMaxExpected));
             } else {
-                Assert.assertEquals(betslip.getMaxMatch(), String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Max Per Match does not show correct expected %s actual %s", betslip.getMaxMatch(), settingMaxPerMatch));
+                Assert.assertEquals(matchMax, String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, settingMaxPerMatch));
             }
         } else {
             if(oddsType.equalsIgnoreCase("American")) {
-                Assert.assertEquals(betslip.getMaxMatch(), String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Max Per Match does not show correct expected %s actual %s", betslip.getMaxMatch(), settingMaxPerMatch));
+                Assert.assertEquals(matchMax, String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, settingMaxPerMatch));
             } else {
-                Assert.assertEquals(betslip.getMaxMatch(), String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Max Per Match does not show correct expected %s actual %s", betslip.getMaxMatch(), settingMaxPerMatch));
+                Assert.assertEquals(matchMax, String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, settingMaxPerMatch));
             }
         }
     }

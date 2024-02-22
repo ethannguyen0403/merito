@@ -563,7 +563,7 @@ public class EuroViewPageTest extends BaseCaseTest {
         EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
-        euroViewPage.addOddToBetSlipAndPlaceBetWithoutReturnOrder(market, "HOME", minStake, false, false);
+        euroViewPage.addOddToBetSlipAndPlaceBet(market, "HOME", minStake, false, false);
 
         log("Validate An error message should display as:\n" +
                 "Your stake cannot be lower than the minimum bet. It has been automatically adjusted to the minimum bet amount.");
@@ -585,7 +585,7 @@ public class EuroViewPageTest extends BaseCaseTest {
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 3. Placing bet with Stake/Risk greater than max bet > observe");
         Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
-        euroViewPage.addOddToBetSlipAndPlaceBetWithoutReturnOrder(market, "HOME", maxStake, false, false);
+        euroViewPage.addOddToBetSlipAndPlaceBet(market, "HOME", maxStake, false, false);
 
         log("Validate An error message should display as:\n" +
                 "Your stake cannot be greater than the maximum bet. It has been automatically adjusted to the maximum bet amount.");
