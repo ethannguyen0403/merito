@@ -87,8 +87,7 @@ public class EvolutionTest extends BaseCaseTest {
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!homePage.header.isProductTabDisplay("Live Dealer"), "FAILED! Live Dealer display on homepage menu.");
         log("@Step 2: Access Evolution by external link");
-        String url = String.format("%s%s", memberLoginURL, EVOLUTION_SUFFIX_LINK);
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGameByLink(CasinoProduct.EVOLUTION, url);
+        CasinoHomePage casinoPage = memberHomePage.openCasinoGameByLink(CasinoProduct.EVOLUTION, CasinoHomePage.getURLCasino(CasinoProduct.EVOLUTION));
         log("@Verify 2: User could not access product and was brought back to home page");
         Assert.assertTrue(!casinoPage.evolution.tabEvolution.isDisplayed(), "FAILED! Evolution product is displayed");
         log("INFO: Executed completely");

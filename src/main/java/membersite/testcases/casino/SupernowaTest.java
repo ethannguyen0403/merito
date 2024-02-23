@@ -79,8 +79,7 @@ public class SupernowaTest extends BaseCaseTest {
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!homePage.header.isProductTabDisplay(CasinoProduct.SUPERNOWA_CASINO.toString()), "FAILED! Supernowa display on homepage menu.");
         log("@Step 2: Access Supernowa Casino by external link");
-        String url = String.format("%s%s", memberLoginURL, SUPERNOWA_SUFFIX_LINK);
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGameByLink(CasinoProduct.SUPERNOWA_CASINO, url);
+        CasinoHomePage casinoPage = memberHomePage.openCasinoGameByLink(CasinoProduct.SUPERNOWA_CASINO, CasinoHomePage.getURLCasino(CasinoProduct.SUPERNOWA_CASINO));
         log("@Verify 2: User could not access product and was brought back to home page");
         Assert.assertTrue(!casinoPage.supernowa.lblTitle.isDisplayed(),"FAILED! Supernowa casino is displayed");
         log("INFO: Executed completely");

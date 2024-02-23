@@ -83,9 +83,8 @@ public class PragmaticTest extends BaseCaseTest {
         log("@Step 2: Access Pragmatic on header menu");
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!homePage.header.isProductTabDisplay(CasinoProduct.PRAGMATIC.toString()), "FAILED! Supernowa display on homepage menu.");
-        log("@Step 2: Access Pragmatic by external link");
-        String url = String.format("%s%s", memberLoginURL, PRAGMATIC_SUFFIX_LINK);
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGameByLink(CasinoProduct.PRAGMATIC, url);
+        log("@Step 3: Access Pragmatic by external link");
+        CasinoHomePage casinoPage = memberHomePage.openCasinoGameByLink(CasinoProduct.PRAGMATIC, CasinoHomePage.getURLCasino(CasinoProduct.PRAGMATIC));
         log("@Verify 2: User could not access product and was brought back to home page");
         Assert.assertTrue(!casinoPage.pragmatic.lblHeaderMenu.isDisplayed(),"FAILED! Pragmatic game is displayed");
         log("INFO: Executed completely");

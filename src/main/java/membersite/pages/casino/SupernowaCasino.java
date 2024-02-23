@@ -10,9 +10,9 @@ public class SupernowaCasino {
         // wait for iframe load
         try {
             Thread.sleep(3000);
+            DriverManager.getDriver().switchToFrame(0);
         }catch (Exception e){
         }
-        DriverManager.getDriver().switchToFrame(0);
     }
 
     public void openFirstSupernowaGame(){

@@ -7,6 +7,8 @@ import com.paltech.element.common.Tab;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Evolution {
 
@@ -33,7 +35,11 @@ public class Evolution {
     public double getBalance() {
         DriverManager.getDriver().switchToFrame(0);
         lblBalance.isDisplayed();
-        return Double.valueOf(lblBalance.getText().replace("$", ""));
+        //Get all digit in String balance
+        Pattern pattern = Pattern.compile("\\d.+");
+        Matcher matcher = pattern.matcher(lblBalance.getText().trim().replace(",", ""));
+        matcher.find();
+        return Double.valueOf(matcher.group(0));
     }
 
     private void waitToNewWindowOpen(int timeCount) {
