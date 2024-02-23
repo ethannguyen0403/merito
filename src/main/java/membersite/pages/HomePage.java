@@ -1,10 +1,8 @@
 package membersite.pages;
 
-import agentsite.pages.report.PS38SportsResultsPage;
 import com.paltech.driver.DriverManager;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
-import membersite.objects.proteus.Order;
 import membersite.objects.sat.Event;
 import membersite.pages.casino.CasinoHomePage;
 import membersite.pages.casino.CasinoProduct;
@@ -14,6 +12,7 @@ import membersite.pages.components.minimybetcontainer.MiniMyBetsContainer;
 import membersite.pages.components.nextupracingcontainer.NextUpRacingContainer;
 import membersite.pages.exchangegames.EGHomePage;
 import membersite.pages.popup.BannerPopup;
+import membersite.pages.popup.MyMarketPopup;
 import membersite.pages.proteus.ProteusHomePage;
 import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
@@ -34,7 +33,20 @@ public class HomePage extends LandingPage {
         myBetsContainer = ComponentsFactory.miniMyBetsContainerObject(types);
         nextUpRacingContainer = ComponentsFactory.nextUpRacingContainerObject(types);
     }
-
+    public MyMarketPopup openMyMarket() {
+        return header.openMyMarketPopup();
+    }
+    public MarketPage openMarketInMyMarketPopup(String marketName) {
+        MyMarketPopup myMarketPopup = new MyMarketPopup();
+        if (!myMarketPopup.tbMyMarkets.isDisplayed()) {
+            myMarketPopup = openMyMarket();
+        }
+        myMarketPopup.navigateToMarket(marketName);
+        DriverManager.getDriver().switchToWindow();
+        MarketPage marketPage = new MarketPage(_type);
+        marketPage.waitMenuLoading();
+        return marketPage;
+    }
     public MarketPage clickFristNextUpHR() {
         if (!nextUpRacingContainer.hasNextUpHR())
             return null;

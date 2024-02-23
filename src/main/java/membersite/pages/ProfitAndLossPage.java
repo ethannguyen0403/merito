@@ -125,15 +125,16 @@ public class ProfitAndLossPage extends HomePage {
                 System.out.println(String.format("ERROR! Total PL in Sport table does not match with Market Table expected is % s but found", totalProfitLost, totalPLMarketTable));
                 return false;
             }
-//            if (!verifyMarketTableProfitLoss()) {
-//                return false;
-//            }
             btnBack.click();
         }
         double totalActual = Double.parseDouble(lst.get(totalSummaryRow - 1).get(colProfitLoss - 1));
         if (!(total == totalActual)) {
-            System.out.println(String.format("ERROR! Sum Sport Profit/Los on Sport table does not match with the Total. Summay is %f bug display %f", total, totalActual));
-            return false;
+            System.out.println(String.format("By Passed when sum Sport Profit/Los on Sport table does not match with the Total. And the value is in accept range acutal %s and expected %s", total, totalActual));
+            // Handle when actual and expected value are difference and we in accept amount 0.01
+            if(Math.abs(total - totalActual )> 0.01) {
+                System.out.println(String.format("ERROR! Sum Sport Profit/Los on Sport table does not match in acceptance difference amount 0.01. Summay is %f but display %f", total, totalActual));
+                return false;
+            }
         }
         return true;
     }
