@@ -175,17 +175,18 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         log("@title: Validate can search market type");
         log("Step 1. Access Operations > Before Login Management");
         String sport = "Ice Hockey";
-        String marketTye = "To Qualify";
         BeforeLoginManagementPage page = backofficeHomePage.navigateBeforeLoginManagement();
         page.filter("Sport & Market Type","","","",true);
 
         log("Step 2. Select a sport : Ice Hockey");
-        log("Step 3. Active and inactive a  market: To Qualify");
         page.activeSport(sport, true);
+        page.waitSpinIcon();
+        String marketTye = page.tblMarketType.getColumn(page.colMarketType, false).get(1);
+        log("Step 3. Active and inactive a  market: " + marketTye);
         page.searchMartyType(marketTye);
         log("Step 1. Verify the market list will contain all markets type contain search key");
         List<String> lstMarket = page.tblMarketType.getColumn(page.colMarketType, false);
-        Assert.assertTrue(lstMarket.contains("To Qualify"), "The list market does not contains search key");
+        Assert.assertTrue(lstMarket.contains(marketTye), "The list market does not contains search key: " + marketTye);
     }
 
     @TestRails(id = "1653")

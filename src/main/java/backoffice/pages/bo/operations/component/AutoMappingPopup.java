@@ -14,6 +14,11 @@ public class AutoMappingPopup {
     private Button btnOk = Button.xpath("//app-dialog-auto-map//button[contains(@class,'btn-confirm')]");
 
     public String getTitle() {
+        try {
+            // wait for popup visible on screen
+            Thread.sleep(1500);
+        }catch (Exception e){
+        }
         return lblTitle.getText();
     }
 
