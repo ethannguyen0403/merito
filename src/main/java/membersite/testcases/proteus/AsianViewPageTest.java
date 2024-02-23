@@ -4,7 +4,7 @@ import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
 import membersite.objects.AccountBalance;
 import membersite.objects.proteus.Market;
-import membersite.objects.proteus.ProteusBetslip;
+import membersite.objects.proteus.Order;
 import membersite.pages.proteus.AsianViewPage;
 import membersite.pages.proteus.ProteusHomePage;
 import membersite.utils.betplacement.BetUtils;
@@ -523,10 +523,11 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
     @TestRails(id = "4171")
     @Test(groups = {"ps38","Proteus.2024.V.1.0"})
-    public void PS38_Member_TC4171() {
+    @Parameters({"currency"})
+    public void PS38_Member_TC4171(String currency) {
         log("@title: Validate toWin and toRisk correctly when placing on better negative MY odds");
         log("Precondition: Login member site-  the player active PS38 product");
-        AccountBalance accountBalanceBeforeBet = BetUtils.getUserBalance();
+        AccountBalance userBalance = BetUtils.getUserBalance();
         log("Step 1.Select Ps38 product");
         log("Step 2.Active Ps38 product active Asian View");
         ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
@@ -537,24 +538,23 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Step 4. Select MY odds odds type, pick a negative odds and place bet. @-0.71 with stake = 40 => toRisk = 28.4 and toWin= 40");
         asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
-        String eventId = asianViewPage.selectFirstNegativeOdds();
-        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
-        double stake = Double.valueOf(betslipInfo.getMinBet()) + 1;
-        asianViewPage.placeBet(stake, true, true);
+
+        Market market = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, true);
+        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(market, true, "minbet", false, true);
 
         log("Verify toRisk and toWin of this bet in Pending bet and Balance and exposure");
-        proteusHomePage.switchTabBetSlip(PENDING_BETS_TAB);
-        AccountBalance accountBalanceAfterBet = BetUtils.getUserBalance();
-        asianViewPage.verifyToRiskToWinAndBalanceCorrect(stake, betslipInfo.getOdds(), MALAY, accountBalanceBeforeBet, accountBalanceAfterBet);
+        asianViewPage.verifyPendingBetInfo(order, currency);
+        asianViewPage.verifyUserBalanceAfterPlacePS38(asianViewPage.calculateExpecteBalance(userBalance, order));
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4172")
     @Test(groups = {"ps38","Proteus.2024.V.1.0"})
-    public void PS38_Member_TC4172() {
+    @Parameters({"currency"})
+    public void PS38_Member_TC4172(String currency) {
         log("@title: Validate toWin and toRisk correctly when placing on better negative AM odds");
         log("Precondition: Login member site-  the player active PS38 product");
-        AccountBalance accountBalanceBeforeBet = BetUtils.getUserBalance();
+        AccountBalance userBalance = BetUtils.getUserBalance();
         log("Step 1.Select Ps38 product");
         log("Step 2.Active Ps38 product active Asian View");
         ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
@@ -565,15 +565,13 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Step 4. Select AM odds odds type, pick a negative odds and place bet. @-103 with stake = 20 => toRisk = 20.6 and toWin=20");
         asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
-        String eventId = asianViewPage.selectFirstNegativeOdds();
-        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
-        double stake = Double.valueOf(betslipInfo.getMinBet()) + 1;
-        asianViewPage.placeBet(stake, true, true);
+
+        Market market = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, true);
+        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(market, true, "minbet", false, true);
 
         log("Verify toRisk and toWin of this bet in Pending bet and Balance and exposure");
-        proteusHomePage.switchTabBetSlip(PENDING_BETS_TAB);
-        AccountBalance accountBalanceAfterBet = BetUtils.getUserBalance();
-        asianViewPage.verifyToRiskToWinAndBalanceCorrect(stake, betslipInfo.getOdds(), AMERICAN, accountBalanceBeforeBet,accountBalanceAfterBet);
+        asianViewPage.verifyPendingBetInfo(order, currency);
+        asianViewPage.verifyUserBalanceAfterPlacePS38(asianViewPage.calculateExpecteBalance(userBalance, order));
         log("INFO: Executed completely");
     }
 
@@ -708,7 +706,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4146")
-    @Test(groups = {"ps38_groupe","Proteus.2024.V.1.0_groupe"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4146() {
         log("@title: Validate Max per match is calculated correctly for AM negative odds");
         log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
@@ -719,18 +717,20 @@ public class AsianViewPageTest extends BaseCaseTest {
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
-        String eventId = asianViewPage.selectFirstNegativeOdds();
-        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
+
+        Market market = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, true);
+        asianViewPage.clickOdds(market, true);
 
         log("Validate Max per match should be calculated correctly for Am negative odds following the formula\n" +
                 "\n" +
                 "AM negative odds: Max per match = (setting max per match/odds) * 100");
-        asianViewPage.verifyMaxPerMatchShowCorrect(betslipInfo, settingMaxPerMatch, AMERICAN, true);
+        asianViewPage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), AMERICAN);
+        asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, AMERICAN, true);
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "20264")
-    @Test(groups = {"ps38_groupe","Proteus.2024.V.1.0_groupe"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC20264() {
         log("@title: Validate Max per match is calculated correctly for AM positive odds");
         log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
@@ -741,18 +741,20 @@ public class AsianViewPageTest extends BaseCaseTest {
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
-        String eventId = asianViewPage.selectFirstPositiveOdds();
-        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
+
+        Market market = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, false);
+        asianViewPage.clickOdds(market, true);
 
         log("Validate Max per match should be calculated correctly for Am positive odds following the formula\n" +
                 "\n" +
                 "AM positive odds: Max per match = setting max per match");
-        asianViewPage.verifyMaxPerMatchShowCorrect(betslipInfo, settingMaxPerMatch, AMERICAN, false);
+        asianViewPage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), AMERICAN);
+        asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, AMERICAN, false);
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4147")
-    @Test(groups = {"ps38_groupe","Proteus.2024.V.1.0_groupe"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4147() {
         log("@title: Validate Max per match is calculated correctly for MY negative odds");
         log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
@@ -763,18 +765,20 @@ public class AsianViewPageTest extends BaseCaseTest {
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
-        String eventId = asianViewPage.selectFirstNegativeOdds();
-        ProteusBetslip betslipInfo = proteusHomePage.getBetSlipInfo(eventId);
+
+        Market market = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, true);
+        asianViewPage.clickOdds(market, true);
 
         log("Validate Max per match should be calculated correctly for Am negative odds following the formula\n" +
                 "\n" +
                 "AM negative odds: Max per match = (setting max per match/odds) * 100");
-        asianViewPage.verifyMaxPerMatchShowCorrect(betslipInfo, settingMaxPerMatch, MALAY, true);
+        asianViewPage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), MALAY);
+        asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, MALAY, true);
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4144")
-    @Test(groups = {"ps38_groupe","Proteus.2024.V.1.0_groupe"})
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4144() {
         log("@title: Validate Max per match field should match with agent setting");
         log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
@@ -785,13 +789,14 @@ public class AsianViewPageTest extends BaseCaseTest {
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
-        String eventId = asianViewPage.selectFirstPositiveOdds();
 
-        log("Step 3. Compare Max Per Match with Agent site");
-        ProteusBetslip betSlipInfo = asianViewPage.getBetSlipInfo(eventId);
+        Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, true);
+        asianViewPage.clickOdds(market, true);
 
         log("Validate Match Max value should matched correctly with Agent Site setting");
-        asianViewPage.verifyMaxPerMatchShowCorrect(betSlipInfo, settingMaxPerMatch, DECIMAL, false);
+        asianViewPage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), DECIMAL);
+        asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, DECIMAL, true);
+//        asianViewPage.verifyMaxPerMatchShowCorrect(betSlipInfo, settingMaxPerMatch, DECIMAL, false);
         log("INFO: Executed completely");
     }
 }

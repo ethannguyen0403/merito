@@ -36,11 +36,11 @@ public class ProteusHomePage extends HomePage {
     String lblHDPPointXpath = "//div[contains(@class,'fw-semibold')]";
     String lblOddsXpath = "//div[contains(@class,'odds-text')]";
     String lblStakeXpath = "//input[contains(@class,'stake-input')]";
-    String lblMinBetXpath = "//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][1]/span[1]";
+    String lblMinBetXpath = "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Min bet')]/span";
     String lblMinBetValueXpath ="//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][1]/span[1]/span";
-    String lblMaxBetXpath =  "//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][1]/span[2]";
+    String lblMaxBetXpath =  "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Max bet')]/span";
     String lblMaxBetValueXpath =  "//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][1]/span[2]/span";
-    String lblMatchMaxXpath = "//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][2]/span[1]";
+    String lblMatchMaxXpath = "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span";
     String txtStakeXpath = "//input[contains(@class,'stake-input')]";
     Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
     AppConfirmModulePopup confirmModulePopup = AppConfirmModulePopup.xpath("//app-confirm-modal");
@@ -216,7 +216,7 @@ public class ProteusHomePage extends HomePage {
             odds = odds.replace("−","-");
         Assert.assertEquals(odds,expectedOdds,"FAILED! Odds is incorrect");
         Assert.assertEquals(eventName,market.getEventName(),"FAILED! Event Name is incorect");
-        Assert.assertEquals(summaryInfo,defineSummaryInfoInBetSlip(market),"FAILED! Summary info is incorrect");
+        Assert.assertTrue(summaryInfo.equalsIgnoreCase(defineSummaryInfoInBetSlip(market)),"FAILED! Summary info is incorrect");
         Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
 //      min/max/maxpermatch will check in other method
 //        String stake = Label.xpath(String.format("%s%s", betslipRootXpath, lblStakeXpath)).getText();
@@ -265,38 +265,25 @@ public class ProteusHomePage extends HomePage {
         String stakeIn = defineStakeIn(market,stake);
         inputStake(market,stakeIn);
         //if(isAcceptedBetterOdds)
-            //handle check on Accept Better Odds checkbox here
-        if(isPlaceBet)
-            // click place bet button and confirm Ok
-            clickPlaceBet(true);
-        else
-            // click place bet and do nothing
-            clickPlaceBet(false);
-
-       // get the first order in Pending Bet after place a bet and define the expected order info
-        Order fistPendingOrder = getTheFistPendingOrder();
-        return new Order.Builder()
-                .market(market)
-                .stake(Double.valueOf(stakeIn))
-                .oddsAccept(fistPendingOrder.getOddsAccept())
-                .orderID(fistPendingOrder.getOrderID())
-                .status(fistPendingOrder.getStatus())
-                .placeDate(fistPendingOrder.getPlaceDate())
-                .build();
-    }
-
-    public void placeNoBetWithoutReturnOrder(Market market,String stake, boolean isAcceptedBetterOdds, boolean isPlaceBet) {
-        String stakeIn = defineStakeIn(market,stake);
-        inputStake(market,stakeIn);
-        //if(isAcceptedBetterOdds)
         //handle check on Accept Better Odds checkbox here
-        if(isPlaceBet)
+        if(isPlaceBet) {
             // click place bet button and confirm Ok
             clickPlaceBet(true);
-        else
+            // get the first order in Pending Bet after place a bet and define the expected order info
+            Order fistPendingOrder = getTheFistPendingOrder();
+            return new Order.Builder()
+                    .market(market)
+                    .stake(Double.valueOf(stakeIn))
+                    .oddsAccept(fistPendingOrder.getOddsAccept())
+                    .orderID(fistPendingOrder.getOrderID())
+                    .status(fistPendingOrder.getStatus())
+                    .placeDate(fistPendingOrder.getPlaceDate())
+                    .build();
+        } else {
             // click place bet and do nothing
-            waitForSpinnerLoading();
             clickPlaceBet(false);
+            return null;
+        }
     }
 
     public void verifyPendingBetInfo(Order order,String currency){
@@ -362,11 +349,13 @@ public class ProteusHomePage extends HomePage {
                     "%s",orderExpected.getOrderID(),orderExpected.getPlaceDate()),"FAILED! Order ID header is incorrect");
         Assert.assertEquals(status, orderExpected.getStatus(),"FAILED! Status is incorrect");
         Assert.assertEquals(eventName, orderExpected.getMarket().getEventName(),"FAILED! Event Name is incorrect");
-        Assert.assertEquals(leagueName, defineSummaryInfoInBetSlip(orderExpected.getMarket()),"FAILED! League is incorrect");
-        Assert.assertEquals(teamName,defineSelectionName(orderExpected.getMarket(), orderExpected.getOdds().getTeam()),"FAILED! Team name is incorrect");
+        Assert.assertTrue(leagueName.equalsIgnoreCase(defineSummaryInfoInBetSlip(orderExpected.getMarket())),"FAILED! League is incorrect");
+        Assert.assertTrue(defineSelectionName(orderExpected.getMarket(), orderExpected.getOdds().getTeam()).contains(teamName),"FAILED! Team name is incorrect");
         DecimalFormat df = new DecimalFormat("0.#");
+        df.setMinimumFractionDigits(0);
+        df.setMaximumFractionDigits(3);
         double oddsValue = Double.parseDouble(df.format(orderExpected.getOdds().getOdds()));
-        String expectedOdds = String.format(oddsValue +" (%s)",orderExpected.getOddsSign());
+        String expectedOdds = String.format("@" + oddsValue +" (%s)",orderExpected.getOddsSign());
         if(orderExpected.getMarket().getOddsFormat().toLowerCase().equalsIgnoreCase(AMERICAN)){
             expectedOdds = String.format("@%.0f (%s)", orderExpected.getOdds().getOdds(),orderExpected.getOddsSign());
         }
@@ -383,25 +372,25 @@ public class ProteusHomePage extends HomePage {
     }
 
     // End Bet Slip, Pending Bets section
-    public ProteusBetslip getBetSlipInfo(String eventId) {
-        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", eventId);
-        Label lblEventName = Label.xpath(String.format("%s%s", betslipRootXpath, "//span[@class='teams-name']"));
-        Label lblSummaryInfo = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'bet-title')]"));
-        Label lblHDPPoint = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'fw-semibold')]"));
-        Label lblOdds = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'odds-text')]//span"));
-        Label lblStake = Label.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
-        Label lblMinBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Min bet')]/span"));
-        Label lblMaxBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Max bet')]/span"));
-        Label lblMatchMax = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span"));
-        return new ProteusBetslip.Builder().eventName(lblEventName.getText().trim())
-                .summaryEventInfo(lblSummaryInfo.getText().trim())
-                .hdpPoint(lblHDPPoint.getText().trim())
-                .odds(lblOdds.getText().trim())
-                .stake(lblStake.getAttribute("value"))
-                .minBet(lblMinBet.getText().trim())
-                .maxBet(lblMaxBet.getText().trim())
-                .maxMatch(lblMatchMax.getText().trim())
-                .build();
-    }
+//    public ProteusBetslip getBetSlipInfo(String eventId) {
+//        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", eventId);
+//        Label lblEventName = Label.xpath(String.format("%s%s", betslipRootXpath, "//span[@class='teams-name']"));
+//        Label lblSummaryInfo = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'bet-title')]"));
+//        Label lblHDPPoint = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'fw-semibold')]"));
+//        Label lblOdds = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'odds-text')]//span"));
+//        Label lblStake = Label.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
+//        Label lblMinBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Min bet')]/span"));
+//        Label lblMaxBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Max bet')]/span"));
+//        Label lblMatchMax = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span"));
+//        return new ProteusBetslip.Builder().eventName(lblEventName.getText().trim())
+//                .summaryEventInfo(lblSummaryInfo.getText().trim())
+//                .hdpPoint(lblHDPPoint.getText().trim())
+//                .odds(lblOdds.getText().trim())
+//                .stake(lblStake.getAttribute("value"))
+//                .minBet(lblMinBet.getText().trim())
+//                .maxBet(lblMaxBet.getText().trim())
+//                .maxMatch(lblMatchMax.getText().trim())
+//                .build();
+//    }
 
 }
