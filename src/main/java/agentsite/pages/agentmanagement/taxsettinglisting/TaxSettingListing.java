@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TaxSettingListing {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
-    protected int totalColum = 13;
+    protected int totalColum = 14;
     public int usernameCol = 2;
     public int loginIDCol = 3;
     protected int chbCol = 5;
@@ -15,9 +15,6 @@ public class TaxSettingListing {
     public int cricketCol = 8;
     public int tennisCol = 9;
     public int basketballCol = 10;
-    public int fancyCol = 11;
-    public int virtualCricketCol = 12;
-    public int otherCol = 13;
     protected String successIcon = "//span[contains(@class,'psuccess')]";
     protected String errorIcon = "//span[contains(@class,'perror')]";
     public Label lblBreadcrumb = Label.xpath("//span[@class='my-breadcrumb']");

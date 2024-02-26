@@ -56,11 +56,11 @@ public class WagerResettlementTest extends BaseCaseTest {
      */
     @TestRails(id = "595")
     @Test(groups = {"smoke"})
-    @Parameters({"wagerID"})
-    public void BO_Settlement_Wager_Resettlement_595(String wagerID) {
+    @Parameters({"wagerID", "env"})
+    public void BO_Settlement_Wager_Resettlement_595(String wagerID, String env) {
         log("@title: Validate can search wager resettlement");
         log("Step 1. Access Settlement > Wager Resettlement");
-        //String wagerId = "";
+        wagerID = env.equalsIgnoreCase("green")? "170360015": wagerID;
 
         WagerResettlementPage page = backofficeHomePage.navigateWagerResettlement();
         List<String> lstInfo = WagerResettlementUltils.getMarketInfo(wagerID, WagerResettlementPage.BetType.NORMAL, "EXCHANGE");

@@ -20,6 +20,7 @@ public class ConfirmIPMapppingPopup {
     }
 
     public String getContent() {
+        lblContent.isDisplayed();
         return lblContent.getText();
     }
 

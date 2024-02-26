@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OldUITaxSettingListing extends TaxSettingListing {
-    private int otherCol = 12;
-    private int updateStatusCol = 13;
+    private int otherCol = 13;
+    private int updateStatusCol = 14;
     public int virtualCricketCol = 11;
+    public int decimalCricketCol = 12;
 
     public List<ArrayList<String>> defineListTaxSetting(double inputValue) {
         List<ArrayList<String>> lstTaxSetting = tblTax.getRowsWithoutHeader(1, false);
@@ -19,12 +20,14 @@ public class OldUITaxSettingListing extends TaxSettingListing {
         double tennisTax = Double.parseDouble(lstTaxSetting.get(0).get(tennisCol - 1).split("%")[0]) + inputValue;
         double basketballTax = Double.parseDouble(lstTaxSetting.get(0).get(basketballCol - 1).split("%")[0]) + inputValue;
         double virtualCricketTax = Double.parseDouble(lstTaxSetting.get(0).get(virtualCricketCol - 1).split("%")[0]) + inputValue;
+        double decimalCricketTax = Double.parseDouble(lstTaxSetting.get(0).get(decimalCricketCol - 1).split("%")[0]) + inputValue;
         double otherTax = Double.parseDouble(lstTaxSetting.get(0).get(otherCol - 1).split("%")[0]) + inputValue;
         lstTaxSetting.get(0).set(soccerCol - 1, String.format("%.2f", soccerTax) + "%");
         lstTaxSetting.get(0).set(cricketCol - 1, String.format("%.2f", cricketTax) + "%");
         lstTaxSetting.get(0).set(tennisCol - 1, String.format("%.2f", tennisTax) + "%");
         lstTaxSetting.get(0).set(basketballCol - 1, String.format("%.2f", basketballTax) + "%");
         lstTaxSetting.get(0).set(virtualCricketCol - 1, String.format("%.2f", virtualCricketTax) + "%");
+        lstTaxSetting.get(0).set(decimalCricketCol - 1, String.format("%.2f", decimalCricketTax) + "%");
         lstTaxSetting.get(0).set(otherCol - 1, String.format("%.2f", otherTax) + "%");
         return lstTaxSetting;
     }

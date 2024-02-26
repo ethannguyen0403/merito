@@ -215,8 +215,9 @@ public class PrioritySettingTest extends BaseCaseTest {
      * @expect: 1. Verify the brand is added
      */
     @TestRails(id = "666")
+    @Parameters({"env"})
     @Test(groups = {"smoke"})
-    public void BO_System_Priority_Settings_666() {
+    public void BO_System_Priority_Settings_666(String env) {
         log("@title: Validate can search and select a brand");
         log("Step 1. Navigate to System> Priority Settings");
         PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
@@ -224,12 +225,14 @@ public class PrioritySettingTest extends BaseCaseTest {
         log("Step 2. Select to any type");
         log("Step 3.Click on a Brand dropdown .e.g: FunSport101");
         log("Step 4.Input a brand and select the filtered result");
-        page.search("Sport", "FunSport101", "", "");
+        //different data of STG from prod
+        String brand = env.equalsIgnoreCase("green")? "FunSport": "FunSport101";
+        page.search("Sport", brand, "", "");
 
         log("Verify 1. Verify the brand is added");
         List<String> lstSelectedOption = page.ddbBrand.getSelectedOptions();
-        Assert.assertEquals(lstSelectedOption.get(0), "FunSport101", "FAILED! Selected brand is incorrect");
-        Assert.assertEquals(lstSelectedOption.size(), 1, "FAILED! There are more than 1 brand selected while only select Funsport101 brand");
+        Assert.assertEquals(lstSelectedOption.get(0), brand, "FAILED! Selected brand is incorrect");
+        Assert.assertEquals(lstSelectedOption.size(), 1, "FAILED! There are more than 1 brand selected while only select brand: " + brand);
 
         log("INFO: Executed completely");
     }

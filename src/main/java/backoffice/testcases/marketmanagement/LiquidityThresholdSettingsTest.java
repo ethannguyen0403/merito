@@ -76,7 +76,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
         page.setThreshold(marketType, "", "1");
 
         log("Verify 1 Confirm popup display with the title : Update - [Market Type] with  the message: Are you sure to set this live to setting value ?");
-        Assert.assertEquals(page.popup.getContent(), String.format("Are you sure to set this live to %s ?", "1"), "FAILED! Confirm message is incorrect");
+        Assert.assertEquals(page.popup.getContent(), String.format("Are you sure to edit this live from 20,000 to %s ?", "1"), "FAILED! Confirm message is incorrect");
 
         log("Step 4. Click close");
         page.popup.clickCloseBtn();

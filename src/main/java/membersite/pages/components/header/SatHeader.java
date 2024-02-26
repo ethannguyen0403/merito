@@ -5,8 +5,8 @@ import com.paltech.element.common.*;
 import common.MemberConstants;
 import membersite.controls.DropDownMenu;
 import membersite.objects.AccountBalance;
-import membersite.objects.Wager;
 import membersite.pages.*;
+import membersite.pages.casino.CasinoProduct;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.signinform.SATSignInPopup;
@@ -144,8 +144,23 @@ public class SatHeader extends Header1 {
         tabExchangeGames.click();
     }
 
+    @Override
+    public void openCasinoGame(CasinoProduct product) {
+        if (product.equals(CasinoProduct.EVOLUTION) || product.equals(CasinoProduct.LIVE_DEALER_ASIAN)) {
+            clickProduct("Casino");
+            if(product.equals(CasinoProduct.LIVE_DEALER_ASIAN)){
+                clickProduct(product.toString());
+                return;
+            }
+            clickProduct("European Room");
+            Tab.xpath(String.format("//div[contains(@class, 'european-room')]//span[text()='%s']", product.toString())).click();
+            return;
+        }
+        clickProduct(product.toString());
+    }
+
     public void clickProduct(String product) {
-        Tab productTab = Tab.xpath(String.format("//a[text()=' %s ']", product));
+        Tab productTab = Tab.xpath(String.format("//a[text()=' %s '] | //a[text()='%s']", product, product));
         productTab.click();
     }
 

@@ -79,10 +79,13 @@ public class LiveStreamingManagementTest extends BaseCaseTest {
         List<String> lstSport = LiveStreamingManagementUtils.getSportLiveCenter();
         String today = DateUtils.getDate(1, "dd-MM-YYYY", BOConstants.GMT_FOUR);
         String date = DateUtils.getDate(1, "yyyy/MM/dd", BOConstants.GMT_FOUR);
-        List<Event> lstFEEvent = LiveStreamingManagementUtils.getListEvent(today, "1");
-        Event fEEvent = lstFEEvent.get(lstFEEvent.size()-1);
-        List<Event> lstlLCEvent = LiveStreamingManagementUtils.getListLCEvent(today, "1");
-        Event lCEvent = lstlLCEvent.get(lstlLCEvent.size()-3);
+        Event fEEvent = LiveStreamingManagementUtils.getListEvent(today, "1").get(0);
+        Event lCEvent = LiveStreamingManagementUtils.getListLCEvent(today, "1").get(1);
+//        String date = DateUtils.getDate(1, "yyyy/MM/dd", BOConstants.GMT_FOUR);
+//        List<Event> lstFEEvent = LiveStreamingManagementUtils.getListEvent(today, "1");
+//        Event fEEvent = lstFEEvent.get(lstFEEvent.size()-1);
+//        List<Event> lstlLCEvent = LiveStreamingManagementUtils.getListLCEvent(today, "1");
+//        Event lCEvent = lstlLCEvent.get(lstlLCEvent.size()-3);
 
         log("Step 2. Select today, Sport");
         log("Step 3. Select All data in Competition and event dropdown boxes in Fair Exchange and Provider");

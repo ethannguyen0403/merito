@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewUITaxSettingListing extends TaxSettingListing {
-    private int updateStatusCol = 14;
-
+    private int updateStatusCol = 15;
+    public int fancyCol = 11;
+    public int decimalCricketCol = 12;
+    public int virtualCricketCol = 13;
+    public int otherCol = 14;
     public List<ArrayList<String>> defineListTaxSetting(double inputValue) {
         List<ArrayList<String>> lstTaxSetting = tblTax.getRowsWithoutHeader(1, false);
         double soccerTax = Double.parseDouble(lstTaxSetting.get(0).get(6).split("%")[0]) + inputValue;
@@ -17,13 +20,15 @@ public class NewUITaxSettingListing extends TaxSettingListing {
         double tennisTax = Double.parseDouble(lstTaxSetting.get(0).get(8).split("%")[0]) + inputValue;
         double basketballTax = Double.parseDouble(lstTaxSetting.get(0).get(9).split("%")[0]) + inputValue;
         double fancyTax = Double.parseDouble(lstTaxSetting.get(0).get(10).split("%")[0]) + inputValue;
-        double virtualCricketTax = Double.parseDouble(lstTaxSetting.get(0).get(11).split("%")[0]) + inputValue;
-        double otherTax = Double.parseDouble(lstTaxSetting.get(0).get(12).split("%")[0]) + inputValue;
+        double decimalCricketTax = Double.parseDouble(lstTaxSetting.get(0).get(11).split("%")[0]) + inputValue;
+        double virtualCricketTax = Double.parseDouble(lstTaxSetting.get(0).get(12).split("%")[0]) + inputValue;
+        double otherTax = Double.parseDouble(lstTaxSetting.get(0).get(13).split("%")[0]) + inputValue;
         lstTaxSetting.get(0).set(soccerCol - 1, String.format("%.2f", soccerTax) + "%");
         lstTaxSetting.get(0).set(cricketCol - 1, String.format("%.2f", cricketTax) + "%");
         lstTaxSetting.get(0).set(tennisCol - 1, String.format("%.2f", tennisTax) + "%");
         lstTaxSetting.get(0).set(basketballCol - 1, String.format("%.2f", basketballTax) + "%");
         lstTaxSetting.get(0).set(fancyCol - 1, String.format("%.2f", fancyTax) + "%");
+        lstTaxSetting.get(0).set(decimalCricketCol - 1, String.format("%.2f", decimalCricketTax) + "%");
         lstTaxSetting.get(0).set(virtualCricketCol - 1, String.format("%.2f", virtualCricketTax) + "%");
         lstTaxSetting.get(0).set(otherCol - 1, String.format("%.2f", otherTax) + "%");
         return lstTaxSetting;

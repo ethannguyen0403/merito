@@ -36,11 +36,11 @@ public class ProteusHomePage extends HomePage {
     String lblHDPPointXpath = "//div[contains(@class,'fw-semibold')]";
     String lblOddsXpath = "//div[contains(@class,'odds-text')]";
     String lblStakeXpath = "//input[contains(@class,'stake-input')]";
-    String lblMinBetXpath = "//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][1]/span[1]";
+    String lblMinBetXpath = "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Min bet')]/span";
     String lblMinBetValueXpath ="//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][1]/span[1]/span";
-    String lblMaxBetXpath =  "//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][1]/span[2]";
+    String lblMaxBetXpath =  "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Max bet')]/span";
     String lblMaxBetValueXpath =  "//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][1]/span[2]/span";
-    String lblMatchMaxXpath = "//div[contains(@class,'limit-stake-container')]/div[contains(@class,'limit-stake')][2]/span[1]";
+    String lblMatchMaxXpath = "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span";
     String txtStakeXpath = "//input[contains(@class,'stake-input')]";
     Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
     AppConfirmModulePopup confirmModulePopup = AppConfirmModulePopup.xpath("//app-confirm-modal");
@@ -105,193 +105,8 @@ public class ProteusHomePage extends HomePage {
             lblView.click();
     }
 
-    public String getCurrentUserOddsGroup(int eventId) {
-        AsianViewPage asianViewPage = selectAsianView();
-        asianViewPage.selectPeriodTab(EARLY_PERIOD);
-        Label lblEvent = Label.xpath(String.format("//app-events//table[@eventid='%s']", eventId));
-        if(lblEvent.isDisplayed()) {
-            return lblEvent.getAttribute("oddgroup");
-        } else {
-            asianViewPage.selectPeriodTab(TODAY_PERIOD);
-            return lblEvent.getAttribute("oddgroup");
-        }
-    }
 
-    public List<Double> getListOddsByGroup(String oddsGroup, List<Double> lstBaseOdds, String oddsType) {
-        switch (oddsGroup) {
-            case "B":
-            case "C":
-            case "D":
-            case "E":
-                return lstAdjustOddsByGroup(oddsGroup, lstBaseOdds, oddsType);
-            default:
-                //group A return same list odds
-                return lstBaseOdds;
-        }
-    }
 
-    public static List<Double> lstAdjustOddsByGroup(String oddsGroup, List<Double> lstBaseOdds, String oddsType) {
-        List<Double> lstOddsAdjust = new ArrayList<>();
-        if (!oddsGroup.equalsIgnoreCase("A")) {
-            double vigAdjustment = Double.parseDouble(ODDS_GROUP_ADJUSTMENT_MAPPING.get(oddsGroup));
-            if(Objects.nonNull(lstBaseOdds)) {
-                lstBaseOdds.removeIf(n -> n == 0);
-                double vig = 0;
-                List<Double> lstProbabilityBase = new ArrayList<>();
-                List<Double> lstFairProbability = new ArrayList<>();
-                List<Double> lstFattenedProbability = new ArrayList<>();
-                List<Double> lstDecimalOdds = new ArrayList<>();
-                List<Double> lstRoundedDecimalOdds = new ArrayList<>();
-                for (int i = 0; i < lstBaseOdds.size(); i++) {
-                    lstProbabilityBase.add((1/Double.valueOf(lstBaseOdds.get(i))));
-                    vig += (1/Double.valueOf(lstBaseOdds.get(i)));
-                }
-                if(Objects.nonNull(lstProbabilityBase)) {
-                    for (int i = 0; i < lstProbabilityBase.size(); i++) {
-                        lstFairProbability.add(lstProbabilityBase.get(i) / vig);
-                    }
-                }
-                if(Objects.nonNull(lstFairProbability)) {
-                    for (int i = 0; i < lstFairProbability.size(); i++) {
-                        lstFattenedProbability.add(lstFairProbability.get(i) * (vig + (vigAdjustment/100)));
-                        lstDecimalOdds.add(1/ lstFattenedProbability.get(i));
-                    }
-                }
-                if (Objects.nonNull(lstDecimalOdds)) {
-                    for (int i = 0; i < lstDecimalOdds.size(); i++) {
-                        if(lstDecimalOdds.get(i) > 2) {
-                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 100) / 100);
-                        } else {
-                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 1000) / 1000);
-                        }
-                    }
-                }
-                if(oddsType.equalsIgnoreCase("DEC")) {
-                    return lstRoundedDecimalOdds;
-                } else if (oddsType.equalsIgnoreCase("HK")) {
-                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-                        //rounding to 3 decimal places
-                        lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
-                    }
-                    return lstOddsAdjust;
-                } else if (oddsType.equalsIgnoreCase("ID")) {
-                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-                        //rounding to 3 decimal places
-                        if(lstRoundedDecimalOdds.get(i) >= 2) {
-                            lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
-                        } else {
-                            lstOddsAdjust.add(Math.abs(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 10000) / 10000));
-                        }
-                    }
-                    return lstOddsAdjust;
-                } else if (oddsType.equalsIgnoreCase("MY")) {
-                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-                        //rounding to 3 decimal places
-                        if(lstRoundedDecimalOdds.get(i) <= 2) {
-                            lstOddsAdjust.add(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
-                        } else {
-                            lstOddsAdjust.add(Math.abs(Math.floor((-1/(lstRoundedDecimalOdds.get(i) - 1)) * 10000) / 10000));
-                        }
-                    }
-                    return lstOddsAdjust;
-                } else {
-                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-                        //return list no matter negative number
-                        if(lstRoundedDecimalOdds.get(i) < 2) {
-                            lstOddsAdjust.add(Double.valueOf(Math.abs(Math.round(-100/ (lstRoundedDecimalOdds.get(i) - 1)))));
-                        } else {
-                            lstOddsAdjust.add(Math.floor(((lstRoundedDecimalOdds.get(i) - 1) * 100) * 10000) / 10000);
-                        }
-                    }
-                    return lstOddsAdjust;
-                }
-            }
-        }
-        return lstOddsAdjust;
-    }
-
-    public static List<Odds> convertOddsToGroup(Market market, String oddsGroup, String oddsType) {
-        List<Odds> lstOddsAdjusted = new ArrayList<>();
-        List<Odds> lstBaseOdds = market.getOdds();
-        if (!oddsGroup.equalsIgnoreCase("A")) {
-            double vigAdjustment = Double.parseDouble(ODDS_GROUP_ADJUSTMENT_MAPPING.get(oddsGroup));
-            if(Objects.nonNull(lstBaseOdds)) {
-                double vig = 0;
-                List<Double> lstProbabilityBase = new ArrayList<>();
-                List<Double> lstFairProbability = new ArrayList<>();
-                List<Double> lstFattenedProbability = new ArrayList<>();
-                List<Double> lstDecimalOdds = new ArrayList<>();
-                List<Double> lstRoundedDecimalOdds = new ArrayList<>();
-                for (int i = 0; i < lstBaseOdds.size(); i++) {
-                    lstProbabilityBase.add((1/Double.valueOf(lstBaseOdds.get(i).getOdds())));
-                    vig += (1/Double.valueOf(lstBaseOdds.get(i).getOdds()));
-                }
-                if(Objects.nonNull(lstProbabilityBase)) {
-                    for (int i = 0; i < lstProbabilityBase.size(); i++) {
-                        lstFairProbability.add(lstProbabilityBase.get(i) / vig);
-                    }
-                }
-                if(Objects.nonNull(lstFairProbability)) {
-                    for (int i = 0; i < lstFairProbability.size(); i++) {
-                        lstFattenedProbability.add(lstFairProbability.get(i) * (vig + (vigAdjustment/100)));
-                        lstDecimalOdds.add(1/ lstFattenedProbability.get(i));
-                    }
-                }
-                if (Objects.nonNull(lstDecimalOdds)) {
-                    for (int i = 0; i < lstDecimalOdds.size(); i++) {
-                        if(lstDecimalOdds.get(i) > 2) {
-                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 100) / 100);
-                        } else {
-                            lstRoundedDecimalOdds.add(Math.floor(lstDecimalOdds.get(i) * 1000) / 1000);
-                        }
-                    }
-                }
-                if(oddsType.equalsIgnoreCase(DECIMAL)) {
-                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-                       market.getOdds().get(i).setOdds(lstRoundedDecimalOdds.get(i));
-                    }
-                    return market.getOdds();
-                } else if (oddsType.equalsIgnoreCase(HONGKONG)) {
-                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-                        //rounding to 3 decimal places
-                        market.getOdds().get(i).setOdds(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
-                    }
-                    return market.getOdds();
-                }
-                else if (oddsType.equalsIgnoreCase(MALAY)) {
-                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-                        //rounding to 3 decimal places
-                        if (lstRoundedDecimalOdds.get(i) <= 2) {
-                            market.getOdds().get(i).setOdds(Math.floor((lstRoundedDecimalOdds.get(i) - 1) * 10000) / 10000);
-                        } else {
-                            market.getOdds().get(i).setOdds(Math.abs(Math.floor((-1 / (lstRoundedDecimalOdds.get(i) - 1)) * 10000) / 10000));
-                        }
-                    }
-                    return market.getOdds();
-                }
-                else {
-                    for (int i = 0; i < lstRoundedDecimalOdds.size(); i++) {
-                        //return list no matter negative number
-                        if(lstRoundedDecimalOdds.get(i) < 2) {
-                            market.getOdds().get(i).setOdds(Double.valueOf(Math.ceil(Math.abs(-100/ (lstRoundedDecimalOdds.get(i) - 1)))));
-                        } else {
-                            market.getOdds().get(i).setOdds(Math.floor(((lstRoundedDecimalOdds.get(i) - 1) * 100) * 10000) / 10000);
-                        }
-                    }
-                    return market.getOdds();
-                }
-            }
-        }
-        return lstOddsAdjusted;
-    }
-    public void compareOddsShowCorrect(List<Double> lstOddsConvert, List<Double> lstOddsActual, double tolerance) {
-        Collections.sort(lstOddsConvert);
-        Collections.sort(lstOddsActual);
-        Assert.assertEquals(lstOddsConvert.size(), lstOddsActual.size(), String.format("FAILED! Number of odds between 2 compare list is not same convert %s actual %s", lstOddsConvert, lstOddsActual));
-        for (int i = 0; i < lstOddsConvert.size(); i++) {
-            Assert.assertEquals(lstOddsConvert.get(i), lstOddsActual.get(i), tolerance, String.format("FAILED! Odds does not show correct expected %s actual %s", lstOddsConvert, lstOddsActual));
-        }
-    }
 
     public void switchTabBetSlip(String tabName) {
         if (tabName.equalsIgnoreCase("bet slip")) {
@@ -301,15 +116,7 @@ public class ProteusHomePage extends HomePage {
         }
     }
 
-    public void verifyToRiskToWinShowCorrect(String stake, String odds) {
-        String oddsFormat = odds.replace("−","");
-        double toRisk = Math.floor(Double.valueOf(stake) * Double.valueOf(oddsFormat) * 100) / 100;
-        double toWin = Math.floor(toRisk / Double.valueOf(oddsFormat) * 100) / 100;
-    }
-
-    // Start Bet Slip, Pending Bets section
-
-    public String definePeriod(Market market) {
+    private String definePeriod(Market market) {
         String match = "";
         if (market.getPeriodId() == 0)
             match = "Match";
@@ -409,8 +216,7 @@ public class ProteusHomePage extends HomePage {
             odds = odds.replace("−","-");
         Assert.assertEquals(odds,expectedOdds,"FAILED! Odds is incorrect");
         Assert.assertEquals(eventName,market.getEventName(),"FAILED! Event Name is incorect");
-        Assert.assertEquals(summaryInfo,defineSummaryInfoInBetSlip(market),"FAILED! Summary info is incorrect");
-        Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
+        Assert.assertEquals(summaryInfo,defineSummaryInfoInBetSlip(market),"FAILED! Summary info is incorrect");        Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
 //      min/max/maxpermatch will check in other method
 //        String stake = Label.xpath(String.format("%s%s", betslipRootXpath, lblStakeXpath)).getText();
 //        String minBet = Label.xpath(String.format("%s%s", betslipRootXpath,lblMinBetXpath)).getText();
@@ -456,41 +262,27 @@ public class ProteusHomePage extends HomePage {
     }
     public Order placeNoBet(Market market,String stake, boolean isAcceptedBetterOdds,boolean isPlaceBet) {
         String stakeIn = defineStakeIn(market,stake);
-        System.out.println("Input stake :" +stakeIn);
-        inputStake(market,stakeIn);
-        //if(isAcceptedBetterOdds)
-            //handle check on Accept Better Odds checkbox here
-        if(isPlaceBet)
-            // click place bet button and confirm Ok
-            clickPlaceBet(true);
-        else
-            // click place bet and do nothing
-            clickPlaceBet(false);
-
-       // get the first order in Pending Bet after place a bet and define the expected order info
-        Order fistPendingOrder = getTheFistPendingOrder();
-        return new Order.Builder()
-                .market(market)
-                .stake(Double.valueOf(stakeIn))
-                .oddsAccept(fistPendingOrder.getOddsAccept())
-                .orderID(fistPendingOrder.getOrderID())
-                .status(fistPendingOrder.getStatus())
-                .placeDate(fistPendingOrder.getPlaceDate())
-                .build();
-    }
-
-    public void placeNoBetWithoutReturnOrder(Market market,String stake, boolean isAcceptedBetterOdds, boolean isPlaceBet) {
-        String stakeIn = defineStakeIn(market,stake);
         inputStake(market,stakeIn);
         //if(isAcceptedBetterOdds)
         //handle check on Accept Better Odds checkbox here
-        if(isPlaceBet)
+        if(isPlaceBet) {
             // click place bet button and confirm Ok
             clickPlaceBet(true);
-        else
+            // get the first order in Pending Bet after place a bet and define the expected order info
+            Order fistPendingOrder = getTheFistPendingOrder();
+            return new Order.Builder()
+                    .market(market)
+                    .stake(Double.valueOf(stakeIn))
+                    .oddsAccept(fistPendingOrder.getOddsAccept())
+                    .orderID(fistPendingOrder.getOrderID())
+                    .status(fistPendingOrder.getStatus())
+                    .placeDate(fistPendingOrder.getPlaceDate())
+                    .build();
+        } else {
             // click place bet and do nothing
-            waitForSpinnerLoading();
             clickPlaceBet(false);
+            return null;
+        }
     }
 
     public void verifyPendingBetInfo(Order order,String currency){
@@ -559,8 +351,10 @@ public class ProteusHomePage extends HomePage {
         Assert.assertEquals(leagueName, defineSummaryInfoInBetSlip(orderExpected.getMarket()),"FAILED! League is incorrect");
         Assert.assertEquals(teamName,defineSelectionName(orderExpected.getMarket(), orderExpected.getOdds().getTeam()),"FAILED! Team name is incorrect");
         DecimalFormat df = new DecimalFormat("0.#");
+        df.setMinimumFractionDigits(0);
+        df.setMaximumFractionDigits(3);
         double oddsValue = Double.parseDouble(df.format(orderExpected.getOdds().getOdds()));
-        String expectedOdds = String.format(oddsValue +" (%s)",orderExpected.getOddsSign());
+        String expectedOdds = String.format("@" + oddsValue +" (%s)",orderExpected.getOddsSign());
         if(orderExpected.getMarket().getOddsFormat().toLowerCase().equalsIgnoreCase(AMERICAN)){
             expectedOdds = String.format("@%.0f (%s)", orderExpected.getOdds().getOdds(),orderExpected.getOddsSign());
         }
@@ -576,26 +370,5 @@ public class ProteusHomePage extends HomePage {
         Assert.assertEquals(winValue, String.format("%s %.2f",currency, orderExpected.getWin())," Failed! Win value is incorrect");
     }
 
-    // End Bet Slip, Pending Bets section
-    public ProteusBetslip getBetSlipInfo(String eventId) {
-        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", eventId);
-        Label lblEventName = Label.xpath(String.format("%s%s", betslipRootXpath, "//span[@class='teams-name']"));
-        Label lblSummaryInfo = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'bet-title')]"));
-        Label lblHDPPoint = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'fw-semibold')]"));
-        Label lblOdds = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'odds-text')]//span"));
-        Label lblStake = Label.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
-        Label lblMinBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Min bet')]/span"));
-        Label lblMaxBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Max bet')]/span"));
-        Label lblMatchMax = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span"));
-        return new ProteusBetslip.Builder().eventName(lblEventName.getText().trim())
-                .summaryEventInfo(lblSummaryInfo.getText().trim())
-                .hdpPoint(lblHDPPoint.getText().trim())
-                .odds(lblOdds.getText().trim())
-                .stake(lblStake.getAttribute("value"))
-                .minBet(lblMinBet.getText().trim())
-                .maxBet(lblMaxBet.getText().trim())
-                .maxMatch(lblMatchMax.getText().trim())
-                .build();
-    }
 
 }
