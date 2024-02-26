@@ -1,18 +1,20 @@
 package membersite.pages.casino;
 
+import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Label;
 import com.paltech.utils.StringUtils;
+import com.paltech.utils.WSUtils;
+import org.json.JSONObject;
 import org.openqa.selenium.By;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class LotterySlots extends CasinoHomePage {
+
+public class LotterySlots {
 
     public Label lblHeaderMenu = Label.xpath("//div[contains(@class,'lottery-game-menu')]//ul/li");
-    private Label lblTableTab = Label.xpath("//div[contains(@class,'lottery-game-menu')]//ul/li[contains(.,'Table games')]");
     String xpathImageGameList = "//a[@class='game-element-container']";
 
     public List<String> getListHeaderMenu() {
@@ -26,8 +28,24 @@ public class LotterySlots extends CasinoHomePage {
         openGameByIndex(index);
     }
 
+    public double getBalanceFromLogConsole(List<String> logConsole){
+        double balance = -1;
+        // console log contains url with response has balance info
+        // extract url from console log
+        String endpoint = logConsole.get(0).split("_url :>> ")[1].replace("\"", "").trim();
+        Map<String, String> headersParam = new HashMap<String, String>() {
+            {
+                put("Accept", Configs.HEADER_JSON);
+            }
+        };
+        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithDynamicHeaders(endpoint, null, headersParam);
+        if (Objects.nonNull(jsonObject)) {
+            balance = jsonObject.getDouble("balance");
+        }
+        return balance;
+    }
+
     public void openGameByIndex(String index) {
-        lblTableTab.click();
         BaseElement targetGame = new BaseElement(By.xpath(String.format("(%s)[%s]", xpathImageGameList, index)));
         targetGame.isDisplayed();
         targetGame.scrollToThisControl(false);
@@ -38,26 +56,26 @@ public class LotterySlots extends CasinoHomePage {
         waitUntilReadyState(6);
     }
 
-//    private void waitToNewWindowOpen(int timeCount) {
-//        int windowSize = 1;
-//        while (windowSize == 1 && timeCount > 0) {
-//            try {
-//                Thread.sleep(1000);
-//            } catch (Exception e) {
-//            }
-//            Set<String> handles = DriverManager.getDriver().getWindowHandles();
-//            windowSize = handles.size();
-//            timeCount--;
-//        }
-//    }
-//
-//    private void waitUntilReadyState(int timeCount) {
-//        do {
-//            timeCount--;
-//            try {
-//                Thread.sleep(2000);
-//            } catch (Exception e) {
-//            }
-//        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
-//    }
+    private void waitToNewWindowOpen(int timeCount) {
+        int windowSize = 1;
+        while (windowSize == 1 && timeCount > 0) {
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+            }
+            Set<String> handles = DriverManager.getDriver().getWindowHandles();
+            windowSize = handles.size();
+            timeCount--;
+        }
+    }
+
+    private void waitUntilReadyState(int timeCount) {
+        do {
+            timeCount--;
+            try {
+                Thread.sleep(4000);
+            } catch (Exception e) {
+            }
+        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
+    }
 }

@@ -1,8 +1,8 @@
 package membersite.pages.casino;
 
 public enum CasinoProduct {
-    QTECH(""), EVOLUTION_WHITE_CLIFF(""), SUPERNOWA_CASINO("Supernowa Casino"), EVOLUTION("Evolution"), LOTTERY_SLOTS("Lottery & Slots"), LIVE_DEALER_ASIAN("Asian Room"),
-    LIVE_DEALER_EUROPEAN("European Room"), GAME_HALL(""), VIVO(""), ION(""), PRAGMATIC("Pragmatic");
+    QTECH("Q-tech"), EVOLUTION_WHITE_CLIFF("Evolution"), SUPERNOWA_CASINO("Supernowa Casino"), EVOLUTION("Evolution"), LOTTERY_SLOTS("Lottery & Slots"), LIVE_DEALER_ASIAN("Asian Room"),
+    LIVE_DEALER_EUROPEAN(""), GAME_HALL(""), VIVO(""), ION(""), PRAGMATIC("Pragmatic");
 
     private final String val;
 
@@ -14,5 +14,4 @@ public enum CasinoProduct {
     public String toString() {
         return val;
     }
-
 }

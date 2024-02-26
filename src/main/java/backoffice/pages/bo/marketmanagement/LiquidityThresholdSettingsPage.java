@@ -60,14 +60,19 @@ public class LiquidityThresholdSettingsPage extends HomePage {
                 if (!nonLive.isEmpty()) {
                     String xpath = tblMarketType.getControlOfCell(1, 2, i + 1, "input").getLocator().toString().replace("By.xpath: ", "");
                     txt = TextBox.xpath(xpath);
-                    txt.sendKeys(nonLive);
+                    txt.type(false, Keys.CONTROL + "A" + Keys.DELETE);
+                    txt.type(false, nonLive);
+//                    txt.sendKeys(nonLive);
                     txt.type(false, Keys.ENTER);
                     popup.isDisplayed(2);
                 }
                 if (!live.isEmpty()) {
                     String xpath = tblMarketType.getControlOfCell(1, 3, i + 1, "input").getLocator().toString().replace("By.xpath: ", "");
                     txt = TextBox.xpath(xpath);
-                    txt.sendKeys(live);
+                    //Handle for case that old value was not removed when using clear action
+                    txt.type(false, Keys.CONTROL + "A" + Keys.DELETE);
+                    txt.type(false, live);
+//                    txt.sendKeys(live);
                     txt.type(false, Keys.ENTER);
                     popup.isDisplayed(2);
                 }

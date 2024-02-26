@@ -21,7 +21,7 @@
         <parameter name='satMemberLoginID' value='QAAT.PL01'/>
         <parameter name='memberPassword' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
         <parameter name='wagerID' value='59105118'/>
-        <parameter name='companyAccount' value='SA4'/>
+        <parameter name='companyAccount' value='SA4A'/>
         <parameter name='memberPassword' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
         <parameter name='fsMemberLoginID' value='FSG0000000'/> <!--Currency Mapping Testing PTI-->
         <parameter name='followBetAccount' value='QA20100002'/><!-- QA2M0AutoQA2 FAutoQA00001-->

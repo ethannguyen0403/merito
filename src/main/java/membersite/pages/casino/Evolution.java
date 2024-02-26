@@ -6,8 +6,11 @@ import com.paltech.element.common.Tab;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class Evolution extends CasinoHomePage {
+public class Evolution {
 
     public Label lblProducts = Label.xpath("//div[contains(@class, 'menu-product')]//a");
     public Tab tabEvolution =
@@ -32,29 +35,33 @@ public class Evolution extends CasinoHomePage {
     public double getBalance() {
         DriverManager.getDriver().switchToFrame(0);
         lblBalance.isDisplayed();
-        return Double.valueOf(lblBalance.getText().replace("$", ""));
+        //Get all digit in String balance
+        Pattern pattern = Pattern.compile("\\d.+");
+        Matcher matcher = pattern.matcher(lblBalance.getText().trim().replace(",", ""));
+        matcher.find();
+        return Double.valueOf(matcher.group(0));
     }
 
-//    private void waitToNewWindowOpen(int timeCount) {
-//        int windowSize = 1;
-//        while (windowSize == 1 && timeCount > 0) {
-//            try {
-//                Thread.sleep(1000);
-//            } catch (Exception e) {
-//            }
-//            Set<String> handles = DriverManager.getDriver().getWindowHandles();
-//            windowSize = handles.size();
-//            timeCount--;
-//        }
-//    }
-//
-//    private void waitUntilReadyState(int timeCount) {
-//        do {
-//            timeCount--;
-//            try {
-//                Thread.sleep(2000);
-//            } catch (Exception e) {
-//            }
-//        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
-//    }
+    private void waitToNewWindowOpen(int timeCount) {
+        int windowSize = 1;
+        while (windowSize == 1 && timeCount > 0) {
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+            }
+            Set<String> handles = DriverManager.getDriver().getWindowHandles();
+            windowSize = handles.size();
+            timeCount--;
+        }
+    }
+
+    private void waitUntilReadyState(int timeCount) {
+        do {
+            timeCount--;
+            try {
+                Thread.sleep(2000);
+            } catch (Exception e) {
+            }
+        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
+    }
 }
