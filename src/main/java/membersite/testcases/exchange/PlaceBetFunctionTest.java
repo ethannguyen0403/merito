@@ -63,7 +63,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "556")
-    @Test(groups = {"smoke", "smoke_dev"})
+    @Test(groups = {"smoke", "smoke_dev","isa"})
     public void Place_Bet_Function_TC556() {
         log("@title: Validate that user can place Matched Back bet on Soccer market");
         String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_BACK_TYPE);
@@ -105,7 +105,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "557")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa"})
     public void Place_Bet_Function_TC557() {
         log("@title: Validate that user can place Matched Lay bet on Soccer market");
         String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_LAY_TYPE);
@@ -152,7 +152,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "558")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa1"})
     public void Place_Bet_Function_TC558() {
         log("@title: Validate can place unmatched Back bet successfully for Tennis");
         log("Step 1. Active any market of Tennis");
@@ -200,7 +200,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "559")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa"})
     public void Place_Bet_Function_TC559() {
         log("@title: Validate can place unmatched Lay bet successfully for Tennis");
         String odds = "1.01";
@@ -250,7 +250,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "560")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa"})
     public void Place_Bet_Function_TC560() {
         log("@title: Validate cancel bet icon works");
         String odds = "1.01";
@@ -315,7 +315,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "561")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa"})
     public void Place_Bet_Function_TC561() {
         log("@title: Validate cancel all bet icon works ");
         String oddsLay = "1.01";
@@ -425,7 +425,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "563")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa1"})
     public void Place_Bet_Function_TC563() {
         log("@title: Validate can place unmatched Lay bet successfully for Cricket");
         String odds = "1.01";
@@ -476,7 +476,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
 
     @TestRails(id = "564")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa"})
     public void Place_Bet_Function_TC564() {
         log("@title: Validate can place unmatched Back bet successfully for Horse Racing");
         boolean isBack = true;
@@ -657,7 +657,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "568")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa"})
     public void Place_Bet_Function_TC568() {
         log("@title: Validate that cannot place Back bet if exposure exceed available balance");
         AccountBalance balance = BetUtils.getUserBalance();

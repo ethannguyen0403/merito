@@ -70,28 +70,30 @@ public class MarketUtils extends BaseCaseTest {
     }
 
     private static Odds getOddsAllSelectionUnderAMarketFromProviderAPI(JSONObject obj) {
+        Odds _odds = new Odds.Builder()
+                .odds(0)
+                .team(obj.getString("team"))
+                .side(obj.getString("side"))
+                .hdp(obj.getDouble("hdp"))
+                .build();
         //handle when odds is null
         if (obj.get("odds").equals(JSONObject.NULL) || obj.get("originalOdds").equals(JSONObject.NULL)) {
-            return new Odds.Builder()
-                    .odds(0)
-                    .team(obj.getString("team"))
-                    .side(obj.getString("side"))
-                    .originalOdds(0)
-                    .hdp(obj.getDouble("hdp"))
-                    .build();
-
-        } else {
-            return new Odds.Builder()
-                    .odds(obj.getDouble("odds"))
-                    .team(obj.getString("team"))
-                    .side(obj.getString("side"))
-                    .originalOdds(obj.getDouble("originalOdds"))
-                    .hdp(obj.getDouble("hdp"))
-                    .build();
+            _odds.setOriginalOdds(0);
+            _odds.setOdds(0);
         }
+        else {
+            _odds.setOriginalOdds(obj.getDouble("odds"));
+            _odds.setOdds(obj.getDouble("originalOdds"));
+        }
+       return _odds;
     }
 
+
     public static List<Market> getSportbookEventAPI(String oddsType, int eventId){
+       return getSportbookEventAPI(oddsType,eventId,true);
+    }
+
+    public static List<Market> getSportbookEventAPI(String oddsType, int eventId, boolean isNegativeOdds){
         JSONObject jsonObject = getAllMarketUnderEventFromProviderAPI(oddsType,eventId);
         List<Market> lstEvents = new ArrayList<>();
         Market market;
@@ -103,7 +105,8 @@ public class MarketUtils extends BaseCaseTest {
                 List<Odds> lstOdds =  new ArrayList<>();
                 for (int j = 0; j < oddObjLst.length(); j++) {
                     JSONObject oddsObj = oddObjLst.getJSONObject(j);
-                    lstOdds.add(getOddsAllSelectionUnderAMarketFromProviderAPI(oddsObj));
+                    Odds odds = getOddsAllSelectionUnderAMarketFromProviderAPI(oddsObj);
+                    lstOdds.add(odds);
                 }
                 market = new Market.Builder()
                         .periodId(obj.getInt("periodId"))
@@ -121,11 +124,14 @@ public class MarketUtils extends BaseCaseTest {
                         .marketKey(obj.getString("marketKey"))
                         .odds(lstOdds)
                         .build();
-                lstEvents.add(market);
+                if(market.isMarketContainsNegativeOdds() == isNegativeOdds)
+                    lstEvents.add(market);
             }
         }
         return lstEvents;
     }
+
+
 
     public static Market getMarketByOddsKey(String oddsType, int eventID, String oddsKey){
         List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID);
@@ -136,7 +142,29 @@ public class MarketUtils extends BaseCaseTest {
         return null;
     }
 
-
+    public static Market getMarketByOddsKey(String oddsType, int eventID, String oddsKey, boolean isNegativeOdds){
+        List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID);
+        for (Market m: lstMarket) {
+            if(m.getOddsKey().equalsIgnoreCase(oddsKey) && m.isMarketContainsNegativeOdds())
+                return m;
+        }
+        return null;
+    }
+//    public static Market getMarketByOddsKey(String oddsType, int eventID, String oddsKey, int isNegativeOdds){
+//        List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID);
+//
+//        for (Market m: lstMarket) {
+//            if(m.getOddsKey().equalsIgnoreCase(oddsKey))
+//            {
+//                if(m.isMarketContainsNegativeOdds() && isNegativeOdds > 0)
+//                    return m;
+//                else if(m.isMarketContainsNegativeOdds() && isNegativeOdds < 0)
+//                    return m;
+//            }
+//            return m;
+//        }
+//        return null;
+//    }
 
     public static JSONObject getMarketJSON(int eventId, String betType) {
 //        String url = "https://www.ps388win.com/proteus-member-service/odds/v3/decimal";

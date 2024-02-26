@@ -116,7 +116,7 @@ public class ProteusHomePage extends HomePage {
         }
     }
 
-    private String definePeriod(Market market) {
+    protected String definePeriod(Market market) {
         String match = "";
         if (market.getPeriodId() == 0)
             match = "Match";

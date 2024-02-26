@@ -276,8 +276,6 @@ public class AsianViewPage extends ProteusHomePage {
         // get event id from UI xpath property
         String eventID = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("eventid");
         String oddsKey = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("key");
-
-
         //handle incase no odds display in the UI, move to the next row
         if(Objects.isNull(eventID)) {
             return null;

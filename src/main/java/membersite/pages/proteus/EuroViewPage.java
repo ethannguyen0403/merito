@@ -215,16 +215,13 @@ public class EuroViewPage extends ProteusHomePage {
         clickOdds(market, selection);
         //input stake and click place bet and confirm
         Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
-        // set Odd info of the team name that placed on
-        order.setOdds(market.getOddsInfoBySelection(selection));
-        return order;
-    }
-
-    public void addOddToBetSlipAndPlaceBetWithoutReturnOrder(Market market, String selection, String stake, boolean isAcceptBetterOdds, boolean isPlace){
-        // click odds
-        clickOdds(market, selection);
-        //input stake and click place bet and confirm
-        placeNoBetWithoutReturnOrder(market,stake,isAcceptBetterOdds,isPlace);
+        if(isPlace) {
+            // set Odd info of the team name that placed on
+            order.setOdds(market.getOddsInfoBySelection(selection));
+            return order;
+        } else {
+            return null;
+        }
     }
 
     public void waitContentLoad(){
