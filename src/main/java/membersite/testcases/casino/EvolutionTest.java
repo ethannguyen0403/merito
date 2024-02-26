@@ -4,8 +4,8 @@ import backoffice.utils.tools.ProviderCurrencyMappingUltils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
 import membersite.pages.HomePage;
-import membersite.pages.casino.CasinoHomePage;
 import membersite.pages.casino.CasinoProduct;
+import membersite.pages.casino.Evolution;
 import membersite.utils.casino.CasinoUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -25,9 +25,9 @@ public class EvolutionTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Evolution game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Evolution on header menu");
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGame(CasinoProduct.EVOLUTION);
+        Evolution evolution = memberHomePage.openEvolution();
         log("@Verify 1:The list of game is displayed such as  'Evolution Black Jack', 'Evolution Roulette', 'Evolution Poker', 'Evolution Game Shows', 'Evolution  Baccarat & Sic Bo'…");
-        List<String> productsList = casinoPage.evolution.getListProductsMenu();
+        List<String> productsList = evolution.getListProductsMenu();
         Assert.assertTrue(EVOLUTION_PRODUCTS_MENU.containsAll(productsList),
                 String.format("FAILED! Products of Evolution is not correct. Actual: %s, expected: %s", productsList,
                         EVOLUTION_PRODUCTS_MENU));
@@ -41,12 +41,12 @@ public class EvolutionTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Evolution game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Evolution on header menu");
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGame(CasinoProduct.EVOLUTION);
+        Evolution evolution = memberHomePage.openEvolution();
         log("@Step 3: Click on any product");
-        List<String> productsList = casinoPage.evolution.getListProductsMenu();
-        casinoPage.evolution.selectProduct(productsList.get(0));
+        List<String> productsList = evolution.getListProductsMenu();
+        evolution.selectProduct(productsList.get(0));
         log("@Verify 1: Able to open game without console error");
-        Assert.assertTrue(casinoPage.verifyConsoleLogNotContainValue(ERROR_CODE_LIST), "FAILED! Console log contain error code");
+        Assert.assertTrue(evolution.verifyConsoleLogNotContainValue(ERROR_CODE_LIST), "FAILED! Console log contain error code");
         log("INFO: Executed completely");
     }
 
@@ -58,13 +58,13 @@ public class EvolutionTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Evolution game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Evolution on header menu");
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGame(CasinoProduct.EVOLUTION);
+        Evolution evolution = memberHomePage.openEvolution();
         double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
 
         log("@Step 3: Click on first product");
-        casinoPage.evolution.selectProduct(casinoPage.evolution.getListProductsMenu().get(0));
+        evolution.selectProduct(evolution.getListProductsMenu().get(0));
 
-        double balanceCasino = casinoPage.evolution.getBalance();
+        double balanceCasino = evolution.getBalance();
         loginBackoffice(BOLoginId, BOLoginPwd, true);
         double rate = CasinoUtils.getProviderCurRate(ProviderCurrencyMappingUltils.getProviderCurrencyMapping(
                 PRODUCT_NAME_TO_CODE.get(CasinoProduct.EVOLUTION.toString())), currency);
@@ -88,9 +88,9 @@ public class EvolutionTest extends BaseCaseTest {
         Assert.assertTrue(!homePage.header.isProductTabDisplay("Live Dealer"), "FAILED! Live Dealer display on homepage menu.");
         log("@Step 2: Access Evolution by external link");
         String url = String.format("%s%s", memberLoginURL, EVOLUTION_SUFFIX_LINK);
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGameByLink(CasinoProduct.EVOLUTION, url);
+        Evolution evolution = (Evolution) memberHomePage.openCasinoGameByUrl(url);
         log("@Verify 2: User could not access product and was brought back to home page");
-        Assert.assertTrue(!casinoPage.evolution.tabEvolution.isDisplayed(), "FAILED! Evolution product is displayed");
+        Assert.assertTrue(!evolution.tabEvolution.isDisplayed(), "FAILED! Evolution product is displayed");
         log("INFO: Executed completely");
     }
 }

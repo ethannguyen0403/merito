@@ -4,8 +4,8 @@ import backoffice.utils.tools.ProviderCurrencyMappingUltils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
 import membersite.pages.HomePage;
-import membersite.pages.casino.CasinoHomePage;
 import membersite.pages.casino.CasinoProduct;
+import membersite.pages.casino.Pragmatic;
 import membersite.utils.casino.CasinoUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -25,9 +25,9 @@ public class PragmaticTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Pragmatic game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Pragmatic on header menu");
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGame(CasinoProduct.PRAGMATIC);
+        Pragmatic pragmatic = memberHomePage.openPragmatic();
         log("@Verify 1: Header menu with list: 'Videos Slots', 'Classic slots', 'Blackjack', 'Baccarat', 'Baccarat New', 'Roulette', 'Scratch card', 'Live games', 'RGS-VSB' is displayed correctly");
-        List<String> headerList = casinoPage.pragmatic.getListHeaderMenu();
+        List<String> headerList = pragmatic.getListHeaderMenu();
         Assert.assertTrue(PRAGMATIC_HEADER_MENU.containsAll(headerList), String.format("FAILED! Header of Pragmatic is not correct. Actual: %s, expected: %s", headerList, PRAGMATIC_HEADER_MENU));
         log("INFO: Executed completely");
     }
@@ -39,11 +39,11 @@ public class PragmaticTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Pragmatic game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Pragmatic on header menu");
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGame(CasinoProduct.PRAGMATIC);
+        Pragmatic pragmatic = memberHomePage.openPragmatic();
         log("@Step 3: Click on any game");
-        casinoPage.pragmatic.openRandomGame();
+        pragmatic.openRandomGame();
         log("@Verify 1: Able to open game without console error");
-        Assert.assertTrue(casinoPage.verifyConsoleLogNotContainValue(ERROR_CODE_LIST),"FAILED! Console log contain error code");
+        Assert.assertTrue(pragmatic.verifyConsoleLogNotContainValue(ERROR_CODE_LIST),"FAILED! Console log contain error code");
         log("INFO: Executed completely");
     }
 
@@ -55,11 +55,11 @@ public class PragmaticTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Pragmatic game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Pragmatic on header menu");
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGame(CasinoProduct.PRAGMATIC);
+        Pragmatic pragmatic = memberHomePage.openPragmatic();
         double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
 
         log("@Step 3: Click on first game");
-        casinoPage.pragmatic.openGameByIndex("1");
+        pragmatic.openGameByIndex("1");
 
         double balanceCasino = CasinoUtils.getBalanceCasino(CasinoProduct.PRAGMATIC);
         loginBackoffice(BOLoginId, BOLoginPwd, true);
@@ -85,9 +85,9 @@ public class PragmaticTest extends BaseCaseTest {
         Assert.assertTrue(!homePage.header.isProductTabDisplay(CasinoProduct.PRAGMATIC.toString()), "FAILED! Supernowa display on homepage menu.");
         log("@Step 2: Access Pragmatic by external link");
         String url = String.format("%s%s", memberLoginURL, PRAGMATIC_SUFFIX_LINK);
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGameByLink(CasinoProduct.PRAGMATIC, url);
+        Pragmatic pragmatic = (Pragmatic) memberHomePage.openCasinoGameByUrl(url);
         log("@Verify 2: User could not access product and was brought back to home page");
-        Assert.assertTrue(!casinoPage.pragmatic.lblHeaderMenu.isDisplayed(),"FAILED! Pragmatic game is displayed");
+        Assert.assertTrue(!pragmatic.lblHeaderMenu.isDisplayed(),"FAILED! Pragmatic game is displayed");
         log("INFO: Executed completely");
     }
 }

@@ -15,15 +15,4 @@ public enum CasinoProduct {
         return val;
     }
 
-    public Object mappingCasinoProductObject() {
-        if(val.equals(CasinoProduct.LIVE_DEALER_ASIAN.val)) {
-            return new LiveDealerAsian();
-        } else if (val.equals(CasinoProduct.LIVE_DEALER_EUROPEAN.val)) {
-            return new LiveDealerEuropean();
-        } else if (val.equals(CasinoProduct.EVOLUTION.val)) {
-            return new Evolution();
-        }
-        return null;
-    }
-
 }

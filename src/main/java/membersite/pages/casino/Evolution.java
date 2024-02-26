@@ -6,9 +6,8 @@ import com.paltech.element.common.Tab;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public class Evolution {
+public class Evolution extends CasinoHomePage {
 
     public Label lblProducts = Label.xpath("//div[contains(@class, 'menu-product')]//a");
     public Tab tabEvolution =
@@ -36,26 +35,26 @@ public class Evolution {
         return Double.valueOf(lblBalance.getText().replace("$", ""));
     }
 
-    private void waitToNewWindowOpen(int timeCount) {
-        int windowSize = 1;
-        while (windowSize == 1 && timeCount > 0) {
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-            }
-            Set<String> handles = DriverManager.getDriver().getWindowHandles();
-            windowSize = handles.size();
-            timeCount--;
-        }
-    }
-
-    private void waitUntilReadyState(int timeCount) {
-        do {
-            timeCount--;
-            try {
-                Thread.sleep(2000);
-            } catch (Exception e) {
-            }
-        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
-    }
+//    private void waitToNewWindowOpen(int timeCount) {
+//        int windowSize = 1;
+//        while (windowSize == 1 && timeCount > 0) {
+//            try {
+//                Thread.sleep(1000);
+//            } catch (Exception e) {
+//            }
+//            Set<String> handles = DriverManager.getDriver().getWindowHandles();
+//            windowSize = handles.size();
+//            timeCount--;
+//        }
+//    }
+//
+//    private void waitUntilReadyState(int timeCount) {
+//        do {
+//            timeCount--;
+//            try {
+//                Thread.sleep(2000);
+//            } catch (Exception e) {
+//            }
+//        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
+//    }
 }

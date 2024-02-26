@@ -3,7 +3,6 @@ package membersite.testcases.casino;
 import baseTest.BaseCaseTest;
 import com.paltech.driver.DriverManager;
 import membersite.objects.AccountBalance;
-import membersite.pages.casino.CasinoProduct;
 import membersite.pages.casino.LiveDealerEuropean;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -21,7 +20,7 @@ public class LiveDealerEuropeanTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Live Dealer European game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Live Dealer European on header menu");
-        LiveDealerEuropean liveDealerEuropean = (LiveDealerEuropean) memberHomePage.openCasinoGame2(CasinoProduct.LIVE_DEALER_EUROPEAN);
+        LiveDealerEuropean liveDealerEuropean = memberHomePage.openLiveDealerEuro();
         log("@Verify 1: The list of game is displayed such as 'Teen Patti', 'Bet on Teen Patti', 'One Teen Patti Classic'…");
         List<String> productsList = liveDealerEuropean.getProductsList();
         Assert.assertTrue(LIVE_DEALER_EUROPEAN_PRODUCTS_MENU.containsAll(productsList), String.format("FAILED! The list of Live Dealer European game is not correct. Actual: %s, expected: %s", productsList, LIVE_DEALER_EUROPEAN_PRODUCTS_MENU));
@@ -35,7 +34,7 @@ public class LiveDealerEuropeanTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Live Dealer European in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Live Dealer European on header menu");
-        LiveDealerEuropean liveDealerEuropean = (LiveDealerEuropean) memberHomePage.openCasinoGame2(CasinoProduct.LIVE_DEALER_EUROPEAN);
+        LiveDealerEuropean liveDealerEuropean = memberHomePage.openLiveDealerEuro();
         log("Step 3: Click on any game");
         liveDealerEuropean.openGameByIndex("1");
         log("@Verify 1: The game is opened in new popup successfully without console log error");
@@ -54,11 +53,11 @@ public class LiveDealerEuropeanTest extends BaseCaseTest {
         AccountBalance userBalance = memberHomePage.getUserBalance();
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Live Dealer European on header menu");
-        LiveDealerEuropean liveDealerEuropean = (LiveDealerEuropean) memberHomePage.openCasinoGame2(CasinoProduct.LIVE_DEALER_EUROPEAN);
+        LiveDealerEuropean liveDealerEuropean = memberHomePage.openLiveDealerEuro();
         log("Step 3: Click on any game");
         liveDealerEuropean.openGameByIndex("1");
         log("@Verify 1: The game is opened in new popup successfully without console log error");
-        String balanceCasino = liveDealerEuropean.getUserBalance();
+        String balanceCasino = liveDealerEuropean.getCasinoUserBalance();
         Assert.assertEquals(userBalance.getBalance(), balanceCasino, String.format("FAILED! User balance is not correct expected %s actual %s", userBalance.getBalance(), balanceCasino));
         log("INFO: Executed completely");
     }
@@ -75,7 +74,7 @@ public class LiveDealerEuropeanTest extends BaseCaseTest {
         Assert.assertFalse(memberHomePage.isCasinoProductDisplayed("European Room"), "FAILED! Inactive product still displays on header menu");
         log("@Step 3: Access Live Dealer European by external link (e.g.: /home/live-dealer/ezugi)");
         String urlProduct = defineCasinoURL(_brandname,LIVE_DEALER_EUROPEAN_SUFFIX_LINK);
-        memberHomePage.openCasinoGameByLink2(urlProduct);
+        memberHomePage.openCasinoGameByUrl(urlProduct);
         log("Verify 2: User could not access product and was brought back to home page");
         String urlCurrent = DriverManager.getDriver().getCurrentUrl();
         Assert.assertTrue(!urlCurrent.equals(urlProduct), String.format("FAILED! User is not redirect back to home when access inactive product by URL %s, current URL is %s",urlProduct,urlCurrent));

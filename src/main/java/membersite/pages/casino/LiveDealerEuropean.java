@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LiveDealerEuropean extends CasinoPage{
+public class LiveDealerEuropean extends CasinoHomePage{
     String xpathProducts = "//app-ezugi//div[contains(@class,'menu-product')]//a";
     Link lnkProductsList = Link.xpath(xpathProducts);
     Label lblBalance = Label.xpath("//span[@data-e2e='balance']");
@@ -35,7 +35,7 @@ public class LiveDealerEuropean extends CasinoPage{
         waitUntilReadyState(6);
     }
 
-    public String getUserBalance() {
+    public String getCasinoUserBalance() {
         return lblBalance.getAttribute("data-value").replace(",","");
     }
 }
