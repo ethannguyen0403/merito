@@ -276,8 +276,6 @@ public class AsianViewPage extends ProteusHomePage {
         // get event id from UI xpath property
         String eventID = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("eventid");
         String oddsKey = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("key");
-
-
         //handle incase no odds display in the UI, move to the next row
         if(Objects.isNull(eventID)) {
             return null;
@@ -330,7 +328,7 @@ public class AsianViewPage extends ProteusHomePage {
     }
 
     public Market getEventInfoUI(Market marketBase, boolean isFullMatch) {
-        Market market = new Market.Builder().build();
+            Market market = new Market.Builder().build();
         List<Odds> lstOddsObject = new ArrayList<>();
         String rootXpath = String.format(tableEventXpath, marketBase.getEventId());
         Table tblEvent = Table.xpath(rootXpath, 7);

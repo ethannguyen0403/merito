@@ -116,7 +116,7 @@ public class ProteusHomePage extends HomePage {
         }
     }
 
-    private String definePeriod(Market market) {
+    protected String definePeriod(Market market) {
         String match = "";
         if (market.getPeriodId() == 0)
             match = "Match";
@@ -124,7 +124,7 @@ public class ProteusHomePage extends HomePage {
             match = "1st Half";
         return match;
     }
-    private String defineMarketName(Market market) {
+    public String defineMarketName(Market market) {
         String sportName = market.getSportName();
         switch (sportName){
             case "Soccer":
@@ -155,7 +155,7 @@ public class ProteusHomePage extends HomePage {
                     return "";
         }
     }
-    private String defineSelectionName(Market market,String selection) {
+    protected String defineSelectionName(Market market,String selection) {
         switch (market.getBetType())
         {
             case "MONEYLINE":
@@ -216,8 +216,7 @@ public class ProteusHomePage extends HomePage {
             odds = odds.replace("−","-");
         Assert.assertEquals(odds,expectedOdds,"FAILED! Odds is incorrect");
         Assert.assertEquals(eventName,market.getEventName(),"FAILED! Event Name is incorect");
-        Assert.assertTrue(summaryInfo.equalsIgnoreCase(defineSummaryInfoInBetSlip(market)),"FAILED! Summary info is incorrect");
-        Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
+        Assert.assertEquals(summaryInfo,defineSummaryInfoInBetSlip(market),"FAILED! Summary info is incorrect");        Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
 //      min/max/maxpermatch will check in other method
 //        String stake = Label.xpath(String.format("%s%s", betslipRootXpath, lblStakeXpath)).getText();
 //        String minBet = Label.xpath(String.format("%s%s", betslipRootXpath,lblMinBetXpath)).getText();
@@ -349,8 +348,8 @@ public class ProteusHomePage extends HomePage {
                     "%s",orderExpected.getOrderID(),orderExpected.getPlaceDate()),"FAILED! Order ID header is incorrect");
         Assert.assertEquals(status, orderExpected.getStatus(),"FAILED! Status is incorrect");
         Assert.assertEquals(eventName, orderExpected.getMarket().getEventName(),"FAILED! Event Name is incorrect");
-        Assert.assertTrue(leagueName.equalsIgnoreCase(defineSummaryInfoInBetSlip(orderExpected.getMarket())),"FAILED! League is incorrect");
-        Assert.assertTrue(defineSelectionName(orderExpected.getMarket(), orderExpected.getOdds().getTeam()).contains(teamName),"FAILED! Team name is incorrect");
+        Assert.assertEquals(leagueName, defineSummaryInfoInBetSlip(orderExpected.getMarket()),"FAILED! League is incorrect");
+        Assert.assertEquals(teamName,defineSelectionName(orderExpected.getMarket(), orderExpected.getOdds().getTeam()),"FAILED! Team name is incorrect");
         DecimalFormat df = new DecimalFormat("0.#");
         df.setMinimumFractionDigits(0);
         df.setMaximumFractionDigits(3);
@@ -371,26 +370,5 @@ public class ProteusHomePage extends HomePage {
         Assert.assertEquals(winValue, String.format("%s %.2f",currency, orderExpected.getWin())," Failed! Win value is incorrect");
     }
 
-    // End Bet Slip, Pending Bets section
-//    public ProteusBetslip getBetSlipInfo(String eventId) {
-//        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", eventId);
-//        Label lblEventName = Label.xpath(String.format("%s%s", betslipRootXpath, "//span[@class='teams-name']"));
-//        Label lblSummaryInfo = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'bet-title')]"));
-//        Label lblHDPPoint = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'fw-semibold')]"));
-//        Label lblOdds = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'odds-text')]//span"));
-//        Label lblStake = Label.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
-//        Label lblMinBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Min bet')]/span"));
-//        Label lblMaxBet = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Max bet')]/span"));
-//        Label lblMatchMax = Label.xpath(String.format("%s%s", betslipRootXpath, "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span"));
-//        return new ProteusBetslip.Builder().eventName(lblEventName.getText().trim())
-//                .summaryEventInfo(lblSummaryInfo.getText().trim())
-//                .hdpPoint(lblHDPPoint.getText().trim())
-//                .odds(lblOdds.getText().trim())
-//                .stake(lblStake.getAttribute("value"))
-//                .minBet(lblMinBet.getText().trim())
-//                .maxBet(lblMaxBet.getText().trim())
-//                .maxMatch(lblMatchMax.getText().trim())
-//                .build();
-//    }
 
 }

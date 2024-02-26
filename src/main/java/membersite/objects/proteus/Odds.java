@@ -1,8 +1,5 @@
 package membersite.objects.proteus;
 
-import static common.ProteusConstant.DECIMAL;
-import static common.ProteusConstant.ODDS_SIGN_MAPPING;
-
 public class Odds {
     private double _odds;
     private double _hdp;
@@ -99,6 +96,7 @@ public class Odds {
             return (decOdds - 1) * 100;
         }
     }
+
     public static class Builder {
         private double _odds;
         private double _hdp;

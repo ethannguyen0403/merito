@@ -6,7 +6,6 @@ import com.paltech.driver.DriverManager;
 import com.paltech.utils.WSUtils;
 import membersite.objects.proteus.Market;
 import membersite.objects.proteus.Odds;
-import membersite.objects.proteus.ProteusMarket;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -71,99 +70,27 @@ public class MarketUtils extends BaseCaseTest {
     }
 
     private static Odds getOddsAllSelectionUnderAMarketFromProviderAPI(JSONObject obj) {
+        Odds _odds = new Odds.Builder()
+                .odds(0)
+                .team(obj.getString("team"))
+                .side(obj.getString("side"))
+                .hdp(obj.getDouble("hdp"))
+                .build();
         //handle when odds is null
         if (obj.get("odds").equals(JSONObject.NULL) || obj.get("originalOdds").equals(JSONObject.NULL)) {
-            return new Odds.Builder()
-                    .odds(0)
-                    .team(obj.getString("team"))
-                    .side(obj.getString("side"))
-                    .originalOdds(0)
-                    .hdp(obj.getDouble("hdp"))
-                    .build();
-
-        } else {
-            return new Odds.Builder()
-                    .odds(obj.getDouble("odds"))
-                    .team(obj.getString("team"))
-                    .side(obj.getString("side"))
-                    .originalOdds(obj.getDouble("originalOdds"))
-                    .hdp(obj.getDouble("hdp"))
-                    .build();
+            _odds.setOriginalOdds(0);
+            _odds.setOdds(0);
         }
+        else {
+            _odds.setOriginalOdds(obj.getDouble("odds"));
+            _odds.setOdds(obj.getDouble("originalOdds"));
+        }
+       return _odds;
     }
 
-    private static Odds getOddsAllSelectionUnderAMarketFromProviderAPI(JSONObject obj, boolean isNegativeOdds) {
-        //handle when odds is null
-        if (obj.get("odds").equals(JSONObject.NULL) || obj.get("originalOdds").equals(JSONObject.NULL)) {
-            return new Odds.Builder()
-                    .odds(0)
-                    .team(obj.getString("team"))
-                    .side(obj.getString("side"))
-                    .originalOdds(0)
-                    .hdp(obj.getDouble("hdp"))
-                    .build();
-
-        } else {
-            if(isNegativeOdds) {
-                if(obj.getDouble("odds") < 0) {
-                    return new Odds.Builder()
-                            .odds(obj.getDouble("odds"))
-                            .team(obj.getString("team"))
-                            .side(obj.getString("side"))
-                            .originalOdds(obj.getDouble("originalOdds"))
-                            .hdp(obj.getDouble("hdp"))
-                            .build();
-                }
-            } else {
-                if(obj.getDouble("odds") > 0) {
-                    return new Odds.Builder()
-                            .odds(obj.getDouble("odds"))
-                            .team(obj.getString("team"))
-                            .side(obj.getString("side"))
-                            .originalOdds(obj.getDouble("originalOdds"))
-                            .hdp(obj.getDouble("hdp"))
-                            .build();
-                }
-            }
-
-        }
-        return null;
-    }
 
     public static List<Market> getSportbookEventAPI(String oddsType, int eventId){
-        JSONObject jsonObject = getAllMarketUnderEventFromProviderAPI(oddsType,eventId);
-        List<Market> lstEvents = new ArrayList<>();
-        Market market;
-        if (Objects.nonNull(jsonObject)) {
-            JSONArray jsonArray = jsonObject.getJSONArray("data");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject obj = jsonArray.getJSONObject(i);
-                JSONArray oddObjLst = obj.getJSONArray("odds");
-                List<Odds> lstOdds =  new ArrayList<>();
-                for (int j = 0; j < oddObjLst.length(); j++) {
-                    JSONObject oddsObj = oddObjLst.getJSONObject(j);
-                    lstOdds.add(getOddsAllSelectionUnderAMarketFromProviderAPI(oddsObj));
-                }
-                market = new Market.Builder()
-                        .periodId(obj.getInt("periodId"))
-                        .eventStartTime(obj.getString("cutoff"))
-                        .eventId(obj.getInt("eventId"))
-                        .lineID(obj.getLong("lineId"))
-                        .altLineID(obj.getLong("altLineId"))
-                        .betType(obj.getString("betType"))
-                        .handicap(obj.getDouble("handicap"))
-                        .oddsKey(obj.getString("oddsKey"))
-                        .team(obj.getString("team"))
-                        .status(obj.getString("status"))
-                        .oddsType(obj.getString("oddsType"))
-                        .oddsFormat(obj.getString("oddsFormat"))
-                        .marketKey(obj.getString("marketKey"))
-                        .odds(lstOdds)
-                        .build();
-                lstEvents.add(market);
-            }
-        }
-        return lstEvents;
+       return getSportbookEventAPI(oddsType,eventId,true);
     }
 
     public static List<Market> getSportbookEventAPI(String oddsType, int eventId, boolean isNegativeOdds){
@@ -178,10 +105,8 @@ public class MarketUtils extends BaseCaseTest {
                 List<Odds> lstOdds =  new ArrayList<>();
                 for (int j = 0; j < oddObjLst.length(); j++) {
                     JSONObject oddsObj = oddObjLst.getJSONObject(j);
-                    Odds odds = getOddsAllSelectionUnderAMarketFromProviderAPI(oddsObj, isNegativeOdds);
-                    if(Objects.nonNull(odds)) {
-                        lstOdds.add(odds);
-                    }
+                    Odds odds = getOddsAllSelectionUnderAMarketFromProviderAPI(oddsObj);
+                    lstOdds.add(odds);
                 }
                 market = new Market.Builder()
                         .periodId(obj.getInt("periodId"))
@@ -199,11 +124,14 @@ public class MarketUtils extends BaseCaseTest {
                         .marketKey(obj.getString("marketKey"))
                         .odds(lstOdds)
                         .build();
-                lstEvents.add(market);
+                if(market.isMarketContainsNegativeOdds() == isNegativeOdds)
+                    lstEvents.add(market);
             }
         }
         return lstEvents;
     }
+
+
 
     public static Market getMarketByOddsKey(String oddsType, int eventID, String oddsKey){
         List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID);
@@ -215,90 +143,28 @@ public class MarketUtils extends BaseCaseTest {
     }
 
     public static Market getMarketByOddsKey(String oddsType, int eventID, String oddsKey, boolean isNegativeOdds){
-        List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID, isNegativeOdds);
+        List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID);
         for (Market m: lstMarket) {
-            if(m.getOddsKey().equalsIgnoreCase(oddsKey))
+            if(m.getOddsKey().equalsIgnoreCase(oddsKey) && m.isMarketContainsNegativeOdds())
                 return m;
         }
         return null;
     }
-
-    public static ProteusMarket getMarketInfo(int eventId, String betType, Double hdpPoint) {
-        JSONObject jsonObject = getMarketJSON(eventId, betType);
-        if (Objects.nonNull(jsonObject)) {
-            JSONArray jsonArray = jsonObject.getJSONArray("data");
-            ProteusMarket proteusMarket = new ProteusMarket.Builder().build();
-            proteusMarket.setEventId(eventId);
-            proteusMarket.setBetType(betType);
-            if (betType.equalsIgnoreCase("moneyline")) {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                    //get FULL-TIME MONEYLINE info
-                    if (jsonObject1.getInt("periodId") == 0) {
-                        double maxBet = jsonObject1.getDouble("max");
-                        String oddsFormat = jsonObject1.getString("oddsFormat");
-                        JSONArray jsonArray1 = jsonObject1.getJSONArray("odds");
-                        proteusMarket.setMaxBet(maxBet);
-                        proteusMarket.setOddsFormat(oddsFormat);
-                        for (int j = 0; j < jsonArray1.length(); j++) {
-                            JSONObject jsonObject2 = jsonArray1.getJSONObject(j);
-                            //Order of odds is HOME/ DRAW/ AWAY
-                            if (j == 0) {
-                                proteusMarket.setFirstOdds(jsonObject2.getDouble("odds"));
-                                proteusMarket.setFirstOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                                proteusMarket.setFirstSelectionName(jsonObject2.getString("team"));
-                                proteusMarket.setFirstHDPPoint(jsonObject2.getDouble("hdp"));
-                            } else if (j == 1) {
-                                proteusMarket.setSecondOdds(jsonObject2.getDouble("odds"));
-                                proteusMarket.setSecondOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                                proteusMarket.setSecondSelectionName(jsonObject2.getString("team"));
-                                proteusMarket.setSecondHDPPoint(jsonObject2.getDouble("hdp"));
-                            } else if (j == 2) {
-                                proteusMarket.setThirdOdds(jsonObject2.getDouble("odds"));
-                                proteusMarket.setThirdOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                                proteusMarket.setThirdSelectionName(jsonObject2.getString("team"));
-                                proteusMarket.setThirdHDPPoint(jsonObject2.getDouble("hdp"));
-                            }
-                        }
-                        return proteusMarket;
-                    }
-                }
-            } else {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                    double maxBet = jsonObject1.getDouble("max");
-                    String oddsFormat = jsonObject1.getString("oddsFormat");
-                    if (jsonObject1.getDouble("handicap") == hdpPoint) {
-                        if (jsonObject1.getInt("altLineId") == -1) {
-                            JSONArray jsonArray1 = jsonObject1.getJSONArray("odds");
-                            proteusMarket.setEventId(eventId);
-                            proteusMarket.setBetType(betType);
-                            proteusMarket.setMaxBet(maxBet);
-                            proteusMarket.setOddsFormat(oddsFormat);
-                            for (int j = 0; j < jsonArray1.length(); j++) {
-                                JSONObject jsonObject2 = jsonArray1.getJSONObject(j);
-                                //Order of odds is HOME/AWAY for handicap and OVER/UNDER for overunder market
-                                if (j == 0) {
-                                    proteusMarket.setFirstOdds(jsonObject2.getDouble("odds"));
-                                    proteusMarket.setFirstOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                                    proteusMarket.setFirstSelectionName(jsonObject2.getString("team"));
-                                    proteusMarket.setFirstHDPPoint(jsonObject2.getDouble("hdp"));
-                                } else if (j == 1) {
-                                    proteusMarket.setSecondOdds(jsonObject2.getDouble("odds"));
-                                    proteusMarket.setSecondOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                                    proteusMarket.setSecondSelectionName(jsonObject2.getString("team"));
-                                    proteusMarket.setSecondHDPPoint(jsonObject2.getDouble("hdp"));
-                                }
-                            }
-                            return proteusMarket;
-                        }
-                    }
-
-                }
-            }
-        }
-        return null;
-    }
+//    public static Market getMarketByOddsKey(String oddsType, int eventID, String oddsKey, int isNegativeOdds){
+//        List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID);
+//
+//        for (Market m: lstMarket) {
+//            if(m.getOddsKey().equalsIgnoreCase(oddsKey))
+//            {
+//                if(m.isMarketContainsNegativeOdds() && isNegativeOdds > 0)
+//                    return m;
+//                else if(m.isMarketContainsNegativeOdds() && isNegativeOdds < 0)
+//                    return m;
+//            }
+//            return m;
+//        }
+//        return null;
+//    }
 
     public static JSONObject getMarketJSON(int eventId, String betType) {
 //        String url = "https://www.ps388win.com/proteus-member-service/odds/v3/decimal";
@@ -312,80 +178,6 @@ public class MarketUtils extends BaseCaseTest {
                 , eventId, betType);
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(url, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         return jsonObject;
-    }
-
-
-
-    public static ProteusMarket getMatchTeamTotalMarketInfo(int eventId, String betType, Double hdpPoint, boolean isHome) {
-        JSONObject jsonObject = getMarketJSON(eventId, betType);
-        if (Objects.nonNull(jsonObject)) {
-            JSONArray jsonArray = jsonObject.getJSONArray("data");
-            ProteusMarket proteusMarket = new ProteusMarket.Builder().build();
-            proteusMarket.setEventId(eventId);
-            proteusMarket.setBetType(betType);
-            if (betType.equalsIgnoreCase("team_total_points")) {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                    if (isHome) {
-                        if (jsonObject1.getDouble("handicap") == hdpPoint && jsonObject1.getInt("periodId") == 0) {
-                            //get HOME info
-                            if (jsonObject1.getString("team").equalsIgnoreCase("HOME")) {
-                                double maxBet = jsonObject1.getDouble("max");
-                                String oddsFormat = jsonObject1.getString("oddsFormat");
-                                JSONArray jsonArray1 = jsonObject1.getJSONArray("odds");
-                                proteusMarket.setMaxBet(maxBet);
-                                proteusMarket.setOddsFormat(oddsFormat);
-                                for (int j = 0; j < jsonArray1.length(); j++) {
-                                    JSONObject jsonObject2 = jsonArray1.getJSONObject(j);
-                                    //Order of odds is HOME/ AWAY
-                                    if (j == 0) {
-                                        proteusMarket.setFirstOdds(jsonObject2.getDouble("odds"));
-                                        proteusMarket.setFirstOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                                        proteusMarket.setFirstSelectionName(jsonObject2.getString("team"));
-                                        proteusMarket.setFirstHDPPoint(jsonObject2.getDouble("hdp"));
-                                    } else if (j == 1) {
-                                        proteusMarket.setSecondOdds(jsonObject2.getDouble("odds"));
-                                        proteusMarket.setSecondOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                                        proteusMarket.setSecondSelectionName(jsonObject2.getString("team"));
-                                        proteusMarket.setSecondHDPPoint(jsonObject2.getDouble("hdp"));
-                                    }
-                                }
-                                return proteusMarket;
-                            }
-                        }
-                    } else {
-                        if (jsonObject1.getDouble("handicap") == hdpPoint && jsonObject1.getInt("periodId") == 0) {
-                            //get AWAY info
-                            if (jsonObject1.getString("team").equalsIgnoreCase("AWAY")) {
-                                double maxBet = jsonObject1.getDouble("max");
-                                String oddsFormat = jsonObject1.getString("oddsFormat");
-                                JSONArray jsonArray1 = jsonObject1.getJSONArray("odds");
-                                proteusMarket.setMaxBet(maxBet);
-                                proteusMarket.setOddsFormat(oddsFormat);
-                                for (int j = 0; j < jsonArray1.length(); j++) {
-                                    JSONObject jsonObject2 = jsonArray1.getJSONObject(j);
-                                    //Order of odds is HOME/ AWAY
-                                    if (j == 0) {
-                                        proteusMarket.setFirstOdds(jsonObject2.getDouble("odds"));
-                                        proteusMarket.setFirstOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                                        proteusMarket.setFirstSelectionName(jsonObject2.getString("team"));
-                                        proteusMarket.setFirstHDPPoint(jsonObject2.getDouble("hdp"));
-                                    } else if (j == 1) {
-                                        proteusMarket.setSecondOdds(jsonObject2.getDouble("odds"));
-                                        proteusMarket.setSecondOriginalOdds(jsonObject2.getDouble("originalOdds"));
-                                        proteusMarket.setSecondSelectionName(jsonObject2.getString("team"));
-                                        proteusMarket.setSecondHDPPoint(jsonObject2.getDouble("hdp"));
-                                    }
-                                }
-                                return proteusMarket;
-                            }
-                        }
-                    }
-                }
-            }
-            return proteusMarket;
-        }
-        return null;
     }
 
     private static JSONObject getListLeagueJSON(String periodType) {
