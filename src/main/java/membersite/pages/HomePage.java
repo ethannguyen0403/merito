@@ -1,13 +1,10 @@
 package membersite.pages;
 
-import agentsite.pages.report.PS38SportsResultsPage;
 import com.paltech.driver.DriverManager;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
-import membersite.objects.proteus.Order;
 import membersite.objects.sat.Event;
-import membersite.pages.casino.CasinoHomePage;
-import membersite.pages.casino.CasinoProduct;
+import membersite.pages.casino.*;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.betslipcontainer.BetsSlipContainer;
 import membersite.pages.components.minimybetcontainer.MiniMyBetsContainer;
@@ -20,6 +17,9 @@ import org.testng.Assert;
 
 import java.util.Locale;
 
+import static baseTest.BaseCaseTest.defineCasinoURL;
+import static common.CasinoConstant.*;
+import static common.CasinoConstant.SUPERNOWA;
 import static common.MemberConstants.PS38;
 
 public class HomePage extends LandingPage {
@@ -76,20 +76,64 @@ public class HomePage extends LandingPage {
         return exPage;
     }
 
-    public CasinoHomePage openCasinoGame(CasinoProduct product){
-        header.openCasinoGame(product);
-        CasinoHomePage page = new CasinoHomePage(_type, product);
-        return page;
-    }
+//    public CasinoHomePage openCasinoGame(CasinoProduct product){
+//        header.openCasinoGame(product);
+//        CasinoHomePage page = new CasinoHomePage(_type, product);
+//        return page;
+//    }
 
-    public CasinoHomePage openCasinoGameByLink(CasinoProduct product, String url){
+    public Evolution openEvolution(){
+        return header.openEvolution();
+    }
+    public LiveDealerAsian openLiveDealerAsian(){
+        return header.openLiveDealerAsian();
+    }
+    public LiveDealerEuropean openLiveDealerEuro(){
+        return header.openLiveDealerEuro();
+    }
+    public LotterySlots openLotteryAndSlots(){
+        return header.openLotteryAndSlots();
+    }
+    public Pragmatic openPragmatic(){
+        return header.openPragmatic();
+    }
+    public SupernowaCasino openSupernowa(){
+        return header.openSupernowa();
+    }
+    public EvolutionWhiteCliff openEvolutionWhiteCliff(){
+        return header.openEvolutionWhiteCliff();
+    }
+//    public CasinoHomePage openCasinoGameByLink(CasinoProduct product, String url){
+//        DriverManager.getDriver().get(url);
+//        CasinoHomePage page = new CasinoHomePage(_type, product);
+//        return page;
+//    }
+
+    public Object openCasinoGameByUrl(String productName){
+        String url = defineCasinoURL(_type,MAPPING_CASINO_PRODUCT_SUFFIX_URL.get(productName));
         DriverManager.getDriver().get(url);
-        CasinoHomePage page = new CasinoHomePage(_type, product);
-        return page;
+        if (productName.equalsIgnoreCase(LIVE_DEALER_EURO)) {
+            return new LiveDealerEuropean();
+        } else if (productName.equalsIgnoreCase(EVOLUTION)) {
+            return new Evolution();
+        } else if (productName.equalsIgnoreCase(LOTTERY_AND_SLOTS)) {
+            return new LotterySlots();
+        } else if (productName.equalsIgnoreCase(PRAGMATIC)) {
+            return new Pragmatic();
+        } else if (productName.equalsIgnoreCase(SUPERNOWA)) {
+            return new SupernowaCasino();
+        }  else if (productName.equalsIgnoreCase(LIVE_DEALER_ASIAN)) {
+            return new LiveDealerAsian();
+        }
+        return null;
     }
 
     public void clickProduct(String product) {
         header.clickProduct(product);
+    }
+
+    public boolean isCasinoProductDisplayed(String product) {
+        return header.isCasinoProductDisplayed(product);
     }
     public ProteusHomePage activePS38Product() {
         header.clickProduct(PS38);

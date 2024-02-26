@@ -334,6 +334,15 @@ public class BaseCaseTest {
         return String.format("%s%s", getCashURL(brandName), suffix);
     }
 
+    public static String defineCasinoURL(String brandName, String suffix) {
+        switch (brandName) {
+            case "satsport":
+                return String.format("%s%s%s", getURL(brandName),"/#/2", suffix);
+            default:
+                return String.format("%s%s%s", getURL(brandName),"/#/1", suffix);
+        }
+    }
+
     private static String defineMemberService(String brandName) {
         switch (brandName) {
             case "satsport":

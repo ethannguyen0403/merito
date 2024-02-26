@@ -12,7 +12,7 @@ import org.openqa.selenium.By;
 import java.util.*;
 
 
-public class LotterySlots {
+public class LotterySlots extends CasinoHomePage {
 
     public Label lblHeaderMenu = Label.xpath("//div[contains(@class,'lottery-game-menu')]//ul/li");
     String xpathImageGameList = "//a[@class='game-element-container']";
@@ -56,26 +56,26 @@ public class LotterySlots {
         waitUntilReadyState(6);
     }
 
-    private void waitToNewWindowOpen(int timeCount) {
-        int windowSize = 1;
-        while (windowSize == 1 && timeCount > 0) {
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-            }
-            Set<String> handles = DriverManager.getDriver().getWindowHandles();
-            windowSize = handles.size();
-            timeCount--;
-        }
-    }
-
-    private void waitUntilReadyState(int timeCount) {
-        do {
-            timeCount--;
-            try {
-                Thread.sleep(4000);
-            } catch (Exception e) {
-            }
-        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
-    }
+//    private void waitToNewWindowOpen(int timeCount) {
+//        int windowSize = 1;
+//        while (windowSize == 1 && timeCount > 0) {
+//            try {
+//                Thread.sleep(1000);
+//            } catch (Exception e) {
+//            }
+//            Set<String> handles = DriverManager.getDriver().getWindowHandles();
+//            windowSize = handles.size();
+//            timeCount--;
+//        }
+//    }
+//
+//    private void waitUntilReadyState(int timeCount) {
+//        do {
+//            timeCount--;
+//            try {
+//                Thread.sleep(4000);
+//            } catch (Exception e) {
+//            }
+//        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
+//    }
 }

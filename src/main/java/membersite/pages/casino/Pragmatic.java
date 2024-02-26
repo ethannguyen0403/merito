@@ -8,9 +8,8 @@ import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public class Pragmatic {
+public class Pragmatic extends CasinoHomePage {
 
     public Label lblHeaderMenu = Label.xpath("//app-pragmatic//div[contains(@class, 'pragmatic-game-menu')]//ul/li");
     String xpathImageGameList = "//a[@class='game-element-container']";
@@ -37,31 +36,31 @@ public class Pragmatic {
         waitUntilReadyState(6);
     }
 
-    private void waitToNewWindowOpen(int timeCount) {
-        int windowSize = 1;
-        while (windowSize == 1 && timeCount > 0) {
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-            }
-            Set<String> handles = DriverManager.getDriver().getWindowHandles();
-            windowSize = handles.size();
-            timeCount--;
-        }
-    }
-
-    private void waitUntilReadyState(int timeCount) {
-        do {
-            timeCount--;
-            try {
-                Thread.sleep(2000);
-            } catch (Exception e) {
-            }
-        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-        }
-    }
+//    private void waitToNewWindowOpen(int timeCount) {
+//        int windowSize = 1;
+//        while (windowSize == 1 && timeCount > 0) {
+//            try {
+//                Thread.sleep(1000);
+//            } catch (Exception e) {
+//            }
+//            Set<String> handles = DriverManager.getDriver().getWindowHandles();
+//            windowSize = handles.size();
+//            timeCount--;
+//        }
+//    }
+//
+//    private void waitUntilReadyState(int timeCount) {
+//        do {
+//            timeCount--;
+//            try {
+//                Thread.sleep(2000);
+//            } catch (Exception e) {
+//            }
+//        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
+//        try {
+//            Thread.sleep(1000);
+//        } catch (Exception e) {
+//        }
+//    }
 }
 
