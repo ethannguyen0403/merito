@@ -29,6 +29,8 @@ public class ProteusConstant {
     public static final String PENDING_BETS_TAB = "PENDING BETS";
     public static final String BET_SLIP_TAB = "BET SLIP";
     public static final String SOCCER = "Soccer";
+    public static final String PREGAME = "Pregame";
+    public static final String INPLAY = "InPlay";
     public static final String NO_RECORDS_FOUND = "No records found.";
     public static final String MIN_STAKE_ERROR_MSG = "Your stake cannot be lower than the minimum bet. It has been automatically adjusted to the minimum bet amount.";
     public static final String MAX_STAKE_ERROR_MSG = "Your stake cannot be greater than the maximum bet. It has been automatically adjusted to the maximum bet amount.";

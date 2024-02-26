@@ -20,7 +20,7 @@ public class ConfirmPopup {
     }
 
     public boolean isPopupDisplay() {
-        return popup.isDisplayed();
+        return popup.isDisplayedShort(3);
     }
 
     public void confirm() {

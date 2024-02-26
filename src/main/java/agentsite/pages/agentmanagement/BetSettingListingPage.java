@@ -6,13 +6,18 @@ import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.components.ConfirmPopup;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import static common.AGConstant.AgencyManagement.BetSettingListing.PS38_COPY_SETTING_TO_ALL_SPECIFIC_SPORT_LEAGUES;
+import static common.AGConstant.AgencyManagement.BetSettingListing.PS38_DEFAULT_SPORT_LIST;
 
 public class BetSettingListingPage extends HomePage {
     private static int totalColum = 19;
@@ -51,6 +56,9 @@ public class BetSettingListingPage extends HomePage {
     public Label lblInplayTab = Label.xpath("//ul[@class='list-unstyled']/li/div[2]");
     public TextBox txtMaxPerMatch = TextBox.xpath("(//table[@class='ptable info search-region']//input)[3]");
     public Label lblValuePrefixWithDirect  = Label.xpath("(//table[@class='ptable info search-region'])//tr[2]//span");
+    private int colPS83UpDateStatus = 3;
+    private int colPS83Settings = 10;
+    private int totalMergCols = 9;
 
     public BetSettingListingPage(String types) {
         super(types);
@@ -242,26 +250,120 @@ public class BetSettingListingPage extends HomePage {
         else
             lblInplayTab.click();
         selectAccount(username);
-        if(!min.isEmpty())
+        if(Objects.nonNull(min))
             txtMinBet.sendKeys(min);
-        if(!max.isEmpty())
+        if(Objects.nonNull(max))
             txtMaxBet.sendKeys(max);
-        if(!maxPerMatch.isEmpty())
+        if(Objects.nonNull(maxPerMatch))
             txtMaxPerMatch.sendKeys(maxPerMatch);
         btnUpdate.click();
         ConfirmPopup popup = new ConfirmPopup();
+
         if(!popup.isPopupDisplay()) {
+            System.out.println("Display: " + popup.isPopupDisplay());
             System.err.println("There is no confirm popup display to do confirm action");
             return;
         }
         else {
-            if(isConfirm)
+            if(isConfirm) {
                 popup.confirm();
+                waitingLoadingSpinner();
+            }
             else
                 popup.cancel();
         }
     }
+    public void verifyBetSettingPS38UpdateSucceed(String username,String sportName, String leagueName,  String min, String max, String maxPerMatch){
+        String updateIconXpath = tblDownline.getControlxPathBasedValueOfDifferentColumnOnRow(username, 1, usernameCol, 1, null, colPS83UpDateStatus, "span", false, false);
+        // Check Update Status is column of the according account is display Green check
+        Assert.assertTrue(Label.xpath(updateIconXpath).getAttribute("class").contains("psuccess")," Failed! Update status column should display green check sign");
 
+        // Check valued of column Username and Setting Column is corrected
+        String usernameActual = Label.xpath(tblDownline.getxPathOfCell(1,usernameCol,1,"span")).getText();
+        Assert.assertEquals(usernameActual,username," Failed! Username is incorrect");
+        String minSetting = Label.xpath(tblDownline.getxPathOfCell(1,colPS83Settings,1,null)).getText();
+        Assert.assertEquals(minSetting,"Min Bet"," Failed! Min Bet is incorrect");
+        String maxSetting = Label.xpath(tblDownline.getxPathOfCell(1,colPS83Settings - totalMergCols,2,null)).getText();
+        Assert.assertEquals(maxSetting,"Max Bet"," Failed! Max Bet is incorrect");
+        String maxPerMatchSetting = Label.xpath(tblDownline.getxPathOfCell(1,colPS83Settings - totalMergCols ,3,null)).getText();
+        Assert.assertEquals(maxPerMatchSetting,"Max Per Match"," Failed! Max Per Match is incorrect");
+
+        // Check value of sport/leagues coumn is correct (Soccer-General, Baseball-General,...)
+        verifyMinMaxMaxPerMatchValuesBasedOnSport(sportName,leagueName,min,max,maxPerMatch);
+    }
+
+    private void verifyMinMaxMaxPerMatchValuesBasedOnSport(String sport, String league,String min, String max, String maxPerMatch){
+        int column;
+        // check the min/max/max per match value of according selectedsports in Bet Setting PS38
+        if (!sport.equalsIgnoreCase("All"))
+        {
+            column = defineColumnOfSport(sport,league);
+            verifyMinMaxMaxPerMatchValuesofColumn(column,min,max,maxPerMatch);
+            return;
+        }
+        // check the min/max/max per match value of all default sports in Bet Setting PS38
+        String maxPerMatchExpected = "";
+        for (String s: PS38_DEFAULT_SPORT_LIST) {
+            column = defineColumnOfSport(s,"General");
+            maxPerMatchExpected = maxPerMatch;
+            if(s.equalsIgnoreCase("Mix Parlay") || s.equalsIgnoreCase("Teaser")){
+                // handle for Max Per Match is empty for Mix Parlay and Teaser
+                maxPerMatchExpected = "";
+            }
+            System.out.println("Verify Min / Max /Max Per Match of sport: "+ s);
+            verifyMinMaxMaxPerMatchValuesofColumn(column,min,max,maxPerMatchExpected);
+        }
+        return;
+    }
+    private void verifyMinMaxMaxPerMatchValuesofColumn(int column,String min, String max, String maxPerMatch){
+        if(Objects.nonNull(min)){
+            String minExpected = String.format("%,.2f",Double.parseDouble(min));
+            String minSetting = Label.xpath(tblDownline.getxPathOfCell(1,column,1,null)).getText();
+            Assert.assertEquals(minSetting,minExpected," Failed! Min Bet value is incorrect");
+        }
+        if(Objects.nonNull(max)){
+            String maxExpected = String.format("%,.2f",Double.parseDouble(max));
+            String maxSetting = Label.xpath(tblDownline.getxPathOfCell(1,column - totalMergCols,2,null)).getText();
+            Assert.assertEquals(maxSetting,maxExpected," Failed! Max Bet value is incorrect");
+        }
+
+        if(Objects.nonNull(maxPerMatch)){
+            String maxPerMatchExpected = maxPerMatch;
+            if(!maxPerMatch.equals("")){
+                maxPerMatchExpected = String.format("%,.2f",Double.parseDouble(maxPerMatch));
+            }
+            String maxPerMatchSetting = Label.xpath(tblDownline.getxPathOfCell(1,column-totalMergCols ,3,null)).getText();
+            Assert.assertEquals(maxPerMatchSetting,maxPerMatchExpected," Failed! Max Per Match value of is incorrect");
+        }
+
+    }
+
+
+    private int defineColumnOfSport(String sport, String league){
+        String headerXpath ="//table[contains(@class,'ptable report')]//thead/tr/th";
+        int totalHeader = Label.xpath(headerXpath).getWebElements().size();
+        // start column index will start from Setting column
+        int startIndex = colPS83Settings +1;
+        for(int i = startIndex; i <= totalHeader; i++){
+            Label lblSport = Label.xpath(String.format("//table[contains(@class,'ptable report')]//thead/tr/th[%d]/div[1]",i));
+            Label lblleague = Label.xpath(String.format("//table[contains(@class,'ptable report')]//thead/tr/th[%d]/div[2]",i));
+            if(!lblSport.isDisplayed()){
+                continue;
+            }
+            if(lblSport.getText().equals(sport)){
+                if(lblleague.getText().equals(league)) {
+                    System.out.println(String.format("DEBUG: Found the column has sport: %s and league: %s at column index %d", sport, league,i));
+                    return i;
+                }
+                else
+                    continue;
+            }else
+                continue;
+
+        }
+        System.err.println(String.format("DEBUG: Not found the column has sport: %s and league: %s in the table header", sport, league));
+        return -1;
+    }
 
 
     // End method for PS38 product
