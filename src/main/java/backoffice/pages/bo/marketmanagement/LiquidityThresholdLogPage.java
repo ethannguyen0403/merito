@@ -15,7 +15,7 @@ public class LiquidityThresholdLogPage extends HomePage {
     public int colHistory = 11;
     public StaticTable tblLog = StaticTable.xpath("//app-liquidity-threshold-log//div[contains(@class,'table-wrapper')]","div[contains(@class,'custom-table-body')]","div[contains(@class,'custom-table-row')]","div[contains(@class,'custom-table-cell')]",totalColumn);
     public Label lblNoRecord = Label.xpath("//div[contains(@class,'no-record')]//div[contains(@class,'text-center')]");
-    String btnViewLogXpath = "//span[contains(text(),'%s')]//parent::div//following-sibling::div/i";
+    String btnViewLogXpath = "//*[contains(text(),'%s')]//parent::div//following-sibling::div/i";
     public void search(String username){
         btnSearch.isDisplayed();
         txtUsername.sendKeys(username);

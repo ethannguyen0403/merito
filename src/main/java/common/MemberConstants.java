@@ -1,5 +1,7 @@
 package common;
 
+import membersite.pages.casino.CasinoProduct;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -429,10 +431,17 @@ public class MemberConstants {
 
     public static class Casino{
         public static final String SUPERNOWA = "SUPERNOWA";
-        public static final String SUPERNOWA_SUFFIX_LINK = "/#/1/home/veronica/supernowa";
-        public static final String PRAGMATIC_SUFFIX_LINK = "/#/1/home/pragmatic";
-        public static final String LOTTERY_SLOTS_SUFFIX_LINK = "/#/1/home/lottery-slots";
-        public static final String EVOLUTION_SUFFIX_LINK = "/#/1/home/live-dealer/ezugi";
+        public static final Map<String, String> CASINO_PRODUCTS_SUFFIX_LINK = new HashMap<String, String>() {
+            {
+                put(CasinoProduct.SUPERNOWA_CASINO.toString(), "veronica/supernowa");
+                put(CasinoProduct.PRAGMATIC.toString(), "veronica/pragmatic");
+                put(CasinoProduct.LIVE_DEALER_ASIAN.toString(), "live-dealer/super-spade");
+                put(CasinoProduct.LOTTERY_SLOTS.toString(), "lottery-slots");
+                put(CasinoProduct.EVOLUTION.toString(), "live-dealer/ezugi");
+                put(CasinoProduct.QTECH.toString(), "custom?code=QTECH");
+                put(CasinoProduct.EVOLUTION_WHITE_CLIFF.toString(), "custom?code=WHITECLIFF");
+            }
+        };
         public static final List<String> ERROR_CODE_LIST = Arrays.asList("403", "405");
         public static final List<String> LOTTERY_SLOTS_HEADER_MENU = Arrays.asList("", "Slots games", "Table games", "Draw games", "Sport games", "Roulette games");
         public static final List<String> LIVE_DEALER_ASIAN_PRODUCTS_MENU =

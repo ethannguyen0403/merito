@@ -105,6 +105,8 @@ public class LiveStreamingManagementPage extends HomePage {
             lstInfo.add(lblMappedListNoRecord.getText());
             return lstInfo;
         }
+        //scroll up to first item of table in case of this method used twice in test case
+        tblMappedList.getControlOfCell(1,1, 1, null).scrollToThisControl(true);
         return tblMappedList.getColumn(column, true);
 
     }

@@ -80,7 +80,7 @@ public class LiveStreamingManagementTest extends BaseCaseTest {
         String today = DateUtils.getDate(1, "dd-MM-YYYY", BOConstants.GMT_FOUR);
         String date = DateUtils.getDate(1, "yyyy/MM/dd", BOConstants.GMT_FOUR);
         Event fEEvent = LiveStreamingManagementUtils.getListEvent(today, "1").get(0);
-        Event lCEvent = LiveStreamingManagementUtils.getListLCEvent(today, "1").get(0);
+        Event lCEvent = LiveStreamingManagementUtils.getListLCEvent(today, "1").get(1);
 //        String date = DateUtils.getDate(1, "yyyy/MM/dd", BOConstants.GMT_FOUR);
 //        List<Event> lstFEEvent = LiveStreamingManagementUtils.getListEvent(today, "1");
 //        Event fEEvent = lstFEEvent.get(lstFEEvent.size()-1);

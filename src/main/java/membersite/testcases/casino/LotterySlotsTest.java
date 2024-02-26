@@ -48,29 +48,30 @@ public class LotterySlotsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-//    @TestRails(id = "20246")
-//    @Test(groups = {"casino", "Casino.2024.V.1.0"})
-//    @Parameters({"BOLoginId", "BOLoginPwd", "currency"})
-//    public void Casino_Test_TC20246(String BOLoginId, String BOLoginPwd, String currency) throws Exception {
-//        log("@title: Validate balance in Lottery & Slots game match with user's balance");
-//        log("@Precondition: Account has been activated Lottery & Slots game in Agent Site");
-//        log("@Step 1: Login member site with precondition account");
-//        log("@Step 2: Access Lottery & Slots on header menu");
-//        CasinoHomePage casinoPage = memberHomePage.openCasinoGame(CasinoProduct.LOTTERY_SLOTS);
-//        double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
-//
-//        log("@Step 3: Click on first game");
-//        casinoPage.lotterySlots.openGameByIndex("1");
-//
-//        double balanceCasino = CasinoUtils.getBalanceCasino(CasinoProduct.LOTTERY_SLOTS);
-//        loginBackoffice(BOLoginId, BOLoginPwd, true);
-//        double rate = CasinoUtils.getProviderCurRate(ProviderCurrencyMappingUltils.getProviderCurrencyMapping(
-//                PRODUCT_NAME_TO_CODE.get(CasinoProduct.LOTTERY_SLOTS.toString())), currency);
-//        log("@Step 4: Get rate of currency from BO with rate: " + rate);
-//        log("@Verify 1: The in game balance should match with user's balance");
-//        Assert.assertEquals(balanceCasino * rate, balance, "FAILED! Balance of Pragmatic not equals to balance user");
-//        log("INFO: Executed completely");
-//    }
+    @TestRails(id = "20246")
+    @Test(groups = {"casino", "Casino.2024.V.1.0"})
+    @Parameters({"BOLoginId", "BOLoginPwd", "currency"})
+    public void Casino_Test_TC20246(String BOLoginId, String BOLoginPwd, String currency) throws Exception {
+        log("@title: Validate balance in Lottery & Slots game match with user's balance");
+        log("@Precondition: Account has been activated Lottery & Slots game in Agent Site");
+        log("@Step 1: Login member site with precondition account");
+        log("@Step 2: Access Lottery & Slots on header menu");
+        CasinoHomePage casinoPage = memberHomePage.openCasinoGame(CasinoProduct.LOTTERY_SLOTS);
+        double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
+
+        log("@Step 3: Click on first game");
+        casinoPage.lotterySlots.openGameByIndex("1");
+        //Use console log to verify balance in game of Lottery Slots in Slot game tab
+        double balanceCasino = casinoPage.lotterySlots.getBalanceFromLogConsole(casinoPage.getConsoleLog("_url"));
+
+        loginBackoffice(BOLoginId, BOLoginPwd, true);
+        double rate = CasinoUtils.getProviderCurRate(ProviderCurrencyMappingUltils.getProviderCurrencyMapping(
+                PRODUCT_NAME_TO_CODE.get(CasinoProduct.LOTTERY_SLOTS.toString())), currency);
+        log("@Step 4: Get rate of currency from BO with rate: " + rate);
+        log("@Verify 1: The in game balance should match with user's balance");
+        Assert.assertEquals(balanceCasino * rate, balance, "FAILED! Balance of Lottery & Slots not equals to balance user");
+        log("INFO: Executed completely");
+    }
 
     @TestRails(id = "20257")
     @Test(groups = {"casino", "Casino.2024.V.1.0"})
@@ -85,8 +86,7 @@ public class LotterySlotsTest extends BaseCaseTest {
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!homePage.header.isProductTabDisplay(CasinoProduct.LOTTERY_SLOTS.toString()), "FAILED! Lottery & Slots display on homepage menu.");
         log("@Step 2: Access Pragmatic by external link");
-        String url = String.format("%s%s", memberLoginURL, LOTTERY_SLOTS_SUFFIX_LINK);
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGameByLink(CasinoProduct.LOTTERY_SLOTS, url);
+        CasinoHomePage casinoPage = memberHomePage.openCasinoGameByLink(CasinoProduct.LOTTERY_SLOTS, CasinoHomePage.getURLCasino(CasinoProduct.LOTTERY_SLOTS));
         log("@Verify 2: User could not access product and was brought back to home page");
         Assert.assertTrue(!casinoPage.lotterySlots.lblHeaderMenu.isDisplayed(),"FAILED! Pragmatic game is displayed");
         log("INFO: Executed completely");
