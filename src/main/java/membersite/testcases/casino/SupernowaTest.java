@@ -13,7 +13,8 @@ import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import static common.AGConstant.AgencyManagement.CommissionSettingListing.PRODUCT_NAME_TO_CODE;
-import static common.MemberConstants.Casino.*;
+import static common.CasinoConstant.ERROR_CODE_LIST;
+import static common.CasinoConstant.SUPERNOWA;
 
 public class SupernowaTest extends BaseCaseTest {
 
@@ -79,8 +80,7 @@ public class SupernowaTest extends BaseCaseTest {
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!homePage.header.isProductTabDisplay(CasinoProduct.SUPERNOWA_CASINO.toString()), "FAILED! Supernowa display on homepage menu.");
         log("@Step 2: Access Supernowa Casino by external link");
-        String url = String.format("%s%s", memberLoginURL, SUPERNOWA_SUFFIX_LINK);
-        SupernowaCasino supernowa = (SupernowaCasino) memberHomePage.openCasinoGameByUrl(url);
+        SupernowaCasino supernowa = (SupernowaCasino) memberHomePage.openCasinoGameByUrl(SUPERNOWA);
         log("@Verify 2: User could not access product and was brought back to home page");
         Assert.assertTrue(!supernowa.lblTitle.isDisplayed(),"FAILED! Supernowa casino is displayed");
         log("INFO: Executed completely");

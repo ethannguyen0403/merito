@@ -17,7 +17,9 @@ import org.testng.Assert;
 
 import java.util.Locale;
 
-import static common.MemberConstants.Casino.*;
+import static baseTest.BaseCaseTest.defineCasinoURL;
+import static common.CasinoConstant.*;
+import static common.CasinoConstant.SUPERNOWA;
 import static common.MemberConstants.PS38;
 
 public class HomePage extends LandingPage {
@@ -98,24 +100,30 @@ public class HomePage extends LandingPage {
     public SupernowaCasino openSupernowa(){
         return header.openSupernowa();
     }
+    public EvolutionWhiteCliff openEvolutionWhiteCliff(){
+        return header.openEvolutionWhiteCliff();
+    }
 //    public CasinoHomePage openCasinoGameByLink(CasinoProduct product, String url){
 //        DriverManager.getDriver().get(url);
 //        CasinoHomePage page = new CasinoHomePage(_type, product);
 //        return page;
 //    }
 
-    public Object openCasinoGameByUrl(String url){
+    public Object openCasinoGameByUrl(String productName){
+        String url = defineCasinoURL(_type,MAPPING_CASINO_PRODUCT_SUFFIX_URL.get(productName));
         DriverManager.getDriver().get(url);
-        if (url.contains(LIVE_DEALER_EUROPEAN_SUFFIX_LINK)) {
+        if (productName.equalsIgnoreCase(LIVE_DEALER_EURO)) {
             return new LiveDealerEuropean();
-        } else if (url.contains(EVOLUTION_SUFFIX_LINK)) {
+        } else if (productName.equalsIgnoreCase(EVOLUTION)) {
             return new Evolution();
-        } else if (url.contains(LOTTERY_SLOTS_SUFFIX_LINK)) {
+        } else if (productName.equalsIgnoreCase(LOTTERY_AND_SLOTS)) {
             return new LotterySlots();
-        } else if (url.contains(PRAGMATIC_SUFFIX_LINK)) {
+        } else if (productName.equalsIgnoreCase(PRAGMATIC)) {
             return new Pragmatic();
-        } else if (url.contains(SUPERNOWA_SUFFIX_LINK)) {
+        } else if (productName.equalsIgnoreCase(SUPERNOWA)) {
             return new SupernowaCasino();
+        }  else if (productName.equalsIgnoreCase(LIVE_DEALER_ASIAN)) {
+            return new LiveDealerAsian();
         }
         return null;
     }

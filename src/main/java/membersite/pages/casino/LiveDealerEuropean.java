@@ -11,7 +11,7 @@ import java.util.List;
 
 public class LiveDealerEuropean extends CasinoHomePage{
     String xpathProducts = "//app-ezugi//div[contains(@class,'menu-product')]//a";
-    Link lnkProductsList = Link.xpath(xpathProducts);
+    public Link lnkProductsList = Link.xpath(xpathProducts);
     Label lblBalance = Label.xpath("//span[@data-e2e='balance']");
 
 //    public LiveDealerEuropean(String types, CasinoProduct product) {

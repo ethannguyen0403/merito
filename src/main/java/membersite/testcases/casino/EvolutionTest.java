@@ -15,7 +15,7 @@ import util.testraildemo.TestRails;
 import java.util.List;
 
 import static common.AGConstant.AgencyManagement.CommissionSettingListing.PRODUCT_NAME_TO_CODE;
-import static common.MemberConstants.Casino.*;
+import static common.CasinoConstant.*;
 
 public class EvolutionTest extends BaseCaseTest {
     @TestRails(id = "20224")
@@ -87,8 +87,7 @@ public class EvolutionTest extends BaseCaseTest {
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!homePage.header.isProductTabDisplay("Live Dealer"), "FAILED! Live Dealer display on homepage menu.");
         log("@Step 2: Access Evolution by external link");
-        String url = String.format("%s%s", memberLoginURL, EVOLUTION_SUFFIX_LINK);
-        Evolution evolution = (Evolution) memberHomePage.openCasinoGameByUrl(url);
+        Evolution evolution = (Evolution) memberHomePage.openCasinoGameByUrl(EVOLUTION);
         log("@Verify 2: User could not access product and was brought back to home page");
         Assert.assertTrue(!evolution.tabEvolution.isDisplayed(), "FAILED! Evolution product is displayed");
         log("INFO: Executed completely");

@@ -15,7 +15,7 @@ import util.testraildemo.TestRails;
 import java.util.List;
 
 import static common.AGConstant.AgencyManagement.CommissionSettingListing.PRODUCT_NAME_TO_CODE;
-import static common.MemberConstants.Casino.*;
+import static common.CasinoConstant.*;
 
 public class PragmaticTest extends BaseCaseTest {
     @TestRails(id = "20232")
@@ -84,8 +84,7 @@ public class PragmaticTest extends BaseCaseTest {
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!homePage.header.isProductTabDisplay(CasinoProduct.PRAGMATIC.toString()), "FAILED! Supernowa display on homepage menu.");
         log("@Step 2: Access Pragmatic by external link");
-        String url = String.format("%s%s", memberLoginURL, PRAGMATIC_SUFFIX_LINK);
-        Pragmatic pragmatic = (Pragmatic) memberHomePage.openCasinoGameByUrl(url);
+        Pragmatic pragmatic = (Pragmatic) memberHomePage.openCasinoGameByUrl(PRAGMATIC);
         log("@Verify 2: User could not access product and was brought back to home page");
         Assert.assertTrue(!pragmatic.lblHeaderMenu.isDisplayed(),"FAILED! Pragmatic game is displayed");
         log("INFO: Executed completely");

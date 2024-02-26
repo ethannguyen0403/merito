@@ -200,6 +200,10 @@ public class Fair999Header extends Header1 {
     public SupernowaCasino openSupernowa() {
         return new SupernowaCasino();
     }
+    @Override
+    public EvolutionWhiteCliff openEvolutionWhiteCliff() {
+        return new EvolutionWhiteCliff();
+    }
     public void clickProduct(String product) {
         Tab productTab = Tab.xpath(String.format("//a[contains(text(),'%s')]", product));
         productTab.click();

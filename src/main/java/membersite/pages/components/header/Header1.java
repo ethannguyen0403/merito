@@ -69,6 +69,7 @@ public class Header1 {
     public LotterySlots openLotteryAndSlots(){return null;}
     public Pragmatic openPragmatic(){return null;}
     public SupernowaCasino openSupernowa(){return null;}
+    public EvolutionWhiteCliff openEvolutionWhiteCliff(){return null;}
     public void clickProduct(String product) {
     }
 
