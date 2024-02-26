@@ -452,11 +452,12 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Step 2. Select Asian View and select odds type = Decimal");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-        asianViewPage.selectOddsType(ASIAN_HONGKONG_ODDS);
+        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
 
         log("Step 3. Select Early the left menu and click on Soccer");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
         Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_MONEYLINE, true);
+        asianViewPage.selectOddsType(ASIAN_HONGKONG_ODDS);
 
         log("Step 4. Pick a Match - Team Totals market");
         asianViewPage.openMoreMarkets(market);
@@ -479,11 +480,12 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Step 2. Select Asian View and select odds type = Malay");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-        asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
+        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
 
         log("Step 3. Select Early the left menu and click on Soccer");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
         Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_MONEYLINE, true);
+        asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
 
         log("Step 4. Pick a Match - Team Totals market");
         asianViewPage.openMoreMarkets(market);
@@ -506,11 +508,12 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Step 2. Select Asian View and select odds type = American");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-        asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
+        asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
 
         log("Step 3. Select Early the left menu and click on Soccer");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD,SOCCER);
         Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_MONEYLINE, true);
+        asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
 
         log("Step 4. Pick a Match - Team Totals market");
         asianViewPage.openMoreMarkets(market);
@@ -797,6 +800,19 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), DECIMAL);
         asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, DECIMAL, true);
 //        asianViewPage.verifyMaxPerMatchShowCorrect(betSlipInfo, settingMaxPerMatch, DECIMAL, false);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4071")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC4071() {
+        log("@title: Validate the ability to access the PS38 product on the member site");
+        log("Precondition: Login member site");
+        log("Step 1.Select Ps38 product");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+
+        log("Validate PS38 product displays on top menu in member site , user can access into PS38 product page");
+        Assert.assertEquals(proteusHomePage.lblView.getText(), EURO_VIEW, "FAILED! Cannot access PS39 product");
         log("INFO: Executed completely");
     }
 }

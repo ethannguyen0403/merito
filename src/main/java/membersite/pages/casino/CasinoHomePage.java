@@ -1,19 +1,19 @@
 package membersite.pages.casino;
 
 import com.paltech.driver.DriverManager;
-import membersite.pages.LandingPage;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static common.MemberConstants.Casino.CASINO_PRODUCTS_SUFFIX_LINK;
+import static common.CasinoConstant.CASINO_PRODUCTS_SUFFIX_LINK;
 
-public class CasinoHomePage extends LandingPage {
+public class CasinoHomePage {
     private CasinoProduct product;
 
     public SupernowaCasino supernowa;
@@ -27,11 +27,11 @@ public class CasinoHomePage extends LandingPage {
         return product;
     }
 
-    public CasinoHomePage(String types, CasinoProduct product) {
-        super(types);
-        this.product = product;
-        loadCasinoPageGame(product);
-    }
+//    public CasinoHomePage(String types, CasinoProduct product) {
+//        super(types);
+//        this.product = product;
+//        loadCasinoPageGame(product);
+//    }
 
     public static String getURLCasino(CasinoProduct product){
         String currentURL = DriverManager.getDriver().getCurrentUrl();
@@ -41,35 +41,35 @@ public class CasinoHomePage extends LandingPage {
         return matcher.group(0) + CASINO_PRODUCTS_SUFFIX_LINK.get(product.toString());
     }
 
-    private void loadCasinoPageGame(CasinoProduct product) {
-        switch (product) {
-            case EVOLUTION:
-                evolution = new Evolution();
-                break;
-            case ION:
-            case VIVO:
-            case QTECH:
-            case GAME_HALL:
-            case PRAGMATIC:
-                pragmatic = new Pragmatic();
-                break;
-            case SUPERNOWA_CASINO:
-                supernowa = new SupernowaCasino();
-                break;
-            case LOTTERY_SLOTS:
-                lotterySlots = new LotterySlots();
-                break;
-            case LIVE_DEALER_ASIAN:
-                dealerAsian = new LiveDealerAsian();
-                break;
-            case LIVE_DEALER_EUROPEAN:
-            case EVOLUTION_WHITE_CLIFF:
-                evolutionWhiteCliff = new EvolutionWhiteCliff();
-                break;
-            default:
-                break;
-        }
-    }
+//    private void loadCasinoPageGame(CasinoProduct product) {
+//        switch (product) {
+//            case EVOLUTION:
+//                evolution = new Evolution();
+//                break;
+//            case ION:
+//            case VIVO:
+//            case QTECH:
+//            case GAME_HALL:
+//            case PRAGMATIC:
+//                pragmatic = new Pragmatic();
+//                break;
+//            case SUPERNOWA_CASINO:
+//                supernowa = new SupernowaCasino();
+//                break;
+//            case LOTTERY_SLOTS:
+//                lotterySlots = new LotterySlots();
+//                break;
+//            case LIVE_DEALER_ASIAN:
+//                dealerAsian = new LiveDealerAsian();
+//                break;
+//            case LIVE_DEALER_EUROPEAN:
+//            case EVOLUTION_WHITE_CLIFF:
+//                evolutionWhiteCliff = new EvolutionWhiteCliff();
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     public boolean verifyConsoleLogNotContainValue(List<String> values) {
         List<LogEntry> entriesConsole = DriverManager.getDriver().manage().logs().get(LogType.BROWSER).getAll();
@@ -99,5 +99,28 @@ public class CasinoHomePage extends LandingPage {
             }
         }
         return consoleLog;
+    }
+
+    protected void waitToNewWindowOpen(int timeCount) {
+        int windowSize = 1;
+        while (windowSize == 1 && timeCount > 0) {
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+            }
+            Set<String> handles = DriverManager.getDriver().getWindowHandles();
+            windowSize = handles.size();
+            timeCount--;
+        }
+    }
+
+    protected void waitUntilReadyState(int timeCount) {
+        do {
+            timeCount--;
+            try {
+                Thread.sleep(2000);
+            } catch (Exception e) {
+            }
+        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
     }
 }

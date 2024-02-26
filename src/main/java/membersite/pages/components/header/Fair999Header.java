@@ -10,11 +10,14 @@ import membersite.pages.AccountStatementPage;
 import membersite.pages.MyBetsPage;
 import membersite.pages.ProfitAndLossPage;
 import membersite.pages.SportPage;
-import membersite.pages.casino.CasinoProduct;
+import membersite.pages.casino.*;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
+
+import static common.CasinoConstant.LIVE_DEALER_TEXT;
+import static common.CasinoConstant.MAPPING_CASINO_PRODUCT_UI;
 
 public class Fair999Header extends Header1 {
     public TextBox txtUsername = TextBox.name("username");
@@ -151,24 +154,64 @@ public class Fair999Header extends Header1 {
         tabExchangeGames.click();
     }
 
+//    @Override
+//    public void openCasinoGame(CasinoProduct product) {
+//        if (product.equals(CasinoProduct.EVOLUTION) || product.equals(CasinoProduct.LIVE_DEALER_ASIAN)) {
+//            clickProduct("Live Dealer");
+//            if(product.equals(CasinoProduct.LIVE_DEALER_ASIAN)){
+//                clickProduct(product.toString());
+//                return;
+//            }
+//            clickProduct("European Room");
+//            Tab.xpath(String.format("//div[contains(@class, 'european-room')]//span[text()='%s']", product.toString())).click();
+//            return;
+//        }
+//        clickProduct(product.toString());
+//    }
+
     @Override
-    public void openCasinoGame(CasinoProduct product) {
-        if (product.equals(CasinoProduct.EVOLUTION) || product.equals(CasinoProduct.LIVE_DEALER_ASIAN)) {
-            clickProduct("Live Dealer");
-            if(product.equals(CasinoProduct.LIVE_DEALER_ASIAN)){
-                clickProduct(product.toString());
-                return;
-            }
-            clickProduct("European Room");
-            Tab.xpath(String.format("//div[contains(@class, 'european-room')]//span[text()='%s']", product.toString())).click();
-            return;
-        }
-        clickProduct(product.toString());
+    public Evolution openEvolution() {
+        clickProduct(LIVE_DEALER_TEXT);
+        return new Evolution();
+    }
+    @Override
+    public LiveDealerAsian openLiveDealerAsian() {
+        clickProduct(LIVE_DEALER_TEXT);
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LIVE_DEALER_ASIAN"));
+        return new LiveDealerAsian();
     }
 
+    @Override
+    public LiveDealerEuropean openLiveDealerEuro() {
+        clickProduct(LIVE_DEALER_TEXT);
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LIVE_DEALER_EUROPEAN"));
+        return new LiveDealerEuropean();
+    }
+
+    @Override
+    public LotterySlots openLotteryAndSlots() {
+        return new LotterySlots();
+    }
+    @Override
+    public Pragmatic openPragmatic() {
+        return new Pragmatic();
+    }
+    @Override
+    public SupernowaCasino openSupernowa() {
+        return new SupernowaCasino();
+    }
+    @Override
+    public EvolutionWhiteCliff openEvolutionWhiteCliff() {
+        return new EvolutionWhiteCliff();
+    }
     public void clickProduct(String product) {
         Tab productTab = Tab.xpath(String.format("//a[contains(text(),'%s')]", product));
         productTab.click();
+    }
+
+    public boolean isCasinoProductDisplayed(String product) {
+        Tab productTab = Tab.xpath(String.format("//a[contains(text(),'%s')]", product));
+        return productTab.isDisplayed();
     }
 
     public void clickMainMenu(String menu) {

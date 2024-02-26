@@ -4,8 +4,8 @@ import backoffice.utils.tools.ProviderCurrencyMappingUltils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
 import membersite.pages.HomePage;
-import membersite.pages.casino.CasinoHomePage;
 import membersite.pages.casino.CasinoProduct;
+import membersite.pages.casino.SupernowaCasino;
 import membersite.utils.casino.CasinoUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -13,7 +13,8 @@ import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import static common.AGConstant.AgencyManagement.CommissionSettingListing.PRODUCT_NAME_TO_CODE;
-import static common.MemberConstants.Casino.*;
+import static common.CasinoConstant.ERROR_CODE_LIST;
+import static common.CasinoConstant.SUPERNOWA;
 
 public class SupernowaTest extends BaseCaseTest {
 
@@ -24,9 +25,9 @@ public class SupernowaTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Supernowa Casino game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Supernowa Casino on header menu");
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGame(CasinoProduct.SUPERNOWA_CASINO);
+        SupernowaCasino supernowa = memberHomePage.openSupernowa();
         log("@Verify 1: Title 'SUPERNOWA' is displayed correctly on iframe");
-        Assert.assertEquals(casinoPage.supernowa.lblTitle.getText().trim(), SUPERNOWA,"FAILED! Title Supernowa casino is not correct");
+        Assert.assertEquals(supernowa.lblTitle.getText().trim(), SUPERNOWA,"FAILED! Title Supernowa casino is not correct");
         log("INFO: Executed completely");
     }
 
@@ -37,11 +38,11 @@ public class SupernowaTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Supernowa Casino game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Supernowa Casino on header menu");
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGame(CasinoProduct.SUPERNOWA_CASINO);
+        SupernowaCasino supernowa = memberHomePage.openSupernowa();
         log("@Step 3: Click on any card game on iframe");
-        casinoPage.supernowa.openFirstSupernowaGame();
+        supernowa.openFirstSupernowaGame();
         log("@Verify 1: The game is loaded successfully on screen without any console log error");
-        Assert.assertTrue(casinoPage.verifyConsoleLogNotContainValue(ERROR_CODE_LIST),"FAILED! Console log contain error code");
+        Assert.assertTrue(supernowa.verifyConsoleLogNotContainValue(ERROR_CODE_LIST),"FAILED! Console log contain error code");
         log("INFO: Executed completely");
     }
 
@@ -79,9 +80,9 @@ public class SupernowaTest extends BaseCaseTest {
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!homePage.header.isProductTabDisplay(CasinoProduct.SUPERNOWA_CASINO.toString()), "FAILED! Supernowa display on homepage menu.");
         log("@Step 2: Access Supernowa Casino by external link");
-        CasinoHomePage casinoPage = memberHomePage.openCasinoGameByLink(CasinoProduct.SUPERNOWA_CASINO, CasinoHomePage.getURLCasino(CasinoProduct.SUPERNOWA_CASINO));
+        SupernowaCasino supernowa = (SupernowaCasino) memberHomePage.openCasinoGameByUrl(SUPERNOWA);
         log("@Verify 2: User could not access product and was brought back to home page");
-        Assert.assertTrue(!casinoPage.supernowa.lblTitle.isDisplayed(),"FAILED! Supernowa casino is displayed");
+        Assert.assertTrue(!supernowa.lblTitle.isDisplayed(),"FAILED! Supernowa casino is displayed");
         log("INFO: Executed completely");
     }
 

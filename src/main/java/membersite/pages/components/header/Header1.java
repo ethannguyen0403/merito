@@ -1,9 +1,8 @@
 package membersite.pages.components.header;
 
 import membersite.objects.AccountBalance;
-import membersite.objects.Wager;
 import membersite.pages.*;
-import membersite.pages.casino.CasinoProduct;
+import membersite.pages.casino.*;
 import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
 import membersite.pages.components.signinform.SignInPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
@@ -63,11 +62,19 @@ public class Header1 {
         return;
     }
 
-    public void openCasinoGame(CasinoProduct product){return;}
-
+//    public void openCasinoGame(CasinoProduct product){return;}
+    public LiveDealerAsian openLiveDealerAsian(){return null;}
+    public LiveDealerEuropean openLiveDealerEuro(){return null;}
+    public Evolution openEvolution(){return null;}
+    public LotterySlots openLotteryAndSlots(){return null;}
+    public Pragmatic openPragmatic(){return null;}
+    public SupernowaCasino openSupernowa(){return null;}
+    public EvolutionWhiteCliff openEvolutionWhiteCliff(){return null;}
     public void clickProduct(String product) {
     }
 
+    public boolean isCasinoProductDisplayed(String product) { return false;
+    }
     public void clickMainMenu(String menu) {
     }
 
