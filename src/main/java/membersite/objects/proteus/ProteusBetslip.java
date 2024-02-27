@@ -1,5 +1,6 @@
 package membersite.objects.proteus;
 
+//TODO: This object will be replace by proteus > Order Object and will be deleted
 public class ProteusBetslip {
     private String _eventName;
     private String _summaryEventInfo;

@@ -635,6 +635,8 @@ public class AGConstant {
                     put("Decimal Cricket", true);
                 }
             };
+            public static final String PS38_COPY_SETTING_TO_ALL_SPECIFIC_SPORT_LEAGUES ="Copy settings to all Specific Sports and Leagues";
+            public final static List<String> PS38_DEFAULT_SPORT_LIST = Arrays.asList("Soccer","Baseball","Basketball","Football","E Sports","Others","Mix Parlay","Teaser");
         }
 
         public static class TaxSettingListing {

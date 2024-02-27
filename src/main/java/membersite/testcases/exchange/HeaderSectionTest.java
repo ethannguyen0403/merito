@@ -331,7 +331,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. The corresponding market is navigate
      */
     @TestRails(id = "509")
-    @Test(groups = {"smoke","isa1"}, priority = 3)
+    @Test(groups = {"smoke"}, priority = 3)
     public void HeaderSection_C509() {
         log("@title: Validate can navigate to correct market when click on market in My market");
         log("Step 1. Click on My market ");
@@ -342,11 +342,10 @@ public class HeaderSectionTest extends BaseCaseTest {
             return;
         }
         log("Step 2. Click on market in my market popup");
-        MarketPage page = memberHomePage.openMarketInMyMarketPopup(marketInfo.get(0));
+        MarketPage page = memberHomePage.openMarketInMyMarketPopup(marketInfo.get(2));
 
         log("Verify: 1. The corresponding market is navigate");
-        String actual = String.format("%s / %s", page.marketOddControl.getTitle(), page.marketOddControl.getTitle());
-        Assert.assertEquals(actual, marketInfo.get(popup.colMarketName - 1), String.format("ERROR: Click on %s but my market display the title %s", marketInfo.get(popup.colMarketName - 1), actual));
+        Assert.assertEquals(page.marketOddControl.getTitle(), marketInfo.get(2).split("/")[0].trim(), String.format("ERROR: Incorect market page display"));
         log("INFO: Executed completely");
     }
 

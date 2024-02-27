@@ -629,7 +629,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     @TestRails(id = "4075")
     @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC4075() {
-        log("@title: Validate the league list or team names displays corectly when input the un-match values in search textbox");
+        log("@title: Validate the league list or team names displays correctly when input the un-match values in search textbox");
         log("Precondition: Login member site-  the player active PS38 product");
         log("Step 1.Select Ps38 product");
         log("Step 2.Input the un-match values in search textbox and Observe");
