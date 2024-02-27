@@ -68,17 +68,14 @@ public class SupernowaTest extends BaseCaseTest {
     }
 
     @TestRails(id = "20253")
-    @Test(groups = {"casino", "Casino.2024.V.1.0"})
-    @Parameters({"userDeactivateCasino", "password"})
-    public void Casino_Test_TC20253(String userDeactivateCasino, String password) throws Exception{
+    @Test(groups = {"casino_product_inactive", "Casino.2024.V.1.0_product_inactive"})
+    public void Casino_Test_TC20253() {
         log("@title: Validate could not access Supernowa Casino when disable product");
         log("@Precondition: Account has been activated Supernowa Casino game in Agent Site");
         log("@Step 1: Login member site with precondition account");
-        memberHomePage.logout();
-        HomePage homePage =  memberHomePage.login(userDeactivateCasino, StringUtils.decrypt(password), true);
         log("@Step 2: Access Supernowa Casino on header menu");
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
-        Assert.assertTrue(!homePage.header.isProductTabDisplay(CasinoProduct.SUPERNOWA_CASINO.toString()), "FAILED! Supernowa display on homepage menu.");
+        Assert.assertTrue(!memberHomePage.header.isProductTabDisplay(CasinoProduct.SUPERNOWA_CASINO.toString()), "FAILED! Supernowa display on homepage menu.");
         log("@Step 2: Access Supernowa Casino by external link");
         SupernowaCasino supernowa = (SupernowaCasino) memberHomePage.openCasinoGameByUrl(SUPERNOWA);
         log("@Verify 2: User could not access product and was brought back to home page");

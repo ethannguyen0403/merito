@@ -56,11 +56,10 @@ public class EvolutionTest extends BaseCaseTest {
     public void Casino_Test_TC20245(String BOLoginId, String BOLoginPwd, String currency) throws Exception {
         log("@title: Validate balance in Evolution game match with user's balance");
         log("@Precondition: Account has been activated Evolution game in Agent Site");
+        double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Evolution on header menu");
         Evolution evolution = memberHomePage.openEvolution();
-        double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
-
         log("@Step 3: Click on first product");
         evolution.selectProduct(evolution.getListProductsMenu().get(0));
 
@@ -75,17 +74,14 @@ public class EvolutionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "20256")
-    @Test(groups = {"casino", "Casino.2024.V.1.0"})
-    @Parameters({"userDeactivateCasino", "password"})
-    public void Casino_Test_TC20256(String userDeactivateCasino, String password) throws Exception {
+    @Test(groups = {"casino_product_inactive", "Casino.2024.V.1.0_product_inactive"})
+    public void Casino_Test_TC20256() {
         log("@title: Validate could not access Evolution when disable product");
         log("@Precondition: Account has been activated Evolution game in Agent Site");
         log("@Step 1: Login member site with precondition account");
-        memberHomePage.logout();
-        HomePage homePage = memberHomePage.login(userDeactivateCasino, StringUtils.decrypt(password), true);
         log("@Step 2: Access Evolution on header menu");
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
-        Assert.assertTrue(!homePage.header.isProductTabDisplay("Live Dealer"), "FAILED! Live Dealer display on homepage menu.");
+        Assert.assertTrue(!memberHomePage.header.isProductTabDisplay("Live Dealer"), "FAILED! Live Dealer display on homepage menu.");
         log("@Step 2: Access Evolution by external link");
         Evolution evolution = (Evolution) memberHomePage.openCasinoGameByUrl(EVOLUTION);
         log("@Verify 2: User could not access product and was brought back to home page");
