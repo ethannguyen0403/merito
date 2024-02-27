@@ -15,6 +15,7 @@ import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
+import org.openqa.selenium.By;
 
 import static common.CasinoConstant.LIVE_DEALER_TEXT;
 import static common.CasinoConstant.MAPPING_CASINO_PRODUCT_UI;
@@ -200,9 +201,26 @@ public class Fair999Header extends Header1 {
     public SupernowaCasino openSupernowa() {
         return new SupernowaCasino();
     }
+
+    @Override
+    public GameHall openGameHall() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("GAME_HALL"));
+        waitSpinLoad();
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
+        return new GameHall();
+    }
     @Override
     public EvolutionWhiteCliff openEvolutionWhiteCliff() {
         return new EvolutionWhiteCliff();
+    }
+    @Override
+    public Vivo openVivo() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("VIVO"));
+        waitSpinLoad();
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
+        return new Vivo();
     }
     public void clickProduct(String product) {
         Tab productTab = Tab.xpath(String.format("//a[contains(text(),'%s')]", product));

@@ -70,6 +70,8 @@ public class Header1 {
     public Pragmatic openPragmatic(){return null;}
     public SupernowaCasino openSupernowa(){return null;}
     public EvolutionWhiteCliff openEvolutionWhiteCliff(){return null;}
+    public GameHall openGameHall(){return null;}
+    public Vivo openVivo(){return null;}
     public void clickProduct(String product) {
     }
 
