@@ -73,21 +73,7 @@ public class LandingPage extends BasePage {
         header.waitSpinLoad();
     }
 
-    public MyMarketPopup openMyMarket() {
-        return header.openMyMarketPopup();
-    }
 
-    public MarketPage openMarketInMyMarketPopup(String marketName) {
-        MyMarketPopup myMarketPopup = new MyMarketPopup();
-        if (!myMarketPopup.tbMyMarkets.isDisplayed()) {
-            myMarketPopup = openMyMarket();
-        }
-        myMarketPopup.navigateToMarket(marketName);
-        DriverManager.getDriver().switchToWindow();
-        MarketPage marketPage = new MarketPage(_type);
-        marketPage.waitMenuLoading();
-        return marketPage;
-    }
 
     public SportPage navigateSportHeaderMenu(String sportName) {
         leftMenu.waitMenuLoading();

@@ -196,17 +196,12 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
 
     public String getTitle(boolean isEventName) {
         String title = getTitle();
-//        if (Objects.isNull(title)) {
-//            lblEventMarketName.getText(1);
-//        }
-//        String[] titles = title.split("/");
-//        return isEventName ? titles[0].trim() : titles[1].trim();
         return lblEventMarketName.getText();
     }
 
     public String getTitle() {
-        lblEventMarketName.isTextDisplayed("Market", 1);
-        return lblEventMarketName.getText();
+        lblEventMarketName.isDisplayed();
+        return lblEventMarketName.getText().trim();
     }
 
     public int getSelectionHaveMinOdds(String marketName,boolean isBack) {
