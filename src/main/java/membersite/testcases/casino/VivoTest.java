@@ -63,7 +63,7 @@ public class VivoTest extends BaseCaseTest {
                 PRODUCT_NAME_TO_CODE.get(VIVO)), currency);
 
         log("@Verify 1: The in game balance should match with user's balance");
-        Assert.assertEquals(balanceCasino * rate, balance, "FAILED! Balance of Live Dealer Euro not equals to balance user");
+        Assert.assertEquals(balanceCasino * rate, balance, "FAILED! Balance of Vivo not equals to balance user");
         log("INFO: Executed completely");
     }
 
@@ -75,7 +75,7 @@ public class VivoTest extends BaseCaseTest {
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Vivo on header menu");
         log("Verify 1: The product should not displayed on header menu to prevent user from accessing");
-        Assert.assertFalse(memberHomePage.isCasinoProductDisplayed(MAPPING_CASINO_PRODUCT_UI.get("VIVO")), "FAILED! Inactive product still displays on header menu");
+        Assert.assertFalse(memberHomePage.isProductDisplayed(VIVO), "FAILED! Inactive product still displays on header menu");
         log("@Step 3: Access Vivo by external link (e.g.: /home/custom?code=VIVO)");
         Vivo vivo = (Vivo) memberHomePage.openCasinoGameByUrl(VIVO);
         log("Verify 2: User could not access product and was brought back to home page");

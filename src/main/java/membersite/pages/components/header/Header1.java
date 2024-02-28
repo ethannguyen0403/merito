@@ -75,8 +75,6 @@ public class Header1 {
     public void clickProduct(String product) {
     }
 
-    public boolean isCasinoProductDisplayed(String product) { return false;
-    }
     public void clickMainMenu(String menu) {
     }
 

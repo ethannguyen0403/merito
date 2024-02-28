@@ -71,7 +71,7 @@ public class GameHallTest extends BaseCaseTest {
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Game Hall on header menu");
         log("Verify 1: The product should not displayed on header menu to prevent user from accessing");
-        Assert.assertFalse(memberHomePage.isCasinoProductDisplayed(MAPPING_CASINO_PRODUCT_UI.get("GAME_HALL")), "FAILED! Inactive product still displays on header menu");
+        Assert.assertFalse(memberHomePage.isProductDisplayed(GAME_HALL), "FAILED! Inactive product still displays on header menu");
         log("@Step 3: Access Game Hall by external link (e.g.: /home/custom?code=GAME_HALL)");
         GameHall gameHall = (GameHall) memberHomePage.openCasinoGameByUrl(GAME_HALL);
         log("Verify 2: User could not access product and was brought back to home page");

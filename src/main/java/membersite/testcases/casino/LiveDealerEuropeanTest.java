@@ -76,9 +76,8 @@ public class LiveDealerEuropeanTest extends BaseCaseTest {
         log("@Precondition: Account has been disable Live Dealer European in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Live Dealer European on header menu");
-        memberHomePage.clickProduct(LIVE_DEALER_TEXT);
         log("Verify 1: The product should not displayed on header menu to prevent user from accessing");
-        Assert.assertFalse(memberHomePage.isCasinoProductDisplayed(MAPPING_CASINO_PRODUCT_UI.get("LIVE_DEALER_EUROPEAN")), "FAILED! Inactive product still displays on header menu");
+        Assert.assertFalse(memberHomePage.isProductDisplayed(LIVE_DEALER_TEXT), "FAILED! Inactive product still displays on header menu");
         log("@Step 3: Access Live Dealer European by external link (e.g.: /home/live-dealer/ezugi)");
         LiveDealerEuropean liveDealerEuropean = (LiveDealerEuropean) memberHomePage.openCasinoGameByUrl(LIVE_DEALER_EURO);
         log("Verify 2: User could not access product and was brought back to home page");

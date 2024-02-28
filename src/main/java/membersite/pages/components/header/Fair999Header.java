@@ -261,11 +261,12 @@ public class Fair999Header extends Header1 {
                 productTab = "Lottery & Slots";
             } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("EXCH_GAMES"))) {
                 productTab = "Exchange Games";
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("GAME_HALL"))) {
+                productTab = "Game Hall";
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("VIVO"))) {
+                productTab = "ViVo";
             }
-        } else {
-            productTab = "Live Dealer";
         }
-
         return Tab.xpath(String.format(this.productMenuXpath, productTab, productTab, productTab)).isDisplayed();
     }
     public void logout() {

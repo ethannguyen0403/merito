@@ -119,7 +119,8 @@ public class MemberConstants {
                 put("EZUGI", "Live Dealer European");
                 put("EXCH_GAMES", "Exchange Games");
                 put("VERONICA", "Supernowa Casino");
-
+                put("GAME_HALL", "Game Hall");
+                put("VIVO", "ViVo");
             }
         };
 

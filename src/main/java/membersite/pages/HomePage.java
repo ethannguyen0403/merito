@@ -156,9 +156,6 @@ public class HomePage extends LandingPage {
         header.clickProduct(product);
     }
 
-    public boolean isCasinoProductDisplayed(String product) {
-        return header.isCasinoProductDisplayed(product);
-    }
     public ProteusHomePage activePS38Product() {
         header.clickProduct(PS38);
         ProteusHomePage page = new ProteusHomePage(this._type);
