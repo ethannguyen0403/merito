@@ -29,8 +29,8 @@ public class CasinoConstant {
     public static final List<String> EVOLUTION_PRODUCTS_MENU = Arrays.asList("Evolution Black Jack", "Evolution Roulette", "Evolution Poker", "Evolution Game Shows", "Evolution Baccarat & Sic Bo");
     public static final Map<String, String> MAPPING_CASINO_PRODUCT_UI = new HashMap<String, String>() {
         {
-            put("QTECH", "");
-            put("EVOLUTION_WHITE_CLIFF", "");
+            put("QTECH", "Q-tech");
+            put("EVOLUTION_WHITE_CLIFF", "Evolution");
             put("SUPERNOWA_CASINO", "Supernowa Casino");
             put("EVOLUTION", "Evolution");
             put("LOTTERY_SLOTS", "Lottery & Slots");
@@ -54,17 +54,4 @@ public class CasinoConstant {
             put("Lottery & Slots", "/home/lottery-slots");
         }
     };
-
-    public static final Map<String, String> CASINO_PRODUCTS_SUFFIX_LINK = new HashMap<String, String>() {
-        {
-            put(CasinoProduct.SUPERNOWA_CASINO.toString(), "veronica/supernowa");
-            put(CasinoProduct.PRAGMATIC.toString(), "veronica/pragmatic");
-            put(CasinoProduct.LIVE_DEALER_ASIAN.toString(), "live-dealer/super-spade");
-            put(CasinoProduct.LOTTERY_SLOTS.toString(), "lottery-slots");
-            put(CasinoProduct.EVOLUTION.toString(), "live-dealer/ezugi");
-            put(CasinoProduct.QTECH.toString(), "custom?code=QTECH");
-            put(CasinoProduct.EVOLUTION_WHITE_CLIFF.toString(), "custom?code=WHITECLIFF");
-        }
-    };
-
 }

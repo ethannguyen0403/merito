@@ -6,7 +6,7 @@ import common.MemberConstants;
 import membersite.controls.DropDownMenu;
 import membersite.objects.AccountBalance;
 import membersite.pages.*;
-import membersite.pages.casino.CasinoProduct;
+import membersite.pages.casino.*;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.signinform.SATSignInPopup;
@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
+import static common.CasinoConstant.MAPPING_CASINO_PRODUCT_UI;
 
 public class SatHeader extends Header1 {
     Image imgLogo = Image.xpath("//a[contains(@class,'logo')]");
@@ -144,20 +146,48 @@ public class SatHeader extends Header1 {
         tabExchangeGames.click();
     }
 
-//    @Override
-//    public void openCasinoGame(CasinoProduct product) {
-//        if (product.equals(CasinoProduct.EVOLUTION) || product.equals(CasinoProduct.LIVE_DEALER_ASIAN)) {
-//            clickProduct("Casino");
-//            if(product.equals(CasinoProduct.LIVE_DEALER_ASIAN)){
-//                clickProduct(product.toString());
-//                return;
-//            }
-//            clickProduct("European Room");
-//            Tab.xpath(String.format("//div[contains(@class, 'european-room')]//span[text()='%s']", product.toString())).click();
-//            return;
-//        }
-//        clickProduct(product.toString());
-//    }
+    @Override
+    public LiveDealerAsian openLiveDealerAsian() {
+        clickProduct("Casino");
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LIVE_DEALER_ASIAN"));
+        return new LiveDealerAsian();
+    }
+
+    @Override
+    public LiveDealerEuropean openLiveDealerEuro() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LIVE_DEALER_EUROPEAN"));
+        return new LiveDealerEuropean();
+    }
+
+    @Override
+    public Evolution openEvolution() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION"));
+        return new Evolution();
+    }
+
+    @Override
+    public LotterySlots openLotteryAndSlots() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LOTTERY_SLOTS"));
+        return new LotterySlots();
+    }
+
+    @Override
+    public Pragmatic openPragmatic() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("PRAGMATIC"));
+        return new Pragmatic();
+    }
+
+    @Override
+    public SupernowaCasino openSupernowa() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("SUPERNOWA_CASINO"));
+        return new SupernowaCasino();
+    }
+
+    @Override
+    public EvolutionWhiteCliff openEvolutionWhiteCliff() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION_WHITE_CLIFF"));
+        return new EvolutionWhiteCliff();
+    }
 
     public void clickProduct(String product) {
         Tab productTab = Tab.xpath(String.format("//a[text()=' %s '] | //a[text()='%s']", product, product));

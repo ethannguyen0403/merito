@@ -54,10 +54,11 @@ public class LiveDealerAsianTest extends BaseCaseTest {
         log("@title: Validate balance in Live Dealer Asian game match with user's balance");
         log("@Precondition: Account has been activated Live Dealer Asian game in Agent Site" +
                 "The currency convert rate in BO(Provider Currency Mapping) between provider and supported currency is 1:1");
+        double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Live Dealer Asian on header menu");
         LiveDealerAsian dealerAsian = memberHomePage.openLiveDealerAsian();
-        double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
+
 
         log("@Step 3: Click on first product");
         dealerAsian.openGameByIndex("1");
@@ -73,17 +74,14 @@ public class LiveDealerAsianTest extends BaseCaseTest {
     }
 
     @TestRails(id = "20258")
-    @Test(groups = {"casino", "Casino.2024.V.1.0"})
-    @Parameters({"userDeactivateCasino", "password"})
-    public void Casino_Test_TC20258(String userDeactivateCasino, String password) throws Exception{
+    @Test(groups = {"casino_product_inactive", "Casino.2024.V.1.0_product_inactive"})
+    public void Casino_Test_TC20258() {
         log("@title: Validate could not access Live Dealer Asian when disable product");
         log("@Precondition: Account has been activated Live Dealer Asian game in Agent Site");
         log("@Step 1: Login member site with precondition account");
-        memberHomePage.logout();
-        HomePage homePage =  memberHomePage.login(userDeactivateCasino, StringUtils.decrypt(password), true);
         log("@Step 2: Access Pragmatic on header menu");
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
-        Assert.assertTrue(!homePage.header.isProductTabDisplay(CasinoProduct.LIVE_DEALER_ASIAN.toString()), "FAILED! Live Dealer Asian display on homepage menu.");
+        Assert.assertTrue(!memberHomePage.header.isProductTabDisplay(CasinoProduct.LIVE_DEALER_ASIAN.toString()), "FAILED! Live Dealer Asian display on homepage menu.");
         log("@Step 3: Access Live Dealer Asian by external link");
         LiveDealerAsian dealerAsian = (LiveDealerAsian) memberHomePage.openCasinoGameByUrl(LIVE_DEALER_ASIAN);
         log("@Verify 2: User could not access product and was brought back to home page");
