@@ -72,6 +72,7 @@ public class Header1 {
     public EvolutionWhiteCliff openEvolutionWhiteCliff(){return null;}
     public GameHall openGameHall(){return null;}
     public Vivo openVivo(){return null;}
+    public Ion openIon(){return null;}
     public void clickProduct(String product) {
     }
 

@@ -222,6 +222,14 @@ public class Fair999Header extends Header1 {
         DriverManager.getDriver().switchToFrame(countIframesInPage-1);
         return new Vivo();
     }
+    @Override
+    public Ion openIon() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("ION"));
+        waitSpinLoad();
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
+        return new Ion();
+    }
     public void clickProduct(String product) {
         Tab productTab = Tab.xpath(String.format("//a[contains(text(),'%s')]", product));
         productTab.click();

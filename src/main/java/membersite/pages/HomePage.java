@@ -123,6 +123,9 @@ public class HomePage extends LandingPage {
     public Vivo openVivo(){
         return header.openVivo();
     }
+    public Ion openIon(){
+        return header.openIon();
+    }
 //    public CasinoHomePage openCasinoGameByLink(CasinoProduct product, String url){
 //        DriverManager.getDriver().get(url);
 //        CasinoHomePage page = new CasinoHomePage(_type, product);

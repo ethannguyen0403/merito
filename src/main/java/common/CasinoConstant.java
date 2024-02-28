@@ -29,6 +29,8 @@ public class CasinoConstant {
                     "Evolution Roulette", "Evolution Poker", "Evolution Game Shows");
     public static final List<String> VIVO_PRODUCTS_MENU =
             Arrays.asList("ALL", "ROULETTE", "BLACKJACK", "LIMITLESS BLACKJACK","BACCARAT", "CASINO HOLD'EM","TEEN PATTI", "ANDAR BAHAR");
+    public static final List<String> ION_PRODUCTS_MENU =
+            Arrays.asList("Baccarat", "Dragon Tiger", "Roulette", "Sicbo","Baccarat VIP", "P2P Baccarat");
 //    public static final List<String> GAME_HALL_PRODUCTS_MENU =
 //            Arrays.asList("E1SPORT", "FC", "HORSEBOOK", "JDB", "JILI", "KINGMAKER", "LUDO", "PG", "PP", "RT", "SEXYBCRT", "SPADE", "SV388", "VENUS", "YL");
     public static final List<String> PRAGMATIC_HEADER_MENU = Arrays.asList("", "Video Slots", "Blackjack", "Classic Slots", "Baccarat", "Baccarat New", "Roulette", "Scratch card", "Live games", "RGS - VSB");
@@ -44,7 +46,7 @@ public class CasinoConstant {
             put("LIVE_DEALER_EUROPEAN", "European Room");
             put("GAME_HALL", "Game Hall");
             put("VIVO", "ViVo");
-            put("ION", "");
+            put("ION", "Ion");
             put("PRAGMATIC", "Pragmatic");
         }
     };
