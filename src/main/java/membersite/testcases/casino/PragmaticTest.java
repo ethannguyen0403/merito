@@ -72,17 +72,14 @@ public class PragmaticTest extends BaseCaseTest {
     }
 
     @TestRails(id = "20263")
-    @Test(groups = {"casino", "Casino.2024.V.1.0"})
-    @Parameters({"userDeactivateCasino", "password"})
-    public void Casino_Test_TC20263(String userDeactivateCasino, String password) throws Exception{
+    @Test(groups = {"casino_product_inactive", "Casino.2024.V.1.0_product_inactive"})
+    public void Casino_Test_TC20263() {
         log("@title: Validate could not access Pragmatic when disable product");
         log("@Precondition: Account has been activated Pragmatic game in Agent Site");
         log("@Step 1: Login member site with precondition account");
-        memberHomePage.logout();
-        HomePage homePage =  memberHomePage.login(userDeactivateCasino, StringUtils.decrypt(password), true);
         log("@Step 2: Access Pragmatic on header menu");
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
-        Assert.assertTrue(!homePage.header.isProductTabDisplay(CasinoProduct.PRAGMATIC.toString()), "FAILED! Supernowa display on homepage menu.");
+        Assert.assertTrue(!memberHomePage.header.isProductTabDisplay(CasinoProduct.PRAGMATIC.toString()), "FAILED! Pragmatic display on homepage menu.");
         log("@Step 2: Access Pragmatic by external link");
         Pragmatic pragmatic = (Pragmatic) memberHomePage.openCasinoGameByUrl(PRAGMATIC);
         log("@Verify 2: User could not access product and was brought back to home page");

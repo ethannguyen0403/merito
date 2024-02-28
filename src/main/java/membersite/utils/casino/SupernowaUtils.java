@@ -15,9 +15,9 @@ public class SupernowaUtils extends CasinoUtils{
 
     protected double getBalance(CasinoProduct product) {
         double balance = -1;
-        getLaunchURLCasino(product);
-        String token = getLaunchURLCasino(product).split("Token=")[1];
-        String urlCasino = getLaunchURLCasino(product).split("lobby?")[0];
+        String launchURL = getLaunchURLCasino(product);
+        String token = launchURL.split("Token=")[1];
+        String urlCasino = launchURL.split("lobby?")[0];
         String endpoint = String.format("%sapi/Game/GetLobby?token=%s", urlCasino, token);
         Map<String, String> headersParam = new HashMap<String, String>() {
             {
