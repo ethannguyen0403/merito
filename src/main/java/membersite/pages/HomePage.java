@@ -117,6 +117,12 @@ public class HomePage extends LandingPage {
     public EvolutionWhiteCliff openEvolutionWhiteCliff(){
         return header.openEvolutionWhiteCliff();
     }
+    public GameHall openGameHall(){
+        return header.openGameHall();
+    }
+    public Vivo openVivo(){
+        return header.openVivo();
+    }
 //    public CasinoHomePage openCasinoGameByLink(CasinoProduct product, String url){
 //        DriverManager.getDriver().get(url);
 //        CasinoHomePage page = new CasinoHomePage(_type, product);
@@ -138,6 +144,10 @@ public class HomePage extends LandingPage {
             return new SupernowaCasino();
         }  else if (productName.equalsIgnoreCase(LIVE_DEALER_ASIAN)) {
             return new LiveDealerAsian();
+        } else if (productName.equalsIgnoreCase(GAME_HALL)) {
+            return new GameHall();
+        } else if (productName.equalsIgnoreCase(VIVO)) {
+            return new Vivo();
         }
         return null;
     }
@@ -146,9 +156,6 @@ public class HomePage extends LandingPage {
         header.clickProduct(product);
     }
 
-    public boolean isCasinoProductDisplayed(String product) {
-        return header.isCasinoProductDisplayed(product);
-    }
     public ProteusHomePage activePS38Product() {
         header.clickProduct(PS38);
         ProteusHomePage page = new ProteusHomePage(this._type);

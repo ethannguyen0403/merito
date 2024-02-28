@@ -37,10 +37,10 @@ public class EvolutionWhiteCliffTest extends BaseCaseTest {
     public void Casino_Test_TC20244(String BOLoginId, String BOLoginPwd, String currency) throws Exception {
         log("@title: Validate balance in Evolution (WhiteCliff) game match with user's balance");
         log("@Precondition: Account has been activated Evolution (WhiteCliff) game in Agent Site");
+        double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Pragmatic on header menu");
         EvolutionWhiteCliff evolutionWhiteCliff = memberHomePage.openEvolutionWhiteCliff();
-        double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
 
         log("@Step 3: Click on first game");
         evolutionWhiteCliff.openGameByIndex("1");
@@ -55,17 +55,14 @@ public class EvolutionWhiteCliffTest extends BaseCaseTest {
     }
 
     @TestRails(id = "20255")
-    @Test(groups = {"casino", "Casino.2024.V.1.0"})
-    @Parameters({"userDeactivateCasino", "password"})
-    public void Casino_Test_TC20255(String userDeactivateCasino, String password) throws Exception{
+    @Test(groups = {"casino_product_inactive", "Casino.2024.V.1.0_product_inactive"})
+    public void Casino_Test_TC20255() {
         log("@title: Validate could not access Evolution (WhiteCliff) when disable product");
         log("@Precondition: Account has been activated  Evolution (WhiteCliff) game in Agent Site");
         log("@Step 1: Login member site with precondition account");
-        memberHomePage.logout();
-        HomePage homePage =  memberHomePage.login(userDeactivateCasino, StringUtils.decrypt(password), true);
         log("@Step 2: Access Evolution (WhiteCliff) on header menu");
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
-        Assert.assertTrue(!homePage.header.isProductTabDisplay(CasinoProduct.EVOLUTION_WHITE_CLIFF.toString()), "FAILED! Access Evolution (WhiteCliff) display on homepage menu.");
+        Assert.assertTrue(!memberHomePage.header.isProductTabDisplay(CasinoProduct.EVOLUTION_WHITE_CLIFF.toString()), "FAILED! Access Evolution (WhiteCliff) display on homepage menu.");
         log("@Step 3: Access Pragmatic by external link");
         EvolutionWhiteCliff evolutionWhiteCliff = (EvolutionWhiteCliff) memberHomePage.openCasinoGameByUrl(EVOLUTION_WHITE_CLIFF);
         log("@Verify 2: User could not access product and was brought back to home page");

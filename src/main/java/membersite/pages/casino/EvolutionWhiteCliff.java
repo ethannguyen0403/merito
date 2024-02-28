@@ -16,7 +16,8 @@ public class EvolutionWhiteCliff {
     public EvolutionWhiteCliff() {
         // wait for iframe load
         try {
-            Thread.sleep(3000);
+            Thread.sleep(4000);
+            DriverManager.getDriver().switchToFrame(0);
             DriverManager.getDriver().switchToFrame(0);
         } catch (Exception e) {
         }
