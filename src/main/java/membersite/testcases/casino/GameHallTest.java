@@ -22,7 +22,7 @@ public class GameHallTest extends BaseCaseTest {
         log("@Step 2: Access Game Hall on header menu");
         GameHall gameHall = memberHomePage.openGameHall();
         log("@Verify 1: The W logo is displayed on iframe");
-        Assert.assertTrue(gameHall.imgLogo.isDisplayed(), "FAILED! Logo W is not displayed");
+        Assert.assertTrue(gameHall.isLogoDisplayed(), "FAILED! Logo W is not displayed");
         log("INFO: Executed completely");
     }
 

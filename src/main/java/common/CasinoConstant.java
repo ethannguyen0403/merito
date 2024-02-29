@@ -1,13 +1,12 @@
 package common;
 
-import membersite.pages.casino.CasinoProduct;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CasinoConstant {
+    public static String LIVE_DEALER_TEXT = "Live Dealer";
     public static String LIVE_DEALER_EURO = "Live Dealer European";
     public static String LIVE_DEALER_ASIAN = "Live Dealer Asian";
     public static String EVOLUTION = "Evolution";
@@ -17,7 +16,7 @@ public class CasinoConstant {
     public static String LOTTERY_AND_SLOTS = "Lottery & Slots";
     public static String GAME_HALL = "Game Hall";
     public static String VIVO = "ViVo";
-    public static String LIVE_DEALER_TEXT = "Live Dealer";
+    public static String CASINO = "Casino";
     public static final List<String> ERROR_CODE_LIST = Arrays.asList("403", "405");
     public static final List<String> LOTTERY_SLOTS_HEADER_MENU = Arrays.asList("", "Slots games", "Table games", "Draw games", "Sport games", "Roulette games");
     public static final List<String> LIVE_DEALER_ASIAN_PRODUCTS_MENU =
@@ -31,8 +30,6 @@ public class CasinoConstant {
             Arrays.asList("ALL", "ROULETTE", "BLACKJACK", "LIMITLESS BLACKJACK","BACCARAT", "CASINO HOLD'EM","TEEN PATTI", "ANDAR BAHAR");
     public static final List<String> ION_PRODUCTS_MENU =
             Arrays.asList("Baccarat", "Dragon Tiger", "Roulette", "Sicbo","Baccarat VIP", "P2P Baccarat");
-//    public static final List<String> GAME_HALL_PRODUCTS_MENU =
-//            Arrays.asList("E1SPORT", "FC", "HORSEBOOK", "JDB", "JILI", "KINGMAKER", "LUDO", "PG", "PP", "RT", "SEXYBCRT", "SPADE", "SV388", "VENUS", "YL");
     public static final List<String> PRAGMATIC_HEADER_MENU = Arrays.asList("", "Video Slots", "Blackjack", "Classic Slots", "Baccarat", "Baccarat New", "Roulette", "Scratch card", "Live games", "RGS - VSB");
     public static final List<String> EVOLUTION_PRODUCTS_MENU = Arrays.asList("Evolution Black Jack", "Evolution Roulette", "Evolution Poker", "Evolution Game Shows", "Evolution Baccarat & Sic Bo");
     public static final Map<String, String> MAPPING_CASINO_PRODUCT_UI = new HashMap<String, String>() {

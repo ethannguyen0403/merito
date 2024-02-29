@@ -205,10 +205,9 @@ public class Fair999Header extends Header1 {
     @Override
     public GameHall openGameHall() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("GAME_HALL"));
-        waitSpinLoad();
-        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
-        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
-        return new GameHall();
+        GameHall gameHall = new GameHall();
+        gameHall.waitFrameLoad();
+        return gameHall;
     }
     @Override
     public EvolutionWhiteCliff openEvolutionWhiteCliff() {
@@ -217,17 +216,13 @@ public class Fair999Header extends Header1 {
     @Override
     public Vivo openVivo() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("VIVO"));
-        waitSpinLoad();
-        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
-        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
-        return new Vivo();
+        Vivo vivo = new Vivo();
+        vivo.waitFrameLoad();
+        return vivo;
     }
     @Override
     public Ion openIon() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("ION"));
-        waitSpinLoad();
-        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
-        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
         return new Ion();
     }
     public void clickProduct(String product) {

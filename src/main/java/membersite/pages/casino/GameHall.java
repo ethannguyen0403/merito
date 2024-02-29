@@ -7,9 +7,6 @@ import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import org.openqa.selenium.By;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GameHall extends CasinoHomePage{
@@ -17,15 +14,20 @@ public class GameHall extends CasinoHomePage{
     private Button btnShowHideBalance = Button.xpath("//div[@id='app']//header//li[contains(@class,'justify-self-end')]//button");
     private Label lblBalance = Label.xpath("//div[@id='app']//header//li[@class='flex-center']/span[2]");
     String xpathProducts = "//div[@id='app']//div[@class='flex-center flex-wrap']//div[contains(@class,'text-platformName')]";
+    private Label lblLoadingText = Label.xpath("//div[@class='loading-text']");
     public Link lnkProductsList = Link.xpath(xpathProducts);
 
-    public List<String> getProductsList() {
-        List<String> lblList = new ArrayList<>();
-        new ArrayList<>(lnkProductsList.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
-        return lblList;
+    public void waitFrameLoad() {
+        lblLoadingText.waitForControlInvisible(2, 7);
+    }
+
+    public boolean isLogoDisplayed() {
+        switchToLastFrame();
+        return imgLogo.isDisplayed();
     }
 
     public void openRandomGame() {
+        switchToLastFrame();
         int randomNum = ThreadLocalRandom.current().nextInt(1, lnkProductsList.getWebElements().size() + 1);
         BaseElement targetGame = new BaseElement(By.xpath(String.format("(%s)[%s]", xpathProducts, randomNum)));
         targetGame.scrollToThisControl(false);
@@ -39,6 +41,7 @@ public class GameHall extends CasinoHomePage{
     }
 
     public double getCasinoBalance() {
+        switchToLastFrame();
         if(lblBalance.getText().contains("*")) {
             btnShowHideBalance.click();
         }

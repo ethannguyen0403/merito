@@ -13,12 +13,12 @@ import membersite.pages.components.signinform.SATSignInPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
 import membersite.utils.betplacement.BetUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import static common.CasinoConstant.CASINO;
 import static common.CasinoConstant.MAPPING_CASINO_PRODUCT_UI;
 
 public class SatHeader extends Header1 {
@@ -148,13 +148,14 @@ public class SatHeader extends Header1 {
 
     @Override
     public LiveDealerAsian openLiveDealerAsian() {
-        clickProduct("Casino");
+        clickProduct(CASINO);
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LIVE_DEALER_ASIAN"));
         return new LiveDealerAsian();
     }
 
     @Override
     public LiveDealerEuropean openLiveDealerEuro() {
+        clickProduct(CASINO);
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LIVE_DEALER_EUROPEAN"));
         return new LiveDealerEuropean();
     }
@@ -189,6 +190,20 @@ public class SatHeader extends Header1 {
         return new EvolutionWhiteCliff();
     }
 
+    @Override
+    public GameHall openGameHall() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("GAME_HALL"));
+        GameHall gameHall = new GameHall();
+        gameHall.waitFrameLoad();
+        return new GameHall();
+    }
+    @Override
+    public Vivo openVivo() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("VIVO"));
+        Vivo vivo = new Vivo();
+        vivo.waitFrameLoad();
+        return vivo;
+    }
     public void clickProduct(String product) {
         Tab productTab = Tab.xpath(String.format("//a[text()=' %s '] | //a[text()='%s']", product, product));
         productTab.click();
