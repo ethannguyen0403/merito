@@ -12,9 +12,9 @@ import java.util.logging.Level;
 
 public class CasinoHomePage {
 
-    public SupernowaCasino supernowa;
-    public Pragmatic pragmatic;
-    public Evolution evolution;
+    public SupernowaCasinoPage supernowa;
+    public PragmaticPage pragmaticPage;
+    public EvolutionPage evolutionPage;
 
     public boolean verifyConsoleLogNotContainValue(List<String> values) {
         List<LogEntry> entriesConsole = DriverManager.getDriver().manage().logs().get(LogType.BROWSER).getAll();

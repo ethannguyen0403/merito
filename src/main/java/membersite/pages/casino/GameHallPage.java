@@ -9,7 +9,7 @@ import com.paltech.element.common.Link;
 import org.openqa.selenium.By;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GameHall extends CasinoHomePage{
+public class GameHallPage extends CasinoHomePage{
     public Image imgLogo = Image.xpath("//div[@id='app']//header//a[contains(@class,'w-logo')]//img");
     private Button btnShowHideBalance = Button.xpath("//div[@id='app']//header//li[contains(@class,'justify-self-end')]//button");
     private Label lblBalance = Label.xpath("//div[@id='app']//header//li[@class='flex-center']/span[2]");

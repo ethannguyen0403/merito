@@ -63,16 +63,16 @@ public class Header1 {
     }
 
 //    public void openCasinoGame(CasinoProduct product){return;}
-    public LiveDealerAsian openLiveDealerAsian(){return null;}
-    public LiveDealerEuropean openLiveDealerEuro(){return null;}
-    public Evolution openEvolution(){return null;}
-    public LotterySlots openLotteryAndSlots(){return null;}
-    public Pragmatic openPragmatic(){return null;}
-    public SupernowaCasino openSupernowa(){return null;}
-    public EvolutionWhiteCliff openEvolutionWhiteCliff(){return null;}
-    public GameHall openGameHall(){return null;}
-    public Vivo openVivo(){return null;}
-    public Ion openIon(){return null;}
+    public LiveDealerAsianPage openLiveDealerAsian(){return null;}
+    public LiveDealerEuropeanPage openLiveDealerEuro(){return null;}
+    public EvolutionPage openEvolution(){return null;}
+    public LotterySlotsPage openLotteryAndSlots(){return null;}
+    public PragmaticPage openPragmatic(){return null;}
+    public SupernowaCasinoPage openSupernowa(){return null;}
+    public EvolutionWhiteCliffPage openEvolutionWhiteCliff(){return null;}
+    public GameHallPage openGameHall(){return null;}
+    public VivoPage openVivo(){return null;}
+    public IonPage openIon(){return null;}
     public void clickProduct(String product) {
     }
 

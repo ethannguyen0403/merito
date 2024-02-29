@@ -7,13 +7,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class EvolutionWhiteCliff {
+public class EvolutionWhiteCliffPage {
 
     public Icon iconLogo = Icon.xpath("//*[@alt='casino-logo']");
     String imgItemsListXpath = "//*[contains(@data-role, 'grid-list-item')]";
     Label lblBalance = Label.xpath("//*[contains(@data-role,'balance') and not(contains(@class, 'title'))]");
     Button btnPlay = Button.xpath("//button[@data-role='play-button']");
-    public EvolutionWhiteCliff() {
+    public EvolutionWhiteCliffPage() {
         // wait for iframe load
         try {
             Thread.sleep(4000);

@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pragmatic extends CasinoHomePage {
+public class PragmaticPage extends CasinoHomePage {
 
     public Label lblHeaderMenu = Label.xpath("//app-pragmatic//div[contains(@class, 'pragmatic-game-menu')]//ul/li");
     String xpathImageGameList = "//a[@class='game-element-container']";

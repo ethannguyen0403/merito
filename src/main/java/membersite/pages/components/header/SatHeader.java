@@ -147,62 +147,62 @@ public class SatHeader extends Header1 {
     }
 
     @Override
-    public LiveDealerAsian openLiveDealerAsian() {
+    public LiveDealerAsianPage openLiveDealerAsian() {
         clickProduct(CASINO);
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LIVE_DEALER_ASIAN"));
-        return new LiveDealerAsian();
+        return new LiveDealerAsianPage();
     }
 
     @Override
-    public LiveDealerEuropean openLiveDealerEuro() {
+    public LiveDealerEuropeanPage openLiveDealerEuro() {
         clickProduct(CASINO);
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LIVE_DEALER_EUROPEAN"));
-        return new LiveDealerEuropean();
+        return new LiveDealerEuropeanPage();
     }
 
     @Override
-    public Evolution openEvolution() {
+    public EvolutionPage openEvolution() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION"));
-        return new Evolution();
+        return new EvolutionPage();
     }
 
     @Override
-    public LotterySlots openLotteryAndSlots() {
+    public LotterySlotsPage openLotteryAndSlots() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LOTTERY_SLOTS"));
-        return new LotterySlots();
+        return new LotterySlotsPage();
     }
 
     @Override
-    public Pragmatic openPragmatic() {
+    public PragmaticPage openPragmatic() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("PRAGMATIC"));
-        return new Pragmatic();
+        return new PragmaticPage();
     }
 
     @Override
-    public SupernowaCasino openSupernowa() {
+    public SupernowaCasinoPage openSupernowa() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("SUPERNOWA_CASINO"));
-        return new SupernowaCasino();
+        return new SupernowaCasinoPage();
     }
 
     @Override
-    public EvolutionWhiteCliff openEvolutionWhiteCliff() {
+    public EvolutionWhiteCliffPage openEvolutionWhiteCliff() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION_WHITE_CLIFF"));
-        return new EvolutionWhiteCliff();
+        return new EvolutionWhiteCliffPage();
     }
 
     @Override
-    public GameHall openGameHall() {
+    public GameHallPage openGameHall() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("GAME_HALL"));
-        GameHall gameHall = new GameHall();
-        gameHall.waitFrameLoad();
-        return new GameHall();
+        GameHallPage gameHallPage = new GameHallPage();
+        gameHallPage.waitFrameLoad();
+        return new GameHallPage();
     }
     @Override
-    public Vivo openVivo() {
+    public VivoPage openVivo() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("VIVO"));
-        Vivo vivo = new Vivo();
-        vivo.waitFrameLoad();
-        return vivo;
+        VivoPage vivoPage = new VivoPage();
+        vivoPage.waitFrameLoad();
+        return vivoPage;
     }
     public void clickProduct(String product) {
         Tab productTab = Tab.xpath(String.format("//a[text()=' %s '] | //a[text()='%s']", product, product));

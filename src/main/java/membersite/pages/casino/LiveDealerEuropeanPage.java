@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class LiveDealerEuropean extends CasinoHomePage{
+public class LiveDealerEuropeanPage extends CasinoHomePage{
     String xpathProducts = "//app-ezugi//div[contains(@class,'menu-product')]//a";
     public Link lnkProductsList = Link.xpath(xpathProducts);
     Label lblBalance = Label.xpath("//span[@data-e2e='balance']");

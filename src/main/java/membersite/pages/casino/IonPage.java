@@ -5,7 +5,7 @@ import com.paltech.element.common.Link;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ion extends CasinoHomePage{
+public class IonPage extends CasinoHomePage{
     Link lnkProductList = Link.xpath("//div[contains(@class,'obbySelection')]//label[@data-vendor='name']");
 
     public List<String> getProductsList() {

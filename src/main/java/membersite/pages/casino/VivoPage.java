@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Vivo extends CasinoHomePage{
+public class VivoPage extends CasinoHomePage{
     String xpathProducts = "//div[@id='games-view']//div[@class='table game-thumb']";
     private Label lblBalanceValue = Label.xpath("//div[@class='user-balance-button']//span[2]");
     public Link lnkHeaderProductsLst = Link.xpath("//div[@id='categories-view']//div[@class='category ui-button selected' or @class='category ui-button']");

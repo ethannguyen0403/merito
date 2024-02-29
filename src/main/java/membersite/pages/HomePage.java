@@ -96,34 +96,34 @@ public class HomePage extends LandingPage {
 //        return page;
 //    }
 
-    public Evolution openEvolution(){
+    public EvolutionPage openEvolution(){
         return header.openEvolution();
     }
-    public LiveDealerAsian openLiveDealerAsian(){
+    public LiveDealerAsianPage openLiveDealerAsian(){
         return header.openLiveDealerAsian();
     }
-    public LiveDealerEuropean openLiveDealerEuro(){
+    public LiveDealerEuropeanPage openLiveDealerEuro(){
         return header.openLiveDealerEuro();
     }
-    public LotterySlots openLotteryAndSlots(){
+    public LotterySlotsPage openLotteryAndSlots(){
         return header.openLotteryAndSlots();
     }
-    public Pragmatic openPragmatic(){
+    public PragmaticPage openPragmatic(){
         return header.openPragmatic();
     }
-    public SupernowaCasino openSupernowa(){
+    public SupernowaCasinoPage openSupernowa(){
         return header.openSupernowa();
     }
-    public EvolutionWhiteCliff openEvolutionWhiteCliff(){
+    public EvolutionWhiteCliffPage openEvolutionWhiteCliff(){
         return header.openEvolutionWhiteCliff();
     }
-    public GameHall openGameHall(){
+    public GameHallPage openGameHall(){
         return header.openGameHall();
     }
-    public Vivo openVivo(){
+    public VivoPage openVivo(){
         return header.openVivo();
     }
-    public Ion openIon(){
+    public IonPage openIon(){
         return header.openIon();
     }
 //    public CasinoHomePage openCasinoGameByLink(CasinoProduct product, String url){
@@ -136,21 +136,21 @@ public class HomePage extends LandingPage {
         String url = defineCasinoURL(_type,MAPPING_CASINO_PRODUCT_SUFFIX_URL.get(productName));
         DriverManager.getDriver().get(url);
         if (productName.equalsIgnoreCase(LIVE_DEALER_EURO)) {
-            return new LiveDealerEuropean();
+            return new LiveDealerEuropeanPage();
         } else if (productName.equalsIgnoreCase(EVOLUTION)) {
-            return new Evolution();
+            return new EvolutionPage();
         } else if (productName.equalsIgnoreCase(LOTTERY_AND_SLOTS)) {
-            return new LotterySlots();
+            return new LotterySlotsPage();
         } else if (productName.equalsIgnoreCase(PRAGMATIC)) {
-            return new Pragmatic();
+            return new PragmaticPage();
         } else if (productName.equalsIgnoreCase(SUPERNOWA)) {
-            return new SupernowaCasino();
+            return new SupernowaCasinoPage();
         }  else if (productName.equalsIgnoreCase(LIVE_DEALER_ASIAN)) {
-            return new LiveDealerAsian();
+            return new LiveDealerAsianPage();
         } else if (productName.equalsIgnoreCase(GAME_HALL)) {
-            return new GameHall();
+            return new GameHallPage();
         } else if (productName.equalsIgnoreCase(VIVO)) {
-            return new Vivo();
+            return new VivoPage();
         }
         return null;
     }
