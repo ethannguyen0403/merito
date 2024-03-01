@@ -12,7 +12,7 @@ import org.openqa.selenium.By;
 import java.util.*;
 
 
-public class LotterySlots extends CasinoHomePage {
+public class LotterySlotsPage extends CasinoHomePage {
 
     public Label lblHeaderMenu = Label.xpath("//div[contains(@class,'lottery-game-menu')]//ul/li");
     String xpathImageGameList = "//a[@class='game-element-container']";

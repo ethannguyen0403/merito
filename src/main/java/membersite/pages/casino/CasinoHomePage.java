@@ -1,6 +1,7 @@
 package membersite.pages.casino;
 
 import com.paltech.driver.DriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 
@@ -11,12 +12,9 @@ import java.util.logging.Level;
 
 public class CasinoHomePage {
 
-    public SupernowaCasino supernowa;
-    public Pragmatic pragmatic;
-    public LotterySlots lotterySlots;
-    public Evolution evolution;
-    public LiveDealerAsian dealerAsian;
-    public EvolutionWhiteCliff evolutionWhiteCliff;
+    public SupernowaCasinoPage supernowa;
+    public PragmaticPage pragmaticPage;
+    public EvolutionPage evolutionPage;
 
     public boolean verifyConsoleLogNotContainValue(List<String> values) {
         List<LogEntry> entriesConsole = DriverManager.getDriver().manage().logs().get(LogType.BROWSER).getAll();
@@ -69,5 +67,10 @@ public class CasinoHomePage {
             } catch (Exception e) {
             }
         } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
+    }
+
+    protected void switchToLastFrame() {
+        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
+        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
     }
 }

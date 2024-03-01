@@ -15,7 +15,6 @@ import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
-import org.openqa.selenium.By;
 
 import static common.CasinoConstant.LIVE_DEALER_TEXT;
 import static common.CasinoConstant.MAPPING_CASINO_PRODUCT_UI;
@@ -171,56 +170,59 @@ public class Fair999Header extends Header1 {
 //    }
 
     @Override
-    public Evolution openEvolution() {
+    public EvolutionPage openEvolution() {
         clickProduct(LIVE_DEALER_TEXT);
-        return new Evolution();
+        return new EvolutionPage();
     }
     @Override
-    public LiveDealerAsian openLiveDealerAsian() {
+    public LiveDealerAsianPage openLiveDealerAsian() {
         clickProduct(LIVE_DEALER_TEXT);
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LIVE_DEALER_ASIAN"));
-        return new LiveDealerAsian();
+        return new LiveDealerAsianPage();
     }
 
     @Override
-    public LiveDealerEuropean openLiveDealerEuro() {
+    public LiveDealerEuropeanPage openLiveDealerEuro() {
         clickProduct(LIVE_DEALER_TEXT);
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LIVE_DEALER_EUROPEAN"));
-        return new LiveDealerEuropean();
+        return new LiveDealerEuropeanPage();
     }
 
     @Override
-    public LotterySlots openLotteryAndSlots() {
-        return new LotterySlots();
+    public LotterySlotsPage openLotteryAndSlots() {
+        return new LotterySlotsPage();
     }
     @Override
-    public Pragmatic openPragmatic() {
-        return new Pragmatic();
+    public PragmaticPage openPragmatic() {
+        return new PragmaticPage();
     }
     @Override
-    public SupernowaCasino openSupernowa() {
-        return new SupernowaCasino();
+    public SupernowaCasinoPage openSupernowa() {
+        return new SupernowaCasinoPage();
     }
 
     @Override
-    public GameHall openGameHall() {
+    public GameHallPage openGameHall() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("GAME_HALL"));
-        waitSpinLoad();
-        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
-        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
-        return new GameHall();
+        GameHallPage gameHallPage = new GameHallPage();
+        gameHallPage.waitFrameLoad();
+        return gameHallPage;
     }
     @Override
-    public EvolutionWhiteCliff openEvolutionWhiteCliff() {
-        return new EvolutionWhiteCliff();
+    public EvolutionWhiteCliffPage openEvolutionWhiteCliff() {
+        return new EvolutionWhiteCliffPage();
     }
     @Override
-    public Vivo openVivo() {
+    public VivoPage openVivo() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("VIVO"));
-        waitSpinLoad();
-        int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
-        DriverManager.getDriver().switchToFrame(countIframesInPage-1);
-        return new Vivo();
+        VivoPage vivoPage = new VivoPage();
+        vivoPage.waitFrameLoad();
+        return vivoPage;
+    }
+    @Override
+    public IonPage openIon() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("ION"));
+        return new IonPage();
     }
     public void clickProduct(String product) {
         Tab productTab = Tab.xpath(String.format("//a[contains(text(),'%s')]", product));
