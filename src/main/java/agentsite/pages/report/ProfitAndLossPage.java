@@ -44,8 +44,8 @@ public class ProfitAndLossPage extends HomePage {
     public int colLayTurnover = 8;
     public int colLayPnl = 9;
     public int colTotalTax = 10;
-    public int colBalance = 11;
-    public Table tblDownLineProfitAndLoss = Table.xpath("//table[contains(@class , 'ptable report backlayTable')][2]", 11);
+    public int colBalance = 12;
+    public Table tblDownLineProfitAndLoss = Table.xpath("//table[contains(@class , 'ptable report backlayTable')][2]", 12);
     public Label lblNoRecordDowLinePL = Label.xpath("//table[contains(@class , 'ptable report backlayTable')][2]//td[@class='no-record']");
 
     public ProfitAndLossPage(String types) {

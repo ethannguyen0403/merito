@@ -11,4 +11,12 @@ public class CashBalanceSection {
     public String getCashSectionTitle() {return ""; }
     public void inputCashBalanceInfo(String creditInit, String firstTimeDeposit) {}
     public void inputCashBalanceInfo(String firstTimeDeposit) {}
+
+    public String getMaxPlayerCreditLimitSetting() {
+        return "";
+    }
+
+    public double getMaxPlayerLitmitCredit() {
+        return -1;
+    }
 }

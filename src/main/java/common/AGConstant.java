@@ -40,6 +40,7 @@ public class AGConstant {
     public final static List<String> MENULIST = Arrays.asList("Nickname", "Password", "Security code", "OTP");
     public final static List<String> MENULISTSAT = Arrays.asList("Password", "Security code", "OTP");
     public final static String LBL_WITHOUT_PERMISSION_ACCESS = "You are not allowed to view this page!";
+    public final static String CREDIT_LIMIT_ERROR_MSG = "Credit Limit is invalid.";
     public static final Map<String, String> LEVEL_TO_LEVEL_CODE = new HashMap<String, String>() {
         {
             put("Portal", "PO");
