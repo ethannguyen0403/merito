@@ -94,40 +94,40 @@ public class MA009_CancelOrderTest extends BaseCaseAPI {
     @Parameters({"username", "password"})
     @Test(groups = {"smoke"})
     public void MA009_CancelOrderTest_435(String username, String password) throws Exception {
-        log("@title: Validate can cancel unmatch orders");
-        log("Step 1 Access get event api to Cancel bet");
-        log("Step 2 Login with valid username and password");
+        log("@title:Validate can not cancel matched order");
+
+        log("Step Precondition 1:  Login with valid username and password");
         String sportID = "1";
         String passDes = StringUtils.decrypt(password);
         String token = LoginMemberUtils.loginAPISuccess(username, passDes).getMessage();
 
-        log("Step 3 Access get competition api");
+        log("Step Precondition2 Access get competition api");
         MemberInfo memberInfo = GetMemberInfoUtils.getMembrInfo(token);
 
         CompetitionResult competitionResult = GetCompetitionUtils.getCompetitionAPI(token, sportID, "false");
         int competitionId = competitionResult.getCompetitionList().get(1).getId();
 
-        log("Step 4 Access get event of the competition get in step 3");
+        log("Step Precondition 3 Access get event of the competition get in step 3");
         EventListResult resultObj = GetEventsUtils.getEventsAPI(token, sportID, "", Integer.toString(competitionId));
         String eventId = Integer.toString(resultObj.getEventList().get(0).getId());
 
-        log("Step 5 Access get all market of the event get in step 4 to get a market");
+        log("Step Precondition 4 Access get all market of the event get in step 4 to get a market");
         MarketResult marketResultObj = GetMarketCatalogUtils.getMarketCatalogAPI(token, sportID, eventId, Integer.toString(competitionId), "", "FIRST_TO_START");
         int totalMarket = marketResultObj.getMarketList().size();
         Market marketCatalog = marketResultObj.getMarketList().get(totalMarket - 1);
 
-        log("Step 6 Get Market Book");
+        log("Step Precondition 5 Get Market Book");
         MarketResult marketBookResultObj = GetMarketBookUtils.getMarketBookAPI(token, marketCatalog.getMarketId());
         Market marketBook = marketBookResultObj.getMarketList().get(0);
         String runnerId = Integer.toString(marketBook.getSelectionList().get(0).getid());
         String handicap = Double.toString(marketBook.getSelectionList().get(0).gethandicap());
-        String price = Double.toString(marketBook.getSelectionList().get(0).get_availableLay());
+        String price = Double.toString(marketBook.getSelectionList().get(0).get_availableBack());
         String size = Double.toString(memberInfo.getLstBetSetting().get(0).getMinBet());
         String orderType = "LIMIT";
-        String side = "LAY";
+        String side = "BACK";
         String persistenceType = "LAPSE";
 
-        log("Step 7 Place a matched LAY bet");
+        log("Step Precondition 6 Place a matched LAY bet");
         OrderResult orderResult = PlaceOrderUtils.placeOrder(token, eventId, runnerId, marketBook.getMarketId(), handicap, price, size, orderType, side, persistenceType);
         if (Objects.isNull(orderResult)) {
             log("By pass this test case as Lay odds to large. We only accept auto place Lay bet has odds <4, current odds odds is " + price);
@@ -136,7 +136,8 @@ public class MA009_CancelOrderTest extends BaseCaseAPI {
         }
         String betID = Integer.toString(orderResult.getOrderList().get(0).getBetId());
 
-        log("Step 8 Input unmatch order and cancel");
+        log("Step 1 Access get event api to Cancel bet");
+        log("Step 2  Input Matched order "+betID+" and submit");
         OrderResult cancelResult = CancelOrderUtils.cancelOrder(token, betID, "0");
 
         log(String.format("Verify can NOT cancel matched order: Bet ID: %s", orderResult.getOrderList().get(0).getBetId()));

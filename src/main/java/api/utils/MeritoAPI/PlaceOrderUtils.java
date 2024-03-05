@@ -37,13 +37,14 @@ public class PlaceOrderUtils {
 
     public static OrderResult placeOrder(String token, String eventId, String selectionId, String marketId, String handicap, String price, String size, String orderType, String side, String persistenceType) {
         if (side == "LAY") {
-            if (Double.parseDouble(price) < 4) {
-                System.out.println(String.format("Debug: Won place the bet as Lay Price = %s > 4", price));
+            // When odd Lay > 4, do not place bet on this selection
+            if (Double.parseDouble(price) > 4) {
+                System.out.println(String.format("Debug: Won't place the bet as Lay Price = %s > 4", price));
                 return null;
             }
         }
         if (Double.parseDouble(price) == 0) {
-            System.out.println(String.format("Debug: Won place the bet a Lay Price is empty", price));
+            System.out.println(String.format("Debug: Won't place the bet a Lay Price is empty", price));
             return null;
         }
         JSONObject jsonObject = placeOrderJson(token, eventId, selectionId, marketId, handicap, price, size, orderType, side, persistenceType);
