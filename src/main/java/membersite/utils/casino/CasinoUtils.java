@@ -4,7 +4,6 @@ package membersite.utils.casino;
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.WSUtils;
-import membersite.pages.casino.CasinoProduct;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -26,33 +25,13 @@ public class CasinoUtils {
         return rate;
     }
 
-    public String getLaunchURLCasino(CasinoProduct product) {
+    public static String getLaunchURLCasino(String product) {
         String url = "%s/member-service/product/game/login?code=%s";
-        String endPoint = String.format(url, domainURL, PRODUCT_NAME_TO_CODE.get(product.toString()));
+        String endPoint = String.format(url, domainURL, PRODUCT_NAME_TO_CODE.get(product));
         JSONObject jsonObject =
                 WSUtils.getGETJSONObjectWithCookies(endPoint, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),
                         Configs.HEADER_JSON);
         return  jsonObject.getString("launchURL");
-    }
-
-    public static double getBalanceCasino(CasinoProduct product) {
-        switch (product) {
-            case EVOLUTION:
-            case ION:
-            case VIVO:
-            case QTECH:
-            case GAME_HALL:
-            case PRAGMATIC:
-                return new PragmaticUtils().getBalance();
-            case SUPERNOWA_CASINO:
-                return new SupernowaUtils().getBalance(product);
-            case LOTTERY_SLOTS:
-            case LIVE_DEALER_ASIAN:
-            case LIVE_DEALER_EUROPEAN:
-            case EVOLUTION_WHITE_CLIFF:
-            default:
-                return -1;
-        }
     }
 
 }

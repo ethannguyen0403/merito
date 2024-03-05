@@ -8,9 +8,9 @@ import org.apache.http.util.EntityUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PragmaticUtils extends CasinoUtils{
+public class PragmaticUtils {
 
-    private String getMgckeyToken(){
+    private static String getMgckeyToken(){
         //extract Mgckey in url for api from url
         String url = DriverManager.getDriver().getCurrentUrl();
         Pattern pattern = Pattern.compile("mgckey=([^&]+)");
@@ -23,7 +23,7 @@ public class PragmaticUtils extends CasinoUtils{
         return null;
     }
 
-    protected double getBalance(){
+    public static double getBalance(){
         double balance = -1;
         String endPoint = String.format("%s/reloadBalance.do?mgckey=%s", DriverManager.getDriver().getCurrentUrl().split("/html")[0], getMgckeyToken());
         try {

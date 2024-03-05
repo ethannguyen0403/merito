@@ -12,9 +12,28 @@ import java.util.logging.Level;
 
 public class CasinoHomePage {
 
-    public SupernowaCasinoPage supernowa;
-    public PragmaticPage pragmaticPage;
-    public EvolutionPage evolutionPage;
+    public double getBalance() {
+        return -1;
+    }
+
+    public void checkBalance(double actual, double expected, double BORate) {
+
+    }
+
+    public List<String> getListProductsMenu() {
+        return null;
+    }
+
+    public void selectCasinoGame() {
+    }
+
+    public boolean verifyCasinoDisplay() {
+        return false;
+    }
+
+    public int getListProductSize() {
+        return -1;
+    }
 
     public boolean verifyConsoleLogNotContainValue(List<String> values) {
         List<LogEntry> entriesConsole = DriverManager.getDriver().manage().logs().get(LogType.BROWSER).getAll();

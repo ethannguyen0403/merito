@@ -5,6 +5,7 @@ import com.paltech.element.BaseElement;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,23 @@ public class LiveDealerEuropeanPage extends CasinoHomePage{
     public Link lnkProductsList = Link.xpath(xpathProducts);
     Label lblBalance = Label.xpath("//span[@data-e2e='balance']");
 
-    public List<String> getProductsList() {
+    @Override
+    public List<String> getListProductsMenu() {
         List<String> lblList = new ArrayList<>();
         new ArrayList<>(lnkProductsList.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
         return lblList;
     }
+
+    @Override
+    public int getListProductSize() {
+        return lnkProductsList.getWebElements().size();
+    }
+
+    @Override
+    public void selectCasinoGame() {
+        openRandomGame();
+    }
+
     public void openRandomGame() {
         int randomNum = ThreadLocalRandom.current().nextInt(1, lnkProductsList.getWebElements().size() + 1);
         BaseElement targetGame = new BaseElement(By.xpath(String.format("(%s)[%s]", xpathProducts, randomNum)));
@@ -45,7 +58,13 @@ public class LiveDealerEuropeanPage extends CasinoHomePage{
             waitUntilReadyState(6);
         }
     }
-    public double getCasinoBalance() {
+
+    public double getBalance() {
         return Double.valueOf(lblBalance.getAttribute("data-value").replace(",",""));
+    }
+
+    @Override
+    public void checkBalance(double actual,double expected, double BORate) {
+        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
     }
 }

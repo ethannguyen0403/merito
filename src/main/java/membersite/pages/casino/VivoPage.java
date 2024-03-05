@@ -6,6 +6,7 @@ import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +24,22 @@ public class VivoPage extends CasinoHomePage{
         imgSpinner.waitForControlInvisible(2, 7);
     }
 
-    public List<String> getProductsList() {
+    @Override
+    public List<String> getListProductsMenu() {
         switchToLastFrame();
         List<String> lblList = new ArrayList<>();
         new ArrayList<>(lnkHeaderProductsLst.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
         return lblList;
+    }
+
+    @Override
+    public int getListProductSize() {
+        return lnkHeaderProductsLst.getWebElements().size();
+    }
+
+    @Override
+    public void selectCasinoGame() {
+        openRandomGame();
     }
 
     public void openRandomGame() {
@@ -47,8 +59,14 @@ public class VivoPage extends CasinoHomePage{
         }
     }
 
-    public double getCasinoBalance() {
+    @Override
+    public double getBalance() {
         switchToLastFrame();
         return Double.valueOf(lblBalance.getText().replace(",",""));
+    }
+
+    @Override
+    public void checkBalance(double actual, double expected, double BORate) {
+        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
     }
 }
