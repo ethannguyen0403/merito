@@ -3,6 +3,9 @@ package membersite.pages.casino;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Tab;
+import org.testng.Assert;
+
+import static common.CasinoConstant.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +16,22 @@ public class EvolutionPage extends CasinoHomePage {
 
     public Label lblProducts = Label.xpath("//div[contains(@class, 'menu-product')]//a");
     public Tab tabEvolution =
-            Tab.xpath(String.format("//div[contains(@class, 'european-room')]//span[text()='%s']", CasinoProduct.EVOLUTION.toString()));
+            Tab.xpath(String.format("//div[contains(@class, 'european-room')]//span[text()='%s']", EVOLUTION));
     Label lblBalance = Label.xpath("//div[contains(@class, 'Balance-')]//span");
 
     public List<String> getListProductsMenu() {
         List<String> lblList = new ArrayList<>();
-        new ArrayList<>(lblProducts.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
+        try {
+            new ArrayList<>(lblProducts.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
+        }catch (Exception e){
+            System.out.println("DEBUG! Can not get list product");
+        }
         return lblList;
     }
 
-    public void selectProduct(String product) {
-        Label lblProduct = Label.xpath(String.format("//div[contains(@class, 'menu-product')]//a[contains(., '%s')]", product));
+    public void selectCasinoGame() {
+        List<String> product = getListProductsMenu();
+        Label lblProduct = Label.xpath(String.format("//div[contains(@class, 'menu-product')]//a[contains(., '%s')]", product.get(0)));
         lblProduct.click();
         waitToNewWindowOpen(6);
         DriverManager.getDriver().switchToWindow();
@@ -41,26 +49,7 @@ public class EvolutionPage extends CasinoHomePage {
         return Double.valueOf(matcher.group(0));
     }
 
-//    private void waitToNewWindowOpen(int timeCount) {
-//        int windowSize = 1;
-//        while (windowSize == 1 && timeCount > 0) {
-//            try {
-//                Thread.sleep(1000);
-//            } catch (Exception e) {
-//            }
-//            Set<String> handles = DriverManager.getDriver().getWindowHandles();
-//            windowSize = handles.size();
-//            timeCount--;
-//        }
-//    }
-//
-//    private void waitUntilReadyState(int timeCount) {
-//        do {
-//            timeCount--;
-//            try {
-//                Thread.sleep(2000);
-//            } catch (Exception e) {
-//            }
-//        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
-//    }
+    public void checkBalance(double actual, double expected, double BORate){
+        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
+    }
 }

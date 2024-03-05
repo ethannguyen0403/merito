@@ -62,6 +62,8 @@ public class MA011_GetListCurrentOrdersTest extends BaseCaseAPI {
         Assert.assertEquals(Integer.toString(lstOrderResut.getOrderList().get(0).getBetId()), betId, "FAILED! Bet ID matched is incorrect");
         Assert.assertEquals(lstOrderResut.getOrderList().size(), 1, "FAILED! Bet ID matched is incorrect");
 
+        log("Step 9 Post-condition: Cancel Unmatched bet");
+        CancelOrderUtils.cancelOrder(token, betId, "0");
         log("INFO: Executed completely");
     }
 
