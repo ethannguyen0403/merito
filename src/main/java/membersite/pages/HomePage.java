@@ -126,13 +126,8 @@ public class HomePage extends LandingPage {
     public IonPage openIon(){
         return header.openIon();
     }
-//    public CasinoHomePage openCasinoGameByLink(CasinoProduct product, String url){
-//        DriverManager.getDriver().get(url);
-//        CasinoHomePage page = new CasinoHomePage(_type, product);
-//        return page;
-//    }
 
-    public Object openCasinoGameByUrl(String productName){
+    public CasinoHomePage openCasinoGameByUrl(String productName){
         String url = defineCasinoURL(_type,MAPPING_CASINO_PRODUCT_SUFFIX_URL.get(productName));
         DriverManager.getDriver().get(url);
         if (productName.equalsIgnoreCase(LIVE_DEALER_EURO)) {

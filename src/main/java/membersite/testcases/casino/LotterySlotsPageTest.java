@@ -2,8 +2,7 @@ package membersite.testcases.casino;
 
 import backoffice.utils.tools.ProviderCurrencyMappingUltils;
 import baseTest.BaseCaseTest;
-import membersite.pages.casino.CasinoProduct;
-import membersite.pages.casino.LotterySlotsPage;
+import membersite.pages.casino.CasinoHomePage;
 import membersite.utils.casino.CasinoUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -24,9 +23,9 @@ public class LotterySlotsPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Lottery & Slots game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Lottery & Slots on header menu");
-        LotterySlotsPage lotterySlotsPage = memberHomePage.openLotteryAndSlots();
+        CasinoHomePage lotterySlotsPage = memberHomePage.openLotteryAndSlots();
         log("@Verify 1: Header menu with list: 'Slot games', 'Table games', 'Draw game', 'Roulette games' is displayed correctly");
-        List<String> headerList = lotterySlotsPage.getListHeaderMenu();
+        List<String> headerList = lotterySlotsPage.getListProductsMenu();
         Assert.assertTrue(LOTTERY_SLOTS_HEADER_MENU.containsAll(headerList), String.format("FAILED! Header of Pragmatic is not correct. Actual: %s, expected: %s", headerList, LOTTERY_SLOTS_HEADER_MENU));
         log("INFO: Executed completely");
     }
@@ -38,9 +37,9 @@ public class LotterySlotsPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Lottery & Slots game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Lottery & Slots on header menu");
-        LotterySlotsPage lotterySlotsPage = memberHomePage.openLotteryAndSlots();
+        CasinoHomePage lotterySlotsPage = memberHomePage.openLotteryAndSlots();
         log("@Step 3: Click on any game");
-        lotterySlotsPage.openRandomGame();
+        lotterySlotsPage.selectCasinoGame();
         log("@Verify 1: Able to open game without console error");
         Assert.assertTrue(lotterySlotsPage.verifyConsoleLogNotContainValue(ERROR_CODE_LIST),"FAILED! Console log contain error code");
         log("INFO: Executed completely");
@@ -55,20 +54,20 @@ public class LotterySlotsPageTest extends BaseCaseTest {
         double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Lottery & Slots on header menu");
-        LotterySlotsPage lotterySlotsPage = memberHomePage.openLotteryAndSlots();
+        CasinoHomePage lotterySlotsPage = memberHomePage.openLotteryAndSlots();
 
 
         log("@Step 3: Click on first game");
-        lotterySlotsPage.openGameByIndex("1");
+        lotterySlotsPage.selectCasinoGame();
         //Use console log to verify balance in game of Lottery Slots in Slot game tab
-        double balanceCasino = lotterySlotsPage.getBalanceFromLogConsole(lotterySlotsPage.getConsoleLog("_url"));
+        double balanceCasino = lotterySlotsPage.getBalance();
 
         loginBackoffice(BOLoginId, BOLoginPwd, true);
         double rate = CasinoUtils.getProviderCurRate(ProviderCurrencyMappingUltils.getProviderCurrencyMapping(
-                PRODUCT_NAME_TO_CODE.get(CasinoProduct.LOTTERY_SLOTS.toString())), currency);
+                PRODUCT_NAME_TO_CODE.get(LOTTERY_AND_SLOTS)), currency);
         log("@Step 4: Get rate of currency from BO with rate: " + rate);
         log("@Verify 1: The in game balance should match with user's balance");
-        Assert.assertEquals(balanceCasino * rate, balance, "FAILED! Balance of Lottery & Slots not equals to balance user");
+        lotterySlotsPage.checkBalance(balance, balanceCasino, rate);
         log("INFO: Executed completely");
     }
 
@@ -80,11 +79,11 @@ public class LotterySlotsPageTest extends BaseCaseTest {
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Lottery & Slots on header menu");
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
-        Assert.assertTrue(!memberHomePage.header.isProductTabDisplay(CasinoProduct.LOTTERY_SLOTS.toString()), "FAILED! Lottery & Slots display on homepage menu.");
+        Assert.assertTrue(!memberHomePage.header.isProductTabDisplay(LOTTERY_AND_SLOTS), "FAILED! Lottery & Slots display on homepage menu.");
         log("@Step 2: Access Pragmatic by external link");
-        LotterySlotsPage lotterySlotsPage = (LotterySlotsPage) memberHomePage.openCasinoGameByUrl(LOTTERY_AND_SLOTS);
+        CasinoHomePage lotterySlotsPage = memberHomePage.openCasinoGameByUrl(LOTTERY_AND_SLOTS);
         log("@Verify 2: User could not access product and was brought back to home page");
-        Assert.assertTrue(!lotterySlotsPage.lblHeaderMenu.isDisplayed(),"FAILED! Pragmatic game is displayed");
+        Assert.assertFalse(lotterySlotsPage.getListProductSize() > 0,"FAILED! Pragmatic game is displayed");
         log("INFO: Executed completely");
     }
 }

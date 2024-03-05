@@ -7,6 +7,8 @@ import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import org.openqa.selenium.By;
+import org.testng.Assert;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GameHallPage extends CasinoHomePage{
@@ -21,9 +23,19 @@ public class GameHallPage extends CasinoHomePage{
         lblLoadingText.waitForControlInvisible(2, 7);
     }
 
+    @Override
+    public boolean verifyCasinoDisplay() {
+        return isLogoDisplayed();
+    }
+
     public boolean isLogoDisplayed() {
         switchToLastFrame();
         return imgLogo.isDisplayed();
+    }
+
+    @Override
+    public void selectCasinoGame() {
+        openRandomGame();
     }
 
     public void openRandomGame() {
@@ -40,11 +52,22 @@ public class GameHallPage extends CasinoHomePage{
         }
     }
 
-    public double getCasinoBalance() {
+    @Override
+    public int getListProductSize() {
+        return lnkProductsList.getWebElements().size();
+    }
+
+    @Override
+    public double getBalance() {
         switchToLastFrame();
         if(lblBalance.getText().contains("*")) {
             btnShowHideBalance.click();
         }
         return Double.valueOf(lblBalance.getText().replace(",",""));
+    }
+
+    @Override
+    public void checkBalance(double actual, double expected, double BORate) {
+        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
     }
 }

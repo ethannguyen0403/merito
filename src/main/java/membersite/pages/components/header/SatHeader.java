@@ -13,6 +13,8 @@ import membersite.pages.components.signinform.SATSignInPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
 import membersite.utils.betplacement.BetUtils;
+import org.openqa.selenium.WebElement;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -44,6 +46,7 @@ public class SatHeader extends Header1 {
     private Label lblCashBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance']//span[@class='bal-val']");
     private Label lblLiabilityCurrency = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'lia-val')][1]");
     private Label lblLiability = Label.xpath("(//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')])[1]/span[@class='lia-val'][1]");
+    private Menu menuEguzi = Menu.xpath("//app-live-dealer//a[contains(@routerlink, 'ezugi')]");
     public static Button btnDeposit = Button.xpath("//button[contains(@class,'btn-deposit')]");
     // Before Login
     public SATUnderageGamblingPopup clickLogin() {
@@ -162,7 +165,16 @@ public class SatHeader extends Header1 {
 
     @Override
     public EvolutionPage openEvolution() {
-        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION"));
+        Tab productTab = Tab.xpath(String.format("//a[text()=' %s '] | //a[text()='%s']", MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION"), MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION")));
+        //In Sat, Evolution tab menu is displayed in duplicate, 1 is Evolution and 1 is Evolution WhiteCliff
+        for(WebElement products: productTab.getWebElements()){
+            products.click();
+            if(!menuEguzi.isDisplayed()){
+                continue;
+            }
+            Label lblEvolution = Label.xpath(String.format("//app-ezugi//span[contains(text(), '%s')]", MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION")));
+            lblEvolution.click();
+        }
         return new EvolutionPage();
     }
 
