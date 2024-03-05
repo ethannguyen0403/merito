@@ -109,15 +109,22 @@ public class TaxSettingListingTest extends BaseCaseTest {
         page.taxSettingListing.search(loginID, "", "");
         List<ArrayList<String>> lstExpectedData = page.taxSettingListing.defineListTaxSetting(adjustValue);
 
-        log("Step 3. Update valid tax for Soccer, Tennis, Cricket, Basketball, Fancy Other and Click update");
-        page.taxSettingListing.updateTaxSetting(loginID, lstExpectedData);
+        try {
+            log("Step 3. Update valid tax for Soccer, Tennis, Cricket, Basketball, Fancy Other and Click update");
+            page.taxSettingListing.updateTaxSetting(loginID, lstExpectedData);
 
-        log("Verify 1. Verify tax is updated for all sport and Update status is display green check");
-        List<ArrayList<String>> lstActualData = page.taxSettingListing.tblTax.getRowsWithoutHeader(1, false);
-        Assert.assertEquals(lstActualData, lstExpectedData, "FAILED! Data does not update correctly after update tax");
-        Assert.assertTrue(page.taxSettingListing.verifyUpdateStatus(lstActualData, true), "FAILED! Data does not update correctly after update tax");
+            log("Verify 1. Verify tax is updated for all sport and Update status is display green check");
+            List<ArrayList<String>> lstActualData = page.taxSettingListing.tblTax.getRowsWithoutHeader(1, false);
+            Assert.assertEquals(lstActualData, lstExpectedData, "FAILED! Data does not update correctly after update tax");
+            Assert.assertTrue(page.taxSettingListing.verifyUpdateStatus(lstActualData, true), "FAILED! Data does not update correctly after update tax");
 
-        log("INFO: Executed completely");
+            log("INFO: Executed completely");
+        } finally {
+            log("Post-condition: Revert tax to old value");
+            lstExpectedData = page.taxSettingListing.defineListTaxSetting(-0.10);
+            page.taxSettingListing.updateTaxSetting(loginID, lstExpectedData);
+        }
+
     }
 
     /**

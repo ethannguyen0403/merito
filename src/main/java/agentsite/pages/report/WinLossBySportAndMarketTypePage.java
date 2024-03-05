@@ -38,11 +38,11 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
     public int colLoginId = 4;
     public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]", tblReportTotalCol);
     public String rwSportGroupxPath = "//td[contains(@class,'sportName')]";
-    public String rMarketPerSport = "//tr[@class='%s']";
+    public String rMarketPerSport = "//span[text()='%s']//ancestor::tbody//span[@class='downline']";
     public String rwTotalRowOfSport = "//tr[contains(@class,'total mtotal')]";
     public Row rGrandTotal = Row.xpath("//tr[contains(@class,'gtotal')]");
     private int colTurnover = 2;
-    private String turnoverPerSportAndMarketXpath = "//tr[@class='%s']//span[text()='%s']//following::td[contains(@ng-bind,'localTurnover')][1]";
+    private String turnoverPerSportAndMarketXpath = "//span[text()='%s']//ancestor::tbody//span[text()=' %s']//ancestor::tr//td[contains(@class,'number downline')]";
 
     public WinLossBySportAndMarketTypePage(String types) {
         super(types);
@@ -216,7 +216,7 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
         Row rMarket;
         String xPath = String.format(rMarketPerSport, sportName);
         for (int i = 0; i < n; i++) {
-            rMarket = Row.xpath(String.format("%s[%s]", xPath, i + 1));
+            rMarket = Row.xpath(String.format("(%s)[%s]//ancestor::tr", xPath, i + 1));
             sportData.add(i, rMarket.getRow(tblReportTotalCol, false));
         }
         return sportData;

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TaxSettingListing {
     Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
-    protected int totalColum = 14;
+    protected int totalColum = 15;
     public int usernameCol = 2;
     public int loginIDCol = 3;
     protected int chbCol = 5;
@@ -27,6 +27,7 @@ public class TaxSettingListing {
     public TextBox txtCricket = TextBox.xpath("//input[@id='backCRICKET']");
     public TextBox txtBasketball = TextBox.xpath("//input[@id='backBASKETBALL']");
     public TextBox txtFancy = TextBox.xpath("//input[@id='backFANCY']");
+    public TextBox txtDecimalCricket = TextBox.xpath("//input[@id='backDECIMAL']");
     public TextBox txtVirtualCricket = TextBox.xpath("//input[@id='backKIRON']");
     public TextBox txtOther = TextBox.xpath("//input[@id='backOTHER']");
     public Table tblTax = Table.xpath("//table[contains(@class,'ptable report')]", totalColum);

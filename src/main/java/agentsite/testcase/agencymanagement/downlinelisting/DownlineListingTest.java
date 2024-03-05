@@ -1181,14 +1181,15 @@ public class DownlineListingTest extends BaseCaseTest {
      */
     @TestRails(id = "695")
     @Test(groups = {"smoke"})
-    @Parameters({"level", "password"})
-    public void Agent_AM_Downline_Listing_695(String level, String password) throws Exception {
+    @Parameters({"password"})
+    public void Agent_AM_Downline_Listing_695(String password) throws Exception {
         log("@title: Validate can change password from the table");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, _brandname);
-        String loginID = listAccount.get(0).getUserCode();
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, _brandname);
+        String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Select agent account in any level");
         log("Step 3. Click change password icon");
@@ -1202,7 +1203,6 @@ public class DownlineListingTest extends BaseCaseTest {
             log("Post Condition: Re-change to old pw");
             page.changePassword(loginID, StringUtils.decrypt(password));
         }
-
 
     }
 
