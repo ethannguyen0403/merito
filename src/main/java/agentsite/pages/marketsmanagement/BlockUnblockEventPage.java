@@ -342,10 +342,10 @@ public class BlockUnblockEventPage extends HomePage {
         if (downline.equalsIgnoreCase("all")) {
             checkbox = CheckBox.xpath(cbSelectAllDownline);
         } else
-            checkbox = CheckBox.xpath(String.format("//table[contains(@class,'block-table')]//span[contains(text(),'%s')]/following::span[1]", downline));
-
-        checkbox.click();
-        waitingLoadingSpinner();
+            checkbox = CheckBox.xpath(String.format("//table[contains(@class,'block-table')]//span[contains(text(),'%s')]/following::span[1]//i", downline));
+        if (!checkbox.getAttribute("class").contains("fa-check"))
+            checkbox.click();
+            waitingLoadingSpinner();
     }
 
     public void verifyBlockUnblockEvent(String event, String currentStatus, boolean isViewable, boolean isBetable, String timeToOpen, String timeToBet) {

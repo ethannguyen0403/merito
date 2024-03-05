@@ -7,7 +7,8 @@ public class OldUICashBalanceSection extends CashBalanceSection {
     private Label lblCashBalanceTitle = Label.xpath("//div[@class='psection' and text()='Cash Balance']");
     private TextBox txtCreditInitiation = TextBox.xpath("//input[@name='CreditReference']");
     private TextBox txtMaxPlayerCredit = TextBox.xpath("//input[@name='playerMaxCredit']");
-//    private TextBox txtFirstTimeDeposit = TextBox.xpath("//input[@name='cashBalance']");
+    private Label lblMaxPlayerCredit = Label.xpath("//span[@class='playerMaxCredit phint']");
+
     public String getCashSectionTitle() {
         return lblCashBalanceTitle.getText().trim();
     }
@@ -20,4 +21,13 @@ public class OldUICashBalanceSection extends CashBalanceSection {
         }
     }
 
+    public String getMaxPlayerCreditLimitSetting() {
+        return txtMaxPlayerCredit.getAttribute("value");
+    }
+
+    public double getMaxPlayerLitmitCredit() {
+        String value = lblMaxPlayerCredit.getText().trim();
+        double returnValue = Double.parseDouble(value.split("<= ")[1].replace(",",""));
+        return returnValue;
+    }
 }

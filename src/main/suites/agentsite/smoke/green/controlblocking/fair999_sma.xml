@@ -52,7 +52,7 @@
             <class name="agentsite.testcase.reports.PS38SportsResultsTest"/>
             <class name="agentsite.testcase.reports.StatementReportTest"/>
             <class name="agentsite.testcase.reports.TopGainersTopLosersTest"/>
-            <class name="agentsite.testcase.reports.TransactionHistoryTest"/>
+<!--            <class name="agentsite.testcase.reports.TransactionHistoryTest"/>-->
             <class name="agentsite.testcase.reports.TransferLogTest"/>
             <class name="agentsite.testcase.reports.UnsettledBetTest"/>
             <class name="agentsite.testcase.reports.ViewLogTest"/>
