@@ -30,19 +30,20 @@ public class EditDownlineAgentTest extends BaseCaseTest {
      */
     @TestRails(id = "696")
     @Test(groups = {"smoke_credit","isa"})
-    @Parameters({"level","currency"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_696(String level,String currency) throws Exception {
+    @Parameters({"currency"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_696(String currency) throws Exception {
         log("@title: Validate cannot update if Max Player Credit exceed the limit");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, "ACTIVE", _brandname);
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname);
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
         page.searchDownline(loginID, "", "Agent");
         EditDownLinePage editDownLinePage =  page.clickEditIcon(loginID);
-        page.confirmSecurityCode(environment.getSecurityCode());
+//        page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Input Max player Credit greater than the limit");
         String maxPlayerCreditLitmit = String.format("%d", editDownLinePage.creditBalanceInforSection.getMaxPlayerLitmitCredit(currency) + 1);

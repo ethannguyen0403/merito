@@ -231,7 +231,7 @@ public class SATEventContainerControl extends EventContainerControl {
 //        tblEvents.getControlOfCell(1, 1, i, "span[contains(@class,'home-team')]").click();
 //    }
     public void clickOnRowofEventName(String eventName) {
-        Label lblEvent = Label.xpath(String.format("//app-market-highlight//span[text()='%s']", eventName));
+        Label lblEvent = Label.xpath(String.format("//app-market-highlight//span[text()=\"%s\"]", eventName));
         if (lblEvent.isDisplayed()) {
             lblEvent.click();
             lblEvent.isDisplayedShort(2);

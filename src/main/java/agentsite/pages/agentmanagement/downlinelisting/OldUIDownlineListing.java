@@ -27,6 +27,7 @@ public class OldUIDownlineListing extends DownlineListing {
     public Label lblPageTitle = Label.xpath("//app-title-dashboard//div[contains(@class, 'title')]");
     private Button btnOK = Button.xpath("//button[text()='Ok']");
     private Button btnSubmit = Button.id("submitBtn");
+    private int changePasswordCol = 9;
 //    private int userCodeCol = 3;
 
     public EditDownLinePage clickEditIcon(String loginID, boolean inputSecurityCode) {
@@ -141,4 +142,9 @@ public class OldUIDownlineListing extends DownlineListing {
         }
     }
 
+    public String changePassword(String loginID, String newPassword) throws InterruptedException {
+        tblDowlineListing.getControlBasedValueOfDifferentColumnOnRow(loginID, 1, userCodeCol, 1, null, changePasswordCol, "a", false, false).click();
+        ChangePasswordPopup popup = new ChangePasswordPopup();
+        return popup.changePassword(newPassword, newPassword);
+    }
 }

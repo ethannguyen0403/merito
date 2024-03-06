@@ -49,9 +49,7 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
     }
 
     public String changePassword(String loginID, String newPassword) throws InterruptedException {
-        tblDowlineListing.getControlBasedValueOfDifferentColumnOnRow(loginID, 1, userCodeCol, 1, null, changePasswordCol, "a", false, false).click();
-        ChangePasswordPopup popup = new ChangePasswordPopup();
-        return popup.changePassword(newPassword, newPassword);
+        return downlineListing.changePassword(loginID, newPassword);
     }
 
     public void clickUserName(String userName) {

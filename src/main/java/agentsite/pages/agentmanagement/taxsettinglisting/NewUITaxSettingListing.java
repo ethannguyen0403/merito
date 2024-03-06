@@ -55,14 +55,16 @@ public class NewUITaxSettingListing extends TaxSettingListing {
         double tennisValue = Double.valueOf(lstData.get(0).get(8).split("%")[0]);
         double basketballValue = Double.valueOf(lstData.get(0).get(9).split("%")[0]);
         double fancyValue = Double.valueOf(lstData.get(0).get(10).split("%")[0]);
-        double virtualCricketValue = Double.valueOf(lstData.get(0).get(11).split("%")[0]);
-        double otherTaxValue = Double.valueOf(lstData.get(0).get(12).split("%")[0]);
+        double decimalCricketValue = Double.valueOf(lstData.get(0).get(11).split("%")[0]);
+        double virtualCricketValue = Double.valueOf(lstData.get(0).get(12).split("%")[0]);
+        double otherTaxValue = Double.valueOf(lstData.get(0).get(13).split("%")[0]);
 
         txtSoccer.sendKeys(String.format("%.2f", soccerValue));
         txtCricket.sendKeys(String.format("%.2f", cricketValue));
         txtTennis.sendKeys(String.format("%.2f", tennisValue));
         txtBasketball.sendKeys(String.format("%.2f", basketballValue));
         txtFancy.sendKeys(String.format("%.2f", fancyValue));
+        txtDecimalCricket.sendKeys(String.format("%.2f", decimalCricketValue));
         txtVirtualCricket.sendKeys(String.format("%.2f", virtualCricketValue));
         txtOther.sendKeys(String.format("%.2f", otherTaxValue));
     }

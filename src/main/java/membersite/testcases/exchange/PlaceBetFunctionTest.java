@@ -31,7 +31,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         log("Step 2: Click on an event");
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -73,7 +73,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         log("Step 2. Click on an event");
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -116,7 +116,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 2. Click on an event");
         //TODO: Update Odd to Event object
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -152,7 +152,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "558")
-    @Test(groups = {"smoke","isa1"})
+    @Test(groups = {"smoke1","isa1"})
     public void Place_Bet_Function_TC558() {
         log("@title: Validate can place unmatched Back bet successfully for Tennis");
         log("Step 1. Active any market of Tennis");
@@ -161,7 +161,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 2: Click on an event");
         //TODO: Update Odd to Event object
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -212,7 +212,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_TENNIS_SPORT);
 
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -259,7 +259,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 1. Active any market of soccer");
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -326,7 +326,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
 
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -387,7 +387,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
         try {
             Event event = page.eventContainerControl.getEventRandom(false, false);
-            if (Objects.isNull(event)) {
+            if (Objects.isNull(event) || event.getEventName().isEmpty()) {
                 log("DEBUG: There is no event available");
                 return;
             }
@@ -436,7 +436,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 1. Active any market of Cricket");
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -570,7 +570,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 2: Click on an event");
         //TODO: Update Odd to Event object
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -617,7 +617,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         SportPage page = memberHomePage.navigateSportHeaderMenu("Soccer");
 
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -664,7 +664,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 1.Active any market, and place  Back odds");
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -690,7 +690,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 1 Active any market, and place  Lay odds ");
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -730,7 +730,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 2: Click on an event");
         //TODO: Update Odd to Event object
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -768,7 +768,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
@@ -806,7 +806,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
         Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
