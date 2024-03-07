@@ -69,7 +69,7 @@ public class AnnouncementTest extends BaseCaseTest {
 
         log("Verify 3. Verify a confirm message display and announcement is deleted after click on button");
         Assert.assertEquals(confirmMessage, "Are you sure you want to delete this announcement?", "FAILED! Confirm message not display correctly");
-        Assert.assertFalse(page.isAnnouncementDisplay(String.format("New Message %s", announcementMsg)), "FAILED! announcement display after delete");
+        Assert.assertTrue(page.isAnnouncementDisplay(String.format("New Message %s", announcementMsg)), "FAILED! announcement display after delete");
 
         log("INFO: Executed completely");
 

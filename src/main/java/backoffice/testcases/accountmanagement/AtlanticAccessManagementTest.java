@@ -55,7 +55,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
      * 4. Verify cannot login Atlantic site when account is deleted form Atlantic Access Management page
      */
     @TestRails(id = "623")
-    @Test(groups = {"smoke_s"})
+    @Test(groups = {"smoke"})
     @Parameters({"username", "password", "atlanticAccount", "memberPassword"})
     public void BO_Account_Management_Atlantic_Access_Management_623(String username, String password, String atlanticAccount, String memberPassword) throws Exception {
         log("@title: Validate can account is added/deleted to the list can access/un-access Atlantic site");

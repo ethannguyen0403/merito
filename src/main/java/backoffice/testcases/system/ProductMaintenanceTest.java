@@ -85,7 +85,7 @@ public class ProductMaintenanceTest extends BaseCaseTest {
      * @expect: 1. Verify the product is active in member site, not display maintenance page
      */
     @TestRails(id = "637")
-    @Test(groups = {"smoke11"})
+    @Test(groups = {"smoke"})
     @Parameters({"satMemberLoginID", "memberPassword"})
     public void BO_System_ProductMaintenance_003(String satMemberLoginID, String memberPassword) throws Exception {
         log("@title: Validate active product can display in member");

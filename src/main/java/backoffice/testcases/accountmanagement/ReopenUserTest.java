@@ -29,7 +29,7 @@ public class ReopenUserTest extends BaseCaseTest {
      * 3. Account is active in agent site
      */
     @TestRails(id = "617")
-    @Test(groups = {"smoke11"})
+    @Test(groups = {"smoke"})
     @Parameters({"satSADAgentLoginID", "memberPassword", "username", "password", "brandname"})
     public void BO_MM_Reopen_User_001(String satSADAgentLoginID, String memberPassword, String username, String password, String brandname) throws Exception {
         log("@title:  Validate can reopen user");

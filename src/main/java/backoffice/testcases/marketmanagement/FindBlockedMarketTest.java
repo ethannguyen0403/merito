@@ -71,7 +71,7 @@ public class FindBlockedMarketTest extends BaseCaseTest {
      * @expect: 1. Verify status in agent site is match with Find Blocked Market Page
      */
     @TestRails(id = "610")
-    @Test(groups = {"smoke_s"})
+    @Test(groups = {"smoke"})
     @Parameters({"satMemberLoginID", "memberPassword", "satSADAgentLoginID", "downlineSADAccount"})
     public void BO_Tools_Find_Blocked_Market_002(String satMemberLoginID, String memberPassword, String satSADAgentLoginID, String downlineSADAccount) throws Exception {
         log("@title: Validate Agent site - Block unblock event status is correctly as filtering");
