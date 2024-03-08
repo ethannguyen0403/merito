@@ -101,6 +101,14 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3573")
+    @Test(groups = {"regression_sat"})
+    public void Agent_AM_Event_Bet_Site_Settings_3573() {
+        //TODO: implement test for this case
+        Assert.assertTrue(false,"");
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "3565")
     @Test(groups = {"regression_po"})
     public void Agent_AM_Event_Bet_Site_Settings_3565() {
@@ -357,8 +365,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3583")
     @Test(groups = {"regression_sat"})
-    public void Agent_AM_Event_Bet_Site_Settings_021() {
+    public void Agent_AM_Event_Bet_Site_Settings_3583() {
         log("@title: Verify can update and remove min event setting in Fancy MIN-Max");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         String sportName = "Cricket";
@@ -385,8 +394,9 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3582")
     @Test(groups = {"regression_sat"})
-    public void Agent_AM_Event_Bet_Site_Settings_020() {
+    public void Agent_AM_Event_Bet_Site_Settings_3582() {
         log("@title: Verify can update and remove min event setting in normal product");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         String sportName = "Cricket";
@@ -822,6 +832,30 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
 
         log("Verify Verify cannot place bet if max bet greater than the setting");
 
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4181")
+    @Test(groups = {"regression_sat"})
+    public void Agent_AM_Event_Bet_Site_Settings_4181() {
+        //TODO: implement test for this case
+        Assert.assertTrue(false,"");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4182")
+    @Test(groups = {"regression_sat"})
+    public void Agent_AM_Event_Bet_Site_Settings_4182() {
+        //TODO: implement test for this case
+        Assert.assertTrue(false,"");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "4183")
+    @Test(groups = {"regression_sat"})
+    public void Agent_AM_Event_Bet_Site_Settings_4183() {
+        //TODO: implement test for this case
+        Assert.assertTrue(false,"");
         log("INFO: Executed completely");
     }
 }

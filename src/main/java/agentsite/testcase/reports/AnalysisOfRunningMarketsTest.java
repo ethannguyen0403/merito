@@ -77,4 +77,11 @@ public class AnalysisOfRunningMarketsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3766")
+    @Test(groups = {"regression"})
+    public void Agent_Report_Analysis_Of_Running_Markets_3766() {
+        //TODO: implement for this case
+        Assert.assertTrue(false, "ERROR: There are some response request error returned");
+        log("INFO: Executed completely");
+    }
 }

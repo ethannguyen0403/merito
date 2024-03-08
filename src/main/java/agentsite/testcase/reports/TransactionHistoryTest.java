@@ -85,6 +85,13 @@ public class TransactionHistoryTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+    @TestRails(id = "3754")
+    @Test(groups = {"regression"})
+    public void Agent_Report_Transaction_History_3754() {
+        //TODO: implement test for this case
+        Assert.assertTrue(false,"");
+        log("INFO: Executed completely");
+    }
     @TestRails(id = "3755")
     @Test(groups = {"regression"})
     public void Agent_Report_Transaction_History_3755() {

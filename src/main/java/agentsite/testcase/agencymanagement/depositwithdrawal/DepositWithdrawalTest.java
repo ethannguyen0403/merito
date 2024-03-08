@@ -53,7 +53,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * 4. Column names on Downline info table are correct
      */
     @TestRails(id = "712")
-    @Test(groups = {"smoke_newui"})
+    @Test(groups = {"smoke_creditcash"})
     @Parameters("currency")
     public void Agent_AM_DepositWithdrawal_712(String currency) {
         log("@title: Validate that this page loading is successful");
@@ -91,7 +91,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * @expect: 1. Data in this table is displayed correctly after filtering
      */
     @TestRails(id = "713")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_713() {
         log("@title: Validate that filtering with username is correct");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -123,7 +123,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * @expect: 1. Data in this table is displayed correctly after filtering
      */
     @TestRails(id = "714")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_714() {
         log("@title: Validate that filtering with username is correct");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -158,7 +158,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * @expect: 1. Data in this table is displayed correctly after filtering
      */
     @TestRails(id = "715")
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_715() {
         log("@title: Validate that filtering with correct username, account Status and level");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -194,7 +194,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * @expect: 1. There is no record found when filtering an incorrect status
      */
     @TestRails(id = "716")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_716() {
         log("@title: Validate that there is no record found when filtering an incorrect status");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -226,7 +226,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * @expect: 1. There is no result found when filtering an invalid username
      */
     @TestRails(id = "717")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_717() {
         log("@title: Validate that there is no record found when filtering an invalid username");
         String userCode = StringUtils.generateAlphabetic(8);
@@ -251,7 +251,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * 2. Deposit and Withdraw button is no longer displayed
      */
     @TestRails(id = "718")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_718() {
         log("@title: Validate there is UI when drill-down");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -289,7 +289,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * 2. View Log table display with the header "Date Time, Action, Amount, Remark, Perform By"
      */
     @TestRails(id = "719")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_719() {
         log("@title:  Validate Open View Log popup");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -322,7 +322,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * @expect: 1. Verify log data display corresponding as deposit
      */
     @TestRails(id = "3619")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression_creditcash"})
     public void Agent_AM_DepositWithdrawal_3619() {
         log("@title:  Validate Deposit log display correctly");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -358,7 +358,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * @expect: 1. Verify log data display corresponding as With draw
      */
     @TestRails(id = "3620")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression_creditcash"})
     public void Agent_AM_DepositWithdrawal_3620() {
         log("@title: Validate Withdraw log display correctly");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -391,7 +391,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * @expect: 1. Verify security popup display
      */
     @TestRails(id = "720")
-    @Test(groups = {"smoke_newui"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_720() {
         log("@title: Validate security popup display Deposit/withdraw page");
 
@@ -405,7 +405,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
     }
 
     @TestRails(id = "721")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_credticash"})
     public void Agent_AM_DepositWithdrawal_721() {
         log("@title: Validate My Credit, Total Balance, Sub Balance,Available Balance is correct");
         log("pre-condition: Log in successfully by SAD that belonging to Credit Cash line");
@@ -420,7 +420,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_creditcash"})
     @Parameters({"password"})
     public void Agent_AM_DepositWithdrawal_Deposit_015(String password) throws Exception {
         log("@title:  Verify Balance agent is correctly is correct when deposit from agent site");
@@ -451,7 +451,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         Assert.assertTrue(page.verifyBalanceUpdated(depositAmount, downlineAvailableBalance, DepositWithdraw.Actions.DEPOSIT));
     }
 
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_creditcash"})
     @Parameters({"password"})
     public void Agent_AM_DepositWithdrawal_Deposit_016(String password) throws Exception {
         log("@title:  Verify Balance agent is correctly is correct when withdraw from agent site");
@@ -481,5 +481,6 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
         Assert.assertTrue(page.verifyBalanceUpdated(depositAmount, downlineAvailableBalance, DepositWithdraw.Actions.WITHDRAWAL));
     }
+
 }
 

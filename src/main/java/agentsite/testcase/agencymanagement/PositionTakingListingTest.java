@@ -18,8 +18,9 @@ import static common.AGConstant.*;
 
 public class PositionTakingListingTest extends BaseCaseTest {
 
+    @TestRails(id = "3596")
     @Test(groups = {"http_request"})
-    public void Agent_AM_Position_Taking_Listing_001() {
+    public void Agent_AM_Position_Taking_Listing_3596() {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
         agentHomePage.navigatePositionTakingListingPage();

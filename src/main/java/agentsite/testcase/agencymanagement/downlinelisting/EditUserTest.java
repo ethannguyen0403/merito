@@ -431,7 +431,7 @@ public class EditUserTest extends BaseCaseTest {
 
 
     @TestRails(id = "3542")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Downline_Listing_Edit_User_3542() throws Exception {
         log("@title: Verify can edit User successfully if input valid min bet Setting");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
@@ -446,25 +446,25 @@ public class EditUserTest extends BaseCaseTest {
         Assert.assertFalse(editDownLinePage.securityPopup.isDisplayed(), "FAILED Security popup  display when edit agent");
     }
 
-    @TestRails(id = "3544")
-    @Test(groups = {"interaction"})
-    public void Agent_AM_Downline_Listing_Edit_User_3544() throws Exception {
-        log("@title: Verity Exchange Product is displayed/dissappear in member site when active/inactive");
-        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
-        String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
-        String loginID = listAccount.get(0).getUserCode();
-        log("Step 1. Navigate Agency Management > Downline Listing");
-        log("Step 2. Click on Edit icon for member level");
-        log("Step 1. Navigate Agency Management > Downline Listing");
-
-        log(String.format("Step 2. Click on Edit icon of  Player: %s", loginID));
-        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
-        editDownLinePage.activeProduct("Exchange", true);
-
-        log("Verify 1. Verify there is no Security Code popup prompted");
-        Assert.assertFalse(editDownLinePage.securityPopup.isDisplayed(), "FAILED Security popup  display when edit agent");
-    }
+//    @TestRails(id = "3544")
+//    @Test(groups = {"interaction"})
+//    public void Agent_AM_Downline_Listing_Edit_User_3544() throws Exception {
+//        log("@title: Verity Exchange Product is displayed/dissappear in member site when active/inactive");
+//        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+//        String userID = ProfileUtils.getProfile().getUserID();
+//        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+//        String loginID = listAccount.get(0).getUserCode();
+//        log("Step 1. Navigate Agency Management > Downline Listing");
+//        log("Step 2. Click on Edit icon for member level");
+//        log("Step 1. Navigate Agency Management > Downline Listing");
+//
+//        log(String.format("Step 2. Click on Edit icon of  Player: %s", loginID));
+//        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
+//        editDownLinePage.activeProduct("Exchange", true);
+//
+//        log("Verify 1. Verify there is no Security Code popup prompted");
+//        Assert.assertFalse(editDownLinePage.securityPopup.isDisplayed(), "FAILED Security popup  display when edit agent");
+//    }
     @TestRails(id = "3544")
     @Test(groups = {"interaction"})
     @Parameters({"username", "password", "memberAccount"})
@@ -673,7 +673,7 @@ public class EditUserTest extends BaseCaseTest {
         agentHomePage.quickSearch.updateStatus(memberAccount, AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS.get(1), true);
     }
     @TestRails(id = "3524")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression"})
     public void Agent_AM_Downline_Listing_Edit_User_3524() throws Exception {
         log("@title:Verify can Suspend the account");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -709,7 +709,7 @@ public class EditUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3525")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression"})
     public void Agent_AM_Downline_Listing_Edit_User_3525() throws Exception {
         log("@title:Verify can Close the account");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -735,7 +735,7 @@ public class EditUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3528")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression"})
     public void Agent_AM_Downline_Listing_Edit_User_3528() throws Exception {
         log("@title:Verify cannot inactive all product");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -757,7 +757,7 @@ public class EditUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3529")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression"})
     public void Agent_AM_Downline_Listing_Edit_User_3529() throws Exception {
         log("@title:Verify navigate to Downline List if click on Cancel button");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -774,6 +774,14 @@ public class EditUserTest extends BaseCaseTest {
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
         Assert.assertEquals(page.header.lblPageTitle.getText(), AGConstant.HomePage.DOWNLINE_LISTING, "FAILED! Dowline Listing page not display when clicking Cancel from Edit User page");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3530")
+    @Test(groups = {"regression"})
+    public void Agent_AM_Downline_Listing_Edit_User_3530() throws Exception {
+        //TODO: implement this case
+        Assert.assertTrue(false,"");
         log("INFO: Executed completely");
     }
 }

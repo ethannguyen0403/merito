@@ -240,9 +240,10 @@ public class BetSettingListingTest extends BaseCaseTest {
 
     }
 
-    @Test(groups = {"interaction2"})
+    @TestRails(id = "3638")
+    @Test(groups = {"interaction"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_AM_Bet_Setting_Listing_0010(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_AM_Bet_Setting_Listing_3638(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Cannot place bet when max liability on a market excceed the setting");
         log("Step 1. Active Bet Setting Listing and update max liability on a market for a player on Cricket");
         String sportName = "Cricket";
@@ -303,9 +304,10 @@ public class BetSettingListingTest extends BaseCaseTest {
 
     }
 
+    @TestRails(id = "3639")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password", "downlineAccount"})
-    public void Agent_AM_Bet_Setting_Listing_0011(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_AM_Bet_Setting_Listing_3639(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Cannot place bet when potential win is greater than the setting");
         log("Step 1 Active Bet Setting Listing and update Max Win per market for Soccer");
         String sportName = "Cricket";
@@ -358,9 +360,10 @@ public class BetSettingListingTest extends BaseCaseTest {
 
     }
 
+    @TestRails(id = "3636")
     @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Bet_Setting_Listing_008(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Bet_Setting_Listing_3636(String memberAccount, String password) throws Exception {
         log("@title: Verify cannot place bet when place bet in member site smaller than min bet setting");
         log("Step 1. Navigate to Agent Site and get list Event");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -389,9 +392,10 @@ public class BetSettingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"interaction01"})
+    @TestRails(id = "3637")
+    @Test(groups = {"interaction"})
     @Parameters({"memberAccount", "password"})
-    public void Agent_AM_Bet_Setting_Listing_009(String memberAccount, String password) throws Exception {
+    public void Agent_AM_Bet_Setting_Listing_3637(String memberAccount, String password) throws Exception {
         log("@title: Verify cannot place bet when place bet in member site greater than max bet setting");
         log("Step 1. Navigate to Agent Site and get list Event");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -458,7 +462,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3975")
-    @Test(groups = {"regression_newui"})
+    @Test(groups = {"regression"})
     @Parameters({"password"})
     public void Agent_AM_Bet_Setting_Listing_3975(String password) throws Exception {
         log("@title: Validate the inactive product not display in product list in Bet Setting Listing page");
@@ -494,7 +498,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3976")
-    @Test(groups = {"regression_newui"})
+    @Test(groups = {"regression"})
     @Parameters({"password"})
     public void Agent_AM_Bet_Setting_Listing_3976(String password) throws Exception {
         log("@title: Validate Bet Setting Listing page is hidden when Exchange /Exchange Game/ PS38 product is inactive");

@@ -211,6 +211,15 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
+    @TestRails(id = "3720")
+    @Test(groups = {"interaction"})
+    @Parameters({"downlineAccount", "memberAccount", "password"})
+    public void Agent_MM_SuspendUnsuspendMarkets_TC3720(String downlineAccount, String memberAccount, String password) throws Exception {
+        //TODO: implement test for this case
+        Assert.assertTrue(false,"");
+        log("INFO: Executed completely");
+    }
 //
 //    @Test(groups = {"interaction"})
 //    @Parameters({"downlineAccount","memberAccount", "password","boAccount","bopassword"})
@@ -287,6 +296,15 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("Verify the line markets of the event still suspended");
         Assert.assertTrue(marketPage.marketOddControl.lblSuspend.isDisplayed(), "Failed the market does not suspend after suspend event in agent site");
 
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3722")
+    @Test(groups = {"interaction"})
+    @Parameters({"downlineAccount", "memberAccount", "password"})
+    public void Agent_MM_SuspendUnsuspendMarkets_TC322(String downlineAccount, String memberAccount, String password) throws Exception {
+        //TODO: implement this case
+        Assert.assertTrue(false,"");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3723")

@@ -107,7 +107,7 @@ public class TransferTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3616")
-    @Test(groups = {"regression_credit_oldui"})
+    @Test(groups = {"regression_credit"})
     public void Agent_AM_Transfer_3616() {
         log("@title: Verify Balance of login account is updated after transfer");
         log("Precondition Step Log in successfully by SAD that belonging to Credit line");
@@ -123,7 +123,7 @@ public class TransferTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3617")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_credit"})
     @Parameters({"memberAccount", "password"})
     public void Agent_AM_Transfer_3617(String memberAccount, String password) throws Exception {
         log("@title: Verify available balance of PL in member site is updated when agent transfer successfully");
@@ -154,7 +154,7 @@ public class TransferTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3618")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_credit"})
     @Parameters({"memberAccount"})
     public void Agent_AM_Transfer_3618( String memberAccount) {
         log("@title: Verify Balance of login account is updated after transfer");

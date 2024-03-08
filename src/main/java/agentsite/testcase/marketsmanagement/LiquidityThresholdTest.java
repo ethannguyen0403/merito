@@ -114,7 +114,7 @@ public class LiquidityThresholdTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"smoke_po"})
+    @Test(groups = {"regression_po"})
     @TestRails(id = "3712")
     public void Agent_MM_Liquidity_Threshold_TC3712() {
         log("@title: Validate Liquidity Threshold UI display correctly");
@@ -127,7 +127,7 @@ public class LiquidityThresholdTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"smoke_po"})
+    @Test(groups = {"regression_po"})
     @TestRails(id = "3713")
     public void Agent_MM_Liquidity_Threshold_TC3713() {
         log("@title: Validate can search username/ Login ID");
@@ -153,7 +153,7 @@ public class LiquidityThresholdTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @TestRails(id = "3714")
     public void Agent_MM_Liquidity_Threshold_TC3714() {
         log("@title: Validate the page not display when login agent with Non PO level");
@@ -166,7 +166,7 @@ public class LiquidityThresholdTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"smoke_po1"})
+    @Test(groups = {"regression_po"})
     @TestRails(id = "3715")
     @Parameters({"controlBlockingAccount"})
     public void Agent_MM_Liquidity_Threshold_TC3715(String controlBlockingAccount) {
