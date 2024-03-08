@@ -83,7 +83,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3684")
-    @Test(groups = {"regression_po_isa"})
+    @Test(groups = {"regression_po"})
     public void Agent_MM_BlockUnblockEvent_3684() {
         log("@title: Validate Block/Unblock Events UI display correctly at PO level");
 
@@ -621,7 +621,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="769")
-    @Test(groups = {"regression"})
+    @Test(groups = {"smoke"})
     @Parameters({"brandname"})
     public void Agent_MM_BlockUnblockEvent_769(String brandname) {
         log("@title: Validate can unblocked now all events for an downline in a page");
@@ -850,7 +850,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="3689")
-    @Test(groups = {"interaction_sat1"})
+    @Test(groups = {"interaction_sat"})
     @Parameters({"memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_3689(String memberAccount, String password) throws Exception {
         log("@title:Validate Tomorrow Event Not display in member site after Unblock Schedule 25 minutes");
@@ -882,6 +882,15 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
         Assert.assertFalse(sportPage.isEventDisplay(event.getEventName()),"Failed! The event "+event.getEventName()+ " should not displayed when blocked");
 
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id="3690")
+    @Test(groups = {"interaction"})
+    @Parameters({"memberAccount", "password"})
+    public void Agent_MM_BlockUnblockEvent_3690(String memberAccount, String password) throws Exception {
+        //TODO: implement test for this case
+        Assert.assertTrue(false, "");
         log("INFO: Executed completely");
     }
 
@@ -1009,8 +1018,16 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id="3694")
+    @Test(groups = {"interaction"})
+    @Parameters({"downlineAccount", "memberAccount", "password"})
+    public void Agent_MM_BlockUnblockEvent_3694(String downlineAccount, String memberAccount, String password) throws Exception {
+        //TODO: implement test for this case
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id="3695")
-    @Test(groups = {"interaction1"})
+    @Test(groups = {"interaction"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_3695(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Validate suspend label display on market in member site when suspend an unblock the event");

@@ -31,7 +31,7 @@ public class PositionTakingReportTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3740")
-    @Test(groups = {"regression_newui"})
+    @Test(groups = {"regression"})
     public void Agent_Report_Position_Taking_Report_3740() {
         log("@title: Validate Position Taking Report display correctly");
         log("Step 1. Navigate Report> Position Taking Report");
@@ -51,8 +51,9 @@ public class PositionTakingReportTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"smoke_newui"})
-    public void Agent_Report_Position_Taking_Report_003() {
+    @TestRails(id = "797")
+    @Test(groups = {"smoke"})
+    public void Agent_Report_Position_Taking_Report_797() {
         log("@title: Validate can search data");
         log("Step 1. Navigate Report > Position Taking Report");
         PositionTakingReportPage page = agentHomePage.navigatePositionTakingReportPage();
@@ -73,7 +74,7 @@ public class PositionTakingReportTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4088")
-    @Test(groups = {"regression_newui"})
+    @Test(groups = {"regression"})
     public void Agent_Report_Position_Taking_Report_4088() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Position Taking Report");

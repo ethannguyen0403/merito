@@ -41,7 +41,7 @@ public class FollowBetsPerformanceTest extends BaseCaseTest {
      * @expect: 1. Verify Follow Bets info display
      */
     @TestRails(id = "826")
-    @Test(groups = {"http_request"})
+    @Test(groups = {"smoke_po"})
     public void Agent_Report_Follow_Small_Bets_Performance_826() {
         log("@title: Validate can filter follow bet");
         log("Step 1. Navigate Report >Follow & Small Bets Performance");
@@ -60,5 +60,11 @@ public class FollowBetsPerformanceTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-
+    @TestRails(id = "3769")
+    @Test(groups = {"regression_po"})
+    public void Agent_Report_Follow_Small_Bets_Performance_3769() {
+        //TODO: implement test this case
+        Assert.assertTrue(false, "");
+        log("INFO: Executed completely");
+    }
 }

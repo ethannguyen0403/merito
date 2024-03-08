@@ -27,7 +27,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Info is displayed correctly
      */
     @TestRails(id = "3628")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_3628(){
         log("@title: Validate that Withdrawal popup displays correct info.");
         //   AccountInfo acc = ProfileUtils.getProfile();
@@ -67,7 +67,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * @expect: 1. Withdrawal popup is closed
      */
     @TestRails(id = "3629")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_3629() {
         log("@title: Validate that there is an error message displayed when submitted without inputting");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -98,7 +98,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * @expect: 1. There is an error message when submitted without any amount
      */
     @TestRails(id = "3630")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_3630() {
         log("@title: Validate that there is an error message displayed when submitted without any amount");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -132,7 +132,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * @expect: 1. There is an error message when submitted without any amount
      */
     @TestRails(id = "731")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_731() {
         log("@title: Validate that there is an insufficient error displayed when inputted an amount more than the current cash balance");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -168,7 +168,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * @expect: 1. An amount is withdrawn successfully
      */
     @TestRails(id = "732")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_732() {
         log("@title:Validate that an amount is withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -215,7 +215,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. An amount is updated correctly on this table
      */
     @TestRails(id = "733")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_733() {
         log("@title:Validate can withdraw by click on Withdraw link");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -265,7 +265,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * @expect: 1. Withdraw popup is displayed
      */
     @TestRails(id = "734")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_734() {
         log("@title: Validate that Withdrawal popup is displayed when clicking Withdraw button");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -304,7 +304,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Success icon is displayed when withdrawing completely
      */
     @TestRails(id = "735")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_735(){
         log("@title: Validate can withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -350,7 +350,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Failure icon is displayed when withdrawing completely
      */
     @TestRails(id = "736")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_736() {
         log("@title: Validate that cannot withdraw with  amount more than current balance");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -391,7 +391,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Amount is updated correctly
      */
     @TestRails(id = "737")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_737() {
         log("@title: Validate can withdraw Win/Loss Settle successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -444,7 +444,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Verify Balance is updated correctly
      */
     @TestRails(id = "738")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_738() throws InterruptedException {
         log("@title: Validate can multiple Withdraw by Credit Update by click on Withdraw button");
 
@@ -526,7 +526,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Verify Balance is updated correctly
      */
     @TestRails(id = "739")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Withdraw_739() throws InterruptedException {
         log("@title: Validate can multiple Withdraw by Win/Loss Settle by click on Withdraw button");
 
