@@ -179,6 +179,7 @@ public class HomePageTest extends BaseCaseTest {
     public void Home_page_TC1064() {
         //TODO: implement this case
         log("@title: Validate Cricket match odds will include fancy market");
+        Assert.assertTrue(false, "Need to implement this case");
         log("INFO: Executed Completely!");
     }
 
@@ -187,7 +188,8 @@ public class HomePageTest extends BaseCaseTest {
     @Test(groups = {"interaction"})
     public void Home_page_TC1065() {
         //TODO: implement this case
-        log("@title: Validate Fancy market not display match odds marke");
+        log("@title: Validate Fancy market not display match odds market");
+        Assert.assertTrue(false, "Need to implement this case");
         log("INFO: Executed Completely!");
     }
 
@@ -196,6 +198,7 @@ public class HomePageTest extends BaseCaseTest {
     public void Home_page_TC1066() {
         //TODO: implement this case
         log("@title: Validate In-Play label display");
+        Assert.assertTrue(false, "Need to implement this case");
         log("INFO: Executed Completely!");
     }
 
@@ -204,6 +207,7 @@ public class HomePageTest extends BaseCaseTest {
     public void Home_page_TC1069() {
         //TODO: implement this case
         log("@title: Validate Sport tab work");
+        Assert.assertTrue(false, "Need to implement this case");
         log("INFO: Executed Completely!");
     }
 }
