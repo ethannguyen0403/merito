@@ -117,6 +117,14 @@ public class HeaderTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3458")
+    @Test(groups = {"regression"})
+    public void Header_TC3458() {
+        //TODO: implement test for this case
+        Assert.assertTrue(false,"");
+        log("INFO: Executed completely");
+    }
+
     /**
      * @title: Validate there are sub menu when hover on expand left menu icon
      * @steps: 1. Login successfully
@@ -288,7 +296,7 @@ public class HeaderTest extends BaseCaseTest {
      */
     @TestRails(id = "673")
     @Test(groups = {"smoke"})
-    public void Header_TC001() {
+    public void Header_TC673() {
         log("@title: Validate control on header section is correctly display");
         log("Step 1: Log in with a valid username and password");
         log("Verify: 1 Verify UI on Header section:");
@@ -313,7 +321,7 @@ public class HeaderTest extends BaseCaseTest {
     @TestRails(id = "674")
     @Test(groups = {"smoke"})
     @Parameters({"username", "password"})
-    public void Header_TC015(String username, String password) throws Exception {
+    public void Header_TC674(String username, String password) throws Exception {
         log("@title:  Validate can change password for login account");
         log("Step 1: Log in with a valid username and password");
         String passDecryp = StringUtils.decrypt(password);

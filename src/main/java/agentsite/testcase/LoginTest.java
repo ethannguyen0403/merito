@@ -18,9 +18,9 @@ public class LoginTest extends BaseCaseTest {
      * @steps: 1. Log in with a valid username and password
      * @expect: 1. Home page is displayed
      */
-    @TestRails(id = "870")
+    @TestRails(id = "670")
     @Test(groups = {"http_request"})
-    public void Agent_Login_870() {
+    public void Agent_Login_670() {
         log("@title: There is no http responded error returned");
         log("Step 1: Log in with a valid username and password");
         log("Verify: There is no http requests error");

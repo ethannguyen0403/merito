@@ -22,7 +22,7 @@ import java.util.Locale;
 
 public class DepositTest extends BaseCaseTest {
     @TestRails(id = "3621")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_creditcash"})
     public void DepositWithdrawal_Deposit_3621() {
         log("@title: Validate that Deposit popup displays correct info.");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -59,7 +59,7 @@ public class DepositTest extends BaseCaseTest {
      * @expect: 1.  Deposit popup is closed
      */
     @TestRails(id = "3622")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_creditcash"})
     public void DepositWithdrawal_Deposit_3622() {
         log("@title: Validate that Deposit popup is closed when clicking Cancel button");
 
@@ -94,7 +94,7 @@ public class DepositTest extends BaseCaseTest {
      * "Amount must be positive decimal with maximum two places and greater than zero"
      */
     @TestRails(id = "722")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Deposit_722() throws InterruptedException {
         log("@title: Validate that there is an error message displayed when submitted without any amount");
 
@@ -130,7 +130,7 @@ public class DepositTest extends BaseCaseTest {
      * @expect: 1. There is an error message when submitted  amount more than the current cash balance
      */
     @TestRails(id = "723")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Deposit_723() {
         log("@title: Validate that there is an insufficient error displayed when inputted an amount more than the current cash balance");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -168,7 +168,7 @@ public class DepositTest extends BaseCaseTest {
      * 2. Verify available balance of deposit account is updated
      */
     @TestRails(id = "724")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Deposit_724() {
         log("@title: Validate can deposited successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -230,7 +230,7 @@ public class DepositTest extends BaseCaseTest {
      * 2. Verify Balance is updated correctly
      */
     @TestRails(id = "725")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Deposit_725() throws InterruptedException {
         log("@title: Validate can multiple deposit by click on Deposit button");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -274,7 +274,7 @@ public class DepositTest extends BaseCaseTest {
      * @expect: 1. Deposit popup is displayed and UI display correctly
      */
     @TestRails(id = "726")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Deposit_726() {
         log("@title: Validate that Deposit popup is displayed when clicking Deposit button");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -303,7 +303,7 @@ public class DepositTest extends BaseCaseTest {
     }
 
     @TestRails(id = "727")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Deposit_727() {
         log("@title: Validate can deposited by Win/Loss Settle successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -363,7 +363,7 @@ public class DepositTest extends BaseCaseTest {
      * 2. Verify WinLoss is updated correctly
      */
     @TestRails(id = "728")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Deposit_728() {
         log("@title: Validate can deposited by Win/Loss Settle by click on Deposit button");
 
@@ -446,7 +446,7 @@ public class DepositTest extends BaseCaseTest {
      * 2. Failure icon is displayed when depositing completely
      */
     @TestRails(id = "729")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Deposit_729() throws InterruptedException {
         log("@title:  Validate cannot deposit an amount more than the current balance");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -490,7 +490,7 @@ public class DepositTest extends BaseCaseTest {
      * @expect: 1. Verify Deposit/withdraw link is disabled/enabled
      */
     @TestRails(id = "730")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_AM_DepositWithdrawal_Deposit_730() {
         log("@title:  Validate Deposit/Withdraw Link is disabled /enable when select/unselect account");
         log("Step 1. Navigate Agency Management > Deposit Withdrawal");
@@ -506,7 +506,7 @@ public class DepositTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3624")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_creditcash"})
     @Parameters({"memberAccount", "password"})
     public void Agent_AM_DepositWithdrawal_Deposit_3624(String memberAccount, String password) throws Exception {
         log("@title: Verify Balance member site is correct when deposit from agent site");
@@ -535,7 +535,7 @@ public class DepositTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3625")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_creditcash"})
     @Parameters({"memberAccount", "password"})
     public void Agent_AM_DepositWithdrawal_Deposit_3625(String memberAccount, String password) throws Exception {
         log("@title: Verify Balance member site is correct after withdraw from agent site");
@@ -561,6 +561,30 @@ public class DepositTest extends BaseCaseTest {
         log("Verify 1. The balance in member site is withdrawal");
         Assert.assertEquals(playerAccountBalance.getBalance(), String.format("%.2f", playerBalanceAfterWithdraw), " FAILED! Player available balance is incorrect after agent withdraw! Expected is " + String.format("%.2f", playerBalanceAfterWithdraw));
         Assert.assertEquals(playerAccountBalance.getExposure(), String.format("%,.2f", playerOustanding), " FAILED! Player exposure is incorrect after agent withdraw! Expected is " + String.format("%.2f", playerOustanding));
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3623")
+    @Test(groups = {"regression_creditcash"})
+    public void Agent_AM_DepositWithdrawal_3623() {
+        //TODO: implement this test case
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3626")
+    @Test(groups = {"regression_creditcash"})
+    public void Agent_AM_DepositWithdrawal_3626() {
+        //TODO: implement this test case
+
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3627")
+    @Test(groups = {"regression_creditcash"})
+    public void Agent_AM_DepositWithdrawal_3627() {
+        //TODO: implement this test case
 
         log("INFO: Executed completely");
     }

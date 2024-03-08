@@ -124,6 +124,14 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3704")
+    @Test(groups = {"smoke"})
+    public void Agent_MM_BlockUnblockCompetitions_TC3704() {
+        //TODO: implement this test case
+        Assert.assertTrue(false, "");
+        log("INFO: Executed completely");
+    }
+
     /**
      * @title: Verify Unblock Competition display in Member Site and Block/Unblock Event
      * @pre-condition: 1. Log in successfully by SAD

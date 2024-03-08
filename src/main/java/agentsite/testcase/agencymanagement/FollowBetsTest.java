@@ -522,7 +522,7 @@ public class FollowBetsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3682")
-    @Test(groups = {"regression_co"})
+    @Test(groups = {"regression"})
     public void Agency_Management_Follow_Bets_3682 () {
         log("@title: Validate can not access this page from Non-PO level");
         log("@Pre-condition 1: Log in successfully by CO");
