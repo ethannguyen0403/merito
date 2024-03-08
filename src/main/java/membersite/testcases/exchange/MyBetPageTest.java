@@ -252,7 +252,7 @@ public class MyBetPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1105")
-    @Test(groups = {"regression1"})
+    @Test(groups = {"regression"})
     public void MyBetPage_TC1105() {
         log("@title: Validate control display correctly when select Exchange Games");
         log("Step 1. Active My Account> My Bets");

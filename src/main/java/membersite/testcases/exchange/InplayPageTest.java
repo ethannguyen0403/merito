@@ -9,6 +9,7 @@ public class InplayPageTest extends BaseCaseTest {
     @TestRails(id = "1010")
     @Test(groups = {"regression"})
     public void FE_InPlay_TC1010() {
+        //TODO: Need to re-implement this case
 //        log("@title: Validate site load markets as user selected correctly");
 //        log("Step 1. Navigate to In-Play page");
 //        memberHomePage.navigateInPlay();
