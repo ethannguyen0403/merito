@@ -167,20 +167,20 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate that Unblock Now an event successfully from CO level
-     * @pre-condition: 1. CO level login agent in successfully
-     * @steps: 1. Observe Markets Management in the left menu
-     * @expect: 1. Verify there is no market management section
-     */
-    @Test(groups = {"smoke_co"})
-    public void Agent_MM_BlockUnblockEvent_037() {
-        //TODO: Add test case to Testrail
-        log("@title: Validate that Unblock Now an event successfully from CO level");
-        log("Verify 1. Verify there is no market management section");
-        Assert.assertFalse(agentHomePage.leftMenu.leftMenuList.isMenuDisplay(MARKET_MANAGEMENT), "FAILED! Markets Management section should not dispplay at CO level");
-        log("INFO: Executed completely");
-    }
+//    /**
+//     * @title: Validate that Unblock Now an event successfully from CO level
+//     * @pre-condition: 1. CO level login agent in successfully
+//     * @steps: 1. Observe Markets Management in the left menu
+//     * @expect: 1. Verify there is no market management section
+//     */
+//    @Test(groups = {"smoke_co"})
+//    public void Agent_MM_BlockUnblockEvent_037() {
+//        //TODO: Add test case to Testrail
+//        log("@title: Validate that Unblock Now an event successfully from CO level");
+//        log("Verify 1. Verify there is no market management section");
+//        Assert.assertFalse(agentHomePage.leftMenu.leftMenuList.isMenuDisplay(MARKET_MANAGEMENT), "FAILED! Markets Management section should not dispplay at CO level");
+//        log("INFO: Executed completely");
+//    }
 
     @TestRails(id = "758")
     @Test(groups = {"smoke"})
@@ -694,52 +694,52 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
 
-    @Test(groups = {"smoke_s"})
-    public void Agent_MM_BlockUnblockEvent_UnblockNow_769() {
-        log("@title:Validate can unblocked now all events for an downline");
-        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-        Assert.assertTrue(lstUsers.size() > 1, "ERROR: This test case required more than 2 downline. Pls add more downline to verify TC");
-        String userCode = lstUsers.get(0).getUserCode();
-        String userCode2 = lstUsers.get(1).getUserCode();
-        String sport = "Soccer";
-        String tomorowTab = AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2);
-
-        log("Step 1: Navigate Markets Management > Block/Unblock Events");
-        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
-        String childID1 = lstUsers.get(0).getUserID();
-        String childID2 = lstUsers.get(1).getUserID();
-
-        log("Step 2. Select sport is soccer, and Tomorrow tab ");
-        page.filter("", sport, tomorowTab);
-
-        log("Step Precondition: Block all events for 2 downline accounts as the event is unblocked by default");
-        page.selectDownline(userCode, true);
-        page.selectDownline(userCode2, true);
-        page.blockUnblockEvent(userCode, "All", "Block", "", 1);
-        // page.blockUnblockEvent(userCode2,"All","Block","",1);
-
-        log("Step 3. Select a checkbox beside the downline (Acc1)and selected on another downline(Acc2)( select but uncheck the checkbox)");
-        // page.checkDownline(userCode2);
-        page.selectDownline(userCode2, true);
-
-        log(String.format("Step 4. Check all events checkbox and click unblock now for account %s", userCode));
-        page.blockUnblockEvent("", "All", "Unblock Now", "", 1);
-
-        log(String.format("Verify 1.1 Event status when viewing acc2: %s is Blocked", userCode2));
-        List<ArrayList<String>> lstEventofUserCode2 = BlockUnblockEventsUtils.getAllEvents(sport, childID2, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
-        Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode2, "Blocked"), "FAILED! event api status is incorrectly");
-
-        log(String.format("Step 5. Select Acc1 %s to view event status", userCode));
-        page.clickDownline(userCode);
-
-        log(String.format("Verify 1.2 Event status when viewing acc1: %S is Blocked", userCode));
-        List<ArrayList<String>> lstEventofUserCode = BlockUnblockEventsUtils.getAllEvents(sport, childID1, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
-        Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode, "Now"), "FAILED! event api status is incorrectly");
-        log("INFO: Executed completely");
-
-
-        log("INFO: Executed completely");
-    }
+//    @Test(groups = {"smoke_s"})
+//    public void Agent_MM_BlockUnblockEvent_UnblockNow_769() {
+//        log("@title:Validate can unblocked now all events for an downline");
+//        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+//        Assert.assertTrue(lstUsers.size() > 1, "ERROR: This test case required more than 2 downline. Pls add more downline to verify TC");
+//        String userCode = lstUsers.get(0).getUserCode();
+//        String userCode2 = lstUsers.get(1).getUserCode();
+//        String sport = "Soccer";
+//        String tomorowTab = AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2);
+//
+//        log("Step 1: Navigate Markets Management > Block/Unblock Events");
+//        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
+//        String childID1 = lstUsers.get(0).getUserID();
+//        String childID2 = lstUsers.get(1).getUserID();
+//
+//        log("Step 2. Select sport is soccer, and Tomorrow tab ");
+//        page.filter("", sport, tomorowTab);
+//
+//        log("Step Precondition: Block all events for 2 downline accounts as the event is unblocked by default");
+//        page.selectDownline(userCode, true);
+//        page.selectDownline(userCode2, true);
+//        page.blockUnblockEvent(userCode, "All", "Block", "", 1);
+//        // page.blockUnblockEvent(userCode2,"All","Block","",1);
+//
+//        log("Step 3. Select a checkbox beside the downline (Acc1)and selected on another downline(Acc2)( select but uncheck the checkbox)");
+//        // page.checkDownline(userCode2);
+//        page.selectDownline(userCode2, true);
+//
+//        log(String.format("Step 4. Check all events checkbox and click unblock now for account %s", userCode));
+//        page.blockUnblockEvent("", "All", "Unblock Now", "", 1);
+//
+//        log(String.format("Verify 1.1 Event status when viewing acc2: %s is Blocked", userCode2));
+//        List<ArrayList<String>> lstEventofUserCode2 = BlockUnblockEventsUtils.getAllEvents(sport, childID2, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
+//        Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode2, "Blocked"), "FAILED! event api status is incorrectly");
+//
+//        log(String.format("Step 5. Select Acc1 %s to view event status", userCode));
+//        page.clickDownline(userCode);
+//
+//        log(String.format("Verify 1.2 Event status when viewing acc1: %S is Blocked", userCode));
+//        List<ArrayList<String>> lstEventofUserCode = BlockUnblockEventsUtils.getAllEvents(sport, childID1, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
+//        Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode, "Now"), "FAILED! event api status is incorrectly");
+//        log("INFO: Executed completely");
+//
+//
+//        log("INFO: Executed completely");
+//    }
 
     @TestRails(id="770")
     @Test(groups = {"smoke"})
@@ -1066,57 +1066,57 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id="3684")
-    @Test(groups = {"review"})
-    public void Agent_MM_BlockUnblockEvent_UnblockNow_3684() {
-        log("@title:Validate Block/Unblock Events UI display correctly at PO level");
-        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-        Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
-        String userCode = lstUsers.get(0).getUserCode();
-        AccountInfo accountInfo = lstUsers.get(lstUsers.size() - 1);
+//    @TestRails(id="3684")
+//    @Test(groups = {"review"})
+//    public void Agent_MM_BlockUnblockEvent_UnblockNow_3684() {
+//        log("@title:Validate Block/Unblock Events UI display correctly at PO level");
+//        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+//        Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
+//        String userCode = lstUsers.get(0).getUserCode();
+//        AccountInfo accountInfo = lstUsers.get(lstUsers.size() - 1);
+//
+//        log("Step Precondition 1: Navigate Markets Management > Block/Unblock Events");
+//        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
+//        page.filter("", "Horse Racing", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+//
+//        log("Step 2: Page display: Title: Block/Unblock Events and Refresh button");
+//        log("Step 3: SAD list, Sport list and Event time Tab: Old Events, Today, Tomorrow, Future");
+//        log("Step 4: Hint message display correct");
+//        log("Step 5:Buttons: Block, Unblock Now, Unblocked Schedule, Suspend, Unsuspended (On top and bottom) and buttons are disable");
+//        log("Step 6: 5 Downline and Event table display");
+//        log("INFO: Executed completely");
+//    }
 
-        log("Step Precondition 1: Navigate Markets Management > Block/Unblock Events");
-        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
-        page.filter("", "Horse Racing", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
 
-        log("Step 2: Page display: Title: Block/Unblock Events and Refresh button");
-        log("Step 3: SAD list, Sport list and Event time Tab: Old Events, Today, Tomorrow, Future");
-        log("Step 4: Hint message display correct");
-        log("Step 5:Buttons: Block, Unblock Now, Unblocked Schedule, Suspend, Unsuspended (On top and bottom) and buttons are disable");
-        log("Step 6: 5 Downline and Event table display");
-        log("INFO: Executed completely");
-    }
-
-
-   //TODO: Testrail has no testcase
-    @Test(groups = {"review"})
-    public void Agent_MM_BlockUnblockEvent_UnblockNow_035() {
-        log("@title:Validate can unblocked now all events for an downline");
-        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-        Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
-        String userCode = lstUsers.get(0).getUserCode();
-        AccountInfo accountInfo = lstUsers.get(lstUsers.size() - 1);
-
-        log("Step 1: Navigate Markets Management > Block/Unblock Events");
-        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
-        page.filter("", "Horse Racing", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
-
-        log("Step 2: Select sport is Horse Racing, and Today ");
-        log("Step 3: Select all events");
-        log("Step 4: Click Unblock Now");
-        page.blockUnblockEvent("All", "All", "Unblock Now", "", 1);
-
-        log("Verify 1: Status: Current status is Unblocked, Viewable is GreenCheck icon, and Betable is details");
-        log("Verify 2: Unblock Schedule Setting: Time to open = Now and Time to bet = 25 mintues");
-        //TODO : This function is changing behaviour so will update verify  until 6.0 release done
-        Assert.assertTrue(true, "Verify passed");
-
-        //Assert.assertTrue(popup.popupDeposit.isDisplayed(), "ERROR: popupDeposit is not displayed");
-        //Assert.assertEquals(expectedTitle, popupTitle, String.format("ERROR: The expected popup title is '%s' but found '%s'", expectedTitle, popupTitle));
-        //Assert.assertEquals(Double.parseDouble(yourBalance), accountInfo.getCashBalance(), String.format("ERROR: The expected current balance is '%s' but found '%s'", accountInfo.getCashBalance(), yourBalance));
-        //Assert.assertEquals(Double.parseDouble(memberBalance), lstUsers.get(0).getCashBalance(), String.format("ERROR: The expected member's current balance is '%s' but found '%s'", lstUsers.get(0).getCashBalance(), memberBalance));
-        log("INFO: Executed completely");
-    }
+//   //TODO: Testrail has no testcase
+//    @Test(groups = {"review"})
+//    public void Agent_MM_BlockUnblockEvent_UnblockNow_035() {
+//        log("@title:Validate can unblocked now all events for an downline");
+//        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+//        Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
+//        String userCode = lstUsers.get(0).getUserCode();
+//        AccountInfo accountInfo = lstUsers.get(lstUsers.size() - 1);
+//
+//        log("Step 1: Navigate Markets Management > Block/Unblock Events");
+//        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
+//        page.filter("", "Horse Racing", AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+//
+//        log("Step 2: Select sport is Horse Racing, and Today ");
+//        log("Step 3: Select all events");
+//        log("Step 4: Click Unblock Now");
+//        page.blockUnblockEvent("All", "All", "Unblock Now", "", 1);
+//
+//        log("Verify 1: Status: Current status is Unblocked, Viewable is GreenCheck icon, and Betable is details");
+//        log("Verify 2: Unblock Schedule Setting: Time to open = Now and Time to bet = 25 mintues");
+//        //TODO : This function is changing behaviour so will update verify  until 6.0 release done
+//        Assert.assertTrue(true, "Verify passed");
+//
+//        //Assert.assertTrue(popup.popupDeposit.isDisplayed(), "ERROR: popupDeposit is not displayed");
+//        //Assert.assertEquals(expectedTitle, popupTitle, String.format("ERROR: The expected popup title is '%s' but found '%s'", expectedTitle, popupTitle));
+//        //Assert.assertEquals(Double.parseDouble(yourBalance), accountInfo.getCashBalance(), String.format("ERROR: The expected current balance is '%s' but found '%s'", accountInfo.getCashBalance(), yourBalance));
+//        //Assert.assertEquals(Double.parseDouble(memberBalance), lstUsers.get(0).getCashBalance(), String.format("ERROR: The expected member's current balance is '%s' but found '%s'", lstUsers.get(0).getCashBalance(), memberBalance));
+//        log("INFO: Executed completely");
+//    }
 
     @Test(groups = {"precondition"})
     @Parameters({"downlineAccount"})

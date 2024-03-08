@@ -420,7 +420,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_creditcash"})
     @Parameters({"password"})
     public void Agent_AM_DepositWithdrawal_Deposit_015(String password) throws Exception {
         log("@title:  Verify Balance agent is correctly is correct when deposit from agent site");

@@ -431,7 +431,7 @@ public class EditUserTest extends BaseCaseTest {
 
 
     @TestRails(id = "3542")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Downline_Listing_Edit_User_3542() throws Exception {
         log("@title: Verify can edit User successfully if input valid min bet Setting");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
