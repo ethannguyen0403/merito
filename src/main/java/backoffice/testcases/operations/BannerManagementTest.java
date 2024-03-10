@@ -365,7 +365,7 @@ public class BannerManagementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1646")
-    @Test(groups = {"regression_s"})
+    @Test(groups = {"regression"})
     public void BO_Operations_BannerManagement_1646() {
         String expectedBrand = "FairExchange";
         String expectedTheme = "All";
@@ -400,7 +400,7 @@ public class BannerManagementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1647")
-    @Test(groups = {"regression_s"})
+    @Test(groups = {"regression"})
     @Parameters({"feMemberLoginId", "feMemberLoginPwd", "language", "currency"})
     public void BO_Operations_BannerManagement_1647(String feMemberLoginId, String feMemberLoginPwd, String language, String currency) throws Exception {
         String expectedBrand = "FairExchange";
@@ -435,7 +435,7 @@ public class BannerManagementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1648")
-    @Test(groups = {"regression_s"})
+    @Test(groups = {"regression"})
     @Parameters({"feMemberLoginId", "feMemberLoginPwd", "language", "currency"})
     public void BO_Operations_BannerManagement_1648(String feMemberLoginId, String feMemberLoginPwd, String language, String currency) throws Exception {
         String expectedBrand = "FairExchange";
