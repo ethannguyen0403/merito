@@ -29,6 +29,8 @@
                 <include name="regression"/>
                 <include name="regression_sat"/>
                 <include name="regression_creditcash"/>
+                <include name="interaction"/>
+                <include name="interaction_sat"/>
             </run>
         </groups>
 

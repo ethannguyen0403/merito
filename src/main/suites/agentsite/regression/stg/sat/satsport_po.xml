@@ -28,6 +28,7 @@
         <groups>
             <run>
                 <include name="regression_po"/>
+                <include name="interaction_po"/>
             </run>
         </groups>
 
