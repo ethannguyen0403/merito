@@ -68,7 +68,7 @@ public class LandingPageTest extends BaseCaseTest {
 
     @TestRails(id = "1216")
     @Parameters({"brandname"})
-    @Test(groups = {"satsport", "funsport", "fairenter", "regression_sat"})// other whitelabel except Fair999
+    @Test(groups = {"regression_sat","regression_fs", "regression_f24"})// other whitelabel except Fair999
     public void Landing_Page_TC1216(String brandname) throws Exception {
         log("@title: Validate Underage gambling is prohibited popup");
         log("Step 1. Access member site");
@@ -82,7 +82,7 @@ public class LandingPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1217")
-    @Test(groups = {"satsport", "funsport", "fairenter", "regression_sat"})// other whitelabel except Fair999
+    @Test(groups = {"regression_sat", "regression_fs", "regression_f24"})// other whitelabel except Fair999
     public void Landing_Page_TC1217() throws Exception {
         log("@title: Validate Google page display when click on Exit");
         log("Step 1. Access member site");

@@ -270,7 +270,7 @@ public class MyBetPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1106")
-    @Test(groups = {"regression_INR"})
+    @Test(groups = {"regression"})
     public void MyBetPage_TC1106() {
         log("@title: Validate control display correctly when select Lottery and Slot");
         log("Step 1. Active My Account> My Bets");

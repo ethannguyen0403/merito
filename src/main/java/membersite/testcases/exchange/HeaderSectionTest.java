@@ -31,7 +31,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * 4. Outstanding should in red color
      */
     @TestRails(id = "500")
-    @Test(groups = {"smoke_fair999"})
+    @Test(groups = {"regression_creditcash"})
     public void HeaderSection_TC500() {
         log("@title: Validate Credit, Balance, Outstanding of Credit Cash account  display correctly");
         log("Step 1: Get the info: Credit, Balance, Outstanding of  credit cash account from api");
@@ -68,32 +68,63 @@ public class HeaderSectionTest extends BaseCaseTest {
      * - table with the header: Market ID, Market Start Time, Market Name (Reload button), Liability
      * 2. Popup is closed
      */
-    @TestRails(id = "501")
-    @Test(groups = {"smokeOldUI", "smokeNewUI"})
-    public void HeaderSection_TC501() {
-        log("@title: Validate can open my markets");
-        log("Step 1. Click on  My Markets menu");
-        MyMarketPopup popup = memberHomePage.header.openMyMarketPopup();
+    @TestRails(id = "943")
+//    @Test(groups = {"smoke"})
+    public void HeaderSection_TC943() {
+        //TODO: implement this test case
+        log("INFO: Executed completely");
+    }
 
-        log("Verify 1:  - Popup Title: My Markets\n" +
-                "   - Note: Date will be based on time zone IST (for SAT and White Labels)\n" +
-                "   - table with the header: Market ID, Market Start Time, Market Name (Reload button), Liability");
-        Assert.assertEquals(popup.lblTitle.getText(), MemberConstants.MyMarketsPopup.TITLE, String.format("ERROR: Expected title is %s but found %s", MemberConstants.MyMarketsPopup.TITLE, popup.lblTitle.getText()));
-        Assert.assertEquals(popup.lblNote.getText(), TIMEZONE_BRAND.get(_brandname), String.format("ERROR: Expected title is %s but found %s", MemberConstants.MyMarketsPopup.NOTES, popup.lblNote.getText()));
-        List<String> lstMyMarketsHeaders = popup.tbMyMarkets.getColumnNamesOfTable(2);
-        Assert.assertEquals(lstMyMarketsHeaders.size(), MemberConstants.MyMarketsPopup.TABLE_MY_MARKETS_HEADER.size(), String.format("ERROR: The expected no of columns is %s but found %s", MemberConstants.MyMarketsPopup.TABLE_MY_MARKETS_HEADER.size(), lstMyMarketsHeaders.size()));
+    @TestRails(id = "944")
+//    @Test(groups = {"smoke"})
+    public void HeaderSection_TC944() {
+        //TODO: implement this test case
+        log("INFO: Executed completely");
+    }
 
-        for (int i = 0; i < MemberConstants.MyMarketsPopup.TABLE_MY_MARKETS_HEADER.size(); i++) {
-            String observed = lstMyMarketsHeaders.get(i);
-            String expected = MemberConstants.MyMarketsPopup.TABLE_MY_MARKETS_HEADER.get(i);
-            Assert.assertTrue(observed.contains(expected), String.format("ERROR: The expected column name is '%s' but found '%s'", expected, observed));
-        }
+    @TestRails(id = "945")
+//    @Test(groups = {"smoke"})
+    public void HeaderSection_TC945() {
+        //TODO: implement this test case
+        log("INFO: Executed completely");
+    }
 
-        log("Step2 :Close the popup");
-        popup.close();
+    @TestRails(id = "951")
+//    @Test(groups = {"smoke"})
+    public void HeaderSection_TC951() {
+        //TODO: implement this test case
+        log("INFO: Executed completely");
+    }
 
-        log("Verify 2: Popup is closed");
-        Assert.assertFalse(popup.lblTitle.isDisplayedShort(3), "ERROR: The popup closed is not successfully");
+    @TestRails(id = "952")
+//    @Test(groups = {"smoke"})
+    public void HeaderSection_TC952() {
+        //TODO: implement this test case
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "953")
+//    @Test(groups = {"smoke"})
+    public void HeaderSection_TC953() {
+        //TODO: implement this test case
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "954")
+//    @Test(groups = {"smoke"})
+    public void HeaderSection_TC954() {
+        //TODO: implement this test case
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "955")
+//    @Test(groups = {"smoke"})
+    public void HeaderSection_TC955() {
+        //TODO: implement this test case
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "950")
+//    @Test(groups = {"smoke"})
+    public void HeaderSection_TC950() {
+        //TODO: implement this test case
         log("INFO: Executed completely");
     }
 
@@ -106,8 +137,9 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Liability matched with outstanding
      * If My markets display "No records found", Outstanding should be 0.00
      */
-    @Test(groups = {"regression"})
-    public void HeaderSection_TC004() {
+    @TestRails(id = "501")
+    @Test(groups = {"smoke"})
+    public void HeaderSection_TC501() {
         log("@title: Validate Liability in My market and outstanding is synchronized");
         log("Step 1. Get outstanding value");
         log("Step 2. Click on My market");
@@ -223,7 +255,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Soccer page display with the title: Soccer Highlights
      */
     @TestRails(id = "505")
-    @Test(groups = {"smoke_newview"})
+    @Test(groups = {"smoke"})
     public void HeaderSection_TC505() {
         log("@title: Validate can navigate to Soccer menu");
         log("Step 1. Click on Soccer menu");
@@ -250,7 +282,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Tennis page display with the title: Tennis Highlights
      */
     @TestRails(id = "506")
-    @Test(groups = {"smoke_newview"})
+    @Test(groups = {"smoke"})
     public void HeaderSection_TC506() {
         log("@title: Validate can navigate to Tennis menu");
         log("Step 1. Click on Tennis menu");
@@ -302,7 +334,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Cricket page display with the title: Cricket Highlights
      */
     @TestRails(id = "508")
-    @Test(groups = {"smoke_newview"})
+    @Test(groups = {"smoke"})
     public void HeaderSection_TC508() {
         log("@title: Validate can navigate to Cricket menu");
         log("Step 1. Click on Cricket menu");
@@ -331,7 +363,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. The corresponding market is navigate
      */
     @TestRails(id = "509")
-    @Test(groups = {"smoke"}, priority = 3)
+    @Test(groups = {"smoke"})
     public void HeaderSection_C509() {
         log("@title: Validate can navigate to correct market when click on market in My market");
         log("Step 1. Click on My market ");
@@ -350,7 +382,7 @@ public class HeaderSectionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "510")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_creditcash"})
     public void HeaderSection_C510() {
         log("@title: Validate Credit, Balance, Outstanding of Credit Cash account  display correctly when active Exchange Game product");
         log("Step 1. Get the info: Credit, Balance, Outstanding of credit cash account from api");

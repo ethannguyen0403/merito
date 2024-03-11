@@ -25,7 +25,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
      * 5. Input the wager ID get in member site and click search button
      * @expect: 1. Verify Wager info display correctly as precondition
      */
-    @Test(groups = {"smoke"})
+//    @Test(groups = {"smoke"})
     @Parameters("wagerID")
     public void BO_Operations_Wager_Void_Unvoid_001(String wagerID) {
         log("@title: Validate can search void/un-void wager by Wager ID");

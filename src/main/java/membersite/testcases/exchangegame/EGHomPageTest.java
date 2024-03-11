@@ -175,7 +175,7 @@ public class EGHomPageTest extends BaseCaseTest {
      */
     @TestRails(id = "532")
     @Test(groups = {"smoke"})
-    public void EG_Home_Page_TC533() {
+    public void EG_Home_Page_TC532() {
         log("@title: Verify can open BACCARAT by when click Play Standard");
         log("Step 1. Navigate to exchange game ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
@@ -294,6 +294,18 @@ public class EGHomPageTest extends BaseCaseTest {
         log("Verify 1 Play Standard Omahahi page is correctly display ");
         Assert.assertTrue(omahahiPage.getGameHeaderTitle().startsWith("Exchange " + EGConstants.OMAHA_HI_CAP), String.format("FAIELD! Omahahi title header is incorrect. Expected %s but found %s", "Turbo Exchange " + EGConstants.OMAHA_HI_CAP, omahahiPage.getGameHeaderTitle()));
 
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "528")
+    public void EG_Home_Page_TC528() {
+        //TODO: implement this case
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "1011")
+    public void EG_Home_Page_TC1011() {
+        //TODO: implement this case
         log("INFO: Executed completely");
     }
 }

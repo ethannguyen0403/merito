@@ -21,7 +21,7 @@ public class CryptoAccessManagementTest extends BaseCaseTest {
     @TestRails(id = "620")
     @Test(groups = {"smoke"})
     @Parameters("satMemberLoginID")
-    public void BO_Account_Management_Crypto_Access_Management_001(String satMemberLoginID) {
+    public void BO_Account_Management_Crypto_Access_Management_620(String satMemberLoginID) {
         log("@title: Validate can not add account to Crypto Access Management that not belonging to Funsport brand");
         log("Step 1. Access Admin Management > Crypto Access Management");
         CryptoAccessManagementPage page = backofficeHomePage.navigateCryptoAccessManagement();
@@ -49,7 +49,7 @@ public class CryptoAccessManagementTest extends BaseCaseTest {
     @TestRails(id = "621")
     @Test(groups = {"smoke"})
     @Parameters({"cryptoAccount", "password"})
-    public void BO_Account_Management_Crypto_Access_Management_002(String cryptoAccount, String password) throws Exception {
+    public void BO_Account_Management_Crypto_Access_Management_621(String cryptoAccount, String password) throws Exception {
         log("@title: Validate account added into the list can login in crypto site");
         log("Step 1. Access Admin Management > Crypto Access Management");
 

@@ -96,7 +96,7 @@ public class ResettlementLogTest extends BaseCaseTest {
     @TestRails(id = "598")
     @Test(groups = {"smoke"})
     @Parameters({"satMemberLoginID"})
-    public void BO_Settlement_Resettlement_Log_003(String satMemberLoginID) {
+    public void BO_Settlement_Resettlement_Log_598(String satMemberLoginID) {
         log("@title: Validate can search log by Wager ID");
         log("Step 1. Access Tool > Resettlement Log");
         ResettlementLogPage page = backofficeHomePage.navigateResettlementLog();

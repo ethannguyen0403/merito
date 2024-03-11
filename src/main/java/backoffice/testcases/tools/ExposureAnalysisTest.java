@@ -19,7 +19,7 @@ public class ExposureAnalysisTest extends BaseCaseTest {
     @TestRails(id = "599")
     @Test(groups = {"smoke"})
     @Parameters("satMemberLoginID")
-    public void BO_Tools_Exposure_Analysis_001(String satMemberLoginID) {
+    public void BO_Tools_Exposure_Analysis_599(String satMemberLoginID) {
 
         log("@title: Validate can search exposure of an account");
         log("Step 1. Access Tool > Exposure Analysis");
@@ -46,7 +46,7 @@ public class ExposureAnalysisTest extends BaseCaseTest {
     @TestRails(id = "600")
     @Test(groups = {"smoke"})
     @Parameters("satMemberLoginID")
-    public void BO_Tools_Exposure_Analysis_002(String satMemberLoginID) {
+    public void BO_Tools_Exposure_Analysis_600(String satMemberLoginID) {
         log("@title: Validate Balance, Exposure of member account display correctly as analysis");
         log("Step 1. Access Tool > Exposure Analysis");
         ExposureAnalysisPage page = backofficeHomePage.navigateExposureAnalysis();
@@ -72,7 +72,7 @@ public class ExposureAnalysisTest extends BaseCaseTest {
     @TestRails(id = "601")
     @Test(groups = {"smoke"})
     @Parameters("satMemberLoginID")
-    public void BO_Tools_Exposure_Analysis_003(String satMemberLoginID) {
+    public void BO_Tools_Exposure_Analysis_601(String satMemberLoginID) {
         log("@title: Validate Balance, Exposure of member account display correctly as analysis");
         log("Step 1. Access Tool > Exposure Analysis");
         ExposureAnalysisPage page = backofficeHomePage.navigateExposureAnalysis();

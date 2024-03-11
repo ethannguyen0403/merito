@@ -41,7 +41,7 @@ public class OddsMatchedHistoryTest extends BaseCaseTest {
      */
     @TestRails(id = "604")
     @Test(groups = {"smoke"})
-    public void BO_BO_Fraud_Detection_Odds_Matched_History_002() {
+    public void BO_BO_Fraud_Detection_Odds_Matched_History_604() {
         log("@title: Validate UI is correct");
         log("Step 1. Access Fraud Detection > Odds Matched History");
         OddsMatchedHistoryPage page = backofficeHomePage.navigateOddsMatchedHistory();
