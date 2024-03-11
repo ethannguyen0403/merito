@@ -29,16 +29,15 @@ public class ReopenUserTest extends BaseCaseTest {
      * 3. Account is active in agent site
      */
     @TestRails(id = "617")
-    @Test(groups = {"smoke11"})
+    @Test(groups = {"smoke"})
     @Parameters({"satSADAgentLoginID", "memberPassword", "username", "password", "brandname"})
     public void BO_MM_Reopen_User_617(String satSADAgentLoginID, String memberPassword, String username, String password, String brandname) throws Exception {
         log("@title:  Validate can reopen user");
         backofficeHomePage.logout();
 
-        String brand = "satsport";
-        agentLoginURL = defineURL(brand, "/agent");
-        sosAgentURL = defineURL(brand, AGENT_SOS_URL_SUFFIX);
-        agentSecurityCodeURL = defineURL(brand, AGENT_SECURITY_CODE_URL_SUFFIX.get(brand));
+        agentLoginURL = defineURL(brandname, "/agent");
+        sosAgentURL = defineURL(brandname, AGENT_SOS_URL_SUFFIX);
+        agentSecurityCodeURL = defineURL(brandname, AGENT_SECURITY_CODE_URL_SUFFIX.get(brandname));
         DriverManager.getDriver().get(agentLoginURL);
         agentHomePage = loginAgent(sosAgentURL, agentSecurityCodeURL, satSADAgentLoginID, memberPassword, environment.getSecurityCode());
         DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
