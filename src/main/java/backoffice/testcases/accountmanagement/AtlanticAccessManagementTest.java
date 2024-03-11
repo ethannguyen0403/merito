@@ -60,17 +60,19 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
     public void BO_Account_Management_Atlantic_Access_Management_623(String username, String password, String atlanticAccount, String memberPassword) throws Exception {
         log("@title: Validate can account is added/deleted to the list can access/un-access Atlantic site");
         log("Step 1. Access Admin Management > Atlantic Access Management");
-        String passDecrypt = StringUtils.decrypt(memberPassword);
-        AtlanticAccessManagementPage page = backofficeHomePage.navigateAtlanticAccessManagement();
-
-        log("Step 2. Add a player");
-        page.addPlayer(atlanticAccount);
-        AlertMessageBox msgBox = new AlertMessageBox();
-        String actualMsg = msgBox.getSuccessAlert();
-
-        log("Verify 1. Verify message \"Add user Atlantic success!\" after add agent and agent is display in the list");
-        Assert.assertTrue(actualMsg.contains("Add user atlantic success!"), "FAILED! Success message after add Atlantic user is incorrect");
-        Assert.assertTrue(page.isAccountInList(atlanticAccount), String.format("FAILED! The account %s not display in the list after adding", atlanticAccount));
+        //TODO: implement this case
+        Assert.assertTrue(false, "Need to implement this case");
+//        String passDecrypt = StringUtils.decrypt(memberPassword);
+//        AtlanticAccessManagementPage page = backofficeHomePage.navigateAtlanticAccessManagement();
+//
+//        log("Step 2. Add a player");
+//        page.addPlayer(atlanticAccount);
+//        AlertMessageBox msgBox = new AlertMessageBox();
+//        String actualMsg = msgBox.getSuccessAlert();
+//
+//        log("Verify 1. Verify message \"Add user Atlantic success!\" after add agent and agent is display in the list");
+//        Assert.assertTrue(actualMsg.contains("Add user atlantic success!"), "FAILED! Success message after add Atlantic user is incorrect");
+//        Assert.assertTrue(page.isAccountInList(atlanticAccount), String.format("FAILED! The account %s not display in the list after adding", atlanticAccount));
 
      /*   log("Step 3. Access Atlantic site and login with the account above");
         Helper.loginFairExchange(environment.getAtlanticSOSURL(),environment.getAtlanticDashboardURL(),atlanticAccount,memberPassword,true);
@@ -82,13 +84,13 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
         log("Step 4. Logout Atlantic site and re-login BO site and deleted the account");
         Helper.loginBOIgnoreCaptcha(environment.getSosURL(),environment.getDashboardURL(),username,password,true);
         page = backofficeHomePage.navigateAtlanticAccessManagement();*/
-        page.removePlayer(atlanticAccount).confirm();
-        msgBox = new AlertMessageBox();
-        actualMsg = msgBox.getSuccessAlert();
+//        page.removePlayer(atlanticAccount).confirm();
+//        msgBox = new AlertMessageBox();
+//        actualMsg = msgBox.getSuccessAlert();
 
-        log("Verify 3. Verify the message \"Delete user Atlantic success!\" and the agent is removed");
-        Assert.assertTrue(actualMsg.contains("Delete user atlantic success!"), "FAILED! Success message after delete Atlantic user is incorrect");
-        Assert.assertFalse(page.isAccountInList(atlanticAccount), String.format("FAILED! The account %s display in the list after removing", atlanticAccount));
+//        log("Verify 3. Verify the message \"Delete user Atlantic success!\" and the agent is removed");
+//        Assert.assertTrue(actualMsg.contains("Delete user atlantic success!"), "FAILED! Success message after delete Atlantic user is incorrect");
+//        Assert.assertFalse(page.isAccountInList(atlanticAccount), String.format("FAILED! The account %s display in the list after removing", atlanticAccount));
 
        /* log("Step 5. Relogin Atlantic");
         Helper.loginFairExchange(environment.getAtlanticSOSURL(),environment.getAtlanticDashboardURL(),atlanticAccount,memberPassword,false);
@@ -96,6 +98,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
 
         log("Verify 4. Verify cannot login Atlantic site when account is deleted form Atlantic Access Management page");
         Assert.assertTrue(atlanticLoginPage.lnkConservationOfTuna.isDisplayed(),String.format("FAILED! Can login Atlantic site when the account %s is removed to the list",atlanticAccount));*/
+
         log("INFO: Executed completely");
     }
 
@@ -118,11 +121,13 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
     public void BO_Account_Management_Atlantic_Access_Management_004(String username, String atlanticAccount, String password, String memberPassword) throws Exception {
         log("@title: Validate can/cannot login Fairenter if account is non-display/display in Atlantic site");
         log("Step 1. Access Admin Management > Atlantic Access Management");
-        AtlanticAccessManagementPage page = backofficeHomePage.navigateAtlanticAccessManagement();
-
-        log("Step 2. Add a player");
-        page.addPlayer(atlanticAccount);
-        page.isAccountInList(atlanticAccount);
+        //TODO: implement this case
+        Assert.assertTrue(false, "Need to implement this case");
+//        AtlanticAccessManagementPage page = backofficeHomePage.navigateAtlanticAccessManagement();
+//
+//        log("Step 2. Add a player");
+//        page.addPlayer(atlanticAccount);
+//        page.isAccountInList(atlanticAccount);
 
       /*  log("Step 3. Access FairEnter and login");
         page.logout();
@@ -135,10 +140,10 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
         log("Verify 1. Verify cannot login Fairenter if account is added in Atlantic list");
         Assert.assertTrue(loginPopup.btnLogin.isDisplayed(),String.format("FAILED! Can login Fairenter site when the account %s is added to Atlantic list",atlanticAccount));
 */
-        log("Step 4. Back to BO and deleted the account out Atlantic list ");
-        Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl, username, password, true);
-        page = backofficeHomePage.navigateAtlanticAccessManagement();
-        page.removePlayer(atlanticAccount).confirm();
+//        log("Step 4. Back to BO and deleted the account out Atlantic list ");
+//        Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl, username, password, true);
+//        page = backofficeHomePage.navigateAtlanticAccessManagement();
+//        page.removePlayer(atlanticAccount).confirm();
       /*  page.logout();
 
         log("Step 5. Login Fairenter again");

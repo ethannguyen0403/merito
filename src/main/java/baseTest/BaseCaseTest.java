@@ -17,6 +17,7 @@ import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.core.har.HarEntry;
 import objects.Environment;
 import org.json.simple.JSONObject;
+import org.openqa.selenium.Point;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.ITestContext;
@@ -313,6 +314,7 @@ public class BaseCaseTest {
             System.out.println("driver Properties" + driverProperties.getBrowserName());
             DriverManager.createWebDriver(driverProperties);
             DriverManager.getDriver().setLoadingTimeOut(100);
+            DriverManager.getDriver().manage().window().setPosition(new Point(2000, 1));
             DriverManager.getDriver().maximize();
             if (DriverManager.getDriver().getToAvoidTimeOut(url) || count == 0) {
                 log(String.format("RUNNING under the link %s", url));

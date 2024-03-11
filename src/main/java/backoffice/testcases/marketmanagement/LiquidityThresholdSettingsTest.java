@@ -103,7 +103,9 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
         log("@title: Validate odds is blur and unclick able when total match of the market not reach the setting for Non-live market");
         log("2. The agent of member account is active Liquidity Threshold");
         log("3. Have a non-live Soccer event");
-
+        //TODO: implement this case
+        Assert.assertTrue(false, "Need to implement this case");
+        log("INFO: Executed Completely!");
         log("Step 1. Access Operations > Liquidity Threshold Settings");
 
         log("Step 2. Select soccer get non-live liquidity threshold setting for match odds market");
@@ -133,7 +135,9 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
         log("@title: Validate odds is blur and unclick able when total match of the market not reach the setting for Live market");
         log("2. The agent of member account is active Liquidity Threshold");
         log("3. Have a non-live Soccer event");
-
+        //TODO: implement this case
+        Assert.assertTrue(false, "Need to implement this case");
+        log("INFO: Executed Completely!");
         log("Step 1. Access Operations > Liquidity Threshold Settings");
 
         log("Step 2. Select soccer get Live liquidity threshold setting for match odds market");
