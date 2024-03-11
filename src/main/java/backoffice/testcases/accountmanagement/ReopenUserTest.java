@@ -31,7 +31,7 @@ public class ReopenUserTest extends BaseCaseTest {
     @TestRails(id = "617")
     @Test(groups = {"smoke11"})
     @Parameters({"satSADAgentLoginID", "memberPassword", "username", "password", "brandname"})
-    public void BO_MM_Reopen_User_001(String satSADAgentLoginID, String memberPassword, String username, String password, String brandname) throws Exception {
+    public void BO_MM_Reopen_User_617(String satSADAgentLoginID, String memberPassword, String username, String password, String brandname) throws Exception {
         log("@title:  Validate can reopen user");
         backofficeHomePage.logout();
 

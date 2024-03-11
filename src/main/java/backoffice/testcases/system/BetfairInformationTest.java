@@ -19,7 +19,7 @@ public class BetfairInformationTest extends BaseCaseTest {
     @TestRails(id = "658")
     @Test(groups = {"smoke"})
     @Parameters("env")
-    public void BO_System_Betfair_Information_001(String env) {
+    public void BO_System_Betfair_Information_658(String env) {
         log("@title: Validate can search BF information according with Merito info");
         String meritoBetID = "61366";
         String betFairBetID = "213840481572";
