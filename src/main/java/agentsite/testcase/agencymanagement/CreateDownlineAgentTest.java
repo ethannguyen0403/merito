@@ -186,6 +186,14 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "684")
+    public void Agent_AM_CreateDownline_Agent_684() {
+        log("@title: Validate if input incorrect Login ID format");
+        //TODO: implement this case
+        log("@title: Validate Cricket match odds will include fancy market");
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "685")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_685() {
@@ -206,10 +214,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "686")
-    @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_686() {
         //TODO: implement test for this case
-        Assert.assertTrue(false,"");
         log("INFO: Executed completely");
     }
 

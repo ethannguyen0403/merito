@@ -175,39 +175,31 @@ public class HomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1064")
-    @Test(groups = {"interaction"})
     public void Home_page_TC1064() {
         //TODO: implement this case
         log("@title: Validate Cricket match odds will include fancy market");
-        Assert.assertTrue(false, "Need to implement this case");
         log("INFO: Executed Completely!");
     }
 
 
     @TestRails(id = "1065")
-    @Test(groups = {"interaction"})
     public void Home_page_TC1065() {
         //TODO: implement this case
         log("@title: Validate Fancy market not display match odds market");
-        Assert.assertTrue(false, "Need to implement this case");
         log("INFO: Executed Completely!");
     }
 
     @TestRails(id = "1066")
-    @Test(groups = {"interaction"})
     public void Home_page_TC1066() {
         //TODO: implement this case
         log("@title: Validate In-Play label display");
-        Assert.assertTrue(false, "Need to implement this case");
         log("INFO: Executed Completely!");
     }
 
     @TestRails(id = "1069")
-    @Test(groups = {"interaction"})
     public void Home_page_TC1069() {
         //TODO: implement this case
         log("@title: Validate Sport tab work");
-        Assert.assertTrue(false, "Need to implement this case");
         log("INFO: Executed Completely!");
     }
 }

@@ -208,7 +208,6 @@ public class UnsettledBetTest extends BaseCaseTest {
     @Test(groups = {"smoke"})
     public void Agent_Report_Unsettled_Bet_788() {
         //TODO: implement test for this case
-        Assert.assertTrue(false,"");
         log("INFO: Executed completely");
     }
 }

@@ -326,7 +326,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15790")
-    @Test(groups = {"smoke1", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19"})
     public void ArtemisFancyTest_15790() {
         log("@title: Validate exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
