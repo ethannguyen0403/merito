@@ -125,7 +125,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15772")
-    @Test(groups = {"smoke_sat1", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19"})
     public void CentralFancyTest_15772() {
         log("@title: Validate exposure is kept correctly when place on Yes");
         log("Step 1. Login member site and click on Cricket");

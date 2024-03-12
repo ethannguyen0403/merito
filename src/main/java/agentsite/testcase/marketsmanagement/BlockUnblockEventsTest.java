@@ -1018,6 +1018,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="3694")
+    @Test(groups = {"interaction"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_3694(String downlineAccount, String memberAccount, String password) throws Exception {
         //TODO: implement test for this case
