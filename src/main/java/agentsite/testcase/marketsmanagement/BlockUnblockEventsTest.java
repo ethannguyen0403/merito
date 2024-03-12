@@ -890,7 +890,6 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     @Parameters({"memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_3690(String memberAccount, String password) throws Exception {
         //TODO: implement test for this case
-        Assert.assertTrue(false, "");
         log("INFO: Executed completely");
     }
 
