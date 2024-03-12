@@ -65,16 +65,13 @@
             <class name="backoffice.testcases.marketmanagement.LiquidityThresholdSettingsTest"/>
 
             <class name="backoffice.testcases.operations.LiveStreamingManagementTest"/>
-<!--            <class name="backoffice.testcases.operations.WagerVoidUnvoidTest"/>-->
+            <class name="backoffice.testcases.operations.WagerVoidUnvoidTest"/>
             <class name="backoffice.testcases.operations.PerformanceTest"/>
             <class name="backoffice.testcases.operations.MixedPTConfigurationTest"/>
 <!--            <class name="backoffice.testcases.operations.bannermanagement.NewBannerTest"/>-->
 <!--            <class name="backoffice.testcases.operations.bannermanagement.UpdateBannerTest"/>-->
 <!--            <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>-->
 <!--            <class name="backoffice.testcases.operations.BannerManagementTest"/>-->
-
-            <class name="backoffice.testcases.paymentmanagement.DepositWithdrawalTransactionsTest"/>
-            <class name="backoffice.testcases.paymentmanagement.PaymentConfigurationTest"/>
 
             <class name="backoffice.testcases.reports.PunterPerformanceTest"/>
             <class name="backoffice.testcases.reports.WinLossDetailTest"/>
