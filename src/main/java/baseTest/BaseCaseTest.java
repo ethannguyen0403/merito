@@ -314,7 +314,6 @@ public class BaseCaseTest {
             System.out.println("driver Properties" + driverProperties.getBrowserName());
             DriverManager.createWebDriver(driverProperties);
             DriverManager.getDriver().setLoadingTimeOut(100);
-            DriverManager.getDriver().manage().window().setPosition(new Point(2000, 1));
             DriverManager.getDriver().maximize();
             if (DriverManager.getDriver().getToAvoidTimeOut(url) || count == 0) {
                 log(String.format("RUNNING under the link %s", url));
