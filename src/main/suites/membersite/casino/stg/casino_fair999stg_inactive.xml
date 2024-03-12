@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="FAIR999_STG_CASINO_TEST-INACTIVE" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="Casino.2024.V.1.0-FAIR999-STG-Inactive">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='ANJNL01002'/>
+        <parameter name='level' value='SMA'/>
+        <parameter name='downlineAccount' value='QAZ00'/>
+        <parameter name='dowlineLevel' value='MA'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='INR'/>
+        <parameter name='prefix' value='QAZ'/>
+        <parameter name='appname' value='membersite'/>
+        <parameter name='brandname' value='fairexchange'/>
+        <groups>
+            <run>
+                <include name="casino_product_inactive"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="membersite.testcases.casino.SupernowaTest"/>
+            <class name="membersite.testcases.casino.IonPageTest"/>
+            <class name="membersite.testcases.casino.PragmaticPageTest"/>
+            <class name="membersite.testcases.casino.EvolutionPageWhiteCliffTest"/>
+            <class name="membersite.testcases.casino.GameHallPageTest"/>
+            <class name="membersite.testcases.casino.LiveDealerAsianPageTest"/>
+            <class name="membersite.testcases.casino.LiveDealerEuropeanPageTest"/>
+            <class name="membersite.testcases.casino.LotterySlotsPageTest"/>
+            <class name="membersite.testcases.casino.SupernowaTest"/>
+            <class name="membersite.testcases.casino.VivoPageTest"/>
+        </classes>
+    </test>
+</suite>
