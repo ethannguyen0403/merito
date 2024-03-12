@@ -205,7 +205,7 @@ public class UnsettledBetTest extends BaseCaseTest {
     }
 
     @TestRails(id = "788")
-    @Test(groups = {"smoke"})
+//    @Test(groups = {"smoke"})
     public void Agent_Report_Unsettled_Bet_788() {
         //TODO: implement test for this case
         log("INFO: Executed completely");

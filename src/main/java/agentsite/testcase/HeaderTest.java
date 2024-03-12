@@ -118,6 +118,7 @@ public class HeaderTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3458")
+//    @Test(groups = {"regression"})
     public void Header_TC3458() {
         //TODO: implement test for this case
         log("INFO: Executed completely");

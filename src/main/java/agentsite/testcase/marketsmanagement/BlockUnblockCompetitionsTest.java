@@ -125,7 +125,7 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3704")
-    @Test(groups = {"smoke"})
+//    @Test(groups = {"smoke"})
     public void Agent_MM_BlockUnblockCompetitions_TC3704() {
         //TODO: implement this test case
         log("INFO: Executed completely");

@@ -20,7 +20,7 @@ public class CurrencyManagementTest extends BaseCaseTest {
      */
     @TestRails(id = "659")
     @Test(groups = {"smoke"})
-    public void BO_System_Currency_Management_001() {
+    public void BO_System_Currency_Management_659() {
         log("@title: Validate default UI in the page is correctly");
         log("Step 1. Access Operations > Currency - Management");
         CurrencyManagementPage page = backofficeHomePage.navigateCurrencyManagement();

@@ -25,7 +25,7 @@ public class AdminProfileTest extends BaseCaseTest {
     @TestRails(id = "638")
     @Test(groups = {"smoke"})
     @Parameters({"username", "password"})
-    public void BO_Admin_Management_Admin_Profile_001(String username, String password) throws Exception {
+    public void BO_Admin_Management_Admin_Profile_638(String username, String password) throws Exception {
         log("@title: Validate can search Odds Matched History without http error returned");
         log("Step 1. Access Admin Management > Admin Profile");
         String name = "autoAcc" + StringUtils.generateNumeric(4);

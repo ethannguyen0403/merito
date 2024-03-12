@@ -37,7 +37,7 @@ public class PerformanceTest extends BaseCaseTest {
      */
     @TestRails(id = "639")
     @Test(groups = {"smoke"})
-    public void BO_Report_Performance_002() {
+    public void BO_Report_Performance_639() {
         log("@title: Validate UI correctly when click Create New Line button");
         log("Step 1. Access Reports > Performance");
         PerformancePage page = backofficeHomePage.navigatePerformance();
@@ -70,7 +70,7 @@ public class PerformanceTest extends BaseCaseTest {
      */
     @TestRails(id = "640")
     @Test(groups = {"smoke"})
-    public void BO_Report_Performance_003() {
+    public void BO_Report_Performance_640() {
         log("@title: Validate UI correctly");
         log("Step 1. Access Reports > Performance");
         PerformancePage page = backofficeHomePage.navigatePerformance();

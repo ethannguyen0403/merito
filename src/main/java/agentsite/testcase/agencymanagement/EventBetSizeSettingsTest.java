@@ -102,8 +102,10 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3573")
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3573() {
         //TODO: implement test for this case
+        Assert.assertTrue(false,"");
         log("INFO: Executed completely");
     }
 
@@ -834,18 +836,21 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4181")
+//    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_4181() {
         //TODO: implement test for this case
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4182")
+//    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_4182() {
         //TODO: implement test for this case
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4183")
+//    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_4183() {
         //TODO: implement test for this case
         log("INFO: Executed completely");

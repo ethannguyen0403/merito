@@ -778,6 +778,7 @@ public class EditUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3530")
+//    @Test(groups = {"regression"})
     public void Agent_AM_Downline_Listing_Edit_User_3530() throws Exception {
         //TODO: implement this case
         log("INFO: Executed completely");
