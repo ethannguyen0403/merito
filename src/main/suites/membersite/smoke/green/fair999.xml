@@ -33,6 +33,7 @@
         </groups>
 
         <classes>
+            <class name="membersite.testcases.exchange.HomePageTest"/>
             <class name="membersite.testcases.exchange.WicketFancyTest"/>
             <class name="membersite.testcases.exchange.HeaderSectionTest"/>
             <class name="membersite.testcases.exchange.AccountStatementTest"/>
@@ -43,6 +44,9 @@
             <class name="membersite.testcases.exchangegame.EGHomPageTest"/>
             <class name="membersite.testcases.exchange.PlaceBetFunctionTest"/>
             <class name="membersite.testcases.exchange.WicketBookmakerTest"/>
+            <class name="membersite.testcases.exchange.FancyTest"/>
+            <class name="membersite.testcases.exchange.ArtemisFancyTest"/>
+            <class name="membersite.testcases.exchange.ArtemisBookmakerTest"/>
 
         </classes>
 

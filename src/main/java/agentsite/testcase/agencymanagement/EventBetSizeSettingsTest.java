@@ -102,7 +102,6 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3573")
-//    @Test(groups = {"regression_sat"})
     public void Agent_AM_Event_Bet_Site_Settings_3573() {
         //TODO: implement test for this case
         log("INFO: Executed completely");

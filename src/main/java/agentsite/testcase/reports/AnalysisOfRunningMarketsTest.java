@@ -83,4 +83,16 @@ public class AnalysisOfRunningMarketsTest extends BaseCaseTest {
         //TODO: implement for this case
         log("INFO: Executed completely");
     }
+
+    @TestRails(id = "3767")
+    public void Agent_Report_Analysis_Of_Running_Markets_3767() {
+        //TODO: implement for this case
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3768")
+    public void Agent_Report_Analysis_Of_Running_Markets_3768() {
+        //TODO: implement for this case
+        log("INFO: Executed completely");
+    }
 }
