@@ -27,7 +27,6 @@
             <run>
                 <include name="smoke"/>
                 <include name="smoke_sat"/>
-                <include name="smoke_oldui"/>
                 <include name="smoke_creditcash"/>
             </run>
         </groups>
@@ -74,6 +73,7 @@
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EdiMarketTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+
             <class name="agentsite.testcase.agencymanagement.AnnouncementTest"/>
             <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
@@ -87,6 +87,7 @@
             <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
             <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.TransferTest"/>
+
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>

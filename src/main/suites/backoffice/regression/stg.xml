@@ -25,7 +25,7 @@
         <parameter name='fair999PortalCode' value='AN'/>
         <parameter name='satPortalCode' value='SA'/>
         <parameter name="funsportPortalCode" value="FS"/>
-        <parameter name='isAddTestRailResult' value='true'/>
+        <parameter name='isAddTestRailResult' value='false'/>
         <groups>
             <run>
                 <include name="regression"/>
@@ -33,20 +33,73 @@
         </groups>
 
         <classes>
-            <class name="backoffice.testcases.system.ProviderCurrencyMappingTest"/>
+            <class name="backoffice.testcases.accountmanagement.ReopenUserTest"/>
+            <class name="backoffice.testcases.accountmanagement.CryptoAccessManagementTest"/>
+            <class name="backoffice.testcases.accountmanagement.AtlanticAccessManagementTest"/>
+            <!--            <class name="backoffice.testcases.accountmanagement.PlayerInfoTest"/>-->
+            <!--            <class name="backoffice.testcases.accountmanagement.LoginInfoTest"/>-->
+            <class name="backoffice.testcases.accountmanagement.APIPlayerTest"/>
+            <!--            <class name="backoffice.testcases.accountmanagement.ResetAccountPasswordTest"/>-->
 
-            <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
-            <class name="backoffice.testcases.operations.BannerManagementTest"/>
-            <class name="backoffice.testcases.operations.MixedPTConfigurationTest"/>
+            <class name="backoffice.testcases.adminmanagement.AdminProfileTest"/>
+            <!--            <class name="backoffice.testcases.adminmanagement.AdminUserManagementTest"/>-->
+            <!--            <class name="backoffice.testcases.adminmanagement.RoleManagementTest"/>-->
 
+            <class name="backoffice.testcases.frauddetection.OddsMatchedHistoryTest"/>
+            <class name="backoffice.testcases.frauddetection.WagerOddsHistoryTest"/>
+            <class name="backoffice.testcases.frauddetection.FraudDetectionTest"/>
+
+            <!--            <class name="backoffice.testcases.home.LoginTest"/>-->
+            <!--            <class name="backoffice.testcases.home.LogoutTest"/>-->
+            <!--            <class name="backoffice.testcases.home.SearchMenuTest"/>-->
+
+            <class name="backoffice.testcases.marketmanagement.EventMarketStatusTest"/>
+            <class name="backoffice.testcases.marketmanagement.FindBlockedMarketTest"/>
+            <class name="backoffice.testcases.marketmanagement.LiquidityThresholdLogTest"/>
+            <class name="backoffice.testcases.marketmanagement.BlockingSettingsTest"/>
+            <class name="backoffice.testcases.marketmanagement.BlockUnblockEventTest"/>
+            <class name="backoffice.testcases.marketmanagement.CompetitionBlockingTest"/>
             <class name="backoffice.testcases.marketmanagement.EventMarketLogTest"/>
             <class name="backoffice.testcases.marketmanagement.BeforeLoginManagementTest"/>
-            <class name="backoffice.testcases.marketmanagement.BlockUnblockEventTest"/>
+            <class name="backoffice.testcases.marketmanagement.LiquidityThresholdSettingsTest"/>
+
+            <class name="backoffice.testcases.operations.LiveStreamingManagementTest"/>
+            <class name="backoffice.testcases.operations.WagerVoidUnvoidTest"/>
+            <class name="backoffice.testcases.operations.PerformanceTest"/>
+            <class name="backoffice.testcases.operations.MixedPTConfigurationTest"/>
+            <!--            <class name="backoffice.testcases.operations.bannermanagement.NewBannerTest"/>-->
+            <!--            <class name="backoffice.testcases.operations.bannermanagement.UpdateBannerTest"/>-->
+            <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
+            <class name="backoffice.testcases.operations.BannerManagementTest"/>
 
             <class name="backoffice.testcases.paymentmanagement.DepositWithdrawalTransactionsTest"/>
             <class name="backoffice.testcases.paymentmanagement.PaymentConfigurationTest"/>
 
             <class name="backoffice.testcases.reports.PunterPerformanceTest"/>
+            <class name="backoffice.testcases.reports.WinLossDetailTest"/>
+
+            <class name="backoffice.testcases.settlement.FancyResultTest"/>
+            <class name="backoffice.testcases.settlement.WagerResettlementTest"/>
+            <class name="backoffice.testcases.settlement.ResettlementLogTest"/>
+
+            <!--            <class name="backoffice.testcases.adminmanagement.RoleManagementTest"/>-->
+            <!--            <class name="backoffice.testcases.adminmanagement.AdminUserManagementTest"/>-->
+
+            <class name="backoffice.testcases.system.CurrencyManagementTest"/>
+            <class name="backoffice.testcases.system.BetFairTaxRecrawlTest"/>
+            <class name="backoffice.testcases.system.CurrencyCountryMappingTest"/>
+            <class name="backoffice.testcases.system.ProductMaintenanceTest"/>
+            <class name="backoffice.testcases.system.CountryIPMappingTest"/>
+            <class name="backoffice.testcases.system.PrioritySettingTest"/>
+            <class name="backoffice.testcases.system.BetfairInformationTest"/>
+            <!--            <class name="backoffice.testcases.system.productmaintenance.MaintenanceDetailsTest"/>-->
+            <class name="backoffice.testcases.system.FollowBetToThirdPartyTest"/>
+            <class name="backoffice.testcases.system.BetFairAccountInfoTest"/>
+            <class name="backoffice.testcases.system.ProviderCurrencyMappingTest"/>
+            <class name="backoffice.testcases.system.SmallBetConfigurationTest"/>
+
+            <class name="backoffice.testcases.tools.ExposureAnalysisTest"/>
+            <!--            <class name="backoffice.testcases.tools.MarketBetListTest"/>-->
 
         </classes>
 

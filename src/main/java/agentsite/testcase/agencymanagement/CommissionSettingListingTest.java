@@ -54,7 +54,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify the correct username is displayed
      */
     @TestRails(id = "741")
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke"})
     public void Agent_AM_Commission_Setting_Listing_741() {
         log("@title: Verify can search commission setting Listing by Login ID");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");

@@ -20,7 +20,7 @@ public class CurrencyCountryMappingTest extends BaseCaseTest {
      */
     @TestRails(id = "656")
     @Test(groups = {"smoke"})
-    public void BO_System_Currency_Country_Mapping_001() {
+    public void BO_System_Currency_Country_Mapping_656() {
         log("@title: Validate UI display correctly when access Currency Country Mapping");
         log("Step 1. Access Operations > Currency - Country Mapping");
         CurrencyCountryMappingPage page = backofficeHomePage.navigateCurrencyCountryMapping();
@@ -53,7 +53,7 @@ public class CurrencyCountryMappingTest extends BaseCaseTest {
     @TestRails(id = "657")
     @Test(groups = {"smoke"})
     @Parameters({"fsMemberLoginID", "username", "password"})
-    public void BO_System_Currency_Country_Mapping_004(String fsMemberLoginID, String username, String password) throws Exception {
+    public void BO_System_Currency_Country_Mapping_657(String fsMemberLoginID, String username, String password) throws Exception {
         log("@title: Validate Map/unmap countries works");
         log("Step 1. Access Operations > Currency - Country Mapping");
         String currencyCode = "PTI";

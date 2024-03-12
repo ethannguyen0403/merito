@@ -28,7 +28,7 @@ public class FindBlockedMarketTest extends BaseCaseTest {
     @TestRails(id = "609")
     @Test(groups = {"smoke"})
     @Parameters("satMemberLoginID")
-    public void BO_Tools_Find_Blocked_Market_001(String satMemberLoginID) {
+    public void BO_Tools_Find_Blocked_Market_609(String satMemberLoginID) {
         log("Step 2. Access Tool > Find Block Market");
         log("@title: Validate can find blocked market for an account");
         log("Step 1. Access Tool > Event/Market Status, filter Event date: Today and get sport, competition, event id, event name, of a market");
@@ -73,7 +73,7 @@ public class FindBlockedMarketTest extends BaseCaseTest {
     @TestRails(id = "610")
     @Test(groups = {"smoke"})
     @Parameters({"satMemberLoginID", "memberPassword", "satSADAgentLoginID", "downlineSADAccount"})
-    public void BO_Tools_Find_Blocked_Market_002(String satMemberLoginID, String memberPassword, String satSADAgentLoginID, String downlineSADAccount) throws Exception {
+    public void BO_Tools_Find_Blocked_Market_610(String satMemberLoginID, String memberPassword, String satSADAgentLoginID, String downlineSADAccount) throws Exception {
         log("@title: Validate Agent site - Block unblock event status is correctly as filtering");
         //TODO: implement this case
         Assert.assertTrue(false, "Need to implement this case");

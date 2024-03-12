@@ -682,7 +682,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-
+    @TestRails(id = "024")
     @Test(groups = {"regression"})
     public void Place_Bet_Function_TC024() {
         log("@title: Validate that cannot place Lay bet if exposure exceed available balance");

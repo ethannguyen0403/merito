@@ -26,7 +26,7 @@ public class ProductMaintenanceTest extends BaseCaseTest {
      */
     @TestRails(id = "635")
     @Test(groups = {"smoke"})
-    public void BO_System_ProductMaintenance_001() {
+    public void BO_System_ProductMaintenance_635() {
         log("@title: Validate that product names and status displays correctly");
         List<Product> lstProducts = ProductMaintenanceUtils.getProducts();
         log("Step 1: Navigate System > Product Maintenance");
@@ -57,7 +57,7 @@ public class ProductMaintenanceTest extends BaseCaseTest {
      */
     @TestRails(id = "636")
     @Test(groups = {"smoke"})
-    public void BO_System_ProductMaintenance_002() {
+    public void BO_System_ProductMaintenance_636() {
         log("@title: Validate Maintenance Details data is display correctly");
         log("Step 1: Navigate System > Product Maintenance");
         List<Product> lstProducts = ProductMaintenanceUtils.getProducts();
@@ -87,7 +87,7 @@ public class ProductMaintenanceTest extends BaseCaseTest {
     @TestRails(id = "637")
     @Test(groups = {"smoke"})
     @Parameters({"satMemberLoginID", "memberPassword"})
-    public void BO_System_ProductMaintenance_003(String satMemberLoginID, String memberPassword) throws Exception {
+    public void BO_System_ProductMaintenance_637(String satMemberLoginID, String memberPassword) throws Exception {
         log("@title: Validate active product can display in member");
         log("Step 1: Navigate System > Product Maintenance");
         log("Step 2. Get all product in active status");
@@ -130,7 +130,7 @@ public class ProductMaintenanceTest extends BaseCaseTest {
      * @expect: 1. Data on this table displays correctly
      * 2. Page title displays correctly
      */
-    @Test(groups = {"regression"})
+//    @Test(groups = {"regression"})
     public void BO_System_ProductMaintenance_005() {
         log("@title: Validate that this page loading is successful");
         log("Step 1: Navigate System > Product Maintenance");

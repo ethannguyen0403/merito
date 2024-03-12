@@ -624,7 +624,7 @@ public class LeftMenuTest extends BaseCaseTest {
      */
     @TestRails(id = "675")
     @Test(groups = {"smoke_po"})
-    public void LeftMenu_TC019() {
+    public void LeftMenu_TC675() {
         log("@title:  Verify the list menu display correct when login Portal level");
         log("Step 1: Expand all left menu");
         log("Verify:1 Verify the list menu display correct when login Portal level:");
@@ -692,7 +692,7 @@ public class LeftMenuTest extends BaseCaseTest {
      */
     @TestRails(id = "676")
     @Test(groups = {"smoke_po"})
-    public void LeftMenu_TC020() {
+    public void LeftMenu_TC676() {
         log("@title: Verify the list menu display correct when login Control Blocking level");
         log("Step 1: Expand all left menu");
         log("Verify:1 Verify the list menu display correct when login Control Blocking  level");
@@ -764,11 +764,13 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect: Verify the list menu display correct when other leve
      */
     @TestRails(id = "677")
-    @Test(groups = {"nonPOSmoke"})
-    public void LeftMenu_TC021() {
+    @Test(groups = {"smoke"})
+    public void LeftMenu_TC677() {
         log("@title: Verify the list menu display correct when other level");
         log("Step 1: Expand all left menu");
         log("Verify:1 Verify the list menu display correct when other level");
+        //TODO: stabilize test for this case
+        Assert.assertTrue(false,"");
         /* Assert.assertEquals(agentHomePage.menuAgencyManagement.getText(),"Agency Management","Failed! Agency Management not display correctly");
         Assert.assertEquals(agentHomePage.subMenuCreateDownLineAgent.getText(),"Create Downline Agent","Failed! Create DownLine Agent not display correctly");
         Assert.assertEquals(agentHomePage.subMenuCreateUser.getText(),"Create User","Failed! Create User not display correctly");

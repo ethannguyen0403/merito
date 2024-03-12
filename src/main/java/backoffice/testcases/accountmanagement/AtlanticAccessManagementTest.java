@@ -23,7 +23,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
     @TestRails(id = "622")
     @Test(groups = {"smoke"})
     @Parameters("satMemberLoginID")
-    public void BO_Account_Management_Atlantic_Access_Management_001(String satMemberLoginID) {
+    public void BO_Account_Management_Atlantic_Access_Management_622(String satMemberLoginID) {
         log("@title: Validate can not add account to Atlantic Access Management that not belonging to Fairenter brand");
         log("Step 1. Access Admin Management > Atlantic Access Management");
         AtlanticAccessManagementPage page = backofficeHomePage.navigateAtlanticAccessManagement();
@@ -118,7 +118,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
     @TestRails(id = "624")
     @Test(groups = {"smoke"})
     @Parameters({"username", "atlanticAccount", "password", "memberPassword"})
-    public void BO_Account_Management_Atlantic_Access_Management_004(String username, String atlanticAccount, String password, String memberPassword) throws Exception {
+    public void BO_Account_Management_Atlantic_Access_Management_624(String username, String atlanticAccount, String password, String memberPassword) throws Exception {
         log("@title: Validate can/cannot login Fairenter if account is non-display/display in Atlantic site");
         log("Step 1. Access Admin Management > Atlantic Access Management");
         //TODO: implement this case

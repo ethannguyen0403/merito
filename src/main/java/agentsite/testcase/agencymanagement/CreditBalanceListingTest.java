@@ -11,8 +11,15 @@ import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 public class CreditBalanceListingTest extends BaseCaseTest {
+    @TestRails(id = "3606")
+//    @Test(groups = {"regression_credit"})
+    @Parameters({"memberAccount"})
+    public void Credit_Balance_Listing_3606(String memberAccount) {
+        //TODO: implement this case
+        log("INFO: Executed completely");
+    }
     @TestRails(id = "3607")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"regression_credit"})
     @Parameters({"memberAccount"})
     public void Credit_Balance_Listing_3607(String memberAccount) {
         log("@title: Validate can update Credit Balance");
@@ -30,7 +37,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3608")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"regression_credit"})
     @Parameters({"memberAccount"})
     public void Credit_Balance_Listing_3608(String memberAccount) {
         log("@title: Validate can search by username");
@@ -46,7 +53,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 //    @TestRails(id = "3609")
-//    @Test(groups = {"smoke"})
+//    @Test(groups = {"regression_credit"})
 //    @Parameters({"memberAccount"})
 //    public void Credit_Balance_Listing_3609(String memberAccount) {
 //        log("@title: Validate can search by login ID");
@@ -63,7 +70,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
 //    }
 
     @TestRails(id = "3609")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"regression_credit"})
     @Parameters({"memberAccount"})
     public void Credit_Balance_Listing_3609(String memberAccount) {
         log("@title: Validate can search by login ID");
@@ -79,7 +86,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3610")
-    @Test(groups = {"regression_sat"})
+    @Test(groups = {"regression_credit"})
     @Parameters({"memberAccount"})
     public void Credit_Balance_Listing_3610(String memberAccount) {
         log("@title: Validate can search by login ID");
@@ -108,7 +115,7 @@ public class CreditBalanceListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3611")
-    @Test(groups = {"interaction_sat"})
+    @Test(groups = {"interaction_credit"})
     @Parameters({"memberAccount", "password"})
     public void Credit_Balance_Listing_3611(String memberAccount, String password) throws Exception {
         log("@title: Validate player balance is correct after update credit in agent");

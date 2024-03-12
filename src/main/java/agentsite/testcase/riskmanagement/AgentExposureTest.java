@@ -18,7 +18,7 @@ public class AgentExposureTest extends BaseCaseTest {
     /***
      * This test cases only available for F24 and Betclub9
      */
-    @TestRails(id = "839")
+    @TestRails(id = "838")
     @Test(groups = {"smoke_po"})
     public void Agent_RM_AgentExposureTest_838() {
         log("@title: Verify UI display correctly");

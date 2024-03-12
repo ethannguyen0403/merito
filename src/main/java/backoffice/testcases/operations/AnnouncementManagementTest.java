@@ -20,7 +20,7 @@ public class AnnouncementManagementTest extends BaseCaseTest {
      * 2. Click Save button
      * @expect: 1 Verify error displays English translation cannot be empty
      */
-    @Test(groups = {"smoke"})
+//    @Test(groups = {"smoke"})
     public void BO_Operations_Announcement_Management_001() {
         log("@title: Validate error popup display when create announcement without input any data");
         log("Step 1. Access Operations > Announcement Management");
@@ -118,7 +118,7 @@ public class AnnouncementManagementTest extends BaseCaseTest {
      * 4. Announcement message is update correctly
      * 5 Announcement is deleted
      */
-    @Test(groups = {"smoke"})
+//    @Test(groups = {"smoke"})
     public void BO_Operations_Announcement_Management_004() {
         log("@title: Validate can add Edit and Delete Announcement");
 

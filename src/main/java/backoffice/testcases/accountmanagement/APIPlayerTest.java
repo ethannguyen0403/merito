@@ -28,7 +28,7 @@ public class APIPlayerTest extends BaseCaseTest {
     @TestRails(id = "618")
     @Test(groups = {"smoke"})
     @Parameters({"satMemberLoginID"})
-    public void BO_Tools_API_Player_001(String satMemberLoginID) {
+    public void BO_Tools_API_Player_618(String satMemberLoginID) {
         log("@title: Validate can add and delete player into the list");
         log("Step 1. Access Tool > API Player");
         APIPlayerPage page = backofficeHomePage.navigateAPIPlayer();

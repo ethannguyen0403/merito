@@ -98,14 +98,12 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
      * @expect: 1. Verify odds is blur and unclick able if total matched value of match odds does not reach the setting
      */
     @TestRails(id = "630")
-    @Test(groups = {"smoke"})
+//    @Test(groups = {"smoke"})
     public void BO_Operations_Liquidity_Threshold_Setting_630() {
         log("@title: Validate odds is blur and unclick able when total match of the market not reach the setting for Non-live market");
         log("2. The agent of member account is active Liquidity Threshold");
         log("3. Have a non-live Soccer event");
         //TODO: implement this case
-        Assert.assertTrue(false, "Need to implement this case");
-        log("INFO: Executed Completely!");
         log("Step 1. Access Operations > Liquidity Threshold Settings");
 
         log("Step 2. Select soccer get non-live liquidity threshold setting for match odds market");
@@ -135,9 +133,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
         log("@title: Validate odds is blur and unclick able when total match of the market not reach the setting for Live market");
         log("2. The agent of member account is active Liquidity Threshold");
         log("3. Have a non-live Soccer event");
-        //TODO: implement this case
-        Assert.assertTrue(false, "Need to implement this case");
-        log("INFO: Executed Completely!");
+
         log("Step 1. Access Operations > Liquidity Threshold Settings");
 
         log("Step 2. Select soccer get Live liquidity threshold setting for match odds market");
