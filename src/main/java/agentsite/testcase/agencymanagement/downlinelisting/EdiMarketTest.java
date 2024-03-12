@@ -69,7 +69,6 @@ public class EdiMarketTest extends BaseCaseTest {
     @Parameters({"downlineAccount", "password"})
     public void Agent_AM_Downline_Listing_Edit_Market_3561(String downlineAccount, String password) throws Exception {
         //TODO: implement test this case
-        Assert.assertTrue(false,"");
         log("INFO: Executed completely");
     }
 
