@@ -50,11 +50,6 @@ public class LotterySlotsPage extends CasinoHomePage {
         return getBalanceFromLogConsole(getConsoleLog("_url"));
     }
 
-    @Override
-    public void checkBalance(double actual, double expected, double BORate) {
-        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
-    }
-
     public double getBalanceFromLogConsole(List<String> logConsole){
         double balance = -1;
         // console log contains url with response has balance info

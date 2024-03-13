@@ -74,8 +74,4 @@ public class LiveDealerEuropeanPage extends CasinoHomePage{
         return Double.valueOf(lblBalance.getAttribute("data-value").replace(",",""));
     }
 
-    @Override
-    public void checkBalance(double actual,double expected, double BORate) {
-        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
-    }
 }

@@ -28,11 +28,6 @@ public class LiveDealerAsianPage extends CasinoHomePage {
     }
 
     @Override
-    public void checkBalance(double actual, double expected, double BORate) {
-        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
-    }
-
-    @Override
     public List<String> getListProductsMenu() {
         List<String> lblList = new ArrayList<>();
         try {
