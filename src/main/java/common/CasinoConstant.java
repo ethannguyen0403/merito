@@ -15,7 +15,7 @@ public class CasinoConstant {
     public static String PRAGMATIC = "Pragmatic";
     public static String LOTTERY_AND_SLOTS = "Lottery & Slots";
     public static String GAME_HALL = "Game Hall";
-    public static String VIVO = "ViVo";
+    public static String VIVO = "Vivo";
     public static String CASINO = "membersite/casino";
     public static final List<String> ERROR_CODE_LIST = Arrays.asList("403", "405");
     public static final List<String> LOTTERY_SLOTS_HEADER_MENU = Arrays.asList("", "Slots games", "Table games", "Draw games", "Sport games", "Roulette games");
@@ -31,7 +31,7 @@ public class CasinoConstant {
     public static final List<String> ION_PRODUCTS_MENU =
             Arrays.asList("Baccarat", "Dragon Tiger", "Roulette", "Sicbo","Baccarat VIP", "P2P Baccarat");
     public static final List<String> PRAGMATIC_HEADER_MENU = Arrays.asList("", "Video Slots", "Blackjack", "Classic Slots", "Baccarat", "Baccarat New", "Roulette", "Scratch card", "Live games", "RGS - VSB");
-    public static final List<String> EVOLUTION_PRODUCTS_MENU = Arrays.asList("Evolution Black Jack", "Evolution Roulette", "Evolution Poker", "Evolution Game Shows", "Evolution Baccarat & Sic Bo");
+    public static final List<String> EVOLUTION_PRODUCTS_MENU = Arrays.asList("Teen Patti", "Baccarat", "Sicbo", "Lucky 7", "32 Cards", "Roulette", "Bet On Games", "Evolution Poker" ,"Evolution Black Jack", "Evolution Roulette", "Evolution Poker", "Evolution Game Shows", "Evolution Baccarat & Sic Bo");
     public static final Map<String, String> MAPPING_CASINO_PRODUCT_UI = new HashMap<String, String>() {
         {
             put("QTECH", "Q-tech");

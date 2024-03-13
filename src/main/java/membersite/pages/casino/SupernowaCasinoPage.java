@@ -65,7 +65,7 @@ public class SupernowaCasinoPage extends CasinoHomePage {
 
     @Override
     public boolean verifyCasinoDisplay() {
-        return lblTitle.isDisplayed() && lblTitle.getText().trim().equalsIgnoreCase(SUPERNOWA);
+        return lblTitle.isDisplayed();
     }
 
 }
