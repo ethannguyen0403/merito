@@ -28,13 +28,23 @@ public class VivoPage extends CasinoHomePage{
     public List<String> getListProductsMenu() {
         switchToLastFrame();
         List<String> lblList = new ArrayList<>();
-        new ArrayList<>(lnkHeaderProductsLst.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
+        try {
+            new ArrayList<>(lnkHeaderProductsLst.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
+        }catch (Exception e){
+            System.out.println("DEBUG! Can not get list product");
+        }
         return lblList;
     }
 
     @Override
     public int getListProductSize() {
-        return lnkHeaderProductsLst.getWebElements().size();
+        int listSize = 0;
+        try {
+            listSize = lnkHeaderProductsLst.getWebElements().size();
+        } catch (Exception e) {
+            System.out.println("Products list size NOT FOUND");
+        }
+        return listSize;
     }
 
     @Override

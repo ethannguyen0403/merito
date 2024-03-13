@@ -80,7 +80,7 @@ public class LiveDealerAsianPageTest extends BaseCaseTest {
         log("@Step 3: Access Live Dealer Asian by external link");
         CasinoHomePage dealerAsian = memberHomePage.openCasinoGameByUrl(LIVE_DEALER_ASIAN);
         log("@Verify 2: User could not access product and was brought back to home page");
-        Assert.assertTrue(dealerAsian.getListProductSize() > 0,"FAILED! Live Dealer Asian game is displayed");
+        Assert.assertFalse(dealerAsian.getListProductSize() > 0,"FAILED! Live Dealer Asian game is displayed");
         log("INFO: Executed completely");
     }
 }

@@ -27,6 +27,7 @@ public class SupernowaCasinoPage extends CasinoHomePage {
     }
 
     public void openFirstSupernowaGame(){
+        lblFirstGame.click();
         lblFirstGame.jsClick();
         // wait for game loading on screen
         try {

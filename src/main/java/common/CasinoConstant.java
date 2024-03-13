@@ -16,7 +16,7 @@ public class CasinoConstant {
     public static String LOTTERY_AND_SLOTS = "Lottery & Slots";
     public static String GAME_HALL = "Game Hall";
     public static String VIVO = "ViVo";
-    public static String CASINO = "Casino";
+    public static String CASINO = "membersite/casino";
     public static final List<String> ERROR_CODE_LIST = Arrays.asList("403", "405");
     public static final List<String> LOTTERY_SLOTS_HEADER_MENU = Arrays.asList("", "Slots games", "Table games", "Draw games", "Sport games", "Roulette games");
     public static final List<String> LIVE_DEALER_ASIAN_PRODUCTS_MENU =
@@ -42,7 +42,7 @@ public class CasinoConstant {
             put("LIVE_DEALER_ASIAN", "Asian Room");
             put("LIVE_DEALER_EUROPEAN", "European Room");
             put("GAME_HALL", "Game Hall");
-            put("VIVO", "ViVo");
+            put("VIVO", "Vivo");
             put("ION", "Ion");
             put("PRAGMATIC", "Pragmatic");
         }
@@ -54,7 +54,7 @@ public class CasinoConstant {
             put("Live Dealer Asian", "/home/live-dealer/super-spade");
             put("Evolution", "/home/live-dealer/ezugi");
             put("Supernowa Casino", "/home/veronica/supernowa");
-            put("Evoltuion Whitecliff", "/home/custom?code=WHITECLIFF");
+            put("Evolution Whitecliff", "/home/custom?code=WHITECLIFF");
             put("Pragmatic", "/home/veronica/pragmatic");
             put("Lottery & Slots", "/home/lottery-slots");
             put("Game Hall", "/home/custom?code=GAME_HALL");

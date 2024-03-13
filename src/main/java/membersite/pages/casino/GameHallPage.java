@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameHallPage extends CasinoHomePage{
     public Image imgLogo = Image.xpath("//div[@id='app']//header//a[contains(@class,'w-logo')]//img");
     private Button btnShowHideBalance = Button.xpath("//div[@id='app']//header//li[contains(@class,'justify-self-end')]//button");
-    private Label lblBalance = Label.xpath("//div[@id='app']//header//li[@class='flex-center']/span[2]");
+    private Label lblBalance = Label.xpath("//div[@id='app']//header//li[@class='flex-center']/span[2] | //div[@id='app']//header//li[@class='flex-center']/span[1]");
     String xpathProducts = "//div[@id='app']//div[@class='flex-center flex-wrap']//div[contains(@class,'text-platformName')]";
     private Label lblLoadingText = Label.xpath("//div[@class='loading-text']");
     public Link lnkProductsList = Link.xpath(xpathProducts);
@@ -54,14 +54,20 @@ public class GameHallPage extends CasinoHomePage{
 
     @Override
     public int getListProductSize() {
-        return lnkProductsList.getWebElements().size();
+        int listSize = 0;
+        try {
+            listSize = lnkProductsList.getWebElements().size();
+        } catch (Exception e) {
+            System.out.println("Products list size NOT FOUND");
+        }
+        return listSize;
     }
 
     @Override
     public double getBalance() {
         switchToLastFrame();
         if(lblBalance.getText().contains("*")) {
-            btnShowHideBalance.click();
+            btnShowHideBalance.jsClick();
         }
         return Double.valueOf(lblBalance.getText().replace(",",""));
     }
