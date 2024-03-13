@@ -20,7 +20,7 @@ public class MarketBetListTest extends BaseCaseTest {
      * Sport, Competition, Event, Event Date, Market
      * 2. The market bet list table contains the wager in precondition
      */
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke"})
     public void BO_Tools_Market_Bet_List_001() {
         log("@title: Validate can search market bet list info");
         //TODO: Get market id that have bet in agent site using api in Analysis of Running Markets

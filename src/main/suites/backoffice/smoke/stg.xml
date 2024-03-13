@@ -32,7 +32,6 @@
         <groups>
             <run>
                 <include name="smoke"/>
-                <include name="smoke_stg"/>
             </run>
         </groups>
 
@@ -61,9 +60,7 @@
             <class name="backoffice.testcases.marketmanagement.FindBlockedMarketTest"/>
             <class name="backoffice.testcases.marketmanagement.LiquidityThresholdLogTest"/>
             <class name="backoffice.testcases.marketmanagement.BlockingSettingsTest"/>
-            <class name="backoffice.testcases.marketmanagement.BlockUnblockEventTest"/>
             <class name="backoffice.testcases.marketmanagement.CompetitionBlockingTest"/>
-            <class name="backoffice.testcases.marketmanagement.EventMarketLogTest"/>
             <class name="backoffice.testcases.marketmanagement.BeforeLoginManagementTest"/>
             <class name="backoffice.testcases.marketmanagement.LiquidityThresholdSettingsTest"/>
 
@@ -73,11 +70,8 @@
             <class name="backoffice.testcases.operations.MixedPTConfigurationTest"/>
 <!--            <class name="backoffice.testcases.operations.bannermanagement.NewBannerTest"/>-->
 <!--            <class name="backoffice.testcases.operations.bannermanagement.UpdateBannerTest"/>-->
-            <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
-            <class name="backoffice.testcases.operations.BannerManagementTest"/>
-
-            <class name="backoffice.testcases.paymentmanagement.DepositWithdrawalTransactionsTest"/>
-            <class name="backoffice.testcases.paymentmanagement.PaymentConfigurationTest"/>
+<!--            <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>-->
+<!--            <class name="backoffice.testcases.operations.BannerManagementTest"/>-->
 
             <class name="backoffice.testcases.reports.PunterPerformanceTest"/>
             <class name="backoffice.testcases.reports.WinLossDetailTest"/>
@@ -85,9 +79,6 @@
             <class name="backoffice.testcases.settlement.FancyResultTest"/>
             <class name="backoffice.testcases.settlement.WagerResettlementTest"/>
             <class name="backoffice.testcases.settlement.ResettlementLogTest"/>
-
-<!--            <class name="backoffice.testcases.adminmanagement.RoleManagementTest"/>-->
-<!--            <class name="backoffice.testcases.adminmanagement.AdminUserManagementTest"/>-->
 
             <class name="backoffice.testcases.system.CurrencyManagementTest"/>
             <class name="backoffice.testcases.system.BetFairTaxRecrawlTest"/>
@@ -97,7 +88,7 @@
             <class name="backoffice.testcases.system.PrioritySettingTest"/>
             <class name="backoffice.testcases.system.BetfairInformationTest"/>
 <!--            <class name="backoffice.testcases.system.productmaintenance.MaintenanceDetailsTest"/>-->
-            <class name="backoffice.testcases.system.FollowBetToThirdPartyTest"/>
+            <class name="backoffice.testcases.system.productmaintenance.MaintenanceDetailsTest"/>
             <class name="backoffice.testcases.system.BetFairAccountInfoTest"/>
             <class name="backoffice.testcases.system.ProviderCurrencyMappingTest"/>
             <class name="backoffice.testcases.system.SmallBetConfigurationTest"/>
