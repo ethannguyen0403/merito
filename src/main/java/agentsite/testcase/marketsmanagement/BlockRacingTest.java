@@ -19,7 +19,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.util.List;
 import java.util.Objects;
 
 import static common.AGConstant.MarketsManagement.BlockRacing.LBL_UPDATE_SUCCESS_MSG;
@@ -53,18 +52,20 @@ public class BlockRacingTest extends BaseCaseTest {
         log("@title: Verify Venue Name display/dissapear when block/unblock");
         log("Step Precondition Get horse racing info in Block Unblock event page in Today tab");
         String sportName = "Horse Racing";
-        AccountInfo acc = ProfileUtils.getProfile();
+//        AccountInfo acc = ProfileUtils.getProfile();
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
         page.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
-        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
-        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
-        Event event = eventList.get(0);
-        String venueName = event.getEventName().split(" ")[0];
-        if (Objects.isNull(eventList.get(0).getEventName())) {
+//        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
+//        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
+//        Event event = eventList.get(0);
+//        String venueName = event.getEventName().split(" ")[0];
+        Event event = BlockUnblockEventsUtils.getEventListRacing(sportName).get(0);
+        Market market = BlockUnblockEventsUtils.getMarketListRacing(event, sportName).get(0);
+        if (Objects.isNull(event)) {
             throw new SkipException("INFO: Skipping this test case as have no event " + event.getEventName() + " in today for " + sportName);
         }
-        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), acc.getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
-        String marketName = marketList.get(0).getMarketName();
+//        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), acc.getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
+//        String marketName = marketList.get(0).getMarketName();
 
         log("Step Precondition: Unblock a horse racing event");
         page.filter("", sportName, "Today");
@@ -76,7 +77,7 @@ public class BlockRacingTest extends BaseCaseTest {
         log("Step 2. Active Blocking tab and select Horse Racing");
         log("Step 3. Select downline and select venue name");
         log("Step 4. Click Update button");
-        blockRacingPage.block("Horse Racing", event.getCountryName(), downlineAccount, venueName, marketName);
+        blockRacingPage.block("Horse Racing", event, downlineAccount, market);
 
         log("Step 5 Login member site active Horse Racing");
         loginMember(memberAccount, password);
@@ -91,7 +92,7 @@ public class BlockRacingTest extends BaseCaseTest {
 
         log("Verify Venus name disappear when block");
         blockRacingPage = agentHomePage.navigateBlockRacingPage();
-        blockRacingPage.unblock(sportName, event.getCountryName(), downlineAccount, venueName, marketName);
+        blockRacingPage.unblock(sportName, event, downlineAccount, market);
 
         log("Verify Verify Venus name display when unblock");
         loginMember(memberAccount, password);
@@ -112,15 +113,17 @@ public class BlockRacingTest extends BaseCaseTest {
         AccountInfo acc = ProfileUtils.getProfile();
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
         page.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
-        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
-        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
-        Event event = eventList.get(0);
-        String venueName = event.getEventName().split(" ")[0];
-        if (Objects.isNull(eventList.get(0).getEventName())) {
+//        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
+        Event event = BlockUnblockEventsUtils.getEventListRacing(sportName).get(0);
+        Market market = BlockUnblockEventsUtils.getMarketListRacing(event, sportName).get(0);
+//        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
+//        Event event = eventList.get(0);
+//        String venueName = event.getEventName().split(" ")[0];
+        if (Objects.isNull(event.getEventName())) {
             throw new SkipException("INFO: Skipping this test case as have no event " + event.getEventName() + " in today for " + sportName);
         }
-        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), acc.getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
-        String marketName = marketList.get(0).getMarketName();
+//        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), acc.getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
+//        String marketName = marketList.get(0).getMarketName();
 
         log("Step Precondition: Unblock a Greyhound racing event");
         page.filter("", sportName, "Today");
@@ -132,7 +135,7 @@ public class BlockRacingTest extends BaseCaseTest {
         log("Step 2. Active Blocking tab and select Greyhound Racing");
         log("Step 3. Select downline and select venue name");
         log("Step 4. Click Update button");
-        blockRacingPage.block(sportName, event.getCountryName(), downlineAccount, venueName, marketName);
+        blockRacingPage.block(sportName, event, downlineAccount, market);
 
         log("Step 5 Login member site active Greyhound Racing");
         loginMember(memberAccount, password);
@@ -147,7 +150,7 @@ public class BlockRacingTest extends BaseCaseTest {
 
         log("Verify Venus name disappear when block");
         blockRacingPage = agentHomePage.navigateBlockRacingPage();
-        blockRacingPage.unblock(sportName, event.getCountryName(), downlineAccount, venueName, marketName);
+        blockRacingPage.unblock(sportName, event, downlineAccount, market);
 
         log("Verify Verify Venus name display when unblock");
         loginMember(memberAccount, password);
@@ -188,7 +191,7 @@ public class BlockRacingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3698")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void Agent_MM_Block_Racing_TC3698() {
         log("@title: Validate can Block for Horse Racing");
         log("Step 1. Navigate Markets Management > Block Racing");
@@ -198,30 +201,27 @@ public class BlockRacingTest extends BaseCaseTest {
         log("Step 3. Select downline and  select venue name");
         log("Step 4. Click Update button");
         AccountInfo accountInfo = ProfileUtils.getProfile();
-        List<AccountInfo> lstDownline = DownLineListingUtils.getAllDownLineUsers(_brandname, accountInfo.getUserCode(), accountInfo.getUserID());
-        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, lstDownline.get(0).getUserID(), "TODAY");
-        if (Objects.isNull(eventList.get(0).getEventName())) {
+        AccountInfo accountUserInfo = DownLineListingUtils.getAllDownLineUsers(_brandname, accountInfo.getUserCode(), accountInfo.getUserID()).get(0);
+        Event event = BlockUnblockEventsUtils.getEventListRacing(sportName).get(0);
+        Market market = BlockUnblockEventsUtils.getMarketListRacing(event, sportName).get(0);
+        if (Objects.isNull(event)) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for " + sportName);
         }
-        Event event = eventList.get(0);
-        String venueName = event.getEventName().split(" ")[0];
-
-        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), lstDownline.get(0).getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
-        String marketName = marketList.get(0).getMarketName();
-        blockRacingPage.block(sportName, event.getCountryName(), lstDownline.get(0).getUserCode(), venueName, marketName);
+        blockRacingPage.block(sportName, event, accountUserInfo.getUserCode(),market);
         String blockDateTime = DateUtils.getDate(0, "yyyy-MM-dd HH:mm", timeZone);
+
         log("Validate the message update successfully");
         Assert.assertEquals(blockRacingPage.lblSuccessMessage.getText().trim(),LBL_UPDATE_SUCCESS_MSG, "FAILED! Update setting success message does not display correct");
         blockRacingPage.btnCloseUpdateSetting.click();
 
         log("Step 5. Click Current tab  and search the venue name");
         blockRacingPage.selectBlockingTab("Current");
-        blockRacingPage.searchVenueName(venueName);
+        blockRacingPage.searchVenueName(event.getEventName());
 
         log("Validate block icon  display at the venue name\n" +
                 "Click cell, the block info display correctly");
-        BlockedUserPopup blockedUserPopup = blockRacingPage.clickVenueMarketCell(venueName, marketName);
-        blockedUserPopup.verifyBlockedInfoDisplayCorrect(lstDownline.get(0).getUserCode(), lstDownline.get(0).getLevel(), accountInfo.getUserCode(), blockDateTime);
+        BlockedUserPopup blockedUserPopup = blockRacingPage.clickVenueMarketCell(event.getEventName(), market.getMarketName());
+        blockedUserPopup.verifyBlockedInfoDisplayCorrect(accountUserInfo, accountInfo, blockDateTime);
         log("INFO: Executed completely");
     }
 
@@ -236,17 +236,19 @@ public class BlockRacingTest extends BaseCaseTest {
         log("Step 3. Select downline and  select venue name");
         log("Step 4. Click Update button");
         AccountInfo accountInfo = ProfileUtils.getProfile();
-        List<AccountInfo> lstDownline = DownLineListingUtils.getAllDownLineUsers(_brandname, accountInfo.getUserCode(), accountInfo.getUserID());
-        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, lstDownline.get(0).getUserID(), "TODAY");
-        if (Objects.isNull(eventList.get(0).getEventName())) {
+        AccountInfo lstDownline = DownLineListingUtils.getAllDownLineUsers(_brandname, accountInfo.getUserCode(), accountInfo.getUserID()).get(0);
+//        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, lstDownline.get(0).getUserID(), "TODAY");
+        Event event = BlockUnblockEventsUtils.getEventListRacing(sportName).get(0);
+        Market market = BlockUnblockEventsUtils.getMarketListRacing(event, sportName).get(0);
+        if (Objects.isNull(event)) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for " + sportName);
         }
-        Event event = eventList.get(0);
-        String venueName = event.getEventName().split(" ")[0];
+//        Event event = eventList.get(0);
+//        String venueName = event.getEventName().split(" ")[0];
 
-        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), lstDownline.get(0).getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
-        String marketName = marketList.get(0).getMarketName();
-        blockRacingPage.block(sportName, event.getCountryName(), lstDownline.get(0).getUserCode(), venueName, marketName);
+//        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), lstDownline.get(0).getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
+//        String marketName = marketList.get(0).getMarketName();
+        blockRacingPage.block(sportName, event, lstDownline.getUserCode(), market);
         String blockDateTime = DateUtils.getDate(0, "yyyy-MM-dd HH:mm", timeZone);
         log("Validate the message update successfully");
         Assert.assertEquals(blockRacingPage.lblSuccessMessage.getText().trim(),LBL_UPDATE_SUCCESS_MSG, "FAILED! Update setting success message does not display correct");
@@ -254,12 +256,12 @@ public class BlockRacingTest extends BaseCaseTest {
 
         log("Step 5. Click Current tab  and search the venue name");
         blockRacingPage.selectBlockingTab("Current");
-        blockRacingPage.searchVenueName(venueName);
+        blockRacingPage.searchVenueName(event.getEventName());
 
         log("Validate block icon  display at the venue name\n" +
                 "Click cell, the block info display correctly");
-        BlockedUserPopup blockedUserPopup = blockRacingPage.clickVenueMarketCell(venueName, marketName);
-        blockedUserPopup.verifyBlockedInfoDisplayCorrect(lstDownline.get(0).getUserCode(), lstDownline.get(0).getLevel(), accountInfo.getUserCode(), blockDateTime);
+        BlockedUserPopup blockedUserPopup = blockRacingPage.clickVenueMarketCell(event.getEventName(), market.getMarketName());
+        blockedUserPopup.verifyBlockedInfoDisplayCorrect(lstDownline, accountInfo, blockDateTime);
         log("INFO: Executed completely");
     }
 

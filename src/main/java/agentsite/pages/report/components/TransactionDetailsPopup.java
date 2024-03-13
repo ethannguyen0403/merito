@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static agentsite.pages.HomePage.waitingLoadingSpinner;
+
 public class TransactionDetailsPopup {
     public int tblReportTotalCol = 18;
     public int colUsername = 1;
@@ -90,6 +92,7 @@ public class TransactionDetailsPopup {
 
     public double sumPlayerStake() {
         double totalPlayerStake = 0.0;
+        waitingLoadingSpinner();
         List<ArrayList<String>> data = tblReport.getRowsWithoutHeader(false);
         for (int i = 0; i < data.size() - 2; i++) {
             String stake = data.get(i).get(colPlayerStake - 1);

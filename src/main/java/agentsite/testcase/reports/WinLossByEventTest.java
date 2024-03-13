@@ -116,7 +116,7 @@ public class WinLossByEventTest extends BaseCaseTest {
         WinLossByEventPage page = agentHomePage.navigateWinLossByEventPage();
 
         log("Step 2. Filter Exchange product that have data");
-        page.btnLastWeek.click();
+        page.clickOnPeriodTime(AGConstant.Report.LAST_WEEK);
         if (page.lblNoRecord.isDisplayed()) {
             Assert.assertEquals(page.lblNoRecord.getText(), AGConstant.NO_RECORD_FOUND, "FAILED! No record text is incorrect validate grand total row");
             return;

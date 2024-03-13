@@ -11,6 +11,7 @@ public class LefMenuList extends BaseElement {
     static String _xPath;
     private String groupMenuXpath = "//div[contains(@class,'asia-menu-group')]";
     private String groupMenuActiveXpath = "//div[contains(@class,'asia-menu-group active')]";
+    private String groupMenuInactiveXpath = "//div[@class='asia-menu-group']";
     private String groupMenuTitleXpath = "//div[contains(@class,'asia-menu-title')]";
     private String subMenuXpath = "//div[@class='submenu']//div[contains(@class,'menu-item')]";
     private String collapseSubMenuXpath = "//div[@class='collapse-icon']";
@@ -58,20 +59,18 @@ public class LefMenuList extends BaseElement {
     }
 
     public List<String> getListSubMenu(String menu) {
-
-       // "(//div[@class='leftmenu']//div[contains(@class,'asia-menu-group')]/ancestor::div[1])[1]//div[@class='asia-menu-title']//span[2]";
-        //((//div[@class='leftmenu']//div[contains(@class,'asia-menu-group')]/ancestor::div[1])[1]//div[@class='asia-menu-title']/following::div[@class='submenu']/div)[3]
         List<String> lstSubMenu = new ArrayList<>();
         int menuIndex = getMenuIndex(menu);
         int i = 1;
         Label lblSubMenu;
         Label lblExpandSubMenu;
-        // expand the root menu
-        //(//div[@class='leftmenu']//div[contains(@class,'asia-menu-group')]/ancestor::div[1])[1]//div[@class='asia-menu-title']//span[2]
-
-        lblExpandSubMenu = Label.xpath(String.format("(%s%s/ancestor::div[1])[%s]%s//span[2]",_xPath, groupMenuActiveXpath, menuIndex,groupMenuTitleXpath));
-        if (lblExpandSubMenu.isDisplayed()) {
-            lblExpandSubMenu.click();
+        // click the root menu to expand if it's not yet expanded, otherwise will ignore
+        lblExpandSubMenu = Label.xpath(String.format("%s//span[2]",groupMenuActiveXpath));
+        if (!lblExpandSubMenu.getText().trim().equalsIgnoreCase(menu)) {
+            lblExpandSubMenu = Label.xpath(String.format("(%s%s/ancestor::div[1])[%s]%s//span[2]",_xPath, groupMenuInactiveXpath, menuIndex,groupMenuTitleXpath));
+            if (lblExpandSubMenu.isDisplayed()) {
+                lblExpandSubMenu.click();
+            }
         }
         String menuItem;
         while (true) {

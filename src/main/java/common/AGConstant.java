@@ -167,6 +167,7 @@ public class AGConstant {
         public final static String BET_SETTING_LISTING = "Bet Setting Listing";
         public final static String COMMISSION_LISTING = "Commission Listing";
         public final static String CREDIT_BALANCE_LISTING = "Credit/Balance Listing";
+        public final static String DEPOSIT_WITHDRAWAL = "Deposit/Withdraw";
         public final static String BLOCK_UNBLOCK_EVENT = "Block/Unblock Events";
         public final static String BLOCK_UNBLOCK_COMPETITION = "Block/Unblock Competitions";
         public final static String CURRENT_BLOCKING = "Current Blocking";
@@ -201,6 +202,7 @@ public class AGConstant {
         public final static String SUB_USER_LISTING = "Sub User Listing";
         public final static String EVENT_BET_STIE_SETTINGS = "Event Bet Size Settings";
         public final static List<String> LST_QUICK_SEARCH_MENU_OLDUI = Arrays.asList("Balance", "Downline Listing", "Profit & Loss", "Client Ledger", "Settings", "Login");
+        public final static List<String> LST_QUICK_SEARCH_MEMBER_MENU = Arrays.asList("Balance", "Unsettled Bet", "Client Ledger", "Settings", "Login");
         public final static List<String> LST_QUICK_SEARCH_MENU_NEWUI = Arrays.asList("Balance", "Unsettled Bet", "Client Ledger", "Settings", "Login");
         public final static List<String> LST_QUICK_SEARCH_LOGIN = Arrays.asList("Created Date", "Last Login Time", "Last Login IP");
         public final static List<String> LST_QUICK_SEARCH_SETTING_MENU = Arrays.asList("User Profile", "Product Status", "Position Taking", "Bet Settings", "Tax Settings", "Commission");

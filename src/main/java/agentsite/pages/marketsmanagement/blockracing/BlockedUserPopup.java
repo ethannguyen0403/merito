@@ -1,7 +1,9 @@
 package agentsite.pages.marketsmanagement.blockracing;
 
 import agentsite.controls.Table;
+import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.components.ConfirmPopup;
+import agentsite.ultils.account.ProfileUtils;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
@@ -10,6 +12,8 @@ import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static baseTest.BaseCaseTest._brandname;
 
 public class BlockedUserPopup extends ConfirmPopup {
 
@@ -48,12 +52,12 @@ public class BlockedUserPopup extends ConfirmPopup {
         }
     }
 
-    public void verifyBlockedInfoDisplayCorrect(String userName, String level, String blockBy, String blockDate) {
+    public void verifyBlockedInfoDisplayCorrect(AccountInfo accountBlocked, AccountInfo accountActionBlock, String blockDate) {
         List<ArrayList<String>> lstInfo = tblBlockedUser.getRowsWithoutHeader(1, false);
-        Assert.assertTrue(lstInfo.get(0).get(0).contains(userName), "FAILED! Username does not display correct");
-        Assert.assertTrue(lstInfo.get(0).get(0).contains(level), "FAILED! Level does not display correct");
-        Assert.assertTrue(lstInfo.get(0).get(0).contains(blockBy), "FAILED! Block by does not display correct");
-        Assert.assertTrue(lstInfo.get(0).get(0).contains(blockDate), "FAILED! Block date does not display correct");
+        Assert.assertTrue(lstInfo.get(0).get(0).contains(accountBlocked.getUserCode()), "FAILED! Username does not display correct");
+        Assert.assertTrue(lstInfo.get(0).get(1).contains(ProfileUtils.convertDownlineByBrand(accountBlocked.getLevel(), _brandname)), "FAILED! Level does not display correct");
+        Assert.assertTrue(lstInfo.get(0).get(2).contains(accountActionBlock.getUserCode()), "FAILED! Block by does not display correct");
+        Assert.assertTrue(lstInfo.get(0).get(3).contains(blockDate), "FAILED! Block date does not display correct");
     }
 
 

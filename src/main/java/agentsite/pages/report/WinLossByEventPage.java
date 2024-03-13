@@ -23,6 +23,7 @@ public class WinLossByEventPage extends HomePage {
     public Button btnToday = Button.id("btn-today");
     public Button btnYesterday = Button.id("btn-yesterday");
     public Button btnLastWeek = Button.id("btn-last-week");
+    public Button btnThisWeek = Button.id("btn-this-week");
     public Button btnSubmit = Button.id("btn-submit");
     public Button btnBack = Button.xpath("//button[@name='search' and @class='pbtn submit']");
     public Label lblInfo = Label.xpath("//span[@class='pinfo']/following-sibling::label");
@@ -114,4 +115,16 @@ public class WinLossByEventPage extends HomePage {
         return lstCompetitions;
     }
 
+    public void clickOnPeriodTime(String periodTime) {
+        if(periodTime.equalsIgnoreCase("today")) {
+            btnToday.click();
+        } else if (periodTime.equalsIgnoreCase("yesterday")) {
+            btnYesterday.click();
+        } else if (periodTime.equalsIgnoreCase("this week")) {
+            btnThisWeek.click();
+        } else if (periodTime.equalsIgnoreCase("last week")) {
+            btnLastWeek.click();
+        }
+        waitingLoadingSpinner();
+    }
 }

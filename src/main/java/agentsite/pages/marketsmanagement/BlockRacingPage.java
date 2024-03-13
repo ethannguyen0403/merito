@@ -5,7 +5,8 @@ import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.marketsmanagement.blockracing.BlockedUserPopup;
 import com.paltech.element.common.*;
-import org.openqa.selenium.Keys;
+import membersite.objects.sat.Event;
+import membersite.objects.sat.Market;
 import org.testng.Assert;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class BlockRacingPage extends HomePage {
     public DropDownBox ddbSMAList = DropDownBox.xpath("//app-block-racing//label[text()='SMA List']//..//select[contains(@class,'block-select')]");
     public Table tblDownline = Table.xpath("//app-block-racing//table[contains(@class,'block-table')]", 1);
     public Table tblCurrentVenue = Table.xpath("//app-block-racing//table[contains(@class,'report')]", 9);
-    public TextBox txtSearchVenueName = TextBox.xpath("//app-block-racing//table[contains(@class,'report')]//div[@class='searchBox']");
+    public TextBox txtSearchVenueName = TextBox.xpath("//app-block-racing//table[contains(@class,'report')]//div[@class='searchBox']//input");
     public MenuTree mnCountries = MenuTree.xpath("//app-block-racing//tabset/ul", "//li");
     public MenuTree mnBlockingTab = MenuTree.xpath("//app-block-racing//div[@class='countryTabs']", "//li");
     public CheckBox cbSelectAllDownline = CheckBox.xpath("//app-block-racing//table[contains(@class,'block-table')]//span[contains(@class,'select-all')]/i");
@@ -37,34 +38,36 @@ public class BlockRacingPage extends HomePage {
         waitingLoadingSpinner();
     }
 
-    public void block(String sportName, String country, String downline, String venueName, String marketName) {
+    public void block(String sportName, Event event, String downline, Market market) {
         // Step 1 select blocking tab
         selectBlockingTab("Blocking");
         // Step 2 Slect sport
         ddbSport.selectByVisibleText(sportName);
         waitingLoadingSpinner();
         // Step 3 Select Country
-        mnCountries.clickMenu(country);
+        mnCountries.clickMenu(event.getCountryName());
+        waitingLoadingSpinner();
         // Step 4 Select downline
         selectDownline(downline, true);
         // Step 5 Select Venue NAme with markets
-        searchVenueName(venueName);
-        selectVenueMarket(venueName, marketName);
-
+        searchVenueName(event.getEventName());
+        selectVenueMarket(event.getEventName(), market.getMarketName());
         btnUpdate.click();
+        //workaround to wait since the spinner appears after few secs
+        btnUpdate.isDisplayed(5);
         waitingLoadingSpinner();
     }
 
-    public void unblock(String sportName, String country, String downline, String venueName, String marketName) {
+    public void unblock(String sportName, Event event, String downline, Market market) {
         // Step 1 select blocking tab
         selectBlockingTab("Current");
         // Step 2 Slect sport
         ddbSport.selectByVisibleText(sportName);
         waitingLoadingSpinner();
         // Step 3 Select Country
-        mnCountries.clickMenu(country);
+        mnCountries.clickMenu(event.getCountryName());
         // Step 4 Click on cell have Venue and Market then unblock for expected user
-        BlockedUserPopup blockedUserPopup = clickVenueMarketCell(venueName, marketName);
+        BlockedUserPopup blockedUserPopup = clickVenueMarketCell(event.getEventName(), market.getMarketName());
         blockedUserPopup.unblockUser(downline);
         waitingLoadingSpinner();
     }
@@ -99,7 +102,7 @@ public class BlockRacingPage extends HomePage {
 
     public void searchVenueName(String venueName) {
         txtSearchVenueName.sendKeys(venueName);
-        txtSearchVenueName.type(Keys.ENTER);
+        waitingLoadingSpinner();
     }
 
     public void selectVenueMarket(String venue, String market) {

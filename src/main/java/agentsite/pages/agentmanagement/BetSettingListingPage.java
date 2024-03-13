@@ -163,6 +163,7 @@ public class BetSettingListingPage extends HomePage {
     }
 
     public void inputValue(int min, int max, int maxLiabilityperMarket, int maxWinPerMarket) {
+        waitingLoadingSpinner();
         if (min != -1)
             txtMinBet.sendKeys(Integer.toString(min));
         if (max != -1)
