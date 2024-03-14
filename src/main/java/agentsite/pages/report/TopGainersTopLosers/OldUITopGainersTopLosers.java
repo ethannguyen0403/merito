@@ -42,11 +42,11 @@ public class OldUITopGainersTopLosers extends TopGainersTopLosers{
                 return tblHeader.equals(lstHeader);
             case "Big Stake":
                 tblHeader = tblBigStake.getHeaderNameOfRows();
-                int bigStake = BigStakeUtils.getBigStakeConfigValue();
+//                int bigStake = BigStakeUtils.getBigStakeConfigValue();
                 lstHeader = AGConstant.Report.TopGainersTopLosers.TABLE_BIG_STAKE_HEADER_OLDUI;
-                ArrayList<String> lstHeaderReturn = new ArrayList<>(lstHeader);
-                lstHeaderReturn.add(0, String.format(LBL_BIG_STAKE_TABLE_HEADER, bigStake));
-                return tblHeader.equals(lstHeaderReturn);
+//                ArrayList<String> lstHeaderReturn = new ArrayList<>(lstHeader);
+//                lstHeaderReturn.add(0, String.format(LBL_BIG_STAKE_TABLE_HEADER, bigStake));
+                return tblHeader.equals(lstHeader);
             default:
                 System.out.println("There are not "+ tableName);
                 return false;

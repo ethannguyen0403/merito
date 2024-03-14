@@ -128,12 +128,12 @@ public class ProfitAndLossTest extends BaseCaseTest {
 
         log("Step 3. Get summary data then Drill down to Member level and click on the user name");
         List<ArrayList<String>> list = page.drilldownToLevel("Member", true);
-        double balanceIncludeTax = Double.valueOf(list.get(1).get(page.colBalance - 2)) + Double.valueOf(list.get(1).get(page.colBalance - 1));
+        double balanceIncludeTax = Double.valueOf(list.get(1).get(page.colBalance - 3)) + Double.valueOf(list.get(1).get(page.colBalance - 2));
         TransactionDetailsPopup popup = new TransactionDetailsPopup();
         ArrayList<String> totalRowData = popup.getTotalRowData();
 
         log("Verify 1. Verify data display correctly on summary and transaction detail at Member result column");
-        Assert.assertEquals(Double.valueOf(totalRowData.get(7)), balanceIncludeTax, "FAILED! Balance of member in Downine Profit and Loss not match with Total- Member result in Transaction Details");
+        Assert.assertEquals(Double.valueOf(totalRowData.get(5)), balanceIncludeTax, "FAILED! Balance of member in Downine Profit and Loss not match with Total- Member result in Transaction Details");
 
         log("INFO: Executed completely");
     }

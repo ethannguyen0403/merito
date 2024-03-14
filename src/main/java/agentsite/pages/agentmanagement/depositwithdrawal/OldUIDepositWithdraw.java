@@ -17,7 +17,7 @@ public class OldUIDepositWithdraw extends DepositWithdraw {
     int totalCol = 13;
     int colSubBalance = 10;
     int colTotalBalance = 9;
-    int colAvailableBalance = 11;
+    int colAvailableBalance = 10;
     public int colCreditInitiation = 8;
     private int totalColAccountBalanceTable = 4;
     private Label lblLoginAccountAvailableBalance = Label.xpath("//app-agency-deposit-withdraw//table[@class='ptable report']//tbody[1]//tr[1]//td[4]");
