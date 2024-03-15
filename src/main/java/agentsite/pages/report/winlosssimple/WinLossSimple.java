@@ -1,4 +1,4 @@
-package agentsite.pages.report.WinLossSimple;
+package agentsite.pages.report.winlosssimple;
 
 import java.util.ArrayList;
 import java.util.List;

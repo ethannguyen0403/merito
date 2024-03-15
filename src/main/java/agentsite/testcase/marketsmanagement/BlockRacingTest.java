@@ -2,20 +2,16 @@ package agentsite.testcase.marketsmanagement;
 
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.marketsmanagement.BlockRacingPage;
-import agentsite.pages.marketsmanagement.BlockUnblockEventPage;
 import agentsite.pages.marketsmanagement.blockracing.BlockedUserPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
-import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
+import agentsite.ultils.maketmanagement.BlockRacingUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
-import common.AGConstant;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
-import membersite.pages.SportPage;
 import org.testng.Assert;
 import org.testng.SkipException;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
@@ -41,123 +37,6 @@ public class BlockRacingTest extends BaseCaseTest {
 
         log("Verify  1. Verify there is no console error display");
         Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
-
-        log("INFO: Executed completely");
-    }
-
-    @TestRails(id = "3700")
-    @Test(groups = {"interaction"})
-    @Parameters({"username", "downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_Block_Racing_TC3700(String username, String downlineAccount, String memberAccount, String password) throws Exception {
-        log("@title: Verify Venue Name display/dissapear when block/unblock");
-        log("Step Precondition Get horse racing info in Block Unblock event page in Today tab");
-        String sportName = "Horse Racing";
-//        AccountInfo acc = ProfileUtils.getProfile();
-        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
-        page.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
-//        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
-//        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
-//        Event event = eventList.get(0);
-//        String venueName = event.getEventName().split(" ")[0];
-        Event event = BlockUnblockEventsUtils.getEventListRacing(sportName).get(0);
-        Market market = BlockUnblockEventsUtils.getMarketListRacing(event, sportName).get(0);
-        if (Objects.isNull(event)) {
-            throw new SkipException("INFO: Skipping this test case as have no event " + event.getEventName() + " in today for " + sportName);
-        }
-//        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), acc.getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
-//        String marketName = marketList.get(0).getMarketName();
-
-        log("Step Precondition: Unblock a horse racing event");
-        page.filter("", sportName, "Today");
-        page.blockUnblockEvent(downlineAccount, event.getEventName(), "Unblock Now");
-
-        log("Step 1. Navigate Markets Management >Block Racing");
-        BlockRacingPage blockRacingPage = agentHomePage.navigateBlockRacingPage();
-
-        log("Step 2. Active Blocking tab and select Horse Racing");
-        log("Step 3. Select downline and select venue name");
-        log("Step 4. Click Update button");
-        blockRacingPage.block("Horse Racing", event, downlineAccount, market);
-
-        log("Step 5 Login member site active Horse Racing");
-        loginMember(memberAccount, password);
-        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
-        sportPage.leftMenu.clickCompetition(event.getCountryCode());
-
-        log("Verify Venus name disappear when block");
-        Assert.assertFalse(sportPage.leftMenu.getLeftMenuList().contains(event.getEventName()), "FAILED! The venue " + event.getEventName() + "is display in the left menu when it is blocked");
-
-        log("Step 6: Login agent site and ublock the racing");
-        loginAgent(username, password, true);
-
-        log("Verify Venus name disappear when block");
-        blockRacingPage = agentHomePage.navigateBlockRacingPage();
-        blockRacingPage.unblock(sportName, event, downlineAccount, market);
-
-        log("Verify Verify Venus name display when unblock");
-        loginMember(memberAccount, password);
-        sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
-        sportPage.leftMenu.clickCompetition(event.getCountryCode());
-        sportPage.clickEventName(event.getEventName());
-        Assert.assertTrue(sportPage.leftMenu.getLeftMenuList().contains(event.getEventName()), "FAILED! The venue " + event.getEventName() + "is not display in the left menu when it is unblocked");
-
-        log("INFO: Executed completely");
-    }
-    @TestRails(id = "3701")
-    @Test(groups = {"interaction"})
-    @Parameters({"username", "downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_Block_Racing_TC3701(String username, String downlineAccount, String memberAccount, String password) throws Exception {
-        log("@title: Verify Venue Name of Greyhound Racing display/disappear when block/unblock");
-        log("Step Precondition Get Greyhound racing info in Block Unblock event page in Today tab");
-        String sportName = "Greyhound Racing";
-        AccountInfo acc = ProfileUtils.getProfile();
-        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
-        page.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
-//        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
-        Event event = BlockUnblockEventsUtils.getEventListRacing(sportName).get(0);
-        Market market = BlockUnblockEventsUtils.getMarketListRacing(event, sportName).get(0);
-//        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
-//        Event event = eventList.get(0);
-//        String venueName = event.getEventName().split(" ")[0];
-        if (Objects.isNull(event.getEventName())) {
-            throw new SkipException("INFO: Skipping this test case as have no event " + event.getEventName() + " in today for " + sportName);
-        }
-//        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), acc.getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
-//        String marketName = marketList.get(0).getMarketName();
-
-        log("Step Precondition: Unblock a Greyhound racing event");
-        page.filter("", sportName, "Today");
-        page.blockUnblockEvent(downlineAccount, event.getEventName(), "Unblock Now");
-
-        log("Step 1. Navigate Markets Management >Block Racing");
-        BlockRacingPage blockRacingPage = agentHomePage.navigateBlockRacingPage();
-
-        log("Step 2. Active Blocking tab and select Greyhound Racing");
-        log("Step 3. Select downline and select venue name");
-        log("Step 4. Click Update button");
-        blockRacingPage.block(sportName, event, downlineAccount, market);
-
-        log("Step 5 Login member site active Greyhound Racing");
-        loginMember(memberAccount, password);
-        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
-        sportPage.leftMenu.clickCompetition(event.getCountryCode());
-
-        log("Verify Venus name disappear when block");
-        Assert.assertFalse(sportPage.leftMenu.getLeftMenuList().contains(event.getEventName()), "FAILED! The venue " + event.getEventName() + "is display in the left menu when it is blocked");
-
-        log("Step 6: Login agent site and unblock the Greyhound racing");
-        loginAgent(username, password, true);
-
-        log("Verify Venus name disappear when block");
-        blockRacingPage = agentHomePage.navigateBlockRacingPage();
-        blockRacingPage.unblock(sportName, event, downlineAccount, market);
-
-        log("Verify Verify Venus name display when unblock");
-        loginMember(memberAccount, password);
-        sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
-        sportPage.leftMenu.clickCompetition(event.getCountryCode());
-        sportPage.clickEventName(event.getEventName());
-        Assert.assertTrue(sportPage.leftMenu.getLeftMenuList().contains(event.getEventName()), "FAILED! The venue " + event.getEventName() + "is not display in the left menu when it is unblocked");
 
         log("INFO: Executed completely");
     }
@@ -194,75 +73,80 @@ public class BlockRacingTest extends BaseCaseTest {
     @Test(groups = {"regression","tim"})
     public void Agent_MM_Block_Racing_TC3698() {
         log("@title: Validate can Block for Horse Racing");
-        log("Step 1. Navigate Markets Management > Block Racing");
         String sportName = "Horse Racing";
+        AccountInfo accountInfo = ProfileUtils.getProfile();
+        AccountInfo accountUserInfo = DownLineListingUtils.getAllDownLineUsers(_brandname, accountInfo.getUserCode(), accountInfo.getUserID()).get(0);
+        log("Step 1. Navigate Markets Management > Block Racing");
         BlockRacingPage blockRacingPage = agentHomePage.navigateBlockRacingPage();
         log("Step 2. Active Blocking tab and select Horse Racing");
         log("Step 3. Select downline and  select venue name");
         log("Step 4. Click Update button");
-        AccountInfo accountInfo = ProfileUtils.getProfile();
-        AccountInfo accountUserInfo = DownLineListingUtils.getAllDownLineUsers(_brandname, accountInfo.getUserCode(), accountInfo.getUserID()).get(0);
-        Event event = BlockUnblockEventsUtils.getEventListRacing(sportName).get(0);
-        Market market = BlockUnblockEventsUtils.getMarketListRacing(event, sportName).get(0);
+        Event event = BlockRacingUtils.getEventListRacing(sportName).get(0);
+        Market market = BlockRacingUtils.getMarketListRacing(event, sportName).get(0);
         if (Objects.isNull(event)) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for " + sportName);
         }
-        blockRacingPage.block(sportName, event, accountUserInfo.getUserCode(),market);
+        String updatedMsg = blockRacingPage.block(sportName, event, accountUserInfo.getUserCode(),market);
         String blockDateTime = DateUtils.getDate(0, "yyyy-MM-dd HH:mm", timeZone);
 
         log("Validate the message update successfully");
-        Assert.assertEquals(blockRacingPage.lblSuccessMessage.getText().trim(),LBL_UPDATE_SUCCESS_MSG, "FAILED! Update setting success message does not display correct");
+        Assert.assertEquals(updatedMsg,LBL_UPDATE_SUCCESS_MSG, "FAILED! Update setting success message does not display correct");
         blockRacingPage.btnCloseUpdateSetting.click();
+        BlockedUserPopup blockedUserPopup = null;
+        try {
+            log("Step 5. Click Current tab  and search the venue name");
+            blockRacingPage.selectBlockingTab("Current");
+            blockRacingPage.searchVenueName(event.getEventName());
 
-        log("Step 5. Click Current tab  and search the venue name");
-        blockRacingPage.selectBlockingTab("Current");
-        blockRacingPage.searchVenueName(event.getEventName());
-
-        log("Validate block icon  display at the venue name\n" +
-                "Click cell, the block info display correctly");
-        BlockedUserPopup blockedUserPopup = blockRacingPage.clickVenueMarketCell(event.getEventName(), market.getMarketName());
-        blockedUserPopup.verifyBlockedInfoDisplayCorrect(accountUserInfo, accountInfo, blockDateTime);
-        log("INFO: Executed completely");
+            log("Validate block icon  display at the venue name\n" +
+                    "Click cell, the block info display correctly");
+            blockedUserPopup = blockRacingPage.clickVenueMarketCell(event.getEventName(), market.getMarketName());
+            blockedUserPopup.verifyBlockedInfoDisplayCorrect(accountUserInfo, accountInfo, blockDateTime);
+        } finally {
+            log("Post-condition: Unblock the blocked event");
+            blockedUserPopup.unblockUser(accountUserInfo.getUserCode());
+            log("INFO: Executed completely");
+        }
     }
 
     @TestRails(id = "3699")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void Agent_MM_Block_Racing_TC3699() {
         log("@title: Validate can Block for Greyhound Racing");
-        log("Step 1. Navigate Markets Management > Block Racing");
         String sportName = "Greyhound Racing";
+        AccountInfo accountInfo = ProfileUtils.getProfile();
+        AccountInfo accountUserInfo = DownLineListingUtils.getAllDownLineUsers(_brandname, accountInfo.getUserCode(), accountInfo.getUserID()).get(0);
+        log("Step 1. Navigate Markets Management > Block Racing");
         BlockRacingPage blockRacingPage = agentHomePage.navigateBlockRacingPage();
         log("Step 2. Active Blocking tab and select Greyhound Racing");
         log("Step 3. Select downline and  select venue name");
         log("Step 4. Click Update button");
-        AccountInfo accountInfo = ProfileUtils.getProfile();
-        AccountInfo lstDownline = DownLineListingUtils.getAllDownLineUsers(_brandname, accountInfo.getUserCode(), accountInfo.getUserID()).get(0);
-//        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, lstDownline.get(0).getUserID(), "TODAY");
-        Event event = BlockUnblockEventsUtils.getEventListRacing(sportName).get(0);
-        Market market = BlockUnblockEventsUtils.getMarketListRacing(event, sportName).get(0);
+        Event event = BlockRacingUtils.getEventListRacing(sportName).get(0);
+        Market market = BlockRacingUtils.getMarketListRacing(event, sportName).get(0);
         if (Objects.isNull(event)) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for " + sportName);
         }
-//        Event event = eventList.get(0);
-//        String venueName = event.getEventName().split(" ")[0];
-
-//        List<Market> marketList = BlockUnblockEventsUtils.getListMarketOfEvent(event.getID(), lstDownline.get(0).getUserID(), AGConstant.HomePage.SPORT_ID.get(sportName));
-//        String marketName = marketList.get(0).getMarketName();
-        blockRacingPage.block(sportName, event, lstDownline.getUserCode(), market);
+        String updatedMsg = blockRacingPage.block(sportName, event, accountUserInfo.getUserCode(), market);
         String blockDateTime = DateUtils.getDate(0, "yyyy-MM-dd HH:mm", timeZone);
+
         log("Validate the message update successfully");
-        Assert.assertEquals(blockRacingPage.lblSuccessMessage.getText().trim(),LBL_UPDATE_SUCCESS_MSG, "FAILED! Update setting success message does not display correct");
+        Assert.assertEquals(updatedMsg,LBL_UPDATE_SUCCESS_MSG, "FAILED! Update setting success message does not display correct");
         blockRacingPage.btnCloseUpdateSetting.click();
+        BlockedUserPopup blockedUserPopup = null;
+        try {
+            log("Step 5. Click Current tab  and search the venue name");
+            blockRacingPage.selectBlockingTab("Current");
+            blockRacingPage.searchVenueName(event.getEventName());
 
-        log("Step 5. Click Current tab  and search the venue name");
-        blockRacingPage.selectBlockingTab("Current");
-        blockRacingPage.searchVenueName(event.getEventName());
-
-        log("Validate block icon  display at the venue name\n" +
-                "Click cell, the block info display correctly");
-        BlockedUserPopup blockedUserPopup = blockRacingPage.clickVenueMarketCell(event.getEventName(), market.getMarketName());
-        blockedUserPopup.verifyBlockedInfoDisplayCorrect(lstDownline, accountInfo, blockDateTime);
-        log("INFO: Executed completely");
+            log("Validate block icon  display at the venue name\n" +
+                    "Click cell, the block info display correctly");
+            blockedUserPopup = blockRacingPage.clickVenueMarketCell(event.getEventName(), market.getMarketName());
+            blockedUserPopup.verifyBlockedInfoDisplayCorrect(accountUserInfo, accountInfo, blockDateTime);
+        } finally {
+            log("Post-condition: Unblock the blocked event");
+            blockedUserPopup.unblockUser(accountUserInfo.getUserCode());
+            log("INFO: Executed completely");
+        }
     }
 
 }

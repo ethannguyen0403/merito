@@ -38,7 +38,7 @@ public class BlockRacingPage extends HomePage {
         waitingLoadingSpinner();
     }
 
-    public void block(String sportName, Event event, String downline, Market market) {
+    public String block(String sportName, Event event, String downline, Market market) {
         // Step 1 select blocking tab
         selectBlockingTab("Blocking");
         // Step 2 Slect sport
@@ -52,10 +52,14 @@ public class BlockRacingPage extends HomePage {
         // Step 5 Select Venue NAme with markets
         searchVenueName(event.getEventName());
         selectVenueMarket(event.getEventName(), market.getMarketName());
-        btnUpdate.click();
-        //workaround to wait since the spinner appears after few secs
-        btnUpdate.isDisplayed(5);
-        waitingLoadingSpinner();
+        if(btnUpdate.isClickable(5)) {
+            btnUpdate.click();
+            //workaround to wait since the spinner appears after few secs
+            lblSuccessMessage.waitForElementToBePresent(lblSuccessMessage.getLocator(), 5);
+            waitingLoadingSpinner();
+            return lblSuccessMessage.getText().trim();
+        }
+        return "";
     }
 
     public void unblock(String sportName, Event event, String downline, Market market) {

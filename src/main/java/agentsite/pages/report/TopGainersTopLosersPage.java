@@ -4,7 +4,7 @@ import agentsite.controls.DateTimePicker;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.components.ComponentsFactory;
-import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
+import agentsite.pages.report.topgainerstoplosers.TopGainersTopLosers;
 import com.paltech.element.common.*;
 
 public class TopGainersTopLosersPage extends HomePage {

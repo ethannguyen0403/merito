@@ -724,9 +724,10 @@ public class AGConstant {
         public final static String ERROR_PRODUCT = "Please select at least 1 product.";
         public final static String ERROR_DATE_RANGE = "End date cannot earlier than start date. Please redefine the search criteria";
         public final static List<String> LIST_EXTRA_RPODUCTS_PO = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Central Fancy", "Central Bookmaker", "Follow Bets");
-        public final static List<String> LIST_EXTRA_PRODUCTS_NEWUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Premium Cricket", "Virtual Cricket", "Q-tech", "Decimal Cricket");
-        public final static List<String> LIST_EXTRA_PRODUCTS_OLDUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Central Fancy", "Central Bookmaker", "Premium Cricket", "Virtual Cricket", "Q-tech", "Decimal Cricket");
-        public final static String LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS = "You can see report data up to 6 months";
+        public final static List<String> LIST_EXTRA_PRODUCTS_NEWUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Premium Cricket", "Virtual Cricket", "Decimal Cricket");
+        public final static List<String> LIST_EXTRA_PRODUCTS_OLDUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Central Fancy", "Central Bookmaker", "Premium Cricket", "Virtual Cricket", "Decimal Cricket");
+        public final static String LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS = "You can see report data up to 6 months.";
+        public final static String LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS_WITHOUT_DOT = "You can see report data up to 6 months";
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_1_TO_6 = "You can see report data up to 1 month and back to previous 6 months.";
         public final static String LBL_PRODUCT = "Product";
         public final static List<String> LIST_SUB_MENU_CONTROL_BLOCKING_OLDUI = Arrays.asList("Unsettled Bet", "Profit And Loss", "Win Loss Simple", "AD Win Loss Detail", "Position Taking Report", "Cancelled Bets",
@@ -767,16 +768,21 @@ public class AGConstant {
             public final static String LBL_REPORT_AVAILABLE_IST = "For IST timezone, report data is only available from June 27, 2019";
             public final static String LBL_UPLINE_PROFIT_AND_LOST = "Upline Profit And Loss";
             public final static String LBL_DOWNLINE_PROFIT_AND_LOST = "Downline Profit And Loss";
-            public final static String LBL_UPLINE_PROFIT_AND_LOST_PO = "Downline Profit And Loss Currency HKD";
-            public final static String LBL_DOWNLINE_PROFIT_AND_LOST_PO = "Downline Profit And Loss Currency HKD";
+            public final static String LBL_UPLINE_PROFIT_AND_LOST_PO = "Upline Profit And Loss Currency %s";
+            public final static String LBL_DOWNLINE_PROFIT_AND_LOST_PO = "Downline Profit And Loss Currency %s";
             public final static String LBL_PLEASE_SELECT_PRODUCT = "Please select at least 1 product.";
             public final static List<String> TIMEZONE_LIST = Arrays.asList("ET (GMT -4:00)", "IST(GMT + 5:30)");
-            public final static List<String> TBL_UPLINE_TABLE = Arrays.asList("Name", "Back", "Lay", "Total Tax", "Total Pay", "Turnover", "Pnl", "Turnover", "Pnl");
-            public final static List<String> TBL_DOWNLINE_TABLE = Arrays.asList("No.", "Username", "Login ID", "First Name", "Level", "Back", "Lay", "Total Tax", "Balance", "Turnover", "Pnl", "Turnover", "Pnl");
+            public final static List<String> TBL_UPLINE_TABLE_OLDUI = Arrays.asList("Name", "Back", "Lay", "Total Tax", "Total Pay", "Turnover", "Pnl", "Turnover", "Pnl");
+            public final static List<String> TBL_DOWNLINE_TABLE_OLDUI = Arrays.asList("No.", "Username", "Login ID", "First Name", "Level", "Back", "Lay", "Total Tax", "Balance", "Turnover", "Pnl", "Turnover", "Pnl");
+            public final static List<String> TBL_DOWNLINE_TABLE_PO_OLDUI = Arrays.asList("No.", "Username", "Login ID", "First Name", "Level", "Currency","Back", "Lay", "Total Tax", "Balance", "Turnover", "Pnl", "Turnover", "Pnl");
+            public final static List<String> TBL_UPLINE_TABLE_NEWUI = Arrays.asList("Name", "Currency","Back", "Lay", "Total Tax", "Total Pay", "Turnover", "Pnl", "Turnover", "Pnl");
+            public final static List<String> TBL_DOWNLINE_TABLE_NEWUI = Arrays.asList("No.", "Username", "Nickname", "First Name", "Level", "Currency","Back", "Lay", "Total Tax", "Balance", "Turnover", "Pnl", "Turnover", "Pnl");
+            public final static List<String> LST_PRODUCT_GROUP = Arrays.asList("Exchange group", "Casino group", "Exchange Games");
+
         }
 
         public static class PositionTakingReport {
-            public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Competition Name", "Volume", "Pnl", "Tax");
+            public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Competition Name", "Volume", "PnL", "Tax","");
 
         }
 

@@ -4,7 +4,7 @@ import agentsite.controls.DateTimePicker;
 import agentsite.controls.Row;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
-import agentsite.pages.report.components.TransactionDetailsPopup;
+import agentsite.pages.report.components.TransactionDetailsPopupPage;
 import com.paltech.element.common.*;
 
 import java.util.ArrayList;
@@ -85,11 +85,11 @@ public class WinLossByEventPage extends HomePage {
         return rGrandTotal.getRow(tblReportTotalCol, false);
     }
 
-    public TransactionDetailsPopup clickTurnoverLink(String eventName) {
+    public TransactionDetailsPopupPage clickTurnoverLink(String eventName) {
         Label lblTurnOver = Label.xpath(String.format(turnoverPerXpath, eventName));
         lblTurnOver.click();
         waitingLoadingSpinner();
-        return new TransactionDetailsPopup();
+        return new TransactionDetailsPopupPage(_type);
     }
 
 

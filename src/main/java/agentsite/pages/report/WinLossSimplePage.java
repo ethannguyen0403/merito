@@ -4,15 +4,11 @@ import agentsite.controls.DateTimePicker;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.components.ComponentsFactory;
-import agentsite.pages.report.WinLossSimple.WinLossSimple;
+import agentsite.pages.report.winlosssimple.WinLossSimple;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
-import common.AGConstant;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WinLossSimplePage extends HomePage {
     public agentsite.controls.DropDownBox ddbProduct = agentsite.controls.DropDownBox.xpath("//td[@class='product-multiselect']", "//div[contains(@class,'dropdown-list')]//ul//li");

@@ -4,7 +4,9 @@ package agentsite.pages.report;
 import agentsite.controls.DateTimePicker;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
-import agentsite.pages.report.components.TransactionDetailsPopup;
+import agentsite.pages.components.ComponentsFactory;
+import agentsite.pages.report.components.TransactionDetailsPopupPage;
+import agentsite.pages.report.profitandloss.ProfitAndLoss;
 import com.paltech.element.common.*;
 
 import java.util.ArrayList;
@@ -47,9 +49,11 @@ public class ProfitAndLossPage extends HomePage {
     public int colBalance = 12;
     public Table tblDownLineProfitAndLoss = Table.xpath("//table[contains(@class , 'ptable report backlayTable')][2]", 12);
     public Label lblNoRecordDowLinePL = Label.xpath("//table[contains(@class , 'ptable report backlayTable')][2]//td[@class='no-record']");
-
+    public ProfitAndLoss profitAndLoss;
+    public TransactionDetailsPopupPage transactionDetailsPopupPage;
     public ProfitAndLossPage(String types) {
         super(types);
+        profitAndLoss = ComponentsFactory.profitAndLoss(types);
     }
 
     /**
@@ -136,16 +140,19 @@ public class ProfitAndLossPage extends HomePage {
         }
     }
 
-    public TransactionDetailsPopup openTransactionDetails(String userName) {
+    public TransactionDetailsPopupPage openTransactionDetails(String userName) {
         Link lnkUserName = (Link) tblDownLineProfitAndLoss.getControlOfCell(1, colUserName, 2, "a");
         if (lnkUserName.getText().equals(userName))
             lnkUserName.click();
         waitingLoadingSpinner();
-        return new TransactionDetailsPopup();
+        return new TransactionDetailsPopupPage(_type);
     }
 
     public List<String> getProductDataDropdown() {
         return ddbProduct.getAllOption(true).stream().sorted().collect(Collectors.toList());
     }
 
+    public void verifyUIDisplayCorrect(boolean isLevelLoginPO) {
+        profitAndLoss.verifyUIDisplayCorrect(isLevelLoginPO);
+    }
 }

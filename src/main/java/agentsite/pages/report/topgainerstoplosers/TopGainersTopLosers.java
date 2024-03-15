@@ -1,4 +1,4 @@
-package agentsite.pages.report.TopGainersTopLosers;
+package agentsite.pages.report.topgainerstoplosers;
 
 import java.util.ArrayList;
 import java.util.List;

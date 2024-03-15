@@ -1065,6 +1065,105 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3700")
+    @Test(groups = {"interaction_sat","tim"})
+    @Parameters({"username", "downlineAccount", "memberAccount", "password"})
+    public void Agent_MM_Block_Racing_TC3700(String username, String downlineAccount, String memberAccount, String password) throws Exception {
+        log("@title: Validate event Horse Racing display/disapear when block/unblock");
+        log("Step Precondition Log in successfully by SAD");
+        String sportName = "Horse Racing";
+        AccountInfo acc = ProfileUtils.getProfile();
+        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
+        Event event = eventList.get(0);
+        if (Objects.isNull(event)) {
+            throw new SkipException("INFO: Skipping this test case as have no event " + event.getEventName() + " in today for " + sportName);
+        }
+
+        log("Step 1. Navigate Markets Management > Block Unblock Event");
+        log("Step 2. Select sport Horse Racing, tab Today");
+        log("Step 3. Select downline and select any event");
+        log("Step 4. Click Unblock Now button");
+        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
+        page.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+        page.blockUnblockEvent(downlineAccount, event.getEventName(), "Unblock Now");
+
+        log("Step 5 Login member site and open Horse Racing, observe header and left menu");
+        loginMember(memberAccount, password);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
+        sportPage.leftMenu.clickCompetition(event.getCountryCode());
+        List<String> lstHeaderMenu = memberHomePage.getListHeaderMenu();
+        List<String> lstLeftMenu = sportPage.leftMenu.getLeftMenuList();
+        log("Verify 1. Horse Racing displays in header and left menu\n" +
+                "The unblocked event displays in left menu");
+        Assert.assertTrue(lstHeaderMenu.contains(sportName), "FAILED! Horse Racing does not display in header menu");
+        Assert.assertTrue(lstLeftMenu.contains(event.getEventName()), "FAILED! The venue " + event.getEventName() + "is not displayed in the left menu list " + lstLeftMenu + "when it is unblocked");
+
+        log("Step 6: Repeat step 1-5 with action Block on the event and observe");
+        loginAgent(username, password, true);
+        agentHomePage.navigateBlockUnblockEventsPage();
+        page.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+        page.blockUnblockEvent(downlineAccount, event.getEventName(), "Block");
+        loginMember(memberAccount, password);
+        lstHeaderMenu = memberHomePage.getListHeaderMenu();
+        lstLeftMenu = memberHomePage.leftMenu.getLeftMenuList();
+
+        log("Verify 2. Horse Racing is not displayed in header or left menu if all events are blocked");
+        Assert.assertFalse(lstHeaderMenu.contains(sportName), "FAILED! Horse Racing displays in header while all events are blocked");
+        Assert.assertFalse(lstLeftMenu.contains(sportName), "FAILED! Horse Racing displays in left menu while all events are blocked");
+
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "3701")
+    @Test(groups = {"interaction_sat","tim"})
+    @Parameters({"username", "downlineAccount", "memberAccount", "password"})
+    public void Agent_MM_Block_Racing_TC3701(String username, String downlineAccount, String memberAccount, String password) throws Exception {
+        log("@title: Validate event Greyhound Racing display/disapear when block/unblock");
+        log("Step Precondition Log in successfully by SAD");
+        String sportName = "Greyhound Racing";
+        AccountInfo acc = ProfileUtils.getProfile();
+        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
+        List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
+        Event event = eventList.get(0);
+        if (Objects.isNull(event)) {
+            throw new SkipException("INFO: Skipping this test case as have no event " + event.getEventName() + " in today for " + sportName);
+        }
+
+        log("Step 1. Navigate Markets Management > Block Unblock Event");
+        log("Step 2. Select sport Greyhound Racing, tab Today");
+        log("Step 3. Select downline and select any event");
+        log("Step 4. Click Unblock Now button");
+        BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
+        page.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+        page.blockUnblockEvent(downlineAccount, event.getEventName(), "Unblock Now");
+
+        log("Step 5 Login member site and open Greyhound Racing, observe header and left menu");
+        loginMember(memberAccount, password);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
+        sportPage.leftMenu.clickCompetition(event.getCountryCode());
+        List<String> lstHeaderMenu = memberHomePage.getListHeaderMenu();
+        List<String> lstLeftMenu = sportPage.leftMenu.getLeftMenuList();
+        log("Verify 1. Greyhound Racing displays in header and left menu\n" +
+                "The unblocked event displays in left menu");
+        Assert.assertTrue(lstHeaderMenu.contains(sportName), "FAILED! Greyhound Racing does not display in header menu");
+        Assert.assertTrue(lstLeftMenu.contains(event.getEventName()), "FAILED! The venue " + event.getEventName() + "is display in the left menu list"+lstLeftMenu+"when it is blocked");
+
+        log("Step 6: Repeat step 1-5 with action Block on the event and observe");
+        loginAgent(username, password, true);
+        agentHomePage.navigateBlockUnblockEventsPage();
+        page.filter("", sportName, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+        page.blockUnblockEvent(downlineAccount, event.getEventName(), "Block");
+        loginMember(memberAccount, password);
+        lstHeaderMenu = memberHomePage.getListHeaderMenu();
+        lstLeftMenu = memberHomePage.leftMenu.getLeftMenuList();
+
+        log("Verify 2. Greyhound Racing is not displayed in header or left menu if all events are blocked");
+        Assert.assertFalse(lstHeaderMenu.contains(sportName), "FAILED! Greyhound Racing displays in header while all events are blocked");
+        Assert.assertFalse(lstLeftMenu.contains(sportName), "FAILED! Greyhound Racing displays in left menu while all events are blocked");
+
+        log("INFO: Executed completely");
+    }
+
 //    @TestRails(id="3684")
 //    @Test(groups = {"review"})
 //    public void Agent_MM_BlockUnblockEvent_UnblockNow_3684() {

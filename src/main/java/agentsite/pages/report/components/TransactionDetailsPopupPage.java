@@ -3,6 +3,9 @@ package agentsite.pages.report.components;
 import agentsite.controls.MenuTree;
 import agentsite.controls.Row;
 import agentsite.controls.Table;
+import agentsite.pages.HomePage;
+import agentsite.pages.components.ComponentsFactory;
+import agentsite.pages.report.components.transactiondetailspopup.TransactionDetailsPopup;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
@@ -10,11 +13,8 @@ import com.paltech.element.common.Popup;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static agentsite.pages.HomePage.waitingLoadingSpinner;
-
-public class TransactionDetailsPopup {
+public class TransactionDetailsPopupPage extends HomePage {
     public int tblReportTotalCol = 18;
     public int colUsername = 1;
     public int colLoginId = 2;
@@ -40,7 +40,14 @@ public class TransactionDetailsPopup {
     Label lblDisplayItem = Label.xpath("//div[contains(@class,'displaying-items')]");
     private int staticColTotal = 9;
     private int rowTotalCol = 8;
-
+    public TransactionDetailsPopup transactionDetailsPopup;
+    public TransactionDetailsPopupPage(String types) {
+        super(types);
+        transactionDetailsPopup = ComponentsFactory.transactionDetailsPopup(types);
+    }
+    public List<String> getProductsListTab() {
+        return transactionDetailsPopup.getProductsListTab();
+    }
     public void closePopup() {
         btnClose.click();
     }
@@ -51,10 +58,6 @@ public class TransactionDetailsPopup {
 
     public ArrayList<String> getTotalRowData() {
         return rowTotal.getRow(rowTotalCol, false);
-    }
-
-    public List<String> getProductsListTab() {
-        return productTabMenu.getListSubMenu().stream().sorted().collect(Collectors.toList());
     }
 
     public Table defineReportCol(List<String> levelList) {
@@ -151,6 +154,10 @@ public class TransactionDetailsPopup {
 
     public void clickCloseButton() {
         btnClose.click();
+    }
+
+    public void verifyListOfProductsTabDisplayedCorrect(String productFilterName) {
+        transactionDetailsPopup.verifyListOfProductsTabDisplayedCorrect(productFilterName);
     }
 
 }

@@ -21,12 +21,12 @@ public class BlockedUserPopup extends ConfirmPopup {
     public Button btnUnBlockNowCompetition = Button.xpath("//button[contains(@class,'pbtn mr-1')]");
     public Button btnUnblockSchedule = Button.xpath("//div[@class='unblock-actions']//button[contains(@class,'pbtn')][2]");
     public TextBox txtMarketName = TextBox.xpath("//input[contains(@class,'input-market-name')]");
-    public Button btnClose = Button.xpath("//button[@class='pbtn close-btn']");
+    public Button btnClose = Button.xpath("//button[@class='close']");
     public int colUsername = 1;
     public int colLevel = 2;
     public int colBlockedBy = 3;
     public int colBlockedDate = 4;
-    public int colSelect = 6;
+    public int colSelect = 5;
     private int totalCol = 5;
     public Table tblBlockedUser = Table.xpath("//div[contains(@class,'modal-body')]//table", totalCol);
 
@@ -59,6 +59,5 @@ public class BlockedUserPopup extends ConfirmPopup {
         Assert.assertTrue(lstInfo.get(0).get(2).contains(accountActionBlock.getUserCode()), "FAILED! Block by does not display correct");
         Assert.assertTrue(lstInfo.get(0).get(3).contains(blockDate), "FAILED! Block date does not display correct");
     }
-
 
 }

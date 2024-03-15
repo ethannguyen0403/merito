@@ -5,7 +5,7 @@ import agentsite.controls.DateTimePicker;
 import agentsite.controls.Row;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
-import agentsite.pages.report.components.TransactionDetailsPopup;
+import agentsite.pages.report.components.TransactionDetailsPopupPage;
 import com.paltech.element.common.*;
 
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class TransactionHistoryPage extends HomePage {
                 tax = Cell.xpath(String.format("%s[%s]//td[%s]", competitionRow, i + 1, colTax)).getText();
                 Icon.xpath(String.format("%s[%s]//td[%s]/a", competitionRow, i + 1, colDetails)).click();
                 waitingLoadingSpinner();
-                TransactionDetailsPopup popup = new TransactionDetailsPopup();
+                TransactionDetailsPopupPage popup = new TransactionDetailsPopupPage(_type);
 
                 double sumPlayerStake = popup.sumPlayerStake();
                 String getTotalPnlLoginLevel = popup.getTotalRowData().get(1);

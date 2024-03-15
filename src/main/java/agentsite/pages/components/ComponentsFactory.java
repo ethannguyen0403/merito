@@ -93,12 +93,18 @@ import agentsite.pages.components.leftmenu.OldUILeftMenu;
 import agentsite.pages.components.quicksearch.NewUIQuickSearch;
 import agentsite.pages.components.quicksearch.OldUIQuickSearch;
 import agentsite.pages.components.quicksearch.QuickSearch;
-import agentsite.pages.report.TopGainersTopLosers.NewUITopGainersTopLosers;
-import agentsite.pages.report.TopGainersTopLosers.OldUITopGainersTopLosers;
-import agentsite.pages.report.TopGainersTopLosers.TopGainersTopLosers;
-import agentsite.pages.report.WinLossSimple.NewUIWinLossSimple;
-import agentsite.pages.report.WinLossSimple.OldUIWinLossSimple;
-import agentsite.pages.report.WinLossSimple.WinLossSimple;
+import agentsite.pages.report.components.transactiondetailspopup.NewUITransactionDetailsPopup;
+import agentsite.pages.report.components.transactiondetailspopup.OldUITransactionDetailsPopup;
+import agentsite.pages.report.components.transactiondetailspopup.TransactionDetailsPopup;
+import agentsite.pages.report.profitandloss.NewUIProfitAndLoss;
+import agentsite.pages.report.profitandloss.OldUIProfitAndLoss;
+import agentsite.pages.report.profitandloss.ProfitAndLoss;
+import agentsite.pages.report.topgainerstoplosers.NewUITopGainersTopLosers;
+import agentsite.pages.report.topgainerstoplosers.OldUITopGainersTopLosers;
+import agentsite.pages.report.topgainerstoplosers.TopGainersTopLosers;
+import agentsite.pages.report.winlosssimple.NewUIWinLossSimple;
+import agentsite.pages.report.winlosssimple.OldUIWinLossSimple;
+import agentsite.pages.report.winlosssimple.WinLossSimple;
 import agentsite.pages.report.statementreport.NewUIStatementReport;
 import agentsite.pages.report.statementreport.OldUIStatementReport;
 import agentsite.pages.report.statementreport.StatementReport;
@@ -318,6 +324,24 @@ public class ComponentsFactory {
                 return new OldUIWinLossSimple();
             default:
                 return new NewUIWinLossSimple();
+        }
+    }
+
+    public static ProfitAndLoss profitAndLoss(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUIProfitAndLoss();
+            default:
+                return new NewUIProfitAndLoss();
+        }
+    }
+
+    public static TransactionDetailsPopup transactionDetailsPopup(String types) {
+        switch (types) {
+            case "satsport":
+                return new OldUITransactionDetailsPopup();
+            default:
+                return new NewUITransactionDetailsPopup();
         }
     }
 

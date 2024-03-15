@@ -1,13 +1,13 @@
-package agentsite.pages.report.WinLossSimple;
+package agentsite.pages.report.winlosssimple;
 
 import agentsite.controls.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewUIWinLossSimple extends WinLossSimple{
+public class OldUIWinLossSimple extends WinLossSimple{
     int totalCol = 7;
-    int colWinLoss = 5;
+    int colWinLoss = 4;
     public Table tblSMA = Table.xpath("(//table[contains(@class, 'backlayTable')])[1]", totalCol);
     public List<ArrayList<String>> getListWinnerInfor(){
         List<ArrayList<String>> lstData = tblSMA.getRowsWithoutHeader(20,true);
