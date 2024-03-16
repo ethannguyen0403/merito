@@ -23,6 +23,7 @@ public class DepositToPopup extends DepositPopup {
     }
 
     public double getNewMemberCashBalance() {
+        lblMemberBalance.isDisplayed();
         String newCashBalance = lblMemberNewBalance.getText().split(":")[1].trim();
         newCashBalance = newCashBalance.replace(",", "").trim();
         return Double.parseDouble(newCashBalance);

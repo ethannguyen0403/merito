@@ -2,12 +2,14 @@ package agentsite.pages.components;
 
 import com.paltech.element.BaseElement;
 import com.paltech.element.common.Button;
+import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import org.openqa.selenium.By;
 
 public class SuccessPopup extends BaseElement {
     public Label lblTitle = Label.xpath("//div[contains(@class,'modal-header')]");
     public Label lblContent = Label.xpath("//div[contains(@class,'modal-body modal-body-fit-with-content')]");
+    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     public Button btnOK = Button.xpath("//div[contains(@class,'modal-footer')]/button");
     private String _xPath;
 
@@ -35,5 +37,11 @@ public class SuccessPopup extends BaseElement {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean isDisplayed() {
+        iconLoadSpinner.waitForControlInvisible(2, 4);
+        return super.isDisplayed();
     }
 }

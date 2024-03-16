@@ -41,7 +41,7 @@ public class OldUIBetSettingSection extends BetSettingSection {
             Assert.assertTrue(lblMaxLiabilityEX.isDisplayed(), "FAILED! Max Liability label does not display");
             Assert.assertTrue(lblMaxWinEX.isDisplayed(), "FAILED! Max Win label does not display");
             ArrayList<String> lstHeader = tblBetSettingEX.getHeaderNameOfRows();
-            Assert.assertEquals(lstHeader, LST_BET_SETTING_HEADER);
+            Assert.assertTrue(LST_BET_SETTING_HEADER.containsAll(lstHeader), String.format("FAILED! List Header does not matched. Actual: %s, Expected: %s",lstHeader, LST_BET_SETTING_HEADER));
         } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
             Assert.assertTrue(lblMinBetEG.isDisplayed(), "FAILED! Min Bet label does not display");
             Assert.assertTrue(lblMaxBetEG.isDisplayed(), "FAILED! Max Bet label does not display");

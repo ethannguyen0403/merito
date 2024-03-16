@@ -235,6 +235,7 @@ public class BaseCaseTest {
 
     // this function for login new agent account
     public static void loginNewAccount(String sosURL, String loginURL, String username, String password, String securityCode) throws Exception {
+        createDriver(agentLoginURL);
         Helper.loginAgentIgnoreCaptchaTest(sosURL, loginURL, username, password);
         SecurityCodePage securityPage = new SecurityCodePage(_brandname);
         securityPage.setSecurityCode(securityCode, securityCode);

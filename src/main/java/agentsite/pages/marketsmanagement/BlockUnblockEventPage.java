@@ -222,7 +222,7 @@ public class BlockUnblockEventPage extends HomePage {
         if (!event.isEmpty()) {
             // for case select all event
             if (event.equalsIgnoreCase("all")) {
-                chkEventAll.click();
+                chkEventAll.jsClick();
                 waitingLoadingSpinner();
                 return;
             }
@@ -237,7 +237,7 @@ public class BlockUnblockEventPage extends HomePage {
                 }
                 String eventCell = Label.xpath(tblEvent.getxPathOfCell(1, colEvent, i + 1, null)).getText().trim();
                 if (eventCell.contains(event)) {
-                    cbEvent.click();
+                    cbEvent.jsClick();
                     return;
                 }
                 i = i + 1;
@@ -344,7 +344,7 @@ public class BlockUnblockEventPage extends HomePage {
         } else
             checkbox = CheckBox.xpath(String.format("//table[contains(@class,'block-table')]//span[contains(text(),'%s')]/following::span[1]//i", downline));
         if (!checkbox.getAttribute("class").contains("fa-check"))
-            checkbox.click();
+            checkbox.jsClick();
             waitingLoadingSpinner();
     }
 

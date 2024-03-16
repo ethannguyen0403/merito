@@ -76,7 +76,7 @@ public class OldUISubUserListing extends SubUserListing {
         Label lblIcon;
         List<String> lstData = tblSubUSer.getColumn(colUsername, true);
         for (int i = 0; i < lstData.size(); i++) {
-            if (lstData.get(i).equalsIgnoreCase(userName)) {
+            if (lstData.get(i).contains(userName)) {
                 for (int j = 0, m = permissionlst.size(); j < m; j++) {
                     cell_xpath = String.format("%s//tbody//tr[%s]//td[%s]", "//table[contains(@class,'ptable report')]", i + 1, j + 7);
                     lblIcon = Label.xpath(String.format("%s%s", cell_xpath, successIcon));

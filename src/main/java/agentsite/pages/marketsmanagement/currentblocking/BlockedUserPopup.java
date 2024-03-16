@@ -107,16 +107,22 @@ public class BlockedUserPopup {
     }
 
     public String getCurrentBlockingNumber() {
-
         /*int r = Row.xpath("//table[@class='table ptable report table-fixed']//tbody/tr").getWebElements().size();
         return Integer.toString(r);*/
-        List<String> lstBlocked = tblBlockedUser.getColumn(colLoginID, true);
-        if (lstBlocked.size() == 1) {
+        int items = Label.xpath("//table[@class='table ptable report table-fixed']//tbody/tr").getWebElements().size();
+        if (items == 1) {
+            List<String> lstBlocked = tblBlockedUser.getColumn(colLoginID, true);
             if (lstBlocked.get(0).equalsIgnoreCase(AGConstant.MarketsManagement.BlockedUserPopup.LBL_NO_USER_BLOCKED))
                 return "";
             return Integer.toString(lstBlocked.size());
         }
-        return Integer.toString(lstBlocked.size());
+//        List<String> lstBlocked = tblBlockedUser.getColumn(colLoginID, true);
+//        if (lstBlocked.size() == 1) {
+//            if (lstBlocked.get(0).equalsIgnoreCase(AGConstant.MarketsManagement.BlockedUserPopup.LBL_NO_USER_BLOCKED))
+//                return "";
+//            return Integer.toString(lstBlocked.size());
+//        }
+        return Integer.toString(items);
     }
 
     public void close() {

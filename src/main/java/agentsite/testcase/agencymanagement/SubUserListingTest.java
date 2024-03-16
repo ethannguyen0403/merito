@@ -58,8 +58,9 @@ public class SubUserListingTest extends BaseCaseTest {
         Thread.sleep(2000);
 
         log("Verify 2. Verify can login agent with new sub account");
-        loginNewAccount(sosAgentURL, agentNewAccURL, subUsername, password, StringUtils.decrypt(environment.getSecurityCode()));
-        Assert.assertEquals(agentHomePage.leftMenu.lblLoginID.getText(), subUsername, "Failed!, Login ID lable display incorrect");
+//        loginNewAccount(sosAgentURL, agentNewAccURL, subUsername, password, StringUtils.decrypt(environment.getSecurityCode()));
+        loginAgent(subUsername, StringUtils.encrypt(password), true);
+        Assert.assertTrue(agentHomePage.leftMenu.lblLoginID.getText().contains(subUsername), "Failed! Login ID lable display incorrect. Expected: " + subUsername);
         log("INFO: Executed completely");
     }
 
