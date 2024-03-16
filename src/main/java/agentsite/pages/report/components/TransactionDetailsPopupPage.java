@@ -32,7 +32,7 @@ public class TransactionDetailsPopupPage extends HomePage {
     Button btnClose = Button.xpath("//button[contains(@class,'btn-cancel')]");
     Label lblTitle = Label.xpath("//div[@class='otp-dialog ng-scope']//div[@class='modal-header']/div[@class='ng-binding']");
     String tblReportXpath = "//table[contains(@class,'ptable table-responsive report')]";
-    Table tblReport = Table.xpath(tblReportXpath, tblReportTotalCol);
+    public Table tblReport = Table.xpath(tblReportXpath, tblReportTotalCol);
     Row taxRow = Row.xpath("//table[contains(@class,'table-responsive')]//tr[contains(@class,'TAX_INFO')]");
     Row rowTotal = Row.xpath("//table[contains(@class,'ptable table-responsive report')]//tr[@class='ng-star-inserted']");
     Label lblExport = Label.id("export-title");
@@ -57,7 +57,7 @@ public class TransactionDetailsPopupPage extends HomePage {
     }
 
     public ArrayList<String> getTotalRowData() {
-        return rowTotal.getRow(rowTotalCol, false);
+        return transactionDetailsPopup.getTotalRowData();
     }
 
     public Table defineReportCol(List<String> levelList) {

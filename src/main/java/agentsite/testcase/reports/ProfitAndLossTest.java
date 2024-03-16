@@ -9,7 +9,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static common.AGConstant.*;
@@ -89,7 +88,6 @@ public class ProfitAndLossTest extends BaseCaseTest {
         ProfitAndLossPage page = agentHomePage.navigateProfitAndLossPage();
 
         log("Step 2.Filter date range that have settled bet and select Exchange");
-//        page.dpFrom.previousMonthWithDate(-1, "27");
         String fromDate = DateUtils.getDate(-30, "dd/MM/yyyy", "GMT-4:00");
         page.filter("",fromDate,"",EXCHANGE);
 
@@ -99,12 +97,8 @@ public class ProfitAndLossTest extends BaseCaseTest {
         }
 
         log("Step 3. Get summary data then Drill down to Member level and click on the user name");
-        List<ArrayList<String>> list = page.drilldownToLevel("Member", true);
-        double balanceIncludeTax = Double.valueOf(list.get(1).get(page.colBalance - 2)) + Double.valueOf(list.get(1).get(page.colBalance - 1));
-        ArrayList<String> totalRowData = page.transactionDetailsPopupPage.getTotalRowData();
-
         log("Verify 1. Verify data display correctly on summary and transaction detail at Member result column");
-        Assert.assertEquals(Double.valueOf(totalRowData.get(7)), balanceIncludeTax, "FAILED! Balance of member in Downine Profit and Loss not match with Total- Member result in Transaction Details");
+        page.verifyMemberResultSummaryAndDetails();
 
         log("INFO: Executed completely");
     }

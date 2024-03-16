@@ -8,6 +8,7 @@ import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.report.components.TransactionDetailsPopupPage;
 import agentsite.pages.report.profitandloss.ProfitAndLoss;
 import com.paltech.element.common.*;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,7 @@ public class ProfitAndLossPage extends HomePage {
     public ProfitAndLossPage(String types) {
         super(types);
         profitAndLoss = ComponentsFactory.profitAndLoss(types);
+        transactionDetailsPopupPage = new TransactionDetailsPopupPage(types);
     }
 
     /**
@@ -154,5 +156,17 @@ public class ProfitAndLossPage extends HomePage {
 
     public void verifyUIDisplayCorrect(boolean isLevelLoginPO) {
         profitAndLoss.verifyUIDisplayCorrect(isLevelLoginPO);
+    }
+
+    /**
+     * Verify member balance (include tax) between summary and details of member result
+     */
+    public void verifyMemberResultSummaryAndDetails() {
+        List<ArrayList<String>> list = drilldownToLevel("Member", true);
+        int colBalSummary = tblDownLineProfitAndLoss.getColumnIndexByName("Balance");
+        double balanceIncludeTax = Double.valueOf(list.get(1).get(colBalSummary)) + Double.valueOf(list.get(1).get(colBalSummary + 1));
+        ArrayList<String> totalRowData = transactionDetailsPopupPage.getTotalRowData();
+        int colBalDetails = transactionDetailsPopupPage.tblReport.getColumnIndexByName("Member Result");
+        Assert.assertEquals(Double.valueOf(totalRowData.get(colBalDetails-9)), balanceIncludeTax, "FAILED! Balance of member in Downine Profit and Loss not match with Total- Member result in Transaction Details");
     }
 }
