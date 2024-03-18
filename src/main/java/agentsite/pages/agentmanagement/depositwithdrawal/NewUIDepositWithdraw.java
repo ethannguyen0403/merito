@@ -15,8 +15,8 @@ public class NewUIDepositWithdraw extends DepositWithdraw {
     private Label lblUsername = Label.xpath("//label[@for='userName']");
     private Label lblAccountStatus = Label.xpath("//label[@for='status']");
     private Label lblLevel = Label.xpath("//label[@for='userLevel']");
-    public static DropDownBox ddbAccountStatus = DropDownBox.id("status");
-    public static DropDownBox ddbLevel = DropDownBox.id("userLevel");
+    public static DropDownBox ddbAccountStatus = DropDownBox.xpath("//th[contains(., 'Account Status')]//select");
+    public static DropDownBox ddbLevel = DropDownBox.xpath("//th[contains(., 'Level')]//select");
     private StaticTable tblAccountBalance = StaticTable.xpath("//div[@id='adjustment']","div[@class='downline-bar']","span[@class='my-breadcrumb']","span[@class='creditBalanceextension']",3);
     private int totalCol = 13;
     private int colCheckAll = 5;

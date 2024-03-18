@@ -32,8 +32,8 @@ public class DateTimePicker extends BaseElement {
         super(locator);
         txtDate = txtBox;
         _xpath = xpath;
-        lblMonth = Label.xpath(String.format("%s//%s", _xpath, "button[@class='current ng-star-inserted']"));
-        lblYear = Label.xpath(String.format("%s//%s", _xpath, "button[@class='current']"));
+        lblMonth = Label.xpath(String.format("(%s//%s)[1]", _xpath, "button[contains(@class,'current')]"));
+        lblYear = Label.xpath(String.format("(%s//%s)[2]", _xpath, "button[@class='current']"));
         btnPrevious = Button.xpath(String.format("%s//%s", _xpath, "button[@class='previous']"));
         btnNext = Button.xpath(String.format("%s//%s", _xpath, "button[@class='next']"));
         btnCurrent = Button.xpath(String.format("%s//%s", _xpath, "button[@class='current']"));

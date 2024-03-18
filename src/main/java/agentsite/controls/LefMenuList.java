@@ -67,7 +67,9 @@ public class LefMenuList extends BaseElement {
         // click the root menu to expand if it's not yet expanded, otherwise will ignore
         lblExpandSubMenu = Label.xpath(String.format("%s//span[2]",groupMenuActiveXpath));
         if (!lblExpandSubMenu.getText().trim().equalsIgnoreCase(menu)) {
-            lblExpandSubMenu = Label.xpath(String.format("(%s%s/ancestor::div[1])[%s]%s//span[2]",_xPath, groupMenuInactiveXpath, menuIndex,groupMenuTitleXpath));
+            lblExpandSubMenu = Label.xpath(
+                    String.format("(%s%s/ancestor::div[1])[%s]%s//span[2]", _xPath, "//div[contains(@class,'asia-menu-group')]", menuIndex,
+                            groupMenuTitleXpath));
             if (lblExpandSubMenu.isDisplayed()) {
                 lblExpandSubMenu.click();
             }

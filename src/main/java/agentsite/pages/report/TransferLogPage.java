@@ -21,7 +21,7 @@ public class TransferLogPage extends HomePage {
     public int tblReportTotalCol = 10;
     public int colUsername = 3;
     public int colLoginId = 4;
-    public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]", tblReportTotalCol);
+    public Table tblReport = Table.xpath("//tab[@class='tabs pt-1 tab-pane active']//table[contains(@class,'ptable report')]", tblReportTotalCol);
 
     public TransferLogPage(String types) {
         super(types);

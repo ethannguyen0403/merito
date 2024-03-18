@@ -71,7 +71,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         log("Verify 2: Items on Level dropdown-box are loaded correctly");
         Assert.assertTrue(isStatusItems, "ERROR: At least an item within Account Status ddb is incorrect");
         Assert.assertTrue(isLevel, "ERROR: At least an item within Level ddb is incorrect");
-        Assert.assertEquals(page.getLabelText("lblLoginAccountAvailableBalance"), String.format("%s %s %s", AGConstant.AgencyManagement.DepositWithdrawal.LBL_AVAILABLE_BALANCE, currency, loginAccBalance));
+        Assert.assertEquals(page.getLabelText("lblLoginAccountAvailableBalance"), loginAccBalance, "FAILED! Available Balance is not correct");
         Assert.assertEquals(page.getLabelText("lblUsername"), AGConstant.LBL_USERNAME, "FAILED! Username label not correct");
         Assert.assertEquals(page.getLabelText("lblAccountStatus"), AGConstant.AgencyManagement.DepositWithdrawal.LBL_ACCOUNT_STATUS, "FAILED! Account status not correct");
         Assert.assertEquals(page.getLabelText("lblLevel"), AGConstant.AgencyManagement.DepositWithdrawal.LBL_LEVEL, "FAILED! Level label not correct");

@@ -20,7 +20,7 @@ public class OldUICreateUser extends CreateUser {
         accountInforSection.inputInfo(loginId, password, "Active");
         getSubmitBtn().click();
         waitingLoadingSpinner();
-        return null;
+        return loginId;
     }
 
     public boolean isCreateUserSuccessCorrect() {

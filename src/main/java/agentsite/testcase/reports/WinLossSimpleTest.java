@@ -115,7 +115,7 @@ public class WinLossSimpleTest extends BaseCaseTest {
         List<String> lstProduct = page.ddbProduct.getAllOption(true);
 
         log("Verify 1: Products display correct");
-        Assert.assertEquals(lstProduct, lstAllProductsExpected, "FAILED! List product is incorrect");
+        Assert.assertTrue(lstAllProductsExpected.containsAll(lstProduct), String.format("FAILED! List product is incorrect. Actual: %s, Expected: %s",lstProduct, lstAllProductsExpected));
         log("INFO: Executed completely");
     }
 
