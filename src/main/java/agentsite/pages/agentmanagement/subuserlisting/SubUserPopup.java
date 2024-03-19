@@ -25,6 +25,15 @@ public class SubUserPopup {
     public Button btnCancel = Button.xpath("//button[@class='cancel']");
     public Table tblForm = Table.xpath("//table[@class='info']", 3);
     public MenuTree permisisonList = MenuTree.xpath("//div[@class='item-list']/ul", "//li");
+    private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
+
+    public SubUserPopup(){
+        try {
+            //sometimes element is displayed but not ready to present in the view port
+            Thread.sleep(700);
+        }catch (Exception e){
+        }
+    }
 
     public String createSubUser(String userName, String password, String status, String firstName, String lastName, HashMap<String, Boolean> permissions) {
         txtPassword.isDisplayed(2);
@@ -57,9 +66,14 @@ public class SubUserPopup {
         }
         if (isSubmit) {
             btnSubmit.click();
+            waitLoadingSpinner();
         }
     }
-
+    private void waitLoadingSpinner() {
+        while (iconLoadSpinner.isDisplayed()) {
+            iconLoadSpinner.waitForControlInvisible(1, 3);
+        }
+    }
  /*   public void enablePermission(HashMap<String, Boolean> permissions, List<String> permissionLst)
     {
 

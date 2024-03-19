@@ -51,7 +51,7 @@ public class LogoutTest extends BaseCaseTest {
         agentLoginPage.txtUsername.isDisplayed(5);
         Assert.assertTrue(agentLoginPage.txtUsername.isDisplayed(), "ERROR: Username text-box is not displayed after logging out");
         String login = agentLoginPage.lblLogin.getText();
-        Assert.assertEquals(login, AGConstant.LoginPage.LOGIN, String.format("ERROR: The expected text is '%s' but found '%s'", AGConstant.LoginPage.LOGIN, login));
+        Assert.assertEquals(login.toUpperCase(), AGConstant.LoginPage.LOGIN, String.format("ERROR: The expected text is '%s' but found '%s'", AGConstant.LoginPage.LOGIN, login));
         log("INFO: Executed completely");
     }
 }

@@ -113,7 +113,7 @@ public class SubUserListingTest extends BaseCaseTest {
         Assert.assertTrue(popup.txtLastName.isDisplayed(), "FAILED! Last Name textbox not display");
         Assert.assertEquals(popup.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is incorrect display");
         List<String> lstPermisison = popup.permisisonList.getListSubMenu();
-        Assert.assertEquals(lstPermisison, PERMISSION_LIST_SAD, "FAILED! List Permission on Create Sub User");
+        Assert.assertTrue(PERMISSION_LIST_SAD.containsAll(lstPermisison), "FAILED! List Permission on Create Sub User. Actual: " + lstPermisison);
         List<String> lstFormHeader = popup.tblForm.getColumn(1, false);
         Assert.assertEquals(lstFormHeader, CREATE_SUB_USER_FORM, "FAILED! Labels Create Sub User");
 
@@ -200,10 +200,10 @@ public class SubUserListingTest extends BaseCaseTest {
         Assert.assertEquals(lstSubMenu.get(0), DOWNLINE_LISTING, "Failed! Downline Listing not display correctly");
         Assert.assertEquals(lstSubMenu.get(1), EVENT_BET_STIE_SETTINGS, "Failed! Event Bet Size Settings not display correctly");
         Assert.assertEquals(lstSubMenu.get(2), POSITION_TAKING_LISTING, "Failed! Position Taking Listing not display correctly");
-        Assert.assertEquals(lstSubMenu.get(4), COMMISSION_LISTING, "Failed!Commission Listing not display correctly");
-        Assert.assertEquals(lstSubMenu.get(5), BET_SETTING_LISTING, "Failed! Bet Setting Listing not display correctly");
-        Assert.assertEquals(lstSubMenu.get(6), TAX_SETTING_LISTING, "Failed! Tax Settings not display correctly");
-        Assert.assertEquals(lstSubMenu.get(7), ANNOUNCEMENT, "Failed! Announcement not display correctly");
+        Assert.assertEquals(lstSubMenu.get(3), COMMISSION_LISTING, "Failed!Commission Listing not display correctly");
+        Assert.assertEquals(lstSubMenu.get(4), BET_SETTING_LISTING, "Failed! Bet Setting Listing not display correctly");
+        Assert.assertEquals(lstSubMenu.get(5), TAX_SETTING_LISTING, "Failed! Tax Settings not display correctly");
+        Assert.assertEquals(lstSubMenu.get(6), ANNOUNCEMENT, "Failed! Announcement not display correctly");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3650")

@@ -21,6 +21,11 @@ public class ConfirmPopup {
     }
 
     public boolean isPopupDisplay() {
+        // wait for popup completely appear or disappear on the view port
+        try {
+            Thread.sleep(500);
+        }catch (Exception e){
+        }
         return popup.isDisplayedShort(3);
     }
 

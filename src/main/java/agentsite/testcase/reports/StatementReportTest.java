@@ -117,9 +117,9 @@ public class StatementReportTest extends BaseCaseTest {
     @Test(groups = {"regression"})
     public void Agent_Report_Statement_Report_3744() {
         log("@title: Validate  Statement Report can drilldown");
-        String fromDateApi = DateUtils.getDate(-30, "yyyy-MM-dd", AGConstant.timeZone);
+        String fromDateApi = DateUtils.getDate(-28, "yyyy-MM-dd", AGConstant.timeZone);
         String toDateApi = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
-        String fromDate = DateUtils.getDate(-30, "dd/MM/yyyy", AGConstant.timeZone);
+        String fromDate = DateUtils.getDate(-28, "dd/MM/yyyy", AGConstant.timeZone);
         String toDate = DateUtils.getDate(0, "dd/MM/yyyy", AGConstant.timeZone);
         String userID = ProfileUtils.getProfile().getUserID();
         String userName = ProfileUtils.getProfile().getUserCode();
@@ -148,9 +148,9 @@ public class StatementReportTest extends BaseCaseTest {
     @Test(groups = {"regression"})
     public void Agent_Report_Statement_Report_3745() {
         log("@title: Validate  Statement Report can drilldown");
-        String fromDateApi = DateUtils.getDate(-30, "yyyy-MM-dd", AGConstant.timeZone);
+        String fromDateApi = DateUtils.getDate(-28, "yyyy-MM-dd", AGConstant.timeZone);
         String toDateApi = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
-        String fromDate = DateUtils.getDate(-30, "dd/MM/yyyy", AGConstant.timeZone);
+        String fromDate = DateUtils.getDate(-28, "dd/MM/yyyy", AGConstant.timeZone);
         String toDate = DateUtils.getDate(0, "dd/MM/yyyy", AGConstant.timeZone);
         String userID = ProfileUtils.getProfile().getUserID();
         String userName = ProfileUtils.getProfile().getUserCode();
@@ -176,9 +176,9 @@ public class StatementReportTest extends BaseCaseTest {
     @Test(groups = {"regression"})
     public void Agent_Report_Statement_Report_3746() {
         log("@title: Validate Transaction detail report match with summary");
-        String fromDateApi = DateUtils.getDate(-30, "yyyy-MM-dd", AGConstant.timeZone);
+        String fromDateApi = DateUtils.getDate(-28, "yyyy-MM-dd", AGConstant.timeZone);
         String toDateApi = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
-        String fromDate = DateUtils.getDate(-30, "dd/MM/yyyy", AGConstant.timeZone);
+        String fromDate = DateUtils.getDate(-28, "dd/MM/yyyy", AGConstant.timeZone);
         String toDate = DateUtils.getDate(0, "dd/MM/yyyy", AGConstant.timeZone);
         String userID = ProfileUtils.getProfile().getUserID();
         String userName = ProfileUtils.getProfile().getUserCode();
