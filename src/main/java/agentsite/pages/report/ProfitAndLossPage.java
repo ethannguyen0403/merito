@@ -11,8 +11,8 @@ import com.paltech.element.common.*;
 import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProfitAndLossPage extends HomePage {
     public static List<String> downlineLevelList = new ArrayList<>();
@@ -151,7 +151,10 @@ public class ProfitAndLossPage extends HomePage {
     }
 
     public List<String> getProductDataDropdown() {
-        return ddbProduct.getAllOption(true).stream().sorted().collect(Collectors.toList());
+        List<String> lstProductSorted = ddbProduct.getAllOption(true);
+        //remove all "" in list before return
+        lstProductSorted.removeAll(Collections.singleton(""));
+        return lstProductSorted;
     }
 
     public void verifyUIDisplayCorrect(boolean isLevelLoginPO) {

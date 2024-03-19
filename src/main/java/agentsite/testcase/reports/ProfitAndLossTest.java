@@ -138,7 +138,7 @@ public class ProfitAndLossTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3733")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void Agent_Report_Profit_And_Loss_3733() {
         log("@title: Verify data in timezone and product dropdown is correct");
         log("Step 1. Navigate Report > Profit And Loss");

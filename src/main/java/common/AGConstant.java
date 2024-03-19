@@ -5,7 +5,7 @@ import java.util.*;
 import static baseTest.BaseCaseTest._brandname;
 
 public class AGConstant {
-    public final static String SATSPORT_APP_NAME = "satsport";
+    public final static String SPORT_CRICKET = "Cricket";
     public final static String NO_RECORD_FOUND = "No records found.";
     public final static String NO_RESULT_FOUND = "No results found";
     public final static String timeZone = "GMT-4";
