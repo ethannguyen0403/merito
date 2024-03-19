@@ -757,10 +757,14 @@ public class LeftMenuTest extends BaseCaseTest {
     @Test(groups = {"smoke"})
     public void LeftMenu_TC677() {
         log("@title: Verify the list menu display correct when other level");
+        log("@Precondition: Login Agent site by SAD level");
         log("Step 1: Expand all left menu");
-        log("Verify:1 Verify the list menu display correct when other level");
-        //TODO: stabilize test for this case
-        Assert.assertTrue(false,"");
+        log("Verify:1 Verify the list menu display correct");
+        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(AGENCY_MANAGEMENT), "FAILED! Agency Management not display correctly");
+        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(REPORT), "FAILED! Report not display correctly");
+        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(MARKET_MANAGEMENT), "FAILED! Bets/Markets Management not display correctly");
+        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(FRAUD_DETECTION), "FAILED! Fraud Detection not display correctly");
+
         /* Assert.assertEquals(agentHomePage.menuAgencyManagement.getText(),"Agency Management","Failed! Agency Management not display correctly");
         Assert.assertEquals(agentHomePage.subMenuCreateDownLineAgent.getText(),"Create Downline Agent","Failed! Create DownLine Agent not display correctly");
         Assert.assertEquals(agentHomePage.subMenuCreateUser.getText(),"Create User","Failed! Create User not display correctly");

@@ -65,7 +65,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify Login display in the result table
      */
     @TestRails(id = "749")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_sat"})
     public void Agent_AM_Tax_Setting_Listing_749() {
         log("@title: Verify can search downline by Login ID");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
@@ -101,7 +101,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
         log("@title: Verify can update tax for all sports");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(2).getUserCode();
+        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();
         TaxSettingListingPage page = agentHomePage.navigateTaxSettingListingPage();
         double adjustValue = 0.10;
 

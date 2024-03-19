@@ -252,7 +252,9 @@ public class AGConstant {
     public static class AgencyManagement {
         public final static String LBL_USERNAME = "Username";
         public final static String LBL_ACCOUNTSTATUS = "Account Status";
-
+        public final static List<String>
+                LIST_SUBMENU_AGENCY_MANAGEMENT = Arrays.asList("Create Downline Agent","Create User", "Downline Listing", "Event Bet Size Settings", "Position Taking Listing", "Deposit/Withdraw",
+                "Commission Listing", "Bet Setting Listing", "Tax Settings", "Sub User Listing", "Announcement");
         public final static String LBL_LEVEL = "Level";
         public final static String EDIT_DOWNLINE_AGENT_TITLE = "Edit Downline Agent";
 
@@ -645,7 +647,7 @@ public class AGConstant {
         public static class TaxSettingListing {
             public final static String TITLE_PAGE = "Tax Setting Listing";
             public final static List<String> TABLE_TAX = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Decimal Cricket", "Virtual Cricket", "Other", "Update Status");
-            public final static List<String> TABLE_TAX_SAT = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Decimal Cricket", "Virtual Cricket", "Other", "Update Status");
+            public final static List<String> TABLE_TAX_SAT = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Virtual Cricket", "Decimal Cricket", "Other", "Update Status");
         }
 
         public static class SubUserListing {
@@ -731,7 +733,7 @@ public class AGConstant {
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_1_TO_6 = "You can see report data up to 1 month and back to previous 6 months.";
         public final static String LBL_PRODUCT = "Product";
         public final static List<String> LIST_SUB_MENU_CONTROL_BLOCKING_OLDUI = Arrays.asList("Unsettled Bet", "Profit And Loss", "Win Loss Simple", "AD Win Loss Detail", "Position Taking Report", "Cancelled Bets",
-                "Statement Report", "Transfer Log", "Client Ledger", "", "Win Loss By Sport And Market Type", "Win Loss By Event", "Analysis of Running Markets", "IP Monitoring", "Monitored Accounts", "Transaction History",
+                "Statement Report", "Transfer Log", "Resettlement & Void Log",  "Client Ledger", "PS38 Sports Results", "Win Loss By Sport And Market Type", "Win Loss By Event", "Analysis of Running Markets", "IP Monitoring", "Monitored Accounts", "Transaction History",
                 "Top Gainers & Top Losers", "View Log");
         public final static List<String> LIST_SUB_MENU_CONTROL_BLOCKING_NEWUI = Arrays.asList("Profit And Loss", "Win Loss", "Position Taking Report", "Unsettled Bet",
                 "Cancelled Bets", "", "Top Gainers & Top Losers", "View Log", "Transfer Log");
@@ -871,7 +873,14 @@ public class AGConstant {
         }
     }
 
+    public static class FraudDetection{
+        public final static List<String>
+                LIST_SUBMENU_FRAUD_DETECTION = Arrays.asList("Fraud Detection", "Wager Odds History");
+    }
+
     public static class MarketsManagement {
+        public final static List<String>
+                LIST_SUBMENU_MARKETS_MANAGEMENT = Arrays.asList("Block Racing", "Block/Unblock Events", "Block/Unblock Competitions", "Current Blocking", "Blocking Log");
         public static class SuspendUnsuspendMarket {
             public final static String TITLE_PAGE = "Suspend/Unsuspend Markets";
             public final static List<String> TABLE_EVENT = Arrays.asList("Competition Name", "Event Name", "Market");

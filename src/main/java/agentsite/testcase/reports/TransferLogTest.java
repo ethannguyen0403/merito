@@ -65,7 +65,7 @@ public class TransferLogTest extends BaseCaseTest {
         TransferLogPage tranferlogPage = page.navigateTransferLogPage();
 
         log("Step 3. Input the account do deposit/withdraw in steps 1 and click submit");
-        tranferlogPage.filter(userCode, "All");
+        tranferlogPage.filter("", "All");
 
         log("Verify  1. Verify log show correctly");
         List<ArrayList<String>> data = tranferlogPage.tblReport.getRowsWithoutHeader(true);
