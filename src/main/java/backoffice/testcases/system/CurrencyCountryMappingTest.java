@@ -51,7 +51,7 @@ public class CurrencyCountryMappingTest extends BaseCaseTest {
      * 4. Can not login from IT test country IP when unmapping
      */
     @TestRails(id = "657")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"fsMemberLoginID", "username", "password"})
     public void BO_System_Currency_Country_Mapping_657(String fsMemberLoginID, String username, String password) throws Exception {
         log("@title: Validate Map/unmap countries works");

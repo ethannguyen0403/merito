@@ -47,7 +47,7 @@ public class CryptoAccessManagementTest extends BaseCaseTest {
      * @expect: 1. Verify can login crypto site with the account in the list
      */
     @TestRails(id = "621")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"cryptoAccount", "password"})
     public void BO_Account_Management_Crypto_Access_Management_621(String cryptoAccount, String password) throws Exception {
         log("@title: Validate account added into the list can login in crypto site");

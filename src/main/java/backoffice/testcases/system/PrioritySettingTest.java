@@ -188,7 +188,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      * 2. Verify All brands are disappeared on the dropdown box, Select brand text is display instead
      */
     @TestRails(id = "665")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void BO_System_Priority_Settings_665() {
         log("@title: Validate select Brand works");
         //TODO: implement this case
@@ -250,7 +250,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      * @expect: 1. Verify the sport menu in main menu is correctly priority
      */
     @TestRails(id = "667")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"satMemberLoginID", "memberPassword"})
     public void BO_System_Priority_Settings_667(String satMemberLoginID, String memberPassword) throws Exception {
         log("@title: Verify sport priority on member site is correctly displayed");
@@ -291,7 +291,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      * @expect: 1. Login member site and verify Competition of Soccer is correctly priority
      */
     @TestRails(id = "668")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void BO_System_Priority_Settings_668() throws Exception {
         log("@title: Validate Competition priority  on member site is correctly displayed");
         log("Step 1. Navigate to System> Priority Settings");
@@ -330,7 +330,7 @@ public class PrioritySettingTest extends BaseCaseTest {
      * @expect: 1. Verify left menu Market under Sport is prioritized
      */
     @TestRails(id = "669")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void BO_System_Priority_Settings_669() throws Exception {
         log("@title: Validate Market priority on member site is correctly displayed");
         log("Step 1. Navigate to System> Priority Settings");
