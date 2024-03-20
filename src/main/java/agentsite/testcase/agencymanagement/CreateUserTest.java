@@ -18,9 +18,8 @@ import util.testraildemo.TestRails;
 
 import java.util.*;
 
+import static common.AGConstant.*;
 import static common.AGConstant.AgencyManagement.CreateUser.*;
-import static common.AGConstant.BTN_CANCEL;
-import static common.AGConstant.BTN_SUBMIT;
 import static common.AGConstant.HomePage.*;
 
 public class CreateUserTest extends BaseCaseTest {
@@ -41,7 +40,7 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3493")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_CreateUser_3493() {
         //login Control blocking level + Cash
         log("@title: Validate UI in Create User with Exchange Product setting for Credit Cash line");
@@ -96,7 +95,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3985")
-    @Test(groups = {"regression_newui"})
+    @Test(groups = {"regression_creditcash"})
     public void Agent_AM_CreateUser_3985() {
         //login Control blocking level + Cash
         log("@title: Validate UI in Create User with Exchange Product setting for Credit Cash line");
@@ -152,7 +151,7 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3494")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_CreateUser_3494() {
         log("@title: Validate UI in Create User with Exchange Game Product setting");
         log("Step 1. Navigate Agency Management > Create User");
@@ -230,7 +229,7 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3495")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_CreateUser_3495() {
         log("@title: Validate can NOT Create User if not input Login ID");
         log("Step 1. Navigate Agency Management > Create User");
@@ -246,7 +245,7 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3496")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_newui"})
     public void Agent_AM_CreateUser_3496() {
         log("@title: Validate can NOT Create User if not input Password");
         log("Step 1. Navigate Agency Management > Create User");
@@ -279,7 +278,7 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3498")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_CreateUser_3498() {
         //login level != PO
         log("@title: Validate no Security poup display when access the page - SAT");
@@ -555,50 +554,52 @@ public class CreateUserTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
-    @TestRails(id = "676")
+    @TestRails(id = "696")
     @Test(groups = {"smoke"})
-    @Parameters({"level", "levelLogin"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_676(String level, String levelLogin) throws Exception {
-        log("@title: Validate there Cannot update if Max Player Credit exceed the limit");
+    @Parameters({"currency"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_696(String currency) throws Exception {
+        log("@title: Validate cannot update if Max Player Credit exceed the limit");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, "ACTIVE", _brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
         page.searchDownline(loginID, "", "Agent");
-        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
+        EditDownLinePage editDownLinePage =  page.clickEditIcon(loginID);
+//        page.confirmSecurityCode(environment.getSecurityCode());
 
-        log("Verify 1. Verify Security Code popup prompted");
-        Assert.assertTrue(page.securityPopup.isDisplayed(), "FAILED Security popup not display");
+        log("Step 3. Input Max player Credit greater than the limit");
+        String maxPlayerCreditLitmit = String.format("%d", editDownLinePage.creditBalanceInforSection.getMaxPlayerLitmitCredit(currency) + 1);
+        editDownLinePage.updateCashBalance(maxPlayerCreditLitmit,true);
 
-        log("Step  Enter security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
+        log("Verify 1. Verify Message \"Max Player Credit is invalid\" display");
+        Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.DownlineListing.MSG_INVALID_MAX_PLAYER_CREDIT, "FAILED! Incorrect max player credit is invalid");
 
-        log("Verify 2. Verify page display if input valid security code");
-     //   Assert.assertEquals(editDownLinePage.ge, String.format("Edit %s", levelLogin), "FAILED!Page not displayed");
         log("INFO: Executed completely");
     }
-    @TestRails(id = "679")
+
+    @TestRails(id = "697")
     @Test(groups = {"smoke_credit"})
-    @Parameters({"password", "downlineLevel","currency"})
-    public void Agent_AM_Downline_Listing_Edit_Agent_679(String password, String downlineLevel,String currency) throws Exception {
+    @Parameters({"password", "currency"})
+    public void Agent_AM_Downline_Listing_Edit_Agent_697(String password, String currency) throws Exception {
         log("@title: Validate Max Player Credit setting display correctly when create user");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
         page.searchDownline(loginID, "", "");
-        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
+        page.clickEditIcon(loginID);
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Input valid Max Player Credit and valid other information then click submit");
         String maxPlayerCreditLitmit = "1";
-        editDownLinePage.updateCashBalance(maxPlayerCreditLitmit,true);
+        page.creditBalanceInforSection.updateCashBalance(maxPlayerCreditLitmit);
+//        page.btnSubmit.click();
         String message = page.getMessageUpdate(true);
 
         log("Verify 1. Verify can update agent with valid max player credit");
@@ -616,5 +617,6 @@ public class CreateUserTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+
 }
 

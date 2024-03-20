@@ -188,10 +188,12 @@ public class PrioritySettingTest extends BaseCaseTest {
      * 2. Verify All brands are disappeared on the dropdown box, Select brand text is display instead
      */
     @TestRails(id = "665")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void BO_System_Priority_Settings_665() {
         log("@title: Validate select Brand works");
-
+        //TODO: implement this case
+        Assert.assertTrue(false, "Need to implement this case");
+        log("INFO: Executed Completely!");
         log("Step 1. Navigate to System> Priority Settings");
         BetFairInfoPage page = backofficeHomePage.navigateBetFairInfo();
 
@@ -248,20 +250,23 @@ public class PrioritySettingTest extends BaseCaseTest {
      * @expect: 1. Verify the sport menu in main menu is correctly priority
      */
     @TestRails(id = "667")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"satMemberLoginID", "memberPassword"})
     public void BO_System_Priority_Settings_667(String satMemberLoginID, String memberPassword) throws Exception {
         log("@title: Verify sport priority on member site is correctly displayed");
         log("Step 1. Navigate to System> Priority Settings");
-        PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
-
-        log("Step 2. Select Sport type");
-        log("Step 3. Select SAT Sport brand");
-
-        page.search("Sport", "SAT Sport", "", "");
-
-        log("Step 4. Get sports in top 3 priority");
-        List<String> topThreePriority = page.tblPriority.getColumn(2, 5, false);
+        //TODO: implement this case
+        Assert.assertTrue(false, "Need to implement this case");
+        log("INFO: Executed Completely!");
+//        PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
+//
+//        log("Step 2. Select Sport type");
+//        log("Step 3. Select SAT Sport brand");
+//
+//        page.search("Sport", "SAT Sport", "", "");
+//
+//        log("Step 4. Get sports in top 3 priority");
+//        List<String> topThreePriority = page.tblPriority.getColumn(2, 5, false);
 
 //        log("Step 5. Login member site and verify sport is correctly priority");
 //        Helper.loginFairExchange(environment.getSatSOSURL(),environment.getSatDashboardURL(),satMemberLoginID,memberPassword,true);
@@ -286,18 +291,21 @@ public class PrioritySettingTest extends BaseCaseTest {
      * @expect: 1. Login member site and verify Competition of Soccer is correctly priority
      */
     @TestRails(id = "668")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void BO_System_Priority_Settings_668() throws Exception {
         log("@title: Validate Competition priority  on member site is correctly displayed");
         log("Step 1. Navigate to System> Priority Settings");
-        PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
-
-        log("Step 2. Select Sport type");
-        log("Step 3. Select SAT Sport brand");
-        page.search("Competition", "SAT Sport", "Soccer", "");
-
-        log("Step 4. Get competition in top 3 priority");
-        List<String> topThreePriority = page.tblPriority.getColumn(2, 5, false);
+        //TODO: implement this case
+        Assert.assertTrue(false, "Need to implement this case");
+        log("INFO: Executed Completely!");
+//        PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
+//
+//        log("Step 2. Select Sport type");
+//        log("Step 3. Select SAT Sport brand");
+//        page.search("Competition", "SAT Sport", "Soccer", "");
+//
+//        log("Step 4. Get competition in top 3 priority");
+//        List<String> topThreePriority = page.tblPriority.getColumn(2, 5, false);
 
         log("Step 5. Access member site before login SAT and verify competition is correctly priority");
 //        DriverManager.getDriver().get(environment.getSatDashboardURL());
@@ -322,18 +330,21 @@ public class PrioritySettingTest extends BaseCaseTest {
      * @expect: 1. Verify left menu Market under Sport is prioritized
      */
     @TestRails(id = "669")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void BO_System_Priority_Settings_669() throws Exception {
         log("@title: Validate Market priority on member site is correctly displayed");
         log("Step 1. Navigate to System> Priority Settings");
-        PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
-
-        log("Step 2. Select Sport type");
-        log("Step 3. Select SAT Sport brand");
-        page.search("Market", "SAT Sport", "", "");
-
-        log("Step 4. Get market in top 3 priority");
-        List<String> topThreePriority = page.tblPriority.getColumn(2, 5, false);
+        //TODO: implement this case
+        Assert.assertTrue(false, "Need to implement this case");
+        log("INFO: Executed Completely!");
+//        PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
+//
+//        log("Step 2. Select Sport type");
+//        log("Step 3. Select SAT Sport brand");
+//        page.search("Market", "SAT Sport", "", "");
+//
+//        log("Step 4. Get market in top 3 priority");
+//        List<String> topThreePriority = page.tblPriority.getColumn(2, 5, false);
 
 //        log("Step 5. Login member site and verify sport is correctly priority");
 //        DriverManager.getDriver().get(environment.getSatDashboardURL());

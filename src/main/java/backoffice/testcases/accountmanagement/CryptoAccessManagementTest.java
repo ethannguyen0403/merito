@@ -21,7 +21,7 @@ public class CryptoAccessManagementTest extends BaseCaseTest {
     @TestRails(id = "620")
     @Test(groups = {"smoke"})
     @Parameters("satMemberLoginID")
-    public void BO_Account_Management_Crypto_Access_Management_001(String satMemberLoginID) {
+    public void BO_Account_Management_Crypto_Access_Management_620(String satMemberLoginID) {
         log("@title: Validate can not add account to Crypto Access Management that not belonging to Funsport brand");
         log("Step 1. Access Admin Management > Crypto Access Management");
         CryptoAccessManagementPage page = backofficeHomePage.navigateCryptoAccessManagement();
@@ -47,23 +47,12 @@ public class CryptoAccessManagementTest extends BaseCaseTest {
      * @expect: 1. Verify can login crypto site with the account in the list
      */
     @TestRails(id = "621")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"cryptoAccount", "password"})
-    public void BO_Account_Management_Crypto_Access_Management_002(String cryptoAccount, String password) throws Exception {
+    public void BO_Account_Management_Crypto_Access_Management_621(String cryptoAccount, String password) throws Exception {
         log("@title: Validate account added into the list can login in crypto site");
-        log("Step 1. Access Admin Management > Crypto Access Management");
-
-        CryptoAccessManagementPage page = backofficeHomePage.navigateCryptoAccessManagement();
-
-        log("Step 2. Get the account in the list with active status");
-        Assert.assertTrue(page.isAccountAdded(cryptoAccount), "FAILED! The account does not add into Crypto Access Management page");
-
-      /*  page.logout();
-        log("Step 3. Access Crypto site and login");
-        Helper.loginFairExchange(environment.getCryptoSOSURL(),environment.getCryptoDashboardURL(),cryptoAccount,password,true);
-        pages.fairexchange.tabexchange.backofficeHomePage cryptobackofficeHomePage = new pages.fairexchange.tabexchange.backofficeHomePage();
-        Assert.assertTrue(cryptobackofficeHomePage.ddbMyAccount.isDisplayed(), "FAILED! Cannot login crypto site");*/
-
+        //TODO: implement this case
+        Assert.assertTrue(false, "Need to implement this case");
         log("INFO: Executed completely");
 
     }

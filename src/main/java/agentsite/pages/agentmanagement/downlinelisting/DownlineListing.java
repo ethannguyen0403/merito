@@ -43,4 +43,6 @@ public class DownlineListing {
 
     public void verifyUIDisplayCorrect() {
     }
+
+    public String changePassword(String loginID, String newPassword) throws InterruptedException {return "";}
 }

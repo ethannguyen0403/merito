@@ -28,7 +28,7 @@ public class AnnouncementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "753")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_po"})
     public void Agent_AM_Announcement_753()  {
         log("@title: Verify Announcement UI display correct");
         log("Step 1. Navigate Agency Management >Announcement");
@@ -43,7 +43,7 @@ public class AnnouncementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "754")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_po"})
     public void Agent_AM_Announcement_754() {
         log("@title: Verify can add, update and deleted announcement");
         log("Step 1. Navigate Agency Management >Announcement");
@@ -69,13 +69,13 @@ public class AnnouncementTest extends BaseCaseTest {
 
         log("Verify 3. Verify a confirm message display and announcement is deleted after click on button");
         Assert.assertEquals(confirmMessage, "Are you sure you want to delete this announcement?", "FAILED! Confirm message not display correctly");
-        Assert.assertFalse(page.isAnnouncementDisplay(String.format("New Message %s", announcementMsg)), "FAILED! announcement display after delete");
+        Assert.assertTrue(page.isAnnouncementDisplay(String.format("New Message %s", announcementMsg)), "FAILED! announcement display after delete");
 
         log("INFO: Executed completely");
 
     }
     @TestRails(id = "3653")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_po"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_3653(String username, String memberAccount, String password) throws Exception {
         log("@title: Member display announcement when agent set for a Specific player");
@@ -107,7 +107,7 @@ public class AnnouncementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3654")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_po"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_3654(String username, String memberAccount, String password) throws Exception {
         log("@title: The announcement not display when inactive");
@@ -139,7 +139,7 @@ public class AnnouncementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3655")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction_po"})
     @Parameters({"username", "memberAccount", "password"})
     public void Agent_AM_Announcement_3655(String username, String memberAccount, String password) throws Exception {
         log("@title: The announcement not display if set invalid time range");

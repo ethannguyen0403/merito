@@ -64,5 +64,13 @@ public class EdiMarketTest extends BaseCaseTest {
 
         log("INFO: Executed completely");
     }
+    @TestRails(id = "3561")
+//    @Test(groups = {"interaction"})
+    @Parameters({"downlineAccount", "password"})
+    public void Agent_AM_Downline_Listing_Edit_Market_3561(String downlineAccount, String password) throws Exception {
+        //TODO: implement test this case
+        log("INFO: Executed completely");
+    }
+
 }
 

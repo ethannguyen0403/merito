@@ -17,6 +17,7 @@ import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.core.har.HarEntry;
 import objects.Environment;
 import org.json.simple.JSONObject;
+import org.openqa.selenium.Point;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.ITestContext;

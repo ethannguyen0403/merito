@@ -23,27 +23,38 @@
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
         <parameter name='isAddTestRailResult' value='true'/>
-
         <groups>
             <run>
                 <include name="smoke"/>
-                <include name="smokeSAT"/>
+                <include name="smoke_sat"/>
+                <include name="smoke_creditcash"/>
             </run>
         </groups>
 
         <classes>
-            <class name="membersite.testcases.exchange.HeaderSectionTest"/>
             <class name="membersite.testcases.exchange.AccountStatementTest"/>
-            <class name="membersite.testcases.exchange.MyBetPageTest"/>
-            <class name="membersite.testcases.exchange.ProfitAndLossPageTest"/>
-            <!--            <class name="membersite.testcases.exchange.ChangePasswordTest"/>-->
-            <class name="membersite.testcases.exchangegame.EGBaccaratTest"/>
-            <class name="membersite.testcases.exchangegame.EGHomPageTest"/>
-            <class name="membersite.testcases.exchange.PlaceBetFunctionTest"/>
-            <class name="membersite.testcases.exchange.WicketBookmakerTest"/>
-            <class name="membersite.testcases.exchange.WicketFancyTest"/>
+            <class name="membersite.testcases.exchange.ArtemisBookmakerTest"/>
+            <class name="membersite.testcases.exchange.ArtemisFancyTest"/>
             <class name="membersite.testcases.exchange.CentralFancyTest"/>
             <class name="membersite.testcases.exchange.CentralBookmakerTest"/>
+            <class name="membersite.testcases.exchange.ChangePasswordTest"/>
+            <class name="membersite.testcases.exchange.FancyTest"/>
+            <class name="membersite.testcases.exchange.ForecastFunctionTest"/>
+            <class name="membersite.testcases.exchange.HeaderSectionTest"/>
+            <class name="membersite.testcases.exchange.HomePageTest"/>
+            <class name="membersite.testcases.exchange.InplayPageTest"/>
+            <class name="membersite.testcases.exchange.LandingPageTest"/>
+            <class name="membersite.testcases.exchange.LeftMenuTest"/>
+            <class name="membersite.testcases.exchange.MarketPageTest"/>
+            <class name="membersite.testcases.exchange.MyBetPageTest"/>
+            <class name="membersite.testcases.exchange.MyLastLoginTest"/>
+            <class name="membersite.testcases.exchange.OddsSectionTest"/>
+            <class name="membersite.testcases.exchange.PlaceBetFunctionTest"/>
+            <class name="membersite.testcases.exchange.ProfitAndLossPageTest"/>
+            <class name="membersite.testcases.exchange.WicketFancyTest"/>
+            <class name="membersite.testcases.exchange.WicketBookmakerTest"/>
+            <class name="membersite.testcases.exchangegame.EGBaccaratTest"/>
+            <class name="membersite.testcases.exchangegame.EGHomPageTest"/>
         </classes>
 
     </test>

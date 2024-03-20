@@ -186,6 +186,14 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "684")
+    public void Agent_AM_CreateDownline_Agent_684() {
+        log("@title: Validate if input incorrect Login ID format");
+        //TODO: implement this case
+        log("@title: Validate Cricket match odds will include fancy market");
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "685")
     @Test (groups = {"smoke"})
     public void Agent_AM_CreateDownline_Agent_685() {
@@ -205,8 +213,13 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "686")
+    public void Agent_AM_CreateDownline_Agent_686() {
+        //TODO: implement test for this case
+        log("INFO: Executed completely");
+    }
     @TestRails(id = "3486")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression_sat"})
     @Parameters({"password"})
     public void Agent_AM_CreateDownline_Agent_3486(String password) throws Exception {
         //Run for SAT only
@@ -238,7 +251,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3488")
-    @Test(groups = {"regression_oldui"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_CreateDownline_Agent_3488() {
         log("@title:Validate there is no security popup display when active Create Downline Agent");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
@@ -280,7 +293,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3491")
-    @Test (groups = {"regression_ma"})
+    @Test (groups = {"regression_creditcash"})
     public void Agent_AM_CreateDownline_Agent_016() throws Exception {
         //SAT + login level under SMA Cash only
         log("@title: Validate UI when access the page by the levels under SAD");

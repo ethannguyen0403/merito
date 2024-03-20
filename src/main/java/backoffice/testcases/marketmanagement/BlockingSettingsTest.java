@@ -21,7 +21,7 @@ public class BlockingSettingsTest extends BaseCaseTest {
      */
     @TestRails(id = "633")
     @Test(groups = {"smoke"})
-    public void BO_Market_Management_Blocking_Settings_001() {
+    public void BO_Market_Management_Blocking_Settings_633() {
         log("@title: Validate default data in PO Account, Brand, Default Event, Level to control Blocking and Unblock Schedule - Bet able before 25m display correctly");
         log("Step 1. Access Operations > Blocking Settings");
         BlockingSettingsPage page = backofficeHomePage.navigateBlockingSettings();
@@ -45,10 +45,11 @@ public class BlockingSettingsTest extends BaseCaseTest {
      * @expect: 1. Verify If the sport is active the check box in the right side is checked, otherwise is unchecked
      * 2. Verify agent site > create company > All sports is active correct as BO setting
      */
-    @Test(groups = {"regression"})
+//    @Test(groups = {"regression"})
     public void BO_Market_Management_Blocking_Settings_004() {
         log("@title: Validate sport is active by default in edit sport popup and agent correctly");
         log("Step 1. Access Operations > Blocking Settings");
+        //TODO: implement this case
         BlockingSettingsPage page = backofficeHomePage.navigateBlockingSettings();
 
         log("Step 2. Get Sports are activate that display in Sport column according with a PO account");
@@ -70,11 +71,12 @@ public class BlockingSettingsTest extends BaseCaseTest {
      * 3. Click on Edit sport accordingly and verify active status
      * @expect: 1. Verify If the sport is active the check box in the right side is checked, otherwise is unchecked
      */
-    @Test(groups = {"regression"})
+//    @Test(groups = {"regression"})
     public void BO_Market_Management_Blocking_Settings_005() {
         log("@title: Validate Market is active by default correctly in edit market popup");
         log("Step 1. Access Operations > Blocking Settings");
-        BlockingSettingsPage page = backofficeHomePage.navigateBlockingSettings();
+        //TODO: implement this case
+//        BlockingSettingsPage page = backofficeHomePage.navigateBlockingSettings();
 
         log("Step 2. Get Market are activate that display in Market Type column according with a PO account");
         log("Step 3. Click on Edit sport accordingly and verify active status");

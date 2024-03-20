@@ -40,6 +40,7 @@ public class AGConstant {
     public final static List<String> MENULIST = Arrays.asList("Nickname", "Password", "Security code", "OTP");
     public final static List<String> MENULISTSAT = Arrays.asList("Password", "Security code", "OTP");
     public final static String LBL_WITHOUT_PERMISSION_ACCESS = "You are not allowed to view this page!";
+    public final static String CREDIT_LIMIT_ERROR_MSG = "Credit Limit is invalid.";
     public static final Map<String, String> LEVEL_TO_LEVEL_CODE = new HashMap<String, String>() {
         {
             put("Portal", "PO");
@@ -348,7 +349,7 @@ public class AGConstant {
             public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Client Name", "Mobile", "Credit Initiation", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Downline", "Create Date", "Last Login Time", "Last Login IP");
             public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Exchange", "Live Dealer European", "Live Dealer Asian", "Exchange Games", "Supernowa Casino", "Evolution", "RWB Sports", "Game Hall", "Vivo", "ION");
             public final static String MSG_CHANGE_PASSWORD_SUCCESS = "Update is successful!";
-            public final static String MSG_INVALID_MAX_PLAYER_CREDIT = "Member Max Credit is invalid. ";
+            public final static String MSG_INVALID_MAX_PLAYER_CREDIT = "Member Max Credit is invalid.";
             public final static String MSG_EDIT_DOWNLINE_SUCCESS = "Downline was updated successfully";
             public final static String MSG_EDIT_MEMBER_SUCCESS = "Member was updated successfully";
             public final static String MSG_ALL_PRODUCT_NOT_SELECT = "There has to be at least one active product";
@@ -455,8 +456,8 @@ public class AGConstant {
 
         public static class PositionTakingListing {
             public final static String TITLE_PAGE = "Position Taking Listing";
-            public final static List<String> TABLE_PT_EXCHANGE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Soccer", "Cricket", "Line Market", "Fancy", "Virtual Cricket", "Bookmakers", "Decimal Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
-            public final static List<String> TABLE_PT_EXCHANGE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Soccer", "Cricket", "Line Market", "Fancy", "Virtual Cricket", "Bookmakers", "Decimal Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
+            public final static List<String> TABLE_PT_EXCHANGE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Soccer", "Cricket", "Line Market", "Fancy", "Virtual Cricket", "Bookmaker", "Decimal Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
+            public final static List<String> TABLE_PT_EXCHANGE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Soccer", "Cricket", "Line Market", "Fancy", "Virtual Cricket", "Bookmaker", "Decimal Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
             public final static List<String> TABLE_PT_EXCHANGE_GAME_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Baccarat", "Blackjack", "Racing", "Hilo", "Hold'em", "Omaha Hi", "Other", "Update Status");
             public final static List<String> TABLE_PT_EXCHANGE_GAME_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Baccarat", "Blackjack", "Racing", "Hilo", "Hold'em", "Omaha Hi", "Other", "Update Status");
             public final static List<String> TABLE_PT_LOTTERY_SLOT_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Lottery & Slots", "Update Status");
@@ -641,8 +642,8 @@ public class AGConstant {
 
         public static class TaxSettingListing {
             public final static String TITLE_PAGE = "Tax Setting Listing";
-            public final static List<String> TABLE_TAX = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Virtual Cricket","Decimal Cricket", "Other", "Update Status");
-            public final static List<String> TABLE_TAX_SAT = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Virtual Cricket","Decimal Cricket", "Other", "Update Status");
+            public final static List<String> TABLE_TAX = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Decimal Cricket", "Virtual Cricket", "Other", "Update Status");
+            public final static List<String> TABLE_TAX_SAT = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Decimal Cricket", "Virtual Cricket", "Other", "Update Status");
         }
 
         public static class SubUserListing {
@@ -721,8 +722,8 @@ public class AGConstant {
         public final static String ERROR_PRODUCT = "Please select at least 1 product.";
         public final static String ERROR_DATE_RANGE = "End date cannot earlier than start date. Please redefine the search criteria";
         public final static List<String> LIST_EXTRA_RPODUCTS_PO = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Central Fancy", "Central Bookmaker", "Follow Bets");
-        public final static List<String> LIST_EXTRA_PRODUCTS_NEWUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Premium Cricket", "Virtual Cricket", "Q-tech");
-        public final static List<String> LIST_EXTRA_PRODUCTS_OLDUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Central Fancy", "Central Bookmaker", "Premium Cricket", "Virtual Cricket", "Q-tech");
+        public final static List<String> LIST_EXTRA_PRODUCTS_NEWUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Premium Cricket", "Virtual Cricket", "Q-tech", "Decimal Cricket");
+        public final static List<String> LIST_EXTRA_PRODUCTS_OLDUI = Arrays.asList("Fancy", "Wicket Fancy", "Wicket Bookmaker", "Artemis fancy", "Artemis bookmaker", "Central Fancy", "Central Bookmaker", "Premium Cricket", "Virtual Cricket", "Q-tech", "Decimal Cricket");
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS = "You can see report data up to 6 months";
         public final static String LBL_YOU_CAN_SEE_REPORT_UP_1_TO_6 = "You can see report data up to 1 month and back to previous 6 months.";
         public final static String LBL_PRODUCT = "Product";

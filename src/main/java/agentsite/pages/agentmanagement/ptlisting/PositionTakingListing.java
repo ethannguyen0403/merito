@@ -131,10 +131,16 @@ public class PositionTakingListing {
         if (!map.get("Virtual Cricket")) {
             chb.click();
         }
-        chb = CheckBox.xpath(String.format(xPathSport, "Bookmakers"));
+        chb = CheckBox.xpath(String.format(xPathSport, "Bookmaker"));
         if (!map.get("Bookmakers")) {
             chb.click();
         }
+
+        chb = CheckBox.xpath(String.format(xPathSport, "Decimal Cricket"));
+        if (!map.get("Decimal Cricket")) {
+            chb.click();
+        }
+
         chb = CheckBox.xpath(String.format(xPathSport, "Tennis"));
         if (!map.get("Tennis")) {
             chb.click();
@@ -160,17 +166,9 @@ public class PositionTakingListing {
     public List<String> definePTSettingList(String member, int inputValue) {
         List<String> lstPTSetting = getPTofAccount(member);
         List<Integer> lstIndex = tblDownline.getListColumnIndexByListName(LST_POSITION_TAKING_HEADER);
-        lstPTSetting.set(lstIndex.get(1), Integer.toString(inputValue));
-        lstPTSetting.set(lstIndex.get(2), Integer.toString(inputValue));
-        lstPTSetting.set(lstIndex.get(3), Integer.toString(inputValue));
-        lstPTSetting.set(lstIndex.get(4), Integer.toString(inputValue));
-        lstPTSetting.set(lstIndex.get(5), Integer.toString(inputValue));
-        lstPTSetting.set(lstIndex.get(6), Integer.toString(inputValue));
-        lstPTSetting.set(lstIndex.get(7), Integer.toString(inputValue));
-        lstPTSetting.set(lstIndex.get(8), Integer.toString(inputValue));
-        lstPTSetting.set(lstIndex.get(9), Integer.toString(inputValue));
-        lstPTSetting.set(lstIndex.get(10), Integer.toString(inputValue));
-        lstPTSetting.set(lstIndex.get(11), Integer.toString(inputValue));
+        for (int i = 0; i < lstIndex.size() - 1; i++) {
+            lstPTSetting.set(lstIndex.get(i + 1), Integer.toString(inputValue));
+        }
         return lstPTSetting;
     }
 

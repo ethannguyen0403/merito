@@ -76,7 +76,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * 2. The number blocked in the list matched with the number in current column
      */
     @TestRails(id = "773")
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke"})
     public void Agent_MM_CurrentBlocking_TC773() {
         log("@title: Verify can view blocked user for an event");
         log("Step 1. Navigate Markets Management > Current Blocking");
@@ -124,7 +124,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * 2. Close the popup and verify the blocked number is deducted
      */
     @TestRails(id = "774")
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke"})
     @Parameters("downlineAccount")
     public void Agent_MM_CurrentBlocking_TC774(String downlineAccount) {
         log("@title: Verify can unblocked Now event for a user");
@@ -211,7 +211,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * 2. Close the popup and verify the blocked number is deducted
      */
     @TestRails(id = "776")
-    @Test(groups = {"smoke1"})
+    @Test(groups = {"smoke"})
     @Parameters("downlineAccount")
     public void Agent_MM_CurrentBlocking_TC776(String downlineAccount) {
         log("@title:Verify can unblock competition");

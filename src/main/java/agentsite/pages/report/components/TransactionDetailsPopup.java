@@ -25,7 +25,7 @@ public class TransactionDetailsPopup {
     public int colProfitLossOriginal = 9;
     public MenuTree productTabMenu = MenuTree.xpath("//app-pnl-transaction-detail//ul[contains(@class,'nav-tabs')]", "/li");
     Popup popup = Popup.xpath("//div[contains(@class,'multiProductDialog'])");
-    Button btnFullScreen = Button.xpath("//div[@class='modal-header']/button[@class='fullScreen']");
+    Button btnFullScreen = Button.xpath("//div[contains(@class,'modal-header')]/button[contains(@class,'fullScreen')]");
     Button btnClosePopup = Button.xpath("//div[contains(@class,'modal-header')]//button[@class='close']");
     Button btnClose = Button.xpath("//button[contains(@class,'btn-cancel')]");
     Label lblTitle = Label.xpath("//div[@class='otp-dialog ng-scope']//div[@class='modal-header']/div[@class='ng-binding']");
@@ -64,22 +64,21 @@ public class TransactionDetailsPopup {
     public boolean isColumnDataMatchedWithTotal(String columnName, List<String> lstLevel) {
         Table table = defineReportCol(lstLevel);
         fullScreenPopup();
-        int col = table.getColumnIndexByName(columnName) + 1;// there is Cashout column is hide so need to inclue 1 more column
+//        int col = table.getColumnIndexByName(columnName) + 1;// there is Cashout column is hide so need to inclue 1 more column
+        int col = table.getColumnIndexByName(columnName);
         if (col == -1) {
             System.out.println(String.format("Column name %s not be found in the table", columnName));
             return false;
         }
         List<String> lstData = table.getColumn(col, true);
         double memberResult = 0.00;
-        int n = lstData.size();
-        double totalResult = Double.parseDouble(getTotalRowData().get(col - 1 - staticColTotal));
-        //double totalResult =Double.parseDouble(lstData.get(n));
-        for (int i = 0; i < n; i++) {
+        double totalResult = Double.parseDouble(getTotalRowData().get(col - staticColTotal));
+        for (int i = 0; i < lstData.size(); i++) {
             String value = lstData.get(i);
-            if (value.contains("-"))
+            if (value.isEmpty() || value.equalsIgnoreCase("-"))
                 continue;
             else
-                memberResult = Double.parseDouble(value) + memberResult;
+                memberResult = memberResult + Double.parseDouble(value);
            /* if(i % 2 ==0)
             {
               memberResult = Double.parseDouble(lstData.get(i)) + memberResult;

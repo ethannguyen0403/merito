@@ -14,6 +14,7 @@ public class EditDownLinePage extends CreateDownLineAgentPage {
     public EditDownlineListing editDownlineListing;
     private SuccessPopup successPopup = SuccessPopup.xpath("//app-alert");
     private Button btnSubmit = Button.id("submitBtn");
+    public Label lblErrorMsg = Label.id("error-msg");
     public EditDownLinePage(String types) {
         super(types);
         _type = types;

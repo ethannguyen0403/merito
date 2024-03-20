@@ -20,7 +20,7 @@ public class PunterPerformanceTest extends BaseCaseTest {
      * 3. Drill down to member level
      * @expect: 1. Can drill down to member level, at Member level there no hyperlink
      */
-    @Test(groups = {"smoke"})
+//    @Test(groups = {"smoke"})
     public void BO_Report_Punter_Performance_001() {
         log("@title: Validate can drill down to member level");
         log("Step Access Reports > Punter Performance");

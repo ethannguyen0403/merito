@@ -7,25 +7,39 @@ import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GameHall extends CasinoHomePage{
+public class GameHallPage extends CasinoHomePage{
     public Image imgLogo = Image.xpath("//div[@id='app']//header//a[contains(@class,'w-logo')]//img");
     private Button btnShowHideBalance = Button.xpath("//div[@id='app']//header//li[contains(@class,'justify-self-end')]//button");
     private Label lblBalance = Label.xpath("//div[@id='app']//header//li[@class='flex-center']/span[2]");
     String xpathProducts = "//div[@id='app']//div[@class='flex-center flex-wrap']//div[contains(@class,'text-platformName')]";
+    private Label lblLoadingText = Label.xpath("//div[@class='loading-text']");
     public Link lnkProductsList = Link.xpath(xpathProducts);
 
-    public List<String> getProductsList() {
-        List<String> lblList = new ArrayList<>();
-        new ArrayList<>(lnkProductsList.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
-        return lblList;
+    public void waitFrameLoad() {
+        lblLoadingText.waitForControlInvisible(2, 7);
+    }
+
+    @Override
+    public boolean verifyCasinoDisplay() {
+        return isLogoDisplayed();
+    }
+
+    public boolean isLogoDisplayed() {
+        switchToLastFrame();
+        return imgLogo.isDisplayed();
+    }
+
+    @Override
+    public void selectCasinoGame() {
+        openRandomGame();
     }
 
     public void openRandomGame() {
+        switchToLastFrame();
         int randomNum = ThreadLocalRandom.current().nextInt(1, lnkProductsList.getWebElements().size() + 1);
         BaseElement targetGame = new BaseElement(By.xpath(String.format("(%s)[%s]", xpathProducts, randomNum)));
         targetGame.scrollToThisControl(false);
@@ -38,10 +52,22 @@ public class GameHall extends CasinoHomePage{
         }
     }
 
-    public double getCasinoBalance() {
+    @Override
+    public int getListProductSize() {
+        return lnkProductsList.getWebElements().size();
+    }
+
+    @Override
+    public double getBalance() {
+        switchToLastFrame();
         if(lblBalance.getText().contains("*")) {
             btnShowHideBalance.click();
         }
         return Double.valueOf(lblBalance.getText().replace(",",""));
+    }
+
+    @Override
+    public void checkBalance(double actual, double expected, double BORate) {
+        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
     }
 }

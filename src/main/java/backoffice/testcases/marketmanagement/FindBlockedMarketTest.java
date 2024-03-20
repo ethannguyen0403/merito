@@ -28,7 +28,7 @@ public class FindBlockedMarketTest extends BaseCaseTest {
     @TestRails(id = "609")
     @Test(groups = {"smoke"})
     @Parameters("satMemberLoginID")
-    public void BO_Tools_Find_Blocked_Market_001(String satMemberLoginID) {
+    public void BO_Tools_Find_Blocked_Market_609(String satMemberLoginID) {
         log("Step 2. Access Tool > Find Block Market");
         log("@title: Validate can find blocked market for an account");
         log("Step 1. Access Tool > Event/Market Status, filter Event date: Today and get sport, competition, event id, event name, of a market");
@@ -71,28 +71,31 @@ public class FindBlockedMarketTest extends BaseCaseTest {
      * @expect: 1. Verify status in agent site is match with Find Blocked Market Page
      */
     @TestRails(id = "610")
-    @Test(groups = {"smoke_s"})
+    @Test(groups = {"smoke"})
     @Parameters({"satMemberLoginID", "memberPassword", "satSADAgentLoginID", "downlineSADAccount"})
-    public void BO_Tools_Find_Blocked_Market_002(String satMemberLoginID, String memberPassword, String satSADAgentLoginID, String downlineSADAccount) throws Exception {
+    public void BO_Tools_Find_Blocked_Market_610(String satMemberLoginID, String memberPassword, String satSADAgentLoginID, String downlineSADAccount) throws Exception {
         log("@title: Validate Agent site - Block unblock event status is correctly as filtering");
-        log("Step 1. Access Tool > Event/Market Status, filter Event date: Today and get sport, competition, event id, event name, of a market");
-        String today = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        List<ArrayList<String>> lstSport = EventMarketStatusUtils.getSport(today, false);
-        String sportName = "Soccer";
-        String competitionID = EventMarketStatusUtils.getCompetition(today, false, "1").get(0).get(0);
-        List<ArrayList<String>> lstEvent = EventMarketStatusUtils.getEvent(today, false, "1", competitionID);
-        String eventID = lstEvent.get(0).get(0);
-        String eventName = lstEvent.get(0).get(1);
-        String marketID = EventMarketStatusUtils.getMarket(today, false, eventID).get(0).get(0);
-
-        log("Step 2. Access Tool > Find Block Market");
-        FindBlockedMarketPage page = backofficeHomePage.navigateFindBlockedMarket();
-
-        log("Step 3.Input username, Event ID, Market ID and click search button.");
-        page.search(satMemberLoginID, eventID, marketID);
-
-        log("Step 4. The data display and get Status in Block/Unblock Event column");
-        String eventStatus = page.tblBlockedMarket.getColumn(page.colBlockUnblockEventStatus, false).get(3);
+        //TODO: implement this case
+        Assert.assertTrue(false, "Need to implement this case");
+        log("INFO: Executed Completely!");
+//        log("Step 1. Access Tool > Event/Market Status, filter Event date: Today and get sport, competition, event id, event name, of a market");
+//        String today = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
+//        List<ArrayList<String>> lstSport = EventMarketStatusUtils.getSport(today, false);
+//        String sportName = "Soccer";
+//        String competitionID = EventMarketStatusUtils.getCompetition(today, false, "1").get(0).get(0);
+//        List<ArrayList<String>> lstEvent = EventMarketStatusUtils.getEvent(today, false, "1", competitionID);
+//        String eventID = lstEvent.get(0).get(0);
+//        String eventName = lstEvent.get(0).get(1);
+//        String marketID = EventMarketStatusUtils.getMarket(today, false, eventID).get(0).get(0);
+//
+//        log("Step 2. Access Tool > Find Block Market");
+//        FindBlockedMarketPage page = backofficeHomePage.navigateFindBlockedMarket();
+//
+//        log("Step 3.Input username, Event ID, Market ID and click search button.");
+//        page.search(satMemberLoginID, eventID, marketID);
+//
+//        log("Step 4. The data display and get Status in Block/Unblock Event column");
+//        String eventStatus = page.tblBlockedMarket.getColumn(page.colBlockUnblockEventStatus, false).get(3);
 
        /* log("Step 5. Login agent the level control blocking > Block/Unblock Event");
       //  Helper.loginAgentIgnoreCaptchaTest(environment.getSatAgentSOSURL(),environment.getSatAgentSosValidationURL(),environment.getSatAgentDashboardURL(),satSADAgentLoginID,memberPassword,environment.getSecurityCode());

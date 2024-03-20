@@ -18,9 +18,9 @@ public class LoginTest extends BaseCaseTest {
      * @steps: 1. Log in with a valid username and password
      * @expect: 1. Home page is displayed
      */
-    @TestRails(id = "870")
+    @TestRails(id = "670")
     @Test(groups = {"http_request"})
-    public void Agent_Login_870() {
+    public void Agent_Login_670() {
         log("@title: There is no http responded error returned");
         log("Step 1: Log in with a valid username and password");
         log("Verify: There is no http requests error");
@@ -145,6 +145,14 @@ public class LoginTest extends BaseCaseTest {
         Assert.assertTrue(loginPage.txtPassword.isDisplayed(), "FAILED! Login label is incorrect");
         Assert.assertEquals(loginPage.btnLogIn.getText(), "Login", "FAILED! Login label is incorrect");
 
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3454")
+    @Parameters({"username", "password"})
+    public void Agent_Login_3454(String username, String password) throws Exception {
+            //TODO: implement this case
+        log("@title: Validate menu list item display correctly");
         log("INFO: Executed completely");
     }
 

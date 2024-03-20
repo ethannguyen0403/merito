@@ -198,8 +198,16 @@ public class DownlineListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "3527")
+//    @Test(groups = {"regression_creditcash"})
+    public void Agent_AM_Downline_Listing_Edit_User_3527() throws Exception {
+        //TODO: implement test this case
+        Assert.assertTrue(false, "");
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "3531")
-    @Test(groups = {"regression_isa"})
+    @Test(groups = {"regression"})
     public void Agent_AM_Downline_Listing_Edit_User_3531() throws Exception {
         log("@title: Validate downline will not display the update is inactive market");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -377,6 +385,39 @@ public class DownlineListingTest extends BaseCaseTest {
         Assert.assertEquals(page.lblErrorMsg.getText(), AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MAX_WIN_INVALID, page.lblErrorMsg.getText()));
         log("INFO: Executed completely");
     }
+    @TestRails(id = "3536")
+//    @Test(groups = {"regression_creditcash"})
+    public void Agent_AM_Downline_Listing_Edit_User_3536() throws Exception {
+        //TODO: implement test this case
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3539")
+//    @Test(groups = {"regression_creditcash"})
+    public void Agent_AM_Downline_Listing_Edit_User_3539() throws Exception {
+        //TODO: implement test this case
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3540")
+//    @Test(groups = {"regression_creditcash"})
+    public void Agent_AM_Downline_Listing_Edit_User_3540() throws Exception {
+        //TODO: implement test this case
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "3541")
+//    @Test(groups = {"regression_creditcash"})
+    public void Agent_AM_Downline_Listing_Edit_User_3541() throws Exception {
+        //TODO: implement test this case
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "3545")
+//    @Test(groups = {"regression_creditcash"})
+    public void Agent_AM_Downline_Listing_Edit_User_3545() throws Exception {
+        //TODO: implement test this case
+        log("INFO: Executed completely");
+    }
 
     @TestRails(id = "3537")
     @Test(groups = {"regression"})
@@ -478,7 +519,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3551")
-    @Test(groups = {"regression_isa"})
+    @Test(groups = {"regression"})
     public void Agent_AM_Downline_Listing_Edit_User_3551() throws Exception {
         log("@title: Validate UI when open Edit Market popup");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -1098,7 +1139,7 @@ public class DownlineListingTest extends BaseCaseTest {
 
     }
     @TestRails(id = "3516")
-    @Test(groups = {"regression_newui"})
+    @Test(groups = {"regression_sat"})
     public void Agent_AM_Downline_Listing_3516() {
         log("@title:Validate can open and update Delay Bet");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -1181,14 +1222,15 @@ public class DownlineListingTest extends BaseCaseTest {
      */
     @TestRails(id = "695")
     @Test(groups = {"smoke"})
-    @Parameters({"level", "password"})
-    public void Agent_AM_Downline_Listing_695(String level, String password) throws Exception {
+    @Parameters({"password"})
+    public void Agent_AM_Downline_Listing_695(String password) throws Exception {
         log("@title: Validate can change password from the table");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, level, _brandname);
-        String loginID = listAccount.get(0).getUserCode();
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, _brandname);
+        String loginID = listAccount.get(1).getUserCode();
 
         log("Step 2. Select agent account in any level");
         log("Step 3. Click change password icon");
@@ -1202,7 +1244,6 @@ public class DownlineListingTest extends BaseCaseTest {
             log("Post Condition: Re-change to old pw");
             page.changePassword(loginID, StringUtils.decrypt(password));
         }
-
 
     }
 

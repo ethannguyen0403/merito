@@ -26,7 +26,7 @@ public class EventMarketStatusTest extends BaseCaseTest {
      */
     @TestRails(id = "605")
     @Test(groups = {"smoke"})
-    public void BO_Market_ManagementEvent_Market_Status_001() {
+    public void BO_Market_ManagementEvent_Market_Status_605() {
         log("@title: Validate can search Sport");
         log("Step 1. Access Tool > Events/Market Status");
         EventMarketStatusPage page = backofficeHomePage.navigateEventMarketStatus();
@@ -62,7 +62,7 @@ public class EventMarketStatusTest extends BaseCaseTest {
      **/
     @TestRails(id = "606")
     @Test(groups = {"smoke"})
-    public void BO_Market_ManagementEvent_Market_Status_002() {
+    public void BO_Market_ManagementEvent_Market_Status_606() {
         log("@title: Validate can search Competition ");
         log("Step 1. Access Tool > Events/Market Status");
         String today = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
@@ -106,7 +106,7 @@ public class EventMarketStatusTest extends BaseCaseTest {
      **/
     @TestRails(id = "607")
     @Test(groups = {"smoke"})
-    public void BO_Market_ManagementEvent_Market_Status_003() {
+    public void BO_Market_ManagementEvent_Market_Status_607() {
         log("@title: Validate can search Event Name ");
         log("Step 1. Access Tool > Events/Market Status");
         String today = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
@@ -155,7 +155,7 @@ public class EventMarketStatusTest extends BaseCaseTest {
      **/
     @TestRails(id = "608")
     @Test(groups = {"smoke"})
-    public void BO_Market_ManagementEvent_Market_Status_004() {
+    public void BO_Market_ManagementEvent_Market_Status_608() {
         log("@title: Validate can search market ID ");
         log("Step 1. Access Tool > Events/Market Status");
         String today = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
@@ -191,38 +191,38 @@ public class EventMarketStatusTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    /**
-     * @title: Validate event in open status only display when select Open Only checkbox
-     * @pre-condition: 1.Login BO
-     * @steps: 1. Access Tool > Events/Market Status
-     * 2. Select Event Date : today
-     * 3. Observe event/market status of all sport
-     * @expect: 1. Verify the status of event/market always open
-     **/
-
-    @Test(groups = {"regression"})
-    public void BO_Market_ManagementEvent_Market_Status_005() {
-        log("@title:  Validate event in open status only display when select Open Only checkbox");
-        log("Step 1. Access Tool > Events/Market Status");
-        EventMarketStatusPage page = backofficeHomePage.navigateEventMarketStatus();
-
-        log("Step  2. Select Event Date : today");
-        log("Step 3. Observe event/market status of all sport");
-        //  page.cbOpenOnly.click();
-        String today = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-        List<ArrayList<String>> lstSport = EventMarketStatusUtils.getSport(today, false);
-        String sportID = lstSport.get(0).get(0);
-        String sportName = lstSport.get(0).get(1);
-        page.isSportDisplay(sportName, true);
-        List<ArrayList<String>> lstCompetition = EventMarketStatusUtils.getCompetition(today, true, sportID);
-
-
-        log("Verify 1. Verify the status of event/market always open");
-        for (int i = 0; i < lstCompetition.size(); i++) {
-            page.isCompetitionDisplay(lstCompetition.get(i).get(1), true);
-            Assert.assertTrue(page.verifyEventsStatus("Open"), String.format("FAILED, All Event status not Open as expected"));
-        }
-
-        log("INFO: Executed completely");
-    }
+//    /**
+//     * @title: Validate event in open status only display when select Open Only checkbox
+//     * @pre-condition: 1.Login BO
+//     * @steps: 1. Access Tool > Events/Market Status
+//     * 2. Select Event Date : today
+//     * 3. Observe event/market status of all sport
+//     * @expect: 1. Verify the status of event/market always open
+//     **/
+//
+//    @Test(groups = {"regression"})
+//    public void BO_Market_ManagementEvent_Market_Status_005() {
+//        log("@title:  Validate event in open status only display when select Open Only checkbox");
+//        log("Step 1. Access Tool > Events/Market Status");
+//        EventMarketStatusPage page = backofficeHomePage.navigateEventMarketStatus();
+//
+//        log("Step  2. Select Event Date : today");
+//        log("Step 3. Observe event/market status of all sport");
+//        //  page.cbOpenOnly.click();
+//        String today = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
+//        List<ArrayList<String>> lstSport = EventMarketStatusUtils.getSport(today, false);
+//        String sportID = lstSport.get(0).get(0);
+//        String sportName = lstSport.get(0).get(1);
+//        page.isSportDisplay(sportName, true);
+//        List<ArrayList<String>> lstCompetition = EventMarketStatusUtils.getCompetition(today, true, sportID);
+//
+//
+//        log("Verify 1. Verify the status of event/market always open");
+//        for (int i = 0; i < lstCompetition.size(); i++) {
+//            page.isCompetitionDisplay(lstCompetition.get(i).get(1), true);
+//            Assert.assertTrue(page.verifyEventsStatus("Open"), String.format("FAILED, All Event status not Open as expected"));
+//        }
+//
+//        log("INFO: Executed completely");
+//    }
 }

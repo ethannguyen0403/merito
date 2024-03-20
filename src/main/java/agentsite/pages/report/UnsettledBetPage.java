@@ -17,8 +17,8 @@ import java.util.List;
 public class UnsettledBetPage extends HomePage {
     public TextBox txtFrom = TextBox.id("fromDate");
     public TextBox txtTo = TextBox.id("toDate");
-    public DateTimePicker dpFrom = DateTimePicker.xpath(txtFrom, "//bs-days-calendar-view");
-    public DateTimePicker dpTo = DateTimePicker.xpath(txtTo, "//bs-days-calendar-view");
+    public DateTimePicker dpFrom = DateTimePicker.xpath(txtFrom, "//bs-calendar-layout");
+    public DateTimePicker dpTo = DateTimePicker.xpath(txtTo, "//bs-calendar-layout");
     public Label lblStake = Label.xpath("//div[@class='stake-all']");
 
     // Last Bets Mode
@@ -32,9 +32,9 @@ public class UnsettledBetPage extends HomePage {
     public Label lblInfo = Label.xpath("//div[@id='unsettled-bet']//i//..//..//span");
 
     public int tbtLastBetsModeTotalCol = 12;
-    public int colUsername = 2;
+    public int colUsername = 7;
     public int colLoginID = 3;
-    public int colStaus = 10;
+    public int colStaus = 5;
     public Table tblLastBetsMode = Table.xpath("//div[contains(@class,'last-bet-table')]//table", tbtLastBetsModeTotalCol);
     public Label lblLastBetsModeNoRecord = Label.xpath("//div[contains(@class,'last-bet-table')]//table//td[@class='text-center']");
 
@@ -103,9 +103,9 @@ public class UnsettledBetPage extends HomePage {
     public void verifySearchLastBetsMode(List<ArrayList<String>> data, String loginId, String status, String stake, String wagerID, String sportName, String eventName) {
         for (int i = 0; i < data.size(); i++) {
             if (!loginId.isEmpty())
-                Assert.assertEquals(data.get(i).get(colLoginID - 1), loginId, String.format("FAILED! Expected login ID %s but found %s", loginId, data.get(i).get(colLoginID - 1)));
+                Assert.assertEquals(data.get(i).get(colUsername - 1), loginId, String.format("FAILED! Expected login ID %s but found %s", loginId, data.get(i).get(colUsername - 1)));
             if (!status.isEmpty())
-                Assert.assertEquals(data.get(i).get(colStaus - 1), loginId, String.format("FAILED! Expected Status %s but found %s", status, data.get(i).get(colStaus - 1)));
+                Assert.assertEquals(data.get(i).get(colStaus - 1), status, String.format("FAILED! Expected Status %s but found %s", status, data.get(i).get(colStaus - 1)));
         }
     }
 

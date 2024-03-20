@@ -2,7 +2,7 @@ package membersite.testcases.casino;
 
 import backoffice.utils.tools.ProviderCurrencyMappingUltils;
 import baseTest.BaseCaseTest;
-import membersite.pages.casino.Vivo;
+import membersite.pages.casino.CasinoHomePage;
 import membersite.utils.casino.CasinoUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -14,7 +14,7 @@ import java.util.List;
 import static common.AGConstant.AgencyManagement.CommissionSettingListing.PRODUCT_NAME_TO_CODE;
 import static common.CasinoConstant.*;
 
-public class VivoTest extends BaseCaseTest {
+public class VivoPageTest extends BaseCaseTest {
     @TestRails(id = "20230")
     @Test(groups = {"casino", "Casino.2024.V.1.0"})
     public void Casino_Test_TC20230(){
@@ -22,9 +22,9 @@ public class VivoTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Vivo in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Vivo on header menu");
-        Vivo vivo = memberHomePage.openVivo();
+        CasinoHomePage vivoPage = memberHomePage.openVivo();
         log("@Verify 1: Header menu with list: 'All', 'Roulette', 'Blackjack', 'Limitless Blackjack', 'Baccarat', 'Casino Hold'em', 'Teen patti', 'Andar Bahar' is displayed");
-        List<String> productsList = vivo.getProductsList();
+        List<String> productsList = vivoPage.getListProductsMenu();
         Assert.assertTrue(VIVO_PRODUCTS_MENU.containsAll(productsList), String.format("FAILED! The list of Vivo game is not correct. Actual: %s, expected: %s", productsList, VIVO_PRODUCTS_MENU));
         log("INFO: Executed completely");
     }
@@ -36,11 +36,11 @@ public class VivoTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Vivo in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Vivo on header menu");
-        Vivo vivo = memberHomePage.openVivo();
+        CasinoHomePage vivoPage = memberHomePage.openVivo();
         log("@Step 3: Click on any game");
-        vivo.openRandomGame();
+        vivoPage.selectCasinoGame();
         log("@Verify 1: Able to open game without console error");
-        Assert.assertTrue(vivo.verifyConsoleLogNotContainValue(ERROR_CODE_LIST),"FAILED! Console log contain error code");
+        Assert.assertTrue(vivoPage.verifyConsoleLogNotContainValue(ERROR_CODE_LIST),"FAILED! Console log contain error code");
         log("INFO: Executed completely");
     }
 
@@ -54,8 +54,8 @@ public class VivoTest extends BaseCaseTest {
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Vivo on header menu");
         double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
-        Vivo vivo = memberHomePage.openVivo();
-        double balanceCasino = vivo.getCasinoBalance();
+        CasinoHomePage vivoPage = memberHomePage.openVivo();
+        double balanceCasino = vivoPage.getBalance();
         log("@Step 3: Observe in game balance");
         log("@Step 4: Get rate of currency from BO");
         loginBackoffice(BOLoginId, BOLoginPwd, true);
@@ -63,7 +63,7 @@ public class VivoTest extends BaseCaseTest {
                 PRODUCT_NAME_TO_CODE.get(VIVO)), currency);
 
         log("@Verify 1: The in game balance should match with user's balance");
-        Assert.assertEquals(balanceCasino * rate, balance, "FAILED! Balance of Vivo not equals to balance user");
+       vivoPage.checkBalance(balance, balanceCasino, rate);
         log("INFO: Executed completely");
     }
 
@@ -77,9 +77,9 @@ public class VivoTest extends BaseCaseTest {
         log("Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertFalse(memberHomePage.isProductDisplayed(VIVO), "FAILED! Inactive product still displays on header menu");
         log("@Step 3: Access Vivo by external link (e.g.: /home/custom?code=VIVO)");
-        Vivo vivo = (Vivo) memberHomePage.openCasinoGameByUrl(VIVO);
+        CasinoHomePage vivoPage =  memberHomePage.openCasinoGameByUrl(VIVO);
         log("Verify 2: User could not access product and was brought back to home page");
-        Assert.assertFalse(vivo.lnkHeaderProductsLst.isDisplayed(), "FAILED! Vivo is able to access by URL while it's inactivated");
+        Assert.assertFalse(vivoPage.getListProductSize() > 0, "FAILED! Vivo is able to access by URL while it's inactivated");
         log("INFO: Executed completely");
     }
 }

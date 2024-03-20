@@ -56,7 +56,7 @@ public class ResettlementLogTest extends BaseCaseTest {
      * @expect: 1. Verify the event/market display log
      */
     @TestRails(id = "597")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","isa"})
     public void BO_Settlement_Resettlement_Log_597() {
         log("@title:Validate can search log by Event/Market");
         log("Step 1. Access Tool > Resettlement Log");
@@ -96,7 +96,7 @@ public class ResettlementLogTest extends BaseCaseTest {
     @TestRails(id = "598")
     @Test(groups = {"smoke"})
     @Parameters({"satMemberLoginID"})
-    public void BO_Settlement_Resettlement_Log_003(String satMemberLoginID) {
+    public void BO_Settlement_Resettlement_Log_598(String satMemberLoginID) {
         log("@title: Validate can search log by Wager ID");
         log("Step 1. Access Tool > Resettlement Log");
         ResettlementLogPage page = backofficeHomePage.navigateResettlementLog();
