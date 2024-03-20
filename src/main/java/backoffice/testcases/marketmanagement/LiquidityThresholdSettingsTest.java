@@ -98,7 +98,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
      * @expect: 1. Verify odds is blur and unclick able if total matched value of match odds does not reach the setting
      */
     @TestRails(id = "630")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void BO_Operations_Liquidity_Threshold_Setting_630() {
         log("@title: Validate odds is blur and unclick able when total match of the market not reach the setting for Non-live market");
         log("2. The agent of member account is active Liquidity Threshold");
@@ -129,7 +129,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
      * @expect: 1. Verify odds is blur and unclick able if total matched value of match odds does not reach the setting
      */
     @TestRails(id = "631")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void BO_Operations_Liquidity_Threshold_Setting_006() {
         log("@title: Validate odds is blur and unclick able when total match of the market not reach the setting for Live market");
         log("2. The agent of member account is active Liquidity Threshold");

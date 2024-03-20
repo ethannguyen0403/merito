@@ -1,9 +1,13 @@
 package backoffice.testcases.settlement;
 
 import backoffice.common.BOConstants;
+import backoffice.pages.bo.operations.WagerVoidUnvoidPage;
 import backoffice.pages.bo.settlement.WagerResettlementPage;
 import backoffice.utils.settlement.WagerResettlementUltils;
 import baseTest.BaseCaseTest;
+import com.paltech.driver.DriverManager;
+import com.paltech.utils.DateUtils;
+import org.springframework.web.server.adapter.DefaultServerWebExchange;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -55,17 +59,21 @@ public class WagerResettlementTest extends BaseCaseTest {
      * @expect: 1. Data is display, Resettle button display in Action column
      */
     @TestRails(id = "595")
-    @Test(groups = {"smoke"})
-    @Parameters({"wagerID", "env"})
-    public void BO_Settlement_Wager_Resettlement_595(String wagerID, String env) {
+    @Test(groups = {"smoke","isa"})
+    @Parameters({"satMemberLoginID"})
+    public void BO_Settlement_Wager_Resettlement_595(String satMemberLoginID) {
         log("@title: Validate can search wager resettlement");
-        log("Step 1. Access Settlement > Wager Resettlement");
-        wagerID = env.equalsIgnoreCase("green")? "170360015": wagerID;
+        log("@Precondition: Get wager info in Wager Void / Un-void page");
+        WagerVoidUnvoidPage wagerVoidUnvoidPage = backofficeHomePage.navigateWagerVoidUnvoid();
+        wagerVoidUnvoidPage.searchByUsername("Exchange",satMemberLoginID,"","");
+        String wagerID = wagerVoidUnvoidPage.getFristWagerInfo().get(0).get(1);
+        wagerVoidUnvoidPage.closeActiveTab();
 
+        log("Step 1. Access Settlement > Wager Resettlement");
         WagerResettlementPage page = backofficeHomePage.navigateWagerResettlement();
         List<String> lstInfo = WagerResettlementUltils.getMarketInfo(wagerID, WagerResettlementPage.BetType.NORMAL, "EXCHANGE");
         log("Step 2. Select Bet Type: Normal");
-        log("Step 3. Input wager id in precondtion and product = exchange");
+        log("Step 3. Input wager id "+ wagerID +" in precondtion and product = exchange");
         page.searchByWager("Normal", wagerID, "Exchange");
 
         log("Verify 1. Data is display, Resettle button display in Action column");
