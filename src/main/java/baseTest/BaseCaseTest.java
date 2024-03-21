@@ -195,8 +195,14 @@ public class BaseCaseTest {
     }
 
     public static membersite.pages.HomePage loginMember(String brand, String username, String password) throws Exception {
-        loginMember(username, password, true, "", "", true);
-        return new HomePage(brand);
+        memberMarketServiceURL = defineMemberService(brand);
+        domainURL = defineURL(brand, "");
+        domainCashURL = defineCashURL(brand, "");
+        // Define Member Site URL
+        memberLoginURL = defineURL(brand, MEMBER_URL_SUFFIX.get(brand));
+        memberSOSUrl = defineURL(brand, MEMBER_SOS_URL_SUFFIX);
+        memberLoginCashURL = defineCashURL(brand, MEMBER_URL_SUFFIX.get(brand));
+        return loginMember(username,password);
     }
 
     public static void loginBackoffice(String username, String password, boolean isLogin) throws Exception {

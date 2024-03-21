@@ -17,14 +17,15 @@ public class HomePage extends LeftMenu {
 
     public void closeActiveTab() {
         DriverManager.getDriver().switchToDefaultContent();
-        Rectangle reg = btnCloseActiveTab.getWebElement().getRect();
-//        JavascriptExecutor js = (JavascriptExecutor)DriverManager.getDriver();
-        Actions actions = new Actions(DriverManager.getDriver());
-        System.out.println("X " + reg.getX()+"_W " +reg.getWidth());
-        System.out.println("Y " + reg.getY());
-      //  actions.moveToElement(btnCloseActiveTab.getWebElement(),0,0);
-        actions.moveToLocation(reg.getX()+reg.getWidth(), reg.getY()).click();
-       // actions.build().perform();
+        btnCloseActiveTab.click();
+//        Rectangle reg = btnCloseActiveTab.getWebElement().getRect();
+////        JavascriptExecutor js = (JavascriptExecutor)DriverManager.getDriver();
+//        Actions actions = new Actions(DriverManager.getDriver());
+//        System.out.println("X " + reg.getX()+"_W " +reg.getWidth());
+//        System.out.println("Y " + reg.getY());
+//      //  actions.moveToElement(btnCloseActiveTab.getWebElement(),0,0);
+//        actions.moveToLocation(reg.getX()+reg.getWidth(), reg.getY()).click();
+//       // actions.build().perform();
 
     }
 
