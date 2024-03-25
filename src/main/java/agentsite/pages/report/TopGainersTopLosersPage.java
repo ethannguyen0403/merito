@@ -33,10 +33,10 @@ public class TopGainersTopLosersPage extends HomePage {
 
     public void search(String fromday, String today, String product){
         if (!fromday.isEmpty()){
-            dpFrom.selectDate(fromday, "yyyy-MM-dd");
+            dpFrom.selectDate(fromday, "dd/MM/yyyy");
         }
         if (!today.isEmpty()){
-            dpTo.selectDate(today, "yyyy-MM-dd");
+            dpTo.selectDate(today, "dd/MM/yyyy");
         }
         if (!product.isEmpty()){
             ddbProduct.selectByVisibleText(product);

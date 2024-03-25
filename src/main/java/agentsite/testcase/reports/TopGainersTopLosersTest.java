@@ -92,8 +92,8 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         log("Step 1. Navigate Report > Top Gainers & Top Losers");
         TopGainersTopLosersPage page = bigStakeConfigurationPage.navigateTopGainersTopLosersPage();
         log("Step 2. Filter Exchange product that have the date has data");
-        String fromDate = DateUtils.getDate(-30, "yyyy-MM-dd", AGConstant.timeZone);
-        String toDate = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
+        String fromDate = DateUtils.getDate(-30, "dd/MM/yyyy", AGConstant.timeZone);
+        String toDate = DateUtils.getDate(0, "dd/MM/yyyy", AGConstant.timeZone);
         page.search(fromDate,toDate,"Exchange");
         page.waitingLoadingSpinner();
         log("Verify 1. Validate  Big Stake  table display correct data");

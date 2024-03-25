@@ -808,7 +808,8 @@ public class AGConstant {
 
             public final static List<String> TABLE_HEADER_NEWUI = Arrays.asList("Username", "Nickname");
             public final static List<String> TABLE_HEADER_OLDUI = Arrays.asList("Username", "Login ID");
-            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER = Arrays.asList("Sport/Game", "Credit", "Profit & Loss", "Tax/Commission", "Available Balance");
+//            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER = Arrays.asList("Sport/Game", "Credit", "Profit & Loss", "Tax/Commission", "Available Balance");
+            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER = Arrays.asList("Sport/Game", "Profit & Loss", "Tax/Commission", "Cash Balance");
             public final static String LBL_STATEMENT_REPORT_SEARCH_TITLE = "Statement Report from %s to %s";
         }
 
