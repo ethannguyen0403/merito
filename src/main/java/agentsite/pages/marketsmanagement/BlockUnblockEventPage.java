@@ -383,7 +383,7 @@ public class BlockUnblockEventPage extends HomePage {
         }
     }
 
-    public void assertBetabelMarketStatusOfEventAsUnblockScheudle(String event, String unblockSchedule) {
+    public void verifyBetableMarketStatus(String event, String unblockSchedule) {
         MarketDetailsPopup marketDetailsPopup = openMarketDetails(event);
         int scheduleMinute = timeToOpenConvert(unblockSchedule);
         marketDetailsPopup.assertBetStatusOfAllMarketForUnblockedEvent(scheduleMinute);

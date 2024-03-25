@@ -23,7 +23,6 @@ import static common.AGConstant.HomePage.DOWNLINE_LISTING;
 public class NewUIDownlineListing extends DownlineListing {
     public Label lblPageTitle = Label.xpath("//app-title-dashboard//div[contains(@class, 'title')]");
     private Button btnOK = Button.xpath("//button[text()='OK']");
-    private Button btnSubmit = Button.xpath("//app-agency-edit//button[@id='submitBtn']");
     private int changePasswordCol = 6;
 //    private int userCodeCol = 2;
 
@@ -103,13 +102,6 @@ public class NewUIDownlineListing extends DownlineListing {
             btnOK.click();
         }
         waitingLoadingSpinner();
-    }
-
-    public void submitEditDownline() {
-        if (btnSubmit.isDisplayed()) {
-            btnSubmit.click();
-            waitingLoadingSpinner();
-        }
     }
 
     public String changePassword(String loginID, String newPassword) throws InterruptedException {

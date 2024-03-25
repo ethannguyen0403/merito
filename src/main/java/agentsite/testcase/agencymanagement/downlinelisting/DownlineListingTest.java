@@ -20,6 +20,7 @@ import java.util.*;
 
 import static common.AGConstant.*;
 import static common.AGConstant.AgencyManagement.CreateDownlineAgent.LBL_ACCOUNT_TRANSFER_WEEKLY_INVALID;
+import static common.AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS;
 
 public class DownlineListingTest extends BaseCaseTest {
     @TestRails(id = "3499")
@@ -158,9 +159,9 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3523")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void Agent_AM_Downline_Listing_Edit_User_3523() throws Exception {
-        log("@title: There is no http responded error returned");
+        log("@title: Validate UI in Edit User");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", _brandname);
@@ -470,12 +471,12 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3542")
-    @Test(groups = {"regression_sat"})
+    @Test(groups = {"regression_sat","tim"})
     public void Agent_AM_Downline_Listing_Edit_User_3542() throws Exception {
         log("@title: Validate there is no Security popup display when click Edit User");
         log("Step 1. Navigate Agency Management > Downline Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        List<AccountInfo> listAccountDownline = DownLineListingUtils.getDownLineUsers(userID, "PL", LST_ACCOUNT_STATUS.get(1), _brandname);
         String userCode = listAccountDownline.get(0).getUserCode();
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         page.searchDownline(userCode, "", "");

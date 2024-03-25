@@ -40,7 +40,7 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3493")
-    @Test(groups = {"regression_sat"})
+    @Test(groups = {"regression_sat","tim"})
     public void Agent_AM_CreateUser_3493() {
         //login Control blocking level + Cash
         log("@title: Validate UI in Create User with Exchange Product setting for Credit Cash line");
@@ -62,14 +62,12 @@ public class CreateUserTest extends BaseCaseTest {
 
         log(" 4. Product Setting, select Exchange product");
         Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
-//        List<String> lstProducts = page.productStatusSettingInforSection.mnProductSetting.getListSubMenu();
-//        Assert.assertEquals(lstProducts.stream().map(String::toLowerCase).collect(Collectors.toList()), LST_PRODUCTS.stream().map(String::toLowerCase).collect(Collectors.toList()), "FAILED! List products tab is incorrect");
 
         log(" 5 Verify Sport setting, Bet Settings, Tax Setting. Position Taking Setting");
         List<String> lstSport = page.productStatusSettingInforSection.getExchangeSportList();
-        Assert.assertTrue(lstSport.contains("Soccer"), "FAILED! Sport list contains Soccer");
-        Assert.assertTrue(lstSport.contains("Cricket"), "FAILED! Sport list contains Cricket");
-        Assert.assertTrue(lstSport.contains("Tennis"), "FAILED! Sport list contains Tennis");
+        Assert.assertTrue(lstSport.contains(SPORT_SOCCER), "FAILED! Sport list contains Soccer");
+        Assert.assertTrue(lstSport.contains(SPORT_CRICKET), "FAILED! Sport list contains Cricket");
+        Assert.assertTrue(lstSport.contains(SPORT_TENNIS), "FAILED! Sport list contains Tennis");
 
         List<String> lstSportBetSetting = page.betSettingInforSection.tblBetSettingEX.getHeaderNameOfRows();
         List<String> lstBetSettingColum = page.betSettingInforSection.tblBetSettingEX.getColumn(1, false);
@@ -80,22 +78,19 @@ public class CreateUserTest extends BaseCaseTest {
         List<String> lstTaxSettingHeader = page.taxSettingInforSection.tblTaxSettingEX.getHeaderNameOfRows();
         List<String> lstTaxSettingColumn = page.taxSettingInforSection.tblTaxSettingEX.getColumn(1, false);
         Assert.assertEquals(page.taxSettingInforSection.getTaxSettingSectionTitle(AGConstant.EXCHANGE).trim(), TAX_SETTING, "FAILED! Tax setting Header is incorrect");
-        Assert.assertEquals(lstTaxSettingHeader, EX_TAX_SETTING_HEADER_SAT, "FAILED! Sport in tax setting table is incorrect display");
+        Assert.assertEquals(lstTaxSettingHeader, EX_TAX_SETTING_HEADER_OLDUI, "FAILED! Sport in tax setting table is incorrect display");
         Assert.assertEquals(lstTaxSettingColumn, TAX_SETTING_COLUMN, "FAILED! Column in Tax SETTING incorrect display");
 
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE), POSITION_TAKING_SETTING, "FAILED! Position Taking Header is incorrect");
-//        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEX.getHeaderNameOfRows();
-//        Assert.assertEquals(lstPositionSettingHeader, EX_POSITION_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         log(" 6. Submit and Cancel button");
         Assert.assertEquals(page.getSubmitBtn().getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
-        Assert.assertEquals(page.getBtnCancel().getText(), BTN_CANCEL, "FAILED! Submit button is incorrect displayed");
-
+        Assert.assertEquals(page.getBtnCancel().getText(), BTN_CANCEL, "FAILED! Cancel button is incorrect displayed");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3985")
-    @Test(groups = {"regression_creditcash"})
+    @Test(groups = {"regression_sat","tim"})
     public void Agent_AM_CreateUser_3985() {
         //login Control blocking level + Cash
         log("@title: Validate UI in Create User with Exchange Product setting for Credit Cash line");
@@ -117,14 +112,12 @@ public class CreateUserTest extends BaseCaseTest {
 
         log(" 4. Product Setting, select Exchange product");
         Assert.assertEquals(page.productStatusSettingInforSection.getProductSettingSectionTitle(), PRODUCT_SETTINGS, "FAILED! Product Settings label is incorrect display");
-//        List<String> lstProducts = page.productStatusSettingInforSection.mnProductSetting.getListSubMenu();
-//        Assert.assertEquals(lstProducts.stream().map(String::toLowerCase).collect(Collectors.toList()), LST_PRODUCTS.stream().map(String::toLowerCase).collect(Collectors.toList()), "FAILED! List products tab is incorrect");
 
         log(" 5 Verify Sport setting, Bet Settings, Tax Setting. Position Taking Setting");
         List<String> lstSport = page.productStatusSettingInforSection.getExchangeSportList();
-        Assert.assertTrue(lstSport.contains("Soccer"), "FAILED! Sport list contains Soccer");
-        Assert.assertTrue(lstSport.contains("Cricket"), "FAILED! Sport list contains Cricket");
-        Assert.assertTrue(lstSport.contains("Tennis"), "FAILED! Sport list contains Tennis");
+        Assert.assertTrue(lstSport.contains(SPORT_SOCCER), "FAILED! Sport list contains Soccer");
+        Assert.assertTrue(lstSport.contains(SPORT_CRICKET), "FAILED! Sport list contains Cricket");
+        Assert.assertTrue(lstSport.contains(SPORT_TENNIS), "FAILED! Sport list contains Tennis");
 
         List<String> lstSportBetSetting = page.betSettingInforSection.tblBetSettingEX.getHeaderNameOfRows();
         List<String> lstBetSettingColum = page.betSettingInforSection.tblBetSettingEX.getColumn(1, false);
@@ -135,17 +128,15 @@ public class CreateUserTest extends BaseCaseTest {
         List<String> lstTaxSettingHeader = page.taxSettingInforSection.tblTaxSettingEX.getHeaderNameOfRows();
         List<String> lstTaxSettingColumn = page.taxSettingInforSection.tblTaxSettingEX.getColumn(1, false);
         Assert.assertEquals(page.taxSettingInforSection.getTaxSettingSectionTitle(AGConstant.EXCHANGE).trim(), TAX_SETTING, "FAILED! Tax setting Header is incorrect");
-        Assert.assertEquals(lstTaxSettingHeader, EX_TAX_SETTING_HEADER, "FAILED! Sport in tax setting table is incorrect display");
+        Assert.assertEquals(lstTaxSettingHeader, EX_TAX_SETTING_HEADER_OLDUI, "FAILED! Sport in tax setting table is incorrect display");
         Assert.assertEquals(lstTaxSettingColumn, TAX_SETTING_COLUMN, "FAILED! Column in Tax SETTING incorrect display");
 
         Assert.assertEquals(page.positionTakingInforSection.getPositionTakingSectionTitle(AGConstant.EXCHANGE), POSITION_TAKING_SETTING, "FAILED! Position Taking Header is incorrect");
-//        List<String> lstPositionSettingHeader = page.positionTakingInforSection.tblPositionTakingEX.getHeaderNameOfRows();
-//        Assert.assertEquals(lstPositionSettingHeader, EX_POSITION_SETTING_HEADER, "FAILED! Sport in Position setting table is incorrect display");
         page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE);
 
         log(" 6. Submit and Cancel button");
         Assert.assertEquals(page.getSubmitBtn().getText(), BTN_SUBMIT, "FAILED! Submit button is incorrect displayed");
-        Assert.assertEquals(page.getBtnCancel().getText(), BTN_CANCEL, "FAILED! Submit button is incorrect displayed");
+        Assert.assertEquals(page.getBtnCancel().getText(), BTN_CANCEL, "FAILED! Cancel button is incorrect displayed");
 
         log("INFO: Executed completely");
     }

@@ -38,7 +38,7 @@ public class BlockUnblockEventsUtils {
         if (Objects.nonNull(jsonArray)) {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if (jsonObject.getString("loginId").equals(downlineAccount) || jsonObject.getString("userCode").equals(downlineAccount)) {
+                if (jsonObject.getString("loginId").equalsIgnoreCase(downlineAccount) || jsonObject.getString("userCode").equalsIgnoreCase(downlineAccount)) {
                     return Integer.toString(jsonObject.getInt("userId"));
                 }
             }

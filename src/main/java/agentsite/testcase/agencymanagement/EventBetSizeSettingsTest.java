@@ -112,7 +112,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3565")
-    @Test(groups = {"regression_po"})
+    @Test(groups = {"regression_sat_po"})
     public void Agent_AM_Event_Bet_Site_Settings_3565() {
         log("@title:Validate Event Bet Size Settings display when login by PO levels");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -144,7 +144,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3567")
-    @Test(groups = {"regression_ag"})
+    @Test(groups = {"regression_sat_ag"})
     public void Agent_AM_Event_Bet_Site_Settings_3567() {
         log("@title:Verify Event Bet Size Settings NOT display when login with the level not is PO or Control Blocking Level");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -175,7 +175,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3569")
-    @Test(groups = {"regression_po"})
+    @Test(groups = {"regression_sat_po"})
     public void Agent_AM_Event_Bet_Site_Settings_3569() {
         log("@title: Verify UI on Event Bet Size Setting when login for PO level");
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
@@ -480,7 +480,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3584")
-    @Test(groups = {"regression_po"})
+    @Test(groups = {"regression_sat_po"})
     @Parameters({"portalSubAccount", "password"})
     public void Agent_AM_Event_Bet_Site_Settings_3584(String portalSubAccount, String password) throws Exception {
         log("@title:Verify Event Bet Size Setting at PO level is updated following SAD level");

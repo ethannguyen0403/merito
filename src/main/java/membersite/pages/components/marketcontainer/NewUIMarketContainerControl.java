@@ -57,7 +57,7 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
     private Tab tabManualOdds = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.CENTRAL_BOOKMAKER_TITLE));
     private Tab tabWicketBookmaker = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.WICKET_BOOKMAKER_TITLE));
     private Tab tabFancy = Tab.xpath(String.format("//div[contains(@class,'fancy-container')]//span[text()='%s']", MemberConstants.FANCY_TITLE));
-
+    public Tab tabMarketContainer = Tab.xpath("//app-event-page//div[@class='container-market-info']");
     public List<ArrayList<String>> getUIForeCast() {
         List<ArrayList<String>> forecastList = new ArrayList<>();
         int totalSelection = getTotalSelection();
@@ -396,5 +396,7 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
 
     public enum Status {NA, IN_PLAY, COMING}
 
-
+    public boolean isMarketInfoSectionDisplayed() {
+        return tabMarketContainer.isDisplayed();
+    }
 }

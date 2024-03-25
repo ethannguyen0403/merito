@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import static agentsite.pages.HomePage.waitingLoadingSpinner;
 import static common.AGConstant.AgencyManagement.SubUserListing.PERMISSIONS_ALL;
 
 public class SubUserPopup {
@@ -57,8 +58,10 @@ public class SubUserPopup {
         }
         if (isSubmit) {
             btnSubmit.click();
+            waitingLoadingSpinner();
         }
     }
+
 
  /*   public void enablePermission(HashMap<String, Boolean> permissions, List<String> permissionLst)
     {

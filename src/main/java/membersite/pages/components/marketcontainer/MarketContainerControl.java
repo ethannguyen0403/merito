@@ -91,4 +91,5 @@ public class MarketContainerControl {
     public void openFancyLadderForecast(FancyMarket fcMarket) {}
 
     public boolean isLadderForecastDisplay(FancyMarket fcMarket) {return false;}
+    public boolean isMarketInfoSectionDisplayed() {return false;}
 }

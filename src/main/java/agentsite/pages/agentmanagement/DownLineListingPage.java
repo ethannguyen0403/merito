@@ -18,8 +18,10 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
     public static Label lblLoginId = Label.xpath("//label[@for='username']");
     public static Label lblAccountStatus = Label.xpath("//label[@for='status']");
     public static Label lblLevel = Label.xpath("//label[@for='userLevel']");
+    private Button btnSubmit = Button.id("submitBtn");
+    private Button btnCancel = Button.id("cancelBtn");
     private static int totalColumn = 19;
-    public int loginIDCol = 3;
+    public static int loginIDCol = 3;
     public static int changePasswordCol = 9;
     public static int userCodeCol = 2;
     public static int accountStatusCol = 4;
@@ -68,11 +70,14 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
     public static int getUserCodeIndex(String userCode) {
         int index = 1;
         while (true) {
+            //find by userCode or loginId
             Link lnkUserCode = (Link) tblDowlineListing.getControlOfCell(1, userCodeCol, index, null);
-            if (!lnkUserCode.isDisplayed())
+            Link lnkUserLoginId = (Link) tblDowlineListing.getControlOfCell(1, loginIDCol , index, null);
+            if (!lnkUserCode.isDisplayed() && !lnkUserLoginId.isDisplayed())
                 return 0;
             String userCodeValue = lnkUserCode.getText().trim();
-            if (userCodeValue.equals(userCode)) {
+            String userLoginId = lnkUserLoginId.getText().trim();
+            if (userCodeValue.equals(userCode) || userLoginId.equals(userCode)) {
                 return index;
             }
             index = index + 1;
@@ -93,7 +98,17 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
     }
 
     public void submitEditDownline() {
-        downlineListing.submitEditDownline();
+        if (btnSubmit.isDisplayed()) {
+            btnSubmit.click();
+            waitingLoadingSpinner();
+        }
+    }
+
+    public void cancelEditDownline() {
+        if (btnCancel.isDisplayed()) {
+            btnCancel.click();
+            waitingLoadingSpinner();
+        }
     }
 
     public String getMessageUpdate(boolean isClose) {

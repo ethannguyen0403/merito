@@ -7,10 +7,7 @@ import com.paltech.utils.WSUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static baseTest.BaseCaseTest.domainURL;
 
@@ -20,7 +17,7 @@ public class BetSettingUtils {
         List<String> sportList = new ArrayList<String>(Arrays.asList(sports.split(",")));
         String api = String.format("%s/agent-services-new/betSetting/getBetSettingList", domainURL);
         String jsn = String.format("{\"currentPage\":1,\"numOfRows\":20,\"products\":\"%s\",\"filter\":{\"levelSearch\":\"ALL\",\"userId\":%s,\"userName\":\"%s\",\"status\":\"\",\"sports\":\"%s\"}}",
-                product, userID, userName, sports);
+                product, userID, userName, sports.toUpperCase());
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
 //        JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET,DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {

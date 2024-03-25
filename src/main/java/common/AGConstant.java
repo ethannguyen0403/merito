@@ -6,6 +6,8 @@ import static baseTest.BaseCaseTest._brandname;
 
 public class AGConstant {
     public final static String SPORT_CRICKET = "Cricket";
+    public final static String SPORT_SOCCER = "Soccer";
+    public final static String SPORT_TENNIS = "Tennis";
     public final static String NO_RECORD_FOUND = "No records found.";
     public final static String NO_RESULT_FOUND = "No results found";
     public final static String timeZone = "GMT-4";
@@ -292,6 +294,7 @@ public class AGConstant {
             public final static String LBL_EMAIL = "Email";
             public final static String LBL_FAX = "Fax";
             public final static String LBL_BASE_CURRENCY = "Base Currency";
+            public final static String LBL_ALLOW_PARTIAL_TRANSFER = "Allow Partial Transfer";
             public final static String LBL_ALLOW_AG_EXTRA = "Allow AG Extra PT";
             public final static String LBL_ALLOW_PL_EXTRA = "Allow PL Extra PT";
             public final static String LBL_INITIATION_DEPOSIT = "Initiation Deposit";
@@ -315,7 +318,7 @@ public class AGConstant {
             public final static String LBL_POSITION_TAKING = "Position Taking";
             public final static String LBL_ACCOUNT_BALANCE_TRANSFER_CONDITION = "Account Balance Transfer Condition";
 
-            public final static List<String> LST_TAX_SETTING_HEADER_NEWUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball",  "Fancy", "Decimal Cricket", "Virtual Cricket","Other");
+            public final static List<String> LST_TAX_SETTING_HEADER_NEWUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball",  "Fancy", "Virtual Cricket", "Decimal Cricket", "Other");
             public final static List<String> LST_TAX_SETTING_HEADER_OLDUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Virtual Cricket", "Decimal Cricket","Other");
             public final static List<String> LST_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket","Fancy", "Virtual Cricket", "Decimal Cricket", "Bookmaker", "Tennis", "Basketball", "Other");
             public final static List<String> LST_BET_SETTING_OPTION = Arrays.asList("Min Bet", "Max Bet", "Max Liability Per Market", "Max Win Per Market");
@@ -356,7 +359,7 @@ public class AGConstant {
             public final static String MSG_INVALID_MAX_PLAYER_CREDIT = "Member Max Credit is invalid.";
             public final static String MSG_EDIT_DOWNLINE_SUCCESS = "Downline was updated successfully";
             public final static String MSG_EDIT_MEMBER_SUCCESS = "Member was updated successfully";
-            public final static String MSG_ALL_PRODUCT_NOT_SELECT = "There has to be at least one active product";
+            public final static String MSG_ALL_PRODUCT_NOT_SELECT = "There has to be at least one active product.";
         }
 
         public static class CreateUser {
@@ -381,9 +384,8 @@ public class AGConstant {
             public final static String TAX_SETTING = "Tax Settings";
             public final static String POSITION_TAKING_SETTING = "Position Taking";
             public final static List<String> LST_PRODUCTS = Arrays.asList("Exchange", "CMD Sportsbook", "Supernowa Casino", "Exchange Games", "Live Dealer European", "Live Dealer Asian", "Evolution", "Pragmatic", "Game Hall", "ViVo", "Ion", "Sabong");
-            public final static List<String> EX_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Fancy" ,"Bookmaker","Tennis", "Basketball", "Other");
-            public final static List<String> EX_TAX_SETTING_HEADER_SAT = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Other");
-            public final static List<String> EX_TAX_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Other");
+            public final static List<String> EX_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Fancy" ,"Virtual Cricket", "Decimal Cricket","Bookmaker","Tennis", "Basketball", "Other");
+            public final static List<String> EX_TAX_SETTING_HEADER_OLDUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Virtual Cricket","Decimal Cricket","Other");
             public final static List<String> EX_POSITION_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other");
             public final static List<String> BET_SETTING_COLUMN = Arrays.asList("Min Bet", "Max Bet", "Max Liability Per Market", "Max Win Per Market");
             public final static List<String> EG_BET_TAX_PT_SETTING_HEADER_OLDUI = Arrays.asList("", "Exchange Baccarat", "Exchange BlackJack", "Exchange Card Racer", "Exchange Hi Lo", "Exchange Texas Hold'em", "Exchange Omaha Hi", "Other");
@@ -741,7 +743,8 @@ public class AGConstant {
         public static class WinLossSimple {
             public final static String HOME_TITLE = "Senior Master Agent:";
             public final static List<String> DDB_PRODUCT = Arrays.asList("Exchange", "Live Dealer European", "Fancy", "Live Dealer Asian", "Exchange Games");
-            public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Username", "Nickname", "Upline", "Currency", "Win/Loss", "Total Tax/Comm");
+            public final static List<String> TABLE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Upline", "Currency", "Win/Loss", "Total Tax/Comm");
+            public final static List<String> TABLE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Upline", "Win/Loss", "Total Tax/Comm");
 
         }
 

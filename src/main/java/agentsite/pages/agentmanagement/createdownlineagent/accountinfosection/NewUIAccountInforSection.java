@@ -53,7 +53,7 @@ public class NewUIAccountInforSection extends AccountInforSection {
             txtPassword.sendKeys(password);
         }
         if (!accountStatus.isEmpty())
-            ddrAccountStatus.selectByVisibleText(accountStatus);
+            ddrAccountStatus.selectByVisibleText(org.apache.commons.lang3.StringUtils.capitalize(accountStatus.toLowerCase()));
 
     }
 

@@ -168,8 +168,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("Step 6 Login member site and check the line market");
         loginMember(memberAccount, password);
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
-        MarketPage marketPage = sportPage.leftMenu.searchEvent(market.getEventName(), true);
-        marketPage.leftMenu.clickMarket(market.getMarketName());
+        MarketPage marketPage = sportPage.clickEventName(market.getEventName());
 
         log("Verify 1. Line market is unsuspend, odds is clickable");
         Assert.assertTrue(marketPage.marketOddControl.lblSuspend.isDisplayed(), "Failed the market does not suspend after suspend event in agent site");
@@ -203,8 +202,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("Step 6 Login member site and check the line market");
         loginMember(memberAccount, password);
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
-        MarketPage marketPage = sportPage.leftMenu.searchEvent(market.getEventName(), true);
-        marketPage.leftMenu.clickMarket(market.getMarketName());
+        MarketPage marketPage = sportPage.clickEventName(market.getEventName());
 
         log("Verify Line market is unsuspend, odds is clickable");
         Assert.assertFalse(marketPage.marketOddControl.lblSuspend.isDisplayed(), "Failed the market does not suspend after suspend event in agent site");
@@ -289,8 +287,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("Step 3 Login member site and active the line market");
         loginMember(memberAccount, password);
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
-        MarketPage marketPage = sportPage.leftMenu.searchEvent(market.getEventName(), true);
-        marketPage.leftMenu.clickMarket(market.getMarketName());
+        MarketPage marketPage = sportPage.clickEventName(market.getEventName());
 
         log("Verify the line markets of the event still suspended");
         Assert.assertTrue(marketPage.marketOddControl.lblSuspend.isDisplayed(), "Failed the market does not suspend after suspend event in agent site");

@@ -53,7 +53,6 @@ public class BetsSlipContainer {
      */
     public Order getBet(int index) {
         return null;
-
     }
 
     public void clearAll() {
@@ -83,4 +82,6 @@ public class BetsSlipContainer {
     public boolean isErrorDisplayed(Label label, String errorMessage) {
         return false;
     }
+
+    public void clickSubmit() {}
 }

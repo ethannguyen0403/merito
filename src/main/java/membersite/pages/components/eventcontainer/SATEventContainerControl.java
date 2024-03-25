@@ -173,6 +173,7 @@ public class SATEventContainerControl extends EventContainerControl {
                 i = 1 + rand.nextInt((lstTotal - 1) + 1);
                 xpathEvent = String.format("(%s)[%s]", lblListEventXPath, i);
                 lnkEventName = Link.xpath(xpathEvent);
+                lnkEventName.scrollToThisControl(true);
                 if (!lnkEventName.isPresent(2)) {
                     return null;
                 }

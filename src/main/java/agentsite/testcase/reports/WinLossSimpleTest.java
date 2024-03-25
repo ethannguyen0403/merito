@@ -11,10 +11,6 @@ import util.testraildemo.TestRails;
 
 import java.util.List;
 
-import static common.AGConstant.BTN_SUBMIT;
-import static common.AGConstant.Report.*;
-import static common.AGConstant.Report.WinLossSimple.TABLE_HEADER;
-
 public class WinLossSimpleTest extends BaseCaseTest {
 
     @TestRails(id = "3736")
@@ -31,20 +27,14 @@ public class WinLossSimpleTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3737")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void Agent_Report_WinLossSimple_3737() {
         log("@title: Validate Win Loss Simple UI display correctly");
         log("Step 1: Navigate Report > Win Loss Simple");
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
 
         log("Step 1. Verify Win Loss Simple UI display correctly");
-//        Assert.assertEquals(page.header.lblPageTitle.getText(), WIN_LOSS_SIMPLE_OLDUI, "Failed! Page title is incorrect");
-        Assert.assertEquals(page.btnToday.getText(), BTN_TODAY, "Failed! Today button is incorrect");
-        Assert.assertEquals(page.btnYesterday.getText(), BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
-        Assert.assertEquals(page.btnLastWeek.getText(), LAST_WEEK, "Failed! Last Week button is incorrect");
-        Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "Failed! Submit button is incorrect");
-        Assert.assertEquals(page.lblYouCanSeeReportData.getText(), LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS, "Failed! Submit button is incorrect");
-        Assert.assertEquals(page.tblSMA.getColumnNamesOfTable(), TABLE_HEADER, "FAILED! Header title is incorrect");
+        page.verifyUIDisplaysCorrect();
 
         log("INFO: Executed completely");
     }
@@ -112,7 +102,7 @@ public class WinLossSimpleTest extends BaseCaseTest {
         WinLossSimplePage page = agentHomePage.navigateWinLossSimplePage();
 
         log("Step 2: Get all products in dropdown");
-        List<String> lstProduct = page.ddbProduct.getAllOption(true);
+        List<String> lstProduct = page.winLossSimple.ddbProduct.getAllOption(true);
 
         log("Verify 1: Products display correct");
         Assert.assertTrue(lstAllProductsExpected.containsAll(lstProduct), String.format("FAILED! List product is incorrect. Actual: %s, Expected: %s",lstProduct, lstAllProductsExpected));

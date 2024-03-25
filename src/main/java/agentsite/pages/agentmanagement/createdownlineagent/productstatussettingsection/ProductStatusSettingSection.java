@@ -133,4 +133,15 @@ public class ProductStatusSettingSection {
         return lstProduct;
     }
 
+    public void updateAllProducts(boolean isActive) {
+        CheckBox chbProduct;
+        List<String> lstProducts = getProductsTabs();
+        for (int i = 0; i < lstProducts.size() ; i++) {
+            chbProduct = CheckBox.xpath(String.format(cbProdudctXpath, lstProducts.get(i)));
+            boolean isCheck = chbProduct.isSelected();
+            if(!isCheck == isActive)
+                chbProduct.click();
+        }
+    }
+
 }

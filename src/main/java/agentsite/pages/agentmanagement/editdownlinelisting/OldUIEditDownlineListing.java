@@ -12,8 +12,8 @@ import java.util.List;
 
 public class OldUIEditDownlineListing extends EditDownlineListing {
     private TextBox txtEmail = TextBox.xpath("//input[contains(@class,'extended-email')]");
-    private int totalTaxSettingsColumns = 7;
-    private int totalPositionTakingColumns = 9;
+    private int totalTaxSettingsColumns = 8;
+    private int totalPositionTakingColumns = 13;
     private Button btnCloseAlert = Button.xpath("//app-comfirm//button[@class='close']");
     private Table tblTaxSettings = Table.xpath("//div[@id='EXCHANGE-tax-settings']//table[contains(@class,'betTable')]", totalTaxSettingsColumns);
     private Table tblPositionTakingListing = Table.xpath("//div[@id='EXCHANGE-position-taking']//table[contains(@class,'ptable info betTable')]", totalPositionTakingColumns);
@@ -48,7 +48,6 @@ public class OldUIEditDownlineListing extends EditDownlineListing {
         Assert.assertEquals(lstInfo.get(5), AGConstant.AgencyManagement.CreateAccount.LBL_LAST_NAME, "FAILED! Phone display incorrect");
         Assert.assertEquals(lstInfo.get(6), AGConstant.AgencyManagement.CreateAccount.LBL_MOBILE, "FAILED! Mobile display incorrect");
         Assert.assertTrue(accountInforSection.txtPassword.isDisplayed(), "FAILED! Password textbox does not display");
-//        Assert.assertTrue(ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box does not display");
         Assert.assertTrue(accountInforSection.txtFirstName.isDisplayed(), "FAILED! First Name textbox does not display");
         Assert.assertTrue(accountInforSection.txtLastName.isDisplayed(), "FAILED! Last Name textbox does not display");
         Assert.assertTrue(accountInforSection.txtMobile.isDisplayed(), "FAILED! Mobile textbox does not display");

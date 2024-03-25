@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class MarketDetailsPopup {
-    public TextBox txtMarketName = TextBox.xpath("//input[contains(@class,'input-market-name')]");
+    public TextBox txtMarketName = TextBox.xpath("//app-popup-detail-events//input[contains(@class,'input-market-name')]");
     private int totalCol = 2;
     private int colMarketName = 1;
     private int colStatus = 2;

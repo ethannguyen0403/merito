@@ -63,10 +63,9 @@ public class DownLineListingUtils {
         return lstUsers;
     }
 
-    public static List<String> getDownLineUsers(String loginID) {
-        List<String> lstUsers = new ArrayList<>();
+    public static AccountInfo getDownLineUsers(String loginID, String userName) {
         String api = String.format("%s/agent-services/user/sad-downline-list", domainURL);
-        String jsn = String.format("{\"userName\":\"%s\",\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":20}", loginID, DateUtils.getMilliSeconds());
+        String jsn = String.format("{\"userName\":\"%s\",\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":20}", userName, loginID, DateUtils.getMilliSeconds());
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("pageInfo")) {
@@ -74,11 +73,20 @@ public class DownLineListingUtils {
                 JSONArray arrItems = jsnPageInfo.getJSONArray("items");
                 for (int i = 0; i < arrItems.length(); i++) {
                     JSONObject item = arrItems.getJSONObject(i);
-                    lstUsers.add(item.getString("userCode"));
+                    AccountInfo a = new AccountInfo.Builder()
+                            .userID(Integer.toString(item.getInt("userId")))
+                            .userCode(item.getString("userCode"))
+                            .loginID(item.getString("nickname"))
+                            .parentID(Integer.toString(item.getInt("parentId")))
+                            .level(item.getString("level"))
+                            .currencyCode(item.getString("currencyCode"))
+                            .status(item.getString("myStatus"))
+                            .build();
+                    return a;
                 }
             }
         }
-        return lstUsers;
+        return null;
     }
 
     public static List<AccountInfo> getDownLineUsers(String loginID, String level, String brandname) {
@@ -129,32 +137,32 @@ public class DownLineListingUtils {
         return lstUsers;
     }
 
-    public static List<AccountInfo> getAllDriectMember(String brandName, String loginID) {
-        List<AccountInfo> lstUsers = new ArrayList<>();
-        String api = defineAPIUrl(brandName);
-        String jsn = String.format("{\"userName\":\"\",\"loginId\":%s,\"isAgentOnly\":false,\"accStatus\":\"ACTIVE\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", loginID, DateUtils.getMilliSeconds());
-        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
-        if (Objects.nonNull(jsonObject)) {
-            if (jsonObject.has("pageInfo")) {
-                JSONObject jsnPageInfo = jsonObject.getJSONObject("pageInfo");
-                JSONArray arrItems = jsnPageInfo.getJSONArray("items");
-                for (int i = 0; i < arrItems.length(); i++) {
-                    JSONObject item = arrItems.getJSONObject(i);
-                    AccountInfo a = new AccountInfo.Builder()
-                            .userID(Integer.toString(item.getInt("userId")))
-                            .userCode(item.getString("userCode"))
-                            .loginID(item.getString("nickname"))
-                            .parentID(Integer.toString(item.getInt("parentId")))
-                            .level(item.getString("level"))
-                            .currencyCode(item.getString("currencyCode"))
-                            .status(item.getString("status"))
-                            .build();
-                    lstUsers.add(a);
-                }
-            }
-        }
-        return lstUsers;
-    }
+//    public static List<AccountInfo> getAllDriectMember(String brandName, String loginID) {
+//        List<AccountInfo> lstUsers = new ArrayList<>();
+//        String api = defineAPIUrl(brandName);
+//        String jsn = String.format("{\"userName\":\"\",\"loginId\":%s,\"isAgentOnly\":false,\"accStatus\":\"ACTIVE\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", loginID, DateUtils.getMilliSeconds());
+//        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+//        if (Objects.nonNull(jsonObject)) {
+//            if (jsonObject.has("pageInfo")) {
+//                JSONObject jsnPageInfo = jsonObject.getJSONObject("pageInfo");
+//                JSONArray arrItems = jsnPageInfo.getJSONArray("items");
+//                for (int i = 0; i < arrItems.length(); i++) {
+//                    JSONObject item = arrItems.getJSONObject(i);
+//                    AccountInfo a = new AccountInfo.Builder()
+//                            .userID(Integer.toString(item.getInt("userId")))
+//                            .userCode(item.getString("userCode"))
+//                            .loginID(item.getString("nickname"))
+//                            .parentID(Integer.toString(item.getInt("parentId")))
+//                            .level(item.getString("level"))
+//                            .currencyCode(item.getString("currencyCode"))
+//                            .status(item.getString("status"))
+//                            .build();
+//                    lstUsers.add(a);
+//                }
+//            }
+//        }
+//        return lstUsers;
+//    }
 
     public static AccountInfo getAccountInfoInList(List<AccountInfo> lstAccount, String userName) {
         for (AccountInfo acc : lstAccount) {
@@ -171,19 +179,19 @@ public class DownLineListingUtils {
         return WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);//,DriverManager.getDriver().getCookies().toString());
     }
 
-    public static JSONObject getBalanceInfoJSONObj() {
-        JSONObject jsonObject = getListingCreditCashBalance();
-        if (Objects.nonNull(jsonObject)) {
-            if (jsonObject.has("extraInfo")) {
-                JSONObject extraInfoObj = jsonObject.getJSONObject("extraInfo");
-                if (jsonObject.has("sub")) {
-                    return extraInfoObj.getJSONObject("sub");
-                }
-            }
-        }
-        System.err.println("ERROR: jsonObject is null at getListingCreditCashBalance");
-        return null;
-    }
+//    public static JSONObject getBalanceInfoJSONObj() {
+//        JSONObject jsonObject = getListingCreditCashBalance();
+//        if (Objects.nonNull(jsonObject)) {
+//            if (jsonObject.has("extraInfo")) {
+//                JSONObject extraInfoObj = jsonObject.getJSONObject("extraInfo");
+//                if (jsonObject.has("sub")) {
+//                    return extraInfoObj.getJSONObject("sub");
+//                }
+//            }
+//        }
+//        System.err.println("ERROR: jsonObject is null at getListingCreditCashBalance");
+//        return null;
+//    }
 
 
     public static List<AccountInfo> getCashCreditListing() {
@@ -274,4 +282,5 @@ public class DownLineListingUtils {
         System.err.println("ERROR: jsonObject is null at getCashCreditListing");
         return -1.0;
     }
+
 }

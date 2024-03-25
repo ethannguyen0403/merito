@@ -67,7 +67,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         String toDate = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
         winLossSimplePage.dpFrom.selectDate(fromDate,"yyyy-MM-dd");
         winLossSimplePage.dpTo.selectDate(toDate,"yyyy-MM-dd");
-        winLossSimplePage.btnSubmit.click();
+        winLossSimplePage.winLossSimple.btnSubmit.click();
         log("@pre-condition 3: Get Win/Loss and Total tax/comm of any player: for example Win/Loss: 0.90, 0.00, and Total tax/comm");
         List<ArrayList<String>> winner = winLossSimplePage.winLossSimple.getListWinnerInfor();
         log("Step 1. Navigate Report > Top Gainers & Top Losers");
@@ -112,7 +112,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         String toDate = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
         winLossSimplePage.dpFrom.selectDate(fromDate,"yyyy-MM-dd");
         winLossSimplePage.dpTo.selectDate(toDate,"yyyy-MM-dd");
-        winLossSimplePage.btnSubmit.click();
+        winLossSimplePage.winLossSimple.btnSubmit.click();
         log("@pre-condition 3: Get Win/Loss and Total tax/comm of any player has settled Lose < 0: for example Win/Loss: -0.90, 0.00, and Total tax/comm");
         List<ArrayList<String>> losers = winLossSimplePage.winLossSimple.getListLoserInfor();
         log("Step 1. Navigate Report > Top Gainers & Top Losers");

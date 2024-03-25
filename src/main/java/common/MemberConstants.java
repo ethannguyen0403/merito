@@ -375,7 +375,8 @@ public class MemberConstants {
         public final static String VALIDATE_STAKE_NOT_VALID = "The stake must be from %s to %s. Current Stake is %s";
         public final static String VALIDATE_STAKE_NOT_VALID_ARTEMIS = "The stake must be from %s to %s, and max profit/loss should not be greater than %s. Current Stake is %s";
         public final static String ERROR_STAKE_NOT_VALID = "Error :Cannot place bet. The stake must be from %s to %s. Current Stake is %s";
-        public final static String ERROR_EXCEED_LIABILITY = String.format("Error :Cannot place bet. The total liability exceeds max amount that is allowed per market. Total Exposure Per Market is %.2f. Max Allowed Per Market is %.2f.");
+        public final static String ERROR_EXCEED_MAX_LIABILITY = "Error: Cannot place bet. The total liability exceeds max amount that is allowed per market. Total Exposure Per Market is %s. Max Allowed Per Market is %.2f.";
+        public final static String ERROR_EXCEED_MAX_WIN = "Error: Bet is not accepted. The Total Win amount exceeds Max Total Win amount allowed per market. Your Total Win per market is : %s, Max Win Allowed per market is: %.2f.";
         public final static String ERROR_INSUFFICIENT_BALANCE = "Error: Cannot place bet. Your Main balance is insufficient.";
         public final static String ERROR_INSUFFICIENT_BALANCE_OLD_UI = "Error: Cannot place bet. Your Main balance is insufficient.";
         public final static String ERROR_SELECTION_UNAVAILABLE = "Error :This selection is not available.";
