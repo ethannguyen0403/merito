@@ -47,6 +47,7 @@ public class WagerResettlementPage extends LeftMenu {
         if (!product.isEmpty())
             ddbProduct.selectByVisibleText(product);
         btnSubmit.click();
+        waitSpinIcon();
     }
 
     public void searchByMarket(String marketID) {

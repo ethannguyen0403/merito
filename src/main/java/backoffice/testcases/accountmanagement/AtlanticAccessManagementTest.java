@@ -55,7 +55,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
      * 4. Verify cannot login Atlantic site when account is deleted form Atlantic Access Management page
      */
     @TestRails(id = "623")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"username", "password", "atlanticAccount", "memberPassword"})
     public void BO_Account_Management_Atlantic_Access_Management_623(String username, String password, String atlanticAccount, String memberPassword) throws Exception {
         log("@title: Validate can account is added/deleted to the list can access/un-access Atlantic site");
@@ -116,7 +116,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
      * 2. Can login Fairenter when the account is removed out Atlantice list
      */
     @TestRails(id = "624")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     @Parameters({"username", "atlanticAccount", "password", "memberPassword"})
     public void BO_Account_Management_Atlantic_Access_Management_624(String username, String atlanticAccount, String password, String memberPassword) throws Exception {
         log("@title: Validate can/cannot login Fairenter if account is non-display/display in Atlantic site");
