@@ -1,10 +1,8 @@
 package agentsite.pages.agentmanagement.proteus.createdownlineagent.commissionsettingsection;
 
 
-import com.paltech.element.common.Button;
-import com.paltech.element.common.CheckBox;
-import com.paltech.element.common.DropDownBox;
-import com.paltech.element.common.Label;
+import com.paltech.element.common.*;
+import controls.Table;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +14,16 @@ public class CommissionSectionPS38 {
     public DropDownBox ddbOddsGroup = DropDownBox.xpath("//div[@id='PROTEUS-commission-settings']//div[contains(text(), 'Odds Group')]/select");
     public CheckBox chkApply = CheckBox.xpath("//div[@id='PROTEUS-commission-settings']//input");
     public Label lblApply = Label.xpath("//div[@id='PROTEUS-commission-settings']//label/span");
+    //Isa improve
+    public Label lblCommission = Label.xpath("//div[contains(@id, 'PROTEUS-commission-settings')]/div[contains(@class, 'psection')]");
+    private Icon icCommissionCollapseExpand = Icon.xpath("//div[contains(@id, 'PROTEUS-commission-settings')]/div[contains(@class, 'psection')]//i");
+    private Label lblApplySoccerGamesSettingtoOther = Label.xpath("//div[contains(@id, 'PROTEUS-commission-settings')]/label//span");
+    private CheckBox cbApplySoccerGamesSettingtoOther = CheckBox.xpath("//div[contains(@id, 'PROTEUS-commission-settings')]/label//input");
+    int totalColCommissionGroup = 6;
+    private Table tblCommissionGroup = Table.xpath("//div[contains(@id, 'PROTEUS-commission-settings')]//table",totalColCommissionGroup);
+    DropDownBox ddpOddsGroup = DropDownBox.xpath("//");
+
+    //End Isa
 
     public String getAccountType(){
         return _accountType;
@@ -74,4 +82,19 @@ public class CommissionSectionPS38 {
         }
     }
 
+
+    ////
+
+    /**
+     * Expand or collapse Commission Section
+     * @param isExpanded : input value = true: expand, input value = false -> colapse
+     */
+    public void expandCollapseCommissionSection( boolean isExpanded) {
+        String attribute = icCommissionCollapseExpand.getAttribute("class");
+        boolean isConmmissionExpanded = attribute.contains("fa-chevron-up");
+        if (isExpanded != isConmmissionExpanded) {
+            lblCommission.click();
+        }
+    }
+    /////
 }

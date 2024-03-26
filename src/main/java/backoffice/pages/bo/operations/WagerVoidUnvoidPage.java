@@ -8,6 +8,7 @@ import backoffice.pages.bo.operations.component.VoidUnvoidRemarkPopup;
 import com.paltech.element.common.*;
 import membersite.objects.AccountBalance;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WagerVoidUnvoidPage extends HomePage {
@@ -192,6 +193,9 @@ public class WagerVoidUnvoidPage extends HomePage {
         return returnBal;
     }
 
+    public List<ArrayList<String>> getFristWagerInfo(){
+        return tblWager.getRowsWithoutHeader(1,false);
+    }
     public enum ACTION {VOID, UNVOID, REMARK}
 
     public enum VOIDBY {WAGER, MARKET}

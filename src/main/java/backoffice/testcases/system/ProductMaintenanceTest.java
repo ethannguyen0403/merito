@@ -6,15 +6,12 @@ import backoffice.pages.bo.system.ProductMaintenancePage;
 import backoffice.pages.bo.system.productmaintenance.MaintenanceDetailsPopup;
 import backoffice.utils.system.ProductMaintenanceUtils;
 import baseTest.BaseCaseTest;
-import com.paltech.driver.DriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.List;
-
-import static common.MeritoConstant.MEMBER_SOS_URL_SUFFIX;
 
 public class ProductMaintenanceTest extends BaseCaseTest {
 
@@ -91,18 +88,14 @@ public class ProductMaintenanceTest extends BaseCaseTest {
         log("@title: Validate active product can display in member");
         log("Step 1: Navigate System > Product Maintenance");
         log("Step 2. Get all product in active status");
-        List<Product> lstProducts = ProductMaintenanceUtils.getProducts();
         ProductMaintenancePage page = backofficeHomePage.navigateProductMaintenance();
-        backofficeHomePage.logout();
+        boolean isActive = page.isProductActive("Exchange");
+        page.logout();
 
         log("Step 3. Login member site of any brands");
-        String brand = "satsport";
-        memberLoginURL = defineURL(brand, "t");
-        memberSOSUrl = defineURL(brand, MEMBER_SOS_URL_SUFFIX);
-        DriverManager.getDriver().get(memberLoginURL);
-        memberHomePage = loginMember(satMemberLoginID, memberPassword);
+        loginMember("satsport",satMemberLoginID,memberPassword);
         log("Verify 1. Verify the product is active in member site, not display maintenance page");
-        memberHomePage.header.isProductTabDisplay("Exchange");
+        Assert.assertEquals(isActive,memberHomePage.header.isProductTabDisplay("Exchange"),"Failed! The product display while maintenance is up");
         log("INFO: Executed completely");
     }
 
