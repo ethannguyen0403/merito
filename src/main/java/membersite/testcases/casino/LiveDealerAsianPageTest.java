@@ -30,9 +30,9 @@ public class LiveDealerAsianPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "20235")
+    @TestRails(id = "20236")
     @Test(groups = {"casino", "Casino.2024.V.1.0"})
-    public void Casino_Test_TC20235(){
+    public void Casino_Test_TC20236(){
         log("@title: Validate can open Live Dealer Asian game normally");
         log("@Precondition: Account has been activated Live Dealer Asian game in Agent Site");
         log("@Step 1: Login member site with precondition account");
@@ -45,10 +45,10 @@ public class LiveDealerAsianPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "20245")
+    @TestRails(id = "20247")
     @Test(groups = {"casino", "Casino.2024.V.1.0"})
     @Parameters({"BOLoginId", "BOLoginPwd", "currency"})
-    public void Casino_Test_TC20245(String BOLoginId, String BOLoginPwd, String currency) throws Exception {
+    public void Casino_Test_TC20247(String BOLoginId, String BOLoginPwd, String currency) throws Exception {
         log("@title: Validate balance in Live Dealer Asian game match with user's balance");
         log("@Precondition: Account has been activated Live Dealer Asian game in Agent Site" +
                 "The currency convert rate in BO(Provider Currency Mapping) between provider and supported currency is 1:1");

@@ -5,7 +5,7 @@
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="Casino.2024.V.1.0-FAIR999-STG">
+    <test name="Casino.2024.V.1.0-FAIR999-STG-Active">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
@@ -23,7 +23,7 @@
         <parameter name='brandname' value='fairexchange'/>
         <parameter name='BOLoginId' value='autoqa'/>
         <parameter name='BOLoginPwd' value='5pjguoEh1fnSILpykWt1vQ'/>
-        <parameter name='isAddTestRailResult' value='false'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="casino"/>

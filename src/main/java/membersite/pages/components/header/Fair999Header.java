@@ -211,11 +211,11 @@ public class Fair999Header extends Header1 {
         gameHallPage.waitFrameLoad();
         return gameHallPage;
     }
-
-//    Evolution whitecliff not available on fair999
-//    public EvolutionWhiteCliffPage openEvolutionWhiteCliff() {
-//        return new EvolutionWhiteCliffPage();
-//    }
+    @Override
+    public EvolutionWhiteCliffPage openEvolutionWhiteCliff() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION_WHITE_CLIFF"));
+        return new EvolutionWhiteCliffPage();
+    }
     @Override
     public VivoPage openVivo() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("VIVO"));
