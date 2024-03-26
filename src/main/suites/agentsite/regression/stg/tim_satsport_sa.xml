@@ -23,7 +23,7 @@
         <parameter name='currency' value='INR'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='satsport'/>
-        <parameter name='isAddTestRailResult' value='false'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="tim"/>
