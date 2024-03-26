@@ -115,7 +115,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3631")
-    @Test(groups = {"regression"})
+    @Test(groups = {"http_request"})
     public void Agent_AM_Commission_Setting_Listing_3631() {
         log("@title: Validate there is no http responded error returned");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");

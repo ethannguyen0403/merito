@@ -19,6 +19,7 @@ import util.testraildemo.TestRails;
 import java.util.List;
 
 import static common.AGConstant.MarketsManagement.BlockUnblockEvent.TABs;
+import static common.AGConstant.SPORT_SOCCER;
 
 public class BlockUnblockCompetitionsTest extends BaseCaseTest {
     /**
@@ -141,39 +142,35 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
      * @expect: 1. Verify the competition displays in Block/Unblock Event Report
      */
     @TestRails(id = "3705")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockCompetitions_TC3705(String downlineAccount) {
         log("@title: Verify Unblock competition display in Block unblock event page");
         AccountInfo acc = ProfileUtils.getProfile();
-        String sportName = "Soccer";
 
         log("Pre-condition: get a competition in Today Tab");
         BlockUnblockEventPage blockUnblockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
-        List<Event> event = blockUnblockEventPage.getEventAvailable(acc.getUserID(), downlineAccount, "", sportName, "");
+        List<Event> event = blockUnblockEventPage.getEventAvailable(acc.getUserID(), downlineAccount, "", SPORT_SOCCER, "");
         String activeTab = blockUnblockEventPage.getActiveTab();
         String competitionName = event.get(0).getCompetitionName();
-        com.paltech.driver.DriverManager.getDriver().switchToParentFrame();
 
         log("Step 1. Navigate Markets Management > Block/Unblock Competition");
 
         BlockUnblockCompetitionPage page = agentHomePage.navigateBlockUnblockCompetitionPage();
 
         log("Pre-condition Step: Block an competition");
-        page.blockUblockCompetition(sportName, downlineAccount, competitionName, true);
+        page.blockUblockCompetition(SPORT_SOCCER, downlineAccount, competitionName, true);
 
         log("Step 2. Select Sport");
         log("Step 3. Select downline then select a blocked competition");
         log("Step 4. Click on Unblock button");
         page.blockUblockCompetition("", "", competitionName, false);
 
-        com.paltech.driver.DriverManager.getDriver().switchToParentFrame();
-
         log("Verify 1. Verify Unblock competition display in Block unblock event page");
         blockUnblockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
-        blockUnblockEventPage.filter("", sportName, activeTab);
+        blockUnblockEventPage.filter("", SPORT_SOCCER, activeTab);
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
-        event = BlockUnblockEventsUtils.getEventList(sportName, childID, TABs.get(activeTab));
+        event = BlockUnblockEventsUtils.getEventList(SPORT_SOCCER, childID, TABs.get(activeTab));
         Assert.assertTrue(blockUnblockEventPage.isCompetitionExist(event, competitionName), "FAILED! Competition is not display in Block UnBlock Event page after unblocking");
 
         log("INFO: Executed completely");
