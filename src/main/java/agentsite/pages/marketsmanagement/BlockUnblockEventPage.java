@@ -507,6 +507,7 @@ public class BlockUnblockEventPage extends HomePage {
     public void searchEvent(String eventNameorID) {
         txtSearchByEventIDName.sendKeys(eventNameorID);
         txtSearchByEventIDName.type(false, Keys.ENTER);
+        waitingLoadingSpinner();
     }
 
     public MarketDetailsPopup openMarketDetails(String eventName) {
