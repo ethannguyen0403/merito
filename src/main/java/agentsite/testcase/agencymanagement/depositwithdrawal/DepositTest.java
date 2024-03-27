@@ -202,10 +202,10 @@ public class DepositTest extends BaseCaseTest {
                 String.format("ERROR: The expected success message is '%s' but found '%s'", AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_SUCCESSFUL, successMessage));
 
         log("Verify 2. Verify available balance of deposit account is updated");
-        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.03, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
-        Assert.assertEquals(expectedLoginAccountAvBalance, newYourCash, 0.03, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedLoginAccountAvBalance, newYourCash));
-        Assert.assertEquals(expectedLoginAccountAvBalance, newYourCashAfter, 0.03, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedLoginAccountAvBalance, newYourCashAfter));
-        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.03, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.01, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
+        Assert.assertEquals(expectedLoginAccountAvBalance, newYourCash, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedLoginAccountAvBalance, newYourCash));
+        Assert.assertEquals(expectedLoginAccountAvBalance, newYourCashAfter, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedLoginAccountAvBalance, newYourCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.01, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
 
         log("Step 4. Close Deposit popup");
         popup.clickCancelBtn();

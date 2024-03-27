@@ -1,6 +1,7 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
+import com.paltech.element.common.Label;
 import common.MemberConstants;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
@@ -13,7 +14,10 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.util.List;
 import java.util.Objects;
+
+import static common.AGConstant.*;
 
 public class MarketPageTest extends BaseCaseTest {
     @TestRails(id = "1074")
@@ -71,120 +75,78 @@ public class MarketPageTest extends BaseCaseTest {
 
     @TestRails(id = "980")
     @Test(groups = {"smoke"})
-    public void FE_BetSlipMyBet_003(){
+    public void FE_BetSlipMyBet_980(){
         log("@title: Validate Odds display correct when clicking on the corresponding odds of all Back selection");
         log("Step 1. Click on Home page and click on any event");
-        Assert.assertTrue(false,"Update this case");
-//        SportPage page =  memberHomePage.apLeftMenuControl.clickLeftMenuItem("Soccer",SportPage.class);
-//        Event event = page.eventContainerControl.getEventRandom(false,false);
-//        if(Objects.isNull(event)) {
-//            log("DEBUG: There is no event available");
-//            return;
-//        }
-//        page.clickEvent(event);
-//        page.marketContainerControl.waitControlLoadCompletely(5);
-//        Market market = page.marketContainerControl.getMarket(event,1,true);
-//        log("Step 2. Click on All Back Odds button of all selections");
-//        List<Label> lblBackOdds = page.marketContainerControl.getOddsListLabel(1,true);
-//        Order expectedOrder = new Order.Builder()
-//                .selectionName(market.getSelectionName())
-//                .build();
-//        log("Verify: Selection will be added in bet slip and Back odds value is corresponding updated");
-//        for(int i =0; i<lblBackOdds.size(); i++)
-//        {
-//           expectedOrder.setOdds(lblBackOdds.get(i).getText());
-//           lblBackOdds.get(i).click();
-//           Order bet = page.betSlipControl.getBet(0);
-//           Assert.assertEquals(bet.getSelectionName(),expectedOrder.getSelectionName(),String.format("ERROR: Expected selection name in bet slip is %s but found %s", expectedOrder.getSelectionName(), bet.getSelectionName()));
-//           Assert.assertEquals(bet.getOdds(),expectedOrder.getOdds(),String.format("ERROR: Expected Odds in bet slip is %s but found %s", expectedOrder.getOdds(), bet.getOdds()));
-//        }
-//        log("Verify: Only 1 bet added in bet slips when click on multiple Back Odds in the same selection ");
-//        int countBet = page.betSlipControl.getBet().size();
-//        Assert.assertTrue(countBet==1, String.format("ERROR: There are some bets(%d)added. Expected is 1",countBet));
-
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
+        Event event = sportPage.eventContainerControl.getEventRandom(true, false);
+        if(Objects.isNull(event)) {
+            log("DEBUG: There is no events available");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEvent(event);
+        List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsListLabel(true);
+        log("Step 2. Click on All Back Odds button of all selections");
+        log("Verify 1: Selection will be added in bet slip and Back odds value is corresponding updated");
+        marketPage.verifyAllSelectionDisplayOnBetSlip(event, lblBackOdds.size(), true);
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "981")
     @Test(groups = {"smoke"})
-    public void FE_BetSlipMyBet_004(){
+    public void FE_BetSlipMyBet_981(){
         log("@title: Validate Odds display correct when clicking on the corresponding odds of all Lay selections");
         log("Step 1. Click on Home page and click on any event");
-        Assert.assertTrue(false,"Update this case");
-//        SportPage page =  memberHomePage.apLeftMenuControl.clickLeftMenuItem("Soccer",SportPage.class);
-//        Event event = page.eventContainerControl.getEventRandom(false,false);
-//        if(Objects.isNull(event)) {
-//            log("DEBUG: There is no events available");
-//            return;
-//        }
-//        page.clickEvent(event);
-//        page.marketContainerControl.waitControlLoadCompletely(5);
-//        Market market = page.marketContainerControl.getMarket(event,1,false);
-//        Order expectedOrder = new Order.Builder()
-//                .selectionName(market.getSelectionName())
-//                .build();
-//
-//        log("Step 2. Click on All Lay Odds button of all selections");
-//        log("Verify 1: Selection will be added in bet slip and Lay odds is corresponding updated");
-//        List<Label> lblLayOdds = page.marketContainerControl.getOddsListLabel(1,false);
-//        for(int i =0; i<lblLayOdds.size(); i++)
-//        {
-//            expectedOrder.setOdds(lblLayOdds.get(i).getText());
-//            lblLayOdds.get(i).click();
-//            Order bet = page.betSlipControl.getBet(0);
-//            Assert.assertEquals(bet.getSelectionName(),expectedOrder.getSelectionName(),String.format("ERROR: Expected selection name in bet slip is %s but found %s", expectedOrder.getSelectionName(), bet.getSelectionName()));
-//            Assert.assertEquals(bet.getOdds(),expectedOrder.getOdds(),String.format("ERROR: Expected Odds in bet slip is %s but found %s", expectedOrder.getOdds(), bet.getOdds()));
-//        }
-//        log("Verify 2: Only 1 bet added in bet slips when click on multiple Back Odds in the same selection ");
-//        int countBet = page.betSlipControl.getBet().size();
-//        Assert.assertTrue(countBet==1, String.format("ERROR: There are some bets(%d)added. Expected is 1",countBet));
-
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
+        Event event = sportPage.eventContainerControl.getEventRandom(true, false);
+        if(Objects.isNull(event)) {
+            log("DEBUG: There is no events available");
+            return;
+        }
+        MarketPage marketPage = sportPage.clickEvent(event);
+        List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsListLabel(false);
+        log("Step 2. Click on All Lay Odds button of all selections");
+        log("Verify 1: Selection will be added in bet slip and Lay odds value is corresponding updated");
+        marketPage.verifyAllSelectionDisplayOnBetSlip(event, lblBackOdds.size(), false);
+        if(Objects.isNull(event)) {
+            log("DEBUG: There is no events available");
+            return;
+        }
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "983")
     @Test(groups = {"smoke"})
-    public void FE_BetSlipMyBet_008() {
+    public void FE_BetSlipMyBet_983() {
         log("@title: Validate Clear All button works");
-        log("Step 1. Click on any event and click on any odds");
-        Assert.assertTrue(false,"Update this case");
-//        SportPage page =  memberHomePage.apLeftMenuControl.clickLeftMenuItem("Soccer",SportPage.class);
-//        Event event = page.eventContainerControl.getEventRandom(false,false);
-//        if(Objects.isNull(event)) {
-//            log("DEBUG: There is no event available");
-//            return;
-//        }
-//        page.clickEvent(event);
-//        page.marketContainerControl.waitControlLoadCompletely(5);
-//        page.marketContainerControl.getMarket(event,1,true).getBtnOdd().click();
-//
-//        log("Step 2. Click on Clear all button");
-//        page.betSlipControl.clearAll();
-//
-//        log("Verify: 1. All bet in bet slip is cleared");
-//        Assert.assertEquals(page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
+        log("Step 1: Click on any event");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
+        Event event = sportPage.eventContainerControl.getEventRandom(true, false);
+        if(Objects.isNull(event)) {
+            log("DEBUG: There is no events available");
+            return;
+        }
+        log("Step 2: Click on any odds");
+        MarketPage marketPage = sportPage.clickEvent(event);
+        marketPage.verifyAllSelectionDisplayOnBetSlip(event, 1, true);
+        log("Step 3: Click on Clear all button");
+        marketPage.betsSlipContainer.clearAll();
+        log("Verify 1: All bet in bet slip is cleared");
+        Assert.assertEquals(marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
         log("INFO: Executed Completely!");
     }
 
     @TestRails(id = "984")
     @Test(groups = {"smoke"})
-    public void FE_BetSlipMyBet_010() {
+    public void FE_BetSlipMyBet_984() {
         log("@title:  Validate default message display when there is no  bet");
         log("Step 1. Click on any event to open market page");
-        Assert.assertTrue(false,"Update this case");
-//        SportPage page =  memberHomePage.apLeftMenuControl.clickLeftMenuItem("Soccer",SportPage.class);
-//        Event event = page.eventContainerControl.getEventRandom(false,false);
-//
-//        if(Objects.isNull(event)) {
-//            log("DEBUG: There is no event available");
-//            return;
-//        }
-//        page.clickEvent(event);
-//        page.betSlipControl.lblNoBetInBetSlipMessage.isTextDisplayed("Constants.BetSlip.SMG_BET_SLIP_EMPTY",3);
-//
-//        log("Verify: 1. Bet Slip display the message \"Click on the odds to add selection to the Bet Slip.");
-//        Assert.assertEquals(page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",page.betSlipControl.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
-
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
+        Event event = sportPage.eventContainerControl.getEventRandom(true, false);
+        log("Step 2: Click on any odds");
+        MarketPage marketPage = sportPage.clickEvent(event);
+        log("Verify 1: Bet Slip display the message \"Click on the odds to add selection to the Bet Slip.\"");
+        Assert.assertEquals(marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
         log("INFO: Executed Completely!");
     }
 

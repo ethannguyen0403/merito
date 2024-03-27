@@ -155,6 +155,7 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
         return Label.xpath(String.format("%s%s", lblSelectionListXPath, lblSelectionName)).getWebElements().size();
     }
 
+    @Override
     public List<Label> getOddsListLabel(String marketName, int selectionIndex, boolean isBack) {
         List<Label> list = new ArrayList<>();
        // String xPathOddsList = String.format("(%s)[%d]%s", lblSelectionListXPath, selectionIndex, lblOddListXPath);
