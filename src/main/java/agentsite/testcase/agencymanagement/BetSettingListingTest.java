@@ -113,7 +113,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "745")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_AM_Bet_Setting_Listing_745() {
         log("@title: Verify update bet setting with valid max bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");

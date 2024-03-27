@@ -94,7 +94,7 @@ public class WinLossSimpleTest extends BaseCaseTest {
     }
 
     @TestRails(id = "793")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_Report_WinLossSimple_793() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Simple");

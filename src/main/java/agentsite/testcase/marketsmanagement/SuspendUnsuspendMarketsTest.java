@@ -143,7 +143,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3718")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction", "nolan"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC3718(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Line market in member site is suspend ");
@@ -177,7 +177,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3719")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction", "nolan"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC3719(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Line market in member site is unsuspend ");
@@ -260,9 +260,9 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
 //        log("INFO: Executed completely");
 //    }
     @TestRails(id = "3721")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction", "nolan"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC321(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_SuspendUnsuspendMarkets_TC3721(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Suspend function in Block Unblock Event will override setting in Suspend/Unsuspend Market page");
         log("Step precondition 1: Login agent by direct agent at control blocking");
         String sportName = "Cricket";
@@ -303,7 +303,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3723")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction", "nolan"})
     @Parameters({"downlineAccount", "password"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC3723(String downlineAccount, String password) throws Exception {
         log("@title: Agent level only level under control blocking can see the menu");

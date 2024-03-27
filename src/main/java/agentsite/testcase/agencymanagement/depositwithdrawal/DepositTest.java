@@ -168,7 +168,7 @@ public class DepositTest extends BaseCaseTest {
      * 2. Verify available balance of deposit account is updated
      */
     @TestRails(id = "724")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_Deposit_724() {
         log("@title: Validate can deposited successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -230,7 +230,7 @@ public class DepositTest extends BaseCaseTest {
      * 2. Verify Balance is updated correctly
      */
     @TestRails(id = "725")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_Deposit_725() throws InterruptedException {
         log("@title: Validate can multiple deposit by click on Deposit button");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -303,7 +303,7 @@ public class DepositTest extends BaseCaseTest {
     }
 
     @TestRails(id = "727")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_Deposit_727() {
         log("@title: Validate can deposited by Win/Loss Settle successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();

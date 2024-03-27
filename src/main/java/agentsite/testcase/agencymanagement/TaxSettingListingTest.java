@@ -65,7 +65,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify Login display in the result table
      */
     @TestRails(id = "749")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_AM_Tax_Setting_Listing_749() {
         log("@title: Verify can search downline by Login ID");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
@@ -96,7 +96,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify tax is updated for all sport and Update status is display green check
      */
     @TestRails(id = "750")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_AM_Tax_Setting_Listing_750() {
         log("@title: Verify can update tax for all sports");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
@@ -158,7 +158,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4110")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_sat", "nolan"})
     public void Agent_AM_Tax_Setting_Listing_4110() {
         log("@title: Verify  Tax Setting Listing UI display correct");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");

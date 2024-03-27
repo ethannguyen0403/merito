@@ -81,7 +81,7 @@ public class ProfitAndLossTest extends BaseCaseTest {
      * @expect: 1. Verify data display correctly on summary and transaction detail at Member result column
      */
     @TestRails(id = "789")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_Report_Profit_And_Loss_789() {
         log("@title: Validate can filter data on summary display correctly with total in detail");
         log("Step 1. Navigate Report > Profit And Loss");

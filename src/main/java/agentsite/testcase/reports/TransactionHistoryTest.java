@@ -63,8 +63,8 @@ public class TransactionHistoryTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "812")
-    @Test(groups = {"regression"})
-    public void Agent_Report_Transaction_History_002() {
+    @Test(groups = {"regression", "nolan"})
+    public void Agent_Report_Transaction_History_812() {
         log("@title: Validate data on Transaction History display correctly");
         log("Step 1. Navigate Report >  Transaction History");
         String today = DateUtils.getDate(0, "dd/MM/yyyy", "GMT-4:00");
@@ -92,7 +92,7 @@ public class TransactionHistoryTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3755")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression", "nolan"})
     public void Agent_Report_Transaction_History_3755() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Transaction History");

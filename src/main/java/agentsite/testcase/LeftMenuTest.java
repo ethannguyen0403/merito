@@ -754,7 +754,7 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect: Verify the list menu display correct when other leve
      */
     @TestRails(id = "677")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void LeftMenu_TC677() {
         log("@title: Verify the list menu display correct when other level");
         log("@Precondition: Login Agent site by SAD level");

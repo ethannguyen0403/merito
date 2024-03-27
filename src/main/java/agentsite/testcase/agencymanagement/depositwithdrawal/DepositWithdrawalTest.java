@@ -53,7 +53,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * 4. Column names on Downline info table are correct
      */
     @TestRails(id = "712")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     @Parameters("currency")
     public void Agent_AM_DepositWithdrawal_712(String currency) {
         log("@title: Validate that this page loading is successful");
@@ -391,7 +391,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * @expect: 1. Verify security popup display
      */
     @TestRails(id = "720")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_720() {
         log("@title: Validate security popup display Deposit/withdraw page");
 

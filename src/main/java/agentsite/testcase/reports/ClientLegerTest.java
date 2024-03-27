@@ -78,7 +78,7 @@ public class ClientLegerTest extends BaseCaseTest {
     }
 
     @TestRails(id = "804")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_Report_Client_Ledger_804() {
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);

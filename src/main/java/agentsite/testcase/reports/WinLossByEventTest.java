@@ -109,7 +109,7 @@ public class WinLossByEventTest extends BaseCaseTest {
      * @expect: 1. Verify Turnover match with summary Player stake in bets list
      */
     @TestRails(id = "810")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_Report_Win_Loss_By_Event_810() {
         log("@title: Validate Turnover match with summary Player stake in bets list");
         log("Step 1. Navigate Report >  Win Loss By Event");
