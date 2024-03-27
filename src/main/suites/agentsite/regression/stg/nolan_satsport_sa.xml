@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="STG_SAT_REG_AGENT_SMA" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+        <listener class-name="util.testraildemo.Listener"/>
+    </listeners>
+
+    <test name="Stabilize SAT Agent Site in STG-Nolan">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='corpinr2'/>
+        <parameter name='level' value='SAD'/>
+        <parameter name='levelLogin' value='Senior Admin'/>
+        <parameter name='downlineAccount' value='smaag1'/>
+        <parameter name='portalSubAccount' value='SASUBIS'/>
+        <parameter name='memberAccount' value='sabella1'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='INR'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value='satsport'/>
+        <parameter name='isAddTestRailResult' value='true'/>
+        <groups>
+            <run>
+                <include name="nolan"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.LeftMenuTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockRacingTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
+            <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
+            <class name="agentsite.testcase.reports.PositionTakingReportTest"/>
+            <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
+            <class name="agentsite.testcase.reports.WinLossSimpleTest"/>
+            <class name="agentsite.testcase.agencymanagement.EventBetSizeSettingsTest"/>
+            <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockingLogTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockUnblockCompetitionsTest"/>
+        </classes>
+    </test>
+</suite>
