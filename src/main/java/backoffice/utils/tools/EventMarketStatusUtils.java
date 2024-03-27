@@ -83,7 +83,7 @@ public class EventMarketStatusUtils {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 lstEvent.add(i, new ArrayList<String>(
-                        Arrays.asList(Integer.toString(jsonObject.getInt("marketId")),
+                        Arrays.asList(Long.toString(jsonObject.getLong("marketId")),
                                 jsonObject.getString("marketName"),
                                 jsonObject.getString("marketTypeName"),
                                 Long.toString(jsonObject.getLong("startTime")),

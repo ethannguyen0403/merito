@@ -16,6 +16,8 @@ public class Environment {
     private String apiURL;
     private String proteusAPIProviderDomain;
     private String proteusProviderAPIURL;
+    public static String cryptoURL;
+    public static String atlanticURL;
 
     public String getproteusAPIProviderDomain() {
         return proteusAPIProviderDomain;
@@ -129,6 +131,19 @@ public class Environment {
     }
     public String getProteusProviderAPIURL() {
         return proteusProviderAPIURL;
+    }
+
+    public String getCryptoURL() {
+        return cryptoURL;
+    }
+    public static void setCryptoURL(String cryptoURL) {
+        Environment.cryptoURL = cryptoURL;
+    }
+    public String getAtlanticURL() {
+        return atlanticURL;
+    }
+    public static void setAtlanticURL(String atlanticURL) {
+        Environment.atlanticURL = atlanticURL;
     }
 
     public void setProteusProviderAPIURL(String proteusProviderAPIURL) {

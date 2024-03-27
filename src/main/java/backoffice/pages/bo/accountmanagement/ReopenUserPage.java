@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ReopenUserPage extends HomePage {
     public TextBox txtLoginId = TextBox.name("username");
-    public Button btnSearch = Button.xpath("search");
+    public Button btnSearch = Button.name("search");
     public int colUserID = 1;
     public int colLoginId = 2;
     public int colUserCode = 3;
@@ -21,6 +21,7 @@ public class ReopenUserPage extends HomePage {
     public void search(String loginID) {
         txtLoginId.sendKeys(loginID);
         btnSearch.click();
+        waitSpinIcon();
     }
 
     public void activeCloseAccount(String loginID, int column) {

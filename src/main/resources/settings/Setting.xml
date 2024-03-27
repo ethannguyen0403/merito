@@ -61,6 +61,7 @@
         <property name="domainURL" value="${STG.Domain}"/>
         <property name="proteusAPIProviderDomain" value="${STG.ProteusAPIProviderDomain}"/>
         <property name="proteusProviderAPIURL" value="${STG.ProteusProviderAPIURL}"/>
+        <property name="cryptoURL" value="${STG.CRYPTOURL}"/>
     </bean>
     <bean name="green" class="objects.Environment" scope="prototype">
         <property name="fairURL" value="${GREEN.FAIRURL}"/>

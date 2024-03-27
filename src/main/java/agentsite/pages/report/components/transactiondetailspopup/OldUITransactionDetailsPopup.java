@@ -26,7 +26,6 @@ public class OldUITransactionDetailsPopup extends TransactionDetailsPopup {
 
     public void verifyListOfProductsTabDisplayedCorrect(String productFilterName) {
         List<String> lstAllProducts = ReportslUtils.getAllProducts(ReportslUtils.getProductActive());
-        lstAllProducts.add("Follow Bets");
         List<String> productTabs = getProductsListTab();
         if (productFilterName.equalsIgnoreCase("select all")) {
             Assert.assertTrue(productTabs.containsAll(lstAllProducts), String.format("FAILED! List product tabs %s does not contains all product group %s", productTabs, lstAllProducts));
