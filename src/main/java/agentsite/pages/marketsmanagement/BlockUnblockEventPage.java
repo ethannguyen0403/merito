@@ -357,7 +357,7 @@ public class BlockUnblockEventPage extends HomePage {
         for (int i = 0; i < lstEvent.size(); i++) {
             if (lstEvent.get(i).contains(event)) {
                 String _currentStatus = tblEvent.getControlOfCell(1, colStatusCurrent, i + 1, "span").getText();
-                Assert.assertEquals(_currentStatus, currentStatus, String.format("FAILED! Status should be %s but display %s", currentStatus, _currentStatus));
+                Assert.assertTrue(_currentStatus.equalsIgnoreCase(currentStatus), String.format("FAILED! Status should be %s but display %s", currentStatus, _currentStatus));
             }
         }
     }

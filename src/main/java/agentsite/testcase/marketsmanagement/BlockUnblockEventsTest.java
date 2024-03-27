@@ -868,12 +868,14 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
         log("Step 3. Select an downline and unblocked event that will start in 25 minutes");
         log("Step 4. Click Unblock Schedule 25 minutes");
+        //Block all events first before Unblock Schedule
+        page.blockUnblockEvent(userCode, "all", BTN_ACTIONS.get(0), "", 1);
         page.blockUnblockEvent(userCode, event.getEventName(), BTN_ACTIONS.get(2), TIME_TO_BET, 1);
-        // Unblock at least 1 event then can see the sport display in member site
-        page.blockUnblockEvent(userCode, event2.getEventName(), BTN_ACTIONS.get(1), "", 1);
 
         log("Verify 1. Verify event status is Blocked ");
         page.verifyBlockUnblockEvent(event.getEventName(), "Blocked", false, false, false, TIME_TO_BET, TIME_TO_BET);
+        // Unblock at least 1 event then can see the sport display in member site
+        page.blockUnblockEvent(userCode, event2.getEventName(), BTN_ACTIONS.get(1), "", 1);
 
         log("Verify 2. Verify event is NOT display on member site");
         loginMember(memberAccount, password);
@@ -908,6 +910,8 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
         log("Step 3. Select an downline and an blocked event that will start in 2 days");
         log("Step 4. Click Unblock Schedule 2 days");
+        //block all events first before unblock schedule
+        page.blockUnblockEvent(downlineAccount,"all", BTN_ACTIONS.get(0), "", 1);
         page.blockUnblockEvent(downlineAccount, event.getEventName(), BTN_ACTIONS.get(2), UNBLOCKTYPE.get(3), 1);
 
         log("Step 5. Click on Details link in Betable column get a market that betable status is false");
@@ -918,7 +922,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
         MarketPage marketPage = sportPage.clickEventName(event.getEventName());
         log("Verify 1. Verify odds is blur (odds is unclickable)");
-        Assert.assertFalse(marketPage.marketOddControl.isMarketInfoSectionDisplayed(),"FAILED! Market Info section displays while event is unblocked in more 2 days");
+        Assert.assertTrue(marketPage.marketOddControl.verifyOddsIsClickable(false),"FAILED! Market Info section displays while event is unblocked in more 2 days");
         log("INFO: Executed completely");
     }
 

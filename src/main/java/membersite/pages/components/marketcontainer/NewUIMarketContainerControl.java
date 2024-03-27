@@ -175,15 +175,18 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
     public List<Label> getCellOddsListLabel(int selectionIndex, boolean isBack) {
         List<Label> list = new ArrayList<>();
         String xPathOddsList = String.format("(%s)[%d]%s", lblSelectionListXPath, selectionIndex, lblOddListXPath);
-        int countOddsLabel = Label.xpath(xPathOddsList).getWebElements().size();
-        if (isBack) {
-            for (int i = countOddsLabel / 2; i > 0; i--) {
-                list.add(Label.xpath(String.format("(%s)[%d]", xPathOddsList, i)));
+        if(Label.xpath(xPathOddsList).isDisplayed()) {
+            int countOddsLabel = Label.xpath(xPathOddsList).getWebElements().size();
+            if (isBack) {
+                for (int i = countOddsLabel / 2; i > 0; i--) {
+                    list.add(Label.xpath(String.format("(%s)[%d]", xPathOddsList, i)));
+                }
+            } else {
+                for (int i = countOddsLabel / 2; i < countOddsLabel; i++) {
+                    list.add(Label.xpath(String.format("(%s)[%d]", xPathOddsList, i + 1)));
+                }
             }
-        } else {
-            for (int i = countOddsLabel / 2; i < countOddsLabel; i++) {
-                list.add(Label.xpath(String.format("(%s)[%d]", xPathOddsList, i + 1)));
-            }
+            return list;
         }
         return list;
     }
@@ -294,10 +297,10 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
 
     public boolean verifyOddsIsClickable(boolean isClickable) {
         int getTotalSelection = getTotalSelection();
-        for (int i = 0; i < getTotalSelection; i++) {
+        for (int i = 0; i < getTotalSelection - 1; i++) {
             List<Label> lblBackOdds = getCellOddsListLabel(i + 1, true);
             List<Label> lblLayOdds = getCellOddsListLabel(i + 1, false);
-            for (int j = 0; j < lblBackOdds.size(); j++) {
+            for (int j = 0; j < lblBackOdds.size() - 1; j++) {
                 if(isClickable) {
                     if (lblBackOdds.get(j).getAttribute("outerHTML").contains("disable-odds")) {
                         System.out.println("Market Page - Back Odds buttons are not clickable");

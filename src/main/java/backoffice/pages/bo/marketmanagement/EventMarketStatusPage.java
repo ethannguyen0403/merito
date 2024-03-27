@@ -2,7 +2,10 @@ package backoffice.pages.bo.marketmanagement;
 
 import backoffice.controls.DateTimePicker;
 import backoffice.controls.Table;
+import backoffice.objects.bo.marketmanagement.Event;
+import backoffice.objects.bo.marketmanagement.Market;
 import backoffice.pages.bo.home.HomePage;
+import backoffice.utils.tools.EventMarketStatusUtils;
 import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
@@ -189,4 +192,22 @@ public class EventMarketStatusPage extends HomePage {
         System.out.println(String.format("The Event ID or Event Name %s %s not exist in the list", marketID, marketName));
         return false;
     }
+
+    public Market getMarketInfo(String date, String sportId, boolean isOpen) {
+        List<ArrayList<String>> lstComp = EventMarketStatusUtils.getCompetition(date,isOpen, sportId);
+        Event event = getEventInfo(date, isOpen, sportId, lstComp.get(0).get(0));
+        List<ArrayList<String>> lstMarkets = EventMarketStatusUtils.getMarket(date, isOpen, event.getEventId());
+        return new Market.Builder().marketId(lstMarkets.get(0).get(0)).marketName(lstMarkets.get(0).get(1))
+                .marketType(lstMarkets.get(0).get(2)).marketStartTime(lstMarkets.get(0).get(3))
+                .marketStatus(lstMarkets.get(0).get(4))
+                .event(event)
+                .competitionId(lstComp.get(0).get(0)).competitionName(lstComp.get(0).get(1)).build();
+    }
+
+    private Event getEventInfo(String date, boolean isOpen, String sportId, String compId) {
+        List<ArrayList<String>> lstEvents = EventMarketStatusUtils.getEvent(date,isOpen, sportId, compId);
+        return new Event.Builder().eventId(lstEvents.get(0).get(0)).eventName(lstEvents.get(0).get(1))
+                .eventStatus(lstEvents.get(0).get(2)).eventStartTime(lstEvents.get(0).get(3)).build();
+    }
+
 }
