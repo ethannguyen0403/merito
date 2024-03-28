@@ -16,6 +16,7 @@ import util.testraildemo.TestRails;
 
 import java.util.List;
 
+import static common.AGConstant.MarketsManagement.BlockUnblockEvent.BTN_ACTIONS;
 import static common.AGConstant.MarketsManagement.BlockUnblockEvent.UNBLOCK_NOW;
 import static common.AGConstant.SPORT_CRICKET;
 import static common.AGConstant.timeZone;
@@ -72,6 +73,8 @@ public class BlockingLogTest extends BaseCaseTest {
         List<Event> eventList = BlockUnblockEventsUtils.getEventList(SPORT_CRICKET, lstUser.get(0).getUserID(), "TODAY");
         Event event = eventList.get(eventList.size()-1);
         pageBlockEvent.searchEvent(event.getID());
+        //block event first for reset state
+        pageBlockEvent.blockUnblockEvent(lstUser.get(0).getUserCode(), event.getEventName(), BTN_ACTIONS.get(0));
         pageBlockEvent.blockUnblockEvent(lstUser.get(0).getUserCode(), event.getEventName(), UNBLOCK_NOW);
         String dateTimeUnblock = DateUtils.getDate(0, "yyyy-MM-dd HH:mm", timeZone);
 

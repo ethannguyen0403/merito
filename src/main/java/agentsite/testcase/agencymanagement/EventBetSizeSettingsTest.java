@@ -5,6 +5,7 @@ import agentsite.pages.agentmanagement.EventBetSizeSettingsPage;
 import agentsite.pages.components.ConfirmPopup;
 import agentsite.pages.marketsmanagement.BlockUnblockEventPage;
 import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import agentsite.ultils.agencymanagement.EventBetSizeSettingUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.driver.DriverManager;
@@ -244,6 +245,7 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
         String competitionName = event.getCompetitionName();
 
         log("Step 2. Input competition Name with a prefix \"e.g. : English League 1");
+        page.eventBetSizeSetting.filter("",SPORT_CRICKET,"TODAY");
         page.eventBetSizeSetting.searchEventInfo(competitionName, "", "");
 
         log("Verify 1.There is a competition display");
@@ -668,29 +670,27 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     public void Agent_AM_Event_Bet_Site_Settings_3590(String memberAccount, String password, String downlineAccount) throws Exception {
         log("@title:Cannot place bet when stake less than min setting in Event Bet Site Setting for normal market");
         AccountInfo acc = ProfileUtils.getProfile();
+        List<AccountInfo> lstAcc = DownLineListingUtils.getDownLineUsers(acc.getUserID(), "",_brandname);
         int min = 100;
         int max = 123;
+        log("Step precondition: Unblock all events in Block/Unbock Event page first for getting market info");
+        BlockUnblockEventPage blockUnblockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
+        blockUnblockEventPage.filter("", SPORT_CRICKET, MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+        blockUnblockEventPage.blockUnblockEvent(lstAcc.get(0).getUserCode(), "all", "Unblock Now", "", 1);
+
         log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
-        Event event = EventBetSizeSettingUtils.getEventList(SPORT_CRICKET, acc.getUserID(), "TODAY").get(0);
-        String eventName = event.getEventName();
+        Event event = EventBetSizeSettingUtils.getEventListByMarket(SPORT_CRICKET, lstAcc.get(0).getUserID(), "Match Odds","TODAY").get(0);
 
         log("Step 2. Update Min bet for an event (first column)");
         page.eventBetSizeSetting.filter("", SPORT_CRICKET, "Today");
+        page.eventBetSizeSetting.searchEventInfo(event.getCompetitionName(), event.getEventName(),"");
         page.eventBetSizeSetting.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
-
-        log("Step precondition: Unblock the event in Block/Unbock Event page");
-        BlockUnblockEventPage blockUnblockEventPage = page.navigateBlockUnblockEventsPage();
-        blockUnblockEventPage.filter("", SPORT_CRICKET, MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
-        blockUnblockEventPage.blockUnblockEvent(downlineAccount, eventName, "Unblock Now", "", 1);
-        blockUnblockEventPage.logout();
 
         log("Step 3. Login in member site and place on BF market of the event in step 2");
         loginMember(memberAccount, password);
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_CRICKET);
-        event = sportPage.setEventLink(event);
-        MarketPage marketPage = sportPage.clickEvent(event);
-        event.setMarketName("Match Odds");
+        MarketPage marketPage = sportPage.clickEventName(event.getEventName());
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         String odds = market.getBtnOdd().getText();
         market.getBtnOdd().click();
