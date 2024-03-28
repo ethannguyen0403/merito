@@ -80,7 +80,7 @@ public class TransactionHistoryTest extends BaseCaseTest {
         Assert.assertEquals(page.btnYesterday.getText(), BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
         Assert.assertEquals(page.btnLastWeek.getText(), LAST_WEEK, "Failed! Last Week button is incorrect");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "Failed! Submit button is incorrect");
-        Assert.assertEquals(page.lblInfo.getText(), LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS, "FAILED! Note message is incorrect displayed");
+        Assert.assertEquals(page.lblInfo.getText(), LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS_WITHOUT_DOT, "FAILED! Note message is incorrect displayed");
         Assert.assertEquals(page.tblReport.getColumnNamesOfTable(), TABLE_HEADER, "FAILED! Header title is incorrect");
 
         log("INFO: Executed completely");

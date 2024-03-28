@@ -26,6 +26,7 @@ public class ProfileUtils {
                 JSONObject jsnProfile = jsonObject.getJSONObject("profile");
                 return new AccountInfo.Builder()
                         .userID(Integer.toString(jsnProfile.getInt("userId")))
+                        .userType(jsnProfile.getString("userType"))
                         .userCode(jsnProfile.getString("userCode"))
                         .loginID(jsnProfile.getString("loginId"))
                         .status(jsnProfile.getString("status"))

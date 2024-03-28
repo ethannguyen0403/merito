@@ -4,6 +4,7 @@ import agentsite.controls.DateTimePicker;
 import agentsite.controls.Table;
 import com.paltech.element.common.*;
 import common.AGConstant;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,14 +91,6 @@ public class StatementReport {
         }
     }
 
-    public boolean isTableDetailHeaderDisplayCorrect() {
-        if(tblDetailReport.isDisplayed()) {
-            ArrayList<String> lstHeader = tblDetailReport.getHeaderNameOfRows();
-            return lstHeader.equals(AGConstant.Report.StatementReport.TABLE_DETAIL_STATEMENT_HEADER);
-        }
-        return false;
-    }
-
     public void openSportGameDetail(String sportGameName) {
         Label lblSport = Label.xpath(tblDetailReport.getControlxPathBasedValueOfDifferentColumnOnRow(sportGameName, 1, 1,1,null,1,"span",false,false));
         if(lblSport.isDisplayed()) {
@@ -156,14 +149,21 @@ public class StatementReport {
 
     }
 
-    public boolean isAvailableBalanceShowCorrect(List<Double> lstExpectedBalance) {
+    public void verifyTableDetailHeaderDisplayCorrect(String userType) {
+        List<String> expectedHeader =
+                userType.equalsIgnoreCase("CREDIT") ? AGConstant.Report.StatementReport.TABLE_DETAIL_STATEMENT_HEADER_CREDIT :
+                        AGConstant.Report.StatementReport.TABLE_DETAIL_STATEMENT_HEADER_CREDIT_CASH;
+        ArrayList<String> lstHeader = tblDetailReport.getHeaderNameOfRows();
+        Assert.assertEquals(lstHeader, expectedHeader, "FAILED! Table Header displays incorrectly");
+    }
+
+    public void verifyAvailableBalanceShowCorrect(List<Double> lstExpectedBalance) {
         int rowIndex = tblDetailReport.getNumberOfRows(false, true);
         for (int i = 0; i < rowIndex; i++) {
-            Label lblCellValue = Label.xpath(tblDetailReport.getxPathOfCell(1,colAvailableBalanceDetail,i+1,null));
-            if(!lblCellValue.getText().replace(",","").equals(String.format("%.2f",lstExpectedBalance.get(i)))) {
-                return false;
-            }
+            Label lblCellValue = Label.xpath(tblDetailReport.getxPathOfCell(1, colAvailableBalanceDetail, i + 1, null));
+            Assert.assertEquals(Double.valueOf(lblCellValue.getText().replace(",", "")),
+                    Double.valueOf(String.format("%.2f", lstExpectedBalance.get(i))), 0.01,
+                    "FAILED! Available balance is not shown correctly");
         }
-        return true;
     }
 }

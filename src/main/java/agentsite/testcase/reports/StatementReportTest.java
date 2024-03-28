@@ -154,6 +154,7 @@ public class StatementReportTest extends BaseCaseTest {
         String toDate = DateUtils.getDate(0, "dd/MM/yyyy", AGConstant.timeZone);
         String userID = ProfileUtils.getProfile().getUserID();
         String userName = ProfileUtils.getProfile().getUserCode();
+        String userType = ProfileUtils.getProfile().getUserType();
         List<String> lstUserDownline = StatementReportUtils.getReportStatementDownLineUsers(userID, fromDateApi, toDateApi);
         if (lstUserDownline.isEmpty()) {
             throw new SkipException(String.format("SKIPPED! Have no data for expanding in filter range from %s to %", fromDate, toDate));
@@ -168,7 +169,7 @@ public class StatementReportTest extends BaseCaseTest {
         page.statementReport.openStatementReportDetail(userName);
 
         log("Verify 3. Validate Tabel header is correctly display");
-        Assert.assertTrue(page.statementReport.isTableDetailHeaderDisplayCorrect(),"FAILED! Table Header displays incorrectly");
+        page.statementReport.verifyTableDetailHeaderDisplayCorrect(userType);
         log("INFO: Executed completely");
     }
 
@@ -200,7 +201,7 @@ public class StatementReportTest extends BaseCaseTest {
 
         log("Verify 4. Validate in transaction detail match");
         List<Double> lstAvailableBalance = page.statementReport.defineAvailableBalance();
-        Assert.assertTrue(page.statementReport.isAvailableBalanceShowCorrect(lstAvailableBalance),"FAILED! Available balance is not shown correctly");
+        page.statementReport.verifyAvailableBalanceShowCorrect(lstAvailableBalance);
         log("INFO: Executed completely");
     }
 }
