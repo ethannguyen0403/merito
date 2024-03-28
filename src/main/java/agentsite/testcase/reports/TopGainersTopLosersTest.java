@@ -22,7 +22,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
      * @expect: 1. Verify Top Gainers & Top Losers UI display correctly
      */
     @TestRails(id = "812")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_Report_Top_Gainers_Top_Losers_812() {
         log("@title: Validate Top Gainers & Top Losers UI display correctly ");
         log("Step 1. Navigate Report > Top Gainers & Top Losers");
@@ -80,7 +80,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3759")
-    @Test(groups = {"regression_sat"})
+    @Test(groups = {"regression_sat", "nolan"})
     public void Agent_Report_Top_Gainers_Top_Losers_3759() {
         log("@title: Validate Big Stake data display correctly");
         log("@pre-condition 1: Log in successfully by SAD");

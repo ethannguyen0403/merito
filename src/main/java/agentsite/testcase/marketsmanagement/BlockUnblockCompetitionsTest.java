@@ -59,7 +59,7 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
      * @expect: 1. Status is change to Blocked Status, Last Update By and Last Update time display correctly
      */
     @TestRails(id = "778")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockCompetitions_TC778(String downlineAccount) {
         log("@title: Verify can Block a competition");

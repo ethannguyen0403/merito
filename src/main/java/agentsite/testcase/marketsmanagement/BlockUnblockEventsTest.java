@@ -71,7 +71,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3683")
-    @Test(groups = {"http_request"})
+    @Test(groups = {"http_request", "nolan"})
     public void Agent_MM_BlockUnblockEvent_3683() {
         log("@title: Validate there is no http responded error returned");
         log("@Step 11. Navigate Markets Management > Block/Unblock Events");
@@ -183,7 +183,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 //    }
 
     @TestRails(id = "758")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_758(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Validate that Unblock Now an event successfully from SAD level");
@@ -228,7 +228,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "759")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_759(String downlineAccount) {
         log("@title: Validate that can block an unblocked event successfully from SAD level");
@@ -269,7 +269,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="760")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_760(String downlineAccount) {
         log("@title: Validate Buttons are enabled when have downline and events is selected");
@@ -318,7 +318,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="761")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_761(String downlineAccount) {
         log("@title: Validate can Unblock Schedule 25min before event start");
@@ -447,7 +447,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="765")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_765(String downlineAccount) {
         log("@title: Validate that cannot Unsuspended a Unblocked event");
@@ -621,7 +621,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="769")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     @Parameters({"brandname"})
     public void Agent_MM_BlockUnblockEvent_769(String brandname) {
         log("@title: Validate can unblocked now all events for an downline in a page");

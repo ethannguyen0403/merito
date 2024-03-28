@@ -8,6 +8,7 @@ import membersite.controls.OneClickBettingControl;
 import membersite.controls.WicketBookmakerContainerControl;
 import membersite.objects.Wager;
 import membersite.objects.sat.BookmakerMarket;
+import membersite.objects.sat.Event;
 import membersite.objects.sat.FancyMarket;
 import membersite.objects.sat.Market;
 import membersite.pages.components.ComponentsFactory;
@@ -359,6 +360,15 @@ public class MarketPage extends HomePage {
         double calculateExposure = newExposure - fancyMarket.getMarketLiability();
         Assert.assertEquals(originalExposure, Math.floor(calculateExposure * 100) / 100, 0.01, String.format("FAILED! Exposure kept is not correct expected is %s, actual is %s", originalExposure, Math.floor(calculateExposure * 100) / 100));
         Assert.assertEquals(Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability(), 0.01, String.format("FAILED! Liability forecast is not correct expected is %s, actual is %s", Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability()));
+    }
+
+    public void verifyAllSelectionDisplayOnBetSlip(Event event, int selectionSize, boolean isBack) {
+        for (int i = 1; i <= selectionSize; i++) {
+            Market market = marketOddControl.getMarket(event, i, isBack);
+            String odds = market.getBtnOdd().getText();
+            market.getBtnOdd().click();
+            Assert.assertEquals(betsSlipContainer.getBet(i-1).getOdds(), odds, "FAILED! Selection is not displayed on Bet Slip");
+        }
     }
 
 }

@@ -54,7 +54,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify the correct username is displayed
      */
     @TestRails(id = "741")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_AM_Commission_Setting_Listing_741() {
         log("@title: Verify can search commission setting Listing by Login ID");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");
@@ -84,7 +84,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
      * 2. Green check display at Update Status column if successfully update commission
      */
     @TestRails(id = "742")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_AM_Commission_Setting_Listing_742() {
         log("@title: Verify can update commission for a member account");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");

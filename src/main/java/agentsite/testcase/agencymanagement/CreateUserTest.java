@@ -488,7 +488,7 @@ public class CreateUserTest extends BaseCaseTest {
      *          5. Click on Skip Home page display
      */
     @TestRails(id = "687")
-    @Test (groups = {"smoke", "smoke_dev"})
+    @Test (groups = {"smoke", "smoke_dev", "nolan"})
     @Parameters({"password", "currency", "isThrown"})
     public void Agent_AM_CreateUser_687(String password, String currency, boolean isThrown) throws Exception {
         log("@title: Validate can Create User successfully");
@@ -546,7 +546,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "696")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     @Parameters({"currency"})
     public void Agent_AM_Downline_Listing_Edit_Agent_696(String currency) throws Exception {
         log("@title: Validate cannot update if Max Player Credit exceed the limit");

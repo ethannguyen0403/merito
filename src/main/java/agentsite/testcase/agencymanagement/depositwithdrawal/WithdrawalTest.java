@@ -163,7 +163,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * @expect: 1. An amount is withdrawn successfully
      */
     @TestRails(id = "732")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_Withdraw_732() {
         log("@title:Validate that an amount is withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -299,7 +299,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Success icon is displayed when withdrawing completely
      */
     @TestRails(id = "735")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_Withdraw_735(){
         log("@title: Validate can withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();

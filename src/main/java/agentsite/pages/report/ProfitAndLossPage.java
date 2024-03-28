@@ -101,7 +101,8 @@ public class ProfitAndLossPage extends HomePage {
         String levelDownline = lstLevel.get(1);
         downlineLevelList.add(lstLevel.get(0));
         boolean flag = false;
-        while (!flag) {
+        int count = 30;
+        while (!flag && count > 0) {
             if (levelDownline.equalsIgnoreCase(level)) {
                 flag = true;
                 data = tblDownLineProfitAndLoss.getRowsWithoutHeader(3, false);
@@ -114,6 +115,7 @@ public class ProfitAndLossPage extends HomePage {
                 lstLevel = tblDownLineProfitAndLoss.getColumn(colLevel, 2, false);
                 levelDownline = lstLevel.get(1);
                 downlineLevelList.add(lstLevel.get(0));
+                count--;
             }
 
         }

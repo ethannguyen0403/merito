@@ -8,7 +8,6 @@ import agentsite.pages.report.TransferLogPage;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
 import common.AGConstant;
-import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
@@ -44,7 +43,7 @@ public class TransferLogTest extends BaseCaseTest {
      * @expect: 1. Verify log show correctly
      */
     @TestRails(id = "802")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_Report_Transfer_Log_802() {
         log("@title: Validate data Transfer Log display correctly");
         DepositWithdrawalPage page;
@@ -65,16 +64,11 @@ public class TransferLogTest extends BaseCaseTest {
         TransferLogPage tranferlogPage = page.navigateTransferLogPage();
 
         log("Step 3. Input the account do deposit/withdraw in steps 1 and click submit");
-        tranferlogPage.filter("", "All");
+        tranferlogPage.filter(userCode, "All");
 
         log("Verify  1. Verify log show correctly");
         List<ArrayList<String>> data = tranferlogPage.tblReport.getRowsWithoutHeader(true);
-        for (int i = data.size() - 2, j = 0; i < data.size(); i++, j++) {
-            for (int n = 1; n < data.get(i).size(); n++) {
-                Assert.assertEquals(StringUtils.normalizeSpace(data.get(i).get(n).trim()), expectedData.get(j).get(n).trim(), "FAILED! Expected not match with actual");
-            }
-        }
-
+        tranferlogPage.verifyLogShowCorrectly(data, expectedData);
         log("INFO: Executed completely");
     }
 
