@@ -3,6 +3,7 @@ package membersite.testcases.casino;
 import backoffice.utils.tools.ProviderCurrencyMappingUltils;
 import baseTest.BaseCaseTest;
 import membersite.pages.casino.CasinoHomePage;
+import membersite.pages.casino.EvolutionWhiteCliffPage;
 import membersite.utils.casino.CasinoUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -22,7 +23,7 @@ public class EvolutionPageWhiteCliffTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Evolution (WhiteCliff) game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Evolution (WhiteCliff) on header menu");
-        CasinoHomePage evolutionWhiteCliffPage = memberHomePage.openEvolutionWhiteCliff();
+        EvolutionWhiteCliffPage evolutionWhiteCliffPage = memberHomePage.openEvolutionWhiteCliff();
         log("@Verify 1: Title 'Evolution' is displayed correctly on iframe");
         Assert.assertTrue(evolutionWhiteCliffPage.verifyCasinoDisplay(),"FAILED! Title Evolution casino is not correct");
         log("INFO: Executed completely");
@@ -37,7 +38,7 @@ public class EvolutionPageWhiteCliffTest extends BaseCaseTest {
         double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Evolution (WhiteCliff) on header menu");
-        CasinoHomePage evolutionWhiteCliffPage = memberHomePage.openEvolutionWhiteCliff();
+        EvolutionWhiteCliffPage evolutionWhiteCliffPage = memberHomePage.openEvolutionWhiteCliff();
 
         log("@Step 3: Click on first game");
         evolutionWhiteCliffPage.selectCasinoGame();
@@ -61,7 +62,7 @@ public class EvolutionPageWhiteCliffTest extends BaseCaseTest {
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!memberHomePage.header.isProductTabDisplay(EVOLUTION), "FAILED! Access Evolution (WhiteCliff) display on homepage menu.");
         log("@Step 3: Access Pragmatic by external link");
-        CasinoHomePage evolutionWhiteCliffPage = memberHomePage.openCasinoGameByUrl(EVOLUTION);
+        EvolutionWhiteCliffPage evolutionWhiteCliffPage = (EvolutionWhiteCliffPage) memberHomePage.openCasinoGameByUrl(EVOLUTION);
         log("@Verify 2: User could not access product and was brought back to home page");
         Assert.assertTrue(!evolutionWhiteCliffPage.verifyCasinoDisplay(),"FAILED! Evolution (WhiteCliff) game is displayed");
         log("INFO: Executed completely");

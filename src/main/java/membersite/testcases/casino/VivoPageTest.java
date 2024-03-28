@@ -3,6 +3,7 @@ package membersite.testcases.casino;
 import backoffice.utils.tools.ProviderCurrencyMappingUltils;
 import baseTest.BaseCaseTest;
 import membersite.pages.casino.CasinoHomePage;
+import membersite.pages.casino.VivoPage;
 import membersite.utils.casino.CasinoUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -22,7 +23,7 @@ public class VivoPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Vivo in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Vivo on header menu");
-        CasinoHomePage vivoPage = memberHomePage.openVivo();
+        VivoPage vivoPage = memberHomePage.openVivo();
         log("@Verify 1: Header menu with list: 'All', 'Roulette', 'Blackjack', 'Limitless Blackjack', 'Baccarat', 'Casino Hold'em', 'Teen patti', 'Andar Bahar' is displayed");
         List<String> productsList = vivoPage.getListProductsMenu();
         Assert.assertTrue(VIVO_PRODUCTS_MENU.containsAll(productsList), String.format("FAILED! The list of Vivo game is not correct. Actual: %s, expected: %s", productsList, VIVO_PRODUCTS_MENU));
@@ -36,7 +37,7 @@ public class VivoPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Vivo in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Vivo on header menu");
-        CasinoHomePage vivoPage = memberHomePage.openVivo();
+        VivoPage vivoPage = memberHomePage.openVivo();
         log("@Step 3: Click on any game");
         vivoPage.selectCasinoGame();
         log("@Verify 1: Able to open game without console error");
@@ -54,7 +55,7 @@ public class VivoPageTest extends BaseCaseTest {
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Vivo on header menu");
         double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
-        CasinoHomePage vivoPage = memberHomePage.openVivo();
+        VivoPage vivoPage = memberHomePage.openVivo();
         double balanceCasino = vivoPage.getBalance();
         log("@Step 3: Observe in game balance");
         log("@Step 4: Get rate of currency from BO");
@@ -77,7 +78,7 @@ public class VivoPageTest extends BaseCaseTest {
         log("Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertFalse(memberHomePage.isProductDisplayed(VIVO), "FAILED! Inactive product still displays on header menu");
         log("@Step 3: Access Vivo by external link (e.g.: /home/custom?code=VIVO)");
-        CasinoHomePage vivoPage =  memberHomePage.openCasinoGameByUrl(VIVO);
+        VivoPage vivoPage = (VivoPage) memberHomePage.openCasinoGameByUrl(VIVO);
         log("Verify 2: User could not access product and was brought back to home page");
         Assert.assertFalse(vivoPage.getListProductSize() > 0, "FAILED! Vivo is able to access by URL while it's inactivated");
         log("INFO: Executed completely");

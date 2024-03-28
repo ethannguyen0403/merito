@@ -190,14 +190,17 @@ public class Fair999Header extends Header1 {
 
     @Override
     public LotterySlotsPage openLotteryAndSlots() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("LOTTERY_SLOTS"));
         return new LotterySlotsPage();
     }
     @Override
     public PragmaticPage openPragmatic() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("PRAGMATIC"));
         return new PragmaticPage();
     }
     @Override
     public SupernowaCasinoPage openSupernowa() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("SUPERNOWA_CASINO"));
         return new SupernowaCasinoPage();
     }
 
@@ -210,6 +213,7 @@ public class Fair999Header extends Header1 {
     }
     @Override
     public EvolutionWhiteCliffPage openEvolutionWhiteCliff() {
+        clickProduct(MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION_WHITE_CLIFF"));
         return new EvolutionWhiteCliffPage();
     }
     @Override
@@ -226,7 +230,8 @@ public class Fair999Header extends Header1 {
     }
     public void clickProduct(String product) {
         Tab productTab = Tab.xpath(String.format("//a[contains(text(),'%s')]", product));
-        productTab.click();
+        Tab targetTab = productTab.isDisplayed() ? productTab : Tab.xpath(String.format("//a[contains(text(),'%s')]", product.toUpperCase()));
+        targetTab.click();
     }
 
     public boolean isCasinoProductDisplayed(String product) {

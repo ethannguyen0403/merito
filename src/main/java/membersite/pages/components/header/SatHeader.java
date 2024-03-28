@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import static common.CasinoConstant.CASINO;
-import static common.CasinoConstant.MAPPING_CASINO_PRODUCT_UI;
+import static common.CasinoConstant.*;
 
 public class SatHeader extends Header1 {
     Image imgLogo = Image.xpath("//a[contains(@class,'logo')]");
@@ -169,7 +168,9 @@ public class SatHeader extends Header1 {
         //In Sat, Evolution tab menu is displayed in duplicate, 1 is Evolution and 1 is Evolution WhiteCliff
         for(WebElement products: productTab.getWebElements()){
             products.click();
-            if(!menuEguzi.isDisplayed()){
+            waitSpinLoad();
+            String casinoCode = DriverManager.getDriver().getCurrentUrl();
+            if(!casinoCode.contains(MAPPING_CASINO_PRODUCT_SUFFIX_URL.get("Evolution"))){
                 continue;
             }
             Label lblEvolution = Label.xpath(String.format("//app-ezugi//span[contains(text(), '%s')]", MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION")));
@@ -216,9 +217,16 @@ public class SatHeader extends Header1 {
         vivoPage.waitFrameLoad();
         return vivoPage;
     }
+
     public void clickProduct(String product) {
         Tab productTab = Tab.xpath(String.format("//a[text()=' %s '] | //a[text()='%s']", product, product));
-        productTab.click();
+        Tab targetTab = productTab.isDisplayed() ? productTab :
+                Tab.xpath(String.format("//a[text()=' %s '] | //a[text()='%s']", product.toUpperCase(), product.toUpperCase()));
+        if (targetTab.getWebElements().size() > 1) {
+            targetTab.getWebElements().get(1).click();
+        } else {
+            targetTab.click();
+        }
     }
 
     public void clickMainMenu(String menu) {

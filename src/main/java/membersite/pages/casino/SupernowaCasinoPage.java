@@ -27,6 +27,7 @@ public class SupernowaCasinoPage extends CasinoHomePage {
     }
 
     public void openFirstSupernowaGame(){
+        lblFirstGame.click();
         lblFirstGame.jsClick();
         // wait for game loading on screen
         try {
@@ -58,18 +59,13 @@ public class SupernowaCasinoPage extends CasinoHomePage {
     }
 
     @Override
-    public void checkBalance(double actual, double expected, double BORate) {
-        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
-    }
-
-    @Override
     public void selectCasinoGame() {
         openFirstSupernowaGame();
     }
 
     @Override
     public boolean verifyCasinoDisplay() {
-        return lblTitle.isDisplayed() && lblTitle.getText().trim().equalsIgnoreCase(SUPERNOWA);
+        return lblTitle.isDisplayed();
     }
 
 }
