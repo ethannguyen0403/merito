@@ -21,13 +21,23 @@ public class LotterySlotsPage extends CasinoHomePage {
     @Override
     public List<String> getListProductsMenu() {
         List<String> lblList = new ArrayList<>();
-        new ArrayList<>(lblHeaderMenu.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
+        try {
+            new ArrayList<>(lblHeaderMenu.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
+        }catch (Exception e){
+            System.out.println("DEBUG! Can not get list product");
+        }
         return lblList;
     }
 
     @Override
     public int getListProductSize() {
-        return lblHeaderMenu.getWebElements().size();
+        int listSize = 0;
+        try {
+            listSize = lblHeaderMenu.getWebElements().size();
+        } catch (Exception e) {
+            System.out.println("Products list size NOT FOUND");
+        }
+        return listSize;
     }
 
     @Override
@@ -38,11 +48,6 @@ public class LotterySlotsPage extends CasinoHomePage {
     @Override
     public double getBalance() {
         return getBalanceFromLogConsole(getConsoleLog("_url"));
-    }
-
-    @Override
-    public void checkBalance(double actual, double expected, double BORate) {
-        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
     }
 
     public double getBalanceFromLogConsole(List<String> logConsole){
