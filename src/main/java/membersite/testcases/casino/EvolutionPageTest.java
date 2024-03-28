@@ -23,7 +23,7 @@ public class EvolutionPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Evolution game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Evolution on header menu");
-        CasinoHomePage evolutionPage = memberHomePage.openEvolution();
+        EvolutionPage evolutionPage = memberHomePage.openEvolution();
         log("@Verify 1:The list of game is displayed such as  'Evolution Black Jack', 'Evolution Roulette', 'Evolution Poker', 'Evolution Game Shows', 'Evolution  Baccarat & Sic Bo'…");
         List<String> productsList = evolutionPage.getListProductsMenu();
         Assert.assertTrue(EVOLUTION_PRODUCTS_MENU.containsAll(productsList),
@@ -39,7 +39,7 @@ public class EvolutionPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Evolution game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Evolution on header menu");
-        CasinoHomePage evolutionPage = memberHomePage.openEvolution();
+        EvolutionPage evolutionPage = memberHomePage.openEvolution();
         log("@Step 3: Click on any product");
         evolutionPage.selectCasinoGame();
         log("@Verify 1: Able to open game without console error");
@@ -56,7 +56,7 @@ public class EvolutionPageTest extends BaseCaseTest {
         double expectedBalance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Evolution on header menu");
-        CasinoHomePage evolutionPage = memberHomePage.openEvolution();
+        EvolutionPage evolutionPage = memberHomePage.openEvolution();
         log("@Step 3: Click on first product");
         evolutionPage.selectCasinoGame();
 
@@ -80,7 +80,7 @@ public class EvolutionPageTest extends BaseCaseTest {
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!memberHomePage.header.isProductTabDisplay("Live Dealer"), "FAILED! Live Dealer display on homepage menu.");
         log("@Step 2: Access Evolution by external link");
-        CasinoHomePage evolutionPage = (EvolutionPage) memberHomePage.openCasinoGameByUrl(EVOLUTION);
+        EvolutionPage evolutionPage = (EvolutionPage) memberHomePage.openCasinoGameByUrl(EVOLUTION);
         log("@Verify 2: User could not access product and was brought back to home page");
         List<String> listProducts = evolutionPage.getListProductsMenu();
         Assert.assertTrue(listProducts.isEmpty() || listProducts == null, "FAILED! Evolution product is displayed");

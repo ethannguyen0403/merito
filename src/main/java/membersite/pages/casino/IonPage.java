@@ -11,7 +11,11 @@ public class IonPage extends CasinoHomePage{
     @Override
     public List<String> getListProductsMenu() {
         List<String> lblList = new ArrayList<>();
-        new ArrayList<>(lnkProductList.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
+        try {
+            new ArrayList<>(lnkProductList.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
+        }catch (Exception e){
+            System.out.println("DEBUG! Can not get list product");
+        }
         return lblList;
     }
 }

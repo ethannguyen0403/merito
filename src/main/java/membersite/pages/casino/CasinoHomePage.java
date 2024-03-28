@@ -4,6 +4,7 @@ import com.paltech.driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class CasinoHomePage {
     }
 
     public void checkBalance(double actual, double expected, double BORate) {
-
+        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
     }
 
     public List<String> getListProductsMenu() {
