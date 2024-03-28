@@ -23,7 +23,7 @@ public class LiveDealerEuropeanPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Live Dealer European game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Live Dealer European on header menu");
-        CasinoHomePage liveDealerEuropeanPage = memberHomePage.openLiveDealerEuro();
+        LiveDealerEuropeanPage liveDealerEuropeanPage = memberHomePage.openLiveDealerEuro();
         log("@Verify 1: The list of game is displayed such as 'Teen Patti', 'Bet on Teen Patti', 'One Teen Patti Classic'…");
         List<String> productsList = liveDealerEuropeanPage.getListProductsMenu();
         Assert.assertTrue(LIVE_DEALER_EUROPEAN_PRODUCTS_MENU.containsAll(productsList), String.format("FAILED! The list of Live Dealer European game is not correct. Actual: %s, expected: %s", productsList, LIVE_DEALER_EUROPEAN_PRODUCTS_MENU));
@@ -37,7 +37,7 @@ public class LiveDealerEuropeanPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Live Dealer European in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Live Dealer European on header menu");
-        CasinoHomePage liveDealerEuropeanPage = memberHomePage.openLiveDealerEuro();
+        LiveDealerEuropeanPage liveDealerEuropeanPage = memberHomePage.openLiveDealerEuro();
         log("Step 3: Click on any game");
         liveDealerEuropeanPage.selectCasinoGame();
         log("@Verify 1: The game is opened in new popup successfully without console log error");
@@ -55,7 +55,7 @@ public class LiveDealerEuropeanPageTest extends BaseCaseTest {
                 "The currency convert rate in BO(Provider Currency Mapping) between provider and supported currency is 1:1");
         log("@Step 1: Access Live Dealer > Live Dealer European on header menu");
         double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
-        CasinoHomePage liveDealerEuropeanPage = memberHomePage.openLiveDealerEuro();
+        LiveDealerEuropeanPage liveDealerEuropeanPage = memberHomePage.openLiveDealerEuro();
         log("@Step 2: Click on any game and observe in game balance");
         liveDealerEuropeanPage.selectCasinoGame();
 
@@ -81,7 +81,7 @@ public class LiveDealerEuropeanPageTest extends BaseCaseTest {
         log("Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertFalse(memberHomePage.isProductDisplayed(LIVE_DEALER_TEXT), "FAILED! Inactive product still displays on header menu");
         log("@Step 3: Access Live Dealer European by external link (e.g.: /home/live-dealer/ezugi)");
-        CasinoHomePage liveDealerEuropeanPage = memberHomePage.openCasinoGameByUrl(LIVE_DEALER_EURO);
+        LiveDealerEuropeanPage liveDealerEuropeanPage = (LiveDealerEuropeanPage) memberHomePage.openCasinoGameByUrl(LIVE_DEALER_EURO);
         log("Verify 2: User could not access product and was brought back to home page");
         Assert.assertFalse(liveDealerEuropeanPage.getListProductSize() > 0, "FAILED! Live Dealer European is able to access by URL while it's inactivated");
         log("INFO: Executed completely");

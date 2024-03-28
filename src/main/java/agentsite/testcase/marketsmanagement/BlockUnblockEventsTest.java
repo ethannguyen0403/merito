@@ -62,7 +62,6 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
         log("Step 6: Login agent site at Level control blocking account:" + controlBlockingAccount);
         DriverManager.getDriver().getToAvoidTimeOut(agentLoginURL);
-        //loginAgent(controlBlockingAccount,password);
         loginAgent(sosAgentURL, agentSecurityCodeURL, controlBlockingAccount, passwordNonePO, environment.getSecurityCode());
         agentHomePage.navigateBlockUnblockEventsPage();
         page.filter("", SPORT_TENNIS, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
@@ -942,6 +941,8 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.filter("", SPORT_SOCCER, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2));
 
         log("Step 3. Select an downline and unblock now event");
+        //block event first for reset state
+        page.blockUnblockEvent(downlineAccount, event.getEventName(), BTN_ACTIONS.get(0), "", 1);
         page.blockUnblockEvent(downlineAccount, event.getEventName(), BTN_ACTIONS.get(1), "", 1);
         log("Verify 1. The event is unblocked with time to open and time to bet is Now");
         page.verifyBlockUnblockEvent(event.getEventName(), "Unblocked", true, false, true, UNBLOCKTYPE.get(0), UNBLOCKTYPE.get(0));

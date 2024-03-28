@@ -10,6 +10,7 @@ import baseTest.BaseCaseTest;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
 import com.paltech.utils.StringUtils;
+import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -79,9 +80,9 @@ public class FindBlockedMarketTest extends BaseCaseTest {
      * @expect: 1. Verify status in agent site is match with Find Blocked Market Page
      */
     @TestRails(id = "610")
-    @Test(groups = {"smoke","tim"})
-    @Parameters({"memberAccount", "memberPassword", "usernameAgent"})
-    public void BO_Tools_Find_Blocked_Market_610(String memberAccount, String memberPassword, String usernameAgent) throws Exception {
+    @Test(groups = {"smoke"})
+    @Parameters({"satMemberLoginID", "memberPassword", "satSADAgentLoginID"})
+    public void BO_Tools_Find_Blocked_Market_610(String satMemberLoginID, String memberPassword, String satSADAgentLoginID) throws Exception {
         log("@title: Validate Agent site - Block unblock event status is correctly as filtering");
         log("Step 1. Access Tool > Event/Market Status, filter Event date: Today and get sport, competition, event id, event name, of a market");
         String date = DateUtils.getDate(0, DASH_YYYY_MM_DD, GMT_FOUR);
@@ -92,12 +93,13 @@ public class FindBlockedMarketTest extends BaseCaseTest {
                 "Input username, Event ID, Market ID and click search button.");
         DriverManager.getDriver().switchToParentFrame();
         FindBlockedMarketPage page = backofficeHomePage.navigateFindBlockedMarket();
-        page.search(memberAccount, market.event.getEventId(), market.getMarketId());
+        page.search(satMemberLoginID, market.event.getEventId(), market.getMarketId());
         log("Step 3. The data display and get Status in Block/Unblock Event column");
-        String blockStatus = page.getBlockedStatus(usernameAgent);
+        String blockStatus = page.getBlockedStatus(satSADAgentLoginID);
         log("Step 4. Login agent the level control blocking > Block/Unblock Event");
-        agentHomePage = loginAgent(usernameAgent, memberPassword, _brandname);
+        agentHomePage = loginAgent(satSADAgentLoginID, memberPassword, _brandname);
         BlockUnblockEventPage blockUnblockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
+        blockUnblockEventPage.filter("",SPORT_CRICKET, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         blockUnblockEventPage.searchEvent(market.event.getEventName());
 
         log("Verify 1. Verify status in agent site is match with Find Blocked Market Page");

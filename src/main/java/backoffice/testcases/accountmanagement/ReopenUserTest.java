@@ -28,13 +28,13 @@ public class ReopenUserTest extends BaseCaseTest {
      * 3. Account is active in agent site
      */
     @TestRails(id = "617")
-    @Test(groups = {"smoke","tim"})
-    @Parameters({"usernameAgent", "memberPassword", "username", "password"})
-    public void BO_MM_Reopen_User_617(String usernameAgent, String memberPassword, String username, String password) throws Exception {
+    @Test(groups = {"smoke"})
+    @Parameters({"satSADAgentLoginID", "memberPassword", "username", "password"})
+    public void BO_MM_Reopen_User_617(String satSADAgentLoginID, String memberPassword, String username, String password) throws Exception {
         log("@title:  Validate can reopen user");
         log("Precondition: Get the account is closed in agent site");
         backofficeHomePage.logout();
-        agentHomePage = loginAgent(usernameAgent, memberPassword, _brandname);
+        agentHomePage = loginAgent(satSADAgentLoginID, memberPassword, _brandname);
         String userId = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> lstAccountClosed = DownLineListingUtils.getDownLineUsers(userId, "PL", "Closed", _brandname);
         String closeAccount = lstAccountClosed.get(0).getUserCode();
@@ -59,7 +59,7 @@ public class ReopenUserTest extends BaseCaseTest {
             page.logout();
 
             log("Step 4. Login agent site > downline listing > Search the account and check status");
-            loginAgent(usernameAgent, memberPassword, _brandname);
+            loginAgent(satSADAgentLoginID, memberPassword, _brandname);
             DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
             downLineListingPage.searchDownline(closeAccount, "", "");
 
@@ -68,7 +68,7 @@ public class ReopenUserTest extends BaseCaseTest {
             Assert.assertEquals(status, "Active", String.format("Failed! The user %s status is not correct expected Active but found %s", closeAccount, status));
         } finally {
             log("Post-condition: Revert player status to Closed");
-            loginAgent(usernameAgent, memberPassword, _brandname);
+            loginAgent(satSADAgentLoginID, memberPassword, _brandname);
             DownLineListingPage downLineListingPage = agentHomePage.navigateDownlineListingPage();
             downLineListingPage.searchDownline(closeAccount, "", "");
             EditDownLinePage editDownLinePage = downLineListingPage.clickEditIcon(closeAccount);

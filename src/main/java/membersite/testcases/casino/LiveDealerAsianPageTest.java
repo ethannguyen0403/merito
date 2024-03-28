@@ -3,6 +3,7 @@ package membersite.testcases.casino;
 import backoffice.utils.tools.ProviderCurrencyMappingUltils;
 import baseTest.BaseCaseTest;
 import membersite.pages.casino.CasinoHomePage;
+import membersite.pages.casino.LiveDealerAsianPage;
 import membersite.utils.casino.CasinoUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -22,21 +23,21 @@ public class LiveDealerAsianPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Live Dealer Asian game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Live Dealer Asian on header menu");
-        CasinoHomePage dealerAsian = memberHomePage.openLiveDealerAsian();
+        LiveDealerAsianPage dealerAsian = memberHomePage.openLiveDealerAsian();
         log("@Verify 1: The list of game is displayed such as 'Dragon Tiger', 'Roulette', 'Amar Akbar Antony', 'Lucky7', 'Teenpatti 20-20'…");
         List<String> productsList = dealerAsian.getListProductsMenu();
         Assert.assertTrue(LIVE_DEALER_ASIAN_PRODUCTS_MENU.containsAll(productsList), String.format("FAILED! The list of Live Dealer Asian game is not correct. Actual: %s, expected: %s", productsList, LOTTERY_SLOTS_HEADER_MENU));
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "20235")
+    @TestRails(id = "20236")
     @Test(groups = {"casino", "Casino.2024.V.1.0"})
-    public void Casino_Test_TC20235(){
+    public void Casino_Test_TC20236(){
         log("@title: Validate can open Live Dealer Asian game normally");
         log("@Precondition: Account has been activated Live Dealer Asian game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Live Dealer Asian on header menu");
-        CasinoHomePage dealerAsian = memberHomePage.openLiveDealerAsian();
+        LiveDealerAsianPage dealerAsian = memberHomePage.openLiveDealerAsian();
         log("@Step 3: Click on any game");
         dealerAsian.selectCasinoGame();
         log("@Verify 1: Able to open game without console error");
@@ -44,17 +45,17 @@ public class LiveDealerAsianPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "20245")
+    @TestRails(id = "20247")
     @Test(groups = {"casino", "Casino.2024.V.1.0"})
     @Parameters({"BOLoginId", "BOLoginPwd", "currency"})
-    public void Casino_Test_TC20245(String BOLoginId, String BOLoginPwd, String currency) throws Exception {
+    public void Casino_Test_TC20247(String BOLoginId, String BOLoginPwd, String currency) throws Exception {
         log("@title: Validate balance in Live Dealer Asian game match with user's balance");
         log("@Precondition: Account has been activated Live Dealer Asian game in Agent Site" +
                 "The currency convert rate in BO(Provider Currency Mapping) between provider and supported currency is 1:1");
         double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Live Dealer Asian on header menu");
-        CasinoHomePage dealerAsian = memberHomePage.openLiveDealerAsian();
+        LiveDealerAsianPage dealerAsian = memberHomePage.openLiveDealerAsian();
         log("@Step 3: Click on first product");
         dealerAsian.selectCasinoGame();
 
@@ -78,9 +79,9 @@ public class LiveDealerAsianPageTest extends BaseCaseTest {
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!memberHomePage.header.isProductTabDisplay(LIVE_DEALER_ASIAN), "FAILED! Live Dealer Asian display on homepage menu.");
         log("@Step 3: Access Live Dealer Asian by external link");
-        CasinoHomePage dealerAsian = memberHomePage.openCasinoGameByUrl(LIVE_DEALER_ASIAN);
+        LiveDealerAsianPage dealerAsian = (LiveDealerAsianPage) memberHomePage.openCasinoGameByUrl(LIVE_DEALER_ASIAN);
         log("@Verify 2: User could not access product and was brought back to home page");
-        Assert.assertTrue(dealerAsian.getListProductSize() > 0,"FAILED! Live Dealer Asian game is displayed");
+        Assert.assertFalse(dealerAsian.getListProductSize() > 0,"FAILED! Live Dealer Asian game is displayed");
         log("INFO: Executed completely");
     }
 }

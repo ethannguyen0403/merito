@@ -53,11 +53,6 @@ public class EvolutionWhiteCliffPage extends CasinoHomePage{
     }
 
     @Override
-    public void checkBalance(double actual, double expected, double BORate) {
-        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
-    }
-
-    @Override
     public double getBalance() {
         int count = 5;
         while (!lblBalance.isDisplayed() && count >0){
