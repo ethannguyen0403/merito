@@ -12,8 +12,7 @@ import java.util.List;
 
 import static agentsite.pages.HomePage.waitingLoadingSpinner;
 import static agentsite.pages.agentmanagement.DownLineListingPage.*;
-import static baseTest.BaseCaseTest._brandname;
-import static baseTest.BaseCaseTest.environment;
+import static baseTest.BaseCaseTest.*;
 import static common.AGConstant.*;
 import static common.AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL;
 import static common.AGConstant.AgencyManagement.DownlineListing.*;
@@ -27,6 +26,10 @@ public class NewUIDownlineListing extends DownlineListing {
 //    private int userCodeCol = 2;
 
     public EditDownLinePage clickEditIcon(String loginID, boolean inputSecurityCode) {
+        if(loginID.isEmpty()) {
+            log("DEBUG: login ID is empty cannot detect index to click Edit");
+            return null;
+        }
         editCol = getHeaderIndexValue("Edit");
         Cell cellValue = tblDowlineListing.getCellByName(loginID, false);
         int userCodeCol = Integer.parseInt(cellValue.getAttribute("cellIndex")) + 1;
