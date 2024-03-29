@@ -26,23 +26,23 @@ public class DepositToPopup extends DepositPopup {
         lblMemberBalance.isDisplayed();
         String newCashBalance = lblMemberNewBalance.getText().split(":")[1].trim();
         newCashBalance = newCashBalance.replace(",", "").trim();
-        return Double.parseDouble(newCashBalance);
+        return Double.valueOf(newCashBalance);
     }
 
     public double getMemberCashBalance() {
         String newCashBalance = lblMemberBalance.getText().replace(",", "").trim();
-        return Double.parseDouble(newCashBalance);
+        return Double.valueOf(newCashBalance);
     }
 
     public double getNewYourCashBalance() {
         String newCashBalance = lblYourNewBalance.getText().split(":")[1].trim();
         newCashBalance = newCashBalance.replace(",", "").trim();
-        return Double.parseDouble(newCashBalance);
+        return Double.valueOf(newCashBalance);
     }
 
     public double getYourCashBalance() {
         String newCashBalance = lblYourBalance.getText().replace(",", "").trim();
-        return Double.parseDouble(newCashBalance);
+        return Double.valueOf(newCashBalance);
     }
 
     public String getMessage() {

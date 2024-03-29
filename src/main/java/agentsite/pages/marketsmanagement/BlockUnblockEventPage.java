@@ -362,6 +362,12 @@ public class BlockUnblockEventPage extends HomePage {
         }
     }
 
+    public void verifyStatusAllEventsAreUnblock(List<Event> eventList){
+        for (int i = 0; i < eventList.size(); i++) {
+            verifyBlockUnblockEvent(eventList.get(i).getEventName(), "Unblocked", true, false, true, UNBLOCKTYPE.get(0), UNBLOCKTYPE.get(0));
+        }
+    }
+
     public void verifyBlockUnblockEvent(String event, String currentStatus, boolean isViewable, boolean isSuspend, boolean isBetable, String timeToOpen, String timeToBet) {
         List<String> lstEvent = tblEvent.getColumn(colEvent, true);
         String viewableIconExpected = "";

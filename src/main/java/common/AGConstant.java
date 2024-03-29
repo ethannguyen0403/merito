@@ -30,7 +30,7 @@ public class AGConstant {
     public final static String BALANCE = "Balance";
     public final static String BTN_CANCEL = "Cancel";
     public final static String BTN_UPDATE = "Update";
-    public final static String LBL_USERNAME = "Username";
+    public final static String LBL_USERNAME = "User Name";
     public final static String PASSWORD = "Password";
     public final static String SECURITY_CODE = "Security code";
     public final static String LOGIN_ID = "Login ID";
@@ -356,7 +356,7 @@ public class AGConstant {
             public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Client Name", "Mobile", "Credit Initiation", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Downline", "Create Date", "Last Login Time", "Last Login IP");
             public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Exchange", "Live Dealer European", "Live Dealer Asian", "Exchange Games", "Supernowa Casino", "Evolution", "RWB Sports", "Game Hall", "Vivo", "ION");
             public final static String MSG_CHANGE_PASSWORD_SUCCESS = "Update is successful!";
-            public final static String MSG_INVALID_MAX_PLAYER_CREDIT = "Member Max Credit is invalid.";
+            public final static String MSG_INVALID_MAX_PLAYER_CREDIT = "Player Max Credit Invalid.";
             public final static String MSG_EDIT_DOWNLINE_SUCCESS = "Downline was updated successfully";
             public final static String MSG_EDIT_MEMBER_SUCCESS = "Member was updated successfully";
             public final static String MSG_ALL_PRODUCT_NOT_SELECT = "There has to be at least one active product.";
@@ -411,9 +411,18 @@ public class AGConstant {
             public final static List<String> TABLE_HEADER_DOWNLINE = Arrays.asList("No.", "User Name", "Nickname", "Client Name", "Account Status",
                     "Level", "Currency", "Total Players Outstanding", "Retain Amount", "Available Balance");
 
-            public final static String USERNAME_NICKNAME = "Username or Nickname";
-            public final static String LBL_ACCOUNT_STATUS = "Account Status";
-            public final static String LBL_LEVEL = "Level";
+            public final static String USERNAME_NICKNAME = "Username or Login ID";
+            public final static String LBL_ACCOUNT_STATUS = "Account Status\n" +
+                    "All\n" +
+                    "Active\n" +
+                    "Inactive\n" +
+                    "Suspended\n" +
+                    "Closed\n" +
+                    "Blocked";
+            public final static String LBL_LEVEL = "Level\n" +
+                    "All\n" +
+                    "Agent\n" +
+                    "Member";
             public final static List<String> TABLE_HEADER_SAT =
                     Arrays.asList("No.", "User Name", "Login ID", "Client Name", "", "Account Status\n" +
                                     "All\n" +

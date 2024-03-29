@@ -104,7 +104,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
 
             log("Verify 1. Verify commissions are update for all games");
             log("Verify 2. Green check display at Update Status column if successfully update commission");
-            Assert.assertTrue(page.verifyCommissionUpdate(lstExpected, false, true), "FAILED! ");
+            Assert.assertTrue(page.verifyCommissionUpdate(lstExpected, false, true), "FAILED! Green check is NOT display");
 
             log("INFO: Executed completely");
         } finally {
