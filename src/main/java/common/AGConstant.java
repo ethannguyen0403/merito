@@ -175,7 +175,7 @@ public class AGConstant {
         public final static String CURRENT_BLOCKING = "Current Blocking";
         public final static String BLOCKING_LOG = "Blocking Log";
         public final static String BLOCK_RACING = "Block Racing";
-        public final static String SUSPEND_UNSUSPEND_MARKETS = "Suspend/Unsuspend Markets";
+        public final static String SUSPEND_UNSUSPEND_MARKETS = "Line Markets Management";
         public final static String VOLUME_MONITOR = "Volume Monitor";
         public final static String NET_EXPOSURE = "Net Exposure";
         public final static String AGENT_EXPOSURE_LIMIT = "Agent Exposure Limit";
@@ -238,7 +238,7 @@ public class AGConstant {
         public final static List<String> TBL_SUB_USER_TABLE_NONPO = Arrays.asList("No.", "Username", "Edit", "Status", "First Name", "Last Name", "Permissions", "Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management");
         public final static List<String> PERMISSION_LIST = Arrays.asList("Create Account", "View Account", "Transfer & Deposit/Withdraw", "Markets Management", "Update Account",
                 "Report", "Account Balance", "Fraud Detection");
-        public final static List<String> PERMISSION_LIST_SAD = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management");
+        public final static List<String> PERMISSION_LIST_SAD = Arrays.asList("Create Account", "Update Account", "View Account", "Report", "Transfer & Deposit/Withdraw", "Account Balance", "Markets Management", "Fraud Detection");
         public final static List<String> CREATE_SUB_USER_FORM = Arrays.asList("Username", "Password", "Status", "First Name", "Last Name");
     }
 
@@ -720,7 +720,7 @@ public class AGConstant {
 
     public static class Report {
         public final static String LBL_FROM = "From";
-        public final static String LBL_TO = "To";
+        public final static String LBL_TO = "to";
         public final static String BTN_TODAY = "Today";
         public final static String BTN_YESTERDAY = "Yesterday";
         public final static String LAST_WEEK = "Last Week";
@@ -808,8 +808,8 @@ public class AGConstant {
 
             public final static List<String> TABLE_HEADER_NEWUI = Arrays.asList("Username", "Nickname");
             public final static List<String> TABLE_HEADER_OLDUI = Arrays.asList("Username", "Login ID");
-//            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER = Arrays.asList("Sport/Game", "Credit", "Profit & Loss", "Tax/Commission", "Available Balance");
-            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER = Arrays.asList("Sport/Game", "Profit & Loss", "Tax/Commission", "Cash Balance");
+            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER_CREDIT_CASH = Arrays.asList("Sport/Game", "Credit", "Profit & Loss", "Tax/Commission", "Available Balance");
+            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER_CREDIT = Arrays.asList("Sport/Game", "Profit & Loss", "Tax/Commission", "Cash Balance");
             public final static String LBL_STATEMENT_REPORT_SEARCH_TITLE = "Statement Report from %s to %s";
         }
 
@@ -823,7 +823,7 @@ public class AGConstant {
 
 
         public static class TransactionHistory {
-            public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Competition Name", "Volume", "PnL", "Tax", " ");
+            public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Competition Name", "Volume", "PnL", "Tax", "");
         }
 
         public static class WinLossBySportAndMarketType {

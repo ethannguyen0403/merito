@@ -23,8 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static common.AGConstant.HomePage.MARKET_MANAGEMENT;
-import static common.AGConstant.HomePage.SUSPEND_UNSUSPEND_MARKETS;
+import static common.AGConstant.HomePage.*;
 import static common.AGConstant.MarketsManagement.SuspendUnsuspendMarket.*;
 
 public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
@@ -152,7 +151,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         AccountInfo acc = ProfileUtils.getProfile();
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
-        Market market = BlockUnblockEventsUtils.getAnOpenLineMarket(eventList, childID, "4", "OPEN");
+        Market market = BlockUnblockEventsUtils.getAnOpenLineMarket(eventList, childID, SPORT_ID.get("Cricket"), "OPEN");
         BlockUnblockEventPage blockUnblockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
         blockUnblockEventPage.filter("", sportName, "TODAY");
         blockUnblockEventPage.blockUnblockEvent(downlineAccount, market.getEventName(), "Unblock Now");

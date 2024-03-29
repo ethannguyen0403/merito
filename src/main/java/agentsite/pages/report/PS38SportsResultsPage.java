@@ -19,7 +19,7 @@ public class PS38SportsResultsPage extends HomePage {
     public Label lblNoRecordFound = Label.cssSelector("td.no-record");
     public Button btnToday = Button.name("today");
     public Button btnYesterday = Button.name("yesterday");
-    private DateTimePicker txtDateTime = DateTimePicker.xpath(txtDate, "//bs-days-calendar-view");
+    private DateTimePicker txtDateTime = DateTimePicker.xpath(txtDate, "//bs-datepicker-container");
     private DropDownBox ddnSports = DropDownBox.id("select-sport");
     private Button btnSearch = Button.name("search");
 

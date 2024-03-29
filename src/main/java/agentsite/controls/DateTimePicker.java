@@ -25,6 +25,7 @@ public class DateTimePicker extends BaseElement {
     private Label lblYear;
     private Table tblCalender;
     private Table tblCalenderMonth;
+    private Table tblCalenderYear;
     private TextBox txtDate;
 
 
@@ -40,6 +41,7 @@ public class DateTimePicker extends BaseElement {
         lblMonthYear = Label.xpath(String.format("%s//%s", _xpath, "th[@class='datepicker-switch']"));
         tblCalender = Table.xpath(String.format("%s//%s", _xpath, "table[contains(@class, 'days weeks')]"), 7);
         tblCalenderMonth = Table.xpath(String.format("%s//%s", _xpath, "table[@class='months']"), 3);
+        tblCalenderYear = Table.xpath(String.format("%s//%s", _xpath, "table[@class='years']"), 3);
     }
 
     public static DateTimePicker xpath(TextBox txtBox, String xpathExpression) {
@@ -126,6 +128,16 @@ public class DateTimePicker extends BaseElement {
         }
     }
 
+    private void clickYear(String year, String btnName) {
+        Cell e = tblCalenderYear.getCellByName(year, false);
+        if (e != null) {
+            e.click();
+            logEndAction(String.format("clicked year '%s' on Calendar", year));
+        } else {
+            logEndAction(String.format("cannot click %s button on on Calendar because Cell is null", btnName));
+        }
+    }
+
     private void clickDay(String name, boolean isMoved) {
         if (name.isEmpty()) {
             logEndAction("Error: Month or date parameter is empty");
@@ -182,11 +194,14 @@ public class DateTimePicker extends BaseElement {
             // click year
             if (!currentYear.equals(y)) {
                 lblYear.click();
-                clickDate(y, "");
+//                clickDate(y, "");
+                clickYear(y, "label Year");
             }
             //
             if (!currentMonth.equals(mm)) {
-                lblMonth.click();
+                if(lblYear.isDisplayed()){
+                    lblMonth.click();
+                }
                 clickMonth(mm);
             }
             clickDay(dd, false);
