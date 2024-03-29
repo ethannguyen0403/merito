@@ -274,9 +274,9 @@ public class Fair999Header extends Header1 {
             } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("VIVO"))) {
                 productTab = " Vivo ";
             }
-            return Tab.xpath(String.format(this.productMenuXpath, productTab, productTab, productTab)).isDisplayed();
+            return Tab.xpath(String.format(this.productMenuXpath, productTab)).isDisplayed();
         } else {
-            productTab = "LIVE DEALER";
+            productTab = " LIVE DEALER ";
             clickProduct(productTab);
             if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("SUPER_SPADE"))) {
                 productTab = "Asian Room";

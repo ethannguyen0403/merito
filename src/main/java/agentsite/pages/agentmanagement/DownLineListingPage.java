@@ -40,6 +40,7 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
     }
 
     public void searchDownline(String loginId, String accountStatus, String level) {
+        int i = 0;
         if (!loginId.isEmpty())
             txtLoginID.sendKeys(loginId);
         if (!accountStatus.isEmpty())
@@ -48,6 +49,13 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
             ddbLevel.selectByVisibleText(level);
         btnSearch.click();
         waitingLoadingSpinner();
+        //handle in case search do not affect for 1st round
+        while (i < 2) {
+            if(tblDowlineListing.getNumberOfRows(false, false) > 1) {
+                searchDownline(loginId, accountStatus, level);
+            }
+            i++;
+        }
     }
 
     public String changePassword(String loginID, String newPassword) throws InterruptedException {

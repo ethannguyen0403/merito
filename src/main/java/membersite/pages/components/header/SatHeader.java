@@ -25,7 +25,8 @@ import static common.CasinoConstant.*;
 public class SatHeader extends Header1 {
     Image imgLogo = Image.xpath("//a[contains(@class,'logo')]");
     CheckBox chkRememberMe = CheckBox.id("remember-me");
-    String productMenuXpath = "//div[@class='product-tab-wrapper' or @class='mod-main-navigation ']//a[text()=' %s ' or text() = '%s'] | .//div[text()=' %s ']";
+    String productMenuXpath = "//app-product-tab-v2//a[(text()='%s')]";
+    String productLiveDealerXpath = "//app-live-dealer//a[text()='%s']";
     Label lblMarquee = Label.xpath("//div[@class='marquee']");
     private TextBox txtUsername = TextBox.name("username");
     private TextBox txtPassword = TextBox.name("password");
@@ -380,17 +381,27 @@ public class SatHeader extends Header1 {
         String productTab = productName;
         if (!productName.equals(MemberConstants.HomePage.PRODUCTS.get("SUPER_SPADE")) && !productName.equals(MemberConstants.HomePage.PRODUCTS.get("EZUGI"))) {
             if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("EXCHANGE"))) {
-                productTab = "Exchange";
+                productTab = " Exchange ";
             } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("DIGIENT"))) {
-                productTab = "Lottery & Slots";
+                productTab = " LOTTERY & SLOTS ";
             } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("EXCH_GAMES"))) {
-                productTab = "Exchange Games";
+                productTab = " EXCHANGE GAMES ";
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("VIVO"))) {
+                productTab = " Vivo ";
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("GAME_HALL"))) {
+                productTab = " GAME HALL ";
             }
+            return Tab.xpath(String.format(this.productMenuXpath, productTab)).isDisplayed();
         } else {
-            productTab = "Live Dealer";
+            productTab = " LIVE DEALER ";
+            clickProduct(productTab);
+            if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("SUPER_SPADE"))) {
+                productTab = "Asian Room";
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("EZUGI"))) {
+                productTab = "European Room";
+            }
+            return Tab.xpath(String.format(this.productLiveDealerXpath, productTab)).isDisplayed();
         }
-
-        return Tab.xpath(String.format(this.productMenuXpath, productTab, productTab, productTab)).isDisplayed();
     }
 
     public void logout() {
