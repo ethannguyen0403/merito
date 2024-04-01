@@ -35,6 +35,9 @@ public class DepositWithdraw {
         return false;
     }
 
+    public boolean areOptionsMatched(List<String> expectedList, String controlDropDownName){
+        return false;
+    }
 
     public enum Actions {DEPOSIT, WITHDRAWAL, CHECK, USERNAME, SUCCESS_ICON, FAILURE_ICON, VIEW_LOG}
 }

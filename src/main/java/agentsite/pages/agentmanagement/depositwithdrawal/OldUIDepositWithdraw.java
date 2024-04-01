@@ -48,6 +48,14 @@ public class OldUIDepositWithdraw extends DepositWithdraw {
         }
     }
 
+    @Override
+    public boolean areOptionsMatched(List<String> expectedList, String controlDropDownName) {
+        Map<String, DropDownBox> vars = new HashMap<>();
+        vars.put("ddbAccountStatus",ddbAccountStatus);
+        vars.put("ddbLevel",ddbLevel);
+        return vars.get(controlDropDownName).areOptionsMatched(expectedList);
+    }
+
     public String getLabelText(String controlNameString) {
         final Map<String, Label> vars = new HashMap<>();
         vars.put("lblLoginAccountAvailableBalance",lblLoginAccountAvailableBalance);

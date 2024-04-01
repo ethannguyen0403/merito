@@ -404,10 +404,33 @@ public class AGConstant {
             public final static List<String> DDB_ACCOUNT_STATUS = Arrays.asList("All", "Active", "Inactive", "Suspended", "Closed", "Blocked");
             public final static List<String> TABLE_ACCOUNT_BALANCE_HEADER = Arrays.asList("My Credit", "Total Balance", "Sub Balance", "Available Balance");
             public final static List<String> DDB_LEVEL = Arrays.asList("All", "Agent", "Member");
-            public final static List<String> TABLE_HEADER =
-                    Arrays.asList("No.", "User Name", "Nickname", "Client Name", "", "Account Status"
-                            , "Level", "Currency", "Total Players Outstanding", "Retain Amount", "Available Balance",
-                            "Transfer", "Update Status");
+            public final static Map<String, List<String>> TABLE_HEADER_MAP = new HashMap() {
+                {
+                    put("fairexchange", Arrays.asList("No.", "User Name", "Nickname", "Client Name", "", "Account Status\n" +
+                                    "All\n" +
+                                    "Active\n" +
+                                    "Inactive\n" +
+                                    "Suspended\n" +
+                                    "Closed\n" +
+                                    "Blocked"
+                            , "Level\n" +
+                                    "All\n" +
+                                    "Agent\n" +
+                                    "Member", "Currency", "Total Players Outstanding", "Retain Amount", "Available Balance",
+                            "Transfer", "Update Status"));
+                    put("satsport", Arrays.asList("No.", "User Name", "Login ID", "Client Name", "", "Account Status\n" +
+                                    "All\n" +
+                                    "Active\n" +
+                                    "Inactive\n" +
+                                    "Suspended\n" +
+                                    "Closed\n" +
+                                    "Blocked"
+                            , "Level\n" +
+                                    "All\n" +
+                                    "Agent\n" +
+                                    "Member", "Credit Initiation", "Balance", "Winloss", "Exposure", "Transfer", "Log"));
+                }
+            };
             public final static List<String> TABLE_HEADER_DOWNLINE = Arrays.asList("No.", "User Name", "Nickname", "Client Name", "Account Status",
                     "Level", "Currency", "Total Players Outstanding", "Retain Amount", "Available Balance");
 

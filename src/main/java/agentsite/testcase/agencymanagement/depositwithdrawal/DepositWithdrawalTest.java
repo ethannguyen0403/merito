@@ -63,8 +63,8 @@ public class DepositWithdrawalTest extends BaseCaseTest {
 
         log("Step 1: Input security code");
 //        page.securityPopup.submitSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
-        boolean isStatusItems = NewUIDepositWithdraw.ddbAccountStatus.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_ACCOUNT_STATUS);
-        boolean isLevel = NewUIDepositWithdraw.ddbLevel.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL);
+        boolean isStatusItems = page.depositWithdraw.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_ACCOUNT_STATUS, "ddbAccountStatus");
+        boolean isLevel = page.depositWithdraw.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL, "ddbLevel");
         List<String> lstHeader = page.tblWithdrawalDeposit.getColumnNamesOfTable();
 
         log("Verify 1: Items on Account Status dropdown-box are loaded correctly");
@@ -79,7 +79,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
 //        Assert.assertEquals(page.btnSubmit.getText(), AGConstant.BTN_SUBMIT, "Failed, Submit button display incorrect");
 
         log("Verify 4: Column names on Deposit/withdraw info table are correct");
-        Assert.assertTrue(lstHeader.contains(AGConstant.AgencyManagement.DepositWithdrawal.TABLE_HEADER) , "FAILED! Header Deposit Withdraw not match with the expected");
+        Assert.assertEquals(lstHeader, AGConstant.AgencyManagement.DepositWithdrawal.TABLE_HEADER_MAP.get(_brandname) , "FAILED! Header Deposit Withdraw not match with the expected");
         log("INFO: Executed completely");
     }
 
