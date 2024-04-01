@@ -49,17 +49,15 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
         btnSearch.click();
         waitingLoadingSpinner();
         //handle in case search do not affect for 1st round
-        if (!loginId.isEmpty()) {
-            if (tblDowlineListing.getNumberOfRows(false, false) > 1) {
-                if (!loginId.isEmpty())
-                    txtLoginID.sendKeys(loginId);
-                if (!accountStatus.isEmpty())
-                    ddbAccountStatus.selectByVisibleText(accountStatus);
-                if (!level.isEmpty())
-                    ddbLevel.selectByVisibleText(level);
-                btnSearch.click();
-                waitingLoadingSpinner();
-            }
+        if (tblDowlineListing.getNumberOfRows(false, false) > 1) {
+            if (!loginId.isEmpty())
+                txtLoginID.sendKeys(loginId);
+            if (!accountStatus.isEmpty())
+                ddbAccountStatus.selectByVisibleText(accountStatus);
+            if (!level.isEmpty())
+                ddbLevel.selectByVisibleText(level);
+            btnSearch.click();
+            waitingLoadingSpinner();
         }
     }
 
