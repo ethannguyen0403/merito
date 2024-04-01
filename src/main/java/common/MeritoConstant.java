@@ -59,6 +59,8 @@ public class MeritoConstant {
     public static final String AGENT_FOLLOW_BETS_URL_SUFFIX = "/agent-management-ui/#/home/follow-bet";
     public static final String BACKOFFICE_SOS_URL = "/system-manager/sv/login/sos-doLogin.sv";
     public static final String BACKOFFICE_DASHBOARD_URL = "/system-manager-ui/#/modules";
+    public static final String CRYPTO_URL_SUFFIX = "/forex/#/own-bitcoin";
+    public static final String ATLANTIC_URL_SUFFIX = "";
     public enum BetType {BACK, LAY}
     public enum Sports {SOCCER, BASKETBALL, TENNIS, CRICKET, OTHER, HORSERACING}
 

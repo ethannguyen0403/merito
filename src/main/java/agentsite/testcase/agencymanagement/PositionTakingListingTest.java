@@ -152,7 +152,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3600")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression", "nolan"})
     @Parameters({"brandname"})
     public void Agent_AM_Position_Taking_Listing_3600(String brandname) {
         log("@title:Verify filter member level display correctly");
@@ -192,7 +192,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3602")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression", "nolan"})
     public void Agent_AM_Position_Taking_Listing_3602() {
         log("@title: Validate filter all level display correctly");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
@@ -362,7 +362,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3605")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression", "nolan"})
     public void Agent_AM_Position_Taking_Listing_3605() {
         log("@title: Verify the popup message display when updating PT without select any user");
         log("Step 1. Navigate Agency Management > Position Taking Listing");

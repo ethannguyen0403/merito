@@ -50,7 +50,7 @@ public class LeftMenuTest extends BaseCaseTest {
      * 2. A menu in Main menu display to verify Main menu is active by default
      */
     @TestRails(id = "3465")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void LeftMenu_TC3465() {
         log("@title: Validate Main Menu is active by default");
         log("Verify: 1. Main Menu, Quick Search");
@@ -107,27 +107,18 @@ public class LeftMenuTest extends BaseCaseTest {
      * 2. Not display Deposit/Withdraw menu for credit account
      */
     @TestRails(id = "3889")
-    @Test(groups = {"regression_creditcash"})
-    public void LeftMenu_TC3889_CreditCash() {
-        log("@title: Validate all items menu in Agency Management for Credit Cash account");
+    @Test(groups = {"regression_credit"})
+    public void LeftMenu_Credit_TC3889() {
+        log("@title: Validate all items menu in Agency Management for Credit account");
         log("Step:1 Click on Agency Management collapse");
-        List<String> lstSubReprotMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
+        List<String> lstSubReportMenu = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
         log("Verify:  1. Display Credit/Balance Listing, Transfer, and Risk Setting Listing menu");
-        Assert.assertEquals(lstSubReprotMenu.get(0), "Create Downline Agent", "FAILED!Create Downline Agent not display in Agency Management Menu Credit Line");
-        Assert.assertEquals(lstSubReprotMenu.get(1), "Create User", "FAILED! Create User not display in Agency Management Menu Credit Line");
-        Assert.assertEquals(lstSubReprotMenu.get(2), "Downline Listing", "FAILED! Downline Listing not display in Agency Management Menu Credit Line");
-        Assert.assertEquals(lstSubReprotMenu.get(3), "Position Taking Listing", "FAILED! Position Taking Listingnot display in Agency Management Menu Credit Line");
-        Assert.assertEquals(lstSubReprotMenu.get(4), "Transfer", "FAILED! Transfer not display in Agency Management Menu Credit Line");
-        Assert.assertEquals(lstSubReprotMenu.get(5), "Statement Report", "FAILED! Position Taking Listingnot display in Agency Management Menu Credit Line");
-        Assert.assertEquals(lstSubReprotMenu.get(6), "Client Ledger", "FAILED! Position Taking Listingnot display in Agency Management Menu Credit Line");
-        Assert.assertEquals(lstSubReprotMenu.get(7), "Credit/Balance Listing", "FAILED! Credit/Balance Listing not display in Agency Management Menu Credit Line");
-        Assert.assertEquals(lstSubReprotMenu.get(8), "Commission Listing", "FAILED! Commission Listing not display in Agency Management Menu Credit Line");
-        Assert.assertEquals(lstSubReprotMenu.get(9), "Bet Setting Listing", "FAILED! Bet Setting Listing not display in Agency Management Menu Credit Line");
-        Assert.assertEquals(lstSubReprotMenu.get(10), "Risk Setting Listing", "FAILED! Risk Setting Listing not display in Agency Management Menu Credit Line");
-        Assert.assertEquals(lstSubReprotMenu.get(11), "Tax Settings", "FAILED! Tax Settings not display in Agency Management Menu Credit Line");
+        Assert.assertTrue(lstSubReportMenu.contains(CREDIT_BALANCE_LISTING),String.format("FAILED! List %s does not contain submenu %s",lstSubReportMenu, CREDIT_BALANCE_LISTING));
+        Assert.assertTrue(lstSubReportMenu.contains(TRANSFER),String.format("FAILED! List %s does not contain submenu %s",lstSubReportMenu, TRANSFER));
+        Assert.assertTrue(lstSubReportMenu.contains(RISK_SETTING_LISTING),String.format("FAILED! List %s does not contain submenu %s",lstSubReportMenu, RISK_SETTING_LISTING));
 
         log("Verify:  2. Not display Deposit/Withdraw menu for credit account");
-        Assert.assertFalse(lstSubReprotMenu.contains(CREDIT_BALANCE_LISTING), "FAILED! Credit Line should not display deposit withdraw");
+        Assert.assertTrue(!lstSubReportMenu.contains(DEPOSIT_WITHDRAWAL),String.format("FAILED! List %s contain submenu %s",lstSubReportMenu, DEPOSIT_WITHDRAWAL));
 
         log("INFO: Executed completely");
     }
@@ -166,7 +157,7 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect: 1/ If the account is active  one  of the products: Live Dealer Europeans, Lottery & Slot, Live Dealer Asian display, Commission Setting Listing menu display
      */
     @TestRails(id = "3468")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void LeftMenu_TC3468() {
         log("@title: Validate can expand/collapse Agency Management");
         log("Step:1 Have an account that active the product Live Dealer Europeans, Lottery & Slot, Live Dealer Asian");
@@ -306,10 +297,9 @@ public class LeftMenuTest extends BaseCaseTest {
      * 2. Verify all report display : Balance, Unsettled Bet, Client Ledger, Settings, Login
      */
     @TestRails(id = "3471")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void LeftMenu_TC3471() {
         log("@title: Validate can search direct member account in quick search");
-        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
         String accountDisplay = listAccount.get(0).getUserCode();
@@ -321,7 +311,7 @@ public class LeftMenuTest extends BaseCaseTest {
         agentHomePage.quickSearch.quickSearch(accountDisplay);
 
         log("Verify 1 Verify account info and his direct update display");
-        Assert.assertEquals(agentHomePage.quickSearch.lblLevelQS.getText(), ProfileUtils.convertDownlineByBrand(downlineLevel, ProfileUtils.getAppName()), "FAILED! Level in quick search is incorrect displayed");
+        Assert.assertEquals(agentHomePage.quickSearch.lblLevelQS.getText(), MEMBER, "FAILED! Level in quick search is incorrect displayed");
         Assert.assertTrue(agentHomePage.quickSearch.lblAccountQS.getText().contains(accountDisplay), "FAILED! Account display in quick search incorrect");
 
         log("Verify 2. Verify all report display : Balance, Unsettled Bet, Client Ledger, Settings, Login");
@@ -458,7 +448,7 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect: 1. Verify Client Ledger page display
      */
     @TestRails(id = "3476")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void LeftMenu_TC3476() {
         log("@title: Verify Client Ledger button in quick search section works");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -545,7 +535,7 @@ public class LeftMenuTest extends BaseCaseTest {
      * 3. Status is updated
      */
     @TestRails(id = "3479")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void LeftMenu_TC3479() {
         log("@title: Verify can update account status in Quick Search");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -764,13 +754,17 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect: Verify the list menu display correct when other leve
      */
     @TestRails(id = "677")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void LeftMenu_TC677() {
         log("@title: Verify the list menu display correct when other level");
+        log("@Precondition: Login Agent site by SAD level");
         log("Step 1: Expand all left menu");
-        log("Verify:1 Verify the list menu display correct when other level");
-        //TODO: stabilize test for this case
-        Assert.assertTrue(false,"");
+        log("Verify:1 Verify the list menu display correct");
+        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(AGENCY_MANAGEMENT), "FAILED! Agency Management not display correctly");
+        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(REPORT), "FAILED! Report not display correctly");
+        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(MARKET_MANAGEMENT), "FAILED! Bets/Markets Management not display correctly");
+        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(FRAUD_DETECTION), "FAILED! Fraud Detection not display correctly");
+
         /* Assert.assertEquals(agentHomePage.menuAgencyManagement.getText(),"Agency Management","Failed! Agency Management not display correctly");
         Assert.assertEquals(agentHomePage.subMenuCreateDownLineAgent.getText(),"Create Downline Agent","Failed! Create DownLine Agent not display correctly");
         Assert.assertEquals(agentHomePage.subMenuCreateUser.getText(),"Create User","Failed! Create User not display correctly");

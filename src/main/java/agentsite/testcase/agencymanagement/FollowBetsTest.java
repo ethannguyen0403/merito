@@ -17,6 +17,8 @@ import util.testraildemo.TestRails;
 import java.util.ArrayList;
 import java.util.List;
 
+import static common.AGConstant.HomePage.FOLLOW_BETS;
+
 public class FollowBetsTest extends BaseCaseTest {
     /**
      * @title: There is no http responded error returned
@@ -522,7 +524,7 @@ public class FollowBetsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3682")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void Agency_Management_Follow_Bets_3682 () {
         log("@title: Validate can not access this page from Non-PO level");
         log("@Pre-condition 1: Log in successfully by CO");
@@ -530,9 +532,7 @@ public class FollowBetsTest extends BaseCaseTest {
         agentHomePage.leftMenu.isMenuExpanded(AGConstant.HomePage.AGENCY_MANAGEMENT);
         List<String> lstMenuInAgency = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGConstant.HomePage.AGENCY_MANAGEMENT);
         log("Verify 1: Validate there is no Follow bets menu in Agency Management and cannot access this page via URL");
-        for (int i = 0; i < lstMenuInAgency.size();i++){
-            Assert.assertFalse(lstMenuInAgency.get(i).equalsIgnoreCase("Follow Bets"),"FAILED! Level CO still have Follow Bets page.");
-        }
+        Assert.assertTrue(!lstMenuInAgency.contains(FOLLOW_BETS), "FAILED! Follow Bets page display in left menu");
         agentHomePage.navigateToUrl(agentFollowBetURL);
         ErrorPopup errorPopup = new ErrorPopup();
         Assert.assertEquals(errorPopup.getContentMessage(),"An error occurred. Please try again, if the situation persists, please contact customer support.");

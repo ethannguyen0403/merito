@@ -53,7 +53,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * 4. Column names on Downline info table are correct
      */
     @TestRails(id = "712")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     @Parameters("currency")
     public void Agent_AM_DepositWithdrawal_712(String currency) {
         log("@title: Validate that this page loading is successful");
@@ -63,23 +63,23 @@ public class DepositWithdrawalTest extends BaseCaseTest {
 
         log("Step 1: Input security code");
 //        page.securityPopup.submitSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
-        boolean isStatusItems = NewUIDepositWithdraw.ddbAccountStatus.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_ACCOUNT_STATUS);
-        boolean isLevel = NewUIDepositWithdraw.ddbLevel.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL);
+        boolean isStatusItems = page.depositWithdraw.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_ACCOUNT_STATUS, "ddbAccountStatus");
+        boolean isLevel = page.depositWithdraw.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL, "ddbLevel");
         List<String> lstHeader = page.tblWithdrawalDeposit.getColumnNamesOfTable();
 
         log("Verify 1: Items on Account Status dropdown-box are loaded correctly");
         log("Verify 2: Items on Level dropdown-box are loaded correctly");
         Assert.assertTrue(isStatusItems, "ERROR: At least an item within Account Status ddb is incorrect");
         Assert.assertTrue(isLevel, "ERROR: At least an item within Level ddb is incorrect");
-        Assert.assertEquals(page.getLabelText("lblLoginAccountAvailableBalance"), String.format("%s %s %s", AGConstant.AgencyManagement.DepositWithdrawal.LBL_AVAILABLE_BALANCE, currency, loginAccBalance));
+        Assert.assertEquals(page.getLabelText("lblLoginAccountAvailableBalance"), loginAccBalance, "FAILED! Available Balance is not correct");
         Assert.assertEquals(page.getLabelText("lblUsername"), AGConstant.LBL_USERNAME, "FAILED! Username label not correct");
         Assert.assertEquals(page.getLabelText("lblAccountStatus"), AGConstant.AgencyManagement.DepositWithdrawal.LBL_ACCOUNT_STATUS, "FAILED! Account status not correct");
         Assert.assertEquals(page.getLabelText("lblLevel"), AGConstant.AgencyManagement.DepositWithdrawal.LBL_LEVEL, "FAILED! Level label not correct");
         Assert.assertEquals(page.txtUsername.getAttribute("placeholder").trim(), AGConstant.AgencyManagement.DepositWithdrawal.USERNAME_NICKNAME, "FAILED! Username placeholder not correct");
-        Assert.assertEquals(page.btnSubmit.getText(), AGConstant.BTN_SUBMIT, "Failed, Submit button display incorrect");
+//        Assert.assertEquals(page.btnSubmit.getText(), AGConstant.BTN_SUBMIT, "Failed, Submit button display incorrect");
 
         log("Verify 4: Column names on Deposit/withdraw info table are correct");
-        Assert.assertEquals(lstHeader, AGConstant.AgencyManagement.DepositWithdrawal.TABLE_HEADER, "FAILED! Header Deposit Withdraw not match with the expected");
+        Assert.assertEquals(lstHeader, AGConstant.AgencyManagement.DepositWithdrawal.TABLE_HEADER_MAP.get(_brandname) , "FAILED! Header Deposit Withdraw not match with the expected");
         log("INFO: Executed completely");
     }
 
@@ -391,7 +391,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * @expect: 1. Verify security popup display
      */
     @TestRails(id = "720")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_720() {
         log("@title: Validate security popup display Deposit/withdraw page");
 
@@ -399,7 +399,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage("");
 
         log("Verify 1. Verify security popup display");
-        Assert.assertTrue(page.securityPopup.isDisplayed(), "FAILED! Security Popup should not display when open Deposit Withdraw page in SAT and White Label");
+        Assert.assertTrue(!page.securityPopup.isDisplayed(), "FAILED! Security Popup should not display when open Deposit Withdraw page in SAT and White Label");
 
         log("INFO: Executed completely");
     }

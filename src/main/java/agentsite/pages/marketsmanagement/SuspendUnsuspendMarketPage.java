@@ -23,6 +23,7 @@ public class SuspendUnsuspendMarketPage extends HomePage {
 
     public SuspendUnsuspendMarketPage(String types) {
         super(types);
+        waitingLoadingSpinner();
     }
 
     private void selectEventDayTab(String date) {
@@ -44,6 +45,7 @@ public class SuspendUnsuspendMarketPage extends HomePage {
     }
 
     public void filterEvent(String sport, String date) {
+        waitingLoadingSpinner();
         if (!sport.isEmpty())
             ddbSport.selectByVisibleText(sport);
         if (!date.isEmpty())

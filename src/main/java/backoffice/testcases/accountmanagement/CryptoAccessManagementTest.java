@@ -4,6 +4,7 @@ import backoffice.common.BOConstants;
 import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo.accountmanagement.CryptoAccessManagementPage;
 import baseTest.BaseCaseTest;
+import membersite.pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -47,12 +48,17 @@ public class CryptoAccessManagementTest extends BaseCaseTest {
      * @expect: 1. Verify can login crypto site with the account in the list
      */
     @TestRails(id = "621")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression_funsport"})
     @Parameters({"cryptoAccount", "password"})
     public void BO_Account_Management_Crypto_Access_Management_621(String cryptoAccount, String password) throws Exception {
         log("@title: Validate account added into the list can login in crypto site");
-        //TODO: implement this case
-        Assert.assertTrue(false, "Need to implement this case");
+        log("Step 1. Access Admin Management > Crypto Access Management");
+        log("Step 2. Get the account in the list with active status");
+        log("Step 3. Access Crypto site and login");
+        HomePage memberHomepage = loginCryptoSite(cryptoAccount, password, true);
+
+        log("Verify can login crypto site with the account in the list");
+        Assert.assertTrue(memberHomepage.isMyAccountDisplay(), "FAILED! Login unsuccessfully");
         log("INFO: Executed completely");
 
     }

@@ -101,7 +101,7 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseTest {
      * @expect: 1 Verify Turnover in summary report match when sum player stake in detail report
      */
     @TestRails(id = "807")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_807() {
         log("@title: Validate data on when click on Turnover is matched with details");
         log("Step 1. Navigate Report > Win Loss By Sport And Market Type");

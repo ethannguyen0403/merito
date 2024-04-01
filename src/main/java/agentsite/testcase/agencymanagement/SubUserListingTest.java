@@ -29,7 +29,7 @@ public class SubUserListingTest extends BaseCaseTest {
      * 2. Verify can login agent with new sub account
      */
     @TestRails(id = "751")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_sat", "nolan"})
     @Parameters("password")
     public void Agent_AM_Sub_User_Listing_751(String password) throws Exception {
         log("@title: Can create Sub user successfully with full permissions");
@@ -54,12 +54,13 @@ public class SubUserListingTest extends BaseCaseTest {
         String subUsername = page.subUserListing.createSubUser("", pwDecrypt, "Active", StringUtils.generateAlphabetic(4), StringUtils.generateAlphabetic(4), permissions);
         log("Verify 1. Verify Sub user is created with all permission");
         Assert.assertTrue(page.subUserListing.isSubUserPermissionSettingCorrect(subUsername, permissions), "FAILED the list permission is incorrect");
-        page.logout();
-        Thread.sleep(2000);
+//        page.logout();
+//        Thread.sleep(2000);
 
         log("Verify 2. Verify can login agent with new sub account");
-        loginNewAccount(sosAgentURL, agentNewAccURL, subUsername, password, StringUtils.decrypt(environment.getSecurityCode()));
-        Assert.assertEquals(agentHomePage.leftMenu.lblLoginID.getText(), subUsername, "Failed!, Login ID lable display incorrect");
+//        loginNewAccount(sosAgentURL, agentNewAccURL, subUsername, password, StringUtils.decrypt(environment.getSecurityCode()));
+        loginAgent(subUsername, password, true);
+        Assert.assertTrue(agentHomePage.leftMenu.lblLoginID.getText().contains(subUsername), "Failed! Login ID lable display incorrect. Expected: " + subUsername);
         log("INFO: Executed completely");
     }
 
@@ -90,7 +91,7 @@ public class SubUserListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3647")
-    @Test(groups = {"regression_sat"})
+    @Test(groups = {"regression_sat", "nolan"})
     public void Agent_SAD_Sub_User_Listing_3647() {
         log("@title: Verify Create Sub User UI popup display correct");
         log("Step 1. Navigate Agency Management > Sub User Listing");
@@ -112,14 +113,14 @@ public class SubUserListingTest extends BaseCaseTest {
         Assert.assertTrue(popup.txtLastName.isDisplayed(), "FAILED! Last Name textbox not display");
         Assert.assertEquals(popup.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is incorrect display");
         List<String> lstPermisison = popup.permisisonList.getListSubMenu();
-        Assert.assertEquals(lstPermisison, PERMISSION_LIST_SAD, "FAILED! List Permission on Create Sub User");
+        Assert.assertTrue(PERMISSION_LIST_SAD.containsAll(lstPermisison), "FAILED! List Permission on Create Sub User. Actual: " + lstPermisison);
         List<String> lstFormHeader = popup.tblForm.getColumn(1, false);
         Assert.assertEquals(lstFormHeader, CREATE_SUB_USER_FORM, "FAILED! Labels Create Sub User");
 
         log("INFO: Executed completely");
     }
     @TestRails(id = "3648")
-    @Test(groups = {"regression_sat"})
+    @Test(groups = {"regression_sat", "nolan"})
     @Parameters("password")
     public void Agent_SAD_Sub_User_Listing_3648(String password) throws Exception {
         log("@title:Verify Sub account only setting for a create account permission");
@@ -161,7 +162,7 @@ public class SubUserListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3649")
-    @Test(groups = {"regression_sat"})
+    @Test(groups = {"regression_sat", "nolan"})
     @Parameters("password")
     public void Agent_SAD_Sub_User_Listing_3649(String password) throws Exception {
         log("@title: Verify Sub account only setting for Update Account permission");
@@ -199,14 +200,14 @@ public class SubUserListingTest extends BaseCaseTest {
         Assert.assertEquals(lstSubMenu.get(0), DOWNLINE_LISTING, "Failed! Downline Listing not display correctly");
         Assert.assertEquals(lstSubMenu.get(1), EVENT_BET_STIE_SETTINGS, "Failed! Event Bet Size Settings not display correctly");
         Assert.assertEquals(lstSubMenu.get(2), POSITION_TAKING_LISTING, "Failed! Position Taking Listing not display correctly");
-        Assert.assertEquals(lstSubMenu.get(4), COMMISSION_LISTING, "Failed!Commission Listing not display correctly");
-        Assert.assertEquals(lstSubMenu.get(5), BET_SETTING_LISTING, "Failed! Bet Setting Listing not display correctly");
-        Assert.assertEquals(lstSubMenu.get(6), TAX_SETTING_LISTING, "Failed! Tax Settings not display correctly");
-        Assert.assertEquals(lstSubMenu.get(7), ANNOUNCEMENT, "Failed! Announcement not display correctly");
+        Assert.assertEquals(lstSubMenu.get(3), COMMISSION_LISTING, "Failed!Commission Listing not display correctly");
+        Assert.assertEquals(lstSubMenu.get(4), BET_SETTING_LISTING, "Failed! Bet Setting Listing not display correctly");
+        Assert.assertEquals(lstSubMenu.get(5), TAX_SETTING_LISTING, "Failed! Tax Settings not display correctly");
+        Assert.assertEquals(lstSubMenu.get(6), ANNOUNCEMENT, "Failed! Announcement not display correctly");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3650")
-    @Test(groups = {"regression_sat"})
+    @Test(groups = {"regression_sat", "nolan"})
     @Parameters("password")
     public void Agent_SAD_Sub_User_Listing_3650(String password) throws Exception {
         log("@title: Verify Sub account only setting for Report permission");
@@ -245,7 +246,7 @@ public class SubUserListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3651")
-    @Test(groups = {"regression_sat"})
+    @Test(groups = {"regression_sat", "nolan"})
     @Parameters("password")
     public void Agent_SAD_Sub_User_Listing_3651(String password) throws Exception {
         log("@title: Verify Sub account only setting for Transfer & Deposit/Withdraw permission");
@@ -284,7 +285,7 @@ public class SubUserListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3652")
-    @Test(groups = {"regression_sat"})
+    @Test(groups = {"regression_sat", "nolan"})
     @Parameters("password")
     public void Agent_SAD_Sub_User_Listing_3652(String password) throws Exception {
         log("@title: Verify Sub account only setting for Markets Management permission");

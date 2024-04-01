@@ -1,12 +1,16 @@
 package backoffice.testcases.marketmanagement;
 
-import backoffice.common.BOConstants;
+import agentsite.pages.marketsmanagement.BlockUnblockEventPage;
+import backoffice.objects.bo.marketmanagement.Market;
+import backoffice.pages.bo.marketmanagement.EventMarketStatusPage;
 import backoffice.pages.bo.marketmanagement.FindBlockedMarketPage;
 import backoffice.utils.tools.EventMarketStatusUtils;
 import backoffice.utils.tools.FindBlockedMarketUtils;
 import baseTest.BaseCaseTest;
+import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
 import com.paltech.utils.StringUtils;
+import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -14,6 +18,11 @@ import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static backoffice.common.BOConstants.DASH_YYYY_MM_DD;
+import static backoffice.common.BOConstants.GMT_FOUR;
+import static common.AGConstant.HomePage.SPORT_ID;
+import static common.AGConstant.SPORT_CRICKET;
 
 public class FindBlockedMarketTest extends BaseCaseTest {
 
@@ -32,7 +41,7 @@ public class FindBlockedMarketTest extends BaseCaseTest {
         log("Step 2. Access Tool > Find Block Market");
         log("@title: Validate can find blocked market for an account");
         log("Step 1. Access Tool > Event/Market Status, filter Event date: Today and get sport, competition, event id, event name, of a market");
-        String today = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
+        String today = DateUtils.getDate(0, "yyyy-MM-dd", GMT_FOUR);
         List<ArrayList<String>> lstSport = EventMarketStatusUtils.getSport(today, false);
         List<ArrayList<String>> lstCompetition = EventMarketStatusUtils.getCompetition(today, false, lstSport.get(0).get(0));
         List<ArrayList<String>> lstEvent = EventMarketStatusUtils.getEvent(today, false, lstSport.get(0).get(0), lstCompetition.get(0).get(0));
@@ -72,43 +81,29 @@ public class FindBlockedMarketTest extends BaseCaseTest {
      */
     @TestRails(id = "610")
     @Test(groups = {"smoke"})
-    @Parameters({"satMemberLoginID", "memberPassword", "satSADAgentLoginID", "downlineSADAccount"})
-    public void BO_Tools_Find_Blocked_Market_610(String satMemberLoginID, String memberPassword, String satSADAgentLoginID, String downlineSADAccount) throws Exception {
+    @Parameters({"satMemberLoginID", "memberPassword", "satSADAgentLoginID"})
+    public void BO_Tools_Find_Blocked_Market_610(String satMemberLoginID, String memberPassword, String satSADAgentLoginID) throws Exception {
         log("@title: Validate Agent site - Block unblock event status is correctly as filtering");
-        //TODO: implement this case
-        Assert.assertTrue(false, "Need to implement this case");
-        log("INFO: Executed Completely!");
-//        log("Step 1. Access Tool > Event/Market Status, filter Event date: Today and get sport, competition, event id, event name, of a market");
-//        String today = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
-//        List<ArrayList<String>> lstSport = EventMarketStatusUtils.getSport(today, false);
-//        String sportName = "Soccer";
-//        String competitionID = EventMarketStatusUtils.getCompetition(today, false, "1").get(0).get(0);
-//        List<ArrayList<String>> lstEvent = EventMarketStatusUtils.getEvent(today, false, "1", competitionID);
-//        String eventID = lstEvent.get(0).get(0);
-//        String eventName = lstEvent.get(0).get(1);
-//        String marketID = EventMarketStatusUtils.getMarket(today, false, eventID).get(0).get(0);
-//
-//        log("Step 2. Access Tool > Find Block Market");
-//        FindBlockedMarketPage page = backofficeHomePage.navigateFindBlockedMarket();
-//
-//        log("Step 3.Input username, Event ID, Market ID and click search button.");
-//        page.search(satMemberLoginID, eventID, marketID);
-//
-//        log("Step 4. The data display and get Status in Block/Unblock Event column");
-//        String eventStatus = page.tblBlockedMarket.getColumn(page.colBlockUnblockEventStatus, false).get(3);
+        log("Step 1. Access Tool > Event/Market Status, filter Event date: Today and get sport, competition, event id, event name, of a market");
+        String date = DateUtils.getDate(0, DASH_YYYY_MM_DD, GMT_FOUR);
+        EventMarketStatusPage eventMarketStatusPage = backofficeHomePage.navigateEventMarketStatus();
+        Market market = eventMarketStatusPage.getMarketInfo(date, SPORT_ID.get(SPORT_CRICKET), false);
 
-       /* log("Step 5. Login agent the level control blocking > Block/Unblock Event");
-      //  Helper.loginAgentIgnoreCaptchaTest(environment.getSatAgentSOSURL(),environment.getSatAgentSosValidationURL(),environment.getSatAgentDashboardURL(),satSADAgentLoginID,memberPassword,environment.getSecurityCode());
-        BaseCaseSATAgent.loginAgent(environment.getSatAgentSOSURL(),environment.getSatAgentSecurityCodeUrl(),satSADAgentLoginID,memberPassword,environment.getSecurityCode());
-        backofficeHomePage agentbackofficeHomePage = new backofficeHomePage();
-        BlockUnblockEventPage blockUnblockEventPage = agentbackofficeHomePage.navigateBlockUnblockEvents();
-        blockUnblockEventPage.filter("",sportName,"Today");
-        blockUnblockEventPage.selectDownline(downlineSADAccount,true);
-        blockUnblockEventPage.searchEvent(eventName);
+        log("Step 2. Access Tool > Find Block Market\n" +
+                "Input username, Event ID, Market ID and click search button.");
+        DriverManager.getDriver().switchToParentFrame();
+        FindBlockedMarketPage page = backofficeHomePage.navigateFindBlockedMarket();
+        page.search(satMemberLoginID, market.event.getEventId(), market.getMarketId());
+        log("Step 3. The data display and get Status in Block/Unblock Event column");
+        String blockStatus = page.getBlockedStatus(satSADAgentLoginID);
+        log("Step 4. Login agent the level control blocking > Block/Unblock Event");
+        agentHomePage = loginAgent(satSADAgentLoginID, memberPassword, _brandname);
+        BlockUnblockEventPage blockUnblockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
+        blockUnblockEventPage.filter("",SPORT_CRICKET, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+        blockUnblockEventPage.searchEvent(market.event.getEventName());
 
         log("Verify 1. Verify status in agent site is match with Find Blocked Market Page");
-        blockUnblockEventPage.verifyBlockUnblockEvent(lstEvent.get(0).get(1), eventStatus);
-*/
+        blockUnblockEventPage.verifyBlockUnblockEvent(market.event.getEventName(), blockStatus);
         log("INFO: Executed completely");
     }
 

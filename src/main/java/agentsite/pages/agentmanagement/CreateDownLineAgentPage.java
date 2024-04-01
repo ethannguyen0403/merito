@@ -70,7 +70,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public CommissionSectionPS38 commissionSectionPS38;
 
     protected String _type;
-    private int totalBetSettingsColumns = 9;
+    private int totalBetSettingsColumns = 10;
     public Table tblBetSettings = Table.xpath("//div[@id='EXCHANGE-bet-settings']//table[contains(@class,'betTable')]", totalBetSettingsColumns);
     private int totalEGBetSettingColumns = 8;
     public Table tblEGBetSettings = Table.xpath("//div[@id='EXCH_GAMES-bet-settings']//table[contains(@class,'betTable')]", totalEGBetSettingColumns);

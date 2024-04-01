@@ -27,12 +27,10 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Info is displayed correctly
      */
     @TestRails(id = "3628")
-    @Test(groups = {"regression_creditcash"})
+    @Test(groups = {"regression_creditcash","tim"})
     public void Agent_AM_DepositWithdrawal_Withdraw_3628(){
         log("@title: Validate that Withdrawal popup displays correct info.");
-        //   AccountInfo acc = ProfileUtils.getProfile();
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-        Double loginAccBalance = DownLineListingUtils.getMyCreditCashBalance();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         String userCode = lstUsers.get(0).getUserCode();
         AccountInfo accountInfo = lstUsers.get(lstUsers.size() - 1);
@@ -54,8 +52,8 @@ public class WithdrawalTest extends BaseCaseTest {
         Assert.assertEquals(popupTitle, expectedTitle, String.format("ERROR: The expected popup title is '%s' but found '%s'", expectedTitle, popupTitle));
 
         log("Verify 2: Info is displayed correctly");
-        Assert.assertEquals(Double.parseDouble(yourBalance), accountInfo.getCashBalance(), String.format("ERROR: The expected current balance is '%s' but found '%s'", accountInfo.getCashBalance(), yourBalance));
-        Assert.assertEquals(Double.parseDouble(memberBalance), lstUsers.get(0).getCashBalance(), String.format("ERROR: The expected member's current balance is '%s' but found '%s'", lstUsers.get(0).getCashBalance(), memberBalance));
+        Assert.assertEquals(Double.parseDouble(yourBalance), accountInfo.getAvailableBalance(), String.format("ERROR: The expected current balance is '%s' but found '%s'", accountInfo.getCashBalance(), yourBalance));
+        Assert.assertEquals(Double.parseDouble(memberBalance), lstUsers.get(0).getAvailableBalance(), String.format("ERROR: The expected member's current balance is '%s' but found '%s'", lstUsers.get(0).getCashBalance(), memberBalance));
         log("INFO: Executed completely");
     }
 
@@ -98,7 +96,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * @expect: 1. There is an error message when submitted without any amount
      */
     @TestRails(id = "3630")
-    @Test(groups = {"regression_creditcash"})
+    @Test(groups = {"regression_creditcash","tim"})
     public void Agent_AM_DepositWithdrawal_Withdraw_3630() {
         log("@title: Validate that there is an error message displayed when submitted without any amount");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -113,13 +111,10 @@ public class WithdrawalTest extends BaseCaseTest {
         WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
 
         log("Step 3: Withdrawal without any amount");
-        popup.withdraw("", "");
-
-        popup.lblAmountError.isTextDisplayed(AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_ERROR_AMOUNT, 1);
-        String errorMessage = popup.lblAmountError.getText();
+        popup.withdraw("", "", true, true);
 
         log("Verify 1: There is an error message when submitted without any amount");
-        Assert.assertEquals(errorMessage, AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_ERROR_AMOUNT, String.format("ERROR: The expected error message is '%s' but found '%s'", errorMessage, AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_ERROR_AMOUNT));
+        Assert.assertEquals(popup.lblAmountError.getText(), AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_ERROR_AMOUNT, String.format("ERROR: The expected error message is '%s' but found '%s'", popup.lblAmountError.getText(), AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_ERROR_AMOUNT));
         log("INFO: Executed completely");
     }
 
@@ -168,7 +163,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * @expect: 1. An amount is withdrawn successfully
      */
     @TestRails(id = "732")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_Withdraw_732() {
         log("@title:Validate that an amount is withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -304,7 +299,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. Success icon is displayed when withdrawing completely
      */
     @TestRails(id = "735")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_Withdraw_735(){
         log("@title: Validate can withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();

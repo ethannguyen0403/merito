@@ -131,7 +131,7 @@ public class LandingPage extends BasePage {
     }
 
     public List<String> getListHeaderMenu() {
-        List<WebElement> lblMenu = Label.xpath("//app-product-tab//ul[@class='h-100 overflow-auto text-nowrap navbar-nav']//li//a").getWebElements();
+        List<WebElement> lblMenu = Label.xpath("//app-sport-menu-bar//ul[@class='navbar-nav']//li//a").getWebElements();
         List<String> lstHeaderMenuText = new ArrayList<>();
         for (WebElement element : lblMenu) {
             lstHeaderMenuText.add(element.getText().trim());

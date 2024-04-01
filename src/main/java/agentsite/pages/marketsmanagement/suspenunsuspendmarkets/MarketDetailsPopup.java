@@ -1,6 +1,7 @@
 package agentsite.pages.marketsmanagement.suspenunsuspendmarkets;
 
 import agentsite.controls.Table;
+import agentsite.pages.HomePage;
 import agentsite.pages.components.ConfirmPopup;
 import com.paltech.element.common.*;
 import org.openqa.selenium.Keys;
@@ -62,9 +63,10 @@ public class MarketDetailsPopup extends ConfirmPopup {
     }
 
     public void searchMarket(String marketName) {
+        txtMarketName.isDisplayed();
         txtMarketName.sendKeys(marketName);
         txtMarketName.type(Keys.ENTER);
-        iconLoadSpinner1.isDisplayed(2);
+        HomePage.waitingLoadingSpinner();
     }
 
     private int getMarketIndex(String marketName) {

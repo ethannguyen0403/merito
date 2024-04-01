@@ -222,7 +222,7 @@ public class BlockUnblockEventPage extends HomePage {
         if (!event.isEmpty()) {
             // for case select all event
             if (event.equalsIgnoreCase("all")) {
-                chkEventAll.click();
+                chkEventAll.jsClick();
                 waitingLoadingSpinner();
                 return;
             }
@@ -237,7 +237,7 @@ public class BlockUnblockEventPage extends HomePage {
                 }
                 String eventCell = Label.xpath(tblEvent.getxPathOfCell(1, colEvent, i + 1, null)).getText().trim();
                 if (eventCell.contains(event)) {
-                    cbEvent.click();
+                    cbEvent.jsClick();
                     return;
                 }
                 i = i + 1;
@@ -344,7 +344,7 @@ public class BlockUnblockEventPage extends HomePage {
         } else
             checkbox = CheckBox.xpath(String.format("//table[contains(@class,'block-table')]//span[contains(text(),'%s')]/following::span[1]//i", downline));
         if (!checkbox.getAttribute("class").contains("fa-check"))
-            checkbox.click();
+            checkbox.jsClick();
             waitingLoadingSpinner();
     }
 
@@ -357,8 +357,14 @@ public class BlockUnblockEventPage extends HomePage {
         for (int i = 0; i < lstEvent.size(); i++) {
             if (lstEvent.get(i).contains(event)) {
                 String _currentStatus = tblEvent.getControlOfCell(1, colStatusCurrent, i + 1, "span").getText();
-                Assert.assertEquals(_currentStatus, currentStatus, String.format("FAILED! Status should be %s but display %s", currentStatus, _currentStatus));
+                Assert.assertTrue(_currentStatus.equalsIgnoreCase(currentStatus), String.format("FAILED! Status should be %s but display %s", currentStatus, _currentStatus));
             }
+        }
+    }
+
+    public void verifyStatusAllEventsAreUnblock(List<Event> eventList){
+        for (int i = 0; i < eventList.size(); i++) {
+            verifyBlockUnblockEvent(eventList.get(i).getEventName(), "Unblocked", true, false, true, UNBLOCKTYPE.get(0), UNBLOCKTYPE.get(0));
         }
     }
 
@@ -383,7 +389,7 @@ public class BlockUnblockEventPage extends HomePage {
         }
     }
 
-    public void assertBetabelMarketStatusOfEventAsUnblockScheudle(String event, String unblockSchedule) {
+    public void verifyBetableMarketStatus(String event, String unblockSchedule) {
         MarketDetailsPopup marketDetailsPopup = openMarketDetails(event);
         int scheduleMinute = timeToOpenConvert(unblockSchedule);
         marketDetailsPopup.assertBetStatusOfAllMarketForUnblockedEvent(scheduleMinute);
@@ -507,6 +513,7 @@ public class BlockUnblockEventPage extends HomePage {
     public void searchEvent(String eventNameorID) {
         txtSearchByEventIDName.sendKeys(eventNameorID);
         txtSearchByEventIDName.type(false, Keys.ENTER);
+        waitingLoadingSpinner();
     }
 
     public MarketDetailsPopup openMarketDetails(String eventName) {

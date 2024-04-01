@@ -70,8 +70,6 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
             // waiting accepting label disappear
             lblAccepting.waitForControlInvisible(10, 10);
         }
-
-
     }
 
     // Just input stake after click on odds then place bet
@@ -161,5 +159,13 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
 
     public boolean isErrorDisplayed(Label label, String errorMessage) {
         return label.getText().contains(errorMessage);
+    }
+
+    public void clickSubmit() {
+        if(btnPlaceBet.isClickable(2)){
+            btnPlaceBet.click();
+            // waiting accepting label disappear
+            lblAccepting.waitForControlInvisible(10, 10);
+        }
     }
 }

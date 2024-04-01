@@ -50,5 +50,6 @@ public class EditDownLinePage extends CreateDownLineAgentPage {
         creditBalanceInforSection.updateCashBalance(maxPlayerCredit);
         if(isSubmit)
             btnSubmit.click();
+        waitingLoadingSpinner();
     }
 }

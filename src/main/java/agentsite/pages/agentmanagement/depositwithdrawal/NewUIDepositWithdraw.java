@@ -15,8 +15,8 @@ public class NewUIDepositWithdraw extends DepositWithdraw {
     private Label lblUsername = Label.xpath("//label[@for='userName']");
     private Label lblAccountStatus = Label.xpath("//label[@for='status']");
     private Label lblLevel = Label.xpath("//label[@for='userLevel']");
-    public static DropDownBox ddbAccountStatus = DropDownBox.id("status");
-    public static DropDownBox ddbLevel = DropDownBox.id("userLevel");
+    public DropDownBox ddbAccountStatus = DropDownBox.id("status");
+    public DropDownBox ddbLevel = DropDownBox.id("userLevel");
     private StaticTable tblAccountBalance = StaticTable.xpath("//div[@id='adjustment']","div[@class='downline-bar']","span[@class='my-breadcrumb']","span[@class='creditBalanceextension']",3);
     private int totalCol = 13;
     private int colCheckAll = 5;
@@ -31,8 +31,15 @@ public class NewUIDepositWithdraw extends DepositWithdraw {
         vars.put("lblUsername",lblUsername);
         vars.put("lblAccountStatus",lblAccountStatus);
         vars.put("lblLevel",lblLevel);
-
         return vars.get(controlNameString).getText().trim();
+    }
+
+    @Override
+    public boolean areOptionsMatched(List<String> expectedList, String controlDropDownName) {
+        Map<String, DropDownBox> vars = new HashMap<>();
+        vars.put("ddbAccountStatus", ddbAccountStatus);
+        vars.put("ddbLevel", ddbLevel);
+        return vars.get(controlDropDownName).areOptionsMatched(expectedList);
     }
 
     public List<ArrayList<String>> getLoginAccountBalanceInfo() {

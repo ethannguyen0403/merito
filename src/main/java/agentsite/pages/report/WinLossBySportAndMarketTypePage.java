@@ -4,7 +4,7 @@ import agentsite.controls.DateTimePicker;
 import agentsite.controls.Row;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
-import agentsite.pages.report.components.TransactionDetailsPopup;
+import agentsite.pages.report.components.TransactionDetailsPopupPage;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
@@ -123,7 +123,7 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
      */
     public boolean dataMatchTransactionDetail(List<ArrayList<String>> listData) {
         int totalRow = listData.size();
-        TransactionDetailsPopup transactionDetailsPopup = new TransactionDetailsPopup();
+        TransactionDetailsPopupPage transactionDetailsPopupPage = new TransactionDetailsPopupPage(_type);
         String sport = "";
         for (int i = 0; i < totalRow; i++) {
             // Click on turnover of market row
@@ -131,7 +131,7 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
                 if (!listData.get(i).get(0).equalsIgnoreCase("Total")) {
                     System.out.println(String.format("**Step: Click on Turnover of %s and %s", sport, listData.get(i).get(0)));
                     tblReport.getControlOfCell(1, colTurnover, i + 1, null).click();
-                    if (!transactionDetailsPopup.verifyDataMatchSummary(sport, listData.get(i)))
+                    if (!transactionDetailsPopupPage.verifyDataMatchSummary(sport, listData.get(i)))
                         return false;
                 }
             } else
@@ -270,11 +270,11 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
         return lstTotal;
     }
 
-    public TransactionDetailsPopup clickTurnoverLink(String sportName, String marketName) {
+    public TransactionDetailsPopupPage clickTurnoverLink(String sportName, String marketName) {
         Label lblTurnOver = Label.xpath(String.format(turnoverPerSportAndMarketXpath, sportName, marketName));
         lblTurnOver.click();
         waitingLoadingSpinner();
-        return new TransactionDetailsPopup();
+        return new TransactionDetailsPopupPage(_type);
     }
 
    /* public String getFristSelectedOption(DropDownBox dropDownBox){

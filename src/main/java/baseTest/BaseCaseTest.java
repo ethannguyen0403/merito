@@ -13,11 +13,11 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import membersite.pages.HomePage;
 import membersite.pages.LandingPage;
+import membersite.pages.phishing.CryptoPage;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.core.har.HarEntry;
 import objects.Environment;
 import org.json.simple.JSONObject;
-import org.openqa.selenium.Point;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.ITestContext;
@@ -50,6 +50,7 @@ public class BaseCaseTest {
     public static agentsite.pages.HomePage agentHomePage;
     public static membersite.pages.HomePage memberHomePage;
     public static LandingPage landingPage;
+    public static CryptoPage cryptoPage;
     public static BrowserMobProxy browserMobProxy;
     public static String domainURL;
     public static String domainCashURL;
@@ -70,6 +71,7 @@ public class BaseCaseTest {
     public static String backofficeDashboardUrl;
     public static String userCurrency;
     public static String memberMarketServiceURL;
+    public static String cryptoURL;
     public static String _brandname;
     public static String PROJECT_ID = "1";
     public static APIClient client;
@@ -219,6 +221,18 @@ public class BaseCaseTest {
         }
     }
 
+    public static HomePage loginCryptoSite(String username, String password, boolean isLogin) throws Exception {
+        cryptoURL = definePhishingSiteURL(_brandname, CRYPTO_URL_SUFFIX);
+        createDriver(cryptoURL);
+        cryptoPage = new CryptoPage(_brandname);
+        if (isLogin) {
+            memberHomePage = cryptoPage.login(username, StringUtils.decrypt(password));
+            log(String.format("Successfully login Crypto with account %s", username));
+            return memberHomePage;
+        }
+        return null;
+    }
+
     public static SecurityCodePage loginAgentWithoutSecurityCode(String sosURL, String securityCodeUrl, String username, String password) throws Exception {
         Helper.loginAgentIgnoreCaptchaTest(sosURL, securityCodeUrl, username, password);
         return new SecurityCodePage(_brandname);
@@ -241,6 +255,7 @@ public class BaseCaseTest {
 
     // this function for login new agent account
     public static void loginNewAccount(String sosURL, String loginURL, String username, String password, String securityCode) throws Exception {
+        createDriver(agentLoginURL);
         Helper.loginAgentIgnoreCaptchaTest(sosURL, loginURL, username, password);
         SecurityCodePage securityPage = new SecurityCodePage(_brandname);
         securityPage.setSecurityCode(securityCode, securityCode);
@@ -358,6 +373,9 @@ public class BaseCaseTest {
                 return String.format("%s%s", getURL(brandName), "/market-service");
         }
     }
+    public static String definePhishingSiteURL(String brandName, String suffix) {
+        return String.format("%s%s", getPhishingURL(brandName), suffix);
+    }
 
     private static String defineMemberSiteURL(String brandName) {
         return String.format("%s%s", getURL(brandName), MEMBER_URL_SUFFIX.get(brandName));
@@ -398,6 +416,17 @@ public class BaseCaseTest {
                 return environment.getFairCashURL();
             case "satsport":
                 return environment.getSatCashURL();
+            default:
+                return "";
+        }
+    }
+
+    private static String getPhishingURL(String brandName) {
+        switch (brandName) {
+            case "fairenter":
+                return environment.getAtlanticURL();
+            case "funsport":
+                return environment.getCryptoURL();
             default:
                 return "";
         }

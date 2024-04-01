@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static baseTest.BaseCaseTest.domainURL;
-import static common.AGConstant.SATSPORT_APP_NAME;
 
 public class ProfileUtils {
     public static AccountInfo getProfile() {
@@ -27,6 +26,7 @@ public class ProfileUtils {
                 JSONObject jsnProfile = jsonObject.getJSONObject("profile");
                 return new AccountInfo.Builder()
                         .userID(Integer.toString(jsnProfile.getInt("userId")))
+                        .userType(jsnProfile.getString("userType"))
                         .userCode(jsnProfile.getString("userCode"))
                         .loginID(jsnProfile.getString("loginId"))
                         .status(jsnProfile.getString("status"))
@@ -115,7 +115,7 @@ public class ProfileUtils {
     }
 
     public static String convertDownlineByBrand(String level, String brand) {
-        if (!brand.equalsIgnoreCase(SATSPORT_APP_NAME))
+        if (!brand.equalsIgnoreCase("satsport"))
             return level;
         else {
             return changeLevel(level);

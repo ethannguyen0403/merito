@@ -4,32 +4,13 @@ import agentsite.controls.DateTimePicker;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.components.ComponentsFactory;
-import agentsite.pages.report.WinLossSimple.WinLossSimple;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.DropDownBox;
+import agentsite.pages.report.winlosssimple.WinLossSimple;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
-import common.AGConstant;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WinLossSimplePage extends HomePage {
-    public agentsite.controls.DropDownBox ddbProduct = agentsite.controls.DropDownBox.xpath("//td[@class='product-multiselect']", "//div[contains(@class,'dropdown-list')]//ul//li");
-    public Button btnToday = Button.name("today");
-    public Button btnYesterday = Button.name("yesterday");
-    public Button btnLastWeek = Button.name("lastWeek");
-    public Button btnSubmit = Button.name("search");
-    public Label lblDownLineBar = Label.xpath("//div[@class='downline-bar']//span[@class='ng-binding']");
     public Label lblProductErrorMassage = Label.xpath("//div[@id='search-region']//div[@class='error']");
-    public Label lblYouCanSeeReportData = Label.xpath("(//span[@class='pinfo']/following::label)[1]");
-    public int colNo = 1;
     public int colUsername = 2;
-    public int colNickname = 3;
-    public int colUpLine = 4;
-    public int colCurrency = 5;
-    DropDownBox ddbMA = DropDownBox.xpath("(//div[@id='report-payment']//table//select)[1]");
-    DropDownBox ddbAG = DropDownBox.xpath("(//div[@id='report-payment']//table//select)[2]");
     TextBox txtSearchFrom = TextBox.name("fromDate");
     public DateTimePicker dpFrom = DateTimePicker.xpath(txtSearchFrom, "//bs-datepicker-container");
     TextBox txtSearchTo = TextBox.name("toDate");
@@ -44,14 +25,10 @@ public class WinLossSimplePage extends HomePage {
     }
 
     public void filter(String productName) {
-        if (productName.equalsIgnoreCase("UnSelect All")) {
-            ddbProduct.uncheckAll(true);
-        }
-        if (productName.equalsIgnoreCase("Select ALl"))
-            ddbProduct.checkAll(true);
-        if (!productName.isEmpty()) {
-            ddbProduct.selectByVisibleText(productName, true, true);
-        }
-        btnSubmit.click();
+        winLossSimple.filter(productName);
+    }
+
+    public void verifyUIDisplaysCorrect() {
+        winLossSimple.verifyUIDisplaysCorrect();
     }
 }

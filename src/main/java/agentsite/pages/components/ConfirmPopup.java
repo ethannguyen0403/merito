@@ -3,6 +3,7 @@ package agentsite.pages.components;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Popup;
+import org.testng.Assert;
 
 public class ConfirmPopup {
     Popup popup = Popup.xpath("//div[contains(@class,'dialog')]");
@@ -20,6 +21,11 @@ public class ConfirmPopup {
     }
 
     public boolean isPopupDisplay() {
+        // wait for popup completely appear or disappear on the view port
+        try {
+            Thread.sleep(500);
+        }catch (Exception e){
+        }
         return popup.isDisplayedShort(3);
     }
 
@@ -37,5 +43,11 @@ public class ConfirmPopup {
 
     public String getTitle() {
         return lblTitle.getText();
+    }
+
+    public void verifyErrorMsgShowCorrect(String message) {
+        lblTitle.waitForElementToBePresent(lblTitle.getLocator(), 2);
+        Assert.assertEquals(getTitle(), "Error", "FAILED! Error popup title is incorrect");
+        Assert.assertEquals(getContentMessage(), message, "FAILED! Error message is incorrect");
     }
 }

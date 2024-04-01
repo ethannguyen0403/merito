@@ -52,6 +52,13 @@ public class NewUILeftMenu extends LeftMenu {
         return lblNoSearchResult;
     }
 
+    public void searchEvent(String eventName, boolean isClick) {
+        txtSearch.sendKeys(eventName);
+        txtSearch.type(false, Keys.ARROW_DOWN);
+        if (lblResult.isDisplayed()) {
+            lblResult.click();
+        }
+    }
     public void waitMenuLoading() {
         imgLoading.waitForControlInvisible();
     }

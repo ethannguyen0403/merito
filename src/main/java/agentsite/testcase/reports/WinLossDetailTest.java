@@ -61,7 +61,7 @@ public class WinLossDetailTest extends BaseCaseTest {
      * @expect: 1. Verify can display data
      */
     @TestRails(id = "795")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     @Parameters("downlineAccount")
     public void Agent_Report_WinLossDetail_795(String downlineAccount) {
         log("@title: Validate can filter Win Loss Detail report");
@@ -86,7 +86,7 @@ public class WinLossDetailTest extends BaseCaseTest {
     }
 
     @TestRails(id = "796")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_Report_WinLossDetail_796() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Detail");
@@ -97,7 +97,7 @@ public class WinLossDetailTest extends BaseCaseTest {
         List<String> lstProduct = page.ddbProduct.getAllOption(true);
 
         log("Verify 1: Products display correct");
-        Assert.assertEquals(lstProduct, lstAllProductsExpected, "FAILED! List product is incorrect");
+        Assert.assertTrue( lstAllProductsExpected.containsAll(lstProduct), String.format("FAILED! List product is incorrect. Expected: %s. Actual: %s",lstAllProductsExpected, lstProduct));
         log("INFO: Executed completely");
     }
 

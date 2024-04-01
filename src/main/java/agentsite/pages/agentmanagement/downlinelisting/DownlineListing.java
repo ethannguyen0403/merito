@@ -11,9 +11,6 @@ public class DownlineListing {
         return null;
     }
 
-    public void submitEditDownline() {
-    }
-
     public SuccessPopup updateAccountStatus(String userCode, String status) {
         return null;
     }

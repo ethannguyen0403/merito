@@ -170,6 +170,18 @@ public class OldUILeftMenu extends LeftMenu {
             List<String> lstSubReprotMenu = leftMenuList.getListSubMenu(REPORT);
             return lstSubReprotMenu.equals(AGConstant.Report.LIST_SUB_MENU_CONTROL_BLOCKING_OLDUI);
         }
+        if(menu.equals(AGENCY_MANAGEMENT)){
+            List<String> lstSubMenu = leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
+            return lstSubMenu.equals(AGConstant.AgencyManagement.LIST_SUBMENU_AGENCY_MANAGEMENT);
+        }
+        if(menu.equals(MARKET_MANAGEMENT)){
+            List<String> lstSubMenu = leftMenuList.getListSubMenu(MARKET_MANAGEMENT);
+            return lstSubMenu.equals(AGConstant.MarketsManagement.LIST_SUBMENU_MARKETS_MANAGEMENT);
+        }
+        if(menu.equals(FRAUD_DETECTION)){
+            List<String> lstSubMenu = leftMenuList.getListSubMenu(FRAUD_DETECTION);
+            return lstSubMenu.equals(AGConstant.FraudDetection.LIST_SUBMENU_FRAUD_DETECTION);
+        }
         return false;
     }
 }

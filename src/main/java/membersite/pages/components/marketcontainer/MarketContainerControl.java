@@ -17,6 +17,8 @@ import java.util.List;
  */
 public class MarketContainerControl {
     public Label lblSuspend = Label.xpath("//div[contains(@class,'highlight-page market')]//span[contains(@class,'suspended-label')]");
+    public String xpathLblBackOddsList = "//div[contains(@class,'table-odds')]//div[contains(@class,'market-container')]//div[contains(@class,'meto-bg-back')]";
+    public String xpathLblLayOddsList = "//div[contains(@class,'table-odds')]//div[contains(@class,'market-container')]//div[contains(@class,'meto-bg-lay')]";
 
     public String getEventName() {
         return "";
@@ -91,4 +93,19 @@ public class MarketContainerControl {
     public void openFancyLadderForecast(FancyMarket fcMarket) {}
 
     public boolean isLadderForecastDisplay(FancyMarket fcMarket) {return false;}
+    public boolean isMarketInfoSectionDisplayed() {return false;}
+
+    public List<Label> getOddsListLabel(String marketName, int selectionIndex, boolean isBack){
+        return null;
+    }
+
+    public List<Label> getAllOddsListLabel(boolean isBack){
+        List<Label> list = new ArrayList<>();
+        String targetXpath = isBack? xpathLblBackOddsList: xpathLblLayOddsList;
+        int countOddsLabel = Label.xpath(targetXpath).getWebElements().size();
+        for (int i =1; i<= countOddsLabel;i++) {
+            list.add(Label.xpath(String.format("(%s)[%s]",targetXpath, i)));
+        }
+        return list;
+    }
 }

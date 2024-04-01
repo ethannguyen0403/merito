@@ -37,16 +37,19 @@ public class FindBlockedMarketPage extends HomePage {
     private int findUserIndex(String userName) {
         int i = 1;
         Link lblUser;
+        Link lblLoginId;
+        //if username equal username or loginid then return index
         while (true) {
             lblUser = (Link) tblBlockedMarket.getControlOfCell(1, colUsername, i, null);
-            if (!lblUser.isDisplayed()) {
+            lblLoginId = (Link) tblBlockedMarket.getControlOfCell(1, colLoginId, i, null);
+            if (!lblUser.isDisplayed() && !lblLoginId.isDisplayed()) {
                 System.out.println("DEBUG! not found the account " + userName + " in the list");
                 return 0;
             }
-            if (lblUser.getText().equals(userName)) {
+            if (lblUser.getText().equals(userName) || lblLoginId.getText().equals(userName)) {
                 return i;
             }
-            i = i++;
+            i++;
         }
     }
 
@@ -60,7 +63,10 @@ public class FindBlockedMarketPage extends HomePage {
         return tblBlockedMarket.getControlOfCell(1, colBlockUnblockEventStatus, index, null).getText().equals(expectedValue);
     }
 
-
+    public String getBlockedStatus(String levelLoginUsername) {
+        int index = findUserIndex(levelLoginUsername);
+        return tblBlockedMarket.getControlOfCell(1, colBlockUnblockEventStatus, index + 1, null).getText();
+    }
 
    /* public boolean verifyEventHeaderInfo(List<String> expectedEventInfo){
         String actualInfo = lblEventHeader.getText();

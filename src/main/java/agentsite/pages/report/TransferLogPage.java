@@ -4,6 +4,10 @@ import agentsite.controls.DateTimePicker;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import com.paltech.element.common.*;
+import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransferLogPage extends HomePage {
     public Label lblNoRecord = Label.xpath("//td[contains(@class,'no-record')]");
@@ -21,7 +25,7 @@ public class TransferLogPage extends HomePage {
     public int tblReportTotalCol = 10;
     public int colUsername = 3;
     public int colLoginId = 4;
-    public Table tblReport = Table.xpath("//table[contains(@class,'ptable report')]", tblReportTotalCol);
+    public Table tblReport = Table.xpath("//tab[@class='tabs pt-1 tab-pane active']//table[contains(@class,'ptable report')]", tblReportTotalCol);
 
     public TransferLogPage(String types) {
         super(types);
@@ -36,5 +40,12 @@ public class TransferLogPage extends HomePage {
         waitingLoadingSpinner();
     }
 
+    public void verifyLogShowCorrectly(List<ArrayList<String>> logData, List<ArrayList<String>> expectedData){
+        //get the latest log transfer
+        int index = logData.size() - 1;
+        Assert.assertEquals(logData.get(index).get(1).trim(), expectedData.get(1).get(1).trim(), "FAILED! Audit Date is not correct");
+        Assert.assertEquals(logData.get(index).get(7).trim(), expectedData.get(1).get(7).trim(), "FAILED! Amount is not correct");
+        Assert.assertEquals(logData.get(index).get(9).trim(), expectedData.get(1).get(9).trim(), "FAILED! Description is not correct");
+    }
 
 }

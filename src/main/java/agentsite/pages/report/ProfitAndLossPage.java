@@ -4,12 +4,15 @@ package agentsite.pages.report;
 import agentsite.controls.DateTimePicker;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
-import agentsite.pages.report.components.TransactionDetailsPopup;
+import agentsite.pages.components.ComponentsFactory;
+import agentsite.pages.report.components.TransactionDetailsPopupPage;
+import agentsite.pages.report.profitandloss.ProfitAndLoss;
 import com.paltech.element.common.*;
+import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProfitAndLossPage extends HomePage {
     public static List<String> downlineLevelList = new ArrayList<>();
@@ -47,9 +50,12 @@ public class ProfitAndLossPage extends HomePage {
     public int colBalance = 12;
     public Table tblDownLineProfitAndLoss = Table.xpath("//table[contains(@class , 'ptable report backlayTable')][2]", 12);
     public Label lblNoRecordDowLinePL = Label.xpath("//table[contains(@class , 'ptable report backlayTable')][2]//td[@class='no-record']");
-
+    public ProfitAndLoss profitAndLoss;
+    public TransactionDetailsPopupPage transactionDetailsPopupPage;
     public ProfitAndLossPage(String types) {
         super(types);
+        profitAndLoss = ComponentsFactory.profitAndLoss(types);
+        transactionDetailsPopupPage = new TransactionDetailsPopupPage(types);
     }
 
     /**
@@ -95,7 +101,8 @@ public class ProfitAndLossPage extends HomePage {
         String levelDownline = lstLevel.get(1);
         downlineLevelList.add(lstLevel.get(0));
         boolean flag = false;
-        while (!flag) {
+        int count = 30;
+        while (!flag && count > 0) {
             if (levelDownline.equalsIgnoreCase(level)) {
                 flag = true;
                 data = tblDownLineProfitAndLoss.getRowsWithoutHeader(3, false);
@@ -108,6 +115,7 @@ public class ProfitAndLossPage extends HomePage {
                 lstLevel = tblDownLineProfitAndLoss.getColumn(colLevel, 2, false);
                 levelDownline = lstLevel.get(1);
                 downlineLevelList.add(lstLevel.get(0));
+                count--;
             }
 
         }
@@ -136,16 +144,34 @@ public class ProfitAndLossPage extends HomePage {
         }
     }
 
-    public TransactionDetailsPopup openTransactionDetails(String userName) {
+    public TransactionDetailsPopupPage openTransactionDetails(String userName) {
         Link lnkUserName = (Link) tblDownLineProfitAndLoss.getControlOfCell(1, colUserName, 2, "a");
         if (lnkUserName.getText().equals(userName))
             lnkUserName.click();
         waitingLoadingSpinner();
-        return new TransactionDetailsPopup();
+        return new TransactionDetailsPopupPage(_type);
     }
 
     public List<String> getProductDataDropdown() {
-        return ddbProduct.getAllOption(true).stream().sorted().collect(Collectors.toList());
+        List<String> lstProductSorted = ddbProduct.getAllOption(true);
+        //remove all "" in list before return
+        lstProductSorted.removeAll(Collections.singleton(""));
+        return lstProductSorted;
     }
 
+    public void verifyUIDisplayCorrect(boolean isLevelLoginPO) {
+        profitAndLoss.verifyUIDisplayCorrect(isLevelLoginPO);
+    }
+
+    /**
+     * Verify member balance (include tax) between summary and details of member result
+     */
+    public void verifyMemberResultSummaryAndDetails() {
+        List<ArrayList<String>> list = drilldownToLevel("Member", true);
+        int colBalSummary = tblDownLineProfitAndLoss.getColumnIndexByName("Balance");
+        double balanceIncludeTax = Double.valueOf(list.get(1).get(colBalSummary)) + Double.valueOf(list.get(1).get(colBalSummary + 1));
+        ArrayList<String> totalRowData = transactionDetailsPopupPage.getTotalRowData();
+        int colBalDetails = transactionDetailsPopupPage.tblReport.getColumnIndexByName("Member Result");
+        Assert.assertEquals(Double.valueOf(totalRowData.get(colBalDetails-9)), balanceIncludeTax, "FAILED! Balance of member in Downine Profit and Loss not match with Total- Member result in Transaction Details");
+    }
 }

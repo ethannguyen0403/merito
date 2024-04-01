@@ -23,8 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static common.AGConstant.HomePage.MARKET_MANAGEMENT;
-import static common.AGConstant.HomePage.SUSPEND_UNSUSPEND_MARKETS;
+import static common.AGConstant.HomePage.*;
 import static common.AGConstant.MarketsManagement.SuspendUnsuspendMarket.*;
 
 public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
@@ -143,7 +142,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3718")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction", "nolan"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC3718(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Line market in member site is suspend ");
@@ -152,7 +151,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         AccountInfo acc = ProfileUtils.getProfile();
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TODAY");
-        Market market = BlockUnblockEventsUtils.getAnOpenLineMarket(eventList, childID, "4", "OPEN");
+        Market market = BlockUnblockEventsUtils.getAnOpenLineMarket(eventList, childID, SPORT_ID.get("Cricket"), "OPEN");
         BlockUnblockEventPage blockUnblockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
         blockUnblockEventPage.filter("", sportName, "TODAY");
         blockUnblockEventPage.blockUnblockEvent(downlineAccount, market.getEventName(), "Unblock Now");
@@ -168,8 +167,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("Step 6 Login member site and check the line market");
         loginMember(memberAccount, password);
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
-        MarketPage marketPage = sportPage.leftMenu.searchEvent(market.getEventName(), true);
-        marketPage.leftMenu.clickMarket(market.getMarketName());
+        MarketPage marketPage = sportPage.clickEventName(market.getEventName());
 
         log("Verify 1. Line market is unsuspend, odds is clickable");
         Assert.assertTrue(marketPage.marketOddControl.lblSuspend.isDisplayed(), "Failed the market does not suspend after suspend event in agent site");
@@ -178,7 +176,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3719")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction", "nolan"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC3719(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Line market in member site is unsuspend ");
@@ -203,8 +201,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("Step 6 Login member site and check the line market");
         loginMember(memberAccount, password);
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
-        MarketPage marketPage = sportPage.leftMenu.searchEvent(market.getEventName(), true);
-        marketPage.leftMenu.clickMarket(market.getMarketName());
+        MarketPage marketPage = sportPage.clickEventName(market.getEventName());
 
         log("Verify Line market is unsuspend, odds is clickable");
         Assert.assertFalse(marketPage.marketOddControl.lblSuspend.isDisplayed(), "Failed the market does not suspend after suspend event in agent site");
@@ -262,9 +259,9 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
 //        log("INFO: Executed completely");
 //    }
     @TestRails(id = "3721")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction", "nolan"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
-    public void Agent_MM_SuspendUnsuspendMarkets_TC321(String downlineAccount, String memberAccount, String password) throws Exception {
+    public void Agent_MM_SuspendUnsuspendMarkets_TC3721(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Verify Suspend function in Block Unblock Event will override setting in Suspend/Unsuspend Market page");
         log("Step precondition 1: Login agent by direct agent at control blocking");
         String sportName = "Cricket";
@@ -289,8 +286,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("Step 3 Login member site and active the line market");
         loginMember(memberAccount, password);
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(sportName);
-        MarketPage marketPage = sportPage.leftMenu.searchEvent(market.getEventName(), true);
-        marketPage.leftMenu.clickMarket(market.getMarketName());
+        MarketPage marketPage = sportPage.clickEventName(market.getEventName());
 
         log("Verify the line markets of the event still suspended");
         Assert.assertTrue(marketPage.marketOddControl.lblSuspend.isDisplayed(), "Failed the market does not suspend after suspend event in agent site");
@@ -306,7 +302,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3723")
-    @Test(groups = {"interaction"})
+    @Test(groups = {"interaction", "nolan"})
     @Parameters({"downlineAccount", "password"})
     public void Agent_MM_SuspendUnsuspendMarkets_TC3723(String downlineAccount, String password) throws Exception {
         log("@title: Agent level only level under control blocking can see the menu");

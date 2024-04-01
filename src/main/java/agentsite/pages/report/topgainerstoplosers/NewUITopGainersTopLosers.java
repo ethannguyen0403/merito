@@ -1,4 +1,4 @@
-package agentsite.pages.report.TopGainersTopLosers;
+package agentsite.pages.report.topgainerstoplosers;
 
 import agentsite.controls.Table;
 import com.paltech.element.common.Label;
