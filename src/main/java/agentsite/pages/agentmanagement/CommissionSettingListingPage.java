@@ -78,7 +78,7 @@ public class CommissionSettingListingPage extends HomePage {
             waitingLoadingSpinner();
         }
         chb.click();
-
+        waitingLoadingSpinner();
         //based on selected product, input the corresponding commission
 //        inputCommission(lstGameCommission, product);
         if (commissionValue == 0.0) {
@@ -90,6 +90,7 @@ public class CommissionSettingListingPage extends HomePage {
 
         //Click update
         btnUpdate.click();
+        waitingLoadingSpinner();
     }
 
     public void inputCommission(List<Double> lstGameCommission, String productName) {

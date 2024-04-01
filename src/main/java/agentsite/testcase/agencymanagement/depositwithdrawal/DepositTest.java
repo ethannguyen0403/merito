@@ -176,7 +176,7 @@ public class DepositTest extends BaseCaseTest {
         AccountInfo memberInfo = lstUsers.get(0);
         String userCode = memberInfo.getUserCode();
         Double amountDeposit = 1.0;
-        double expectedNewMemberCash = memberInfo.getCashBalance() + amountDeposit;
+        double expectedNewMemberCash = memberInfo.getAvailableBalance() + amountDeposit;
         double expectedLoginAccountAvBalance = DoubleUtils.roundUpWithTwoPlaces(DownLineListingUtils.getMyCreditCashBalance() - amountDeposit);
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");

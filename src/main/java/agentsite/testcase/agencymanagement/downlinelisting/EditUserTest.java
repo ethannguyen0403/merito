@@ -419,9 +419,9 @@ public class EditUserTest extends BaseCaseTest {
         String maxBet = Integer.toString(Integer.parseInt(lstBetSettingValidation.get(1).get(1).replace(",","")) - 1);
         List<ArrayList<String>> lstBetSetting = new ArrayList<>();
         ArrayList<String> minBetLst = new ArrayList<String>(
-                Arrays.asList(minBet, minBet, minBet, minBet, minBet, minBet));
+                Arrays.asList(minBet));
         ArrayList<String> maxBetLst = new ArrayList<String>(
-                Arrays.asList(maxBet, maxBet, maxBet, maxBet, maxBet, maxBet));
+                Arrays.asList(maxBet));
         lstBetSetting.add(minBetLst);
         lstBetSetting.add(maxBetLst);
 

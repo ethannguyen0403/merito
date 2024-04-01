@@ -21,6 +21,9 @@ public class OldUIDepositWithdraw extends DepositWithdraw {
     public int colCreditInitiation = 8;
     private int totalColAccountBalanceTable = 4;
     private Label lblLoginAccountAvailableBalance = Label.xpath("//app-agency-deposit-withdraw//table[@class='ptable report']//tbody[1]//tr[1]//td[4]");
+    private Label lblUsername = Label.xpath("//app-agency-deposit-withdraw//table[@class='ptable report table-responsive']//thead/tr[1]/th[2]");
+    private Label lblAccountStatus = Label.xpath("//app-agency-deposit-withdraw//table[@class='ptable report table-responsive']//thead/tr[1]/th[6]");
+    private Label lblLevel = Label.xpath("//app-agency-deposit-withdraw//table[@class='ptable report table-responsive']//thead/tr[1]/th[7]");
     private DropDownBox ddbAccountStatus = DropDownBox.xpath("//table[@class='ptable report table-responsive']//thead//th[text()='Account Status ']//select");
     private DropDownBox ddbLevel = DropDownBox.xpath("//table[@class='ptable report table-responsive']//thead//th[text()='Level ']//select");
     public Table tblAccountBalance = Table.xpath("(//table[@class='ptable report'])[1]", totalColAccountBalanceTable);
@@ -48,6 +51,9 @@ public class OldUIDepositWithdraw extends DepositWithdraw {
     public String getLabelText(String controlNameString) {
         final Map<String, Label> vars = new HashMap<>();
         vars.put("lblLoginAccountAvailableBalance",lblLoginAccountAvailableBalance);
+        vars.put("lblUsername", lblUsername);
+        vars.put("lblAccountStatus", lblAccountStatus);
+        vars.put("lblLevel", lblLevel);
         return vars.get(controlNameString).getText().trim();
     }
 
