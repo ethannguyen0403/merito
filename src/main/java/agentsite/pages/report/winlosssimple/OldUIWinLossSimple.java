@@ -1,13 +1,18 @@
-package agentsite.pages.report.WinLossSimple;
+package agentsite.pages.report.winlosssimple;
 
 import agentsite.controls.Table;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewUIWinLossSimple extends WinLossSimple{
+import static common.AGConstant.BTN_SUBMIT;
+import static common.AGConstant.Report.*;
+import static common.AGConstant.Report.WinLossSimple.TABLE_HEADER_OLDUI;
+
+public class OldUIWinLossSimple extends WinLossSimple{
     int totalCol = 7;
-    int colWinLoss = 5;
+    int colWinLoss = 4;
     public Table tblSMA = Table.xpath("(//table[contains(@class, 'backlayTable')])[1]", totalCol);
     public List<ArrayList<String>> getListWinnerInfor(){
         List<ArrayList<String>> lstData = tblSMA.getRowsWithoutHeader(20,true);
@@ -28,5 +33,13 @@ public class NewUIWinLossSimple extends WinLossSimple{
             }
         }
         return lstLosers;
+    }
+    public void verifyUIDisplaysCorrect(){
+        Assert.assertEquals(btnToday.getText(), BTN_TODAY, "Failed! Today button is incorrect");
+        Assert.assertEquals(btnYesterday.getText(), BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
+        Assert.assertEquals(btnLastWeek.getText(), LAST_WEEK, "Failed! Last Week button is incorrect");
+        Assert.assertEquals(btnSubmit.getText(), BTN_SUBMIT, "Failed! Submit button is incorrect");
+        Assert.assertEquals(lblYouCanSeeReportData.getText(), LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS_WITHOUT_DOT, "Failed! Submit button is incorrect");
+        Assert.assertEquals(tblSMA.getColumnNamesOfTable(), TABLE_HEADER_OLDUI, "FAILED! Header title is incorrect");
     }
 }

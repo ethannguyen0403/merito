@@ -48,8 +48,4 @@ public class EvolutionPage extends CasinoHomePage {
         matcher.find();
         return Double.valueOf(matcher.group(0));
     }
-
-    public void checkBalance(double actual, double expected, double BORate){
-        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
-    }
 }

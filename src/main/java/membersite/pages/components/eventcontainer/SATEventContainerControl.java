@@ -22,7 +22,7 @@ public class SATEventContainerControl extends EventContainerControl {
     private Label lblSportHeader = Label.xpath("//div[contains(@class,'sport-header')]/h2");
     private String llblSuspendXPath = String.format("//div[contains(@class,'status-overlay')]");
     private String lblEventNameXPath = "//span[@class='home-team'or contains(@class,'meto-text-primary')]";
-    private String lblListEventXPath = "//div[@class='container-event-info']//table[contains(@class,'table-odds')]/tbody/tr";
+    private String lblListEventXPath = "//div[@class='container-event-info']//table[contains(@class,'table-odds')]/tbody/tr/td[@class='td-odds']";
     private Label lblNoEvent = Label.xpath("//div[@class='text-center']");
     private String lblEventStartTimeXpath = "//div[contains(@class,'start-time')]/span";
     private String lblHomeNameXpath = "//span[@class='home-team'or contains(@class,'meto-text-primary')]";
@@ -173,6 +173,7 @@ public class SATEventContainerControl extends EventContainerControl {
                 i = 1 + rand.nextInt((lstTotal - 1) + 1);
                 xpathEvent = String.format("(%s)[%s]", lblListEventXPath, i);
                 lnkEventName = Link.xpath(xpathEvent);
+                lnkEventName.scrollToThisControl(true);
                 if (!lnkEventName.isPresent(2)) {
                     return null;
                 }

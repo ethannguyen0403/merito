@@ -63,8 +63,8 @@ public class TransactionHistoryTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "812")
-    @Test(groups = {"regression"})
-    public void Agent_Report_Transaction_History_002() {
+    @Test(groups = {"regression", "nolan"})
+    public void Agent_Report_Transaction_History_812() {
         log("@title: Validate data on Transaction History display correctly");
         log("Step 1. Navigate Report >  Transaction History");
         String today = DateUtils.getDate(0, "dd/MM/yyyy", "GMT-4:00");
@@ -80,7 +80,7 @@ public class TransactionHistoryTest extends BaseCaseTest {
         Assert.assertEquals(page.btnYesterday.getText(), BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
         Assert.assertEquals(page.btnLastWeek.getText(), LAST_WEEK, "Failed! Last Week button is incorrect");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "Failed! Submit button is incorrect");
-        Assert.assertEquals(page.lblInfo.getText(), LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS, "FAILED! Note message is incorrect displayed");
+        Assert.assertEquals(page.lblInfo.getText(), LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS_WITHOUT_DOT, "FAILED! Note message is incorrect displayed");
         Assert.assertEquals(page.tblReport.getColumnNamesOfTable(), TABLE_HEADER, "FAILED! Header title is incorrect");
 
         log("INFO: Executed completely");
@@ -92,7 +92,7 @@ public class TransactionHistoryTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3755")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression", "nolan"})
     public void Agent_Report_Transaction_History_3755() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Transaction History");

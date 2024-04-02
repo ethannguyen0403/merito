@@ -3,6 +3,7 @@ package membersite.testcases.casino;
 import backoffice.utils.tools.ProviderCurrencyMappingUltils;
 import baseTest.BaseCaseTest;
 import membersite.pages.casino.CasinoHomePage;
+import membersite.pages.casino.PragmaticPage;
 import membersite.utils.casino.CasinoUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -22,7 +23,7 @@ public class PragmaticPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Pragmatic game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Pragmatic on header menu");
-        CasinoHomePage pragmaticPage = memberHomePage.openPragmatic();
+        PragmaticPage pragmaticPage = memberHomePage.openPragmatic();
         log("@Verify 1: Header menu with list: 'Videos Slots', 'Classic slots', 'Blackjack', 'Baccarat', 'Baccarat New', 'Roulette', 'Scratch card', 'Live games', 'RGS-VSB' is displayed correctly");
         List<String> headerList = pragmaticPage.getListProductsMenu();
         Assert.assertTrue(PRAGMATIC_HEADER_MENU.containsAll(headerList), String.format("FAILED! Header of Pragmatic is not correct. Actual: %s, expected: %s", headerList, PRAGMATIC_HEADER_MENU));
@@ -36,7 +37,7 @@ public class PragmaticPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Pragmatic game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Pragmatic on header menu");
-        CasinoHomePage pragmaticPage = memberHomePage.openPragmatic();
+        PragmaticPage pragmaticPage = memberHomePage.openPragmatic();
         log("@Step 3: Click on any game");
         pragmaticPage.selectCasinoGame();
         log("@Verify 1: Able to open game without console error");
@@ -52,7 +53,7 @@ public class PragmaticPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Pragmatic game in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Pragmatic on header menu");
-        CasinoHomePage pragmaticPage = memberHomePage.openPragmatic();
+        PragmaticPage pragmaticPage = memberHomePage.openPragmatic();
         double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
 
         log("@Step 3: Click on first game");
@@ -78,7 +79,7 @@ public class PragmaticPageTest extends BaseCaseTest {
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertTrue(!memberHomePage.header.isProductTabDisplay(PRAGMATIC), "FAILED! Pragmatic display on homepage menu.");
         log("@Step 2: Access Pragmatic by external link");
-        CasinoHomePage pragmaticPage = memberHomePage.openCasinoGameByUrl(PRAGMATIC);
+        PragmaticPage pragmaticPage = (PragmaticPage) memberHomePage.openCasinoGameByUrl(PRAGMATIC);
         log("@Verify 2: User could not access product and was brought back to home page");
         Assert.assertFalse(pragmaticPage.getListProductSize() > 0,"FAILED! Pragmatic game is displayed");
         log("INFO: Executed completely");

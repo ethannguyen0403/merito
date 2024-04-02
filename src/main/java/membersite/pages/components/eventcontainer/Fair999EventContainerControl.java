@@ -6,7 +6,6 @@ import com.paltech.element.common.Link;
 import controls.Table;
 import membersite.objects.sat.Event;
 import membersite.utils.betplacement.FancyUtils;
-import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class Fair999EventContainerControl extends EventContainerControl {
     private Label lblSportHeader = Label.xpath("//div[contains(@class,'sport-header')]/h2");
     private String llblSuspendXPath = String.format("//div[contains(@class,'status-overlay')]");
     private String lblEventNameXPath = "//div[contains(@class,'info-event')]";
-    private String lblListEventXPath = "//div[@class='container-event-info']//table[contains(@class,'table-odds')]/tbody/tr";
+    private String lblListEventXPath = "//div[@class='container-event-info']//table[contains(@class,'table-odds')]/tbody/tr/td[@class='td-odds']";
     private Label lblNoEvent = Label.xpath("//div[@class='text-center']");
     private Button btnOdds;
     private String lblEventStartTimeXpath = "//div[contains(@class,'item-child inplay-it')]";

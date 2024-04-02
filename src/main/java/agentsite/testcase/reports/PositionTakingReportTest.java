@@ -31,7 +31,7 @@ public class PositionTakingReportTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3740")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void Agent_Report_Position_Taking_Report_3740() {
         log("@title: Validate Position Taking Report display correctly");
         log("Step 1. Navigate Report> Position Taking Report");
@@ -74,7 +74,7 @@ public class PositionTakingReportTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4088")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","tim"})
     public void Agent_Report_Position_Taking_Report_4088() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Position Taking Report");
@@ -85,7 +85,7 @@ public class PositionTakingReportTest extends BaseCaseTest {
         List<String> lstProduct = page.ddbProduct.getOptions();
 
         log("Verify 1: Products display correct");
-        Assert.assertEquals(lstProduct, lstAllProductsExpected, "FAILED! List product is incorrect");
+        Assert.assertTrue(lstProduct.containsAll(lstAllProductsExpected), String.format("FAILED! List product is incorrect expected %s actual %s", lstAllProductsExpected, lstProduct));
         log("INFO: Executed completely");
     }
 

@@ -99,7 +99,7 @@ public class UnsettledBetTest extends BaseCaseTest {
      * @expect: 1. Match bet display correctly
      */
     @TestRails(id = "786")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     @Parameters("memberAccount")
     public void Agent_Report_Unsettled_Bet_786(String memberAccount) {
         log("@title: Validate Last Best Mode - Can filter Matched bet");

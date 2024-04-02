@@ -1,5 +1,6 @@
 package agentsite.ultils.agencymanagement;
 
+import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
 import com.paltech.constant.Configs;
 import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
@@ -8,6 +9,7 @@ import common.AGConstant;
 import membersite.objects.sat.Event;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import membersite.objects.sat.Market;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +79,33 @@ public class EventBetSizeSettingUtils {
         }
 
         return betSetting;
+    }
+
+    public static List<Event> getEventListByMarket(String sportName, String userID, String marketName, String time) {
+        List<Event> lstEvent = new ArrayList<Event>();
+        String sportID = AGConstant.HomePage.SPORT_ID.get(sportName);
+        String api = String.format("%s/agent-bet-setting/list-event-bet-setting?userId=%s&sportId=%s&time=%s&_=%s",
+                domainURL, userID, sportID, time.toUpperCase(), DateUtils.getMilliSeconds());
+        JSONArray jsonArray = WSUtils.getGETJSONArrayWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+        if (Objects.nonNull(jsonArray)) {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                int eventId = jsonObject.getInt("eventId");
+                List<Market> markets = BlockUnblockEventsUtils.getListMarketOfEvent(String.valueOf(eventId), userID, sportID);
+                for (int j = 0; j < markets.size(); j++) {
+                    if(markets.get(j).getMarketName().equalsIgnoreCase(marketName)) {
+                        lstEvent.add(new Event.Builder()
+                                .id(Integer.toString(eventId))
+                                .eventName(jsonObject.getString("eventName"))
+                                .competitionName(jsonObject.getString("competitionName"))
+                                .marketName(markets.get(j).getMarketName())
+                                .inPlay(jsonObject.getBoolean("inplay"))
+                                .build());
+                    }
+                }
+            }
+        }
+        return lstEvent;
     }
 
 }

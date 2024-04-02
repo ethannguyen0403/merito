@@ -11,24 +11,25 @@
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='C3Z'/>
-        <parameter name='levelLogin' value='Parter'/>
-        <parameter name='downlineAccount' value='C3Z00'/>
-        <parameter name='donwlineLevel' value='SAD'/>
-        <parameter name='portalSubAccount' value='ANSUBCT'/>
-        <parameter name='memberAccount' value='C3Z0000000'/>
+        <parameter name='username' value='ATY'/>
+        <parameter name='levelLogin' value='Senior Master Agent'/>
+        <parameter name='downlineAccount' value='ATY00'/>
+        <parameter name='portalSubAccount' value='ANSUBIS'/>
+        <parameter name='memberAccount' value='ATY0000000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
-        <parameter name='currency' value='HKD'/>
+        <parameter name='currency' value='INR'/>
         <parameter name="isCredit" value="false"/>
         <parameter name='level' value='SMA'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value="fairexchange"/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="regression"/>
                 <include name="regression_newui"/>
-                <include name="regression_fair"/>
+                <include name="regression_credit"/>
+                <include name="interaction"/>
             </run>
         </groups>
 

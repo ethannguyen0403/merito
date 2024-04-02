@@ -104,20 +104,20 @@ public class OldUIEventBetSizeSetting extends EventBetSizeSetting {
      */
     public void clickTab(String action) {
         Tab tab;
-        switch (action) {
-            case "Old Events":
+        switch (action.toLowerCase()) {
+            case "old events":
                 tab = Tab.xpath(String.format(tabDynamic, TAB_DAYS.get(0)));
                 tab.click();
                 return;
-            case "Today":
+            case "today":
                 tab = Tab.xpath(String.format(tabDynamic, TAB_DAYS.get(1)));
                 tab.click();
                 return;
-            case "Tomorrow":
+            case "tomorrow":
                 tab = Tab.xpath(String.format(tabDynamic, TAB_DAYS.get(2)));
                 tab.click();
                 return;
-            case "Future":
+            case "future":
                 tab = Tab.xpath(String.format(tabDynamic, TAB_DAYS.get(3)));
                 tab.click();
                 return;

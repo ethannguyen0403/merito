@@ -34,7 +34,7 @@ public class GameHallPageTest extends BaseCaseTest {
         log("@Precondition: Account has been activated Game Hall in Agent Site");
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Game Hall on header menu");
-        CasinoHomePage gameHallPage = memberHomePage.openGameHall();
+        GameHallPage gameHallPage = memberHomePage.openGameHall();
         log("@Step 3: Click on any game");
         gameHallPage.selectCasinoGame();
         log("@Verify 1: The game is opened in new popup successfully without console log error");
@@ -52,7 +52,7 @@ public class GameHallPageTest extends BaseCaseTest {
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Game Hall on header menu");
         double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
-        CasinoHomePage gameHallPage = memberHomePage.openGameHall();
+        GameHallPage gameHallPage = memberHomePage.openGameHall();
         double balanceCasino = gameHallPage.getBalance();
         log("@Step 3: Observe in game balance");
         log("@Step 4: Get rate of currency from BO");
@@ -74,7 +74,7 @@ public class GameHallPageTest extends BaseCaseTest {
         log("Verify 1: The product should not displayed on header menu to prevent user from accessing");
         Assert.assertFalse(memberHomePage.isProductDisplayed(GAME_HALL), "FAILED! Inactive product still displays on header menu");
         log("@Step 3: Access Game Hall by external link (e.g.: /home/custom?code=GAME_HALL)");
-        CasinoHomePage gameHallPage = memberHomePage.openCasinoGameByUrl(GAME_HALL);
+        GameHallPage gameHallPage = (GameHallPage) memberHomePage.openCasinoGameByUrl(GAME_HALL);
         log("Verify 2: User could not access product and was brought back to home page");
         Assert.assertFalse(gameHallPage.getListProductSize() > 0, "FAILED! Game Hall is able to access by URL while it's inactivated");
         log("INFO: Executed completely");

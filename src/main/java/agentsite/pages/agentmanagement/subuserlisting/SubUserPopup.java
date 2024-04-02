@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import static agentsite.pages.HomePage.waitingLoadingSpinner;
 import static common.AGConstant.AgencyManagement.SubUserListing.PERMISSIONS_ALL;
 
 public class SubUserPopup {
@@ -25,6 +26,14 @@ public class SubUserPopup {
     public Button btnCancel = Button.xpath("//button[@class='cancel']");
     public Table tblForm = Table.xpath("//table[@class='info']", 3);
     public MenuTree permisisonList = MenuTree.xpath("//div[@class='item-list']/ul", "//li");
+
+    public SubUserPopup(){
+        try {
+            //sometimes element is displayed but not ready to present in the view port
+            Thread.sleep(700);
+        }catch (Exception e){
+        }
+    }
 
     public String createSubUser(String userName, String password, String status, String firstName, String lastName, HashMap<String, Boolean> permissions) {
         txtPassword.isDisplayed(2);
@@ -57,8 +66,10 @@ public class SubUserPopup {
         }
         if (isSubmit) {
             btnSubmit.click();
+            waitingLoadingSpinner();
         }
     }
+
 
  /*   public void enablePermission(HashMap<String, Boolean> permissions, List<String> permissionLst)
     {

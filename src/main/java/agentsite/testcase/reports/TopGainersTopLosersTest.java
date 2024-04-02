@@ -22,7 +22,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
      * @expect: 1. Verify Top Gainers & Top Losers UI display correctly
      */
     @TestRails(id = "812")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan"})
     public void Agent_Report_Top_Gainers_Top_Losers_812() {
         log("@title: Validate Top Gainers & Top Losers UI display correctly ");
         log("Step 1. Navigate Report > Top Gainers & Top Losers");
@@ -67,7 +67,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         String toDate = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
         winLossSimplePage.dpFrom.selectDate(fromDate,"yyyy-MM-dd");
         winLossSimplePage.dpTo.selectDate(toDate,"yyyy-MM-dd");
-        winLossSimplePage.btnSubmit.click();
+        winLossSimplePage.winLossSimple.btnSubmit.click();
         log("@pre-condition 3: Get Win/Loss and Total tax/comm of any player: for example Win/Loss: 0.90, 0.00, and Total tax/comm");
         List<ArrayList<String>> winner = winLossSimplePage.winLossSimple.getListWinnerInfor();
         log("Step 1. Navigate Report > Top Gainers & Top Losers");
@@ -80,7 +80,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3759")
-    @Test(groups = {"regression_sat"})
+    @Test(groups = {"regression_sat", "nolan"})
     public void Agent_Report_Top_Gainers_Top_Losers_3759() {
         log("@title: Validate Big Stake data display correctly");
         log("@pre-condition 1: Log in successfully by SAD");
@@ -92,8 +92,8 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         log("Step 1. Navigate Report > Top Gainers & Top Losers");
         TopGainersTopLosersPage page = bigStakeConfigurationPage.navigateTopGainersTopLosersPage();
         log("Step 2. Filter Exchange product that have the date has data");
-        String fromDate = DateUtils.getDate(-30, "yyyy-MM-dd", AGConstant.timeZone);
-        String toDate = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
+        String fromDate = DateUtils.getDate(-30, "dd/MM/yyyy", AGConstant.timeZone);
+        String toDate = DateUtils.getDate(0, "dd/MM/yyyy", AGConstant.timeZone);
         page.search(fromDate,toDate,"Exchange");
         page.waitingLoadingSpinner();
         log("Verify 1. Validate  Big Stake  table display correct data");
@@ -112,7 +112,7 @@ public class TopGainersTopLosersTest extends BaseCaseTest {
         String toDate = DateUtils.getDate(0, "yyyy-MM-dd", AGConstant.timeZone);
         winLossSimplePage.dpFrom.selectDate(fromDate,"yyyy-MM-dd");
         winLossSimplePage.dpTo.selectDate(toDate,"yyyy-MM-dd");
-        winLossSimplePage.btnSubmit.click();
+        winLossSimplePage.winLossSimple.btnSubmit.click();
         log("@pre-condition 3: Get Win/Loss and Total tax/comm of any player has settled Lose < 0: for example Win/Loss: -0.90, 0.00, and Total tax/comm");
         List<ArrayList<String>> losers = winLossSimplePage.winLossSimple.getListLoserInfor();
         log("Step 1. Navigate Report > Top Gainers & Top Losers");

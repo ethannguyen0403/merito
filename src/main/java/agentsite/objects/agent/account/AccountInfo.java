@@ -7,6 +7,7 @@ package agentsite.objects.agent.account;
 public class AccountInfo {
     private String _userID;
     private String _userCode;
+    private String _userType;
     private String _loginID;
     private String _parentID;
     private double _cashBalance;
@@ -32,6 +33,7 @@ public class AccountInfo {
 
     private AccountInfo(Builder builder) {
         this._userID = builder._userID;
+        this._userType = builder._userType;
         this._userCode = builder._userCode;
         this._loginID = builder._loginID;
         this._parentID = builder._parentID;
@@ -59,6 +61,10 @@ public class AccountInfo {
 
     public double getMyOutstanding() {
         return _myOutstanding;
+    }
+
+    public String getUserType(){
+        return _userType;
     }
 
     public void setMyOutstanding(double _myOutstanding) {
@@ -242,6 +248,7 @@ public class AccountInfo {
 
     public static class Builder {
         // Optional parameters
+        private String _userType = "";
         private String _userID = "";
         private String _userCode = "";
         private String _loginID = "";
@@ -343,6 +350,11 @@ public class AccountInfo {
 
         public Builder availableBalance(double val) {
             _availableBalance = val;
+            return this;
+        }
+
+        public Builder userType(String val) {
+            _userType = val;
             return this;
         }
 

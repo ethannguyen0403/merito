@@ -8,11 +8,11 @@ import org.testng.Assert;
 public class CreditBalanceSection {
     public TextBox txtCreditLimit = TextBox.xpath("//input[@name='creditLimit']");
     public TextBox txtAGMaxCredit = TextBox.xpath("//input[@name='smaMaxCredit']");
-    public TextBox txtMemberMaxCredit = TextBox.xpath("//input[@name='memberMaxCredit']");
+    public TextBox txtMemberMaxCredit = TextBox.xpath("//input[@name='memberMaxCredit']|//input[@name='playerMaxCredit']");
     public Label lblDownlineAGMaxCreditLimit = Label.xpath("//app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]//span[contains(@class,'maxCredit')]");
 
     public Label lblCreditLimitValue = Label.xpath("//app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]//span[contains(@class,'creditLimit')]");
-    private Label lblMemberMaxCreditLimit = Label.xpath("//app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]//span[contains(@class,'memberMaxCredit')]");
+    private Label lblMemberMaxCreditLimit = Label.xpath("//app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]//span[contains(@class,'memberMaxCredit')] | //app-credit-setting-exchange//table[contains(@class,'credit-balance-table')]//span[contains(@class,'playerMaxCredit')]");
     public Table tblCreditBalance = Table.xpath("(//table[contains(@class,'credit-balance-table')])[1]", 2);
     public String getCreditSectionTitle() {
         return "";

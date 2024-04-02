@@ -21,7 +21,7 @@ public class FancyResultTest extends BaseCaseTest {
      */
     @TestRails(id = "591")
     @Test(groups = {"http_request"})
-    public void BO_Settlement_FancyResult_003() {
+    public void BO_Settlement_FancyResult_591() {
         log("@title: There is no http responded error returned");
         log("Step 1: Navigate Settlement > Fancy Result");
         FancyResultPage page = backofficeHomePage.navigateFancyResult();
@@ -43,7 +43,7 @@ public class FancyResultTest extends BaseCaseTest {
      */
     @TestRails(id = "593")
     @Test(groups = {"smoke"})
-    public void BO_Settlement_Fancy_Result_002() {
+    public void BO_Settlement_Fancy_Result_593() {
         log("@title: Validate that this page loading is successful");
 
 
@@ -76,7 +76,7 @@ public class FancyResultTest extends BaseCaseTest {
      */
     @TestRails(id = "592")
     @Test(groups = {"smoke"})
-    public void BO_Settlement_Fancy_Result_001() {
+    public void BO_Settlement_Fancy_Result_592() {
         log("@title: Validate that this page loading is successful");
         log("Step 1: Navigate Settlement > Fancy Result");
         FancyResultPage page = backofficeHomePage.navigateFancyResult();

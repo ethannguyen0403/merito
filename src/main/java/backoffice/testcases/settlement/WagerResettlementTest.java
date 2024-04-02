@@ -59,7 +59,7 @@ public class WagerResettlementTest extends BaseCaseTest {
      * @expect: 1. Data is display, Resettle button display in Action column
      */
     @TestRails(id = "595")
-    @Test(groups = {"smoke","isa"})
+    @Test(groups = {"smoke"})
     @Parameters({"satMemberLoginID"})
     public void BO_Settlement_Wager_Resettlement_595(String satMemberLoginID) {
         log("@title: Validate can search wager resettlement");

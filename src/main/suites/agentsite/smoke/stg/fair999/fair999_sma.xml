@@ -11,14 +11,14 @@
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='03H'/>
+        <parameter name='username' value='ATZ'/>
         <parameter name='levelLogin' value='Senior Master Agent'/>
-        <parameter name='downlineAccount' value='03H00'/>
+        <parameter name='downlineAccount' value='ATZ00'/>
         <parameter name='portalSubAccount' value='ANSUBIS'/>
-        <parameter name='memberAccount' value='03H0000000'/>
+        <parameter name='memberAccount' value='ATZ0000000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
-        <parameter name='currency' value='HKD'/>
+        <parameter name='currency' value='INR'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='fairexchange'/>
         <parameter name='isAddTestRailResult' value='true'/>
@@ -26,8 +26,7 @@
             <run>
                 <include name="smoke"/>
                 <include name="smoke_newui"/>
-                <include name="smoke_fair"/>
-                <include name="smoke_creditcash"/>
+                <include name="smoke_credit"/>
             </run>
         </groups>
 

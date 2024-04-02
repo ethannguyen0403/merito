@@ -11,9 +11,11 @@ import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static agentsite.pages.HomePage.waitingLoadingSpinner;
 import static baseTest.BaseCaseTest._brandname;
+import static baseTest.BaseCaseTest.log;
 import static common.AGConstant.*;
 import static common.AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL;
 import static common.AGConstant.AgencyManagement.DownlineListing.LST_ACCOUNT_STATUS;
@@ -26,11 +28,14 @@ public class OldUIDownlineListing extends DownlineListing {
     private int accountStatusCol = 7;
     public Label lblPageTitle = Label.xpath("//app-title-dashboard//div[contains(@class, 'title')]");
     private Button btnOK = Button.xpath("//button[text()='Ok']");
-    private Button btnSubmit = Button.id("submitBtn");
     private int changePasswordCol = 9;
 //    private int userCodeCol = 3;
 
     public EditDownLinePage clickEditIcon(String loginID, boolean inputSecurityCode) {
+        if(loginID.isEmpty()) {
+            log("DEBUG: login ID is empty cannot detect index to click Edit");
+            return null;
+        }
         editCol = getHeaderIndexValue("Edit");
         Cell cellValue = tblDowlineListing.getCellByName(loginID, false);
         int userCodeCol = Integer.parseInt(cellValue.getAttribute("cellIndex")) + 1;
@@ -118,9 +123,14 @@ public class OldUIDownlineListing extends DownlineListing {
             System.out.println(String.format("DEBUG! There is no usercode %s in the table", userCode));
             return null;
         }
-        DropDownBox ddpAccountStatus = DropDownBox.xpath(
-                tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(
-                        userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, "select[contains(@class,'com-status')]", false, false));
+        String xpath = tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(
+                userCode, 1, userCodeCol, userCodeIndex, null, accountStatusCol, "select[contains(@class,'com-status')]", false, false);
+        //handle when userCode input is loginId
+        if(Objects.isNull(xpath)) {
+            xpath = tblDowlineListing.getControlxPathBasedValueOfDifferentColumnOnRow(
+                    userCode, 1, loginIDCol, userCodeIndex, null, accountStatusCol, "select[contains(@class,'com-status')]", false, false);
+        }
+        DropDownBox ddpAccountStatus = DropDownBox.xpath(xpath);
         if (ddpAccountStatus.isDisplayed())
             return ddpAccountStatus.getFirstSelectedOption().trim();
         else
@@ -128,23 +138,16 @@ public class OldUIDownlineListing extends DownlineListing {
 
     }
 
+    public String changePassword(String loginID, String newPassword) throws InterruptedException {
+        tblDowlineListing.getControlBasedValueOfDifferentColumnOnRow(loginID, 1, userCodeCol, 1, null, changePasswordCol, "a", false, false).click();
+        ChangePasswordPopup popup = new ChangePasswordPopup();
+        return popup.changePassword(newPassword, newPassword);
+    }
+
     public void closeSubmitEditDownlinePopup() {
         if (btnOK.isClickable(1)) {
             btnOK.click();
         }
         waitingLoadingSpinner();
-    }
-
-    public void submitEditDownline() {
-        if (btnSubmit.isDisplayed()) {
-            btnSubmit.click();
-            waitingLoadingSpinner();
-        }
-    }
-
-    public String changePassword(String loginID, String newPassword) throws InterruptedException {
-        tblDowlineListing.getControlBasedValueOfDifferentColumnOnRow(loginID, 1, userCodeCol, 1, null, changePasswordCol, "a", false, false).click();
-        ChangePasswordPopup popup = new ChangePasswordPopup();
-        return popup.changePassword(newPassword, newPassword);
     }
 }

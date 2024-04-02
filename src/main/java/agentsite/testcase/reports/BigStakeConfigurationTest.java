@@ -60,7 +60,7 @@ public class BigStakeConfigurationTest extends BaseCaseTest {
      * @expect: 1. Can update big stake successfully" Big stake configuration is saved successfully."
      */
     @TestRails(id = "814")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_sat", "nolan"})
     @Parameters("username")
     public void Agent_Report_Big_Stake_Configuration_814(String username) {
         log("@title:Validate can configure big stake ");
@@ -79,7 +79,7 @@ public class BigStakeConfigurationTest extends BaseCaseTest {
             page.btnOK.click();
             List<ArrayList<String>> configuredData = page.tblBigStakeConfiguration.getRowsWithoutHeader(1, false);
             Assert.assertTrue(configuredData.get(0).get(0).contains(currentDateTime), "FAILED! configure date time not correctly");
-            Assert.assertTrue(configuredData.get(0).get(1).contains(String.format("%.2f", stake)), "FAILED! configure date time not correctly");
+            Assert.assertTrue(configuredData.get(0).get(1).contains(String.format("%,.2f", Double.valueOf(stake))), "FAILED! configure date time not correctly");
             Assert.assertTrue(configuredData.get(0).get(2).contains(username), "FAILED! configure date time not correctly");
             log("INFO: Executed completely");
         } finally {

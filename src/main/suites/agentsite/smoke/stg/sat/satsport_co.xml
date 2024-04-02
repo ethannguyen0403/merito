@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="STG_SAT_SMOKE_AGENT_SMA" verbose="1">
+<suite name="SAT_STG_AG_CO_TCs" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="Smoke test cases Satsport Agent Site in STG">
+    <test name="Smoke test cases Satsport CO level Agent Site in STG">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
         <parameter name='username' value='SA1'/>
-        <parameter name='level' value='SAD'/>
-        <parameter name='levelLogin' value='Senior Admin'/>
-        <parameter name='downlineAccount' value='corpinr2'/>
-        <parameter name='portalSubAccount' value='SASUBIS'/>
-        <parameter name='memberAccount' value='sabella1'/>
+        <parameter name='downlineAccount' value='auto.part1'/>
+        <parameter name='controlBlockingAccount' value='Auto.SAD1'/>
+        <parameter name='memberAccount' value='auto.pl02'/>
+        <parameter name='controlBlockingLevel' value='CORP'/>
+        <parameter name='accountToBet' value='SAL0000001 (follow.pl1)'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name="passwordNonePO" value="5pjguoEh1fnSILpykWt1vQ=="/>
         <parameter name='isThrown' value='false'/>
-        <parameter name='currency' value='INR'/>
+        <parameter name='currency' value='HKD'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='satsport'/>
         <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="smoke_co"/>
+                <!--     <include name="regression" /> -->
             </run>
         </groups>
 
@@ -90,5 +92,6 @@
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
         </classes>
+
     </test>
 </suite>

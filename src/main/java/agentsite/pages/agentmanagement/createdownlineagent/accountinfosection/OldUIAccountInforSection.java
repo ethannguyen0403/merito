@@ -6,6 +6,7 @@ import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 import common.AGConstant;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -34,7 +35,7 @@ public class OldUIAccountInforSection extends AccountInforSection {
             txtPassword.sendKeys(password);
         }
         if (!accountStatus.isEmpty())
-            ddrAccountStatus.selectByVisibleText(accountStatus);
+            ddrAccountStatus.selectByVisibleText(StringUtils.capitalize(accountStatus.toLowerCase()));
 
     }
 

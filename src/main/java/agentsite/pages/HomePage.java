@@ -36,7 +36,7 @@ public class HomePage extends LoginPage {
         super(types);
 //        footer = ComponentsFactory.footerObject(_type);
         header = ComponentsFactory.headerObject(_type);
-        leftMenu = ComponentsFactory.leftMenuObject(_type);
+        leftMenu=  ComponentsFactory.leftMenuObject(_type);
         quickSearch = ComponentsFactory.quickSearchObject(_type);
     }
 

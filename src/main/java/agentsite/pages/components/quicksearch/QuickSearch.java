@@ -154,5 +154,12 @@ public class QuickSearch {
         return setting.openUserProfile().updateProfile(newPassword, confirmPassword, firstName, lastName, mobile, phone, fax, isClose);
     }
 
-    public boolean isListSubMenuDisplayCorrect() {return false;}
+    public boolean isListSubMenuDisplayCorrect() {
+        List<String> lstQuickSearchMenu = mtQuickSearchMenu.getListSubMenu();
+        if (!lstQuickSearchMenu.isEmpty()) {
+            return lstQuickSearchMenu.equals(LST_QUICK_SEARCH_MEMBER_MENU);
+        } else {
+            return false;
+        }
+    }
 }

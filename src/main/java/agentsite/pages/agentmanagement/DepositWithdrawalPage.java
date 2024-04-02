@@ -24,8 +24,8 @@ public class DepositWithdrawalPage extends HomePage {
     public CheckBox chkAll = CheckBox.id("cAll");
     public Button btnDeposit = Button.id("bntUpdateDeposit");
     public Button btnWithdraw = Button.id("bntUpdateWithdraw");
-    public DropDownBox ddbAccountStatus = DropDownBox.id("status");
-    public DropDownBox ddbLevel = DropDownBox.id("userLevel");
+//    public DropDownBox ddbAccountStatus = DropDownBox.id("status");
+//    public DropDownBox ddbLevel = DropDownBox.id("userLevel");
     private String downlineXPath = "//span[text()='%s']";
     public SecurityPopup securityPopup = SecurityPopup.xpath("//app-config-otp");
     public Label lblNoRecord = Label.xpath("//span[contains(@class,'no-record')]");

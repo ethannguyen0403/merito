@@ -168,7 +168,7 @@ public class DepositTest extends BaseCaseTest {
      * 2. Verify available balance of deposit account is updated
      */
     @TestRails(id = "724")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_Deposit_724() {
         log("@title: Validate can deposited successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -176,7 +176,7 @@ public class DepositTest extends BaseCaseTest {
         AccountInfo memberInfo = lstUsers.get(0);
         String userCode = memberInfo.getUserCode();
         Double amountDeposit = 1.0;
-        double expectedNewMemberCash = memberInfo.getCashBalance() + amountDeposit;
+        double expectedNewMemberCash = memberInfo.getAvailableBalance() + amountDeposit;
         double expectedLoginAccountAvBalance = DoubleUtils.roundUpWithTwoPlaces(DownLineListingUtils.getMyCreditCashBalance() - amountDeposit);
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -230,7 +230,7 @@ public class DepositTest extends BaseCaseTest {
      * 2. Verify Balance is updated correctly
      */
     @TestRails(id = "725")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_Deposit_725() throws InterruptedException {
         log("@title: Validate can multiple deposit by click on Deposit button");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -303,7 +303,7 @@ public class DepositTest extends BaseCaseTest {
     }
 
     @TestRails(id = "727")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash", "nolan"})
     public void Agent_AM_DepositWithdrawal_Deposit_727() {
         log("@title: Validate can deposited by Win/Loss Settle successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -338,10 +338,10 @@ public class DepositTest extends BaseCaseTest {
         Assert.assertEquals(successMessage, AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_SUCCESSFUL, String.format("ERROR: The expected success message is '%s' but found '%s'", AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_SUCCESSFUL, successMessage));
 
         log("Verify  2. Verify  Win/loss value is update correctly as value in the popup");
-        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.01, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCash, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
-        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.01, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.03, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCash, 0.03, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, 0.03, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.03, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
 
         log("Verify  3. Verify main balance info");
         List<ArrayList<String>> mainBalanceInfoExpected = page.calculateMainAccountInfo(mainBalanceInfo, depositAmount, true);

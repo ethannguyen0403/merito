@@ -12,8 +12,7 @@ import java.util.List;
 
 import static agentsite.pages.HomePage.waitingLoadingSpinner;
 import static agentsite.pages.agentmanagement.DownLineListingPage.*;
-import static baseTest.BaseCaseTest._brandname;
-import static baseTest.BaseCaseTest.environment;
+import static baseTest.BaseCaseTest.*;
 import static common.AGConstant.*;
 import static common.AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL;
 import static common.AGConstant.AgencyManagement.DownlineListing.*;
@@ -23,11 +22,14 @@ import static common.AGConstant.HomePage.DOWNLINE_LISTING;
 public class NewUIDownlineListing extends DownlineListing {
     public Label lblPageTitle = Label.xpath("//app-title-dashboard//div[contains(@class, 'title')]");
     private Button btnOK = Button.xpath("//button[text()='OK']");
-    private Button btnSubmit = Button.xpath("//app-agency-edit//button[@id='submitBtn']");
     private int changePasswordCol = 6;
 //    private int userCodeCol = 2;
 
     public EditDownLinePage clickEditIcon(String loginID, boolean inputSecurityCode) {
+        if(loginID.isEmpty()) {
+            log("DEBUG: login ID is empty cannot detect index to click Edit");
+            return null;
+        }
         editCol = getHeaderIndexValue("Edit");
         Cell cellValue = tblDowlineListing.getCellByName(loginID, false);
         int userCodeCol = Integer.parseInt(cellValue.getAttribute("cellIndex")) + 1;
@@ -103,13 +105,6 @@ public class NewUIDownlineListing extends DownlineListing {
             btnOK.click();
         }
         waitingLoadingSpinner();
-    }
-
-    public void submitEditDownline() {
-        if (btnSubmit.isDisplayed()) {
-            btnSubmit.click();
-            waitingLoadingSpinner();
-        }
     }
 
     public String changePassword(String loginID, String newPassword) throws InterruptedException {

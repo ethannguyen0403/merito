@@ -3,6 +3,9 @@ package agentsite.pages.report.components;
 import agentsite.controls.MenuTree;
 import agentsite.controls.Row;
 import agentsite.controls.Table;
+import agentsite.pages.HomePage;
+import agentsite.pages.components.ComponentsFactory;
+import agentsite.pages.report.components.transactiondetailspopup.TransactionDetailsPopup;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
@@ -10,9 +13,8 @@ import com.paltech.element.common.Popup;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class TransactionDetailsPopup {
+public class TransactionDetailsPopupPage extends HomePage {
     public int tblReportTotalCol = 18;
     public int colUsername = 1;
     public int colLoginId = 2;
@@ -30,7 +32,7 @@ public class TransactionDetailsPopup {
     Button btnClose = Button.xpath("//button[contains(@class,'btn-cancel')]");
     Label lblTitle = Label.xpath("//div[@class='otp-dialog ng-scope']//div[@class='modal-header']/div[@class='ng-binding']");
     String tblReportXpath = "//table[contains(@class,'ptable table-responsive report')]";
-    Table tblReport = Table.xpath(tblReportXpath, tblReportTotalCol);
+    public Table tblReport = Table.xpath(tblReportXpath, tblReportTotalCol);
     Row taxRow = Row.xpath("//table[contains(@class,'table-responsive')]//tr[contains(@class,'TAX_INFO')]");
     Row rowTotal = Row.xpath("//table[contains(@class,'ptable table-responsive report')]//tr[@class='ng-star-inserted']");
     Label lblExport = Label.id("export-title");
@@ -38,7 +40,14 @@ public class TransactionDetailsPopup {
     Label lblDisplayItem = Label.xpath("//div[contains(@class,'displaying-items')]");
     private int staticColTotal = 9;
     private int rowTotalCol = 8;
-
+    public TransactionDetailsPopup transactionDetailsPopup;
+    public TransactionDetailsPopupPage(String types) {
+        super(types);
+        transactionDetailsPopup = ComponentsFactory.transactionDetailsPopup(types);
+    }
+    public List<String> getProductsListTab() {
+        return transactionDetailsPopup.getProductsListTab();
+    }
     public void closePopup() {
         btnClose.click();
     }
@@ -48,11 +57,7 @@ public class TransactionDetailsPopup {
     }
 
     public ArrayList<String> getTotalRowData() {
-        return rowTotal.getRow(rowTotalCol, false);
-    }
-
-    public List<String> getProductsListTab() {
-        return productTabMenu.getListSubMenu().stream().sorted().collect(Collectors.toList());
+        return transactionDetailsPopup.getTotalRowData();
     }
 
     public Table defineReportCol(List<String> levelList) {
@@ -90,6 +95,7 @@ public class TransactionDetailsPopup {
 
     public double sumPlayerStake() {
         double totalPlayerStake = 0.0;
+        waitingLoadingSpinner();
         List<ArrayList<String>> data = tblReport.getRowsWithoutHeader(false);
         for (int i = 0; i < data.size() - 2; i++) {
             String stake = data.get(i).get(colPlayerStake - 1);
@@ -148,6 +154,10 @@ public class TransactionDetailsPopup {
 
     public void clickCloseButton() {
         btnClose.click();
+    }
+
+    public void verifyListOfProductsTabDisplayedCorrect(String productFilterName) {
+        transactionDetailsPopup.verifyListOfProductsTabDisplayedCorrect(productFilterName);
     }
 
 }
