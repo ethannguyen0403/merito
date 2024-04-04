@@ -332,6 +332,7 @@ public class BlockUnblockEventPage extends HomePage {
             Label lblDownlineName = Label.xpath(String.format("//table[contains(@class,'block-table')]//span[contains(text(),'%s')]", downline));
             //   lblDownlineName = Label.xpath(String.format("//table[contains(@class,'block-table')]//span[contains(text(),'%s')]",downline));
             lblDownlineName.isClickable(3);
+            lblDownlineName.scrollToThisControl(true);
             lblDownlineName.click();
             waitingLoadingSpinner();
         }

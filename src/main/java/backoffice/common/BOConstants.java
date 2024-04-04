@@ -52,7 +52,12 @@ public class BOConstants {
             public final static String SEARCH_COMPETITION = "Search competition";
             public final static String SEARCH_MARKET = "Search Market Type";
             public final static String SEARCH_COUNTRY_RACES = "Search country";
+            public final static String SELECT_BRAND = "Select Brand";
+            public final static String SPORT_TYPE = "Sport";
+            public final static String COMPETITION_TYPE = "Competition";
+            public final static String SAT_BRAND = "SAT sport";
             public final static List<String> DDB_SPORT_COUNTRY_RACES = Arrays.asList("Horse Racing", "Horse Racing - Antepost", "Greyhound Racing", "Greyhound Racing - Antepost");
+            public final static List<String> BRANDS_LIST = Arrays.asList("FairExchange", "FunSport101", "SAT Sport", "LORD 777", "198BE", "Lottoexch", "Betxhub", "Fairenter", "World Exchange", "Betcric", "Betfinex", "Aposta", "Betclub9", "Sunexch365", "Laystars");
         }
 
         public static class SmallBetConfiguration {
@@ -106,6 +111,7 @@ public class BOConstants {
             public final static List<String> TABLE_HEADER_CURRENCIES = Arrays.asList("No.", "Currency Code", "Currency Name");
             public final static List<String> TABLE_HEADER_COUNTRIES = Arrays.asList("No.", "Country Code", "Country Name", "Status");
             public final static String SUCCESS_MSG = "Currency - Country mapping is saved successfully.";
+            public final static String ERROR_LOGIN_MSG = "Login fail. Your currency does not match with your location.";
         }
 
         public static class CountryIPMapping {

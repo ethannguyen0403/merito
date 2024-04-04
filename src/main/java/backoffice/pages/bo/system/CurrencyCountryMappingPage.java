@@ -2,6 +2,7 @@ package backoffice.pages.bo.system;
 
 import backoffice.controls.bo.StaticTable;
 import backoffice.pages.bo.home.HomePage;
+import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
 
 import java.util.List;
@@ -22,13 +23,13 @@ public class CurrencyCountryMappingPage extends HomePage {
     //public ATable tblCountries = ATable.xpath("//div[@class='custom-table']", countryTotalColumn);
     public StaticTable tblCountries = StaticTable.xpath("//div[@class='custom-table']", "div[contains(@class,'custom-table-body')]", "div[contains(@class,'custom-table-row')]", "div[contains(@class,'custom-table-cell')]", countryTotalColumn);
 
-    public void mapCurrency(String currencyCode, String countryName, boolean isMap) {
+    public void mapCurrency(String currencyCode, String countryName, boolean isMap, boolean isSearch) {
         // Select currency code
         selectCurrency(currencyCode);
-
         //Search Country Name
-        txtCountryName.sendKeys(countryName);
-
+        if(isSearch){
+            txtCountryName.sendKeys(countryName);
+        }
         //Select Country
         selectCountry(countryName, isMap);
 
@@ -43,7 +44,7 @@ public class CurrencyCountryMappingPage extends HomePage {
             if (observe.equals(currencyCode)) {
                 tblCurrencies.click();
                 lnk = (Link) tblCurrencies.getControlOfCell(1, colCurrencyCode, i + 1, null);
-                lnk.scrollDownInDistance();
+                lnk.scrollToThisControl(true);
                 lnk.click();
                 return;
             }
@@ -54,12 +55,18 @@ public class CurrencyCountryMappingPage extends HomePage {
         List<String> lstCountries = tblCountries.getColumn(colCountryName, true);
         for (int i = 0; i < lstCountries.size(); i++) {
             String observe = lstCountries.get(i);
-            Link lnk;
+            BaseElement lblCountry;
+            BaseElement chkCountry;
             if (observe.equals(countryName)) {
-                lnk = (Link) tblCountries.getControlOfCell(1, coldStatus, i + 1, "span");
-                lnk.scrollDownInDistance();
-                if (!(lnk.isSelected() && isActive)) {
-                    lnk.click();
+                chkCountry = tblCountries.getControlOfCell(1, coldStatus, i + 1, "input");
+                lblCountry = tblCountries.getControlOfCell(1, coldStatus, i + 1, "span");
+                lblCountry.scrollToThisControl(true);
+                if (isActive) {
+                    if (!chkCountry.isSelected())
+                        lblCountry.click();
+                } else {
+                    if (chkCountry.isSelected())
+                        lblCountry.click();
                 }
                 return;
             }

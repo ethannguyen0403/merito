@@ -3,6 +3,7 @@ package membersite.testcases.exchange;
 import baseTest.BaseCaseTest;
 import com.paltech.element.common.Label;
 import common.MemberConstants;
+import membersite.controls.EditStakeControl;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
@@ -14,6 +15,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -152,95 +154,85 @@ public class MarketPageTest extends BaseCaseTest {
 
     @TestRails(id = "985")
     @Test(groups = {"smoke"})
-    public void FE_BetSlipMyBet_011(){
+    public void FE_BetSlipMyBet_985(){
         log("@title: Validate can update fast button");
-        Assert.assertTrue(false,"Update this case");
-//        String minBet = BetUtils.getMinBet(SportPage.Sports.SOCCER, SportPage.BetType.BACK);
-//        String maxBet = BetUtils.getMaxBet(SportPage.Sports.SOCCER, SportPage.BetType.BACK);
-//        List<String> quickStake = Arrays.asList(minBet,
-//                StringUtils.generateNumeric(Integer.parseInt(minBet),Integer.parseInt(maxBet)),
-//                StringUtils.generateNumeric(Integer.parseInt(minBet),Integer.parseInt(maxBet)),
-//                StringUtils.generateNumeric(Integer.parseInt(minBet),Integer.parseInt(maxBet)),
-//                StringUtils.generateNumeric(Integer.parseInt(minBet),Integer.parseInt(maxBet)),
-//                StringUtils.generateNumeric(Integer.parseInt(minBet),Integer.parseInt(maxBet)),
-//                StringUtils.generateNumeric(Integer.parseInt(minBet),Integer.parseInt(maxBet)),
-//                maxBet);
-//        log("Step 1.Active any market page");
-//        SportPage page =  memberHomePage.apLeftMenuControl.clickLeftMenuItem("Soccer",SportPage.class);
-//        Event event = page.eventContainerControl.getEventRandom(false,false);
-//        if(Objects.isNull(event)) {
-//            log("DEBUG: There is no event available");
-//            return;
-//        }
-//        page.clickEvent(event);
-//        page.marketContainerControl.waitControlLoadCompletely(5);
-//
-//        log("Step 2. Update stake with valid value in range [min, max]");
-//        log("Step 3. Click Save button");
-//        page.betSlipControl.openEditStake().updateStake(quickStake,true);
-//
-//        log("Verify 1. Edit stake is disappear when successfully save");
-//        Assert.assertFalse(page.betSlipControl.isEditStakeControlDisplay(), "ERROR! Edit Stake popup is no longer display but found " +page.betSlipControl.isEditStakeControlDisplay());
-//
-//        log("Step 4. Click on any odds button");
-//        page.marketContainerControl.getMarket(event,1,true).getBtnOdd().click();
-//        List<String> actualQuickStake = page.betSlipControl.getListFastButton();
-//
-//        log("Verify 2. Fast  button in bet slip display as expected");
-//        Assert.assertEquals(actualQuickStake,quickStake,"ERROR! Quick stake not match as expected");
+        log("Step 1: Navigate to Market page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEvent(event);
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        log("Step 2: Click on Edit stake fast button on Bet slip");
+        EditStakeControl editStakeControl = marketPage.betsSlipContainer.openEditStake();
 
-        log("INFO: Executed Completely");
+        log("Step 3: Update stake with valid value in range [min, max]");
+        log("Step 4: Click Save button");
+        List<String> listStakeFast = editStakeControl.getStakes();
+        List<String> newListStakeFast = new ArrayList<>(listStakeFast);
+        newListStakeFast.set(1, String.valueOf(Integer.valueOf(newListStakeFast.get(1))+3));
+        try{
+            editStakeControl.updateStake(newListStakeFast, true);
+            log("Verify 1: Edit stake is disappear when successfully save");
+            Assert.assertTrue(!marketPage.betsSlipContainer.isEditStakeControlDisplay(), "FAILED! Edit stake still displayed after saving.");
+            log("Step 5: Click on any odds button");
+            market.getBtnOdd().click();
+            log("Verify 2: Fast button in bet slip display as expected with new stake value after updated");
+            Assert.assertEquals(marketPage.betsSlipContainer.getListFastButton(), newListStakeFast,
+                    "FAILED! List stake fast is not updated correctly");
+            log("INFO: Executed Completely");
+        }finally {
+            try {
+                log("@Post-condition: Return fast stake list");
+                marketPage.betsSlipContainer.openEditStake();
+                editStakeControl.updateStake(listStakeFast, true);
+            }catch (Exception e){
+                log("@Post-condition: FAILED to execute post condition. Error: " + e.getMessage());
+            }
+        }
     }
 
     @TestRails(id = "986")
     @Test(groups = {"smoke"})
-    public void FE_BetSlipMyBet_012(){
-        log("Step 1. Validate Stake textbox display correct value when clicking on the corresponding fast button");
-        log("Step 2. Click on any odds");
-        Assert.assertTrue(false,"Update this case");
-//        SportPage page =  memberHomePage.apLeftMenuControl.clickLeftMenuItem("Soccer",SportPage.class);
-//        Event event = page.eventContainerControl.getEventRandom(false,false);
-//        if(Objects.isNull(event)) {
-//            log("DEBUG: There is no event available");
-//            return;
-//        }
-//        page.clickEvent(event);
-//        page.marketContainerControl.waitControlLoadCompletely(5);
-//        page.marketContainerControl.getMarket(event,1,true).getBtnOdd().click();
-//
-//        log("Step  3. Click on all fast buttons");
-//        log("Verify 1. Stake textbox update data correctly");
-//        boolean expected = page.betSlipControl.isStakeDisplayAsClickingOnFastButton();
-//
-//        Assert.assertTrue(expected, "ERROR! Expected stake not match when clicking on fast button "+ expected);
+    public void FE_BetSlipMyBet_986(){
+        log("@title: Validate Stake textbox display correct value when clicking on the corresponding fast button");
+        log("Step 1: Navigate to Market page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEvent(event);
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        log("Step 2: Click on any odds button");
+        market.getBtnOdd().click();
+        log("Step 3: Click on all fast buttons");
+        Assert.assertTrue(marketPage.betsSlipContainer.isStakeDisplayAsClickingOnFastButton(), "FAILED! Stake is not displayed correctly when clicking on fast stake button");
         log("INFO: Executed Completely");
     }
 
     @TestRails(id = "987")
     @Test(groups = {"smoke"})
-    public void FE_BetSlipMyBet_015(){
+    public void FE_BetSlipMyBet_987(){
         log("@title: Validate Cancel button in Edit Stake popup work");
-        log("Step 1.Active any market page");
-        Assert.assertTrue(false,"Update this case");
-//        SportPage page =  memberHomePage.apLeftMenuControl.clickLeftMenuItem("Soccer",SportPage.class);
-//        Event event = page.eventContainerControl.getEventRandom(false,false);
-//        if(Objects.isNull(event)) {
-//            log("DEBUG: There is no event available");
-//            return;
-//        }
-//        page.clickEvent(event);
-//        page.marketContainerControl.waitControlLoadCompletely(5);
-//
-//        log("Step 2. Click on Edit Stake button");
-//        log("Verify 1. Edit stake popup is opened");
-//        page.betSlipControl.openEditStake();
-//        Assert.assertTrue(page.betSlipControl.isEditStakeControlDisplay(), "ERROR! Edit Stake popup is no longer display but found " +page.betSlipControl.isEditStakeControlDisplay());
-//
-//        log("Step 3. Click Cancel button");
-//        log("Verify 2. Edit stake popup is disappear");
-//        page.betSlipControl.editStakeControl.cancelEditStake();
-//        Assert.assertFalse(page.betSlipControl.isEditStakeControlDisplay(), "ERROR! Edit Stake popup is no longer display but found " +page.betSlipControl.isEditStakeControlDisplay());
-
+        log("Step 1: Navigate to Market page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 2: Click on Edit Stake button");
+        EditStakeControl editStakeControl = marketPage.betsSlipContainer.openEditStake();
+        Assert.assertTrue(editStakeControl.isDisplayed(), "FAILED! Edit stake popup is NOT displayed");
+        log("Step 3: Click Cancel button");
+        editStakeControl.cancelEditStake();
+        log("Verify 1: Edit stake popup is disappear");
+        Assert.assertFalse(editStakeControl.isDisplayed(), "FAILED! Edit stake popup is displayed");
         log("INFO: Executed Completely");
     }
 

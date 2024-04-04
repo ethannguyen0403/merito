@@ -706,24 +706,44 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3591")
+    @Parameters({"memberAccount", "password"})
     @Test(groups = {"interaction_sat"})
-    public void Agent_AM_Event_Bet_Site_Settings_3591() {
+    public void Agent_AM_Event_Bet_Site_Settings_3591(String memberAccount, String password) throws Exception {
         log("@title:Cannot place bet when stake less than max setting in Event Bet Site Setting for normal market");
-        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
         AccountInfo acc = ProfileUtils.getProfile();
+        List<AccountInfo> lstAcc = DownLineListingUtils.getDownLineUsers(acc.getUserID(), "",_brandname);
         // Get the unblock event in Block Unblock event
-        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
-        Event event = EventBetSizeSettingUtils.getEventList(SPORT_CRICKET, acc.getUserID(), "TODAY").get(0);
         int min = 100;
         int max = 123;
+        log("Step precondition: Unblock all events in Block/Unbock Event page first for getting market info");
+        BlockUnblockEventPage blockUnblockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
+        blockUnblockEventPage.filter("", SPORT_CRICKET, MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
+        blockUnblockEventPage.blockUnblockEvent(lstAcc.get(0).getUserCode(), "all", "Unblock Now", "", 1);
+
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
+        Event event = EventBetSizeSettingUtils.getEventListByMarket(SPORT_CRICKET, lstAcc.get(0).getUserID(), "Match Odds","TODAY").get(0);
+
         log("Step 2. Update Max bet for an event (first colum)");
+        page.eventBetSizeSetting.filter("", SPORT_CRICKET, "Today");
+        page.eventBetSizeSetting.searchEventInfo(event.getCompetitionName(), event.getEventName(),"");
         page.eventBetSizeSetting.updateMinMax(event.getID(), "Exchange", Integer.toString(min), Integer.toString(max));
-        //TODO: implement test this case
+
         log("Step 3 Login in member site and place on BF market of the event in step 2 ");
+        loginMember(memberAccount, password);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_CRICKET);
+        MarketPage marketPage = sportPage.clickEventName(event.getEventName());
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        String odds = market.getBtnOdd().getText();
+        market.getBtnOdd().click();
 
+        log(String.format("Step 4. Place bet with odds:%s Stake: %s", odds, max));
+        marketPage.betsSlipContainer.placeBet(odds, Integer.toString(max + 1));
 
-        log("Verify Verify cannot place bet if max bet greater than the setting");
-
+        log("Verify cannot place bet if max bet greater than the setting");
+        String actualError = marketPage.myBetsContainer.getBetslipErrorMessage();
+        String expectedError = String.format(MemberConstants.BetSlip.VALIDATE_STAKE_NOT_VALID,  min, max, max + 1);
+        Assert.assertEquals(actualError, expectedError, String.format("ERROR! Expected error message is %s but found %s", expectedError, actualError));
         log("INFO: Executed completely");
     }
 
