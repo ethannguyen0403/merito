@@ -25,10 +25,15 @@ public class ProteusHomePage extends HomePage {
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
     public Label lblLoading = Label.xpath("//div[contains(@class,'loading-text')]/p");
     private Image imgSpinner = Image.xpath("//em[contains(@class,'fa-4x fa-spin')]");
-    private Label lblBetSlipTab = Label.xpath("//app-bet-slip//div[text()='BET SLIP']");
+    public Label lblBetSlipTab = Label.xpath("//app-bet-slip//div[text()='BET SLIP']");
+    public Label lblBetSlipTabNumber = Label.xpath("//app-bet-slip//div[text()='BET SLIP']/following-sibling::div[1]");
     private Label lblPendingTab = Label.xpath("//app-bet-slip//div[text()='PENDING BETS']");
     public Label lblPlaceBetError = Label.xpath("//app-confirm-modal//div[contains(@class,'modal-body')]//div");
+    public Label lblBetSlipMsgEmptyNoBets = Label.xpath("//app-bet-slip//div[contains(@class, 'no-bets-container')]//div[2]");
+    public Label lblBetSlipMsgEmptyClickOdds = Label.xpath("//app-bet-slip//div[contains(@class, 'no-bets-container')]//div[3]");
+    public  Button btnRemoveAll = Button.xpath("//span[contains(@class, 'remove-all')]");
     // Bet Slip UI
+    String btnXRemoveBetXpath = "(//i[contains(@class, 'remove-icon')])[%d]";
     String betslipRootXpath = "//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]";
     String lblEventNameXpath = "//span[@class='teams-name']";
     String lblLiveScoreXpath ="//span[@class='live-score']";
@@ -43,7 +48,7 @@ public class ProteusHomePage extends HomePage {
     String lblMatchMaxXpath = "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span";
     String txtStakeXpath = "//input[contains(@class,'stake-input')]";
     Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
-    AppConfirmModulePopup confirmModulePopup = AppConfirmModulePopup.xpath("//app-confirm-modal");
+    public AppConfirmModulePopup confirmModulePopup = AppConfirmModulePopup.xpath("//app-confirm-modal");
     // End Bet Slip UI
     String pendingBetRootXpath = "//app-pending-bets//div[contains(@class,'pending-item')][%d]";
     String lblPendingBetEventNameXpath = "//div[contains(@class,'event-name')]";
@@ -105,8 +110,9 @@ public class ProteusHomePage extends HomePage {
             lblView.click();
     }
 
-
-
+    public void removeAddedBet(int index){
+        Button.xpath(String.format(btnXRemoveBetXpath, index)).click();
+    }
 
     public void switchTabBetSlip(String tabName) {
         if (tabName.equalsIgnoreCase("bet slip")) {
@@ -198,6 +204,13 @@ public class ProteusHomePage extends HomePage {
         String eventDate = DateUtils.convertDateToNewTimeZone(eventStartTime,"yyyy-MM-dd'T'HH:mm:ss.SSSXXX","","yyyy-MM-dd",GMT_7);
         return String.format("%s %s - %s - %s",eventDate,marketName, match, market.getLeagueName());
 
+    }
+
+    public void verifyBetSlipIsEmpty(){
+        lblBetSlipMsgEmptyNoBets.isDisplayed();
+        Assert.assertEquals(lblBetSlipTab.getText(), BET_SLIP_TAB, "FAILED! Bet slip tab contains number");
+        Assert.assertEquals(lblBetSlipMsgEmptyNoBets.getText(), BETSLIP_NO_BETS_MSG, "FAILED! Msg no bet on bet slip empty is not correct");
+        Assert.assertEquals(lblBetSlipMsgEmptyClickOdds.getText(), BETSLIP_CLICK_ODDS_MSG, "FAILED! Msg click odds on bet slip empty is not correct");
     }
 
     public void verifyBetSlipInfo(Market market, String selection, String oddsType) {

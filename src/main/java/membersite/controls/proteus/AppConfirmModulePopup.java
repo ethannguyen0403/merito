@@ -27,7 +27,6 @@ public class AppConfirmModulePopup extends BaseElement {
     }
 
     public void clickCloseBtn() {
-        btnCancel.click();
     }
 
     public void confirm() {
@@ -50,4 +49,8 @@ public class AppConfirmModulePopup extends BaseElement {
         return popup.isDisplayed();
     }
 
+    public void cancelPopup(){
+        btnCancel.waitForElementToBePresent(btnCancel.getLocator());
+        btnCancel.click();
+    }
 }

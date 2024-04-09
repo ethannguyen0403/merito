@@ -34,6 +34,10 @@ public class ProteusConstant {
     public static final String NO_RECORDS_FOUND = "No records found.";
     public static final String MIN_STAKE_ERROR_MSG = "Your stake cannot be lower than the minimum bet. It has been automatically adjusted to the minimum bet amount.";
     public static final String MAX_STAKE_ERROR_MSG = "Your stake cannot be greater than the maximum bet. It has been automatically adjusted to the maximum bet amount.";
+    public static final String MAX_SELECTIONS_MSG = "Maximum is 10 selections.";
+    public static final String REMOVE_ALL_MSG = "Do you want to empty your Bet Slip?";
+    public static final String BETSLIP_NO_BETS_MSG = "No bets selected yet.";
+    public static final String BETSLIP_CLICK_ODDS_MSG = "Click on the respective odds to place a new bet.";
     public static final Map<String, String> ODDS_GROUP_ADJUSTMENT_MAPPING = new HashMap<String, String>() {
         {
             put("B", "0.28");
