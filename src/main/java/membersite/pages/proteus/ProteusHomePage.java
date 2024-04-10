@@ -31,6 +31,7 @@ public class ProteusHomePage extends HomePage {
     public Label lblPlaceBetError = Label.xpath("//app-confirm-modal//div[contains(@class,'modal-body')]//div");
     public Label lblBetSlipMsgEmptyNoBets = Label.xpath("//app-bet-slip//div[contains(@class, 'no-bets-container')]//div[2]");
     public Label lblBetSlipMsgEmptyClickOdds = Label.xpath("//app-bet-slip//div[contains(@class, 'no-bets-container')]//div[3]");
+    public Label lblErrorMsgOver = Label.xpath("//div[@class='single-bets-container']//div[@class='err-msg m-2 ng-star-inserted']");
     public  Button btnRemoveAll = Button.xpath("//span[contains(@class, 'remove-all')]");
     // Bet Slip UI
     String btnXRemoveBetXpath = "(//i[contains(@class, 'remove-icon')])[%d]";
@@ -383,5 +384,11 @@ public class ProteusHomePage extends HomePage {
         Assert.assertEquals(winValue, String.format("%s %.2f",currency, orderExpected.getWin())," Failed! Win value is incorrect");
     }
 
-
+    public void verifyErrorMsgOverBalance(){
+        if(confirmModulePopup.isDisplayed()){
+            confirmModulePopup.confirm();
+            waitForSpinnerLoading();
+        }
+        Assert.assertEquals(lblErrorMsgOver.getText().replaceAll("\\d", "").trim(), BETSLIP_OVER_BALANCE_MSG, "FAILED! Error massage is not correct");
+    }
 }

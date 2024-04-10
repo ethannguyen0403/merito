@@ -206,11 +206,175 @@ public class ProteusHomePageTest extends BaseCaseTest {
         asianViewPage.clickOdds(marketOU, true);
         log("Step 4: Click on x icon of the 2nd bet");
         asianViewPage.removeAddedBet(2);
-        log("Verify 1:  Verify Bet slip title: Bet Slip 1");
+        log("Verify 1: Verify Bet slip title: Bet Slip 1");
         Assert.assertEquals(asianViewPage.lblBetSlipTab.getText() + asianViewPage.lblBetSlipTabNumber.getText(), BET_SLIP_TAB +1, "FAILED! Bet slip tab not correct");
-        log("Verify 2:  Verify Place bet button: PLACE 1 BET");
-        log("Verify 3:  Bet Slip just display info of the 1st order");
+        log("Verify 2: Verify Place bet button: PLACE 1 BET");
+        log("Verify 3: Bet Slip just display info of the 1st order");
         asianViewPage.verifyBetSlipInfo(marketHDP, marketHDP.getOdds().get(0).getTeam(), DECIMAL);
     }
 
+
+    @TestRails(id = "23665")
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
+    public void PS38_Member_TC23665(){
+        log("@title: Validate Insufficient balance error message display when placed on Decimal odds with the stake over available balance ");
+        log("Step 1: Select PS38 product");
+        double userBalanceOver = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", "")) + 100 ;
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Step 2: SSelect Asian view and Decimal odds");
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(DECIMAL);
+        log("Step 3: Select Sport Soccer");
+        asianViewPage.selectSportOnLeftMenu(SOCCER);
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        log("Step 4: Add an odds to bet slip and input stake");
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
+        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(userBalanceOver),true, false);
+        log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
+        asianViewPage.verifyErrorMsgOverBalance();
+           }
+
+    @TestRails(id = "23666")
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
+    public void PS38_Member_TC23666(){
+        log("@title: Validate Insufficient balance error message display when placed on negative Malay odds with the risk over user balance");
+        log("Step 1: Select PS38 product");
+        double userBalance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Step 2: SSelect Asian view and Malay odds");
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(MALAY);
+        log("Step 3: Select Sport Soccer");
+        asianViewPage.selectSportOnLeftMenu(SOCCER);
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        log("Step 4: Add an negative odds to bet slip and input stake");
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, true);
+        // make sure riskValue is always bigger than userBalance
+        double riskValue = userBalance + (userBalance*marketHDP.getOdds().get(0).getOdds());
+
+        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(riskValue),false, false);
+        log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
+        asianViewPage.verifyErrorMsgOverBalance();
+    }
+
+    @TestRails(id = "23667")
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
+    public void PS38_Member_TC23667(){
+        log("@title: Validate Insufficient balance error message display when placed on positive Malay odds with the risk over user balance");
+        log("Step 1: Select PS38 product");
+        double userBalance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Step 2: SSelect Asian view and Malay odds");
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(MALAY);
+        log("Step 3: Select Sport Soccer");
+        asianViewPage.selectSportOnLeftMenu(SOCCER);
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        log("Step 4: Add an positive odds to bet slip and input stake");
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, false);
+        // make sure riskValue is always bigger than userBalance
+        double riskValue = userBalance + (userBalance*marketHDP.getOdds().get(0).getOdds());
+
+        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(riskValue),false, false);
+        log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
+        asianViewPage.verifyErrorMsgOverBalance();
+    }
+
+    @TestRails(id = "23668")
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
+    public void PS38_Member_TC23668(){
+        log("@title: Validate Insufficient balance error message display when placed on negative American odds with the risk over user balance");
+        log("Step 1: Select PS38 product");
+        double userBalance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Step 2: Select Asian view and American odds");
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(AMERICAN);
+        log("Step 3: Select Sport Soccer");
+        asianViewPage.selectSportOnLeftMenu(SOCCER);
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        log("Step 4: Add a negative odds to bet slip and input stake that calculate risk greater than user balance");
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, true);
+        //calculate for risk bigger than userBalance
+        double riskValue = userBalance + (userBalance * marketHDP.getOdds().get(0).getOdds() / 100);
+
+        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(riskValue),false, false);
+        log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
+        asianViewPage.verifyErrorMsgOverBalance();
+    }
+
+    @TestRails(id = "23669")
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
+    public void PS38_Member_TC23669(){
+        log("@title: Validate Insufficient balance error message display when placed on positive American odds with the risk over user balance");
+        log("Step 1: Select PS38 product");
+        double userBalance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Step 2: Select Asian view and American odds");
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(AMERICAN);
+        log("Step 3: Select Sport Soccer");
+        asianViewPage.selectSportOnLeftMenu(SOCCER);
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        log("Step 4: Add a negative odds to bet slip and input stake that calculate risk greater than user balance");
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, false);
+        //calculate for risk bigger than userBalance
+        double riskValue = userBalance + (userBalance * marketHDP.getOdds().get(0).getOdds() / 100);
+
+        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(riskValue),false, false);
+        log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
+        asianViewPage.verifyErrorMsgOverBalance();
+    }
+
+    @TestRails(id = "23670")
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
+    public void PS38_Member_TC23670(){
+        log("@title: Validate confirm bets message is correct when place on Decimal odds");
+        log("Step 1: Select PS38 product");
+        double stake = 51;
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Step 2: Select Asian view and Decimal odds");
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(DECIMAL);
+        log("Step 3: Select Sport Soccer");
+        asianViewPage.selectSportOnLeftMenu(SOCCER);
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        log("Step 4: Add an odds to bet slip and input stake");
+        log("Step 5: Click place bet");
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
+        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
+
+        String lose = String.format("%,.0f", stake);
+        String win = String.format("%,.2f", stake * (marketHDP.getOdds().get(0).getOdds()-1));
+
+        log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
+                "\"Are you sure you want to risk ... INR to win ... INR?\"");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, lose, win), "FAILED! Confirm place bet message is not correct");
+    }
+
+    @TestRails(id = "23671")
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
+    public void PS38_Member_TC23671(){
+        log("@title: Validate confirm bets message is correct when place on HongKong odds");
+        log("Step 1: Select PS38 product");
+        double stake = 51;
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Step 2: Select Asian view and Hong Kong odds");
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(HONGKONG_MENU);
+        log("Step 3: Select Sport Soccer");
+        asianViewPage.selectSportOnLeftMenu(SOCCER);
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        log("Step 4: Add an odds to bet slip and input stake");
+        log("Step 5: Click place bet");
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, HONGKONG, TEXT_HDP, true, false);
+        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
+
+        String lose = String.format("%,.0f", stake);
+        String win = String.format("%,.2f", stake * (1-marketHDP.getOdds().get(0).getOdds()));
+
+        log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
+                "\"Are you sure you want to risk ... INR to win ... INR?\"");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, lose, win), "FAILED! Confirm place bet message is not correct");
+    }
 }
