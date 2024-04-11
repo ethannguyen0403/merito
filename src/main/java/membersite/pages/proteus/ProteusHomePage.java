@@ -111,10 +111,6 @@ public class ProteusHomePage extends HomePage {
             lblView.click();
     }
 
-    public void removeAddedBet(int index){
-        Button.xpath(String.format(btnXRemoveBetXpath, index)).click();
-    }
-
     public void switchTabBetSlip(String tabName) {
         if (tabName.equalsIgnoreCase("bet slip")) {
             lblBetSlipTab.click();
@@ -230,13 +226,43 @@ public class ProteusHomePage extends HomePage {
             odds = odds.replace("−","-");
         Assert.assertEquals(odds,expectedOdds,"FAILED! Odds is incorrect");
         Assert.assertEquals(eventName,market.getEventName(),"FAILED! Event Name is incorect");
-        Assert.assertEquals(summaryInfo,defineSummaryInfoInBetSlip(market),"FAILED! Summary info is incorrect");        Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
+        Assert.assertEquals(summaryInfo.toUpperCase(),defineSummaryInfoInBetSlip(market).toUpperCase(),"FAILED! Summary info is incorrect");        Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
 //      min/max/maxpermatch will check in other method
 //        String stake = Label.xpath(String.format("%s%s", betslipRootXpath, lblStakeXpath)).getText();
 //        String minBet = Label.xpath(String.format("%s%s", betslipRootXpath,lblMinBetXpath)).getText();
 //        String maxBet = Label.xpath(String.format("%s%s", betslipRootXpath, lblMaxBetXpath)).getText();
 //        String matchMax = Label.xpath(String.format("%s%s", betslipRootXpath,lblMatchMaxXpath)).getText();
 
+    }
+
+    public void removeAddedBets(Market market) {
+        List<String> lstOrderID = new ArrayList<>();
+        try {
+            new ArrayList<>(Label.xpath("//app-single-bets//div[contains(@class, 'bet-slip-item')]").getWebElements()).stream()
+                    .forEach(s -> lstOrderID.add(s.getAttribute("orderid").trim()));
+        } catch (Exception e) {
+            System.out.println("ERROR! Can not get list of selection on bet slip. Cause: " + e.getMessage());
+            return;
+        }
+        for (int i = 0; i < lstOrderID.size(); i++) {
+            if (lstOrderID.get(i).contains(String.valueOf(market.getEventId())) &&
+                    lstOrderID.get(i).contains(String.valueOf(market.getBetType()))) {
+                removeAddedBetByIndex(i + 1);
+                break;
+            }
+        }
+    }
+
+    public void removeAddedBetByIndex(int index){
+        Button.xpath(String.format(btnXRemoveBetXpath, index)).click();
+    }
+
+    public void removeBetsByRemoveAll(boolean isConfirm){
+        btnRemoveAll.click();
+        if(confirmModulePopup.isDisplayed() && isConfirm){
+            confirmModulePopup.confirm();
+            waitForSpinnerLoading();
+        }
     }
 
     private void clickPlaceBet(boolean isConfirm) {

@@ -39,7 +39,7 @@ public class AsianViewPage extends ProteusHomePage {
     String sportLeftMenuXpath = "//app-left-menu-asian//div[contains(@class,'live-title')]//span[text()=' Sports ']//..//following-sibling::div//div[text()='%s']";
     String marketLeftMenuXpath = "//app-left-menu-asian//div[contains(@class,'live-title')]//span[text()=' Sports ']//..//following-sibling::div//span[text()=' %s ']";
     private TextBox txtStake = TextBox.xpath("//app-bet-item//input[contains(@class,'stake-input')]");
-    private Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
+    public Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
     private Button btnOK = Button.xpath("//app-confirm-modal//button[contains(@class,'btn-ok')]");
     private TextBox txtSearchLeagueOrTeamName = TextBox.xpath("//app-event-filter-desktop//input[@formcontrolname='eventKeySearch']");
     private Button btnSearch = Button.xpath("//app-event-filter-desktop//button[contains(@class,'btn-search')]");
@@ -783,11 +783,11 @@ public class AsianViewPage extends ProteusHomePage {
         }
     }
 
-    public void add11BetsToBetSlip(){
+    public void addMultiBetsToBetSlip(int amountBets){
         Label lblOddsList = Label.xpath("//th[contains(@class,'odd-column')]//div[contains(@class, 'selection-row')][1]//span[contains(@class,'odd-number')]");
         List<WebElement> lstOdds = lblOddsList.getWebElements();
         for (int i = 0; i<lstOdds.size();i++){
-            if(i==11){
+            if(i==amountBets){
                 break;
             }
             lstOdds.get(i).click();

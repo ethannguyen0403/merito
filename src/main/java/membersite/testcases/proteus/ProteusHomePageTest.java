@@ -84,7 +84,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 3: Select Sport Soccer");
         asianViewPage.selectSportOnLeftMenu(SOCCER);
         log("Step 4: Click on odds of 11 different markets to bet slip");
-        asianViewPage.add11BetsToBetSlip();
+        asianViewPage.addMultiBetsToBetSlip(11);
         log("Verify 1: Verify the popup message \"Maximum is 10 selections\" display");
         Assert.assertEquals(asianViewPage.confirmModulePopup.getContent(), MAX_SELECTIONS_MSG, "FAILED! Pop up maximum selection is not displayed correctly");
         log("Step 5: Click on OK button");
@@ -102,7 +102,6 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 2: Select Asian view");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         log("Step 3: Select Sport Soccer");
-        asianViewPage.selectSportOnLeftMenu(SOCCER);
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
 
         Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
@@ -123,7 +122,6 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 2: Select Asian view");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         log("Step 3: Select Sport Soccer");
-        asianViewPage.selectSportOnLeftMenu(SOCCER);
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
 
         Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
@@ -147,15 +145,13 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 2: Select Asian view");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         log("Step 3: Select Sport Soccer");
-        asianViewPage.selectSportOnLeftMenu(SOCCER);
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
 
         Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
         asianViewPage.clickOdds(market, true);
         log("Step 4: Click on Remove All button");
-        asianViewPage.btnRemoveAll.click();
         log("Step 5: Confirm remove all popup");
-        asianViewPage.confirmModulePopup.confirm();
+        asianViewPage.removeBetsByRemoveAll(true);
         log("Verify 1:   Verify the popup is no longer display, Bet Slip are empty:\n" +
                 "\n" +
                 "Bet Slip title does not display number\n" +
@@ -173,13 +169,12 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 2: Select Asian view");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         log("Step 3: Select Sport Soccer");
-        asianViewPage.selectSportOnLeftMenu(SOCCER);
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Add an odds to bet slip");
         Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
         asianViewPage.clickOdds(market, true);
         log("Step 5: Click on x icon of the added bet");
-        asianViewPage.removeAddedBet(1);
+        asianViewPage.removeAddedBets(market);
         log("Verify 1:   Verify the popup is no longer display, Bet Slip are empty:\n" +
                 "\n" +
                 "Bet Slip title does not display number\n" +
@@ -197,7 +192,6 @@ public class ProteusHomePageTest extends BaseCaseTest {
         log("Step 2: Select Asian view");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         log("Step 3: Select Sport Soccer");
-        asianViewPage.selectSportOnLeftMenu(SOCCER);
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Click on odds of 2 different markets to bet slip");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
@@ -205,10 +199,11 @@ public class ProteusHomePageTest extends BaseCaseTest {
         asianViewPage.clickOdds(marketHDP, true);
         asianViewPage.clickOdds(marketOU, true);
         log("Step 4: Click on x icon of the 2nd bet");
-        asianViewPage.removeAddedBet(2);
+        asianViewPage.removeAddedBets(marketOU);
         log("Verify 1: Verify Bet slip title: Bet Slip 1");
         Assert.assertEquals(asianViewPage.lblBetSlipTab.getText() + asianViewPage.lblBetSlipTabNumber.getText(), BET_SLIP_TAB +1, "FAILED! Bet slip tab not correct");
         log("Verify 2: Verify Place bet button: PLACE 1 BET");
+        Assert.assertEquals(asianViewPage.btnPlaceBet.getText(), String.format(PLACE_BET_BUTTON_TEXT, 1), "FAILED! Button place bet text is not correct");
         log("Verify 3: Bet Slip just display info of the 1st order");
         asianViewPage.verifyBetSlipInfo(marketHDP, marketHDP.getOdds().get(0).getTeam(), DECIMAL);
     }
@@ -225,7 +220,6 @@ public class ProteusHomePageTest extends BaseCaseTest {
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectOddsType(DECIMAL);
         log("Step 3: Select Sport Soccer");
-        asianViewPage.selectSportOnLeftMenu(SOCCER);
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Add an odds to bet slip and input stake");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
@@ -245,7 +239,6 @@ public class ProteusHomePageTest extends BaseCaseTest {
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectOddsType(MALAY);
         log("Step 3: Select Sport Soccer");
-        asianViewPage.selectSportOnLeftMenu(SOCCER);
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Add an negative odds to bet slip and input stake");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, true);
@@ -268,7 +261,6 @@ public class ProteusHomePageTest extends BaseCaseTest {
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectOddsType(MALAY);
         log("Step 3: Select Sport Soccer");
-        asianViewPage.selectSportOnLeftMenu(SOCCER);
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Add an positive odds to bet slip and input stake");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, false);

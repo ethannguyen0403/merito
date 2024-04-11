@@ -29,6 +29,7 @@ public class ProteusConstant {
     public static final String ASIAN_AMERICAN_ODDS = "American Odds";
     public static final String PENDING_BETS_TAB = "PENDING BETS";
     public static final String BET_SLIP_TAB = "BET SLIP";
+    public static final String PLACE_BET_BUTTON_TEXT = "PLACE %d BET";
     public static final String SOCCER = "Soccer";
     public static final String PREGAME = "Pregame";
     public static final String INPLAY = "InPlay";
