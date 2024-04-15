@@ -143,9 +143,9 @@ public class MarketUtils extends BaseCaseTest {
     }
 
     public static Market getMarketByOddsKey(String oddsType, int eventID, String oddsKey, boolean isNegativeOdds){
-        List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID);
+        List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID, isNegativeOdds);
         for (Market m: lstMarket) {
-            if(m.getOddsKey().equalsIgnoreCase(oddsKey) && m.isMarketContainsNegativeOdds())
+            if(m.getOddsKey().equalsIgnoreCase(oddsKey))
                 return m;
         }
         return null;

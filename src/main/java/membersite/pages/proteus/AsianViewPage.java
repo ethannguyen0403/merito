@@ -9,6 +9,7 @@ import controls.Table;
 import membersite.controls.DropDownMenu;
 import membersite.objects.proteus.*;
 import membersite.utils.proteus.MarketUtils;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.util.*;
@@ -20,6 +21,7 @@ public class AsianViewPage extends ProteusHomePage {
     private String leagueIndexXpath = "(//app-league-asian)[%d]";
     private String leagueNameXpath ="(//app-league-asian)[%d]//div[contains(@class,'league-name')]";
     private String firstOddsCellXpath = "(//app-league-asian)[%d]//app-event-item-parent//th[contains(@class,'odd-column')][%d]";
+    private String firstTableOddXpath = "(//app-league-asian)[%d]//table[contains(@class,'odds-page')]";
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
     private String tableEventXpath = "//table[contains(@class,'odds-page') and @eventid='%d']";
     private String moreMarketXpath = "//app-league-asian//table[@eventid='%s']//th[contains(@class,'more-markets')]";
@@ -37,7 +39,7 @@ public class AsianViewPage extends ProteusHomePage {
     String sportLeftMenuXpath = "//app-left-menu-asian//div[contains(@class,'live-title')]//span[text()=' Sports ']//..//following-sibling::div//div[text()='%s']";
     String marketLeftMenuXpath = "//app-left-menu-asian//div[contains(@class,'live-title')]//span[text()=' Sports ']//..//following-sibling::div//span[text()=' %s ']";
     private TextBox txtStake = TextBox.xpath("//app-bet-item//input[contains(@class,'stake-input')]");
-    private Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
+    public Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
     private Button btnOK = Button.xpath("//app-confirm-modal//button[contains(@class,'btn-ok')]");
     private TextBox txtSearchLeagueOrTeamName = TextBox.xpath("//app-event-filter-desktop//input[@formcontrolname='eventKeySearch']");
     private Button btnSearch = Button.xpath("//app-event-filter-desktop//button[contains(@class,'btn-search')]");
@@ -274,7 +276,8 @@ public class AsianViewPage extends ProteusHomePage {
         if (!lblLeague.isDisplayed())
             return null;
         // get event id from UI xpath property
-        String eventID = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("eventid");
+        //        String eventID = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("eventid");
+        String eventID = Label.xpath(String.format(firstTableOddXpath, leagueIndex)).getAttribute("eventid");
         String oddsKey = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("key");
         //handle incase no odds display in the UI, move to the next row
         if(Objects.isNull(eventID)) {
@@ -305,7 +308,8 @@ public class AsianViewPage extends ProteusHomePage {
         if (!lblLeague.isDisplayed())
             return null;
         // get event id from UI xpath property
-        String eventID = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("eventid");
+//        String eventID = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("eventid");
+        String eventID = Label.xpath(String.format(firstTableOddXpath, leagueIndex)).getAttribute("eventid");
         String oddsKey = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("key");
 
         //handle incase no odds display in the UI, move to the next row
@@ -776,6 +780,17 @@ public class AsianViewPage extends ProteusHomePage {
             } else {
                 Assert.assertEquals(matchMax, String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, settingMaxPerMatch));
             }
+        }
+    }
+
+    public void addMultiBetsToBetSlip(int amountBets){
+        Label lblOddsList = Label.xpath("//th[contains(@class,'odd-column')]//div[contains(@class, 'selection-row')][1]//span[contains(@class,'odd-number')]");
+        List<WebElement> lstOdds = lblOddsList.getWebElements();
+        for (int i = 0; i<lstOdds.size();i++){
+            if(i==amountBets){
+                break;
+            }
+            lstOdds.get(i).click();
         }
     }
 }

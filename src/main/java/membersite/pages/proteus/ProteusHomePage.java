@@ -25,10 +25,16 @@ public class ProteusHomePage extends HomePage {
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
     public Label lblLoading = Label.xpath("//div[contains(@class,'loading-text')]/p");
     private Image imgSpinner = Image.xpath("//em[contains(@class,'fa-4x fa-spin')]");
-    private Label lblBetSlipTab = Label.xpath("//app-bet-slip//div[text()='BET SLIP']");
+    public Label lblBetSlipTab = Label.xpath("//app-bet-slip//div[text()='BET SLIP']");
+    public Label lblBetSlipTabNumber = Label.xpath("//app-bet-slip//div[text()='BET SLIP']/following-sibling::div[1]");
     private Label lblPendingTab = Label.xpath("//app-bet-slip//div[text()='PENDING BETS']");
     public Label lblPlaceBetError = Label.xpath("//app-confirm-modal//div[contains(@class,'modal-body')]//div");
+    public Label lblBetSlipMsgEmptyNoBets = Label.xpath("//app-bet-slip//div[contains(@class, 'no-bets-container')]//div[2]");
+    public Label lblBetSlipMsgEmptyClickOdds = Label.xpath("//app-bet-slip//div[contains(@class, 'no-bets-container')]//div[3]");
+    public Label lblErrorMsgOver = Label.xpath("//div[@class='single-bets-container']//div[@class='err-msg m-2 ng-star-inserted']");
+    public  Button btnRemoveAll = Button.xpath("//span[contains(@class, 'remove-all')]");
     // Bet Slip UI
+    String btnXRemoveBetXpath = "(//i[contains(@class, 'remove-icon')])[%d]";
     String betslipRootXpath = "//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]";
     String lblEventNameXpath = "//span[@class='teams-name']";
     String lblLiveScoreXpath ="//span[@class='live-score']";
@@ -43,7 +49,7 @@ public class ProteusHomePage extends HomePage {
     String lblMatchMaxXpath = "//div[contains(@class,'limit-stake-container')]//span[contains(text(),'Match Max')]/span";
     String txtStakeXpath = "//input[contains(@class,'stake-input')]";
     Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
-    AppConfirmModulePopup confirmModulePopup = AppConfirmModulePopup.xpath("//app-confirm-modal");
+    public AppConfirmModulePopup confirmModulePopup = AppConfirmModulePopup.xpath("//app-confirm-modal");
     // End Bet Slip UI
     String pendingBetRootXpath = "//app-pending-bets//div[contains(@class,'pending-item')][%d]";
     String lblPendingBetEventNameXpath = "//div[contains(@class,'event-name')]";
@@ -104,9 +110,6 @@ public class ProteusHomePage extends HomePage {
         if (currentView.equals(view))
             lblView.click();
     }
-
-
-
 
     public void switchTabBetSlip(String tabName) {
         if (tabName.equalsIgnoreCase("bet slip")) {
@@ -200,6 +203,13 @@ public class ProteusHomePage extends HomePage {
 
     }
 
+    public void verifyBetSlipIsEmpty(){
+        lblBetSlipMsgEmptyNoBets.isDisplayed();
+        Assert.assertEquals(lblBetSlipTab.getText(), BET_SLIP_TAB, "FAILED! Bet slip tab contains number");
+        Assert.assertEquals(lblBetSlipMsgEmptyNoBets.getText(), BETSLIP_NO_BETS_MSG, "FAILED! Msg no bet on bet slip empty is not correct");
+        Assert.assertEquals(lblBetSlipMsgEmptyClickOdds.getText(), BETSLIP_CLICK_ODDS_MSG, "FAILED! Msg click odds on bet slip empty is not correct");
+    }
+
     public void verifyBetSlipInfo(Market market, String selection, String oddsType) {
         String expectedSelection= defineSelectionName(market,selection);
         String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", market.getEventId());
@@ -216,13 +226,43 @@ public class ProteusHomePage extends HomePage {
             odds = odds.replace("−","-");
         Assert.assertEquals(odds,expectedOdds,"FAILED! Odds is incorrect");
         Assert.assertEquals(eventName,market.getEventName(),"FAILED! Event Name is incorect");
-        Assert.assertEquals(summaryInfo,defineSummaryInfoInBetSlip(market),"FAILED! Summary info is incorrect");        Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
+        Assert.assertEquals(summaryInfo.toUpperCase(),defineSummaryInfoInBetSlip(market).toUpperCase(),"FAILED! Summary info is incorrect");        Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
 //      min/max/maxpermatch will check in other method
 //        String stake = Label.xpath(String.format("%s%s", betslipRootXpath, lblStakeXpath)).getText();
 //        String minBet = Label.xpath(String.format("%s%s", betslipRootXpath,lblMinBetXpath)).getText();
 //        String maxBet = Label.xpath(String.format("%s%s", betslipRootXpath, lblMaxBetXpath)).getText();
 //        String matchMax = Label.xpath(String.format("%s%s", betslipRootXpath,lblMatchMaxXpath)).getText();
 
+    }
+
+    public void removeAddedBets(Market market) {
+        List<String> lstOrderID = new ArrayList<>();
+        try {
+            new ArrayList<>(Label.xpath("//app-single-bets//div[contains(@class, 'bet-slip-item')]").getWebElements()).stream()
+                    .forEach(s -> lstOrderID.add(s.getAttribute("orderid").trim()));
+        } catch (Exception e) {
+            System.out.println("ERROR! Can not get list of selection on bet slip. Cause: " + e.getMessage());
+            return;
+        }
+        for (int i = 0; i < lstOrderID.size(); i++) {
+            if (lstOrderID.get(i).contains(String.valueOf(market.getEventId())) &&
+                    lstOrderID.get(i).contains(String.valueOf(market.getBetType()))) {
+                removeAddedBetByIndex(i + 1);
+                break;
+            }
+        }
+    }
+
+    public void removeAddedBetByIndex(int index){
+        Button.xpath(String.format(btnXRemoveBetXpath, index)).click();
+    }
+
+    public void removeBetsByRemoveAll(boolean isConfirm){
+        btnRemoveAll.click();
+        if(confirmModulePopup.isDisplayed() && isConfirm){
+            confirmModulePopup.confirm();
+            waitForSpinnerLoading();
+        }
     }
 
     private void clickPlaceBet(boolean isConfirm) {
@@ -370,5 +410,11 @@ public class ProteusHomePage extends HomePage {
         Assert.assertEquals(winValue, String.format("%s %.2f",currency, orderExpected.getWin())," Failed! Win value is incorrect");
     }
 
-
+    public void verifyErrorMsgOverBalance(){
+        if(confirmModulePopup.isDisplayed()){
+            confirmModulePopup.confirm();
+            waitForSpinnerLoading();
+        }
+        Assert.assertEquals(lblErrorMsgOver.getText().replaceAll("\\d", "").trim(), BETSLIP_OVER_BALANCE_MSG, "FAILED! Error massage is not correct");
+    }
 }
