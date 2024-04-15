@@ -13,6 +13,7 @@ import membersite.pages.SportPage;
 import membersite.pages.casino.*;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
+import membersite.pages.components.ps38preferences.PS38PreferencesPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
 
@@ -118,6 +119,12 @@ public class Fair999Header extends Header1 {
         membersite.pages.AccountStatementPage page = new AccountStatementPage(type);
         page.accountStatementContainer.waitLoadReport();
         return page;
+    }
+
+    @Override
+    public PS38PreferencesPopup openPS38PreferencesPopup() {
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("PS38 Preferences"));
+        return new PS38PreferencesPopup();
     }
 
     public membersite.pages.MyBetsPage openMyBets(String type) {

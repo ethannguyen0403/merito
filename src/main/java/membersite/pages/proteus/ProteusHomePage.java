@@ -267,8 +267,7 @@ public class ProteusHomePage extends HomePage {
 
     private void clickPlaceBet(boolean isConfirm) {
         btnPlaceBet.jsClick();
-        confirmModulePopup.waitForElementToBePresent(confirmModulePopup.getLocator(), 2);
-        if(isConfirm)
+        if(isConfirm && confirmModulePopup.isDisplayed())
         {
             confirmModulePopup.confirm();
             waitForSpinnerLoading();
