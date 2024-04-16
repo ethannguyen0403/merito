@@ -9,6 +9,7 @@ import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.betslipcontainer.BetsSlipContainer;
 import membersite.pages.components.minimybetcontainer.MiniMyBetsContainer;
 import membersite.pages.components.nextupracingcontainer.NextUpRacingContainer;
+import membersite.pages.components.ps38preferences.PS38PreferencesPopup;
 import membersite.pages.exchangegames.EGHomePage;
 import membersite.pages.popup.BannerPopup;
 import membersite.pages.popup.MyMarketPopup;
@@ -90,11 +91,9 @@ public class HomePage extends LandingPage {
         return exPage;
     }
 
-//    public CasinoHomePage openCasinoGame(CasinoProduct product){
-//        header.openCasinoGame(product);
-//        CasinoHomePage page = new CasinoHomePage(_type, product);
-//        return page;
-//    }
+    public PS38PreferencesPopup openPS38PreferencesPopup(){
+      return header.openPS38PreferencesPopup();
+    }
 
     public EvolutionPage openEvolution(){
         return header.openEvolution();

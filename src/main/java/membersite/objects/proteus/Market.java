@@ -230,6 +230,51 @@ public class Market {
         return null;
     }
 
+    // Calculate to risk
+    public double getToRisk(double stake, String oddsType, boolean isNegative) {
+        // HongKong and Decimal odds is always positive
+        if (!isNegative && oddsType.equalsIgnoreCase(HONGKONG)) {
+            return stake * getOdds().get(0).getOdds();
+        } else if (!isNegative && oddsType.equalsIgnoreCase(DECIMAL)) {
+            return stake * (1 - getOdds().get(0).getOdds());
+        } else {
+            switch (oddsType) {
+                case AMERICAN:
+                    if (isNegative)
+                        return stake;
+                    return stake * getOdds().get(0).getOdds() / 100;
+                case MALAY:
+                    if (isNegative)
+                        return stake;
+                    return stake * Math.abs(getOdds().get(0).getOdds());
+                default:
+                    return 0;
+            }
+        }
+    }
+
+    //Calculate to win
+    public double getToWin(double stake, String oddsType, boolean isNegative){
+        // HongKong and Decimal odds is always positive
+        if (!isNegative && (oddsType.equalsIgnoreCase(HONGKONG) || oddsType.equalsIgnoreCase(DECIMAL))) {
+            return stake;
+        }
+         else {
+            switch (oddsType) {
+                case AMERICAN:
+                    if (!isNegative)
+                        return stake;
+                    return stake * getOdds().get(0).getOdds() / 100;
+                case MALAY:
+                    if (!isNegative)
+                        return stake;
+                    return stake * Math.abs(getOdds().get(0).getOdds());
+                default:
+                    return 0;
+            }
+        }
+    }
+
     // Calculate Odds group here
     private double getVig(List<Odds> odds) {
         double vig = 0.00;

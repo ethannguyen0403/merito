@@ -4,6 +4,7 @@ import membersite.objects.AccountBalance;
 import membersite.pages.*;
 import membersite.pages.casino.*;
 import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
+import membersite.pages.components.ps38preferences.PS38PreferencesPopup;
 import membersite.pages.components.signinform.SignInPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
@@ -56,6 +57,10 @@ public class Header1 {
 
     public ChangePasswordPopup openChangePasswordPopup() {
         return new ChangePasswordPopup();
+    }
+
+    public PS38PreferencesPopup openPS38PreferencesPopup(){
+        return new PS38PreferencesPopup();
     }
 
     public void openExchangeGame() {

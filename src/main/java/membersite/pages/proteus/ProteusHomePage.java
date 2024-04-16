@@ -226,7 +226,7 @@ public class ProteusHomePage extends HomePage {
             odds = odds.replace("−","-");
         Assert.assertEquals(odds,expectedOdds,"FAILED! Odds is incorrect");
         Assert.assertEquals(eventName,market.getEventName(),"FAILED! Event Name is incorect");
-        Assert.assertEquals(summaryInfo.toUpperCase(),defineSummaryInfoInBetSlip(market).toUpperCase(),"FAILED! Summary info is incorrect");        Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
+        Assert.assertEquals(summaryInfo,defineSummaryInfoInBetSlip(market),"FAILED! Summary info is incorrect");        Assert.assertEquals(selectionName,expectedSelection,"FAILED! Selection name is incorrect");
 //      min/max/maxpermatch will check in other method
 //        String stake = Label.xpath(String.format("%s%s", betslipRootXpath, lblStakeXpath)).getText();
 //        String minBet = Label.xpath(String.format("%s%s", betslipRootXpath,lblMinBetXpath)).getText();
@@ -267,8 +267,7 @@ public class ProteusHomePage extends HomePage {
 
     private void clickPlaceBet(boolean isConfirm) {
         btnPlaceBet.jsClick();
-        confirmModulePopup.waitForElementToBePresent(confirmModulePopup.getLocator(), 2);
-        if(isConfirm)
+        if(isConfirm && confirmModulePopup.isDisplayed())
         {
             confirmModulePopup.confirm();
             waitForSpinnerLoading();

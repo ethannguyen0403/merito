@@ -168,6 +168,7 @@ public class MemberConstants {
                 put("My Last Logins", "My Last Logins");
                 put("Change Password", "Change Password");
                 put("Logout", "Logout");
+                put("PS38 Preferences", "PS38 Preferences");
             }
         };
         public static final Map<String, String> DDB_MY_ACCOUNT_FS = new HashMap<String, String>() {
@@ -328,7 +329,10 @@ public class MemberConstants {
         public final static List<String> TABLE_WAGER_HEADER = Arrays.asList("Bet ID", "Placed Date", "Selection", "Matched Odds", "Turnover", "Type", "Status", "Profit/Loss", "Tax", "Net");
         public final static String LOAD_REPORT = "Load Report";
     }
-
+    public static class PS38PreferencesPopup {
+        public final static String DDPAGE_TODAY_MATCHES = "Today - Matches";
+        public final static String DDPAGE_MONEY_LINE_MATCHES = "Today - Money Line/1x2";
+        };
     public static class ChangePasswordPopup {
         public final static String TITLE = "Change Password";
         public final static String LBL_NEW_PASSWORD = "New Password";

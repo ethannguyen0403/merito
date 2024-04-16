@@ -82,8 +82,8 @@ public class MarketUtils extends BaseCaseTest {
             _odds.setOdds(0);
         }
         else {
-            _odds.setOriginalOdds(obj.getDouble("odds"));
-            _odds.setOdds(obj.getDouble("originalOdds"));
+            _odds.setOriginalOdds(obj.getDouble("originalOdds"));
+            _odds.setOdds(obj.getDouble("odds"));
         }
        return _odds;
     }
