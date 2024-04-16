@@ -180,6 +180,7 @@ public class Fair999Header extends Header1 {
     @Override
     public EvolutionPage openEvolution() {
         clickProduct(LIVE_DEALER_TEXT);
+        Label.xpath(String.format("//a[contains(@class, 'menu-item-link') and contains(., '%s')]", MAPPING_CASINO_PRODUCT_UI.get("EVOLUTION"))).click();
         return new EvolutionPage();
     }
     @Override
