@@ -16,13 +16,13 @@ public class CasinoConstant {
     public static String LOTTERY_AND_SLOTS = "Lottery & Slots";
     public static String GAME_HALL = "Game Hall";
     public static String VIVO = "Vivo";
-    public static String CASINO = "membersite/casino";
-    public static final List<String> ERROR_CODE_LIST = Arrays.asList("403", "405");
+    public static String CASINO = "Casino";
+    public static final List<String> ERROR_CODE_LIST = Arrays.asList("403");
     public static final List<String> LOTTERY_SLOTS_HEADER_MENU = Arrays.asList("", "Slots games", "Table games", "Draw games", "Sport games", "Roulette games");
     public static final List<String> LIVE_DEALER_ASIAN_PRODUCTS_MENU =
             Arrays.asList("Andar Bahar", "Multi Table", "Dragon Tiger", "Baccarat", "NC Baccarat 2", "NC Baccarat 3", "NC Baccarat",
                     "Roulette", "Baccarat 2", "NC Andar Bahar", "Amar Akbar Antony", "Lucky7", "Teenpatti 20-20", "Baccarat 3",
-                    "Golden Roulette", "Super Teen-Patti 20-20");
+                    "Golden Roulette", "Super Teen-Patti 20-20", "Higher Lower");
     public static final List<String> LIVE_DEALER_EUROPEAN_PRODUCTS_MENU =
             Arrays.asList("Teen Patti", "Baccarat", "Black Jack", "Sicbo", "Lucky 7", "32 Cards", "Roulette", "Bet On Games", "Evolution Black Jack", "Evolution Baccarat & Sic Bo",
                     "Evolution Roulette", "Evolution Poker", "Evolution Game Shows");
