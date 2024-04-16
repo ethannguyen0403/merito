@@ -11,6 +11,7 @@ public class ProteusConstant {
     public static final String EURO_VIEW = "Euro View";
     public static final String ASIAN_VIEW = "Asian View";
     public static final String ASIAN = "Asian";
+    public static final String EURO = "Euro";
     public static final String DECIMAL = "Decimal";
     public static final String HONGKONG = "Hongkong";
     public static final String MALAY = "Malay";

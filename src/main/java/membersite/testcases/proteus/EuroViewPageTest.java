@@ -4,6 +4,7 @@ import baseTest.BaseCaseTest;
 import membersite.objects.AccountBalance;
 import membersite.objects.proteus.Market;
 import membersite.objects.proteus.Order;
+import membersite.pages.components.ps38preferences.PS38PreferencesPopup;
 import membersite.pages.proteus.EuroViewDetailsPage;
 import membersite.pages.proteus.EuroViewPage;
 import membersite.pages.proteus.ProteusHomePage;
@@ -592,5 +593,53 @@ public class EuroViewPageTest extends BaseCaseTest {
         String errorMessage = proteusHomePage.lblPlaceBetError.getText();
         Assert.assertEquals(errorMessage, MAX_STAKE_ERROR_MSG, String.format("FAILED! Stake error message does not show correct expected %s actual %s", errorMessage, MAX_STAKE_ERROR_MSG));
         log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "23688")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC23688() {
+        log("@title: Validate Odds Type display correctly when the setting is Malay - Asian View");
+        log("Step 1: Expand My Account and click the menu PS38 Reference");
+        PS38PreferencesPopup prefPopup = memberHomePage.openPS38PreferencesPopup();
+        log("Step 2: Select Odds type Hong Kong and Default View is Euro then click save");
+        prefPopup.selectPreferences("Hong Kong", "", EURO, "", "");
+        log("Step 3: Click on PS38 product and check the selected odds type Odds type");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Verify 1: Verify View label displays Euro View and odds type is HK Odds");
+        Assert.assertEquals(proteusHomePage.lblView.getText().trim(), ASIAN_VIEW, "FAILED! View is not correct");
+        EuroViewPage asianViewPage = proteusHomePage.selectEuroView();
+        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), HONGKONG.toUpperCase(), "FAILED! Label Odds is not correct");
+    }
+
+    @TestRails(id = "23689")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC23689() {
+        log("@title: Validate Odds Type display correctly when the setting is Malay - Euro View");
+        log("Step 1: Expand My Account and click the menu PS38 Reference");
+        PS38PreferencesPopup prefPopup = memberHomePage.openPS38PreferencesPopup();
+        log("Step 2: Select Odds type Malay and Default View is Euro then click save");
+        prefPopup.selectPreferences(MALAY, "", EURO, "", "");
+        log("Step 3: Click on PS38 product and check the selected odds type Odds type");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Verify 1: erify  View label displays Asian View and odds type is MY Odds");
+        Assert.assertEquals(proteusHomePage.lblView.getText().trim(), ASIAN_VIEW, "FAILED! View is not correct");
+        EuroViewPage asianViewPage = proteusHomePage.selectEuroView();
+        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), MALAY.toUpperCase(), "FAILED! Label Odds is not correct");
+    }
+
+    @TestRails(id = "23690")
+    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    public void PS38_Member_TC23690() {
+        log("@title: Validate Odds Type display correctly when the setting is Malay - Euro View");
+        log("Step 1: Expand My Account and click the menu PS38 Reference");
+        PS38PreferencesPopup prefPopup = memberHomePage.openPS38PreferencesPopup();
+        log("Step 2: Select Odds type Malay and Default View is Euro then click save");
+        prefPopup.selectPreferences(AMERICAN, "", EURO, "", "");
+        log("Step 3: Click on PS38 product and check the selected odds type Odds type");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        log("Verify 1: Verify View label displays Euro View and odds type is HK Odds");
+        Assert.assertEquals(proteusHomePage.lblView.getText().trim(), ASIAN_VIEW, "FAILED! View is not correct");
+        EuroViewPage asianViewPage = proteusHomePage.selectEuroView();
+        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), AMERICAN.toUpperCase(), "FAILED! Label Odds is not correct");
     }
 }
