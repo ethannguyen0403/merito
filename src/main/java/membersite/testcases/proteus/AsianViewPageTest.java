@@ -969,7 +969,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Add an odds to bet slip and input stake");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(userBalanceOver),true, false);
+        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(userBalanceOver),true, true);
         log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
         asianViewPage.verifyErrorMsgOverBalance();
     }
@@ -991,7 +991,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         // make sure riskValue is always bigger than userBalance
         double riskValue = userBalance + (userBalance*marketHDP.getOdds().get(0).getOdds());
 
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(riskValue),false, false);
+        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false);
         log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
         asianViewPage.verifyErrorMsgOverBalance();
     }
@@ -1013,7 +1013,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         // make sure riskValue is always bigger than userBalance
         double riskValue = userBalance + (userBalance*marketHDP.getOdds().get(0).getOdds());
 
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(riskValue),false, false);
+        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false);
         log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
         asianViewPage.verifyErrorMsgOverBalance();
     }
@@ -1035,7 +1035,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         //calculate for risk bigger than userBalance
         double riskValue = userBalance + (userBalance * marketHDP.getOdds().get(0).getOdds() / 100);
 
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(riskValue),false, false);
+        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false);
         log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
         asianViewPage.verifyErrorMsgOverBalance();
     }
@@ -1055,9 +1055,9 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 4: Add a negative odds to bet slip and input stake that calculate risk greater than user balance");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, false);
         //calculate for risk bigger than userBalance
-        double riskValue = userBalance + (userBalance * marketHDP.getOdds().get(0).getOdds() / 100);
+        double riskValue = userBalance + (userBalance * marketHDP.getToRisk(userBalance, AMERICAN, false));
 
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(riskValue),false, false);
+        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false);
         log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
         asianViewPage.verifyErrorMsgOverBalance();
     }
@@ -1080,12 +1080,12 @@ public class AsianViewPageTest extends BaseCaseTest {
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
         asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
 
-        String lose = String.format("%,.0f", stake);
-        String win = String.format("%,.2f", stake * (marketHDP.getOdds().get(0).getOdds()-1)).replace("-", "");
+        String risk = String.format("%,.0f", marketHDP.getToRisk(stake, DECIMAL, false));
+        String win = String.format("%,.2f",  marketHDP.getToWin(stake, DECIMAL, false)).replace("-", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
-        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, lose, currency, win, currency), "FAILED! Confirm place bet message is not correct");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency), "FAILED! Confirm place bet message is not correct");
     }
 
     @TestRails(id = "23671")
@@ -1105,12 +1105,12 @@ public class AsianViewPageTest extends BaseCaseTest {
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, HONGKONG, TEXT_HDP, true, false);
         asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
 
-        String lose = String.format("%,.0f", stake);
-        String win = String.format("%,.2f", stake * (1-marketHDP.getOdds().get(0).getOdds())).replace("-", "");
+        String risk = String.format("%,.0f", marketHDP.getToRisk(stake, HONGKONG, false));
+        String win = String.format("%,.2f",  marketHDP.getToWin(stake, HONGKONG, false)).replace("-", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
-        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, lose, currency, win, currency), "FAILED! Confirm place bet message is not correct");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency), "FAILED! Confirm place bet message is not correct");
     }
 
     @TestRails(id = "23672")
@@ -1130,12 +1130,12 @@ public class AsianViewPageTest extends BaseCaseTest {
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, false);
         asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
 
-        String lose = String.format("%,.0f", stake);
-        String win = String.format("%,.2f", stake * (1-marketHDP.getOdds().get(0).getOdds())).replace("-", "");
+        String risk = String.format("%,.0f", marketHDP.getToRisk(stake, MALAY, false));
+        String win = String.format("%,.2f",  marketHDP.getToWin(stake, MALAY, false)).replace("-", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
-        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, lose, currency, win, currency), "FAILED! Confirm place bet message is not correct");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency), "FAILED! Confirm place bet message is not correct");
     }
 
     @TestRails(id = "23673")
@@ -1155,12 +1155,12 @@ public class AsianViewPageTest extends BaseCaseTest {
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, true);
         asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
 
-        String lose = String.format("%,.0f", stake);
-        String win = String.format("%,.2f", stake * (1-marketHDP.getOdds().get(0).getOdds())).replace("-", "");
+        String risk = String.format("%,.0f", marketHDP.getToRisk(stake, MALAY, true));
+        String win = String.format("%,.2f",  marketHDP.getToWin(stake, MALAY, true)).replace("-", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
-        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, lose, currency, win, currency), "FAILED! Confirm place bet message is not correct");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency), "FAILED! Confirm place bet message is not correct");
     }
 
     @TestRails(id = "23674")
@@ -1180,12 +1180,12 @@ public class AsianViewPageTest extends BaseCaseTest {
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, true);
         asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
 
-        String lose = String.format("%,.0f", stake);
-        String win = String.format("%,.2f", stake * (1-marketHDP.getOdds().get(0).getOdds())).replace("-", "");
+        String risk = String.format("%,.0f",  marketHDP.getToRisk(stake, AMERICAN, true));
+        String win = String.format("%,.2f", marketHDP.getToWin(stake, AMERICAN, true)).replace("-", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
-        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, lose, currency, win, currency), "FAILED! Confirm place bet message is not correct");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency), "FAILED! Confirm place bet message is not correct");
     }
 
     @TestRails(id = "23675")
@@ -1202,15 +1202,15 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 3: Select Sport Soccer");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Click on positive odds of Handicap market and input valid stake");
-        Market marketHDP = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, false);
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, false, false);
         asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
 
-        String lose = String.format("%,.0f", stake);
-        String win = String.format("%,.2f", stake * (1-marketHDP.getOdds().get(0).getOdds())).replace("-", "");
+        String risk = String.format("%,.0f",  marketHDP.getToRisk(stake, AMERICAN, false));
+        String win = String.format("%,.2f", marketHDP.getToWin(stake, AMERICAN, false)).replace("-", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
-        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, lose, currency, win, currency), "FAILED! Confirm place bet message is not correct");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency), "FAILED! Confirm place bet message is not correct");
     }
 
     @TestRails(id = "23676")

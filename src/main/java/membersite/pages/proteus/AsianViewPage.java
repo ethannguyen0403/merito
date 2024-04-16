@@ -712,6 +712,13 @@ public class AsianViewPage extends ProteusHomePage {
         return order;
     }
 
+    public void addOddToBetSlipAndPlaceBetWithoutSetOrder(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+        // click odds
+        clickOdds(market, isFullMatch);
+        //input stake and click place bet and confirm
+        placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
+    }
+
     public Order addOddToBetSlipAndPlaceBet(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
         // click odds
         clickOdds(market, isFullMatch);
@@ -753,7 +760,7 @@ public class AsianViewPage extends ProteusHomePage {
             // find the row has the expected event id
             int eventIndex = getEventIndexUnderALeague(leagueIndex,eventID);
             if(eventIndex != 0)
-                return String.format("//app-league-asian[%d]//app-event-item-parent[%d]",leagueIndex,eventIndex);
+                return String.format(firstTableOddXpath,leagueIndex,eventIndex);
             leagueIndex = leagueIndex +1;
         }
     }
