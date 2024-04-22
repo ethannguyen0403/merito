@@ -43,6 +43,9 @@ public class Header1 {
         return false;
     }
 
+    public void openMyAccount(){
+    }
+
     public AccountStatementPage openAccountStatement(String type) {
         return new AccountStatementPage(type);
     }

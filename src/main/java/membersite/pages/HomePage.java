@@ -95,6 +95,10 @@ public class HomePage extends LandingPage {
       return header.openPS38PreferencesPopup();
     }
 
+    public void openMyAccount(){
+        header.openMyAccount();
+    }
+
     public EvolutionPage openEvolution(){
         return header.openEvolution();
     }

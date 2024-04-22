@@ -113,6 +113,11 @@ public class Fair999Header extends Header1 {
         return ddmAccount.isContainSubmenu(menu);
     }
 
+    @Override
+    public void openMyAccount() {
+        ddmAccount.click();
+    }
+
     public membersite.pages.AccountStatementPage openAccountStatement(String type) {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"));
         DriverManager.getDriver().switchToWindow();

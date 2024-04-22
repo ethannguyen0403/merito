@@ -1,9 +1,6 @@
 package membersite.pages.proteus;
 
-import com.paltech.element.common.Button;
-import com.paltech.element.common.Image;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.TextBox;
+import com.paltech.element.common.*;
 import com.paltech.utils.DateUtils;
 import membersite.controls.proteus.AppConfirmModulePopup;
 import membersite.objects.AccountBalance;
@@ -51,6 +48,7 @@ public class ProteusHomePage extends HomePage {
     Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
     public AppConfirmModulePopup confirmModulePopup = AppConfirmModulePopup.xpath("//app-confirm-modal");
     // End Bet Slip UI
+    public CheckBox chkAcceptBetterOdd = CheckBox.xpath("//app-open-bets//input[@type='checkbox']");
     String pendingBetRootXpath = "//app-pending-bets//div[contains(@class,'pending-item')][%d]";
     String lblPendingBetEventNameXpath = "//div[contains(@class,'event-name')]";
     String lblPendingOrderIdXpath = "//div[contains(@class,'item-header')]/div[1]";
