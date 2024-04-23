@@ -55,7 +55,7 @@ public class CryptoAccessManagementTest extends BaseCaseTest {
         log("Step 1. Access Admin Management > Crypto Access Management");
         log("Step 2. Get the account in the list with active status");
         log("Step 3. Access Crypto site and login");
-        HomePage memberHomepage = loginCryptoSite(cryptoAccount, password, true);
+        HomePage memberHomepage = loginCamouflageSite(cryptoAccount, password, true);
 
         log("Verify can login crypto site with the account in the list");
         Assert.assertTrue(memberHomepage.isMyAccountDisplay(), "FAILED! Login unsuccessfully");

@@ -76,6 +76,7 @@ public class ComponentsFactory {
             case "fairexchange":
                 return new Fair999Header();
             case "fairexchange_plus":
+            case "eu1010":
                 return new PlusHeader();
             default:
                 return new SatHeader();
