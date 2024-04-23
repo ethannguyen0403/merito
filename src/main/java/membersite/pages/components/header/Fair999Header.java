@@ -11,6 +11,7 @@ import membersite.pages.MyBetsPage;
 import membersite.pages.ProfitAndLossPage;
 import membersite.pages.SportPage;
 import membersite.pages.casino.*;
+import membersite.pages.components.changepasswordpopup.FairChangePasswordPopup;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
@@ -29,7 +30,7 @@ public class Fair999Header extends Header1 {
     private Button btnJoinNow = Button.xpath("//header//button[contains(@class,'join-now')]");
     private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[contains(@class,'account d-block')]", "", "//ul[contains(@class,'dropdown-menu')]//li");
     public Label lblMyAccount = Label.xpath("//div[contains(@class,'account d-block')]//span[text()='My Account']");
-    private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
+    private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')] | //a[contains(text(),' EXCHANGE GAMES ')]");
     private Label imgSpinner = Label.xpath("//div[@class='lds-spinner']");
     private Label lblMyBet = Label.xpath("//a[contains(@class,'menu-mybet')]");
     private Link lnkMyMarkets = Link.xpath("//div[contains(@class,'header-content-info')]//span[text()='My Markets']");
@@ -136,9 +137,9 @@ public class Fair999Header extends Header1 {
         return page;
     }
 
-    public SATChangePasswordPopup openChangePasswordPopup() {
+    public FairChangePasswordPopup openChangePasswordPopup() {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
-        return new SATChangePasswordPopup();
+        return new FairChangePasswordPopup();
     }
 
 

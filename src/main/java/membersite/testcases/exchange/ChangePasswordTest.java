@@ -20,6 +20,7 @@ public class ChangePasswordTest extends BaseCaseTest {
         log("@title:Validate change password after login successfully");
         log("Step 1.Select My Account > Change Password");
         String newPass = "test1234";
+//        String newPass = StringUtils.decrypt(password);
         String passDecrypt = StringUtils.decrypt(password);
         ChangePasswordPopup popup = memberHomePage.header.openChangePasswordPopup();
 
