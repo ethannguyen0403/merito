@@ -18,6 +18,9 @@ public class Environment {
     private String proteusProviderAPIURL;
     public static String cryptoURL;
     public static String atlanticURL;
+    public static String alpicfoxURL;
+    public static String eu1010URL;
+    public static String powderpinURL;
 
     public String getproteusAPIProviderDomain() {
         return proteusAPIProviderDomain;
@@ -144,6 +147,24 @@ public class Environment {
     }
     public static void setAtlanticURL(String atlanticURL) {
         Environment.atlanticURL = atlanticURL;
+    }
+    public String getAlpicfoxURL() {
+        return alpicfoxURL;
+    }
+    public static void setAlpicfoxURL(String alpicfoxURL) {
+        Environment.alpicfoxURL = alpicfoxURL;
+    }
+    public String getEu1010URL() {
+        return eu1010URL;
+    }
+    public static void setEu1010URL(String eu1010URL) {
+        Environment.eu1010URL = eu1010URL;
+    }
+    public String getPowderpinURL() {
+        return powderpinURL;
+    }
+    public static void setPowderpinURL(String powderpinURL) {
+        Environment.powderpinURL = powderpinURL;
     }
 
     public void setProteusProviderAPIURL(String proteusProviderAPIURL) {

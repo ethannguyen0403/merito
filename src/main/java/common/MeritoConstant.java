@@ -53,6 +53,15 @@ public class MeritoConstant {
             put("betclub", "BetCub");
         }
     };
+    public static final Map<String, String> MEMBER_CAMOUFLAGE_URL_SUFFIX = new HashMap<String, String>() {
+        {
+            put("alpicfox", "/alpicfox/#/home");
+            put("atlantic", "/atlantic/#/home");
+            put("crypto", "/forex/#/home");
+            put("eu1010", "/plus/#/1/home/exchange/main/all");
+            put("powderpin", "/landing/#/d");
+        }
+    };
     public static final String MEMBER_SOS_URL_SUFFIX = "/member-service/login/login";
     public static final String AGENT_SOS_URL_SUFFIX = "/agent/login/sos-authentication.sv";
     public static final String AGENT_SOS_BY_PASS_CAPTCHA_URL_SUFFIX = "/agent/code/validate.sv";

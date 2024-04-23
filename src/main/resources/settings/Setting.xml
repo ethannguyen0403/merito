@@ -62,6 +62,8 @@
         <property name="proteusAPIProviderDomain" value="${STG.ProteusAPIProviderDomain}"/>
         <property name="proteusProviderAPIURL" value="${STG.ProteusProviderAPIURL}"/>
         <property name="cryptoURL" value="${STG.CRYPTOURL}"/>
+        <property name="atlanticURL" value="${STG.ATLANTICURL}"/>
+        <property name="eu1010URL" value="${STG.EU1010}"/>
     </bean>
     <bean name="green" class="objects.Environment" scope="prototype">
         <property name="fairURL" value="${GREEN.FAIRURL}"/>
@@ -79,6 +81,11 @@
         <property name="domainURL" value="${GREEN.Domain}"/>
         <property name="proteusAPIProviderDomain" value="${GREEN.ProteusAPIProviderDomain}"/>
         <property name="proteusProviderAPIURL" value="${GREEN.ProteusProviderAPIURL}"/>
+        <property name="cryptoURL" value="${GREEN.CRYPTOURL}"/>
+        <property name="atlanticURL" value="${GREEN.ATLANTICURL}"/>
+        <property name="alpicfoxURL" value="${GREEN.ALPICFOXURL}"/>
+        <property name="eu1010URL" value="${GREEN.EU1010}"/>
+        <property name="powderpinURL" value="${GREEN.POWDERPIN}"/>
     </bean>
     <bean name="blue" class="objects.Environment" scope="prototype">
         <property name="fairURL" value="${BLUE.FAIRURL}"/>
