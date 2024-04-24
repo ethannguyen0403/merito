@@ -21,6 +21,7 @@
         <parameter name='currency' value='INR'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='fairexchange'/>
+        <parameter name='skinName' value='fairexchange'/>
         <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>

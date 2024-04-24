@@ -21,6 +21,7 @@
         <parameter name='prefix' value='QAZ'/>
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
+        <parameter name='skinName' value='satsport'/>
         <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
