@@ -258,4 +258,8 @@ public class HomePage extends LandingPage {
         DriverManager.getDriver().switchToFrame(0);
     }
 
+    public String getHomePageURL() {
+        return DriverManager.getDriver().getCurrentUrl();
+    }
+
 }

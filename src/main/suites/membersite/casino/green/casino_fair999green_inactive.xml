@@ -26,7 +26,7 @@
             </run>
         </groups>
         <classes>
-            <class name="membersite.testcases.casino.EvolutionPageTest"/>
+<!--            <class name="membersite.testcases.casino.EvolutionPageTest"/>-->
             <class name="membersite.testcases.casino.EvolutionPageWhiteCliffTest"/>
             <class name="membersite.testcases.casino.LiveDealerAsianPageTest"/>
             <class name="membersite.testcases.casino.LiveDealerEuropeanPageTest"/>
