@@ -124,8 +124,16 @@ public class MarketUtils extends BaseCaseTest {
                         .marketKey(obj.getString("marketKey"))
                         .odds(lstOdds)
                         .build();
-                if(market.isMarketContainsNegativeOdds() == isNegativeOdds)
+                // Add negative odd when Odds containing negative odd
+                if(isNegativeOdds && market.isMarketContainsNegativeOdds()){
                     lstEvents.add(market);
+                }
+                // Add negative odd when Odds containing positive odd
+                if(!isNegativeOdds && market.isMarketContainsPositiveOdds()){
+                    lstEvents.add(market);
+                }
+//                if(market.isMarketContainsNegativeOdds() == isNegativeOdds)
+//                   lstEvents.add(market);
             }
         }
         return lstEvents;

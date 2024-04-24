@@ -9,6 +9,7 @@ import membersite.pages.*;
 import membersite.pages.casino.*;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
+import membersite.pages.components.ps38preferences.PS38PreferencesPopup;
 import membersite.pages.components.signinform.SATSignInPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
@@ -107,6 +108,11 @@ public class SatHeader extends Header1 {
     }
 
     @Override
+    public void openMyAccount() {
+        ddmAccount.click();
+    }
+
+    @Override
     public boolean isDepositButtonDisplayed() {return btnDeposit.isDisplayed();}
 
     public AccountStatementPage openAccountStatement(String type) {
@@ -143,6 +149,12 @@ public class SatHeader extends Header1 {
     public SATChangePasswordPopup openChangePasswordPopup() {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
         return new SATChangePasswordPopup();
+    }
+
+    @Override
+    public PS38PreferencesPopup openPS38PreferencesPopup() {
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("PS38 Preferences"));
+        return new PS38PreferencesPopup();
     }
 
     public void openExchangeGame() {

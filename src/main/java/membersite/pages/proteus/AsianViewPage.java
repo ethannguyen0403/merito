@@ -268,9 +268,11 @@ public class AsianViewPage extends ProteusHomePage {
             if(Objects.nonNull(market))
                 return market;
             leagueIndex = leagueIndex + 1;
+            if(leagueIndex==20)
+                break;
         }
+        return null;
     }
-
     /**
      * Get event info with odds type = Decimal odds bases on inputed index, if index = 0 mean get random
      * @param leagueIndex
@@ -346,6 +348,8 @@ public class AsianViewPage extends ProteusHomePage {
                     return market;
                 }
                 continue;
+            }else {
+                break;
             }
         }
         market.setLeagueName(leagueName);
@@ -704,7 +708,7 @@ public class AsianViewPage extends ProteusHomePage {
 
     public Order addOddToBetSlipAndPlaceBet(Market market, String selection, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
         // click odds
-        clickOdds(market, isFullMatch);
+        clickOdds(market, selection, isFullMatch);
         //input stake and click place bet and confirm
         Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
         // set Odd info of the team name that placed on
@@ -712,32 +716,43 @@ public class AsianViewPage extends ProteusHomePage {
         return order;
     }
 
-    public void addOddToBetSlipAndPlaceBetWithoutSetOrder(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+    public Order addOddToBetSlipAndPlaceBetWithoutSetOrder(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds,
+                                                           boolean isPlace, boolean isNegativeOdd) {
         // click odds
-        clickOdds(market, isFullMatch);
+        clickOdds(market, defineSelectionBaseOnOdds(market, isNegativeOdd), isFullMatch);
         //input stake and click place bet and confirm
-        placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
+        return placeNoBet(market, stake, isAcceptBetterOdds, isPlace);
     }
 
-    public Order addOddToBetSlipAndPlaceBet(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+    public Order addOddToBetSlipAndPlaceBet(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace, boolean isNegativeOdd){
         // click odds
-        clickOdds(market, isFullMatch);
+        clickOdds(market, defineSelectionBaseOnOdds(market, isNegativeOdd), isFullMatch);
         //input stake and click place bet and confirm
         Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
         if (isPlace) {
             // set Odd info of the team name that placed on
-            order.setOdds(market.getOdds().get(0));
-            return order;
-        } else {
-            return null;
-        }
+            order.setOdds(market.getOdds().get(0));}
+        return order;
     }
 
-    public void clickOdds(Market market, boolean isFullMatch){
+    public String defineSelectionBaseOnOdds(Market market, boolean isNegativeOdd){
+        String selection = "";
+        for (Odds o: market.getOdds()){
+            if(o.getOdds() < 0 && isNegativeOdd){
+                return o.getTeam();
+            }
+            if(o.getOdds() > 0 && !isNegativeOdd){
+                return o.getTeam();
+            }
+        }
+        return selection;
+    }
+
+    public void clickOdds(Market market, String selection, boolean isFullMatch){
         //handle when get negative/positive odds we base on odds team to know which selection should click
-        int rowIndex = 0;
+        int rowIndex = 1;
         String oddsHomeXpath ="//th[contains(@class,'odd-column')][%s]//span[contains(@class,'odd-number')]";
-        if(market.getOdds().get(0).getTeam().equalsIgnoreCase("HOME")) {
+        if(market.getOdds().get(0).getTeam().equalsIgnoreCase(selection)) {
             rowIndex = 1;
         } else {
             rowIndex = 2;
@@ -748,6 +763,10 @@ public class AsianViewPage extends ProteusHomePage {
         oddsHomeXpath = String.format(oddsHomeXpath,column);
         Label lblOdds = Label.xpath(String.format("(%s%s)[%s]",eventXpath,oddsHomeXpath, rowIndex));
         lblOdds.click();
+    }
+
+    public void clickOdds(Market market, boolean isFullMatch, boolean isNegative){
+        clickOdds(market, defineSelectionBaseOnOdds(market, isNegative), isFullMatch);
     }
 
     private String getEventIndexXpath(String eventID){
@@ -831,8 +850,11 @@ public class AsianViewPage extends ProteusHomePage {
         }
     }
 
+    /**
+     * @param marketType Should use constant in PS38PreferencesPopup. Eg: DDPAGE_TODAY_MATCHES*/
     public void verifySportTitleCorrect(String sport, String period, String marketType){
         String expectedLabel = "";
+        marketType = marketType.split("-")[1].trim();
         switch (marketType){
             case "Matches":
                 expectedLabel = String.format("%s - %s %s", sport, period, marketType).toUpperCase();
