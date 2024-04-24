@@ -17,6 +17,7 @@
         <parameter name='currency' value='HKD'/>
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
+        <parameter name='skinName' value='satsport'/>
         <parameter name='BOLoginId' value='AutoQA'/>
         <parameter name='BOLoginPwd' value='WncY8OT1OV5814mXP2PqYg=='/>
         <parameter name='isAddTestRailResult' value='true'/>
