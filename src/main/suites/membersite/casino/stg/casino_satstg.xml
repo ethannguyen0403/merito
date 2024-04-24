@@ -21,6 +21,7 @@
         <parameter name='prefix' value='QAZ'/>
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
+        <parameter name='skinName' value='satsport'/>
         <parameter name='BOLoginId' value='autoqa'/>
         <parameter name='BOLoginPwd' value='5pjguoEh1fnSILpykWt1vQ'/>
         <parameter name='isAddTestRailResult' value='true'/>
