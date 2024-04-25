@@ -128,6 +128,7 @@ public class Fair999Header extends Header1 {
 
     @Override
     public PS38PreferencesPopup openPS38PreferencesPopup() {
+        DriverManager.getDriver().switchToParentFrame();
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("PS38 Preferences"));
         return new PS38PreferencesPopup();
     }

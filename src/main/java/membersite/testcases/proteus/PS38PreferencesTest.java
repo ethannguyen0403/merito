@@ -46,13 +46,13 @@ public class PS38PreferencesTest extends BaseCaseTest {
         PS38PreferencesPopup prefPopup = memberHomePage.openPS38PreferencesPopup();
         log("Step 2: Select Accept Better Odds is Enable and click Save");
         prefPopup.selectPreferences("", "", "", "Enable", "");
-        log("Step 3: Click on PS38 product and click on an odds and observe Accept Better Odds check box in Bet Slip");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectOddsType(DECIMAL);
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        log("Step 3: Click on PS38 product and click on an odds and observe Accept Better Odds check box in Bet Slip");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
-        asianViewPage.clickOdds(marketHDP, true);
+        asianViewPage.clickOdds(marketHDP, true, false);
         log("Verify 1: Verify the check box is checked");
         Assert.assertTrue(asianViewPage.chkAcceptBetterOdd.isSelected(), "FAILED! Check box accept better odd is not check");
     }
@@ -72,7 +72,7 @@ public class PS38PreferencesTest extends BaseCaseTest {
         asianViewPage.selectOddsType(DECIMAL);
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
-        asianViewPage.clickOdds(marketHDP, true);
+        asianViewPage.clickOdds(marketHDP, true, false);
         log("Verify 1: Verify the check box is checked");
         Assert.assertFalse(asianViewPage.chkAcceptBetterOdd.isSelected(), "FAILED! Check box accept better odd is checked");
     }

@@ -344,6 +344,15 @@ public class Market {
         }
         return false;
     }
+
+    public boolean isMarketContainsPositiveOdds(){
+        for (Odds o: _odds
+        ) {
+            if(o.getOdds() > 0)
+                return true;
+        }
+        return false;
+    }
     public static class Builder {
         private String _sportName;
         private String _leagueName;

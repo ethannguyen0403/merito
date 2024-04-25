@@ -598,17 +598,16 @@ public class EuroViewPageTest extends BaseCaseTest {
     @TestRails(id = "23688")
     @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC23688() {
-        log("@title: Validate Odds Type display correctly when the setting is Malay - Asian View");
+        log("@title: Validate Odds Type display correctly when the setting is Hong Kong - Euro View");
         log("Step 1: Expand My Account and click the menu PS38 Reference");
         PS38PreferencesPopup prefPopup = memberHomePage.openPS38PreferencesPopup();
-        log("Step 2: Select Odds type Hong Kong and Default View is Euro then click save");
+        log("Step 2: Select Odds type Malay and Default View is Euro then click save");
         prefPopup.selectPreferences("Hong Kong", "", EURO, "", "");
         log("Step 3: Click on PS38 product and check the selected odds type Odds type");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Verify 1: Verify View label displays Euro View and odds type is HK Odds");
         Assert.assertEquals(proteusHomePage.lblView.getText().trim(), ASIAN_VIEW, "FAILED! View is not correct");
-        EuroViewPage asianViewPage = proteusHomePage.selectEuroView();
-        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), HONGKONG.toUpperCase(), "FAILED! Label Odds is not correct");
+        Assert.assertEquals(new EuroViewPage(_brandname).ddmOddsType.getText().trim(), HONGKONG.toUpperCase(), "FAILED! Label Odds is not correct");
     }
 
     @TestRails(id = "23689")
@@ -621,25 +620,23 @@ public class EuroViewPageTest extends BaseCaseTest {
         prefPopup.selectPreferences(MALAY, "", EURO, "", "");
         log("Step 3: Click on PS38 product and check the selected odds type Odds type");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
-        log("Verify 1: erify  View label displays Asian View and odds type is MY Odds");
+        log("Verify 1: Verify View label displays Asian View and odds type is MY Odds");
         Assert.assertEquals(proteusHomePage.lblView.getText().trim(), ASIAN_VIEW, "FAILED! View is not correct");
-        EuroViewPage asianViewPage = proteusHomePage.selectEuroView();
-        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), MALAY.toUpperCase(), "FAILED! Label Odds is not correct");
+        Assert.assertEquals(new EuroViewPage(_brandname).ddmOddsType.getText().trim(), MALAY.toUpperCase(), "FAILED! Label Odds is not correct");
     }
 
     @TestRails(id = "23690")
     @Test(groups = {"ps38","Proteus.2024.V.1.0"})
     public void PS38_Member_TC23690() {
-        log("@title: Validate Odds Type display correctly when the setting is Malay - Euro View");
+        log("@title: Validate Odds Type display correctly when the setting is American - Euro View");
         log("Step 1: Expand My Account and click the menu PS38 Reference");
         PS38PreferencesPopup prefPopup = memberHomePage.openPS38PreferencesPopup();
-        log("Step 2: Select Odds type Malay and Default View is Euro then click save");
+        log("Step 2: Select Odds type American and Default View is Euro then click save");
         prefPopup.selectPreferences(AMERICAN, "", EURO, "", "");
         log("Step 3: Click on PS38 product and check the selected odds type Odds type");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
-        log("Verify 1: Verify View label displays Euro View and odds type is HK Odds");
+        log("Verify 1: Verify View label displays Euro View and odds type is American Odds");
         Assert.assertEquals(proteusHomePage.lblView.getText().trim(), ASIAN_VIEW, "FAILED! View is not correct");
-        EuroViewPage asianViewPage = proteusHomePage.selectEuroView();
-        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), AMERICAN.toUpperCase(), "FAILED! Label Odds is not correct");
+        Assert.assertEquals(new EuroViewPage(_brandname).ddmOddsType.getText().trim(), AMERICAN.toUpperCase(), "FAILED! Label Odds is not correct");
     }
 }

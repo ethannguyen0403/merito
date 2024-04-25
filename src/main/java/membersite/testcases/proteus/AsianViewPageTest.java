@@ -546,7 +546,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
 
         Market market = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, true);
-        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(market, true, "minbet", false, true);
+        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(market, true, "minbet", false, true, true);
 
         log("Verify toRisk and toWin of this bet in Pending bet and Balance and exposure");
         asianViewPage.verifyPendingBetInfo(order, currency);
@@ -573,7 +573,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
 
         Market market = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, true);
-        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(market, true, "minbet", false, true);
+        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(market, true, "minbet", false, true, true);
 
         log("Verify toRisk and toWin of this bet in Pending bet and Balance and exposure");
         asianViewPage.verifyPendingBetInfo(order, currency);
@@ -725,7 +725,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
 
         Market market = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, true);
-        asianViewPage.clickOdds(market, true);
+        asianViewPage.clickOdds(market, true, true);
 
         log("Validate Max per match should be calculated correctly for Am negative odds following the formula\n" +
                 "\n" +
@@ -749,7 +749,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectOddsType(ASIAN_AMERICAN_ODDS);
 
         Market market = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, false);
-        asianViewPage.clickOdds(market, true);
+        asianViewPage.clickOdds(market, true, false);
 
         log("Validate Max per match should be calculated correctly for Am positive odds following the formula\n" +
                 "\n" +
@@ -773,7 +773,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectOddsType(ASIAN_MALAY_ODDS);
 
         Market market = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, true);
-        asianViewPage.clickOdds(market, true);
+        asianViewPage.clickOdds(market, true, true);
 
         log("Validate Max per match should be calculated correctly for Am negative odds following the formula\n" +
                 "\n" +
@@ -797,7 +797,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
 
         Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, true);
-        asianViewPage.clickOdds(market, true);
+        asianViewPage.clickOdds(market, true, true);
 
         log("Validate Match Max value should matched correctly with Agent Site setting");
         asianViewPage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), DECIMAL);
@@ -847,15 +847,16 @@ public class AsianViewPageTest extends BaseCaseTest {
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Step 2: Select Asian view");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-        log("Step 3: Select Sport Soccer");
+        log("Step 3:  Click on odds of 2 different markets to bet slip");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
 
-        Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
-        asianViewPage.clickOdds(market, true);
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
+        Market marketOU = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_OVER_UNDER, true, false);
+        asianViewPage.clickOdds(marketHDP, true, false);
+        asianViewPage.clickOdds(marketOU, true, false);
         log("Step 4: Click on Remove All button");
-        asianViewPage.btnRemoveAll.click();
-        log("Verify 1: Verify Remove all popup display with the message \"Do you want to empty you Bet Slip?\"\n" +
-                "\n");
+        proteusHomePage.removeBetsByRemoveAll(false);
+        log("Verify 1: Verify Remove all popup display with the message \"Do you want to empty you Bet Slip?\"");
         Assert.assertEquals(asianViewPage.confirmModulePopup.getContent(), REMOVE_ALL_MSG, "FAILED! Pop up Remove all is not displayed correctly");
     }
 
@@ -871,14 +872,14 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
 
         Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
-        asianViewPage.clickOdds(market, true);
+        asianViewPage.clickOdds(market, true, false);
         log("Step 4: Click on Remove All button");
-        asianViewPage.btnRemoveAll.click();
+        proteusHomePage.removeBetsByRemoveAll(false);
         log("Step 5: Cancel remove all popup");
-        asianViewPage.confirmModulePopup.cancelPopup();
+        proteusHomePage.confirmModulePopup.cancelPopup();
         log("Verify 1:  Verify the popup is no longer display, Bet slip still display the odds in bet slip");
         Assert.assertFalse(asianViewPage.confirmModulePopup.isDisplayed(),"FAILED! Pop up still displayed");
-        asianViewPage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), DECIMAL);
+        proteusHomePage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), DECIMAL);
     }
 
 
@@ -893,8 +894,10 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 3: Select Sport Soccer");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
 
-        Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
-        asianViewPage.clickOdds(market, true);
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
+        Market marketOU = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_OVER_UNDER, true, false);
+        asianViewPage.clickOdds(marketHDP, true, false);
+        asianViewPage.clickOdds(marketOU, true, false);
         log("Step 4: Click on Remove All button");
         log("Step 5: Confirm remove all popup");
         asianViewPage.removeBetsByRemoveAll(true);
@@ -918,7 +921,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Add an odds to bet slip");
         Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
-        asianViewPage.clickOdds(market, true);
+        asianViewPage.clickOdds(market, true, false);
         log("Step 5: Click on x icon of the added bet");
         asianViewPage.removeAddedBets(market);
         log("Verify 1:   Verify the popup is no longer display, Bet Slip are empty:\n" +
@@ -942,8 +945,8 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 4: Click on odds of 2 different markets to bet slip");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
         Market marketOU = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_OVER_UNDER, true, false);
-        asianViewPage.clickOdds(marketHDP, true);
-        asianViewPage.clickOdds(marketOU, true);
+        asianViewPage.clickOdds(marketHDP, true, false);
+        asianViewPage.clickOdds(marketOU, true, false);
         log("Step 4: Click on x icon of the 2nd bet");
         asianViewPage.removeAddedBets(marketOU);
         log("Verify 1: Verify Bet slip title: Bet Slip 1");
@@ -969,7 +972,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Add an odds to bet slip and input stake");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
-        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(userBalanceOver),true, true);
+        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(userBalanceOver),true, true, false);
         log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
         asianViewPage.verifyErrorMsgOverBalance();
     }
@@ -989,9 +992,9 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 4: Add an negative odds to bet slip and input stake");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, true);
         // make sure riskValue is always bigger than userBalance
-        double riskValue = userBalance + (userBalance*marketHDP.getOdds().get(0).getOdds());
+        double riskValue = userBalance + marketHDP.getToRisk(userBalance, MALAY, true);
 
-        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false);
+        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false, true);
         log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
         asianViewPage.verifyErrorMsgOverBalance();
     }
@@ -1011,9 +1014,9 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 4: Add an positive odds to bet slip and input stake");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, false);
         // make sure riskValue is always bigger than userBalance
-        double riskValue = userBalance + (userBalance*marketHDP.getOdds().get(0).getOdds());
+        double riskValue = userBalance + marketHDP.getToRisk(userBalance, MALAY, false);;
 
-        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false);
+        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false, false);
         log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
         asianViewPage.verifyErrorMsgOverBalance();
     }
@@ -1033,9 +1036,9 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 4: Add a negative odds to bet slip and input stake that calculate risk greater than user balance");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, true);
         //calculate for risk bigger than userBalance
-        double riskValue = userBalance + (userBalance * marketHDP.getOdds().get(0).getOdds() / 100);
+        double riskValue = userBalance + marketHDP.getToRisk(userBalance, AMERICAN, true);;
 
-        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false);
+        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false, true);
         log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
         asianViewPage.verifyErrorMsgOverBalance();
     }
@@ -1057,7 +1060,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         //calculate for risk bigger than userBalance
         double riskValue = userBalance + (userBalance * marketHDP.getToRisk(userBalance, AMERICAN, false));
 
-        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false);
+        asianViewPage.addOddToBetSlipAndPlaceBetWithoutSetOrder(marketHDP, true , String.valueOf(riskValue),false, false, false);
         log("Verify 1: Verify message \"Insufficient balance for placing bet! Order ID: [order id]\"");
         asianViewPage.verifyErrorMsgOverBalance();
     }
@@ -1068,7 +1071,6 @@ public class AsianViewPageTest extends BaseCaseTest {
     public void PS38_Member_TC23670(String currency){
         log("@title: Validate confirm bets message is correct when place on Decimal odds");
         log("Step 1: Select PS38 product");
-        double stake = 51;
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Step 2: Select Asian view and Decimal odds");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
@@ -1078,10 +1080,10 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 4: Add an odds to bet slip and input stake");
         log("Step 5: Click place bet");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
+        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , "minbet",true, false, false);
 
-        String risk = String.format("%,.0f", marketHDP.getToRisk(stake, DECIMAL, false));
-        String win = String.format("%,.2f",  marketHDP.getToWin(stake, DECIMAL, false)).replace("-", "");
+        String win = String.format("%,.2f", marketHDP.getToRisk(order.getStake(), DECIMAL, false)).replaceAll("[.0]+$", "");
+        String risk = String.format("%,.2f",  marketHDP.getToWin(order.getStake(), DECIMAL, false)).replaceAll("[.0]+$", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
@@ -1094,7 +1096,6 @@ public class AsianViewPageTest extends BaseCaseTest {
     public void PS38_Member_TC23671(String currency){
         log("@title: Validate confirm bets message is correct when place on HongKong odds");
         log("Step 1: Select PS38 product");
-        double stake = 51;
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Step 2: Select Asian view and Hong Kong odds");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
@@ -1103,10 +1104,10 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Click on odds of Handicap market and input valid stake");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, HONGKONG, TEXT_HDP, true, false);
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
+        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , "minbet",true, false, false);
 
-        String risk = String.format("%,.0f", marketHDP.getToRisk(stake, HONGKONG, false));
-        String win = String.format("%,.2f",  marketHDP.getToWin(stake, HONGKONG, false)).replace("-", "");
+        String risk = String.format("%,.2f", marketHDP.getToRisk(order.getStake(), HONGKONG, false)).replaceAll("[.0]+$", ""); // remove trailing zero eg:15.00 , 16.50 for verifying
+        String win = String.format("%,.2f",  marketHDP.getToWin(order.getStake(), HONGKONG, false)).replaceAll("[.0]+$", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
@@ -1119,7 +1120,6 @@ public class AsianViewPageTest extends BaseCaseTest {
     public void PS38_Member_TC23672(String currency){
         log("@title: Validate confirm bets message is correct when place on Malay negative odds");
         log("Step 1: Select PS38 product");
-        double stake = 51;
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Step 2: Select Asian view and Hong Kong odds");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
@@ -1127,11 +1127,11 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 3: Select Sport Soccer");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Click on positive odds of Handicap market and input valid stake");
-        Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, false);
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, true);
+        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , "minbet",false, false, true);
 
-        String risk = String.format("%,.0f", marketHDP.getToRisk(stake, MALAY, false));
-        String win = String.format("%,.2f",  marketHDP.getToWin(stake, MALAY, false)).replace("-", "");
+        String risk = String.format("%,.2f", marketHDP.getToRisk(order.getStake(), MALAY, true)).replaceAll("[.0]+$", "");
+        String win = String.format("%,.2f",  marketHDP.getToWin(order.getStake(), MALAY, true)).replaceAll("[.0]+$", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
@@ -1142,25 +1142,24 @@ public class AsianViewPageTest extends BaseCaseTest {
     @Parameters({"currency"})
     @Test(groups = {"ps38","Proteus.2024.V.2.0"})
     public void PS38_Member_TC23673(String currency){
-        log("@title: Validate confirm bets message is correct when place on Malay negative odds");
+        log("@title: Validate confirm bets message is correct when place on Malay positive odds");
         log("Step 1: Select PS38 product");
-        double stake = 51;
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Step 2: Select Asian view and Hong Kong odds");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectOddsType(MALAY);
         log("Step 3: Select Sport Soccer");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
-        log("Step 4: Click on negative odds of Handicap market and input valid stake");
-        Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, true);
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
+        log("Step 4: Click on positive odds of Handicap market and input valid stake");
+        Market marketHDP = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, false);
+        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , "minbet",true, false, false);
 
-        String risk = String.format("%,.0f", marketHDP.getToRisk(stake, MALAY, true));
-        String win = String.format("%,.2f",  marketHDP.getToWin(stake, MALAY, true)).replace("-", "");
+        String risk = String.format("%,.2f", marketHDP.getToRisk(order.getStake(), MALAY, false)).replaceAll("[.0]+$", "");
+        String win = String.format("%,.2f",  marketHDP.getToWin(order.getStake(), MALAY, false)).replaceAll("[.0]+$", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
-        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency), "FAILED! Confirm place bet message is not correct");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency).replaceAll("[.0]+$", ""), "FAILED! Confirm place bet message is not correct");
     }
 
     @TestRails(id = "23674")
@@ -1169,7 +1168,6 @@ public class AsianViewPageTest extends BaseCaseTest {
     public void PS38_Member_TC23674(String currency){
         log("@title: Validate confirm bets message is correct when place on American negative odds");
         log("Step 1: Select PS38 product");
-        double stake = 51;
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Step 2: Select Asian view and American odds");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
@@ -1178,10 +1176,10 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Click on negative odds of Handicap market and input valid stake");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, true, true);
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
+        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , "minbet",true, false, true);
 
-        String risk = String.format("%,.0f",  marketHDP.getToRisk(stake, AMERICAN, true));
-        String win = String.format("%,.2f", marketHDP.getToWin(stake, AMERICAN, true)).replace("-", "");
+        String risk = String.format("%,.2f",  marketHDP.getToRisk(order.getStake(), AMERICAN, true)).replaceAll("[.0]+$", "");
+        String win = String.format("%,.2f", marketHDP.getToWin(order.getStake(), AMERICAN, true)).replaceAll("[.0]+$", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
@@ -1194,7 +1192,6 @@ public class AsianViewPageTest extends BaseCaseTest {
     public void PS38_Member_TC23675(String currency){
         log("@title: Validate confirm bets message is correct when place on American positive odds");
         log("Step 1: Select PS38 product");
-        double stake = 51;
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Step 2: Select Asian view and American odds");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
@@ -1203,10 +1200,10 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 4: Click on positive odds of Handicap market and input valid stake");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, AMERICAN, TEXT_HDP, false, false);
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
+        Order order = asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, false , "minbet",true, false, false);
 
-        String risk = String.format("%,.0f",  marketHDP.getToRisk(stake, AMERICAN, false));
-        String win = String.format("%,.2f", marketHDP.getToWin(stake, AMERICAN, false)).replace("-", "");
+        String win = String.format("%,.2f",  marketHDP.getToRisk(order.getStake(), AMERICAN, false)).replaceAll("[.0]+$", "");
+        String risk = String.format("%,.2f", marketHDP.getToWin(order.getStake(), AMERICAN, false)).replaceAll("[.0]+$", "");
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
@@ -1217,7 +1214,6 @@ public class AsianViewPageTest extends BaseCaseTest {
     @Test(groups = {"ps38","Proteus.2024.V.2.0"})
     public void PS38_Member_TC23676(){
         log("@title: Validate confirm bets message is disappeared when clicking cancel");
-        double stake = 51;
         log("Step 1: Select PS38 product");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Step 2: Select Asian view and Decimal odds");
@@ -1228,7 +1224,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 4: Add an odds to bet slip and input valid stale");
         log("Step 5: Click place bet");
         Market marketHDP = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
-        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , String.valueOf(stake),true, false);
+        asianViewPage.addOddToBetSlipAndPlaceBet(marketHDP, true , "minbet",true, false, false);
         log("Step 6: A confirm bet popup display and click on cancel button");
         asianViewPage.confirmModulePopup.cancelPopup();
         log("Verify 1:Verify the confirm bets popup is disappear and bet slip still display the order");
@@ -1244,11 +1240,10 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 2: Select Odds type Hong Kong and Default View is Asian then click save");
         prefPopup.selectPreferences("Hong Kong", "", ASIAN, "", "");
         log("Step 3: Click on PS38 product and check the selected odds type Odds type");
-        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        ProteusHomePage page =  memberHomePage.activePS38Product();
         log("Verify 1: Verify View label displays Euro View and odds type is HK Odds");
-        Assert.assertEquals(proteusHomePage.lblView.getText().trim(), EURO_VIEW, "FAILED! View is not correct");
-        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), ODDS_TYPE_LABEL_MAPPING.get(HONGKONG), "FAILED! Label Odds is not correct");
+        Assert.assertEquals(page.lblView.getText().trim(), EURO_VIEW, "FAILED! View is not correct");
+        Assert.assertEquals(new AsianViewPage(_brandname).ddmOddsType.getText().trim(), ODDS_TYPE_LABEL_MAPPING.get(HONGKONG), "FAILED! Label Odds is not correct");
     }
 
     @TestRails(id = "23681")
@@ -1257,14 +1252,13 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("@title: Validate Odds Type display correctly when the setting is Malay - Asian View");
         log("Step 1: Expand My Account and click the menu PS38 Reference");
         PS38PreferencesPopup prefPopup = memberHomePage.openPS38PreferencesPopup();
-        log("Step 2: Select Odds type Hong Kong and Default View is Asian then click save");
+        log("Step 2: Select Odds type Malay and Default View is Asian then click save");
         prefPopup.selectPreferences(MALAY, "", ASIAN, "", "");
         log("Step 3: Click on PS38 product and check the selected odds type Odds type");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
-        log("Verify 1: Verify View label displays Euro View and odds type is HK Odds");
+        log("Verify 1: Verify View label displays Euro View and odds type is Malay Odds");
         Assert.assertEquals(proteusHomePage.lblView.getText().trim(), EURO_VIEW, "FAILED! View is not correct");
-        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), ODDS_TYPE_LABEL_MAPPING.get(MALAY), "FAILED! Label Odds is not correct");
+        Assert.assertEquals(new AsianViewPage(_brandname).ddmOddsType.getText().trim(), ODDS_TYPE_LABEL_MAPPING.get(MALAY), "FAILED! Label Odds is not correct");
     }
 
     @TestRails(id = "23682")
@@ -1275,12 +1269,11 @@ public class AsianViewPageTest extends BaseCaseTest {
         PS38PreferencesPopup prefPopup = memberHomePage.openPS38PreferencesPopup();
         log("Step 2: Select Odds type Hong Kong and Default View is Asian then click save");
         prefPopup.selectPreferences(AMERICAN, "", ASIAN, "", "");
-        log("Step 3: Click on PS38 product and check the selected odds type Odds type");
+        log("Step 3: Click on PS38 product and check the selected odds type American type");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Verify 1: Verify View label displays Euro View and odds type is HK Odds");
         Assert.assertEquals(proteusHomePage.lblView.getText().trim(), EURO_VIEW, "FAILED! View is not correct");
-        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), ODDS_TYPE_LABEL_MAPPING.get(AMERICAN), "FAILED! Label Odds is not correct");
+        Assert.assertEquals(new AsianViewPage(_brandname).ddmOddsType.getText().trim(), ODDS_TYPE_LABEL_MAPPING.get(AMERICAN), "FAILED! Label Odds is not correct");
     }
 
     @TestRails(id = "23692")
@@ -1294,13 +1287,14 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 3: Click on PS38 product and Asian View and click on the first sport Today tab in the left menu (Soccer)");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-        asianViewPage.selectEventOnLeftMenu(TODAY_PERIOD, SOCCER);
+        asianViewPage.selectSportOnLeftMenu(SOCCER);
         log("Verify 1: Verify the sport title is : SOCCER - TODAY MATCHES");
-        asianViewPage.verifySportTitleCorrect(SOCCER, TODAY_PERIOD, DDPAGE_TODAY_MATCHES.split("-")[1].trim());
+        asianViewPage.verifySportTitleCorrect(SOCCER, TODAY_PERIOD, DDPAGE_TODAY_MATCHES);
         log("Step 4: Click on Tennis sport and Today tab in the left menu");
-        asianViewPage.selectEventOnLeftMenu(TODAY_PERIOD, TENNIS);
+        asianViewPage.selectSportOnLeftMenu(TENNIS);
         log("Verify 2: Verify the sport title is : SOCCER - TODAY MATCHES");
-        asianViewPage.verifySportTitleCorrect(TENNIS, TODAY_PERIOD, DDPAGE_TODAY_MATCHES.split("-")[1].trim());
+        asianViewPage.verifySportTitleCorrect(TENNIS, TODAY_PERIOD, DDPAGE_TODAY_MATCHES);
+        log("INFO: Executed completely");
     }
 
     @TestRails(id = "23693")
@@ -1314,12 +1308,19 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Step 3: Click on PS38 product and Asian View and click on the first sport Today tab in the left menu (Soccer)");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
-        asianViewPage.selectEventOnLeftMenu(TODAY_PERIOD, SOCCER);
-        log("Verify 1: Verify the sport title is : SOCCER - TODAY MATCHES");
-        asianViewPage.verifySportTitleCorrect(SOCCER, TODAY_PERIOD, DDPAGE_MONEY_LINE_MATCHES.split("-")[1].trim());
-        log("Step 4: Click on Tennis sport and Today tab in the left menu");
-        asianViewPage.selectEventOnLeftMenu(TODAY_PERIOD, TENNIS);
-        log("Verify 2: Verify the sport title is : SOCCER - TODAY MATCHES");
-        asianViewPage.verifySportTitleCorrect(TENNIS, TODAY_PERIOD, DDPAGE_MONEY_LINE_MATCHES.split("-")[1].trim());
+        try{
+            asianViewPage.selectSportOnLeftMenu(SOCCER);
+            log("Verify 1: Verify the sport title is : SOCCER - TODAY MATCHES");
+            asianViewPage.verifySportTitleCorrect(SOCCER, TODAY_PERIOD, DDPAGE_MONEY_LINE_MATCHES);
+            log("Step 4: Click on Tennis sport and Today tab in the left menu");
+            asianViewPage.selectSportOnLeftMenu(TENNIS);
+            log("Verify 2: Verify the sport title is : SOCCER - TODAY MATCHES");
+            asianViewPage.verifySportTitleCorrect(TENNIS, TODAY_PERIOD, DDPAGE_MONEY_LINE_MATCHES);
+            log("INFO: Executed completely");
+        }finally {
+        log("@Post-condition: Set PS38 Preference to default with options: \"Today - Matches\"");
+            memberHomePage.openPS38PreferencesPopup();
+            prefPopup.selectPreferences("", DDPAGE_TODAY_MATCHES, "", "", "");
+    }
     }
 }
