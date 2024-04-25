@@ -20,10 +20,10 @@
         <parameter name='skinName' value='fairexchange'/>
         <parameter name='BOLoginId' value='AutoQA'/>
         <parameter name='BOLoginPwd' value='WncY8OT1OV5814mXP2PqYg=='/>
-        <parameter name='isAddTestRailResult' value='false'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
-                <include name="casino1"/>
+                <include name="casino"/>
             </run>
         </groups>
         <classes>
@@ -32,7 +32,7 @@
             <class name="membersite.testcases.casino.EvolutionPageWhiteCliffTest"/>
             <class name="membersite.testcases.casino.LiveDealerAsianPageTest"/>
             <class name="membersite.testcases.casino.LiveDealerEuropeanPageTest"/>
-<!--            <class name="membersite.testcases.casino.LotterySlotsPageTest"/>-->
+            <class name="membersite.testcases.casino.LotterySlotsPageTest"/>
             <!--            <class name="membersite.testcases.casino.SupernowaTest"/>-->
             <!--            <class name="membersite.testcases.casino.IonPageTest"/>-->
             <!--            <class name="membersite.testcases.casino.PragmaticPageTest"/>-->
