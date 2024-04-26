@@ -5,10 +5,9 @@ import com.paltech.utils.DateUtils;
 import membersite.controls.proteus.AppConfirmModulePopup;
 import membersite.objects.AccountBalance;
 import membersite.objects.proteus.Market;
-import membersite.objects.proteus.Odds;
 import membersite.objects.proteus.Order;
-import membersite.objects.proteus.ProteusBetslip;
 import membersite.pages.HomePage;
+import org.apache.commons.lang3.text.WordUtils;
 import org.testng.Assert;
 
 import java.text.DecimalFormat;
@@ -192,13 +191,12 @@ public class ProteusHomePage extends HomePage {
      * @param market
      * @return the format yyyy-MM-DD marketType match leagueNAme
      */
-    private String defineSummaryInfoInBetSlip(Market market){
-        String match= definePeriod(market);
+    private String defineSummaryInfoInBetSlip(Market market) {
+        String match = definePeriod(market);
         String marketName = defineMarketName(market);
-        String eventStartTime = market.getEventStartTime().replace("Z",".00+00:00");
-        String eventDate = DateUtils.convertDateToNewTimeZone(eventStartTime,"yyyy-MM-dd'T'HH:mm:ss.SSSXXX","","yyyy-MM-dd",GMT_7);
-        return String.format("%s %s - %s - %s",eventDate,marketName, match, market.getLeagueName());
-
+        String eventStartTime = market.getEventStartTime().replace("Z", ".00+00:00");
+        String eventDate = DateUtils.convertDateToNewTimeZone(eventStartTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "", "yyyy-MM-dd", GMT_7);
+        return String.format("%s %s - %s - %s", eventDate, marketName, match, WordUtils.capitalizeFully(market.getLeagueName()));
     }
 
     public void verifyBetSlipIsEmpty(){
@@ -278,7 +276,7 @@ public class ProteusHomePage extends HomePage {
         TextBox txtStake = TextBox.xpath(String.format("%s%s", betslipRootXpath, txtStakeXpath));
         txtStake.sendKeys(stake);
     }
-    private String defineStakeIn(Market market,String stake){
+    public String defineStakeIn(Market market,String stake){
         // define stake. If input stake = minbet, we get min bet value from UI
         // if input stake = maxbe, we get min bet value from UI
         // otherwise input the stake value
@@ -318,7 +316,8 @@ public class ProteusHomePage extends HomePage {
         } else {
             // click place bet and do nothing
             clickPlaceBet(false);
-            return null;
+            //use to verify stake input
+            return new Order.Builder().stake(Double.valueOf(stakeIn)).build();
         }
     }
 
