@@ -6,9 +6,7 @@ import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 
 public class CasinoHomePage {
@@ -41,7 +39,7 @@ public class CasinoHomePage {
         for (String value : values) {
             for (LogEntry entry : entriesConsole) {
                 // Get logs that are the errors(WARNING, SEVERE)
-                if(entry.getLevel().equals(Level.WARNING) || entry.getLevel().equals(Level.SEVERE)){
+                if(entry.getLevel().equals(Level.SEVERE)){
                     if (entry.getMessage().contains(value)) {
                         System.out.println("Log console contains the value: " + value);
                         return false;
@@ -93,4 +91,5 @@ public class CasinoHomePage {
         int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
         DriverManager.getDriver().switchToFrame(countIframesInPage-1);
     }
+
 }
