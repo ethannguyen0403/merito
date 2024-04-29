@@ -730,7 +730,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Validate Max per match should be calculated correctly for Am negative odds following the formula\n" +
                 "\n" +
                 "AM negative odds: Max per match = (setting max per match/odds) * 100");
-        asianViewPage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), AMERICAN);
+        asianViewPage.verifyBetSlipInfo(market, true, AMERICAN);
         asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, AMERICAN, true);
         log("INFO: Executed completely");
     }
@@ -754,7 +754,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Validate Max per match should be calculated correctly for Am positive odds following the formula\n" +
                 "\n" +
                 "AM positive odds: Max per match = setting max per match");
-        asianViewPage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), AMERICAN);
+        asianViewPage.verifyBetSlipInfo(market, false, AMERICAN);
         asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, AMERICAN, false);
         log("INFO: Executed completely");
     }
@@ -778,7 +778,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Validate Max per match should be calculated correctly for Am negative odds following the formula\n" +
                 "\n" +
                 "AM negative odds: Max per match = (setting max per match/odds) * 100");
-        asianViewPage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), MALAY);
+        asianViewPage.verifyBetSlipInfo(market,true, MALAY);
         asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, MALAY, true);
         log("INFO: Executed completely");
     }
@@ -788,7 +788,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     public void PS38_Member_TC4144() {
         log("@title: Validate Max per match field should match with agent setting");
         log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
-        log("Step 1.Select Ps38 product and select AM odds");
+        log("Step 1.Select Ps38 product and select DEC odds");
         log("Step 2. Click any odd of sport that already config Max per match");
         double settingMaxPerMatch = 500.0;
         ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
@@ -796,13 +796,12 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         asianViewPage.selectOddsType(ASIAN_DECIMAL_ODDS);
 
-        Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, true);
-        asianViewPage.clickOdds(market, true, true);
+        Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
+        asianViewPage.clickOdds(market, true, false);
 
         log("Validate Match Max value should matched correctly with Agent Site setting");
-        asianViewPage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), DECIMAL);
-        asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, DECIMAL, true);
-//        asianViewPage.verifyMaxPerMatchShowCorrect(betSlipInfo, settingMaxPerMatch, DECIMAL, false);
+        asianViewPage.verifyBetSlipInfo(market, false, DECIMAL);
+        asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, DECIMAL, false);
         log("INFO: Executed completely");
     }
 
@@ -874,12 +873,12 @@ public class AsianViewPageTest extends BaseCaseTest {
         Market market = asianViewPage.getEventInfo(SOCCER, DECIMAL, TEXT_HDP, true, false);
         asianViewPage.clickOdds(market, true, false);
         log("Step 4: Click on Remove All button");
-        proteusHomePage.removeBetsByRemoveAll(false);
+        asianViewPage.removeBetsByRemoveAll(false);
         log("Step 5: Cancel remove all popup");
-        proteusHomePage.confirmModulePopup.cancelPopup();
+        asianViewPage.confirmModulePopup.cancelPopup();
         log("Verify 1:  Verify the popup is no longer display, Bet slip still display the odds in bet slip");
         Assert.assertFalse(asianViewPage.confirmModulePopup.isDisplayed(),"FAILED! Pop up still displayed");
-        proteusHomePage.verifyBetSlipInfo(market, market.getOdds().get(0).getTeam(), DECIMAL);
+        proteusHomePage.verifyBetSlipInfo(market, false, DECIMAL);
     }
 
 
@@ -954,7 +953,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Verify 2: Verify Place bet button: PLACE 1 BET");
         Assert.assertEquals(asianViewPage.btnPlaceBet.getText(), String.format(PLACE_BET_BUTTON_TEXT, 1), "FAILED! Button place bet text is not correct");
         log("Verify 3: Bet Slip just display info of the 1st order");
-        asianViewPage.verifyBetSlipInfo(marketHDP, marketHDP.getOdds().get(0).getTeam(), DECIMAL);
+        asianViewPage.verifyBetSlipInfo(marketHDP,false, DECIMAL);
     }
 
 
