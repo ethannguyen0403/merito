@@ -255,8 +255,11 @@ public class AGConstant {
         public final static String LBL_USERNAME = "Username";
         public final static String LBL_ACCOUNTSTATUS = "Account Status";
         public final static List<String>
-                LIST_SUBMENU_AGENCY_MANAGEMENT = Arrays.asList("Create Downline Agent","Create User", "Downline Listing", "Event Bet Size Settings", "Position Taking Listing", "Deposit/Withdraw",
+                LIST_SUBMENU_AGENCY_MANAGEMENT_OLD = Arrays.asList("Create Downline Agent","Create User", "Downline Listing", "Event Bet Size Settings", "Position Taking Listing", "Deposit/Withdraw",
                 "Commission Listing", "Bet Setting Listing", "Tax Settings", "Sub User Listing", "Announcement");
+        public final static List<String>
+                LIST_SUBMENU_AGENCY_MANAGEMENT_NEW = Arrays.asList("Create Downline Agent","Create User", "Downline Listing", "Position Taking Listing", "Transfer", "Statement Report", "Client Ledger", "PS38 Sports Result", "Credit/Balance Listing", "Commission Listing",
+                "Bet Setting Listing", "Risk Setting Listing", "Tax Settings");
         public final static String LBL_LEVEL = "Level";
         public final static String EDIT_DOWNLINE_AGENT_TITLE = "Edit Downline Agent";
 
@@ -356,7 +359,7 @@ public class AGConstant {
             public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Client Name", "Mobile", "Credit Initiation", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Downline", "Create Date", "Last Login Time", "Last Login IP");
             public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Exchange", "Live Dealer European", "Live Dealer Asian", "Exchange Games", "Supernowa Casino", "Evolution", "RWB Sports", "Game Hall", "Vivo", "ION");
             public final static String MSG_CHANGE_PASSWORD_SUCCESS = "Update is successful!";
-            public final static String MSG_INVALID_MAX_PLAYER_CREDIT = "Player Max Credit Invalid.";
+            public final static String MSG_INVALID_MAX_PLAYER_CREDIT = "Member Max Credit is invalid.";
             public final static String MSG_EDIT_DOWNLINE_SUCCESS = "Downline was updated successfully";
             public final static String MSG_EDIT_MEMBER_SUCCESS = "Member was updated successfully";
             public final static String MSG_ALL_PRODUCT_NOT_SELECT = "There has to be at least one active product.";

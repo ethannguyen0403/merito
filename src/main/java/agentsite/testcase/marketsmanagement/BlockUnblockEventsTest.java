@@ -647,6 +647,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.checkDownline(downlineAccount);
 
         log("Step 4. Check a blocked event and click Unblock Now  button");
+        page.blockUnblockEvent(downlineAccount, ALL, BTN_ACTIONS.get(0));
         page.blockUnblockEvent(downlineAccount, ALL, BTN_ACTIONS.get(1));
         log("Verify 2. (Step 5) Status of the event is Unblocked ");
         page.verifyStatusAllEventsAreUnblock(event);
@@ -759,7 +760,10 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     @Test(groups = {"smoke"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_771() {
         log("@title:Validate can blocked all events for according selected downline");
-        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+       AccountInfo acc = ProfileUtils.getProfile();
+       String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+       String userID = ProfileUtils.getProfile().getUserID();
+       List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname);
         Assert.assertTrue(lstUsers.size() > 1, "ERROR: This test case required more than 2 downline. Pls add more downline to verify TC");
         String userCode = lstUsers.get(0).getUserCode();
         String userCode2 = lstUsers.get(1).getUserCode();
@@ -779,6 +783,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
         log("Step 3. Select a checkbox beside the downline (Acc1)and selected on another downline(Acc2)( select but uncheck the checkbox)");
         page.selectDownline(userCode, true);
+        page.checkDownline(userCode, true);
         page.clickDownline(userCode2);
 
         log("Step  4. Check all events checkbox and click Blocked");

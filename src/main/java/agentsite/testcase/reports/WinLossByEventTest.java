@@ -59,8 +59,8 @@ public class WinLossByEventTest extends BaseCaseTest {
         Assert.assertEquals(page.lblReportTitle.getText(), String.format(AGConstant.Report.WinLossByEvent.LBL_SEARCH_TITLE, todayYYYYMMDD, todayYYYYMMDD), "FAILED! Search title range is not correct");
         Assert.assertEquals(page.btnToday.getText(), AGConstant.Report.BTN_TODAY, "FAILED! Today button text is incorrect ");
         if (page.lblNoRecord.isDisplayed()) {
-            Assert.assertEquals(page.ddbSport.getFirstSelectedOption(), "No Sport", "FAILED! Default selected Sport is incorrect");
-            Assert.assertEquals(page.ddbCompetition.getFirstSelectedOption(), "No Competition", "FAILED! Default selected Sport is incorrect");
+            Assert.assertEquals(page.ddbSport.getFirstSelectedOption(), "All", "FAILED! Default selected Sport is incorrect");
+            Assert.assertEquals(page.ddbCompetition.getFirstSelectedOption(), "All", "FAILED! Default selected Sport is incorrect");
             Assert.assertEquals(page.lblNoRecord.getText(), AGConstant.NO_RECORD_FOUND, "FAILED! No record text is incorrect");
         }
 

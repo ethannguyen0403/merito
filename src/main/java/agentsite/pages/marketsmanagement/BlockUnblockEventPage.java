@@ -349,6 +349,24 @@ public class BlockUnblockEventPage extends HomePage {
             waitingLoadingSpinner();
     }
 
+    public void checkDownline(String downline, boolean isUncheck) {
+        CheckBox checkbox;
+        if (downline.equalsIgnoreCase("all")) {
+            checkbox = CheckBox.xpath(cbSelectAllDownline);
+        } else
+            checkbox = CheckBox.xpath(String.format("//table[contains(@class,'block-table')]//span[contains(text(),'%s')]/following::span[1]//i", downline));
+        if(isUncheck){
+            if (checkbox.getAttribute("class").contains("fa-check")){
+                checkbox.jsClick();
+            }
+        }else {
+            if (!checkbox.getAttribute("class").contains("fa-check")){
+                checkbox.jsClick();
+        }
+    }
+        waitingLoadingSpinner();
+    }
+
     public void verifyBlockUnblockEvent(String event, String currentStatus, boolean isViewable, boolean isBetable, String timeToOpen, String timeToBet) {
         verifyBlockUnblockEvent(event, currentStatus, isViewable, false, isBetable, timeToOpen, timeToBet);
     }
