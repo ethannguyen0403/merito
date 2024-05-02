@@ -199,7 +199,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "747")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize_agent"})
     public void Agent_AM_Bet_Setting_Listing_747() {
         log("@title: Verify update bet setting with valid max win per market bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");

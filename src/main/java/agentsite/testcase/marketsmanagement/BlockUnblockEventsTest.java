@@ -318,7 +318,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="761")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_761(String downlineAccount) {
         log("@title: Validate can Unblock Schedule 25min before event start");
@@ -621,7 +621,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="769")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
     @Parameters({"brandname", "password", "downlineAccount", "username"})
     public void Agent_MM_BlockUnblockEvent_769(String brandname, String password, String downlineAccount, String username) throws Exception {
         log("@title: Validate can unblocked now all events for an downline in a page");
@@ -757,7 +757,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
    @TestRails(id="771")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize_agent"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_771() {
         log("@title:Validate can blocked all events for according selected downline");
        AccountInfo acc = ProfileUtils.getProfile();
@@ -1001,7 +1001,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="3695")
-    @Test(groups = {"interaction","tim"})
+    @Test(groups = {"interaction","tim", "nolan_stabilize_agent"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_3695(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Validate suspend label display on market in member site when suspend an unblock the event");

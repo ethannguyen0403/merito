@@ -70,7 +70,7 @@ public class BlockRacingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3698")
-    @Test(groups = {"regression","tim"})
+    @Test(groups = {"regression","tim", "nolan_stabilize_agent"})
     public void Agent_MM_Block_Racing_TC3698() {
         log("@title: Validate can Block for Horse Racing");
         String sportName = "Horse Racing";

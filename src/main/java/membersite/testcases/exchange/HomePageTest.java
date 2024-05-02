@@ -83,7 +83,7 @@ public class HomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "496")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize"})
     public void HomePage_496() {
         log("@title: Validate can collapse/expand left menu");
         log("Step 1. Click on Menu icon in the top left corner");

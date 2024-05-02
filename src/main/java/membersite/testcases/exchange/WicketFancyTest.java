@@ -25,7 +25,7 @@ import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 
 public class WicketFancyTest extends BaseCaseTest {
     @TestRails(id = "611")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void WicketFancyTest_611() {
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
@@ -62,7 +62,7 @@ public class WicketFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "612")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void WicketFancyTest_612() {
         log("@title: Validate exposure is kept correctly when place on No");
         log("Step 1. Login member site and click on Cricket");
@@ -93,7 +93,7 @@ public class WicketFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "613")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void WicketFancyTest_613() {
         log("@title: Validate exposure is kept correctly when place on Yes and No");
         log("Step 1. Login member site and click on Cricket");
@@ -125,7 +125,7 @@ public class WicketFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "614")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void WicketFancyTest_614() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
@@ -158,7 +158,7 @@ public class WicketFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "615")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void WicketFancyTest_615() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
@@ -190,7 +190,7 @@ public class WicketFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "616")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void WicketFancyTest_616() {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
@@ -313,7 +313,7 @@ public class WicketFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15776")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression", "2024.01.19", "nolan_stabilize_agent"})
     public void WicketFancyTest_15776() {
         log("@title: Validate bet slip is cleared when navigate to another market");
         log("@Precondition: Get the event that have Wicket Fancy market");

@@ -546,7 +546,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "696")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
     @Parameters({"currency"})
     public void Agent_AM_Downline_Listing_Edit_Agent_696(String currency) throws Exception {
         log("@title: Validate cannot update if Max Player Credit exceed the limit");
@@ -573,7 +573,7 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "697")
-    @Test(groups = {"smoke_credit"})
+    @Test(groups = {"smoke_credit", "nolan_stabilize_agent"})
     @Parameters({"password", "currency"})
     public void Agent_AM_Downline_Listing_Edit_Agent_697(String password, String currency) throws Exception {
         log("@title: Validate Max Player Credit setting display correctly when create user");

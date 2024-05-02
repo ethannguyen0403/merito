@@ -39,7 +39,7 @@ public class WinLossByEventTest extends BaseCaseTest {
      */
 
     @TestRails(id = "808")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize_agent"})
     public void Agent_Report_Win_Loss_By_Event_808() {
         log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
         log("Step 1. Navigate Report >  Win Loss By Event");
