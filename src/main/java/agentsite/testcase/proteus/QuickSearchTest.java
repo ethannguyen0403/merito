@@ -50,7 +50,7 @@ public class QuickSearchTest extends BaseCaseTest {
     @TestRails(id = "16176")
     @Test(groups = {"ps38", "nolan_Proteus.2024.V.2.0"})
     public void Quick_Search_TC16176(){
-        log("@title: Validate in Agent site > Quick Search, Commision Setting, 'PS38' does not display in Product drop-down when logged-in level isn't activated the product ");
+        log("@title: Validate in Agent site > Quick Search, Commision Setting, only display 'Odds Group' drop-down when logged in level is CO");
         log("@Precondition: There is an account is not CO level and activated PS38 product");
         log("Step 1: Login to Agent site with the account at the precondition");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);

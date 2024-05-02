@@ -596,7 +596,7 @@ public class EuroViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "23688")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
     public void PS38_Member_TC23688() {
         log("@title: Validate Odds Type display correctly when the setting is Hong Kong - Euro View");
         log("Step 1: Expand My Account and click the menu PS38 Reference");
@@ -611,7 +611,7 @@ public class EuroViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "23689")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
     public void PS38_Member_TC23689() {
         log("@title: Validate Odds Type display correctly when the setting is Malay - Euro View");
         log("Step 1: Expand My Account and click the menu PS38 Reference");
@@ -626,7 +626,7 @@ public class EuroViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "23690")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
     public void PS38_Member_TC23690() {
         log("@title: Validate Odds Type display correctly when the setting is American - Euro View");
         log("Step 1: Expand My Account and click the menu PS38 Reference");

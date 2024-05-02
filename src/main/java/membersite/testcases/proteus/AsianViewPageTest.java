@@ -1111,7 +1111,7 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
-        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency), "FAILED! Confirm place bet message is not correct");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, win, currency, risk, currency), "FAILED! Confirm place bet message is not correct");
     }
 
     @TestRails(id = "23672")
@@ -1135,7 +1135,7 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
-        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency), "FAILED! Confirm place bet message is not correct");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, win, currency, risk, currency), "FAILED! Confirm place bet message is not correct");
     }
 
     @TestRails(id = "23673")
@@ -1159,7 +1159,7 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
-        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency).replaceAll("[.0]+$", ""), "FAILED! Confirm place bet message is not correct");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, win, currency, risk, currency), "FAILED! Confirm place bet message is not correct");
     }
 
     @TestRails(id = "23674")
@@ -1183,7 +1183,7 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Verify 1: Verify a confirm message display correctly with to risk and to win value\n" +
                 "\"Are you sure you want to risk ... INR to win ... INR?\"");
-        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, risk, currency, win, currency), "FAILED! Confirm place bet message is not correct");
+        Assert.assertEquals(asianViewPage.confirmModulePopup.getContent().trim(), String.format(CONFIRM_PLACE_BET_MSG, win, currency, risk, currency), "FAILED! Confirm place bet message is not correct");
     }
 
     @TestRails(id = "23675")
