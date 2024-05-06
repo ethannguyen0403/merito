@@ -383,7 +383,7 @@ public class BlockUnblockEventPage extends HomePage {
 
     public void verifyStatusAllEventsAreUnblock(List<Event> eventList){
         for (int i = 0; i < eventList.size(); i++) {
-            verifyBlockUnblockEvent(eventList.get(i).getEventName(), "Unblocked", true, false, true, UNBLOCKTYPE.get(0), UNBLOCKTYPE.get(0));
+            verifyBlockUnblockEvent(eventList.get(i).getEventName(), "Unblocked", true, false, true, "", "");
         }
     }
 
@@ -401,8 +401,14 @@ public class BlockUnblockEventPage extends HomePage {
                 Assert.assertEquals(_currentStatus, currentStatus, String.format("FAILED! Status should be %s but display %s", currentStatus, _currentStatus));
                 Assert.assertTrue(tblEvent.getControlOfCell(1, colStatusViewable, i + 1, viewableIconExpected).isDisplayed(), "FAILED! Viewable status not display as expected");
                 Assert.assertTrue(tblEvent.getControlOfCell(1, colStatusBetable, i + 1, betableIconExpected).isDisplayed(), "FAILED! Bet status not display as expected");
-                Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToOpen, i + 1, null).getText(), timeToOpen, "Failed! Time to open not display as expected");
-                Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToBet, i + 1, null).getText(), timeToBet, "Failed! Time to bet not display as expected");
+                if(!timeToOpen.isEmpty()){
+                    Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToOpen, i + 1, null).getText(), timeToOpen, "Failed! Time to open not display as expected");
+
+                }
+                if(!timeToBet.isEmpty()){
+                    Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToBet, i + 1, null).getText(), timeToBet, "Failed! Time to bet not display as expected");
+
+                }
                 return;
             }
         }

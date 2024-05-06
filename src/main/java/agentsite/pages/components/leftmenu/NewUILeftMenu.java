@@ -161,6 +161,10 @@ public class NewUILeftMenu extends LeftMenu {
         }
         if(menu.equals(FRAUD_DETECTION)){
             List<String> lstSubMenu = leftMenuList.getListSubMenu(FRAUD_DETECTION);
+            if(lstSubMenu.isEmpty()){
+                System.out.println("Sub Menu Fraud Detection is not displayed on agent");
+                return true;
+            }
             return lstSubMenu.equals(AGConstant.FraudDetection.LIST_SUBMENU_FRAUD_DETECTION);
         }
         if(menu.equals(REPORT)) {

@@ -797,8 +797,10 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.clickDownline(userCode);
 
         log("Verify 1.2 Event status when viewing acc1 is unblock");
-        List<ArrayList<String>> lstEventofUserCode = BlockUnblockEventsUtils.getAllEvents(sport, childID, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
-        Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode, UNBLOCKTYPE.get(0)), "FAILED! event api status is incorrectly");
+//        List<ArrayList<String>> lstEventofUserCode = BlockUnblockEventsUtils.getAllEvents(sport, childID, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
+       List<Event> event = BlockUnblockEventsUtils.getEventList(SPORT_SOCCER, childID, TABs.get(tomorowTab));
+//       Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode, UNBLOCKTYPE.get(0)), "FAILED! event api status is incorrectly");
+       page.verifyStatusAllEventsAreUnblock(event);
         log("INFO: Executed completely");
     }
 

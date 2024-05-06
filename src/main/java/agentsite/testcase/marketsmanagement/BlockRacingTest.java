@@ -102,10 +102,10 @@ public class BlockRacingTest extends BaseCaseTest {
                     "Click cell, the block info display correctly");
             blockedUserPopup = blockRacingPage.clickVenueMarketCell(event.getEventName(), market.getMarketName());
             blockedUserPopup.verifyBlockedInfoDisplayCorrect(accountUserInfo, accountInfo, blockDateTime);
+            log("INFO: Executed completely");
         } finally {
             log("Post-condition: Unblock the blocked event");
             blockedUserPopup.unblockUser(accountUserInfo.getUserCode());
-            log("INFO: Executed completely");
         }
     }
 
