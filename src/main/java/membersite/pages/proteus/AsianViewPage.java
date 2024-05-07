@@ -54,10 +54,6 @@ public class AsianViewPage extends ProteusHomePage {
         super(types);
     }
 
-    public void waitContentLoad(){
-        lblLoading.waitForControlInvisible(2,3);
-    }
-
     public void selectPeriodTab(String period) {
         if (period.equalsIgnoreCase("early")) {
             btnEarlyAsian.click();
@@ -77,11 +73,6 @@ public class AsianViewPage extends ProteusHomePage {
         waitForSpinnerLoading();
     }
 
-    public void verifyOddsTypeLabelCorrect(String oddsType){
-
-
-    }
-
 //    public String selectFirstNegativeOdds() {
 //        Label lblFirstOdds = Label.xpath("(//span[contains(@class,'color-negative-odd')])[1]/span");
 //        Row rowEventSection = Row.xpath("(//span[contains(@class,'color-negative-odd')])[1]/span//ancestor::th");
@@ -96,17 +87,17 @@ public class AsianViewPage extends ProteusHomePage {
 //        return rowEventSection.getAttribute("eventid");
 //    }
 
-    public void placeBet(double stake, boolean isSubmit, boolean isConfirm) {
-        txtStake.sendKeys(String.valueOf(stake));
-        if(isSubmit) {
-            btnPlaceBet.jsClick();
-            if(isConfirm) {
-                btnOK.waitForElementToBePresent(btnOK.getLocator());
-                btnOK.jsClick();
-                waitForSpinnerLoading();
-            }
-        }
-    }
+//    public void placeBet(double stake, boolean isSubmit, boolean isConfirm) {
+//        txtStake.sendKeys(String.valueOf(stake));
+//        if(isSubmit) {
+//            btnPlaceBet.jsClick();
+//            if(isConfirm) {
+//                btnOK.waitForElementToBePresent(btnOK.getLocator());
+//                btnOK.jsClick();
+//                waitForSpinnerLoading();
+//            }
+//        }
+//    }
 
     public void searchLeagueOrTeamName(String leagueOrTeamName) {
         txtSearchLeagueOrTeamName.sendKeys(leagueOrTeamName);
@@ -262,14 +253,13 @@ public class AsianViewPage extends ProteusHomePage {
     public Market getEventInfo(String sportName, String oddsType, String marketType, boolean isFullMatch, boolean isNegativeOdds) {
         int leagueIndex = 1;
         Market market;
-        while (true)
+        //limit 20 leagues to get event info
+        while (leagueIndex <= 20)
         {
             market = getEventInfo(sportName,oddsType,leagueIndex, marketType, isFullMatch, isNegativeOdds);
             if(Objects.nonNull(market))
                 return market;
             leagueIndex = leagueIndex + 1;
-            if(leagueIndex==20)
-                break;
         }
         return null;
     }
@@ -323,7 +313,7 @@ public class AsianViewPage extends ProteusHomePage {
         Label lblLeague = Label.xpath(String.format(leagueIndexXpath, leagueIndex));
         if (!lblLeague.isDisplayed())
             return null;
-        // get event id from UI xpath property
+        //get event id from UI xpath property
 //        String eventID = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("eventid");
         Label lblEventID = Label.xpath(String.format(eventTableOddLstXpath, leagueIndex));
         //handle for multi event in one League
@@ -347,7 +337,6 @@ public class AsianViewPage extends ProteusHomePage {
                 if (i == lstEvent.size() - 1) {
                     return market;
                 }
-                continue;
             }else {
                 break;
             }
@@ -706,15 +695,15 @@ public class AsianViewPage extends ProteusHomePage {
         }
     }
 
-    public Order addOddToBetSlipAndPlaceBet(Market market, String selection, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
-        // click odds
-        clickOdds(market, selection, isFullMatch);
-        //input stake and click place bet and confirm
-        Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
-        // set Odd info of the team name that placed on
-        order.setOdds(market.getOddsInfoBySelection(selection));
-        return order;
-    }
+//    public Order addOddToBetSlipAndPlaceBet(Market market, String selection, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+//        // click odds
+//        clickOdds(market, selection, isFullMatch);
+//        //input stake and click place bet and confirm
+//        Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
+//        // set Odd info of the team name that placed on
+//        order.setOdds(market.getOddsInfoBySelection(selection));
+//        return order;
+//    }
 
     public Order addOddToBetSlipAndPlaceBetWithoutSetOrder(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds,
                                                            boolean isPlace, boolean isNegativeOdd) {
@@ -733,19 +722,6 @@ public class AsianViewPage extends ProteusHomePage {
             // set Odd info of the team name that placed on
             order.setOdds(market.getOdds().get(0));}
         return order;
-    }
-
-    public String defineSelectionBaseOnOdds(Market market, boolean isNegativeOdd){
-        String selection = "";
-        for (Odds o: market.getOdds()){
-            if(o.getOdds() < 0 && isNegativeOdd){
-                return o.getTeam();
-            }
-            if(o.getOdds() > 0 && !isNegativeOdd){
-                return o.getTeam();
-            }
-        }
-        return selection;
     }
 
     public void clickOdds(Market market, String selection, boolean isFullMatch){
