@@ -846,6 +846,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Step 2: Select Asian view");
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(DECIMAL);
         log("Step 3:  Click on odds of 2 different markets to bet slip");
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
 

@@ -9,6 +9,7 @@ import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
 import controls.Table;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class PositionTakingSectionPS38 {
     public Button btnPositionSection = Button.xpath("//app-proteus-ptsetting//div[contains(@class, 'psection')]//i");
     BaseElement blkPTContainer = new BaseElement(By.xpath("//app-proteus-ptsetting//div[contains(@class, 'proteus-container settings')]"));
     private String xpathLblExpandSport = "//div[contains(@class, 'sport-title') and contains(., '%s')]";
+    // define Pregame or In play table base on Sport
     private String xpathSportTable = "//div[contains(@class, 'sport-title') and contains(., '%s')]/following-sibling::div/table[contains(., '%s')]";
     private int tolTalCol = 10;
     private Map<String, Integer> indexPos = new HashMap<String, Integer>() {
@@ -71,7 +73,9 @@ public class PositionTakingSectionPS38 {
 
             Table tblPT = Table.xpath(String.format(xpathSportTable, ptSettings.getSport(), ptSettings.getPS38Tab()), tolTalCol);
             int colIndex = findColIndexOfBetTypeProteusTable(ptSettings.getPS38Tab(), ptSettings.getBetTime(), ptSettings.getBetType());
+            // get row index of PT setting such as: Min Position, Max Position...
             int rowIndex = indexPos.get(ptSettings.getPos());
+            //assert pt value base on object PS38PTSetting
             Assert.assertEquals(DropDownBox.xpath(tblPT.getControlXPathOfCell(1, colIndex, rowIndex, "select")).getFirstSelectedOption(),
                     String.valueOf(ptSettings.getAmountPT()).replace(".0", ""),
                     String.format("FAILED! PT of sport %s at %s table - %s - %s is not correct", ptSettings.getSport(),
@@ -123,6 +127,9 @@ public class PositionTakingSectionPS38 {
     }
 
     public void expandPositionSection(boolean isExpanded) {
+        if(!btnPositionSection.isDisplayed()){
+            return;
+        }
         if (isExpanded) {
             if(!blkPTContainer.isDisplayed())
                 btnPositionSection.click();
@@ -144,6 +151,32 @@ public class PositionTakingSectionPS38 {
             if (blkSport.isDisplayed())
                 lblExpandSport.click();
         }
+    }
+
+    public boolean verifyAllPTDropDownAreEnable(List<String> sportList, List<String> tableList, boolean isEnable) {
+        for (String sportName : sportList) {
+            for (String table : tableList) {
+                BaseElement ptTable = Label.xpath(String.format(xpathSportTable, sportName, table));
+                //handle in case sport only has 1 table pregame or in-play
+                if (!ptTable.isDisplayed()) {
+                    continue;
+                }
+                if (!verifyAllPTDropDownAreEnable(sportName, table, isEnable))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean verifyAllPTDropDownAreEnable(String sportName, String tableName, boolean isEnable) {
+        expandSport(sportName, true);
+        String ptDropdownXpath = String.format("%s//%s", xpathSportTable, "select");
+        for (WebElement ptEle : Label.xpath(String.format(ptDropdownXpath, sportName, tableName)).getWebElements()) {
+            if (ptEle.isEnabled() != isEnable) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

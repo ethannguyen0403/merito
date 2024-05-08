@@ -266,7 +266,7 @@ public class AGConstant {
             public final static String LBL_IS_CREDIT_CASH = "Credit Cash";
             public final static String LBL_CURRENCY = "Currency";
             public final static List<String>
-                    LIST_SPORTS_PS38 = Arrays.asList("Soccer", "Baseball", "Basketball", "Football", "E Sports", "Others", "Mix Parlay", "Teaser");
+                    LIST_SPORTS_PS38 = Arrays.asList("Soccer", "Baseball", "Basketball", "Football", "E Sports", "Others", "Mix Parlay", "Teasers");
             public final static List<String>
                     HEADER_BET_SETTING_PS38 = Arrays.asList("", "Min Bet", "Max Bet", "Max Per Match");
             public final static String PREGAME_TAB_PS38 = "Pregame";
