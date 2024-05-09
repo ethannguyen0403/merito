@@ -6,7 +6,6 @@ import agentsite.pages.agentmanagement.CommissionSettingListingPage;
 import agentsite.pages.agentmanagement.DownLineListingPage;
 import agentsite.pages.agentmanagement.EditDownLinePage;
 import agentsite.pages.agentmanagement.PositionTakingListingPage;
-import agentsite.pages.agentmanagement.commissionlisting.CommissionSettingListing;
 import agentsite.pages.agentmanagement.proteus.createdownlineagent.PositionTakingSectionPS38;
 import agentsite.pages.agentmanagement.proteus.createdownlineagent.commissionsettingsection.CommissionSectionPS38;
 import agentsite.pages.components.CommissionPopup;
@@ -175,7 +174,8 @@ public class QuickSearchTest extends BaseCaseTest {
         PositionTakingSectionPS38 ptSectionPS38 = popup.filterPS38Product();
 
         log("Verify 1: Verify that it is unable to update settings for indirect downline");
-        Assert.assertTrue(ptSectionPS38.verifyAllPTDropDownAreEnable(LIST_SPORTS_PS38, Arrays.asList(PREGAME_TAB_PS38, INPLAY_TAB_PS38), false), "FAILED! PT setting is not disable for indirect downline");
+        Assert.assertTrue(ptSectionPS38.verifyAllPTDropDownAreEnable(
+                LIST_SPORTS_PS38_PT, Arrays.asList(PREGAME_TAB_PS38, INPLAY_TAB_PS38), false), "FAILED! PT setting is not disable for indirect downline");
     }
 
     @TestRails(id = "17606")

@@ -3,15 +3,13 @@ package agentsite.pages.agentmanagement.proteus.createdownlineagent;
 
 import agentsite.objects.agent.proteus.PS38PTSetting;
 import com.paltech.element.BaseElement;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.CheckBox;
-import com.paltech.element.common.DropDownBox;
-import com.paltech.element.common.Label;
+import com.paltech.element.common.*;
 import controls.Table;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +23,15 @@ public class PositionTakingSectionPS38 {
 
     public Button btnAddOrView = Button.xpath("//app-proteus-ptsetting//button[contains(@class, 'pbtn')]");
     public CheckBox chkCopyAll = CheckBox.xpath("//app-proteus-ptsetting//label[contains(text(), 'Position Taking')]//input");
+    public Label lblCopyAll = Label.xpath("//app-proteus-ptsetting//label[contains(text(), 'Position Taking')]");
     public Button btnPositionSection = Button.xpath("//app-proteus-ptsetting//div[contains(@class, 'psection')]//i");
     BaseElement blkPTContainer = new BaseElement(By.xpath("//app-proteus-ptsetting//div[contains(@class, 'proteus-container settings')]"));
     private String xpathLblExpandSport = "//div[contains(@class, 'sport-title') and contains(., '%s')]";
     // define Pregame or In play table base on Sport
     private String xpathSportTable = "//div[contains(@class, 'sport-title') and contains(., '%s')]/following-sibling::div/table[contains(., '%s')]";
     private int tolTalCol = 10;
+    public Table tblFirstPregame = Table.xpath("(//div[contains(@class, 'sport-title')]/following-sibling::div/table[1])[1]", tolTalCol);
+    public Table tblFirstInPlay = Table.xpath("(//div[contains(@class, 'sport-title')]/following-sibling::div/table[2])[1]", tolTalCol);
     private Map<String, Integer> indexPos = new HashMap<String, Integer>() {
         {
             put("Min Position", 1);
@@ -40,6 +41,24 @@ public class PositionTakingSectionPS38 {
         }
     };
 
+    public void verifyPTSectionUI(){
+        expandPositionSection(true);
+        Assert.assertEquals(lblCopyAll.getText().trim(), CHECKBOX_MESSAGE_PS38_PT, "FAILED! Check box Coppy All message is not correct");
+        Assert.assertEquals(getSportList(), LIST_SPORTS_PS38_PT, "FAILED! The list sport sections: Soccer, Baseball, Basketball, Football, E Sports, Others, Mix Parlay, Teaser is not correct");
+        Assert.assertEquals(tblFirstPregame.getHeaderNameOfRows(), HEADER_PREGAME_TABLE, "FAILED! Pregame table: Header is NOT grouped by Full time and 1st Haft Full time contains: 1X2, HDP, OU, TT, Others, Outright 1st Haft: 1X2, HDP, O");
+        Assert.assertEquals(tblFirstInPlay.getHeaderNameOfRows(), HEADER_INPLAY_TABLE, "FAILED! Header is grouped by Full time and 1st Haft Full time contains: 1X2, HDP, OU 1st Haft: 1X2, HDP, OU");
+    }
+
+    public List<String> getSportList(){
+        List<String> lblList = new ArrayList<>();
+        Label lblSportList = Label.xpath("//div[contains(@class, 'sport-title')]");
+        try {
+            new ArrayList<>(lblSportList.getWebElements()).stream().forEach(s -> lblList.add(s.getText().trim()));
+        }catch (Exception e){
+            System.out.println("DEBUG! Can not get list product");
+        }
+        return lblList;
+    }
 
     public void updateProteusPTMarket(List<PS38PTSetting> listPT, boolean isAll) {
         expandPositionSection(true);
