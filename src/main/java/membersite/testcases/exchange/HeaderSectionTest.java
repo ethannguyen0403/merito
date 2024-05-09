@@ -138,7 +138,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * If My markets display "No records found", Outstanding should be 0.00
      */
     @TestRails(id = "501")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize"})
     public void HeaderSection_TC501() {
         log("@title: Validate Liability in My market and outstanding is synchronized");
         log("Step 1. Get outstanding value");
@@ -255,7 +255,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Soccer page display with the title: Soccer Highlights
      */
     @TestRails(id = "505")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize"})
     public void HeaderSection_TC505() {
         log("@title: Validate can navigate to Soccer menu");
         log("Step 1. Click on Soccer menu");
@@ -282,7 +282,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Tennis page display with the title: Tennis Highlights
      */
     @TestRails(id = "506")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize"})
     public void HeaderSection_TC506() {
         log("@title: Validate can navigate to Tennis menu");
         log("Step 1. Click on Tennis menu");
@@ -334,7 +334,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Cricket page display with the title: Cricket Highlights
      */
     @TestRails(id = "508")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize"})
     public void HeaderSection_TC508() {
         log("@title: Validate can navigate to Cricket menu");
         log("Step 1. Click on Cricket menu");
@@ -363,7 +363,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. The corresponding market is navigate
      */
     @TestRails(id = "509")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize"})
     public void HeaderSection_C509() {
         log("@title: Validate can navigate to correct market when click on market in My market");
         log("Step 1. Click on My market ");

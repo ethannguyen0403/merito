@@ -70,7 +70,7 @@ public class BlockRacingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3698")
-    @Test(groups = {"regression","tim"})
+    @Test(groups = {"regression","tim", "nolan_stabilize_agent"})
     public void Agent_MM_Block_Racing_TC3698() {
         log("@title: Validate can Block for Horse Racing");
         String sportName = "Horse Racing";
@@ -102,10 +102,10 @@ public class BlockRacingTest extends BaseCaseTest {
                     "Click cell, the block info display correctly");
             blockedUserPopup = blockRacingPage.clickVenueMarketCell(event.getEventName(), market.getMarketName());
             blockedUserPopup.verifyBlockedInfoDisplayCorrect(accountUserInfo, accountInfo, blockDateTime);
+            log("INFO: Executed completely");
         } finally {
             log("Post-condition: Unblock the blocked event");
             blockedUserPopup.unblockUser(accountUserInfo.getUserCode());
-            log("INFO: Executed completely");
         }
     }
 

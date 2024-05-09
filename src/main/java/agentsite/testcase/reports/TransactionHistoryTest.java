@@ -44,7 +44,7 @@ public class TransactionHistoryTest extends BaseCaseTest {
      * @expect: 1. Verify data of each competition display correctly
      */
     @TestRails(id = "811")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize_agent"})
     public void Agent_Report_Transaction_History_811() {
         log("@title: Validate data on Transaction History display correctly");
         log("Step 1. Navigate Report >  Transaction History");

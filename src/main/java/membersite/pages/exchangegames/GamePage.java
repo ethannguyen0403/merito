@@ -25,7 +25,8 @@ public class GamePage extends LandingPage {
 
     public void waitGameLoad() {
         if (icSpin.isDisplayed()) {
-            icSpin.waitForControlInvisible(1, 1);
+            icSpin.waitForControlInvisible(1,
+                    3);
         }
     }
 
