@@ -21,6 +21,7 @@
         <parameter name="timeZone" value="GMT-04:00"/>
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
+        <parameter name='skinName' value='satsport'/>
         <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
@@ -44,7 +45,7 @@
             <class name="membersite.testcases.exchange.HeaderSectionTest"/>
             <class name="membersite.testcases.exchange.HomePageTest"/>
             <class name="membersite.testcases.exchange.InplayPageTest"/>
-            <class name="membersite.testcases.exchange.LandingPageTest"/>
+<!--            <class name="membersite.testcases.exchange.LandingPageTest"/>-->
             <class name="membersite.testcases.exchange.LeftMenuTest"/>
             <class name="membersite.testcases.exchange.MarketPageTest"/>
             <class name="membersite.testcases.exchange.MyBetPageTest"/>

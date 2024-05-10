@@ -27,7 +27,8 @@
         <parameter name="atlanticAccount" value="f24isapl01"/>
         <parameter name="cryptoAccount" value="fs2crypto"/>
         <parameter name='appname' value='backoffice'/>
-        <parameter name='brandname' value='satsport'/>
+        <parameter name='brandname' value='backoffice'/>
+        <parameter name='skinName' value='backoffice'/>
         <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>

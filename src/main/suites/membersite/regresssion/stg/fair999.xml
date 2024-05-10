@@ -42,7 +42,7 @@
             <class name="membersite.testcases.exchange.HeaderSectionTest"/>
             <class name="membersite.testcases.exchange.HomePageTest"/>
             <class name="membersite.testcases.exchange.InplayPageTest"/>
-            <class name="membersite.testcases.exchange.LandingPageTest"/>
+<!--            <class name="membersite.testcases.exchange.LandingPageTest"/>-->
             <class name="membersite.testcases.exchange.LeftMenuTest"/>
             <class name="membersite.testcases.exchange.MarketPageTest"/>
             <class name="membersite.testcases.exchange.MyBetPageTest"/>

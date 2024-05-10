@@ -20,7 +20,7 @@ public class PlusHeader extends Header1 {
     Image imgLeftMenu = Image.xpath("//div[@class='left-menu-icon']/img");
     private Button btnLogin = Button.xpath("//header//button[contains(@class,'btn-in-out')]");
     private Button btnJoinNow = Button.xpath("//header//button[contains(@class,'join-now')]");
-    private DropDownMenu ddmAccount = DropDownMenu.xpath("//header/app-top-panel//span[contains(@class,'title dropdown-toggle')]", "", "//ul[contains(@class,'dropdown-menu')]//li");
+    private DropDownMenu ddmAccount = DropDownMenu.xpath("//header//app-top-panel//div[contains(@class,'account dropdown-account')]", "", "//ul[contains(@class,'dropdown-menu')]//li");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
 
     // Before Login

@@ -10,6 +10,8 @@ public class ProteusConstant {
     public static final String AUTHORIZATION_API = "Basic UFpBMDIwMDAwMTpuaWNlMjQzNTE=";
     public static final String EURO_VIEW = "Euro View";
     public static final String ASIAN_VIEW = "Asian View";
+    public static final String ASIAN = "Asian";
+    public static final String EURO = "Euro";
     public static final String DECIMAL = "Decimal";
     public static final String HONGKONG = "Hongkong";
     public static final String MALAY = "Malay";
@@ -28,12 +30,21 @@ public class ProteusConstant {
     public static final String ASIAN_AMERICAN_ODDS = "American Odds";
     public static final String PENDING_BETS_TAB = "PENDING BETS";
     public static final String BET_SLIP_TAB = "BET SLIP";
+    public static final String PLACE_BET_BUTTON_TEXT = "PLACE %d BET";
+    public static final String PLACE_BETS_BUTTON_TEXT = "PLACE %d BETS";
     public static final String SOCCER = "Soccer";
+    public static final String TENNIS = "Tennis";
     public static final String PREGAME = "Pregame";
     public static final String INPLAY = "InPlay";
     public static final String NO_RECORDS_FOUND = "No records found.";
     public static final String MIN_STAKE_ERROR_MSG = "Your stake cannot be lower than the minimum bet. It has been automatically adjusted to the minimum bet amount.";
     public static final String MAX_STAKE_ERROR_MSG = "Your stake cannot be greater than the maximum bet. It has been automatically adjusted to the maximum bet amount.";
+    public static final String MAX_SELECTIONS_MSG = "Maximum is 10 selections.";
+    public static final String REMOVE_ALL_MSG = "Do you want to empty your Bet Slip?";
+    public static final String BETSLIP_NO_BETS_MSG = "No bets selected yet.";
+    public static final String BETSLIP_CLICK_ODDS_MSG = "Click on the respective odds to place a new bet.";
+    public static final String BETSLIP_OVER_BALANCE_MSG = "Insufficient balance for placing bet! Order ID:";
+    public static final String CONFIRM_PLACE_BET_MSG = "Are you sure you want to risk %s %s to win %s %s?";
     public static final Map<String, String> ODDS_GROUP_ADJUSTMENT_MAPPING = new HashMap<String, String>() {
         {
             put("B", "0.28");
@@ -66,6 +77,16 @@ public class ProteusConstant {
             put("SPREAD", "Handicap");
             put("MONEYLINE", "Moneyline");
             put("TOTAL_POINTS", "Over Under");
+        }
+    };
+
+    public static final Map<String, String> ODDS_TYPE_LABEL_MAPPING = new HashMap<String, String>() {
+        {
+            put("Decimal", ".00 Odds");
+            put("Hongkong", "HK Odds");
+            put("Malay", "MY Odds");
+            put("American", "AM Odds");
+            put("Indo", "ID");
         }
     };
 
