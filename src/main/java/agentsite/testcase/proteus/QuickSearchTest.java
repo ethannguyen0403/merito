@@ -1,10 +1,12 @@
 package agentsite.testcase.proteus;
 
 import agentsite.objects.agent.account.AccountInfo;
+import agentsite.objects.agent.proteus.PS38PTSetting;
 import agentsite.pages.agentmanagement.CommissionSettingListingPage;
 import agentsite.pages.agentmanagement.DownLineListingPage;
 import agentsite.pages.agentmanagement.EditDownLinePage;
-import agentsite.pages.agentmanagement.commissionlisting.CommissionSettingListing;
+import agentsite.pages.agentmanagement.PositionTakingListingPage;
+import agentsite.pages.agentmanagement.proteus.createdownlineagent.PositionTakingSectionPS38;
 import agentsite.pages.agentmanagement.proteus.createdownlineagent.commissionsettingsection.CommissionSectionPS38;
 import agentsite.pages.components.CommissionPopup;
 import agentsite.pages.components.PositionTakingPopup;
@@ -12,18 +14,17 @@ import agentsite.pages.components.QuickSetting;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
-import com.paltech.utils.DoubleUtils;
 import com.paltech.utils.StringUtils;
+import common.MemberConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static common.AGConstant.ALL;
 import static common.AGConstant.AgencyManagement.CommissionSettingListing.ODDS_GROUP;
+import static common.AGConstant.AgencyManagement.CreateCompany.*;
 import static common.AGConstant.PS38;
 import static common.MemberConstants.LBL_SOCCER_SPORT;
 
@@ -50,7 +51,7 @@ public class QuickSearchTest extends BaseCaseTest {
     @TestRails(id = "16176")
     @Test(groups = {"ps38", "nolan_Proteus.2024.V.2.0"})
     public void Quick_Search_TC16176(){
-        log("@title: Validate in Agent site > Quick Search, Commision Setting, 'PS38' does not display in Product drop-down when logged-in level isn't activated the product ");
+        log("@title: Validate in Agent site > Quick Search, Commision Setting, only display 'Odds Group' drop-down when logged in level is CO");
         log("@Precondition: There is an account is not CO level and activated PS38 product");
         log("Step 1: Login to Agent site with the account at the precondition");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
@@ -152,5 +153,66 @@ public class QuickSearchTest extends BaseCaseTest {
 
         log("Verify 1: Verify that the 'PS38' option does not display in Product drop-down");
         Assert.assertTrue(popup.tblPT.getColumn(1, false).contains(PS38), "FAILED! Position Taking popup contains PS38 product");
+    }
+
+    @TestRails(id = "17605")
+    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    public void Quick_Search_TC17605(){
+        log("@title: Validate in Agent site > Quick Search, Position Taking, 'PS38' does not display in Product drop-down when logged-in level isn't activated the product");
+        log("@Precondition: Account (non-PO level) is activated PS38 product");
+        log("Step 1: Login to Agent site with the account at the precondition");
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        String userID = ProfileUtils.getProfile().getUserID();
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
+        AccountInfo inDirectDownline = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(), "", "ACTIVE", _brandname).get(0);
+        String indirectAccountDisplay = inDirectDownline.getUserCode();
+        log("Step 2: Access Quick Search > Search for an indirect downline");
+        log("Step 3: Select Settings > Position Taking and observe");
+        agentHomePage.quickSearch.quickSearch(indirectAccountDisplay);
+        QuickSetting quickSetting = agentHomePage.quickSearch.clickSetting();
+        PositionTakingPopup popup= quickSetting.openPositionTaking();
+        PositionTakingSectionPS38 ptSectionPS38 = popup.filterPS38Product();
+
+        log("Verify 1: Verify that it is unable to update settings for indirect downline");
+        Assert.assertTrue(ptSectionPS38.verifyAllPTDropDownAreEnable(
+                LIST_SPORTS_PS38_PT, Arrays.asList(PREGAME_TAB_PS38, INPLAY_TAB_PS38), false), "FAILED! PT setting is not disable for indirect downline");
+    }
+
+    @TestRails(id = "17606")
+    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    public void Quick_Search_TC17606(){
+        log("@title: Validate that settings updated in Quick Search > Position Taking Settings are reflected correctly in other pages ");
+        log("@Precondition: There is an account activated PS38 product");
+        log("Step 1: Login to Agent site with the account at the precondition");
+        double pt = Double.valueOf(StringUtils.generateNumeric(51, 57));
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        String userID = ProfileUtils.getProfile().getUserID();
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
+        String directAccountDisplay = directDownline.getUserCode();
+
+        log("Step 2: Access Quick Search > search for an direct downline");
+        agentHomePage.quickSearch.quickSearch(directAccountDisplay);
+        log("Step 3: Access Settings > Position Taking> Update any settings successfully");
+        QuickSetting quickSetting = agentHomePage.quickSearch.clickSetting();
+        PositionTakingPopup popup = quickSetting.openPositionTaking();
+        PositionTakingSectionPS38 ptSectionPS38 = popup.filterPS38Product();
+
+        // update value of Position Taking in PS38 product
+        PS38PTSetting ptSettingSoccer = new PS38PTSetting.Builder().sport(LBL_SOCCER_SPORT).ps38Tab(PREGAME_TAB_PS38).betTime(FULL_TIME).betType("1X2")
+                .pos("Max Position").amountPT(pt).build();
+        ptSectionPS38.updateProteusPTMarket(Arrays.asList(ptSettingSoccer), false);
+        popup.confirmPopup();
+
+        log("Verify 1: Verify that the settings updated in Quick Search are reflected correctly in Position Taking Listing");
+        PositionTakingListingPage ptListingPage = agentHomePage.navigatePositionTakingListingPage();
+        ptListingPage.positionTakingListingPS38.search(directAccountDisplay, "", MemberConstants.PS38, ALL, "");
+        Assert.assertEquals(new HashSet<>(ptListingPage.positionTakingListingPS38.getPTAccountListByRow(directAccountDisplay, "Max Pos")), new HashSet<>(
+                Arrays.asList(String.valueOf(pt).replace(".0", ""))), "FAILED! PT is not update accordingly on PT Listing page");
+        log("Verify 2: Verify that the settings updated in Quick Search are reflected correctly in Downline Listing pages");
+        DownLineListingPage downLinePage = agentHomePage.navigateDownlineListingPage();
+        downLinePage.searchDownline(directAccountDisplay, "", "");
+        EditDownLinePage editPage = downLinePage.clickEditIcon(directAccountDisplay, true);
+        editPage.selectProduct(PS38);
+        editPage.editDownlineListing.positionTakingSectionPS38.verifyProteusPTMarket(Arrays.asList(ptSettingSoccer));
     }
 }

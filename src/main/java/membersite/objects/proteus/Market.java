@@ -236,7 +236,7 @@ public class Market {
         if (!isNegative && oddsType.equalsIgnoreCase(HONGKONG)) {
             return stake * getOdds().get(0).getOdds();
         } else if (!isNegative && oddsType.equalsIgnoreCase(DECIMAL)) {
-            return stake * (1 - getOdds().get(0).getOdds());
+            return stake * Math.abs(1 - getOdds().get(0).getOdds());
         } else {
             switch (oddsType) {
                 case AMERICAN:
@@ -264,7 +264,7 @@ public class Market {
                 case AMERICAN:
                     if (!isNegative)
                         return stake;
-                    return stake * getOdds().get(0).getOdds() / 100;
+                    return (stake * Math.abs(getOdds().get(0).getOdds())) / 100;
                 case MALAY:
                     if (!isNegative)
                         return stake;
