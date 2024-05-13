@@ -365,7 +365,7 @@ public class EditUserTest extends BaseCaseTest {
      * 4. Login member site and verify Soccer event is  display with Half Time market
      */
     @TestRails(id = "703")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
     public void Agent_AM_Downline_Listing_Edit_User_703() throws Exception {
         log("@title: Verify can Inactive and active a market type of a sport");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -400,7 +400,7 @@ public class EditUserTest extends BaseCaseTest {
      * 2. Verify message display correctly min bet when place bet with stake less than min setting
      */
     @TestRails(id = "704")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
     @Parameters({"password","currency"})
     public void Agent_AM_Downline_Listing_Edit_User_704(String password, String currency) throws Exception {
         log("@title: Verify can edit User successfully if input valid min bet Setting");

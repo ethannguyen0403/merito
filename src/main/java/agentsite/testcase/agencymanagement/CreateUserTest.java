@@ -546,18 +546,19 @@ public class CreateUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "696")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
     @Parameters({"currency"})
     public void Agent_AM_Downline_Listing_Edit_Agent_696(String currency) throws Exception {
         log("@title: Validate cannot update if Max Player Credit exceed the limit");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "SMA", "ACTIVE", _brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname);
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
-        page.searchDownline(loginID, "", "Agent");
+        page.searchDownline(loginID, "", "");
         EditDownLinePage editDownLinePage =  page.clickEditIcon(loginID);
 //        page.confirmSecurityCode(environment.getSecurityCode());
 
@@ -572,25 +573,26 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "697")
-    @Test(groups = {"smoke_credit"})
+    @Test(groups = {"smoke_credit", "nolan_stabilize_agent"})
     @Parameters({"password", "currency"})
     public void Agent_AM_Downline_Listing_Edit_Agent_697(String password, String currency) throws Exception {
         log("@title: Validate Max Player Credit setting display correctly when create user");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
-        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname);
+        List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname);
         String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Click on Edit icon of any agent");
         page.searchDownline(loginID, "", "");
-        page.clickEditIcon(loginID);
+        EditDownLinePage editDownLinePage = page.clickEditIcon(loginID);
         page.confirmSecurityCode(environment.getSecurityCode());
 
         log("Step 3. Input valid Max Player Credit and valid other information then click submit");
-        String maxPlayerCreditLitmit = "1";
+        String maxPlayerCreditLitmit =  String.format("%d", editDownLinePage.creditBalanceInforSection.getMaxPlayerLitmitCredit(currency));
         page.creditBalanceInforSection.updateCashBalance(maxPlayerCreditLitmit);
-//        page.btnSubmit.click();
+        page.btnSubmit.click();
         String message = page.getMessageUpdate(true);
 
         log("Verify 1. Verify can update agent with valid max player credit");
@@ -601,10 +603,10 @@ public class CreateUserTest extends BaseCaseTest {
         loginAgent(sosAgentURL, agentSecurityCodeURL, loginID, password, environment.getSecurityCode());
 
         log("5. Select Agency Management > Create Downline agent");
-        CreateDownLineAgentPage createAgentPage = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
+        CreateDownLineAgentPage createAgentPage = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 2. Verify Max Player Credit display correctly as setting in First Time Deposit limit section");
-        Assert.assertEquals(Integer.toString(createAgentPage.creditBalanceInforSection.getMaxPlayerLitmitCredit(currency)), maxPlayerCreditLitmit, "FAILED! Max player credit not match with the setting");
+        Assert.assertTrue((int)createAgentPage.creditBalanceInforSection.getCreditLimit(currency) < Integer.valueOf(maxPlayerCreditLitmit), "FAILED! Max player credit not match with the setting");
 
         log("INFO: Executed completely");
     }

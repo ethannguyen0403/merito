@@ -18,7 +18,7 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
     public static Label lblLoginId = Label.xpath("//label[@for='username']");
     public static Label lblAccountStatus = Label.xpath("//label[@for='status']");
     public static Label lblLevel = Label.xpath("//label[@for='userLevel']");
-    private Button btnSubmit = Button.id("submitBtn");
+    public Button btnSubmit = Button.id("submitBtn");
     private Button btnCancel = Button.id("cancelBtn");
     private static int totalColumn = 19;
     public static int loginIDCol = 3;

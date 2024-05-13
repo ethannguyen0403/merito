@@ -25,6 +25,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     private Label lblUnMatched = Label.xpath("//div[@class='unmatched-bets']");
     private Icon iconRemoveBet;
     private Image imgSpin = Image.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
+    private Label lblAccepting = Label.xpath("//div[contains(@class,'loading-text ng-tns-c44-2')]");
     public Button btnMultipleBetslip = Button.xpath("//app-bet-slip//button[text()='Multiple']");
 
     public void cancelAllBetUnmatched() {
@@ -35,6 +36,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
         return lblBetslipErrorMessage.getText();
     }
     public String getPlaceBetErrorMessage() {
+        lblAccepting.waitForControlInvisible(1, 3);
         return lblErrorMessage.getText();
     }
 
@@ -83,7 +85,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     public void removeBet(boolean isBack) {
         String layOrBack = isBack ? "back" : "lay";
 
-        iconRemoveBet = Icon.xpath(String.format("(//app-unmatched-bets%s//span[@class='remove-bet'])[1]", String.format(xPathSelection, layOrBack)));
+        iconRemoveBet = Icon.xpath(String.format("(//app-unmatched-bets%s//span[contains(@class,'remove-bet')])[1]", String.format(xPathSelection, layOrBack)));
         iconRemoveBet.click();
         imgSpin.waitForControlInvisible();
     }

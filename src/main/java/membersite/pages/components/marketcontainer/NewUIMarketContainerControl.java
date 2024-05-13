@@ -48,7 +48,7 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
     private Label lblEventMarketName = Label.xpath("//div[contains(@class,'highlight-page market')]//div[contains(@class,'title')]");
     private Label lblSuspend = Label.xpath("//div[contains(@class,'highlight-page market')]//span[contains(@class,'suspended-label')]");
     private String lblOddContainerxPath = "//div[contains(@class,'highlight-page market')]//div[contains(@class,'table-odds')]";
-    private String lblSelectionListXPath = "//div[contains(@class,'highlight-page market')]//div[contains(@class,'table-odds')]//div[contains(@class,'market-container')]/following-sibling::div";
+    private String lblSelectionListXPath = "//div[contains(@class,'highlight-page market')]//div[contains(@class,'table-odds')]//div[contains(@class, 'market-runner')]/div";
     private String lblSelectionName = "//div[contains(@class,'runner-name')]//span[2]";
     private String lblOddListXPath = "//div[contains(@class,'cell-odds')]";
     private String lblOddItem = "//div[contains(@class,'pending-odds')]";
@@ -217,6 +217,7 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
 
         // find the selection have BACK/ODDS odds is min
         for (int i = 0; i < totalSelection; i++) {
+
             odd = Double.parseDouble(getOddsListLabel(marketName,i + 1, isBack).get(0).getText());
             if (min > odd) {
                 min = odd;
