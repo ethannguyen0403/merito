@@ -1,10 +1,22 @@
 package backoffice.testcases.marketmanagement;
 
+import agentsite.pages.agentmanagement.eventbetsizesetting.EventBetSizeSetting;
+import agentsite.ultils.agencymanagement.EventBetSizeSettingUtils;
 import backoffice.pages.bo.marketmanagement.LiquidityThresholdSettingsPage;
 import baseTest.BaseCaseTest;
+import membersite.objects.sat.Event;
+import membersite.objects.sat.Market;
+import membersite.pages.MarketPage;
+import membersite.pages.SportPage;
+import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
+
+import java.util.Objects;
+
+import static common.AGConstant.*;
 
 public class LiquidityThresholdSettingsTest extends BaseCaseTest {
 
@@ -129,23 +141,41 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
      * @expect: 1. Verify odds is blur and unclick able if total matched value of match odds does not reach the setting
      */
     @TestRails(id = "631")
+    @Parameters({"satMemberLoginID", "memberPassword", "username", "password"})
     @Test(groups = {"regression"})
-    public void BO_Operations_Liquidity_Threshold_Setting_006() {
+    public void BO_Operations_Liquidity_Threshold_Setting_631(String satMemberLoginID, String memberPassword, String username, String password) throws Exception{
         log("@title: Validate odds is blur and unclick able when total match of the market not reach the setting for Live market");
-        log("2. The agent of member account is active Liquidity Threshold");
-        log("3. Have a non-live Soccer event");
-        //TODO: implement this case
-        Assert.assertTrue(false, "Need to implement this case");
+        _brandname = "satsport";
+        loginMember(_brandname, satMemberLoginID, memberPassword);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = sportPage.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+
         log("Step 1. Access Operations > Liquidity Threshold Settings");
+        loginBackoffice(username, password, true);
+        LiquidityThresholdSettingsPage liquidPage = backofficeHomePage.navigateLiquidityThresholdSettings();
+        try{
+            log("Step 2. Select soccer get Live liquidity threshold setting for match odds market");
+            liquidPage.setThreshold(SPORT_SOCCER, event.getMarketName(), "1", "");
+            log("Step 3. Login member site and check match odds market of event");
+            loginMember(_brandname, satMemberLoginID, memberPassword);
+            memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+            MarketPage marketPage = sportPage.clickEventName(event.getEventName());
+            Market market = marketPage.marketOddControl.getMarket(event, 1, false);
+            log("Verify 1. Verify odds is blur and unclick able if total matched value of match odds does not reach the setting\n" +
+                    "If there is no setting for Soccer - Match odds - Live -> Odds is clickable by default");
+           Assert.assertTrue(!market.getBtnOdd().isEnabled(), "FAILED! Market was not blur");
+            log("INFO: Executed completely");
+        }finally {
+            log("@Precondition: Re-assign value of Non Live");
+            loginBackoffice(username, password, true);
+            backofficeHomePage.navigateLiquidityThresholdSettings();
+            liquidPage.setThreshold(SPORT_SOCCER, event.getMarketName(), "70", "");
+        }
 
-        log("Step 2. Select soccer get Live liquidity threshold setting for match odds market");
-
-
-        log("Step  3. Login member site and check match odds market of event");
-
-        log("Verify 1. Verify odds is blur and unclick able if total matched value of match odds does not reach the setting\n" +
-                "If there is no setting for Soccer - Match odds - Live -> Odds is clickable by default");
-        log("INFO: Executed completely");
 
     }
 

@@ -317,35 +317,24 @@ public class PrioritySettingTest extends BaseCaseTest {
      * @expect: 1. Verify left menu Market under Sport is prioritized
      */
     @TestRails(id = "669")
+    @Parameters({"satMemberLoginID", "memberPassword"})
     @Test(groups = {"regression"})
-    public void BO_System_Priority_Settings_669() throws Exception {
-        log("@title: Validate Market priority on member site is correctly displayed");
-        log("Step 1. Navigate to System> Priority Settings");
-        //TODO: implement this case
-        Assert.assertTrue(false, "Need to implement this case");
-        log("INFO: Executed Completely!");
-//        PrioritySettingsPage page = backofficeHomePage.navigatePrioritySettings();
-//
-//        log("Step 2. Select Sport type");
-//        log("Step 3. Select SAT Sport brand");
-//        page.search("Market", "SAT Sport", "", "");
-//
-//        log("Step 4. Get market in top 3 priority");
-//        List<String> topThreePriority = page.tblPriority.getColumn(2, 5, false);
-
-//        log("Step 5. Login member site and verify sport is correctly priority");
-//        DriverManager.getDriver().get(environment.getSatDashboardURL());
-//        backofficeHomePage satbackofficeHomePage = new backofficeHomePage();
-//        satbackofficeHomePage.waitMenuLoading();
-//        satbackofficeHomePage.clickMenu("Soccer");
-//        List<String> lstCompetitionLeftMenu = satbackofficeHomePage.getLeftMenuList();
-//        satbackofficeHomePage.clickMenu(lstCompetitionLeftMenu.get(lstCompetitionLeftMenu.size()-1));
-//        List<String> lstEvent = satbackofficeHomePage.getLeftMenuList();
-//        satbackofficeHomePage.clickMenu(lstEvent.get(lstEvent.size()-1));
-//        List<String> lstMarket = satbackofficeHomePage.getLeftMenuList();
-//
-//        log("Verify 1. Verify left menu Market under Sport is prioritized");
-//        Assert.assertTrue(page.verifyListPriority(topThreePriority,lstMarket),"FAILED! Market does not priority");
+    public void BO_System_Priority_Settings_669(String satMemberLoginID, String memberPassword) throws Exception {
+        log("@title: Validate Market priority on member site is correctly displayed ");
+        log("Step 1: Navigate to System> Priority Settings");
+        PrioritySettingsPage pagePriority = backofficeHomePage.navigatePrioritySettings();
+        log("Step 2: Select Market type,  SAT Sport brand, Soccer");
+        pagePriority.search(MARKET_TYPE, SAT_BRAND, LBL_SOCCER_SPORT, "");
+        log("Step 4: Get market in top 3 priority");
+        Map<Integer, List<String>> prioritySport = pagePriority.getPriorityOfSport();
+        log("Step 5: Login member site of SAT");
+        loginMember("satsport",satMemberLoginID,memberPassword);
+        memberHomePage.waitMenuLoading();
+        log("Step 6: Get Competition in top 3 priority");
+        memberHomePage.leftMenu.clickMenu(LBL_SOCCER_SPORT);
+        List<String> marketList = memberHomePage.leftMenu.getLeftMenuList();
+        log("Verify 1: Verify the Market menu in main menu is correctly top 3 priority");
+        pagePriority.verifyPriorityOfSport(marketList, prioritySport, 3);
         log("INFO: Executed completely");
     }
 }
