@@ -101,9 +101,10 @@ public class ProteusConstant {
     };
     public static final Map<String, String> SPORTBOOK_SPORT_ID = new HashMap<String, String>() {
         {
+            put("TENNIS", "33");
             put("SOCCER", "29");
             put("CRICKET", "4");
-            put("TENNIS", "2");
+//            put("TENNIS", "2");
         }
     };
 }
