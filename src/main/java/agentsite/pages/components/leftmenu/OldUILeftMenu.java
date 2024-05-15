@@ -172,7 +172,7 @@ public class OldUILeftMenu extends LeftMenu {
         }
         if(menu.equals(AGENCY_MANAGEMENT)){
             List<String> lstSubMenu = leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
-            return lstSubMenu.equals(AGConstant.AgencyManagement.LIST_SUBMENU_AGENCY_MANAGEMENT);
+            return lstSubMenu.equals(AGConstant.AgencyManagement.LIST_SUBMENU_AGENCY_MANAGEMENT_OLD);
         }
         if(menu.equals(MARKET_MANAGEMENT)){
             List<String> lstSubMenu = leftMenuList.getListSubMenu(MARKET_MANAGEMENT);

@@ -124,7 +124,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * 2. Close the popup and verify the blocked number is deducted
      */
     @TestRails(id = "774")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
     @Parameters("downlineAccount")
     public void Agent_MM_CurrentBlocking_TC774(String downlineAccount) {
         log("@title: Verify can unblocked Now event for a user");

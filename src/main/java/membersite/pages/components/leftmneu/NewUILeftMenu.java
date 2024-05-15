@@ -35,7 +35,6 @@ public class NewUILeftMenu extends LeftMenu {
     private DropDownBox menuCompetition = DropDownBox.xpath(competitionActiveXpath, String.format(menuSubItemsXpath, competitionActiveXpath));
     private String fancyMarketsXPath = "%s/following::div[@class='downs-levels']//a[contains(@href,'WICKET_FANCY')]";
     private Label leftMenuLbl = Label.xpath("//div[@id='left-menu']");
-
     /* public MarketPage searchEvent(String eventName, boolean isClick) {
          Label lblResult = searchEvent(eventName);
          if (isClick) {
