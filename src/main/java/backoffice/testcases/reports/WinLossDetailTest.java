@@ -86,7 +86,8 @@ public class WinLossDetailTest extends BaseCaseTest {
 
         log("Verify  1. Verify only the filtered portal is displayed");
         List<String> lstPO = page.tblWinLossDetail.getColumn(page.colUsername, false);
-        Assert.assertEquals(lstPO.get(0), lstPortal.get(0).get(1), "FAILED! Portal does not display as searching");
+        Assert.assertEquals(lstPO.get(0).split("\n")[0], lstPortal.get(0).get(1), "FAILED! Portal does not display as searching");
+        Assert.assertEquals(lstPO.get(0).split("\n")[1], lstPortal.get(0).get(1), "FAILED! Portal does not display as searching");
         Assert.assertTrue(lstPO.size() == 2, "Failed! More than 1 portals display when only filter 1 portal");
         Assert.assertTrue(page.isUsernameAsHyperlink("Portal"), "FAILED! Username displays as hyperlink when level is Member");
         log("INFO: Executed completely");
@@ -170,7 +171,7 @@ public class WinLossDetailTest extends BaseCaseTest {
      * 3. Filter with default value
      * @expect: 1. Total wager displayed at Total Wager column on this table is correct
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke2"})
     public void BO_Report_WinLossDetail_003() {
         log("@title: Validate that Total wager displayed at Total Wager column on this table is correct");
         String yesterday = DateUtils.getDateBeforeCurrentDate(1, BOConstants.DASH_YYYY_MM_DD);
