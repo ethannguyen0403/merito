@@ -19,8 +19,8 @@ import static common.MemberConstants.GMT_MINUS_4_30;
 import static common.ProteusConstant.*;
 
 public class AsianViewPage extends ProteusHomePage {
-    private String leagueInplayXpath = "//section[contains(@class, 'sport--desktop') and contains(.,'Live')]";
-    private String leagueNonInplayXpath = "//section[contains(@class, 'sport--desktop') and not(contains(.,'Live'))]";
+    private String leagueInplayXpath = "//section[contains(@class, 'sport--desktop') and contains(.,'Live Matches')]";
+    private String leagueNonInplayXpath = "//section[contains(@class, 'sport--desktop') and not(contains(.,'Live Matches'))]";
     private String leagueIndexXpath = "(%s//app-league-asian)[%d]";
     private String leagueNameXpath ="(%s//app-league-asian)[%d]//div[contains(@class,'league-name')]";
     private String firstOddsCellXpath = "%s//th[contains(@class,'odd-column')][%d]";
@@ -104,7 +104,7 @@ public class AsianViewPage extends ProteusHomePage {
 
     public void searchLeagueOrTeamName(String leagueOrTeamName) {
         txtSearchLeagueOrTeamName.sendKeys(leagueOrTeamName);
-        btnSearch.click();
+        btnSearch.jsClick();
         waitForSpinnerLoading();
     }
 

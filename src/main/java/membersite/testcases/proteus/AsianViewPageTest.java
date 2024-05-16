@@ -1659,4 +1659,45 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.verifyMinMaxAndMaxPerMatchShowCorrect(HDPTennisMarket, 19, 95, 152, AMERICAN, false);
         log("INFO: Executed completely");
     }
+
+    @TestRails(id = "29562")
+    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    public void PS38_Member_TC29562(){
+        // use League Spain - La Liga for verify
+        log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add MY positive odds in bet slip is displayed as agent setting for special league");
+        log("Precondition: There is a player active PS38 product.\n" +
+                "The agent set update Bet Setting the player on Soccer sport Pregame as below:\n" +
+                "Min Bet: 200 INR (19 HKD), Max Bet: 1000 INR (95 HKD), Max Per Match 1500 INR(142 HKD)\n" +
+                "(Note: The setting in agent site greater than the setting return from API and Bucket account)\n" +
+                "\n"+
+                "The agent set update Bet Setting the player on Tennis sport Pregame as below:\n" +
+                "Min Bet: 300 INR (28 HKD), Max Bet: 1100 INR (104 HKD), Max Per Match 1600 INR(152 HKD)\n" +
+                "(Note: The setting in agent site greater than the setting return from API and Bucket account)\n" +
+                "\n");
+        String league = "Spain - La Liga";
+        log("Step 1: Login Member site the player > Select PS38 product > Active Asian View > Select MY positive odds");
+        ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
+        AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
+        asianViewPage.selectOddsType(MALAY);
+        log("Step 2: Select Soccer > Today tab > Match market in the left menu");
+        asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
+        log(String.format("Step 3: Add odds of non inplay market of soccer which not belong to league \"%sP\"", league));
+        Market HDPSoccerMarket = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, false, false);
+        asianViewPage.clickOdds(HDPSoccerMarket, true, false);
+        log(String.format("Step 4:  Search league \"%s\" and add  a non inplay odds on Handicap or Over/Under market to bets slip", league));
+        asianViewPage.searchLeagueOrTeamName(league);
+        Market HDPLeagueSoccerMarket = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, false, false);
+        asianViewPage.clickOdds(HDPLeagueSoccerMarket, true, false);
+        log("Verify 1: Verify the first bet is of Soccer with  Min = Max(agent min toRisk, Pinnacle min toRisk, Min bucket account) = 19\n" +
+                "Max = Min(agent max toRisk, Pinnacle max toRisk) = 95\n" +
+                "Match Max = 142");
+        asianViewPage.verifyMinMaxAndMaxPerMatchShowCorrect(HDPSoccerMarket, 19, 95, 142, MALAY, false);
+        log("Verify 1: Verify the second bet is of Soccer of league \" Spain - La Liga\" with  Min = Max(agent min toRisk, Pinnacle min toRisk, Min bucket account) = 19\n" +
+                "Max = Min(agent max toRisk, Pinnacle max toRisk) = 95\n" +
+                "Match Max = 142");
+        asianViewPage.verifyMinMaxAndMaxPerMatchShowCorrect(HDPSoccerMarket, 19, 95, 142, MALAY, false);
+        log("INFO: Executed completely");
+    }
+
+
 }
