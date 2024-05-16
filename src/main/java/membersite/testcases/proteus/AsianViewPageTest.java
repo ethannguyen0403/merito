@@ -1686,6 +1686,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         asianViewPage.clickOdds(HDPSoccerMarket, true, false);
         log(String.format("Step 4:  Search league \"%s\" and add  a non inplay odds on Handicap or Over/Under market to bets slip", league));
         asianViewPage.searchLeagueOrTeamName(league);
+        asianViewPage.selectFirstSearchOption();
         Market HDPLeagueSoccerMarket = asianViewPage.getEventInfo(SOCCER, MALAY, TEXT_HDP, true, false, false);
         asianViewPage.clickOdds(HDPLeagueSoccerMarket, true, false);
         log("Verify 1: Verify the first bet is of Soccer with  Min = Max(agent min toRisk, Pinnacle min toRisk, Min bucket account) = 19\n" +
