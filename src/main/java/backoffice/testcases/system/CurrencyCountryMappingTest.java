@@ -55,6 +55,7 @@ public class CurrencyCountryMappingTest extends BaseCaseTest {
     @Parameters({"fsMemberLoginID", "username", "password"})
     public void BO_System_Currency_Country_Mapping_657(String fsMemberLoginID, String username, String password) throws Exception {
         //this case should run with context brandname = funsport
+        _brandname = "funsport";
         log("@title: Validate Map/unmap countries works");
         String currencyCode = "PTI";
         String itTestCountry = "IT Test Country";
@@ -73,7 +74,7 @@ public class CurrencyCountryMappingTest extends BaseCaseTest {
             pageMapping.mapCurrency(currencyCode, itTestCountry, true, true);
 
             log("Verify 1. Can login from IT test country IP when mapping");
-            loginMember(fsMemberLoginID, password);
+            loginMember(_brandname, fsMemberLoginID, password);
             Assert.assertTrue(memberHomePage.isLoginSuccess(), "FAILED! Login unsuccessfully");
             log("@Post condition: Re mapping currency with country");
             log("INFO: Executed Completely!");

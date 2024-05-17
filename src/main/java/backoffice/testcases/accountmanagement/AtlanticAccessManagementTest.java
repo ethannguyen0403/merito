@@ -13,6 +13,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import static common.MeritoConstant.MEMBER_CAMOUFLAGE_URL_SUFFIX;
 import static common.MeritoConstant.MEMBER_URL_SUFFIX;
 
 public class AtlanticAccessManagementTest extends BaseCaseTest {
@@ -63,6 +64,8 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
     @Parameters({"username", "password", "atlanticAccount", "memberPassword"})
     public void BO_Account_Management_Atlantic_Access_Management_623(String username, String password, String atlanticAccount, String memberPassword) throws Exception {
         // this case should run with skinName = atlantic
+        _brandname = "fairenter";
+        camouflageLoginURL = defineCamouFlageSiteURL(_brandname, MEMBER_CAMOUFLAGE_URL_SUFFIX.get("atlantic"));
         log("@title: Validate can account is added/deleted to the list can access/un-access Atlantic site");
         log("Step 1: Access Left menu > Atlantic Access Management");
         AtlanticAccessManagementPage atlanticPage = backofficeHomePage.navigateAtlanticAccessManagement();
@@ -74,17 +77,17 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
         log("Step 3: Access Atlantic site and login with the account above");
         loginCamouflageSite(atlanticAccount, memberPassword, true);
         log("Verify 2: Can login Atlantic site");
-        Assert.assertTrue(memberHomePage.isLoginSuccess(),String.format("FAILED! Login Atlantic site successfully when the account %s is added to the list",atlanticAccount));
+        Assert.assertTrue(memberHomePage.isMyAccountDisplay(),String.format("FAILED! Login Atlantic site successfully when the account %s is added to the list",atlanticAccount));
         log("Step 4: Logout Atlantic site and relogin BO site and deleted the account");
         loginBackoffice(username, password, true);
         backofficeHomePage.navigateAtlanticAccessManagement();
-        atlanticPage.removePlayer(atlanticAccount);
+        atlanticPage.removePlayer(atlanticAccount).confirm();
         log("Verify 3: Verify agent is NOT display in the list");
         Assert.assertFalse(atlanticPage.isAccountInList(atlanticAccount), String.format("FAILED! The account %s not display in the list after adding", atlanticAccount));
         log("Step 5: Re-login with the account above");
         loginCamouflageSite(atlanticAccount, memberPassword, true);
         log("Verify 4: Can NOT login Atlantic site");
-        Assert.assertFalse(memberHomePage.isLoginSuccess(),String.format("FAILED! Cannot login Atlantic site when the account %s is added to the list",atlanticAccount));
+        Assert.assertFalse(memberHomePage.isMyAccountDisplay(),String.format("FAILED! Cannot login Atlantic site when the account %s is added to the list",atlanticAccount));
         log("INFO: Executed completely");
     }
 
@@ -110,6 +113,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
         // this case should run with skinName = atlantic
         String decryptPassword = StringUtils.decrypt(password);
         _brandname = "fairenter";
+        camouflageLoginURL = defineCamouFlageSiteURL(_brandname, MEMBER_CAMOUFLAGE_URL_SUFFIX.get("atlantic"));
         log("@title: Validate can account is added/deleted to the list can access/un-access Atlantic site");
         log("Step 1: Access Left menu > Atlantic Access Management");
         AtlanticAccessManagementPage atlanticPage = backofficeHomePage.navigateAtlanticAccessManagement();
