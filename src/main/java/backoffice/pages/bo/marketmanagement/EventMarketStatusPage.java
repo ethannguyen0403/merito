@@ -53,6 +53,7 @@ public class EventMarketStatusPage extends HomePage {
             txtSearchEventName.sendKeys(eventName);
         if (!eventStatus.isEmpty())
             txtSearchEventStatus.sendKeys(eventStatus);
+        waitSpinIcon();
     }
 
     public void searchMarket(String marketID, String marketName, String marketType, String marketStatus) {
