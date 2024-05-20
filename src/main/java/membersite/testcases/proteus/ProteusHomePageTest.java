@@ -84,7 +84,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 3:  Click Odds of Home Team on 1x2 full match of market A");
         log("Step 4:  Click Odds of Home Team on 1x2 full match of market B");
-        asianViewPage.addMultiBetsToBetSlip(2);
+        asianViewPage.addMultiBetsToBetSlip(2, false);
         log("Verify 1:  Verify the number on bet slip  is correctly \"BET SLIP 2\"");
         Assert.assertEquals(String.format("%s %s", asianViewPage.lblBetSlipTab.getText(), asianViewPage.lblBetSlipTabNumber.getText()),
                 String.format("%s %d", BET_SLIP_TAB, 2), "FAILED! Label of Bet slip tab is not correct");
@@ -123,7 +123,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 3:  Click Odds of Home Team on 1x2 full match of market A");
         log("Step 4:  Click Odds of Home Team on 1x2 full match of market B");
-        asianViewPage.addMultiBetsToBetSlip(2);
+        asianViewPage.addMultiBetsToBetSlip(2, false);
         log("Verify 1: Verify the number on Place Bet button  is correctly \"PLACE 2 BETS\"");
         Assert.assertEquals(asianViewPage.btnPlaceBet.getText(), String.format(PLACE_BETS_BUTTON_TEXT, 2), "FAILED! Button place bet text is not correct");
         log("INFO: Executed completely");
