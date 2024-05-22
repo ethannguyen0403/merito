@@ -102,15 +102,15 @@ public class NewUIMyBetsContainer extends MyBetsContainer {
     public boolean validateFilterStatus(String status) {
         List<String> lst = tblReport.getColumn("/tbody[%s]//", colStatus, false);
         for (String sts : lst) {
-            if (status.equalsIgnoreCase("Settled")) {
-                if (!sts.equalsIgnoreCase("Won")) {
+            if (status.equalsIgnoreCase("Settled") || status.equalsIgnoreCase("Cashed Out")) {
+                if (!sts.equalsIgnoreCase("Won") || !sts.equalsIgnoreCase("Cashed Out")) {
                     if (!sts.equalsIgnoreCase("Lost")) {
                         System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
                         return false;
                     }
-
                 }
-            } else {
+            }
+            else {
                 if (!sts.equals(status)) {
                     System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
                     return false;

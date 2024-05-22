@@ -14,6 +14,7 @@ public class AGConstant {
     public final static String EXCHANGE = "Exchange";
     public final static String EXCHANGE_GAMES = "Exchange Games";
     public final static String PS38 = "PS38";
+    public final static String CASHED_OUT = "Cashed out";
     public final static String SUPERNOWA_CASINO = "Supernowa Casino";
     public final static String EVOLUTION = "Evolution";
     public final static String LIVE_DEALER_ASIAN = "Live Dealer Asian";
@@ -43,6 +44,7 @@ public class AGConstant {
     public final static List<String> MENULISTSAT = Arrays.asList("Password", "Security code", "OTP");
     public final static String LBL_WITHOUT_PERMISSION_ACCESS = "You are not allowed to view this page!";
     public final static String CREDIT_LIMIT_ERROR_MSG = "Credit Limit is invalid.";
+    public final static String ALLOW_CASH_OUT = "Allow Cash Out";
     public static final Map<String, String> LEVEL_TO_LEVEL_CODE = new HashMap<String, String>() {
         {
             put("Portal", "PO");
@@ -823,7 +825,13 @@ public class AGConstant {
             public final static List<String> TBL_UPLINE_TABLE_NEWUI = Arrays.asList("Name", "Currency","Back", "Lay", "Total Tax", "Total Pay", "Turnover", "Pnl", "Turnover", "Pnl");
             public final static List<String> TBL_DOWNLINE_TABLE_NEWUI = Arrays.asList("No.", "Username", "Nickname", "First Name", "Level", "Currency","Back", "Lay", "Total Tax", "Balance", "Turnover", "Pnl", "Turnover", "Pnl");
             public final static List<String> LST_PRODUCT_GROUP = Arrays.asList("Exchange group", "Casino group", "Exchange Games");
-
+            public final static List<String> HEADER_CASH_OUT_HISTORY_DIALOG = Arrays.asList("Risk Amount\n" +
+                    "(F)", "Cash Out Amount\n" +
+                    "(F)", "Date/Time");
+            public final static List<String> HEADER_CASH_OUT_HISTORY_DIALOG_BO = Arrays.asList("Risk Amount\n" +
+                    "(F)", "Cash Out Amount\n" +
+                    "(L)", "Cash Out Amount\n" +
+                    "(F)", "Date/Time");
         }
 
         public static class PositionTakingReport {
