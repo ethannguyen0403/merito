@@ -776,9 +776,10 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
         log("Step 2. Select sport is soccer, and Tomorrow tab ");
         page.filter("", sport, tomorowTab);
-        log("Step Precondition: Unblock all event for 2 downline accounts");
+        log("Step Precondition: Block then Unblock all event for 2 downline accounts");
         page.checkDownline(userCode);
         page.checkDownline(userCode2);
+        page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(0), "", 1);
         page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
 
         log("Step 3. Select a checkbox beside the downline (Acc1)and selected on another downline(Acc2)( select but uncheck the checkbox)");
