@@ -157,6 +157,10 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
         return downlineListing.getAccountStatus();
     }
 
+    public List<String> getAccountUserName() {
+        return downlineListing.getAccountUserName();
+    }
+
     public String getBreadcrumb() {
         String breadcrumb = "";
         Label lblBreadcrumb = Label.xpath("//span[@class='my-breadcrumb']/span[contains(@class,'ng-star-inserted')]");
