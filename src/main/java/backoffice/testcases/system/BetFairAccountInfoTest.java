@@ -59,34 +59,17 @@ public class BetFairAccountInfoTest extends BaseCaseTest {
         log("Step 2. Click on View under Change Log Exchange column");
         List<ArrayList<String>> bfInfo = page.tblBFAccount.getRowsWithoutHeader(1, false);
         String bfAccount = bfInfo.get(0).get(page.colAccountName - 1);
-        String exAvailableBalance = bfInfo.get(0).get(page.colEXAvailableBalance - 1);
-        String exCurrentExposure = bfInfo.get(0).get(page.colEXCurrentExposure - 1);
-        String egAvailableBalance = bfInfo.get(0).get(page.colEGAvailableBalance - 1);
-        String egCurrentExposure = bfInfo.get(0).get(page.colEGCurrentExposure - 1);
+        List<String> lstBalanceAndExposureExchange = page.getBalanceAndExposure("EXCHANGE");
         BetFairAccountChangeLogPopup popup = page.openViewLog(bfAccount, "EXCHANGE");
 
         log("Verify 1. Verify can open Log for exchange and Available Balance, Current exposure match with the latest row in Change Log popup ");
-        List<ArrayList<String>> balanceInfo = popup.tblBalance.getRowsWithoutHeader(1, false);
-        if (balanceInfo.get(0).get(0).equalsIgnoreCase(BOConstants.NO_RECORDS_FOUND)) {
-            Assert.assertTrue(popup.lblNoRecord.getText().equalsIgnoreCase(BOConstants.NO_RECORDS_FOUND), "FAILED! No record message is incorrect");
-        } else {
-            Assert.assertEquals(balanceInfo.get(0).get(1), exCurrentExposure, "FAILED! Exchange Exposure display not correct");
-            Assert.assertEquals(balanceInfo.get(0).get(2), exAvailableBalance, "FAILED! Exchange Available Balance is incorrect");
-        }
-        popup.btnClose.click();
+        popup.verifyChangeLogBalanceAndExposure(lstBalanceAndExposureExchange, "EXCHANGE", true);
 
         log("Step 3. Click on View under Change Log Exchange Game column");
         popup = page.openViewLog(bfAccount, "EXCHANGE GAME");
 
         log("Verify 1. Verify can open Log for exchange Game and  Available Balance, Current exposure match with the latest row in Change Log popup ");
-        balanceInfo = popup.tblBalance.getRowsWithoutHeader(1, false);
-        if (balanceInfo.get(0).get(0).equalsIgnoreCase(BOConstants.NO_RECORDS_FOUND)) {
-            Assert.assertTrue(popup.lblNoRecord.getText().trim().equalsIgnoreCase(BOConstants.NO_RECORDS_FOUND), "FAILED! No record message is incorrect");
-        } else {
-            Assert.assertEquals(balanceInfo.get(0).get(1), String.format("%.2f", Double.parseDouble(egCurrentExposure)), "FAILED! Exchange Game Exposure display not correct");
-            Assert.assertEquals(balanceInfo.get(0).get(2), egAvailableBalance, "FAILED! Exchange Game Available Balance is incorrect");
-        }
-
+        popup.verifyChangeLogBalanceAndExposure(lstBalanceAndExposureExchange, "EXCHANGE GAMES", true);
         log("INFO: Executed completely");
     }
 }
