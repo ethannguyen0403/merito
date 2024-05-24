@@ -70,7 +70,10 @@ public class TaxSettingListingTest extends BaseCaseTest {
         log("@title: Verify can search downline by Login ID");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getLoginID();
+        String loginID = "";
+        loginID = _brandname.equalsIgnoreCase("fairexchange") ?
+                DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode() :
+                DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getLoginID();
         if (loginID.isEmpty()) {
             throw new SkipException("SKIPPED! The player have no login ID for filter");
         }
@@ -80,7 +83,10 @@ public class TaxSettingListingTest extends BaseCaseTest {
         page.taxSettingListing.search(loginID, "", "");
 
         log("Verify 1. Verify Login display in the result table");
-        List<String> lstMembers = page.taxSettingListing.tblTax.getColumn(page.taxSettingListing.loginIDCol, false);
+        int loginIDCol = page.taxSettingListing.loginIDCol;
+        loginIDCol = _brandname.equalsIgnoreCase("fairexchange") ? loginIDCol -1 : loginIDCol;
+
+        List<String> lstMembers = page.taxSettingListing.tblTax.getColumn(loginIDCol, false);
         Assert.assertEquals(lstMembers.get(0), loginID, "FAILED! Login ID not display as search criteria");
         Assert.assertEquals(lstMembers.size(), 1, "FAILED! Should only display 1 record when searching with correct username");
 

@@ -5,6 +5,7 @@ import agentsite.controls.Row;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.report.components.TransactionDetailsPopupPage;
+import com.google.common.primitives.Chars;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
@@ -200,7 +201,15 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
     }
 
     public ArrayList<String> getGrandTotalRow() {
-        return rGrandTotal.getRow(tblReportTotalCol, false);
+        ArrayList<String> dataList = new ArrayList<>();
+        for (String item: rGrandTotal.getRow(tblReportTotalCol, false)){
+            if(Character.isDigit(item.charAt(0))){
+                dataList.add(item.replace(",", ""));
+            }else {
+                dataList.add(item);
+            }
+        }
+        return dataList;
     }
 
 
@@ -228,7 +237,7 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
      * @param sports
      * @return The data calculated is map with grand total row or not
      */
-    public ArrayList<String> sumSportData(List<String> sports) {
+    public ArrayList<String> sumSportData(List<String> sports, String currency) {
         ArrayList<String> totalRow = new ArrayList<>();
         ArrayList<String> expectedData = getTotalRowOfSport(1);
         if(sports.size() > 1) {
@@ -236,14 +245,14 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
                 totalRow = getTotalRowOfSport(i+1);
                 for (int j = 1; j < expectedData.size(); j++) {
                     if (!expectedData.get(j).isEmpty()) {
-                        double data = Double.parseDouble(expectedData.get(j));
-                        double data1 = Double.parseDouble(totalRow.get(j));
+                        double data = Double.valueOf(expectedData.get(j).replace(",", ""));
+                        double data1 = Double.valueOf(totalRow.get(j).replace(",", ""));
                         expectedData.set(j, String.format("%.2f", data + data1));
                     }
                 }
             }
         }
-        expectedData.set(0, "Grand Total");
+        expectedData.set(0, String.format("Grand Total in %s", currency));
         return expectedData;
     }
 

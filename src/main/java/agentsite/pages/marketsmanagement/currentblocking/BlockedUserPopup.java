@@ -1,6 +1,7 @@
 package agentsite.pages.marketsmanagement.currentblocking;
 
 import agentsite.controls.Table;
+import agentsite.pages.HomePage;
 import agentsite.pages.marketsmanagement.blockunblockevents.UnblockSchedulePopup;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.CheckBox;
@@ -37,6 +38,7 @@ public class BlockedUserPopup {
         if (selectLoginID(loginId)) {
             //2 Click Unblock Now
             btnUnBlockNow.click();
+            HomePage.waitingLoadingSpinner();
             return true;
         }
         return false;
@@ -95,6 +97,9 @@ public class BlockedUserPopup {
 
     public boolean verifyUserIsUnblock(String loginID) {
         List<String> lstBlocked = tblBlockedUser.getColumn(colLoginID, false);
+        if(lstBlocked.size()==1 && lstBlocked.get(0).equalsIgnoreCase(AGConstant.MarketsManagement.BlockedUserPopup.LBL_NO_USER_BLOCKED)){
+            return true;
+        }
         for (int i = 0, n = lstBlocked.size(); i < n; i++) {
             if (lstBlocked.get(i).equalsIgnoreCase(loginID)) {
                 System.out.println(String.format("Login ID %s display in the Blocked list", loginID));
@@ -113,7 +118,7 @@ public class BlockedUserPopup {
         if (items == 1) {
             List<String> lstBlocked = tblBlockedUser.getColumn(colLoginID, true);
             if (lstBlocked.get(0).equalsIgnoreCase(AGConstant.MarketsManagement.BlockedUserPopup.LBL_NO_USER_BLOCKED))
-                return "";
+                return "0";
             return Integer.toString(lstBlocked.size());
         }
 //        List<String> lstBlocked = tblBlockedUser.getColumn(colLoginID, true);

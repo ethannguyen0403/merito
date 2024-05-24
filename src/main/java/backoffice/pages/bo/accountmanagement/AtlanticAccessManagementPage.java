@@ -19,6 +19,7 @@ public class AtlanticAccessManagementPage extends HomePage {
     public void addPlayer(String player) {
         txtPlayer.sendKeys(player);
         btnAdd.click();
+        waitSpinIcon();
     }
 
     public AppConfirmPopup removePlayer(String player) {
@@ -35,12 +36,15 @@ public class AtlanticAccessManagementPage extends HomePage {
 
     public boolean isAccountInList(String loginID) {
         List<String> lstAccount = tblAccount.getColumn(colLoginID, false);
-        for (String account : lstAccount) {
-            if (account.equalsIgnoreCase(loginID)) {
-                return true;
-            }
+//        for (String account : lstAccount) {
+//            if (account.equalsIgnoreCase(loginID)) {
+//                return true;
+//            }
+//        }
+        boolean isExist = lstAccount.indexOf(loginID) != -1;
+        if(!isExist){
+            System.out.println("The account " + loginID + " not exist in the list");
         }
-        System.out.println("The account " + loginID + " not exist in the list");
-        return false;
+        return isExist;
     }
 }
