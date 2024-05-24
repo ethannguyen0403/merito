@@ -282,6 +282,15 @@ public class ProteusHomePage extends HomePage {
 
     }
 
+    public void verifyMinMaxMatchOnBetSlip(String expectedMin,String expectedMax,String expectedMatch){
+        String minBet = Label.xpath(String.format("//app-open-bets//app-bet-item%s", lblMinBetXpath)).getText().replace(".00", "");
+        String maxBet = Label.xpath(String.format("//app-open-bets//app-bet-item%s", lblMaxBetXpath)).getText().replace(".00", "");
+        String matchMax = Label.xpath(String.format("//app-open-bets//app-bet-item%s", lblMatchMaxXpath)).getText().replace(".00", "");
+        Assert.assertEquals(minBet, expectedMin,"FAILED! Min bet on Bet slip is not correct");
+        Assert.assertEquals(maxBet, expectedMax,"FAILED! Max bet on Bet slip is not correct");
+        Assert.assertEquals(matchMax, expectedMatch,"FAILED! Match max bet on Bet slip is not correct");
+    }
+
     public String defineSelectionBaseOnOdds(Market market, boolean isNegativeOdd){
         String selection = "";
         for (Odds o: market.getOdds()){

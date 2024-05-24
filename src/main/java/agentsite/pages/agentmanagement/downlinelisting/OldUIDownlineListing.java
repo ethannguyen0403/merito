@@ -3,10 +3,7 @@ package agentsite.pages.agentmanagement.downlinelisting;
 import agentsite.controls.Cell;
 import agentsite.pages.agentmanagement.EditDownLinePage;
 import agentsite.pages.components.SuccessPopup;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.DropDownBox;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.Link;
+import com.paltech.element.common.*;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -26,6 +23,7 @@ import static agentsite.pages.agentmanagement.DownLineListingPage.*;
 
 public class OldUIDownlineListing extends DownlineListing {
     private int accountStatusCol = 7;
+    private int accountUsernameCol = 2;
     public Label lblPageTitle = Label.xpath("//app-title-dashboard//div[contains(@class, 'title')]");
     private Button btnOK = Button.xpath("//button[text()='Ok']");
     private int changePasswordCol = 9;
@@ -149,5 +147,19 @@ public class OldUIDownlineListing extends DownlineListing {
             btnOK.click();
         }
         waitingLoadingSpinner();
+    }
+
+    public List<String> getAccountUserName() {
+        List<String> lstAccountUsername = new ArrayList<>();
+        int index = 1;
+        TextBox txtAccountUsername;
+        while (true) {
+            txtAccountUsername = TextBox.xpath(tblDowlineListing.getxPathOfCell(1, accountUsernameCol, index, "span"));
+            if (!txtAccountUsername.isDisplayed()) {
+                return lstAccountUsername;
+            }
+            lstAccountUsername.add(txtAccountUsername.getText());
+            index = index + 1;
+        }
     }
 }

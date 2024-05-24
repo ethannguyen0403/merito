@@ -11,7 +11,6 @@ import membersite.pages.MarketPage;
 import membersite.pages.SportPage;
 import membersite.pages.popup.RulePopup;
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
@@ -24,8 +23,7 @@ import static common.AGConstant.*;
 public class MarketPageTest extends BaseCaseTest {
     @TestRails(id = "1074")
     @Test(groups = {"regression"})
-    @Parameters({"password", "skinName"})
-    public void MB_Change_Password_TC1074(String password, String skinName) throws Exception {
+    public void MB_Change_Password_TC1074() {
         log("@title:Validate can open rule popup");
         log("Step 1 Active any market");
         log("Step 2.Click on Rule button");

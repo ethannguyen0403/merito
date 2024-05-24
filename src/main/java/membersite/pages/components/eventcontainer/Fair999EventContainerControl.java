@@ -155,53 +155,45 @@ public class Fair999EventContainerControl extends EventContainerControl {
 
     // Get event has Match Odds market by default
     public Event getEventRandom(boolean isInplay, boolean isSuspend) {
-        if (!lblNoEvent.isDisplayed()) {
-            //	String xpathEvents = String.format("%s%s",lblListEventXPath, _xpath);
-            Label lblEvents = Label.xpath(lblListEventXPath);
-            int lstTotal = lblEvents.getWebElements().size();
-            int j = 1;
-            int i = 1;
-            Label lblEvent;
-            String xpathEvent;
-            Label lblSuspend;
-            Label iconInPlay;
-            Link lnkEventName;
-            String homeName;
-            String awayName;
-            String eventName;
-            String eventStartTime;
-            Random rand = new Random();
-            while (true) {
-                i = 1 + rand.nextInt((lstTotal - 1) + 1);
-                xpathEvent = String.format("(%s)[%s]", lblListEventXPath, i);
-                lnkEventName = Link.xpath(xpathEvent);
-                if (!lnkEventName.isPresent(2)) {
-                    return null;
-                }
-                lblSuspend = Label.xpath(String.format("%s%s", xpathEvent, llblSuspendXPath));
-                iconInPlay = Label.xpath(String.format("%s%s", xpathEvent, lblEventStartTimeXpath));
-                boolean _isInplay = iconInPlay.getText().equalsIgnoreCase("In-Play");
-                boolean _isSuspend = lblSuspend.isDisplayed();
-                if (_isInplay == isInplay && _isSuspend == isSuspend) {
-                    eventStartTime = Label.xpath(String.format("%s%s", xpathEvent, lblEventStartTimeXpath)).getText().trim();
-                    homeName = Label.xpath(String.format("%s%s", xpathEvent, lblHomeNameXpath)).getText().trim();
-                    awayName = Label.xpath(String.format("%s%s", xpathEvent, lblAwayNameXpath)).getText().trim();
-                    eventName = String.format("%s v %s", homeName, awayName);
-                    return new Event.Builder()
-                            .eventName(eventName)
-                            .lnkEvent(lnkEventName)
-                            .marketName(MATCH_ODDS_TITLE)
-                            .isSuspend(isSuspend)
-                            .inPlay(isInplay)
-                            .startTime(eventStartTime)
-                            .build();
-                }
-                if (j > lstTotal)
-                    return null;
-                j++;
+        Label lblEvents = Label.xpath(lblListEventXPath);
+        int lstTotal = lblEvents.getWebElements().size();
+        int j = 1;
+        String xpathEvent;
+        Label lblSuspend;
+        Label iconInPlay;
+        Link lnkEventName;
+        String homeName;
+        String awayName;
+        String eventName;
+        String eventStartTime;
+        Random rand = new Random();
+        while (true) {
+            xpathEvent = String.format("(%s)[%s]", lblListEventXPath, 1 + rand.nextInt((lstTotal - 1) + 1));
+            lnkEventName = Link.xpath(xpathEvent);
+            if (!lnkEventName.isPresent(2)) {
+                return null;
             }
-        } else {
-            return null;
+            lblSuspend = Label.xpath(String.format("%s%s", xpathEvent, llblSuspendXPath));
+            iconInPlay = Label.xpath(String.format("%s%s", xpathEvent, lblEventStartTimeXpath));
+            boolean _isInplay = iconInPlay.getText().equalsIgnoreCase("In-Play");
+            boolean _isSuspend = lblSuspend.getText().equalsIgnoreCase("Suspended");
+            if (_isInplay == isInplay && _isSuspend == isSuspend) {
+                eventStartTime = Label.xpath(String.format("%s%s", xpathEvent, lblEventStartTimeXpath)).getText().trim();
+                homeName = Label.xpath(String.format("%s%s", xpathEvent, lblHomeNameXpath)).getText().trim();
+                awayName = Label.xpath(String.format("%s%s", xpathEvent, lblAwayNameXpath)).getText().trim();
+                eventName = String.format("%s v %s", homeName, awayName);
+                return new Event.Builder()
+                        .eventName(eventName)
+                        .lnkEvent(lnkEventName)
+                        .marketName(MATCH_ODDS_TITLE)
+                        .isSuspend(isSuspend)
+                        .inPlay(isInplay)
+                        .startTime(eventStartTime)
+                        .build();
+            }
+            if (j > lstTotal)
+                return null;
+            j++;
         }
 
     }

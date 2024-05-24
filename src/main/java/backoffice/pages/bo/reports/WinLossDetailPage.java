@@ -23,7 +23,7 @@ public class WinLossDetailPage extends HomePage {
     public Label lblPortalError = Label.xpath("//div[contains(@class, 'search-region')]//div[@class='error-message'][3]");
     public CheckBox chkShowTotalOnly = CheckBox.xpath("//div[@id='winLossDetailType']//input[@name='show-total-only']");
     public int colUsername = 1;
-    public int colLevel = 2;
+    public int colLevel = 3;
     public int colTotalWager = 5;
     public int colTurnOverL = 6;
     public Table tblWinLossDetail = Table.xpath("//table[@class='ptable report']", 6);
@@ -150,7 +150,7 @@ public class WinLossDetailPage extends HomePage {
     public TransactionDetailsPopup openTransactionDetail(String username) {
         List<String> lstLelvel = tblWinLossDetail.getColumn(colUsername, false);
         for (int i = 0; i < lstLelvel.size() - 1; i++) {
-            if (lstLelvel.get(i).equals(username)) {
+            if (lstLelvel.get(i).split("\n")[0].equalsIgnoreCase(username)) {
                 Link lnk = (Link) tblWinLossDetail.getControlOfCell(1, colTotalWager, i + 1, null);
                 if (Objects.nonNull(lnk)) {
                     lnk.jsClick();
