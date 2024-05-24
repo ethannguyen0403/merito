@@ -50,7 +50,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[@class='psection']");
     private Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
     private Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
-    public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg']");
+    public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg'] |  //div[@class='paction']/span[@id='error-msg']");
 
     public AccountInforSection accountInforSection;
     public CreditBalanceSection creditBalanceInforSection;

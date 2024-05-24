@@ -319,10 +319,14 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
     @TestRails(id="761")
     @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
-    @Parameters({"downlineAccount"})
-    public void Agent_MM_BlockUnblockEvent_761(String downlineAccount) {
+    public void Agent_MM_BlockUnblockEvent_761() {
         log("@title: Validate can Unblock Schedule 25min before event start");
-        AccountInfo acc = ProfileUtils.getProfile();
+        String userID = ProfileUtils.getProfile().getUserID();
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        String  downlineAccount = "";
+        downlineAccount = _brandname.equalsIgnoreCase("fairexchange") ?
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getUserCode() :
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getLoginID();
 
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
@@ -330,7 +334,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("Step 2. Select Sport, Today tab");
         page.filter("", SPORT_SOCCER, TAB_DAYS.get(2));
 
-        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
+        String childID = BlockUnblockEventsUtils.getchildUserID(userID, downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList(SPORT_SOCCER, childID, "TMR");
         if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Soccer");
@@ -547,16 +551,21 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     @TestRails(id="768")
     @Test(groups = {"smoke"})
     @Parameters({"downlineAccount"})
-    public void Agent_MM_BlockUnblockEvent_768(String downlineAccount) {
+    public void Agent_MM_BlockUnblockEvent_768() {
         log("@title:Validate that cannot unblock schedule and suspend event successfully");
-        AccountInfo acc = ProfileUtils.getProfile();
+        String userID = ProfileUtils.getProfile().getUserID();
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        String  downlineAccount = "";
+        downlineAccount = _brandname.equalsIgnoreCase("fairexchange") ?
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getUserCode() :
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getLoginID();
 
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
 
         log("Step 2: Select sport is Tennis, and a tab that has data");
         page.filter("", SPORT_TENNIS, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
-        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
+        String childID = BlockUnblockEventsUtils.getchildUserID(userID, downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList(SPORT_TENNIS, childID, "TODAY");
         if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Tennis");
