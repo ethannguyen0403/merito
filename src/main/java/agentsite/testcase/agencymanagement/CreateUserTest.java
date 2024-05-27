@@ -567,7 +567,8 @@ public class CreateUserTest extends BaseCaseTest {
         editDownLinePage.updateCashBalance(maxPlayerCreditLitmit,false);
 
         log("Verify 1. Verify Message \"Max Player Credit is invalid\" display");
-        Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.DownlineListing.MSG_INVALID_MAX_PLAYER_CREDIT, "FAILED! Incorrect max player credit is invalid");
+        String message = _brandname.equals("satsport")? AgencyManagement.DownlineListing.MSG_INVALID_MAX_PLAYER_CREDIT_SAT : AgencyManagement.DownlineListing.MSG_INVALID_MAX_PLAYER_CREDIT_FAIR;
+        Assert.assertEquals(page.lblErrorMsg.getText(), message, "FAILED! Incorrect max player credit is invalid");
 
         log("INFO: Executed completely");
     }
