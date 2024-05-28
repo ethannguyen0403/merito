@@ -271,7 +271,11 @@ public class Fair999Header extends Header1 {
     public MyMarketPopup openMyMarketPopup() {
         lnkMyMarkets.click();
         MyMarketPopup myMarketPopup = new MyMarketPopup();
-        myMarketPopup.lblNoRecord.isDisplayed();
+        try {
+            // wait for pop up visible on screen
+            Thread.sleep(500);
+        }catch (Exception e){
+        }
         return myMarketPopup;
     }
 
