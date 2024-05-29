@@ -367,7 +367,8 @@ public class AGConstant {
             public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Client Name", "Mobile", "Credit Initiation", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Downline", "Create Date", "Last Login Time", "Last Login IP");
             public final static List<String> LST_DOWLINE_LISTING_TABLE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "Edit", "Change Password", "Level", "Delay Bet", "Exchange", "Live Dealer European", "Live Dealer Asian", "Exchange Games", "Supernowa Casino", "Evolution", "RWB Sports", "Game Hall", "Vivo", "ION");
             public final static String MSG_CHANGE_PASSWORD_SUCCESS = "Update is successful!";
-            public final static String MSG_INVALID_MAX_PLAYER_CREDIT = "Member Max Credit is invalid.";
+            public final static String MSG_INVALID_MAX_PLAYER_CREDIT_FAIR = "Member Max Credit is invalid.";
+            public final static String MSG_INVALID_MAX_PLAYER_CREDIT_SAT = "Player Max Credit Invalid.";
             public final static String MSG_EDIT_DOWNLINE_SUCCESS = "Downline was updated successfully";
             public final static String MSG_EDIT_MEMBER_SUCCESS = "Member was updated successfully";
             public final static String MSG_ALL_PRODUCT_NOT_SELECT = "There has to be at least one active product.";
@@ -412,7 +413,7 @@ public class AGConstant {
         public static class DepositWithdrawal {
             public final static String TITLE_PAGE = "Deposit/Withdraw";
             public final static String LBL_AVAILABLE_BALANCE = "Available Balance";
-            public final static List<String> DDB_ACCOUNT_STATUS = Arrays.asList("All", "Active", "Inactive", "Suspended", "Closed", "Blocked");
+            public final static List<String> DDB_ACCOUNT_STATUS = Arrays.asList("All", "Active", "Inactive", "Suspended", "Closed", "Blocked", "Self-excluded");
             public final static List<String> TABLE_ACCOUNT_BALANCE_HEADER = Arrays.asList("My Credit", "Total Balance", "Sub Balance", "Available Balance");
             public final static List<String> DDB_LEVEL = Arrays.asList("All", "Agent", "Member");
             public final static Map<String, List<String>> TABLE_HEADER_MAP = new HashMap() {
@@ -435,7 +436,8 @@ public class AGConstant {
                                     "Inactive\n" +
                                     "Suspended\n" +
                                     "Closed\n" +
-                                    "Blocked"
+                                    "Blocked\n" +
+                                    "Self-excluded"
                             , "Level\n" +
                                     "All\n" +
                                     "Agent\n" +
@@ -452,7 +454,8 @@ public class AGConstant {
                     "Inactive\n" +
                     "Suspended\n" +
                     "Closed\n" +
-                    "Blocked";
+                    "Blocked\n" +
+                    "Self-excluded";
             public final static String LBL_LEVEL = "Level\n" +
                     "All\n" +
                     "Agent\n" +

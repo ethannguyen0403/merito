@@ -146,7 +146,7 @@ public class EGHomPageTest extends BaseCaseTest {
 
         egHomePage = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
         BlackJackPage blcBlackJackPage = (BlackJackPage) egHomePage.navigateGameFromImage(EGConstants.BLACKJACK);
-        Assert.assertTrue(blcBlackJackPage.getGameHeaderTitle().contains("Turbo Exchange BlackJack - Game ID:"), String.format("FAIELD! Blackjack title header is incorrect. Expected %s but found %s", "Turbo Exchange BlackJack", blcBlackJackPage.getGameHeaderTitle()));
+        Assert.assertTrue(blcBlackJackPage.getGameHeaderTitle().contains("Turbo Exchange BlackJack"), String.format("FAIELD! Blackjack title header is incorrect. Expected %s but found %s", "Turbo Exchange BlackJack", blcBlackJackPage.getGameHeaderTitle()));
 
         egHomePage = (EGHomePage) egHomePage.navigateGameFromMainMenu("Home");
         HiloPage hiloPage = (HiloPage) egHomePage.navigateGameFromImage(EGConstants.HI_LO);

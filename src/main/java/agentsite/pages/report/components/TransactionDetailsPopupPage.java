@@ -77,13 +77,13 @@ public class TransactionDetailsPopupPage extends HomePage {
         }
         List<String> lstData = table.getColumn(col, true);
         double memberResult = 0.00;
-        double totalResult = Double.parseDouble(getTotalRowData().get(col - staticColTotal));
+        double totalResult = Double.valueOf(getTotalRowData().get(col - staticColTotal));
         for (int i = 0; i < lstData.size(); i++) {
             String value = lstData.get(i);
             if (value.isEmpty() || value.equalsIgnoreCase("-"))
                 continue;
             else
-                memberResult = memberResult + Double.parseDouble(value);
+                memberResult = memberResult + Double.valueOf(value);
            /* if(i % 2 ==0)
             {
               memberResult = Double.parseDouble(lstData.get(i)) + memberResult;

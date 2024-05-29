@@ -383,7 +383,7 @@ public class BlockUnblockEventPage extends HomePage {
 
     public void verifyStatusAllEventsAreUnblock(List<Event> eventList){
         for (int i = 0; i < eventList.size(); i++) {
-            verifyBlockUnblockEvent(eventList.get(i).getEventName(), "Unblocked", true, false, true, "", "");
+            verifyBlockUnblockEvent(eventList.get(i).getEventName(), "Unblocked", true, false, true, UNBLOCKTYPE.get(0), UNBLOCKTYPE.get(0));
         }
     }
 
