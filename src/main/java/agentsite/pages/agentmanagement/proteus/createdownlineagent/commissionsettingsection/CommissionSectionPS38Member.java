@@ -1,15 +1,18 @@
 package agentsite.pages.agentmanagement.proteus.createdownlineagent.commissionsettingsection;
 
+import agentsite.controls.Table;
 import com.paltech.element.BaseElement;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.DropDownBox;
-import com.paltech.element.common.Icon;
-import com.paltech.element.common.Label;
+import com.paltech.element.common.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static common.AGConstant.AgencyManagement.CommissionSettingListing.HEADERS_COMMISSION_PS38;
 import static common.AGConstant.AgencyManagement.CommissionSettingListing.ODDS_GROUP;
 
 public class CommissionSectionPS38Member extends CommissionSectionPS38 {
@@ -19,7 +22,7 @@ public class CommissionSectionPS38Member extends CommissionSectionPS38 {
     private Icon iconLoadSpinner = Icon.xpath("//div[contains(@class, 'la-ball-clip-rotate')]");
     private String xpathSpecificSportBlock =
             "//app-proteus-sport-league//div[contains(@class, 'sport-title') and contains(.,'%s')]/following::div[contains(@class, 'sport-section-item') and contains(.,'%s')][1]";
-
+    String tblCommissionXpath = "//app-proteus-member-commission-setting//table";
 
     @Override
     public String getLeague() {
@@ -68,6 +71,24 @@ public class CommissionSectionPS38Member extends CommissionSectionPS38 {
             }
         }
 
+    }
+
+    @Override
+    public void verifyCommissionUICorrect() {
+    BaseElement ddbList = new BaseElement  (By.xpath("//div[@id='PROTEUS-commission-settings']//select"));
+    Assert.assertTrue(Label.xpath("//div[@id='PROTEUS-commission-settings']//div[contains(., 'Odds Group')]").isDisplayed(), "FAILED! Odd group dropdown is not displayed");
+    Assert.assertTrue(ddbLeague.isDisplayed(), "FAILED! League dropdown is not displayed");
+    Assert.assertTrue(ddbLeague.isDisplayed(), "FAILED! League dropdown is not displayed");
+    // Verify all controls in Commission section are disabled.
+    for(WebElement dropdown: ddbList.getWebElements()){
+        Assert.assertTrue(!dropdown.isEnabled(), "FAILED! Dropdown is not disable for indirect down line");
+    }
+    // Verify header list of commission table
+        List<String> headerList = new ArrayList<>();
+        for(WebElement lblHeader: Label.xpath(String.format("%s//tr//th", tblCommissionXpath)).getWebElements()){
+            headerList.add(lblHeader.getText().replaceAll("\\d+","").replace("\n", "").replace(".", ""));
+        }
+        Assert.assertEquals(headerList.toString(), HEADERS_COMMISSION_PS38, "FAILED! Header of commission section table PS38 is not correct");
     }
 
     @Override

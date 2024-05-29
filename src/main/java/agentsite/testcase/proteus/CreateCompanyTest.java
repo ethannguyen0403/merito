@@ -99,7 +99,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4045")
-    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0", "Revised"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4045(String currency) {
         log("@title: Validate in Agent site > Create Company, confirm message display if update setting in Pregame then switch to In-play tab");

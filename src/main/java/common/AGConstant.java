@@ -595,6 +595,7 @@ public class AGConstant {
             public final static List<String> LST_LIVE_DEALER_EUROPEAN_GAMES = Arrays.asList("Auto roulette", "Baccarat", "Bet on Numbers", "Blackjack", "Holdem", "Keno", "Roulette", "Sic Bo", "Lucky 7", "Other");
             public final static List<String> LST_LOTTERY_SLOT_GAMES = Arrays.asList("Lottery & Slots");
             public final static String CHECKBOX_APPLY_SOCCER_PS38 = "Apply soccer games setting to other commission types";
+            public final static String HEADERS_COMMISSION_PS38 = "[Soccer games (*), Very high commission (*), High commission (*), Normal commission (*), Parlays (*), Teasers (*)]";
             public final static List<String> TABLE_HEADER_COMMISSION_SECTION = Arrays.asList("Group", "Commission on", "Group A", "Group B", "Group C", "Group D", "Group E");
             public final static List<String>
                     TABLE_COLUMN_GROUP_COMMISSION_SECTION = Arrays.asList("Soccer games", "Very high commission", "High commission", "Normal commission", "Parlays", "Teasers");
