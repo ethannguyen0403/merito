@@ -547,5 +547,56 @@ public class DownlineListingTest extends BaseCaseTest {
         Assert.assertFalse(editPage.betSettingSectionPS38.chkCopyAll.isEnabled(),"FAILED! The Copy all Limit… checkbox is enable");
         Assert.assertTrue(editPage.betSettingSectionPS38.isSportPS38InputEnable(sportsList, betSettingList, false), "FAILED! All input values are not disable");
     }
+
+    @TestRails(id = "29540")
+    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    public void PS38_Agent_TC29540()  {
+        log("@title: Agent Site - PS38 - Edit Member - Validate Confirm switch tabs popup display correct when select Inplay tab");
+        log("Precondition: There is a player active PS38 product");
+        log("Step 1: Login agent site Agent level, the direct agent of the player in precondition");
+        String userID = ProfileUtils.getProfile().getUserID();
+        AccountInfo directDownlinePL = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0);
+        String directDownlineDisplay = directDownlinePL.getUserCode();
+        log("Step 2: Active Downline Listing page and search the player in precondition");
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.searchDownline(directDownlineDisplay, "", "");
+        log("Step 3: Click on Edit icon in Edit column and input security code if required");
+        EditDownLinePage editPage = page.clickEditIcon(directDownlineDisplay, true);
+        log("Step 4: Select PS38 in Product Settings section");
+        editPage.selectProduct(PS38);
+        log("Step 4: In Bet Setting Section, update any valid value then click on InPlay tab");
+        editPage.betSettingSectionPS38.updateValueInputSportPS38(Arrays.asList(LBL_SOCCER_SPORT), Arrays.asList(HEADER_BET_SETTING_PS38.get(1)), Arrays.asList("2"));
+        editPage.betSettingSectionPS38.selectPS38Tab(INPLAY_TAB_PS38);
+        log("Verify 1: Verify confirm message display and Switch tab, Cancel button");
+        Assert.assertEquals(page.getMessageUpdate(false), "","FAILED! The message when switching tab is displayed");
+    }
+
+    @TestRails(id = "29542")
+    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    public void PS38_Agent_TC29542()  {
+        log("@title: Agent Site - PS38 - Edit Member - Validate UI in Commission Section");
+        log("Precondition: There is a player active PS38 product");
+        log("Step 1: Login agent site Agent level, the direct agent of the player in precondition");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        AccountInfo directDownline = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0);
+        AccountInfo inDirectDownlinePL = DownLineListingUtils.getDownLineUsers(directDownline.getUserID(), "PL", "ACTIVE", _brandname).get(0);
+        String inDirectDownlinePLDisplay = inDirectDownlinePL.getUserCode();
+        log("Step 2: Active Downline Listing page and search the player in precondition");
+        DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
+        page.searchDownline(inDirectDownlinePLDisplay, "", "");
+        log("Step 3: Click on Edit icon in Edit column and input security code if required");
+        EditDownLinePage editPage = page.clickEditIcon(inDirectDownlinePLDisplay, true);
+        log("Step 4: Select PS38 in Product Settings section");
+        editPage.selectProduct(PS38);
+        log("Step 4: Expand Commission section then validate UI in Commission");
+        CommissionSectionPS38 ps38Section = editPage.commissionSectionPS38.expandCommissionSection("Member", true);
+        log("Verify 1: all controls in Commission section are disabled.\n" +
+                "There're dropdown Odds Group, Soccer games, Very high commission, High commission, Normal commission, Parlays, Teasers, Sport, Leagues appears.\n" +
+                "There're text under each dropdowns Soccer games, Very high commission, High commission, Normal commission, Parlays, Teasers and reflect to value in the dropdown with format <value> (*).\n" +
+                "There's checkbox with text 'Apply soccer games setting to other commission type' appears.\n" +
+                "There's a text '(* Your current commission group is <group>)' appears and the <group> reflect to value in Odds Group dropdown.\n");
+        ps38Section.verifyCommissionUICorrect();
+    }
 }
 

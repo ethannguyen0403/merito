@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static common.MemberConstants.MyBetsPage.*;
+import static common.MemberConstants.PS38;
 
 public class MyBetPageTest extends BaseCaseTest {
     @TestRails(id = "515")
@@ -322,6 +323,24 @@ public class MyBetPageTest extends BaseCaseTest {
         List<String> tblHeaders = page.getTableHeaders();
         Assert.assertEquals(tblHeaders.size(), TABLE_HEADER_CASINO.size(), String.format("ERROR: The expected no of columns is %s but found %s", TABLE_HEADER.size(), tblHeaders.size()));
         Assert.assertEquals(tblHeaders, TABLE_HEADER_CASINO, "ERROR! Header list not display as expected");
+        log("INFO: Executed Completely!");
+    }
+
+    @TestRails(id = "9451")
+    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0", "Cash_out"})
+    public void MyBetPage_Cash_out_TC9451() {
+        log("@title: Validate showing cash out bet in my bet page ");
+        log("Step 1. Active My Account> My Bets");
+        MyBetsPage page = memberHomePage.header.openMyBets(_brandname);
+        // Cash out bet should use fixed data for verifying
+        log("Step 2. Select PS38 , Order Type: Settled , Start and End Date, click Load Report");
+        page.filter(DDB_ORDER_TYPE_FILTER.get(PS38), DDB_ORDER_TYPE_FILTER.get("SETTLED"),"2024-05-16","2024-05-16");
+
+        log("Verify 1. The cashed out bet will be displayed in My Bet - Settled Bet with status as 'Cashed Out");
+        Assert.assertTrue(page.validateFilterStatus("Cashed Out"), "ERROR! Matched status not filter correctly.");
+        log("Verify 2. Profit/Loss: cash amount - risk amount");
+        log("Verify 3. After clicking the status, it show the cashed out details include risk amount, cash out amount and date time to cash out");
+        page.verifyProfitLossCorrect(1);
         log("INFO: Executed Completely!");
     }
 }

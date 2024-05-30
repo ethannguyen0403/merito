@@ -13,6 +13,7 @@ import util.testraildemo.TestRails;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static common.MemberConstants.AccountStatementPage.*;
 import static common.MemberConstants.TIMEZONE_BRAND;
@@ -156,6 +157,30 @@ public class AccountStatementTest extends BaseCaseTest {
         } catch (IOException e) {
             log(e.getMessage());
         }
+        log("INFO: Executed Completely!");
+    }
+
+    @TestRails(id = "9452")
+    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0", "Cash_out"})
+    public void AccountStatement_Cash_out_TC9452() {
+        log("@title: Validate showing cash out bet in account statement page");
+
+        log("Step 1. Click My Account > Account Statement");
+        AccountStatementPage page = memberHomePage.header.openAccountStatement(_brandname);
+
+        // Cash out bet should use fixed data for verifying
+        log("Step 2. Filter in a date range");
+        page.filter("2024-05-15","2024-05-15");
+
+        log("Step 3. Drilling down to the details of bet");
+        page.clickNarrationOnTheFirstRow();
+
+        log("Verify 1. The cashed out bet displays with status as 'Cashed Out'");
+        int colStatus = 10;
+        Assert.assertEquals(page.getTblPS38BetDetail().getControlOfCell(1, colStatus, 1, "span").getText(), "Cashed Out", "FAILED! Cashed out text is not displayed");
+        log("Verify 2. After clicking the status, it show the cashed out details");
+        List<ArrayList<String>> dataList = page.expandCashOutHistoryByIndex(1);
+        Assert.assertTrue(Objects.nonNull(dataList), "FAILED! Cash out history is not displayed");
         log("INFO: Executed Completely!");
     }
 

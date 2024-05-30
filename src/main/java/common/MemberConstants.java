@@ -302,6 +302,7 @@ public class MemberConstants {
         };
         public static final Map<String, String> DDB_ORDER_TYPE_FILTER = new HashMap<String, String>() {
             {
+                put("PS38", "PS38 Bets");
                 put("SETTLED", "Settled");
                 put("MATCHED", "Matched");
                 put("UNMATCHED", "Unmatched");

@@ -23,7 +23,7 @@ public class TransactionDetailsPopupPage extends HomePage {
     public int colType = 5;
     public int colOdds = 6;
     public int colPlayerStake = 7;
-    public int colStatus = 8;
+    public int colStatus = 13;
     public int colProfitLossOriginal = 9;
     public MenuTree productTabMenu = MenuTree.xpath("//app-pnl-transaction-detail//ul[contains(@class,'nav-tabs')]", "/li");
     Popup popup = Popup.xpath("//div[contains(@class,'multiProductDialog'])");
@@ -31,7 +31,7 @@ public class TransactionDetailsPopupPage extends HomePage {
     Button btnClosePopup = Button.xpath("//div[contains(@class,'modal-header')]//button[@class='close']");
     Button btnClose = Button.xpath("//button[contains(@class,'btn-cancel')]");
     Label lblTitle = Label.xpath("//div[@class='otp-dialog ng-scope']//div[@class='modal-header']/div[@class='ng-binding']");
-    String tblReportXpath = "//table[contains(@class,'ptable table-responsive report')]";
+    String tblReportXpath = "//app-pnl-transaction-detail//table[contains(@class,'ptable')]";
     public Table tblReport = Table.xpath(tblReportXpath, tblReportTotalCol);
     Row taxRow = Row.xpath("//table[contains(@class,'table-responsive')]//tr[contains(@class,'TAX_INFO')]");
     Row rowTotal = Row.xpath("//table[contains(@class,'ptable table-responsive report')]//tr[@class='ng-star-inserted']");
@@ -158,6 +158,11 @@ public class TransactionDetailsPopupPage extends HomePage {
 
     public void verifyListOfProductsTabDisplayedCorrect(String productFilterName) {
         transactionDetailsPopup.verifyListOfProductsTabDisplayedCorrect(productFilterName);
+    }
+
+    public CashOutHistoryPopup openCashOutHistoryPopup(int index){
+        Label.xpath(tblReport.getxPathOfCell(1, colStatus, index, "span")).click();
+        return new CashOutHistoryPopup();
     }
 
 }
