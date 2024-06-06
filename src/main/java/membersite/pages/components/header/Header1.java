@@ -108,6 +108,10 @@ public class Header1 {
         return new SportPage(brand);
     }
 
+    public InPlayPage navigateInPlayPage(String brand){
+        return new InPlayPage(brand);
+    }
+
     public RacingPage navigateRacing(String pageName, String brand) {
         return new RacingPage(brand);
     }

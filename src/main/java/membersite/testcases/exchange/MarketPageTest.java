@@ -10,7 +10,9 @@ import membersite.objects.sat.Order;
 import membersite.pages.MarketPage;
 import membersite.pages.SportPage;
 import membersite.pages.popup.RulePopup;
+import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
@@ -139,7 +141,7 @@ public class MarketPageTest extends BaseCaseTest {
     @TestRails(id = "984")
     @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_984() {
-        log("@title:  Validate default message display when there is no  bet");
+        log("@title:  Validate default message display when there is no bet");
         log("Step 1. Click on any event to open market page");
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
         Event event = sportPage.eventContainerControl.getEventRandom(true, false);
@@ -235,8 +237,12 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "996")
-    public void HeaderSection_TC996() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke_oldui", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_996() {
+        log("@title: Validate Stake textbox display correct value when clicking on the corresponding fast button");
+        log("Precondition 1: Login member account");
+
+
         log("INFO: Executed completely");
     }
 
@@ -245,98 +251,454 @@ public class MarketPageTest extends BaseCaseTest {
         //TODO: implement this test case
         log("INFO: Executed completely");
     }
-    @TestRails(id = "967")
-    public void HeaderSection_TC967() {
-        //TODO: implement this test case
-        log("INFO: Executed completely");
-    }
 
     @TestRails(id = "968")
-    public void HeaderSection_TC968() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_968() {
+        log("@title: Validate that 1Click button");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: On bet slip, observe and Off 1 Click button");
+        log("Verify 1: Verify 1Click Off by default");
+        Assert.assertTrue(!marketPage.oneClickBettingControl.btn1ClickBet.isSelected(), "FAILED! 1 click button is not off by default");
+        log("Verify 2: Verify 1Click button is able to switch on and off");
+        Assert.assertTrue(marketPage.oneClickBettingControl.switchToggle1ClickBet(true), "FAILED! 1 click button is not on ");
+        Assert.assertFalse(marketPage.oneClickBettingControl.switchToggle1ClickBet(false), "FAILED! 1 click button is not off");
         log("INFO: Executed completely");
     }
     @TestRails(id = "969")
-    public void HeaderSection_TC969() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void  FE_BetSlipMyBet_969() {
+        log("@title: Validate that user can remove a selected odd successfully on Bet Slip");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click on any odds button");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        log("Step 4: CLick x icon to remove the selected odd");
+        marketPage.betsSlipContainer.removeBetByBinIcon(market);
+        log("Verify 1: The selected odd is removed successfully");
+        Assert.assertEquals(marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY, "FAILED! Bet slip is not empty");
         log("INFO: Executed completely");
     }
     @TestRails(id = "970")
-    public void HeaderSection_TC970() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_970() {
+        log("@title: \tValidate that a selected odd is removed successfully on Bet Slip by clicking Cancel All selections button");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click on any odds button");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        log("Step 4: Click Cancel All Selections to remove the selected odd");
+        marketPage.betsSlipContainer.cancelAllSelections();
+        log("Verify 1: The selected odd is removed successfully");
+        Assert.assertEquals(marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY, "FAILED! Bet slip is not empty");
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "971")
-    public void HeaderSection_TC971() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_971() {
+        log("@title: Validate that Place Bet button's behaviors are correct in case of inputted stake and no stake");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click on any odds button");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        log("Verify 1: At step 3, Place bets button is disabled");
+        Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
+        log("Step 4: Input stake into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        marketPage.betsSlipContainer.inputStake(minBet);
+        log("Verify 2: At step 4, Place bets button is enabled");
+        Assert.assertTrue(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is disabled");
         log("INFO: Executed completely");
     }
     @TestRails(id = "972")
-    public void HeaderSection_TC972() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_972() {
+        log("@title: Validate that user cannot place bet when inputting a stake more than maximum stake");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click on any odds button");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        log("Verify 1: At step 3, Place bets button is disabled");
+        Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
+        log("Step 4: Input a stake more than maximum stake into Stake text-box");
+        String maxBet = BetUtils.getMaxBet(SPORT_SOCCER, market.getMarketName());
+        String inputStake = String.valueOf(Integer.valueOf(maxBet) + 10);
+        marketPage.betsSlipContainer.inputStake(inputStake);
+        log("Verify 2: At step 4, Place bets button is disabled after inputting a stake more than max stake");
+        Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "973")
-    public void HeaderSection_TC973() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_973() {
+        log("@title: Validate that user cannot place bet when inputting a stake less than minimum stake");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click on any odds button");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        log("Verify 1: At step 3, Place bets button is disabled");
+        Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
+        log("Step 4: Input a stake less than minimum stake into Stake text-box");
+        String minBet = BetUtils.getMaxBet(SPORT_SOCCER, market.getMarketName());
+        String inputStake = String.valueOf(Integer.valueOf(minBet) - 1);
+        marketPage.betsSlipContainer.inputStake(inputStake);
+        log("Verify 2: At step 4, Place bets button is disabled after inputting a stake more than max stake");
+        Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
         log("INFO: Executed completely");
     }
     @TestRails(id = "974")
-    public void HeaderSection_TC974() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_974() {
+        log("@title: Validate that a selected odd at HOME-BACK displays correct data both Odd page and on Bet Slip");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click an odd without empty at Home team and Back type");
+        Market marketBack = marketPage.marketOddControl.getMarket(event, 1, true);
+        marketBack.getBtnOdd().click();
+        log("Step 4: Input a stake less than minimum stake into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketBack.getMarketName());
+        marketPage.betsSlipContainer.inputStake(minBet);
+        Order betOrder = marketPage.betsSlipContainer.getBet(0);
+        log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
+                "Selected team on Odd page and on Bet Slip is the same\n" +
+                "Event name on Odd page and on Bet Slip is the same\n" +
+                "Is in-play of this event is the same on Odd page and Bet Slip");
+        marketPage.betsSlipContainer.verifyInfoBetSlipAndOddsPage(marketBack, betOrder);
         log("INFO: Executed completely");
     }
     @TestRails(id = "975")
-    public void HeaderSection_TC975() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_975() {
+        log("@title: Validate that a selected odd at HOME-LAY displays correct data both Odd page and on Bet Slip");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click an odd without empty at HOME team and LAY type");
+        Market marketLay = marketPage.marketOddControl.getMarket(event, 1, false);
+        marketLay.getBtnOdd().click();
+        log("Step 4: Input a stake less than minimum stake into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketLay.getMarketName());
+        marketPage.betsSlipContainer.inputStake(minBet);
+        Order betOrder = marketPage.betsSlipContainer.getBet(0);
+        log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
+                "Selected team on Odd page and on Bet Slip is the same\n" +
+                "Event name on Odd page and on Bet Slip is the same\n" +
+                "Is in-play of this event is the same on Odd page and Bet Slip");
+        marketPage.betsSlipContainer.verifyInfoBetSlipAndOddsPage(marketLay, betOrder);
         log("INFO: Executed completely");
     }
     @TestRails(id = "976")
-    public void HeaderSection_TC976() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_976() {
+        log("@title: Validate that a selected odd at DRAW-BACK displays correct data both Odd page and on Bet Slip");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click an odd without empty at DRAW team and BACK type");
+        Market marketDrawBack = marketPage.marketOddControl.getMarket(event, 3, true);
+        marketDrawBack.getBtnOdd().click();
+        log("Step 4: Input a stake less than minimum stake into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketDrawBack.getMarketName());
+        marketPage.betsSlipContainer.inputStake(minBet);
+        Order betOrder = marketPage.betsSlipContainer.getBet(0);
+        log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
+                "Selected team on Odd page and on Bet Slip is the same\n" +
+                "Event name on Odd page and on Bet Slip is the same\n" +
+                "Is in-play of this event is the same on Odd page and Bet Slip");
+        marketPage.betsSlipContainer.verifyInfoBetSlipAndOddsPage(marketDrawBack, betOrder);
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "977")
-    public void HeaderSection_TC977() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_977() {
+        log("@title: Validate that a selected odd at DRAW-LAY displays correct data both Odd page and on Bet Slip");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click an odd without empty at DRAW team and LAY type");
+        Market marketDrawLay = marketPage.marketOddControl.getMarket(event, 3, false);
+        marketDrawLay.getBtnOdd().click();
+        log("Step 4: Input a stake less than minimum stake into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketDrawLay.getMarketName());
+        marketPage.betsSlipContainer.inputStake(minBet);
+        Order betOrder = marketPage.betsSlipContainer.getBet(0);
+        log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
+                "Selected team on Odd page and on Bet Slip is the same\n" +
+                "Event name on Odd page and on Bet Slip is the same\n" +
+                "Is in-play of this event is the same on Odd page and Bet Slip");
+        marketPage.betsSlipContainer.verifyInfoBetSlipAndOddsPage(marketDrawLay, betOrder);
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "978")
-    public void HeaderSection_TC978() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_978() {
+        log("@title: Validate that a selected odd at AWAY-BACK displays correct data both Odd page and on Bet Slip \t");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click an odd without empty at AWAY team and BACK type");
+        Market marketAwayBack = marketPage.marketOddControl.getMarket(event, 2, true);
+        marketAwayBack.getBtnOdd().click();
+        log("Step 4: Input a stake less than minimum stake into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketAwayBack.getMarketName());
+        marketPage.betsSlipContainer.inputStake(minBet);
+        Order betOrder = marketPage.betsSlipContainer.getBet(0);
+        log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
+                "Selected team on Odd page and on Bet Slip is the same\n" +
+                "Event name on Odd page and on Bet Slip is the same\n" +
+                "Is in-play of this event is the same on Odd page and Bet Slip");
+        marketPage.betsSlipContainer.verifyInfoBetSlipAndOddsPage(marketAwayBack, betOrder);
         log("INFO: Executed completely");
     }
     @TestRails(id = "979")
-    public void HeaderSection_TC979() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_979() {
+        log("@title: Validate that a selected odd at AWAY-LAY displays correct data both Odd page and on Bet Slip");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click an odd without empty at AWAY team and LAY type");
+        Market marketAwayBack = marketPage.marketOddControl.getMarket(event, 2, false);
+        marketAwayBack.getBtnOdd().click();
+        log("Step 4: Input a stake less than minimum stake into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketAwayBack.getMarketName());
+        marketPage.betsSlipContainer.inputStake(minBet);
+        Order betOrder = marketPage.betsSlipContainer.getBet(0);
+        log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
+                "Selected team on Odd page and on Bet Slip is the same\n" +
+                "Event name on Odd page and on Bet Slip is the same\n" +
+                "Is in-play of this event is the same on Odd page and Bet Slip");
+        marketPage.betsSlipContainer.verifyInfoBetSlipAndOddsPage(marketAwayBack, betOrder);
         log("INFO: Executed completely");
     }
     @TestRails(id = "988")
-    public void HeaderSection_TC988() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_988() {
+        log("@title: Validate that user can place a bet with HOME - BACK successfully on Market Page");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click an odd without empty at Home team and Back type");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        log("Step 4: Input a stake less than minimum stake into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        marketPage.betsSlipContainer.placeBet(minBet);
+        List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, true, 1);
+        log("Verify 1: Odd rate on My Bet and on Bet Slip is the same\n" +
+                "Market name on My Bet and on Bet Slip is the same\n" +
+                "Event name on My Bet and on Bet Slip is the same\n" +
+                "Selected team on My Bet and on Bet Slip is the same\n" +
+                "Liability on My Bet and on Bet Slip is the same\n" +
+                "Profit on My Bet and on Bet Slip is the same");
+        marketPage.myBetsContainer.verifyInfoBetSlipAndOddsPage(market, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "989")
-    public void HeaderSection_TC989() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_989() {
+        log("@title: Validate that user can place a bet with HOME - LAY successfully on Market Page");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click an odd without empty at Home team and Lay type");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, false);
+        market.getBtnOdd().click();
+        log("Step 4: Input a stake less than minimum stake into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        marketPage.betsSlipContainer.placeBet(minBet);
+        List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, false, 1);
+        log("Verify 1: Odd rate on My Bet and on Bet Slip is the same\n" +
+                "Market name on My Bet and on Bet Slip is the same\n" +
+                "Event name on My Bet and on Bet Slip is the same\n" +
+                "Selected team on My Bet and on Bet Slip is the same\n" +
+                "Liability on My Bet and on Bet Slip is the same\n" +
+                "Profit on My Bet and on Bet Slip is the same");
+        marketPage.myBetsContainer.verifyInfoBetSlipAndOddsPage(market, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "990")
-    public void HeaderSection_TC990() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_990() {
+        log("@title: Validate that user can place a bet with AWAY-BACK successfully on Market Page");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click an odd without empty at Away team and Back type");
+        Market market = marketPage.marketOddControl.getMarket(event, 2, true);
+        market.getBtnOdd().click();
+        log("Step 4: Input a stake less than minimum stake into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        marketPage.betsSlipContainer.placeBet(minBet);
+        List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, true, 1);
+        log("Verify 1: Odd rate on My Bet and on Bet Slip is the same\n" +
+                "Market name on My Bet and on Bet Slip is the same\n" +
+                "Event name on My Bet and on Bet Slip is the same\n" +
+                "Selected team on My Bet and on Bet Slip is the same\n" +
+                "Liability on My Bet and on Bet Slip is the same\n" +
+                "Profit on My Bet and on Bet Slip is the same");
+        marketPage.myBetsContainer.verifyInfoBetSlipAndOddsPage(market, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "991")
-    public void HeaderSection_TC991() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void FE_BetSlipMyBet_991() {
+        log("@title: Validate that user can place a bet with AWAY-LAY successfully on Market Page");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Click an odd without empty at Away team and Lay type");
+        Market market = marketPage.marketOddControl.getMarket(event, 2, false);
+        market.getBtnOdd().click();
+        log("Step 4: Input a stake less than minimum stake into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        marketPage.betsSlipContainer.placeBet(minBet);
+        List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, false, 1);
+        log("Verify 1: Odd rate on My Bet and on Bet Slip is the same\n" +
+                "Market name on My Bet and on Bet Slip is the same\n" +
+                "Event name on My Bet and on Bet Slip is the same\n" +
+                "Selected team on My Bet and on Bet Slip is the same\n" +
+                "Liability on My Bet and on Bet Slip is the same\n" +
+                "Profit on My Bet and on Bet Slip is the same");
+        marketPage.myBetsContainer.verifyInfoBetSlipAndOddsPage(market, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "992")
-    public void HeaderSection_TC992() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void MarketPage_TC992() {
+        log("@title: Validate that forecast/ liability value display correctly when place back bet on a selection on Market Page");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Place a matched back bet");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        marketPage.placeBet(market, minBet);
+        List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, true, 1);
+        List<ArrayList<String>> foreCastInfo = marketPage.marketOddControl.getUIForeCast();
+        log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
+                "Display profit for under placed selection\n" +
+                "Display liability of the bet under other selections");
+        marketPage.verifyForeCastIsCorrect(foreCastInfo, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "993")
