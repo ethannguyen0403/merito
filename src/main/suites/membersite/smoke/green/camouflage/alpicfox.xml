@@ -6,7 +6,7 @@
         <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
-    <test name="Green Smoke Chrome Login For OldUI">
+    <test name="ALPICFOX Green Smoke Chrome Before Login ">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='green'/>
         <parameter name='language' value=''/>
@@ -19,7 +19,7 @@
         <parameter name="skinName" value="alpicfox"/>
         <parameter name='appname' value='camouflage'/>
         <parameter name='brandname' value='fairenter'/>
-        <parameter name='isAddTestRailResult' value='true'/>
+        <parameter name='isAddTestRailResult' value='false'/>
         <groups>
             <run>
                 <include name="alpicfox"/>
