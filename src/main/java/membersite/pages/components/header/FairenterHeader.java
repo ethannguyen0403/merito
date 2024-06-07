@@ -18,7 +18,7 @@ public class FairenterHeader extends Header1 {
     private Label lblTimezone = Label.xpath("//div[contains(@class,'time-contain') or contains(@class,'timer-contain')]");
     private Button btnLogin = Button.xpath("//input[contains(@class,'btn-login')]");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
-    private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[@id='my-account-dropdown']", "", "//ul[contains(@class,'dropdown-menu')]//li");
+    private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[@id='my-account-dropdowna']", "", "//ul[contains(@class,'dropdown-menu')]//li");
     private Link lnkMyMarkets = Link.xpath("//span[@class='link mymarkets']");
 
     public FairenterLoginPopup clickConfirm() {
