@@ -8,6 +8,7 @@ import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
 import membersite.pages.MarketPage;
+import membersite.pages.RacingPage;
 import membersite.pages.SportPage;
 import membersite.pages.popup.RulePopup;
 import membersite.utils.betplacement.BetUtils;
@@ -21,6 +22,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static common.AGConstant.*;
+import static common.MemberConstants.LBL_BACK_TYPE;
+import static common.MemberConstants.LBL_HORSE_RACING_SPORT;
 
 public class MarketPageTest extends BaseCaseTest {
     @TestRails(id = "1074")
@@ -702,18 +705,81 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "993")
-    public void HeaderSection_TC993() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void MarketPage_TC993() {
+        log("@title: Validate that forecast/ liability value display correctly when place back and Lay bet on a selection on Market Page");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEvent(event);
+        log("Step 3: Place a matched Lay bet");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, false);
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        marketPage.placeBet(market, minBet);
+        List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, false, 1);
+        List<ArrayList<String>> foreCastInfo = marketPage.marketOddControl.getUIForeCast();
+        log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
+                "Display profit for under placed selection\n" +
+                "Display liability of the bet under other selections");
+        marketPage.verifyForeCastIsCorrect(foreCastInfo, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "994")
-    public void HeaderSection_TC994() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void MarketPage_TC994() {
+        log("@title: Validate that that user can place a bet with BACK Horse Racing successfully on Market Page ");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any horse racing race");
+        String minBet = BetUtils.getMinBet("OTHER", LBL_BACK_TYPE);
+        RacingPage racingPage = memberHomePage.navigateRacing(LBL_HORSE_RACING_SPORT);
+        if (racingPage.racingContainer.isNoRace()) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        String country = racingPage.racingContainer.getCountry(0);
+        List<String> trackLst = racingPage.racingContainer.getAllTrackName(country);
+        String trackName = trackLst.get(trackLst.size() - 1);
+        List<String> racelst = racingPage.racingContainer.getAllRacingList(country, trackName);
+        String race = racelst.get(racelst.size() - 1);
+        MarketPage marketPage = racingPage.clickRacing(country, trackName, race);
+        Market market = marketPage.racingMarketContainer.getRace(1, true);
+        log("Step 2: Place bet");
+        marketPage.placeBet(market, minBet);
+        List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, true, 1);
+        log("Verify 1: Odd rate on My Bet and on Bet Slip is the same\n" +
+                "Market name on My Bet and on Bet Slip is the same\n" +
+                "Event name on My Bet and on Bet Slip is the same\n" +
+                "Selected team on My Bet and on Bet Slip is the same\n" +
+                "Liability on My Bet and on Bet Slip is the same\n" +
+                "Profit on My Bet and on Bet Slip is the same");
+        marketPage.myBetsContainer.verifyInfoBetSlipAndOddsPage(market, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "995")
-    public void HeaderSection_TC995() {
-        //TODO: implement this test case
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void MarketPage_TC995() {
+        log("@title: Validate that Horse Racing is inactive Lay odds button on Market Page");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any horse racing race");
+        RacingPage racingPage = memberHomePage.navigateRacing(LBL_HORSE_RACING_SPORT);
+        log("Step 2: Active any horse racing race and verify lay odds");
+        String country = racingPage.racingContainer.getCountry(0);
+        List<String> trackLst = racingPage.racingContainer.getAllTrackName(country);
+        String trackName = trackLst.get(trackLst.size() - 1);
+        List<String> racelst = racingPage.racingContainer.getAllRacingList(country, trackName);
+        String race = racelst.get(racelst.size() - 1);
+        MarketPage marketPage = racingPage.clickRacing(country, trackName, race);
+        if (racingPage.racingContainer.isNoRace()) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        log("Verify 1: Verify Lay odds is unclickable");
+        Assert.assertTrue(marketPage.racingMarketContainer.isAllLayButtonDisable(), "FAILED! All Lay odd button is NOT disabled");
         log("INFO: Executed completely");
     }
 }

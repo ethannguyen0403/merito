@@ -76,7 +76,14 @@ public class MarketPage extends HomePage {
             if (lstForeCast.contains(order.getSelectionName())) {
                 String profitLiability = String.format("%.2f",
                         order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()), Double.valueOf(order.getStake())));
-                Assert.assertEquals(profitLiability, lstForeCast.get(1),
+                String expectedProfitLiability = lstForeCast.get(1);
+
+                if(expectedProfitLiability.contains("-")){
+                    //Handle for negative double
+                    profitLiability = String.format("-%s", profitLiability);
+                }
+
+                Assert.assertEquals(profitLiability, expectedProfitLiability,
                         String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
             } else {
                 continue;
