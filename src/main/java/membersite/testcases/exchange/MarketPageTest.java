@@ -242,17 +242,15 @@ public class MarketPageTest extends BaseCaseTest {
     @TestRails(id = "996")
     @Test(groups = {"smoke_oldui", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_996() {
-        log("@title: Validate Stake textbox display correct value when clicking on the corresponding fast button");
-        log("Precondition 1: Login member account");
-
-
-        log("INFO: Executed completely");
+        log("@title: Validate info of unmatched bet in Mini My bet is correctly");
+        throw new SkipException("SKIP! This case should only run on old UI");
     }
 
     @TestRails(id = "997")
+    @Test(groups = {"smoke_oldui", "nolan_stabilize_06.24"})
     public void HeaderSection_TC997() {
-        //TODO: implement this test case
-        log("INFO: Executed completely");
+        log("@title: Validate Can update unmatched bet");
+        throw new SkipException("SKIP! This case should only run on old UI");
     }
 
     @TestRails(id = "968")
