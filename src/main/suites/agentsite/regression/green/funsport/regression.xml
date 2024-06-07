@@ -24,7 +24,7 @@
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='funsport'/>
         <parameter name='skinName' value='funsport'/>
-        <parameter name='isAddTestRailResult' value='true'/>
+        <parameter name='isAddTestRailResult' value='false'/>
         <groups>
             <run>
                 <include name="regression" />
