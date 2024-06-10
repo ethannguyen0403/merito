@@ -12,12 +12,16 @@ import org.openqa.selenium.Keys;
 import java.util.ArrayList;
 import java.util.List;
 
+import static common.AGConstant.SPORT_SOCCER;
+
 public class LiquidityThresholdSettingsPage extends HomePage {
     public TextBox txtSearchSport = TextBox.xpath("//input[@placeholder='Search sport']");
     public TextBox txtSearchMarketType = TextBox.xpath("//input[@placeholder='Search Market Type']");
     public StaticTable tblSport = StaticTable.xpath("//div[contains(@class,'pane-left')]", "div[@class='list-groupb']", "div[contains(@class,'list-group-itemb')]" +
             "", "span[@class='ml-1']", 1);
     public Table tblMarketType = Table.xpath("//table[contains(@class,'table table-striped')]", 3);
+    public String inputFirstNonLiveXpath =   tblMarketType.getControlOfCell(1, 2,  1, "input").getLocator().toString().replace("By.xpath: ", "");
+    public String inputFirstLiveXpath =   tblMarketType.getControlOfCell(1, 3,  1, "input").getLocator().toString().replace("By.xpath: ", "");
     public AppConfirmPopup popup = AppConfirmPopup.xpath("//app-comfirm-dialog");
     int colMarketType = 1;
     int colNonlive = 2;
@@ -25,6 +29,10 @@ public class LiquidityThresholdSettingsPage extends HomePage {
 
     public void searchSport(String sportName) {
         txtSearchSport.sendKeys(sportName);
+    }
+
+    public String getFirstNonLiveValue(){
+        return TextBox.xpath(inputFirstNonLiveXpath).getAttribute("value").trim();
     }
 
     public void searchMarketType(String marketType) {
@@ -50,6 +58,16 @@ public class LiquidityThresholdSettingsPage extends HomePage {
         lnk.click();
         // waitSpinIcon();
         return;
+    }
+
+    public void setThreshold(String sport, String marketType, String nonLive, String live){
+        searchSport(sport);
+        searchSport(SPORT_SOCCER);
+        selectSport(1);
+        searchMarketType(marketType);
+        waitSpinIcon();
+        setThreshold(marketType, nonLive, live);
+        popup.confirm();
     }
 
     public void setThreshold(String marketType, String nonLive, String live) {

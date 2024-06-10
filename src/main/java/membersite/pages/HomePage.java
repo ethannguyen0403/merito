@@ -95,6 +95,10 @@ public class HomePage extends LandingPage {
       return header.openPS38PreferencesPopup();
     }
 
+    public void openMyAccount(){
+        header.openMyAccount();
+    }
+
     public EvolutionPage openEvolution(){
         return header.openEvolution();
     }
@@ -252,6 +256,10 @@ public class HomePage extends LandingPage {
         Assert.assertEquals(actualBalance.getExposure(),accountBalance.getExposure(),"Failed! User Exposure is incorrect");
         //switch to proteus iFrame
         DriverManager.getDriver().switchToFrame(0);
+    }
+
+    public String getHomePageURL() {
+        return DriverManager.getDriver().getCurrentUrl();
     }
 
 }

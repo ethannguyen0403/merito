@@ -43,6 +43,9 @@ public class Header1 {
         return false;
     }
 
+    public void openMyAccount(){
+    }
+
     public AccountStatementPage openAccountStatement(String type) {
         return new AccountStatementPage(type);
     }
@@ -103,6 +106,10 @@ public class Header1 {
 
     public SportPage navigateSportMenu(String pageName, String brand) {
         return new SportPage(brand);
+    }
+
+    public InPlayPage navigateInPlayPage(String brand){
+        return new InPlayPage(brand);
     }
 
     public RacingPage navigateRacing(String pageName, String brand) {

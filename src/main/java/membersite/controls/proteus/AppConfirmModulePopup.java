@@ -35,6 +35,11 @@ public class AppConfirmModulePopup extends BaseElement {
     }
 
     public String getContent() {
+        try{
+            // wait for pop up visible on viewport
+            Thread.sleep(500);
+        }catch (Exception e){
+        }
         return lblContent.getText();
     }
 

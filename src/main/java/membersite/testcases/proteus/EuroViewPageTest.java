@@ -34,13 +34,14 @@ public class EuroViewPageTest extends BaseCaseTest {
 
         log("Step 4. Select Early tab in the left meu and any sport has events available");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
-        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL,false);
 
         log("Step 5. Click on event of 1x2 market has odds");
-        euroViewPage.clickOdds(market, "HOME");
+        euroViewPage.clickOdds(market,  false);
+//        euroViewPage.clickOdds(market, "HOME");
 
         log("Verify 1 Verify odds info (League, Event, Market type, Selection, start date) is correct");
-        euroViewPage.verifyBetSlipInfo(market, "HOME", DECIMAL);
+        euroViewPage.verifyBetSlipInfo(market, false, DECIMAL);
 
         log("INFO: Executed completely");
     }
@@ -60,13 +61,14 @@ public class EuroViewPageTest extends BaseCaseTest {
 
         log("Step 4. Select Early tab in the left meu and any sport has events available");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
-        Market market = euroViewPage.getEventInfo(SOCCER, HONGKONG);
+        Market market = euroViewPage.getEventInfo(SOCCER, HONGKONG, false);
 
         log("Step 5. Click on event of 1x2 market has odds");
-        euroViewPage.clickOdds(market, "HOME");
+        euroViewPage.clickOdds(market,  false);
+//        euroViewPage.clickOdds(market, "HOME");
 
         log("Verify 1 Verify odds info (League, Event, Market type, Selection, start date) is correct");
-        euroViewPage.verifyBetSlipInfo(market, "HOME", HONGKONG);
+        euroViewPage.verifyBetSlipInfo(market, false, HONGKONG);
 
         log("INFO: Executed completely");
     }
@@ -86,13 +88,14 @@ public class EuroViewPageTest extends BaseCaseTest {
         log("Step 4. Select Early tab in the left meu and any sport has events available");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         euroViewPage.selectOddsType(MALAY);
-        Market market = euroViewPage.getEventInfo(SOCCER, MALAY);
+        Market market = euroViewPage.getEventInfo(SOCCER, MALAY, false);
 
         log("Step 5. Click on event of 1x2 market has odds");
-        euroViewPage.clickOdds(market, "HOME");
+        euroViewPage.clickOdds(market,  false);
+//        euroViewPage.clickOdds(market, "HOME");
 
         log("Verify 1 Verify odds info (League, Event, Market type, Selection, start date) is correct");
-        euroViewPage.verifyBetSlipInfo(market, "HOME", MALAY);
+        euroViewPage.verifyBetSlipInfo(market, false, MALAY);
 
         log("INFO: Executed completely");
     }
@@ -112,14 +115,15 @@ public class EuroViewPageTest extends BaseCaseTest {
 
         log("Step 4. Select Early tab in the left meu and any sport has events available");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
-        Market market = euroViewPage.getEventInfo(SOCCER, AMERICAN);
+        Market market = euroViewPage.getEventInfo(SOCCER, AMERICAN, false);
 
 
         log("Step 5. Click on event of 1x2 market has odds");
-        euroViewPage.clickOdds(market, "HOME");
+        euroViewPage.clickOdds(market,  false);
+//        euroViewPage.clickOdds(market, "HOME");
 
         log("Verify 1 Verify odds info (League, Event, Market type, Selection, start date) is correct");
-        euroViewPage.verifyBetSlipInfo(market, "HOME", AMERICAN);
+        euroViewPage.verifyBetSlipInfo(market, false, AMERICAN);
 
         log("INFO: Executed completely");
     }
@@ -141,7 +145,7 @@ public class EuroViewPageTest extends BaseCaseTest {
 
         log("Step 4. Search Early tab in the left menu and select on Soccer");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
-        Market market = euroViewPage.getEventInfo(SOCCER, AMERICAN);
+        Market market = euroViewPage.getEventInfo(SOCCER, AMERICAN, false);
 
         log("Step 5. Click on any Event 1x2 odds and input risk = min bet then place bet");
         Order order = euroViewPage.addOddToBetSlipAndPlaceBet(market, "HOME", "minbet", false, true);
@@ -175,7 +179,7 @@ public class EuroViewPageTest extends BaseCaseTest {
 
         log("Step 4. Search Early tab in the left menu and select on Soccer");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
-        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL, false);
 
         log("Step 5. Click on any Event 1x2 odds and input risk = min bet then place bet");
         Order order = euroViewPage.addOddToBetSlipAndPlaceBet(market, "HOME", "minbet", false, true);
@@ -209,7 +213,7 @@ public class EuroViewPageTest extends BaseCaseTest {
 
         log("Step 4. Search Early tab in the left menu and select on Soccer");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
-        Market market = euroViewPage.getEventInfo(SOCCER, MALAY);
+        Market market = euroViewPage.getEventInfo(SOCCER, MALAY, false);
 
         log("Step 5. Click on any Event 1x2 odds and input risk = min bet then place bet");
         Order order = euroViewPage.addOddToBetSlipAndPlaceBet(market, "HOME", "minbet", false, true);
@@ -228,8 +232,7 @@ public class EuroViewPageTest extends BaseCaseTest {
 
     @TestRails(id = "4061")
     @Test(groups = {"ps38", "Proteus.2024.V.1.0", "isa"})
-    @Parameters({"currency"})
-    public void PS38_Member_TC4061(String currency) {
+    public void PS38_Member_TC4061() {
         log("@title: Validate user balance and exposure is correct when placing an order on HK odds");
         log("Precondition:  The player is active PS38 product and has balance to place a minimum bet");
         log("Step 1. Login member site and get user balance/exposure before place bet");
@@ -244,7 +247,7 @@ public class EuroViewPageTest extends BaseCaseTest {
         log("Step 4. Select an early event of any sports");
         log("Step 5. Click on an odds of the selection that has higher potential win");
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
-        Market market = euroViewPage.getEventInfo(SOCCER, MALAY);
+        Market market = euroViewPage.getEventInfo(SOCCER, MALAY, false);
 
         log("Step 6 Input stake = min bet");
         log("Step 7 Click Place bet and confirm to place");
@@ -273,10 +276,10 @@ public class EuroViewPageTest extends BaseCaseTest {
         euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         log("Step 4. Click on Handicap tab");
         euroViewPage.selectMarketTypeTab(TEXT_HDP);
-        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL, false);
 
         log("Step 5. Add an handicap odds of Home team to bet slip");
-        euroViewPage.clickOdds(market, "HOME");
+        euroViewPage.clickOdds(market, false);
         log("Verify Check odds handicap info display in bet slip correctly:\n" +
                 "Selection, handicap point (negative/positive sign), odds");
         euroViewPage.verifyBetSlipInfo(market, "HOME", DECIMAL);
@@ -298,10 +301,10 @@ public class EuroViewPageTest extends BaseCaseTest {
         euroViewPage.selectItemOnLeftMenu(LBL_SOCCER_SPORT);
         log("Step 4. Click on Over Under tab");
         euroViewPage.selectMarketTypeTab(TEXT_OVER_UNDER);
-        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL, false);
 
         log("Step 5. Add an Over Under odds of Home team to bet slip");
-        euroViewPage.clickOdds(market, "HOME");
+        euroViewPage.clickOdds(market, false);
 
         log("Verify Check odds handicap info display in bet slip correctly:\n" +
                 "Selection, over under point (negative/positive sign), odds");
@@ -479,7 +482,7 @@ public class EuroViewPageTest extends BaseCaseTest {
         euroViewPage.selectMarketTypeTab(TEXT_1X2);
 
         log("Step 4. Get Decimal odds and change odds type to Malay");
-        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL, false);
         euroViewPage.selectOddsType(MALAY);
 
         log("Verify Check odds when changing to Malay is same as odds when selected Decimal odds type");
@@ -503,7 +506,7 @@ public class EuroViewPageTest extends BaseCaseTest {
         euroViewPage.selectMarketTypeTab(TEXT_1X2);
 
         log("Step 4. Get Decimal odds and change odds type to Malay");
-        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL, false);
         euroViewPage.selectOddsType(HONGKONG);
 
         log("Verify Check odds when changing to Malay is same as odds when selected Hongkong odds type");
@@ -526,8 +529,8 @@ public class EuroViewPageTest extends BaseCaseTest {
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
 
         log("Step 4. Click on any event name");
-        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
-        EuroViewDetailsPage euroViewDetailsPage = euroViewPage.opentDetail(market);
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL, false);
+        EuroViewDetailsPage euroViewDetailsPage = euroViewPage.openDetail(market);
 
         log("Verify 1. Check details page display correctly info:League name\n" +
                 "Event name\n" +
@@ -563,7 +566,7 @@ public class EuroViewPageTest extends BaseCaseTest {
         log("Step 3. Placing bet with Stake/Risk smaller than min bet > observe");
         EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
-        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL, false);
         euroViewPage.addOddToBetSlipAndPlaceBet(market, "HOME", minStake, false, false);
 
         log("Validate An error message should display as:\n" +
@@ -585,7 +588,7 @@ public class EuroViewPageTest extends BaseCaseTest {
         EuroViewPage euroViewPage = proteusHomePage.selectEuroView();
         euroViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
         log("Step 3. Placing bet with Stake/Risk greater than max bet > observe");
-        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL);
+        Market market = euroViewPage.getEventInfo(SOCCER, DECIMAL, false);
         euroViewPage.addOddToBetSlipAndPlaceBet(market, "HOME", maxStake, false, false);
 
         log("Validate An error message should display as:\n" +
@@ -596,23 +599,22 @@ public class EuroViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "23688")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
     public void PS38_Member_TC23688() {
-        log("@title: Validate Odds Type display correctly when the setting is Malay - Asian View");
+        log("@title: Validate Odds Type display correctly when the setting is Hong Kong - Euro View");
         log("Step 1: Expand My Account and click the menu PS38 Reference");
         PS38PreferencesPopup prefPopup = memberHomePage.openPS38PreferencesPopup();
-        log("Step 2: Select Odds type Hong Kong and Default View is Euro then click save");
+        log("Step 2: Select Odds type Malay and Default View is Euro then click save");
         prefPopup.selectPreferences("Hong Kong", "", EURO, "", "");
         log("Step 3: Click on PS38 product and check the selected odds type Odds type");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
         log("Verify 1: Verify View label displays Euro View and odds type is HK Odds");
         Assert.assertEquals(proteusHomePage.lblView.getText().trim(), ASIAN_VIEW, "FAILED! View is not correct");
-        EuroViewPage asianViewPage = proteusHomePage.selectEuroView();
-        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), HONGKONG.toUpperCase(), "FAILED! Label Odds is not correct");
+        Assert.assertEquals(new EuroViewPage(_brandname).ddmOddsType.getText().trim(), HONGKONG.toUpperCase(), "FAILED! Label Odds is not correct");
     }
 
     @TestRails(id = "23689")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
     public void PS38_Member_TC23689() {
         log("@title: Validate Odds Type display correctly when the setting is Malay - Euro View");
         log("Step 1: Expand My Account and click the menu PS38 Reference");
@@ -621,25 +623,23 @@ public class EuroViewPageTest extends BaseCaseTest {
         prefPopup.selectPreferences(MALAY, "", EURO, "", "");
         log("Step 3: Click on PS38 product and check the selected odds type Odds type");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
-        log("Verify 1: erify  View label displays Asian View and odds type is MY Odds");
+        log("Verify 1: Verify View label displays Asian View and odds type is MY Odds");
         Assert.assertEquals(proteusHomePage.lblView.getText().trim(), ASIAN_VIEW, "FAILED! View is not correct");
-        EuroViewPage asianViewPage = proteusHomePage.selectEuroView();
-        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), MALAY.toUpperCase(), "FAILED! Label Odds is not correct");
+        Assert.assertEquals(new EuroViewPage(_brandname).ddmOddsType.getText().trim(), MALAY.toUpperCase(), "FAILED! Label Odds is not correct");
     }
 
     @TestRails(id = "23690")
-    @Test(groups = {"ps38","Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38","Proteus.2024.V.2.0"})
     public void PS38_Member_TC23690() {
-        log("@title: Validate Odds Type display correctly when the setting is Malay - Euro View");
+        log("@title: Validate Odds Type display correctly when the setting is American - Euro View");
         log("Step 1: Expand My Account and click the menu PS38 Reference");
         PS38PreferencesPopup prefPopup = memberHomePage.openPS38PreferencesPopup();
-        log("Step 2: Select Odds type Malay and Default View is Euro then click save");
+        log("Step 2: Select Odds type American and Default View is Euro then click save");
         prefPopup.selectPreferences(AMERICAN, "", EURO, "", "");
         log("Step 3: Click on PS38 product and check the selected odds type Odds type");
         ProteusHomePage proteusHomePage =  memberHomePage.activePS38Product();
-        log("Verify 1: Verify View label displays Euro View and odds type is HK Odds");
+        log("Verify 1: Verify View label displays Euro View and odds type is American Odds");
         Assert.assertEquals(proteusHomePage.lblView.getText().trim(), ASIAN_VIEW, "FAILED! View is not correct");
-        EuroViewPage asianViewPage = proteusHomePage.selectEuroView();
-        Assert.assertEquals(asianViewPage.ddmOddsType.getText().trim(), AMERICAN.toUpperCase(), "FAILED! Label Odds is not correct");
+        Assert.assertEquals(new EuroViewPage(_brandname).ddmOddsType.getText().trim(), AMERICAN.toUpperCase(), "FAILED! Label Odds is not correct");
     }
 }

@@ -5,6 +5,7 @@ import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 import com.paltech.utils.DateUtils;
+import com.paltech.utils.DoubleUtils;
 import controls.Table;
 import membersite.controls.DropDownMenu;
 import membersite.objects.proteus.*;
@@ -18,11 +19,13 @@ import static common.MemberConstants.GMT_MINUS_4_30;
 import static common.ProteusConstant.*;
 
 public class AsianViewPage extends ProteusHomePage {
-    private String leagueIndexXpath = "(//app-league-asian)[%d]";
-    private String leagueNameXpath ="(//app-league-asian)[%d]//div[contains(@class,'league-name')]";
+    private String leagueInplayXpath = "//section[contains(@class, 'sport--desktop') and contains(.,'Live Matches')]";
+    private String leagueNonInplayXpath = "//section[contains(@class, 'sport--desktop') and not(contains(.,'Live Matches'))]";
+    private String leagueIndexXpath = "(%s//app-league-asian)[%d]";
+    private String leagueNameXpath ="(%s//app-league-asian)[%d]//div[contains(@class,'league-name')]";
     private String firstOddsCellXpath = "%s//th[contains(@class,'odd-column')][%d]";
-    private String firstTableOddXpath = "((//app-league-asian)[%d]//table[contains(@class,'odds-page')])[%d]";
-    private String eventTableOddLstXpath = "(//app-league-asian)[%d]//table[contains(@class,'odds-page')]";
+    private String firstTableOddXpath = "((%s//app-league-asian)[%d]//table[contains(@class,'odds-page')])[%d]";
+    private String eventTableOddLstXpath = "(%s//app-league-asian)[%d]//table[contains(@class,'odds-page')]";
     public Label lblView = Label.xpath("//li[contains(@class,'view-mode')]/span");
     private String tableEventXpath = "//table[contains(@class,'odds-page') and @eventid='%d']";
     private String moreMarketXpath = "//app-league-asian//table[@eventid='%s']//th[contains(@class,'more-markets')]";
@@ -54,10 +57,6 @@ public class AsianViewPage extends ProteusHomePage {
         super(types);
     }
 
-    public void waitContentLoad(){
-        lblLoading.waitForControlInvisible(2,3);
-    }
-
     public void selectPeriodTab(String period) {
         if (period.equalsIgnoreCase("early")) {
             btnEarlyAsian.click();
@@ -77,11 +76,6 @@ public class AsianViewPage extends ProteusHomePage {
         waitForSpinnerLoading();
     }
 
-    public void verifyOddsTypeLabelCorrect(String oddsType){
-
-
-    }
-
 //    public String selectFirstNegativeOdds() {
 //        Label lblFirstOdds = Label.xpath("(//span[contains(@class,'color-negative-odd')])[1]/span");
 //        Row rowEventSection = Row.xpath("(//span[contains(@class,'color-negative-odd')])[1]/span//ancestor::th");
@@ -96,21 +90,21 @@ public class AsianViewPage extends ProteusHomePage {
 //        return rowEventSection.getAttribute("eventid");
 //    }
 
-    public void placeBet(double stake, boolean isSubmit, boolean isConfirm) {
-        txtStake.sendKeys(String.valueOf(stake));
-        if(isSubmit) {
-            btnPlaceBet.jsClick();
-            if(isConfirm) {
-                btnOK.waitForElementToBePresent(btnOK.getLocator());
-                btnOK.jsClick();
-                waitForSpinnerLoading();
-            }
-        }
-    }
+//    public void placeBet(double stake, boolean isSubmit, boolean isConfirm) {
+//        txtStake.sendKeys(String.valueOf(stake));
+//        if(isSubmit) {
+//            btnPlaceBet.jsClick();
+//            if(isConfirm) {
+//                btnOK.waitForElementToBePresent(btnOK.getLocator());
+//                btnOK.jsClick();
+//                waitForSpinnerLoading();
+//            }
+//        }
+//    }
 
     public void searchLeagueOrTeamName(String leagueOrTeamName) {
         txtSearchLeagueOrTeamName.sendKeys(leagueOrTeamName);
-        btnSearch.click();
+        btnSearch.jsClick();
         waitForSpinnerLoading();
     }
 
@@ -225,12 +219,12 @@ public class AsianViewPage extends ProteusHomePage {
         waitForSpinnerLoading();
     }
 
-    public Market getEventInfo(String sportName, String oddsType, String marketType, boolean isFullMatch) {
+    public Market getEventInfo(String sportName, String oddsType, String marketType, boolean isFullMatch, boolean isInPlay) {
         int leagueIndex = 1;
         Market market;
         while (true)
         {
-            market = getEventInfo(sportName,oddsType,leagueIndex, marketType, isFullMatch);
+            market = getEventInfo(sportName,oddsType,leagueIndex, marketType, isFullMatch, isInPlay);
             if(Objects.nonNull(market))
                 return market;
             leagueIndex = leagueIndex + 1;
@@ -242,12 +236,12 @@ public class AsianViewPage extends ProteusHomePage {
      * @param leagueIndex
      * @return
      */
-    public Market getEventInfo(String sportName, String oddsType,int leagueIndex, String marketType, boolean isFullMatch) {
+    public Market getEventInfo(String sportName, String oddsType,int leagueIndex, String marketType, boolean isFullMatch, boolean isInPlay) {
         int eventIndex = 1;
         Market market;
         while (true)
         {
-            market = getEventInfo(sportName,oddsType,leagueIndex,eventIndex, marketType, isFullMatch);
+            market = getEventInfo(sportName,oddsType,leagueIndex,eventIndex, marketType, isFullMatch, isInPlay);
             if(Objects.nonNull(market))
                 return market;
             eventIndex = eventIndex + 1;
@@ -259,26 +253,32 @@ public class AsianViewPage extends ProteusHomePage {
      * @param
      * @return
      */
-    public Market getEventInfo(String sportName, String oddsType, String marketType, boolean isFullMatch, boolean isNegativeOdds) {
+    public Market getEventInfo(String sportName, String oddsType, String marketType, boolean isFullMatch, boolean isNegativeOdds, boolean isInPlay) {
         int leagueIndex = 1;
         Market market;
-        while (true)
+        //limit 20 leagues to get event info
+        while (leagueIndex <= 20)
         {
-            market = getEventInfo(sportName,oddsType,leagueIndex, marketType, isFullMatch, isNegativeOdds);
+            market = getEventInfo(sportName,oddsType,leagueIndex, marketType, isFullMatch, isNegativeOdds, isInPlay);
             if(Objects.nonNull(market))
                 return market;
             leagueIndex = leagueIndex + 1;
         }
+        return null;
     }
-
     /**
      * Get event info with odds type = Decimal odds bases on inputed index, if index = 0 mean get random
      * @param leagueIndex
      * @param eventIndex
      * @return a Market Info
      */
-    private Market getEventInfo(String sportName, String oddsType, int leagueIndex, int eventIndex, String marketType, boolean isFullMatch) {
+    private Market getEventInfo(String sportName, String oddsType, int leagueIndex, int eventIndex, String marketType, boolean isFullMatch, boolean isInPlay) {
         Market market;
+        leagueIndexXpath = isInPlay? leagueIndexXpath.replace("%s", leagueInplayXpath)  : leagueIndexXpath.replace("%s", leagueNonInplayXpath);
+        firstTableOddXpath = isInPlay? firstTableOddXpath.replace("%s", leagueInplayXpath) : firstTableOddXpath.replace("%s", leagueNonInplayXpath);
+        eventTableOddLstXpath = isInPlay? eventTableOddLstXpath.replace("%s", leagueInplayXpath) : eventTableOddLstXpath.replace("%s", leagueNonInplayXpath);
+        leagueNameXpath = isInPlay? leagueNameXpath.replace("%s", leagueInplayXpath) : leagueNameXpath.replace("%s", leagueNonInplayXpath);
+
         String indexEventXpath = String.format(firstTableOddXpath, leagueIndex, eventIndex);
         Label lblLeague = Label.xpath(String.format(leagueIndexXpath,leagueIndex));
         if (!lblLeague.isDisplayed())
@@ -314,14 +314,19 @@ public class AsianViewPage extends ProteusHomePage {
      * @return a Market Info
      */
     private Market getEventInfo(String sportName, String oddsType, int leagueIndex, String marketType, boolean isFullMatch,
-                                boolean isNegativeOdds) {
+                                boolean isNegativeOdds, boolean isInPlay) {
         Market market = null;
         String leagueName = "", eventID = "";
+        leagueIndexXpath = isInPlay? leagueIndexXpath.replace("%s", leagueInplayXpath)  : leagueIndexXpath.replace("%s", leagueNonInplayXpath);
+        firstTableOddXpath = isInPlay? firstTableOddXpath.replace("%s", leagueInplayXpath) : firstTableOddXpath.replace("%s", leagueNonInplayXpath);
+        eventTableOddLstXpath = isInPlay? eventTableOddLstXpath.replace("%s", leagueInplayXpath) : eventTableOddLstXpath.replace("%s", leagueNonInplayXpath);
+        leagueNameXpath = isInPlay? leagueNameXpath.replace("%s", leagueInplayXpath) : leagueNameXpath.replace("%s", leagueNonInplayXpath);
+
         int oddsColum = defineOddsColumn(marketType, isFullMatch);
         Label lblLeague = Label.xpath(String.format(leagueIndexXpath, leagueIndex));
         if (!lblLeague.isDisplayed())
             return null;
-        // get event id from UI xpath property
+        //get event id from UI xpath property
 //        String eventID = Label.xpath(String.format(firstOddsCellXpath,leagueIndex, defineOddsColumn(marketType, isFullMatch))).getAttribute("eventid");
         Label lblEventID = Label.xpath(String.format(eventTableOddLstXpath, leagueIndex));
         //handle for multi event in one League
@@ -345,7 +350,8 @@ public class AsianViewPage extends ProteusHomePage {
                 if (i == lstEvent.size() - 1) {
                     return market;
                 }
-                continue;
+            }else {
+                break;
             }
         }
         market.setLeagueName(leagueName);
@@ -702,42 +708,40 @@ public class AsianViewPage extends ProteusHomePage {
         }
     }
 
-    public Order addOddToBetSlipAndPlaceBet(Market market, String selection, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+//    public Order addOddToBetSlipAndPlaceBet(Market market, String selection, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+//        // click odds
+//        clickOdds(market, selection, isFullMatch);
+//        //input stake and click place bet and confirm
+//        Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
+//        // set Odd info of the team name that placed on
+//        order.setOdds(market.getOddsInfoBySelection(selection));
+//        return order;
+//    }
+
+    public Order addOddToBetSlipAndPlaceBetWithoutSetOrder(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds,
+                                                           boolean isPlace, boolean isNegativeOdd) {
         // click odds
-        clickOdds(market, isFullMatch);
+        clickOdds(market, defineSelectionBaseOnOdds(market, isNegativeOdd), isFullMatch);
         //input stake and click place bet and confirm
-        Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
-        // set Odd info of the team name that placed on
-        order.setOdds(market.getOddsInfoBySelection(selection));
-        return order;
+        return placeNoBet(market, stake, isAcceptBetterOdds, isPlace);
     }
 
-    public void addOddToBetSlipAndPlaceBetWithoutSetOrder(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
+    public Order addOddToBetSlipAndPlaceBet(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace, boolean isNegativeOdd){
         // click odds
-        clickOdds(market, isFullMatch);
-        //input stake and click place bet and confirm
-        placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
-    }
-
-    public Order addOddToBetSlipAndPlaceBet(Market market, boolean isFullMatch, String stake, boolean isAcceptBetterOdds, boolean isPlace){
-        // click odds
-        clickOdds(market, isFullMatch);
+        clickOdds(market, defineSelectionBaseOnOdds(market, isNegativeOdd), isFullMatch);
         //input stake and click place bet and confirm
         Order order = placeNoBet(market,stake,isAcceptBetterOdds,isPlace);
         if (isPlace) {
             // set Odd info of the team name that placed on
-            order.setOdds(market.getOdds().get(0));
-            return order;
-        } else {
-            return null;
-        }
+            order.setOdds(market.getOdds().get(0));}
+        return order;
     }
 
-    public void clickOdds(Market market, boolean isFullMatch){
+    public void clickOdds(Market market, String selection, boolean isFullMatch){
         //handle when get negative/positive odds we base on odds team to know which selection should click
-        int rowIndex = 0;
+        int rowIndex = 1;
         String oddsHomeXpath ="//th[contains(@class,'odd-column')][%s]//span[contains(@class,'odd-number')]";
-        if(market.getOdds().get(0).getTeam().equalsIgnoreCase("HOME")) {
+        if(market.getOdds().get(0).getTeam().equalsIgnoreCase(selection)) {
             rowIndex = 1;
         } else {
             rowIndex = 2;
@@ -747,7 +751,12 @@ public class AsianViewPage extends ProteusHomePage {
         int column = defineOddsColumn(market.getBetType(),isFullMatch);
         oddsHomeXpath = String.format(oddsHomeXpath,column);
         Label lblOdds = Label.xpath(String.format("(%s%s)[%s]",eventXpath,oddsHomeXpath, rowIndex));
+        lblOdds.scrollToThisControl(false);
         lblOdds.click();
+    }
+
+    public void clickOdds(Market market, boolean isFullMatch, boolean isNegative){
+        clickOdds(market, defineSelectionBaseOnOdds(market, isNegative), isFullMatch);
     }
 
     private String getEventIndexXpath(String eventID){
@@ -791,6 +800,31 @@ public class AsianViewPage extends ProteusHomePage {
         }
     }
 
+    public void verifyMinMaxAndMaxPerMatchShowCorrect(Market market, double settingMinBet, double settingMaxBet, double settingMaxPerMatch,
+                                             String oddsType, boolean isNegativeOdds) {
+//        String rootXpath = "(//app-bet-slip//div[contains(@class,'bet-slip-item')])[%s]";
+//        String betslipXpath = String.format(rootXpath, 1);
+        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", market.getEventId());
+        String minBet = Label.xpath(String.format("%s%s", betslipRootXpath, lblMinBetXpath)).getText();
+        String maxBet = Label.xpath(String.format("%s%s", betslipRootXpath, lblMaxBetXpath)).getText();
+        String matchMax = Label.xpath(String.format("%s%s", betslipRootXpath, lblMatchMaxXpath)).getText();
+
+        double oddsValue = Double.parseDouble(String.valueOf(market.getOdds().get(0).getOdds()));
+        double minBetExpected = calculateMinMaxOrMaxPerMatchBetSlip(settingMinBet, oddsValue, oddsType, isNegativeOdds);
+        double maxBetExpected = calculateMinMaxOrMaxPerMatchBetSlip(settingMaxBet, oddsValue, oddsType, isNegativeOdds);
+        double matchMaxExpected = calculateMinMaxOrMaxPerMatchBetSlip(settingMaxPerMatch, oddsValue, oddsType, isNegativeOdds);
+
+        if (Objects.nonNull(settingMaxPerMatch))
+            Assert.assertEquals(Double.valueOf(matchMax), matchMaxExpected, 0.01,
+                    String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, matchMaxExpected));
+        if (Objects.nonNull(settingMinBet))
+            Assert.assertEquals(Double.valueOf(minBet), minBetExpected, 0.02,
+                    String.format("FAILED! Min Bet does not show correct expected %s actual %s", minBet, minBetExpected));
+        if (Objects.nonNull(settingMaxBet))
+            Assert.assertEquals(Double.valueOf(maxBet), maxBetExpected, 0.02,
+                    String.format("FAILED! Max Bet does not show correct expected %s actual %s", maxBet, maxBetExpected));
+    }
+
     public void verifyMaxPerMatchShowCorrect(Market market, double settingMaxPerMatch, String oddsType, boolean isNegativeOdds) {
         String rootXpath = "(//app-bet-slip//div[contains(@class,'bet-slip-item')])[%s]";
         String betslipXpath = String.format(rootXpath,1);
@@ -820,8 +854,31 @@ public class AsianViewPage extends ProteusHomePage {
         }
     }
 
-    public void addMultiBetsToBetSlip(int amountBets){
-        Label lblOddsList = Label.xpath("//th[contains(@class,'odd-column')]//div[contains(@class, 'selection-row')][1]//span[contains(@class,'odd-number')]");
+    public double calculateMinMaxOrMaxPerMatchBetSlip(double amountSetting, double oddsValue, String oddsType, boolean isNegative) {
+        if(isNegative){
+            switch (oddsType) {
+                case AMERICAN:
+                    return   Double.valueOf(Math.floor(Math.abs((amountSetting / oddsValue) * 100) * 100) / 100);
+                case MALAY:
+                    return  Double.valueOf(Math.floor(Math.abs((amountSetting / oddsValue)) * 100) / 100);
+                default:
+                    return amountSetting;
+            }
+        }else {
+            return amountSetting;
+        }
+    }
+
+    public void addMultiBetsToBetSlip(int amountBets, boolean isInPlay){
+        String prefixInPlayXpath = "//section[contains(@class, 'sport--desktop') and contains(.,'Live')]";
+        String prefixNonInPlayXpath = "//section[contains(@class, 'sport--desktop') and not(contains(.,'Live'))]";
+        String oddsListXpath = "%s//th[contains(@class,'odd-column')]//div[contains(@class, 'selection-row')][1]//span[contains(@class,'odd-number')]";
+        oddsListXpath = isInPlay? String.format(oddsListXpath, prefixInPlayXpath) : String.format(oddsListXpath, prefixNonInPlayXpath);
+        Label lblOddsList = Label.xpath(oddsListXpath);
+        if(Objects.isNull(lblOddsList.getWebElements())){
+            System.err.println("ERROR! The Market does not have Live event");
+            return;
+        }
         List<WebElement> lstOdds = lblOddsList.getWebElements();
         for (int i = 0; i<lstOdds.size();i++){
             if(i==amountBets){
@@ -831,8 +888,11 @@ public class AsianViewPage extends ProteusHomePage {
         }
     }
 
+    /**
+     * @param marketType Should use constant in PS38PreferencesPopup. Eg: DDPAGE_TODAY_MATCHES*/
     public void verifySportTitleCorrect(String sport, String period, String marketType){
         String expectedLabel = "";
+        marketType = marketType.split("-")[1].trim();
         switch (marketType){
             case "Matches":
                 expectedLabel = String.format("%s - %s %s", sport, period, marketType).toUpperCase();

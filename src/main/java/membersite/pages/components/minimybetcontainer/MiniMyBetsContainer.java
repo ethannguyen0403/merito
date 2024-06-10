@@ -1,5 +1,6 @@
 package membersite.pages.components.minimybetcontainer;
 
+import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class MiniMyBetsContainer {
     public Order getOrder(boolean isMatched, boolean isBack) {
         return null;
     }
+
+    public void verifyInfoBetSlipAndOddsPage(Market market, Order order) {}
 
     public void removeBet(boolean isBack) {
     }

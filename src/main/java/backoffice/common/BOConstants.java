@@ -55,6 +55,7 @@ public class BOConstants {
             public final static String SELECT_BRAND = "Select Brand";
             public final static String SPORT_TYPE = "Sport";
             public final static String COMPETITION_TYPE = "Competition";
+            public final static String MARKET_TYPE = "Market";
             public final static String SAT_BRAND = "SAT sport";
             public final static List<String> DDB_SPORT_COUNTRY_RACES = Arrays.asList("Horse Racing", "Horse Racing - Antepost", "Greyhound Racing", "Greyhound Racing - Antepost");
             public final static List<String> BRANDS_LIST = Arrays.asList("FairExchange", "FunSport101", "SAT Sport", "LORD 777", "198BE", "Lottoexch", "Betxhub", "Fairenter", "World Exchange", "Betcric", "Betfinex", "Aposta", "Betclub9", "Sunexch365", "Laystars");
@@ -134,8 +135,7 @@ public class BOConstants {
             public final static String TITLE = "Live Streaming Management";
             public final static String TITLE_AUTO_MAPPING = "Auto Mapping";
             public final static String TITLE_CONFIRM_MAPPING_POPUP = "Are you sure to map those events?";
-            public final static String CONFIRM_MAPPING_NOTE_MESSAGE = "The 2 selected event names look like different match.\n" +
-                    "The 2 selected events have different open dates.";
+            public final static String CONFIRM_MAPPING_NOTE_MESSAGE = "The 2 selected event names look like different match.";
             public final static List<String> TABLE_AUTO_MAPPING = Arrays.asList("Start date", "Fair Competition", "Fair Event Name", "Provider Competition", "Provider Event Name", "% Matched >=", "");
 
         }

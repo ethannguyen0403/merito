@@ -1,11 +1,14 @@
 package membersite.pages.components.betslipcontainer;
 
 import com.paltech.element.common.Button;
+import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 import membersite.controls.EditStakeControl;
+import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,20 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
     private Button btnQuickStakes = Button.xpath("//button[contains(@class,'fastbtn')]");
     private Label lblProfitLiability = Label.xpath("//span[contains(@class,'bet-slip-profit')]");
 
+    @Override
+    public boolean isPlacBetButtonEnable(){
+        return btnPlaceBet.isEnabled();
+    }
+
+    @Override
+    public void verifyInfoBetSlipAndOddsPage(Market market, Order order) {
+    String actualLiability = Label.xpath(lblProfitLiabilityXPath).getText().trim();
+    String expectedLiability = String.format("%.2f", order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
+        Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Liability of selection is not correct");
+        Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
+        Assert.assertEquals(market.getBtnOdd().getText(), order.getOdds(), "FAILED! Odds is not corrct");
+    }
+
     public void cancelAllSelections() {
         btnClearAll.click();
     }
@@ -47,6 +64,12 @@ public class NewUIBetsSlipContainer extends BetsSlipContainer {
         lblSelectionHeader.click();
         // waiting for loading completely
         btnPlaceBet.isInvisible(2);
+    }
+
+    @Override
+    public void removeBetByBinIcon(Market market) {
+    Icon iconBin = Icon.xpath(String.format("//div[contains(@title,'%s')]/../preceding-sibling::span", market.getSelectionName()));
+    iconBin.click();
     }
 
     public String getBetSlipErrorMessage() {

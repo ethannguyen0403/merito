@@ -29,6 +29,7 @@
         <parameter name="cryptoAccount" value="00N0000000"/>
         <parameter name='appname' value='backoffice'/>
         <parameter name='brandname' value='backoffice'/>
+        <parameter name='skinName' value='backoffice'/>
         <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>

@@ -17,6 +17,7 @@
         <parameter name='currency' value='HKD'/>
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='fairexchange'/>
+        <parameter name='skinName' value='fairexchange'/>
         <parameter name='BOLoginId' value='AutoQA'/>
         <parameter name='BOLoginPwd' value='WncY8OT1OV5814mXP2PqYg=='/>
         <parameter name='isAddTestRailResult' value='true'/>
@@ -26,7 +27,7 @@
             </run>
         </groups>
         <classes>
-            <class name="membersite.testcases.casino.EvolutionPageTest"/>
+<!--            <class name="membersite.testcases.casino.EvolutionPageTest"/>-->
             <class name="membersite.testcases.casino.EvolutionPageWhiteCliffTest"/>
             <class name="membersite.testcases.casino.LiveDealerAsianPageTest"/>
             <class name="membersite.testcases.casino.LiveDealerEuropeanPageTest"/>

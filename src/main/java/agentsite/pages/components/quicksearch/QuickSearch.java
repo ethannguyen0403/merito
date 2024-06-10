@@ -31,6 +31,8 @@ public class QuickSearch {
     public Table tblLoginQuickSearch = Table.xpath("//app-quick-login//table", 2);
 
     public void quickSearch(String username) {
+        tabQuickSearch.isDisplayed();
+        tabQuickSearch.click();
         txtQuickSearch.isDisplayedShort(2);
         txtQuickSearch.sendKeys(username);
         btnSearchQuickSearch.click();

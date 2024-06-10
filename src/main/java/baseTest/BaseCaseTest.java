@@ -13,7 +13,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import membersite.pages.HomePage;
 import membersite.pages.LandingPage;
-import membersite.pages.phishing.CryptoPage;
+import membersite.pages.camouflage.*;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.core.har.HarEntry;
 import objects.Environment;
@@ -51,10 +51,15 @@ public class BaseCaseTest {
     public static membersite.pages.HomePage memberHomePage;
     public static LandingPage landingPage;
     public static CryptoPage cryptoPage;
+    public static AtlanticPage atlanticPage;
+    public static Eu1010Page eu1010Page;
+    public static AlpicfoxPage alpicfoxPage;
+    public static PowderpinPage powderpinPage;
     public static BrowserMobProxy browserMobProxy;
     public static String domainURL;
     public static String domainCashURL;
     public static String memberLoginURL;
+    public static String camouflageLoginURL;
     public static String memberLoginCashURL;
     public static String memberSOSUrl;
     public static String agentLoginURL;
@@ -71,8 +76,8 @@ public class BaseCaseTest {
     public static String backofficeDashboardUrl;
     public static String userCurrency;
     public static String memberMarketServiceURL;
-    public static String cryptoURL;
     public static String _brandname;
+    private static String _skinName;
     public static String PROJECT_ID = "1";
     public static APIClient client;
     private static ApplicationContext context;
@@ -134,6 +139,9 @@ public class BaseCaseTest {
                 break;
             case "membersite":
                 loginMember(username, password, isLogin, language, currency, isThrown);
+                break;
+            case "camouflage":
+                loginCamouflageSite(username, password, isLogin);
                 break;
             default:
                 loginBackoffice(username, password, isLogin);
@@ -221,14 +229,49 @@ public class BaseCaseTest {
         }
     }
 
-    public static HomePage loginCryptoSite(String username, String password, boolean isLogin) throws Exception {
-        cryptoURL = definePhishingSiteURL(_brandname, CRYPTO_URL_SUFFIX);
-        createDriver(cryptoURL);
-        cryptoPage = new CryptoPage(_brandname);
-        if (isLogin) {
-            memberHomePage = cryptoPage.login(username, StringUtils.decrypt(password));
-            log(String.format("Successfully login Crypto with account %s", username));
-            return memberHomePage;
+    public static HomePage loginCamouflageSite(String username, String password, boolean isLogin) throws Exception {
+        createDriver(camouflageLoginURL);
+        switch (_skinName) {
+            case "crypto":
+                cryptoPage = new CryptoPage(_brandname);
+                if (isLogin) {
+                    memberHomePage = cryptoPage.login(username, StringUtils.decrypt(password));
+                    log(String.format("Successfully login Crypto with account %s", username));
+                    return memberHomePage;
+                }
+                break;
+            case "atlantic":
+                atlanticPage = new AtlanticPage(_brandname);
+                if (isLogin) {
+                    memberHomePage = atlanticPage.login(username, StringUtils.decrypt(password));
+                    log(String.format("Successfully login Crypto with account %s", username));
+                    return memberHomePage;
+                }
+                break;
+            case "alpicfox":
+                alpicfoxPage = new AlpicfoxPage(_brandname);
+                if (isLogin) {
+                    memberHomePage = alpicfoxPage.login(username, StringUtils.decrypt(password));
+                    log(String.format("Successfully login Crypto with account %s", username));
+                    return memberHomePage;
+                }
+                break;
+            case "eu1010":
+                eu1010Page = new Eu1010Page(_brandname);
+                if (isLogin) {
+                    memberHomePage = eu1010Page.login(username, StringUtils.decrypt(password));
+                    log(String.format("Successfully login Crypto with account %s", username));
+                    return memberHomePage;
+                }
+                break;
+            default:
+                powderpinPage = new PowderpinPage(_brandname);
+                if (isLogin) {
+                    memberHomePage = powderpinPage.login(username, StringUtils.decrypt(password));
+                    log(String.format("Successfully login Crypto with account %s", username));
+                    return memberHomePage;
+                }
+                break;
         }
         return null;
     }
@@ -373,8 +416,8 @@ public class BaseCaseTest {
                 return String.format("%s%s", getURL(brandName), "/market-service");
         }
     }
-    public static String definePhishingSiteURL(String brandName, String suffix) {
-        return String.format("%s%s", getPhishingURL(brandName), suffix);
+    public static String defineCamouFlageSiteURL(String brandName, String suffix) {
+        return String.format("%s%s", getCamouFlageURL(brandName, _skinName), suffix);
     }
 
     private static String defineMemberSiteURL(String brandName) {
@@ -421,22 +464,33 @@ public class BaseCaseTest {
         }
     }
 
-    private static String getPhishingURL(String brandName) {
+    private static String getCamouFlageURL(String brandName, String skinName) {
         switch (brandName) {
             case "fairenter":
-                return environment.getAtlanticURL();
+                if(skinName.equalsIgnoreCase("atlantic"))
+                    return environment.getAtlanticURL();
+                else if (skinName.equalsIgnoreCase("alpicfox")) {
+                    return environment.getAlpicfoxURL();
+                }
             case "funsport":
-                return environment.getCryptoURL();
+                if(skinName.equalsIgnoreCase("powderpin"))
+                    return environment.getPowderpinURL();
+                else if (skinName.equalsIgnoreCase("crypto")) {
+                    return environment.getCryptoURL();
+                }
+            case "eu1010":
+                return environment.getEu1010URL();
             default:
                 return "";
         }
     }
 
-    @Parameters({"browser", "env", "language", "brandname"})
+    @Parameters({"browser", "env", "language", "brandname","skinName"})
     @BeforeClass(alwaysRun = true)
-    public void beforeClass(String browser, String env, String language, String brandname) {
+    public void beforeClass(String browser, String env, String language, String brandname, String skinName) {
         System.out.println("BrandName at Before Class" + brandname);
         _brandname = brandname;
+        _skinName = skinName;
         try {
             environment = (Environment) context.getBean(env);
             driverProperties = (DriverProperties) context.getBean(browser);
@@ -448,6 +502,8 @@ public class BaseCaseTest {
             memberLoginURL = defineURL(brandname, MEMBER_URL_SUFFIX.get(brandname));
             memberSOSUrl = defineURL(brandname, MEMBER_SOS_URL_SUFFIX);
             memberLoginCashURL = defineCashURL(brandname, MEMBER_URL_SUFFIX.get(brandname));
+            // Define camouflage site URL
+            camouflageLoginURL = defineCamouFlageSiteURL(brandname, MEMBER_CAMOUFLAGE_URL_SUFFIX.get(skinName));
 
             // define Agent site URLs
             agentLoginURL = defineURL(brandname, "/agent");

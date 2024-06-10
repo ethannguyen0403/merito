@@ -19,6 +19,7 @@ public class LeftMenu {
     }
 
     public void clickSubMenu(String menu, String submenu) {
+        switchMainMenu();
         leftMenuList.clickSubMenu(menu, submenu);
     }
     public void clickSubMenu(String menu, String submenu1, String submenu2) {

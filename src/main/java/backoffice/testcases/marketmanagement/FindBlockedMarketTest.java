@@ -97,7 +97,7 @@ public class FindBlockedMarketTest extends BaseCaseTest {
         log("Step 3. The data display and get Status in Block/Unblock Event column");
         String blockStatus = page.getBlockedStatus(satSADAgentLoginID);
         log("Step 4. Login agent the level control blocking > Block/Unblock Event");
-        agentHomePage = loginAgent(satSADAgentLoginID, memberPassword, _brandname);
+        agentHomePage = loginAgent(satSADAgentLoginID, memberPassword, "satsport");
         BlockUnblockEventPage blockUnblockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
         blockUnblockEventPage.filter("",SPORT_CRICKET, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         blockUnblockEventPage.searchEvent(market.event.getEventName());

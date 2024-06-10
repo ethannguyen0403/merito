@@ -9,6 +9,7 @@ import membersite.pages.*;
 import membersite.pages.casino.*;
 import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
+import membersite.pages.components.ps38preferences.PS38PreferencesPopup;
 import membersite.pages.components.signinform.SATSignInPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
@@ -33,7 +34,7 @@ public class SatHeader extends Header1 {
     private Button btnLogin = Button.xpath("//header//button[contains(@class,'btn-in-out')]");
     private Button btnJoinNow = Button.xpath("//header//button[contains(@class,'join-now')]");
     private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[contains(@class,'account d-block')]", "", "//ul[contains(@class,'dropdown-menu')]//li");
-    private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
+    private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')] | //a[contains(text(),'EXCHANGE GAMES')]");
     private Label imgSpinner = Label.xpath("//div[contains(@class,'lds-spinner')]");
     private Image imgLeftMenu = Image.xpath("//div[@class='left-menu-icon']/img");
     private Menu menuSports = Menu.xpath("//app-sport-menu-bar//ul[@class='navbar-nav']//a");
@@ -107,6 +108,11 @@ public class SatHeader extends Header1 {
     }
 
     @Override
+    public void openMyAccount() {
+        ddmAccount.click();
+    }
+
+    @Override
     public boolean isDepositButtonDisplayed() {return btnDeposit.isDisplayed();}
 
     public AccountStatementPage openAccountStatement(String type) {
@@ -143,6 +149,12 @@ public class SatHeader extends Header1 {
     public SATChangePasswordPopup openChangePasswordPopup() {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
         return new SATChangePasswordPopup();
+    }
+
+    @Override
+    public PS38PreferencesPopup openPS38PreferencesPopup() {
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("PS38 Preferences"));
+        return new PS38PreferencesPopup();
     }
 
     public void openExchangeGame() {
@@ -262,6 +274,12 @@ public class SatHeader extends Header1 {
         return new SportPage(brand);
     }
 
+    @Override
+    public InPlayPage navigateInPlayPage(String brand) {
+        clickHeaderMenu("In-play");
+        return new InPlayPage(brand);
+    }
+
     private void clickHeaderMenu(String sportMenu){
         Menu menu = Menu.xpath(String.format(sportMenuXpath, sportMenu));
         if (!menu.isDisplayed(5)) {
@@ -272,6 +290,11 @@ public class SatHeader extends Header1 {
     }
     public MyMarketPopup openMyMarketPopup() {
         lnkMyMarkets.click();
+        try {
+            // wait for pop up visible on screen
+            Thread.sleep(500);
+        }catch (Exception e){
+        }
         return new MyMarketPopup();
     }
 

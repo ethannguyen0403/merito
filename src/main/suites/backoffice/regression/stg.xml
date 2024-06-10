@@ -18,14 +18,17 @@
         <parameter name='usernameDepositTransaction' value='FAP000000R'/>
         <parameter name='isThrown' value='true'/>
         <parameter name='currency' value='HKD'/>
-        <parameter name='appname' value='backoffice'/>
-        <parameter name='brandname' value='IPL688'/>
         <parameter name='feMemberLoginId' value='feinrisa'/>
+        <parameter name='satMemberLoginID' value='05H0000000'/>
+        <parameter name='memberPassword' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='feMemberLoginPwd' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='fair999PortalCode' value='AN'/>
         <parameter name='satPortalCode' value='SA'/>
         <parameter name="funsportPortalCode" value="FS"/>
         <parameter name='isAddTestRailResult' value='true'/>
+        <parameter name='appname' value='backoffice'/>
+        <parameter name='brandname' value='backoffice'/>
+        <parameter name='skinName' value='backoffice'/>
         <groups>
             <run>
                 <include name="regression"/>

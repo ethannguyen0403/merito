@@ -12,11 +12,11 @@ import membersite.pages.ProfitAndLossPage;
 import membersite.pages.SportPage;
 import membersite.pages.casino.*;
 import membersite.pages.components.changepasswordpopup.FairChangePasswordPopup;
-import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.ps38preferences.PS38PreferencesPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
+
 
 import static common.CasinoConstant.LIVE_DEALER_TEXT;
 import static common.CasinoConstant.MAPPING_CASINO_PRODUCT_UI;
@@ -72,6 +72,13 @@ public class Fair999Header extends Header1 {
         clickHeaderMenu(pageName);
         return new SportPage(brand);
     }
+
+    @Override
+    public InPlayPage navigateInPlayPage(String brand) {
+        clickHeaderMenu("In-play");
+        return new InPlayPage(brand);
+    }
+
     private void clickHeaderMenu(String sportMenu){
         Menu menu = Menu.xpath(String.format(sportMenuXpath, sportMenu));
         if (!menu.isDisplayed(5)) {
@@ -114,6 +121,11 @@ public class Fair999Header extends Header1 {
         return ddmAccount.isContainSubmenu(menu);
     }
 
+    @Override
+    public void openMyAccount() {
+        ddmAccount.click();
+    }
+
     public membersite.pages.AccountStatementPage openAccountStatement(String type) {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Account Statement"));
         DriverManager.getDriver().switchToWindow();
@@ -124,6 +136,7 @@ public class Fair999Header extends Header1 {
 
     @Override
     public PS38PreferencesPopup openPS38PreferencesPopup() {
+        DriverManager.getDriver().switchToParentFrame();
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("PS38 Preferences"));
         return new PS38PreferencesPopup();
     }
@@ -265,7 +278,11 @@ public class Fair999Header extends Header1 {
     public MyMarketPopup openMyMarketPopup() {
         lnkMyMarkets.click();
         MyMarketPopup myMarketPopup = new MyMarketPopup();
-        myMarketPopup.lblNoRecord.isDisplayed();
+        try {
+            // wait for pop up visible on screen
+            Thread.sleep(500);
+        }catch (Exception e){
+        }
         return myMarketPopup;
     }
 
