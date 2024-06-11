@@ -5,7 +5,6 @@ import common.MemberConstants;
 import controls.DateTimePicker;
 import controls.Table;
 import membersite.utils.betplacement.BetUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -191,6 +190,5 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
     public List<String> getReportDetailHeader() {
         return tblDetailReport.getColumnNamesOfTable(1);
     }
-
 
 }
