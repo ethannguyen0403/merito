@@ -33,6 +33,7 @@ public class AppConfirmPopup extends BaseElement {
     public void confirm() {
         if (btnConfirm.isDisplayed())
             btnConfirm.click();
+            btnConfirm.waitForControlInvisible();
     }
 
     public String getContent() {

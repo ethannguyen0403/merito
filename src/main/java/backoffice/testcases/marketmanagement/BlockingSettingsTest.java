@@ -26,12 +26,10 @@ public class BlockingSettingsTest extends BaseCaseTest {
         log("Step 1. Access Operations > Blocking Settings");
         BlockingSettingsPage page = backofficeHomePage.navigateBlockingSettings();
         List<ArrayList<String>> lstConfig = BlockingSettingsUtils.getBlockingSetting();
-        page.tblBlockingSetting.isDisplayed(2);
 
         log("Verify 1. Verify the list data in PO account column is correctly and according brand name is correct");
         log("Verify 2. Default event, Level to control blocking, Unblock Schedule - Betable before 25m is display correct by default");
         Assert.assertTrue(page.verifyDataCorrect(lstConfig), "FAILED! Default data in the blocking Setting not display correctly");
-
         log("INFO: Executed completely");
     }
 

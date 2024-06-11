@@ -135,7 +135,8 @@ public class BOConstants {
             public final static String TITLE = "Live Streaming Management";
             public final static String TITLE_AUTO_MAPPING = "Auto Mapping";
             public final static String TITLE_CONFIRM_MAPPING_POPUP = "Are you sure to map those events?";
-            public final static String CONFIRM_MAPPING_NOTE_MESSAGE = "The 2 selected event names look like different match.";
+            public final static String CONFIRM_MAPPING_NOTE_MESSAGE = "The 2 selected event names look like different match.\n" +
+                    "The 2 selected events have different open dates.";
             public final static List<String> TABLE_AUTO_MAPPING = Arrays.asList("Start date", "Fair Competition", "Fair Event Name", "Provider Competition", "Provider Event Name", "% Matched >=", "");
 
         }

@@ -6,7 +6,7 @@ import backoffice.pages.bo.home.HomePage;
 import backoffice.pages.bo.operations.component.VoidUnvoidPopup;
 import backoffice.pages.bo.operations.component.VoidUnvoidRemarkPopup;
 import com.paltech.element.common.*;
-import membersite.objects.AccountBalance;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,18 +179,11 @@ public class WagerVoidUnvoidPage extends HomePage {
         }
     }
 
-    public AccountBalance calculateBalanceVoidUnvoidWager(AccountBalance balance, String wagerProfit, boolean isVoided) {
-        AccountBalance returnBal = balance;
-        double bal = Double.parseDouble(balance.getBalance());
-        double exposure = Double.parseDouble(balance.getExposure());
-        double profit = Double.parseDouble(wagerProfit);
-        double balanceAfterVoidUnvoid;
-        if (isVoided)
-            balanceAfterVoidUnvoid = bal - profit;
-        else
-            balanceAfterVoidUnvoid = bal + profit;
-        //  returnBal.setBalance(Double.toString(balanceAfterVoidUnvoid));
-        return returnBal;
+    public void verifySearchByUsername(String username) {
+        List<String> lstWagerInfo = tblWager.getColumn(colNickname, false);
+        for (String actualUsername : lstWagerInfo) {
+            Assert.assertEquals(actualUsername, username, "FAILED! Result table not display the searching data");
+        }
     }
 
     public List<ArrayList<String>> getFristWagerInfo(){
