@@ -7,6 +7,7 @@ import com.paltech.utils.FileUtils;
 import common.MemberConstants;
 import membersite.pages.AccountStatementPage;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
@@ -161,8 +162,9 @@ public class AccountStatementTest extends BaseCaseTest {
     }
 
     @TestRails(id = "9452")
+    @Parameters({"cashOutBetID"})
     @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0", "Cash_out"})
-    public void AccountStatement_Cash_out_TC9452() {
+    public void AccountStatement_Cash_out_TC9452(String cashOutBetID) {
         log("@title: Validate showing cash out bet in account statement page");
 
         log("Step 1. Click My Account > Account Statement");
@@ -176,11 +178,8 @@ public class AccountStatementTest extends BaseCaseTest {
         page.clickNarrationOnTheFirstRow();
 
         log("Verify 1. The cashed out bet displays with status as 'Cashed Out'");
-        int colStatus = 10;
-        Assert.assertEquals(page.getTblPS38BetDetail().getControlOfCell(1, colStatus, 1, "span").getText(), "Cashed Out", "FAILED! Cashed out text is not displayed");
         log("Verify 2. After clicking the status, it show the cashed out details");
-        List<ArrayList<String>> dataList = page.expandCashOutHistoryByIndex(1);
-        Assert.assertTrue(Objects.nonNull(dataList), "FAILED! Cash out history is not displayed");
+        page.verifyCashOutHistoryCorrect(cashOutBetID);
         log("INFO: Executed Completely!");
     }
 

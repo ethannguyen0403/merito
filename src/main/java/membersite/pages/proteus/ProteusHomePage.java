@@ -157,6 +157,8 @@ public class ProteusHomePage extends HomePage {
         }
     }
     protected String defineSelectionName(Market market,String selection) {
+        Double oddValue = market.getOddsInfoBySelection(selection).getHdp();
+        String oddLabel = "";
         switch (market.getBetType())
         {
             case "MONEYLINE":
@@ -168,11 +170,14 @@ public class ProteusHomePage extends HomePage {
                     default:
                         return "Draw";}
             case "SPREAD":
-                switch (selection){
+                switch (selection) {
+                    // plus or minus when selecting HOME or AWAY might be depended on negative or positive HDP point
                     case "HOME":
-                        return String.format("%s %s",market.getHomeName(),market.getOddsInfoBySelection(selection).getHdp());
+                        oddLabel = oddValue < 0 ? String.valueOf(oddValue) : "+" + String.valueOf(oddValue);
+                        return String.format("%s %s", market.getHomeName(), oddLabel);
                     default:
-                        return String.format("%s %s",market.getAwayName(),market.getOddsInfoBySelection(selection).getHdp());
+                        oddLabel = oddValue < 0 ? "+" + String.valueOf(Math.abs(oddValue)) : String.valueOf(oddValue);
+                        return String.format("%s %s", market.getAwayName(), oddLabel);
                 }
             case "TOTAL_POINTS":
                 switch (selection){
@@ -197,7 +202,7 @@ public class ProteusHomePage extends HomePage {
         String marketName = defineMarketName(market);
         String eventStartTime = market.getEventStartTime().replace("Z", ".00+00:00");
         String eventDate = DateUtils.convertDateToNewTimeZone(eventStartTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "", "yyyy-MM-dd", GMT_7);
-        return String.format("%s %s - %s - %s", eventDate, marketName, match, WordUtils.capitalizeFully(market.getLeagueName()));
+        return String.format("%s %s - %s - %s", eventDate, marketName, match, WordUtils.capitalizeFully(market.getLeagueName()).toUpperCase());
     }
 
     public void verifyBetSlipIsEmpty(){

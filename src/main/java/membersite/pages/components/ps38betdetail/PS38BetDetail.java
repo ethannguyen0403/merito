@@ -11,10 +11,13 @@ import java.util.Objects;
 public class PS38BetDetail {
     public Table tblPS38BetDetail = Table.xpath("//app-sportsbook-bet//div[contains(@class,'table-responsive')]//table[contains(@class,'table-sm')]", 12);
     public String tblCashOutHistoryXpath = "//app-sportsbook-bet//div[contains(@class,'table-responsive')]//table[contains(@class,'table-sm')]//table[@class='mt-2 table ng-star-inserted']";
-    int colRiskAmount = 6;
-    int colProfitLoss = 9;
+     int colStatus = 10;
+     int colRiskAmount = 6;
+     int colProfitLoss = 9;
+     int colBetID = 1;
 
-    public void verifyProfitLossCorrect(int rowIndex){
+    public void verifyProfitLossCorrect(String betID){
+        int rowIndex = findRowIndexBaseOnBetID(betID);
         List<String> rowData = tblPS38BetDetail.getRow(1, rowIndex);
         List<ArrayList<String>> dataListHistory = expandCashOutHistoryByIndex(rowIndex);
         Assert.assertTrue(Objects.nonNull(dataListHistory), "FAILED! Cash out history is not displayed");
@@ -23,6 +26,36 @@ public class PS38BetDetail {
         Assert.assertEquals(rowData.get(colProfitLoss-1), String.format("%,.2f", cashAmount - riskAmount) , "FAILED! Value of Profit/Loss is not correct with row index: " + rowIndex);
     }
 
+    private int findRowIndexBaseOnBetID(String betID){
+        int rowIndex = 1;
+        while (true) {
+            Label betIDLabel = Label.xpath(tblPS38BetDetail.getControlXPathOfCell(1, colBetID, rowIndex, null));
+            if (betIDLabel.isDisplayed()) {
+                if (betIDLabel.getText().contains(betID)) {
+                    System.out.println("FOUND correct betID at row index: " + rowIndex);
+                    break;
+                } else {
+                    rowIndex++;
+                    continue;
+                }
+            } else {
+                System.err.println("NOT found any correct betID");
+                rowIndex = -1;
+                break;
+            }
+        }
+        return rowIndex;
+    }
+
+    public void verifyCashOutHistoryCorrect(String betID){
+        int rowIndex = findRowIndexBaseOnBetID(betID);
+        Assert.assertEquals(tblPS38BetDetail.getControlOfCell(1, colStatus, rowIndex, "span").getText(), "Cashed Out", "FAILED! Cashed out text is not displayed");
+        verifyProfitLossCorrect(betID);
+    }
+
+    public List<ArrayList<String>> expandCashOutHistoryByIndex(String betID) {
+        return expandCashOutHistoryByIndex(findRowIndexBaseOnBetID(betID));
+    }
 
     public List<ArrayList<String>> expandCashOutHistoryByIndex(int index) {
         tblPS38BetDetail.getControlOfCell(1, 10, index, "button").click();
