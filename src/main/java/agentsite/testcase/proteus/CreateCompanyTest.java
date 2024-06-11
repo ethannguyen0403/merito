@@ -99,7 +99,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4045")
-    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0", "Revised"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4045(String currency) {
         log("@title: Validate in Agent site > Create Company, confirm message display if update setting in Pregame then switch to In-play tab");
@@ -404,5 +404,18 @@ public class CreateCompanyTest extends BaseCaseTest {
         String lblLeagueSetting = String.format("%s: %s", LBL_SOCCER_SPORT,  page.betSettingSectionPS38.ddbLeaguePS38.getFirstSelectedOption().trim());
         log(String.format("Verify 1: The league: %s is add under sport and inherit value and setting of General sport", lblLeagueSetting));
         page.betSettingSectionPS38.verifyBetSettingSpecificSportConvertToCurrency(lblLeagueSetting, 1, AMOUNT_MIN_BET_PS38_HKD, AMOUNT_MAX_BET_PS38_HKD, AMOUNT_MAX_PER_MATCH_PS38_HKD);
+    }
+
+    @TestRails(id = "9443")
+    @Test(groups = {"ps38_po", "nolan_Proteus.2024.V.3.0", "Cash_out"})
+    public void PS38_Agent_Cash_out_TC9443() {
+        log("@title: Validate showing one more checkbox 'Allow cash out' for PS38 at PO level");
+        log("Precondition: Log in successfully by PO level");
+        log("Step 1: In agent site, navigate Agency Management > Creat CO");
+        CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
+        log("Verify 1: Show the checkbox 'Allow cash out' for PS38 on Agent site\n" +
+                "\n");
+        Assert.assertEquals(page.lblCashOut.getText(), ALLOW_CASH_OUT, "FAILED! Label Allow Cash out is not displayed");
+        Assert.assertEquals(page.lblCashOutPS38.getText(), PS38, "FAILED! Label Check box PS38 is not displayed");
     }
 }

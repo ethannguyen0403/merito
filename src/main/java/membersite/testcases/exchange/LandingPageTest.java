@@ -129,7 +129,7 @@ public class LandingPageTest extends BaseCaseTest {
         log("@Step 3 Login with the valid account in precondition");
 
         log("@Verify 1 The page directs to correct domain");
-        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getAlpicfoxURL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getAtlanticURL(), memberHomePage.getHomePageURL()));
+        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getAlpicfoxURL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getAlpicfoxURL(), memberHomePage.getHomePageURL()));
         log("@Verify 2 My account display correct login account");
         Assert.assertTrue(memberHomePage.isMyAccountDisplay(), "Failed! My Account does not display after login");
         Assert.assertTrue(memberHomePage.isMyAccountContains(username), "Failed! My Account does not display correct account name after login");
@@ -151,7 +151,7 @@ public class LandingPageTest extends BaseCaseTest {
         log("@Step 4 Login with the valid account in precondition");
 
         log("@Verify 1 The page directs to correct domain");
-        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getCryptoURL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getAtlanticURL(), memberHomePage.getHomePageURL()));
+        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getCryptoURL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getCryptoURL(), memberHomePage.getHomePageURL()));
         log("@Verify 2 My account display correct login account");
         Assert.assertTrue(memberHomePage.isMyAccountDisplay(), "Failed! My Account does not display after login");
         Assert.assertTrue(memberHomePage.isMyAccountContains(username), "Failed! My Account does not display correct account name after login");
@@ -173,7 +173,7 @@ public class LandingPageTest extends BaseCaseTest {
         log("@Step 4 Login with the valid account in precondition");
 
         log("@Verify 1 The page directs to correct domain");
-        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getEu1010URL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getAtlanticURL(), memberHomePage.getHomePageURL()));
+        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getEu1010URL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getEu1010URL(), memberHomePage.getHomePageURL()));
         log("@Verify 2 My account display correct login account");
         Assert.assertTrue(memberHomePage.isMyAccountDisplay(), "Failed! My Account does not display after login");
         Assert.assertTrue(memberHomePage.isMyAccountContains(username), "Failed! My Account does not display correct account name after login");
@@ -193,7 +193,7 @@ public class LandingPageTest extends BaseCaseTest {
         log("@Step 3 Login with the valid account in precondition");
 
         log("@Verify 1 The page directs to correct domain");
-        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getPowderpinURL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getAtlanticURL(), memberHomePage.getHomePageURL()));
+        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getPowderpinURL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getPowderpinURL(), memberHomePage.getHomePageURL()));
         log("@Verify 2 My account display correct login account");
         Assert.assertTrue(memberHomePage.isMyAccountDisplay(), "Failed! My Account does not display after login");
         Assert.assertTrue(memberHomePage.isMyAccountContains(username), "Failed! My Account does not display correct account name after login");

@@ -3,12 +3,14 @@ package membersite.pages;
 import controls.Table;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.accountstatement.AccountStatementContainer;
+import membersite.pages.components.ps38betdetail.PS38BetDetail;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AccountStatementPage extends HomePage {
     public AccountStatementContainer accountStatementContainer;
+    public PS38BetDetail ps38BetDetail = new PS38BetDetail();
 
     public AccountStatementPage(String types) {
         super(types);
@@ -46,6 +48,14 @@ public class AccountStatementPage extends HomePage {
 
     public void clickNarrationOnTheFirstRow() {
         accountStatementContainer.clickNarration();
+    }
+
+    public Table getTblPS38BetDetail(){
+        return ps38BetDetail.tblPS38BetDetail;
+    }
+
+    public List<ArrayList<String>> expandCashOutHistoryByIndex(int index){
+      return  ps38BetDetail.expandCashOutHistoryByIndex(index);
     }
 
     public void waitLoadReport() {

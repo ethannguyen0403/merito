@@ -14,6 +14,7 @@ public class AGConstant {
     public final static String EXCHANGE = "Exchange";
     public final static String EXCHANGE_GAMES = "Exchange Games";
     public final static String PS38 = "PS38";
+    public final static String CASHED_OUT = "Cashed out";
     public final static String SUPERNOWA_CASINO = "Supernowa Casino";
     public final static String EVOLUTION = "Evolution";
     public final static String LIVE_DEALER_ASIAN = "Live Dealer Asian";
@@ -43,6 +44,7 @@ public class AGConstant {
     public final static List<String> MENULISTSAT = Arrays.asList("Password", "Security code", "OTP");
     public final static String LBL_WITHOUT_PERMISSION_ACCESS = "You are not allowed to view this page!";
     public final static String CREDIT_LIMIT_ERROR_MSG = "Credit Limit is invalid.";
+    public final static String ALLOW_CASH_OUT = "Allow Cash Out";
     public static final Map<String, String> LEVEL_TO_LEVEL_CODE = new HashMap<String, String>() {
         {
             put("Portal", "PO");
@@ -596,6 +598,7 @@ public class AGConstant {
             public final static List<String> LST_LIVE_DEALER_EUROPEAN_GAMES = Arrays.asList("Auto roulette", "Baccarat", "Bet on Numbers", "Blackjack", "Holdem", "Keno", "Roulette", "Sic Bo", "Lucky 7", "Other");
             public final static List<String> LST_LOTTERY_SLOT_GAMES = Arrays.asList("Lottery & Slots");
             public final static String CHECKBOX_APPLY_SOCCER_PS38 = "Apply soccer games setting to other commission types";
+            public final static String HEADERS_COMMISSION_PS38 = "[Soccer games (*), Very high commission (*), High commission (*), Normal commission (*), Parlays (*), Teasers (*)]";
             public final static List<String> TABLE_HEADER_COMMISSION_SECTION = Arrays.asList("Group", "Commission on", "Group A", "Group B", "Group C", "Group D", "Group E");
             public final static List<String>
                     TABLE_COLUMN_GROUP_COMMISSION_SECTION = Arrays.asList("Soccer games", "Very high commission", "High commission", "Normal commission", "Parlays", "Teasers");
@@ -826,7 +829,13 @@ public class AGConstant {
             public final static List<String> TBL_UPLINE_TABLE_NEWUI = Arrays.asList("Name", "Currency","Back", "Lay", "Total Tax", "Total Pay", "Turnover", "Pnl", "Turnover", "Pnl");
             public final static List<String> TBL_DOWNLINE_TABLE_NEWUI = Arrays.asList("No.", "Username", "Nickname", "First Name", "Level", "Currency","Back", "Lay", "Total Tax", "Balance", "Turnover", "Pnl", "Turnover", "Pnl");
             public final static List<String> LST_PRODUCT_GROUP = Arrays.asList("Exchange group", "Casino group", "Exchange Games");
-
+            public final static List<String> HEADER_CASH_OUT_HISTORY_DIALOG = Arrays.asList("Risk Amount\n" +
+                    "(F)", "Cash Out Amount\n" +
+                    "(F)", "Date/Time");
+            public final static List<String> HEADER_CASH_OUT_HISTORY_DIALOG_BO = Arrays.asList("Risk Amount\n" +
+                    "(F)", "Cash Out Amount\n" +
+                    "(L)", "Cash Out Amount\n" +
+                    "(F)", "Date/Time");
         }
 
         public static class PositionTakingReport {

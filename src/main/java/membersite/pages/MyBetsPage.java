@@ -3,6 +3,7 @@ package membersite.pages;
 import membersite.objects.Wager;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.mybet.MyBetsContainer;
+import membersite.pages.components.ps38betdetail.PS38BetDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ public class MyBetsPage extends HomePage {
 
 
     public MyBetsContainer myBetsContainer;
+    public PS38BetDetail ps38BetDetail = new PS38BetDetail();
 
     public MyBetsPage(String types) {
         super(types);
@@ -25,6 +27,10 @@ public class MyBetsPage extends HomePage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void verifyProfitLossCorrect(int rowIndex){
+        ps38BetDetail.verifyProfitLossCorrect(rowIndex);
     }
 
     public String getNoDataMesage() {

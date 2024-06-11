@@ -24,7 +24,7 @@
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value="fairexchange"/>
         <parameter name='skinName' value='fairexchange'/>
-        <parameter name='isAddTestRailResult' value='true'/>
+        <parameter name='isAddTestRailResult' value='false'/>
         <groups>
             <run>
                 <include name="regression"/>

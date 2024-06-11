@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="BO_GREEN_Regression" verbose="1">
+<suite name="BO_GREEN_Smoke" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
         <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
-    <test name="Regression test cases of Backoffice in Green">
+    <test name="Smoke test cases of Backoffice in PRO">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='green'/>
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
-        <parameter name='isProxy' value='false'/>
+        <parameter name='isProxy' value='true'/>
         <parameter name='username' value='AutoQA'/>
         <parameter name='password' value='WncY8OT1OV5814mXP2PqYg=='/>
         <parameter name='isThrown' value='true'/>
@@ -30,10 +30,10 @@
         <parameter name='appname' value='backoffice'/>
         <parameter name='brandname' value='backoffice'/>
         <parameter name='skinName' value='backoffice'/>
-        <parameter name='isAddTestRailResult' value='false'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
-                <include name="regression"/>
+                <include name="http_request"/>
             </run>
         </groups>
 
@@ -49,10 +49,6 @@
             <class name="backoffice.testcases.frauddetection.WagerOddsHistoryTest"/>
             <class name="backoffice.testcases.frauddetection.FraudDetectionTest"/>
 
-            <class name="backoffice.testcases.home.LoginTest"/>
-            <class name="backoffice.testcases.home.LogoutTest"/>
-            <class name="backoffice.testcases.home.SearchMenuTest"/>
-
             <class name="backoffice.testcases.marketmanagement.EventMarketStatusTest"/>
             <class name="backoffice.testcases.marketmanagement.FindBlockedMarketTest"/>
             <class name="backoffice.testcases.marketmanagement.LiquidityThresholdLogTest"/>
@@ -65,16 +61,7 @@
             <class name="backoffice.testcases.operations.WagerVoidUnvoidTest"/>
             <class name="backoffice.testcases.operations.PerformanceTest"/>
 
-            <!--            <class name="backoffice.testcases.adminmanagement.RoleManagementTest"/>
-            <class name="backoffice.testcases.adminmanagement.AdminUserManagementTest"/>-->
-            <!-- <class name="backoffice.testcases.operations.AnnouncementManagementTest"/>
-             <class name="backoffice.testcases.operations.BannerManagementTest"/>
-             <class name="backoffice.testcases.operations.bannermanagement.UpdateBannerTest"/>
-             <class name="backoffice.testcases.operations.bannermanagement.NewBannerTest"/>-->
-            <!--<class name="backoffice.testcases.operations.bannermanagement.NewBannerTest"/>
-            <class name="backoffice.testcases.operations.bannermanagement.UpdateBannerTest"/>-->
-
-            <class name="backoffice.testcases.settlement.FancyResultTest"/>
+                  <class name="backoffice.testcases.settlement.FancyResultTest"/>
             <class name="backoffice.testcases.settlement.WagerResettlementTest"/>
             <class name="backoffice.testcases.settlement.ResettlementLogTest"/>
 
