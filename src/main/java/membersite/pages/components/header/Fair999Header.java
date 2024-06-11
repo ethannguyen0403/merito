@@ -124,6 +124,7 @@ public class Fair999Header extends Header1 {
         DriverManager.getDriver().switchToWindow();
         membersite.pages.AccountStatementPage page = new AccountStatementPage(type);
         page.accountStatementContainer.waitLoadReport();
+        page.waitLoadReport();
         return page;
     }
 
