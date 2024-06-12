@@ -31,8 +31,7 @@ public class AppConfirmPopup extends BaseElement {
     }
 
     public void confirm() {
-        if (btnConfirm.isDisplayed())
-            btnConfirm.click();
+        btnConfirm.click();
     }
 
     public String getContent() {
