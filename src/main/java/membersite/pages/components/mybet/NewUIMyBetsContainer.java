@@ -1,6 +1,5 @@
 package membersite.pages.components.mybet;
 
-import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
 import common.MemberConstants;
 import controls.DateTimePicker;
@@ -8,10 +7,7 @@ import controls.Table;
 import membersite.objects.Wager;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class NewUIMyBetsContainer extends MyBetsContainer {
     private String xPathSelection = "//div[contains(@class,'%s') and contains(@class,'row-open-bet')]";
@@ -100,14 +96,13 @@ public class NewUIMyBetsContainer extends MyBetsContainer {
     }
 
     public boolean validateFilterStatus(String status) {
+        ArrayList<String> lstStatusSettled = new ArrayList<>(Arrays.asList("Won", "Lost", "Cashed Out"));
         List<String> lst = tblReport.getColumn("/tbody[%s]//", colStatus, false);
         for (String sts : lst) {
             if (status.equalsIgnoreCase("Settled") || status.equalsIgnoreCase("Cashed Out")) {
-                if (!sts.equalsIgnoreCase("Won") || !sts.equalsIgnoreCase("Cashed Out")) {
-                    if (!sts.equalsIgnoreCase("Lost")) {
-                        System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
-                        return false;
-                    }
+                if(!lstStatusSettled.contains(sts)) {
+                    System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
+                    return false;
                 }
             }
             else {
