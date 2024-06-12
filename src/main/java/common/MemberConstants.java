@@ -235,7 +235,8 @@ public class MemberConstants {
     public static class MyMarketsPopup {
         public final static String TITLE = "My Markets";
         public final static String NOTES = "Note : Date will be based on time zone GMT-04:00";
-        public final static List<String> TABLE_MY_MARKETS_HEADER = Arrays.asList("Market ID", "Market Start Time", "Market Name", "Liability");
+        public final static List<String> TABLE_MY_MARKETS_HEADER = Arrays.asList("Market ID", "Market Start Time", "Market Name\n" +
+                "Reload", "Liability");
         public final static String NO_RECORD_FOUNDS = "No records found";
     }
 

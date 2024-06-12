@@ -1,22 +1,25 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
-import com.fasterxml.jackson.databind.jsontype.impl.AsExistingPropertyTypeSerializer;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
+import membersite.objects.sat.Event;
 import membersite.pages.*;
+import membersite.pages.AccountStatementPage;
+import membersite.pages.MyBetsPage;
+import membersite.pages.ProfitAndLossPage;
 import membersite.pages.exchangegames.EGHomePage;
 import membersite.pages.popup.MyMarketPopup;
 import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
-import static common.MemberConstants.TIMEZONE_BRAND;
+import static common.MemberConstants.*;
 
 public class HeaderSectionTest extends BaseCaseTest {
 
@@ -69,23 +72,43 @@ public class HeaderSectionTest extends BaseCaseTest {
      * 2. Popup is closed
      */
     @TestRails(id = "943")
-//    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "MER.Implementation.V.1.0"})
     public void HeaderSection_TC943() {
-        //TODO: implement this test case
+        log("@title: Validate can open my markets in Header Section");
+        log("Precondition 1: Login member site");
+        log("Step 1: Click on My Markets menu");
+        MyMarketPopup marketPopup = memberHomePage.openMyMarket();
+        log("Verify 1: Can Open May markets successfully\n" +
+                "Popup Title: My Markets\n" +
+                "Note: Date will be based on time zone IST (for SAT and White Labels)\n" +
+                "table with the header: Market ID, Market Start Time, Market Name (Reload button), Liability");
+        marketPopup.verifyMyMarketPopupUI();
         log("INFO: Executed completely");
     }
 
+    /** Duplicate with TC494*/
     @TestRails(id = "944")
-//    @Test(groups = {"smoke"})
+    @Test(groups = {"Revised"})
     public void HeaderSection_TC944() {
-        //TODO: implement this test case
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "945")
-//    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke"})
     public void HeaderSection_TC945() {
-        //TODO: implement this test case
+        log("@title: Can active event page from search page");
+        log("Precondition 1: Login member site");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+        Event event = sportPage.getEvent(false, false, 1, 1);
+        if (Objects.isNull(event)) {
+            throw new SkipException("DEBUG: There is no event available");
+        }
+        log("Step 2: Input a active event insearch textbox");
+        log("Step 3: Click on event in search page");
+        String eventName = memberHomePage.leftMenu.searchEvent(event.getEventName()).getText().trim();
+        EventPage eventPage = memberHomePage.leftMenu.searchEvent(event.getEventName(),true);
+        log("Verify 1: Verify event page display correctly with: " + eventName);
+        Assert.assertEquals(eventPage.lblTitleEvent.getText().trim(), eventName, "FAILED! Event page is not displayed");
         log("INFO: Executed completely");
     }
 

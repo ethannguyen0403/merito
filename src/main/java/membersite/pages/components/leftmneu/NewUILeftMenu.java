@@ -1,5 +1,6 @@
 package membersite.pages.components.leftmneu;
 
+import baseTest.BaseCaseTest;
 import com.paltech.element.common.Image;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
@@ -7,6 +8,7 @@ import com.paltech.element.common.TextBox;
 import common.MemberConstants;
 import membersite.controls.DropDownBox;
 import membersite.controls.DropDownMenu;
+import membersite.pages.EventPage;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
@@ -18,7 +20,7 @@ import static common.MemberConstants.WICKET_BOOKMAKER_TITLE;
 public class NewUILeftMenu extends LeftMenu {
     public Image imgLoading = Image.xpath("//div[@class='loading-icon']/img");
     public TextBox txtSearch = TextBox.id("searchMarket");
-    public Label lblResult = Label.xpath("//div[contains(@class,'completer-dropdown-holder')]//span[@class='completer-list-item']");
+    public Label lblResult = Label.xpath("//div[contains(@class,'completer-dropdown-holder')]//*[@class='completer-title']");
     public Label lblNoSearchResult = Label.xpath("//div[contains(@class,'completer-dropdown-holder')]//div[@class='completer-no-results']");
     public DropDownMenu casinotMenu = DropDownMenu.xpath("//div[contains(@class,'level casino-menu')]", "//div[contains(@class,'active')]//span", "//div[contains(@class,'casino-sub-menu')]//div");
     private String menuSubItemsXpath = "%s/following::div[@class='downs-levels']/div";
@@ -51,12 +53,13 @@ public class NewUILeftMenu extends LeftMenu {
         return lblNoSearchResult;
     }
 
-    public void searchEvent(String eventName, boolean isClick) {
-        txtSearch.sendKeys(eventName);
+    public EventPage searchEvent(String eventName, boolean isClick) {
+        txtSearch.type(eventName);
         txtSearch.type(false, Keys.ARROW_DOWN);
         if (lblResult.isDisplayed()) {
             lblResult.click();
         }
+        return new EventPage(BaseCaseTest._brandname);
     }
     public void waitMenuLoading() {
         imgLoading.waitForControlInvisible();
