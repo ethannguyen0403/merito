@@ -4,6 +4,7 @@ import controls.Table;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.accountstatement.AccountStatementContainer;
 import membersite.pages.components.ps38betdetail.PS38BetDetail;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +51,17 @@ public class AccountStatementPage extends HomePage {
         accountStatementContainer.clickNarration();
     }
 
-    public Table getTblPS38BetDetail(){
-        return ps38BetDetail.tblPS38BetDetail;
-    }
 
     public List<ArrayList<String>> expandCashOutHistoryByIndex(int index){
       return  ps38BetDetail.expandCashOutHistoryByIndex(index);
+    }
+
+    public List<ArrayList<String>> expandCashOutHistoryByIndex(String betID){
+        return  ps38BetDetail.expandCashOutHistoryByIndex(betID);
+    }
+
+    public void verifyCashOutHistoryCorrect(String betID){
+       ps38BetDetail.verifyCashOutHistoryCorrect(betID);
     }
 
     public void waitLoadReport() {

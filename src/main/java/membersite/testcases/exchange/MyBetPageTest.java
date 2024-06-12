@@ -327,8 +327,9 @@ public class MyBetPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "9451")
+    @Parameters({"cashOutBetID"})
     @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0", "Cash_out"})
-    public void MyBetPage_Cash_out_TC9451() {
+    public void MyBetPage_Cash_out_TC9451(String cashOutBetID) {
         log("@title: Validate showing cash out bet in my bet page ");
         log("Step 1. Active My Account> My Bets");
         MyBetsPage page = memberHomePage.header.openMyBets(_brandname);
@@ -340,7 +341,7 @@ public class MyBetPageTest extends BaseCaseTest {
         Assert.assertTrue(page.validateFilterStatus("Cashed Out"), "ERROR! Matched status not filter correctly.");
         log("Verify 2. Profit/Loss: cash amount - risk amount");
         log("Verify 3. After clicking the status, it show the cashed out details include risk amount, cash out amount and date time to cash out");
-        page.verifyProfitLossCorrect(1);
+        page.verifyProfitLossCorrect(cashOutBetID);
         log("INFO: Executed Completely!");
     }
 }
