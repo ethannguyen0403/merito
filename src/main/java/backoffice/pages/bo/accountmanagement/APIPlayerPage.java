@@ -32,6 +32,7 @@ public class APIPlayerPage extends HomePage {
                 break;
             }
         }
+        waitSpinIcon();
         return popup;
     }
 

@@ -12,11 +12,11 @@ import membersite.pages.ProfitAndLossPage;
 import membersite.pages.SportPage;
 import membersite.pages.casino.*;
 import membersite.pages.components.changepasswordpopup.FairChangePasswordPopup;
-import membersite.pages.components.changepasswordpopup.SATChangePasswordPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.ps38preferences.PS38PreferencesPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
+
 
 import static common.CasinoConstant.LIVE_DEALER_TEXT;
 import static common.CasinoConstant.MAPPING_CASINO_PRODUCT_UI;
@@ -72,6 +72,13 @@ public class Fair999Header extends Header1 {
         clickHeaderMenu(pageName);
         return new SportPage(brand);
     }
+
+    @Override
+    public InPlayPage navigateInPlayPage(String brand) {
+        clickHeaderMenu("In-play");
+        return new InPlayPage(brand);
+    }
+
     private void clickHeaderMenu(String sportMenu){
         Menu menu = Menu.xpath(String.format(sportMenuXpath, sportMenu));
         if (!menu.isDisplayed(5)) {

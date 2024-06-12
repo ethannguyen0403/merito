@@ -1,12 +1,12 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
+import membersite.pages.InPlayPage;
+import org.testng.Assert;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
-import membersite.pages.InPlayPage;
 import membersite.pages.MarketPage;
 import membersite.utils.betplacement.BetUtils;
-import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
@@ -40,6 +40,19 @@ public class InplayPageTest extends BaseCaseTest {
 
     }
 
+    @TestRails(id = "967")
+    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    public void In_play_TC_967() {
+        log("@title: Validate that no Bet Slip and My Bet on In play page");
+        log("Precondition 1: Login member account");
+        log("Step 1: Click Inplay page");
+        InPlayPage inPlayPage = memberHomePage.navigateInPlayPage();
+        log("Verify 1: Verify Bet Slip and Mini My bet UI not displayed on Inplay page");
+        Assert.assertEquals(inPlayPage.betsSlipContainer.getEmptyBetMessage(),  "", "FAILED! Bet slip UI is displayed");
+        log("INFO: Executed completely");
+    }
+
+}
     @TestRails(id = "967")
     @Test(groups = {"smoke", "nolan_stabilize_06.24"})
     public void In_play_TC_967() {

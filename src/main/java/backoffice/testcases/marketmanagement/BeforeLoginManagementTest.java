@@ -101,7 +101,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         log("Step 2. Select a sport : Cricket");
         log("Step 3. Active and inactive a  market:  Tied Match");
         page.activeSport(sport, true);
-        page.searchMartyType(marketTye);
+        page.searchMarketType(marketTye);
         page.activeMarket(marketTye, true);
         AlertMessageBox messageBox = new AlertMessageBox();
         String message = messageBox.getSuccessAlert();
@@ -134,7 +134,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         Helper.loginBOIgnoreCaptcha(environment.getSosURL(),environment.getDashboardURL(),username,password,true);*/
         //  page = backofficeHomePage.navigateBeforeLoginManagement();
         page.activeSport(sport, true);
-        page.searchMartyType(marketTye);
+        page.searchMarketType(marketTye);
         page.activeMarket(marketTye, false);
         messageBox = new AlertMessageBox();
         message = messageBox.getSuccessAlert();
@@ -174,19 +174,17 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
     public void BO_Operations_Before_Login_Management_632() {
         log("@title: Validate can search market type");
         log("Step 1. Access Operations > Before Login Management");
-        String sport = "Ice Hockey";
+        String sport = "Cricket";
         BeforeLoginManagementPage page = backofficeHomePage.navigateBeforeLoginManagement();
         page.filter("Sport & Market Type","","","",true);
 
-        log("Step 2. Select a sport : Ice Hockey");
-        page.activeSport(sport, true);
-        page.waitSpinIcon();
-        String marketTye = page.tblMarketType.getColumn(page.colMarketType, false).get(1);
-        log("Step 3. Active and inactive a  market: " + marketTye);
-        page.searchMartyType(marketTye);
+        log("Step 2. Select a sport : Cricket");
+        page.clickOnSport(sport);
+        String marketType = page.tblMarketType.getColumn(page.colMarketType, false).get(1);
+        log("Step 3. Active and inactive a  market: " + marketType);
+        page.searchMarketType(marketType);
         log("Step 1. Verify the market list will contain all markets type contain search key");
-        List<String> lstMarket = page.tblMarketType.getColumn(page.colMarketType, false);
-        Assert.assertTrue(lstMarket.contains(marketTye), "The list market does not contains search key: " + marketTye);
+        page.verifySearchByMarketType(marketType);
     }
 
     @TestRails(id = "1653")
