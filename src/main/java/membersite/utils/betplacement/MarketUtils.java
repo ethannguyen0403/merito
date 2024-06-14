@@ -1,10 +1,12 @@
 package membersite.utils.betplacement;
 
 import com.paltech.constant.Configs;
+import com.paltech.driver.DriverManager;
 import com.paltech.utils.DateUtils;
 import com.paltech.utils.DoubleUtils;
 import com.paltech.utils.WSUtils;
 import membersite.objects.AccountBalance;
+import membersite.objects.sat.Event;
 import membersite.objects.sat.Order;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -115,5 +117,26 @@ public class MarketUtils {
         return null;
     }
 
+    public static boolean isEventHasMatchOddsMarket(String sportId, String eventId, String currency) {
+        String api = String.format("%s/member-market/sat/left-menu.json", domainURL);
+        String jsn = String.format("{\"type\":\"MARKET\",\"selectedId\":\"%s\",\"sportId\":\"%s\",\"upLevel\":true,\"currencyCode\":\"%s\",\"tzone\":\"GMT+05:30\"}", eventId, sportId, currency);
+        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api,Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        JSONArray jsonArray = jsonObject.getJSONArray("items");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonItem = jsonArray.getJSONObject(i);
+            if(jsonItem.getString("marketType").equalsIgnoreCase("MATCH_ODDS")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public static Event getBetfairEvent(String eventId) {
+        String api = String.format("%s/member-service/event-tab/event-info/%s", domainURL, eventId);
+        JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
+        return new Event.Builder().eventName(jsonObject.getString("eventName"))
+                .inPlay(jsonObject.getBoolean("inplay"))
+                .id(String.valueOf(jsonObject.getLong("eventId")))
+                .build();
+    }
 }
