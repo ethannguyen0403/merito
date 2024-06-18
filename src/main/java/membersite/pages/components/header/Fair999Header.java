@@ -75,7 +75,7 @@ public class Fair999Header extends Header1 {
 
     @Override
     public InPlayPage navigateInPlayPage(String brand) {
-        clickHeaderMenu("In-play");
+        Label.xpath("//a//*[contains(text(),'In-Play')]").click();
         return new InPlayPage(brand);
     }
 
@@ -136,6 +136,13 @@ public class Fair999Header extends Header1 {
     }
 
     @Override
+    public MyLastLoginPage openMyLastLogins(String type) {
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("My Last Logins"));
+        DriverManager.getDriver().switchToWindow();
+        return new MyLastLoginPage(type);
+    }
+
+    @Override
     public PS38PreferencesPopup openPS38PreferencesPopup() {
         DriverManager.getDriver().switchToParentFrame();
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("PS38 Preferences"));
@@ -160,6 +167,11 @@ public class Fair999Header extends Header1 {
 
     public FairChangePasswordPopup openChangePasswordPopup() {
         ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Change Password"));
+        try {
+            //wait for locator visible in viewport
+            Thread.sleep(300);
+        }catch (Exception e){
+        }
         return new FairChangePasswordPopup();
     }
 

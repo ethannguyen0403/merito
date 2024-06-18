@@ -66,6 +66,9 @@ public class LeftMenu {
     public void clickCompetition(String competition) {
     }
 
+    public void clickCompetition(int index) {
+    }
+
     public void clickSport(String sportName) {
     }
 
@@ -78,6 +81,13 @@ public class LeftMenu {
     }
 
     public void clickEvent(int eventIndex) {
+    }
+
+    public void clickEvent(String eventName) {
+    }
+
+    public List<String> getMarketList(){
+        return null;
     }
 /*
 

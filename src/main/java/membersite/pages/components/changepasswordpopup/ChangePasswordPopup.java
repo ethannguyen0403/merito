@@ -14,6 +14,10 @@ public class ChangePasswordPopup {
         return false;
     }
 
+    public void verifyChangePasswordUI(){
+
+    }
+
     public String changePassword(String oldPassword, String newPassword, String confirmPassword) {
         return "";
     }

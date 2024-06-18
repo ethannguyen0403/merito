@@ -25,7 +25,7 @@ public class NewUILeftMenu extends LeftMenu {
     public DropDownMenu casinotMenu = DropDownMenu.xpath("//div[contains(@class,'level casino-menu')]", "//div[contains(@class,'active')]//span", "//div[contains(@class,'casino-sub-menu')]//div");
     private String menuSubItemsXpath = "%s/following::div[@class='downs-levels']/div";
     private String eventActiveXpath = "(//div[contains(@class,'up-levels')]/following::div[contains(@class,'up-levels')])[3]";
-    private String marketActiveXpath = "%s/following::div[@class='downs-levels']//span";
+    private String marketActiveXpath = "%s/following::div[@class='downs-levels']//div[contains(@class, 'item-level4')]";
     private String sportActiveXpath = "(//div[contains(@class,'up-levels')]/following::div[contains(@class,'up-levels')])[1]";
     private String allMenuXpath = "//div[contains(@class,'up-levels')]";
     public DropDownMenu allSportMenu = DropDownMenu.xpath("//div[contains(@class,'up-levels')]", "//div[contains(@class,'active')]", String.format(menuSubItemsXpath, allMenuXpath));
@@ -149,13 +149,18 @@ public class NewUILeftMenu extends LeftMenu {
         imgLoading.isInvisible(300);
     }
 
+    @Override
+    public void clickCompetition(int index) {
+        menuSport.selectByIndex(index);
+    }
+
     public void clickMenuIndex(int marketIndex) {
         Link lnk = Link.xpath(String.format("(%s)[%d]", String.format(marketActiveXpath1, eventActiveXpath), marketIndex));
         lnk.click();
     }
 
     public void clickSport(String sportName) {
-        menuSport.selectByVisibleText(sportName, false);
+        clickMenu(sportName);
     }
 
     public boolean isLeftMenuDisplay() {
@@ -169,6 +174,20 @@ public class NewUILeftMenu extends LeftMenu {
 
     public void clickEvent(int eventIndex) {
         menuCompetition.selectByIndex(eventIndex);
+    }
+
+    public void clickEvent(String eventName) {
+        if (menuSport.getOptionByIndex(0).equals(MemberConstants.HomePage.NO_EVENT_AVAILABLE)) {
+            System.out.println("Sport has no competition");
+            return;
+        }
+        menuSport.selectByVisibleText(eventName, false);
+        imgLoading.isInvisible(300);
+    }
+
+    @Override
+    public List<String> getMarketList() {
+        return menuEvent.getOptions(false);
     }
 
     public List<String> getLeftMenuList() {

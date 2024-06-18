@@ -18,6 +18,7 @@ public class MemberConstants {
     public static final String GMT_7 = "GMT+7";
     public static final String GMT_MINUS_4_30 = "GMT-4:30";
     public static final String NO_RECORD_FOUND = "No Record Found";
+    public static final String NO_RESULTS_FOUND = "No results found";
     public static final String WICKET_FANCY_TITLE = "Wicket Fancy";
     public static final String WICKET_BOOKMAKER = "Wicket Bookmaker";
     public static final String FANCY_TITLE = "Fancy";
@@ -61,6 +62,7 @@ public class MemberConstants {
     public static class LoginPage {
         public final static String MSG_INVALID_PASSWORD = "You have entered an incorrect Password. Please try again.";
         public final static String MSG_LOGIN_FAIL = "Invalid Username OR Password.";
+        public final static String MSG_LOGIN_BLOCKED = "Your account has been blocked. Please contact your Upline for help.";
         public final static String MSG_UNDERAGE_GAMELING = "Underage gambling is prohibited.\n" +
                 "Please confirm if you are 18 years old\nand above as of today.";
         public final static String BTN_CONFIRM = "Confirm";
@@ -337,6 +339,7 @@ public class MemberConstants {
         };
     public static class ChangePasswordPopup {
         public final static String TITLE = "Change Password";
+        public final static String TITLE_FAIR = "Update Password";
         public final static String LBL_NEW_PASSWORD = "New Password";
         public final static String LBL_CURRENT_PASSWORD = "Current Password";
         public final static String LBL_NEW_PASSWORD_CONFIRMATION = "New Password Confirmation";
