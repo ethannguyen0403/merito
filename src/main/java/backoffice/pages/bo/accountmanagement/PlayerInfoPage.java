@@ -57,7 +57,7 @@ public class PlayerInfoPage extends HomePage {
         btnView.click();
     }
 
-    public UplineStatusPopup showUpline(String player) {
+    public UplineStatusPopup showUpline() {
         String xPathUplineStatus = tblPlayerInfo.getXPathControlBasedValueOfDifferentColumnOnRow("Upline Status", 1, 1, 1, null, 2, "i[contains@class='fa-info-circle']", false, false);
         Button viewUpline = Button.xpath(xPathUplineStatus);
         viewUpline.click();

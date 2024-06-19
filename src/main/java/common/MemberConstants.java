@@ -48,6 +48,7 @@ public class MemberConstants {
     public static final String LBL_SOCCER_SPORT = "Soccer";
     public static final String LBL_TENNIS_SPORT = "Tennis";
     public static final String LBL_HORSE_RACING_SPORT = "Horse Racing";
+    public static final String MEMBER_BLOCKED_LOG_MESSAGE = "Account Status changed - Blocked due to 5 consecutive incorrect password attempts.";
     public static final Map<String, String> TIMEZONE_BRAND = new HashMap<String, String>() {
         {
             put("satsport", "IST");
