@@ -5,7 +5,7 @@
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="Casino.2024.V.1.0-SAT-Green-Active">
+    <test name="SAT Green Casino Smoke Test on the product is active">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='green'/>
         <parameter name='language' value='en'/>
