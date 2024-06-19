@@ -155,6 +155,7 @@ public class Fair999EventContainerControl extends EventContainerControl {
 
     }
 
+    //handle to get event that contains MatchOdds only (support in case there's only DECIMAL CRICKET market)
     public Event getEventMatchOddsRandom(String sportId, String currency, boolean isInplay, boolean isSuspend) {
         String xpathEvent;
         Label lblSuspend;

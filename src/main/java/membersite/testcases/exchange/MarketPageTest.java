@@ -27,7 +27,8 @@ public class MarketPageTest extends BaseCaseTest {
         log("@title:Validate can open rule popup");
         log("Step 1 Active any market");
         log("Step 2.Click on Rule button");
-        Event event = memberHomePage.eventContainerControl.getEventRandom(false, false);
+        SportPage page = memberHomePage.navigateSportHeaderMenu("Soccer");
+        Event event = page.eventContainerControl.getEventRandom(false, false);
         if (Objects.isNull(event)) {
             log("DEBUG: There is no event available");
             return;
