@@ -19,7 +19,6 @@ public class AtlanticAccessManagementPage extends HomePage {
     public void addPlayer(String player) {
         txtPlayer.sendKeys(player);
         btnAdd.click();
-        waitSpinIcon();
     }
 
     public AppConfirmPopup removePlayer(String player) {

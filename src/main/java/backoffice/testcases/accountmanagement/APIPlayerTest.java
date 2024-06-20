@@ -50,7 +50,6 @@ public class APIPlayerTest extends BaseCaseTest {
         log("Verify 2. Verify the message \"User [loginId] has been removed successful\" and the player is removed out the list");
         Assert.assertTrue(successMessage.contains(String.format(BOConstants.Tools.APIPlayer.MSG_SUCCESS, satMemberLoginID, "removed")), "Success message when remove api player is incorrect");
         Assert.assertFalse(page.isPlayerExist(satMemberLoginID), "FAILED! The added account not display in the list");
-
         log("INFO: Executed completely");
     }
 
@@ -87,10 +86,9 @@ public class APIPlayerTest extends BaseCaseTest {
         log("Step 4. Remove the account from API list");
         AppConfirmPopup popup = page.removeAPIPlayer(satMemberLoginID);
         popup.confirm();
-        popup.isInvisible(3);
 
         log("Step 5. Re-login api");
-        page.btnAdd.waitForControlInvisible(1, 1);
+        page.btnAdd.waitForControlInvisible(1, 2);
         result = APIPlayerUtils.loginAPI(environment.getApiURL(), satMemberLoginID, passDecrypt);
 
         log("Verify 2. Verify cannot login api when account is removed");

@@ -32,7 +32,7 @@ public class APIPlayerPage extends HomePage {
                 break;
             }
         }
-        popup.isDisplayed(3);
+        waitSpinIcon();
         return popup;
     }
 

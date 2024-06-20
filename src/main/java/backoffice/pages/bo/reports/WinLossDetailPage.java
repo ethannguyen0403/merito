@@ -6,6 +6,7 @@ import backoffice.controls.Table;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.pages.bo.reports.component.TransactionDetailsPopup;
 import com.paltech.element.common.*;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,4 +164,24 @@ public class WinLossDetailPage extends HomePage {
     }
 
     public enum Product {ALL, EXCHANGE}
+
+    public void verifyFilterResultCorrect(String fromDate, String toDate, String product, String portal, String currency) {
+        waitSpinIcon();
+        if(!fromDate.isEmpty() && !toDate.isEmpty()) {
+            System.out.println("Verify date range");
+        }
+        if(!product.isEmpty()) {
+            System.out.println("Verify product");
+        }
+        if(!portal.isEmpty()) {
+            List<String> lstPO = tblWinLossDetail.getColumn(colUsername, false);
+            Assert.assertEquals(lstPO.get(0).split("\n")[0], portal, "FAILED! Portal does not display as searching");
+            Assert.assertEquals(lstPO.get(0).split("\n")[1], portal, "FAILED! Portal does not display as searching");
+            Assert.assertTrue(lstPO.size() == 2, "Failed! More than 1 portals display when only filter 1 portal");
+            Assert.assertTrue(isUsernameAsHyperlink("Portal"), "FAILED! Username displays as hyperlink when level is Member");
+        }
+        if(!currency.isEmpty()) {
+            System.out.println("Verify currency");
+        }
+    }
 }

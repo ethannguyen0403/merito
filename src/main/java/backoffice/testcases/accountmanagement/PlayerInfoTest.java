@@ -72,7 +72,7 @@ public class PlayerInfoTest extends BaseCaseTest {
         log("Step 2. Input a account and View");
         page.viewPlayer(satMemberLoginID);
         log("Step 3. Click on Show button in Update Status row");
-        UplineStatusPopup popup = page.showUpline(satMemberLoginID);
+        UplineStatusPopup popup = page.showUpline();
 
         log("Verify 1. Verify upline status popup display correct with correct information");
         List<ArrayList<String>> uplineData = popup.tblUplineStatus.getRowsWithoutHeader(10, false);

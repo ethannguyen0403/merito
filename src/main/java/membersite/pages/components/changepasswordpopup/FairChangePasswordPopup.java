@@ -5,6 +5,7 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.Popup;
 import com.paltech.element.common.TextBox;
 import common.MemberConstants;
+import org.testng.Assert;
 
 public class FairChangePasswordPopup extends ChangePasswordPopup{
     private Button btnSaveChange = Button.xpath("//app-change-password//button[@class='col btn btn-change-password']");
@@ -79,6 +80,16 @@ public class FairChangePasswordPopup extends ChangePasswordPopup{
 
     public boolean isDisplayed() {
         return lblTitle.isDisplayed();
+    }
+
+    @Override
+    public void verifyChangePasswordUI() {
+        Assert.assertEquals(lblTitle.getText().trim(), MemberConstants.ChangePasswordPopup.TITLE_FAIR, "FAILED! Title change password is not correct");
+        Assert.assertTrue(txtOldPassword.isDisplayed(), "FAILED! Text box Current password is not displayed");
+        Assert.assertTrue(txtConfirmPassword.isDisplayed(), "FAILED! Text box Confirm password is not displayed");
+        Assert.assertTrue(txtNewPassword.isDisplayed(), "FAILED! Text box New password is not displayed");
+        Assert.assertTrue(btnSaveChange.isDisplayed(), "FAILED! Button Save changes is not displayed");
+        Assert.assertTrue(btnClose.isDisplayed(), "FAILED! Button Closed is not displayed");
     }
 }
 

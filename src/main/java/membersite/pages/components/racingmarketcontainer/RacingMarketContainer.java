@@ -45,6 +45,10 @@ public class RacingMarketContainer {
         return null;
     }
 
+    public boolean isAllLayButtonDisable() {
+        return false;
+    }
+
     private Odd getOdd(Link lnkSelectedOdd, String oddRate, String marketName, boolean isInPlay, String selectedTeam, int eventIndex) {
         return null;
     }

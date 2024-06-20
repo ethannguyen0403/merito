@@ -15,9 +15,11 @@ public class OneClickBettingControl extends BaseElement {
     private Label lbl1ClickBet;
     private Label lblErrorMsg;//div[@id='one-click-betting']//div[@class='errorMsg']
     private Label lblStatus;//div[@id='one-click-betting']//div[@class='track']//span
+    private Label lblToggle;
     private Button btnEdit;//div[@id='one-click-betting']//input[contains(@class,'btn-edit-stake')]
     private Button btnCancel;//div[@id='one-click-betting']//input[contains(@class,'btn-cancel-stake')]
     private Button btnSave;//div[@id='one-click-betting']//input[contains(@class,'btn-save-stake')]
+    public Button btn1ClickBet;
     //	private Button btnStake1;//div[@id='one-click-betting']//input[contains(@class,'btn-save-stake')]
 //	private Button btnStake2;//div[@id='one-click-betting']//input[contains(@class,'btn-save-stake')]
 //	private Button btnStake3;//div[@id='one-click-betting']//input[contains(@class,'btn-save-stake')]
@@ -31,9 +33,11 @@ public class OneClickBettingControl extends BaseElement {
         _xpath = xpath;
         lblErrorMsg = Label.xpath(String.format("%s//div[@class='errorMsg']", _xpath));
         lblStatus = Label.xpath(String.format("%s//div[@class='track']//span", _xpath));
+        lblToggle = Label.xpath(String.format("%s//label[contains(@class, 'toggle')]", _xpath));
         btnEdit = Button.xpath(String.format("%s//input[contains(@class,'btn-edit-stake')]", _xpath));
         btnCancel = Button.xpath(String.format("%s//input[contains(@class,'btn-cancel-stake')]", _xpath));
-        lbl1ClickBet = Label.xpath(String.format("%s//label[@class='lable-click-bet']", _xpath));
+        lbl1ClickBet = Label.xpath(String.format("%s//label[contains(@class, 'label-click-bet')]", _xpath));
+        btn1ClickBet = Button.xpath(String.format("%s//input[@type='checkbox']", _xpath));
 //		btnSave = Button.xpath(String.format("%s//input[contains(@class,'btn-save-stake')]",_xpath));
 //		btnStake1 = Button.xpath(String.format("%s//div[@class='errorMsg']",_xpath));
 //		btnStake2 = Button.xpath(String.format("%s//div[@class='errorMsg']",_xpath));
@@ -57,13 +61,24 @@ public class OneClickBettingControl extends BaseElement {
     }
 
     public void activeClick() {
-        if (lblStatus.getText().equalsIgnoreCase("OFF"))
-            lblStatus.click();
+        if (!btn1ClickBet.isSelected())
+            lblToggle.click();
     }
 
     public void inactive1Click() {
-        if (lblStatus.getText().equalsIgnoreCase("ON"))
-            lblStatus.click();
+        if (btn1ClickBet.isSelected())
+            lblToggle.click();
     }
 
+    public boolean switchToggle1ClickBet(boolean isOn) {
+        if (btn1ClickBet.isSelected() != isOn) {
+            if (isOn) {
+                activeClick();
+            } else {
+                inactive1Click();
+            }
+        }
+        isOn = btn1ClickBet.isSelected() ? true : false;
+        return isOn;
+    }
 }
