@@ -65,4 +65,11 @@ public class AccountInforSection {
 
     public void selectAccountStatus(String status) {}
 
+    public String getAccountStatus(){
+        return "";
+    }
+
+    public List<String> getAccountStatusList(){
+        return Collections.singletonList("");
+    }
 }

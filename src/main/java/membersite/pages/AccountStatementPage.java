@@ -1,15 +1,16 @@
 package membersite.pages;
 
+import com.paltech.element.common.Icon;
 import controls.Table;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.accountstatement.AccountStatementContainer;
 import membersite.pages.components.ps38betdetail.PS38BetDetail;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AccountStatementPage extends HomePage {
+    public Icon homeIcon = Icon.xpath("//*[@class='fas fa-home fa-2x']");
     public AccountStatementContainer accountStatementContainer;
     public PS38BetDetail ps38BetDetail = new PS38BetDetail();
 
@@ -30,6 +31,7 @@ public class AccountStatementPage extends HomePage {
         accountStatementContainer.filter(startDate, endDate);
         waitPageLoad();
     }
+
 
     public boolean verifyBalance(List<ArrayList<String>> lstAPIReport) {
         return accountStatementContainer.verifyBalance(lstAPIReport);

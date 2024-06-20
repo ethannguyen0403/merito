@@ -174,4 +174,14 @@ public class NewUIAccountInforSection extends AccountInforSection {
     public void selectAccountStatus(String status) {
         ddrAccountStatus.selectByVisibleText(status);
     }
+
+    @Override
+    public String getAccountStatus() {
+     return ddrAccountStatus.getFirstSelectedOption();
+    }
+
+    @Override
+    public List<String> getAccountStatusList() {
+        return ddrAccountStatus.getOptions();
+    }
 }

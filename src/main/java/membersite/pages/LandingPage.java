@@ -61,6 +61,13 @@ public class LandingPage extends BasePage {
         return header.loginInvalid(username, password);
     }
 
+    public void loginInvalid(String username, String password, int count) {
+        for (int i = 1; i <= count; i++) {
+            loginInvalid(username, password);
+            System.out.println("Try to invalid login with attempt: " + i);
+        }
+    }
+
     public UnderageGamblingPopup clickLogin() {
         return header.clickLogin();
     }
