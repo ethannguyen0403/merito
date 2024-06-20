@@ -718,7 +718,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
         log("Step 1.Select Ps38 product and select AM odds");
         log("Step 2.Click any AM negative odd of sport that already config Max per match and observe");
-        double settingMaxPerMatch = 500.0;
+        double settingMaxPerMatch = 142.0;
         ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
@@ -731,7 +731,7 @@ public class AsianViewPageTest extends BaseCaseTest {
                 "\n" +
                 "AM negative odds: Max per match = (setting max per match/odds) * 100");
         asianViewPage.verifyBetSlipInfo(market, true, AMERICAN);
-        asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, AMERICAN, true);
+        asianViewPage.verifyMinMaxAndMaxPerMatchShowCorrect(market, -1, -1, settingMaxPerMatch, AMERICAN, true);
         log("INFO: Executed completely");
     }
 
@@ -742,7 +742,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
         log("Step 1.Select Ps38 product and select AM odds");
         log("Step 2.Click any AM positive odd of sport that already config Max per match and observe");
-        double settingMaxPerMatch = 500.0;
+        double settingMaxPerMatch = 142.0;
         ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
@@ -755,7 +755,7 @@ public class AsianViewPageTest extends BaseCaseTest {
                 "\n" +
                 "AM positive odds: Max per match = setting max per match");
         asianViewPage.verifyBetSlipInfo(market, false, AMERICAN);
-        asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, AMERICAN, false);
+        asianViewPage.verifyMinMaxAndMaxPerMatchShowCorrect(market, -1, -1, settingMaxPerMatch, AMERICAN, false);
         log("INFO: Executed completely");
     }
 
@@ -766,7 +766,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
         log("Step 1.Select Ps38 product and select AM odds");
         log("Step 2.Click any AM negative odd of sport that already config Max per match and observe");
-        double settingMaxPerMatch = 500.0;
+        double settingMaxPerMatch = 142.0;
         ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
@@ -779,7 +779,7 @@ public class AsianViewPageTest extends BaseCaseTest {
                 "\n" +
                 "AM negative odds: Max per match = (setting max per match/odds) * 100");
         asianViewPage.verifyBetSlipInfo(market,true, MALAY);
-        asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, MALAY, true);
+        asianViewPage.verifyMinMaxAndMaxPerMatchShowCorrect(market, -1, -1, settingMaxPerMatch, MALAY, true);
         log("INFO: Executed completely");
     }
 
@@ -790,7 +790,7 @@ public class AsianViewPageTest extends BaseCaseTest {
         log("Precondition: Login Member site with account that already config Max per match setting for any sport of PS38 product");
         log("Step 1.Select Ps38 product and select DEC odds");
         log("Step 2. Click any odd of sport that already config Max per match");
-        double settingMaxPerMatch = 500.0;
+        double settingMaxPerMatch = 142.0;
         ProteusHomePage proteusHomePage = memberHomePage.activePS38Product();
         AsianViewPage asianViewPage = proteusHomePage.selectAsianView();
         asianViewPage.selectEventOnLeftMenu(EARLY_PERIOD, SOCCER);
@@ -801,7 +801,8 @@ public class AsianViewPageTest extends BaseCaseTest {
 
         log("Validate Match Max value should matched correctly with Agent Site setting");
         asianViewPage.verifyBetSlipInfo(market, false, DECIMAL);
-        asianViewPage.verifyMaxPerMatchShowCorrect(market, settingMaxPerMatch, DECIMAL, false);
+        asianViewPage.verifyMinMaxAndMaxPerMatchShowCorrect(market, -1, -1, settingMaxPerMatch, DECIMAL, false);
+
         log("INFO: Executed completely");
     }
 

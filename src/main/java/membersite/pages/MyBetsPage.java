@@ -29,8 +29,8 @@ public class MyBetsPage extends HomePage {
         }
     }
 
-    public void verifyProfitLossCorrect(int rowIndex){
-        ps38BetDetail.verifyProfitLossCorrect(rowIndex);
+    public void verifyProfitLossCorrect(String betID){
+        ps38BetDetail.verifyProfitLossCorrect(betID);
     }
 
     public String getNoDataMesage() {

@@ -407,7 +407,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "9443")
-    @Test(groups = {"ps38_po", "nolan_Proteus.2024.V.3.0", "Cash_out"})
+    @Test(groups = {"ps38_po_fair999", "nolan_Proteus.2024.V.3.0", "Cash_out"})
     public void PS38_Agent_Cash_out_TC9443() {
         log("@title: Validate showing one more checkbox 'Allow cash out' for PS38 at PO level");
         log("Precondition: Log in successfully by PO level");

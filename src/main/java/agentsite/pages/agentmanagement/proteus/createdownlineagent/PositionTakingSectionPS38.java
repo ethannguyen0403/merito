@@ -172,7 +172,10 @@ public class PositionTakingSectionPS38 {
         }
     }
 
-    public boolean verifyAllPTDropDownAreEnable(List<String> sportList, List<String> tableList, boolean isEnable) {
+    public boolean verifyAllPTDropdownState(List<String> sportList, List<String> tableList, boolean isEnable) {
+        if(chkCopyAll.isSelected()){
+            chkCopyAll.deSelect();
+        }
         for (String sportName : sportList) {
             for (String table : tableList) {
                 BaseElement ptTable = Label.xpath(String.format(xpathSportTable, sportName, table));
@@ -180,14 +183,14 @@ public class PositionTakingSectionPS38 {
                 if (!ptTable.isDisplayed()) {
                     continue;
                 }
-                if (!verifyAllPTDropDownAreEnable(sportName, table, isEnable))
+                if (!verifyAllPTDropdownState(sportName, table, isEnable))
                     return false;
             }
         }
         return true;
     }
 
-    public boolean verifyAllPTDropDownAreEnable(String sportName, String tableName, boolean isEnable) {
+    public boolean verifyAllPTDropdownState(String sportName, String tableName, boolean isEnable) {
         expandSport(sportName, true);
         String ptDropdownXpath = String.format("%s//%s", xpathSportTable, "select");
         for (WebElement ptEle : Label.xpath(String.format(ptDropdownXpath, sportName, tableName)).getWebElements()) {
