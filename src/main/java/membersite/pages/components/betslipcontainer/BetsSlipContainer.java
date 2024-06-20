@@ -2,6 +2,7 @@ package membersite.pages.components.betslipcontainer;
 
 import com.paltech.element.common.Label;
 import membersite.controls.EditStakeControl;
+import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
 
 import java.util.List;
@@ -12,6 +13,14 @@ public class BetsSlipContainer {
 
     public void cancelAllSelections() {
 
+    }
+
+    public void verifyInfoBetSlipAndOddsPage(Market market, Order order){
+
+    }
+
+    public boolean isPlacBetButtonEnable(){
+        return false;
     }
 
     public String getBetSlipErrorMessage() {
@@ -56,6 +65,10 @@ public class BetsSlipContainer {
     }
 
     public void clearAll() {
+
+    }
+
+    public void removeBetByBinIcon(Market market){
 
     }
 

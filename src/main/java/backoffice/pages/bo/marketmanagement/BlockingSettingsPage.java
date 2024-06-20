@@ -18,6 +18,7 @@ public class BlockingSettingsPage extends HomePage {
     public Table tblBlockingSetting = Table.xpath("//app-blocking-setting//table[contains(@class,'my-table')]", totalColumn);
 
     public boolean verifyDataCorrect(List<ArrayList<String>> apiData) {
+        waitSpinIcon();
         List<ArrayList<String>> uiData = tblBlockingSetting.getRowsWithoutHeader(apiData.size(), false);
         for (int i = 0; i < apiData.size(); i++) {
             System.out.println(String.format("Verify data of PO account %s", apiData.get(i).get(colPOAccount - 1)));

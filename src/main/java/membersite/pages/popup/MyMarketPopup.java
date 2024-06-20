@@ -5,6 +5,7 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.Popup;
 import common.MemberConstants;
 import controls.Table;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,12 @@ public class MyMarketPopup {
     public void navigateToMarket(String marketName) {
         int index = getRowMatch(marketName);
         tbMyMarkets.getControlOfCell(1, colMarketName, index, "a").click();
+    }
+
+    public void verifyMyMarketPopupUI(){
+        Assert.assertEquals(lblTitle.getText(), MemberConstants.MyMarketsPopup.TITLE, "FAILED! My Markets pop up title is not correct");
+        Assert.assertEquals(lblNote.getText().trim(), MemberConstants.MyMarketsPopup.NOTES, "FAILED! My Markets noted title is not correct");
+        Assert.assertEquals(tbMyMarkets.getHeaderNameOfRows(), MemberConstants.MyMarketsPopup.TABLE_MY_MARKETS_HEADER, "FAILED! My Markets header is not correct");
     }
 
     public List<String> getMarketInfo(int index) {

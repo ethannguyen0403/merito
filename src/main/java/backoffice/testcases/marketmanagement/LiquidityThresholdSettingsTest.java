@@ -46,9 +46,9 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
 
         log("Step 3. Input the setting in None-live cell: 1 then press enter");
         page.setThreshold(marketType, "1", "");
+        page.waitSpinIcon();
 
         log("Verify 1 Confirm popup display with the title : Update - [Market Type] with  the message: Are you sure to set this non live to setting value ?");
-        page.popup.isDisplayed(1);
         Assert.assertEquals(page.popup.getContent(), String.format("Are you sure to set this non live to %s ?", "1"), "FAILED! Confirm message is incorrect");
 
         log("Step 4. Click close");
@@ -86,9 +86,10 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
         page.waitSpinIcon();
         log("Step 3. Input the setting in Live cell: 1 then press enter");
         page.setThreshold(marketType, "", "1");
+        page.waitSpinIcon();
 
         log("Verify 1 Confirm popup display with the title : Update - [Market Type] with  the message: Are you sure to set this live to setting value ?");
-        Assert.assertEquals(page.popup.getContent(), String.format("Are you sure to edit this live from 20,000 to %s ?", "1"), "FAILED! Confirm message is incorrect");
+        Assert.assertEquals(page.popup.getContent(), String.format("Are you sure to set this live to %s ?", "1"), "FAILED! Confirm message is incorrect");
 
         log("Step 4. Click close");
         page.popup.clickCloseBtn();

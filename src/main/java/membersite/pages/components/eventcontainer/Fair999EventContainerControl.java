@@ -93,7 +93,7 @@ public class Fair999EventContainerControl extends EventContainerControl {
     }
 
     public Event getEvent(boolean isSuspend, int limit, int eventIndex) {
-        return getEvent(null, isSuspend, limit, eventIndex);
+        return getEvent("", isSuspend, limit, eventIndex);
     }
 
     public Event getEvent(String inPlay, boolean isSuspend, int limit, int eventIndex) {

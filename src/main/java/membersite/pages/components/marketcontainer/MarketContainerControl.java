@@ -44,8 +44,8 @@ public class MarketContainerControl {
         return null;
     }
 
-    public List<String> getMarketInfo() {
-        return null;
+    public void verifyUIForeCastIsCorrect(){
+
     }
 
     public List<String> getListSelection() {

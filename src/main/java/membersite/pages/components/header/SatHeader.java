@@ -274,6 +274,12 @@ public class SatHeader extends Header1 {
         return new SportPage(brand);
     }
 
+    @Override
+    public InPlayPage navigateInPlayPage(String brand) {
+        clickHeaderMenu("In-play");
+        return new InPlayPage(brand);
+    }
+
     private void clickHeaderMenu(String sportMenu){
         Menu menu = Menu.xpath(String.format(sportMenuXpath, sportMenu));
         if (!menu.isDisplayed(5)) {
