@@ -31,7 +31,7 @@ public class TransactionDetailsPopupPage extends HomePage {
     Button btnClosePopup = Button.xpath("//div[contains(@class,'modal-header')]//button[@class='close']");
     Button btnClose = Button.xpath("//button[contains(@class,'btn-cancel')]");
     Label lblTitle = Label.xpath("//div[@class='otp-dialog ng-scope']//div[@class='modal-header']/div[@class='ng-binding']");
-    String tblReportXpath = "//app-pnl-transaction-detail//table[contains(@class,'ptable')]";
+    String tblReportXpath = "//div[@class='modal-content']//table[contains(@class,'ptable')]";
     public Table tblReport = Table.xpath(tblReportXpath, tblReportTotalCol);
     Row taxRow = Row.xpath("//table[contains(@class,'table-responsive')]//tr[contains(@class,'TAX_INFO')]");
     Row rowTotal = Row.xpath("//table[contains(@class,'ptable table-responsive report')]//tr[@class='ng-star-inserted']");
@@ -94,8 +94,9 @@ public class TransactionDetailsPopupPage extends HomePage {
 
 
     public double sumPlayerStake() {
-        double totalPlayerStake = 0.0;
         waitingLoadingSpinner();
+        int col = tblReport.getColumnIndexByName("Player Turnover");
+        double totalPlayerStake = 0.0;
         List<ArrayList<String>> data = tblReport.getRowsWithoutHeader(false);
         for (int i = 0; i < data.size() - 2; i++) {
             String stake = data.get(i).get(colPlayerStake - 1);
