@@ -2,11 +2,14 @@ package backoffice.testcases.operations;
 
 import backoffice.common.BOConstants;
 import backoffice.pages.bo.operations.PerformancePage;
+import backoffice.utils.operations.PerformanceUtils;
 import baseTest.BaseCaseTest;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.io.IOException;
 import java.util.List;
 
 public class PerformanceTest extends BaseCaseTest {
@@ -126,6 +129,177 @@ public class PerformanceTest extends BaseCaseTest {
         Assert.assertEquals(page.btnLine.getText(), BOConstants.Reports.Performance.LINE, "FAILED! Line button is incorrect displayed");
         Assert.assertEquals(page.tblTopPerformer.getColumnNamesOfTable(), BOConstants.Reports.Performance.TBL_HEADER_TOP_PERFORMERS, "FAILED! Top Performers header table is incorrect displayed");
 
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "29645")
+    @Parameters({"satSADAgentLoginID", "agentLevel"})
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void BO_Line_Performance_29645(String satSADAgentLoginID, String agentLevel) throws IOException {
+        log("@title: Validate UI correctly when create/update Line");
+        log("Precondition: Create new Line");
+        String brandName = "FairExchange";
+        String newLineName = satSADAgentLoginID + 1;
+        try {
+            log("Step 1: Access Reports > Performance > Create/Manage Lines");
+            PerformancePage page = backofficeHomePage.navigatePerformance();
+            log("Step 2: Create new Line");
+            page.createNewLine(brandName, agentLevel, satSADAgentLoginID, "", satSADAgentLoginID);
+            log("Step 3: Filter created Line");
+            page.searchLineInManagePage("", "", satSADAgentLoginID, "", "");
+            log("Verify 1: Create new Line");
+            Assert.assertTrue(page.isLineCorrect(brandName, agentLevel, satSADAgentLoginID, "", satSADAgentLoginID), "FAILED! The Line is not correct");
+            log("Step 4: Click on edit button");
+            log("Step 5: Update the valid data criterial");
+            log("Step 6: Click on Update button >> observe");
+            page.editLine("", "", satSADAgentLoginID, newLineName, "", "");
+            log("Verify 2: Line displayed updated data correctly");
+            Assert.assertTrue(page.isLineCorrect(brandName, agentLevel, newLineName, "", satSADAgentLoginID), "FAILED! The Line is not updated");
+            log("INFO: Executed completely");
+        }finally {
+            log("Post-Condition: Remove created line");
+            String lineID = PerformanceUtils.getLineID(satSADAgentLoginID);
+            PerformanceUtils.deleteLine(lineID);
+            String lineIDNew = PerformanceUtils.getLineID(newLineName);
+            PerformanceUtils.deleteLine(lineIDNew);
+        }
+    }
+
+    @TestRails(id = "29646")
+    @Parameters({"satSADAgentLoginID", "agentLevel"})
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void BO_Line_Performance_29646(String satSADAgentLoginID, String agentLevel) throws IOException {
+        log("@title: Validate UI correctly when delete Line ");
+        log("Precondition: Create new Line");
+        String brandName = "FairExchange";
+        PerformanceUtils.createNewLine(PerformanceUtils.getBrandID(brandName), agentLevel, satSADAgentLoginID, satSADAgentLoginID);
+        try {
+            log("Step 1: Access Reports > Performance > Create/Manage Lines");
+            PerformancePage page = backofficeHomePage.navigatePerformance();
+            page.clickOnCreateManageLineButton();
+            log("Step 2: Select any Line");
+            log("Step 3: Click on delete button then click on Confirm button");
+            page.searchLineInManagePage("", "", satSADAgentLoginID, "", "");
+            page.deleteLine(satSADAgentLoginID);
+            log("Verify 1: Line displayed updated data correctly");
+            Assert.assertFalse(page.isLineCorrect("", "", satSADAgentLoginID, "", ""), "FAILED! The Line is not deleted successfully");
+            log("INFO: Executed completely");
+        }finally {
+            log("Post-Condition: Remove created line");
+            String lineID = PerformanceUtils.getLineID(satSADAgentLoginID);
+            PerformanceUtils.deleteLine(lineID);;
+        }
+}
+
+    @TestRails(id = "29647")
+    @Parameters({"satSADAgentLoginID", "agentLevel"})
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void BO_Line_Performance_29647(String satSADAgentLoginID, String agentLevel) throws IOException {
+        log("@title: Validate showing Current PT if settings on all groups are the same");
+        log("Precondition-Step 1: Create new Line");
+        String ptAmount = "15";
+        String brandName = "FairExchange";
+        PerformanceUtils.createNewLine(PerformanceUtils.getBrandID(brandName), agentLevel, satSADAgentLoginID, satSADAgentLoginID);
+        log("Precondition-Step 2: Have some lines with settings on all groups are the same (e,g. Current PT of all groups is 15)");
+        String lineID = PerformanceUtils.getLineID(satSADAgentLoginID);
+        String memberID = PerformanceUtils.getMemberID(lineID);
+        PerformanceUtils.updatePTLine(PerformanceUtils.setAllPTToSports(ptAmount), memberID);
+        try {
+            log("Step 1: Access Reports > Performance");
+            PerformancePage page = backofficeHomePage.navigatePerformance();
+            log("Step 2: Filter data at pre-condition\n");
+            page.searchLine(satSADAgentLoginID);
+            log("Verify 1: Showing Current PT is 15");
+            Assert.assertEquals(page.getCurrentPTShow(1), ptAmount, "FAILED! PT is show wrong");
+            log("INFO: Executed completely");
+        }finally {
+            log("Post-Condition: Remove created line");
+            PerformanceUtils.deleteLine(lineID);;
+        }
+    }
+
+    @TestRails(id = "29648")
+    @Parameters({"satSADAgentLoginID", "agentLevel"})
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void BO_Line_Performance_29648(String satSADAgentLoginID, String agentLevel) throws IOException {
+        log("@title: Validate showing Current PT If there are 2 or above distinct settings");
+        log("Precondition-Step 1: Create new Line");
+        String ptAmount = "15";
+        String brandName = "FairExchange";
+        PerformanceUtils.createNewLine(PerformanceUtils.getBrandID(brandName), agentLevel, satSADAgentLoginID, satSADAgentLoginID);
+        log("Precondition-Step 2: Have some lines with settings on 2 or above distinct settings (e,g. Current PT of soccer is 15, Current PT of soccer is 10)\n");
+        String lineID = PerformanceUtils.getLineID(satSADAgentLoginID);
+        String memberID = PerformanceUtils.getMemberID(lineID);
+        PerformanceUtils.ptMap.put("Soccer", ptAmount);
+        PerformanceUtils.ptMap.put("Cricket", ptAmount);
+        PerformanceUtils.updatePTLine(PerformanceUtils.ptMap, memberID);
+        try {
+            log("Step 1: Access Reports > Performance");
+            PerformancePage page = backofficeHomePage.navigatePerformance();
+            log("Step 2: Filter data at pre-condition\n");
+            page.searchLine(satSADAgentLoginID);
+            log("Verify 1: Showing Current PT is '-'");
+            Assert.assertEquals(page.getCurrentPTShow(1), "-", "FAILED! PT is show wrong");
+            log("INFO: Executed completely");
+        }finally {
+            log("Post-Condition: Remove created line");
+            PerformanceUtils.deleteLine(lineID);;
+        }
+    }
+
+    @TestRails(id = "29649")
+    @Parameters({"satSADAgentLoginID", "agentLevel"})
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void BO_Line_Performance_29649(String satSADAgentLoginID, String agentLevel) throws IOException {
+        log("@title: Validate showing Current PT If there is 1 settings ");
+        log("Precondition-Step 1: Create new Line");
+        String ptAmount = "15";
+        String brandName = "FairExchange";
+        PerformanceUtils.createNewLine(PerformanceUtils.getBrandID(brandName), agentLevel, satSADAgentLoginID, satSADAgentLoginID);
+        log("Precondition-Step 2:Have some lines with 1 setting (e,g. Current PT of soccer is 15)");
+        String lineID = PerformanceUtils.getLineID(satSADAgentLoginID);
+        String memberID = PerformanceUtils.getMemberID(lineID);
+        PerformanceUtils.ptMap.put("Soccer", ptAmount);
+        PerformanceUtils.updatePTLine(PerformanceUtils.ptMap, memberID);
+        try {
+            log("Step 1: Access Reports > Performance");
+            PerformancePage page = backofficeHomePage.navigatePerformance();
+            log("Step 2: Filter data at pre-condition\n");
+            page.searchLine(satSADAgentLoginID);
+            log("Verify 1:Showing Current PT is '-'");
+            Assert.assertEquals(page.getCurrentPTShow(1), "-", "FAILED! PT is show wrong");
+            log("INFO: Executed completely");
+        }finally {
+            log("Post-Condition: Remove created line");
+            PerformanceUtils.deleteLine(lineID);;
+        }
+    }
+
+    @TestRails(id = "29650")
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void BO_Line_Performance_29650() {
+        log("@title: Validate showing Max Available PT if there are 2 or above distinct settings");
+        log("Precondition-Step 1:Have some lines with total PT of PO and CO on 2 or above groups have distinct settings (e,g. Max Available PT of soccer is 85, cricket is 80)");
+        log("Step 1: Access Reports > Performance");
+        PerformancePage page = backofficeHomePage.navigatePerformance();
+        log("Step 2: Filter data at pre-condition\n");
+        page.searchLine("All");
+        log("Verify 1:Showing Max PT is '-'");
+        page.verifyMaxPTSettingShowCorrect(true);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "29651")
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void BO_Line_Performance_29651() {
+        log("@title: \tValidate showing Max Available PT if setting of all sports are same ");
+        log("Precondition-Step 1: Have some lines with total PT of PO and CO on all groups are the same (e,g. Max Available PT of all groups is 85)");
+        log("Step 1: Access Reports > Performance");
+        PerformancePage page = backofficeHomePage.navigatePerformance();
+        log("Step 2: Filter data at pre-condition\n");
+        page.searchLine("All");
+        log("Verify 1: Showing Max available PT is total PT of PO and CO (show 85)");
+        page.verifyMaxPTSettingShowCorrect(false);
         log("INFO: Executed completely");
     }
 }
