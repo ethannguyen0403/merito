@@ -4,6 +4,7 @@ import backoffice.controls.Table;
 import backoffice.controls.bo.StaticTable;
 import backoffice.pages.bo._components.AppConfirmPopup;
 import backoffice.pages.bo.home.HomePage;
+import com.paltech.element.BaseElement;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import com.paltech.element.common.TextBox;
@@ -125,6 +126,28 @@ public class LiquidityThresholdSettingsPage extends HomePage {
         lstThreshold.add(TextBox.xpath(tblMarketType.getxPathOfCell(1, colNonlive, index, "input")).getText());
         lstThreshold.add(TextBox.xpath(tblMarketType.getxPathOfCell(1, colLive, index, "input")).getText());
         return lstThreshold;
+    }
+
+    public void clearThresholdSetting(String marketType) {
+        searchMarketType(marketType);
+        List<String> lstMarketType = tblMarketType.getColumn(1, false);
+        for (int i = 0; i < lstMarketType.size(); i++) {
+            if (lstMarketType.get(i).equalsIgnoreCase(marketType)) {
+                BaseElement cellValueLive = tblMarketType.getControlOfCell(1, 2, i + 1, "span[@class='icon-remove']");
+                BaseElement cellValueNonLive = tblMarketType.getControlOfCell(1, 3, i + 1, "span[@class='icon-remove']");
+                if(cellValueLive.isDisplayed()) {
+                    cellValueLive.click();
+                    popup.isDisplayed(2);
+                    popup.confirm();
+                }
+                if(cellValueNonLive.isDisplayed()) {
+                    cellValueNonLive.click();
+                    popup.isDisplayed(2);
+                    popup.confirm();
+                }
+            }
+        }
+
     }
 
 }

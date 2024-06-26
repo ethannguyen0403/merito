@@ -165,6 +165,7 @@ public class BOConstants {
         public static class VoidUnvoidWager {
             public final static String TITLE = "Wager Void / Un-void";
             public final static String SUCCESS_MESSAGE = "%s Wager successful. Report might take 30 minutes to regenerate.";
+            public final static List<String> LST_FANCY_BM_CODE = Arrays.asList("WICKET_FANCY", "CENTRAL_FANCY", "FAIR_27FANCY", "ARTEMIS_FANCY","ARTEMIS_BOOKMAKER", "WICKET_BOOKMAKER","MANUAL_ODDS");
         }
 
         public static class CompetitionBlocking {
