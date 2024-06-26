@@ -8,7 +8,7 @@
 
     <test name="Post-condition smoke test cases of Backoffice in GREEN">
         <parameter name='browser' value='window10.local.chrome'/>
-        <parameter name='env' value='stg'/>
+        <parameter name='env' value='green'/>
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>

@@ -286,7 +286,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
     @Test(groups = {"postcondition"})
     @Parameters({"satPlayer","fairPlayer","fsPlayer","f24Player"})
     public void BO_Operations_Wager_Void_Unvoid_Postcondition(String satPlayer, String fairPlayer, String fsPlayer, String f24Player) {
-        log("@title: Validate can search void/un-void wager by Nick Name");
+        log("@title: Postcondition - Void all bets FC/BM after testing");
         log("Step 1. Access Operations > Wager Void/Un-void");
         WagerVoidUnvoidPage page = backofficeHomePage.navigateWagerVoidUnvoid();
         String date = DateUtils.getDate(0,"yyyy-MM-dd", GMT_FOUR);

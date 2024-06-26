@@ -8,6 +8,7 @@ public class AGConstant {
     public final static String SPORT_CRICKET = "Cricket";
     public final static String SPORT_SOCCER = "Soccer";
     public final static String SPORT_TENNIS = "Tennis";
+    public final static String HORSE_RACING = "Horse Racing";
     public final static String NO_RECORD_FOUND = "No records found.";
     public final static String NO_RESULT_FOUND = "No results found";
     public final static String timeZone = "GMT-4";
