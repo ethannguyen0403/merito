@@ -255,7 +255,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "968")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_968() {
         log("@title: Validate that 1Click button");
         log("Precondition: Login member account");
@@ -276,7 +276,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "969")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void  FE_BetSlipMyBet_969() {
         log("@title: Validate that user can remove a selected odd successfully on Bet Slip");
         log("Precondition: Login member account");
@@ -298,7 +298,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "970")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_970() {
         log("@title: \tValidate that a selected odd is removed successfully on Bet Slip by clicking Cancel All selections button");
         log("Precondition: Login member account");
@@ -321,7 +321,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "971")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_971() {
         log("@title: Validate that Place Bet button's behaviors are correct in case of inputted stake and no stake");
         log("Precondition: Login member account");
@@ -346,7 +346,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "972")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_972() {
         log("@title: Validate that user cannot place bet when inputting a stake more than maximum stake");
         log("Precondition: Login member account");
@@ -373,7 +373,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "973")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_973() {
         log("@title: Validate that user cannot place bet when inputting a stake less than minimum stake");
         log("Precondition: Login member account");
@@ -399,7 +399,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "974")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_974() {
         log("@title: Validate that a selected odd at HOME-BACK displays correct data both Odd page and on Bet Slip");
         log("Precondition: Login member account");
@@ -426,7 +426,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "975")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_975() {
         log("@title: Validate that a selected odd at HOME-LAY displays correct data both Odd page and on Bet Slip");
         log("Precondition: Login member account");
@@ -453,7 +453,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "976")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_976() {
         log("@title: Validate that a selected odd at DRAW-BACK displays correct data both Odd page and on Bet Slip");
         log("Precondition: Login member account");
@@ -481,7 +481,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "977")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_977() {
         log("@title: Validate that a selected odd at DRAW-LAY displays correct data both Odd page and on Bet Slip");
         log("Precondition: Login member account");
@@ -509,7 +509,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "978")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_978() {
         log("@title: Validate that a selected odd at AWAY-BACK displays correct data both Odd page and on Bet Slip \t");
         log("Precondition: Login member account");
@@ -536,7 +536,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "979")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_979() {
         log("@title: Validate that a selected odd at AWAY-LAY displays correct data both Odd page and on Bet Slip");
         log("Precondition: Login member account");
@@ -563,7 +563,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "988")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_988() {
         log("@title: Validate that user can place a bet with HOME - BACK successfully on Market Page");
         log("Precondition: Login member account");
@@ -592,7 +592,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "989")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_989() {
         log("@title: Validate that user can place a bet with HOME - LAY successfully on Market Page");
         log("Precondition: Login member account");
@@ -621,7 +621,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "990")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_990() {
         log("@title: Validate that user can place a bet with AWAY-BACK successfully on Market Page");
         log("Precondition: Login member account");
@@ -650,7 +650,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "991")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void FE_BetSlipMyBet_991() {
         log("@title: Validate that user can place a bet with AWAY-LAY successfully on Market Page");
         log("Precondition: Login member account");
@@ -679,7 +679,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "992")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void MarketPage_TC992() {
         log("@title: Validate that forecast/ liability value display correctly when place back bet on a selection on Market Page");
         log("Precondition: Login member account");
@@ -704,7 +704,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "993")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void MarketPage_TC993() {
         log("@title: Validate that forecast/ liability value display correctly when place back and Lay bet on a selection on Market Page");
         log("Precondition: Login member account");
@@ -729,7 +729,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "994")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void MarketPage_TC994() {
         log("@title: Validate that that user can place a bet with BACK Horse Racing successfully on Market Page ");
         log("Precondition: Login member account");
@@ -760,7 +760,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "995")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
     public void MarketPage_TC995() {
         log("@title: Validate that Horse Racing is inactive Lay odds button on Market Page");
         log("Precondition: Login member account");
