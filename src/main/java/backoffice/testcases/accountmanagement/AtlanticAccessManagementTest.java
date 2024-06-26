@@ -39,7 +39,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
         String actualMessage = messageBox.getErrorAlert();
 
         log("Verify 1. Verify message display \"User [account] is not in Fairenter brand\"");
-        Assert.assertTrue(actualMessage.contains(String.format(BOConstants.AdminManagement.AtlanticAccessManagement.FAILED_MSG, satMemberLoginID)), "FAILED! Error message is incorrect when add the account not belong to Funsport brand");
+        Assert.assertTrue(actualMessage.contains(String.format(BOConstants.AdminManagement.AtlanticAccessManagement.FAILED_MSG, satMemberLoginID)), "FAILED! Error message is incorrect when add the account not belong to Fairenter brand");
 
         log("INFO: Executed completely");
 

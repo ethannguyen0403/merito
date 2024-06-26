@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BeforeLoginManagementPage extends HomePage {
-    public StaticTable tblSport = StaticTable.xpath("//app-before-login-management//div[@class='col-sm-6'][1]//div[contains(@class,'table-wrapper')]",
+    public StaticTable tblSport = StaticTable.xpath("//div[text()='Sport']/parent::div/following-sibling::div[contains(@class,'custom-table')]",
             "div[contains(@class,'custom-table-body')]", "div[contains(@class,'custom-table-row')]", "div[contains(@class,'custom-table-cell')]", 5);
-    public StaticTable tblMarketType = StaticTable.xpath("//app-before-login-management//div[@class='col-sm-6'][2]//div[contains(@class,'table-wrapper')]",
+    public StaticTable tblMarketType = StaticTable.xpath("//div[text()='Market Type']/parent::div/following-sibling::div[contains(@class,'custom-table')]",
             "div[contains(@class,'custom-table-body')]", "div[contains(@class,'custom-table-row')]", "div[contains(@class,'custom-table-cell')]", 5);
     public TextBox txtMarketType = TextBox.xpath("//input[@type='text']");
     public int colSport = 2;
@@ -30,6 +30,18 @@ public class BeforeLoginManagementPage extends HomePage {
     public Button btnCreateMenu = Button.xpath("//button[text()='Create Menu']");
     public Table tblHeaderMenu = Table.xpath("//table[@class='table']", 8);
     DropDownBox ddpType = DropDownBox.xpath("//div[text()='Type']/following-sibling::select");
+
+    public void selectSport(String sportName){
+        List<String> lstSport = tblSport.getColumn(colSport, true);
+        for (int i = 0; i < lstSport.size(); i++) {
+            if (lstSport.get(i).equals(sportName)) {
+                System.out.println(String.format("The sport %s is found", sportName));
+                tblSport.getControlOfCell(1, colSport, i + 1, null).click();
+                return;
+            }
+        }
+        System.out.println(String.format("Cannot found the sport %s", sportName));
+    }
 
     public void activeSport(String sportName, boolean isActive) {
         List<String> lstSport = tblSport.getColumn(colSport, true);
