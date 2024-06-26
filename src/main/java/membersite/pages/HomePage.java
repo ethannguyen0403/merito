@@ -47,7 +47,8 @@ public class HomePage extends LandingPage {
         myMarketPopup.navigateToMarket(marketName);
         DriverManager.getDriver().switchToWindow();
         MarketPage marketPage = new MarketPage(_type);
-        marketPage.waitMenuLoading();
+//        marketPage.waitMenuLoading();
+        waitPageLoad();
         return marketPage;
     }
     public MarketPage clickFristNextUpHR() {
