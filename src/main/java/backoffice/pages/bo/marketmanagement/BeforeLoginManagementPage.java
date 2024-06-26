@@ -7,6 +7,7 @@ import backoffice.pages.bo.marketmanagement.components.BeforeLoginManagementPopu
 import com.paltech.element.common.*;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class BeforeLoginManagementPage extends HomePage {
         for (int i = 0; i < lstSport.size(); i++) {
             if (lstSport.get(i).equals(sportName)) {
                 System.out.println(String.format("The sport %s is found", sportName));
+                tblSport.getControlOfCell(1, colSport, i + 1, null).moveToTheControl();
                 tblSport.getControlOfCell(1, colSport, i + 1, null).click();
                 return;
             }
