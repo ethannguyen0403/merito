@@ -166,7 +166,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
      * @pre-condition: 1. Log in BO
      * @steps: 1. Access Operations > Before Login Management
      * 2. Select a sport : Ice Hockey
-     * 3. Input a market type and press enter : e.g: To Qualify
+     * 3. Input a market type and press enter : e.g: Tied Match
      * @expect: 1. Verify the market list will contain all markets type contain search key
      */
     @TestRails(id = "632")
@@ -179,12 +179,14 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
         page.filter("Sport & Market Type","","","",true);
 
         log("Step 2. Select a sport : Cricket");
-        page.clickOnSport(sport);
+        page.selectSport(sport);
         String marketType = page.tblMarketType.getColumn(page.colMarketType, false).get(1);
-        log("Step 3. Active and inactive a  market: " + marketType);
+        log("Step 3. Input a market type and press enter : e.g: "+marketType);
         page.searchMarketType(marketType);
         log("Step 1. Verify the market list will contain all markets type contain search key");
-        page.verifySearchByMarketType(marketType);
+        List<String> lstMarket = page.tblMarketType.getColumn(page.colMarketType, false);
+        Assert.assertTrue(lstMarket.contains(marketType), "The list market does not contains search key: " + marketType);
+
     }
 
     @TestRails(id = "1653")
