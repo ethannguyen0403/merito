@@ -158,7 +158,7 @@ public class QuickSearchTest extends BaseCaseTest {
     @TestRails(id = "17605")
     @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
     public void Quick_Search_TC17605(){
-        log("@title: Validate in Agent site > Quick Search, Position Taking, 'PS38' does not display in Product drop-down when logged-in level isn't activated the product");
+        log("@title: Validate in Agent site > Quick Search, Position Taking, only able to update settings for direct downline");
         log("@Precondition: Account (non-PO level) is activated PS38 product");
         log("Step 1: Login to Agent site with the account at the precondition");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
@@ -174,7 +174,7 @@ public class QuickSearchTest extends BaseCaseTest {
         PositionTakingSectionPS38 ptSectionPS38 = popup.filterPS38Product();
 
         log("Verify 1: Verify that it is unable to update settings for indirect downline");
-        Assert.assertTrue(ptSectionPS38.verifyAllPTDropDownAreEnable(
+        Assert.assertTrue(ptSectionPS38.verifyAllPTDropdownState(
                 LIST_SPORTS_PS38_PT, Arrays.asList(PREGAME_TAB_PS38, INPLAY_TAB_PS38), false), "FAILED! PT setting is not disable for indirect downline");
     }
 

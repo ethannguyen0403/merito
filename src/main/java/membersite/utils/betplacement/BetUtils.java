@@ -744,4 +744,28 @@ public class BetUtils {
         }
         return null;
     }
+
+    public static List<Event> findOpenMatchOddsEvent(String sportID, String currency) {
+        // Get all available event of a sport
+        List<Event> lstEvent = new ArrayList<>();
+        JSONObject sportObj = getEvent(sportID);
+        JSONArray eventArr = sportObj.getJSONArray(sportID);
+        if (Objects.isNull(eventArr)) {
+            System.out.println("DEBUG: getGETJSONResponse is null");
+            return null;
+        }
+        //Get list event that has MatchOdds
+        for (int i = 0; i < eventArr.length(); i++) {
+            if(MarketUtils.isEventHasMatchOddsMarket(sportID, Integer.toString(eventArr.getInt(i)), currency)) {
+                Event event =  MarketUtils.getBetfairEvent(Integer.toString(eventArr.getInt(i)));
+                lstEvent.add(event);
+            }
+            //limit get 20 events to improve performance
+            if(lstEvent.size() > 20) {
+                return lstEvent;
+            }
+        }
+        return lstEvent;
+    }
+
 }

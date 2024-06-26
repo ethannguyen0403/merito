@@ -3,6 +3,7 @@ package membersite.pages.components.racingmarketcontainer;
 import com.paltech.element.common.Label;
 import controls.Table;
 import membersite.objects.sat.Market;
+import org.openqa.selenium.WebElement;
 
 /**
  * @author by isabella.huynh
@@ -13,6 +14,7 @@ public class NewUIRacingMarketControl extends RacingMarketContainer {
     public Label lblRacingTitle = Label.xpath("//div[contains(@class,'racing-market-header')]//h5");
     public Label lblTotalSelections = Label.xpath("//app-racing-market//th[@class='selections-count']");
     public Label lblMarketStartTime = Label.xpath("//div[contains(@class,'racing-market-header')]//span[@class='date']");
+    private String btnLayOddsListXpath = "//app-racing-market-runners//*[contains(@class, 'meto-bg-lay')]";
     public int colOddTable = 7;
     private int colBackL = 4;
     private int colLayK = 5;
@@ -28,6 +30,14 @@ public class NewUIRacingMarketControl extends RacingMarketContainer {
     public String getTitle() {
         lblRacingTitle.isTextDisplayed("Market", 2);
         return lblRacingTitle.getText();
+    }
+
+    public boolean isAllLayButtonDisable() {
+        for (WebElement lblOdd : Label.xpath(btnLayOddsListXpath).getWebElements()) {
+            if (!lblOdd.getAttribute("class").contains("disable"))
+                return false;
+        }
+        return true;
     }
 
     public Market getRace(int selectionIndex, boolean isBack) {

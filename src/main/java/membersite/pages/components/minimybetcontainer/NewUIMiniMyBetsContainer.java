@@ -3,8 +3,10 @@ package membersite.pages.components.minimybetcontainer;
 import com.paltech.element.common.*;
 import membersite.controls.MiniMyBetControl;
 import membersite.objects.Wager;
+import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
 import membersite.utils.betplacement.BetUtils;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     private Label lblBetslipErrorMessage = Label.xpath("//div[contains(@class,'betslip-error')]");
     private Label lblErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
     private Link lnkCancelAll = Link.xpath("//div[contains(@class,'cancel-all-bet')]//a");
+    private String lblProfitLiabilityXPath = "//app-matched-bets//span[contains(@class,'col-3 text-right')]";
     private CheckBox chkAverageOdds = CheckBox.xpath("//label[contains(@class,'chk-average-odds')]");
     private CheckBox chkOrderByMatchedDate = CheckBox.id("order-matched-date");
     private CheckBox chkBetInfo = CheckBox.xpath("/div[@class='betslip-content']//input[@id='show-bet-info']");
@@ -80,6 +83,15 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
                 .profit(isBack ? Label.xpath(String.format("%s[%d]/span[4]", matchUnmatchXpath, 1)).getText() : stake)
                 .liablity(isBack ? stake : Label.xpath(String.format("%s[%d]/span[4]", matchUnmatchXpath, 1)).getText())
                 .build();
+    }
+
+    @Override
+    public void verifyInfoBetSlipAndOddsPage(Market market, Order order) {
+        String actualLiability = Label.xpath(lblProfitLiabilityXPath).getText().trim();
+        String expectedLiability = String.format("%.2f", order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
+        Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Liability of selection is not correct");
+        Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
+        Assert.assertEquals(market.getBtnOdd().getText(), order.getOdds(), "FAILED! Odds is not corrct");
     }
 
     public void removeBet(boolean isBack) {

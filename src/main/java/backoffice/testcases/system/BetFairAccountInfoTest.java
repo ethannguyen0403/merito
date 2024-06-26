@@ -60,6 +60,7 @@ public class BetFairAccountInfoTest extends BaseCaseTest {
         List<ArrayList<String>> bfInfo = page.tblBFAccount.getRowsWithoutHeader(1, false);
         String bfAccount = bfInfo.get(0).get(page.colAccountName - 1);
         List<String> lstBalanceAndExposureExchange = page.getBalanceAndExposure("EXCHANGE");
+        List<String> lstBalanceAndExposureExchangeGames = page.getBalanceAndExposure("EXCHANGE GAME");
         BetFairAccountChangeLogPopup popup = page.openViewLog(bfAccount, "EXCHANGE");
 
         log("Verify 1. Verify can open Log for exchange and Available Balance, Current exposure match with the latest row in Change Log popup ");
@@ -69,7 +70,7 @@ public class BetFairAccountInfoTest extends BaseCaseTest {
         popup = page.openViewLog(bfAccount, "EXCHANGE GAME");
 
         log("Verify 1. Verify can open Log for exchange Game and  Available Balance, Current exposure match with the latest row in Change Log popup ");
-        popup.verifyChangeLogBalanceAndExposure(lstBalanceAndExposureExchange, "EXCHANGE GAMES", true);
+        popup.verifyChangeLogBalanceAndExposure(lstBalanceAndExposureExchangeGames, "EXCHANGE GAMES", true);
         log("INFO: Executed completely");
     }
 }

@@ -2,17 +2,20 @@ package backoffice.pages.bo.marketmanagement;
 
 import backoffice.controls.Table;
 import backoffice.controls.bo.StaticTable;
+import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo._components.AppConfirmPopup;
 import backoffice.pages.bo.home.HomePage;
+import com.paltech.element.BaseElement;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import com.paltech.element.common.TextBox;
 import org.openqa.selenium.Keys;
+import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-import static common.AGConstant.SPORT_SOCCER;
 
 public class LiquidityThresholdSettingsPage extends HomePage {
     public TextBox txtSearchSport = TextBox.xpath("//input[@placeholder='Search sport']");
@@ -23,6 +26,7 @@ public class LiquidityThresholdSettingsPage extends HomePage {
     public String inputFirstNonLiveXpath =   tblMarketType.getControlOfCell(1, 2,  1, "input").getLocator().toString().replace("By.xpath: ", "");
     public String inputFirstLiveXpath =   tblMarketType.getControlOfCell(1, 3,  1, "input").getLocator().toString().replace("By.xpath: ", "");
     public AppConfirmPopup popup = AppConfirmPopup.xpath("//app-comfirm-dialog");
+    public Table tblDetail = Table.xpath("//app-show-details-dialog//table", 4);
     int colMarketType = 1;
     int colNonlive = 2;
     int colLive = 3;
@@ -60,14 +64,16 @@ public class LiquidityThresholdSettingsPage extends HomePage {
         return;
     }
 
-    public void setThreshold(String sport, String marketType, String nonLive, String live){
+    public String setThreshold(String sport, String marketType, String nonLive, String live){
+        String successMessage = "";
         searchSport(sport);
-        searchSport(SPORT_SOCCER);
         selectSport(1);
         searchMarketType(marketType);
         waitSpinIcon();
         setThreshold(marketType, nonLive, live);
         popup.confirm();
+        successMessage = new AlertMessageBox().getSuccessAlert();
+        return successMessage;
     }
 
     public void setThreshold(String marketType, String nonLive, String live) {
@@ -127,4 +133,87 @@ public class LiquidityThresholdSettingsPage extends HomePage {
         return lstThreshold;
     }
 
+    public void verifyXIcon(String marketType, boolean live, boolean nonLive) {
+        int index = getMarketTypeIndex(marketType);
+        if (live && nonLive) {
+            //i: colum index of live and nonLive
+            for (int i = colLive; i <= colNonlive; i++) {
+                Label xIcon = Label.xpath(tblMarketType.getxPathOfCell(1, i, index, "span[@class='icon-remove']"));
+                Assert.assertTrue(xIcon.isDisplayed(), "FAILED! X icon is not display with colum index: " + i);
+            }
+        } else if (live != nonLive) {
+            Label xIcon = live ? Label.xpath(tblMarketType.getxPathOfCell(1, colLive, index, "span[@class='icon-remove']")) :
+                    Label.xpath(tblMarketType.getxPathOfCell(1, colNonlive, index, "span[@class='icon-remove']"));
+            Assert.assertTrue(xIcon.isDisplayed(), "FAILED! X icon is not display");
+        } else {
+            throw new AssertionError("FAILED! Either Live or NonLive should be true");
+        }
+    }
+
+    public void verifyDetailLink(String marketType) {
+        int index = getMarketTypeIndex(marketType);
+        Label detailLink = Label.xpath(tblMarketType.getxPathOfCell(1, 4, index, "a"));
+        Assert.assertTrue(detailLink.isDisplayed(), "FAILED! Detail link is not display");
+    }
+
+    public void clickOnXIcon(String marketType, boolean isLive){
+        int index = getMarketTypeIndex(marketType);
+        Label xIcon = isLive ? Label.xpath(tblMarketType.getxPathOfCell(1, colLive, index, "span[@class='icon-remove']")) :
+                Label.xpath(tblMarketType.getxPathOfCell(1, colNonlive, index, "span[@class='icon-remove']"));
+       xIcon.click();
+    }
+
+    public void clickOnDetailLink(String marketType){
+        int index = getMarketTypeIndex(marketType);
+        Label.xpath(tblMarketType.getxPathOfCell(1, 4, index, "a")).click();
+        waitSpinIcon();
+    }
+
+    public List<String> getLogTimeDetailTable(){
+        return tblDetail.getColumn(1, true);
+    }
+
+    public boolean isDetailTableSortDesByTime(){
+       List<Long> milliList = new ArrayList<>();
+       for(String dateTime: getLogTimeDetailTable()){
+           try{
+               SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+               Date date = sdf.parse(dateTime);
+               milliList.add(date.getTime());
+           }catch(ParseException e){
+           }
+       }
+       return isSortedDescending(milliList);
+    }
+
+    private boolean isSortedDescending(List<Long> list) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (list.get(i) < list.get(i + 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void clearThresholdSetting(String marketType) {
+        searchMarketType(marketType);
+        List<String> lstMarketType = tblMarketType.getColumn(1, false);
+        for (int i = 0; i < lstMarketType.size(); i++) {
+            if (lstMarketType.get(i).equalsIgnoreCase(marketType)) {
+                BaseElement cellValueLive = tblMarketType.getControlOfCell(1, 2, i + 1, "span[@class='icon-remove']");
+                BaseElement cellValueNonLive = tblMarketType.getControlOfCell(1, 3, i + 1, "span[@class='icon-remove']");
+                if(cellValueLive.isDisplayed()) {
+                    cellValueLive.click();
+                    popup.isDisplayed(2);
+                    popup.confirm();
+                }
+                if(cellValueNonLive.isDisplayed()) {
+                    cellValueNonLive.click();
+                    popup.isDisplayed(2);
+                    popup.confirm();
+                }
+            }
+        }
+
+    }
 }

@@ -140,13 +140,15 @@ public class QuickSearch {
     }
 
     public SuccessPopup updateStatus(String userCode, String status, boolean isClose) {
+        int count = 4;
         quickSearch(userCode);
         SuccessPopup successPopup = clickSetting().updateStatus(status);
         if (isClose) {
-            if (successPopup.isDisplayed())
+            while (successPopup.isDisplayed() && count > 0) {
                 successPopup.close();
+                count--;
+            }
         }
-
         return successPopup;
     }
 

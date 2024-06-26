@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="BO_GREEN_Postcondition" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+        <listener class-name="util.testraildemo.Listener"/>
+    </listeners>
+
+    <test name="Post-condition smoke test cases of Backoffice in GREEN">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='AutoQA'/>
+        <parameter name='password' value='WncY8OT1OV5814mXP2PqYg=='/>
+        <parameter name='isThrown' value='true'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name='satPlayer' value='QAAT.PL01'/>
+        <parameter name='fairPlayer' value='03H0000000'/>
+        <parameter name='fsPlayer' value='30H0000000'/>
+        <parameter name='f24Player' value='QAZ0000001'/>
+        <parameter name='appname' value='backoffice'/>
+        <parameter name='brandname' value='backoffice'/>
+        <parameter name='skinName' value='backoffice'/>
+        <parameter name='isAddTestRailResult' value='false'/>
+        <groups>
+            <run>
+                <include name="postcondition"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="backoffice.testcases.operations.WagerVoidUnvoidTest"/>
+        </classes>
+
+    </test>
+</suite>

@@ -1,5 +1,6 @@
 package membersite.pages;
 
+import com.paltech.element.common.Icon;
 import controls.Table;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.accountstatement.AccountStatementContainer;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountStatementPage extends HomePage {
+    public Icon homeIcon = Icon.xpath("//*[@class='fas fa-home fa-2x']");
     public AccountStatementContainer accountStatementContainer;
     public PS38BetDetail ps38BetDetail = new PS38BetDetail();
 
@@ -30,6 +32,7 @@ public class AccountStatementPage extends HomePage {
         waitPageLoad();
     }
 
+
     public boolean verifyBalance(List<ArrayList<String>> lstAPIReport) {
         return accountStatementContainer.verifyBalance(lstAPIReport);
     }
@@ -50,12 +53,17 @@ public class AccountStatementPage extends HomePage {
         accountStatementContainer.clickNarration();
     }
 
-    public Table getTblPS38BetDetail(){
-        return ps38BetDetail.tblPS38BetDetail;
-    }
 
     public List<ArrayList<String>> expandCashOutHistoryByIndex(int index){
       return  ps38BetDetail.expandCashOutHistoryByIndex(index);
+    }
+
+    public List<ArrayList<String>> expandCashOutHistoryByIndex(String betID){
+        return  ps38BetDetail.expandCashOutHistoryByIndex(betID);
+    }
+
+    public void verifyCashOutHistoryCorrect(String betID){
+       ps38BetDetail.verifyCashOutHistoryCorrect(betID);
     }
 
     public void waitLoadReport() {

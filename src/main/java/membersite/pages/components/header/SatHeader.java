@@ -64,6 +64,7 @@ public class SatHeader extends Header1 {
 
     private SATLoginPopup openLoginPopup() {
         SATUnderageGamblingPopup satUnderageGamblingPopup = clickLogin();
+        btnLogin.isDisplayed(2);
         return satUnderageGamblingPopup.clickConfirmation();
     }
 
@@ -272,6 +273,12 @@ public class SatHeader extends Header1 {
     public SportPage navigateSportMenu(String pageName, String brand) {
         clickHeaderMenu(pageName);
         return new SportPage(brand);
+    }
+
+    @Override
+    public InPlayPage navigateInPlayPage(String brand) {
+        clickHeaderMenu("In-play");
+        return new InPlayPage(brand);
     }
 
     private void clickHeaderMenu(String sportMenu){

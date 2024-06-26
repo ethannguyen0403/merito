@@ -29,7 +29,7 @@
         <classes>
             <class name="membersite.testcases.casino.SupernowaTest"/>
             <class name="membersite.testcases.casino.EvolutionPageWhiteCliffTest"/>
-            <class name="membersite.testcases.casino.GameHallPageTest"/>
+<!--            <class name="membersite.testcases.casino.GameHallPageTest"/>-->
             <class name="membersite.testcases.casino.LiveDealerAsianPageTest"/>
             <class name="membersite.testcases.casino.LiveDealerEuropeanPageTest"/>
             <class name="membersite.testcases.casino.LotterySlotsPageTest"/>

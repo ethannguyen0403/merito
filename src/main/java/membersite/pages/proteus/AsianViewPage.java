@@ -801,56 +801,31 @@ public class AsianViewPage extends ProteusHomePage {
     }
 
     public void verifyMinMaxAndMaxPerMatchShowCorrect(Market market, double settingMinBet, double settingMaxBet, double settingMaxPerMatch,
-                                             String oddsType, boolean isNegativeOdds) {
+                                                      String oddsType, boolean isNegativeOdds) {
 //        String rootXpath = "(//app-bet-slip//div[contains(@class,'bet-slip-item')])[%s]";
 //        String betslipXpath = String.format(rootXpath, 1);
         String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", market.getEventId());
         String minBet = Label.xpath(String.format("%s%s", betslipRootXpath, lblMinBetXpath)).getText();
         String maxBet = Label.xpath(String.format("%s%s", betslipRootXpath, lblMaxBetXpath)).getText();
         String matchMax = Label.xpath(String.format("%s%s", betslipRootXpath, lblMatchMaxXpath)).getText();
-
         double oddsValue = Double.parseDouble(String.valueOf(market.getOdds().get(0).getOdds()));
-        double minBetExpected = calculateMinMaxOrMaxPerMatchBetSlip(settingMinBet, oddsValue, oddsType, isNegativeOdds);
-        double maxBetExpected = calculateMinMaxOrMaxPerMatchBetSlip(settingMaxBet, oddsValue, oddsType, isNegativeOdds);
-        double matchMaxExpected = calculateMinMaxOrMaxPerMatchBetSlip(settingMaxPerMatch, oddsValue, oddsType, isNegativeOdds);
 
-        if (Objects.nonNull(settingMaxPerMatch))
+        if (settingMaxPerMatch != -1) {
+            double matchMaxExpected = calculateMinMaxOrMaxPerMatchBetSlip(settingMaxPerMatch, oddsValue, oddsType, isNegativeOdds);
             Assert.assertEquals(Double.valueOf(matchMax), matchMaxExpected, 0.01,
                     String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, matchMaxExpected));
-        if (Objects.nonNull(settingMinBet))
+        }
+
+        if (settingMinBet != -1) {
+            double minBetExpected = calculateMinMaxOrMaxPerMatchBetSlip(settingMinBet, oddsValue, oddsType, isNegativeOdds);
             Assert.assertEquals(Double.valueOf(minBet), minBetExpected, 0.02,
                     String.format("FAILED! Min Bet does not show correct expected %s actual %s", minBet, minBetExpected));
-        if (Objects.nonNull(settingMaxBet))
+        }
+
+        if (settingMaxBet != -1) {
+            double maxBetExpected = calculateMinMaxOrMaxPerMatchBetSlip(settingMaxBet, oddsValue, oddsType, isNegativeOdds);
             Assert.assertEquals(Double.valueOf(maxBet), maxBetExpected, 0.02,
                     String.format("FAILED! Max Bet does not show correct expected %s actual %s", maxBet, maxBetExpected));
-    }
-
-    public void verifyMaxPerMatchShowCorrect(Market market, double settingMaxPerMatch, String oddsType, boolean isNegativeOdds) {
-        String rootXpath = "(//app-bet-slip//div[contains(@class,'bet-slip-item')])[%s]";
-        String betslipXpath = String.format(rootXpath,1);
-//        String minBet = Label.xpath(String.format("%s%s", betslipXpath,lblMinBetXpath)).getText();
-//        String maxBet = Label.xpath(String.format("%s%s", betslipXpath,lblMaxBetXpath)).getText();
-        String matchMax = Label.xpath(String.format("%s%s", betslipXpath,lblMatchMaxXpath)).getText();
-        if(isNegativeOdds) {
-            double oddsValue;
-            double matchMaxExpected;
-            if(oddsType.equalsIgnoreCase("American")) {
-                oddsValue = Double.parseDouble(String.valueOf(market.getOdds().get(0).getOdds()));
-                matchMaxExpected = (settingMaxPerMatch / oddsValue) * 100;
-                Assert.assertEquals(Double.valueOf(matchMax), Double.valueOf(Math.floor(Math.abs(matchMaxExpected) * 100) / 100), 0.01, String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, matchMaxExpected));
-            } else if (oddsType.equalsIgnoreCase("Malay")) {
-                oddsValue = Double.parseDouble(String.valueOf(market.getOdds().get(0).getOdds()));
-                matchMaxExpected = settingMaxPerMatch / oddsValue;
-                Assert.assertEquals(Double.valueOf(matchMax), Double.valueOf(Math.floor(Math.abs(matchMaxExpected) * 100) / 100), 0.01, String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, matchMaxExpected));
-            } else {
-                Assert.assertEquals(matchMax, String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, settingMaxPerMatch));
-            }
-        } else {
-            if(oddsType.equalsIgnoreCase("American")) {
-                Assert.assertEquals(matchMax, String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, settingMaxPerMatch));
-            } else {
-                Assert.assertEquals(matchMax, String.format("%.2f", settingMaxPerMatch), String.format("FAILED! Max Per Match does not show correct expected %s actual %s", matchMax, settingMaxPerMatch));
-            }
         }
     }
 
@@ -858,9 +833,9 @@ public class AsianViewPage extends ProteusHomePage {
         if(isNegative){
             switch (oddsType) {
                 case AMERICAN:
-                    return   Double.valueOf(Math.floor(Math.abs((amountSetting / oddsValue) * 100) * 100) / 100);
+                    return Double.valueOf(Math.floor(Math.abs((amountSetting / oddsValue) * 100) * 100) / 100);
                 case MALAY:
-                    return  Double.valueOf(Math.floor(Math.abs((amountSetting / oddsValue)) * 100) / 100);
+                    return Double.valueOf(Math.floor(Math.abs((amountSetting / oddsValue)) * 100) / 100);
                 default:
                     return amountSetting;
             }

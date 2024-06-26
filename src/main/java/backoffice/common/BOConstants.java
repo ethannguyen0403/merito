@@ -135,7 +135,8 @@ public class BOConstants {
             public final static String TITLE = "Live Streaming Management";
             public final static String TITLE_AUTO_MAPPING = "Auto Mapping";
             public final static String TITLE_CONFIRM_MAPPING_POPUP = "Are you sure to map those events?";
-            public final static String CONFIRM_MAPPING_NOTE_MESSAGE = "The 2 selected event names look like different match.";
+            public final static String CONFIRM_MAPPING_NOTE_MESSAGE = "The 2 selected event names look like different match.\n" +
+                    "The 2 selected events have different open dates.";
             public final static List<String> TABLE_AUTO_MAPPING = Arrays.asList("Start date", "Fair Competition", "Fair Event Name", "Provider Competition", "Provider Event Name", "% Matched >=", "");
 
         }
@@ -164,6 +165,7 @@ public class BOConstants {
         public static class VoidUnvoidWager {
             public final static String TITLE = "Wager Void / Un-void";
             public final static String SUCCESS_MESSAGE = "%s Wager successful. Report might take 30 minutes to regenerate.";
+            public final static List<String> LST_FANCY_BM_CODE = Arrays.asList("WICKET_FANCY", "CENTRAL_FANCY", "FAIR_27FANCY", "ARTEMIS_FANCY","ARTEMIS_BOOKMAKER", "WICKET_BOOKMAKER","MANUAL_ODDS");
         }
 
         public static class CompetitionBlocking {

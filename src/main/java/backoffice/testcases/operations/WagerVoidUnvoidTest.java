@@ -12,6 +12,8 @@ import util.testraildemo.TestRails;
 
 import java.util.List;
 
+import static backoffice.common.BOConstants.GMT_FOUR;
+
 public class WagerVoidUnvoidTest extends BaseCaseTest {
 
     /**
@@ -62,21 +64,16 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
     public void BO_Operations_Wager_Void_Unvoid_643(String satMemberLoginID) {
         log("@title: Validate can search void/un-void wager by Nick Name");
         log("Step 1. Access Operations > Wager Void/Un-void");
-        String toDate = DateUtils.getDate(0, "dd/MM/yyyy", BOConstants.GMT_FOUR);
-        String fromDate = DateUtils.getDate(-45, "dd/MM/yyyy", BOConstants.GMT_FOUR);
         WagerVoidUnvoidPage page = backofficeHomePage.navigateWagerVoidUnvoid();
 
         log("Step 2. Select void by Wager");
         log("Step 3. Select Exchange Product");
         log("Step 4. Search by: Nick Name");
         log("Step 5. Input Nick name and place date range then click Search button");
-        page.searchByUsername("Exchange", satMemberLoginID, fromDate, toDate);
+        page.searchByUsername("Exchange", satMemberLoginID, "", "");
 
         log("Verify 1. Verify Wager info display correctly as pre-condition and has place date in search date range");
-        List<String> lstWagerInfo = page.tblWager.getColumn(page.colNickname, false);
-        for (String acutalUsername : lstWagerInfo) {
-            Assert.assertEquals(acutalUsername, satMemberLoginID, "FAILED! Result table not display the searching data");
-        }
+        page.verifySearchByUsername(satMemberLoginID);
         log("INFO: Executed completely");
     }
 
@@ -286,4 +283,23 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @Test(groups = {"postcondition"})
+    @Parameters({"satPlayer","fairPlayer","fsPlayer","f24Player"})
+    public void BO_Operations_Wager_Void_Unvoid_Postcondition(String satPlayer, String fairPlayer, String fsPlayer, String f24Player) {
+        log("@title: Validate can search void/un-void wager by Nick Name");
+        log("Step 1. Access Operations > Wager Void/Un-void");
+        WagerVoidUnvoidPage page = backofficeHomePage.navigateWagerVoidUnvoid();
+        String date = DateUtils.getDate(0,"yyyy-MM-dd", GMT_FOUR);
+
+        log("Post-condition: Void all unvoid bets FC/BM of player");
+        List<String> lstWagers = page.getListUnvoidFCBMWagers(satPlayer, date, date);
+        page.voidWagers(lstWagers);
+        lstWagers = page.getListUnvoidFCBMWagers(fairPlayer, date, date);
+        page.voidWagers(lstWagers);
+        lstWagers = page.getListUnvoidFCBMWagers(fsPlayer, date, date);
+        page.voidWagers(lstWagers);
+        lstWagers = page.getListUnvoidFCBMWagers(f24Player, date, date);
+        page.voidWagers(lstWagers);
+        log("INFO: Executed completely");
+    }
 }
