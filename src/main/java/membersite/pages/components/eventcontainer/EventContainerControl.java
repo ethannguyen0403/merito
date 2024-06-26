@@ -40,6 +40,10 @@ public class EventContainerControl {
         return null;
     }
 
+    public Event getEventMatchOddsRandom(String sportId, String currency, boolean isInplay, boolean isSuspend) {
+        return null;
+    }
+
     public boolean isOddsUnclickable(String eventName) {
         return false;
     }

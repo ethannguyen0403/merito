@@ -64,6 +64,7 @@ public class SatHeader extends Header1 {
 
     private SATLoginPopup openLoginPopup() {
         SATUnderageGamblingPopup satUnderageGamblingPopup = clickLogin();
+        btnLogin.isDisplayed(2);
         return satUnderageGamblingPopup.clickConfirmation();
     }
 
