@@ -46,7 +46,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "982")
-    @Test(groups = {"smoke_market"})
+    @Test(groups = {"smoke"})
     public void Market_Page_982() {
         log("@title Validate odds remove out bet slip when double click on odds");
         log("Step 1. Click on Soccer and click on any event");
@@ -79,7 +79,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "980")
-    @Test(groups = {"smoke_market"})
+    @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_980(){
         log("@title: Validate Odds display correct when clicking on the corresponding odds of all Back selection");
         log("Step 1. Click on Home page and click on any event");
@@ -98,7 +98,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "981")
-    @Test(groups = {"smoke_market"})
+    @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_981(){
         log("@title: Validate Odds display correct when clicking on the corresponding odds of all Lay selections");
         log("Step 1. Click on Home page and click on any event");
@@ -121,7 +121,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "983")
-    @Test(groups = {"smoke_market"})
+    @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_983() {
         log("@title: Validate Clear All button works");
         log("Step 1: Click on any event");
@@ -142,7 +142,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "984")
-    @Test(groups = {"smoke_market"})
+    @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_984() {
         log("@title:  Validate default message display when there is no bet");
         log("Step 1. Click on any event to open market page");
@@ -156,7 +156,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "985")
-    @Test(groups = {"smoke_market"})
+    @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_985(){
         log("@title: Validate can update fast button");
         log("Step 1: Navigate to Market page");
@@ -198,7 +198,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "986")
-    @Test(groups = {"smoke_market"})
+    @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_986(){
         log("@title: Validate Stake textbox display correct value when clicking on the corresponding fast button");
         log("Step 1: Navigate to Market page");
@@ -218,7 +218,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "987")
-    @Test(groups = {"smoke_market"})
+    @Test(groups = {"smoke"})
     public void FE_BetSlipMyBet_987(){
         log("@title: Validate Cancel button in Edit Stake popup work");
         log("Step 1: Navigate to Market page");
