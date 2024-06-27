@@ -35,7 +35,7 @@ public class WagerVoidUnvoidUtils {
     public static void voidWagers(List<String> listWagersId) {
         String api = String.format("%s/system-manager/web/sv/void-wager/update-wager.sv", backofficeUrl);
         for (int i = 0; i < listWagersId.size(); i++) {
-            String remark = String.format("Post-condition: Automation QC Void Fancy Matched Bet %s", listWagersId.get(0));
+            String remark = String.format("Post-condition: Automation QC Void Fancy Matched Bet %s", listWagersId.get(i));
             String jsn = String.format("wagerId=%s&action=VOID&remark=%s&productCode=EXCHANGE&multiple=false", listWagersId.get(i), remark);
             WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_FORM_URLENCODED, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         }

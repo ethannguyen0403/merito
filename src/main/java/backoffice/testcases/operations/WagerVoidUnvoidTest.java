@@ -59,7 +59,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
      * @expect: 1. Verify Wager info display correctly as pre-condition and has place date in search date range
      */
     @TestRails(id = "643")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     @Parameters("satMemberLoginID")
     public void BO_Operations_Wager_Void_Unvoid_643(String satMemberLoginID) {
         log("@title: Validate can search void/un-void wager by Nick Name");
@@ -289,16 +289,17 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
         log("@title: Postcondition - Void all bets FC/BM after testing");
         log("Step 1. Access Operations > Wager Void/Un-void");
         WagerVoidUnvoidPage page = backofficeHomePage.navigateWagerVoidUnvoid();
-        String date = DateUtils.getDate(0,"yyyy-MM-dd", GMT_FOUR);
+        String dateFrom = DateUtils.getDate(-2,"yyyy-MM-dd", GMT_FOUR);
+        String dateTo = DateUtils.getDate(1,"yyyy-MM-dd", GMT_FOUR);
 
         log("Post-condition: Void all unvoid bets FC/BM of player");
-        List<String> lstWagers = page.getListUnvoidFCBMWagers(satPlayer, date, date);
+        List<String> lstWagers = page.getListUnvoidFCBMWagers(satPlayer, dateFrom, dateTo);
         page.voidWagers(lstWagers);
-        lstWagers = page.getListUnvoidFCBMWagers(fairPlayer, date, date);
+        lstWagers = page.getListUnvoidFCBMWagers(fairPlayer, dateFrom, dateTo);
         page.voidWagers(lstWagers);
-        lstWagers = page.getListUnvoidFCBMWagers(fsPlayer, date, date);
+        lstWagers = page.getListUnvoidFCBMWagers(fsPlayer, dateFrom, dateTo);
         page.voidWagers(lstWagers);
-        lstWagers = page.getListUnvoidFCBMWagers(f24Player, date, date);
+        lstWagers = page.getListUnvoidFCBMWagers(f24Player, dateFrom, dateTo);
         page.voidWagers(lstWagers);
         log("INFO: Executed completely");
     }

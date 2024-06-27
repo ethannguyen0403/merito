@@ -71,7 +71,7 @@ public class LiveStreamingManagementTest extends BaseCaseTest {
      * 4. Confirm popup is closed and the 2 event is not mapped
      */
     @TestRails(id = "642")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void BO_Operations_Live_Streaming_Management_642() {
         log("@title: Validate map confirmation info is display correctly");
         log("Step 1. Access Operations >Live Streaming Management");

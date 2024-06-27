@@ -178,40 +178,49 @@ public class BetSettingListingPage extends HomePage {
         CheckBox chb = CheckBox.xpath(String.format(xPathSport, "Soccer"));
         if (!map.get("Soccer")) {
             chb.click();
+            chb.isEnabled();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Cricket"));
         if (!map.get("Cricket")) {
             chb.click();
+            chb.isEnabled();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Fancy"));
         if (!map.get("Fancy")) {
             chb.click();
+            chb.isEnabled();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Virtual Cricket"));
         if (!map.get("Virtual Cricket")) {
             chb.click();
+            chb.isEnabled();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Bookmaker"));
         if (!map.get("Bookmaker")) {
             chb.click();
+            chb.isEnabled();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Decimal Cricket"));
-        if (!map.get("Bookmaker")) {
+        if (!map.get("Decimal Cricket")) {
             chb.click();
+            chb.isEnabled();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Tennis"));
         if (!map.get("Tennis")) {
             chb.click();
+            chb.isEnabled();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Basketball"));
         if (!map.get("Basketball")) {
             chb.click();
+            chb.isEnabled();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Other"));
         if (!map.get("Other")) {
             chb.click();
+            chb.isEnabled();
         }
-        waitingLoadingSpinner();
+//        waitingLoadingSpinner();
     }
 
     public void search(String username, String level, String accountStatus, String product) {

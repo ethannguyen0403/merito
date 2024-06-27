@@ -99,15 +99,11 @@ public class TransactionDetailsPopupPage extends HomePage {
         double totalPlayerStake = 0.0;
         List<ArrayList<String>> data = tblReport.getRowsWithoutHeader(false);
         for (int i = 0; i < data.size() - 2; i++) {
-            String stake = data.get(i).get(colPlayerStake - 1);
+            String stake = data.get(i).get(col - 1);
             if (stake.contains("-"))
                 continue;
             else
                 totalPlayerStake = totalPlayerStake + Double.parseDouble(stake);
-           /* if(i%2== 0)
-            {
-                totalPlayerStake = totalPlayerStake + Double.parseDouble(data.get(i).get(colPlayerStake -1));
-            }*/
         }
         return totalPlayerStake;
     }

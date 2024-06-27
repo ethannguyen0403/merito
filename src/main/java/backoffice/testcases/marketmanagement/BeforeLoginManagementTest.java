@@ -170,7 +170,7 @@ public class BeforeLoginManagementTest extends BaseCaseTest {
      * @expect: 1. Verify the market list will contain all markets type contain search key
      */
     @TestRails(id = "632")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void BO_Operations_Before_Login_Management_632() {
         log("@title: Validate can search market type");
         log("Step 1. Access Operations > Before Login Management");

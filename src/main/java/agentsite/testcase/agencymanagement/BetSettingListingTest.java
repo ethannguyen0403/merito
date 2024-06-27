@@ -70,7 +70,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "744")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void Agent_AM_Bet_Setting_Listing_744() {
         log("@title: Verify update bet setting with valid min bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
@@ -78,20 +78,20 @@ public class BetSettingListingTest extends BaseCaseTest {
         String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();
         BetSettingListingPage page = agentHomePage.navigateBetSettingListingPage();
         double minBet = 0;
+
+        log("Step 2. Search PL account and Exchange Product");
+        AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put(SPORT_SOCCER, true);
+        page.search(loginID, "", "", "");
+
+        List<ArrayList<String>> lstSetting = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
+        minBet = Double.parseDouble(lstSetting.get(0).get(9).replace(",", "")) + 1;
+
+        log("Step 3. Get current bet setting all sports");
+        List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, minBet, -1, -1, -1);
+
+        log("Step 3.1 Select Soccer only");
+        page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
         try {
-            log("Step 2. Search PL account and Exchange Product");
-            AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE.put(SPORT_SOCCER, true);
-            page.search(loginID, "", "", "");
-
-            List<ArrayList<String>> lstSetting = page.getBetSettingofAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_TRUE);
-            minBet = Double.parseDouble(lstSetting.get(0).get(9).replace(",", "")) + 1;
-
-            log("Step 3. Get current bet setting all sports");
-            List<ArrayList<String>> lstExpectedData = page.defineActualDataForOneAccount(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE, minBet, -1, -1, -1);
-
-            log("Step 3.1 Select Soccer only");
-            page.enableSport(AGConstant.AgencyManagement.BetSettingListing.SPORT_COLUMN_FALSE);
-
             log("Step 4.Input valid Min bet then click Update ");
             page.updateBetSetting(loginID, (int) minBet, -1, -1, -1);
             log("Verify 4. Verify Update Status column display green check");

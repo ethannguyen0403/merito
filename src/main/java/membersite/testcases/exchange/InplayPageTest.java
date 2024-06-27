@@ -42,7 +42,7 @@ public class InplayPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "967")
-    @Test(groups = {"smoke", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void In_play_TC_967() {
         log("@title: Validate that no Bet Slip and My Bet on In play page");
         log("Precondition 1: Login member account");
