@@ -22,6 +22,8 @@ public class TaxSettingListingPage extends HomePage {
         return taxSettingListing.ddbProduct.getOptions();
     }
 
-
+    public void verifyUITaxSetting(String userCode) {
+        taxSettingListing.verifyUITaxSetting(userCode);
+    }
 
 }

@@ -16,7 +16,7 @@ public class WagerVoidUnvoidUtils {
     public static List<String> getListWagerIdOfMarketType(List<String> marketType, String userName, String startDate, String endDate) {
         List<String> lstWagers = new ArrayList<>();
         String api = String.format("%s/system-manager/web/sv/void-wager/list.sv", backofficeUrl);
-        String jsn = String.format("page=1&rp=20&sortname=wagerId&sortorder=desc&query=&qtype=&wagerFilter=BY_USERNAME&vWagerId=&vUserName=%s&startDate=%s&endDate=%s&eventDate=&sportId=-1&competitionId=-1&eventId=-1&productCode=EXCHANGE", userName, startDate, endDate);
+        String jsn = String.format("page=1&rp=50&sortname=wagerId&sortorder=desc&query=&qtype=&wagerFilter=BY_USERNAME&vWagerId=&vUserName=%s&startDate=%s&endDate=%s&eventDate=&sportId=-1&competitionId=-1&eventId=-1&productCode=EXCHANGE", userName, startDate, endDate);
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_FORM_URLENCODED, jsn ,DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         if(Objects.nonNull(jsonObject)) {
             JSONArray jsonArray = jsonObject.getJSONArray("records");
@@ -35,7 +35,7 @@ public class WagerVoidUnvoidUtils {
     public static void voidWagers(List<String> listWagersId) {
         String api = String.format("%s/system-manager/web/sv/void-wager/update-wager.sv", backofficeUrl);
         for (int i = 0; i < listWagersId.size(); i++) {
-            String remark = String.format("Post-condition: Automation QC Void Fancy Matched Bet %s", listWagersId.get(0));
+            String remark = String.format("Post-condition: Automation QC Void Fancy Matched Bet %s", listWagersId.get(i));
             String jsn = String.format("wagerId=%s&action=VOID&remark=%s&productCode=EXCHANGE&multiple=false", listWagersId.get(i), remark);
             WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_FORM_URLENCODED, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
         }

@@ -31,7 +31,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
      * 2. Verify the confirm popup is closed and the setting is not affect
      */
     @TestRails(id = "628")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void BO_Operations_Liquidity_Threshold_Setting_628() {
         log("@title: Validate confirm message display when input Non-live setting");
         String sportName = "Golf";
@@ -71,7 +71,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
      * 2. Verify the confirm popup is closed and the setting is not affect
      */
     @TestRails(id = "629")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void BO_Operations_Liquidity_Threshold_Setting_629() {
         log("@title: Validate confirm message display when input Live setting");
         String sportName = "Golf";

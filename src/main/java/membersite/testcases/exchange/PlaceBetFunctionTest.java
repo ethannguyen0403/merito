@@ -378,7 +378,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "562")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     @Parameters({"currency"})
     public void Place_Bet_Function_TC562(String currency) {
         log("@title: Validate can place unmatched Back bet successfully for Cricket");
@@ -428,7 +428,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "563")
-    @Test(groups = {"smoke","isa1"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     @Parameters({"currency"})
     public void Place_Bet_Function_TC563(String currency) {
         log("@title: Validate can place unmatched Lay bet successfully for Cricket");

@@ -86,7 +86,7 @@ public class WinLossDetailTest extends BaseCaseTest {
     }
 
     @TestRails(id = "796")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void Agent_Report_WinLossDetail_796() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Detail");
@@ -95,6 +95,7 @@ public class WinLossDetailTest extends BaseCaseTest {
 
         log("Step 2: Get all products in dropdown");
         List<String> lstProduct = page.ddbProduct.getAllOption(true);
+//        lstProduct.removeAll(Collections.singleton("Q-tech"));
 
         log("Verify 1: Products display correct");
         Assert.assertTrue( lstAllProductsExpected.containsAll(lstProduct), String.format("FAILED! List product is incorrect. Expected: %s. Actual: %s",lstAllProductsExpected, lstProduct));

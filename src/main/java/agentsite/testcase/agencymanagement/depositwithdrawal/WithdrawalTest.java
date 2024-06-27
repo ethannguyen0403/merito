@@ -163,7 +163,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * @expect: 1. An amount is withdrawn successfully
      */
     @TestRails(id = "732")
-    @Test(groups = {"smoke_creditcash", "nolan"})
+    @Test(groups = {"smoke_creditcash", "MER.Maintenance.2024.V.4.0"})
     public void Agent_AM_DepositWithdrawal_Withdraw_732() {
         log("@title:Validate that an amount is withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
@@ -210,7 +210,7 @@ public class WithdrawalTest extends BaseCaseTest {
      * 2. An amount is updated correctly on this table
      */
     @TestRails(id = "733")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash","MER.Maintenance.2024.V.4.0"})
     public void Agent_AM_DepositWithdrawal_Withdraw_733() {
         log("@title:Validate can withdraw by click on Withdraw link");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();

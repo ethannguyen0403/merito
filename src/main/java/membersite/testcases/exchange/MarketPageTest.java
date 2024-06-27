@@ -58,7 +58,7 @@ public class MarketPageTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         log("Step 2. Click on any odds button in market page");
         market.getBtnOdd().click();
@@ -90,7 +90,7 @@ public class MarketPageTest extends BaseCaseTest {
             log("DEBUG: There is no events available");
             return;
         }
-        MarketPage marketPage = sportPage.clickEvent(event);
+        MarketPage marketPage = sportPage.clickEventName(event.getEventName());
         List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsListLabel(true);
         log("Step 2. Click on All Back Odds button of all selections");
         log("Verify 1: Selection will be added in bet slip and Back odds value is corresponding updated");
@@ -109,7 +109,7 @@ public class MarketPageTest extends BaseCaseTest {
             log("DEBUG: There is no events available");
             return;
         }
-        MarketPage marketPage = sportPage.clickEvent(event);
+        MarketPage marketPage = sportPage.clickEventName(event.getEventName());
         List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsListLabel(false);
         log("Step 2. Click on All Lay Odds button of all selections");
         log("Verify 1: Selection will be added in bet slip and Lay odds value is corresponding updated");
@@ -133,7 +133,7 @@ public class MarketPageTest extends BaseCaseTest {
             return;
         }
         log("Step 2: Click on any odds");
-        MarketPage marketPage = sportPage.clickEvent(event);
+        MarketPage marketPage = sportPage.clickEventName(event.getEventName());
         marketPage.verifyAllSelectionDisplayOnBetSlip(event, 1, true);
         log("Step 3: Click on Clear all button");
         marketPage.betsSlipContainer.clearAll();
@@ -150,7 +150,7 @@ public class MarketPageTest extends BaseCaseTest {
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
         Event event = sportPage.eventContainerControl.getEventRandom(true, false);
         log("Step 2: Click on any odds");
-        MarketPage marketPage = sportPage.clickEvent(event);
+        MarketPage marketPage = sportPage.clickEventName(event.getEventName());
         log("Verify 1: Bet Slip display the message \"Click on the odds to add selection to the Bet Slip.\"");
         Assert.assertEquals(marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
         log("INFO: Executed Completely!");
@@ -167,7 +167,7 @@ public class MarketPageTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         log("Step 2: Click on Edit stake fast button on Bet slip");
         EditStakeControl editStakeControl = marketPage.betsSlipContainer.openEditStake();
@@ -209,7 +209,7 @@ public class MarketPageTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         log("Step 2: Click on any odds button");
         market.getBtnOdd().click();
@@ -229,7 +229,7 @@ public class MarketPageTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 2: Click on Edit Stake button");
         EditStakeControl editStakeControl = marketPage.betsSlipContainer.openEditStake();
         Assert.assertTrue(editStakeControl.isDisplayed(), "FAILED! Edit stake popup is NOT displayed");
@@ -241,21 +241,21 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "996")
-    @Test(groups = {"smoke_oldui", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_oldui"})
     public void FE_BetSlipMyBet_996() {
         log("@title: Validate info of unmatched bet in Mini My bet is correctly");
         throw new SkipException("SKIP! This case should only run on old UI");
     }
 
     @TestRails(id = "997")
-    @Test(groups = {"smoke_oldui", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_oldui"})
     public void HeaderSection_TC997() {
         log("@title: Validate Can update unmatched bet");
         throw new SkipException("SKIP! This case should only run on old UI");
     }
 
     @TestRails(id = "968")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_968() {
         log("@title: Validate that 1Click button");
         log("Precondition: Login member account");
@@ -266,7 +266,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: On bet slip, observe and Off 1 Click button");
         log("Verify 1: Verify 1Click Off by default");
         Assert.assertTrue(!marketPage.oneClickBettingControl.btn1ClickBet.isSelected(), "FAILED! 1 click button is not off by default");
@@ -276,7 +276,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "969")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void  FE_BetSlipMyBet_969() {
         log("@title: Validate that user can remove a selected odd successfully on Bet Slip");
         log("Precondition: Login member account");
@@ -287,7 +287,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click on any odds button");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
@@ -298,7 +298,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "970")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_970() {
         log("@title: \tValidate that a selected odd is removed successfully on Bet Slip by clicking Cancel All selections button");
         log("Precondition: Login member account");
@@ -309,7 +309,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click on any odds button");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
@@ -321,7 +321,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "971")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_971() {
         log("@title: Validate that Place Bet button's behaviors are correct in case of inputted stake and no stake");
         log("Precondition: Login member account");
@@ -332,7 +332,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click on any odds button");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
@@ -346,7 +346,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "972")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_972() {
         log("@title: Validate that user cannot place bet when inputting a stake more than maximum stake");
         log("Precondition: Login member account");
@@ -357,7 +357,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click on any odds button");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
@@ -373,7 +373,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "973")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_973() {
         log("@title: Validate that user cannot place bet when inputting a stake less than minimum stake");
         log("Precondition: Login member account");
@@ -384,7 +384,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click on any odds button");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
@@ -399,7 +399,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "974")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_974() {
         log("@title: Validate that a selected odd at HOME-BACK displays correct data both Odd page and on Bet Slip");
         log("Precondition: Login member account");
@@ -410,7 +410,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at Home team and Back type");
         Market marketBack = marketPage.marketOddControl.getMarket(event, 1, true);
         marketBack.getBtnOdd().click();
@@ -426,7 +426,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "975")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_975() {
         log("@title: Validate that a selected odd at HOME-LAY displays correct data both Odd page and on Bet Slip");
         log("Precondition: Login member account");
@@ -437,7 +437,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at HOME team and LAY type");
         Market marketLay = marketPage.marketOddControl.getMarket(event, 1, false);
         marketLay.getBtnOdd().click();
@@ -453,7 +453,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "976")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_976() {
         log("@title: Validate that a selected odd at DRAW-BACK displays correct data both Odd page and on Bet Slip");
         log("Precondition: Login member account");
@@ -464,7 +464,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at DRAW team and BACK type");
         Market marketDrawBack = marketPage.marketOddControl.getMarket(event, 3, true);
         marketDrawBack.getBtnOdd().click();
@@ -481,7 +481,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "977")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_977() {
         log("@title: Validate that a selected odd at DRAW-LAY displays correct data both Odd page and on Bet Slip");
         log("Precondition: Login member account");
@@ -492,7 +492,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at DRAW team and LAY type");
         Market marketDrawLay = marketPage.marketOddControl.getMarket(event, 3, false);
         marketDrawLay.getBtnOdd().click();
@@ -509,7 +509,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "978")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_978() {
         log("@title: Validate that a selected odd at AWAY-BACK displays correct data both Odd page and on Bet Slip \t");
         log("Precondition: Login member account");
@@ -520,7 +520,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at AWAY team and BACK type");
         Market marketAwayBack = marketPage.marketOddControl.getMarket(event, 2, true);
         marketAwayBack.getBtnOdd().click();
@@ -536,7 +536,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "979")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_979() {
         log("@title: Validate that a selected odd at AWAY-LAY displays correct data both Odd page and on Bet Slip");
         log("Precondition: Login member account");
@@ -547,7 +547,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at AWAY team and LAY type");
         Market marketAwayBack = marketPage.marketOddControl.getMarket(event, 2, false);
         marketAwayBack.getBtnOdd().click();
@@ -563,7 +563,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "988")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_988() {
         log("@title: Validate that user can place a bet with HOME - BACK successfully on Market Page");
         log("Precondition: Login member account");
@@ -574,7 +574,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at Home team and Back type");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
@@ -592,7 +592,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "989")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_989() {
         log("@title: Validate that user can place a bet with HOME - LAY successfully on Market Page");
         log("Precondition: Login member account");
@@ -603,7 +603,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at Home team and Lay type");
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
         market.getBtnOdd().click();
@@ -621,7 +621,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "990")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_990() {
         log("@title: Validate that user can place a bet with AWAY-BACK successfully on Market Page");
         log("Precondition: Login member account");
@@ -632,7 +632,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at Away team and Back type");
         Market market = marketPage.marketOddControl.getMarket(event, 2, true);
         market.getBtnOdd().click();
@@ -650,7 +650,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "991")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_991() {
         log("@title: Validate that user can place a bet with AWAY-LAY successfully on Market Page");
         log("Precondition: Login member account");
@@ -661,7 +661,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at Away team and Lay type");
         Market market = marketPage.marketOddControl.getMarket(event, 2, false);
         market.getBtnOdd().click();
@@ -679,7 +679,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "992")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void MarketPage_TC992() {
         log("@title: Validate that forecast/ liability value display correctly when place back bet on a selection on Market Page");
         log("Precondition: Login member account");
@@ -690,7 +690,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Place a matched back bet");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
@@ -704,7 +704,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "993")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void MarketPage_TC993() {
         log("@title: Validate that forecast/ liability value display correctly when place back and Lay bet on a selection on Market Page");
         log("Precondition: Login member account");
@@ -715,7 +715,7 @@ public class MarketPageTest extends BaseCaseTest {
             throw new SkipException("SKIPPED! There is no event available");
         }
         log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Place a matched Lay bet");
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
         String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
@@ -729,7 +729,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "994")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void MarketPage_TC994() {
         log("@title: Validate that that user can place a bet with BACK Horse Racing successfully on Market Page ");
         log("Precondition: Login member account");
@@ -760,7 +760,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "995")
-    @Test(groups = {"smoke_market", "nolan_stabilize_06.24"})
+    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
     public void MarketPage_TC995() {
         log("@title: Validate that Horse Racing is inactive Lay odds button on Market Page");
         log("Precondition: Login member account");

@@ -67,7 +67,7 @@ public class WinLossDetailTest extends BaseCaseTest {
      * 3. If there is more than 1 Portal display data. Filter a portal in the list
      * @expect: 1. Verify only the filtered portal is displayed
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     @TestRails(id = "33927")
     public void BO_Report_WinLossDetail_33927() {
         log("@title: Validate can filter portal");
