@@ -1210,8 +1210,8 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
 
+        //unblock all today events
         log(String.format("Step 2: Unblock all Today Tennis event of for all downline of the account %s ", downlineAccount));
-
         page.filter("", SPORT_TENNIS, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         page.blockUnblockEvent(downlineAccount, ALL, BTN_ACTIONS.get(1), "", 1);
 
@@ -1220,11 +1220,28 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
 
         log(String.format("Step 4: Unblock all Today Cricket event of for all downline of the account %s ", downlineAccount));
-        page.filter("", "Cricket", "");
+        page.filter("", SPORT_CRICKET, "");
         page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
 
         log(String.format("Step 5: Unblock all Today Horse Racing event of for all downline of the account %s ", downlineAccount));
-        page.filter("", "Horse Racing", "");
+        page.filter("", HORSE_RACING, "");
+        page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
+
+        //unblock all tomorrow events
+        log(String.format("Step 2.1: Unblock all Tomorrow Tennis event of for all downline of the account %s ", downlineAccount));
+        page.filter("", SPORT_TENNIS, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2));
+        page.blockUnblockEvent(downlineAccount, ALL, BTN_ACTIONS.get(1), "", 1);
+
+        log(String.format("Step 3.1: Unblock all Tomorrow Soccer event of for all downline of the account %s ", downlineAccount));
+        page.filter("", SPORT_SOCCER, "");
+        page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
+
+        log(String.format("Step 4.1: Unblock all Tomorrow Cricket event of for all downline of the account %s ", downlineAccount));
+        page.filter("", SPORT_CRICKET, "");
+        page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
+
+        log(String.format("Step 5.1: Unblock all Tomorrow Horse Racing event of for all downline of the account %s ", downlineAccount));
+        page.filter("", HORSE_RACING, "");
         page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
 
         Assert.assertTrue(true, "Verify passed");

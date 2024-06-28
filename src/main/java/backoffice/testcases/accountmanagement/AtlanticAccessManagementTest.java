@@ -4,10 +4,8 @@ import backoffice.common.BOConstants;
 import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo.accountmanagement.AtlanticAccessManagementPage;
 import baseTest.BaseCaseTest;
-import com.paltech.constant.Helper;
 import com.paltech.utils.StringUtils;
 import membersite.pages.HomePage;
-import membersite.pages.LandingPage;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -26,7 +24,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
      * @expect: 1. Verify message display "User [account] is not in Fairenter brand"
      */
     @TestRails(id = "622")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     @Parameters("satMemberLoginID")
     public void BO_Account_Management_Atlantic_Access_Management_622(String satMemberLoginID) {
         log("@title: Validate can not add account to Atlantic Access Management that not belonging to Fairenter brand");
@@ -39,7 +37,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
         String actualMessage = messageBox.getErrorAlert();
 
         log("Verify 1. Verify message display \"User [account] is not in Fairenter brand\"");
-        Assert.assertTrue(actualMessage.contains(String.format(BOConstants.AdminManagement.AtlanticAccessManagement.FAILED_MSG, satMemberLoginID)), "FAILED! Error message is incorrect when add the account not belong to Funsport brand");
+        Assert.assertTrue(actualMessage.contains(String.format(BOConstants.AdminManagement.AtlanticAccessManagement.FAILED_MSG, satMemberLoginID)), "FAILED! Error message is incorrect when add the account not belong to Fairenter brand");
 
         log("INFO: Executed completely");
 

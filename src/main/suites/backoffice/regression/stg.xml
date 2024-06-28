@@ -25,7 +25,7 @@
         <parameter name='fair999PortalCode' value='AN'/>
         <parameter name='satPortalCode' value='SA'/>
         <parameter name="funsportPortalCode" value="FS"/>
-        <parameter name='isAddTestRailResult' value='true'/>
+        <parameter name='isAddTestRailResult' value='false'/>
         <parameter name='appname' value='backoffice'/>
         <parameter name='brandname' value='backoffice'/>
         <parameter name='skinName' value='backoffice'/>

@@ -140,7 +140,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify UI Tax Setting Listing display correctly
      */
     @TestRails(id = "748")
-    @Test(groups = {"smoke_newui", "nolan_stabilize_agent"})
+    @Test(groups = {"smoke_newui", "MER.Maintenance.2024.V.4.0"})
     public void Agent_AM_Tax_Setting_Listing_748() {
         log("@title: Verify  Tax Setting Listing UI display correct");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
@@ -148,23 +148,12 @@ public class TaxSettingListingTest extends BaseCaseTest {
         TaxSettingListingPage page = agentHomePage.navigateTaxSettingListingPage();
 
         log("Verify 1. Verify UI Tax Setting Listing display correctly");
-        Assert.assertTrue(page.taxSettingListing.txtUsername.isDisplayed(), "FAILED Username textbox not display");
-        Assert.assertTrue(page.taxSettingListing.ddbAccountStatus.isDisplayed(), "FAILED Account Status Dropdown not display");
-        Assert.assertTrue(page.taxSettingListing.ddbProduct.isDisplayed(), "FAILED Product Dropdown not display");
-        Assert.assertEquals(page.taxSettingListing.btnSearch.getText(), AGConstant.BTN_SUBMIT, "FAILED Search button text should be Submit");
-        Assert.assertTrue(page.taxSettingListing.txtSoccer.isDisplayed(), "FAILED! Soccer textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtCricket.isDisplayed(), "FAILED! Cricket textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtTennis.isDisplayed(), "FAILED! Tennis textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtBasketball.isDisplayed(), "FAILED! Basketball textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtOther.isDisplayed(), "FAILED! Other textbox not display");
-        Assert.assertTrue(page.taxSettingListing.lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
-        Assert.assertEquals(page.taxSettingListing.tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX, "FAILED! Table header not match with the expected");
-
+        page.verifyUITaxSetting(userCode);
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4110")
-    @Test(groups = {"smoke_sat", "nolan"})
+    @Test(groups = {"smoke_sat", "MER.Maintenance.2024.V.4.0"})
     public void Agent_AM_Tax_Setting_Listing_4110() {
         log("@title: Verify  Tax Setting Listing UI display correct");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
@@ -172,18 +161,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
         TaxSettingListingPage page = agentHomePage.navigateTaxSettingListingPage();
 
         log("Verify 1. Verify UI Tax Setting Listing display correctly (does not have Fancy)");
-        Assert.assertTrue(page.taxSettingListing.txtUsername.isDisplayed(), "FAILED Username textbox not display");
-        Assert.assertTrue(page.taxSettingListing.ddbAccountStatus.isDisplayed(), "FAILED Account Status Dropdown not display");
-        Assert.assertTrue(page.taxSettingListing.ddbProduct.isDisplayed(), "FAILED Product Dropdown not display");
-        Assert.assertEquals(page.taxSettingListing.btnSearch.getText(), AGConstant.BTN_SUBMIT, "FAILED Search button text should be Submit");
-        Assert.assertTrue(page.taxSettingListing.txtSoccer.isDisplayed(), "FAILED! Soccer textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtCricket.isDisplayed(), "FAILED! Cricket textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtTennis.isDisplayed(), "FAILED! Tennis textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtBasketball.isDisplayed(), "FAILED! Basketball textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtOther.isDisplayed(), "FAILED! Other textbox not display");
-        Assert.assertTrue(page.taxSettingListing.lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
-        Assert.assertEquals(page.taxSettingListing.tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX_SAT, "FAILED! Table header not match with the expected");
-
+        page.verifyUITaxSetting(userCode);
         log("INFO: Executed completely");
     }
 

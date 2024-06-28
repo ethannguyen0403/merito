@@ -121,12 +121,15 @@ public class MarketUtils {
         String api = String.format("%s/member-market/sat/left-menu.json", domainURL);
         String jsn = String.format("{\"type\":\"MARKET\",\"selectedId\":\"%s\",\"sportId\":\"%s\",\"upLevel\":true,\"currencyCode\":\"%s\",\"tzone\":\"GMT+05:30\"}", eventId, sportId, currency);
         JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api,Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
-        JSONArray jsonArray = jsonObject.getJSONArray("items");
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonItem = jsonArray.getJSONObject(i);
-            if(jsonItem.getString("marketType").equalsIgnoreCase("MATCH_ODDS")) {
-                return true;
+        if(jsonObject.getJSONArray("items").length() != 0) {
+            JSONArray jsonArray = jsonObject.getJSONArray("items");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonItem = jsonArray.getJSONObject(i);
+                if(jsonItem.getString("marketType").equalsIgnoreCase("MATCH_ODDS")) {
+                    return true;
+                }
             }
+            return false;
         }
         return false;
     }

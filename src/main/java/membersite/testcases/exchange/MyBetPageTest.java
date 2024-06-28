@@ -51,7 +51,7 @@ public class MyBetPageTest extends BaseCaseTest {
      * @expect: 1. All settled bet is filtered
      */
     @TestRails(id = "516")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void MyBetPage_TC516() {
         log("@title: Validate can filter Settled bet");
         log("Step 1. Active My Account> My Bets");

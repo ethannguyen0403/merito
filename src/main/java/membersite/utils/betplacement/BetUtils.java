@@ -760,6 +760,10 @@ public class BetUtils {
                 Event event =  MarketUtils.getBetfairEvent(Integer.toString(eventArr.getInt(i)));
                 lstEvent.add(event);
             }
+            //limit get 20 events to improve performance
+            if(lstEvent.size() > 20) {
+                return lstEvent;
+            }
         }
         return lstEvent;
     }

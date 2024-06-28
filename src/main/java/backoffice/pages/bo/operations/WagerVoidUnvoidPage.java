@@ -5,11 +5,14 @@ import backoffice.controls.bo.ATable;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.pages.bo.operations.component.VoidUnvoidPopup;
 import backoffice.pages.bo.operations.component.VoidUnvoidRemarkPopup;
+import backoffice.utils.operations.WagerVoidUnvoidUtils;
 import com.paltech.element.common.*;
 import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static backoffice.common.BOConstants.Operations.VoidUnvoidWager.LST_FANCY_BM_CODE;
 
 public class WagerVoidUnvoidPage extends HomePage {
     public CheckBox cbWager = CheckBox.xpath("//input[@value='WAGER_PAGE']");
@@ -194,4 +197,12 @@ public class WagerVoidUnvoidPage extends HomePage {
     public enum VOIDBY {WAGER, MARKET}
 
     public enum SEARCHBY {WAGERID, USERNAME, EVENTLIST}
+
+    public List<String> getListUnvoidFCBMWagers(String userName, String startDate, String endDate) {
+        return WagerVoidUnvoidUtils.getListWagerIdOfMarketType(LST_FANCY_BM_CODE, userName, startDate, endDate);
+    }
+
+    public void voidWagers(List<String> lstWagers) {
+        WagerVoidUnvoidUtils.voidWagers(lstWagers);
+    }
 }
