@@ -26,4 +26,8 @@ public class TaxSettingListingPage extends HomePage {
         taxSettingListing.verifyUITaxSetting(userCode);
     }
 
+    public List<String> getListLoginID() {
+        return taxSettingListing.getListLoginId();
+    }
+
 }

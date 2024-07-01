@@ -84,12 +84,9 @@ public class TransactionDetailsPopupPage extends HomePage {
                 continue;
             else
                 memberResult = memberResult + Double.valueOf(value);
-           /* if(i % 2 ==0)
-            {
-              memberResult = Double.parseDouble(lstData.get(i)) + memberResult;
-            }*/
         }
-        return totalResult == memberResult;
+        //format to 2f string to avoid case decimal place too long
+        return String.format("%.2f", totalResult) == String.format("%.2f", memberResult);
     }
 
 

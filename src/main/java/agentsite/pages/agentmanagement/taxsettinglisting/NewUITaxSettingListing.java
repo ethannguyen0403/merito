@@ -103,4 +103,10 @@ public class NewUITaxSettingListing extends TaxSettingListing {
         Assert.assertEquals(tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX, "FAILED! Table header not match with the expected");
 
     }
+
+    public List<String> getListLoginId() {
+        waitingLoadingSpinner();
+        List<String> lstMembers = tblTax.getColumn(loginIDCol - 1, false);
+        return lstMembers;
+    }
 }

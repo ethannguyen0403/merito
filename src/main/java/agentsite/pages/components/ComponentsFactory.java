@@ -87,9 +87,7 @@ import agentsite.pages.cashmanagement.quickdepositconfiguration.QuickDepositConf
 import agentsite.pages.components.header.Header;
 import agentsite.pages.components.header.NewUIHeader;
 import agentsite.pages.components.header.OldUIHeader;
-import agentsite.pages.components.leftmenu.LeftMenu;
-import agentsite.pages.components.leftmenu.NewUILeftMenu;
-import agentsite.pages.components.leftmenu.OldUILeftMenu;
+import agentsite.pages.components.leftmenu.*;
 import agentsite.pages.components.quicksearch.NewUIQuickSearch;
 import agentsite.pages.components.quicksearch.OldUIQuickSearch;
 import agentsite.pages.components.quicksearch.QuickSearch;
@@ -112,10 +110,15 @@ import agentsite.pages.report.statementreport.StatementReport;
 public class ComponentsFactory {
     public static LeftMenu leftMenuObject(String types) {
         switch (types) {
-            case "fairexchange":
-                return new NewUILeftMenu();
-            default:
+            case "satsport":
                 return new OldUILeftMenu();
+            case "fairenter":
+                return new FairenterUILeftMenu();
+            case "funsport":
+                return new FunsportUILeftMenu();
+            default:
+                return new NewUILeftMenu();
+
         }
     }
 
