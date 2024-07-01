@@ -8,6 +8,7 @@ public class AGConstant {
     public final static String SPORT_CRICKET = "Cricket";
     public final static String SPORT_SOCCER = "Soccer";
     public final static String SPORT_TENNIS = "Tennis";
+    public final static String HORSE_RACING = "Horse Racing";
     public final static String NO_RECORD_FOUND = "No records found.";
     public final static String NO_RESULT_FOUND = "No results found";
     public final static String timeZone = "GMT-4";
@@ -670,10 +671,10 @@ public class AGConstant {
                     put("Fancy", false);
                     put("Virtual Cricket", false);
                     put("Bookmaker", false);
+                    put("Decimal Cricket", false);
                     put("Tennis", false);
                     put("Basketball", false);
                     put("Other", false);
-                    put("Decimal Cricket", false);
                 }
             };
             public static final HashMap<String, Boolean> SPORT_COLUMN_TRUE = new HashMap<String, Boolean>() {
@@ -683,10 +684,10 @@ public class AGConstant {
                     put("Fancy", true);
                     put("Virtual Cricket", true);
                     put("Bookmaker", true);
+                    put("Decimal Cricket", true);
                     put("Tennis", true);
                     put("Basketball", true);
                     put("Other", true);
-                    put("Decimal Cricket", true);
                 }
             };
             public static final String PS38_COPY_SETTING_TO_ALL_SPECIFIC_SPORT_LEAGUES ="Copy settings to all Specific Sports and Leagues";
@@ -695,7 +696,7 @@ public class AGConstant {
 
         public static class TaxSettingListing {
             public final static String TITLE_PAGE = "Tax Setting Listing";
-            public final static List<String> TABLE_TAX = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Virtual Cricket", "Decimal Cricket", "Other", "Update Status");
+            public final static List<String> TABLE_TAX = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Virtual Cricket",  "Decimal Cricket", "Other", "Update Status");
             public final static List<String> TABLE_TAX_SAT = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Virtual Cricket", "Decimal Cricket", "Other", "Update Status");
         }
 

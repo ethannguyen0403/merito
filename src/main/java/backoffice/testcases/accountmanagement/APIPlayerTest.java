@@ -26,7 +26,7 @@ public class APIPlayerTest extends BaseCaseTest {
      * 2. Verify the message "User [loginId] has been removed successful" and the player is removed out the list
      */
     @TestRails(id = "618")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     @Parameters({"satMemberLoginID"})
     public void BO_Tools_API_Player_618(String satMemberLoginID) {
         log("@title: Validate can add and delete player into the list");
@@ -65,7 +65,7 @@ public class APIPlayerTest extends BaseCaseTest {
      * 2. Verify cannot login api when account is removed
      **/
     @TestRails(id = "619")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     @Parameters({"satMemberLoginID", "memberPassword"})
     public void BO_Tools_API_Player_619(String satMemberLoginID, String memberPassword) throws Exception {
         log("@title: Validate only account added into API Player list can login api");

@@ -13,12 +13,14 @@ import membersite.pages.RacingPage;
 import membersite.pages.SportPage;
 import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.*;
 
 import static common.MemberConstants.*;
+import static common.MemberConstants.HomePage.SPORT_ID;
 
 public class PlaceBetFunctionTest extends BaseCaseTest {
 
@@ -376,8 +378,9 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "562")
-    @Test(groups = {"smoke"})
-    public void Place_Bet_Function_TC562() {
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Parameters({"currency"})
+    public void Place_Bet_Function_TC562(String currency) {
         log("@title: Validate can place unmatched Back bet successfully for Cricket");
         String odds = "30";
         AccountBalance balance = memberHomePage.getUserBalance();
@@ -386,12 +389,12 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 1. Active any market of Cricket");
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
         try {
-            Event event = page.eventContainerControl.getEventRandom(false, false);
+            Event event = page.eventContainerControl.getEventMatchOddsRandom(SPORT_ID.get(LBL_CRICKET_SPORT), currency,false, false);
             if (Objects.isNull(event) || event.getEventName().isEmpty()) {
                 log("DEBUG: There is no event available");
                 return;
             }
-            MarketPage marketPage = page.clickEvent(event);
+            MarketPage marketPage = page.clickEventName(event.getEventName());
 
             log("Step 2. Click on any Back odds");
             Market market = marketPage.marketOddControl.getMarket(event, 1, true);
@@ -425,23 +428,24 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "563")
-    @Test(groups = {"smoke","isa1"})
-    public void Place_Bet_Function_TC563() {
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Parameters({"currency"})
+    public void Place_Bet_Function_TC563(String currency) {
         log("@title: Validate can place unmatched Lay bet successfully for Cricket");
         String odds = "1.01";
         AccountBalance balance = memberHomePage.getUserBalance();
-        String minBet = BetUtils.getMinBet("CRICKET", "LAY");
+        String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_LAY_TYPE);
         String expectedLiability = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
         log("Step 1. Active any market of Cricket");
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
-        Event event = page.eventContainerControl.getEventRandom(false, false);
+        Event event = page.eventContainerControl.getEventMatchOddsRandom(SPORT_ID.get(LBL_CRICKET_SPORT),currency,false, false);
         if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
         }
         log("Step 1.1. Click on the event "+ event.getEventName());
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         try {
             log("Step 2. Click on any Lay odds");
             Market market = marketPage.marketOddControl.getMarket(event, 1, false);

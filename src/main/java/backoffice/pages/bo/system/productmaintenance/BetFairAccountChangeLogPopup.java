@@ -25,7 +25,6 @@ public class BetFairAccountChangeLogPopup {
         List<ArrayList<String>> balanceInfo = tblBalance.getRowsWithoutHeader(1, false);
         if (balanceInfo.get(0).get(0).equalsIgnoreCase(BOConstants.NO_RECORDS_FOUND)) {
             Assert.assertTrue(lblNoRecord.getText().equalsIgnoreCase(BOConstants.NO_RECORDS_FOUND), "FAILED! No record message is incorrect");
-            return;
         } else {
             if(product.equalsIgnoreCase("exchange")) {
                 Assert.assertEquals(balanceInfo.get(0).get(1), lstBalanceAndExposure.get(2), "FAILED! Exchange Exposure display not correct");

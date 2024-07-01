@@ -99,7 +99,7 @@ public class HeaderSectionTest extends BaseCaseTest {
         log("@title: Can active event page from search page");
         log("Precondition 1: Login member site");
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
-        Event event = sportPage.getEvent(false, false, 1, 1);
+        Event event = sportPage.eventContainerControl.getEventRandom(false, false);
         if (Objects.isNull(event)) {
             throw new SkipException("DEBUG: There is no event available");
         }

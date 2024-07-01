@@ -5,7 +5,6 @@ import agentsite.controls.Row;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.report.components.TransactionDetailsPopupPage;
-import com.google.common.primitives.Chars;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
@@ -221,6 +220,13 @@ public class WinLossBySportAndMarketTypePage extends HomePage {
      */
     public List<ArrayList<String>> getSportData(String sportName) {
         List<ArrayList<String>> sportData = new ArrayList<>();
+        int totalSport = getTotalSportInReport();
+        for (int i = 0; i < totalSport; i++) {
+            Icon iconExpandCollapseSport = Icon.xpath(String.format("(%s)[%s]", rwSportGroupxPath, i + 1));
+            if(iconExpandCollapseSport.getAttribute("class").contains("wl-expand")) {
+                iconExpandCollapseSport.click();
+            }
+        }
         int n = getMarketNumberofSport(sportName);
         Row rMarket;
         String xPath = String.format(rMarketPerSport, sportName);

@@ -46,7 +46,7 @@ public class DepositPopup {
         }
         if (isSubmit) {
             btnSubmit.click();
-            waitingLoadingSpinner();
+            btnSubmit.waitForControlInvisible(2, 4);
         }
     }
 
