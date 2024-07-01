@@ -29,7 +29,7 @@ public class StatementReportTest extends BaseCaseTest {
      * @expect: 1. Report is display if have data
      */
     @TestRails(id = "800")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     @Parameters("username")
     public void Agent_Report_Statement_Report_800(String username) {
         log("@title: Validate Statement Report can filter correct data");

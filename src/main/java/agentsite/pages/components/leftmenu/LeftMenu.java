@@ -80,4 +80,6 @@ public class LeftMenu {
     public void navigateClientLedgerPage() {}
 
     public boolean isListSubMenuDisplayCorrect(String menu) { return false;}
+
+    public void verifyListSubMenuDisplayCorrect() {}
 }

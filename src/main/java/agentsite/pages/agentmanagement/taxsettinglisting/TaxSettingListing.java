@@ -64,4 +64,8 @@ public class TaxSettingListing {
     public List<ArrayList<String>> defineListTaxSetting(double inputValue) { return null;}
 
     public void verifyUITaxSetting(String userCode) {}
+
+    public List<String> getListLoginId() {
+        return null;
+    }
 }

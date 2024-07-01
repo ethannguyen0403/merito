@@ -172,7 +172,7 @@ public class WinLossDetailTest extends BaseCaseTest {
      * 3. Filter with default value
      * @expect: 1. Total wager displayed at Total Wager column on this table is correct
      */
-    @Test(groups = {"smoke2"})
+    @Test(groups = {"smoke_s"})
     public void BO_Report_WinLossDetail_003() {
         log("@title: Validate that Total wager displayed at Total Wager column on this table is correct");
         String yesterday = DateUtils.getDateBeforeCurrentDate(1, BOConstants.DASH_YYYY_MM_DD);

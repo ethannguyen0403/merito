@@ -4,10 +4,7 @@ import agentsite.objects.agent.account.AccountInfo;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import com.paltech.driver.DriverManager;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.Image;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.Link;
+import com.paltech.element.common.*;
 import common.AGConstant;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -19,37 +16,23 @@ import java.util.List;
 
 import static common.AGConstant.HomePage.*;
 
-public class OldUILeftMenu extends LeftMenu {
+public class FunsportUILeftMenu extends LeftMenu {
+    Icon iconHome = Icon.xpath("//span[@class='action-icon home']");
+    Label lblAppLeftMenu = Label.xpath("//div[@class='side-left']//app-left-menu");
+    Image imgLogo = Image.xpath("//app-left-menu//span[@class='applogo']");
+    Link lnkConfigureOTP = Link.xpath("//p[contains(@class,'asia-otp-label')]/a");
 
-    public Label lblAppLeftMenu = Label.xpath("//div[@class='side-left']//app-left-menu");
-    public Image imgLogo = Image.xpath("//app-left-menu//span[@class='applogo']");
-    public Link lnkConfigureOTP = Link.xpath("//p[contains(@class,'asia-otp-label')]/a");
-    public Label lblWelcome = Label.xpath("//p[contains(@class,'greeting')]");
-    public Label lblLoginID = Label.xpath("//p[contains(@class,'usercode')]");
-    public Button btnMyAccount = Button.xpath("//button[contains(@class,'my-account')]");
-    public Label lblSubUserMenu = Label.xpath("//div[@class='my-account-menu']//ul[contains(@class,'dropdown')]//a[text()='Sub User']");
-    public Label lblSummary = Label.xpath("//div[@class='my-account-menu']//ul[contains(@class,'dropdown')]//a[text()='Summary']");
-    public Link lnkConfigureNickname = Link.xpath("//p[contains(@class,'nickname')]/a");
-    public Link lnkConfigureNicOTP = Link.xpath("//p[contains(@class,'asia-otp-label')]/a");
-    public Label lblTransactionHistoryMenu = Label.xpath("//div[@class='my-account-menu']//ul[contains(@class,'dropdown')]//a[text()='Transaction History']");
+    Button btnMyAccount = Button.xpath("//button[contains(@class,'my-account')]");
+    Label lblSubUserMenu = Label.xpath("//div[@class='my-account-menu']//ul[contains(@class,'dropdown')]//a[text()='Sub User']");
+    Label lblSummary = Label.xpath("//div[@class='my-account-menu']//ul[contains(@class,'dropdown')]//a[text()='Summary']");
+    Link lnkConfigureNickname = Link.xpath("//p[contains(@class,'nickname')]/a");
+    Link lnkConfigureNicOTP = Link.xpath("//p[contains(@class,'asia-otp-label')]/a");
+    Label lblTransactionHistoryMenu = Label.xpath("//div[@class='my-account-menu']//ul[contains(@class,'dropdown')]//a[text()='Transaction History']");
     String menuXpath = "//div[@class='leftmenu']//div[contains(@page-title,'%s')]/a";
-
-
-    public String getConfigureOTP() {
-        return lnkConfigureOTP.getText();
-    }
-
-    public String getQuickSearch() {
-        return tabQuickSearch.getText();
-    }
 
     public <T> T clickSubMenu(String menu, String submenu, Class<T> expectedPage) {
         leftMenuList.clickSubMenu(menu, submenu);
         return PageFactory.initElements(DriverManager.getDriver(), expectedPage);
-    }
-
-    public void navigateAnalysisOfRunningMarketsPage() {
-        clickSubMenu(REPORT, ANALYSIS_OF_RUNNING_MARKETS);
     }
 
     public List<String> defineBalanceInfoQuickSearch(boolean isCredit) {
@@ -124,73 +107,61 @@ public class OldUILeftMenu extends LeftMenu {
         return lst;
     }
 
+    @Override
     public void navigatePS38SportsResultsPage() {
-        clickSubMenu(REPORT, PS38_SPORTS_RESULTS);
+        clickSubMenu(AGENCY_MANAGEMENT, PS38_SPORTS_RESULTS);
     }
 
     @Override
     public boolean isDisplayPS38SportsResults() {
-        return leftMenuList.isSubMenuDisplay(REPORT, PS38_SPORTS_RESULTS);
+        return leftMenuList.isSubMenuDisplay(AGENCY_MANAGEMENT, PS38_SPORTS_RESULTS);
     }
 
     @Override
     public void navigateWinLossSimplePage() {
-        clickSubMenu(REPORT, WIN_LOSS_SIMPLE_OLDUI);
-    }
-
-    @Override
-    public void navigateBigStakeConfigurationPage() {
-        clickSubMenu(REPORT, TOP_GAINER_TOP_LOSER, BIG_STAKE_CONFIGURATION);
+        clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_SIMPLE_NEWUI);
     }
 
     public void navigateWinLossBySportAndMarketTypePage() {
-        clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE_OLDUI);
+        clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_BY_MARKET_TYPE_NEWUI);
     }
 
     public void navigateStatementReportPage() {
-        clickSubMenu(REPORT, STATEMENT_REPORT);
+        clickSubMenu(AGENCY_MANAGEMENT, STATEMENT_REPORT);
     }
+
     public void navigateWinLossDetailPage() {
         String winLossDetailMenu;
         AccountInfo accountInfo = ProfileUtils.getProfile();
         List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), accountInfo.getUserCode(), accountInfo.getUserID());
-        winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_OLDUI, ProfileUtils.convertDownlineByBrand(listAccount.get(0).getLevel(), ProfileUtils.getAppName()));
+        winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_NEWUI, ProfileUtils.convertDownlineByBrand(listAccount.get(0).getLevel(), ProfileUtils.getAppName()));
         clickSubMenu(REPORT, winLossDetailMenu);
     }
 
     public void navigateWinLossByEventPage() {
-        clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_OLDUI);
+        clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_NEWUI);
     }
 
     public void navigateClientLedgerPage() {
-        clickSubMenu(REPORT, CLIENT_LEDGER);
+        clickSubMenu(AGENCY_MANAGEMENT, CLIENT_LEDGER);
     }
 
     public boolean isListSubMenuDisplayCorrect(String menu) {
         if(menu.equals(AGENCY_MANAGEMENT)){
             List<String> lstSubMenu = leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
-            return lstSubMenu.equals(AGConstant.AgencyManagement.LIST_SUBMENU_AGENCY_MANAGEMENT_OLD);
+            return lstSubMenu.equals(AGConstant.AgencyManagement.LIST_SUBMENU_AGENCY_MANAGEMENT_FUNSPORT);
         }
         if(menu.equals(REPORT)) {
             List<String> lstSubReprotMenu = leftMenuList.getListSubMenu(REPORT);
-            return lstSubReprotMenu.equals(AGConstant.Report.LIST_SUB_MENU_CONTROL_BLOCKING_OLDUI);
-        }
-        if(menu.equals(MARKET_MANAGEMENT)){
-            List<String> lstSubMenu = leftMenuList.getListSubMenu(MARKET_MANAGEMENT);
-            return lstSubMenu.equals(AGConstant.MarketsManagement.LIST_SUBMENU_MARKETS_MANAGEMENT);
-        }
-        if(menu.equals(FRAUD_DETECTION)){
-            List<String> lstSubMenu = leftMenuList.getListSubMenu(FRAUD_DETECTION);
-            return lstSubMenu.equals(AGConstant.FraudDetection.LIST_SUBMENU_FRAUD_DETECTION);
+            return lstSubReprotMenu.equals(AGConstant.Report.LIST_SUB_MENU_CONTROL_BLOCKING_FUNSPORT);
         }
         return false;
     }
 
     public void verifyListSubMenuDisplayCorrect() {
-        List<String> lstMenu = Arrays.asList(AGENCY_MANAGEMENT, REPORT, MARKET_MANAGEMENT, FRAUD_DETECTION);
+        List<String> lstMenu = Arrays.asList(AGENCY_MANAGEMENT,REPORT);
         for (String menu : lstMenu) {
             Assert.assertTrue(isListSubMenuDisplayCorrect(menu));
         }
     }
 }
-

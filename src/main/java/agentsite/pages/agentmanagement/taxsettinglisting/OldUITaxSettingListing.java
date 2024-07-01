@@ -98,4 +98,10 @@ public class OldUITaxSettingListing extends TaxSettingListing {
         Assert.assertTrue(lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
         Assert.assertEquals(tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX_SAT, "FAILED! Table header not match with the expected");
     }
+
+    public List<String> getListLoginId() {
+        waitingLoadingSpinner();
+        List<String> lstMembers = tblTax.getColumn(loginIDCol, false);
+        return lstMembers;
+    }
 }

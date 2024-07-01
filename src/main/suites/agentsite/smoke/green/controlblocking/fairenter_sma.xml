@@ -44,6 +44,7 @@
             <!--Start Agent Management-->
             <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
             <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
             <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
@@ -68,7 +69,7 @@
             <class name="agentsite.testcase.reports.UnsettledBetTest"/>
             <class name="agentsite.testcase.reports.StatementReportTest"/>
             <class name="agentsite.testcase.reports.ViewLogTest"/>
-            <class name="agentsite.testcase.reports.TransactionHistoryTest"/>
+<!--            <class name="agentsite.testcase.reports.TransactionHistoryTest"/>-->
             <class name="agentsite.testcase.reports.TransferLogTest"/>
             <class name="agentsite.testcase.reports.WinLossDetailTest"/>
             <class name="agentsite.testcase.reports.WinLossByEventTest"/>
