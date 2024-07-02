@@ -157,7 +157,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "985")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_985(){
         log("@title: Validate can update fast button");
         log("Step 1: Navigate to Market page");
@@ -174,28 +174,17 @@ public class MarketPageTest extends BaseCaseTest {
 
         log("Step 3: Update stake with valid value in range [min, max]");
         log("Step 4: Click Save button");
-        List<String> listStakeFast = editStakeControl.getStakes();
-        List<String> newListStakeFast = new ArrayList<>(listStakeFast);
-        newListStakeFast.set(1, String.valueOf(Integer.valueOf(newListStakeFast.get(1))+3));
-        try{
-            editStakeControl.updateStake(newListStakeFast, true);
-            log("Verify 1: Edit stake is disappear when successfully save");
-            Assert.assertTrue(!marketPage.betsSlipContainer.isEditStakeControlDisplay(), "FAILED! Edit stake still displayed after saving.");
-            log("Step 5: Click on any odds button");
-            market.getBtnOdd().click();
-            log("Verify 2: Fast button in bet slip display as expected with new stake value after updated");
-            Assert.assertEquals(marketPage.betsSlipContainer.getListFastButton(), newListStakeFast,
-                    "FAILED! List stake fast is not updated correctly");
-            log("INFO: Executed Completely");
-        }finally {
-            try {
-                log("@Post-condition: Return fast stake list");
-                marketPage.betsSlipContainer.openEditStake();
-                editStakeControl.updateStake(listStakeFast, true);
-            }catch (Exception e){
-                log("@Post-condition: FAILED to execute post condition. Error: " + e.getMessage());
-            }
-        }
+        List<String> newListStakeFast = editStakeControl.defineValidListStake();
+        editStakeControl.updateStake(newListStakeFast, true);
+
+        log("Verify 1: Edit stake is disappear when successfully save");
+        Assert.assertTrue(!marketPage.betsSlipContainer.isEditStakeControlDisplay(), "FAILED! Edit stake still displayed after saving.");
+        log("Step 5: Click on any odds button");
+        market.getBtnOdd().click();
+        log("Verify 2: Fast button in bet slip display as expected with new stake value after updated");
+        Assert.assertEquals(marketPage.betsSlipContainer.getListFastButton(), newListStakeFast,
+                "FAILED! List stake fast is not updated correctly");
+        log("INFO: Executed Completely");
     }
 
     @TestRails(id = "986")

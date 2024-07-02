@@ -190,7 +190,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance
      */
     @TestRails(id = "502")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void HeaderSection_TC502() {
         log("@title: Validate can navigate to Account Statement page");
         log("Step 1. Click My Account > Account Statement");
@@ -200,13 +200,11 @@ public class HeaderSectionTest extends BaseCaseTest {
                 "- Start Date, End Date Calendar, and Load report button\n" +
                 "- Note: Date will be based on time zone IST\n" +
                 "Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance");
+        page.verifyHeaderOfTableReport();
         Assert.assertEquals(page.accountStatementContainer.getStartDate(), MemberConstants.AccountStatementPage.START_DATE, String.format("ERROR! Expected Start Date but found %s", page.accountStatementContainer.getStartDate()));
         Assert.assertEquals(page.accountStatementContainer.getEndDate(), MemberConstants.AccountStatementPage.END_DATE, String.format("ERROR! Expected End Date but found %s", page.accountStatementContainer.getEndDate()));
         Assert.assertEquals(page.accountStatementContainer.getNote(), String.format(MemberConstants.AccountStatementPage.NOTES, TIMEZONE_BRAND.get(_brandname)), String.format("ERROR! Current Note label shows %s", page.accountStatementContainer.getNote()));
         Assert.assertEquals(page.accountStatementContainer.getLoadReport(), MemberConstants.AccountStatementPage.LOAD_REPORT, String.format("ERROR! Expected Load Report but found %s", page.accountStatementContainer.getLoadReport()));
-        List<String> tblHeaders = page.accountStatementContainer.getReportHeader();
-        Assert.assertEquals(tblHeaders.size(), MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), String.format("ERROR: The expected no of columns is %s but found %s", MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), tblHeaders.size()));
-        Assert.assertEquals(tblHeaders, MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER, "ERROR! Account Statement header not match with the expected");
     }
 
     /**
@@ -386,7 +384,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. The corresponding market is navigate
      */
     @TestRails(id = "509")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void HeaderSection_C509() {
         log("@title: Validate can navigate to correct market when click on market in My market");
         log("Step 1. Click on My market ");
@@ -400,6 +398,7 @@ public class HeaderSectionTest extends BaseCaseTest {
         MarketPage page = memberHomePage.openMarketInMyMarketPopup(marketInfo.get(2));
 
         log("Verify: 1. The corresponding market is navigate");
+        page.waitMenuLoading();
         Assert.assertEquals(page.marketOddControl.getTitle(), marketInfo.get(2).split("/")[0].trim(), String.format("ERROR: Incorect market page display"));
         log("INFO: Executed completely");
     }

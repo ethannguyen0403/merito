@@ -49,10 +49,8 @@ public class BaccaratPage extends GamePage {
     public void placeBet(String selection, boolean isBack, String odds, String stake) {
         addOddsToBetSlip(selection, isBack, odds, stake);
         betSlipControl.btnPlaceBet.click();
-        if(_type.equalsIgnoreCase("satsport")) {
-            if (betSlipControl.btnConfirm.isPresent(3)) {
-                betSlipControl.btnConfirm.click();
-            }
+        if (betSlipControl.btnConfirm.isPresent(3)) {
+            betSlipControl.btnConfirm.click();
         }
     }
 
@@ -65,6 +63,7 @@ public class BaccaratPage extends GamePage {
 
     public String isUnmatchedBetDisplayed() {
         MyBetControl myBetControl1 = activeMyBet();
+        myBetControl1.unmatchedBetControl.isDisplayed(4);
         return myBetControl1.unmatchedBetControl.getBetUnmatch();
     }
 

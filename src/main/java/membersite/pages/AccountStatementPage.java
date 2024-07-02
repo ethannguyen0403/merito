@@ -1,10 +1,12 @@
 package membersite.pages;
 
 import com.paltech.element.common.Icon;
+import common.MemberConstants;
 import controls.Table;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.accountstatement.AccountStatementContainer;
 import membersite.pages.components.ps38betdetail.PS38BetDetail;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,5 +70,16 @@ public class AccountStatementPage extends HomePage {
 
     public void waitLoadReport() {
         accountStatementContainer.waitLoadReport();
+    }
+
+    public void verifyHeaderOfTableReport() {
+        List<String> tblHeaders = accountStatementContainer.getReportHeader();
+        if(_type.equalsIgnoreCase("satsport") || _type.equalsIgnoreCase("fairexchange")) {
+            Assert.assertEquals(tblHeaders.size(), MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), String.format("ERROR: The expected no of columns is %s but found %s", MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), tblHeaders.size()));
+            Assert.assertEquals(tblHeaders, MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER_NEWUI, "ERROR! Account Statement header not match with the expected");
+        } else {
+            Assert.assertEquals(tblHeaders.size(), MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), String.format("ERROR: The expected no of columns is %s but found %s", MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), tblHeaders.size()));
+            Assert.assertEquals(tblHeaders, MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER, "ERROR! Account Statement header not match with the expected");
+        }
     }
 }

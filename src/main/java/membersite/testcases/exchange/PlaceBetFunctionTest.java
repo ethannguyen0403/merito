@@ -317,7 +317,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "561")
-    @Test(groups = {"smoke","isa"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void Place_Bet_Function_TC561() {
         log("@title: Validate cancel all bet icon works ");
         String oddsLay = "1.01";
@@ -360,20 +360,12 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"));
 
         log("Verify 2. Bet in My bet display with the status cancel");
-        List<String> lstCancelledId = myBetsPage.getReportColumnValue(2, "Bet ID");
-        List<String> lstCancelledStatus = myBetsPage.getReportColumnValue(2, "Status");
-        Assert.assertEquals(lstUnmatchId, lstCancelledId, String.format("FAILED! Order ID is %s but found %s", lstUnmatchId, lstCancelledId));
-        Assert.assertTrue(lstCancelledStatus.containsAll(Collections.singleton("Cancelled")), String.format("FAILED! Status List %s is not contains all Cancelled", lstCancelledStatus));
+        myBetsPage.verifyListBetFollowStatus(lstUnmatchId, MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"));
 
         log("Verify 3. Cancelled bet not display in Unmatched list anymore");
         myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
 
-        if (!myBetsPage.getNoDataMesage().equals("")) {
-            Assert.assertEquals(myBetsPage.getNoDataMesage(), MemberConstants.MyBetsPage.NO_RECORD_FOUND, "FAILED, Message there is no record in unmatch list is incorrect");
-        } else {
-            lstUnmatchId = myBetsPage.getReportColumnValue(2, "Bet ID");
-            Assert.assertFalse(lstUnmatchId.equals(lstCancelledId), String.format("FAILED! Unmatched List %s still contains cancelled bet id %s", lstUnmatchId, lstCancelledId));
-        }
+        myBetsPage.verifyListBetNotFollowStatus(lstUnmatchId, MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
         log("INFO: Executed completely");
     }
 
@@ -609,7 +601,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
 
     @TestRails(id = "567")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void Place_Bet_Function_TC567() {
         log("@title: Validate that user can place unmatched Lay bet on Soccer market");
         String odds = "1.01";
