@@ -101,6 +101,6 @@ public class MyBetsPage extends HomePage {
         return myBetsContainer.getReportColumnValue(rowIndex, columnName);
     }
 
-
-
+    public void verifyListBetFollowStatus(List<String> lstBet, String status) { myBetsContainer.verifyListBetFollowStatus(lstBet, status);}
+    public void verifyListBetNotFollowStatus(List<String> lstBet, String status) { myBetsContainer.verifyListBetNotFollowStatus(lstBet, status);}
 }

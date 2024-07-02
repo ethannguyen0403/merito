@@ -187,10 +187,11 @@ public class HomePage extends LandingPage {
 
 
     public String calculateBalance(String balance, String liability) {
-        double balanceDoub = Double.valueOf(balance.replaceAll(",", "").toString());
-        double liabilityDoub = Double.valueOf(liability.replaceAll(",", "").toString());
+        double balanceDoub = Double.valueOf(balance.replaceAll(",", ""));
+        double liabilityDoub = Double.valueOf(liability.replaceAll(",", ""));
         double balanceReturn = balanceDoub - liabilityDoub;
-        return String.format(Locale.getDefault(), "%,.2f", balanceReturn);
+        return String.format("%.2f", balanceReturn);
+//        return String.format(Locale.getDefault(), "%,.2f", balanceReturn);
     }
 
     /**
