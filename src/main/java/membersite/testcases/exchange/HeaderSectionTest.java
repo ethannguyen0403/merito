@@ -88,13 +88,13 @@ public class HeaderSectionTest extends BaseCaseTest {
 
     /** Duplicate with TC494*/
     @TestRails(id = "944")
-    @Test(groups = {"Revised"})
+    @Test(groups = {"Revised", "MER.Implementation.V.1.0"})
     public void HeaderSection_TC944() {
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "945")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "MER.Implementation.V.1.0"})
     public void HeaderSection_TC945() {
         log("@title: Can active event page from search page");
         log("Precondition 1: Login member site");

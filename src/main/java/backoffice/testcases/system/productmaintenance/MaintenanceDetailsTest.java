@@ -23,7 +23,7 @@ public class MaintenanceDetailsTest extends BaseCaseTest {
      * 2. Maintenance Details Popup is displayed
      */
     @TestRails(id = "634")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "MER.Implementation.V.1.0"})
     public void BO_System_ProductMaintenance_Popup_001() {
         log("@title: Validate that Maintenance Product popup loads correct data");
         List<Product> lstProducts = ProductMaintenanceUtils.getProducts();
