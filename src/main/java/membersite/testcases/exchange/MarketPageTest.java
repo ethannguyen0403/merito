@@ -22,8 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static common.AGConstant.*;
-import static common.MemberConstants.LBL_BACK_TYPE;
-import static common.MemberConstants.LBL_HORSE_RACING_SPORT;
+import static common.MemberConstants.*;
 
 public class MarketPageTest extends BaseCaseTest {
     @TestRails(id = "1074")
@@ -80,26 +79,26 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "980")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void FE_BetSlipMyBet_980(){
         log("@title: Validate Odds display correct when clicking on the corresponding odds of all Back selection");
         log("Step 1. Click on Home page and click on any event");
-        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
-        Event event = sportPage.eventContainerControl.getEventRandom(true, false);
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = sportPage.eventContainerControl.getEventRandom(false, false);
         if(Objects.isNull(event)) {
             log("DEBUG: There is no events available");
             return;
         }
         MarketPage marketPage = sportPage.clickEventName(event.getEventName());
-        List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsListLabel(true);
+        List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsLabelByMarket("Match Odds",true);
         log("Step 2. Click on All Back Odds button of all selections");
         log("Verify 1: Selection will be added in bet slip and Back odds value is corresponding updated");
-        marketPage.verifyAllSelectionDisplayOnBetSlip(event, lblBackOdds.size(), true);
+        marketPage.verifySelectedSelectionDisplayOnBetSlip(event, lblBackOdds.size(), true);
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "981")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void FE_BetSlipMyBet_981(){
         log("@title: Validate Odds display correct when clicking on the corresponding odds of all Lay selections");
         log("Step 1. Click on Home page and click on any event");
@@ -110,10 +109,10 @@ public class MarketPageTest extends BaseCaseTest {
             return;
         }
         MarketPage marketPage = sportPage.clickEventName(event.getEventName());
-        List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsListLabel(false);
+        List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsLabelByMarket("Match Odds",false);
         log("Step 2. Click on All Lay Odds button of all selections");
         log("Verify 1: Selection will be added in bet slip and Lay odds value is corresponding updated");
-        marketPage.verifyAllSelectionDisplayOnBetSlip(event, lblBackOdds.size(), false);
+        marketPage.verifySelectedSelectionDisplayOnBetSlip(event, lblBackOdds.size(), false);
         if(Objects.isNull(event)) {
             log("DEBUG: There is no events available");
             return;
@@ -134,7 +133,8 @@ public class MarketPageTest extends BaseCaseTest {
         }
         log("Step 2: Click on any odds");
         MarketPage marketPage = sportPage.clickEventName(event.getEventName());
-        marketPage.verifyAllSelectionDisplayOnBetSlip(event, 1, true);
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
         log("Step 3: Click on Clear all button");
         marketPage.betsSlipContainer.clearAll();
         log("Verify 1: All bet in bet slip is cleared");
@@ -328,7 +328,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("Verify 1: At step 3, Place bets button is disabled");
         Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
         log("Step 4: Input stake into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
         marketPage.betsSlipContainer.inputStake(minBet);
         log("Verify 2: At step 4, Place bets button is enabled");
         Assert.assertTrue(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is disabled");
@@ -362,7 +362,7 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "973")
-    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke_dev", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_973() {
         log("@title: Validate that user cannot place bet when inputting a stake less than minimum stake");
         log("Precondition: Login member account");
@@ -380,7 +380,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("Verify 1: At step 3, Place bets button is disabled");
         Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
-        String minBet = BetUtils.getMaxBet(SPORT_SOCCER, market.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
         String inputStake = String.valueOf(Integer.valueOf(minBet) - 1);
         marketPage.betsSlipContainer.inputStake(inputStake);
         log("Verify 2: At step 4, Place bets button is disabled after inputting a stake more than max stake");
@@ -404,7 +404,7 @@ public class MarketPageTest extends BaseCaseTest {
         Market marketBack = marketPage.marketOddControl.getMarket(event, 1, true);
         marketBack.getBtnOdd().click();
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketBack.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
         marketPage.betsSlipContainer.inputStake(minBet);
         Order betOrder = marketPage.betsSlipContainer.getBet(0);
         log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
@@ -431,7 +431,7 @@ public class MarketPageTest extends BaseCaseTest {
         Market marketLay = marketPage.marketOddControl.getMarket(event, 1, false);
         marketLay.getBtnOdd().click();
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketLay.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_LAY_TYPE);
         marketPage.betsSlipContainer.inputStake(minBet);
         Order betOrder = marketPage.betsSlipContainer.getBet(0);
         log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
@@ -458,7 +458,7 @@ public class MarketPageTest extends BaseCaseTest {
         Market marketDrawBack = marketPage.marketOddControl.getMarket(event, 3, true);
         marketDrawBack.getBtnOdd().click();
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketDrawBack.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
         marketPage.betsSlipContainer.inputStake(minBet);
         Order betOrder = marketPage.betsSlipContainer.getBet(0);
         log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
@@ -486,7 +486,7 @@ public class MarketPageTest extends BaseCaseTest {
         Market marketDrawLay = marketPage.marketOddControl.getMarket(event, 3, false);
         marketDrawLay.getBtnOdd().click();
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketDrawLay.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_LAY_TYPE);
         marketPage.betsSlipContainer.inputStake(minBet);
         Order betOrder = marketPage.betsSlipContainer.getBet(0);
         log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
@@ -511,10 +511,10 @@ public class MarketPageTest extends BaseCaseTest {
         log("Step 2: Click on any event");
         MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at AWAY team and BACK type");
-        Market marketAwayBack = marketPage.marketOddControl.getMarket(event, 2, true);
+        Market marketAwayBack = marketPage.marketOddControl.getMarket(event, 1, true);
         marketAwayBack.getBtnOdd().click();
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketAwayBack.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
         marketPage.betsSlipContainer.inputStake(minBet);
         Order betOrder = marketPage.betsSlipContainer.getBet(0);
         log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
@@ -538,10 +538,10 @@ public class MarketPageTest extends BaseCaseTest {
         log("Step 2: Click on any event");
         MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at AWAY team and LAY type");
-        Market marketAwayBack = marketPage.marketOddControl.getMarket(event, 2, false);
+        Market marketAwayBack = marketPage.marketOddControl.getMarket(event, 1, false);
         marketAwayBack.getBtnOdd().click();
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, marketAwayBack.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_LAY_TYPE);
         marketPage.betsSlipContainer.inputStake(minBet);
         Order betOrder = marketPage.betsSlipContainer.getBet(0);
         log("Verify 1: Odd rate on Odd page and on Bet Slip is the same\n" +
@@ -552,7 +552,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "988")
-    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke_dev", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_988() {
         log("@title: Validate that user can place a bet with HOME - BACK successfully on Market Page");
         log("Precondition: Login member account");
@@ -568,7 +568,7 @@ public class MarketPageTest extends BaseCaseTest {
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
         marketPage.betsSlipContainer.placeBet(minBet);
         List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, true, 1);
         log("Verify 1: Odd rate on My Bet and on Bet Slip is the same\n" +
@@ -581,7 +581,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "989")
-    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke_dev", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_989() {
         log("@title: Validate that user can place a bet with HOME - LAY successfully on Market Page");
         log("Precondition: Login member account");
@@ -597,7 +597,7 @@ public class MarketPageTest extends BaseCaseTest {
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
         market.getBtnOdd().click();
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_LAY_TYPE);
         marketPage.betsSlipContainer.placeBet(minBet);
         List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, false, 1);
         log("Verify 1: Odd rate on My Bet and on Bet Slip is the same\n" +
@@ -610,7 +610,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "990")
-    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke_dev", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_990() {
         log("@title: Validate that user can place a bet with AWAY-BACK successfully on Market Page");
         log("Precondition: Login member account");
@@ -623,10 +623,10 @@ public class MarketPageTest extends BaseCaseTest {
         log("Step 2: Click on any event");
         MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at Away team and Back type");
-        Market market = marketPage.marketOddControl.getMarket(event, 2, true);
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
         marketPage.betsSlipContainer.placeBet(minBet);
         List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, true, 1);
         log("Verify 1: Odd rate on My Bet and on Bet Slip is the same\n" +
@@ -639,7 +639,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "991")
-    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke_dev", "MER.Maintenance.2024.V.4.0"})
     public void FE_BetSlipMyBet_991() {
         log("@title: Validate that user can place a bet with AWAY-LAY successfully on Market Page");
         log("Precondition: Login member account");
@@ -652,10 +652,10 @@ public class MarketPageTest extends BaseCaseTest {
         log("Step 2: Click on any event");
         MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click an odd without empty at Away team and Lay type");
-        Market market = marketPage.marketOddControl.getMarket(event, 2, false);
+        Market market = marketPage.marketOddControl.getMarket(event, 1, false);
         market.getBtnOdd().click();
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_LAY_TYPE);
         marketPage.betsSlipContainer.placeBet(minBet);
         List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, false, 1);
         log("Verify 1: Odd rate on My Bet and on Bet Slip is the same\n" +
@@ -682,7 +682,7 @@ public class MarketPageTest extends BaseCaseTest {
         MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Place a matched back bet");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_TENNIS, LBL_BACK_TYPE);
         marketPage.placeBet(market, minBet);
         List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, true, 1);
         List<ArrayList<String>> foreCastInfo = marketPage.marketOddControl.getUIForeCast();
@@ -693,7 +693,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "993")
-    @Test(groups = {"smoke_market", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke_dev", "MER.Maintenance.2024.V.4.0"})
     public void MarketPage_TC993() {
         log("@title: Validate that forecast/ liability value display correctly when place back and Lay bet on a selection on Market Page");
         log("Precondition: Login member account");
@@ -707,7 +707,7 @@ public class MarketPageTest extends BaseCaseTest {
         MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Place a matched Lay bet");
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, market.getMarketName());
+        String minBet = BetUtils.getMinBet(SPORT_TENNIS, LBL_LAY_TYPE);
         marketPage.placeBet(market, minBet);
         List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, false, 1);
         List<ArrayList<String>> foreCastInfo = marketPage.marketOddControl.getUIForeCast();

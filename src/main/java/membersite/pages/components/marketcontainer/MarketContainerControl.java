@@ -99,13 +99,15 @@ public class MarketContainerControl {
         return null;
     }
 
-    public List<Label> getAllOddsListLabel(boolean isBack){
-        List<Label> list = new ArrayList<>();
-        String targetXpath = isBack? xpathLblBackOddsList: xpathLblLayOddsList;
-        int countOddsLabel = Label.xpath(targetXpath).getWebElements().size();
-        for (int i =1; i<= countOddsLabel;i++) {
-            list.add(Label.xpath(String.format("(%s)[%s]",targetXpath, i)));
-        }
-        return list;
-    }
+//    public List<Label> getAllOddsListLabel(boolean isBack){
+//        List<Label> list = new ArrayList<>();
+//        String targetXpath = isBack? xpathLblBackOddsList: xpathLblLayOddsList;
+//        int countOddsLabel = Label.xpath(targetXpath).getWebElements().size();
+//        for (int i =1; i<= countOddsLabel;i++) {
+//            list.add(Label.xpath(String.format("(%s)[%s]",targetXpath, i)));
+//        }
+//        return list;
+//    }
+
+    public List<Label> getAllOddsLabelByMarket(String marketName, boolean isBack) { return null;}
 }

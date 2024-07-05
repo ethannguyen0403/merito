@@ -196,7 +196,7 @@ public class LoginTest extends BaseCaseTest {
         }
     }
 
-    @TestRails(id = "29816")
+    @TestRails(id = "29815")
     @Parameters({"username", "password", "usernameSAT"})
     @Test(groups = {"regression", "MER.Implementation.V.1.0"})
     public void Member_login_TC29816(String username, String password, String usernameSAT) throws Exception {

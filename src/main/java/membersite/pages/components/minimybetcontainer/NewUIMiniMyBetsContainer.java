@@ -91,7 +91,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
         String expectedLiability = String.format("%.2f", order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
         Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Liability of selection is not correct");
         Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
-        Assert.assertEquals(market.getBtnOdd().getText(), order.getOdds(), "FAILED! Odds is not corrct");
+        Assert.assertEquals(String.format("%.2f",Double.valueOf(market.getBtnOdd().getText())), order.getOdds(), "FAILED! Odds is not corrct");
     }
 
     public void removeBet(boolean isBack) {
