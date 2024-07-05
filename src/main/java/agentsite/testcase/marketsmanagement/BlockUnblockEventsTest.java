@@ -183,7 +183,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 //    }
 
     @TestRails(id = "758")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_758(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Validate that Unblock Now an event successfully from SAD level");
@@ -318,15 +318,15 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="761")
-    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void Agent_MM_BlockUnblockEvent_761() {
         log("@title: Validate can Unblock Schedule 25min before event start");
         String userID = ProfileUtils.getProfile().getUserID();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String  downlineAccount = "";
-        downlineAccount = _brandname.equalsIgnoreCase("fairexchange") ?
-                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getUserCode() :
-                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getLoginID();
+        downlineAccount = _brandname.equalsIgnoreCase("satsport") ?
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getLoginID():
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getUserCode();
 
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
@@ -549,16 +549,16 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="768")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_768() {
         log("@title:Validate that cannot unblock schedule and suspend event successfully");
         String userID = ProfileUtils.getProfile().getUserID();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-        String  downlineAccount = "";
-        downlineAccount = _brandname.equalsIgnoreCase("fairexchange") ?
-                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getUserCode() :
-                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getLoginID();
+        String downlineAccount = "";
+        downlineAccount = _brandname.equalsIgnoreCase("satsport") ?
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getLoginID():
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getUserCode();
 
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();

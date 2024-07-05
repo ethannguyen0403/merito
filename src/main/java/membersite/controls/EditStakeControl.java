@@ -5,12 +5,17 @@ import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 import controls.Table;
+import membersite.utils.betplacement.BetUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import static common.AGConstant.SPORT_SOCCER;
+import static common.MemberConstants.LBL_BACK_TYPE;
 
 /**
  * @author isabella.huynh
@@ -65,5 +70,22 @@ public class EditStakeControl extends BaseElement {
 
     }
 
+    public List<String> defineValidListStake() {
+        List<String> currentList = getStakes();
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER,LBL_BACK_TYPE);
+        String maxBet = BetUtils.getMaxBet(SPORT_SOCCER,LBL_BACK_TYPE);
+        Random rd = new Random();
+        List<String> newListStakeFast = new ArrayList<>(currentList);
+        for (int i = 0; i < currentList.size(); i++) {
+            if(i == 0) {
+                newListStakeFast.set(i,minBet);
+            } else if (i == currentList.size() - 1) {
+                newListStakeFast.set(i,maxBet);
+            } else {
+                newListStakeFast.set(i, String.valueOf(rd.nextInt(Integer.valueOf(maxBet)-Integer.valueOf(minBet)) + Integer.valueOf(minBet)));
+            }
+        }
+        return newListStakeFast;
+    }
 
 }

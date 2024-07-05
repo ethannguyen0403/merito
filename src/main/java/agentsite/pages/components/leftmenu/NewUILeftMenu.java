@@ -7,6 +7,7 @@ import com.paltech.driver.DriverManager;
 import com.paltech.element.common.*;
 import common.AGConstant;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -155,22 +156,29 @@ public class NewUILeftMenu extends LeftMenu {
             List<String> lstSubMenu = leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
             return lstSubMenu.equals(AGConstant.AgencyManagement.LIST_SUBMENU_AGENCY_MANAGEMENT_NEW);
         }
+        if(menu.equals(RISK_MANAGEMENT)){
+            List<String> lstSubMenu = leftMenuList.getListSubMenu(RISK_MANAGEMENT);
+            return lstSubMenu.equals(AGConstant.RiskManagement.LIST_SUBMENU_RISK_MANAGEMENT_NEWUI);
+        }
+        if(menu.equals(REPORT)) {
+            List<String> lstSubReprotMenu = leftMenuList.getListSubMenu(REPORT);
+            return lstSubReprotMenu.equals(AGConstant.Report.LIST_SUB_MENU_CONTROL_BLOCKING_NEWUI);
+        }
         if(menu.equals(MARKET_MANAGEMENT)){
             List<String> lstSubMenu = leftMenuList.getListSubMenu(MARKET_MANAGEMENT);
             return lstSubMenu.equals(AGConstant.MarketsManagement.LIST_SUBMENU_MARKETS_MANAGEMENT);
         }
         if(menu.equals(FRAUD_DETECTION)){
             List<String> lstSubMenu = leftMenuList.getListSubMenu(FRAUD_DETECTION);
-            if(lstSubMenu.isEmpty()){
-                System.out.println("Sub Menu Fraud Detection is not displayed on agent");
-                return true;
-            }
             return lstSubMenu.equals(AGConstant.FraudDetection.LIST_SUBMENU_FRAUD_DETECTION);
         }
-        if(menu.equals(REPORT)) {
-            List<String> lstSubReprotMenu = leftMenuList.getListSubMenu(REPORT);
-            return lstSubReprotMenu.equals(AGConstant.Report.LIST_SUB_MENU_CONTROL_BLOCKING_NEWUI);
-        }
         return false;
+    }
+
+    public void verifyListSubMenuDisplayCorrect() {
+        List<String> lstMenu = Arrays.asList(AGENCY_MANAGEMENT, RISK_MANAGEMENT, REPORT, MARKET_MANAGEMENT, FRAUD_DETECTION);
+        for (String menu : lstMenu) {
+            Assert.assertTrue(isListSubMenuDisplayCorrect(menu));
+        }
     }
 }

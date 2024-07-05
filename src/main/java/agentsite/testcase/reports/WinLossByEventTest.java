@@ -39,7 +39,7 @@ public class WinLossByEventTest extends BaseCaseTest {
      */
 
     @TestRails(id = "808")
-    @Test(groups = {"smoke", "nolan_stabilize_agent"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void Agent_Report_Win_Loss_By_Event_808() {
         log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
         log("Step 1. Navigate Report >  Win Loss By Event");
@@ -77,7 +77,7 @@ public class WinLossByEventTest extends BaseCaseTest {
      */
 
     @TestRails(id = "809")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void Agent_Report_Win_Loss_By_Event_809() {
         log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
         log("Step 1. Navigate Report >  Win Loss By Event");
@@ -109,7 +109,7 @@ public class WinLossByEventTest extends BaseCaseTest {
      * @expect: 1. Verify Turnover match with summary Player stake in bets list
      */
     @TestRails(id = "810")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void Agent_Report_Win_Loss_By_Event_810() {
         log("@title: Validate Turnover match with summary Player stake in bets list");
         log("Step 1. Navigate Report >  Win Loss By Event");

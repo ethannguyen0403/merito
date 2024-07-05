@@ -20,7 +20,7 @@ public class EGBaccaratTest extends BaseCaseTest {
      * @expect: Verify can place bet
      */
     @TestRails(id = "533")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void EG_Baccarat_TC533() {
         log("@title: Validate can place BACCARAT standard");
         log("Step precondition. get min bet of Baccarat");
@@ -28,8 +28,7 @@ public class EGBaccaratTest extends BaseCaseTest {
 
         log("Step 1. Navigate to exchange game  ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
-        egHomePage.navigateGameFromMainMenu(EGConstants.BACCARAT);
-        BaccaratPage baccaratPage = new BaccaratPage(_brandname);
+        BaccaratPage baccaratPage = (BaccaratPage) egHomePage.navigateGameFromMainMenu(EGConstants.BACCARAT);
 
         log("Step 2: Place on Player  with Lay 1.02 and min stake");
         baccaratPage.placeBet("Player", false, "1.02", minBet);
