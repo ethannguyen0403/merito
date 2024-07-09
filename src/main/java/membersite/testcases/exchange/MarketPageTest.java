@@ -4,6 +4,7 @@ import baseTest.BaseCaseTest;
 import com.paltech.element.common.Label;
 import common.MemberConstants;
 import membersite.controls.EditStakeControl;
+import membersite.objects.AccountBalance;
 import membersite.objects.sat.Event;
 import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
@@ -14,6 +15,7 @@ import membersite.pages.popup.RulePopup;
 import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
 import org.testng.SkipException;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
@@ -23,6 +25,7 @@ import java.util.Objects;
 
 import static common.AGConstant.*;
 import static common.MemberConstants.*;
+import static common.MemberConstants.HomePage.SPORT_ID;
 
 public class MarketPageTest extends BaseCaseTest {
     @TestRails(id = "1074")
@@ -230,10 +233,52 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "996")
-    @Test(groups = {"smoke_oldui"})
-    public void FE_BetSlipMyBet_996() {
+    @Test(groups = {"smoke_dev"})
+    @Parameters({"currency"})
+    public void FE_BetSlipMyBet_996(String currency) {
         log("@title: Validate info of unmatched bet in Mini My bet is correctly");
-        throw new SkipException("SKIP! This case should only run on old UI");
+        String odds = "30";
+        AccountBalance balance = memberHomePage.getUserBalance();
+        String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
+
+        log("Step 1. Active any market of Cricket");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+        try {
+            Event event = page.eventContainerControl.getEventMatchOddsRandom(SPORT_ID.get(LBL_CRICKET_SPORT), currency,false, false);
+            if (Objects.isNull(event) || event.getEventName().isEmpty()) {
+                log("DEBUG: There is no event available");
+                return;
+            }
+            MarketPage marketPage = page.clickEventName(event.getEventName());
+
+            log("Step 2. Click on any Back odds");
+            Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+            market.getBtnOdd().click();
+
+            log("Step 3. Input stake and place this bet");
+            marketPage.betsSlipContainer.placeBet(odds, minBet);
+            List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
+
+            log("Verify 1. Bet is display in unmatched section");
+            log("Verify 2. Remove unmatched bet icon display in front off selection name");
+            log("Verify 3. Selection , Odds, Stake, Profit display correctly");
+            Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
+            Assert.assertEquals(String.format("%.2f", Double.parseDouble(odds)), wagers.get(0).getOdds(), "Incorrect Odds");
+            Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
+            Assert.assertEquals(wagers.get(0).getStake(), wagers.get(0).getLiability(), "Incorrect Liability");
+
+            log("Verify 4. At in-play will check  on Cancel option by default");
+            log("Verify 5. Back bet background is green #C9E6EF");
+            log("Verify 6. Account Balance/Outstanding updated correctly");
+            AccountBalance balanceExpected = page.getUserBalance();
+            String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
+            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            log("INFO: Executed completely");
+        } finally {
+            log("Post Condition: Cancel all unmatched bets");
+            page.myBetsContainer.cancelAllBetUnmatched();
+        }
     }
 
     @TestRails(id = "997")

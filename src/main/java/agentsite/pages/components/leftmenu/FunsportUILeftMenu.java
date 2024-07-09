@@ -107,39 +107,38 @@ public class FunsportUILeftMenu extends LeftMenu {
         return lst;
     }
 
-    @Override
     public void navigatePS38SportsResultsPage() {
-        clickSubMenu(AGENCY_MANAGEMENT, PS38_SPORTS_RESULTS);
+        clickSubMenu(REPORT, PS38_SPORTS_RESULTS);
     }
 
     @Override
     public boolean isDisplayPS38SportsResults() {
-        return leftMenuList.isSubMenuDisplay(AGENCY_MANAGEMENT, PS38_SPORTS_RESULTS);
+        return leftMenuList.isSubMenuDisplay(REPORT, PS38_SPORTS_RESULTS);
     }
 
     @Override
     public void navigateWinLossSimplePage() {
-        clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_SIMPLE_NEWUI);
+        clickSubMenu(REPORT, WIN_LOSS_SIMPLE_OLDUI);
     }
 
     public void navigateWinLossBySportAndMarketTypePage() {
-        clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_BY_MARKET_TYPE_NEWUI);
+        clickSubMenu(REPORT, WIN_LOSS_BY_MARKET_TYPE_OLDUI);
     }
 
     public void navigateStatementReportPage() {
-        clickSubMenu(AGENCY_MANAGEMENT, STATEMENT_REPORT);
+        clickSubMenu(REPORT, STATEMENT_REPORT);
     }
 
     public void navigateWinLossDetailPage() {
         String winLossDetailMenu;
         AccountInfo accountInfo = ProfileUtils.getProfile();
         List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), accountInfo.getUserCode(), accountInfo.getUserID());
-        winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_NEWUI, ProfileUtils.convertDownlineByBrand(listAccount.get(0).getLevel(), ProfileUtils.getAppName()));
+        winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_OLDUI, ProfileUtils.convertDownlineByBrand(listAccount.get(0).getLevel(), ProfileUtils.getAppName()));
         clickSubMenu(REPORT, winLossDetailMenu);
     }
 
     public void navigateWinLossByEventPage() {
-        clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_NEWUI);
+        clickSubMenu(REPORT, WIN_LOSS_BY_EVENT_OLDUI);
     }
 
     public void navigateClientLedgerPage() {

@@ -199,7 +199,7 @@ public class LoginTest extends BaseCaseTest {
     @TestRails(id = "29815")
     @Parameters({"username", "password", "usernameSAT"})
     @Test(groups = {"regression", "MER.Implementation.V.1.0"})
-    public void Member_login_TC29816(String username, String password, String usernameSAT) throws Exception {
+    public void Member_login_TC29815(String username, String password, String usernameSAT) throws Exception {
         log("@title: Validate that the player can login successfully on Member site after the upline agent change to the status is ‘Active’ or 'Suspended' from Blocked status for Desktop on Member site");
         log("Precondition 1: The player account has been changed to Active/ Suspended status from Blocked status by the upline agent");
         try{
