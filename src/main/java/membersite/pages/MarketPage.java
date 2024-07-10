@@ -378,7 +378,7 @@ public class MarketPage extends HomePage {
         Assert.assertEquals(Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability(), 0.01, String.format("FAILED! Liability forecast is not correct expected is %s, actual is %s", Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability()));
     }
 
-    public void verifyAllSelectionDisplayOnBetSlip(Event event, int selectionSize, boolean isBack) {
+    public void verifySelectedSelectionDisplayOnBetSlip(Event event, int selectionSize, boolean isBack) {
         for (int i = 1; i <= selectionSize; i++) {
             Market market = marketOddControl.getMarket(event, i, isBack);
             String odds = market.getBtnOdd().getText();
