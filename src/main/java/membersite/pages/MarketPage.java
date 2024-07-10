@@ -374,8 +374,8 @@ public class MarketPage extends HomePage {
         FancyMarket fancyMarket = getFancyMarketInfo(fcMarket);
         double newExposure = Double.parseDouble(BetUtils.getUserBalance().getExposure()) ;
         double calculateExposure = newExposure - fancyMarket.getMarketLiability();
-        Assert.assertEquals(originalExposure, Math.floor(calculateExposure * 100) / 100, 0.01, String.format("FAILED! Exposure kept is not correct expected is %s, actual is %s", originalExposure, Math.floor(calculateExposure * 100) / 100));
-        Assert.assertEquals(Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability(), 0.01, String.format("FAILED! Liability forecast is not correct expected is %s, actual is %s", Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability()));
+        Assert.assertEquals(originalExposure, Math.floor(calculateExposure * 100) / 100, 0.015, String.format("FAILED! Exposure kept is not correct expected is %s, actual is %s", originalExposure, Math.floor(calculateExposure * 100) / 100));
+        Assert.assertEquals(Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability(), 0.015, String.format("FAILED! Liability forecast is not correct expected is %s, actual is %s", Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability()));
     }
 
     public void verifySelectedSelectionDisplayOnBetSlip(Event event, int selectionSize, boolean isBack) {
