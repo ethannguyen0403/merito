@@ -24,7 +24,7 @@ public class MaintenanceDetailsTest extends BaseCaseTest {
      */
     @TestRails(id = "634")
     @Test(groups = {"smoke", "MER.Implementation.V.1.0"})
-    public void BO_System_ProductMaintenance_Popup_001() {
+    public void BO_System_ProductMaintenance_Popup_634() {
         log("@title: Validate that Maintenance Product popup loads correct data");
         List<Product> lstProducts = ProductMaintenanceUtils.getProducts();
         Assert.assertTrue(lstProducts.size() > 0, "ERROR: There is no product in Maintenance Product table");

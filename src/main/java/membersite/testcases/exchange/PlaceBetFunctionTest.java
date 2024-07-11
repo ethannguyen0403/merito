@@ -107,7 +107,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "557")
-    @Test(groups = {"smoke","isa", "nolan_stabilize"})
+    @Test(groups = {"smoke","isa", "smoke_dev"})
     public void Place_Bet_Function_TC557() {
         log("@title: Validate that user can place Matched Lay bet on Soccer market");
         String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_LAY_TYPE);
@@ -154,10 +154,11 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "558")
-    @Test(groups = {"smoke1","isa1"})
+    @Test(groups = {"smoke1","smoke_dev"})
     public void Place_Bet_Function_TC558() {
         log("@title: Validate can place unmatched Back bet successfully for Tennis");
         log("Step 1. Active any market of Tennis");
+        String odds = "100";
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_TENNIS_SPORT);
 
         log("Step 2: Click on an event");
@@ -173,13 +174,12 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             event.setMarketName(MATCH_ODDS_TITLE);
             Market market = marketPage.marketOddControl.getMarket(event, 1, true);
             market.getBtnOdd().click();
-            double odds = Double.parseDouble(market.getOdds()) + 2;
             String minBet = BetUtils.getMinBet(LBL_TENNIS_SPORT, LBL_BACK_TYPE);
-            String expectedProfit = String.format("%.2f", (odds - 1) * Double.parseDouble(minBet));
+            String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
             log("Step 4. Input stake and click submit");
             AccountBalance balance = memberHomePage.getUserBalance();
-            marketPage.betsSlipContainer.placeBet(String.valueOf(odds), minBet);
+            marketPage.betsSlipContainer.placeBet(odds, minBet);
             List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
 
             AccountBalance balanceExpected = marketPage.getUserBalance();
@@ -187,9 +187,9 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
             log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
             Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
-            Assert.assertEquals(odds, wagers.get(0).getOdds(), "Incorrect Odds");
+            Assert.assertEquals(String.format("%.2f",Double.parseDouble(odds)), wagers.get(0).getOdds(), "Incorrect Odds");
             Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
-            Assert.assertEquals(expectedProfit, wagers.get(0).getProfit(), "Incorrect Profit");
+            Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
 
             log("Verify: Account Balance/Outstanding updated correctly");
             Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Failed!, Balance update incorrectly after place bet");
@@ -202,7 +202,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "559")
-    @Test(groups = {"smoke","isa"})
+    @Test(groups = {"smoke","isa","smoke_dev"})
     public void Place_Bet_Function_TC559() {
         log("@title: Validate can place unmatched Lay bet successfully for Tennis");
         String odds = "1.01";
@@ -252,7 +252,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "560")
-    @Test(groups = {"smoke","isa", "nolan_stabilize"})
+    @Test(groups = {"smoke","isa", "smoke_dev"})
     public void Place_Bet_Function_TC560() {
         log("@title: Validate cancel bet icon works");
         String odds = "1.01";
@@ -317,7 +317,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "561")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0","smoke_dev"})
     public void Place_Bet_Function_TC561() {
         log("@title: Validate cancel all bet icon works ");
         String oddsLay = "1.01";
@@ -370,7 +370,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "562")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0","smoke_dev"})
     @Parameters({"currency"})
     public void Place_Bet_Function_TC562(String currency) {
         log("@title: Validate can place unmatched Back bet successfully for Cricket");
@@ -420,7 +420,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "563")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0","smoke_dev"})
     @Parameters({"currency"})
     public void Place_Bet_Function_TC563(String currency) {
         log("@title: Validate can place unmatched Lay bet successfully for Cricket");
@@ -472,7 +472,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
 
     @TestRails(id = "564")
-    @Test(groups = {"smoke","isa", "nolan_stabilize"})
+    @Test(groups = {"smoke","isa", "smoke_dev"})
     public void Place_Bet_Function_TC564() {
         log("@title: Validate can place unmatched Back bet successfully for Horse Racing");
         boolean isBack = true;
@@ -495,14 +495,13 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         MarketPage marketPage = page.clickRacing(country, trackName, race);
         Market market = marketPage.racingMarketContainer.getRace(1, isBack);
 
+        log("Step 2. Click on any Back odds");
+        market.getBtnOdd().click();
+
+        log("Step 2.1 Get balance before place bet");
+        AccountBalance balance = memberHomePage.getUserBalance();
+        log("Step 3. Place bet - Update odd to 100, Input valid stake");
         try {
-            log("Step 2. Click on any Back odds");
-            market.getBtnOdd().click();
-
-            log("Step 2.1 Get balance before place bet");
-            AccountBalance balance = memberHomePage.getUserBalance();
-            log("Step 3. Place bet - Update odd to 100, Input valid stake");
-
             marketPage.betsSlipContainer.placeBet(odds, minBet);
 
             log("Step 5. Get unmatched info after place bet");
@@ -516,7 +515,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
             Assert.assertEquals(odds, wagers.get(0).getOdds(), "Incorrect Odds");
             Assert.assertEquals(String.format(Locale.getDefault(), "%,.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
-            Assert.assertEquals(expectedProfit, wagers.get(0).getProfit(), "Incorrect Profit");
+            Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
 
             log("Verify: Account Balance/Outstanding updated correctly");
             Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
@@ -531,7 +530,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
 
     @TestRails(id = "565")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void Place_Bet_Function_TC565() {
         log("@title: Validate Lay odds is empty and are not allowed to click to add on bet slip");
         log("Step 1. Active any market of Horse Racing");
@@ -554,7 +553,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "566")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void Place_Bet_Function_TC566() {
         log("@title: Validate that user can place unmatched Back bet on Soccer market");
         String odds = "20.00";
@@ -601,7 +600,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
 
     @TestRails(id = "567")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0","smoke_dev"})
     public void Place_Bet_Function_TC567() {
         log("@title: Validate that user can place unmatched Lay bet on Soccer market");
         String odds = "1.01";
@@ -653,7 +652,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "568")
-    @Test(groups = {"smoke","isa", "nolan_stabilize"})
+    @Test(groups = {"smoke","isa", "smoke_dev"})
     public void Place_Bet_Function_TC568() {
         log("@title: Validate that cannot place Back bet if exposure exceed available balance");
         AccountBalance balance = BetUtils.getUserBalance();

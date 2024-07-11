@@ -3,6 +3,7 @@ package membersite.pages.camouflage;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.TextBox;
 import membersite.pages.BasePage;
+import membersite.pages.ChangePasswordPage;
 import membersite.pages.HomePage;
 
 public class PowderpinPage extends BasePage {
@@ -21,6 +22,10 @@ public class PowderpinPage extends BasePage {
         txtUsername.sendKeys(username);
         txtPassword.sendKeys(password);
         btnLogin.click();
+        ChangePasswordPage changePasswordPage = new ChangePasswordPage();
+        if (changePasswordPage.btnChangePassword.isDisplayed()) {
+            changePasswordPage.skip();
+        }
         return new HomePage(_type);
     }
 }

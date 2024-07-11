@@ -25,9 +25,7 @@
         <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
-                <include name="smoke"/>
-                <include name="smoke_newui"/>
-                <include name="smoke_credit"/>
+                <include name="MER.Maintenance.2024.V.4.0"/>
             </run>
         </groups>
 

@@ -1233,15 +1233,15 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.blockUnblockEvent(downlineAccount, ALL, BTN_ACTIONS.get(1), "", 1);
 
         log(String.format("Step 3.1: Unblock all Tomorrow Soccer event of for all downline of the account %s ", downlineAccount));
-        page.filter("", SPORT_SOCCER, "");
+        page.filter("", SPORT_SOCCER, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2));
         page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
 
         log(String.format("Step 4.1: Unblock all Tomorrow Cricket event of for all downline of the account %s ", downlineAccount));
-        page.filter("", SPORT_CRICKET, "");
+        page.filter("", SPORT_CRICKET, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2));
         page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
 
         log(String.format("Step 5.1: Unblock all Tomorrow Horse Racing event of for all downline of the account %s ", downlineAccount));
-        page.filter("", HORSE_RACING, "");
+        page.filter("", HORSE_RACING, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2));
         page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
 
         Assert.assertTrue(true, "Verify passed");
