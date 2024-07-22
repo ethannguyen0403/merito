@@ -768,4 +768,75 @@ public class BetUtils {
         return lstEvent;
     }
 
+    public static List<Event> findOpenGoalLineEvent(String sportID, String currency) {
+        // Get all available event of a sport
+        List<Event> lstEvent = new ArrayList<>();
+        JSONObject sportObj = getEvent(sportID);
+        JSONArray eventArr = sportObj.getJSONArray(sportID);
+        if (Objects.isNull(eventArr)) {
+            System.out.println("DEBUG: getGETJSONResponse is null");
+            return null;
+        }
+        //Get list event that has Goal Line
+        for (int i = 0; i < eventArr.length(); i++) {
+            if(MarketUtils.isEventHasGoalLineMarket(sportID, Integer.toString(eventArr.getInt(i)), currency)) {
+                Event event =  MarketUtils.getBetfairEvent(Integer.toString(eventArr.getInt(i)));
+                lstEvent.add(event);
+            }
+            //limit get 10 events to improve performance
+            if(lstEvent.size() > 10) {
+                return lstEvent;
+            }
+        }
+        return lstEvent;
+    }
+
+    public static List<Event> findOpenInningRunEvent(String sportID, String currency) {
+        // Get all available event of a sport
+        List<Event> lstEvent = new ArrayList<>();
+        JSONObject sportObj = getEvent(sportID);
+        JSONArray eventArr = sportObj.getJSONArray(sportID);
+        if (Objects.isNull(eventArr)) {
+            System.out.println("DEBUG: getGETJSONResponse is null");
+            return null;
+        }
+        //Get list event that has Inning Run
+        for (int i = 0; i < eventArr.length(); i++) {
+            if(MarketUtils.isEventHasInningRunMarket(sportID, Integer.toString(eventArr.getInt(i)), currency)) {
+                Event event =  MarketUtils.getBetfairEvent(Integer.toString(eventArr.getInt(i)));
+                String marketName = MarketUtils.findInningRunMarketName(sportID, Integer.toString(eventArr.getInt(i)), currency);
+                event.setMarketName(marketName);
+                lstEvent.add(event);
+            }
+            //limit get 10 events to improve performance
+            if(lstEvent.size() > 10) {
+                return lstEvent;
+            }
+        }
+        return lstEvent;
+    }
+
+    public static List<Event> findOpenHandicapEvent(String sportID, String currency) {
+        // Get all available event of a sport
+        List<Event> lstEvent = new ArrayList<>();
+        JSONObject sportObj = getEvent(sportID);
+        JSONArray eventArr = sportObj.getJSONArray(sportID);
+        if (Objects.isNull(eventArr)) {
+            System.out.println("DEBUG: getGETJSONResponse is null");
+            return null;
+        }
+        //Get list event that has Goal Line
+        for (int i = 0; i < eventArr.length(); i++) {
+            if(MarketUtils.isEventHasHandicapMarket(sportID, Integer.toString(eventArr.getInt(i)), currency)) {
+                Event event =  MarketUtils.getBetfairEvent(Integer.toString(eventArr.getInt(i)));
+                lstEvent.add(event);
+            }
+            //limit get 10 events to improve performance
+            if(lstEvent.size() > 10) {
+                return lstEvent;
+            }
+        }
+        return lstEvent;
+    }
+
 }

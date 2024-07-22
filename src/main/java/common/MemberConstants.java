@@ -41,6 +41,8 @@ public class MemberConstants {
     public static final String LBL_BACK_TYPE = "Back";
     public static final String LBL_LAY_TYPE = "Lay";
     public static final String MATCH_ODDS_TITLE = "Match Odds";
+    public static final String GOAL_LINE_TITLE = "Goal Line";
+    public static final String HANDICAP_TITLE = "Asian Handicap";
     public static final String SINGLE_RUNNER_TYPE = "Single Runner";
     public static final String MULTI_RUNNER_TYPE = "Multiple Runner";
     public static final String MULTI_BET_TYPE = "Multiple Bet";
