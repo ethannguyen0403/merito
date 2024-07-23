@@ -23,7 +23,7 @@ public class TransactionDetailsPopupPage extends HomePage {
     public int colType = 5;
     public int colOdds = 6;
     public int colPlayerStake = 7;
-    public int colStatus = 8;
+    public int colStatus = 13;
     public int colProfitLossOriginal = 9;
     public MenuTree productTabMenu = MenuTree.xpath("//app-pnl-transaction-detail//ul[contains(@class,'nav-tabs')]", "/li");
     Popup popup = Popup.xpath("//div[contains(@class,'multiProductDialog'])");
@@ -31,7 +31,7 @@ public class TransactionDetailsPopupPage extends HomePage {
     Button btnClosePopup = Button.xpath("//div[contains(@class,'modal-header')]//button[@class='close']");
     Button btnClose = Button.xpath("//button[contains(@class,'btn-cancel')]");
     Label lblTitle = Label.xpath("//div[@class='otp-dialog ng-scope']//div[@class='modal-header']/div[@class='ng-binding']");
-    String tblReportXpath = "//table[contains(@class,'ptable table-responsive report')]";
+    String tblReportXpath = "//div[@class='modal-content']//table[contains(@class,'ptable')]";
     public Table tblReport = Table.xpath(tblReportXpath, tblReportTotalCol);
     Row taxRow = Row.xpath("//table[contains(@class,'table-responsive')]//tr[contains(@class,'TAX_INFO')]");
     Row rowTotal = Row.xpath("//table[contains(@class,'ptable table-responsive report')]//tr[@class='ng-star-inserted']");
@@ -77,36 +77,30 @@ public class TransactionDetailsPopupPage extends HomePage {
         }
         List<String> lstData = table.getColumn(col, true);
         double memberResult = 0.00;
-        double totalResult = Double.parseDouble(getTotalRowData().get(col - staticColTotal));
+        double totalResult = Double.valueOf(getTotalRowData().get(col - staticColTotal));
         for (int i = 0; i < lstData.size(); i++) {
             String value = lstData.get(i);
             if (value.isEmpty() || value.equalsIgnoreCase("-"))
                 continue;
             else
-                memberResult = memberResult + Double.parseDouble(value);
-           /* if(i % 2 ==0)
-            {
-              memberResult = Double.parseDouble(lstData.get(i)) + memberResult;
-            }*/
+                memberResult = memberResult + Double.valueOf(value);
         }
-        return totalResult == memberResult;
+        //format to 2f string to avoid case decimal place too long
+        return String.format("%.2f", totalResult) == String.format("%.2f", memberResult);
     }
 
 
     public double sumPlayerStake() {
-        double totalPlayerStake = 0.0;
         waitingLoadingSpinner();
+        int col = tblReport.getColumnIndexByName("Player Turnover");
+        double totalPlayerStake = 0.0;
         List<ArrayList<String>> data = tblReport.getRowsWithoutHeader(false);
         for (int i = 0; i < data.size() - 2; i++) {
-            String stake = data.get(i).get(colPlayerStake - 1);
+            String stake = data.get(i).get(col - 1);
             if (stake.contains("-"))
                 continue;
             else
                 totalPlayerStake = totalPlayerStake + Double.parseDouble(stake);
-           /* if(i%2== 0)
-            {
-                totalPlayerStake = totalPlayerStake + Double.parseDouble(data.get(i).get(colPlayerStake -1));
-            }*/
         }
         return totalPlayerStake;
     }
@@ -158,6 +152,11 @@ public class TransactionDetailsPopupPage extends HomePage {
 
     public void verifyListOfProductsTabDisplayedCorrect(String productFilterName) {
         transactionDetailsPopup.verifyListOfProductsTabDisplayedCorrect(productFilterName);
+    }
+
+    public CashOutHistoryPopup openCashOutHistoryPopup(int index){
+        Label.xpath(tblReport.getxPathOfCell(1, colStatus, index, "span")).click();
+        return new CashOutHistoryPopup();
     }
 
 }

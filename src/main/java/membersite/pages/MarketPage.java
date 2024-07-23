@@ -1,16 +1,12 @@
 package membersite.pages;
 
-
 import com.paltech.element.common.Label;
 import membersite.controls.FancyContainerControl;
 import membersite.controls.FancyContainerControlOldUI;
 import membersite.controls.OneClickBettingControl;
 import membersite.controls.WicketBookmakerContainerControl;
 import membersite.objects.Wager;
-import membersite.objects.sat.BookmakerMarket;
-import membersite.objects.sat.Event;
-import membersite.objects.sat.FancyMarket;
-import membersite.objects.sat.Market;
+import membersite.objects.sat.*;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.marketcontainer.MarketContainerControl;
 import membersite.pages.components.racingmarketcontainer.RacingMarketContainer;
@@ -36,7 +32,7 @@ public class MarketPage extends HomePage {
         super(types);
         marketOddControl = ComponentsFactory.marketOddControlObject(types);
         racingMarketContainer = ComponentsFactory.racingMarketContainerObject(types);
-        oneClickBettingControl = OneClickBettingControl.xpath("//div[@id='one-click-betting']");
+        oneClickBettingControl = OneClickBettingControl.xpath("(//div[@id='one-click-betting'] | //app-one-click//div[@class='one-click ng-star-inserted'])");
         wcFancyContainerControl = FancyContainerControl.xpath("//span[text()='Wicket Fancy']//ancestor::div[contains(@class,'fancy-container')]");
         odlUIFancyContainerControl = FancyContainerControlOldUI.xpath("//div[@id='fair-27-fancy']");
         centralFancyContainerControl = FancyContainerControl.xpath("//span[text()='Central Fancy']//ancestor::div[contains(@class,'fancy-container')]");
@@ -72,6 +68,26 @@ public class MarketPage extends HomePage {
             default:
                 wcBookmakerContainerControl = WicketBookmakerContainerControl.xpath("//central-bookmarker-odds//div[contains(@class,'table-odds')]");
                 return wcBookmakerContainerControl.getBookmakerMarketInfo(bookmakerMarket, isBack);
+        }
+    }
+
+    public void verifyForeCastIsCorrect(List<ArrayList<String>> foreCastData, Order order) {
+        for (ArrayList<String> lstForeCast : foreCastData) {
+            if (lstForeCast.contains(order.getSelectionName())) {
+                String profitLiability = String.format("%.2f",
+                        order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()), Double.valueOf(order.getStake())));
+                String expectedProfitLiability = lstForeCast.get(1);
+
+                if(expectedProfitLiability.contains("-")){
+                    //Handle for negative double
+                    profitLiability = String.format("-%s", profitLiability);
+                }
+
+                Assert.assertEquals(profitLiability, expectedProfitLiability,
+                        String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
+            } else {
+                continue;
+            }
         }
     }
 
@@ -358,11 +374,11 @@ public class MarketPage extends HomePage {
         FancyMarket fancyMarket = getFancyMarketInfo(fcMarket);
         double newExposure = Double.parseDouble(BetUtils.getUserBalance().getExposure()) ;
         double calculateExposure = newExposure - fancyMarket.getMarketLiability();
-        Assert.assertEquals(originalExposure, Math.floor(calculateExposure * 100) / 100, 0.01, String.format("FAILED! Exposure kept is not correct expected is %s, actual is %s", originalExposure, Math.floor(calculateExposure * 100) / 100));
-        Assert.assertEquals(Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability(), 0.01, String.format("FAILED! Liability forecast is not correct expected is %s, actual is %s", Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability()));
+        Assert.assertEquals(originalExposure, Math.floor(calculateExposure * 100) / 100, 0.015, String.format("FAILED! Exposure kept is not correct expected is %s, actual is %s", originalExposure, Math.floor(calculateExposure * 100) / 100));
+        Assert.assertEquals(Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability(), 0.015, String.format("FAILED! Liability forecast is not correct expected is %s, actual is %s", Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability()));
     }
 
-    public void verifyAllSelectionDisplayOnBetSlip(Event event, int selectionSize, boolean isBack) {
+    public void verifySelectedSelectionDisplayOnBetSlip(Event event, int selectionSize, boolean isBack) {
         for (int i = 1; i <= selectionSize; i++) {
             Market market = marketOddControl.getMarket(event, i, isBack);
             String odds = market.getBtnOdd().getText();

@@ -82,8 +82,8 @@ public class MarketUtils extends BaseCaseTest {
             _odds.setOdds(0);
         }
         else {
-            _odds.setOriginalOdds(obj.getDouble("odds"));
-            _odds.setOdds(obj.getDouble("originalOdds"));
+            _odds.setOriginalOdds(obj.getDouble("originalOdds"));
+            _odds.setOdds(obj.getDouble("odds"));
         }
        return _odds;
     }
@@ -124,8 +124,16 @@ public class MarketUtils extends BaseCaseTest {
                         .marketKey(obj.getString("marketKey"))
                         .odds(lstOdds)
                         .build();
-                if(market.isMarketContainsNegativeOdds() == isNegativeOdds)
+                // Add negative odd when Odds containing negative odd
+                if(isNegativeOdds && market.isMarketContainsNegativeOdds()){
                     lstEvents.add(market);
+                }
+                // Add negative odd when Odds containing positive odd
+                if(!isNegativeOdds && market.isMarketContainsPositiveOdds()){
+                    lstEvents.add(market);
+                }
+//                if(market.isMarketContainsNegativeOdds() == isNegativeOdds)
+//                   lstEvents.add(market);
             }
         }
         return lstEvents;
@@ -143,9 +151,9 @@ public class MarketUtils extends BaseCaseTest {
     }
 
     public static Market getMarketByOddsKey(String oddsType, int eventID, String oddsKey, boolean isNegativeOdds){
-        List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID);
+        List<Market> lstMarket = getSportbookEventAPI(oddsType, eventID, isNegativeOdds);
         for (Market m: lstMarket) {
-            if(m.getOddsKey().equalsIgnoreCase(oddsKey) && m.isMarketContainsNegativeOdds())
+            if(m.getOddsKey().equalsIgnoreCase(oddsKey))
                 return m;
         }
         return null;

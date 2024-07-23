@@ -31,10 +31,16 @@ public class AppConfirmPopup extends BaseElement {
     }
 
     public void confirm() {
-        btnConfirm.click();
+        if (btnConfirm.isDisplayed())
+            btnConfirm.click();
+            btnConfirm.waitForControlInvisible();
     }
 
     public String getContent() {
+        try{
+            Thread.sleep(300);//wait for locator visible on screen
+        }catch (Exception e){
+        }
         return lblContent.getText();
     }
 

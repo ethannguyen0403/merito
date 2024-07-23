@@ -339,7 +339,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "709")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize_agent"})
     public void Agent_AM_Position_Taking_Listing_709() {
         log("@title: Verify can update PT for all sports");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
@@ -384,7 +384,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "710")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke" , "MER.Maintenance.2024.V.4.0"})
     public void Agent_AM_Position_Taking_Listing_710() {
         log("@title: Verify can update PT  for selected sport");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
@@ -413,8 +413,6 @@ public class PositionTakingListingTest extends BaseCaseTest {
         }
 
     }
-
-
 
 }
 

@@ -1,11 +1,16 @@
 package backoffice.pages.bo.system.productmaintenance;
 
+import backoffice.common.BOConstants;
 import backoffice.controls.DateTimePicker;
 import backoffice.controls.Table;
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Popup;
 import com.paltech.element.common.TextBox;
+import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BetFairAccountChangeLogPopup {
     public Popup popup = Popup.xpath("//app-betfair-account-info-dialog");
@@ -15,4 +20,22 @@ public class BetFairAccountChangeLogPopup {
     public Table tblBalance = Table.xpath("//app-betfair-account-info-dialog//table[contains(@class,'table-sm')]", 3);
     public Button btnClose = Button.xpath("//button[contains( @class,'btn-sm btn-outline-secondary')]");
     public Label lblNoRecord = Label.xpath("//app-betfair-account-info-dialog//table[contains(@class,'table-sm')]//tbody/tr/td[@class='text-center']");
+
+    public void verifyChangeLogBalanceAndExposure(List<String> lstBalanceAndExposure, String product, boolean isClosePopup) {
+        List<ArrayList<String>> balanceInfo = tblBalance.getRowsWithoutHeader(1, false);
+        if (balanceInfo.get(0).get(0).equalsIgnoreCase(BOConstants.NO_RECORDS_FOUND)) {
+            Assert.assertTrue(lblNoRecord.getText().equalsIgnoreCase(BOConstants.NO_RECORDS_FOUND), "FAILED! No record message is incorrect");
+        } else {
+            if(product.equalsIgnoreCase("exchange")) {
+                Assert.assertEquals(balanceInfo.get(0).get(1), lstBalanceAndExposure.get(2), "FAILED! Exchange Exposure display not correct");
+                Assert.assertEquals(balanceInfo.get(0).get(2), lstBalanceAndExposure.get(0), "FAILED! Exchange Available Balance is incorrect");
+            } else {
+                Assert.assertEquals(balanceInfo.get(0).get(1), String.format("%.2f", Double.parseDouble(lstBalanceAndExposure.get(2))), "FAILED! Exchange Game Exposure display not correct");
+                Assert.assertEquals(balanceInfo.get(0).get(2), lstBalanceAndExposure.get(0), "FAILED! Exchange Game Available Balance is incorrect");
+            }
+        }
+        if(isClosePopup) {
+            btnClose.click();
+        }
+    }
 }

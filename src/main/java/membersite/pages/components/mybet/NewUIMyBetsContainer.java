@@ -1,6 +1,5 @@
 package membersite.pages.components.mybet;
 
-import com.paltech.element.BaseElement;
 import com.paltech.element.common.*;
 import common.MemberConstants;
 import controls.DateTimePicker;
@@ -8,10 +7,7 @@ import controls.Table;
 import membersite.objects.Wager;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class NewUIMyBetsContainer extends MyBetsContainer {
     private String xPathSelection = "//div[contains(@class,'%s') and contains(@class,'row-open-bet')]";
@@ -100,17 +96,16 @@ public class NewUIMyBetsContainer extends MyBetsContainer {
     }
 
     public boolean validateFilterStatus(String status) {
+        ArrayList<String> lstStatusSettled = new ArrayList<>(Arrays.asList("Won", "Lost", "Cashed Out"));
         List<String> lst = tblReport.getColumn("/tbody[%s]//", colStatus, false);
         for (String sts : lst) {
-            if (status.equalsIgnoreCase("Settled")) {
-                if (!sts.equalsIgnoreCase("Won")) {
-                    if (!sts.equalsIgnoreCase("Lost")) {
-                        System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
-                        return false;
-                    }
-
+            if (status.equalsIgnoreCase("Settled") || status.equalsIgnoreCase("Cashed Out")) {
+                if(!lstStatusSettled.contains(sts)) {
+                    System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
+                    return false;
                 }
-            } else {
+            }
+            else {
                 if (!sts.equals(status)) {
                     System.out.println(String.format("ERROR! Expected status is %s but found %s", status, sts));
                     return false;
@@ -199,4 +194,23 @@ public class NewUIMyBetsContainer extends MyBetsContainer {
         btnDownload.click();
     }
 
+    public void verifyListBetFollowStatus(List<String> lstBet, String status) {
+        List<String> lstCancelledId = getReportColumnValue(2, "Bet ID");
+        List<String> lstCancelledStatus = getReportColumnValue(2, "Status");
+        Collections.sort(lstBet);
+        Collections.sort(lstCancelledId);
+        Assert.assertEquals(lstBet, lstCancelledId, String.format("FAILED! Order ID is %s but found %s", lstBet, lstCancelledId));
+        Assert.assertTrue(lstCancelledStatus.containsAll(Collections.singleton(status)), String.format("FAILED! Status List %s is not contains all %s", lstCancelledStatus, status));
+    }
+
+    public void verifyListBetNotFollowStatus(List<String> lstBet, String status) {
+        if (!getNoRecord().equals("")) {
+            Assert.assertEquals(getNoRecord(), MemberConstants.MyBetsPage.NO_RECORD_FOUND, "FAILED, Message there is no record in unmatch list is incorrect");
+        } else {
+            List<String> lstCurrentBet = getReportColumnValue(2, "Bet ID");
+            List<String> lstStatus = getReportColumnValue(2, "Status");
+            Assert.assertTrue(!lstBet.equals(lstCurrentBet), String.format("FAILED! List bet %s still contains %s bet id %s", lstBet, status, lstCurrentBet));
+            Assert.assertTrue(!lstStatus.containsAll(Collections.singleton(status)), String.format("FAILED! Status List %s contains status %s", lstStatus, status));
+        }
+    }
 }

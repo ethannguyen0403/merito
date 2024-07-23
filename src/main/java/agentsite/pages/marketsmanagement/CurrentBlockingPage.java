@@ -146,6 +146,9 @@ public class CurrentBlockingPage extends HomePage {
             blockedUserNumber = lnkCurrent.getText();
         if (isOpenBlockedUser)
             openBlockedUser(row, isEvent);
+        if(blockedUserNumber.isEmpty()){
+            blockedUserNumber = "0";
+        }
         return blockedUserNumber;
     }
 

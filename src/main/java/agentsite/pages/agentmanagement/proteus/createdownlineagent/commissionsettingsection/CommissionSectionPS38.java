@@ -34,6 +34,9 @@ public class CommissionSectionPS38 {
         return min + (max - min) * r.nextDouble();
     }
 
+    public void verifyCommissionUICorrect(){
+    }
+
 /**
  * @return return Map with value of Odds group and commission. E.g: Odds Group > A, High commission > 0.3*/
     public Map<String, String> getAmountCommission(String oddGroupName, String commissionName, String sport, String league){
@@ -62,7 +65,7 @@ public class CommissionSectionPS38 {
     public CommissionSectionPS38 expandCommissionSection(String accountType, boolean isExpanded) {
         this._accountType = accountType;
         if (isExpanded) {
-            if (btnCommissionSection.getAttribute("class").contains("fa-chevron-up")) {
+            if (btnCommissionSection.getAttribute("class").contains("fa-chevron-down")) {
                 btnCommissionSection.click();
             }
         } else {

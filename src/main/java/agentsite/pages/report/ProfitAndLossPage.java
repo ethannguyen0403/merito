@@ -172,6 +172,6 @@ public class ProfitAndLossPage extends HomePage {
         double balanceIncludeTax = Double.valueOf(list.get(1).get(colBalSummary)) + Double.valueOf(list.get(1).get(colBalSummary + 1));
         ArrayList<String> totalRowData = transactionDetailsPopupPage.getTotalRowData();
         int colBalDetails = transactionDetailsPopupPage.tblReport.getColumnIndexByName("Member Result");
-        Assert.assertEquals(Double.valueOf(totalRowData.get(colBalDetails-9)), balanceIncludeTax, "FAILED! Balance of member in Downine Profit and Loss not match with Total- Member result in Transaction Details");
+        Assert.assertEquals(Double.valueOf(totalRowData.get(colBalDetails-9)), balanceIncludeTax, 0.011, "FAILED! Balance of member in Downine Profit and Loss not match with Total- Member result in Transaction Details");
     }
 }

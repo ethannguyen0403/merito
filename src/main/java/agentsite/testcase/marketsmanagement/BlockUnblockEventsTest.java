@@ -183,7 +183,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 //    }
 
     @TestRails(id = "758")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_758(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Validate that Unblock Now an event successfully from SAD level");
@@ -318,11 +318,15 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="761")
-    @Test(groups = {"smoke", "nolan"})
-    @Parameters({"downlineAccount"})
-    public void Agent_MM_BlockUnblockEvent_761(String downlineAccount) {
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
+    public void Agent_MM_BlockUnblockEvent_761() {
         log("@title: Validate can Unblock Schedule 25min before event start");
-        AccountInfo acc = ProfileUtils.getProfile();
+        String userID = ProfileUtils.getProfile().getUserID();
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        String  downlineAccount = "";
+        downlineAccount = _brandname.equalsIgnoreCase("satsport") ?
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getLoginID():
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getUserCode();
 
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
@@ -330,7 +334,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("Step 2. Select Sport, Today tab");
         page.filter("", SPORT_SOCCER, TAB_DAYS.get(2));
 
-        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
+        String childID = BlockUnblockEventsUtils.getchildUserID(userID, downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList(SPORT_SOCCER, childID, "TMR");
         if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Soccer");
@@ -545,18 +549,23 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="768")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     @Parameters({"downlineAccount"})
-    public void Agent_MM_BlockUnblockEvent_768(String downlineAccount) {
+    public void Agent_MM_BlockUnblockEvent_768() {
         log("@title:Validate that cannot unblock schedule and suspend event successfully");
-        AccountInfo acc = ProfileUtils.getProfile();
+        String userID = ProfileUtils.getProfile().getUserID();
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        String downlineAccount = "";
+        downlineAccount = _brandname.equalsIgnoreCase("satsport") ?
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getLoginID():
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getUserCode();
 
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
 
         log("Step 2: Select sport is Tennis, and a tab that has data");
         page.filter("", SPORT_TENNIS, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
-        String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
+        String childID = BlockUnblockEventsUtils.getchildUserID(userID, downlineAccount);
         List<Event> event = BlockUnblockEventsUtils.getEventList(SPORT_TENNIS, childID, "TODAY");
         if (event.isEmpty()) {
             throw new SkipException("INFO: Skipping this test case as have no event in today for Tennis");
@@ -621,7 +630,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="769")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
     @Parameters({"brandname", "password", "downlineAccount", "username"})
     public void Agent_MM_BlockUnblockEvent_769(String brandname, String password, String downlineAccount, String username) throws Exception {
         log("@title: Validate can unblocked now all events for an downline in a page");
@@ -647,6 +656,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.checkDownline(downlineAccount);
 
         log("Step 4. Check a blocked event and click Unblock Now  button");
+        page.blockUnblockEvent(downlineAccount, ALL, BTN_ACTIONS.get(0));
         page.blockUnblockEvent(downlineAccount, ALL, BTN_ACTIONS.get(1));
         log("Verify 2. (Step 5) Status of the event is Unblocked ");
         page.verifyStatusAllEventsAreUnblock(event);
@@ -756,10 +766,13 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
    @TestRails(id="771")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize_agent"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_771() {
         log("@title:Validate can blocked all events for according selected downline");
-        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
+       AccountInfo acc = ProfileUtils.getProfile();
+       String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+       String userID = ProfileUtils.getProfile().getUserID();
+       List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname);
         Assert.assertTrue(lstUsers.size() > 1, "ERROR: This test case required more than 2 downline. Pls add more downline to verify TC");
         String userCode = lstUsers.get(0).getUserCode();
         String userCode2 = lstUsers.get(1).getUserCode();
@@ -772,13 +785,15 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
         log("Step 2. Select sport is soccer, and Tomorrow tab ");
         page.filter("", sport, tomorowTab);
-        log("Step Precondition: Unblock all event for 2 downline accounts");
+        log("Step Precondition: Block then Unblock all event for 2 downline accounts");
         page.checkDownline(userCode);
         page.checkDownline(userCode2);
+        page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(0), "", 1);
         page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
 
         log("Step 3. Select a checkbox beside the downline (Acc1)and selected on another downline(Acc2)( select but uncheck the checkbox)");
         page.selectDownline(userCode, true);
+        page.checkDownline(userCode, true);
         page.clickDownline(userCode2);
 
         log("Step  4. Check all events checkbox and click Blocked");
@@ -792,8 +807,10 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.clickDownline(userCode);
 
         log("Verify 1.2 Event status when viewing acc1 is unblock");
-        List<ArrayList<String>> lstEventofUserCode = BlockUnblockEventsUtils.getAllEvents(sport, childID, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
-        Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode, UNBLOCKTYPE.get(0)), "FAILED! event api status is incorrectly");
+//        List<ArrayList<String>> lstEventofUserCode = BlockUnblockEventsUtils.getAllEvents(sport, childID, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
+       List<Event> event = BlockUnblockEventsUtils.getEventList(SPORT_SOCCER, childID, TABs.get(tomorowTab));
+//       Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode, UNBLOCKTYPE.get(0)), "FAILED! event api status is incorrectly");
+       page.verifyStatusAllEventsAreUnblock(event);
         log("INFO: Executed completely");
     }
 
@@ -996,7 +1013,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="3695")
-    @Test(groups = {"interaction","tim"})
+    @Test(groups = {"interaction","tim", "nolan_stabilize_agent"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_3695(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Validate suspend label display on market in member site when suspend an unblock the event");
@@ -1193,8 +1210,8 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
 
+        //unblock all today events
         log(String.format("Step 2: Unblock all Today Tennis event of for all downline of the account %s ", downlineAccount));
-
         page.filter("", SPORT_TENNIS, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         page.blockUnblockEvent(downlineAccount, ALL, BTN_ACTIONS.get(1), "", 1);
 
@@ -1203,11 +1220,28 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
 
         log(String.format("Step 4: Unblock all Today Cricket event of for all downline of the account %s ", downlineAccount));
-        page.filter("", "Cricket", "");
+        page.filter("", SPORT_CRICKET, "");
         page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
 
         log(String.format("Step 5: Unblock all Today Horse Racing event of for all downline of the account %s ", downlineAccount));
-        page.filter("", "Horse Racing", "");
+        page.filter("", HORSE_RACING, "");
+        page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
+
+        //unblock all tomorrow events
+        log(String.format("Step 2.1: Unblock all Tomorrow Tennis event of for all downline of the account %s ", downlineAccount));
+        page.filter("", SPORT_TENNIS, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2));
+        page.blockUnblockEvent(downlineAccount, ALL, BTN_ACTIONS.get(1), "", 1);
+
+        log(String.format("Step 3.1: Unblock all Tomorrow Soccer event of for all downline of the account %s ", downlineAccount));
+        page.filter("", SPORT_SOCCER, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2));
+        page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
+
+        log(String.format("Step 4.1: Unblock all Tomorrow Cricket event of for all downline of the account %s ", downlineAccount));
+        page.filter("", SPORT_CRICKET, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2));
+        page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
+
+        log(String.format("Step 5.1: Unblock all Tomorrow Horse Racing event of for all downline of the account %s ", downlineAccount));
+        page.filter("", HORSE_RACING, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2));
         page.blockUnblockEvent("", ALL, BTN_ACTIONS.get(1), "", 1);
 
         Assert.assertTrue(true, "Verify passed");

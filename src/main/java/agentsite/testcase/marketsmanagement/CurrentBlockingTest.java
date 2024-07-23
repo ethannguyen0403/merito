@@ -6,6 +6,7 @@ import agentsite.pages.marketsmanagement.BlockUnblockEventPage;
 import agentsite.pages.marketsmanagement.CurrentBlockingPage;
 import agentsite.pages.marketsmanagement.currentblocking.BlockedUserPopup;
 import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import agentsite.ultils.maketmanagement.BlockUnblockEventsUtils;
 import baseTest.BaseCaseTest;
 import common.AGConstant;
@@ -124,7 +125,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * 2. Close the popup and verify the blocked number is deducted
      */
     @TestRails(id = "774")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
     @Parameters("downlineAccount")
     public void Agent_MM_CurrentBlocking_TC774(String downlineAccount) {
         log("@title: Verify can unblocked Now event for a user");
@@ -212,10 +213,16 @@ public class CurrentBlockingTest extends BaseCaseTest {
      */
     @TestRails(id = "776")
     @Test(groups = {"smoke"})
-    @Parameters("downlineAccount")
-    public void Agent_MM_CurrentBlocking_TC776(String downlineAccount) {
+    public void Agent_MM_CurrentBlocking_TC776() {
         log("@title:Verify can unblock competition");
         log("Precondition. Block a competition");
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        String userID = ProfileUtils.getProfile().getUserID();
+        String  downlineAccount = "";
+        downlineAccount = _brandname.equalsIgnoreCase("fairexchange") ?
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getUserCode() :
+                DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getLoginID();
+
         CurrentBlockingPage page = agentHomePage.navigateCurrentBlockingPage();
         log("Step 2. Select  Type = Competition, Sport = Soccer");
         page.filter("Competition", "Soccer", "");
@@ -246,7 +253,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
 
         log("Verify 2. Close the popup and verify the blocked number is deducted");
         if (!currentBlockedUser.equals(LBL_NO_USER_BLOCKED)) {
-            Assert.assertEquals(blockedUserNumberAfter, String.valueOf(String.format("%.0f",Double.valueOf(blockedUserNumberBefore) - 1)), "FAILED! block number does not deducted after unblock competition for an account");
+            Assert.assertEquals(blockedUserNumberAfter, String.valueOf(String.format("%.0f", Double.valueOf(blockedUserNumberBefore) - 1)), "FAILED! block number does not deducted after unblock competition for an account");
         } else {
             Assert.assertEquals(blockedUserNumberAfter, "", "FAILED! block number does not deducted after unblock competition for an account");
         }

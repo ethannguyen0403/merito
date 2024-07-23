@@ -18,6 +18,7 @@ public class MemberConstants {
     public static final String GMT_7 = "GMT+7";
     public static final String GMT_MINUS_4_30 = "GMT-4:30";
     public static final String NO_RECORD_FOUND = "No Record Found";
+    public static final String NO_RESULTS_FOUND = "No results found";
     public static final String WICKET_FANCY_TITLE = "Wicket Fancy";
     public static final String WICKET_BOOKMAKER = "Wicket Bookmaker";
     public static final String FANCY_TITLE = "Fancy";
@@ -47,6 +48,7 @@ public class MemberConstants {
     public static final String LBL_SOCCER_SPORT = "Soccer";
     public static final String LBL_TENNIS_SPORT = "Tennis";
     public static final String LBL_HORSE_RACING_SPORT = "Horse Racing";
+    public static final String MEMBER_BLOCKED_LOG_MESSAGE = "Account Status changed - Blocked due to 5 consecutive incorrect password attempts.";
     public static final Map<String, String> TIMEZONE_BRAND = new HashMap<String, String>() {
         {
             put("satsport", "IST");
@@ -61,6 +63,7 @@ public class MemberConstants {
     public static class LoginPage {
         public final static String MSG_INVALID_PASSWORD = "You have entered an incorrect Password. Please try again.";
         public final static String MSG_LOGIN_FAIL = "Invalid Username OR Password.";
+        public final static String MSG_LOGIN_BLOCKED = "Your account has been blocked. Please contact your Upline for help.";
         public final static String MSG_UNDERAGE_GAMELING = "Underage gambling is prohibited.\n" +
                 "Please confirm if you are 18 years old\nand above as of today.";
         public final static String BTN_CONFIRM = "Confirm";
@@ -168,6 +171,7 @@ public class MemberConstants {
                 put("My Last Logins", "My Last Logins");
                 put("Change Password", "Change Password");
                 put("Logout", "Logout");
+                put("PS38 Preferences", "PS38 Preferences");
             }
         };
         public static final Map<String, String> DDB_MY_ACCOUNT_FS = new HashMap<String, String>() {
@@ -234,7 +238,8 @@ public class MemberConstants {
     public static class MyMarketsPopup {
         public final static String TITLE = "My Markets";
         public final static String NOTES = "Note : Date will be based on time zone GMT-04:00";
-        public final static List<String> TABLE_MY_MARKETS_HEADER = Arrays.asList("Market ID", "Market Start Time", "Market Name", "Liability");
+        public final static List<String> TABLE_MY_MARKETS_HEADER = Arrays.asList("Market ID", "Market Start Time", "Market Name\n" +
+                "Reload", "Liability");
         public final static String NO_RECORD_FOUNDS = "No records found";
     }
 
@@ -243,7 +248,9 @@ public class MemberConstants {
         public final static String START_DATE = "Start Date";
         public final static String END_DATE = "End Date";
         public final static String NOTES = "Note : Date will be based on time zone %s";
-        public final static List<String> TABLE_SUMMARY_HEADER = Arrays.asList("Event/Market ID/Arena ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
+        public final static List<String> TABLE_SUMMARY_HEADER = Arrays.asList("Event/Market ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
+        public final static List<String> TABLE_SUMMARY_HEADER_NEWUI = Arrays.asList("Event/Market ID/Arena ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
+
         public final static List<String> TABLE_DETAIL_HEADER = Arrays.asList("Bet ID", "Selection", "Type", "Odds", "Turnover", "Place Date", "Profit/Loss", "Status");
         public final static String LOAD_REPORT = "Load Report";
         public final static String OPENING_BALANCE = "OPENING BALANCE";
@@ -301,6 +308,7 @@ public class MemberConstants {
         };
         public static final Map<String, String> DDB_ORDER_TYPE_FILTER = new HashMap<String, String>() {
             {
+                put("PS38", "PS38 Bets");
                 put("SETTLED", "Settled");
                 put("MATCHED", "Matched");
                 put("UNMATCHED", "Unmatched");
@@ -328,9 +336,13 @@ public class MemberConstants {
         public final static List<String> TABLE_WAGER_HEADER = Arrays.asList("Bet ID", "Placed Date", "Selection", "Matched Odds", "Turnover", "Type", "Status", "Profit/Loss", "Tax", "Net");
         public final static String LOAD_REPORT = "Load Report";
     }
-
+    public static class PS38PreferencesPopup {
+        public final static String DDPAGE_TODAY_MATCHES = "Today - Matches";
+        public final static String DDPAGE_MONEY_LINE_MATCHES = "Today - Money Line/1x2";
+        };
     public static class ChangePasswordPopup {
         public final static String TITLE = "Change Password";
+        public final static String TITLE_FAIR = "Update Password";
         public final static String LBL_NEW_PASSWORD = "New Password";
         public final static String LBL_CURRENT_PASSWORD = "Current Password";
         public final static String LBL_NEW_PASSWORD_CONFIRMATION = "New Password Confirmation";

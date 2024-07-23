@@ -19,6 +19,7 @@ public class LeftMenu {
     }
 
     public void clickSubMenu(String menu, String submenu) {
+        switchMainMenu();
         leftMenuList.clickSubMenu(menu, submenu);
     }
     public void clickSubMenu(String menu, String submenu1, String submenu2) {
@@ -79,4 +80,6 @@ public class LeftMenu {
     public void navigateClientLedgerPage() {}
 
     public boolean isListSubMenuDisplayCorrect(String menu) { return false;}
+
+    public void verifyListSubMenuDisplayCorrect() {}
 }

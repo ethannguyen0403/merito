@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="FAIR999_GREEN_CASINO_TEST" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="Fair999 Green Casino Smoke Test on the product is active">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='green'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='03H0000CA1'/>
+        <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name='appname' value='membersite'/>
+        <parameter name='brandname' value='fairexchange'/>
+        <parameter name='skinName' value='fairexchange'/>
+        <parameter name='BOLoginId' value='AutoQA'/>
+        <parameter name='BOLoginPwd' value='WncY8OT1OV5814mXP2PqYg=='/>
+        <parameter name='isAddTestRailResult' value='true'/>
+        <groups>
+            <run>
+                <include name="casino"/>
+            </run>
+        </groups>
+        <classes>
+
+<!--            <class name="membersite.testcases.casino.EvolutionPageTest"/>-->
+            <class name="membersite.testcases.casino.EvolutionPageWhiteCliffTest"/>
+            <class name="membersite.testcases.casino.LiveDealerAsianPageTest"/>
+            <class name="membersite.testcases.casino.LiveDealerEuropeanPageTest"/>
+            <class name="membersite.testcases.casino.LotterySlotsPageTest"/>
+            <!--            <class name="membersite.testcases.casino.SupernowaTest"/>-->
+            <!--            <class name="membersite.testcases.casino.IonPageTest"/>-->
+            <!--            <class name="membersite.testcases.casino.PragmaticPageTest"/>-->
+            <!--            <class name="membersite.testcases.casino.GameHallPageTest"/>-->
+            <!--            <class name="membersite.testcases.casino.VivoPageTest"/>-->
+        </classes>
+    </test>
+</suite>

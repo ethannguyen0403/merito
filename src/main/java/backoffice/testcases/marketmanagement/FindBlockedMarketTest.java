@@ -35,7 +35,7 @@ public class FindBlockedMarketTest extends BaseCaseTest {
      * @expected: 1. Verify market info display correctly
      */
     @TestRails(id = "609")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     @Parameters("satMemberLoginID")
     public void BO_Tools_Find_Blocked_Market_609(String satMemberLoginID) {
         log("Step 2. Access Tool > Find Block Market");
@@ -62,10 +62,9 @@ public class FindBlockedMarketTest extends BaseCaseTest {
                 lstEventInfo.get(0), lstEventInfo.get(1), lstEventInfo.get(2), lstEventInfo.get(3), lstEventInfo.get(4), lstEventInfo.get(5), lstEventInfo.get(6));
         Assert.assertEquals(page.lblEventHeader.getText(), expectedInfo, "FAILED! Event info not match with expected");
 
-        String lblMarketInfoActual = page.lblMarketHeader.getText();
-        String expectedMarketInfo = String.format("Market: %s | Status: %s | Market Type: %s | Start Time: %s | Total Matched: %s | Minute to start: %s",
-                lstMarketInfo.get(0), lstMarketInfo.get(1), lstMarketInfo.get(2), lstMarketInfo.get(3), totalMatch, lstMarketInfo.get(5));
-        Assert.assertEquals(lblMarketInfoActual, expectedMarketInfo, "FAILED! Market info not match with expected");
+        String expectedMarketInfo = String.format("Market: %s | Status: %s | Market Type: %s | Start Time: %s | Total Matched: %s",
+                lstMarketInfo.get(0), lstMarketInfo.get(1), lstMarketInfo.get(2), lstMarketInfo.get(3), totalMatch);
+        Assert.assertEquals(page.lblMarketHeader.getText(), expectedMarketInfo, "FAILED! Market info not match with expected");
         log("INFO: Executed completely");
     }
 
@@ -97,7 +96,7 @@ public class FindBlockedMarketTest extends BaseCaseTest {
         log("Step 3. The data display and get Status in Block/Unblock Event column");
         String blockStatus = page.getBlockedStatus(satSADAgentLoginID);
         log("Step 4. Login agent the level control blocking > Block/Unblock Event");
-        agentHomePage = loginAgent(satSADAgentLoginID, memberPassword, _brandname);
+        agentHomePage = loginAgent(satSADAgentLoginID, memberPassword, "satsport");
         BlockUnblockEventPage blockUnblockEventPage = agentHomePage.navigateBlockUnblockEventsPage();
         blockUnblockEventPage.filter("",SPORT_CRICKET, AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(1));
         blockUnblockEventPage.searchEvent(market.event.getEventName());

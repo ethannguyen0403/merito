@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="FE_Green_Regression" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="03H_Fair999_Green_Regression">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='fagreen'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='03H'/>
+        <parameter name='levelLogin' value='Senior Master Agent'/>
+        <parameter name='downlineAccount' value='03H00'/>
+        <parameter name='portalSubAccount' value='FBSUBVN'/>
+        <parameter name='memberAccount' value='03H0000000'/>
+        <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+        <groups>
+            <run>
+                <include name="interaction"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.LeftMenuTest"/>
+        </classes>
+
+    </test>
+
+</suite>

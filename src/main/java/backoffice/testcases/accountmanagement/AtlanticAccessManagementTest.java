@@ -4,12 +4,15 @@ import backoffice.common.BOConstants;
 import backoffice.pages.bo._components.AlertMessageBox;
 import backoffice.pages.bo.accountmanagement.AtlanticAccessManagementPage;
 import baseTest.BaseCaseTest;
-import com.paltech.constant.Helper;
 import com.paltech.utils.StringUtils;
+import membersite.pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
+
+import static common.MeritoConstant.MEMBER_CAMOUFLAGE_URL_SUFFIX;
+import static common.MeritoConstant.MEMBER_URL_SUFFIX;
 
 public class AtlanticAccessManagementTest extends BaseCaseTest {
 
@@ -21,7 +24,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
      * @expect: 1. Verify message display "User [account] is not in Fairenter brand"
      */
     @TestRails(id = "622")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     @Parameters("satMemberLoginID")
     public void BO_Account_Management_Atlantic_Access_Management_622(String satMemberLoginID) {
         log("@title: Validate can not add account to Atlantic Access Management that not belonging to Fairenter brand");
@@ -34,7 +37,7 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
         String actualMessage = messageBox.getErrorAlert();
 
         log("Verify 1. Verify message display \"User [account] is not in Fairenter brand\"");
-        Assert.assertTrue(actualMessage.contains(String.format(BOConstants.AdminManagement.AtlanticAccessManagement.FAILED_MSG, satMemberLoginID)), "FAILED! Error message is incorrect when add the account not belong to Funsport brand");
+        Assert.assertTrue(actualMessage.contains(String.format(BOConstants.AdminManagement.AtlanticAccessManagement.FAILED_MSG, satMemberLoginID)), "FAILED! Error message is incorrect when add the account not belong to Fairenter brand");
 
         log("INFO: Executed completely");
 
@@ -58,47 +61,31 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
     @Test(groups = {"regression"})
     @Parameters({"username", "password", "atlanticAccount", "memberPassword"})
     public void BO_Account_Management_Atlantic_Access_Management_623(String username, String password, String atlanticAccount, String memberPassword) throws Exception {
+        // this case should run with skinName = atlantic
+        _brandname = "fairenter";
+        camouflageLoginURL = defineCamouFlageSiteURL(_brandname, MEMBER_CAMOUFLAGE_URL_SUFFIX.get("atlantic"));
         log("@title: Validate can account is added/deleted to the list can access/un-access Atlantic site");
-        log("Step 1. Access Admin Management > Atlantic Access Management");
-        //TODO: implement this case
-        Assert.assertTrue(false, "Need to implement this case");
-//        String passDecrypt = StringUtils.decrypt(memberPassword);
-//        AtlanticAccessManagementPage page = backofficeHomePage.navigateAtlanticAccessManagement();
-//
-//        log("Step 2. Add a player");
-//        page.addPlayer(atlanticAccount);
-//        AlertMessageBox msgBox = new AlertMessageBox();
-//        String actualMsg = msgBox.getSuccessAlert();
-//
-//        log("Verify 1. Verify message \"Add user Atlantic success!\" after add agent and agent is display in the list");
-//        Assert.assertTrue(actualMsg.contains("Add user atlantic success!"), "FAILED! Success message after add Atlantic user is incorrect");
-//        Assert.assertTrue(page.isAccountInList(atlanticAccount), String.format("FAILED! The account %s not display in the list after adding", atlanticAccount));
+        log("Step 1: Access Left menu > Atlantic Access Management");
+        AtlanticAccessManagementPage atlanticPage = backofficeHomePage.navigateAtlanticAccessManagement();
+        log("Step 2: Add a player");
+        atlanticPage.addPlayer(atlanticAccount);
+        log("Verify 1: Verify agent is display in the list");
+        Assert.assertTrue(atlanticPage.isAccountInList(atlanticAccount), String.format("FAILED! The account %s not display in the list after adding", atlanticAccount));
 
-     /*   log("Step 3. Access Atlantic site and login with the account above");
-        Helper.loginFairExchange(environment.getAtlanticSOSURL(),environment.getAtlanticDashboardURL(),atlanticAccount,memberPassword,true);
-        pages.fairexchange.tabexchange.backofficeHomePage atlanticbackofficeHomePage = new pages.fairexchange.tabexchange.backofficeHomePage();
-
-        log("Verify 2. Can login Atlantic site");
-        Assert.assertTrue(atlanticbackofficeHomePage.ddbMyAccount.isDisplayed(),String.format("FAILED! Cannot login Atlantic site when the account %s is added to the list",atlanticAccount));
-
-        log("Step 4. Logout Atlantic site and re-login BO site and deleted the account");
-        Helper.loginBOIgnoreCaptcha(environment.getSosURL(),environment.getDashboardURL(),username,password,true);
-        page = backofficeHomePage.navigateAtlanticAccessManagement();*/
-//        page.removePlayer(atlanticAccount).confirm();
-//        msgBox = new AlertMessageBox();
-//        actualMsg = msgBox.getSuccessAlert();
-
-//        log("Verify 3. Verify the message \"Delete user Atlantic success!\" and the agent is removed");
-//        Assert.assertTrue(actualMsg.contains("Delete user atlantic success!"), "FAILED! Success message after delete Atlantic user is incorrect");
-//        Assert.assertFalse(page.isAccountInList(atlanticAccount), String.format("FAILED! The account %s display in the list after removing", atlanticAccount));
-
-       /* log("Step 5. Relogin Atlantic");
-        Helper.loginFairExchange(environment.getAtlanticSOSURL(),environment.getAtlanticDashboardURL(),atlanticAccount,memberPassword,false);
-        pages.atlantic.backofficeHomePage atlanticLoginPage = new pages.atlantic.backofficeHomePage();
-
-        log("Verify 4. Verify cannot login Atlantic site when account is deleted form Atlantic Access Management page");
-        Assert.assertTrue(atlanticLoginPage.lnkConservationOfTuna.isDisplayed(),String.format("FAILED! Can login Atlantic site when the account %s is removed to the list",atlanticAccount));*/
-
+        log("Step 3: Access Atlantic site and login with the account above");
+        loginCamouflageSite(atlanticAccount, memberPassword, true);
+        log("Verify 2: Can login Atlantic site");
+        Assert.assertTrue(memberHomePage.isMyAccountDisplay(),String.format("FAILED! Login Atlantic site successfully when the account %s is added to the list",atlanticAccount));
+        log("Step 4: Logout Atlantic site and relogin BO site and deleted the account");
+        loginBackoffice(username, password, true);
+        backofficeHomePage.navigateAtlanticAccessManagement();
+        atlanticPage.removePlayer(atlanticAccount).confirm();
+        log("Verify 3: Verify agent is NOT display in the list");
+        Assert.assertFalse(atlanticPage.isAccountInList(atlanticAccount), String.format("FAILED! The account %s not display in the list after adding", atlanticAccount));
+        log("Step 5: Re-login with the account above");
+        loginCamouflageSite(atlanticAccount, memberPassword, true);
+        log("Verify 4: Can NOT login Atlantic site");
+        Assert.assertFalse(memberHomePage.isMyAccountDisplay(),String.format("FAILED! Cannot login Atlantic site when the account %s is added to the list",atlanticAccount));
         log("INFO: Executed completely");
     }
 
@@ -121,45 +108,36 @@ public class AtlanticAccessManagementTest extends BaseCaseTest {
     public void BO_Account_Management_Atlantic_Access_Management_624(String username, String atlanticAccount, String password, String memberPassword) throws Exception {
         log("@title: Validate can/cannot login Fairenter if account is non-display/display in Atlantic site");
         log("Step 1. Access Admin Management > Atlantic Access Management");
-        //TODO: implement this case
-        Assert.assertTrue(false, "Need to implement this case");
-//        AtlanticAccessManagementPage page = backofficeHomePage.navigateAtlanticAccessManagement();
-//
-//        log("Step 2. Add a player");
-//        page.addPlayer(atlanticAccount);
-//        page.isAccountInList(atlanticAccount);
+        // this case should run with skinName = atlantic
+        String decryptPassword = StringUtils.decrypt(password);
+        _brandname = "fairenter";
+        camouflageLoginURL = defineCamouFlageSiteURL(_brandname, MEMBER_CAMOUFLAGE_URL_SUFFIX.get("atlantic"));
+        log("@title: Validate can account is added/deleted to the list can access/un-access Atlantic site");
+        log("Step 1: Access Left menu > Atlantic Access Management");
+        AtlanticAccessManagementPage atlanticPage = backofficeHomePage.navigateAtlanticAccessManagement();
+        log("Step 2: Add a player");
+        atlanticPage.addPlayer(atlanticAccount);
+        log("Verify 1: Verify agent is display in the list");
+        Assert.assertTrue(atlanticPage.isAccountInList(atlanticAccount), String.format("FAILED! The account %s not display in the list after adding", atlanticAccount));
 
-      /*  log("Step 3. Access FairEnter and login");
-        page.logout();
-        DriverManager.getDriver().get(environment.getFairenterDashboardURL());
-        //Helper.loginFairExchange(environment.getFairenterSOSURL(),environment.getFairenterDashboardURL(),atlanticAccount,memberPassword,false);
-
-        UnderageGamblingPopup underGamblingPopup = new UnderageGamblingPopup();
-        LoginPopup loginPopup = underGamblingPopup.clickConfirmation();
-        loginPopup.login(username,password);
-        log("Verify 1. Verify cannot login Fairenter if account is added in Atlantic list");
-        Assert.assertTrue(loginPopup.btnLogin.isDisplayed(),String.format("FAILED! Can login Fairenter site when the account %s is added to Atlantic list",atlanticAccount));
-*/
-//        log("Step 4. Back to BO and deleted the account out Atlantic list ");
-//        Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl, username, password, true);
-//        page = backofficeHomePage.navigateAtlanticAccessManagement();
-//        page.removePlayer(atlanticAccount).confirm();
-      /*  page.logout();
-
-        log("Step 5. Login Fairenter again");
-        DriverManager.getDriver().get(environment.getFairenterDashboardURL());*/
-        //Helper.loginFairExchange(environment.getFairenterSOSURL(),environment.getFairenterDashboardURL(),atlanticAccount,memberPassword,false);
-/*
-        underGamblingPopup = new UnderageGamblingPopup();
-        loginPopup = underGamblingPopup.clickConfirmation();
-        pages.all.tabexchange.backofficeHomePage memberbackofficeHomePage = loginPopup.login(username,password);*/
-       /* Helper.loginFairExchange(environment.getFairenterSOSURL(),environment.getFairenterDashboardURL(),atlanticAccount,memberPassword,true);
-        pages.fairexchange.tabexchange.backofficeHomePage fairenterbackofficeHomePage = new pages.fairexchange.tabexchange.backofficeHomePage();*/
-/*
-        log("Verify 2. Can login Fairenter when the account is removed out Atlantice list");
-        Assert.assertTrue(memberbackofficeHomePage.iconHome.isDisplayed(),String.format("FAILED! Cannot login Fairenter site when the account %s is removed to the list",atlanticAccount));*/
-
+        log("Step 3: Access Fairenter site and login with the account above");
+        memberLoginURL = defineURL(_brandname, MEMBER_URL_SUFFIX.get(_brandname));
+        createDriver(memberLoginURL);
+        HomePage homePage = new HomePage(_brandname);
+        homePage.login(atlanticAccount, decryptPassword, true);
+        log("Verify 2: Verify cannot login Fairenter if account is added in Atlantic list");
+        Assert.assertFalse(homePage.isMyAccountDisplay(),String.format("FAILED! Login successfully Fairenter when the account %s is added to the list",atlanticAccount));
+        log("Step 4: Logout Atlantic site and relogin BO site and deleted the account");
+        loginBackoffice(username, password, true);
+        backofficeHomePage.navigateAtlanticAccessManagement();
+        atlanticPage.removePlayer(atlanticAccount).confirm();
+        log("Verify 3: Verify agent is NOT display in the list");
+        Assert.assertFalse(atlanticPage.isAccountInList(atlanticAccount), String.format("FAILED! The account %s display in the list after adding", atlanticAccount));
+        log("Step 5: Re-login Fairenter with the account above");
+        createDriver(memberLoginURL);
+        homePage.login(atlanticAccount, decryptPassword, true);
+        log("Verify 4: Can login Fairenter when the account is removed out Atlantic list");
+        Assert.assertTrue(homePage.isMyAccountDisplay(),String.format("FAILED! Can not Fairenter site when the account %s is added to the list",atlanticAccount));
         log("INFO: Executed completely");
-
     }
 }

@@ -2,7 +2,6 @@ package membersite.pages.proteus;
 
 import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
-import com.paltech.element.common.TextBox;
 import controls.Table;
 import membersite.controls.DropDownMenu;
 import membersite.objects.proteus.*;
@@ -27,20 +26,6 @@ public class EuroViewPage extends ProteusHomePage {
     public Button btnEarlyEuro = Button.xpath(String.format("//app-left-menu-euro//button[text()=' %s ']",EARLY_PERIOD));
     private Button btnLiveEuro = Button.xpath(String.format("//app-left-menu-euro//button[text()=' %s ']",LIVE_PERIOD));
     public Label lblSportHeader = Label.xpath("(//app-sport-euro//div[contains(@class,'sport-header')]//h3)[1]");
-    private TextBox txtStake = TextBox.xpath("//app-bet-item//input[contains(@class,'stake-input')]");
-    public Button btnPlaceBet = Button.xpath("//app-open-bets//button[contains(@class,'btn-place-bet')]");
-    private Label lblCompetitionInfo = Label.xpath("(//app-sport-euro//app-league-euro//th[@class='opponent-column'])[1]");
-    private Label lblHomeNameInfo = Label.xpath("(//app-sport-euro//app-league-euro//table[contains(@class,'odd-pages')]//tr)[1]//th[3]//div[@class='opponent']");
-    private Table tblFirstLeague = Table.xpath("(//app-league-euro/table[contains(@class,'league-header')])[1]", 5);
-    private Table tblFirstEvent = Table.xpath(String.format("(%s)[1]", eventTableXpath), 6);
-    private Label lblFirstLeague = Label.xpath("(//app-league-euro/table[contains(@class,'league-header')])[1]//th[contains(@class,'opponent-column')]");
-    private Label lblFirstEventHomeName = Label.xpath(String.format("(%s)[1]//div[@class='opponent']/div[1]", eventTableXpath));
-    private Label lblFirstEventAwayName = Label.xpath(String.format("(%s)[1]//div[@class='opponent']/div[2]", eventTableXpath));
-    private Label lblFirstHDP = Label.xpath(String.format("((%s)[1]//th[contains(@class,'odd-column')]//span[contains(@class,'d-lg-inline')])[1]", eventTableXpath));
-    private Label lblFirstSelection = Label.xpath(String.format("((%s)[1]//th[contains(@class,'odd-column')])[1]", eventTableXpath));
-    private Label lblSecondSelection = Label.xpath(String.format("((%s)[1]//th[contains(@class,'odd-column')])[2]", eventTableXpath));
-    private Label lblThirdSelection = Label.xpath(String.format("((%s)[1]//th[contains(@class,'odd-column')])[3]", eventTableXpath));
-
     private String leagueIndexXpath = "//app-league-euro[%d]";
     private String eventIndexXpath = "//app-league-euro[%d]//app-event-item-parent-euro[%d]//table";
     private String leagueNameXpath ="//app-league-euro[%d]//th[@class='opponent-column']//div[contains(@class,'text-row')]";
@@ -49,7 +34,6 @@ public class EuroViewPage extends ProteusHomePage {
     private String awayTeamXpath ="//app-league-euro[%d]/app-event-item-parent-euro[%d]//div[@class='opponent']/div[2]";
     private String firstOddsCellXpath = "//app-league-euro[%d]/app-event-item-parent-euro[%d]//th[contains(@class,'odd-column')][1]";
     private String oddsHomeXpath ="//th[contains(@class,'odd-column')][%s]//span[contains(@class,'odd-number')][1]//span";
-
 
     private Button btnOK = Button.xpath("//app-confirm-modal//button[contains(@class,'btn-ok')]");
     public EuroViewPage(String types) {
@@ -60,12 +44,12 @@ public class EuroViewPage extends ProteusHomePage {
      * Get the first market info in the UI
      * @return
      */
-    public Market getEventInfo(String sportName, String oddsType) {
+    public Market getEventInfo(String sportName, String oddsType, boolean isNegativeOdds) {
         int leagueIndex = 1;
         Market market;
         while (true)
         {
-            market = getEventInfo(sportName,oddsType,leagueIndex);
+            market = getEventInfo(sportName,oddsType,leagueIndex, isNegativeOdds);
             if(Objects.nonNull(market))
                 return market;
             leagueIndex = leagueIndex + 1;
@@ -77,12 +61,12 @@ public class EuroViewPage extends ProteusHomePage {
      * @param leagueIndex
      * @return
      */
-    public Market getEventInfo(String sportName, String oddsType,int leagueIndex) {
+    public Market getEventInfo(String sportName, String oddsType,int leagueIndex, boolean isNegativeOdds) {
         int eventIndex = 1;
         Market market;
         while (true)
         {
-            market = getEventInfo(sportName,oddsType,leagueIndex,eventIndex);
+            market = getEventInfo(sportName,oddsType,leagueIndex,eventIndex, isNegativeOdds);
             if(Objects.nonNull(market))
                 return market;
             eventIndex = eventIndex + 1;
@@ -95,7 +79,7 @@ public class EuroViewPage extends ProteusHomePage {
      * @param eventIndex
      * @return a Market Info
      */
-    private Market getEventInfo(String sportName, String oddsType, int leagueIndex, int eventIndex) {
+    private Market getEventInfo(String sportName, String oddsType, int leagueIndex, int eventIndex, boolean isNegativeOdds) {
         Market market;
         Label lblLeague = Label.xpath(String.format(leagueIndexXpath,leagueIndex));
         if (!lblLeague.isDisplayed())
@@ -111,7 +95,7 @@ public class EuroViewPage extends ProteusHomePage {
         }
         String leagueName = Label.xpath(String.format(leagueNameXpath,leagueIndex)).getText();
         // Get the market info from API with the eventID get from UI
-        market = MarketUtils.getMarketByOddsKey(oddsType,Integer.valueOf(eventID),oddsKey);
+        market = MarketUtils.getMarketByOddsKey(oddsType,Integer.valueOf(eventID),oddsKey, isNegativeOdds);
         market.setLeagueName(leagueName);
         // Get more info of the event in other API: league Name, home, away,event startTime
         String sportID = SPORTBOOK_SPORT_ID.get(sportName.toUpperCase());
@@ -154,6 +138,27 @@ public class EuroViewPage extends ProteusHomePage {
         System.out.println(String.format("Click on Odds %s of Team(%s) Event (%s) under League (%s)",lblOdds.getText(),market.getOddsInfoBySelection(selection),market.getEventName(), market.getLeagueName()));
         lblOdds.click();
     }
+
+    public void clickOdds(Market market, boolean isNegative){
+        clickOdds(market, defineSelectionBaseOnOdds(market, isNegative));
+    }
+
+//    public void clickOdds(Market market, String selection){
+//        //handle when get negative/positive odds we base on odds team to know which selection should click
+//        int rowIndex = 1;
+//        String oddsHomeXpath ="//th[contains(@class,'odd-column')][%s]//span[contains(@class,'odd-number')]";
+//        if(market.getOdds().get(0).getTeam().equalsIgnoreCase(selection)) {
+//            rowIndex = 1;
+//        } else {
+//            rowIndex = 2;
+//        }
+//        // get the row index has expected ID
+//        String eventXpath = getEventIndexXpath(String.valueOf(market.getEventId()));
+//        int column = defineOddsColumn(market,selection);
+//        oddsHomeXpath = String.format(oddsHomeXpath,column);
+//        Label lblOdds = Label.xpath(String.format("(%s%s)[%s]",eventXpath,oddsHomeXpath, rowIndex));
+//        lblOdds.click();
+//    }
 
     /**
      * Looking all league in the UI has the expected event ID
@@ -222,10 +227,6 @@ public class EuroViewPage extends ProteusHomePage {
         } else {
             return null;
         }
-    }
-
-    public void waitContentLoad(){
-        lblLoading.waitForControlInvisible(2,3);
     }
 
     public void selectOddsType (String oddsType){
@@ -297,29 +298,22 @@ public class EuroViewPage extends ProteusHomePage {
         }
     }
 
-     public void placeBet(Market market, String stake, String selection, boolean isSubmit, boolean isConfirm) {
-        if(Objects.nonNull(market)) {
-            // click odds
-            clickOdds(market, selection);
-            btnPlaceBet.waitForElementToBePresent(btnPlaceBet.getLocator(), 2);
-            inputStake(String.valueOf(market.getEventId()), stake);
-            if(isSubmit) {
-                btnPlaceBet.jsClick();
-                btnOK.waitForElementToBePresent(btnOK.getLocator());
-                if(isConfirm) {
-                    btnOK.jsClick();
-                    waitForSpinnerLoading();
-                }
-            }
-        }
-    }
-
-    public void inputStake(String eventId, String stake) {
-        String betslipRootXpath = String.format("//app-open-bets//app-bet-item//div[contains(@orderid,'eventId=%s')]", eventId);
-        TextBox txtStake = TextBox.xpath(String.format("%s%s", betslipRootXpath, "//input[contains(@class,'stake-input')]"));
-        txtStake.sendKeys(stake);
-        txtStake.waitForAttributeChange("value", stake, 2);
-    }
+//     public void placeBet(Market market, String stake, String selection, boolean isSubmit, boolean isConfirm) {
+//        if(Objects.nonNull(market)) {
+//            // click odds
+//            clickOdds(market, selection);
+//            btnPlaceBet.waitForElementToBePresent(btnPlaceBet.getLocator(), 2);
+//            inputStake(String.valueOf(market.getEventId()), stake);
+//            if(isSubmit) {
+//                btnPlaceBet.jsClick();
+//                btnOK.waitForElementToBePresent(btnOK.getLocator());
+//                if(isConfirm) {
+//                    btnOK.jsClick();
+//                    waitForSpinnerLoading();
+//                }
+//            }
+//        }
+//    }
 
     public List<String> getSportsHeaderMenuList() {
         List<String> lstHeader = new ArrayList<>();
@@ -358,7 +352,7 @@ public class EuroViewPage extends ProteusHomePage {
         }
     }
 
-    public EuroViewDetailsPage opentDetail(Market market){
+    public EuroViewDetailsPage openDetail(Market market){
         String eventXpath = getEventIndexXpath(String.valueOf(market.getEventId()));
         Label.xpath( String.format("%s%s",eventXpath,homeTeamXpath)).click();
         EuroViewDetailsPage euroViewDetailsPage = new EuroViewDetailsPage(_type);

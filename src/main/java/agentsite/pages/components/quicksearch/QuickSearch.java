@@ -31,6 +31,8 @@ public class QuickSearch {
     public Table tblLoginQuickSearch = Table.xpath("//app-quick-login//table", 2);
 
     public void quickSearch(String username) {
+        tabQuickSearch.isDisplayed();
+        tabQuickSearch.click();
         txtQuickSearch.isDisplayedShort(2);
         txtQuickSearch.sendKeys(username);
         btnSearchQuickSearch.click();
@@ -138,13 +140,15 @@ public class QuickSearch {
     }
 
     public SuccessPopup updateStatus(String userCode, String status, boolean isClose) {
+        int count = 4;
         quickSearch(userCode);
         SuccessPopup successPopup = clickSetting().updateStatus(status);
         if (isClose) {
-            if (successPopup.isDisplayed())
+            while (successPopup.isDisplayed() && count > 0) {
                 successPopup.close();
+                count--;
+            }
         }
-
         return successPopup;
     }
 

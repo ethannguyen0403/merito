@@ -9,6 +9,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.util.Collections;
 import java.util.List;
 
 public class WinLossSimpleTest extends BaseCaseTest {
@@ -94,7 +95,7 @@ public class WinLossSimpleTest extends BaseCaseTest {
     }
 
     @TestRails(id = "793")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void Agent_Report_WinLossSimple_793() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Simple");
@@ -103,6 +104,8 @@ public class WinLossSimpleTest extends BaseCaseTest {
 
         log("Step 2: Get all products in dropdown");
         List<String> lstProduct = page.winLossSimple.ddbProduct.getAllOption(true);
+        //handle remove Q-Tech out of list product since it's hidden in PROD but dropdown still kept for reporting
+        lstProduct.removeAll(Collections.singleton("Q-tech"));
 
         log("Verify 1: Products display correct");
         Assert.assertTrue(lstAllProductsExpected.containsAll(lstProduct), String.format("FAILED! List product is incorrect. Actual: %s, Expected: %s",lstProduct, lstAllProductsExpected));

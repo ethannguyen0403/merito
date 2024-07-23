@@ -4,15 +4,22 @@ import baseTest.BaseCaseTest;
 import com.paltech.element.common.Label;
 import common.MemberConstants;
 import membersite.objects.sat.Event;
+import membersite.pages.AccountStatementPage;
 import membersite.pages.MarketPage;
 import membersite.pages.MyLastLoginPage;
+import membersite.pages.SportPage;
+import membersite.pages.components.changepasswordpopup.ChangePasswordPopup;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.List;
 import java.util.Objects;
+
+import static common.MemberConstants.*;
+import static common.MemberConstants.Header.MY_BETS;
 
 public class HomePageTest extends BaseCaseTest {
 
@@ -77,14 +84,144 @@ public class HomePageTest extends BaseCaseTest {
         Assert.assertEquals(searchResult, event.getEventName(), String.format("ERROR! Can not search event"));
 
         log("Verify 2. Left menu display event including it's market");
-        Assert.assertEquals(memberHomePage.leftMenu.getActiveEvent(), event.getEventName(), String.format("ERROR! Expected event in left menu is %s but found %s", event.getEventName(), memberHomePage.leftMenu.getActiveEvent()));
+        Assert.assertEquals(memberHomePage.leftMenu.getActiveEvent(), event.getEventName(),
+                String.format("ERROR! Expected event in left menu is %s but found %s", event.getEventName(),
+                        memberHomePage.leftMenu.getActiveEvent()));
 
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "1054")
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void HomePage_1054() {
+        log("@title: Validate cannot search sport/competition/market in search textbox");
+        log("Step 1: Get any sport that have event available");
+        String searchResult = "";
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+        Event event = sportPage.getEvent(false, false, 1, 1);
+        if (Objects.isNull(event)) {
+            throw new SkipException("DEBUG: There is no event available");
+        }
+        log("Step 2: Input sport and observe result list");
+        searchResult = memberHomePage.leftMenu.searchEvent(LBL_CRICKET_SPORT).getText().trim();
+        log("Verify 1: No result found display when search sport invalid input value");
+        Assert.assertEquals(searchResult, NO_RESULTS_FOUND, "FAILED! Result does not match");
+
+        log("Step 3: Input Competition and observe result list");
+        searchResult = memberHomePage.leftMenu.searchEvent(event.getCompetitionName()).getText().trim();
+        log("Verify 2: No result found display when search Competition invalid input value");
+        Assert.assertEquals(searchResult, NO_RESULTS_FOUND, "FAILED! Result does not match");
+
+        log("Step 4: Input Market and observe result list");
+        searchResult = memberHomePage.leftMenu.searchEvent(event.getMarketName()).getText().trim();
+        log("Verify 3: No result found display when search Market invalid input value");
+        Assert.assertEquals(searchResult, NO_RESULTS_FOUND, "FAILED! Result does not match");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "1055")
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void HomePage_1055() {
+        log("@title: Validate Left menu display all sport available when active Home/In play menu");
+        log("Step 1: Click on Home menu");
+        List<String> sportsLeftMenuList = memberHomePage.leftMenu.getLeftMenuList();
+        List<String> sportsHeaderList = memberHomePage.getListHeaderMenu();
+        log("Verify 1: Sports display all sports");
+        Assert.assertTrue(sportsLeftMenuList.containsAll(sportsHeaderList), "FAILED! Sports is not displayed");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "1056")
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void HomePage_1056() {
+        log("@title: Validate Left menu navigation is correctly");
+        List<String> eventList;
+        List<String> competitionList;
+        log("Step 1: Click on any sport then get it's competitions");
+        memberHomePage.leftMenu.waitMenuLoading();
+        memberHomePage.leftMenu.clickSport(LBL_TENNIS_SPORT);
+        competitionList = memberHomePage.leftMenu.getLeftMenuList();
+        if (Objects.isNull(competitionList)) {
+            throw new AssertionError("FAILED! List of left menu is null");
+        }
+        log("Step 2: Click on any competition and get event list");
+        memberHomePage.leftMenu.clickCompetition(0);
+        eventList = memberHomePage.leftMenu.getLeftMenuList();
+        log("Step 3: Click on any event and get market list");
+        memberHomePage.leftMenu.clickEvent(0);
+        log("Step 4: Click on any market");
+        memberHomePage.leftMenu.clickMarket(memberHomePage.leftMenu.getMarketList().get(0));
+        log("Step 5: Click on select competition at  step 2");
+        memberHomePage.leftMenu.clickCompetition(0);
+        log("Verify 1: At step 5 verify only event list display");
+        Assert.assertEquals(eventList, memberHomePage.leftMenu.getLeftMenuList(), "FAILED! NOT only event list display not correct");
+        log("Step 6: Click on the sport again");
+        memberHomePage.leftMenu.clickSport(LBL_TENNIS_SPORT);
+        log("Verify 2: At step 6 verify only competition display as step 1");
+        Assert.assertEquals(competitionList, memberHomePage.leftMenu.getLeftMenuList(),
+                "FAILED! NOT only competition list display not correct");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "1058")
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void HomePage_1058() {
+        log("@title: Validate can open Change Password popup (by close button)");
+        log("Step 1: Click My Account > Change Password");
+        memberHomePage.waitMenuLoading();
+        ChangePasswordPopup popup = memberHomePage.header.openChangePasswordPopup();
+        log("Verify 1: Update Password popup display:\n" +
+                "Update Password header\n" +
+                "\n" +
+                "New Password, New Password Confirmation, Current Password textbox, Close, Save Change button");
+        popup.verifyChangePasswordUI();
+        log("Step 2: Click Close button to close the popup");
+        popup.closePopup();
+        log("Verify 2: Change password popup disappear");
+        Assert.assertFalse(popup.isDisplayed(), "Failed! The popup is display after click close button");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "1060")
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void HomePage_1060() {
+        log("@title: Validate Account Statement, My Bets, Profit & Loss, My Last Login is active in the same tab ");
+        log("Step 1: Click My Account > Account Statement");
+        memberHomePage.waitMenuLoading();
+        memberHomePage.header.openAccountStatement(_brandname);
+        log("Verify 1: Account Statement display in new tab");
+        memberHomePage.header.verifyPageOpenInNewTab("account-statement", true);
+        log("Step 2: Click My Account > My Bets");
+        memberHomePage.header.openMyBets(_brandname);
+        log("Verify 2: My Bets display in new tab");
+        memberHomePage.header.verifyPageOpenInNewTab("my-bet", true);
+        log("Step 3: Click My Account > Profit & Loss");
+        memberHomePage.header.openProfitAndLoss(_brandname);
+        log("Verify 3: Profit & Loss display in new tab");
+        memberHomePage.header.verifyPageOpenInNewTab("profit-loss", true);
+        log("Step 4: Click My Account > My Last Login");
+        memberHomePage.header.openMyLastLogins(_brandname);
+        log("Verify 4: My Last Login display in new tab");
+        memberHomePage.header.verifyPageOpenInNewTab("user-activities", true);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "1061")
+    @Test(groups = {"regression", "MER.Implementation.V.1.0"})
+    public void HomePage_1061() {
+        log("@title: Validate Home page display when clicking on the logo");
+        log("Step 1: Click My Account > Account Statement");
+        AccountStatementPage accountStatementPage = memberHomePage.header.openAccountStatement(_brandname);
+        log("Step 2: Click Logo Image");
+        accountStatementPage.homeIcon.click();
+        log("Verify 1: Home page is displayed");
+        Assert.assertEquals(memberHomePage.header.getMyBetsLabel(), MY_BETS, "FAILED! Home page is not displayed");
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "496")
-    @Test(groups = {"smoke"})
-    public void HomePage_496(String skinName) {
+    @Test(groups = {"smoke", "nolan_stabilize"})
+    public void HomePage_496() {
         log("@title: Validate can collapse/expand left menu");
         log("Step 1. Click on Menu icon in the top left corner");
         memberHomePage.expandLeftMenu();

@@ -1,14 +1,10 @@
 package membersite.pages.components.accountstatement;
 
-import com.paltech.element.common.Button;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.Link;
-import com.paltech.element.common.TextBox;
+import com.paltech.element.common.*;
 import common.MemberConstants;
 import controls.DateTimePicker;
 import controls.Table;
 import membersite.utils.betplacement.BetUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -46,8 +42,6 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
     private int colProfitLost = 7;
     private int colStatus = 8;
     public Table tblDetailReport = Table.xpath("//app-group-betdetail//table[contains(@aria-describedby,'table')]", totalDetailColumn);
-
-
     public void filter(String startDate, String endDate) {
         tblReport.isDisplayed();
         tblReport.getColumnNamesOfTable();
@@ -196,7 +190,5 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
     public List<String> getReportDetailHeader() {
         return tblDetailReport.getColumnNamesOfTable(1);
     }
-
-
 
 }

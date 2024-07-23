@@ -9,6 +9,7 @@ import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,8 @@ public class WinLossDetailTest extends BaseCaseTest {
      * @expect: 1. Can drill down to member level, at Member level there no hyperlink
      */
     @Test(groups = {"smoke"})
-    public void BO_Report_WinLossDetail_001() {
+    @TestRails(id = "33928")
+    public void BO_Report_WinLossDetail_33928() {
         log("@title: Validate can drill down to member level");
         log("Step 1: Navigate Reports > Win Loss Details");
         WinLossDetailPage page = backofficeHomePage.navigateWinLossDetails();
@@ -65,9 +67,10 @@ public class WinLossDetailTest extends BaseCaseTest {
      * 3. If there is more than 1 Portal display data. Filter a portal in the list
      * @expect: 1. Verify only the filtered portal is displayed
      */
-    @Test(groups = {"smoke"})
-    public void BO_Report_WinLossDetail_004() {
-        log("@title: Validate can drill down to member level");
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @TestRails(id = "33927")
+    public void BO_Report_WinLossDetail_33927() {
+        log("@title: Validate can filter portal");
         log("Step 1: Navigate Reports > Win Loss Details");
         String fromDate = DateUtils.getDate(-5, "dd/MM/yyyy", BOConstants.GMT_FOUR);
         String toDate = DateUtils.getDate(0, "dd/MM/yyyy", BOConstants.GMT_FOUR);
@@ -85,10 +88,7 @@ public class WinLossDetailTest extends BaseCaseTest {
         page.filter(fromDate, toDate, "Exchange", lstPortal.get(0).get(1), "All");
 
         log("Verify  1. Verify only the filtered portal is displayed");
-        List<String> lstPO = page.tblWinLossDetail.getColumn(page.colUsername, false);
-        Assert.assertEquals(lstPO.get(0), lstPortal.get(0).get(1), "FAILED! Portal does not display as searching");
-        Assert.assertTrue(lstPO.size() == 2, "Failed! More than 1 portals display when only filter 1 portal");
-        Assert.assertTrue(page.isUsernameAsHyperlink("Portal"), "FAILED! Username displays as hyperlink when level is Member");
+        page.verifyFilterResultCorrect("","","",lstPortal.get(0).get(1), "");
         log("INFO: Executed completely");
     }
 
@@ -101,7 +101,8 @@ public class WinLossDetailTest extends BaseCaseTest {
      * @expect: 1. Verify tab display all products
      */
     @Test(groups = {"smoke"})
-    public void BO_Report_WinLossDetail_006() {
+    @TestRails(id = "33929")
+    public void BO_Report_WinLossDetail_33929() {
         log("@title: Validate Transaction Detail display all product if filter all product");
         log("Step 1: Navigate Reports > Win Loss Details");
         String fromDate = DateUtils.getDate(-30, "dd/MM/yyyy", BOConstants.GMT_FOUR);
@@ -138,7 +139,8 @@ public class WinLossDetailTest extends BaseCaseTest {
      * 3. Items on Type Portal dropdown-box are loaded correctly
      */
     @Test(groups = {"smoke"})
-    public void BO_Report_WinLossDetail_007() {
+    @TestRails(id = "33930")
+    public void BO_Report_WinLossDetail_33930() {
         log("@title: Validate that this page loading is successful");
         List<String> lstPortals = WinLossDetailUtils.getPortals();
 
@@ -170,7 +172,7 @@ public class WinLossDetailTest extends BaseCaseTest {
      * 3. Filter with default value
      * @expect: 1. Total wager displayed at Total Wager column on this table is correct
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke_s"})
     public void BO_Report_WinLossDetail_003() {
         log("@title: Validate that Total wager displayed at Total Wager column on this table is correct");
         String yesterday = DateUtils.getDateBeforeCurrentDate(1, BOConstants.DASH_YYYY_MM_DD);

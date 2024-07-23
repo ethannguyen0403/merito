@@ -26,7 +26,12 @@ public class SuccessPopup extends BaseElement {
     }
 
     public String getContentMessage() {
-        lblContent.isDisplayed(1);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        lblContent.isDisplayed();
         return lblContent.getText();
     }
 

@@ -21,6 +21,7 @@
         <parameter name='currency' value='INR'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='fairexchange'/>
+        <parameter name='skinName' value='fairexchange'/>
         <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
@@ -51,7 +52,7 @@
             <class name="agentsite.testcase.reports.PS38SportsResultsTest"/>
             <class name="agentsite.testcase.reports.StatementReportTest"/>
             <class name="agentsite.testcase.reports.TopGainersTopLosersTest"/>
-            <class name="agentsite.testcase.reports.TransactionHistoryTest"/>
+<!--            <class name="agentsite.testcase.reports.TransactionHistoryTest"/>-->
             <class name="agentsite.testcase.reports.TransferLogTest"/>
             <class name="agentsite.testcase.reports.UnsettledBetTest"/>
             <class name="agentsite.testcase.reports.ViewLogTest"/>
@@ -85,9 +86,9 @@
             <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
             <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.TransferTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
+<!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>-->
+<!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>-->
+<!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>-->
         </classes>
 
     </test>

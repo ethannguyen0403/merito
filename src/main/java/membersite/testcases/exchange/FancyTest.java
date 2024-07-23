@@ -25,7 +25,7 @@ import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 
 public class FancyTest extends BaseCaseTest {
     @TestRails(id = "549")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void FancyTest_549() {
         log("@title: Validate can place bet on Fancy market page");
         log("@Precondition: Get the event that have Fancy market");
@@ -70,7 +70,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "550")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void FancyTest_550() {
         log("@title: Validate exposure is kept correctly when place on No");
         log("@Precondition: Get the event that have Fancy market");
@@ -141,7 +141,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "551")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void FancyTest_551() {
         log("@title: Validate exposure is kept correctly when place on Yes and No");
         log("@Precondition: Get the event that have Fancy market");
@@ -172,7 +172,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "552")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void FancyTest_552() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
@@ -207,7 +207,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "553")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void FancyTest_553() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
@@ -241,7 +241,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "554")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
     public void FancyTest_554() {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");

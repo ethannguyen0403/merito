@@ -3,6 +3,8 @@ package agentsite.pages.agentmanagement.taxsettinglisting;
 
 import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.Label;
+import common.AGConstant;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,4 +85,23 @@ public class OldUITaxSettingListing extends TaxSettingListing {
         return true;
     }
 
+    public void verifyUITaxSetting(String userCode) {
+        Assert.assertTrue(txtUsername.isDisplayed(), "FAILED Username textbox not display");
+        Assert.assertTrue(ddbAccountStatus.isDisplayed(), "FAILED Account Status Dropdown not display");
+        Assert.assertTrue(ddbProduct.isDisplayed(), "FAILED Product Dropdown not display");
+        Assert.assertEquals(btnSearch.getText(), AGConstant.BTN_SUBMIT, "FAILED Search button text should be Submit");
+        Assert.assertTrue(txtSoccer.isDisplayed(), "FAILED! Soccer textbox not display");
+        Assert.assertTrue(txtCricket.isDisplayed(), "FAILED! Cricket textbox not display");
+        Assert.assertTrue(txtTennis.isDisplayed(), "FAILED! Tennis textbox not display");
+        Assert.assertTrue(txtBasketball.isDisplayed(), "FAILED! Basketball textbox not display");
+        Assert.assertTrue(txtOther.isDisplayed(), "FAILED! Other textbox not display");
+        Assert.assertTrue(lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
+        Assert.assertEquals(tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX_SAT, "FAILED! Table header not match with the expected");
+    }
+
+    public List<String> getListLoginId() {
+        waitingLoadingSpinner();
+        List<String> lstMembers = tblTax.getColumn(loginIDCol, false);
+        return lstMembers;
+    }
 }

@@ -36,9 +36,9 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Verify 1: Sport dropdown with selected value = All by default");
         Assert.assertTrue(page.betSettingSectionPS38.ddbSportsPS38.getFirstSelectedOption().equals(ALL), "FAILED! Sport dropdown selected value is NOT All");
         log("Verify 2: Pregame tab is active with the checkbox \"Copy all Limits for all Sports and Leagues for Pregame ONLY from the sport below\" is ticked by default");
-        page.betSettingSectionPS38.verifyPS38TabIsCorrect(PREGAME_TAB_PS38, CHECKBOX_MESSAGE_PS38);
+        page.betSettingSectionPS38.verifyPS38TabIsCorrect(PREGAME_TAB_PS38, CHECKBOX_MESSAGE_PS38_BET_SETTING);
         log("Verify 3: The list sports: Soccer, Baseball, Basketball, Football, E Sports, Others, Mix Parlay, Teaser");
-        Assert.assertEquals(page.betSettingSectionPS38.tblBetSettingPS38.getColumnByBody(1, false), LIST_SPORTS_PS38, "FAILED! List sports of PS38 incorrect");
+        Assert.assertEquals(page.betSettingSectionPS38.tblBetSettingPS38.getColumnByBody(1, false), LIST_SPORTS_PS38_BET_SETTING, "FAILED! List sports of PS38 incorrect");
         Assert.assertEquals(page.betSettingSectionPS38.tblBetSettingPS38.getHeaderNameOfRows(), HEADER_BET_SETTING_PS38, "FAILED! Header name is incorrect ");
         log("Verify 4: Min bet value and setting 1 and >= HKD 1 for all sports\n" +
                 "Max bet value and setting 10 and <= HKD 100,000,000 for all sports\n" +
@@ -60,9 +60,9 @@ public class CreateCompanyTest extends BaseCaseTest {
         page.selectProduct(PS38);
         log("Step 4: Click on Inlay tab");
         log("Verify 1: Inplay tab is active with the checkbox \"Copy all Limits for all Sports and Leagues for Inlay ONLY from the sport below\" is ticked by default");
-        page.betSettingSectionPS38.verifyPS38TabIsCorrect(INPLAY_TAB_PS38, CHECKBOX_MESSAGE_PS38);
+        page.betSettingSectionPS38.verifyPS38TabIsCorrect(INPLAY_TAB_PS38, CHECKBOX_MESSAGE_PS38_BET_SETTING);
         log("Verify 2: Bet Setting section display the first column with the list sports: Soccer, Baseball, Basketball, Football, E Sports, Others, Mix Parlay, Teaser and header table : Min Bet, Max Bet, Max per Match");
-        Assert.assertEquals(page.betSettingSectionPS38.tblBetSettingPS38.getColumnByBody(1, false), LIST_SPORTS_PS38, "FAILED! List sports of PS38 incorrect");
+        Assert.assertEquals(page.betSettingSectionPS38.tblBetSettingPS38.getColumnByBody(1, false), LIST_SPORTS_PS38_BET_SETTING, "FAILED! List sports of PS38 incorrect");
         Assert.assertEquals(page.betSettingSectionPS38.tblBetSettingPS38.getHeaderNameOfRows(), HEADER_BET_SETTING_PS38, "FAILED! Header name is incorrect ");
         log("Verify 4: Min bet value and setting 1 and >= HKD 1 for all sports\n" +
                 "Max bet value and setting 10 and <= HKD 100,000,000 for all sports\n" +
@@ -99,7 +99,7 @@ public class CreateCompanyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4045")
-    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0"})
+    @Test(groups = {"ps38_po", "Proteus.2024.V.1.0", "Revised"})
     @Parameters({"currency"})
     public void PS38_Agent_TC4045(String currency) {
         log("@title: Validate in Agent site > Create Company, confirm message display if update setting in Pregame then switch to In-play tab");
@@ -161,7 +161,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         page.btnSwitchTab.click();
 
         log("Verify 1: Verify user is able switch to Inplay tab");
-        Assert.assertEquals(page.betSettingSectionPS38.lblCheckboxPS38.getText().trim(), String.format(CHECKBOX_MESSAGE_PS38, INPLAY_TAB_PS38),
+        Assert.assertEquals(page.betSettingSectionPS38.lblCheckboxPS38.getText().trim(), String.format(CHECKBOX_MESSAGE_PS38_BET_SETTING, INPLAY_TAB_PS38),
                 String.format("FAILED! Checkbox message of tab: %s incorrect", INPLAY_TAB_PS38));
     }
 
@@ -185,7 +185,7 @@ public class CreateCompanyTest extends BaseCaseTest {
         page.btnCancelSwitchTab.click();
 
         log("Verify 1: Verify user is still at Pregame tab");
-        Assert.assertEquals(page.betSettingSectionPS38.lblCheckboxPS38.getText().trim(), String.format(CHECKBOX_MESSAGE_PS38, PREGAME_TAB_PS38),
+        Assert.assertEquals(page.betSettingSectionPS38.lblCheckboxPS38.getText().trim(), String.format(CHECKBOX_MESSAGE_PS38_BET_SETTING, PREGAME_TAB_PS38),
                 String.format("FAILED! Checkbox message of tab: %s incorrect", PREGAME_TAB_PS38));
     }
 
@@ -205,10 +205,10 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Verify 1: In Pregame tab, only Min, Max, Max per Match textbox of Soccer is enable, other is disable");
         List<String> betSettingList = new ArrayList<>(HEADER_BET_SETTING_PS38);
         betSettingList.remove(0); // remove blank cell in header list
-        Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(Arrays.asList(LIST_SPORTS_PS38.get(0)), betSettingList, true),
-                String.format("FAILED! Sport row: %s is not Enable", LIST_SPORTS_PS38.get(0)));
+        Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(Arrays.asList(LIST_SPORTS_PS38_BET_SETTING.get(0)), betSettingList, true),
+                String.format("FAILED! Sport row: %s is not Enable", LIST_SPORTS_PS38_BET_SETTING.get(0)));
 
-        List<String> sportsList = new ArrayList<>(LIST_SPORTS_PS38);
+        List<String> sportsList = new ArrayList<>(LIST_SPORTS_PS38_BET_SETTING);
         sportsList.remove(0); //remove first sport because it is enable by default
         Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(sportsList, betSettingList, false),
                 "FAILED! Some sport rows is not Disable. List sport row: " + sportsList);
@@ -231,8 +231,8 @@ public class CreateCompanyTest extends BaseCaseTest {
         log("Verify 1: In Pregame tab. All texboxes are enable to edit");
         List<String> betSettingList = new ArrayList<>(HEADER_BET_SETTING_PS38);
         betSettingList.remove(0); // remove blank cell in header list
-        Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(LIST_SPORTS_PS38, betSettingList, true),
-                "FAILED! Some sport rows is not enable. List sport row: " + LIST_SPORTS_PS38);
+        Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(LIST_SPORTS_PS38_BET_SETTING, betSettingList, true),
+                "FAILED! Some sport rows is not enable. List sport row: " + LIST_SPORTS_PS38_BET_SETTING);
     }
 
     @TestRails(id = "4051")
@@ -252,10 +252,10 @@ public class CreateCompanyTest extends BaseCaseTest {
 
         log("Verify 1: In Inplay tab, only Min, Max textbox of Soccer is enable, other is disable");
         List<String> betSettingList = new ArrayList<>(Arrays.asList(HEADER_BET_SETTING_PS38.get(1), HEADER_BET_SETTING_PS38.get(2)));
-        Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(Arrays.asList(LIST_SPORTS_PS38.get(0)), betSettingList, true),
-                String.format("FAILED! Sport row: %s is not Enable", LIST_SPORTS_PS38.get(0)));
+        Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(Arrays.asList(LIST_SPORTS_PS38_BET_SETTING.get(0)), betSettingList, true),
+                String.format("FAILED! Sport row: %s is not Enable", LIST_SPORTS_PS38_BET_SETTING.get(0)));
 
-        List<String> sportsList = new ArrayList<>(LIST_SPORTS_PS38);
+        List<String> sportsList = new ArrayList<>(LIST_SPORTS_PS38_BET_SETTING);
         sportsList.remove(0); //remove first sport because it is enable by default
         Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(sportsList, betSettingList, false),
                 "FAILED! Some sport rows is not Disable. List sport row: " + sportsList);
@@ -279,10 +279,11 @@ public class CreateCompanyTest extends BaseCaseTest {
         page.betSettingSectionPS38.chkTabPS38.deSelect();
 
         log("Verify 1: In Inplay tab. All Min, Max texboxes are enable to edit, Max per Match is disable");
-        Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(LIST_SPORTS_PS38, Arrays.asList(HEADER_BET_SETTING_PS38.get(1), HEADER_BET_SETTING_PS38.get(2)), true),
-                "FAILED! Some sport rows with Min, max are not enable. List sport row: " + LIST_SPORTS_PS38);
-        Assert.assertTrue(!page.betSettingSectionPS38.isSportPS38InputEnable(LIST_SPORTS_PS38, Arrays.asList(HEADER_BET_SETTING_PS38.get(3)), true),
-                "FAILED! Some sport rows with Match per match is not disable. List sport row: " + LIST_SPORTS_PS38);
+        Assert.assertTrue(page.betSettingSectionPS38.isSportPS38InputEnable(
+                        LIST_SPORTS_PS38_BET_SETTING, Arrays.asList(HEADER_BET_SETTING_PS38.get(1), HEADER_BET_SETTING_PS38.get(2)), true),
+                "FAILED! Some sport rows with Min, max are not enable. List sport row: " + LIST_SPORTS_PS38_BET_SETTING);
+        Assert.assertTrue(!page.betSettingSectionPS38.isSportPS38InputEnable(LIST_SPORTS_PS38_BET_SETTING, Arrays.asList(HEADER_BET_SETTING_PS38.get(3)), true),
+                "FAILED! Some sport rows with Match per match is not disable. List sport row: " + LIST_SPORTS_PS38_BET_SETTING);
     }
 
     @TestRails(id = "4053")
@@ -403,5 +404,18 @@ public class CreateCompanyTest extends BaseCaseTest {
         String lblLeagueSetting = String.format("%s: %s", LBL_SOCCER_SPORT,  page.betSettingSectionPS38.ddbLeaguePS38.getFirstSelectedOption().trim());
         log(String.format("Verify 1: The league: %s is add under sport and inherit value and setting of General sport", lblLeagueSetting));
         page.betSettingSectionPS38.verifyBetSettingSpecificSportConvertToCurrency(lblLeagueSetting, 1, AMOUNT_MIN_BET_PS38_HKD, AMOUNT_MAX_BET_PS38_HKD, AMOUNT_MAX_PER_MATCH_PS38_HKD);
+    }
+
+    @TestRails(id = "9443")
+    @Test(groups = {"ps38_po_fair999", "nolan_Proteus.2024.V.3.0", "Cash_out"})
+    public void PS38_Agent_Cash_out_TC9443() {
+        log("@title: Validate showing one more checkbox 'Allow cash out' for PS38 at PO level");
+        log("Precondition: Log in successfully by PO level");
+        log("Step 1: In agent site, navigate Agency Management > Creat CO");
+        CreateCompanyPage page = agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
+        log("Verify 1: Show the checkbox 'Allow cash out' for PS38 on Agent site\n" +
+                "\n");
+        Assert.assertEquals(page.lblCashOut.getText(), ALLOW_CASH_OUT, "FAILED! Label Allow Cash out is not displayed");
+        Assert.assertEquals(page.lblCashOutPS38.getText(), PS38, "FAILED! Label Check box PS38 is not displayed");
     }
 }

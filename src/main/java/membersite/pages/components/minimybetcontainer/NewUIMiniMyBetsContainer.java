@@ -3,8 +3,10 @@ package membersite.pages.components.minimybetcontainer;
 import com.paltech.element.common.*;
 import membersite.controls.MiniMyBetControl;
 import membersite.objects.Wager;
+import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
 import membersite.utils.betplacement.BetUtils;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     private Label lblBetslipErrorMessage = Label.xpath("//div[contains(@class,'betslip-error')]");
     private Label lblErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
     private Link lnkCancelAll = Link.xpath("//div[contains(@class,'cancel-all-bet')]//a");
+    private String lblProfitLiabilityXPath = "//app-matched-bets//span[contains(@class,'col-3 text-right')]";
     private CheckBox chkAverageOdds = CheckBox.xpath("//label[contains(@class,'chk-average-odds')]");
     private CheckBox chkOrderByMatchedDate = CheckBox.id("order-matched-date");
     private CheckBox chkBetInfo = CheckBox.xpath("/div[@class='betslip-content']//input[@id='show-bet-info']");
@@ -25,6 +28,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     private Label lblUnMatched = Label.xpath("//div[@class='unmatched-bets']");
     private Icon iconRemoveBet;
     private Image imgSpin = Image.xpath("//div[contains(@class,'la-ball-clip-rotate')]");
+    private Label lblAccepting = Label.xpath("//div[contains(@class,'loading-text ng-tns-c44-2')]");
     public Button btnMultipleBetslip = Button.xpath("//app-bet-slip//button[text()='Multiple']");
 
     public void cancelAllBetUnmatched() {
@@ -35,6 +39,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
         return lblBetslipErrorMessage.getText();
     }
     public String getPlaceBetErrorMessage() {
+        lblAccepting.waitForControlInvisible(1, 3);
         return lblErrorMessage.getText();
     }
 
@@ -80,10 +85,19 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
                 .build();
     }
 
+    @Override
+    public void verifyInfoBetSlipAndOddsPage(Market market, Order order) {
+        String actualLiability = Label.xpath(lblProfitLiabilityXPath).getText().trim();
+        String expectedLiability = String.format("%.2f", order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
+        Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Liability of selection is not correct");
+        Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
+        Assert.assertEquals(String.format("%.2f",Double.valueOf(market.getBtnOdd().getText())), order.getOdds(), "FAILED! Odds is not corrct");
+    }
+
     public void removeBet(boolean isBack) {
         String layOrBack = isBack ? "back" : "lay";
 
-        iconRemoveBet = Icon.xpath(String.format("(//app-unmatched-bets%s//span[@class='remove-bet'])[1]", String.format(xPathSelection, layOrBack)));
+        iconRemoveBet = Icon.xpath(String.format("(//app-unmatched-bets%s//span[contains(@class,'remove-bet')])[1]", String.format(xPathSelection, layOrBack)));
         iconRemoveBet.click();
         imgSpin.waitForControlInvisible();
     }

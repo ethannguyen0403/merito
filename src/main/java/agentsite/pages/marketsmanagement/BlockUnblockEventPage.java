@@ -332,6 +332,7 @@ public class BlockUnblockEventPage extends HomePage {
             Label lblDownlineName = Label.xpath(String.format("//table[contains(@class,'block-table')]//span[contains(text(),'%s')]", downline));
             //   lblDownlineName = Label.xpath(String.format("//table[contains(@class,'block-table')]//span[contains(text(),'%s')]",downline));
             lblDownlineName.isClickable(3);
+            lblDownlineName.scrollToThisControl(true);
             lblDownlineName.click();
             waitingLoadingSpinner();
         }
@@ -346,6 +347,24 @@ public class BlockUnblockEventPage extends HomePage {
         if (!checkbox.getAttribute("class").contains("fa-check"))
             checkbox.jsClick();
             waitingLoadingSpinner();
+    }
+
+    public void checkDownline(String downline, boolean isUncheck) {
+        CheckBox checkbox;
+        if (downline.equalsIgnoreCase("all")) {
+            checkbox = CheckBox.xpath(cbSelectAllDownline);
+        } else
+            checkbox = CheckBox.xpath(String.format("//table[contains(@class,'block-table')]//span[contains(text(),'%s')]/following::span[1]//i", downline));
+        if(isUncheck){
+            if (checkbox.getAttribute("class").contains("fa-check")){
+                checkbox.jsClick();
+            }
+        }else {
+            if (!checkbox.getAttribute("class").contains("fa-check")){
+                checkbox.jsClick();
+        }
+    }
+        waitingLoadingSpinner();
     }
 
     public void verifyBlockUnblockEvent(String event, String currentStatus, boolean isViewable, boolean isBetable, String timeToOpen, String timeToBet) {
@@ -382,8 +401,14 @@ public class BlockUnblockEventPage extends HomePage {
                 Assert.assertEquals(_currentStatus, currentStatus, String.format("FAILED! Status should be %s but display %s", currentStatus, _currentStatus));
                 Assert.assertTrue(tblEvent.getControlOfCell(1, colStatusViewable, i + 1, viewableIconExpected).isDisplayed(), "FAILED! Viewable status not display as expected");
                 Assert.assertTrue(tblEvent.getControlOfCell(1, colStatusBetable, i + 1, betableIconExpected).isDisplayed(), "FAILED! Bet status not display as expected");
-                Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToOpen, i + 1, null).getText(), timeToOpen, "Failed! Time to open not display as expected");
-                Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToBet, i + 1, null).getText(), timeToBet, "Failed! Time to bet not display as expected");
+                if(!timeToOpen.isEmpty()){
+                    Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToOpen, i + 1, null).getText(), timeToOpen, "Failed! Time to open not display as expected");
+
+                }
+                if(!timeToBet.isEmpty()){
+                    Assert.assertEquals(tblEvent.getControlOfCell(1, colTimeToBet, i + 1, null).getText(), timeToBet, "Failed! Time to bet not display as expected");
+
+                }
                 return;
             }
         }

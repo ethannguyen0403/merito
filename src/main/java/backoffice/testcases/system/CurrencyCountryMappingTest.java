@@ -3,7 +3,7 @@ package backoffice.testcases.system;
 import backoffice.common.BOConstants;
 import backoffice.pages.bo.system.CurrencyCountryMappingPage;
 import baseTest.BaseCaseTest;
-import com.paltech.constant.Helper;
+import com.paltech.utils.StringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -54,64 +54,30 @@ public class CurrencyCountryMappingTest extends BaseCaseTest {
     @Test(groups = {"regression"})
     @Parameters({"fsMemberLoginID", "username", "password"})
     public void BO_System_Currency_Country_Mapping_657(String fsMemberLoginID, String username, String password) throws Exception {
+        //this case should run with context brandname = funsport
+        _brandname = "funsport";
         log("@title: Validate Map/unmap countries works");
-        log("Step 1. Access Operations > Currency - Country Mapping");
         String currencyCode = "PTI";
-        String vietNameCountry = "Vietnam";
         String itTestCountry = "IT Test Country";
-        CurrencyCountryMappingPage page;
-        //TODO: implement this case
-        Assert.assertTrue(false, "Need to implement this case");
-        log("INFO: Executed Completely!");
+        log("Step 1 Access Operations > Currency - Country Mapping");
+        CurrencyCountryMappingPage pageMapping = backofficeHomePage.navigateCurrencyCountryMapping();
+        log(String.format("Step 2: Select a currency %s and Unmap the ip IT Test Country", currencyCode));
+        pageMapping.mapCurrency(currencyCode, itTestCountry, false, true);
         try {
-            // log("Step 2. Select a currency and map the ip IT Test Country amd Vietnam");
-            // default ip is mapped in post condition:
-//            log("Step 1. Navigate to Curency Country Mapping ");
-//            // switch to old tab and unmap IP
-//            page = backofficeHomePage.navigateCurrencyCountryMapping();
-//
-//            log("Step 2.1 UnMap PTI to Viet Nam ");
-//            page.mapCurrency(currencyCode, vietNameCountry, false);
-//
-//            log("Step 2.2 UnMap PTI to IT Test Country");
-//            page.mapCurrency(currencyCode, itTestCountry, false);
-//
-//            log("Verify 3. Verify can unmap IP successfully");
-//            Assert.assertEquals(page.lblSuccessAlert.getText(), BOConstants.Operations.CurrencyCountryMapping.SUCCESS_MSG, "FAILED! Success message does not correct");
-//            page.logout();
-//            log("Verify 1. Verify can map IP successfully");
-//            log("Step 5. Re-login member site");
-            //BaseCaseMember.loginMemberviaUI(environment.getFunsportLoginURL(),fsMemberLoginID,StringUtils.decrypt(password));
-           /* login(fsMemberLoginID,StringUtils.decrypt(password));
-            LandingPage landingPage = new LandingPage();
-
-            log("Verify 4. Can not login from IT test country IP when unmapping" +
-                    "The message - [Login fail. Your currency does not match with your location.] display after login");
-            LoginPopup popup = landingPage.fsHeaderControl.clickLoginBtn();
-            popup.lblErrorMessage.isTextDisplayed("Login fail. Your currency does not match with your location.",3);
-            Assert.assertEquals(popup.lblErrorMessage.getText(),"Login fail. Your currency does not match with your location.","FAILED! Mapping error not display");
-*/
-//            log("INFO: Executed completely");
-        } catch (Exception e) {
-            e.printStackTrace();
+            log("Verify 1. Can not login from IT test country IP when unmapping");
+            loginMember("", "", false, "", "", false);
+            Assert.assertEquals(landingPage.loginInvalid(fsMemberLoginID, StringUtils.decrypt(password)), BOConstants.Operations.CurrencyCountryMapping.ERROR_LOGIN_MSG, "FAILED! Login member successfully");
         } finally {
-//
-//            Helper.loginBOIgnoreCaptcha(backofficeSOSUrl, backofficeDashboardUrl, username, password, true);
-//            page = backofficeHomePage.navigateCurrencyCountryMapping();
-//            log("Step PostCondition 1. Active IP for PTI currency by default");
-//            page.mapCurrency(currencyCode, vietNameCountry, true);
-//            page.mapCurrency(currencyCode, itTestCountry, true);
+            log(String.format("Step 3: Select a currency %s and map the ip IT Test Country", currencyCode));
+            loginBackoffice(username,password, true);
+            backofficeHomePage.navigateCurrencyCountryMapping();
+            pageMapping.mapCurrency(currencyCode, itTestCountry, true, true);
 
-//            log("Step Post-condition 2 Logout BO");
-//            page.logout();
-//
-//            log("Step Post-condition 2  Login member site with the account has the currency that mapping IP");
-//            BaseCaseMember.loginMemberviaUI(environment.getFunsportLoginURL(),fsMemberLoginID, StringUtils.decrypt(password));
-//            .tabexchange.backofficeHomePage exchangeHome = new pages.fairexchange.tabexchange.backofficeHomePage();
-//
-//            log("Verify Post-condition: Can login member from IT test country IP");
-//            Assert.assertTrue(exchangeHome.ddbMyAccount.isDisplayed(),"FAILED! Cannot login successfull");
-//            exchangeHome.logout();
+            log("Verify 1. Can login from IT test country IP when mapping");
+            loginMember(_brandname, fsMemberLoginID, password);
+            Assert.assertTrue(memberHomePage.isLoginSuccess(), "FAILED! Login unsuccessfully");
+            log("@Post condition: Re mapping currency with country");
+            log("INFO: Executed Completely!");
         }
     }
 

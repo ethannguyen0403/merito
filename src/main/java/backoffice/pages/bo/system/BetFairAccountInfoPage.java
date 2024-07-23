@@ -4,6 +4,8 @@ import backoffice.controls.Table;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.pages.bo.system.productmaintenance.BetFairAccountChangeLogPopup;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BetFairAccountInfoPage extends HomePage {
@@ -34,6 +36,21 @@ public class BetFairAccountInfoPage extends HomePage {
             }
         }
         return null;
+    }
+
+    public List<String> getBalanceAndExposure(String product) {
+        List<ArrayList<String>> bfInfo = tblBFAccount.getRowsWithoutHeader(1, false);
+        if(product.equalsIgnoreCase("exchange")) {
+            String exAvailableBalance = bfInfo.get(0).get(colEXAvailableBalance - 1);
+            String exExposureLimit = bfInfo.get(0).get(colEXExposureLimit - 1);
+            String exCurrentExposure = bfInfo.get(0).get(colEXCurrentExposure - 1);
+            return Arrays.asList(exAvailableBalance, exExposureLimit, exCurrentExposure);
+        } else {
+            String egAvailableBalance = bfInfo.get(0).get(colEGAvailableBalance - 1);
+            String egExposureLimit = bfInfo.get(0).get(colEGExposureLimit - 1);
+            String egCurrentExposure = bfInfo.get(0).get(colEGCurrentExposure - 1);
+            return Arrays.asList(egAvailableBalance, egExposureLimit, egCurrentExposure);
+        }
     }
 
 }

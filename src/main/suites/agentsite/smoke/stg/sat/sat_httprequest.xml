@@ -12,12 +12,18 @@
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='true'/>
         <parameter name='username' value='corpinr2'/>
+        <parameter name='level' value='SAD'/>
+        <parameter name='levelLogin' value='Senior Admin'/>
+        <parameter name='downlineAccount' value='smaag1'/>
+        <parameter name='portalSubAccount' value='SASUBIS'/>
+        <parameter name='memberAccount' value='sabella1'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
-        <parameter name='isThrown' value='false'/>
-        <parameter name='currency' value='HKD'/>
+        <parameter name='isThrown' value='true'/>
+        <parameter name='currency' value='INR'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='satsport'/>
-        <parameter name='isAddTestRailResult' value='true'/>
+        <parameter name='skinName' value='satsport'/>
+        <parameter name='isAddTestRailResult' value='false'/>
         <groups>
             <run>
                 <include name="http_request"/>
@@ -84,6 +90,7 @@
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
+
         </classes>
 
     </test>

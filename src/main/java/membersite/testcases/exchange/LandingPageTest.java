@@ -95,6 +95,110 @@ public class LandingPageTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "29504")
+    @Test(groups = {"atlantic"})
+    @Parameters({"username"})
+    public void Landing_Page_TC29504(String username) {
+        log("@title: Attlantic2020 - Validate that user can sign in successfully with valid account");
+        log("Precondition: The player is added in Atlantic Access Management BO Site\n" +
+                "Login URL: STG: https://f48stg.beatus88.com/atlantic/#/home\n" +
+                "PRO: https://www.atlantic2020.com/atlantic/#/home");
+        log("@Step 1 Access Login URL");
+        log("@Step 2 Click CONSERVATION OF TUNA menu next to Home menu");
+        log("@Step 3 Click on the Atlantic words in the sentence \" the regulators of Atlantic bluefin fishing\" to show Username and Password text box");
+        log("@Step 4 Login with the valid account in precondition");
+
+        log("@Verify 1 The page directs to correct domain");
+        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getAtlanticURL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getAtlanticURL(), memberHomePage.getHomePageURL()));
+        log("@Verify 2 My account display correct login account");
+        Assert.assertTrue(memberHomePage.isMyAccountDisplay(), "Failed! My Account does not display after login");
+        Assert.assertTrue(memberHomePage.isMyAccountContains(username), "Failed! My Account does not display correct account name after login");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "29563")
+    @Test(groups = {"alpicfox"})
+    @Parameters({"username"})
+    public void Landing_Page_TC29563(String username) {
+        log("@title: Alpicfox - Validate that user can sign in successfully with valid account");
+        log("Precondition: The player is added in Atlantic Access Management BO Site\n" +
+                "Login URL:\n" +
+                "PRO: https://www.alpicfox.com/alpicfox/#/home");
+        log("@Step 1 Access Login URL");
+        log("@Step 2 Click on the word 'litter' to show Username and Password fields");
+        log("@Step 3 Login with the valid account in precondition");
+
+        log("@Verify 1 The page directs to correct domain");
+        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getAlpicfoxURL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getAlpicfoxURL(), memberHomePage.getHomePageURL()));
+        log("@Verify 2 My account display correct login account");
+        Assert.assertTrue(memberHomePage.isMyAccountDisplay(), "Failed! My Account does not display after login");
+        Assert.assertTrue(memberHomePage.isMyAccountContains(username), "Failed! My Account does not display correct account name after login");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "29564")
+    @Test(groups = {"crypto"})
+    @Parameters({"username"})
+    public void Landing_Page_TC29564(String username) {
+        log("@title: Cryptofact88 - Validate that user can sign in successfully with valid account");
+        log("Precondition: The player is added in BO Site - Crypto Access Management\n" +
+                "Login URL:\n" +
+                "STG: https://crystg.beatus88.com/forex/#/home\n" +
+                "PRO: https://www.cryptofact88.com/forex/#/home");
+        log("@Step 1 Access Login URL");
+        log("@Step 2 Click on 'How to own Bitcoin' next to Home menu");
+        log("@Step 3 Click on the work 'USD' or 'Euros' to show Username and Password fields");
+        log("@Step 4 Login with the valid account in precondition");
+
+        log("@Verify 1 The page directs to correct domain");
+        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getCryptoURL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getCryptoURL(), memberHomePage.getHomePageURL()));
+        log("@Verify 2 My account display correct login account");
+        Assert.assertTrue(memberHomePage.isMyAccountDisplay(), "Failed! My Account does not display after login");
+        Assert.assertTrue(memberHomePage.isMyAccountContains(username), "Failed! My Account does not display correct account name after login");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "29565")
+    @Test(groups = {"eu1010"})
+    @Parameters({"username"})
+    public void Landing_Page_TC29565(String username) {
+        log("@title: eu1010 - Validate that user can sign in successfully with valid account");
+        log("Precondition: The player of White label 9 brand 'eu1010.com'\n" +
+                "Login URL:\n" +
+                "STG: https://w9stg.beatus88.com/plus/#/1/home/exchange/main/all\n" +
+                "PRO: https://www.eu1010.com/plus/#/1/home/exchange/main/all");
+        log("@Step 1 Access Login URL");
+        log("@Step 2 At , click on '2. Origins of Wind Power' from 'Table of Contents' panel");
+        log("@Step 3 Click on the comma after the word 'grains' to show Username and Password fields");
+        log("@Step 4 Login with the valid account in precondition");
+
+        log("@Verify 1 The page directs to correct domain");
+        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getEu1010URL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getEu1010URL(), memberHomePage.getHomePageURL()));
+        log("@Verify 2 My account display correct login account");
+        Assert.assertTrue(memberHomePage.isMyAccountDisplay(), "Failed! My Account does not display after login");
+        Assert.assertTrue(memberHomePage.isMyAccountContains(username), "Failed! My Account does not display correct account name after login");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "29580")
+    @Test(groups = {"powderpin"})
+    @Parameters({"username"})
+    public void Landing_Page_TC29580(String username) {
+        log("@title: Powderpin - Validate that user can sign in successfully with valid account");
+        log("Precondition: The player is NOT added in BO Site - Crypto Access Management\n" +
+                "Login URL:\n" +
+                "PRO: https://www.powderpin.com/landing/#/d");
+        log("@Step 1 Access Login URL");
+        log("@Step 2 Click Confirm button to open Login form");
+        log("@Step 3 Login with the valid account in precondition");
+
+        log("@Verify 1 The page directs to correct domain");
+        Assert.assertTrue(memberHomePage.getHomePageURL().contains(environment.getPowderpinURL()),String.format("FAILED! The URL is not correct expected contains %s but found %s", environment.getPowderpinURL(), memberHomePage.getHomePageURL()));
+        log("@Verify 2 My account display correct login account");
+        Assert.assertTrue(memberHomePage.isMyAccountDisplay(), "Failed! My Account does not display after login");
+        Assert.assertTrue(memberHomePage.isMyAccountContains(username), "Failed! My Account does not display correct account name after login");
+        log("INFO: Executed completely");
+    }
 /*
     @Test (groups = {"smoke"})
     public void Login_TC_004() throws Exception {

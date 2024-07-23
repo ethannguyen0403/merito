@@ -5,11 +5,14 @@ import backoffice.controls.bo.ATable;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.pages.bo.operations.component.VoidUnvoidPopup;
 import backoffice.pages.bo.operations.component.VoidUnvoidRemarkPopup;
+import backoffice.utils.operations.WagerVoidUnvoidUtils;
 import com.paltech.element.common.*;
-import membersite.objects.AccountBalance;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static backoffice.common.BOConstants.Operations.VoidUnvoidWager.LST_FANCY_BM_CODE;
 
 public class WagerVoidUnvoidPage extends HomePage {
     public CheckBox cbWager = CheckBox.xpath("//input[@value='WAGER_PAGE']");
@@ -179,18 +182,11 @@ public class WagerVoidUnvoidPage extends HomePage {
         }
     }
 
-    public AccountBalance calculateBalanceVoidUnvoidWager(AccountBalance balance, String wagerProfit, boolean isVoided) {
-        AccountBalance returnBal = balance;
-        double bal = Double.parseDouble(balance.getBalance());
-        double exposure = Double.parseDouble(balance.getExposure());
-        double profit = Double.parseDouble(wagerProfit);
-        double balanceAfterVoidUnvoid;
-        if (isVoided)
-            balanceAfterVoidUnvoid = bal - profit;
-        else
-            balanceAfterVoidUnvoid = bal + profit;
-        //  returnBal.setBalance(Double.toString(balanceAfterVoidUnvoid));
-        return returnBal;
+    public void verifySearchByUsername(String username) {
+        List<String> lstWagerInfo = tblWager.getColumn(colNickname, false);
+        for (String actualUsername : lstWagerInfo) {
+            Assert.assertEquals(actualUsername, username, "FAILED! Result table not display the searching data");
+        }
     }
 
     public List<ArrayList<String>> getFristWagerInfo(){
@@ -201,4 +197,12 @@ public class WagerVoidUnvoidPage extends HomePage {
     public enum VOIDBY {WAGER, MARKET}
 
     public enum SEARCHBY {WAGERID, USERNAME, EVENTLIST}
+
+    public List<String> getListUnvoidFCBMWagers(String userName, String startDate, String endDate) {
+        return WagerVoidUnvoidUtils.getListWagerIdOfMarketType(LST_FANCY_BM_CODE, userName, startDate, endDate);
+    }
+
+    public void voidWagers(List<String> lstWagers) {
+        WagerVoidUnvoidUtils.voidWagers(lstWagers);
+    }
 }

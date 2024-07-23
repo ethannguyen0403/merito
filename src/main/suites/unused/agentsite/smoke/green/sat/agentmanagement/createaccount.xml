@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SAT_AG_STG_Smoke_Agent_Management" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="SAT_SMOKE_Chrome">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='green'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='QAAT.AD'/>
+        <parameter name='level' value='AD'/>
+        <parameter name='levelLogin' value='Admin'/>
+        <!--        <parameter name='downlineAccount' value='auto.sma1'/>-->
+        <parameter name='portalSubAccount' value='SASUBBA'/>
+        <parameter name='memberAccount' value='QAAT.PL01'/>
+        <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+        <groups>
+            <run>
+                <include name="smoke2"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
+        </classes>
+
+    </test>
+</suite>

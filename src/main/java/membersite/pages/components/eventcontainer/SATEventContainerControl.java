@@ -6,6 +6,7 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import controls.Table;
 import membersite.objects.sat.Event;
+import membersite.utils.betplacement.BetUtils;
 import membersite.utils.betplacement.FancyUtils;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class SATEventContainerControl extends EventContainerControl {
     private String llblSuspendXPath = String.format("//div[contains(@class,'status-overlay')]");
     private String lblEventNameXPath = "//span[@class='home-team'or contains(@class,'meto-text-primary')]";
     private String lblListEventXPath = "//div[@class='container-event-info']//table[contains(@class,'table-odds')]/tbody/tr/td[@class='td-odds']";
+    private String lblEventNameXpath = "(//div[@class='container-event-info']//table[contains(@class,'table-odds')]/tbody/tr/td[@class='td-odds'])//span[@class='home-team' and text()='%s']";
     private Label lblNoEvent = Label.xpath("//div[@class='text-center']");
     private String lblEventStartTimeXpath = "//div[contains(@class,'start-time')]/span";
     private String lblHomeNameXpath = "//span[@class='home-team'or contains(@class,'meto-text-primary')]";
@@ -151,58 +153,86 @@ public class SATEventContainerControl extends EventContainerControl {
                 .build();
     }
 
+    //handle to get event that contains MatchOdds only (support in case there's only DECIMAL CRICKET market)
+    public Event getEventMatchOddsRandom(String sportId, String currency, boolean isInplay, boolean isSuspend) {
+        String xpathEvent;
+        Label lblSuspend;
+        String eventStartTime;
+        Link lnkEventName;
+        int j = 1;
+        List<Event> lstEvent = BetUtils.findOpenMatchOddsEvent(sportId, currency);
+        Random rand = new Random();
+        while (true) {
+            int bound = rand.nextInt((lstEvent.size() - 1) + 1);
+            String homeAwayTeam = lstEvent.get(bound).getEventName();
+            xpathEvent = String.format(lblEventNameXpath, homeAwayTeam);
+            lnkEventName = Link.xpath(xpathEvent);
+
+            if (!lnkEventName.isPresent(2)) {
+                return null;
+            }
+            lblSuspend = Label.xpath(String.format("%s//..//..//..//..//..%s", xpathEvent, llblSuspendXPath));
+            eventStartTime = Label.xpath(String.format("%s//..//..//..//..%s", xpathEvent, lblEventStartTimeXpath)).getText().trim();
+            boolean _isInplay = lstEvent.get(bound).getInPlay();
+            boolean _isSuspend = lblSuspend.getText().equalsIgnoreCase("Suspended");
+            if (_isInplay == isInplay && _isSuspend == isSuspend) {
+                return new Event.Builder().lnkEvent(lnkEventName)
+                        .eventName(lstEvent.get(bound).getEventName())
+                        .startTime(eventStartTime)
+                        .marketName(MATCH_ODDS_TITLE)
+                        .isSuspend(isSuspend)
+                        .inPlay(isInplay)
+                        .build();
+            }
+            if (j > lstEvent.size())
+                return null;
+            j++;
+        }
+    }
+
     // Get Event has Match odds by default
     public Event getEventRandom(boolean isInplay, boolean isSuspend) {
-        if (!lblNoEvent.isDisplayed()) {
-            //	String xpathEvents = String.format("%s%s",lblListEventXPath, _xpath);
-            Label lblEvents = Label.xpath(lblListEventXPath);
-            int lstTotal = lblEvents.getWebElements().size();
-            int j = 1;
-            int i = 1;
-            Label lblEvent;
-            String xpathEvent;
-            Label lblSuspend;
-            Label iconInPlay;
-            Link lnkEventName;
-            String homeName;
-            String awayName;
-            String eventName;
-            String eventStartTime;
-            Random rand = new Random();
-            while (true) {
-                i = 1 + rand.nextInt((lstTotal - 1) + 1);
-                xpathEvent = String.format("(%s)[%s]", lblListEventXPath, i);
-                lnkEventName = Link.xpath(xpathEvent);
-                lnkEventName.scrollToThisControl(true);
-                if (!lnkEventName.isPresent(2)) {
-                    return null;
-                }
-                lblSuspend = Label.xpath(String.format("%s%s", xpathEvent, llblSuspendXPath));
-                iconInPlay = Label.xpath(String.format("%s%s", xpathEvent, lblEventStartTimeXpath));
-                boolean _isInplay = iconInPlay.getText().equalsIgnoreCase("In-Play");
-                boolean _isSuspend = lblSuspend.isDisplayed();
-                if (_isInplay == isInplay && _isSuspend == isSuspend) {
-                    eventStartTime = Label.xpath(String.format("%s%s", xpathEvent, lblEventStartTimeXpath)).getText().trim();
-                    homeName = Label.xpath(String.format("%s%s", xpathEvent, lblHomeNameXpath)).getText().trim();
-                    eventName = homeName;
-                    //return getEvent(lnkEventName,isInplay,isSuspend,eventStartTime);
-                    return new Event.Builder()
-                            .eventName(eventName)
-                            .lnkEvent(lnkEventName)
-                            .isSuspend(isSuspend)
-                            .inPlay(isInplay)
-                            .startTime(eventStartTime)
-                            .marketName(MATCH_ODDS_TITLE)
-                            .build();
-                }
-                if (j > lstTotal)
-                    return null;
-                j++;
+        Label lblEvents = Label.xpath(lblListEventXPath);
+        int lstTotal = lblEvents.getWebElements().size();
+        int j = 1;
+        String xpathEvent;
+        Label lblSuspend;
+        Label iconInPlay;
+        Link lnkEventName;
+        String homeName;
+        String awayName;
+        String eventName;
+        String eventStartTime;
+        Random rand = new Random();
+        while (true) {
+            xpathEvent = String.format("(%s)[%s]", lblListEventXPath, 1 + rand.nextInt((lstTotal - 1) + 1));
+            lnkEventName = Link.xpath(xpathEvent);
+            lnkEventName.scrollToThisControl(true);
+            if (!lnkEventName.isPresent(2)) {
+                return null;
             }
-        } else {
-            return null;
+            lblSuspend = Label.xpath(String.format("%s%s", xpathEvent, llblSuspendXPath));
+            iconInPlay = Label.xpath(String.format("%s%s", xpathEvent, lblEventStartTimeXpath));
+            boolean _isInplay = iconInPlay.getText().equalsIgnoreCase("In-Play");
+            boolean _isSuspend = lblSuspend.getText().equalsIgnoreCase("Suspended");
+            if (_isInplay == isInplay && _isSuspend == isSuspend) {
+                eventStartTime = Label.xpath(String.format("%s%s", xpathEvent, lblEventStartTimeXpath)).getText().trim();
+                homeName = Label.xpath(String.format("%s%s", xpathEvent, lblHomeNameXpath)).getText().trim();
+                eventName = homeName;
+                //return getEvent(lnkEventName,isInplay,isSuspend,eventStartTime);
+                return new Event.Builder()
+                        .eventName(eventName)
+                        .lnkEvent(lnkEventName)
+                        .isSuspend(isSuspend)
+                        .inPlay(isInplay)
+                        .startTime(eventStartTime)
+                        .marketName(MATCH_ODDS_TITLE)
+                        .build();
+            }
+            if (j > lstTotal)
+                return null;
+            j++;
         }
-
     }
 
     public boolean isOddsUnclickable(String eventName) {

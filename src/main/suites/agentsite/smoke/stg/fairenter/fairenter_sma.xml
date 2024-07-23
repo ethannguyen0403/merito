@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="STG_FE_SMOKE_AGENT_SMA" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="Smoke test cases Fairenter Agent Site in STG">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='LUO'/>
+        <parameter name='levelLogin' value='Senior Master Agent'/>
+        <parameter name='downlineAccount' value='LUOC0'/>
+        <parameter name='portalSubAccount' value='FASUBTI'/>
+        <parameter name='memberAccount' value='LUOC0NE000'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name='prefix' value='LUO'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value='fairenter'/>
+        <parameter name='skinName' value='fairenter'/>
+        <parameter name='isAddTestRailResult' value='true'/>
+        <groups>
+            <run>
+                <include name="smoke"/>
+                <include name="smoke_newui"/>
+                <include name="smoke_credit"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.LoginTest"/>
+            <class name="agentsite.testcase.LogoutTest"/>
+            <class name="agentsite.testcase.HeaderTest"/>
+            <class name="agentsite.testcase.LeftMenuTest"/>
+
+            <class name="agentsite.testcase.riskmanagement.AgentExposureTest"/>
+            <class name="agentsite.testcase.riskmanagement.NetExposureTest"/>
+            <class name="agentsite.testcase.riskmanagement.VolumeMonitorTest"/>
+
+            <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
+            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
+            <class name="agentsite.testcase.reports.BigStakeConfigurationTest"/>
+            <class name="agentsite.testcase.reports.CancelledBetsTest"/>
+            <class name="agentsite.testcase.reports.ClientLegerTest"/>
+            <class name="agentsite.testcase.reports.FollowBetsPerformanceTest"/>
+            <class name="agentsite.testcase.reports.PositionTakingReportTest"/>
+            <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
+            <class name="agentsite.testcase.reports.PS38SportsResultsTest"/>
+            <class name="agentsite.testcase.reports.StatementReportTest"/>
+            <class name="agentsite.testcase.reports.TopGainersTopLosersTest"/>
+<!--            <class name="agentsite.testcase.reports.TransactionHistoryTest"/>-->
+            <class name="agentsite.testcase.reports.TransferLogTest"/>
+            <class name="agentsite.testcase.reports.UnsettledBetTest"/>
+            <class name="agentsite.testcase.reports.ViewLogTest"/>
+            <class name="agentsite.testcase.reports.WinLossBySportAndMarketTypeTest"/>
+            <class name="agentsite.testcase.reports.WinLossDetailTest"/>
+            <class name="agentsite.testcase.reports.WinLossByEventTest"/>
+            <class name="agentsite.testcase.reports.WinLossSimpleTest"/>
+
+            <class name="agentsite.testcase.marketsmanagement.BlockingLogTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockRacingTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockUnblockCompetitionsTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
+            <class name="agentsite.testcase.marketsmanagement.CurrentBlockingTest"/>
+            <class name="agentsite.testcase.marketsmanagement.LiquidityThresholdTest"/>
+            <class name="agentsite.testcase.marketsmanagement.SuspendUnsuspendMarketsTest"/>
+
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EdiMarketTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.AnnouncementTest"/>
+            <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreditBalanceListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.EventBetSizeSettingsTest"/>
+            <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
+            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.RiskSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.TransferTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
+        </classes>
+
+    </test>
+</suite>

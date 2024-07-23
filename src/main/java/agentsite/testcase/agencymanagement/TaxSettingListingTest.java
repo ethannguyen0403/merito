@@ -65,12 +65,15 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify Login display in the result table
      */
     @TestRails(id = "749")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void Agent_AM_Tax_Setting_Listing_749() {
         log("@title: Verify can search downline by Login ID");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
-        String loginID = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getLoginID();
+        String loginID = "";
+        loginID = _brandname.equalsIgnoreCase("satsport") ?
+                DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getLoginID():
+                DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();
         if (loginID.isEmpty()) {
             throw new SkipException("SKIPPED! The player have no login ID for filter");
         }
@@ -80,7 +83,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
         page.taxSettingListing.search(loginID, "", "");
 
         log("Verify 1. Verify Login display in the result table");
-        List<String> lstMembers = page.taxSettingListing.tblTax.getColumn(page.taxSettingListing.loginIDCol, false);
+        List<String> lstMembers = page.getListLoginID();
         Assert.assertEquals(lstMembers.get(0), loginID, "FAILED! Login ID not display as search criteria");
         Assert.assertEquals(lstMembers.size(), 1, "FAILED! Should only display 1 record when searching with correct username");
 
@@ -134,7 +137,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify UI Tax Setting Listing display correctly
      */
     @TestRails(id = "748")
-    @Test(groups = {"smoke_newui"})
+    @Test(groups = {"smoke_newui", "MER.Maintenance.2024.V.4.0"})
     public void Agent_AM_Tax_Setting_Listing_748() {
         log("@title: Verify  Tax Setting Listing UI display correct");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
@@ -142,23 +145,12 @@ public class TaxSettingListingTest extends BaseCaseTest {
         TaxSettingListingPage page = agentHomePage.navigateTaxSettingListingPage();
 
         log("Verify 1. Verify UI Tax Setting Listing display correctly");
-        Assert.assertTrue(page.taxSettingListing.txtUsername.isDisplayed(), "FAILED Username textbox not display");
-        Assert.assertTrue(page.taxSettingListing.ddbAccountStatus.isDisplayed(), "FAILED Account Status Dropdown not display");
-        Assert.assertTrue(page.taxSettingListing.ddbProduct.isDisplayed(), "FAILED Product Dropdown not display");
-        Assert.assertEquals(page.taxSettingListing.btnSearch.getText(), AGConstant.BTN_SUBMIT, "FAILED Search button text should be Submit");
-        Assert.assertTrue(page.taxSettingListing.txtSoccer.isDisplayed(), "FAILED! Soccer textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtCricket.isDisplayed(), "FAILED! Cricket textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtTennis.isDisplayed(), "FAILED! Tennis textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtBasketball.isDisplayed(), "FAILED! Basketball textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtOther.isDisplayed(), "FAILED! Other textbox not display");
-        Assert.assertTrue(page.taxSettingListing.lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
-        Assert.assertEquals(page.taxSettingListing.tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX, "FAILED! Table header not match with the expected");
-
+        page.verifyUITaxSetting(userCode);
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4110")
-    @Test(groups = {"smoke_sat", "nolan"})
+    @Test(groups = {"smoke_sat", "MER.Maintenance.2024.V.4.0"})
     public void Agent_AM_Tax_Setting_Listing_4110() {
         log("@title: Verify  Tax Setting Listing UI display correct");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
@@ -166,18 +158,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
         TaxSettingListingPage page = agentHomePage.navigateTaxSettingListingPage();
 
         log("Verify 1. Verify UI Tax Setting Listing display correctly (does not have Fancy)");
-        Assert.assertTrue(page.taxSettingListing.txtUsername.isDisplayed(), "FAILED Username textbox not display");
-        Assert.assertTrue(page.taxSettingListing.ddbAccountStatus.isDisplayed(), "FAILED Account Status Dropdown not display");
-        Assert.assertTrue(page.taxSettingListing.ddbProduct.isDisplayed(), "FAILED Product Dropdown not display");
-        Assert.assertEquals(page.taxSettingListing.btnSearch.getText(), AGConstant.BTN_SUBMIT, "FAILED Search button text should be Submit");
-        Assert.assertTrue(page.taxSettingListing.txtSoccer.isDisplayed(), "FAILED! Soccer textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtCricket.isDisplayed(), "FAILED! Cricket textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtTennis.isDisplayed(), "FAILED! Tennis textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtBasketball.isDisplayed(), "FAILED! Basketball textbox not display");
-        Assert.assertTrue(page.taxSettingListing.txtOther.isDisplayed(), "FAILED! Other textbox not display");
-        Assert.assertTrue(page.taxSettingListing.lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
-        Assert.assertEquals(page.taxSettingListing.tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX_SAT, "FAILED! Table header not match with the expected");
-
+        page.verifyUITaxSetting(userCode);
         log("INFO: Executed completely");
     }
 

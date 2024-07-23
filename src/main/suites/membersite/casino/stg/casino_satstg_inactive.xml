@@ -5,7 +5,7 @@
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="Casino.2024.V.1.0-SAT-STG-Inactive">
+    <test name="SAT STG Casino Smoke Test on the product is Inactive">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
@@ -21,6 +21,7 @@
         <parameter name='prefix' value='QAZ'/>
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='satsport'/>
+        <parameter name='skinName' value='satsport'/>
         <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
@@ -29,7 +30,6 @@
         </groups>
         <classes>
             <class name="membersite.testcases.casino.SupernowaTest"/>
-            <class name="membersite.testcases.casino.EvolutionPageTest"/>
             <class name="membersite.testcases.casino.EvolutionPageWhiteCliffTest"/>
             <class name="membersite.testcases.casino.IonPageTest"/>
             <class name="membersite.testcases.casino.PragmaticPageTest"/>

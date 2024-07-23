@@ -754,73 +754,13 @@ public class LeftMenuTest extends BaseCaseTest {
      * @expect: Verify the list menu display correct when other leve
      */
     @TestRails(id = "677")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void LeftMenu_TC677() {
         log("@title: Verify the list menu display correct when other level");
         log("@Precondition: Login Agent site by SAD level");
         log("Step 1: Expand all left menu");
         log("Verify:1 Verify the list menu display correct");
-        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(AGENCY_MANAGEMENT), "FAILED! Agency Management not display correctly");
-        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(REPORT), "FAILED! Report not display correctly");
-        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(MARKET_MANAGEMENT), "FAILED! Bets/Markets Management not display correctly");
-        Assert.assertTrue(agentHomePage.leftMenu.isListSubMenuDisplayCorrect(FRAUD_DETECTION), "FAILED! Fraud Detection not display correctly");
-
-        /* Assert.assertEquals(agentHomePage.menuAgencyManagement.getText(),"Agency Management","Failed! Agency Management not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuCreateDownLineAgent.getText(),"Create Downline Agent","Failed! Create DownLine Agent not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuCreateUser.getText(),"Create User","Failed! Create User not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuDownLineListing.getText(),"Downline Listing","Failed! Downline Listing not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuPositionTakingListing.getText(),"Position Taking Listing","Failed! Position Taking Listing not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuDepositWithdrawal.getText(),"Deposit/Withdraw","Failed! Agency Management not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuStatementReport.getText(),"Statement Report","Failed! Statement Report not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuClientLedger.getText(),"Client Ledger","Failed! Client Ledger not display correctly");
-        agentHomePage.subMenuExpandAgencyManagement.click();
-        Assert.assertEquals(agentHomePage.subMenuCommissionSettingListing.getText(),"Commission Listing","Failed!Commission Listing not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuBetSettingListing.getText(),"Bet Setting Listing","Failed!Bet Setting Listing not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuTaxSettingListing.getText(),"Tax Settings","Failed! Tax Settings not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuTransfer.isDisplayed(),"Failed! Transfer not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuCreditBalanceListing.isDisplayed(),"Failed! Credit Balance Listing. not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuFollowBets.isDisplayed(),"Failed! Follow Bets not display correctly");*/
-        /*Assert.assertFalse(agentHomePage.subMenuRiskSettingListing.isDisplayed(),"Failed!Risk Setting Listing not display correctly");
-
-        agentHomePage.menuRiskManagement.click();
-        Assert.assertEquals(agentHomePage.menuRiskManagement.getText(),"Risk Management","Failed!Risk Management not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuAnalysisOfRunningMarkets.getText(),"Analysis of Running Markets","Failed! Analysis of Running Markets not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuAgentExposureLimit.isDisplayed(),"Failed! Agent Exposure Limit display ");
-
-        agentHomePage.menuReport.click();
-        Assert.assertEquals(agentHomePage.menuReport.getText(),"Report","Failed! Report not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuProfitAndLoss.getText(),"Profit And Loss","Failed! Profit And Loss not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuWinLoss.getText(),"Win Loss","Failed! Win Loss not display correctly");
-
-        agentHomePage.subMenuWinLoss.click();
-        Assert.assertEquals(agentHomePage.subMenuWinLossSimple.getText(),"Simple","Failed!Simple not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuWinLossBySportAndMarketType.getText(),"By Market","Failed! By Market not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuWinLossByEvent.getText(),"By Event","Failed! By Event not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuWinLossDetail.getText(),"AG By Detail","Failed! MA By Detail not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuUnsettleBet.getText(),"Unsettled Bet","Failed! Unsettle Bet not display correctly");*/
-        /*Assert.assertEquals(agentHomePage.subMenuCancelledBets.getText(),"Cancelled Bets","Failed! Cancelled Bets not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuPositionTakingReport.getText(),"Position Taking Report","Failed!Position Taking Report not display correctly");
-
-        agentHomePage.subMenuExpandReport.click();
-        Assert.assertEquals(agentHomePage.subMenuTopGainersTopLosers.getText(),"Top Gainers & Top Losers","Failed! Top Gainers & Top Losers not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuViewLog.getText(),"View Log","Failed! View Log not display correctly");
-        Assert.assertEquals(agentHomePage.subMenuTransferLog.getText(),"Transfer Log","Failed!Transfer Log not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuBFVoidedDiscrepancy.isDisplayed(),"Failed! BF Voided Discrepancy display");
-        Assert.assertFalse(agentHomePage.subMenuFollowAndSmallBetsPerformance.isDisplayed(),"Failed! Follow Bets Performance display");
-
-        Assert.assertFalse(agentHomePage.menuMarketsManagement.isDisplayed(),"Failed! Bets/Markets Management not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuBlockRacing.isDisplayed(),"Failed! Block Racing not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuBlockUnlockEvents.isDisplayed(),"Failed!Block/Unblock Events not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuBlockUnblockCompetition.isDisplayed(),"Failed! Block/Unblock Competitions not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuCurrentBlocking.isDisplayed(),"Failed! Current Blocking not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuBlockingLog.isDisplayed(),"Failed! Blocking Log not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuLiquidityThreshold.isDisplayed(),"Failed! Liquidity Threshold display");
-
-        Assert.assertFalse(agentHomePage.menuFraudDetection.isDisplayed(),"Failed! Fraud Detection not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuFraudDetection.isDisplayed(),"Failed! Fraud Detection not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuWagerOddsHistory.isDisplayed(),"Failed! Wager Odds History not display correctly");
-        Assert.assertFalse(agentHomePage.subMenuFraudPermission.isDisplayed(),"Failed! Fraud Permission not display correctly");*/
-
+        agentHomePage.leftMenu.verifyListSubMenuDisplayCorrect();
         log("INFO: Executed completely");
     }
 

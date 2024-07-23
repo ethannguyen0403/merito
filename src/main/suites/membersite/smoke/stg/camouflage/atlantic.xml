@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ATLANTIC_STG_SMOKE_TEST_BEFORE_LOGIN" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+        <listener class-name="util.testraildemo.Listener"/>
+    </listeners>
+
+    <test name="ATLANTIC STG Smoke Chrome Before Login ">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value=''/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='f24isapl01'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='true'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name="skinName" value="atlantic"/>
+        <parameter name='appname' value='camouflage'/>
+        <parameter name='brandname' value='fairenter'/>
+        <parameter name='isAddTestRailResult' value='false'/>
+        <groups>
+            <run>
+                <include name="atlantic"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="membersite.testcases.exchange.LandingPageTest"/>
+        </classes>
+    </test>
+</suite>

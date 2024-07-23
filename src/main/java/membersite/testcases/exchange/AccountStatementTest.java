@@ -7,12 +7,14 @@ import com.paltech.utils.FileUtils;
 import common.MemberConstants;
 import membersite.pages.AccountStatementPage;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static common.MemberConstants.AccountStatementPage.*;
 import static common.MemberConstants.TIMEZONE_BRAND;
@@ -56,7 +58,7 @@ public class AccountStatementTest extends BaseCaseTest {
      * @expect: 1 Table header display correctly when clicking on sport> event
      */
     @TestRails(id = "525")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void AccountStatement_TC525() {
         log("@title: Validate Table header when clicking on sport and market");
         log("Step 1. Click My Account > Account Statement");
@@ -156,6 +158,28 @@ public class AccountStatementTest extends BaseCaseTest {
         } catch (IOException e) {
             log(e.getMessage());
         }
+        log("INFO: Executed Completely!");
+    }
+
+    @TestRails(id = "9452")
+    @Parameters({"cashOutBetID"})
+    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0", "Cash_out"})
+    public void AccountStatement_Cash_out_TC9452(String cashOutBetID) {
+        log("@title: Validate showing cash out bet in account statement page");
+
+        log("Step 1. Click My Account > Account Statement");
+        AccountStatementPage page = memberHomePage.header.openAccountStatement(_brandname);
+
+        // Cash out bet should use fixed data for verifying
+        log("Step 2. Filter in a date range");
+        page.filter("2024-05-15","2024-05-15");
+
+        log("Step 3. Drilling down to the details of bet");
+        page.clickNarrationOnTheFirstRow();
+
+        log("Verify 1. The cashed out bet displays with status as 'Cashed Out'");
+        log("Verify 2. After clicking the status, it show the cashed out details");
+        page.verifyCashOutHistoryCorrect(cashOutBetID);
         log("INFO: Executed Completely!");
     }
 

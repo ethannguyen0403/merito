@@ -54,9 +54,9 @@ public class BlockRacingPage extends HomePage {
         selectVenueMarket(event.getEventName(), market.getMarketName());
         if(btnUpdate.isClickable(5)) {
             btnUpdate.click();
+            waitingLoadingSpinner();
             //workaround to wait since the spinner appears after few secs
             lblSuccessMessage.waitForElementToBePresent(lblSuccessMessage.getLocator(), 5);
-            waitingLoadingSpinner();
             return lblSuccessMessage.getText().trim();
         }
         return "";
@@ -121,7 +121,7 @@ public class BlockRacingPage extends HomePage {
             System.out.println("DEBUG! Cannot find check box at the Venue row: " + venue + " and Market column " + market);
             return;
         }
-        cb.click();
+        cb.jsClick();
     }
 
     public BlockedUserPopup clickVenueMarketCell(String venue, String market) {

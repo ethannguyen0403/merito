@@ -16,6 +16,7 @@ import static common.AGConstant.AgencyManagement.CreateCompany.*;
 public class BetSettingSectionPS38 {
 
     public CheckBox chkTabPS38 = CheckBox.xpath("//app-proteus-setting//input[@type='checkbox']");
+    public CheckBox chkCopyAll = CheckBox.xpath("//div[@id='EXCHANGE-bet-settings']//div[@class='pl-2 py-2']//input");
     public Label lblCheckboxPS38 = Label.xpath("//app-proteus-setting//div[@class='pl-2 py-2']");
     public DropDownBox
             ddbSportsPS38 = DropDownBox.xpath("//select[contains(@class, 'sport-select')]");
@@ -62,6 +63,8 @@ public class BetSettingSectionPS38 {
 
     public int defineColIndex(String colName) {
         switch (colName.toLowerCase()) {
+            case "":
+                return 1;
             case "min bet":
                 return 2;
             case "max bet":
@@ -77,7 +80,7 @@ public class BetSettingSectionPS38 {
     public TextBox getControlTxtBoxBetSettingPS38(String sportName, String colName, List<String> sportList) {
         int rowIndex = findRowSportIndex(sportName, sportList);
         int colIndex = defineColIndex(colName);
-        if (rowIndex == -1 | colIndex == -1) {
+        if (rowIndex == -1 || colIndex == -1) {
             return null;
         }
         return TextBox.xpath(tblBetSettingPS38.getxPathOfCell(1, colIndex, rowIndex, "input"));
@@ -171,9 +174,11 @@ public class BetSettingSectionPS38 {
 
     public void verifyPS38TabIsCorrect(String tabName, String checkboxMessage) {
         selectPS38Tab(tabName);
+        Assert.assertTrue(ddbSportsPS38.isDisplayed(), "FAILED! Sport dropdown is not displayed");
         Assert.assertTrue(chkTabPS38.isSelected(), "FAILED! Check box of PS38 is not checked");
         Assert.assertEquals(lblCheckboxPS38.getText().trim(), String.format(checkboxMessage, tabName),
                 String.format("FAILED! Checkbox message of tab: %s incorrect", tabName));
+        Assert.assertEquals(tblBetSettingPS38.getColumnByBody(1, false), LIST_SPORTS_PS38_BET_SETTING, "FAILED! List sports of PS38 incorrect");
     }
 
     public void verifyBetSettingLabelValuePS38AllSports(String colName, String expectedValue){
@@ -223,6 +228,22 @@ public class BetSettingSectionPS38 {
                 listValue.add(lblInputValue.getAttribute("value"));
             }
             index++;
+        }
+    }
+
+    public void verifyNewSportAddedInPTSection(String sportName, String league, boolean isGeneral){
+        List<String> newSportList = tblBetSettingPS38.getColumn(1, true);
+        if(isGeneral){
+            int rowNewSportIndex = newSportList.indexOf(sportName) + 1;
+            Label lblNewSportRow = Label.xpath(tblBetSettingPS38.getxPathOfCell(1, 1, rowNewSportIndex, null));
+            Assert.assertEquals(newSportList.indexOf(sportName), LIST_SPORTS_PS38_BET_SETTING.indexOf("Others"), "FAILED! New sport is not above Others");
+            Assert.assertEquals(lblNewSportRow.getColour(), "rgba(68, 114, 196, 1)", "FAILED! New sport was not highlight in blue");
+        }else {
+            int rowNewSportIndex = newSportList.indexOf(league) + 1;
+            Label lblNewSportRow = Label.xpath(tblBetSettingPS38.getxPathOfCell(1, 1, rowNewSportIndex, null));
+            Assert.assertEquals(newSportList.indexOf(sportName), LIST_SPORTS_PS38_BET_SETTING.indexOf("Others"), "FAILED! New sport is not above Others");
+            Assert.assertTrue((newSportList.indexOf(league) - newSportList.indexOf(sportName)) == 1, "FAILED! New league is not under Sport: " + sportName);
+            Assert.assertEquals(lblNewSportRow.getColour(), "rgba(68, 114, 196, 1)", "FAILED! New league was not highlight in blue. League: " + league);
         }
     }
 }

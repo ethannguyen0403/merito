@@ -1,22 +1,25 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
-import com.fasterxml.jackson.databind.jsontype.impl.AsExistingPropertyTypeSerializer;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
+import membersite.objects.sat.Event;
 import membersite.pages.*;
+import membersite.pages.AccountStatementPage;
+import membersite.pages.MyBetsPage;
+import membersite.pages.ProfitAndLossPage;
 import membersite.pages.exchangegames.EGHomePage;
 import membersite.pages.popup.MyMarketPopup;
 import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
-import static common.MemberConstants.TIMEZONE_BRAND;
+import static common.MemberConstants.*;
 
 public class HeaderSectionTest extends BaseCaseTest {
 
@@ -69,23 +72,43 @@ public class HeaderSectionTest extends BaseCaseTest {
      * 2. Popup is closed
      */
     @TestRails(id = "943")
-//    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "MER.Implementation.V.1.0"})
     public void HeaderSection_TC943() {
-        //TODO: implement this test case
+        log("@title: Validate can open my markets in Header Section");
+        log("Precondition 1: Login member site");
+        log("Step 1: Click on My Markets menu");
+        MyMarketPopup marketPopup = memberHomePage.openMyMarket();
+        log("Verify 1: Can Open May markets successfully\n" +
+                "Popup Title: My Markets\n" +
+                "Note: Date will be based on time zone IST (for SAT and White Labels)\n" +
+                "table with the header: Market ID, Market Start Time, Market Name (Reload button), Liability");
+        marketPopup.verifyMyMarketPopupUI();
         log("INFO: Executed completely");
     }
 
+    /** Duplicate with TC494*/
     @TestRails(id = "944")
-//    @Test(groups = {"smoke"})
+    @Test(groups = {"Revised", "MER.Implementation.V.1.0"})
     public void HeaderSection_TC944() {
-        //TODO: implement this test case
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "945")
-//    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "MER.Implementation.V.1.0"})
     public void HeaderSection_TC945() {
-        //TODO: implement this test case
+        log("@title: Can active event page from search page");
+        log("Precondition 1: Login member site");
+        SportPage sportPage = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+        Event event = sportPage.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("DEBUG: There is no event available");
+        }
+        log("Step 2: Input a active event insearch textbox");
+        log("Step 3: Click on event in search page");
+        String eventName = memberHomePage.leftMenu.searchEvent(event.getEventName()).getText().trim();
+        EventPage eventPage = memberHomePage.leftMenu.searchEvent(event.getEventName(),true);
+        log("Verify 1: Verify event page display correctly with: " + eventName);
+        Assert.assertEquals(eventPage.lblTitleEvent.getText().trim(), eventName, "FAILED! Event page is not displayed");
         log("INFO: Executed completely");
     }
 
@@ -138,7 +161,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * If My markets display "No records found", Outstanding should be 0.00
      */
     @TestRails(id = "501")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize"})
     public void HeaderSection_TC501() {
         log("@title: Validate Liability in My market and outstanding is synchronized");
         log("Step 1. Get outstanding value");
@@ -167,7 +190,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance
      */
     @TestRails(id = "502")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void HeaderSection_TC502() {
         log("@title: Validate can navigate to Account Statement page");
         log("Step 1. Click My Account > Account Statement");
@@ -177,13 +200,11 @@ public class HeaderSectionTest extends BaseCaseTest {
                 "- Start Date, End Date Calendar, and Load report button\n" +
                 "- Note: Date will be based on time zone IST\n" +
                 "Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance");
+        page.verifyHeaderOfTableReport();
         Assert.assertEquals(page.accountStatementContainer.getStartDate(), MemberConstants.AccountStatementPage.START_DATE, String.format("ERROR! Expected Start Date but found %s", page.accountStatementContainer.getStartDate()));
         Assert.assertEquals(page.accountStatementContainer.getEndDate(), MemberConstants.AccountStatementPage.END_DATE, String.format("ERROR! Expected End Date but found %s", page.accountStatementContainer.getEndDate()));
         Assert.assertEquals(page.accountStatementContainer.getNote(), String.format(MemberConstants.AccountStatementPage.NOTES, TIMEZONE_BRAND.get(_brandname)), String.format("ERROR! Current Note label shows %s", page.accountStatementContainer.getNote()));
         Assert.assertEquals(page.accountStatementContainer.getLoadReport(), MemberConstants.AccountStatementPage.LOAD_REPORT, String.format("ERROR! Expected Load Report but found %s", page.accountStatementContainer.getLoadReport()));
-        List<String> tblHeaders = page.accountStatementContainer.getReportHeader();
-        Assert.assertEquals(tblHeaders.size(), MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), String.format("ERROR: The expected no of columns is %s but found %s", MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), tblHeaders.size()));
-        Assert.assertEquals(tblHeaders, MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER, "ERROR! Account Statement header not match with the expected");
     }
 
     /**
@@ -255,7 +276,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Soccer page display with the title: Soccer Highlights
      */
     @TestRails(id = "505")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize"})
     public void HeaderSection_TC505() {
         log("@title: Validate can navigate to Soccer menu");
         log("Step 1. Click on Soccer menu");
@@ -282,7 +303,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Tennis page display with the title: Tennis Highlights
      */
     @TestRails(id = "506")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize"})
     public void HeaderSection_TC506() {
         log("@title: Validate can navigate to Tennis menu");
         log("Step 1. Click on Tennis menu");
@@ -334,7 +355,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Cricket page display with the title: Cricket Highlights
      */
     @TestRails(id = "508")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "nolan_stabilize"})
     public void HeaderSection_TC508() {
         log("@title: Validate can navigate to Cricket menu");
         log("Step 1. Click on Cricket menu");
@@ -363,7 +384,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. The corresponding market is navigate
      */
     @TestRails(id = "509")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void HeaderSection_C509() {
         log("@title: Validate can navigate to correct market when click on market in My market");
         log("Step 1. Click on My market ");
@@ -377,6 +398,7 @@ public class HeaderSectionTest extends BaseCaseTest {
         MarketPage page = memberHomePage.openMarketInMyMarketPopup(marketInfo.get(2));
 
         log("Verify: 1. The corresponding market is navigate");
+        page.waitMenuLoading();
         Assert.assertEquals(page.marketOddControl.getTitle(), marketInfo.get(2).split("/")[0].trim(), String.format("ERROR: Incorect market page display"));
         log("INFO: Executed completely");
     }

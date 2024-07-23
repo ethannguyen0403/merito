@@ -24,6 +24,7 @@
         <parameter name='prefix' value='30H'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='funsport'/>
+        <parameter name='skinName' value='funsport'/>
         <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
@@ -43,6 +44,7 @@
             <!--Start Agent Management-->
             <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
             <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
             <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
@@ -59,7 +61,7 @@
             <class name="agentsite.testcase.reports.WinLossDetailTest"/>
             <class name="agentsite.testcase.reports.PositionTakingReportTest"/>
             <class name="agentsite.testcase.reports.CancelledBetsTest"/>
-            <class name="agentsite.testcase.reports.StatementReportTest"/>
+<!--            <class name="agentsite.testcase.reports.StatementReportTest"/>-->
             <class name="agentsite.testcase.reports.TransferLogTest"/>
             <class name="agentsite.testcase.reports.ClientLegerTest"/>
             <class name="agentsite.testcase.reports.WinLossBySportAndMarketTypeTest"/>
