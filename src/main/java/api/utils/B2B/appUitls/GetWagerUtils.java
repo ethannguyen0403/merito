@@ -161,6 +161,7 @@ public class GetWagerUtils {
                 .selectionName(jsonObject.getString("selectionName"))
                 .handicap(jsonObject.getDouble("handicap"))
                 .oddsType(jsonObject.getString("oddsType"))
+                .eventStartDate(jsonObject.getString("eventStartDate"))
                 .build();
     }
 }
