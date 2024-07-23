@@ -106,9 +106,9 @@ public class HeaderSectionTest extends BaseCaseTest {
         log("Step 2: Input a active event insearch textbox");
         log("Step 3: Click on event in search page");
         String eventName = memberHomePage.leftMenu.searchEvent(event.getEventName()).getText().trim();
-        EventPage eventPage = memberHomePage.leftMenu.searchEvent(event.getEventName(),true);
+        MarketPage marketPage = memberHomePage.leftMenu.searchEvent(event.getEventName(),true);
         log("Verify 1: Verify event page display correctly with: " + eventName);
-        Assert.assertEquals(eventPage.lblTitleEvent.getText().trim(), eventName, "FAILED! Event page is not displayed");
+        Assert.assertEquals(marketPage.getEventTitle(), eventName, "FAILED! Event page is not displayed");
         log("INFO: Executed completely");
     }
 
@@ -190,7 +190,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance
      */
     @TestRails(id = "502")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke2","MER.Maintenance.2024.V.4.0"})
     public void HeaderSection_TC502() {
         log("@title: Validate can navigate to Account Statement page");
         log("Step 1. Click My Account > Account Statement");

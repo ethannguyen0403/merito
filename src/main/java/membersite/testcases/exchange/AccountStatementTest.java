@@ -68,10 +68,11 @@ public class AccountStatementTest extends BaseCaseTest {
 
         log("Step 2 & 3. Filter in a date range amd click Load Report");
         page.filter(startDate, endDate);
-        List<String> tblHeaders = page.getTblReport().getColumnNamesOfTable(1);
+//        List<String> tblHeaders = page.getTblReport().getColumnNamesOfTable(1);
 
         log("Verify 1. Report summary table header display correctly");
-        Assert.assertEquals(tblHeaders, TABLE_SUMMARY_HEADER, "ERROR! Sport header table not match as expected");
+        page.verifyHeaderOfTableReport();
+//        Assert.assertEquals(tblHeaders, TABLE_SUMMARY_HEADER, "ERROR! Sport header table not match as expected");
 
         List<ArrayList<String>> lst = page.getTblReport().getRowsWithoutHeader(1, false);
         if (lst.get(0).get(2).equals(OPENING_BALANCE)) {
@@ -81,7 +82,7 @@ public class AccountStatementTest extends BaseCaseTest {
         }
         log("Step 4. Click on the first Narration and check header details");
         page.clickNarrationOnTheFirstRow();
-        tblHeaders = page.getReportDetailHeader();
+        List<String> tblHeaders = page.getReportDetailHeader();
 
         log("Verify 2. Report detail table header display correctly");
         Assert.assertEquals(tblHeaders, TABLE_DETAIL_HEADER, "ERROR!Detail table header not match as expected");

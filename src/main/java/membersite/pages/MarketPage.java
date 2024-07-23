@@ -39,6 +39,11 @@ public class MarketPage extends HomePage {
         fancyContainerControl = FancyContainerControl.xpath("//span[text()='Fancy']//ancestor::div[contains(@class,'fancy-container')]");
     }
 
+    public String getEventTitle() {
+        Label lblEvent = Label.xpath("//div[@class='market-info']//div[contains(@class, 'titles')]");
+        return lblEvent.getText().trim();
+    }
+
     public void placeBet(Market market,String stake){
         String odds;
         // Handle place bet when place bet if empty odds
@@ -71,22 +76,150 @@ public class MarketPage extends HomePage {
         }
     }
 
-    public void verifyForeCastIsCorrect(List<ArrayList<String>> foreCastData, Order order) {
-        for (ArrayList<String> lstForeCast : foreCastData) {
-            if (lstForeCast.contains(order.getSelectionName())) {
-                String profitLiability = String.format("%.2f",
-                        order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()), Double.valueOf(order.getStake())));
-                String expectedProfitLiability = lstForeCast.get(1);
-
-                if(expectedProfitLiability.contains("-")){
-                    //Handle for negative double
-                    profitLiability = String.format("-%s", profitLiability);
+    public void verifyForeCastIsCorrect(List<ArrayList<String>> foreCastDataBefore, List<ArrayList<String>> foreCastDataAfter, Order order) {
+        if(foreCastDataBefore.get(0).get(1).equalsIgnoreCase("")) {
+            String profit = String.format("%.2f",
+                    order.getProfit(order.getIsBack(), Double.valueOf(order.getOdds()), Double.valueOf(order.getStake())));
+            String liability = String.format("%s%.2f","-",
+                    order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()), Double.valueOf(order.getStake())));
+            for (ArrayList<String> lstForeCast : foreCastDataAfter) {
+                if(lstForeCast.contains(order.getSelectionName()) && order.getIsBack()) {
+                    Assert.assertEquals(lstForeCast.get(1), profit,
+                            String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
+                } else if (lstForeCast.contains(order.getSelectionName()) && !order.getIsBack()) {
+                    Assert.assertEquals(lstForeCast.get(1), liability,
+                            String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
+                } else if (!lstForeCast.contains(order.getSelectionName()) && order.getIsBack()) {
+                    Assert.assertEquals(lstForeCast.get(1), liability,
+                            String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
+                } else {
+                    Assert.assertEquals(lstForeCast.get(1), profit,
+                            String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
                 }
+            }
+        } else {
+            float profitFloat = 0;
+            float liabilityFloat = 0;
+            String homeForecast = foreCastDataBefore.get(0).get(1);
+            String awayForecast = foreCastDataBefore.get(1).get(1);
+            String profit = String.format("%.2f",
+                    order.getProfit(order.getIsBack(), Double.valueOf(order.getOdds()), Double.valueOf(order.getStake())));
+            String liability = String.format("%s%.2f","-",
+                    order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()), Double.valueOf(order.getStake())));
+            //find the selection are betting then calculate expected profit/ liability
+            for (int i = 0; i < foreCastDataBefore.size(); i++) {
+                if(foreCastDataBefore.get(i).get(0).equalsIgnoreCase(order.getSelectionName())) {
+                    //HOME - BACK
+                    if (i == 0 && order.getIsBack()) {
+                        profitFloat = Float.valueOf(homeForecast) +  Float.valueOf(profit);
+                        liabilityFloat =  Float.valueOf(awayForecast) + Float.valueOf(liability);
+                        break;
+                    }
+                    //HOME - LAY
+                    else if (i == 0 && !order.getIsBack()) {
+                        profitFloat = Float.valueOf(homeForecast) +  Float.valueOf(liability);
+                        liabilityFloat =  Float.valueOf(awayForecast) + Float.valueOf(profit);
+                        break;
+                    }
+                    //AWAY - BACK
+                    else if (i == 1 && order.getIsBack()) {
+                        profitFloat = Float.valueOf(homeForecast) + Float.valueOf(liability);
+                        liabilityFloat = Float.valueOf(awayForecast) + Float.valueOf(profit);
+                        break;
+                    }
+                    //AWAY - LAY
+                    else if (i == 1 && !order.getIsBack()) {
+                        profitFloat = Float.valueOf(homeForecast) + Float.valueOf(profit);
+                        liabilityFloat = Float.valueOf(awayForecast) + Float.valueOf(liability);
+                        break;
+                    }
+                    //DRAW - BACK
+                    else if (i == 2 && order.getIsBack()) {
+                        profitFloat = Float.valueOf(homeForecast) + Float.valueOf(liability);
+                        liabilityFloat = Float.valueOf(awayForecast) + Float.valueOf(profit);
+                        break;
+                    }
+                    //DRAW - LAY
+                    else if (i == 2 && !order.getIsBack()) {
+                        profitFloat = Float.valueOf(homeForecast) + Float.valueOf(profit);
+                        liabilityFloat = Float.valueOf(awayForecast) + Float.valueOf(liability);
+                        break;
+                    }
+                }
+            }
+            for (ArrayList<String> lstForeCast : foreCastDataAfter) {
+                if(lstForeCast.contains(order.getSelectionName()) && order.getIsBack()) {
+                    Assert.assertEquals(lstForeCast.get(1), String.format("%.2f", profitFloat),
+                            String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
+                } else if (lstForeCast.contains(order.getSelectionName()) && !order.getIsBack()) {
+                    Assert.assertEquals(lstForeCast.get(1), String.format("%.2f",liabilityFloat),
+                            String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
+                } else if (!lstForeCast.contains(order.getSelectionName()) && order.getIsBack()) {
+                    Assert.assertEquals(lstForeCast.get(1), String.format("%.2f",liabilityFloat),
+                            String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
+                } else {
+                    Assert.assertEquals(lstForeCast.get(1), String.format("%.2f", profitFloat),
+                            String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
+                }
+            }
+        }
+    }
 
-                Assert.assertEquals(profitLiability, expectedProfitLiability,
+    public void verifyForeCastGoalLineIsCorrect(List<ArrayList<String>> foreCastDataAfter, Order order) {
+        String profit = String.format("%.2f",
+                order.getProfit(order.getIsBack(), Double.valueOf(order.getOdds()), Double.valueOf(order.getStake())));
+        String liability = String.format("%s%.2f", "-",
+                order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()), Double.valueOf(order.getStake())));
+        for (int i = 0; i < foreCastDataAfter.size(); i++) {
+            if(i==0) {
+                Assert.assertEquals(foreCastDataAfter.get(i).get(1), profit,
                         String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
             } else {
-                continue;
+                Assert.assertEquals(foreCastDataAfter.get(i).get(1), liability,
+                        String.format("FAILED! Fore cast on selection %s is not correct", order.getSelectionName()));
+            }
+        }
+    }
+
+    public void verifyForeCastInningRunIsCorrect(List<ArrayList<String>> foreCastDataAfter, Order order) {
+        String firstScoreRow = String.format("%s - %s", 0, Integer.valueOf(order.getOdds()) - 1);
+        String secondScoreRow = String.format("%s+",order.getOdds());
+        for (ArrayList<String> lstForeCast : foreCastDataAfter) {
+            if(!order.getIsBack()) {
+                if(lstForeCast.get(0).contains("-")) {
+                    Assert.assertEquals(lstForeCast.get(0), firstScoreRow,"FAILED! ");
+                    Assert.assertEquals(lstForeCast.get(1),String.format("-%s", order.getStake()));
+                } else {
+                    Assert.assertEquals(lstForeCast.get(0), secondScoreRow,"FAILED! ");
+                    Assert.assertEquals(lstForeCast.get(1),String.format("%s", order.getStake()));
+                }
+
+            } else {
+                if(lstForeCast.get(0).contains("-")) {
+                    Assert.assertEquals(lstForeCast.get(0), firstScoreRow,"FAILED! ");
+                    Assert.assertEquals(lstForeCast.get(1),String.format("%s", order.getStake()));
+                } else {
+                    Assert.assertEquals(lstForeCast.get(0), secondScoreRow,"FAILED! ");
+                    Assert.assertEquals(lstForeCast.get(1),String.format("-%s", order.getStake()));
+                }
+            }
+        }
+    }
+
+    public void verifyForeCastHandicapIsCorrect(List<ArrayList<String>> foreCastDataAfter, Order order) {
+        String selection = order.getSelectionName();
+        String hpdScore = selection.split("[+-]")[1];
+        for (int i = 0; i < foreCastDataAfter.size(); i++) {
+            if(foreCastDataAfter.get(i).get(0).equalsIgnoreCase("Draw")) {
+                if(Float.valueOf(foreCastDataAfter.get(i).get(1)) == Float.valueOf(hpdScore)) {
+                    Assert.assertEquals(foreCastDataAfter.get(i).get(1),"0.00","FAILED! ");
+                } else {
+                    Assert.assertEquals(foreCastDataAfter.get(i).get(1),String.format("-%.2f", Float.valueOf(order.getStake())),"FAILED! ");
+                }
+            } else if (Float.valueOf(foreCastDataAfter.get(i).get(0).replaceAll("[+-]","")) >= Float.valueOf(hpdScore) && i < 5) {
+                Assert.assertEquals(foreCastDataAfter.get(i).get(1),"0.00","FAILED! ");
+            } else {
+                Assert.assertEquals(foreCastDataAfter.get(i).get(1),String.format("-%.2f", Float.valueOf(order.getStake())),"FAILED! ");
             }
         }
     }

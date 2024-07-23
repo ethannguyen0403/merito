@@ -80,6 +80,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
                 .selectionName(Label.xpath(String.format("%s[%d]//span[contains(@class,'runner-name')]", matchUnmatchXpath, 1)).getText())
                 .odds(Label.xpath(String.format("%s[%d]/span[2]", matchUnmatchXpath, 1)).getText())
                 .stake(stake)
+                .isBack(isBack)
                 .profit(isBack ? Label.xpath(String.format("%s[%d]/span[4]", matchUnmatchXpath, 1)).getText() : stake)
                 .liablity(isBack ? stake : Label.xpath(String.format("%s[%d]/span[4]", matchUnmatchXpath, 1)).getText())
                 .build();

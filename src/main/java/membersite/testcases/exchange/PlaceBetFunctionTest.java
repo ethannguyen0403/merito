@@ -13,6 +13,7 @@ import membersite.pages.RacingPage;
 import membersite.pages.SportPage;
 import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
@@ -98,7 +99,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
         Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
         Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
-        Assert.assertEquals(expectedProfit, wagers.get(0).getProfit(), "Incorrect Profit");
+        Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
 
         log("Verify: Account Balance/Outstanding updated correctly");
         Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
@@ -158,7 +159,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     public void Place_Bet_Function_TC558() {
         log("@title: Validate can place unmatched Back bet successfully for Tennis");
         log("Step 1. Active any market of Tennis");
-        String odds = "100";
+        String odds = "80.00";
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_TENNIS_SPORT);
 
         log("Step 2: Click on an event");
@@ -374,7 +375,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     @Parameters({"currency"})
     public void Place_Bet_Function_TC562(String currency) {
         log("@title: Validate can place unmatched Back bet successfully for Cricket");
-        String odds = "30";
+        String odds = "80.00";
         AccountBalance balance = memberHomePage.getUserBalance();
         String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
 
@@ -476,7 +477,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     public void Place_Bet_Function_TC564() {
         log("@title: Validate can place unmatched Back bet successfully for Horse Racing");
         boolean isBack = true;
-        String odds = "100.00";
+        String odds = "80.00";
         String minBet = BetUtils.getMinBet("OTHER", LBL_BACK_TYPE);
         String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
@@ -519,7 +520,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
             log("Verify: Account Balance/Outstanding updated correctly");
             Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure(), String.format(Locale.getDefault(), "%,.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
 
         } finally {
             log("Post Condition: Cancel all unmatch bets");
@@ -556,7 +557,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     @Test(groups = {"smoke","smoke_dev"})
     public void Place_Bet_Function_TC566() {
         log("@title: Validate that user can place unmatched Back bet on Soccer market");
-        String odds = "20.00";
+        String odds = "80.00";
         String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_BACK_TYPE);
         String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
@@ -586,11 +587,11 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
             Assert.assertEquals(odds, wagers.get(0).getOdds(), "Incorrect Odds");
             Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
-            Assert.assertEquals(expectedProfit, wagers.get(0).getProfit(), "Incorrect Profit");
+            Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
 
             log("Verify: Account Balance/Outstanding updated correctly");
             Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure(), String.format(Locale.getDefault(), "%,.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
         } finally {
             log("Post Condition: Cancel all unmatch bets");
             marketPage.myBetsContainer.cancelAllBetUnmatched();
@@ -821,5 +822,206 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "998")
+    @Test(groups = {"smoke_dev"})
+    public void Place_Bet_Function_TC998() {
+        log("@title: Validate Exposure and Liability is kept correctly when place unmatched bet");
+        String odds = "80.00";
+        String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
+        String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
+        log("Step 1. Navigate to Cricket page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+        log("Step 2: Click on an event Match Odds");
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEventName(event.getEventName());
+        try {
+            log("Step 3. Input stake and click submit");
+            Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+            market.getBtnOdd().click();
+            AccountBalance balance = memberHomePage.getUserBalance();
+            marketPage.betsSlipContainer.placeBet(odds, minBet);
+            List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
+            AccountBalance balanceExpected = marketPage.getUserBalance();
+            String expectedBalance = marketPage.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
+
+            log("Verify: Verify Balance and exposure is correctly after place unmatched bet");
+            Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
+            Assert.assertEquals(odds, wagers.get(0).getOdds(), "Incorrect Odds");
+            Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
+            Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
+            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure(), String.format( "%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+        } finally {
+            log("Post Condition: Cancel all unmatch bets");
+            marketPage.myBetsContainer.cancelAllBetUnmatched();
+            log("INFO: Executed completely");
+        }
+    }
+
+    @TestRails(id = "581")
+    @Test(groups = {"smoke_dev"})
+    public void Place_Bet_Function_TC581() {
+        log("@title: Validate forecast/ liability value display correctly when place BACK bet on a selection");
+        log("Step 1. Active any market of Soccer");
+        String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_BACK_TYPE);
+        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEventName(event.getEventName());
+        log("Step 3. Update odds > offer odds and Input valid stake");
+        event.setMarketName(MATCH_ODDS_TITLE);
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        String odds = market.getBtnOdd().getText();
+        List<ArrayList<String>> foreCastInfoBefore = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
+        log("Step 4. Input stake and click submit");
+        marketPage.betsSlipContainer.placeBet(odds, minBet);
+
+        List<Order> wagers = marketPage.myBetsContainer.getOrder(true, true, 1);
+        List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
+        log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
+                "Display profit for under placed selection\n" +
+                "Display liability of the bet under other selections");
+        marketPage.verifyForeCastIsCorrect(foreCastInfoBefore, foreCastInfoAfter, wagers.get(0));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "583")
+    @Test(groups = {"smoke_dev"})
+    public void Place_Bet_Function_TC583() {
+        log("@title: Validate forecast/ liability value display correctly when place LAY bet on a selection");
+        log("Step 1. Active any market of Soccer");
+        String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_LAY_TYPE);
+        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEventName(event.getEventName());
+        log("Step 3. Update odds > offer odds and Input valid stake");
+        event.setMarketName(MATCH_ODDS_TITLE);
+        Market market = marketPage.marketOddControl.getMarket(event, 1, false);
+        market.getBtnOdd().click();
+        String odds = market.getBtnOdd().getText();
+        List<ArrayList<String>> foreCastInfoBefore = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
+        log("Step 4. Input stake and click submit");
+        marketPage.betsSlipContainer.placeBet(odds, minBet);
+
+        List<Order> wagers = marketPage.myBetsContainer.getOrder(true, false, 1);
+        List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
+        log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
+                "Display profit for under placed selection\n" +
+                "Display liability of the bet under other selections");
+        marketPage.verifyForeCastIsCorrect(foreCastInfoBefore, foreCastInfoAfter, wagers.get(0));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "1101")
+    @Test(groups = {"smoke_dev2"})
+    @Parameters({"currency"})
+    public void Place_Bet_Function_TC1101(String currency) {
+        log("@title: Validate forecast display correct when place for Goal Line market");
+        log("Step 1. Active any market of Soccer");
+        String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_BACK_TYPE);
+        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
+        Event event = page.eventContainerControl.getEventGoalLineRandom(SPORT_ID.get(LBL_SOCCER_SPORT), currency);
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
+            log("DEBUG: There is no event available");
+            throw new SkipException("SKIPPED! No Goal Line event available for testing");
+        }
+        MarketPage marketPage = page.leftMenu.searchEvent(event.getEventName(), true);
+        log("Step 3. Update odds > offer odds and Input valid stake");
+        event.setMarketName(GOAL_LINE_TITLE);
+        Market market = marketPage.marketOddControl.getMarketGoalLine(event, 1, true);
+        market.getBtnOdd().click();
+        log("Step 4. Input stake and click submit");
+        marketPage.betsSlipContainer.placeBet(market.getBtnOdd().getText(), minBet);
+
+        List<Order> wagers = marketPage.myBetsContainer.getOrder(true, true, 1);
+        List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
+        log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
+                "Display profit for under placed selection\n" +
+                "Display liability of the bet under other selections");
+        marketPage.verifyForeCastGoalLineIsCorrect(foreCastInfoAfter, wagers.get(0));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "1102")
+    @Test(groups = {"smoke_dev"})
+    @Parameters({"currency"})
+    public void Place_Bet_Function_TC1102(String currency) {
+        log("@title: Validate forecast display correct when place for Inning Run market");
+        log("Step 1. Active any market of Cricket");
+        String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
+        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
+        Event event = page.eventContainerControl.getEventInningRunRandom(SPORT_ID.get(LBL_CRICKET_SPORT), currency);
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
+            log("DEBUG: There is no event available");
+            throw new SkipException("SKIPPED! No Inning Run event available for testing");
+        }
+        MarketPage marketPage = page.leftMenu.searchEvent(event.getEventName(), true);
+        log("Step 3. Update odds > offer odds and Input valid stake");
+        page.leftMenu.clickMarket(event.getMarketName());
+        Market market = marketPage.marketOddControl.getMarketInningRun(event, 1, true);
+        if(market.getBtnOdd().getText().equalsIgnoreCase("")) {
+            log("DEBUG: There is no odds available on Inning Run market");
+            throw new SkipException("SKIPPED! No Inning Run odds available for testing");
+        }
+        market.getBtnOdd().click();
+        String odds = market.getBtnOdd().getText();
+        log("Step 4. Input stake and click submit");
+        try {
+            marketPage.betsSlipContainer.placeBet(odds, minBet);
+
+            List<Order> wagers = marketPage.myBetsContainer.getOrder(true, false, 1);
+            List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
+            log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
+                    "Display profit for under placed selection\n" +
+                    "Display liability of the bet under other selections");
+            marketPage.verifyForeCastInningRunIsCorrect(foreCastInfoAfter, wagers.get(0));
+        } finally {
+            log("INFO: Executed completely");
+        }
+    }
+
+    @TestRails(id = "1103")
+    @Test(groups = {"smoke_dev"})
+    @Parameters({"currency"})
+    public void Place_Bet_Function_TC1103(String currency) {
+        log("@title: Validate forecast display correct when place for Handicap market");
+        log("Step 1. Active any market of Soccer");
+        String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_BACK_TYPE);
+        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
+        Event event = page.eventContainerControl.getEventHandicapRandom(SPORT_ID.get(LBL_SOCCER_SPORT), currency);
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
+            log("DEBUG: There is no event available");
+            throw new SkipException("SKIPPED! No Handicap event available for testing");
+        }
+        MarketPage marketPage = page.leftMenu.searchEvent(event.getEventName(), true);
+        log("Step 3. Update odds > offer odds and Input valid stake");
+        event.setMarketName(HANDICAP_TITLE);
+        page.leftMenu.clickMarket(event.getMarketName());
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        String odds = "50.00";
+        log("Step 4. Input stake and click submit");
+        marketPage.betsSlipContainer.placeBet(odds, minBet);
+
+        List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
+        List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
+        log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
+                "Display profit for under placed selection\n" +
+                "Display liability of the bet under other selections");
+        marketPage.verifyForeCastHandicapIsCorrect(foreCastInfoAfter, wagers.get(0));
+        log("INFO: Executed completely");
+    }
 }
