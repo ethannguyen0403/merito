@@ -190,7 +190,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance
      */
     @TestRails(id = "502")
-    @Test(groups = {"smoke2","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void HeaderSection_TC502() {
         log("@title: Validate can navigate to Account Statement page");
         log("Step 1. Click My Account > Account Statement");

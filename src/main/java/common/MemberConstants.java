@@ -124,6 +124,7 @@ public class MemberConstants {
                 put("VERONICA", "Supernowa Casino");
                 put("GAME_HALL", "Game Hall");
                 put("VIVO", "ViVo");
+                put("WHITECLIFF", "Evolution");
             }
         };
 
@@ -250,8 +251,8 @@ public class MemberConstants {
         public final static String START_DATE = "Start Date";
         public final static String END_DATE = "End Date";
         public final static String NOTES = "Note : Date will be based on time zone %s";
-        public final static List<String> TABLE_SUMMARY_HEADER = Arrays.asList("Event/Market ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
-        public final static List<String> TABLE_SUMMARY_HEADER_NEWUI = Arrays.asList("Event/Market ID/Arena ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
+        public final static List<String> TABLE_SUMMARY_HEADER_GREEN = Arrays.asList("Event/Market ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
+        public final static List<String> TABLE_SUMMARY_HEADER_STG = Arrays.asList("Event/Market ID/Arena ID", "Settled Date", "Narration", "Debit", "Credit", "Balance");
 
         public final static List<String> TABLE_DETAIL_HEADER = Arrays.asList("Bet ID", "Selection", "Type", "Odds", "Turnover", "Place Date", "Profit/Loss", "Status");
         public final static String LOAD_REPORT = "Load Report";
