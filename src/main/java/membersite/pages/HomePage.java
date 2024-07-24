@@ -136,8 +136,8 @@ public class HomePage extends LandingPage {
         DriverManager.getDriver().get(url);
         if (productName.equalsIgnoreCase(LIVE_DEALER_EURO)) {
             return new LiveDealerEuropeanPage();
-        } else if (productName.equalsIgnoreCase(EVOLUTION)) {
-            return new EvolutionPage();
+        } else if (productName.equalsIgnoreCase(EVOLUTION_WHITE_CLIFF)) {
+            return new EvolutionWhiteCliffPage();
         } else if (productName.equalsIgnoreCase(LOTTERY_AND_SLOTS)) {
             return new LotterySlotsPage();
         } else if (productName.equalsIgnoreCase(PRAGMATIC)) {

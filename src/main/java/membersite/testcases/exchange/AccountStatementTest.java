@@ -68,11 +68,9 @@ public class AccountStatementTest extends BaseCaseTest {
 
         log("Step 2 & 3. Filter in a date range amd click Load Report");
         page.filter(startDate, endDate);
-//        List<String> tblHeaders = page.getTblReport().getColumnNamesOfTable(1);
 
         log("Verify 1. Report summary table header display correctly");
         page.verifyHeaderOfTableReport();
-//        Assert.assertEquals(tblHeaders, TABLE_SUMMARY_HEADER, "ERROR! Sport header table not match as expected");
 
         List<ArrayList<String>> lst = page.getTblReport().getRowsWithoutHeader(1, false);
         if (lst.get(0).get(2).equals(OPENING_BALANCE)) {

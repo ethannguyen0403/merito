@@ -414,11 +414,12 @@ public class SatHeader extends Header1 {
                 productTab = " Vivo ";
             } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("GAME_HALL"))) {
                 productTab = " GAME HALL ";
+            } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("WHITECLIFF"))) {
+                productTab = " Evolution ";
             }
             return Tab.xpath(String.format(this.productMenuXpath, productTab)).isDisplayed();
         } else {
-            productTab = " LIVE DEALER ";
-            clickProduct(productTab);
+            clickProduct(CASINO);
             if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("SUPER_SPADE"))) {
                 productTab = "Asian Room";
             } else if (productName.equals(MemberConstants.HomePage.PRODUCTS.get("EZUGI"))) {
