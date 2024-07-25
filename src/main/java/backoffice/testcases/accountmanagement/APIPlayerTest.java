@@ -26,7 +26,7 @@ public class APIPlayerTest extends BaseCaseTest {
      * 2. Verify the message "User [loginId] has been removed successful" and the player is removed out the list
      */
     @TestRails(id = "618")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
     @Parameters({"satMemberLoginID"})
     public void BO_Tools_API_Player_618(String satMemberLoginID) {
         log("@title: Validate can add and delete player into the list");
@@ -39,7 +39,7 @@ public class APIPlayerTest extends BaseCaseTest {
         String successMessage = msgBox.getSuccessAlert();
 
         log("Verify 1. Verify the message \"User [loginId] has been added successful\" and the player is added into the list");
-        Assert.assertTrue(successMessage.contains(String.format(BOConstants.Tools.APIPlayer.MSG_SUCCESS, satMemberLoginID, "added")), "FAILED! Success message when add api player is incorrect");
+        Assert.assertEquals(successMessage,String.format(BOConstants.Tools.APIPlayer.MSG_ADDED, satMemberLoginID), "FAILED! Success message when add api player is incorrect");
         Assert.assertTrue(page.isPlayerExist(satMemberLoginID), "FAILED! The added account not display in the list");
 
         log("Step 3. Click on delete icon and confirm to delete");
@@ -48,7 +48,7 @@ public class APIPlayerTest extends BaseCaseTest {
         successMessage = msgBox.getSuccessAlert();
 
         log("Verify 2. Verify the message \"User [loginId] has been removed successful\" and the player is removed out the list");
-        Assert.assertTrue(successMessage.contains(String.format(BOConstants.Tools.APIPlayer.MSG_SUCCESS, satMemberLoginID, "removed")), "Success message when remove api player is incorrect");
+        Assert.assertEquals(successMessage,String.format(BOConstants.Tools.APIPlayer.MSG_REMOVED, satMemberLoginID), "Success message when remove api player is incorrect");
         Assert.assertFalse(page.isPlayerExist(satMemberLoginID), "FAILED! The added account not display in the list");
         log("INFO: Executed completely");
     }

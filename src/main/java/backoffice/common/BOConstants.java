@@ -325,7 +325,8 @@ public class BOConstants {
 
         public static class APIPlayer {
             public final static String TITLE = "API Player";
-            public final static String MSG_SUCCESS = "User %s has been %s successful";
+            public final static String MSG_ADDED = "×\nClose\nUser %s has been added successful";
+            public final static String MSG_REMOVED = "×\nClose\nUser %s has been removed successfully";
         }
 
         public static class PositionTakingConfiguration {
