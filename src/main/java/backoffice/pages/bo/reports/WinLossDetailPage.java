@@ -15,8 +15,8 @@ import java.util.Objects;
 public class WinLossDetailPage extends HomePage {
     public TextBox txtDateFrom = TextBox.xpath("//app-winloss-detail//input[@name='from-date']");
     public TextBox txtDateTo = TextBox.xpath("//app-winloss-detail//input[@name='to-date']");
-    public DateTimePicker dpFrom = DateTimePicker.xpath(txtDateFrom, "//div[contains(@class,'bs-calendar-container')]");
-    public DateTimePicker dpTo = DateTimePicker.xpath(txtDateTo, "//div[contains(@class,'bs-calendar-container')]");
+    public DateTimePicker dpFrom = DateTimePicker.xpath(txtDateFrom, "//bs-datepicker-container");
+    public DateTimePicker dpTo = DateTimePicker.xpath(txtDateTo, "//bs-datepicker-container");
     public com.paltech.element.common.DropDownBox ddbTypeCurrency = com.paltech.element.common.DropDownBox.xpath("//div[contains(@class,'currency')]//select");
     public DropDownBox ddbProduct = DropDownBox.xpath("//angular2-multiselect[contains(@name,'product')]", "//div[contains(@class,'dropdown-list')]//li/label");
     public Label lblProductError = Label.xpath("//div[contains(@class, 'search-region')]//div[@class='error-message'][2]");

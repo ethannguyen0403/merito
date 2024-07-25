@@ -35,7 +35,7 @@ public class FindBlockedMarketTest extends BaseCaseTest {
      * @expected: 1. Verify market info display correctly
      */
     @TestRails(id = "609")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
     @Parameters("satMemberLoginID")
     public void BO_Tools_Find_Blocked_Market_609(String satMemberLoginID) {
         log("Step 2. Access Tool > Find Block Market");
