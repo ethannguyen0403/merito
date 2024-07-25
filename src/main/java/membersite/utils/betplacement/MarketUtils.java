@@ -134,6 +134,74 @@ public class MarketUtils {
         return false;
     }
 
+    public static boolean isEventHasGoalLineMarket(String sportId, String eventId, String currency) {
+        String api = String.format("%s/member-market/sat/left-menu.json", domainURL);
+        String jsn = String.format("{\"type\":\"MARKET\",\"selectedId\":\"%s\",\"sportId\":\"%s\",\"upLevel\":true,\"currencyCode\":\"%s\",\"tzone\":\"GMT+05:30\"}", eventId, sportId, currency);
+        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api,Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        if(jsonObject.getJSONArray("items").length() != 0) {
+            JSONArray jsonArray = jsonObject.getJSONArray("items");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonItem = jsonArray.getJSONObject(i);
+                if(jsonItem.getString("marketType").equalsIgnoreCase("ALT_TOTAL_GOALS")) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public static boolean isEventHasInningRunMarket(String sportId, String eventId, String currency) {
+        String api = String.format("%s/member-market/sat/left-menu.json", domainURL);
+        String jsn = String.format("{\"type\":\"MARKET\",\"selectedId\":\"%s\",\"sportId\":\"%s\",\"upLevel\":true,\"currencyCode\":\"%s\",\"tzone\":\"GMT+05:30\"}", eventId, sportId, currency);
+        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api,Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        if(jsonObject.getJSONArray("items").length() != 0) {
+            JSONArray jsonArray = jsonObject.getJSONArray("items");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonItem = jsonArray.getJSONObject(i);
+                if(jsonItem.getString("marketType").contains("_OVR_LINE") || jsonItem.getString("marketType").contains("_RUNS_LINE")) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public static String findInningRunMarketName(String sportId, String eventId, String currency) {
+        String api = String.format("%s/member-market/sat/left-menu.json", domainURL);
+        String jsn = String.format("{\"type\":\"MARKET\",\"selectedId\":\"%s\",\"sportId\":\"%s\",\"upLevel\":true,\"currencyCode\":\"%s\",\"tzone\":\"GMT+05:30\"}", eventId, sportId, currency);
+        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api,Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        if(jsonObject.getJSONArray("items").length() != 0) {
+            JSONArray jsonArray = jsonObject.getJSONArray("items");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonItem = jsonArray.getJSONObject(i);
+                if(jsonItem.getString("marketType").contains("_OVR_LINE") || jsonItem.getString("marketType").contains("_RUNS_LINE")) {
+                    return jsonItem.getString("name");
+                }
+            }
+            return "";
+        }
+        return "";
+    }
+
+    public static boolean isEventHasHandicapMarket(String sportId, String eventId, String currency) {
+        String api = String.format("%s/member-market/sat/left-menu.json", domainURL);
+        String jsn = String.format("{\"type\":\"MARKET\",\"selectedId\":\"%s\",\"sportId\":\"%s\",\"upLevel\":true,\"currencyCode\":\"%s\",\"tzone\":\"GMT+05:30\"}", eventId, sportId, currency);
+        JSONObject jsonObject = WSUtils.getPOSTJSONObjectWithCookies(api,Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(),Configs.HEADER_JSON);
+        if(jsonObject.getJSONArray("items").length() != 0) {
+            JSONArray jsonArray = jsonObject.getJSONArray("items");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonItem = jsonArray.getJSONObject(i);
+                if(jsonItem.getString("marketType").contains("HANDICAP")) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
     public static Event getBetfairEvent(String eventId) {
         String api = String.format("%s/member-service/event-tab/event-info/%s", domainURL, eventId);
         JSONObject jsonObject = WSUtils.getGETJSONObjectWithCookies(api, Configs.HEADER_JSON_CHARSET, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);

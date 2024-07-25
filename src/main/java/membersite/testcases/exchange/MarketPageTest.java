@@ -93,7 +93,7 @@ public class MarketPageTest extends BaseCaseTest {
             return;
         }
         MarketPage marketPage = sportPage.clickEventName(event.getEventName());
-        List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsLabelByMarket("Match Odds",true);
+        List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsValueByMarket("Match Odds",true);
         log("Step 2. Click on All Back Odds button of all selections");
         log("Verify 1: Selection will be added in bet slip and Back odds value is corresponding updated");
         marketPage.verifySelectedSelectionDisplayOnBetSlip(event, lblBackOdds.size(), true);
@@ -112,7 +112,7 @@ public class MarketPageTest extends BaseCaseTest {
             return;
         }
         MarketPage marketPage = sportPage.clickEventName(event.getEventName());
-        List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsLabelByMarket("Match Odds",false);
+        List<Label> lblBackOdds = marketPage.marketOddControl.getAllOddsValueByMarket("Match Odds",false);
         log("Step 2. Click on All Lay Odds button of all selections");
         log("Verify 1: Selection will be added in bet slip and Lay odds value is corresponding updated");
         marketPage.verifySelectedSelectionDisplayOnBetSlip(event, lblBackOdds.size(), false);
@@ -728,13 +728,15 @@ public class MarketPageTest extends BaseCaseTest {
         log("Step 3: Place a matched back bet");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         String minBet = BetUtils.getMinBet(SPORT_TENNIS, LBL_BACK_TYPE);
+
+        List<ArrayList<String>> foreCastInfoBefore = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
         marketPage.placeBet(market, minBet);
         List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, true, 1);
-        List<ArrayList<String>> foreCastInfo = marketPage.marketOddControl.getUIForeCast();
+        List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
         log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
                 "Display profit for under placed selection\n" +
                 "Display liability of the bet under other selections");
-        marketPage.verifyForeCastIsCorrect(foreCastInfo, betOrder.get(0));
+        marketPage.verifyForeCastIsCorrect(foreCastInfoBefore, foreCastInfoAfter, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "993")
@@ -753,13 +755,15 @@ public class MarketPageTest extends BaseCaseTest {
         log("Step 3: Place a matched Lay bet");
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
         String minBet = BetUtils.getMinBet(SPORT_TENNIS, LBL_LAY_TYPE);
+
+        List<ArrayList<String>> foreCastInfoBefore = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
         marketPage.placeBet(market, minBet);
         List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, false, 1);
-        List<ArrayList<String>> foreCastInfo = marketPage.marketOddControl.getUIForeCast();
+        List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
         log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
                 "Display profit for under placed selection\n" +
                 "Display liability of the bet under other selections");
-        marketPage.verifyForeCastIsCorrect(foreCastInfo, betOrder.get(0));
+        marketPage.verifyForeCastIsCorrect(foreCastInfoBefore, foreCastInfoAfter, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "994")

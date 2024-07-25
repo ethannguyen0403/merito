@@ -75,13 +75,17 @@ public class LiveDealerAsianPageTest extends BaseCaseTest {
         log("@title: Validate could not access Live Dealer Asian when disable product");
         log("@Precondition: Account has been activated Live Dealer Asian game in Agent Site");
         log("@Step 1: Login member site with precondition account");
-        log("@Step 2: Access Pragmatic on header menu");
+        log("@Step 2: Access Live Dealer Asian on header menu");
         log("@Verify 1: The product should not displayed on header menu to prevent user from accessing");
-        Assert.assertTrue(!memberHomePage.header.isProductTabDisplay(LIVE_DEALER_ASIAN), "FAILED! Live Dealer Asian display on homepage menu.");
-        log("@Step 3: Access Live Dealer Asian by external link");
-        LiveDealerAsianPage dealerAsian = (LiveDealerAsianPage) memberHomePage.openCasinoGameByUrl(LIVE_DEALER_ASIAN);
-        log("@Verify 2: User could not access product and was brought back to home page");
-        Assert.assertFalse(dealerAsian.getListProductSize() > 0,"FAILED! Live Dealer Asian game is displayed");
-        log("INFO: Executed completely");
+        try {
+            memberHomePage.openLiveDealerAsian();
+            Assert.assertTrue(false, "FAILED! Able to open LDA while product is inactivated");
+        } catch (Exception e) {
+            log("@Step 3: Access Live Dealer Asian by external link");
+            LiveDealerAsianPage dealerAsian = (LiveDealerAsianPage) memberHomePage.openCasinoGameByUrl(LIVE_DEALER_ASIAN);
+            log("@Verify 2: User could not access product and was brought back to home page");
+            Assert.assertFalse(dealerAsian.getListProductSize() > 0,"FAILED! Live Dealer Asian game is displayed");
+            log("INFO: Executed completely");
+        }
     }
 }

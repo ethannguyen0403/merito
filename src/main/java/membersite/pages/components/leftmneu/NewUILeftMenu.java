@@ -9,12 +9,14 @@ import common.MemberConstants;
 import membersite.controls.DropDownBox;
 import membersite.controls.DropDownMenu;
 import membersite.pages.EventPage;
+import membersite.pages.MarketPage;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static agentsite.pages.HomePage.waitingLoadingSpinner;
 import static common.MemberConstants.WICKET_BOOKMAKER_TITLE;
 
 public class NewUILeftMenu extends LeftMenu {
@@ -53,13 +55,14 @@ public class NewUILeftMenu extends LeftMenu {
         return lblNoSearchResult;
     }
 
-    public EventPage searchEvent(String eventName, boolean isClick) {
+    public MarketPage searchEvent(String eventName, boolean isClick) {
         txtSearch.type(eventName);
         txtSearch.type(false, Keys.ARROW_DOWN);
         if (lblResult.isDisplayed()) {
             lblResult.click();
+            waitingLoadingSpinner();
         }
-        return new EventPage(BaseCaseTest._brandname);
+        return new MarketPage(BaseCaseTest._brandname);
     }
     public void waitMenuLoading() {
         imgLoading.waitForControlInvisible();
@@ -80,7 +83,7 @@ public class NewUILeftMenu extends LeftMenu {
             if (lblFancyItem.getText().trim().equalsIgnoreCase(marketName)) {
                 lnk = Link.xpath(String.format("(%s)[%d]", String.format(marketActiveXpath1, eventActiveXpath), i + 1));
                 lnk.click();
-                imgLoading.isInvisible(300);
+                waitMenuLoading();
                 return;
             }
         }

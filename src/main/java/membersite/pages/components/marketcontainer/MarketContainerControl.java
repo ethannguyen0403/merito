@@ -1,6 +1,5 @@
 package membersite.pages.components.marketcontainer;
 
-import com.paltech.element.common.Button;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import membersite.objects.funsport.Odd;
@@ -44,6 +43,10 @@ public class MarketContainerControl {
         return null;
     }
 
+    public List<ArrayList<String>> getUIForeCast(String marketName) {
+        return null;
+    }
+
     public void verifyUIForeCastIsCorrect(){
 
     }
@@ -67,6 +70,15 @@ public class MarketContainerControl {
     public Market getMarket(Event event, int selectionIndex, boolean isBack) {
         return null;
     }
+
+    public Market getMarketGoalLine(Event event, int selectionIndex, boolean isBack) {
+        return null;
+    }
+
+    public Market getMarketInningRun(Event event, int selectionIndex, boolean isBack) {
+        return null;
+    }
+
 
     public int getSelectionHaveMinOdds(String marketName,boolean isBack) {
         return 0;
@@ -109,5 +121,7 @@ public class MarketContainerControl {
 //        return list;
 //    }
 
-    public List<Label> getAllOddsLabelByMarket(String marketName, boolean isBack) { return null;}
+    public List<Label> getAllOddsValueByMarket(String marketName, boolean isBack) { return null;}
+
+    public int getTotalSelectionsOnMarket(String marketName) {return -1;}
 }
