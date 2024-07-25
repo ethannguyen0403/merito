@@ -1,7 +1,7 @@
 package membersite.pages.components.leftmneu;
 
 import com.paltech.element.common.Label;
-import membersite.pages.EventPage;
+import membersite.pages.MarketPage;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class LeftMenu {
         return null;
     }
 
-    public EventPage searchEvent(String eventName, boolean isClick) {
+    public MarketPage searchEvent(String eventName, boolean isClick) {
         return null;
     }
 

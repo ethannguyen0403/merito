@@ -194,6 +194,40 @@ public class Fair999EventContainerControl extends EventContainerControl {
         }
     }
 
+    public Event getEventGoalLineRandom(String sportId, String currency) {
+        List<Event> lstEvent = BetUtils.findOpenGoalLineEvent(sportId, currency);
+        Random rand = new Random();
+        int bound = rand.nextInt((lstEvent.size() - 1) + 1);
+        String homeAwayTeam = lstEvent.get(bound).getEventName();
+        return new Event.Builder()
+                .eventName(homeAwayTeam)
+                .marketName("Goal Line")
+                .build();
+    }
+
+    public Event getEventInningRunRandom(String sportId, String currency) {
+        List<Event> lstEvent = BetUtils.findOpenInningRunEvent(sportId, currency);
+        Random rand = new Random();
+        int bound = rand.nextInt((lstEvent.size() - 1) + 1);
+        String homeAwayTeam = lstEvent.get(bound).getEventName();
+        String marketName = lstEvent.get(bound).getMarketName();
+        return new Event.Builder()
+                .eventName(homeAwayTeam)
+                .marketName(marketName)
+                .build();
+    }
+
+    public Event getEventHandicapRandom(String sportId, String currency) {
+        List<Event> lstEvent = BetUtils.findOpenHandicapEvent(sportId, currency);
+        Random rand = new Random();
+        int bound = rand.nextInt((lstEvent.size() - 1) + 1);
+        String homeAwayTeam = lstEvent.get(bound).getEventName();
+        return new Event.Builder()
+                .eventName(homeAwayTeam)
+                .marketName("Handicap")
+                .build();
+    }
+
     // Get event has Match Odds market by default
     public Event getEventRandom(boolean isInplay, boolean isSuspend) {
         Label lblEvents = Label.xpath(lblListEventXPath);

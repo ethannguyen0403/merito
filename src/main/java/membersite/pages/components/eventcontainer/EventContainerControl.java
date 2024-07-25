@@ -44,6 +44,18 @@ public class EventContainerControl {
         return null;
     }
 
+    public Event getEventGoalLineRandom(String sportId, String currency) {
+        return null;
+    }
+
+    public Event getEventInningRunRandom(String sportId, String currency) {
+        return null;
+    }
+
+    public Event getEventHandicapRandom(String sportId, String currency) {
+        return null;
+    }
+
     public boolean isOddsUnclickable(String eventName) {
         return false;
     }

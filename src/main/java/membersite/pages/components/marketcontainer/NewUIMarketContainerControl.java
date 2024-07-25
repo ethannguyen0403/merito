@@ -14,12 +14,9 @@ import membersite.objects.sat.FancyMarket;
 import membersite.objects.sat.Market;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
 import org.openqa.selenium.WebElement;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static common.MemberConstants.MATCH_ODDS_TITLE;
 
 /**
  * @author by isabella.huynh
@@ -67,6 +64,87 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
             forecastValue = Label.xpath(String.format("(%s)[%d]", xPathForeCastLable, i + 1)).getText();
             selectionName = Label.xpath(String.format("%s[%s]%s", lblSelectionListXPath, i + 1, lblSelectionName)).getText();
             forecastList.add(new ArrayList<String>(Arrays.asList(selectionName, forecastValue)));
+        }
+        return forecastList;
+    }
+    public List<ArrayList<String>> getUIForeCast(String marketName) {
+        if(marketName.equalsIgnoreCase("Goal Line")) {
+            return getUIForeCastGoalLineMarket(marketName);
+        } else if (marketName.contains("Innings")) {
+            return getUIForeCastInningRunsMarket();
+        } else if (marketName.contains("Handicap")) {
+            return getUIForeCastHandicapMarket();
+        } else {
+            return getUIForeCastGeneralMarkets(marketName);
+        }
+    }
+
+    public List<ArrayList<String>> getUIForeCastGeneralMarkets(String marketName) {
+        List<ArrayList<String>> forecastList = new ArrayList<>();
+        String xpathMarketForeCast;
+        String xpathSelection;
+        int totalSelection = getTotalSelectionsOnMarket(marketName);
+        String forecastValue;
+        String selectionName;
+        xpathMarketForeCast = "(//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='%s']//ancestor::tabset[contains(@customclass,'event-page')]//div[contains(@class,'table-odds')]//div[contains(@class, 'market-runner')]/div)[%s]//span[contains(@class,'forecast-liability')]";
+        xpathSelection = "(//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='%s']//ancestor::tabset[contains(@customclass,'event-page')]//div[contains(@class,'table-odds')]//div[contains(@class, 'market-runner')]/div)[%s]//span[2]";
+        for (int i = 0; i < totalSelection; i++) {
+            forecastValue = Label.xpath(String.format(xpathMarketForeCast, marketName,i + 1)).getText();
+            selectionName = Label.xpath(String.format(xpathSelection, marketName,i + 1)).getText();
+            forecastList.add(new ArrayList<String>(Arrays.asList(selectionName, forecastValue)));
+        }
+        return forecastList;
+    }
+
+    public List<ArrayList<String>> getUIForeCastGoalLineMarket(String marketName) {
+        List<ArrayList<String>> forecastList = new ArrayList<>();
+        int totalSelection = getTotalSelectionsOnMarket(marketName);
+        String forecastValue;
+        String selectionName;
+        String xpathMarketForeCastFirstValue = "(//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='%s']//ancestor::tabset[contains(@customclass,'event-page')]//span[contains(@class,'pnl-row')])[4]";
+        String xpathMarketForeCastSecondValue = "(//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='%s']//ancestor::tabset[contains(@customclass,'event-page')]//span[contains(@class,'pnl-row')])[6]";
+        String xpathSelectionScoreFirstValue = "(//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='%s']//ancestor::tabset[contains(@customclass,'event-page')]//span[contains(@class,'pnl-row')])[3]";
+        String xpathSelectionScoreSecondValue = "(//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='%s']//ancestor::tabset[contains(@customclass,'event-page')]//span[contains(@class,'pnl-row')])[5]";
+        for (int i = 0; i < totalSelection; i++) {
+            if(i == 0) {
+                forecastValue = Label.xpath(String.format(xpathMarketForeCastFirstValue, marketName)).getText();
+                selectionName = Label.xpath(String.format(xpathSelectionScoreFirstValue, marketName)).getText();
+                forecastList.add(new ArrayList<String>(Arrays.asList(selectionName, forecastValue)));
+            } else {
+                forecastValue = Label.xpath(String.format(xpathMarketForeCastSecondValue, marketName)).getText();
+                selectionName = Label.xpath(String.format(xpathSelectionScoreSecondValue, marketName)).getText();
+                forecastList.add(new ArrayList<String>(Arrays.asList(selectionName, forecastValue)));
+            }
+        }
+        return forecastList;
+    }
+    public List<ArrayList<String>> getUIForeCastInningRunsMarket() {
+        List<ArrayList<String>> forecastList = new ArrayList<>();
+        Button btnBook = Button.xpath("//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='Line Market']//ancestor::tabset[contains(@customclass,'event-page')]//div[contains(@class,'table-odds')]//button[text()='Book']");
+        try {
+            btnBook.click();
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        for (int i = 0; i < 2 ; i++) {
+            Label lblForecast = Label.xpath(String.format("//app-line-market-book//tr[%s]", i + 1));
+            String forecastScore = lblForecast.getText().split(":")[0].trim();
+            String forecastAmount = lblForecast.getText().split(":")[1].trim();
+            forecastList.add(new ArrayList<String>(Arrays.asList(forecastScore, forecastAmount)));
+        }
+        return forecastList;
+    }
+
+    public List<ArrayList<String>> getUIForeCastHandicapMarket() {
+        List<ArrayList<String>> forecastList = new ArrayList<>();
+        String xpathForeCastScore ="((//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='Asian Handicap']//ancestor::tabset[contains(@customclass,'event-page')]//table[contains(@class,'pnl-table')]//tr)[3]//td[contains(@class,'pnl-handicap')])[%s]";
+        String xpathForeCastPnL ="((//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='Asian Handicap']//ancestor::tabset[contains(@customclass,'event-page')]//table[contains(@class,'pnl-table')]//tr)[4]//td[contains(@class,'pnl-value')])[%s]";
+        Label lblForeCastScore = Label.xpath("(//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='Asian Handicap']//ancestor::tabset[contains(@customclass,'event-page')]//table[contains(@class,'pnl-table')]//tr)[3]//td[contains(@class,'pnl-handicap')]");
+        for (int i = 0; i < lblForeCastScore.getWebElements().size(); i++) {
+            String scoreValue = Label.xpath(String.format(xpathForeCastScore, i + 1)).getText();
+            String hdpValue =  Label.xpath(String.format(xpathForeCastPnL, i + 1)).getText();
+            forecastList.add(new ArrayList<String>(Arrays.asList(scoreValue, hdpValue)));
         }
         return forecastList;
     }
@@ -173,13 +251,24 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
         return list;
     }
 
-    public List<Label> getAllOddsLabelByMarket(String marketName, boolean isBack) {
+    public List<Label> getAllOddsValueByMarket(String marketName, boolean isBack) {
+        if(marketName.contains("Innings")) {
+            return getAllOddsValueInningRuns(marketName, isBack);
+        } else {
+            return getAllOddsValueGeneralMarkets(marketName, isBack);
+        }
+    }
+
+    private List<Label> getAllOddsValueGeneralMarkets(String marketName, boolean isBack) {
         List<Label> list = new ArrayList<>();
-        String xpathMarket = String.format("//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='%s']//ancestor::tabset[contains(@customclass,'event-page')]", marketName);
-        Label lblSelections = Label.xpath(xpathMarket + "//div[contains(@class,'table-odds')]//div[contains(@class, 'market-runner')]/div");
-        int totalSelection = lblSelections.getWebElements().size();
+        String xPathOddsList;
+        int totalSelection = getTotalSelectionsOnMarket(marketName);
         for (int i = 0; i < totalSelection; i++) {
-            String xPathOddsList = String.format("(//span[text()='%s']/ancestor::ul/following::div[1]//tab[contains(@class,'active')]//div[contains(@class,'market-runner')]//div[contains(@class,'market-container')])[%d]//div[contains(@class,'cell-odds')]", marketName, i + 1);
+            if(marketName.equalsIgnoreCase("Goal Line")) {
+                xPathOddsList = String.format("(//span[text()='%s']/ancestor::ul/following::div[1]//tab[contains(@class,'active')]//tbody//tr)[%s]//td[contains(@class,'cell-odds')]", marketName, i + 1);
+            } else {
+                xPathOddsList = String.format("(//span[text()='%s']/ancestor::ul/following::div[1]//tab[contains(@class,'active')]//div[contains(@class,'market-runner')]//div[contains(@class,'market-container')])[%d]//div[contains(@class,'cell-odds')]", marketName, i + 1);
+            }
             int countOddsLabel = Label.xpath(xPathOddsList).getWebElements().size();
             if (isBack) {
                 for (int j = countOddsLabel / 2; j > 0; j--) {
@@ -196,6 +285,45 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
             }
         }
         return list;
+    }
+
+    private List<Label> getAllOddsValueInningRuns(String marketName, boolean isBack) {
+        List<Label> list = new ArrayList<>();
+        String xPathOddsList;
+        int totalSelection = getTotalSelectionsOnMarket(marketName);
+        for (int i = 0; i < totalSelection; i++) {
+            xPathOddsList = String.format("//span[text()='Line Market']/ancestor::ul/following::div[1]//span[text()='%s']//..//..//div[contains(@class,'cell-odds')]", marketName);
+            int countOddsLabel = Label.xpath(xPathOddsList).getWebElements().size();
+            if (isBack) {
+                for (int j = countOddsLabel / 2; j < countOddsLabel; j++) {
+                    //just get the best odds then break
+                    list.add(Label.xpath(String.format("%s[%d]//div[contains(@class,'pending-odds')]",xPathOddsList, j+1)));
+                    break;
+                }
+            } else {
+                for (int j = countOddsLabel / 2; j > 0; j--) {
+                    //just get the best odds then break
+                    list.add(Label.xpath(String.format("%s[%d]//div[contains(@class,'pending-odds')]",xPathOddsList, j)));
+                    break;
+                }
+            }
+        }
+        return list;
+    }
+
+    public int getTotalSelectionsOnMarket(String marketName) {
+        String xpathMarket = String.format("//app-event-page//ul[@role='tablist']//a[@role='tab']//span[text()='%s']//ancestor::tabset[contains(@customclass,'event-page')]", marketName);
+        if(marketName.equalsIgnoreCase("Goal Line")) {
+            Label lblSelections = Label.xpath(xpathMarket + "//tbody//tr");
+            int totalSelection = lblSelections.getWebElements().size();
+            return totalSelection;
+        } else if (marketName.contains("Innings")) {
+            return 1;
+        } else {
+            Label lblSelections = Label.xpath(xpathMarket + "//div[contains(@class,'table-odds')]//div[contains(@class, 'market-runner')]/div");
+            int totalSelection = lblSelections.getWebElements().size();
+            return totalSelection;
+        }
     }
 
     public List<Label> getCellOddsListLabel(int selectionIndex, boolean isBack) {
@@ -275,6 +403,17 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
         waitControlLoadCompletely(2);
         String selectionName = Label.xpath(String.format("((//span[text()='%s']/ancestor::ul/following::div[1]//tab[contains(@class,'active')]//div[contains(@class,'market-runner')]//div[contains(@class,'market-container')])[%d]//div[contains(@class,'runner-name')]//span)[2]",event.getMarketName(), selectionIndex)).getText();
         return getMarket(event, event.getMarketName(), selectionName, isBack, getOddsListLabel(event.getMarketName(),selectionIndex, isBack).get(0));
+    }
+
+    public Market getMarketGoalLine(Event event, int selectionIndex, boolean isBack) {
+        waitControlLoadCompletely(2);
+        String selectionName = Label.xpath(String.format("(//goal-lines-market-odds//td[contains(@class,'runner-name')]//span[2])[%s]", selectionIndex)).getText();
+        return getMarket(event, event.getMarketName(), selectionName, isBack, getAllOddsValueByMarket(event.getMarketName(), isBack).get(0));
+    }
+
+    public Market getMarketInningRun(Event event, int selectionIndex, boolean isBack) {
+        waitControlLoadCompletely(2);
+        return getMarket(event, event.getMarketName(), event.getMarketName(), isBack, getAllOddsValueByMarket(event.getMarketName(), isBack).get(0));
     }
 
     public UnderageGamblingPopup clickOdd(Market market) {
