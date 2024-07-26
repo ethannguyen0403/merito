@@ -42,6 +42,7 @@
             <class name="backoffice.testcases.marketmanagement.FindBlockedMarketTest"/>
             <class name="backoffice.testcases.marketmanagement.BeforeLoginManagementTest"/>
 
+            <class name="backoffice.testcases.operations.LiveStreamingManagementTest"/>
             <class name="backoffice.testcases.operations.WagerVoidUnvoidTest"/>
 
             <class name="backoffice.testcases.reports.WinLossDetailTest"/>
