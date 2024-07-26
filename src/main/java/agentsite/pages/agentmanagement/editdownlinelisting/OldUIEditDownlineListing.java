@@ -76,7 +76,7 @@ public class OldUIEditDownlineListing extends EditDownlineListing {
 
         //Position Taking section
         Assert.assertEquals(lblPositionTakingListing.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_POSITION_TAKING,"FAILED! Position Taking Section Label display incorrect");
-        Assert.assertEquals(lstPositionTakingHeader, AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_HEADER,"FAILED! Position Taking Header does not display as expected");
+        Assert.assertEquals(lstPositionTakingHeader, AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_SPORT_HEADER,"FAILED! Position Taking Header does not display as expected");
 
         //Button Submit, Cancel
         Assert.assertEquals(btnSubmit.getText(), AGConstant.BTN_SUBMIT,"FAILED! Submit button display incorrect");

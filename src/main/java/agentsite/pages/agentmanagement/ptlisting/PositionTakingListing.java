@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static common.AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_HEADER;
+import static common.AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_SPORT_HEADER;
 
 public class PositionTakingListing {
     public int totalColum = 32;
@@ -171,7 +171,7 @@ public class PositionTakingListing {
 
     public List<String> definePTSettingList(String member, int inputValue) {
         List<String> lstPTSetting = getPTofAccount(member);
-        List<Integer> lstIndex = tblDownline.getListColumnIndexByListName(LST_POSITION_TAKING_HEADER);
+        List<Integer> lstIndex = tblDownline.getListColumnIndexByListName(LST_POSITION_TAKING_SPORT_HEADER);
         for (int i = 0; i < lstIndex.size() - 1; i++) {
             lstPTSetting.set(lstIndex.get(i + 1), Integer.toString(inputValue));
         }

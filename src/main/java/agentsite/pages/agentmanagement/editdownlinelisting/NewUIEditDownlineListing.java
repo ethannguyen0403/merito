@@ -69,7 +69,7 @@ public class NewUIEditDownlineListing extends EditDownlineListing {
         Assert.assertEquals(lstTaxSettingOption, AGConstant.AgencyManagement.CreateAccount.LST_TAX_SETTING_OPTION,"FAILED! Tax Setting options in the first column does not display as expected");
 
         Assert.assertEquals(lblPositionTakingListing.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_POSITION_TAKING,"FAILED! Position Taking Section Label display incorrect");
-        Assert.assertEquals(lstPositionTakingHeader, AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_HEADER,"FAILED! Position Taking Header does not display as expected");
+        Assert.assertEquals(lstPositionTakingHeader, AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_SPORT_HEADER,"FAILED! Position Taking Header does not display as expected");
 
         Assert.assertEquals(btnSubmit.getText(), AGConstant.BTN_SUBMIT,"FAILED! Submit button display incorrect");
         Assert.assertEquals(btnCancel.getText(), AGConstant.BTN_CANCEL,"FAILED! Cancel button display incorrect");

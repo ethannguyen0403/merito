@@ -6,8 +6,9 @@ import common.AGConstant;
 import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static common.AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_HEADER;
+import static common.AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_SPORT_HEADER;
 import static common.AGConstant.AgencyManagement.CreateUser.*;
 
 public class OldUIPositionTakingSection extends PositionTakingSection {
@@ -23,9 +24,13 @@ public class OldUIPositionTakingSection extends PositionTakingSection {
     public void verifyUIDisplayCorrect(String product) {
         productCode = mapProductNameToCode(product);
         if(product.equalsIgnoreCase(AGConstant.EXCHANGE)) {
-            Table tblPositionTaking = Table.xpath(String.format(positionTakingTableXpath, productCode), totalColumnExchange);
-            ArrayList<String> lstHeader = tblPositionTaking.getHeaderNameOfRows();
-            Assert.assertEquals(lstHeader, LST_POSITION_TAKING_HEADER, "FAILED! Position header list is not shown correct");
+//            Table tblPositionTaking = Table.xpath(String.format(positionTakingTableXpath, productCode), totalColumnExchange);
+            List<String> lstSportHeader = new ArrayList<>();
+            Label lblSport = Label.xpath("//app-ptsetting//strong");
+            for (int i = 0; i < lblSport.getWebElements().size();i++){
+                lstSportHeader.add(Label.xpath(String.format("(//app-ptsetting//strong)[%s]",i+1)).getText());
+            }
+            Assert.assertEquals(lstSportHeader, LST_POSITION_TAKING_SPORT_HEADER, "FAILED! Position header list is not shown correct");
         } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
             Table tblPositionTaking = Table.xpath(String.format(positionTakingTableXpath, productCode), totalColumnExchangeGames);
             ArrayList<String> lstHeader = tblPositionTaking.getHeaderNameOfRows();
