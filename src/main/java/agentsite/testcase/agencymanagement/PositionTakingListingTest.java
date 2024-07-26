@@ -32,7 +32,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "707")
-    @Test(groups = {"smoke_newui"})
+    @Test(groups = {"smoke_newui","MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Position_Taking_Listing_707() {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
@@ -56,7 +56,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4136")
-    @Test(groups = {"smoke_sat"})
+    @Test(groups = {"smoke_sat","MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Position_Taking_Listing_4136() {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
@@ -384,9 +384,9 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "710")
-    @Test(groups = {"smoke" , "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke" , "MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Position_Taking_Listing_710() {
-        log("@title: Verify can update PT  for selected sport");
+        log("@title: Verify can update PT for selected sport");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
         String downline = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();
@@ -395,21 +395,25 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step 2. Select a downline and only select Soccer sport");
         page.positionTakingListing.search(downline, "", "", "");
+        page.positionTakingListing.waitingLoadingSpinner();
         List<String> lstPTInfoBeforeUpdate = page.positionTakingListing.getPTofAccount(downline);
+        String firstPT = lstPTInfoBeforeUpdate.get(page.positionTakingListing.soccerCol - 1);
         lstPTInfoBeforeUpdate.set(page.positionTakingListing.soccerCol - 1, Integer.toString(PT));
         try {
-            AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE.put("Soccer", true);
+//            AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE.put("Soccer", true);
             log("Step 3. Update SAD Preset and click update button");
-            page.positionTakingListing.updatePT(downline, PT, AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE);
+//            page.positionTakingListing.updatePT(downline, PT, AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE);
+            page.positionTakingListing.updatePTSport(downline, PT, "Soccer");
 
             log("Verify 1. Verify Login ID displays");
-            page.positionTakingListing.enableSport(AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE);
+            Assert.assertTrue(page.positionTakingListing.verifyUpdateStatus(downline, true), "FAILED! Update Status not display green check");
+//            page.positionTakingListing.enableSport(AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE);
+            page.positionTakingListing.selectSport("All");
             List<String> lstPTInfo = page.positionTakingListing.getPTofAccount(downline);
             Assert.assertEquals(lstPTInfo, lstPTInfoBeforeUpdate, "FAILED! Position Taking Listing Data does not match");
-            Assert.assertTrue(page.positionTakingListing.verifyUpdateStatus(downline, true), "FAILED! Update Status not display green check");
             log("INFO: Executed completely");
         } finally {
-            AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE.put("Soccer", false);
+            page.positionTakingListing.updatePTSport(downline, Integer.parseInt(firstPT), "Soccer");
         }
 
     }
