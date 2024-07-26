@@ -2,8 +2,8 @@ package membersite.testcases.casino;
 
 import backoffice.utils.tools.ProviderCurrencyMappingUltils;
 import baseTest.BaseCaseTest;
-import membersite.pages.casino.CasinoHomePage;
 import membersite.pages.casino.LotterySlotsPage;
+import membersite.utils.betplacement.BetUtils;
 import membersite.utils.casino.CasinoUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -52,15 +52,13 @@ public class LotterySlotsPageTest extends BaseCaseTest {
     public void Casino_Test_TC20246(String BOLoginId, String BOLoginPwd, String currency) throws Exception {
         log("@title: Validate balance in Lottery & Slots game match with user's balance");
         log("@Precondition: Account has been activated Lottery & Slots game in Agent Site");
-        double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
+        double balance = Double.valueOf(BetUtils.getUserBalance().getBalance().replace(",",""));
         log("@Step 1: Login member site with precondition account");
         log("@Step 2: Access Lottery & Slots on header menu");
         LotterySlotsPage lotterySlotsPage = memberHomePage.openLotteryAndSlots();
 
-
         log("@Step 3: Click on first game");
         lotterySlotsPage.selectCasinoGame();
-        //Use console log to verify balance in game of Lottery Slots in Slot game tab
         double balanceCasino = lotterySlotsPage.getBalance();
 
         loginBackoffice(BOLoginId, BOLoginPwd, true);
