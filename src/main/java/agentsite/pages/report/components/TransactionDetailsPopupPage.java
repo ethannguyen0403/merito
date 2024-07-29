@@ -6,10 +6,9 @@ import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.components.ComponentsFactory;
 import agentsite.pages.report.components.transactiondetailspopup.TransactionDetailsPopup;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.Icon;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.Popup;
+import com.paltech.element.common.*;
+import com.paltech.utils.DoubleUtils;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,16 +37,20 @@ public class TransactionDetailsPopupPage extends HomePage {
     Label lblExport = Label.id("export-title");
     Icon icExport = Icon.xpath("//span[@class='exportExcel enabled']");
     Label lblDisplayItem = Label.xpath("//div[contains(@class,'displaying-items')]");
+    Button btnNextPage = Button.xpath("//app-exchange-betlist//div[@class='next-page']");
     private int staticColTotal = 9;
     private int rowTotalCol = 8;
     public TransactionDetailsPopup transactionDetailsPopup;
+
     public TransactionDetailsPopupPage(String types) {
         super(types);
         transactionDetailsPopup = ComponentsFactory.transactionDetailsPopup(types);
     }
+
     public List<String> getProductsListTab() {
         return transactionDetailsPopup.getProductsListTab();
     }
+
     public void closePopup() {
         btnClose.click();
     }
@@ -66,18 +69,24 @@ public class TransactionDetailsPopupPage extends HomePage {
         return Table.xpath(tblReportXpath, tblReportTotalCol);
     }
 
-    public boolean isColumnDataMatchedWithTotal(String columnName, List<String> lstLevel) {
+    public void verifyColumnDataMatchedWithTotal(String columnName, List<String> lstLevel) {
         Table table = defineReportCol(lstLevel);
         fullScreenPopup();
 //        int col = table.getColumnIndexByName(columnName) + 1;// there is Cashout column is hide so need to inclue 1 more column
         int col = table.getColumnIndexByName(columnName);
         if (col == -1) {
-            System.out.println(String.format("Column name %s not be found in the table", columnName));
-            return false;
+            Assert.assertTrue(false,String.format("Column name %s not be found in the table", columnName));
         }
-        List<String> lstData = table.getColumn(col, true);
         double memberResult = 0.00;
         double totalResult = Double.valueOf(getTotalRowData().get(col - staticColTotal));
+        String numberDisplay = Label.xpath("//app-pnl-transaction-detail//div[@id='pagination']//div[contains(@class,'item')]//span").getText().trim().split(" ")[3];
+        String numberTotal = Label.xpath("//app-pnl-transaction-detail//div[@id='pagination']//div[contains(@class,'item')]//span").getText().trim().split(" ")[5];
+        if (!Integer.valueOf(numberDisplay).equals(Integer.valueOf(numberTotal))){
+            DropDownBox ddPagination = DropDownBox.xpath("//app-pnl-transaction-detail//div[@id='pagination']//div[contains(@class,'item')]//select");
+            ddPagination.selectByVisibleText("100");
+            waitingLoadingSpinner();
+        }
+        List<String> lstData = table.getColumn(col, true);
         for (int i = 0; i < lstData.size(); i++) {
             String value = lstData.get(i);
             if (value.isEmpty() || value.equalsIgnoreCase("-"))
@@ -86,7 +95,12 @@ public class TransactionDetailsPopupPage extends HomePage {
                 memberResult = memberResult + Double.valueOf(value);
         }
         //format to 2f string to avoid case decimal place too long
-        return String.format("%.2f", totalResult) == String.format("%.2f", memberResult);
+        Assert.assertEquals(totalResult,DoubleUtils.roundEvenWithTwoPlaces(memberResult),String.format("Total of %s displays in correct",columnName));
+    }
+
+    public void goToNextPage(){
+        btnNextPage.click();
+        waitingLoadingSpinner();
     }
 
 
@@ -154,7 +168,7 @@ public class TransactionDetailsPopupPage extends HomePage {
         transactionDetailsPopup.verifyListOfProductsTabDisplayedCorrect(productFilterName);
     }
 
-    public CashOutHistoryPopup openCashOutHistoryPopup(int index){
+    public CashOutHistoryPopup openCashOutHistoryPopup(int index) {
         Label.xpath(tblReport.getxPathOfCell(1, colStatus, index, "span")).click();
         return new CashOutHistoryPopup();
     }
