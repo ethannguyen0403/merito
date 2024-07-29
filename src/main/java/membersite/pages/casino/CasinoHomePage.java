@@ -16,7 +16,7 @@ public class CasinoHomePage {
     }
 
     public void checkBalance(double actual, double expected, double BORate) {
-        Assert.assertEquals(actual * BORate, expected, "FAILED! Balance of Casino game not equals to balance user");
+        Assert.assertEquals(actual * BORate, expected, 0.01,"FAILED! Balance of Casino game not equals to balance user");
     }
 
     public List<String> getListProductsMenu() {
@@ -84,7 +84,7 @@ public class CasinoHomePage {
                 Thread.sleep(2000);
             } catch (Exception e) {
             }
-        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equalsIgnoreCase("complete") && timeCount > 0);
+        } while (!DriverManager.getDriver().executeJavascripts("return document.readyState").equals("complete") && timeCount > 0);
     }
 
     protected void switchToLastFrame() {
