@@ -99,7 +99,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify tax is updated for all sport and Update status is display green check
      */
     @TestRails(id = "750")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Tax_Setting_Listing_750() {
         log("@title: Verify can update tax for all sports");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
@@ -115,7 +115,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
         try {
             log("Step 3. Update valid tax for Soccer, Tennis, Cricket, Basketball, Fancy Other and Click update");
             page.taxSettingListing.updateTaxSetting(loginID, lstExpectedData);
-
+            page.waitingLoadingSpinner();
             log("Verify 1. Verify tax is updated for all sport and Update status is display green check");
             List<ArrayList<String>> lstActualData = page.taxSettingListing.tblTax.getRowsWithoutHeader(1, false);
             Assert.assertEquals(lstActualData, lstExpectedData, "FAILED! Data does not update correctly after update tax");

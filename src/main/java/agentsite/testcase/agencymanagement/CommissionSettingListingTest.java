@@ -54,7 +54,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify the correct username is displayed
      */
     @TestRails(id = "741")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Commission_Setting_Listing_741() {
         log("@title: Verify can search commission setting Listing by Login ID");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");
@@ -64,7 +64,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
 
         log("Step 2. Enter valid Login ID in Username textbox and click on Submit button");
         page.search(loginID, "", "", "");
-
+        page.waitingLoadingSpinner();
         log("Verify 1. Verify the correct username is displayed");
         List<String> lstMembers = page.tblMemberCommission.getColumn(page.colUsername, false);
         Assert.assertEquals(page.tblAgentCommission.getRowsWithoutHeader(1, false).get(0).get(0), AGConstant.NO_RECORD_FOUND, "FAILED! Should display no record when search member only");

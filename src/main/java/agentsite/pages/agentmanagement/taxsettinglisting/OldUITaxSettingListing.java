@@ -12,8 +12,8 @@ import java.util.List;
 public class OldUITaxSettingListing extends TaxSettingListing {
     private int otherCol = 13;
     private int updateStatusCol = 14;
-    public int virtualCricketCol = 12;
-    public int decimalCricketCol = 11;
+    public int virtualCricketCol = 11;
+    public int decimalCricketCol = 12;
 
     public List<ArrayList<String>> defineListTaxSetting(double inputValue) {
         List<ArrayList<String>> lstTaxSetting = tblTax.getRowsWithoutHeader(1, false);
