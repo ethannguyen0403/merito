@@ -62,6 +62,7 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
     }
 
     public String changePassword(String loginID, String newPassword) throws InterruptedException {
+        searchDownline(loginID,"","");
         return downlineListing.changePassword(loginID, newPassword);
     }
 

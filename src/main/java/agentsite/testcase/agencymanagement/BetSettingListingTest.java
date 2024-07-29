@@ -70,7 +70,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "744")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Bet_Setting_Listing_744() {
         log("@title: Verify update bet setting with valid min bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
