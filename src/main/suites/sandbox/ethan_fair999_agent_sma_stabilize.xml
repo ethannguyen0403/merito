@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="STG_FE_SMOKE_AGENT_SMA" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="Maintenance and Stabilize Fair999 Agent in STG 2024.V.5.0">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='ATZ'/>
+        <parameter name='levelLogin' value='Senior Master Agent'/>
+        <parameter name='downlineAccount' value='ATZ00'/>
+        <parameter name='portalSubAccount' value='ANSUBIS'/>
+        <parameter name='memberAccount' value='ATZ0000000'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='INR'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value='fairexchange'/>
+        <parameter name='skinName' value='fairexchange'/>
+        <parameter name='isAddTestRailResult' value='true'/>
+        <groups>
+            <run>
+                <include name="MER.Maintenance.2024.V.5.0"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
+
+            <class name="agentsite.testcase.reports.ClientLegerTest"/>
+            <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
+        </classes>
+
+    </test>
+</suite>
