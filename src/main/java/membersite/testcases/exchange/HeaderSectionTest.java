@@ -190,7 +190,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance
      */
     @TestRails(id = "502")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
     public void HeaderSection_TC502() {
         log("@title: Validate can navigate to Account Statement page");
         log("Step 1. Click My Account > Account Statement");
@@ -303,13 +303,19 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Tennis page display with the title: Tennis Highlights
      */
     @TestRails(id = "506")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
     public void HeaderSection_TC506() {
         log("@title: Validate can navigate to Tennis menu");
         log("Step 1. Click on Tennis menu");
         log("Verify: 1. Tennis page display with the title: Tennis Highlights");
         String sportName = "Tennis";
         SportPage page = memberHomePage.header.navigateSportMenu(sportName, _brandname);
+        //Wait Header for updating in SAT
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if (Objects.nonNull(page)) {
             Assert.assertEquals(page.eventContainerControl.getSportHeader(),
                     String.format(MemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL, sportName),
