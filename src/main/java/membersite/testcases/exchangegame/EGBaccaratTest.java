@@ -20,7 +20,7 @@ public class EGBaccaratTest extends BaseCaseTest {
      * @expect: Verify can place bet
      */
     @TestRails(id = "533")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
     public void EG_Baccarat_TC533() {
         log("@title: Validate can place BACCARAT standard");
         log("Step precondition. get min bet of Baccarat");
@@ -34,7 +34,7 @@ public class EGBaccaratTest extends BaseCaseTest {
         baccaratPage.placeBet("Player", false, "1.02", minBet);
 
         log("Verify Verify can place bet");
-        Assert.assertTrue(baccaratPage.isUnmatchedBetDisplayed().contains("Player"), "Failed! Cannot place bet as unmatched section not display");
+        Assert.assertEquals(baccaratPage.isUnmatchedBetDisplayed(),"Player", "Failed! Cannot place bet as unmatched section not display");
 
         log("INFO: Executed completely");
     }
