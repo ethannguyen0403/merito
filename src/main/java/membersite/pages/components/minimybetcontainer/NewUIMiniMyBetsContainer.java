@@ -89,10 +89,17 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     @Override
     public void verifyInfoBetSlipAndOddsPage(Market market, Order order) {
         String actualLiability = Label.xpath(lblProfitLiabilityXPath).getText().trim();
-        String expectedLiability = String.format("%.2f", order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
-        Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Liability of selection is not correct");
-        Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
-        Assert.assertEquals(String.format("%.2f",Double.valueOf(market.getBtnOdd().getText())), order.getOdds(), "FAILED! Odds is not corrct");
+        if (order.getIsBack()) {
+            String expectedLiability = String.format("%.2f", order.getProfit(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
+            Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Profit of selection is not correct");
+            Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
+            Assert.assertEquals(String.format("%.2f",Double.valueOf(market.getBtnOdd().getText())), order.getOdds(), "FAILED! Odds is not correct");
+        } else {
+            String expectedLiability = String.format("%.2f", order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
+            Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Liability of selection is not correct");
+            Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
+            Assert.assertEquals(String.format("%.2f",Double.valueOf(market.getBtnOdd().getText())), order.getOdds(), "FAILED! Odds is not correct");
+        }
     }
 
     public void removeBet(boolean isBack) {

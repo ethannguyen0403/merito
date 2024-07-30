@@ -520,4 +520,40 @@ public class MarketPage extends HomePage {
         }
     }
 
+    public String defineUnmatchedBackOdds(String originalOdds) {
+        float convertOdds = Float.valueOf(originalOdds);
+        if(convertOdds >= 1.01 && convertOdds < 2) {
+            return "2.00";
+        } else if (convertOdds >= 2 && convertOdds < 3) {
+            return "3.00";
+        } else if (convertOdds >= 3 && convertOdds < 4) {
+            return "4.00";
+        } else if (convertOdds >= 4 && convertOdds < 6) {
+            return "6.00";
+        } else if (convertOdds >= 6 && convertOdds < 10) {
+            return "10.00";
+        } else if (convertOdds >= 10 && convertOdds < 20) {
+            return "20.00";
+        } else if (convertOdds >= 20 && convertOdds < 30) {
+            return "30.00";
+        } else if (convertOdds >= 30 && convertOdds < 50) {
+            return "50.00";
+        } else if (convertOdds >= 50 && convertOdds < 100) {
+            return "100.00";
+        } else {
+            return "110.00";
+        }
+    }
+
+    public String clickOdds(Market market) {
+        //try to click 2 times on odds
+        for (int i = 0; i < 2; i++) {
+            market.getBtnOdd().click();
+            if(betsSlipContainer.txtOdds.isDisplayed()) {
+                return market.getBtnOdd().getText();
+            }
+            i++;
+        }
+        return "";
+    }
 }
