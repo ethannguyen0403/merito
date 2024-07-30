@@ -520,4 +520,40 @@ public class MarketPage extends HomePage {
         }
     }
 
+    public String defineUnmatchedBackOdds(String originalOdds) {
+        float convertOdds = Float.valueOf(originalOdds);
+        if(convertOdds >= 1.01 && convertOdds < 2) {
+            return String.format("%.2f",convertOdds + (50* 0.01));
+        } else if (convertOdds >= 2 && convertOdds < 3) {
+            return String.format("%.2f",convertOdds + (50* 0.02));
+        } else if (convertOdds >= 3 && convertOdds < 4) {
+            return String.format("%.2f",convertOdds + (40* 0.05));
+        } else if (convertOdds >= 4 && convertOdds < 6) {
+            return String.format("%.2f",convertOdds + (30* 0.1));
+        } else if (convertOdds >= 6 && convertOdds < 10) {
+            return String.format("%.2f",convertOdds + (20* 0.2));
+        } else if (convertOdds >= 10 && convertOdds < 20) {
+            return String.format("%.2f",convertOdds + (10* 0.5));
+        } else if (convertOdds >= 20 && convertOdds < 30) {
+            return String.format("%.2f",convertOdds + (5* 1));
+        } else if (convertOdds >= 30 && convertOdds < 50) {
+            return String.format("%.2f",convertOdds + (3* 2));
+        } else if (convertOdds >= 50 && convertOdds < 100) {
+            return String.format("%.2f",convertOdds + (3* 5));
+        } else {
+            return String.format("%.2f",convertOdds + (2*10));
+        }
+    }
+
+    public String clickOdds(Market market) {
+        //try to click 2 times on odds
+        for (int i = 0; i < 2; i++) {
+            market.getBtnOdd().click();
+            if(betsSlipContainer.txtOdds.isDisplayed()) {
+                return market.getBtnOdd().getText();
+            }
+            i++;
+        }
+        return "";
+    }
 }

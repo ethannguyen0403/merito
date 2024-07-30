@@ -520,10 +520,6 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
         return infoURLLst;
     }
 
-    public void clickOdds(Market market) {
-        Label lblOdds = market.getBtnOdd();
-    }
-
     public void activeProduct(String products) {
         try {
             Thread.sleep(2000);
