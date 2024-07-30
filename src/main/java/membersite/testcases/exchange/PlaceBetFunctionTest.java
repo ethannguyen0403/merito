@@ -159,7 +159,6 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     public void Place_Bet_Function_TC558() {
         log("@title: Validate can place unmatched Back bet successfully for Tennis");
         log("Step 1. Active any market of Tennis");
-        String odds = "80.00";
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_TENNIS_SPORT);
 
         log("Step 2: Click on an event");
@@ -174,13 +173,14 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("Step 3. Update odds > offer odds and Input valid stake");
             event.setMarketName(MATCH_ODDS_TITLE);
             Market market = marketPage.marketOddControl.getMarket(event, 1, true);
-            market.getBtnOdd().click();
+            String originOdds = marketPage.clickOdds(market);
+            String unmatchedOdds = marketPage.defineUnmatchedBackOdds(originOdds);
             String minBet = BetUtils.getMinBet(LBL_TENNIS_SPORT, LBL_BACK_TYPE);
-            String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
+            String expectedProfit = String.format("%.2f", (Double.parseDouble(unmatchedOdds) - 1) * Double.parseDouble(minBet));
 
             log("Step 4. Input stake and click submit");
             AccountBalance balance = memberHomePage.getUserBalance();
-            marketPage.betsSlipContainer.placeBet(odds, minBet);
+            marketPage.betsSlipContainer.placeBet(unmatchedOdds, minBet);
             List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
 
             AccountBalance balanceExpected = marketPage.getUserBalance();
@@ -188,7 +188,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
             log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
             Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
-            Assert.assertEquals(String.format("%.2f",Double.parseDouble(odds)), wagers.get(0).getOdds(), "Incorrect Odds");
+            Assert.assertEquals(String.format("%.2f",Double.parseDouble(unmatchedOdds)), wagers.get(0).getOdds(), "Incorrect Odds");
             Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
             Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
 
@@ -375,7 +375,6 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     @Parameters({"currency"})
     public void Place_Bet_Function_TC562(String currency) {
         log("@title: Validate can place unmatched Back bet successfully for Cricket");
-        String odds = "80.00";
         AccountBalance balance = memberHomePage.getUserBalance();
         String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
 
@@ -391,10 +390,10 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
             log("Step 2. Click on any Back odds");
             Market market = marketPage.marketOddControl.getMarket(event, 1, true);
-            market.getBtnOdd().click();
-
+            String originOdds = marketPage.clickOdds(market);
+            String unmatchedOdds = marketPage.defineUnmatchedBackOdds(originOdds);
             log("Step 3. Update odds > offer odds and Input valid stake");
-            marketPage.betsSlipContainer.placeBet(odds, minBet);
+            marketPage.betsSlipContainer.placeBet(unmatchedOdds, minBet);
             List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
 
             log("Step 4. Click place bet");
@@ -402,7 +401,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("Verify 2. Remove unmatched bet icon display in front off selection name");
             log("Verify 3. Selection , Odds, Stake, Profit display correctly");
             Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
-            Assert.assertEquals(String.format("%.2f", Double.parseDouble(odds)), wagers.get(0).getOdds(), "Incorrect Odds");
+            Assert.assertEquals(String.format("%.2f", Double.parseDouble(unmatchedOdds)), wagers.get(0).getOdds(), "Incorrect Odds");
             Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
             Assert.assertEquals(wagers.get(0).getStake(), wagers.get(0).getLiability(), "Incorrect Liability");
 
@@ -477,9 +476,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     public void Place_Bet_Function_TC564() {
         log("@title: Validate can place unmatched Back bet successfully for Horse Racing");
         boolean isBack = true;
-        String odds = "80.00";
         String minBet = BetUtils.getMinBet("OTHER", LBL_BACK_TYPE);
-        String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
         log("Step 1. Active any market of Horse Racing");
         RacingPage page = memberHomePage.navigateRacing(LBL_HORSE_RACING_SPORT);
@@ -497,13 +494,16 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         Market market = marketPage.racingMarketContainer.getRace(1, isBack);
 
         log("Step 2. Click on any Back odds");
-        market.getBtnOdd().click();
+        String originOdds = marketPage.clickOdds(market);
+        String unmatchedOdds = marketPage.defineUnmatchedBackOdds(originOdds);
+        String expectedProfit = String.format("%.2f", (Double.parseDouble(unmatchedOdds) - 1) * Double.parseDouble(minBet));
+//        market.getBtnOdd().click();
 
         log("Step 2.1 Get balance before place bet");
         AccountBalance balance = memberHomePage.getUserBalance();
         log("Step 3. Place bet - Update odd to 100, Input valid stake");
         try {
-            marketPage.betsSlipContainer.placeBet(odds, minBet);
+            marketPage.betsSlipContainer.placeBet(unmatchedOdds, minBet);
 
             log("Step 5. Get unmatched info after place bet");
             List<Order> wagers = marketPage.myBetsContainer.getOrder(false, isBack, 1);
@@ -514,7 +514,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
             log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
             Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
-            Assert.assertEquals(odds, wagers.get(0).getOdds(), "Incorrect Odds");
+            Assert.assertEquals(unmatchedOdds, wagers.get(0).getOdds(), "Incorrect Odds");
             Assert.assertEquals(String.format(Locale.getDefault(), "%,.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
             Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
 
@@ -557,9 +557,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     @Test(groups = {"smoke","smoke_dev"})
     public void Place_Bet_Function_TC566() {
         log("@title: Validate that user can place unmatched Back bet on Soccer market");
-        String odds = "80.00";
         String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_BACK_TYPE);
-        String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
         log("Step 1. Click Soccer menu");
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
@@ -574,18 +572,20 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         try {
             log("Step 3. Update odds > offer odds and Input valid stake");
             Market market = marketPage.marketOddControl.getMarket(event, 1, true);
-            market.getBtnOdd().click();
+            String originOdds = marketPage.clickOdds(market);
+            String unmatchedOdds = marketPage.defineUnmatchedBackOdds(originOdds);
+            String expectedProfit = String.format("%.2f", (Double.parseDouble(unmatchedOdds) - 1) * Double.parseDouble(minBet));
 
             log("Step 4. Input stake and click submit");
             AccountBalance balance = memberHomePage.getUserBalance();
-            marketPage.betsSlipContainer.placeBet(odds, minBet);
+            marketPage.betsSlipContainer.placeBet(unmatchedOdds, minBet);
             List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
             AccountBalance balanceExpected = marketPage.getUserBalance();
             String expectedBalance = marketPage.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
 
             log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
             Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
-            Assert.assertEquals(odds, wagers.get(0).getOdds(), "Incorrect Odds");
+            Assert.assertEquals(unmatchedOdds, wagers.get(0).getOdds(), "Incorrect Odds");
             Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
             Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
 
@@ -824,16 +824,15 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
     @TestRails(id = "998")
     @Test(groups = {"smoke_dev"})
-    public void Place_Bet_Function_TC998() {
+    @Parameters({"currency"})
+    public void Place_Bet_Function_TC998(String currency) {
         log("@title: Validate Exposure and Liability is kept correctly when place unmatched bet");
-        String odds = "80.00";
         String minBet = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_BACK_TYPE);
-        String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
 
         log("Step 1. Navigate to Cricket page");
         SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_CRICKET_SPORT);
         log("Step 2: Click on an event Match Odds");
-        Event event = page.eventContainerControl.getEventRandom(false, false);
+        Event event = page.eventContainerControl.getEventMatchOddsRandom(SPORT_ID.get(LBL_CRICKET_SPORT), currency,false, false);
         if (Objects.isNull(event) || event.getEventName().isEmpty()) {
             log("DEBUG: There is no event available");
             return;
@@ -842,22 +841,25 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         try {
             log("Step 3. Input stake and click submit");
             Market market = marketPage.marketOddControl.getMarket(event, 1, true);
-            market.getBtnOdd().click();
+            String originOdds = marketPage.clickOdds(market);
+            String unmatchedOdds = marketPage.defineUnmatchedBackOdds(originOdds);
+            String expectedProfit = String.format("%.2f", (Double.parseDouble(unmatchedOdds) - 1) * Double.parseDouble(minBet));
+
             AccountBalance balance = memberHomePage.getUserBalance();
-            marketPage.betsSlipContainer.placeBet(odds, minBet);
+            marketPage.betsSlipContainer.placeBet(unmatchedOdds, minBet);
             List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
             AccountBalance balanceExpected = marketPage.getUserBalance();
             String expectedBalance = marketPage.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
 
             log("Verify: Verify Balance and exposure is correctly after place unmatched bet");
             Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
-            Assert.assertEquals(odds, wagers.get(0).getOdds(), "Incorrect Odds");
+            Assert.assertEquals(unmatchedOdds, wagers.get(0).getOdds(), "Incorrect Odds");
             Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
             Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
             Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
             Assert.assertEquals(balanceExpected.getExposure(), String.format( "%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
         } finally {
-            log("Post Condition: Cancel all unmatch bets");
+            log("Post Condition: Cancel all unmatched bets");
             marketPage.myBetsContainer.cancelAllBetUnmatched();
             log("INFO: Executed completely");
         }
@@ -926,7 +928,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "1101")
-    @Test(groups = {"smoke_dev2"})
+    @Test(groups = {"smoke_dev"})
     @Parameters({"currency"})
     public void Place_Bet_Function_TC1101(String currency) {
         log("@title: Validate forecast display correct when place for Goal Line market");
@@ -1011,17 +1013,24 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         event.setMarketName(HANDICAP_TITLE);
         page.leftMenu.clickMarket(event.getMarketName());
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
-        market.getBtnOdd().click();
-        String odds = "50.00";
-        log("Step 4. Input stake and click submit");
-        marketPage.betsSlipContainer.placeBet(odds, minBet);
+        String originOdds = marketPage.clickOdds(market);
+        String unmatchedOdds = marketPage.defineUnmatchedBackOdds(originOdds);
+        try {
+            log("Step 4. Input stake and click submit");
+            marketPage.betsSlipContainer.placeBet(unmatchedOdds, minBet);
 
-        List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
-        List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
-        log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
-                "Display profit for under placed selection\n" +
-                "Display liability of the bet under other selections");
-        marketPage.verifyForeCastHandicapIsCorrect(foreCastInfoAfter, wagers.get(0));
-        log("INFO: Executed completely");
+            List<Order> wagers = marketPage.myBetsContainer.getOrder(false, true, 1);
+            List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
+            log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
+                    "Display profit for under placed selection\n" +
+                    "Display liability of the bet under other selections");
+            marketPage.verifyForeCastHandicapIsCorrect(foreCastInfoAfter, wagers.get(0));
+        } finally {
+            log("Post-condition: Cancel all unmatched bets");
+            marketPage.myBetsContainer.cancelAllBetUnmatched();
+            log("INFO: Executed completely");
+        }
+
+
     }
 }
