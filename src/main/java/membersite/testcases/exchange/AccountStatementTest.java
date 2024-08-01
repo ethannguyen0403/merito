@@ -58,7 +58,7 @@ public class AccountStatementTest extends BaseCaseTest {
      * @expect: 1 Table header display correctly when clicking on sport> event
      */
     @TestRails(id = "525")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
     public void AccountStatement_TC525() {
         log("@title: Validate Table header when clicking on sport and market");
         log("Step 1. Click My Account > Account Statement");

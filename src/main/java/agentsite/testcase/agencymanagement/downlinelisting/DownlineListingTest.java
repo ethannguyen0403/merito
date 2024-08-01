@@ -1222,7 +1222,7 @@ public class DownlineListingTest extends BaseCaseTest {
      * @expect: 1. Verify can change password successfully
      */
     @TestRails(id = "695")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
     @Parameters({"password"})
     public void Agent_AM_Downline_Listing_695(String password) throws Exception {
         log("@title: Validate can change password from the table");

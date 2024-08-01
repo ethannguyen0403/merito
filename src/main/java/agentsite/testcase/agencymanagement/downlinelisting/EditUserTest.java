@@ -221,7 +221,7 @@ public class EditUserTest extends BaseCaseTest {
      * 3. Can add odds to bet slip when Live is active
      */
     @TestRails(id = "700")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Downline_Listing_Edit_User_700() throws Exception {
         log("@title: Verify can Inactive and active Live Event");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -313,7 +313,7 @@ public class EditUserTest extends BaseCaseTest {
      * 2. Login member site and verify Sport is not displayed on the left menu or main menu
      */
     @TestRails(id = "702")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
     @Parameters({"username", "password"})
     public void Agent_AM_Downline_Listing_Edit_User_702(String username, String password) throws Exception {
         log("@title: Verify can Inactive and active a sport");

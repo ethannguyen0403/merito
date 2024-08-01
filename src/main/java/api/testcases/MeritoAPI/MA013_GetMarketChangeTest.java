@@ -67,7 +67,7 @@ public class MA013_GetMarketChangeTest extends BaseCaseAPI {
     @TestRails(id = "427")
     @Parameters({"username", "password"})
     @Test(groups = {"smoke"})
-    public void MA013_GetMarketChangeV2Test_001(String username, String password) throws Exception {
+    public void MA013_GetMarketChangeV2Test_427(String username, String password) throws Exception {
         log("@title: Validate that can get Market Change V2");
         log("Step 1 Access api url for merito");
         log("Step 2 Login with valid username and password");

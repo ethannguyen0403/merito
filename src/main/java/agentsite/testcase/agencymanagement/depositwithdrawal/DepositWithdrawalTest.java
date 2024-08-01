@@ -251,7 +251,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      * 2. Deposit and Withdraw button is no longer displayed
      */
     @TestRails(id = "718")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash","MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_DepositWithdrawal_718() {
         log("@title: Validate there is UI when drill-down");
         AccountInfo acc = ProfileUtils.getProfile();
@@ -269,6 +269,7 @@ public class DepositWithdrawalTest extends BaseCaseTest {
 
         log(String.format("Step 2. Drill-down to indirect downline %s", lstUsers.get(0).getUserCode()));
         page.clickDownline(lstUsers.get(0).getUserCode());
+        page.waitingLoadingSpinner();
         String actualBreadcrumb = page.getBreadcrumb();
 
         log("Verify 1. There is no Update Status Transfer columns");

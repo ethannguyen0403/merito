@@ -9,19 +9,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static common.AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_HEADER;
+import static common.AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_SPORT_HEADER;
 
 public class PositionTakingListing {
     public int totalColum = 32;
     public int usernameCol = 2;
     public int loginIDCol = 3;
     public int chbCol = 5;
-    public int soccerCol = 8;
+    public int soccerCol = 9;
     public int levelCol = 6;
     public Button btnUpdate = Button.xpath("//div[contains(@class,'paction2')]//button[contains(@class,'pbtn')]");
     public TextBox txtUsername = TextBox.xpath("//input[contains(@class,'user-name')]");
     public DropDownBox ddbAccountStatus = DropDownBox.xpath("//td[text()='Account Status']//following::select[1]");
     public DropDownBox ddbProduct = DropDownBox.xpath("//td[text()='Product']//following::select[1]");
+    public DropDownBox ddbSportSubProduct = DropDownBox.xpath("//span[text()='Sport/Sub-product']/parent::td//following-sibling::td[1]/select");
     public DropDownBox ddbLevel = DropDownBox.xpath("//span[text()='Level']//following::select[1]");
     public Button btnSearch = Button.xpath("//button[@class='pbtn search']");
     public Label lblNoRecord = Label.xpath("//td[@class='no-record']");
@@ -109,10 +110,15 @@ public class PositionTakingListing {
 
     public void updatePT(String loginID, int PT, HashMap<String, Boolean> map) {
     }
-
+    public void updatePTSport(String loginID, int PT, String sport) {
+    }
+    public void selectSport(String sport){
+        ddbSportSubProduct.selectByVisibleText(sport);
+        waitingLoadingSpinner();
+    }
     public void enableSport(HashMap<String, Boolean> map) {
         CheckBox chb = CheckBox.xpath(String.format(xPathSport, "Soccer"));
-        if (!map.get("Soccer")) {
+        if (map.get("Soccer")) {
             chb.click();
         }
         chb = CheckBox.xpath(String.format(xPathSport, "Cricket"));
@@ -165,7 +171,7 @@ public class PositionTakingListing {
 
     public List<String> definePTSettingList(String member, int inputValue) {
         List<String> lstPTSetting = getPTofAccount(member);
-        List<Integer> lstIndex = tblDownline.getListColumnIndexByListName(LST_POSITION_TAKING_HEADER);
+        List<Integer> lstIndex = tblDownline.getListColumnIndexByListName(LST_POSITION_TAKING_SPORT_HEADER);
         for (int i = 0; i < lstIndex.size() - 1; i++) {
             lstPTSetting.set(lstIndex.get(i + 1), Integer.toString(inputValue));
         }

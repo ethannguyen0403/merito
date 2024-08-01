@@ -26,7 +26,7 @@ public class MA005_GetListEventsTest extends BaseCaseAPI {
     @TestRails(id = "422")
     @Parameters({"username", "password"})
     @Test(groups = {"smoke"})
-    public void MA005_GetListEvents_001(String username, String password) throws Exception {
+    public void MA005_GetListEvents_422(String username, String password) throws Exception {
         log("@title: Validate that can get Event Type");
         log("Step 1 Access api url for merito");
         log("Step 2 Login with valid username and password");
@@ -55,7 +55,7 @@ public class MA005_GetListEventsTest extends BaseCaseAPI {
     @TestRails(id = "416")
     @Parameters({"username", "password"})
     @Test(groups = {"smoke"})
-    public void MA005_GetListEvents_002(String username, String password) throws Exception {
+    public void MA005_GetListEvents_416(String username, String password) throws Exception {
         log("@title: Validate that can get Event Type");
         log("Step 1 Access api url for merito");
         log("Step 2 Login with valid username and password");

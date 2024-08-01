@@ -334,12 +334,12 @@ public class AGConstant {
             public final static String LBL_POSITION_TAKING = "Position Taking";
             public final static String LBL_ACCOUNT_BALANCE_TRANSFER_CONDITION = "Account Balance Transfer Condition";
 
-            public final static List<String> LST_TAX_SETTING_HEADER_NEWUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball",  "Fancy", "Decimal Cricket", "Virtual Cricket", "Other");
-            public final static List<String> LST_TAX_SETTING_HEADER_OLDUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Decimal Cricket","Virtual Cricket", "Other");
-            public final static List<String> LST_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket","Fancy", "Virtual Cricket",  "Bookmaker", "Decimal Cricket", "Tennis", "Basketball", "Other");
+            public final static List<String> LST_TAX_SETTING_HEADER_NEWUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball",  "Fancy", "Virtual Cricket", "Decimal Cricket", "Other");
+            public final static List<String> LST_TAX_SETTING_HEADER_OLDUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Virtual Cricket", "Decimal Cricket", "Other");
+            public final static List<String> LST_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket","Fancy", "Virtual Cricket", "Decimal Cricket",  "Bookmaker" , "Tennis", "Basketball", "Other");
             public final static List<String> LST_BET_SETTING_OPTION = Arrays.asList("Min Bet", "Max Bet", "Max Liability Per Market", "Max Win Per Market");
             public final static List<String> LST_TAX_SETTING_OPTION = Arrays.asList("Upline", "Tax");
-            public final static List<String> LST_POSITION_TAKING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Line Market", "Fancy", "Virtual Cricket", "Bookmaker","Decimal Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other");
+            public final static List<String> LST_POSITION_TAKING_SPORT_HEADER = Arrays.asList("Soccer", "Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Others");
             //            public final static List<String> LST_POSITION_TAKING_HEADER_OLD_UI = Arrays.asList("", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Racing", "Other");
             public final static List<String> LST_EG_GAME_GROUP_HEADER = Arrays.asList("", "Exchange Baccarat", "Exchange BlackJack", "Exchange Card Racer", "Exchange Hi Lo", "Exchange Texas Hold'em", "Exchange Omaha Hi", "Other");
             public final static String LBL_LOGINID_HINT = "Login ID must be unique and at least a minimum of 6 characters and maximum of 15 characters";
@@ -513,8 +513,8 @@ public class AGConstant {
 
         public static class PositionTakingListing {
             public final static String TITLE_PAGE = "Position Taking Listing";
-            public final static List<String> TABLE_PT_EXCHANGE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Soccer", "Cricket", "Line Market", "Fancy", "Virtual Cricket", "Bookmaker", "Decimal Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
-            public final static List<String> TABLE_PT_EXCHANGE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Soccer", "Cricket", "Line Market", "Fancy", "Virtual Cricket", "Bookmaker", "Decimal Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
+            public final static List<String> TABLE_PT_EXCHANGE_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Customised PT", "Settings", "Soccer", "Cricket", "Line Market", "Fancy", "Virtual Cricket", "Bookmaker", "Decimal Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
+            public final static List<String> TABLE_PT_EXCHANGE_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Customised PT", "Settings", "Soccer", "Cricket", "Line Market", "Fancy", "Virtual Cricket", "Bookmaker", "Decimal Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other", "Update Status");
             public final static List<String> TABLE_PT_EXCHANGE_GAME_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Baccarat", "Blackjack", "Racing", "Hilo", "Hold'em", "Omaha Hi", "Other", "Update Status");
             public final static List<String> TABLE_PT_EXCHANGE_GAME_HEADER_OLDUI = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Settings", "Baccarat", "Blackjack", "Racing", "Hilo", "Hold'em", "Omaha Hi", "Other", "Update Status");
             public final static List<String> TABLE_PT_LOTTERY_SLOT_HEADER_NEWUI = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Settings", "Lottery & Slots", "Update Status");

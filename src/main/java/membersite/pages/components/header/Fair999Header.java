@@ -237,7 +237,9 @@ public class Fair999Header extends Header1 {
     @Override
     public SupernowaCasinoPage openSupernowa() {
         clickProduct(MAPPING_CASINO_PRODUCT_UI.get("SUPERNOWA_CASINO"));
-        return new SupernowaCasinoPage();
+        SupernowaCasinoPage supernowaCasinoPage = new SupernowaCasinoPage();
+        supernowaCasinoPage.waitFrameLoad();
+        return supernowaCasinoPage;
     }
 
     @Override

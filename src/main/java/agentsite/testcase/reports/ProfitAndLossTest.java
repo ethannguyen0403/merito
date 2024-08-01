@@ -112,7 +112,7 @@ public class ProfitAndLossTest extends BaseCaseTest {
      * @expect: 1. Sum member result column and verify it match with total column
      */
     @TestRails(id = "790")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
     public void Agent_Report_Profit_And_Loss_790() {
         log("@title: Validate can filter data on summary display correctly with total in detail");
         log("Step 1. Navigate Report > Profit And Loss");
@@ -132,7 +132,7 @@ public class ProfitAndLossTest extends BaseCaseTest {
         page.drilldownToLevel("Member", true);
 
         log("Verify 1. Sum member result column and verify it match with total column");
-        Assert.assertTrue(page.transactionDetailsPopupPage.isColumnDataMatchedWithTotal("Member Result", ProfitAndLossPage.downlineLevelList));
+        page.transactionDetailsPopupPage.verifyColumnDataMatchedWithTotal("Member Result", ProfitAndLossPage.downlineLevelList);
 
         log("INFO: Executed completely");
     }

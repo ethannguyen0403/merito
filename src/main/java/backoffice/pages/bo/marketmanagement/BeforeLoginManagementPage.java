@@ -39,6 +39,7 @@ public class BeforeLoginManagementPage extends HomePage {
                 System.out.println(String.format("The sport %s is found", sportName));
                 tblSport.getControlOfCell(1, colSport, i + 1, null).moveToTheControl();
                 tblSport.getControlOfCell(1, colSport, i + 1, null).click();
+                waitSpinIcon();
                 return;
             }
         }

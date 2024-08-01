@@ -42,7 +42,7 @@ public class CasinoConstant {
             put("LIVE_DEALER_ASIAN", "Asian Room");
             put("LIVE_DEALER_EUROPEAN", "European Room");
             put("GAME_HALL", "Game Hall");
-            put("VIVO", "Vivo");
+            put("VIVO", "ViVo");
             put("ION", "Ion");
             put("PRAGMATIC", "Pragmatic");
         }

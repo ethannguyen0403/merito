@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="BO_STG_Smoke" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+        <listener class-name="util.testraildemo.Listener"/>
+    </listeners>
+
+    <test name="Maintenance and Stabilize BO in STG 2024.V.5.0">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='autoqa'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='true'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name='resetAccountPW' value='auto.pl01'/>
+        <parameter name='satSADAgentLoginID' value='Auto.SAD1'/>
+        <parameter name='satMemberLoginID' value='05H0000000'/>
+        <parameter name='memberPassword' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='wagerID' value='101851'/>
+        <parameter name='companyAccount' value='Auto.CO1'/>
+        <parameter name='fsMemberLoginID' value='FSG0000000'/> <!--Currency Mapping Testing PTI-->
+        <parameter name='followBetAccount' value='QA20100002'/><!-- QA2M0AutoQA2 FAutoQA00001-->
+        <parameter name="atlanticAccount" value="f24isapl01"/>
+        <parameter name="cryptoAccount" value="fs2crypto"/>
+        <parameter name='appname' value='backoffice'/>
+        <parameter name='brandname' value='backoffice'/>
+        <parameter name='skinName' value='backoffice'/>
+        <parameter name='isAddTestRailResult' value='true'/>
+        <groups>
+            <run>
+                <include name="MER.Maintenance.2024.V.5.0"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="backoffice.testcases.accountmanagement.APIPlayerTest"/>
+
+            <class name="backoffice.testcases.marketmanagement.FindBlockedMarketTest"/>
+            <class name="backoffice.testcases.marketmanagement.BeforeLoginManagementTest"/>
+
+            <class name="backoffice.testcases.operations.LiveStreamingManagementTest"/>
+            <class name="backoffice.testcases.operations.WagerVoidUnvoidTest"/>
+
+            <class name="backoffice.testcases.reports.WinLossDetailTest"/>
+
+            <class name="backoffice.testcases.settlement.FancyResultTest"/>
+
+        </classes>
+
+    </test>
+</suite>

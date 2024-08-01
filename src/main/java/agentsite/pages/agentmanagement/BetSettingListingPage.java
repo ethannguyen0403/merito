@@ -220,7 +220,7 @@ public class BetSettingListingPage extends HomePage {
             chb.click();
             chb.isEnabled();
         }
-//        waitingLoadingSpinner();
+        waitingLoadingSpinner();
     }
 
     public void search(String username, String level, String accountStatus, String product) {

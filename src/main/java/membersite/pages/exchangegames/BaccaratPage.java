@@ -62,9 +62,10 @@ public class BaccaratPage extends GamePage {
     }
 
     public String isUnmatchedBetDisplayed() {
-        MyBetControl myBetControl1 = activeMyBet();
-        myBetControl1.unmatchedBetControl.isDisplayed(4);
-        return myBetControl1.unmatchedBetControl.getBetUnmatch();
+        return Label.xpath("//app-bet-slip//app-error-page//strong").getText().trim();
+//        MyBetControl myBetControl1 = activeMyBet();
+//        myBetControl1.unmatchedBetControl.isDisplayed(4);
+//        return myBetControl1.unmatchedBetControl.getBetUnmatch();
     }
 
     public MyBetControl activeMyBet() {

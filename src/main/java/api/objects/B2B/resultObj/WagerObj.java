@@ -19,6 +19,7 @@ public class WagerObj {
     private String _selectionName;
     private double _handicap;
     private String _oddsType;
+    private String _eventStartDate;
 
     public WagerObj(Builder builder) {
         this._userId = builder._userId;
@@ -39,6 +40,8 @@ public class WagerObj {
         this._handicap = builder._handicap;
         this._oddsType = builder._oddsType;
         this._status = builder._status;
+        this._eventStartDate = builder._eventStartDate;
+
     }
 
     public String getUserId() {
@@ -185,6 +188,14 @@ public class WagerObj {
         this._oddsType = _oddsType;
     }
 
+    public String getEventStartDate() {
+        return _eventStartDate;
+    }
+
+    public void setEventStartDate(String _eventStartDate) {
+        this._eventStartDate = _eventStartDate;
+    }
+
     public static class Builder {
         private int _result;
         private String _userId;
@@ -205,6 +216,7 @@ public class WagerObj {
         private String _selectionName;
         private double _handicap;
         private String _oddsType;
+        private String _eventStartDate;
 
         public Builder() {
         }
@@ -291,6 +303,11 @@ public class WagerObj {
 
         public Builder selectionName(String val) {
             _selectionName = val;
+            return this;
+        }
+
+        public Builder eventStartDate(String val) {
+            _eventStartDate = val;
             return this;
         }
 

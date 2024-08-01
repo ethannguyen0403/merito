@@ -146,14 +146,20 @@ public class MarketPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "984")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
     public void FE_BetSlipMyBet_984() {
         log("@title:  Validate default message display when there is no bet");
         log("Step 1. Click on any event to open market page");
         SportPage sportPage = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
-        Event event = sportPage.eventContainerControl.getEventRandom(true, false);
+        Event event = sportPage.eventContainerControl.getEventRandom(false, false);
         log("Step 2: Click on any odds");
         MarketPage marketPage = sportPage.clickEventName(event.getEventName());
+        //Wait bet slip for updating in SAT
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         log("Verify 1: Bet Slip display the message \"Click on the odds to add selection to the Bet Slip.\"");
         Assert.assertEquals(marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
         log("INFO: Executed Completely!");

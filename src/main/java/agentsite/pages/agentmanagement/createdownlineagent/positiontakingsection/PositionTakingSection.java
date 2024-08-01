@@ -7,7 +7,7 @@ public class PositionTakingSection {
     protected int totalColumnExchangeGames = 8;
     protected int totalOther = 2;
     protected String positionTakingTableXpath = "//div[@id='%s-position-taking']//table";
-    protected String ptAllCheckboxXpath = "//div[@id='%s-position-taking']//td[contains(@class,'ptCheckAll')]//input";
+    protected String ptAllCheckboxXpath = "//div[@id='%s-position-taking']//span[contains(text(),'Copy all Position')]//preceding-sibling::input";
 
     protected String mapProductNameToCode(String productName) {
         return PRODUCT_NAME_TO_CODE.get(productName);
