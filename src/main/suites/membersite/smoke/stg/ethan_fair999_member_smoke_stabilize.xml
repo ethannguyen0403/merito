@@ -23,14 +23,11 @@
         <parameter name="timeZone" value="GMT-04:00"/>
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='fairexchange'/>
-        <parameter name='isAddTestRailResult' value='false'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
-                <include name="smoke1"/>
-                <include name="smoke_newui1"/>
-                <include name="smoke_credit1"/>
-<!--                <include name="FAI999.MER.Maintenance.2024.V.5.0"/>-->
-<!--                <include name="MER.Maintenance.2024.V.5.0"/>-->
+                <include name="FAI999.MER.Maintenance.2024.V.5.0"/>
+                <include name="MER.Maintenance.2024.V.5.0"/>
             </run>
         </groups>
 
