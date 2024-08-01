@@ -24,7 +24,7 @@ import java.util.Objects;
 import static common.CasinoConstant.*;
 
 public class SatHeader extends Header1 {
-    Image imgLogo = Image.xpath("//a[contains(@class,'logo')]");
+    Image imgLogo = Image.xpath("//app-top-panel//a[contains(@class,'logo')]//img");
     CheckBox chkRememberMe = CheckBox.id("remember-me");
     String productMenuXpath = "//app-product-tab-v2//a[(text()='%s')]";
     String productLiveDealerXpath = "//app-live-dealer//a[text()='%s']";
@@ -36,15 +36,17 @@ public class SatHeader extends Header1 {
     private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[contains(@class,'account d-block')]", "", "//ul[contains(@class,'dropdown-menu')]//li");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')] | //a[contains(text(),'EXCHANGE GAMES')]");
     private Label imgSpinner = Label.xpath("//div[contains(@class,'lds-spinner')]");
-    private Image imgLeftMenu = Image.xpath("//div[@class='left-menu-icon']/img");
+    private Image imgLeftMenu = Image.xpath("//div[@class='left-menu-icon']/i");
     private Menu menuSports = Menu.xpath("//app-sport-menu-bar//ul[@class='navbar-nav']//a");
     private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
     private String sportMenuOldUIXpath = "//a[contains(@data-sport-name,'%s')]";
     private Link lnkMyMarkets = Link.xpath("//div[contains(@class,'account d-none')]");
-    private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance'][1]/span[@class='title']");
+    private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='title' and contains(text(),'Balance')]");
     private Label lblBalanceCurrency = Label.xpath("//app-top-panel//div[contains(@class,'header-content-info')]//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='bal-val'][1]");
     private Label lblBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance'][2]//span[@class='bal-val']");
     private Label lblCashBalance = Label.xpath("//app-top-panel//div[contains(@class,'profit-group d-none')]//div[@class='balance']//span[@class='bal-val']");
+    private Label lblLiabilityTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='liability']/span[@class='title']");
+
     private Label lblLiabilityCurrency = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'lia-val')][1]");
     private Label lblLiability = Label.xpath("(//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')])[1]/span[@class='lia-val'][1]");
     private Menu menuEguzi = Menu.xpath("//app-live-dealer//a[contains(@routerlink, 'ezugi')]");
@@ -317,10 +319,9 @@ public class SatHeader extends Header1 {
 
 
     public boolean isProductActive(String productName) {
-        for (String s : translateProductsActive(BetUtils.getProductInfo())) {
-            if (s.equals(productName))
-                return true;
-        }
+        List<String> lstProductActive = translateProductsActive(BetUtils.getProductInfo());
+        if (lstProductActive.contains(productName))
+            return true;
         return false;
     }
 
@@ -439,6 +440,9 @@ public class SatHeader extends Header1 {
     }
     public String getBalanceLabel() {
         return lblBalanceTitle.getText();
+    }
+    public String getLiabilityLabel(){
+        return lblLiabilityTitle.getText();
     }
 }
 

@@ -1,6 +1,7 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
+import com.paltech.driver.DriverManager;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.objects.sat.Event;
@@ -72,7 +73,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * 2. Popup is closed
      */
     @TestRails(id = "943")
-    @Test(groups = {"smoke", "MER.Implementation.V.1.0"})
+    @Test(groups = {"smoke", "SAT.MER.Maintenance.2024.V.5.0"})
     public void HeaderSection_TC943() {
         log("@title: Validate can open my markets in Header Section");
         log("Precondition 1: Login member site");
@@ -390,7 +391,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. The corresponding market is navigate
      */
     @TestRails(id = "509")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke", "SAT.MER.Maintenance.2024.V.5.0"})
     public void HeaderSection_C509() {
         log("@title: Validate can navigate to correct market when click on market in My market");
         log("Step 1. Click on My market ");
@@ -405,33 +406,40 @@ public class HeaderSectionTest extends BaseCaseTest {
 
         log("Verify: 1. The corresponding market is navigate");
         page.waitMenuLoading();
+        //wait titles for loading in SAT
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Assert.assertEquals(page.marketOddControl.getTitle(), marketInfo.get(2).split("/")[0].trim(), String.format("ERROR: Incorect market page display"));
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "510")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash","SAT.MER.Maintenance.2024.V.5.0"})
     public void HeaderSection_C510() {
         log("@title: Validate Credit, Balance, Outstanding of Credit Cash account  display correctly when active Exchange Game product");
         log("Step 1. Get the info: Credit, Balance, Outstanding of credit cash account from api");
         AccountBalance balanceAPI = BetUtils.getUserBalance();
 
         log("Step 2. Click Exchange Game Product");
-        if (!memberHomePage.header.isProductActive("EXCH_GAMES")) {
+        if (!memberHomePage.header.isProductActive("Exchange Games")) {
             log("SKIP! Exchange Games product is NOT active for this account");
             return;
         }
         EGHomePage page = memberHomePage.openExchangeGame();
 
         log("Verify 1: Left menu icon and Logo");
+        DriverManager.getDriver().switchTo().defaultContent();
         String logoImgActual = page.header.getLogoSrc();
         Assert.assertTrue(page.header.isLeftMenuIcondisplay(), "ERROR:Left menu icon is not display");
         Assert.assertTrue(logoImgActual.contains(environment.directusURL), "FAILED! Log0 image not display");
 
         log("Verify 2: Label: Time zone, Credit, Balance, Outstanding, My Markets, My Account");
         AccountBalance balanceUI = page.getUserBalance();
-        Assert.assertEquals(page.header.getBalanceLabel(), MemberConstants.Header.BALANCE, String.format("ERROR: Expected is Balance label is %s but found %s", page.header.getBalanceLabel(), MemberConstants.Header.BALANCE));
-        Assert.assertEquals(page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING, String.format("ERROR: Expected is Liability label is %s but found %s", page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING));
+        Assert.assertEquals(page.header.getBalanceLabel(), HeaderSAT.BALANCE, String.format("ERROR: Expected is Balance label is %s but found %s", page.header.getBalanceLabel(), MemberConstants.Header.BALANCE));
+        Assert.assertEquals(page.header.getLiabilityLabel(), MemberConstants.HeaderSAT.OUTSTANDING, String.format("ERROR: Expected is Liability label is %s but found %s", page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING));
 
         log("Verify 3: Verify Credit, Balance, Outstanding of the player are corrected");
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()), String.format("ERROR: The expected  Liability is '%s' but found '%s'", balanceAPI.getExposure(), balanceUI.getExposure()));

@@ -125,6 +125,9 @@ public class MemberConstants {
                 put("GAME_HALL", "Game Hall");
                 put("VIVO", "ViVo");
                 put("WHITECLIFF", "Evolution");
+                put("CMD_SPORTSBOOK", "CMD Sportsbook");
+                put("PRAGMATIC", "Pragmatic");
+                put("ION", "Ion");
             }
         };
 
@@ -223,7 +226,7 @@ public class MemberConstants {
 
     public static class HeaderSAT {
         public final static String BALANCE = "Balance:";
-        public final static String OUTSTANDING = "Liability:";
+        public final static String OUTSTANDING = "Outstanding:";
         public final static String MY_BETS = "My Bets";
         public final static String MY_MARKET = "My Markets";
         public final static String My_ACCOUNT = "My Account";
@@ -240,7 +243,7 @@ public class MemberConstants {
 
     public static class MyMarketsPopup {
         public final static String TITLE = "My Markets";
-        public final static String NOTES = "Note : Date will be based on time zone GMT-04:00";
+        public final static String NOTES = "Note : Date will be based on time zone ";
         public final static List<String> TABLE_MY_MARKETS_HEADER = Arrays.asList("Market ID", "Market Start Time", "Market Name\n" +
                 "Reload", "Liability");
         public final static String NO_RECORD_FOUNDS = "No records found";
