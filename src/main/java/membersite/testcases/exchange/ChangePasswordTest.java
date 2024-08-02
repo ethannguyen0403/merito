@@ -14,7 +14,7 @@ import static common.MemberConstants.ChangePasswordPopup.*;
 public class ChangePasswordTest extends BaseCaseTest {
 
     @TestRails(id = "1220")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "SAT.MER.Maintenance.2024.V.5.0"})
     @Parameters({"password"})
     public void Change_Password_TC1220(String password) throws Exception {
         log("@title:Validate change password after login successfully");
@@ -29,7 +29,7 @@ public class ChangePasswordTest extends BaseCaseTest {
         log("Step 4. Click Save Change");
         try {
             String successMsg = popup.changePassword(newPass, newPass, passDecrypt);
-            popup.clickCancelBtn();
+//            popup.clickCancelBtn();
             log("Verify 1. Can change password successfully");
             Assert.assertEquals(successMsg, MemberConstants.ChangePasswordPopup.MSG_SUCCESS, String.format("ERROR! Expected success message is %s but found %s", MemberConstants.ChangePasswordPopup.MSG_SUCCESS, successMsg));
         } finally {
