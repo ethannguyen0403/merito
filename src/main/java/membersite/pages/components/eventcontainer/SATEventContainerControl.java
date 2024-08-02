@@ -35,6 +35,7 @@ public class SATEventContainerControl extends EventContainerControl {
 
 
     public String getSportHeader() {
+        lblSportHeader.waitForControlInvisible();
         return lblSportHeader.getText();
     }
 

@@ -16,6 +16,7 @@ import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.ps38preferences.PS38PreferencesPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.popup.MyMarketPopup;
+import org.testng.Assert;
 
 
 import static common.CasinoConstant.LIVE_DEALER_TEXT;
@@ -290,15 +291,13 @@ public class Fair999Header extends Header1 {
         imgSpinner.waitForControlInvisible(1, 2);
     }
 
-    public MyMarketPopup openMyMarketPopup() {
+    public void openMyMarketPopup() {
         lnkMyMarkets.click();
-        MyMarketPopup myMarketPopup = new MyMarketPopup();
         try {
             // wait for pop up visible on screen
             Thread.sleep(500);
         }catch (Exception e){
         }
-        return myMarketPopup;
     }
 
     public boolean isProductTabDisplay(String productName) {
@@ -340,6 +339,7 @@ public class Fair999Header extends Header1 {
         return lblLiabilityTitle.getText();
     }
     public String getMyBetsLabel() {
+        lblMyBet.waitForControlInvisible();
         return lblMyBet.getText();
     }
 
@@ -352,6 +352,10 @@ public class Fair999Header extends Header1 {
     }
     public String getLiabilityTextColor() {
             return lblLiability.getColour("color");
+    }
+    public void verifyHeaderUI(){
+        Assert.assertEquals(getBalanceLabel(), MemberConstants.Header.BALANCE, String.format("ERROR: Expected is Balance label is %s but found %s", getBalanceLabel(), MemberConstants.Header.BALANCE));
+        Assert.assertEquals(getLiabilityLabel(), MemberConstants.Header.OUTSTANDING, String.format("ERROR: Expected is Liability label is %s but found %s", getLiabilityLabel(), MemberConstants.Header.OUTSTANDING));
     }
 }
 

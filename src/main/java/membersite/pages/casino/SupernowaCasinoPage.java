@@ -17,7 +17,7 @@ import static common.CasinoConstant.SUPERNOWA;
 public class SupernowaCasinoPage extends CasinoHomePage {
     public Label lblTitle = Label.xpath("(//app-casino-games//div[@class='slider-header']//h4)[1]");
     public Label lblFirstGame = Label.xpath("(//h4[contains(text(), 'Supernowa')]/ancestor::div[@class='provider-list-slider']//div[@class='card-body'])[1]//a");
-    private Label lblLoadingText = Label.xpath("//div[@class='loading-text']");
+    private Label lblLoadingText = Label.xpath("//div[contains(@class,'ball-clip-rotate')]");
     public SupernowaCasinoPage() {
         // wait for iframe load
         try {

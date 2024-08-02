@@ -36,6 +36,7 @@ public class Fair999EventContainerControl extends EventContainerControl {
     private String lblInPlayXpath = "//div[@class='item-child inplay-it inplay-noscore' or @class='item-child inplay-it inplay-color']";
 
     public String getSportHeader() {
+        lblSportHeader.waitForControlInvisible();
         return lblSportHeader.getText();
     }
 

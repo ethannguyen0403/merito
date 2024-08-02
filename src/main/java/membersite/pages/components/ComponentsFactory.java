@@ -49,6 +49,9 @@ import membersite.pages.components.underagegamblingpopup.FairenterUnderageGambli
 import membersite.pages.components.underagegamblingpopup.FunsportUnderageGamblingPopup;
 import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
+import membersite.pages.popup.mymarketpopup.Fair999MyMarketPopup;
+import membersite.pages.popup.mymarketpopup.MyMarketPopupContainer;
+import membersite.pages.popup.mymarketpopup.SATMyMarketPopup;
 
 public class ComponentsFactory {
     public static Footer footerObject(String types) {
@@ -224,4 +227,12 @@ public class ComponentsFactory {
         }
     }
 
+    public static MyMarketPopupContainer myMarketPopupObject(String types) {
+        switch (types) {
+            case "satsport":
+                return new SATMyMarketPopup();
+            default:
+                return new Fair999MyMarketPopup();
+        }
+    }
 }

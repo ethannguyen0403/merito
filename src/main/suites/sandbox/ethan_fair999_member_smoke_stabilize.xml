@@ -36,7 +36,6 @@
             <class name="membersite.testcases.exchange.HeaderSectionTest"/>
             <class name="membersite.testcases.exchangegame.EGBaccaratTest"/>
             <class name="membersite.testcases.exchange.AccountStatementTest"/>
-            <class name="membersite.testcases.exchange.PlaceBetFunctionTest"/>
         </classes>
 
     </test>

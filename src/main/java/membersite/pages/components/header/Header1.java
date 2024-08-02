@@ -125,8 +125,7 @@ public class Header1 {
         return new RacingPage(brand);
     }
 
-    public MyMarketPopup openMyMarketPopup() {
-        return new MyMarketPopup();
+    public void openMyMarketPopup() {
     }
 
     public AccountBalance getUserBalance() {
@@ -210,4 +209,5 @@ public class Header1 {
             DriverManager.getDriver().switchToWindow(parentWindow);
         }
     }
+    public void verifyHeaderUI(){}
 }
