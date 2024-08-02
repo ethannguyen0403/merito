@@ -339,7 +339,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "709")
-    @Test(groups = {"smoke", "nolan_stabilize_agent"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Position_Taking_Listing_709() {
         log("@title: Verify can update PT for all sports");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
@@ -350,10 +350,11 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step  2. Select a downline and select all sport");
         page.positionTakingListing.search(member, "", "", "");
+        page.positionTakingListing.waitingLoadingSpinner();
         List<String> lstPTInfoExpected = page.positionTakingListing.definePTSettingList(member, PT);
 
         log("Step 3. Update SAD Preset  and click Update");
-        page.positionTakingListing.updatePT(member, PT, AgencyManagement.PositionTakingListing.SPORT_COLUMN_TRUE);
+        page.positionTakingListing.updatePTSport(member, PT, "All");
 
         log("Verify 1. Verify PT for Soccer, Cricket, Fancy Tennis, Basketball, Horse Racing, Other is updated and there is a green check in Update Status column");
         List<String> lstPTInfo = page.positionTakingListing.getPTofAccount(member);

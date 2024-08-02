@@ -27,6 +27,7 @@
         <groups>
             <run>
                 <include name="MER.Maintenance.2024.V.5.0"/>
+                <include name="SAT.MER.Maintenance.2024.V.5.0"/>
             </run>
         </groups>
 
