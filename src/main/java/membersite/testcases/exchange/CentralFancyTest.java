@@ -93,7 +93,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "545")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","SAT.MER.Maintenance.2024.V.5.0"})
     public void CentralFancyTest_545() {
         log("@title: Verify exposure is kept correctly when place on Yes and No");
         log("Step 1. Login member site and click on Cricket");
