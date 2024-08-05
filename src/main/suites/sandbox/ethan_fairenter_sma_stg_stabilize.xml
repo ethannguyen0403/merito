@@ -5,38 +5,38 @@
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="Maintenance and Stabilize FUN Agent in STG 2024.V.5.0">
+    <test name="Maintenance and Stabilize Fairenter Agent in STG 2024.V.5.0">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='30H'/>
+        <parameter name='username' value='LUO'/>
         <parameter name='levelLogin' value='Senior Master Agent'/>
-        <parameter name='downlineAccount' value='30H00'/>
-        <parameter name='portalSubAccount' value='FSSUBTI'/>
-        <parameter name='memberAccount' value='30H0000000'/>
+        <parameter name='downlineAccount' value='LUOC0'/>
+        <parameter name='portalSubAccount' value='FASUBTI'/>
+        <parameter name='memberAccount' value='LUOC0NE000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
         <parameter name='currency' value='HKD'/>
+        <parameter name='prefix' value='LUO'/>
         <parameter name='appname' value='agentsite'/>
-        <parameter name='brandname' value='funsport'/>
-        <parameter name='skinName' value='funsport'/>
-        <parameter name='isAddTestRailResult' value='true'/>
+        <parameter name='brandname' value='fairenter'/>
+        <parameter name='skinName' value='fairenter'/>
+        <parameter name='isAddTestRailResult' value='false'/>
         <groups>
             <run>
-                <include name="MER.Maintenance.2024.V.5.0"/>
-                <include name="FUN.MER.Maintenance.2024.V.5.0"/>
+                <include name="smoke1"/>
+                <include name="smoke_newui1"/>
+                <include name="smoke_credit1"/>
+<!--                <include name="MER.Maintenance.2024.V.5.0"/>-->
+<!--                <include name="Fairenter.MER.Maintenance.2024.V.5.0"/>-->
             </run>
         </groups>
 
         <classes>
             <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
-            <class name="agentsite.testcase.LeftMenuTest"/>
-            <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
-            <class name="agentsite.testcase.reports.ClientLegerTest"/>
-            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
-            <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
+            <class name="agentsite.testcase.marketsmanagement.CurrentBlockingTest"/>
         </classes>
 
     </test>

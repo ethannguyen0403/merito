@@ -63,6 +63,7 @@ import agentsite.pages.agentmanagement.eventbetsizesetting.OldUIEventBetSizeSett
 import agentsite.pages.agentmanagement.followbets.FollowBets;
 import agentsite.pages.agentmanagement.followbets.NewUIFollowBets;
 import agentsite.pages.agentmanagement.followbets.OldUIFollowBets;
+import agentsite.pages.agentmanagement.ptlisting.FairenterPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.NewUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.OldUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.PositionTakingListing;
@@ -278,6 +279,8 @@ public class ComponentsFactory {
 
     public static PositionTakingListing positionTakingListingPage(String types) {
         switch (types) {
+            case "fairenter":
+                return new FairenterPositionTakingListing();
             case "satsport":
                 return new OldUIPositionTakingListing();
             default:
