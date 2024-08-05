@@ -266,7 +266,7 @@ public class AGConstant {
         public final static List<String>
                 LIST_SUBMENU_AGENCY_MANAGEMENT_F24 = Arrays.asList("Create Downline Agent", "Create User", "Downline Listing", "Position Taking Listing", "Transfer", "Statement Report", "Client Ledger", "PS38 Sports Result", "Credit/Balance Listing", "Commission Listing", "Bet Setting Listing", "Risk Setting Listing", "Tax Settings");
         public final static List<String>
-                LIST_SUBMENU_AGENCY_MANAGEMENT_FUNSPORT = Arrays.asList("Create Downline Agent", "Create User", "Downline Listing", "Credit/Balance Listing", "Position Taking Listing", "Transfer", "Commission Listing", "Bet Setting Listing", "Risk Setting Listing","Tax Settings", "Sub User Listing");
+                LIST_SUBMENU_AGENCY_MANAGEMENT_FUNSPORT = Arrays.asList("Create Downline Agent", "Create User", "Downline Listing", "Position Taking Listing", "Deposit/Withdraw", "Commission Listing", "Bet Setting Listing", "Tax Settings", "Sub User Listing");
         public final static String LBL_LEVEL = "Level";
         public final static String EDIT_DOWNLINE_AGENT_TITLE = "Edit Downline Agent";
 
@@ -796,7 +796,7 @@ public class AGConstant {
                 "Top Gainers & Top Losers", "View Log");
         public final static List<String> LIST_SUB_MENU_CONTROL_BLOCKING_NEWUI = Arrays.asList("Profit And Loss", "Win Loss", "Position Taking Report", "Unsettled Bet", "Cancelled Bets", "Top Gainers & Top Losers", "View Log", "Transfer Log", "Resettlement & Void Log");
         public final static List<String> LIST_SUB_MENU_CONTROL_BLOCKING_FUNSPORT = Arrays.asList("Unsettled Bet", "Profit And Loss", "Win Loss Simple", "MA Win Loss Detail", "Position Taking Report", "Cancelled Bets",
-                "Statement Report", "Transfer Log", "Resettlement & Void Log",  "Client Ledger", "Agent Exposure Limit","Win Loss By Sport And Market Type", "Win Loss By Event", "Analysis of Running Markets", "IP Monitoring", "Monitored Accounts", "Transaction History",
+                "Statement Report", "Transfer Log", "Resettlement & Void Log",  "Client Ledger", "Win Loss By Sport And Market Type", "Win Loss By Event", "Analysis of Running Markets", "IP Monitoring", "Monitored Accounts", "Transaction History",
                 "Top Gainers & Top Losers", "View Log");
         public static class WinLossSimple {
             public final static String HOME_TITLE = "Senior Master Agent:";

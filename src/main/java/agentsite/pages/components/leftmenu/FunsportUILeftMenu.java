@@ -142,7 +142,7 @@ public class FunsportUILeftMenu extends LeftMenu {
     }
 
     public void navigateClientLedgerPage() {
-        clickSubMenu(AGENCY_MANAGEMENT, CLIENT_LEDGER);
+        clickSubMenu(REPORT, CLIENT_LEDGER);
     }
 
     public boolean isListSubMenuDisplayCorrect(String menu) {
@@ -160,7 +160,7 @@ public class FunsportUILeftMenu extends LeftMenu {
     public void verifyListSubMenuDisplayCorrect() {
         List<String> lstMenu = Arrays.asList(AGENCY_MANAGEMENT,REPORT);
         for (String menu : lstMenu) {
-            Assert.assertTrue(isListSubMenuDisplayCorrect(menu));
+            Assert.assertTrue(isListSubMenuDisplayCorrect(menu), String.format("FAILED! List Sub Menu of %s displays incorrect",menu));
         }
     }
 }
