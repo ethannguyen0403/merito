@@ -32,6 +32,7 @@
 
         <classes>
             <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
             <class name="agentsite.testcase.LeftMenuTest"/>
             <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
             <class name="agentsite.testcase.reports.ClientLegerTest"/>

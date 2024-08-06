@@ -159,7 +159,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "683")
-    @Test (groups = {"smoke","smoke_dev", "nolan_stabilize_agent"})
+    @Test (groups = {"smoke","smoke_dev", "FUN.MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_CreateDownline_Agent_683() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
@@ -195,7 +195,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "685")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke","FUN.MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_CreateDownline_Agent_685() {
         log("@title: Validate if input incorrect Change Password format");
         log("Step 1. Navigate Agency Management > Create Downline Agent");

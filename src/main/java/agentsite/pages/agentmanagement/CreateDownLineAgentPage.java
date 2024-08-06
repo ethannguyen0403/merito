@@ -106,6 +106,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public String createDownline(String loginID, String password, String accountStatus) {
         String username = "";
         switch (_type) {
+            case "funsport":
             case "satsport":
                 accountInforSection.inputInfo(loginID, password, accountStatus);
                 username = accountInforSection.getUserName();
