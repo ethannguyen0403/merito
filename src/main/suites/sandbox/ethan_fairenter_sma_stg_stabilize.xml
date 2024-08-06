@@ -23,21 +23,27 @@
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='fairenter'/>
         <parameter name='skinName' value='fairenter'/>
-        <parameter name='isAddTestRailResult' value='false'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
-                <include name="smoke1"/>
-                <include name="smoke_newui1"/>
-                <include name="smoke_credit1"/>
-<!--                <include name="MER.Maintenance.2024.V.5.0"/>-->
-<!--                <include name="Fairenter.MER.Maintenance.2024.V.5.0"/>-->
+                <include name="MER.Maintenance.2024.V.5.0"/>
+                <include name="Fairenter.MER.Maintenance.2024.V.5.0"/>
             </run>
         </groups>
 
         <classes>
             <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
             <class name="agentsite.testcase.marketsmanagement.CurrentBlockingTest"/>
+            <class name="agentsite.testcase.LeftMenuTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.reports.WinLossDetailTest"/>
+            <class name="agentsite.testcase.reports.ClientLegerTest"/>
+            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
+            <class name="agentsite.testcase.reports.WinLossSimpleTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
         </classes>
-
     </test>
 </suite>

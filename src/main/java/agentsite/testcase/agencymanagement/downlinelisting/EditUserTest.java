@@ -367,7 +367,7 @@ public class EditUserTest extends BaseCaseTest {
      * 4. Login member site and verify Soccer event is  display with Half Time market
      */
     @TestRails(id = "703")
-    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
+    @Test(groups = {"smoke", "nolan", "Fairenter.MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Downline_Listing_Edit_User_703() throws Exception {
         log("@title: Verify can Inactive and active a market type of a sport");
         log("Step 1. Navigate Agency Management > Downline Listing");

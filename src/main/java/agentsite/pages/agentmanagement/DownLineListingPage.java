@@ -139,6 +139,7 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
         }
         if (isClose) {
             successPopup.close();
+            waitingLoadingSpinner();
         }
         return message;
     }

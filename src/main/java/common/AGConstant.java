@@ -264,7 +264,7 @@ public class AGConstant {
         public final static List<String>
                 LIST_SUBMENU_AGENCY_MANAGEMENT_NEW = Arrays.asList("Create Downline Agent", "Create User", "Downline Listing", "Position Taking Listing", "Transfer", "Statement Report", "Client Ledger", "Credit/Balance Listing", "Commission Listing", "Bet Setting Listing", "Risk Setting Listing", "Tax Settings");
         public final static List<String>
-                LIST_SUBMENU_AGENCY_MANAGEMENT_F24 = Arrays.asList("Create Downline Agent", "Create User", "Downline Listing", "Position Taking Listing", "Transfer", "Statement Report", "Client Ledger", "PS38 Sports Result", "Credit/Balance Listing", "Commission Listing", "Bet Setting Listing", "Risk Setting Listing", "Tax Settings");
+                LIST_SUBMENU_AGENCY_MANAGEMENT_F24 = Arrays.asList("Create Downline Agent", "Create User", "Downline Listing", "Position Taking Listing", "Transfer", "Statement Report", "Client Ledger", "Credit/Balance Listing", "Follow Bets", "Commission Listing", "Bet Setting Listing", "Risk Setting Listing", "Tax Settings");
         public final static List<String>
                 LIST_SUBMENU_AGENCY_MANAGEMENT_FUNSPORT = Arrays.asList("Create Downline Agent", "Create User", "Downline Listing", "Position Taking Listing", "Deposit/Withdraw", "Commission Listing", "Bet Setting Listing", "Tax Settings", "Sub User Listing");
         public final static String LBL_LEVEL = "Level";

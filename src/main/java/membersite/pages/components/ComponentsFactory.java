@@ -22,6 +22,7 @@ import membersite.pages.components.footer.SatFooter;
 import membersite.pages.components.header.*;
 import membersite.pages.components.highlightracecontainer.HighLightRaceContainer;
 import membersite.pages.components.highlightracecontainer.OldUIHighLightRaceContainer;
+import membersite.pages.components.leftmneu.FairenterUILeftMenu;
 import membersite.pages.components.leftmneu.LeftMenu;
 import membersite.pages.components.leftmneu.NewUILeftMenu;
 import membersite.pages.components.loginform.FairenterLoginPopup;
@@ -162,6 +163,8 @@ public class ComponentsFactory {
 
     public static LeftMenu lefMenuObject(String types) {
         switch (types) {
+            case "fairenter":
+                return new FairenterUILeftMenu();
             default:
                 return new NewUILeftMenu();
         }
