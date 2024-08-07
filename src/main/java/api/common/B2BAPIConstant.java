@@ -1,5 +1,8 @@
 package api.common;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class B2BAPIConstant {
     public static final String HEADER_FORM_URLENCODED_NONUTF8 = "application/x-www-form-urlencoded";
     public static String TOKEN_URL = "mwl-api/agent/token";
@@ -17,5 +20,7 @@ public class B2BAPIConstant {
     public static class LoginPage {
         public final static String LOGIN = "Login";
     }
-
+    public static class PlaceOrder {
+        public static List<String> lstErrorPlaceMinMax = Arrays.asList("ERROR.BET_PLACEMENT.STAKE_LIMIT","This selection requires a higher stake.","This selection requires a lower stake.");
+    }
 }
