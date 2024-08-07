@@ -154,12 +154,7 @@ public class MarketPageTest extends BaseCaseTest {
         Event event = sportPage.eventContainerControl.getEventRandom(false, false);
         log("Step 2: Click on any odds");
         MarketPage marketPage = sportPage.clickEventName(event.getEventName());
-        //Wait bet slip for updating in SAT
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        marketPage.bannerPopup.waitForControlInvisible();
         log("Verify 1: Bet Slip display the message \"Click on the odds to add selection to the Bet Slip.\"");
         Assert.assertEquals(marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY,String.format("ERROR: Expected empty bet slip display %s but found %s",marketPage.betsSlipContainer.getEmptyBetMessage(), MemberConstants.BetSlip.SMG_BET_SLIP_EMPTY));
         log("INFO: Executed Completely!");

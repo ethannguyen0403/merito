@@ -28,7 +28,7 @@ public class HomePage extends LandingPage {
     public BetsSlipContainer betsSlipContainer;
     public MiniMyBetsContainer myBetsContainer;
     public NextUpRacingContainer nextUpRacingContainer;
-    BannerPopup bannerPopup = BannerPopup.xpath("//div[@class='main-banner-popup-content']");
+    public BannerPopup bannerPopup = BannerPopup.xpath("//div[@class='main-banner-popup-content']");
 
     public HomePage(String types) {
         super(types);
