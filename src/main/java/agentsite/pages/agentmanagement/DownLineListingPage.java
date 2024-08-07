@@ -63,6 +63,7 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
 
     public String changePassword(String loginID, String newPassword) throws InterruptedException {
         searchDownline(loginID,"","");
+        waitingLoadingSpinner();
         return downlineListing.changePassword(loginID, newPassword);
     }
 
@@ -138,6 +139,7 @@ public class DownLineListingPage extends CreateDownLineAgentPage {
         }
         if (isClose) {
             successPopup.close();
+            waitingLoadingSpinner();
         }
         return message;
     }

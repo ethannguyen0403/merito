@@ -8,7 +8,7 @@ import org.testng.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
-import static common.AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_SPORT_HEADER;
+import static common.AGConstant.*;
 import static common.AGConstant.AgencyManagement.CreateUser.*;
 
 public class OldUIPositionTakingSection extends PositionTakingSection {
@@ -30,7 +30,7 @@ public class OldUIPositionTakingSection extends PositionTakingSection {
             for (int i = 0; i < lblSport.getWebElements().size();i++){
                 lstSportHeader.add(Label.xpath(String.format("(//app-ptsetting//strong)[%s]",i+1)).getText());
             }
-            Assert.assertEquals(lstSportHeader, LST_POSITION_TAKING_SPORT_HEADER, "FAILED! Position header list is not shown correct");
+            Assert.assertEquals(lstSportHeader, LST_EXCHANGE_SPORT_HEADER, "FAILED! Position header list is not shown correct");
         } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
             Table tblPositionTaking = Table.xpath(String.format(positionTakingTableXpath, productCode), totalColumnExchangeGames);
             ArrayList<String> lstHeader = tblPositionTaking.getHeaderNameOfRows();

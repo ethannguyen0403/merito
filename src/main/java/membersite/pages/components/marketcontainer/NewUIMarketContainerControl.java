@@ -357,7 +357,7 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
     }
 
     public String getTitle() {
-        lblEventMarketName.isDisplayed();
+        lblEventMarketName.waitForControlInvisible();
         return lblEventMarketName.getText().trim();
     }
 

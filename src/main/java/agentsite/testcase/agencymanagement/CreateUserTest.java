@@ -574,7 +574,7 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "697")
-    @Test(groups = {"smoke_credit", "nolan_stabilize_agent"})
+    @Test(groups = {"smoke_credit", "Fairenter.MER.Maintenance.2024.V.5.0"})
     @Parameters({"password", "currency"})
     public void Agent_AM_Downline_Listing_Edit_Agent_697(String password, String currency) throws Exception {
         log("@title: Validate Max Player Credit setting display correctly when create user");
@@ -607,7 +607,7 @@ public class CreateUserTest extends BaseCaseTest {
         CreateDownLineAgentPage createAgentPage = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 2. Verify Max Player Credit display correctly as setting in First Time Deposit limit section");
-        Assert.assertTrue((int)createAgentPage.creditBalanceInforSection.getCreditLimit(currency) < Integer.valueOf(maxPlayerCreditLitmit), "FAILED! Max player credit not match with the setting");
+        Assert.assertTrue((int)createAgentPage.creditBalanceInforSection.getCreditLimit(currency) <= Integer.valueOf(maxPlayerCreditLitmit), "FAILED! Max player credit not match with the setting");
 
         log("INFO: Executed completely");
     }

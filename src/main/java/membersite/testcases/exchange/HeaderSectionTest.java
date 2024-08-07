@@ -83,7 +83,7 @@ public class HeaderSectionTest extends BaseCaseTest {
                 "Popup Title: My Markets\n" +
                 "Note: Date will be based on time zone IST (for SAT and White Labels)\n" +
                 "table with the header: Market ID, Market Start Time, Market Name (Reload button), Liability");
-        marketPopup.verifyMyMarketPopupUI();
+        marketPopup.myMarketPopupContainer.verifyMyMarketPopupUI();
         log("INFO: Executed completely");
     }
 
@@ -169,7 +169,7 @@ public class HeaderSectionTest extends BaseCaseTest {
         log("Step 2. Click on My market");
         log("Step 3. Sum liability of all market");
         AccountBalance balanceUI = memberHomePage.getUserBalance();
-        MyMarketPopup popup = memberHomePage.header.openMyMarketPopup();
+        MyMarketPopup popup = memberHomePage.openMyMarket();
 
         log("Verify 1:  Liability matched with outstanding\n" +
                 "   If My markets display \"No records found\", Outstanding should be 0.00");
@@ -311,12 +311,6 @@ public class HeaderSectionTest extends BaseCaseTest {
         log("Verify: 1. Tennis page display with the title: Tennis Highlights");
         String sportName = "Tennis";
         SportPage page = memberHomePage.header.navigateSportMenu(sportName, _brandname);
-        //Wait Header for updating in SAT
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         if (Objects.nonNull(page)) {
             Assert.assertEquals(page.eventContainerControl.getSportHeader(),
                     String.format(MemberConstants.HomePage.SPORT_HIGHLIGHT_LABEL, sportName),
@@ -395,7 +389,7 @@ public class HeaderSectionTest extends BaseCaseTest {
     public void HeaderSection_C509() {
         log("@title: Validate can navigate to correct market when click on market in My market");
         log("Step 1. Click on My market ");
-        MyMarketPopup popup = memberHomePage.header.openMyMarketPopup();
+        MyMarketPopup popup = memberHomePage.openMyMarket();
         List<String> marketInfo = popup.getMarketInfo(1);
         if (marketInfo.get(0).equals(MemberConstants.MyMarketsPopup.NO_RECORD_FOUNDS)) {
             log(String.format("SKIPPED! Due to %s", MemberConstants.MyMarketsPopup.NO_RECORD_FOUNDS));
@@ -403,15 +397,7 @@ public class HeaderSectionTest extends BaseCaseTest {
         }
         log("Step 2. Click on market in my market popup");
         MarketPage page = memberHomePage.openMarketInMyMarketPopup(marketInfo.get(2));
-
         log("Verify: 1. The corresponding market is navigate");
-        page.waitMenuLoading();
-        //wait titles for loading in SAT
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         Assert.assertEquals(page.marketOddControl.getTitle(), marketInfo.get(2).split("/")[0].trim(), String.format("ERROR: Incorect market page display"));
         log("INFO: Executed completely");
     }
@@ -437,11 +423,12 @@ public class HeaderSectionTest extends BaseCaseTest {
         Assert.assertTrue(logoImgActual.contains(environment.directusURL), "FAILED! Log0 image not display");
 
         log("Verify 2: Label: Time zone, Credit, Balance, Outstanding, My Markets, My Account");
-        AccountBalance balanceUI = page.getUserBalance();
-        Assert.assertEquals(page.header.getBalanceLabel(), HeaderSAT.BALANCE, String.format("ERROR: Expected is Balance label is %s but found %s", page.header.getBalanceLabel(), MemberConstants.Header.BALANCE));
-        Assert.assertEquals(page.header.getLiabilityLabel(), MemberConstants.HeaderSAT.OUTSTANDING, String.format("ERROR: Expected is Liability label is %s but found %s", page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING));
+        page.header.verifyHeaderUI();
+//        Assert.assertEquals(page.header.getBalanceLabel(), MemberConstants.Header.BALANCE, String.format("ERROR: Expected is Balance label is %s but found %s", page.header.getBalanceLabel(), MemberConstants.Header.BALANCE));
+//        Assert.assertEquals(page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING, String.format("ERROR: Expected is Liability label is %s but found %s", page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING));
 
         log("Verify 3: Verify Credit, Balance, Outstanding of the player are corrected");
+        AccountBalance balanceUI = page.getUserBalance();
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()), String.format("ERROR: The expected  Liability is '%s' but found '%s'", balanceAPI.getExposure(), balanceUI.getExposure()));
         Assert.assertTrue(balanceAPI.getBalance().equals(balanceUI.getBalance()), String.format("ERROR: The expected  balance is '%s' but found '%s'", balanceAPI.getBalance(), balanceUI.getBalance()));
 

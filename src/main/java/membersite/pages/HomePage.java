@@ -37,10 +37,11 @@ public class HomePage extends LandingPage {
         nextUpRacingContainer = ComponentsFactory.nextUpRacingContainerObject(types);
     }
     public MyMarketPopup openMyMarket() {
-        return header.openMyMarketPopup();
+        header.openMyMarketPopup();
+        return new MyMarketPopup(_type);
     }
     public MarketPage openMarketInMyMarketPopup(String marketName) {
-        MyMarketPopup myMarketPopup = new MyMarketPopup();
+        MyMarketPopup myMarketPopup = new MyMarketPopup(_type);
         if (!myMarketPopup.tbMyMarkets.isDisplayed()) {
             myMarketPopup = openMyMarket();
         }

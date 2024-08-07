@@ -221,4 +221,6 @@ public class PositionTakingListing {
 
     public void verifyTableHeaderProductDisplayCorrect(List<String> lstProduct) {
     }
+    public void verifyUI(String userCode) {
+    }
 }
