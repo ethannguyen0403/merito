@@ -26,7 +26,7 @@ public class CasinoUtils {
     }
 
     public static String getLaunchURLCasino(String product) {
-        String url = "%s/member-service/product/game/login?code=%s";
+        String url = "%s/member-service/product/game/login?code=%s&gameGroup=";
         String endPoint = String.format(url, domainURL, PRODUCT_NAME_TO_CODE.get(product));
         JSONObject jsonObject =
                 WSUtils.getGETJSONObjectWithCookies(endPoint, Configs.HEADER_JSON, DriverManager.getDriver().getCookies().toString(),
