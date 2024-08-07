@@ -594,8 +594,8 @@ public class CreateUserTest extends BaseCaseTest {
         String maxPlayerCreditLitmit =  String.format("%d", editDownLinePage.creditBalanceInforSection.getMaxPlayerLitmitCredit(currency));
         page.creditBalanceInforSection.updateCashBalance(maxPlayerCreditLitmit);
         page.btnSubmit.click();
+        page.waitingLoadingSpinner();
         String message = page.getMessageUpdate(true);
-
         log("Verify 1. Verify can update agent with valid max player credit");
         Assert.assertEquals(message, AGConstant.AgencyManagement.DownlineListing.MSG_EDIT_DOWNLINE_SUCCESS, "FAILED, Success updating downline message not display");
         agentHomePage.logout();

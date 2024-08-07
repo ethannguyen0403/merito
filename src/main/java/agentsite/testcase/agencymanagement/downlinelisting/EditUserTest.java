@@ -179,6 +179,7 @@ public class EditUserTest extends BaseCaseTest {
                 "Click Ok button on Edit Member popup");
         editDownLinePage.accountInforSection.inputInfo("", "Inactive");
         page.submitEditDownline();
+        page.waitingLoadingSpinner();
         String message = page.getMessageUpdate(true);
 
         log("Verify 3 Verify Edit Member popup display with the message \"Member was update successfully\"");
@@ -288,6 +289,7 @@ public class EditUserTest extends BaseCaseTest {
         log("Step 3. Inactive Live and click Save button");
         editDownLinePage.productStatusSettingInforSection.updateLiveNonLive(true, false);
         page.submitEditDownline();
+        page.waitingLoadingSpinner();
         String message = page.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
