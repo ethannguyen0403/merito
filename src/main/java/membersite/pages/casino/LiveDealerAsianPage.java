@@ -51,7 +51,7 @@ public class LiveDealerAsianPage extends CasinoHomePage {
 
     @Override
     public void selectCasinoGame() {
-        openGameByIndex("1");
+        openGameByIndex("4");
     }
 
     public void openGameByIndex(String index) {
