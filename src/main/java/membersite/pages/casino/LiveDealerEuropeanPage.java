@@ -41,7 +41,7 @@ public class LiveDealerEuropeanPage extends CasinoHomePage{
 
     @Override
     public void selectCasinoGame() {
-        openRandomGame();
+        openGameByIndex("3");
     }
 
     public void openRandomGame() {
@@ -58,4 +58,14 @@ public class LiveDealerEuropeanPage extends CasinoHomePage{
         return Double.valueOf(lblBalance.getAttribute("data-value").replace(",",""));
     }
 
+    public void openGameByIndex(String index) {
+        BaseElement targetGame = new BaseElement(By.xpath(String.format("(%s)[%s]", xpathProducts, index)));
+        targetGame.isDisplayed();
+        targetGame.scrollToThisControl(false);
+        targetGame.jsClick();
+        waitToNewWindowOpen(6);
+        DriverManager.getDriver().switchToWindow();
+        //wait for website ready to get log console precisely
+        waitUntilReadyState(6);
+    }
 }
