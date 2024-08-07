@@ -126,7 +126,7 @@ public class OldUIPositionTakingListing extends PositionTakingListing {
         Assert.assertTrue(ddbProduct.isDisplayed(), "FAILED! Product dropdown not display");
         Assert.assertTrue(ddbLevel.isDisplayed(), "FAILED! Level dropdown not display");
         List<String> lstHeader = tblDownline.getHeaderNameOfRows();
-        Assert.assertEquals(lstHeader, AGConstant.AgencyManagement.PositionTakingListing.TABLE_PT_EXCHANGE_HEADER_NEWUI, "FAILED! Header table not match");
+        Assert.assertEquals(lstHeader, AGConstant.AgencyManagement.PositionTakingListing.TABLE_PT_EXCHANGE_HEADER_OLDUI, "FAILED! Header table not match");
         Assert.assertTrue(lblUsername.isDisplayed(), "FAILED! Username level does not correct");
         Assert.assertTrue(lblProduct.isDisplayed(), "FAILED! Product label does not correct");
         Assert.assertTrue(lblAccountStatus.isDisplayed(), "FAILED! Account Status label does not correct");
