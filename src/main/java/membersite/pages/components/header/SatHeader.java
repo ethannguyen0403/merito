@@ -15,6 +15,7 @@ import membersite.pages.components.underagegamblingpopup.SATUnderageGamblingPopu
 import membersite.pages.popup.MyMarketPopup;
 import membersite.utils.betplacement.BetUtils;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -291,14 +292,13 @@ public class SatHeader extends Header1 {
         }
         menu.click();
     }
-    public MyMarketPopup openMyMarketPopup() {
+    public void openMyMarketPopup() {
         lnkMyMarkets.click();
         try {
             // wait for pop up visible on screen
             Thread.sleep(500);
         }catch (Exception e){
         }
-        return new MyMarketPopup();
     }
 
     public AccountBalance getUserBalance() {
@@ -443,6 +443,10 @@ public class SatHeader extends Header1 {
     }
     public String getLiabilityLabel(){
         return lblLiabilityTitle.getText();
+    }
+    public void verifyHeaderUI(){
+        Assert.assertEquals(getBalanceLabel(), MemberConstants.HeaderSAT.BALANCE, String.format("ERROR: Expected is Balance label is %s but found %s", getBalanceLabel(), MemberConstants.HeaderSAT.BALANCE));
+        Assert.assertEquals(getLiabilityLabel(), MemberConstants.HeaderSAT.OUTSTANDING, String.format("ERROR: Expected is Liability label is %s but found %s", getLiabilityLabel(), MemberConstants.HeaderSAT.OUTSTANDING));
     }
 }
 

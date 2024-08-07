@@ -1231,7 +1231,7 @@ public class DownlineListingTest extends BaseCaseTest {
         String userID = ProfileUtils.getProfile().getUserID();
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         List<AccountInfo> listAccount = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, _brandname);
-        String loginID = listAccount.get(1).getUserCode();
+        String loginID = listAccount.get(0).getUserCode();
 
         log("Step 2. Select agent account in any level");
         log("Step 3. Click change password icon");

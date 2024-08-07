@@ -1,6 +1,7 @@
 package membersite.pages;
 
 import com.paltech.element.common.Label;
+import com.paltech.utils.DoubleUtils;
 import membersite.controls.FancyContainerControl;
 import membersite.controls.FancyContainerControlOldUI;
 import membersite.controls.OneClickBettingControl;
@@ -507,7 +508,7 @@ public class MarketPage extends HomePage {
         FancyMarket fancyMarket = getFancyMarketInfo(fcMarket);
         double newExposure = Double.parseDouble(BetUtils.getUserBalance().getExposure()) ;
         double calculateExposure = newExposure - fancyMarket.getMarketLiability();
-        Assert.assertEquals(originalExposure, Math.floor(calculateExposure * 100) / 100, 0.015, String.format("FAILED! Exposure kept is not correct expected is %s, actual is %s", originalExposure, Math.floor(calculateExposure * 100) / 100));
+        Assert.assertEquals(DoubleUtils.roundUpWithTwoPlaces(originalExposure), Math.floor(calculateExposure * 100) / 100, 0.015, String.format("FAILED! Exposure kept is not correct expected is %s, actual is %s", originalExposure, Math.floor(calculateExposure * 100) / 100));
         Assert.assertEquals(Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability(), 0.015, String.format("FAILED! Liability forecast is not correct expected is %s, actual is %s", Math.floor(forecast * 100)/ 100, fancyMarket.getMarketLiability()));
     }
 

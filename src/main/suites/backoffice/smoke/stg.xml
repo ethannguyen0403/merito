@@ -29,10 +29,10 @@
         <parameter name='appname' value='backoffice'/>
         <parameter name='brandname' value='backoffice'/>
         <parameter name='skinName' value='backoffice'/>
-        <parameter name='isAddTestRailResult' value='false'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
-                <include name="smoke1"/>
+                <include name="smoke"/>
             </run>
         </groups>
 

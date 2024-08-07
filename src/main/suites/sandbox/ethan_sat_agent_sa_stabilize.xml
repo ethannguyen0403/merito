@@ -5,7 +5,7 @@
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
     </listeners>
 
-    <test name="Smoke test cases Satsport Agent Site in STG">
+    <test name="Maintenance and Stabilize SAT Agent in STG 2024.V.5.0">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value='en'/>
@@ -27,6 +27,7 @@
         <groups>
             <run>
                 <include name="MER.Maintenance.2024.V.5.0"/>
+                <include name="SAT.MER.Maintenance.2024.V.5.0"/>
             </run>
         </groups>
 

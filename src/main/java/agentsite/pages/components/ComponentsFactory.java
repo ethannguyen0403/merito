@@ -10,9 +10,11 @@ import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransfe
 import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.NewUIAccountBalanceTransferConditionSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountbalancetransferconditionsection.OldUIAccountBalanceTransferConditionSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.AccountInforSection;
+import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.FunUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.NewUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.accountinfosection.OldUIAccountInforSection;
 import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.BetSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.FunUIBetSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.NewUIBetSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.betsettingsection.OldUIBetSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.cashbalancesection.CashBalanceSection;
@@ -36,6 +38,7 @@ import agentsite.pages.agentmanagement.createdownlineagent.ratesettingsection.Ol
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.NewUIRiskSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.OldUIRiskSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.risksettingsection.RiskSettingSection;
+import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.FunUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.NewUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.OldUITaxSettingSection;
 import agentsite.pages.agentmanagement.createdownlineagent.taxsettingsection.TaxSettingSection;
@@ -63,6 +66,7 @@ import agentsite.pages.agentmanagement.eventbetsizesetting.OldUIEventBetSizeSett
 import agentsite.pages.agentmanagement.followbets.FollowBets;
 import agentsite.pages.agentmanagement.followbets.NewUIFollowBets;
 import agentsite.pages.agentmanagement.followbets.OldUIFollowBets;
+import agentsite.pages.agentmanagement.ptlisting.FairenterPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.NewUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.OldUIPositionTakingListing;
 import agentsite.pages.agentmanagement.ptlisting.PositionTakingListing;
@@ -142,6 +146,8 @@ public class ComponentsFactory {
 
     public static AccountInforSection accInfoObject(String types) {
         switch (types) {
+            case "funsport":
+                return new FunUIAccountInforSection();
             case "satsport":
                 return new OldUIAccountInforSection();
             default:
@@ -197,6 +203,8 @@ public class ComponentsFactory {
 
     public static BetSettingSection betSettingInfoObject(String types) {
         switch (types) {
+            case "funsport":
+                return new FunUIBetSettingSection();
             case "satsport":
                 return new OldUIBetSettingSection();
             default:
@@ -206,6 +214,8 @@ public class ComponentsFactory {
 
     public static TaxSettingSection taxSettingInfoObject(String types) {
         switch (types) {
+            case "funsport":
+                return new FunUITaxSettingSection();
             case "satsport":
                 return new OldUITaxSettingSection();
             default:
@@ -278,6 +288,8 @@ public class ComponentsFactory {
 
     public static PositionTakingListing positionTakingListingPage(String types) {
         switch (types) {
+            case "fairenter":
+                return new FairenterPositionTakingListing();
             case "satsport":
                 return new OldUIPositionTakingListing();
             default:

@@ -110,6 +110,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
 
         log("Step 2. Search a Member account and check on Select All sport");
         page.taxSettingListing.search(loginID, "", "");
+        page.waitingLoadingSpinner();
         List<ArrayList<String>> lstExpectedData = page.taxSettingListing.defineListTaxSetting(adjustValue);
 
         try {

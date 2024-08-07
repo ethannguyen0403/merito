@@ -40,23 +40,12 @@ public class PositionTakingListingTest extends BaseCaseTest {
         PositionTakingListingPage page = agentHomePage.navigatePositionTakingListingPage();
 
         log("Verify 1. Verify UI on Position Taking Listing display correctly");
-        Assert.assertTrue(page.positionTakingListing.txtUsername.isDisplayed(), "FAILED! Username textbox not display");
-        Assert.assertTrue(page.positionTakingListing.ddbAccountStatus.isDisplayed(), "FAILED! Account Status dropdown box not display");
-        Assert.assertTrue(page.positionTakingListing.ddbProduct.isDisplayed(), "FAILED! Product dropdown not display");
-        Assert.assertTrue(page.positionTakingListing.ddbLevel.isDisplayed(), "FAILED! Level dropdown not display");
-        List<String> lstHeader = page.positionTakingListing.tblDownline.getHeaderNameOfRows();
-        Assert.assertEquals(lstHeader, AgencyManagement.PositionTakingListing.TABLE_PT_EXCHANGE_HEADER_NEWUI, "FAILED! Header table not match");
-        Assert.assertTrue(page.positionTakingListing.lblUsername.isDisplayed(), "FAILED! Username level does not correct");
-        Assert.assertTrue(page.positionTakingListing.lblProduct.isDisplayed(), "FAILED! Product label does not correct");
-        Assert.assertTrue(page.positionTakingListing.lblAccountStatus.isDisplayed(), "FAILED! Account Status label does not correct");
-        Assert.assertTrue(page.positionTakingListing.lblLevel.isDisplayed(), "FAILED! Level label does not correct");
-        Assert.assertEquals(page.positionTakingListing.lblBreadcrumb.getText(), userCode, "FAILED! Breadcrumb bar not display login account");
-
+        page.positionTakingListing.verifyUI(userCode);
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4136")
-    @Test(groups = {"smoke_sat","MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke_sat","SAT.MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Position_Taking_Listing_4136() {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
@@ -339,7 +328,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "709")
-    @Test(groups = {"smoke", "nolan_stabilize_agent"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Position_Taking_Listing_709() {
         log("@title: Verify can update PT for all sports");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
@@ -350,10 +339,11 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step  2. Select a downline and select all sport");
         page.positionTakingListing.search(member, "", "", "");
+        page.positionTakingListing.waitingLoadingSpinner();
         List<String> lstPTInfoExpected = page.positionTakingListing.definePTSettingList(member, PT);
 
         log("Step 3. Update SAD Preset  and click Update");
-        page.positionTakingListing.updatePT(member, PT, AgencyManagement.PositionTakingListing.SPORT_COLUMN_TRUE);
+        page.positionTakingListing.updatePTSport(member, PT, "All");
 
         log("Verify 1. Verify PT for Soccer, Cricket, Fancy Tennis, Basketball, Horse Racing, Other is updated and there is a green check in Update Status column");
         List<String> lstPTInfo = page.positionTakingListing.getPTofAccount(member);
@@ -396,9 +386,10 @@ public class PositionTakingListingTest extends BaseCaseTest {
         log("Step 2. Select a downline and only select Soccer sport");
         page.positionTakingListing.search(downline, "", "", "");
         page.positionTakingListing.waitingLoadingSpinner();
+        int indexSoccer = page.positionTakingListing.tblDownline.getColumnIndexByName("Soccer");
         List<String> lstPTInfoBeforeUpdate = page.positionTakingListing.getPTofAccount(downline);
-        String firstPT = lstPTInfoBeforeUpdate.get(page.positionTakingListing.soccerCol - 1);
-        lstPTInfoBeforeUpdate.set(page.positionTakingListing.soccerCol - 1, Integer.toString(PT));
+        String firstPT = lstPTInfoBeforeUpdate.get(indexSoccer - 1);
+        lstPTInfoBeforeUpdate.set(indexSoccer - 1, Integer.toString(PT));
         try {
 //            AgencyManagement.PositionTakingListing.SPORT_COLUMN_FALSE.put("Soccer", true);
             log("Step 3. Update SAD Preset and click update button");

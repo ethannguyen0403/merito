@@ -162,7 +162,7 @@ public class EditUserTest extends BaseCaseTest {
      * 5. Can login member Site
      */
     @TestRails(id = "699")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","FUN.MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Downline_Listing_Edit_User_699() throws Exception {
         log("@title: Verify can inactive and reactive the account");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -272,7 +272,7 @@ public class EditUserTest extends BaseCaseTest {
      * 3. Can add odds to bet slip when None-Live is active
      */
     @TestRails(id = "701")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","FUN.MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Downline_Listing_Edit_User_701() throws Exception {
         log("@title: Verify can update Credit Balance");
         log("Step 1. Navigate Agency Management > Downline Listing");
@@ -330,6 +330,7 @@ public class EditUserTest extends BaseCaseTest {
         log("Step 3. In-active any sport");
         editDownLinePage.productStatusSettingInforSection.updateSport(SPORT_SOCCER, false);
         page.submitEditDownline();
+        page.waitingLoadingSpinner();
         String message = page.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
@@ -344,6 +345,7 @@ public class EditUserTest extends BaseCaseTest {
         log("Step 4.3 Repeat step 2 to 3 and Active Sport again and active at least 1 market of the sport");
         editDownLinePage.productStatusSettingInforSection.updateMarket(SPORT_SOCCER, "Match Odds (MATCH_ODDS)", true);
         page.submitEditDownline();
+        page.waitingLoadingSpinner();
         message = page.getMessageUpdate(true);
 
         log("Verify 1 Verify Edit Member popup display with the message \"Member was update successfully\"");
@@ -365,7 +367,7 @@ public class EditUserTest extends BaseCaseTest {
      * 4. Login member site and verify Soccer event is  display with Half Time market
      */
     @TestRails(id = "703")
-    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
+    @Test(groups = {"smoke", "nolan", "Fairenter.MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Downline_Listing_Edit_User_703() throws Exception {
         log("@title: Verify can Inactive and active a market type of a sport");
         log("Step 1. Navigate Agency Management > Downline Listing");
