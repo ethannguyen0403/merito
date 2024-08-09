@@ -820,5 +820,60 @@ public class MarketPageTest extends BaseCaseTest {
         Assert.assertTrue(marketPage.racingMarketContainer.isAllLayButtonDisable(), "FAILED! All Lay odd button is NOT disabled");
         log("INFO: Executed completely");
     }
+
+    @TestRails(id = "973")
+    @Test(groups = {"smoke_dev_demo"})
+    public void FE_BetSlipMyBet_Demo3() {
+        log("@title: Validate that user cannot place bet when inputting a stake less than minimum bet");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEventName(event.getEventName());
+        log("Step 3: Click on any odds button");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        log("Verify 1: At step 3, Place bets button is disabled");
+        Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
+        log("Step 4: Input a stake less than minimum bet into Stake text-box");
+        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
+        String inputStake = String.valueOf(Integer.valueOf(minBet) + 1);
+        marketPage.betsSlipContainer.inputStake(inputStake);
+        log("Verify 2: At step 4, Place bets button is disabled after inputting a stake less than min bet");
+        Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "993")
+    @Test(groups = {"smoke_dev_demo"})
+    public void MarketPage_TC_Demo4() {
+        log("@title: Validate that forecast/ liability value display correctly when place back and Lay bet on a selection on Market Page");
+        log("Precondition: Login member account");
+        log("Step 1: Navigate to any sport page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            throw new SkipException("SKIPPED! There is no event available");
+        }
+        log("Step 2: Click on any event");
+        MarketPage marketPage = page.clickEventName(event.getEventName());
+        log("Step 3: Place a matched Lay bet");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, false);
+        String minBet = BetUtils.getMinBet(SPORT_TENNIS, LBL_LAY_TYPE);
+
+        List<ArrayList<String>> foreCastInfoBefore = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
+        marketPage.placeBet(market, minBet);
+        List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, false, 1);
+        List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
+        log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
+                "Display profit for under placed selection\n" +
+                "Display liability of the bet under other selections");
+        marketPage.verifyForeCastIsCorrect(foreCastInfoBefore, foreCastInfoAfter, betOrder.get(0));
+        log("INFO: Executed completely");
+    }
 }
 

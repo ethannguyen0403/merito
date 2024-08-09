@@ -1030,7 +1030,100 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             marketPage.myBetsContainer.cancelAllBetUnmatched();
             log("INFO: Executed completely");
         }
+    }
 
+    @TestRails(id = "556")
+    @Test(groups = {"smoke_dev_demo"})
+    public void Place_Bet_Function_TC_Demo1() {
+        log("@title: Validate that user can place Matched Back bet on Soccer market");
+        String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_BACK_TYPE);
 
+        log("Step 1. Click Soccer menu");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
+
+        log("Step 2. Click on an event");
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEventName(event.getEventName());
+
+        log("Step 3. Update odds > offer odds and Input valid stake");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        String odds = market.getBtnOdd().getText();
+        String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
+        market.getBtnOdd().click();
+
+        log(String.format("Step 4. Place bet with odds:%s Stake: %s", odds, minBet));
+        AccountBalance balance = memberHomePage.getUserBalance();
+        marketPage.betsSlipContainer.placeBet(odds, minBet);
+        List<Order> wagers = marketPage.myBetsContainer.getOrder(true, true, 1);
+
+        AccountBalance balanceExpected = memberHomePage.getUserBalance();
+        String expectedBalance = marketPage.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
+
+        log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
+        Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
+        Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
+        Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
+
+        log("Verify: Account Balance/Outstanding updated correctly");
+        Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
+        Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "561")
+    @Test(groups = {"smoke_dev_demo"})
+    public void Place_Bet_Function_TC_Demo2() {
+        log("@title: Validate cancel all bet icon works ");
+        String oddsLay = "1.01";
+        String oddsBack = "20";
+        String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_LAY_TYPE);
+
+        log("Step 1. Active any market of soccer");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
+
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEvent(event);
+
+        log("Step 2. Place an unmatched bet for Lay and Back bet");
+        Market market = marketPage.marketOddControl.getMarket(event, 1, false);
+        market.getBtnOdd().click();
+        marketPage.betsSlipContainer.placeBet(oddsLay, minBet);
+
+        market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        marketPage.betsSlipContainer.placeBet(oddsBack, minBet);
+
+        log("Step 3. Open My Bet Page and get Wager info");
+        MyBetsPage myBetsPage = marketPage.openMyBet();
+        myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
+        List<String> lstUnmatchId = myBetsPage.getReportColumnValue(2, "Bet ID");
+
+        log("Step 4. Back to market page and click Cancel all link");
+        myBetsPage.switchToPreviousTab();
+        marketPage.myBetsContainer.lnkCancelAll.click();
+
+        log("Verify 1. Bet is cancel");
+        Assert.assertFalse(marketPage.myBetsContainer.isUnmatchedBetsEmpty(), "ERROR! Unmatched Bet is not empty, Bet still not be cancelled!");
+
+        log("Step 5. Open My bet and filter Cancel option");
+        myBetsPage = marketPage.openMyBet();
+        myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"));
+
+        log("Verify 2. Bet in My bet display with the status cancel");
+        myBetsPage.verifyListBetFollowStatus(lstUnmatchId, MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("CANCELLED"));
+
+        log("Verify 3. Cancelled bet not display in Unmatched list anymore");
+        myBetsPage.filter(MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER.get("Exchange"), MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
+
+        myBetsPage.verifyListBetNotFollowStatus(lstUnmatchId, MemberConstants.MyBetsPage.DDB_ORDER_TYPE_FILTER.get("UNMATCHED"));
+        log("INFO: Executed completely");
     }
 }
