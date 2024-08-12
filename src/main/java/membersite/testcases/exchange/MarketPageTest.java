@@ -824,26 +824,26 @@ public class MarketPageTest extends BaseCaseTest {
     @TestRails(id = "973")
     @Test(groups = {"smoke_dev_demo"})
     public void FE_BetSlipMyBet_Demo3() {
-        log("@title: Validate that user cannot place bet when inputting a stake less than minimum bet");
+        log("@title: Validate that place bet button disabled when inputting a stake less than minimum bet");
         log("Precondition: Login member account");
-        log("Step 1: Navigate to any sport page");
+        log("Step 1: Navigate to Soccer sport page");
         SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
         Event event = page.eventContainerControl.getEventRandom(false, false);
         if (Objects.isNull(event)) {
             throw new SkipException("SKIPPED! There is no event available");
         }
-        log("Step 2: Click on any event");
+        log("Step 2: Click on a random event");
         MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3: Click on any odds button");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
-        log("Verify 1: At step 3, Place bets button is disabled");
+        log("Verify 1: At step 3, Place bet button is disabled when stake empty");
         Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
         log("Step 4: Input a stake less than minimum bet into Stake text-box");
         String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
         String inputStake = String.valueOf(Integer.valueOf(minBet) + 1);
         marketPage.betsSlipContainer.inputStake(inputStake);
-        log("Verify 2: At step 4, Place bets button is disabled after inputting a stake less than min bet");
+        log("Verify 2: At step 4, Place bet button is disabled when inputted stake less than min bet");
         Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
         log("INFO: Executed completely");
     }
@@ -851,7 +851,7 @@ public class MarketPageTest extends BaseCaseTest {
     @TestRails(id = "993")
     @Test(groups = {"smoke_dev_demo"})
     public void MarketPage_TC_Demo4() {
-        log("@title: Validate that forecast/ liability value display correctly when place back and Lay bet on a selection on Market Page");
+        log("@title: Validate Mini My Bet Selection, Stake display correctly when place Lay matched bet on a selection on Market Page");
         log("Precondition: Login member account");
         log("Step 1: Navigate to Tennis sport page");
         SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
