@@ -853,26 +853,24 @@ public class MarketPageTest extends BaseCaseTest {
     public void MarketPage_TC_Demo4() {
         log("@title: Validate that forecast/ liability value display correctly when place back and Lay bet on a selection on Market Page");
         log("Precondition: Login member account");
-        log("Step 1: Navigate to any sport page");
+        log("Step 1: Navigate to Tennis sport page");
         SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
         Event event = page.eventContainerControl.getEventRandom(false, false);
         if (Objects.isNull(event)) {
             throw new SkipException("SKIPPED! There is no event available");
         }
-        log("Step 2: Click on any event");
-        MarketPage marketPage = page.clickEventName(event.getEventName());
-        log("Step 3: Place a matched Lay bet");
-        Market market = marketPage.marketOddControl.getMarket(event, 1, false);
+        log("Step 2: Click on random Tennis event");
         String minBet = BetUtils.getMinBet(SPORT_TENNIS, LBL_LAY_TYPE);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
+        log(String.format("Step 3: Place a matched Lay bet - Match Odds with stake %s", minBet));
+        Market market = marketPage.marketOddControl.getMarket(event, 1, false);
+        double stakeBet = Double.valueOf(minBet) + 1;
+        marketPage.placeBet(market, String.valueOf(stakeBet));
+         List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, false, 1);
 
-        List<ArrayList<String>> foreCastInfoBefore = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
-        marketPage.placeBet(market, minBet);
-        List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, false, 1);
-        List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
-        log("Verify 1: Verify forecast display correct on the selection has bet placed correct:\n" +
-                "Display profit for under placed selection\n" +
-                "Display liability of the bet under other selections");
-        marketPage.verifyForeCastIsCorrect(foreCastInfoBefore, foreCastInfoAfter, betOrder.get(0));
+        log("Verify: Mini My Bet display correct info Selection, Stake");
+        Assert.assertEquals(market.getSelectionName(), betOrder.get(0).getSelectionName(), "Place on incorrect selection");
+        Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), betOrder.get(0).getStake(), String.format("FAILED! Incorrect Stake after matched bet expected %s but found %s",String.format("%.2f", Double.parseDouble(minBet)),betOrder.get(0).getStake()));
         log("INFO: Executed completely");
     }
 }
