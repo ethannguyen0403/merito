@@ -337,7 +337,7 @@ public class AGConstant {
 
             public final static List<String> LST_TAX_SETTING_HEADER_NEWUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball",  "Fancy", "Virtual Cricket", "Decimal Cricket", "Other");
             public final static List<String> LST_TAX_SETTING_HEADER_OLDUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Virtual Cricket", "Decimal Cricket", "Other");
-            public final static List<String> LST_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket","Fancy", "Virtual Cricket", "Decimal Cricket",  "Bookmaker" , "Tennis", "Basketball", "Other");
+            public final static List<String> LST_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket","Fancy", "Virtual Cricket", "Decimal Cricket", "Bookmaker" ,"Tennis", "Basketball", "Other");
             public final static List<String> LST_BET_SETTING_OPTION = Arrays.asList("Min Bet", "Max Bet", "Max Liability Per Market", "Max Win Per Market");
             public final static List<String> LST_TAX_SETTING_OPTION = Arrays.asList("Upline", "Tax");
             public final static List<String> LST_POSITION_TAKING_SPORT_HEADER = Arrays.asList("Soccer", "Cricket", "Line Market", "Fancy", "Virtual Cricket", "Bookmaker", "Decimal Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other");
@@ -702,7 +702,7 @@ public class AGConstant {
 
         public static class TaxSettingListing {
             public final static String TITLE_PAGE = "Tax Setting Listing";
-            public final static List<String> TABLE_TAX = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Virtual Cricket",  "Decimal Cricket", "Other", "Update Status");
+            public final static List<String> TABLE_TAX = Arrays.asList("No.", "Username", "Nickname", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Fancy", "Virtual Cricket", "Decimal Cricket", "Other", "Update Status");
             public final static List<String> TABLE_TAX_SAT = Arrays.asList("No.", "Username", "Login ID", "Account Status", "", "Level", "Soccer", "Cricket", "Tennis", "Basketball", "Virtual Cricket", "Decimal Cricket", "Other", "Update Status");
         }
 

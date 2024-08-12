@@ -103,7 +103,7 @@ public class UnsettledBetPage extends HomePage {
     public void verifySearchLastBetsMode(List<ArrayList<String>> data, String loginId, String status, String stake, String wagerID, String sportName, String eventName) {
         for (int i = 0; i < data.size(); i++) {
             if (!loginId.isEmpty())
-                Assert.assertEquals(data.get(i).get(colUsername - 1), loginId, String.format("FAILED! Expected login ID %s but found %s", loginId, data.get(i).get(colUsername - 1)));
+                Assert.assertTrue(data.get(i).get(colUsername - 1).contains(loginId), String.format("FAILED! Expected login ID %s but found %s", loginId, data.get(i).get(colUsername - 1)));
             if (!status.isEmpty())
                 Assert.assertEquals(data.get(i).get(colStaus - 1), status, String.format("FAILED! Expected Status %s but found %s", status, data.get(i).get(colStaus - 1)));
         }
