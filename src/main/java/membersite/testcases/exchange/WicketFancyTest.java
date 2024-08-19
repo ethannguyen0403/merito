@@ -25,7 +25,7 @@ import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 
 public class WicketFancyTest extends BaseCaseTest {
     @TestRails(id = "611")
-    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void WicketFancyTest_611() {
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");

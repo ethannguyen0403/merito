@@ -153,9 +153,9 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
         else
         {
             String text = plofMarketLnk.getText();
-            if( text.contains(OPENING_BALANCE) || text.contains(WITHDRAW) || text.contains(DEPOSIT))
+            if( text.contains(OPENING_BALANCE) || text.contains(WITHDRAW) || text.contains(DEPOSIT) || text.contains(RETAIN_TAX))
                 // get the seconrow if the first row is not hyperlink
-                plofMarketLnk = (Link) tblReport.getControlOfCell(1, colNarration, 2, "span[@class='hover hyperlink']");
+                plofMarketLnk = (Link) tblReport.getControlOfCell(2, colNarration, 1, "span[@class='hover hyperlink']");
             else
                 // Get the first row if is hyperlink
                 plofMarketLnk = (Link) tblReport.getControlOfCell(1, colNarration, 1, "span[@class='hover hyperlink']");

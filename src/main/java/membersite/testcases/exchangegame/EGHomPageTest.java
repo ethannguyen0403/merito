@@ -69,7 +69,7 @@ public class EGHomPageTest extends BaseCaseTest {
      * @expect: 1/ Verify the menu is loaded correctly
      */
     @TestRails(id = "527")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void EG_Home_Page_TC527() {
         log("@title: Verify all exchange game images are loaded");
         log("Step 1. Navigate to exchange game  ");
@@ -94,7 +94,7 @@ public class EGHomPageTest extends BaseCaseTest {
      * @expect: Verify the corresponding page is displayed
      */
     @TestRails(id = "529")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void EG_Home_Page_TC529() {
         log("@title: Verify can open all games in the main menu");
         log("Step 1. Navigate to exchange game  ");
@@ -134,7 +134,7 @@ public class EGHomPageTest extends BaseCaseTest {
      * @expect: Verify can open all game by when click on the image
      */
     @TestRails(id = "530")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void EG_Home_Page_TC530() {
         log("@title: Verify can open all game by when click on the image");
         log("Step 1. Navigate to exchange game ");
@@ -174,7 +174,7 @@ public class EGHomPageTest extends BaseCaseTest {
      * @expect: Play Standard baccarat page is correct ly display
      */
     @TestRails(id = "532")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void EG_Home_Page_TC532() {
         log("@title: Verify can open BACCARAT by when click Play Standard");
         log("Step 1. Navigate to exchange game ");
@@ -198,7 +198,7 @@ public class EGHomPageTest extends BaseCaseTest {
      */
 
     @TestRails(id = "531")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void EG_Home_Page_TC531() {
         log("@title: Verify can open BACCARAT by when click Play turbo");
         log("Step 1. Navigate to exchange game ");

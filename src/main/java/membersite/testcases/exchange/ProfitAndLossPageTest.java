@@ -29,7 +29,7 @@ public class ProfitAndLossPageTest extends BaseCaseTest {
      * 2. Profit of each sport match with when summary the details
      */
     @TestRails(id = "522")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "smoke_dev"})
     @Parameters("timeZone")
     public void ProfitAndLossPage_TC522(String timeZone) {
         log("@title: Validate Data Profit display correctly");
@@ -63,7 +63,7 @@ public class ProfitAndLossPageTest extends BaseCaseTest {
      * @expect: 1. Table header display correctly when clicking on sport> event
      */
     @TestRails(id = "523")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "smoke_dev"})
     @Parameters("timeZone")
     public void ProfitAndLossPage_TC523(String timeZone) {
         log("@title: Validate Table header when clicking on sport and market");

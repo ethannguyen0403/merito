@@ -820,58 +820,5 @@ public class MarketPageTest extends BaseCaseTest {
         Assert.assertTrue(marketPage.racingMarketContainer.isAllLayButtonDisable(), "FAILED! All Lay odd button is NOT disabled");
         log("INFO: Executed completely");
     }
-
-    @TestRails(id = "973")
-    @Test(groups = {"smoke_dev_demo"})
-    public void FE_BetSlipMyBet_Demo3() {
-        log("@title: Validate that place bet button disabled when inputting a stake less than minimum bet");
-        log("Precondition: Login member account");
-        log("Step 1: Navigate to Soccer sport page");
-        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
-        Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
-            throw new SkipException("SKIPPED! There is no event available");
-        }
-        log("Step 2: Click on a random event");
-        MarketPage marketPage = page.clickEventName(event.getEventName());
-        log("Step 3: Click on any odds button");
-        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
-        market.getBtnOdd().click();
-        log("Verify 1: At step 3, Place bet button is disabled when stake empty");
-        Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
-        log("Step 4: Input a stake less than minimum bet into Stake text-box");
-        String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
-        String inputStake = String.valueOf(Integer.valueOf(minBet) + 1);
-        marketPage.betsSlipContainer.inputStake(inputStake);
-        log("Verify 2: At step 4, Place bet button is disabled when inputted stake less than min bet");
-        Assert.assertFalse(marketPage.betsSlipContainer.isPlacBetButtonEnable(), "FAILED! Place bet button is enabled");
-        log("INFO: Executed completely");
-    }
-
-    @TestRails(id = "993")
-    @Test(groups = {"smoke_dev_demo"})
-    public void MarketPage_TC_Demo4() {
-        log("@title: Validate Mini My Bet Selection, Stake display correctly when place Lay matched bet on a selection on Market Page");
-        log("Precondition: Login member account");
-        log("Step 1: Navigate to Tennis sport page");
-        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_TENNIS);
-        Event event = page.eventContainerControl.getEventRandom(false, false);
-        if (Objects.isNull(event)) {
-            throw new SkipException("SKIPPED! There is no event available");
-        }
-        log("Step 2: Click on random Tennis event");
-        String minBet = BetUtils.getMinBet(SPORT_TENNIS, LBL_LAY_TYPE);
-        MarketPage marketPage = page.clickEventName(event.getEventName());
-        log(String.format("Step 3: Place a matched Lay bet - Match Odds with stake %s", minBet));
-        Market market = marketPage.marketOddControl.getMarket(event, 1, false);
-        double stakeBet = Double.valueOf(minBet) + 1;
-        marketPage.placeBet(market, String.valueOf(stakeBet));
-         List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, false, 1);
-
-        log("Verify: Mini My Bet display correct info Selection, Stake");
-        Assert.assertEquals(market.getSelectionName(), betOrder.get(0).getSelectionName(), "Place on incorrect selection");
-        Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), betOrder.get(0).getStake(), String.format("FAILED! Incorrect Stake after matched bet expected %s but found %s",String.format("%.2f", Double.parseDouble(minBet)),betOrder.get(0).getStake()));
-        log("INFO: Executed completely");
-    }
 }
 

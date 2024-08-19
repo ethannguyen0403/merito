@@ -23,7 +23,7 @@ import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 
 public class ArtemisBookmakerTest extends BaseCaseTest {
     @TestRails(id = "2058")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void ArtemisBMTest_2058() {
         log("@title: Validate correct Forecast displays");
         log("Step 1. Login member site");
@@ -58,7 +58,7 @@ public class ArtemisBookmakerTest extends BaseCaseTest {
     }
 
     @TestRails(id = "2247")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void ArtemisBMTest_2247() {
         log("@title: Validate can place Artemis Bookmaker bet on Match odds market page");
         log("Step 1. Login member site");
@@ -99,7 +99,7 @@ public class ArtemisBookmakerTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "2248")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void ArtemisBMTest_2248() {
         log("@title: Validate cannot place bet if stake less than min bet");
         log("Step 1. Login member site");
@@ -137,7 +137,7 @@ public class ArtemisBookmakerTest extends BaseCaseTest {
     }
 
     @TestRails(id = "2765")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void ArtemisBMTest_2765() {
         log("@title: Validate correct odds display when place Bookmaker market");
         log("Step 1. Login member site");
