@@ -631,8 +631,8 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
     @TestRails(id="769")
     @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
-    @Parameters({"brandname", "password", "downlineAccount", "username"})
-    public void Agent_MM_BlockUnblockEvent_769(String brandname, String password, String downlineAccount, String username) throws Exception {
+    @Parameters({"password", "downlineAccount", "username"})
+    public void Agent_MM_BlockUnblockEvent_769(String password, String downlineAccount, String username) throws Exception {
         log("@title: Validate can unblocked now all events for an downline in a page");
 
         loginAgent(downlineAccount, password, true);
@@ -659,7 +659,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.blockUnblockEvent(downlineAccount, ALL, BTN_ACTIONS.get(0));
         page.blockUnblockEvent(downlineAccount, ALL, BTN_ACTIONS.get(1));
         log("Verify 2. (Step 5) Status of the event is Unblocked ");
-        page.verifyStatusAllEventsAreUnblock(event);
+        page.verifyStatusAllEvents("Unblocked", true, false, true, UNBLOCKTYPE.get(0), UNBLOCKTYPE.get(0));
         log("INFO: Executed completely");
     }
 
@@ -810,7 +810,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 //        List<ArrayList<String>> lstEventofUserCode = BlockUnblockEventsUtils.getAllEvents(sport, childID, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
        List<Event> event = BlockUnblockEventsUtils.getEventList(SPORT_SOCCER, childID, TABs.get(tomorowTab));
 //       Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode, UNBLOCKTYPE.get(0)), "FAILED! event api status is incorrectly");
-       page.verifyStatusAllEventsAreUnblock(event);
+       page.verifyStatusAllEvents("Unblocked", true, false, true, UNBLOCKTYPE.get(0), UNBLOCKTYPE.get(0));
         log("INFO: Executed completely");
     }
 
