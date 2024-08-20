@@ -52,7 +52,7 @@ public class EGBaccaratTest extends BaseCaseTest {
         log("@title: Validate can Not place BACCARAT if exceed available balance");
         AccountBalance balanceAPI = BetUtils.getUserBalance();
         String minBet = GetDataUtils.getMinBet(EGConstants.BACCARAT, "BACK");
-        String stake = String.format("%.0f", Double.max(Double.valueOf(balanceAPI.getBalance().replaceAll(",", "")) + 1, Integer.valueOf(minBet)));
+        String stake = String.format("%.0f", Double.max(Double.valueOf(balanceAPI.getBalance().replaceAll(",", "")) + 10, Integer.valueOf(minBet) + 10));
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
 
         log("Step 1. Navigate to exchange game > Baccarat");
