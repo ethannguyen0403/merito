@@ -14,7 +14,6 @@ import util.testraildemo.TestRails;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static common.MemberConstants.AccountStatementPage.*;
 import static common.MemberConstants.TIMEZONE_BRAND;
@@ -31,7 +30,7 @@ public class AccountStatementTest extends BaseCaseTest {
      * @expect: Data display correct at API
      */
     @TestRails(id = "524")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void AccountStatement_TC524() {
         log("@title: Validate data in account statement is correctly");
         log("Step 1. Click My Account > Account Statement");
@@ -58,7 +57,7 @@ public class AccountStatementTest extends BaseCaseTest {
      * @expect: 1 Table header display correctly when clicking on sport> event
      */
     @TestRails(id = "525")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void AccountStatement_TC525() {
         log("@title: Validate Table header when clicking on sport and market");
         log("Step 1. Click My Account > Account Statement");

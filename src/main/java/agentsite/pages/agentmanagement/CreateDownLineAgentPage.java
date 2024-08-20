@@ -43,11 +43,11 @@ public class CreateDownLineAgentPage extends HomePage {
     //Exchange Product - Bet Settings
 
     public Label lblBetSettings = Label.xpath("//div[@id='EXCHANGE-bet-settings']/div[contains(@class,'psection')]");
-    public Label lblEGBetSettings = Label.xpath("//div[@id='EXCH_GAMES-bet-settings']/div[@class='psection']");
+    public Label lblEGBetSettings = Label.xpath("//div[@id='EXCH_GAMES-bet-settings']/div[contains(@class,'psection')]");
     public Label lblTaxSettings = Label.xpath("//div[@id='EXCHANGE-tax-settings']/div[contains(@class,'psection')]");
-    public Label lblEGTaxSettings = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']/div[@class='psection']");
+    public Label lblEGTaxSettings = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']/div[contains(@class,'psection')]");
     public Label lblPositionTakingListing = Label.xpath("//div[@id='EXCHANGE-position-taking']/div[contains(@class,'psection')]");
-    public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[@class='psection']");
+    public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[contains(@class=,'psection')]");
     private Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
     private Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
     public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg'] |  //div[@class='paction']/span[@id='error-msg']");

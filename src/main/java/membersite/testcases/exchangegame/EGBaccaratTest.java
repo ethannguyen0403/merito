@@ -20,7 +20,7 @@ public class EGBaccaratTest extends BaseCaseTest {
      * @expect: Verify can place bet
      */
     @TestRails(id = "533")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void EG_Baccarat_TC533() {
         log("@title: Validate can place BACCARAT standard");
         log("Step precondition. get min bet of Baccarat");
@@ -47,7 +47,7 @@ public class EGBaccaratTest extends BaseCaseTest {
      * @expect: Verify error message display
      */
     @TestRails(id = "534")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void EG_Baccarat_TC534() {
         log("@title: Validate can Not place BACCARAT if exceed available balance");
         AccountBalance balanceAPI = BetUtils.getUserBalance();
