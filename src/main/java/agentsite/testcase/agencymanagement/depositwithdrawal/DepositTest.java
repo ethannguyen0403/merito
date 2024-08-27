@@ -138,7 +138,7 @@ public class DepositTest extends BaseCaseTest {
         AccountInfo memberInfo = lstUsers.get(0);
         AccountInfo accountInfo = lstUsers.get(lstUsers.size() - 1);
         String userCode = memberInfo.getUserCode();
-        double currentCashBalance = accountInfo.getAvailableBalance() + 1;
+        double currentCashBalance = accountInfo.getAvailableBalance() + 5;
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
@@ -173,24 +173,22 @@ public class DepositTest extends BaseCaseTest {
         log("@title: Validate can deposited successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
-        AccountInfo memberInfo = lstUsers.get(0);
-        String userCode = memberInfo.getUserCode();
-        Double amountDeposit = 1.0;
-        double expectedNewMemberCash = memberInfo.getAvailableBalance() + amountDeposit;
-        double expectedLoginAccountAvBalance = DoubleUtils.roundUpWithTwoPlaces(DownLineListingUtils.getMyCreditCashBalance() - amountDeposit);
+        double amountDeposit = 1;
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
+        List<ArrayList<String>> listMemberInfo = page.getMemberInfo(1);
+        List<ArrayList<String>> mainBalanceInfo = page.getLoginAccountBalanceInfo();
+        String userCode = listMemberInfo.get(0).get(1);
+        double expectedNewMemberCash = Double.valueOf(page.getAccountsAvailableBalance(listMemberInfo, true).get(0)) + amountDeposit;
+        double expectedLoginAccountAvBalance = Double.valueOf(page.getAccountsAvailableBalance(mainBalanceInfo, false).get(0)) - amountDeposit;
 
         log(String.format("Step 1.1 Get data of user code before deposit", userCode));
-        List<String> userInfoBefore = page.getRowContainsUsercode(userCode);
-        String expectedAmountAfterDeposit = String.format(Locale.getDefault(), "%,.2f", Double.valueOf(userInfoBefore.get(page.colAvailableBalance - 1).replaceAll(",", "")) + amountDeposit);
-
         log("Step 2. Click on  Deposit link of an account");
         DepositToPopup popup = (DepositToPopup) page.action(DepositWithdraw.Actions.DEPOSIT, userCode);
 
         log("Step 3. Input amount to deposit  and input remark  then click Submit");
-        popup.deposit(amountDeposit.toString(), "TC005 Deposit 1", true, true);
+        popup.deposit(String.valueOf(amountDeposit), "TC005 Deposit 1", true, true);
         String successMessage = popup.lblAmountSuccess.getText();
         double newMemberCash = popup.getNewMemberCashBalance();
         double newMemberCashAfter = popup.getMemberCashBalance();
@@ -211,11 +209,11 @@ public class DepositTest extends BaseCaseTest {
         popup.clickCancelBtn();
 
         log(String.format("Step  Get data of user code after deposit", userCode));
-        List<String> userInfoAfter = page.getRowContainsUsercode(userCode);
+        List<ArrayList<String>> listMemberInfoAfter = page.getMemberInfo(1);
 
         log("Verify 3. Verify available balance of deposit account is updated");
-        Assert.assertEquals(userInfoAfter.get(page.colAvailableBalance - 1), expectedAmountAfterDeposit,
-                String.format("FAILED! Available Balance of account %s expected is %s but found %s", userCode, expectedAmountAfterDeposit, userInfoAfter.get(page.colAvailableBalance - 1)));
+        Assert.assertEquals(Double.valueOf(page.getAccountsAvailableBalance(listMemberInfoAfter, true).get(0)), expectedNewMemberCash,
+                String.format("FAILED! Available Balance of account %s expected is %s but found %s", userCode, expectedNewMemberCash, Double.valueOf(page.getAccountsAvailableBalance(listMemberInfoAfter, true).get(0))));
 
         log("INFO: Executed completely");
     }

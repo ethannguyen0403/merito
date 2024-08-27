@@ -168,13 +168,13 @@ public class WithdrawalTest extends BaseCaseTest {
         log("@title:Validate that an amount is withdrawn successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
-        AccountInfo memberInfo = lstUsers.get(0);
-        AccountInfo accountInfo = lstUsers.get(lstUsers.size() - 1);
-        String userCode = memberInfo.getUserCode();
         double withDrawAmount = 1;
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
+        List<ArrayList<String>> mainBalanceInfo = page.getLoginAccountBalanceInfo();
+        List<ArrayList<String>> listMemberInfo = page.getMemberInfo(1);
+        String userCode = listMemberInfo.get(0).get(1);
 
         log("Step  2. Open Withdrawal popup of an account");
         WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdraw.Actions.WITHDRAWAL, userCode);
@@ -182,8 +182,8 @@ public class WithdrawalTest extends BaseCaseTest {
         log(String.format("Step 3. Withdraw an amount account %s", userCode));
         popup.withdraw(Double.toString(withDrawAmount), "TC005 Withdraw with amount = 1",true, true);
         String successfulMessage = popup.lblAmountSuccess.getText();
-        double expectedNewMemberCash = memberInfo.getAvailableBalance() - 1;
-        double expectedNewYourCash = accountInfo.getAvailableBalance() + 1;
+        double expectedNewMemberCash = Double.valueOf(page.getAccountsAvailableBalance(listMemberInfo, true).get(0)) - withDrawAmount;
+        double expectedNewYourCash = Double.valueOf(page.getAccountsAvailableBalance(mainBalanceInfo, false).get(0)) + withDrawAmount;
         double newMemberCash = popup.getNewMemberCashBalance();
         double newMemberCashAfter = popup.getMemberCashBalance();
         double newYourCash = popup.getNewYourCashBalance();
@@ -191,10 +191,10 @@ public class WithdrawalTest extends BaseCaseTest {
 
         log("Verify 1: An amount is withdrawn successfully");
         Assert.assertEquals(successfulMessage, AGConstant.AgencyManagement.DepositWithdrawal.WITHDRAWAL_SUCCESSFUL, String.format("ERROR: The expected error message is '%s' but found '%s'", AGConstant.AgencyManagement.DepositWithdrawal.WITHDRAWAL_SUCCESSFUL, successfulMessage));
-        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.011, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCash, 0.011, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, 0.011, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
-        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.011, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.01, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCash, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.01, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
 
         log("INFO: Executed completely");
     }
@@ -216,13 +216,14 @@ public class WithdrawalTest extends BaseCaseTest {
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         double withDrawAmount = 1;
-        Double loginAccBalance = DoubleUtils.roundUpWithTwoPlaces(DownLineListingUtils.getMyCreditCashBalance());
+//        Double loginAccBalance = DoubleUtils.roundUpWithTwoPlaces(DownLineListingUtils.getMyCreditCashBalance());
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
+        List<ArrayList<String>> mainBalanceInfo = page.getLoginAccountBalanceInfo();
+        List<ArrayList<String>> listMemberInfo = page.getMemberInfo(1);
 
         log("Step  2. Open Withdrawal popup of an account");
-        List<ArrayList<String>> listMemberInfo = page.getMemberInfo(1);
         WithdrawalPopup popup = (WithdrawalPopup) page.action(DepositWithdraw.Actions.WITHDRAWAL, listMemberInfo.get(0).get(page.defineDepositWithdrawTableColumn("User Name") - 1));
 
         log("Step 3. Withdraw an amount from this username");
@@ -235,17 +236,17 @@ public class WithdrawalTest extends BaseCaseTest {
         double newYourCash = popup.getNewYourCashBalance();
         double newYourCashAfter = popup.getYourCashBalance();
         popup.clickCancelBtn();
-        double expectedNewMemberCash = Double.valueOf(listMemberInfo.get(0).get(page.colAvailableBalance - 1).replaceAll(",", "")) - withDrawAmount;
-        double expectedNewYourCash = loginAccBalance + withDrawAmount;
+        double expectedNewMemberCash = Double.valueOf(page.getAccountsAvailableBalance(listMemberInfo, true).get(0)) - withDrawAmount;
+        double expectedNewYourCash = Double.valueOf(page.getAccountsAvailableBalance(mainBalanceInfo, false).get(0)) + withDrawAmount;
 
         log("Verify 1. Message Withdraw successfully is displayed");
         Assert.assertEquals(successfulMessage, AGConstant.AgencyManagement.DepositWithdrawal.WITHDRAWAL_SUCCESSFUL, String.format("ERROR: The expected error message is '%s' but found '%s'", AGConstant.AgencyManagement.DepositWithdrawal.WITHDRAWAL_SUCCESSFUL, successfulMessage));
 
         log("Verify 2. Verify Balance on Withdraw popup display corect");
-        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.011, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCash, 0.011, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, 0.011, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
-        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.011, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.01, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCash, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.01, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
 
         log("INFO: Executed completely");
     }
