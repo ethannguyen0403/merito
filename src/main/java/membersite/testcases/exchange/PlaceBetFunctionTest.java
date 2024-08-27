@@ -80,7 +80,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
 
         log("Step 3. Update odds > offer odds and Input valid stake");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
@@ -89,21 +89,26 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         market.getBtnOdd().click();
 
         log(String.format("Step 4. Place bet with odds:%s Stake: %s", odds, minBet));
-        AccountBalance balance = memberHomePage.getUserBalance();
+//        AccountBalance balance = memberHomePage.getUserBalance();
+//        marketPage.betsSlipContainer.placeBet(odds, minBet);
+//        List<Order> wagers = marketPage.myBetsContainer.getOrder(true, true, 1);
+        AccountBalance balanceBeforeBet = memberHomePage.getUserBalance();
+        List<ArrayList<String>> foreCastInfoBefore = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
         marketPage.betsSlipContainer.placeBet(odds, minBet);
-        List<Order> wagers = marketPage.myBetsContainer.getOrder(true, true, 1);
-
-        AccountBalance balanceExpected = memberHomePage.getUserBalance();
-        String expectedBalance = marketPage.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
+        List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
 
         log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
+        List<Order> wagers = marketPage.myBetsContainer.getMatchedNormalInMiniMyBet();
         Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
         Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
         Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
 
         log("Verify: Account Balance/Outstanding updated correctly");
-        Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-        Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+        AccountBalance balanceActual = memberHomePage.getUserBalance();
+        String expectedBalance = memberHomePage.calculateBalance(balanceBeforeBet.getBalance(), foreCastInfoBefore, foreCastInfoAfter);
+        String expectedExposure = memberHomePage.calculateLiability(balanceBeforeBet.getExposure(), foreCastInfoBefore, foreCastInfoAfter);
+        Assert.assertEquals(balanceActual.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
+        Assert.assertEquals(balanceActual.getExposure().replace(",",""), expectedExposure, "Outstanding update incorrectly after place bet");
         log("INFO: Executed completely");
     }
 
@@ -123,7 +128,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         log("Step 3. Update odds > offer odds and Input valid stake");
         int selectionIndex = marketPage.marketOddControl.getSelectionHaveMinOdds(event.getMarketName(),false);
         Market market = marketPage.marketOddControl.getMarket(event, selectionIndex, false);
@@ -133,14 +138,16 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         log("Step 4. Input stake and click submit");
         log(String.format("----- Place bet  %s@%s ------", odds, minBet));
-        AccountBalance balance = marketPage.getUserBalance();
+//        AccountBalance balance = marketPage.getUserBalance();
+//        marketPage.betsSlipContainer.placeBet(odds, minBet);
+//        List<Order> wagers = marketPage.myBetsContainer.getOrder(true, false, 1);
+        AccountBalance balanceBeforeBet = memberHomePage.getUserBalance();
+        List<ArrayList<String>> foreCastInfoBefore = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
         marketPage.betsSlipContainer.placeBet(odds, minBet);
-        List<Order> wagers = marketPage.myBetsContainer.getOrder(true, false, 1);
-
-        AccountBalance balanceExpected = marketPage.getUserBalance();
-        String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
+        List<ArrayList<String>> foreCastInfoAfter = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
 
         log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
+        List<Order> wagers = marketPage.myBetsContainer.getMatchedNormalInMiniMyBet();
         Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
         // Cannot verify odds matched as expected
         //Assert.assertEquals(String.format("%.2f", Double.parseDouble(odds)), wagers.get(0).getOdds(), "Incorrect Odds");
@@ -148,8 +155,11 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         Assert.assertEquals(expectedLiability, wagers.get(0).getLiability(), "Incorrect Liability");
 
         log("Verify: Account Balance/Outstanding updated correctly");
-        Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-        Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+        AccountBalance balanceActual = memberHomePage.getUserBalance();
+        String expectedBalance = memberHomePage.calculateBalance(balanceBeforeBet.getBalance(), foreCastInfoBefore, foreCastInfoAfter);
+        String expectedExposure = memberHomePage.calculateLiability(balanceBeforeBet.getExposure(), foreCastInfoBefore, foreCastInfoAfter);
+        Assert.assertEquals(balanceActual.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
+        Assert.assertEquals(balanceActual.getExposure().replace(",",""), expectedExposure, "Outstanding update incorrectly after place bet");
 
         log("INFO: Executed completely");
     }
@@ -193,8 +203,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
 
             log("Verify: Account Balance/Outstanding updated correctly");
-            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Failed!, Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Failed!, Balance update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
             marketPage.myBetsContainer.cancelAllBetUnmatched();
@@ -219,7 +229,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         try {
             log("Step 2. Click on any Lay odds");
             Market market = marketPage.marketOddControl.getMarket(event, 1, false);
@@ -243,8 +253,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("Verify 6. Account Balance/Outstanding updated correctly");
             AccountBalance balanceExpected = marketPage.getUserBalance();
             String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
-            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
             log("INFO: Executed completely");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
@@ -266,7 +276,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
 
         log("Step 2. Place an unmatched bet");
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
@@ -333,7 +343,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
 
         log("Step 2. Place an unmatched bet for Lay and Back bet");
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
@@ -410,8 +420,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("Verify 6. Account Balance/Outstanding updated correctly");
             AccountBalance balanceExpected = page.getUserBalance();
             String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
-            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
             log("INFO: Executed completely");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
@@ -461,8 +471,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("Verify 6. Account Balance/Outstanding updated correctly");
             AccountBalance balanceExpected = page.getUserBalance();
             String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
-            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure(), String.format(Locale.getDefault(), "%,.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format(Locale.getDefault(), "%,.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
             log("INFO: Executed completely");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
@@ -519,8 +529,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
 
             log("Verify: Account Balance/Outstanding updated correctly");
-            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
 
         } finally {
             log("Post Condition: Cancel all unmatch bets");
@@ -568,7 +578,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         try {
             log("Step 3. Update odds > offer odds and Input valid stake");
             Market market = marketPage.marketOddControl.getMarket(event, 1, true);
@@ -590,8 +600,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
 
             log("Verify: Account Balance/Outstanding updated correctly");
-            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure(), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
         } finally {
             log("Post Condition: Cancel all unmatch bets");
             marketPage.myBetsContainer.cancelAllBetUnmatched();
@@ -617,7 +627,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         try {
             log("Step 2. Click on any Lay odds");
             Market market = marketPage.marketOddControl.getMarket(event, 1, false);
@@ -643,8 +653,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             AccountBalance balanceExpected = marketPage.getUserBalance();
             String expectedBalance = marketPage.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
             String expectedExposure = marketPage.calculateBalance(balance.getExposure(), wagers.get(0).getLiability());
-            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure(), expectedExposure, "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), expectedExposure, "Outstanding update incorrectly after place bet");
             log("INFO: Executed completely");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
@@ -664,7 +674,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
         int stake = (int) (BetUtils.stakeMakeInsufficientBalance(balance.getBalance(), market.getBtnOdd().getText(), true) + 10);
@@ -690,7 +700,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
         market.getBtnOdd().click();
         int stake = (int) (BetUtils.stakeMakeInsufficientBalance(balance.getBalance(), market.getBtnOdd().getText(), false)) + 5;
@@ -730,7 +740,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
 
         log("Step 2. Click on an Lay Odds");
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
@@ -768,7 +778,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
 
         log("Step 2. Click on an Back Odds");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
@@ -806,7 +816,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             log("DEBUG: There is no event available");
             return;
         }
-        MarketPage marketPage = page.clickEvent(event);
+        MarketPage marketPage = page.clickEventName(event.getEventName());
 
         log("Step 2. Click on an Lay Odds");
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
@@ -856,8 +866,8 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             Assert.assertEquals(unmatchedOdds, wagers.get(0).getOdds(), "Incorrect Odds");
             Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
             Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
-            Assert.assertEquals(balanceExpected.getBalance(), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure(), String.format( "%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format( "%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
             marketPage.myBetsContainer.cancelAllBetUnmatched();
