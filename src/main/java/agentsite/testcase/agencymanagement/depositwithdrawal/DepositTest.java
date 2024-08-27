@@ -308,9 +308,6 @@ public class DepositTest extends BaseCaseTest {
         log("@title: Validate can deposited by Win/Loss Settle successfully");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
-        AccountInfo memberInfo = lstUsers.get(0);
-        AccountInfo accountInfo = lstUsers.get(lstUsers.size() - 1);
-        String userCode = memberInfo.getUserCode();
         double depositAmount = 1;
 
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
@@ -319,13 +316,13 @@ public class DepositTest extends BaseCaseTest {
         List<ArrayList<String>> listMemberInfo = page.getMemberInfo(1);
 
         log("Step 2.  Click icon on Deposit link of an account ");
-        DepositToPopup popup = (DepositToPopup) page.action(DepositWithdraw.Actions.DEPOSIT, userCode);
+        DepositToPopup popup = (DepositToPopup) page.action(DepositWithdraw.Actions.DEPOSIT, listMemberInfo.get(0).get(1));
 
         log("Step 3: Input amount to deposit , select Win/Loss Settle option, and input remark  then click Submit");
         popup.deposit("1", "TC008 Deposit Win/Loss Settle 1", false, true);
         String successMessage = popup.getMessage();
-        double expectedNewMemberCash = memberInfo.getCashBalance() + 1;
-        double expectedNewYourCash = accountInfo.getAvailableBalance() - 1;
+        double expectedNewMemberCash = Double.valueOf(page.getAccountsAvailableBalance(listMemberInfo, true).get(0)) + 1;
+        double expectedNewYourCash = Double.valueOf(page.getAccountsAvailableBalance(mainBalanceInfo, false).get(0)) - 1;
         double newMemberCash = popup.getNewMemberCashBalance();
         double newMemberCashAfter = popup.getMemberCashBalance();
         double newYourCash = popup.getNewYourCashBalance();
@@ -338,10 +335,10 @@ public class DepositTest extends BaseCaseTest {
         Assert.assertEquals(successMessage, AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_SUCCESSFUL, String.format("ERROR: The expected success message is '%s' but found '%s'", AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_SUCCESSFUL, successMessage));
 
         log("Verify  2. Verify  Win/loss value is update correctly as value in the popup");
-        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.02, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCash, 0.02, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
-        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, 0.02, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
-        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.02, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCash, 0.01, String.format("ERROR: The expected new cash balance of a member is '%s' but found '%s'", expectedNewMemberCash, newMemberCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCash, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCash));
+        Assert.assertEquals(expectedNewYourCash, newYourCashAfter, 0.01, String.format("ERROR: The expected your new cash balance is '%s' but found '%s'", expectedNewYourCash, newYourCashAfter));
+        Assert.assertEquals(expectedNewMemberCash, newMemberCashAfter, 0.01, String.format("ERROR: The expected new cash balance of member is '%s' but found '%s'", expectedNewMemberCash, newMemberCashAfter));
 
         log("Verify  3. Verify main balance info");
         List<ArrayList<String>> mainBalanceInfoExpected = page.calculateMainAccountInfo(mainBalanceInfo, depositAmount, true);
