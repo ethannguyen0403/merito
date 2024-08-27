@@ -45,7 +45,7 @@ public class MiniMyBetControl extends BaseElement {
         return headerLst;
     }
 
-
+    //get matched bets for BM/ FC
     public List<ArrayList> getMatchBets(boolean isFancy) {
         List<ArrayList> lstWagers = new ArrayList<>();
         if (isFancy)
@@ -88,6 +88,7 @@ public class MiniMyBetControl extends BaseElement {
         }
     }
 
+    //get betslip info BM/ FC
     public List<ArrayList> getBetSlipInfo(boolean isFancy) {
         Label lblCellValue = null;
         TextBox txtCellValue;
@@ -148,6 +149,67 @@ public class MiniMyBetControl extends BaseElement {
             }
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    public List<ArrayList> getMatchNormalBets() {
+        List<ArrayList> lstWagers = new ArrayList<>();
+        int i = 1;
+        Label LblCell;
+        this.bodyXpath = String.format("%s/div//div[contains(@class,'row')]", _xpath);
+        while (true) {
+            LblCell = Label.xpath(String.format("(%s)[%s]", bodyXpath, i));
+            if (!LblCell.isDisplayed())
+                return lstWagers;
+            //get market name
+            ArrayList rowLst = new ArrayList();
+            for (int j = 1; j <= colPnl; j++) {
+                LblCell = Label.xpath(String.format("(%s)[%s]/span[%s]", bodyXpath, i, j));
+                if (!LblCell.isDisplayed()) {
+                    break;
+                }
+                rowLst.add(LblCell.getText().trim());
+            }
+            LblCell = Label.xpath(String.format("(%s)[%s]", bodyXpath, i));
+            boolean isBack = LblCell.getAttribute("class").contains("back");
+            if (isBack) {
+                rowLst.add("BACK");
+            } else {
+                rowLst.add("LAY");
+            }
+            lstWagers.add(rowLst);
+            i++;
+        }
+    }
+
+    public List<ArrayList> getUnmatchNormalBets() {
+        List<ArrayList> lstWagers = new ArrayList<>();
+        int i = 1;
+        Label LblCell;
+        this._xpath = "//app-unmatched-bets";
+        this.bodyXpath = String.format("%s/div//div[contains(@class,'row')][1]", _xpath);
+        while (true) {
+            LblCell = Label.xpath(String.format("(%s)[%s]", bodyXpath, i));
+            if (!LblCell.isDisplayed())
+                return lstWagers;
+            //get market name
+            ArrayList rowLst = new ArrayList();
+            for (int j = 1; j <= colPnl; j++) {
+                LblCell = Label.xpath(String.format("(%s)[%s]/span[%s]", bodyXpath, i, j));
+                if (!LblCell.isDisplayed()) {
+                    break;
+                }
+                rowLst.add(LblCell.getText().trim());
+            }
+            LblCell = Label.xpath(String.format("(%s)[%s]", bodyXpath, i));
+            boolean isBack = LblCell.getAttribute("class").contains("back");
+            if (isBack) {
+                rowLst.add("BACK");
+            } else {
+                rowLst.add("LAY");
+            }
+            lstWagers.add(rowLst);
+            i++;
         }
     }
 }

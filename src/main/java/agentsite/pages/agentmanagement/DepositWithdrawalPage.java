@@ -156,7 +156,7 @@ public class DepositWithdrawalPage extends HomePage {
         String value = tblWithdrawalDeposit.getControlBasedValueOfDifferentColumnOnRow(username, 1, colUsername, 1, null, columnIndex, null, true, false).getText();
         double returnValue = 0;
         try {
-            returnValue = Double.valueOf(value);
+            returnValue = Double.valueOf(value.replace(",",""));
         } catch (Exception e) {
             throw new RuntimeException(e.getCause());
         }

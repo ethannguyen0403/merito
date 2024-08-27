@@ -57,4 +57,11 @@ public class MiniMyBetsContainer {
     public boolean isMultiTabBetSlipSelected() {
         return false;
     }
+
+    public List<Order> getMatchedNormalInMiniMyBet() {
+        return null;
+    }
+    public List<Order> getUnmatchedNormalInMiniMyBet() {
+        return null;
+    }
 }
