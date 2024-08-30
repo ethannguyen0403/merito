@@ -47,7 +47,7 @@ public class CreateDownLineAgentPage extends HomePage {
     public Label lblTaxSettings = Label.xpath("//div[@id='EXCHANGE-tax-settings']/div[contains(@class,'psection')]");
     public Label lblEGTaxSettings = Label.xpath("//div[@id='EXCH_GAMES-tax-settings']/div[contains(@class,'psection')]");
     public Label lblPositionTakingListing = Label.xpath("//div[@id='EXCHANGE-position-taking']/div[contains(@class,'psection')]");
-    public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[contains(@class=,'psection')]");
+    public Label lblEGPositionTakingListing = Label.xpath("//div[@id='EXCH_GAMES-position-taking']/div[contains(@class,'psection')]");
     private Button btnSubmit = Button.xpath("//div[@class='paction']/button[@class='pbtn']");
     private Button btnCancel = Button.xpath("//div[@class='paction']/button[@class='pCancel']");
     public Label lblErrorMsg = Label.xpath("//div[@class='paction']/span[@class='error-msg'] |  //div[@class='paction']/span[@id='error-msg']");

@@ -204,7 +204,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
             log("Verify: Account Balance/Outstanding updated correctly");
             Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Failed!, Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure().replace(",","")) - Double.parseDouble(wagers.get(0).getLiability().replace(",",""))), "Outstanding update incorrectly after place bet");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
             marketPage.myBetsContainer.cancelAllBetUnmatched();
@@ -254,7 +254,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             AccountBalance balanceExpected = marketPage.getUserBalance();
             String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
             Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure().replace(",","")) - Double.parseDouble(wagers.get(0).getLiability().replace(",",""))), "Outstanding update incorrectly after place bet");
             log("INFO: Executed completely");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
@@ -421,7 +421,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             AccountBalance balanceExpected = page.getUserBalance();
             String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
             Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure().replace(",","")) - Double.parseDouble(wagers.get(0).getLiability().replace(",",""))), "Outstanding update incorrectly after place bet");
             log("INFO: Executed completely");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
@@ -472,7 +472,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             AccountBalance balanceExpected = page.getUserBalance();
             String expectedBalance = page.calculateBalance(balance.getBalance(), wagers.get(0).getLiability());
             Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format(Locale.getDefault(), "%,.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format( "%.2f", Double.parseDouble(balance.getExposure().replace(",","")) - Double.parseDouble(wagers.get(0).getLiability().replace(",",""))), "Outstanding update incorrectly after place bet");
             log("INFO: Executed completely");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
@@ -530,7 +530,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
             log("Verify: Account Balance/Outstanding updated correctly");
             Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format("%.2f", Double.parseDouble(balance.getExposure().replace(",","")) - Double.parseDouble(wagers.get(0).getLiability().replace(",",""))), "Outstanding update incorrectly after place bet");
 
         } finally {
             log("Post Condition: Cancel all unmatch bets");
@@ -867,7 +867,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
             Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
             Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
             Assert.assertEquals(balanceExpected.getBalance().replace(",",""), expectedBalance, "Balance update incorrectly after place bet");
-            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format( "%.2f", Double.parseDouble(balance.getExposure()) - Double.parseDouble(wagers.get(0).getLiability())), "Outstanding update incorrectly after place bet");
+            Assert.assertEquals(balanceExpected.getExposure().replace(",",""), String.format( "%.2f", Double.parseDouble(balance.getExposure().replace(",","")) - Double.parseDouble(wagers.get(0).getLiability().replace(",",""))), "Outstanding update incorrectly after place bet");
         } finally {
             log("Post Condition: Cancel all unmatched bets");
             marketPage.myBetsContainer.cancelAllBetUnmatched();

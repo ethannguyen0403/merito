@@ -18,9 +18,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static common.AGConstant.*;
 import static common.AGConstant.HomePage.BLOCK_UNBLOCK_EVENT;
@@ -765,21 +763,21 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-   @TestRails(id="771")
+    @TestRails(id = "771")
     @Test(groups = {"smoke", "nolan_stabilize_agent"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_771() {
         log("@title:Validate can blocked all events for according selected downline");
-       AccountInfo acc = ProfileUtils.getProfile();
-       String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
-       String userID = ProfileUtils.getProfile().getUserID();
-       List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname);
+        String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
+        String userID = ProfileUtils.getProfile().getUserID();
+        List<AccountInfo> lstUsers = DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname);
         Assert.assertTrue(lstUsers.size() > 1, "ERROR: This test case required more than 2 downline. Pls add more downline to verify TC");
+        lstUsers.sort(Comparator.comparing(o -> o.getUserCode()));
         String userCode = lstUsers.get(0).getUserCode();
         String userCode2 = lstUsers.get(1).getUserCode();
-        String childID = lstUsers.get(0).getUserID();
         String childID2 = lstUsers.get(1).getUserID();
         String sport = SPORT_SOCCER;
         String tomorowTab = AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2);
+
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
 
@@ -807,10 +805,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.clickDownline(userCode);
 
         log("Verify 1.2 Event status when viewing acc1 is unblock");
-//        List<ArrayList<String>> lstEventofUserCode = BlockUnblockEventsUtils.getAllEvents(sport, childID, AGConstant.MarketsManagement.BlockUnblockEvent.TABs.get(tomorowTab));
-       List<Event> event = BlockUnblockEventsUtils.getEventList(SPORT_SOCCER, childID, TABs.get(tomorowTab));
-//       Assert.assertTrue(page.validateBlockStatusAllEventViaAPI(lstEventofUserCode, UNBLOCKTYPE.get(0)), "FAILED! event api status is incorrectly");
-       page.verifyStatusAllEvents("Unblocked", true, false, true, UNBLOCKTYPE.get(0), UNBLOCKTYPE.get(0));
+        page.verifyStatusAllEvents("Unblocked", true, false, true, UNBLOCKTYPE.get(0), UNBLOCKTYPE.get(0));
         log("INFO: Executed completely");
     }
 
