@@ -80,7 +80,7 @@ public class MyMarketPopup extends HomePage {
             return total;
         } else {
             for (int i = 0; i < lstRecords.size(); i++) {
-                total = String.format("%.2f", Double.valueOf(total) + Double.valueOf(lstRecords.get(i).get(colLiability - 1)));
+                total = String.format("%.2f", Double.valueOf(total) + Double.valueOf(lstRecords.get(i).get(colLiability - 1).replace(",","")));
             }
         }
         return total;

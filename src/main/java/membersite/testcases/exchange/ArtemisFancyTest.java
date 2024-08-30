@@ -346,7 +346,7 @@ public class ArtemisFancyTest extends BaseCaseTest {
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
 
         log("Step 4. Click on an odds of a fancy market then place bet");
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure().replace(",",""));
         String minStake = BetUtils.getMinBet(LBL_CRICKET_SPORT, LBL_LAY_TYPE);
         double originalExposure = liabilityBeforePlaceBet - fancyMarket.getMarketLiability();
         marketPage.placeFancy(fancyMarket, false, minStake);

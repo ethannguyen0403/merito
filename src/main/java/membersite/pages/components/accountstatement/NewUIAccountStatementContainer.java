@@ -128,7 +128,7 @@ public class NewUIAccountStatementContainer extends AccountStatementContainer {
 
 //        AccountBalance acBalance = getUserBalance();
 //        String balance = String.format("%.2f", Double.parseDouble(acBalance.getBalance()) + Double.parseDouble(acBalance.getExposure())*(-1));
-        String balance = String.format("%.2f",Double.parseDouble(data.get(colCredit - 1)) + Double.parseDouble(data.get(colDebit - 1)) * (-1));
+        String balance = String.format("%,.2f",Double.parseDouble(data.get(colCredit - 1).replace(",","")) + Double.parseDouble(data.get(colDebit - 1).replace(",","")) * (-1));
         if (!data.get(colBalance - 1).equals(balance)) {
             System.out.println(String.format("FAILED! Balance on header not match with the report. Header is %s but report show %s", balance, data.get(colBalance - 1)));
             return false;
