@@ -16,6 +16,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     public MiniMyBetControl bookMakerMiniMyBet = MiniMyBetControl.xpath("//app-bookmaker-bets");
     public MiniMyBetControl fancyMiniBetSlip = MiniMyBetControl.xpath("//app-fancy-betslip");
     public MiniMyBetControl bookMakerMiniBetSlip = MiniMyBetControl.xpath("//app-normal-betslip");
+    public MiniMyBetControl normalMiniBetSlip = MiniMyBetControl.xpath("//app-normal-bets");
     private String xPathSelection = "//div[contains(@class,'%s') and contains(@class,'row-open-bet')]";
     private Label lblBetslipErrorMessage = Label.xpath("//div[contains(@class,'betslip-error')]");
     private Label lblErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
@@ -127,6 +128,41 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
 
     public List<ArrayList> getMatchedFancyInMiniMyBet() {
         return fancyMiniMyBet.getMatchBets(true);
+    }
+
+    public List<Order> getMatchedNormalInMiniMyBet() {
+        List<Order> lstOrder = new ArrayList<>();
+        List<ArrayList> lstMatchBets = normalMiniBetSlip.getMatchNormalBets();
+        for (int i = 0; i < lstMatchBets.size(); i++) {
+            Order ord = new Order.Builder().selectionName(String.valueOf(lstMatchBets.get(i).get(0)))
+                    .odds(String.valueOf(lstMatchBets.get(i).get(1)))
+                    .stake(String.valueOf(lstMatchBets.get(i).get(2)))
+                    .isBack(String.valueOf(lstMatchBets.get(i).get(4)).equalsIgnoreCase("BACK") ? true : false).build();
+            if(String.valueOf(lstMatchBets.get(i).get(4)).equalsIgnoreCase("BACK")) {
+                ord.setProfit(String.valueOf(lstMatchBets.get(i).get(3)));
+            } else {
+                ord.setLiability(String.valueOf(lstMatchBets.get(i).get(3)));
+            }
+            lstOrder.add(ord);
+        }
+        return lstOrder;
+    }
+    public List<Order> getUnmatchedNormalInMiniMyBet() {
+        List<Order> lstOrder = new ArrayList<>();
+        List<ArrayList> lstUnMatchBets = normalMiniBetSlip.getUnmatchNormalBets();
+        for (int i = 0; i < lstUnMatchBets.size(); i++) {
+            Order ord = new Order.Builder().selectionName(String.valueOf(lstUnMatchBets.get(i).get(0)))
+                    .odds(String.valueOf(lstUnMatchBets.get(i).get(1)))
+                    .stake(String.valueOf(lstUnMatchBets.get(i).get(2)))
+                    .isBack(String.valueOf(lstUnMatchBets.get(i).get(4)).equalsIgnoreCase("BACK") ? true : false).build();
+            if(String.valueOf(lstUnMatchBets.get(i).get(4)).equalsIgnoreCase("BACK")) {
+                ord.setProfit(String.valueOf(lstUnMatchBets.get(i).get(3)));
+            } else {
+                ord.setLiability(String.valueOf(lstUnMatchBets.get(i).get(3)));
+            }
+            lstOrder.add(ord);
+        }
+        return lstOrder;
     }
 
     public List<ArrayList> getFancyBetSlipInfo() {

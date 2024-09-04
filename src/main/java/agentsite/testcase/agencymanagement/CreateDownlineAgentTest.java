@@ -27,8 +27,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 1. Account info section");
-        Assert.assertEquals(page.header.lblPageTitle.getText().trim(), AGConstant.AgencyManagement.CreateDownlineAgent.TITLE_PAGE, "Failed! Page title is incorrect");
         page.accountInforSection.verifyUIDisplayedCorrect();
+        Assert.assertEquals(page.header.lblPageTitle.getText().trim(), AGConstant.AgencyManagement.CreateDownlineAgent.TITLE_PAGE, "Failed! Page title is incorrect");
 
         log("Verify 3. Product Setting, select Exchange product");
         Assert.assertEquals(page.lblProductSetting.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");

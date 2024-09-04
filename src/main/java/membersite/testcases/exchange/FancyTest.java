@@ -88,7 +88,7 @@ public class FancyTest extends BaseCaseTest {
         log("Step 3. Active 27 Fancy tab, Click on an odds of No selection of a fancy market then place bet");
         memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure().replace(",",""));
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         try {
             double originalExposure = liabilityBeforePlaceBet - fcMarket.getMarketLiability();
@@ -159,7 +159,7 @@ public class FancyTest extends BaseCaseTest {
         log("Step 3. Active 27 Fancy tab, Click on an odds of No and Yes selection of a fancy market then place bet");
         memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure().replace(",",""));
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         double originalExposure = liabilityBeforePlaceBet - fcMarket.getMarketLiability();
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));

@@ -156,7 +156,7 @@ public class DepositWithdrawalPage extends HomePage {
         String value = tblWithdrawalDeposit.getControlBasedValueOfDifferentColumnOnRow(username, 1, colUsername, 1, null, columnIndex, null, true, false).getText();
         double returnValue = 0;
         try {
-            returnValue = Double.valueOf(value);
+            returnValue = Double.valueOf(value.replace(",",""));
         } catch (Exception e) {
             throw new RuntimeException(e.getCause());
         }
@@ -230,8 +230,8 @@ public class DepositWithdrawalPage extends HomePage {
         try {
             List<ArrayList<String>> newList = lstBalanceInfo;
             //  double availableBalance;
-            double subBalance = DoubleUtils.parseDouble(newList.get(0).get(colSubBalanceHeader - 1));
-            double availableBalance = DoubleUtils.parseDouble(newList.get(0).get(colMainAvailableBalance - 1));
+            double subBalance = DoubleUtils.parseDouble(newList.get(0).get(colSubBalanceHeader - 1).replace(",",""));
+            double availableBalance = DoubleUtils.parseDouble(newList.get(0).get(colMainAvailableBalance - 1).replace(",",""));
             if (isDeposit) {
                 subBalance = subBalance + totalAmount;
                 availableBalance = availableBalance - totalAmount;
@@ -259,11 +259,11 @@ public class DepositWithdrawalPage extends HomePage {
         double exposure;
 
         for (int i = 0; i < newList.size(); i++) {
-            creditInitiation = Double.parseDouble(newList.get(i).get(colCreditInitiation - 1));
-            totalBalance = Double.parseDouble(newList.get(i).get(colTotalBalance - 1));
-            availableBalance = Double.parseDouble(newList.get(i).get(colAvailableBalance - 1));
-            winloss = Double.parseDouble(newList.get(i).get(colWinloss - 1));
-            exposure = Double.parseDouble(newList.get(i).get(colExposure - 1));
+            creditInitiation = Double.parseDouble(newList.get(i).get(colCreditInitiation - 1).replace(",",""));
+            totalBalance = Double.parseDouble(newList.get(i).get(colTotalBalance - 1).replace(",",""));
+            availableBalance = Double.parseDouble(newList.get(i).get(colAvailableBalance - 1).replace(",",""));
+            winloss = Double.parseDouble(newList.get(i).get(colWinloss - 1).replace(",",""));
+            exposure = Double.parseDouble(newList.get(i).get(colExposure - 1).replace(",",""));
             if (isDeposit) {
                 totalBalance = totalBalance + amount;
                 availableBalance = availableBalance + amount;
@@ -279,11 +279,11 @@ public class DepositWithdrawalPage extends HomePage {
                 else
                     winloss = winloss - amount;
             }
-            newList.get(i).set(colCreditInitiation - 1, String.format("%.2f", creditInitiation));
-            newList.get(i).set(colTotalBalance - 1, String.format("%.2f", totalBalance));
-            newList.get(i).set(colAvailableBalance - 1, String.format("%.2f", availableBalance));
-            newList.get(i).set(colWinloss - 1, String.format("%.2f", winloss));
-            newList.get(i).set(colExposure - 1, String.format("%.2f", exposure));
+            newList.get(i).set(colCreditInitiation - 1, String.format("%,.2f", creditInitiation));
+            newList.get(i).set(colTotalBalance - 1, String.format("%,.2f", totalBalance));
+            newList.get(i).set(colAvailableBalance - 1, String.format("%,.2f", availableBalance));
+            newList.get(i).set(colWinloss - 1, String.format("%,.2f", winloss));
+            newList.get(i).set(colExposure - 1, String.format("%,.2f", exposure));
 
         }
         return newList;
@@ -339,4 +339,5 @@ public class DepositWithdrawalPage extends HomePage {
         Assert.assertEquals(subBalanceHeader, subBalanceActual, 0.1, String.format("FAILED! Balance is not correct expected %s actual %s", subBalanceHeader, subBalanceActual));
     }
 
+    public List<String> getAccountsAvailableBalance(List<ArrayList<String>> lstAccounts, boolean isDownline) { return depositWithdraw.getAccountsAvailableBalance(lstAccounts, isDownline);}
 }

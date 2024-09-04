@@ -40,4 +40,6 @@ public class DepositWithdraw {
     }
 
     public enum Actions {DEPOSIT, WITHDRAWAL, CHECK, USERNAME, SUCCESS_ICON, FAILURE_ICON, VIEW_LOG}
+
+    public List<String> getAccountsAvailableBalance(List<ArrayList<String>> lstAccounts, boolean isDownline) { return null;}
 }

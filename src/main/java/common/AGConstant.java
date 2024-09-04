@@ -337,7 +337,7 @@ public class AGConstant {
 
             public final static List<String> LST_TAX_SETTING_HEADER_NEWUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball",  "Fancy", "Virtual Cricket", "Decimal Cricket", "Other");
             public final static List<String> LST_TAX_SETTING_HEADER_OLDUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Virtual Cricket", "Decimal Cricket", "Other");
-            public final static List<String> LST_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket","Fancy", "Virtual Cricket", "Decimal Cricket", "Bookmaker" ,"Tennis", "Basketball", "Other");
+            public final static List<String> LST_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket","Fancy", "Virtual Cricket", "Bookmaker", "Decimal Cricket", "Tennis", "Basketball", "Other");
             public final static List<String> LST_BET_SETTING_OPTION = Arrays.asList("Min Bet", "Max Bet", "Max Liability Per Market", "Max Win Per Market");
             public final static List<String> LST_TAX_SETTING_OPTION = Arrays.asList("Upline", "Tax");
             public final static List<String> LST_POSITION_TAKING_SPORT_HEADER = Arrays.asList("Soccer", "Cricket", "Line Market", "Fancy", "Virtual Cricket", "Bookmaker", "Decimal Cricket", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other");
@@ -402,7 +402,7 @@ public class AGConstant {
             public final static String TAX_SETTING = "Tax Settings";
             public final static String POSITION_TAKING_SETTING = "Position Taking";
             public final static List<String> LST_PRODUCTS = Arrays.asList("Exchange", "CMD Sportsbook", "Supernowa Casino", "Exchange Games", "Live Dealer European", "Live Dealer Asian", "Evolution", "Pragmatic", "Game Hall", "ViVo", "Ion", "Sabong");
-            public final static List<String> EX_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Fancy" ,"Virtual Cricket", "Decimal Cricket","Bookmaker","Tennis", "Basketball", "Other");
+            public final static List<String> EX_BET_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Fancy" ,"Virtual Cricket", "Bookmaker", "Decimal Cricket","Tennis", "Basketball", "Other");
             public final static List<String> EX_TAX_SETTING_HEADER_OLDUI = Arrays.asList("", "Soccer", "Cricket", "Tennis", "Basketball", "Virtual Cricket","Decimal Cricket","Other");
             public final static List<String> EX_POSITION_SETTING_HEADER = Arrays.asList("", "Soccer", "Cricket", "Fancy", "Tennis", "Basketball", "Horse Racing", "Greyhound Racing", "Other");
             public final static List<String> BET_SETTING_COLUMN = Arrays.asList("Min Bet", "Max Bet", "Max Liability Per Market", "Max Win Per Market");

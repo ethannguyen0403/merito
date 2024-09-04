@@ -16,8 +16,7 @@ import membersite.pages.popup.MyMarketPopup;
 import membersite.pages.proteus.ProteusHomePage;
 import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
-
-import java.util.Locale;
+import java.util.*;
 
 import static baseTest.BaseCaseTest.defineCasinoURL;
 import static common.CasinoConstant.*;
@@ -187,6 +186,7 @@ public class HomePage extends LandingPage {
     }
 
 
+    //TODO: This method temporally using for unmatched, need to re-handle before remove
     public String calculateBalance(String balance, String liability) {
         double balanceDoub = Double.valueOf(balance.replaceAll(",", ""));
         double liabilityDoub = Double.valueOf(liability.replaceAll(",", ""));
@@ -195,20 +195,68 @@ public class HomePage extends LandingPage {
 //        return String.format(Locale.getDefault(), "%,.2f", balanceReturn);
     }
 
-    /**
-     * Recalulate balance after place on a market
-     *
-     * @param balance
-     * @param liabilityBeforePlaceBetOnMarket
-     * @param liabilityAfterPlaceOnMarket
-     * @return
-     */
-    public String calculateBalanceAfterPlaceBet(String balance, Double liabilityBeforePlaceBetOnMarket, Double liabilityAfterPlaceOnMarket) {
-        double balanceDoub = Double.valueOf(balance.replaceAll(",", "").toString());
-      /*  double liabilityDoubBefore =Double.valueOf(liabilityBeforePlaceBetOnMarket.replaceAll(",", "").toString());
-        double liabilityDoubAfter =Double.valueOf(liabilityAfterPlaceOnMarket.replaceAll(",", "").toString());*/
-        double balanceReturn = balanceDoub - liabilityBeforePlaceBetOnMarket + liabilityAfterPlaceOnMarket;
-        return String.format(Locale.getDefault(), "%,.2f", balanceReturn);
+    public String calculateBalance(String balanceBeforePlaceBet, List<ArrayList<String>> foreCastInfoBefore, List<ArrayList<String>> foreCastInfoAfter) {
+        List<Double> lstLiability = new ArrayList<>();
+        double min = 0;
+        //in case there's bets matched before
+        if(!foreCastInfoBefore.get(0).get(1).isEmpty()) {
+            String balanceCurrent = BetUtils.getUserBalance().getBalance();
+            for (int i = 0; i < foreCastInfoBefore.size(); i++) {
+                String liability = foreCastInfoBefore.get(i).get(1);
+                lstLiability.add(Double.valueOf(liability));
+            }
+            min = Collections.min(lstLiability);
+            double originBalance = Double.valueOf(balanceCurrent.replace(",","")) + Math.abs(min);
+            for (int i = 0; i < foreCastInfoAfter.size(); i++) {
+                String liability = foreCastInfoAfter.get(i).get(1);
+                lstLiability.add(Double.valueOf(liability));
+            }
+            min = Collections.min(lstLiability);
+            double calculateBalance = originBalance - Math.abs(min);
+            return String.format("%.2f", calculateBalance);
+        }
+        //in case there's no bet matched
+        else {
+            for (int i = 0; i < foreCastInfoAfter.size(); i++) {
+                String liability = foreCastInfoAfter.get(i).get(1);
+                lstLiability.add(Double.valueOf(liability));
+            }
+            min = Collections.min(lstLiability);
+            double calculateBalance = Double.valueOf(balanceBeforePlaceBet.replace(",","")) - Math.abs(min);
+            return String.format("%.2f", calculateBalance);
+        }
+    }
+
+    public String calculateLiability(String exposureBeforePlaceBet, List<ArrayList<String>> foreCastInfoBefore, List<ArrayList<String>> foreCastInfoAfter) {
+        List<Double> lstLiability = new ArrayList<>();
+        double min = 0;
+        //in case there's bets matched before
+        if(!foreCastInfoBefore.get(0).get(1).isEmpty()) {
+            String exposureCurrency = BetUtils.getUserBalance().getExposure();
+            for (int i = 0; i < foreCastInfoBefore.size(); i++) {
+                String liability = foreCastInfoBefore.get(i).get(1);
+                lstLiability.add(Double.valueOf(liability));
+            }
+            min = Collections.min(lstLiability);
+            double originExposure = Double.valueOf(exposureCurrency.replace(",","")) + Math.abs(min);
+            for (int i = 0; i < foreCastInfoAfter.size(); i++) {
+                String liability = foreCastInfoAfter.get(i).get(1);
+                lstLiability.add(Double.valueOf(liability));
+            }
+            min = Collections.min(lstLiability);
+            double calculateExposure = originExposure - Math.abs(min);
+            return String.format("%.2f", calculateExposure);
+        }
+        //in case there's no bet matched
+        else {
+            for (int i = 0; i < foreCastInfoAfter.size(); i++) {
+                String liability = foreCastInfoAfter.get(i).get(1);
+                lstLiability.add(Double.valueOf(liability));
+            }
+            min = Collections.min(lstLiability);
+            double calculateExposure = Double.valueOf(exposureBeforePlaceBet.replace(",","")) - Math.abs(min);
+            return String.format("%.2f", calculateExposure);
+        }
     }
 
     public String getEventIDHasProductData(String product) {

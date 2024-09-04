@@ -113,8 +113,9 @@ public class PositionTakingListing {
     public void updatePTSport(String loginID, int PT, String sport) {
     }
     public void selectSport(String sport){
-        ddbSportSubProduct.selectByVisibleText(sport);
-        waitingLoadingSpinner();
+        if(!ddbSportSubProduct.getFirstSelectedOption().equalsIgnoreCase(sport))
+            ddbSportSubProduct.selectByVisibleText(sport);
+            waitingLoadingSpinner();
     }
     public void enableSport(HashMap<String, Boolean> map) {
         CheckBox chb = CheckBox.xpath(String.format(xPathSport, "Soccer"));

@@ -237,4 +237,19 @@ public class OldUIDepositWithdraw extends DepositWithdraw {
         }
         return false;
     }
+
+    public List<String> getAccountsAvailableBalance(List<ArrayList<String>> lstAccount, boolean isDownline) {
+        List<String> lstBalance = new ArrayList<>();
+        if(isDownline) {
+            for (int i = 0; i < lstAccount.size(); i++) {
+                lstBalance.add(lstAccount.get(i).get(10).replace(",",""));
+            }
+            return lstBalance;
+        } else {
+            for (int i = 0; i < lstAccount.size(); i++) {
+                lstBalance.add(lstAccount.get(i).get(3).replace(",",""));
+            }
+            return lstBalance;
+        }
+    }
 }
