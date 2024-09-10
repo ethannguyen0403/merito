@@ -26,7 +26,7 @@ public class MA012_GetListClearedOrdersTest extends BaseCaseAPI {
     @TestRails(id = "437")
     @Parameters({"username", "password"})
     @Test(groups = {"smoke"})
-    public void MA011_GetListClearedOrdersTest_437(String username, String password) throws Exception {
+    public void MA012_GetListClearedOrdersTest_437(String username, String password) throws Exception {
         log("@title: Validate can get Cleared Orders");
         log("Step 1 Access get event api get list current order");
         log("Step 2 Get market info");

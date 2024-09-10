@@ -24,10 +24,7 @@ public class UnmatchedBetControl extends BaseElement {
     }
 
     public String getBetUnmatch() {
-        if (lblBetId.isDisplayed(10)) {
-            return lblBetId.getText();
-        }
-        return null;
+        return lblBetId.getText();
     }
 
 

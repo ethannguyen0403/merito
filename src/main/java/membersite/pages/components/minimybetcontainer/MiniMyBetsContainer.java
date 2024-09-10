@@ -1,5 +1,6 @@
 package membersite.pages.components.minimybetcontainer;
 
+import com.paltech.element.common.Link;
 import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MiniMyBetsContainer {
-
+    public Link lnkCancelAll = Link.xpath("//div[contains(@class,'cancel-all-bet')]//a[text()='cancel all']");
     public void cancelAllBetUnmatched() {
     }
 
@@ -55,5 +56,12 @@ public class MiniMyBetsContainer {
     public void clickMultiTabBetSlip() {}
     public boolean isMultiTabBetSlipSelected() {
         return false;
+    }
+
+    public List<Order> getMatchedNormalInMiniMyBet() {
+        return null;
+    }
+    public List<Order> getUnmatchedNormalInMiniMyBet() {
+        return null;
     }
 }

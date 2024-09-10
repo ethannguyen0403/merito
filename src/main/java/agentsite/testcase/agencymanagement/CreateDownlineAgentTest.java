@@ -20,15 +20,15 @@ import static common.AGConstant.HomePage.CREATE_DOWNLINE_AGENT;
 
 public class CreateDownlineAgentTest extends BaseCaseTest {
     @TestRails(id = "678")
-    @Test (groups = {"smoke", "nolan"})
+    @Test (groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_CreateDownline_Agent_678() {
         log("@title: Validate UI in Create Downline Agent with Exchange Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 1. Account info section");
-        Assert.assertEquals(page.header.lblPageTitle.getText().trim(), AGConstant.AgencyManagement.CreateDownlineAgent.TITLE_PAGE, "Failed! Page title is incorrect");
         page.accountInforSection.verifyUIDisplayedCorrect();
+        Assert.assertEquals(page.header.lblPageTitle.getText().trim(), AGConstant.AgencyManagement.CreateDownlineAgent.TITLE_PAGE, "Failed! Page title is incorrect");
 
         log("Verify 3. Product Setting, select Exchange product");
         Assert.assertEquals(page.lblProductSetting.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
@@ -159,7 +159,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "683")
-    @Test (groups = {"smoke","smoke_dev", "nolan_stabilize_agent"})
+    @Test (groups = {"smoke","smoke_dev", "FUN.MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_CreateDownline_Agent_683() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
@@ -195,7 +195,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "685")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke","FUN.MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_CreateDownline_Agent_685() {
         log("@title: Validate if input incorrect Change Password format");
         log("Step 1. Navigate Agency Management > Create Downline Agent");

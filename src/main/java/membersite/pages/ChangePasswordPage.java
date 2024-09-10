@@ -11,7 +11,7 @@ public class ChangePasswordPage {
     public TextBox txtNewPassword = TextBox.id("newPassword");
     public TextBox txtConfirnmPassword = TextBox.id("confirmNewPassword");
     public Button btnChangePassword = Button.name("ChangePassword");
-    private Button btnSkip = Button.xpath("//button[@name='Skip'] | //button[contains(@class,'btn-change-skip')]");
+    private Button btnSkip = Button.xpath("//button[@name='Skip'] | //button[contains(@class,'btn-change-skip')] | //button[@id='skipChangePasswordBtn']");
 
     /*
         public HomePage changePassword(String oldPw, String newPw)

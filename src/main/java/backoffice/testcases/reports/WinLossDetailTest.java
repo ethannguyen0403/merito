@@ -100,13 +100,12 @@ public class WinLossDetailTest extends BaseCaseTest {
      * 3. Click on total wage of any portal
      * @expect: 1. Verify tab display all products
      */
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
     @TestRails(id = "33929")
     public void BO_Report_WinLossDetail_33929() {
         log("@title: Validate Transaction Detail display all product if filter all product");
         log("Step 1: Navigate Reports > Win Loss Details");
         String fromDate = DateUtils.getDate(-30, "dd/MM/yyyy", BOConstants.GMT_FOUR);
-        String toDate = DateUtils.getDate(0, "dd/MM/yyyy", BOConstants.GMT_FOUR);
         String fromDateApi = DateUtils.getDate(-5, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         String toDateApi = DateUtils.getDate(0, "yyyy-MM-dd", BOConstants.GMT_FOUR);
         List<ArrayList<String>> lstPortal = WinLossDetailUtils.getPortalsSummaryData(fromDateApi, toDateApi, "All");
@@ -118,7 +117,7 @@ public class WinLossDetailTest extends BaseCaseTest {
         WinLossDetailPage page = backofficeHomePage.navigateWinLossDetails();
 
         log("Step 2. Filter Today data all product");
-        page.filter(fromDate, toDate, "", lstPortal.get(0).get(1), "All");
+        page.filter(fromDate, "", "", lstPortal.get(0).get(1), "All");
 
         log("Step 3. Click on total wage of any portal");
         TransactionDetailsPopup popup = page.openTransactionDetail(lstPortal.get(0).get(1));
@@ -172,7 +171,7 @@ public class WinLossDetailTest extends BaseCaseTest {
      * 3. Filter with default value
      * @expect: 1. Total wager displayed at Total Wager column on this table is correct
      */
-    @Test(groups = {"smoke2"})
+    @Test(groups = {"smoke_s"})
     public void BO_Report_WinLossDetail_003() {
         log("@title: Validate that Total wager displayed at Total Wager column on this table is correct");
         String yesterday = DateUtils.getDateBeforeCurrentDate(1, BOConstants.DASH_YYYY_MM_DD);

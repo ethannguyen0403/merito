@@ -59,7 +59,7 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
      * @expect: 1. Verify Wager info display correctly as pre-condition and has place date in search date range
      */
     @TestRails(id = "643")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
     @Parameters("satMemberLoginID")
     public void BO_Operations_Wager_Void_Unvoid_643(String satMemberLoginID) {
         log("@title: Validate can search void/un-void wager by Nick Name");

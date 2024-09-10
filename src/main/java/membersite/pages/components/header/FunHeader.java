@@ -89,9 +89,8 @@ public class FunHeader extends Header1 {
         imgLogo.click();
     }
 
-    public MyMarketPopup openMyMarketPopup() {
+    public void openMyMarketPopup() {
         lnkMyMarkets.click();
-        return new MyMarketPopup();
     }
 
     public void logout() {

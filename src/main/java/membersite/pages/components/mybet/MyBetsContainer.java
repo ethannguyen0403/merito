@@ -78,4 +78,6 @@ public class MyBetsContainer {
         return;
     }
 
+    public void verifyListBetFollowStatus(List<String> lstBet, String status) {}
+    public void verifyListBetNotFollowStatus(List<String> lstBet, String status) {}
 }

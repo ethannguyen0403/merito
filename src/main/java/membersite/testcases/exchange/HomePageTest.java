@@ -63,7 +63,7 @@ public class HomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "494")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void HomePage_494() {
         log("@title: Validate that can search event name in search textbox");
         log("Step 1. Get any event name of the sport has data");
@@ -220,7 +220,7 @@ public class HomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "496")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void HomePage_496() {
         log("@title: Validate can collapse/expand left menu");
         log("Step 1. Click on Menu icon in the top left corner");

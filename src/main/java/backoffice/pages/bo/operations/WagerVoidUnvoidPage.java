@@ -183,7 +183,7 @@ public class WagerVoidUnvoidPage extends HomePage {
     }
 
     public void verifySearchByUsername(String username) {
-        List<String> lstWagerInfo = tblWager.getColumn(colNickname, false);
+        List<String> lstWagerInfo = tblWager.getColumn(colUsername, false);
         for (String actualUsername : lstWagerInfo) {
             Assert.assertEquals(actualUsername, username, "FAILED! Result table not display the searching data");
         }

@@ -212,20 +212,21 @@ public class CurrentBlockingTest extends BaseCaseTest {
      * 2. Close the popup and verify the blocked number is deducted
      */
     @TestRails(id = "776")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","Fairenter.MER.Maintenance.2024.V.5.0"})
     public void Agent_MM_CurrentBlocking_TC776() {
         log("@title:Verify can unblock competition");
         log("Precondition. Block a competition");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);
         String userID = ProfileUtils.getProfile().getUserID();
         String  downlineAccount = "";
-        downlineAccount = _brandname.equalsIgnoreCase("fairexchange") ?
+        downlineAccount = _brandname.equalsIgnoreCase("fairexchange") || _brandname.equalsIgnoreCase("fairenter")?
                 DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getUserCode() :
                 DownLineListingUtils.getDownLineUsers(userID, downlineLevel, "ACTIVE", _brandname).get(0).getLoginID();
 
         CurrentBlockingPage page = agentHomePage.navigateCurrentBlockingPage();
         log("Step 2. Select  Type = Competition, Sport = Soccer");
         page.filter("Competition", "Soccer", "");
+        page.waitingLoadingSpinner();
         String competitionName = page.tblEvent.getRowsWithoutHeader(1, false).get(0).get(0);
 
         BlockUnblockCompetitionPage blockCompetitionPage = agentHomePage.navigateBlockUnblockCompetitionPage();
@@ -236,7 +237,7 @@ public class CurrentBlockingTest extends BaseCaseTest {
 
         log("Step 2. Select  Type = Competition, Sport = Soccer");
         page.filter("Competition", "Soccer", "");
-
+        page.waitingLoadingSpinner();
         log("Step 3. Search the competition that blocked in precondition");
         log("Step 4. Click on Current column");
         String blockedUserNumberBefore = page.getBlockedUser(competitionName, false);

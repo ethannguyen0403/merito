@@ -25,7 +25,7 @@ import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 
 public class FancyTest extends BaseCaseTest {
     @TestRails(id = "549")
-    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void FancyTest_549() {
         log("@title: Validate can place bet on Fancy market page");
         log("@Precondition: Get the event that have Fancy market");
@@ -70,7 +70,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "550")
-    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
+    @Test(groups = {"smoke"})
     public void FancyTest_550() {
         log("@title: Validate exposure is kept correctly when place on No");
         log("@Precondition: Get the event that have Fancy market");
@@ -88,7 +88,7 @@ public class FancyTest extends BaseCaseTest {
         log("Step 3. Active 27 Fancy tab, Click on an odds of No selection of a fancy market then place bet");
         memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure().replace(",",""));
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         try {
             double originalExposure = liabilityBeforePlaceBet - fcMarket.getMarketLiability();
@@ -105,7 +105,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15753")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void FancyTest_15753() {
         log("@title: Validate exposure is kept correctly when place on Yes");
         log("@Precondition: Get the event that have Fancy market");
@@ -141,7 +141,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "551")
-    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
+    @Test(groups = {"smoke"})
     public void FancyTest_551() {
         log("@title: Validate exposure is kept correctly when place on Yes and No");
         log("@Precondition: Get the event that have Fancy market");
@@ -159,7 +159,7 @@ public class FancyTest extends BaseCaseTest {
         log("Step 3. Active 27 Fancy tab, Click on an odds of No and Yes selection of a fancy market then place bet");
         memberHomePage.leftMenu.openFancyMarket(FANCY_TITLE, fcMarket.getMarketName());
         FancyMarket fancyMarket = marketPage.getFancyMarketInfo(fcMarket);
-        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure());
+        Double liabilityBeforePlaceBet = Double.valueOf(marketPage.getUserBalance().getExposure().replace(",",""));
         String minStake = String.valueOf(fancyMarket.getMinSetting());
         double originalExposure = liabilityBeforePlaceBet - fcMarket.getMarketLiability();
         log(String.format("Step 5: On market %s Place on No odds with stake %s ", fcMarket.getMarketID(), minStake));
@@ -172,7 +172,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "552")
-    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
+    @Test(groups = {"smoke"})
     public void FancyTest_552() {
         log("@title: Verify Cannot place bet if stake less than min bet");
         log("Step 1. Login member site and click on Cricket");
@@ -207,7 +207,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "553")
-    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
+    @Test(groups = {"smoke"})
     public void FancyTest_553() {
         log("@title: Verify Cannot place bet if stake greater than max bet");
         log("Step 1. Login member site and click on Cricket");
@@ -241,7 +241,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "554")
-    @Test(groups = {"smoke", "2024.01.19", "nolan_stabilize"})
+    @Test(groups = {"smoke"})
     public void FancyTest_554() {
         log("@title: Verify Cannot place bet if stake less is greater than available balance");
         log("Step 1. Login member site and get account balance form api");
@@ -277,7 +277,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15755")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void FancyTest_15755() {
         log("@title: Validate able navigate to Fancy market page");
         log("@Precondition: Get the event that have Fancy market");
@@ -300,7 +300,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15763")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void FancyTest_15763() {
         log("@title: Validate My Bet display correct after place bet on Fancy market");
         log("@Precondition: Get the event that have Fancy market");
@@ -338,7 +338,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15756")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void FancyTest_15756() {
         log("@title: Validate able to open Ladder forecast score");
         log("@Precondition: Get the event that have Fancy market");
@@ -366,7 +366,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15757")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void FancyTest_15757() {
         log("@title: Validate bet slip is cleared when navigate to another market");
         log("@Precondition: Get the event that have Fancy market");
@@ -404,7 +404,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15758")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void FancyTest_15758() {
         log("@title: Validate able to choose multi selection");
         log("@Precondition: Get the event that have Fancy market");
@@ -435,7 +435,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15759")
-    @Test(groups = {"regression_stg", "2024.01.19"})
+    @Test(groups = {"regression_stg"})
     public void FancyTest_15759() {
         log("@title: Validate multi tab (bet slip) is disabled");
         log("@Precondition: Get the event that have Fancy market");
@@ -467,7 +467,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15760")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void FancyTest_15760() {
         log("@title: Validate bet slip information show correctly for selection Yes");
         log("@Precondition: Get the event that have Fancy market");
@@ -503,7 +503,7 @@ public class FancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15761")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void FancyTest_15761() {
         log("@title: Validate bet slip information show correctly for selection Yes");
         log("@Precondition: Get the event that have Fancy market");

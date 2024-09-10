@@ -14,7 +14,6 @@ import util.testraildemo.TestRails;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static common.MemberConstants.AccountStatementPage.*;
 import static common.MemberConstants.TIMEZONE_BRAND;
@@ -31,7 +30,7 @@ public class AccountStatementTest extends BaseCaseTest {
      * @expect: Data display correct at API
      */
     @TestRails(id = "524")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void AccountStatement_TC524() {
         log("@title: Validate data in account statement is correctly");
         log("Step 1. Click My Account > Account Statement");
@@ -58,7 +57,7 @@ public class AccountStatementTest extends BaseCaseTest {
      * @expect: 1 Table header display correctly when clicking on sport> event
      */
     @TestRails(id = "525")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void AccountStatement_TC525() {
         log("@title: Validate Table header when clicking on sport and market");
         log("Step 1. Click My Account > Account Statement");
@@ -68,10 +67,9 @@ public class AccountStatementTest extends BaseCaseTest {
 
         log("Step 2 & 3. Filter in a date range amd click Load Report");
         page.filter(startDate, endDate);
-        List<String> tblHeaders = page.getTblReport().getColumnNamesOfTable(1);
 
         log("Verify 1. Report summary table header display correctly");
-        Assert.assertEquals(tblHeaders, TABLE_SUMMARY_HEADER, "ERROR! Sport header table not match as expected");
+        page.verifyHeaderOfTableReport();
 
         List<ArrayList<String>> lst = page.getTblReport().getRowsWithoutHeader(1, false);
         if (lst.get(0).get(2).equals(OPENING_BALANCE)) {
@@ -81,7 +79,7 @@ public class AccountStatementTest extends BaseCaseTest {
         }
         log("Step 4. Click on the first Narration and check header details");
         page.clickNarrationOnTheFirstRow();
-        tblHeaders = page.getReportDetailHeader();
+        List<String> tblHeaders = page.getReportDetailHeader();
 
         log("Verify 2. Report detail table header display correctly");
         Assert.assertEquals(tblHeaders, TABLE_DETAIL_HEADER, "ERROR!Detail table header not match as expected");

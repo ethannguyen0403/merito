@@ -26,7 +26,7 @@ import static common.MemberConstants.MyBetsPage.DDB_PRODUCT_FILTER;
 public class CentralFancyTest extends BaseCaseTest {
 
     @TestRails(id = "543")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void CentralFancyTest_543() {
         log("@title: Validate can place bet on Fancy on Match odds market page");
         log("Step 1. Login member site and click on Cricket");
@@ -93,7 +93,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "545")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","SAT.MER.Maintenance.2024.V.5.0"})
     public void CentralFancyTest_545() {
         log("@title: Verify exposure is kept correctly when place on Yes and No");
         log("Step 1. Login member site and click on Cricket");

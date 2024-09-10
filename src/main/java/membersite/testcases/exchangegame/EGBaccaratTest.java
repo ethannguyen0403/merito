@@ -20,7 +20,7 @@ public class EGBaccaratTest extends BaseCaseTest {
      * @expect: Verify can place bet
      */
     @TestRails(id = "533")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void EG_Baccarat_TC533() {
         log("@title: Validate can place BACCARAT standard");
         log("Step precondition. get min bet of Baccarat");
@@ -28,14 +28,13 @@ public class EGBaccaratTest extends BaseCaseTest {
 
         log("Step 1. Navigate to exchange game  ");
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
-        egHomePage.navigateGameFromMainMenu(EGConstants.BACCARAT);
-        BaccaratPage baccaratPage = new BaccaratPage(_brandname);
+        BaccaratPage baccaratPage = (BaccaratPage) egHomePage.navigateGameFromMainMenu(EGConstants.BACCARAT);
 
         log("Step 2: Place on Player  with Lay 1.02 and min stake");
         baccaratPage.placeBet("Player", false, "1.02", minBet);
 
         log("Verify Verify can place bet");
-        Assert.assertTrue(baccaratPage.isUnmatchedBetDisplayed().contains("Player"), "Failed! Cannot place bet as unmatched section not display");
+        Assert.assertEquals(baccaratPage.isUnmatchedBetDisplayed(),"Player", "Failed! Cannot place bet as unmatched section not display");
 
         log("INFO: Executed completely");
     }
@@ -48,12 +47,12 @@ public class EGBaccaratTest extends BaseCaseTest {
      * @expect: Verify error message display
      */
     @TestRails(id = "534")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void EG_Baccarat_TC534() {
         log("@title: Validate can Not place BACCARAT if exceed available balance");
         AccountBalance balanceAPI = BetUtils.getUserBalance();
         String minBet = GetDataUtils.getMinBet(EGConstants.BACCARAT, "BACK");
-        String stake = String.format("%.0f", Double.max(Double.valueOf(balanceAPI.getBalance().replaceAll(",", "")) + 1, Integer.valueOf(minBet)));
+        String stake = String.format("%.0f", Double.max(Double.valueOf(balanceAPI.getBalance().replaceAll(",", "")) + 10, Integer.valueOf(minBet) + 10));
         EGHomePage egHomePage = memberHomePage.openExchangeGame();
 
         log("Step 1. Navigate to exchange game > Baccarat");

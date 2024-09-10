@@ -73,7 +73,7 @@ public class GamePage extends LandingPage {
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        while (stopWatch.getElapsedTime() < 3000L) {
+        while (stopWatch.getElapsedTime() < 1500L) {
             try {
                 if (!lblGameStatus.isDisplayed()) {
                     return;

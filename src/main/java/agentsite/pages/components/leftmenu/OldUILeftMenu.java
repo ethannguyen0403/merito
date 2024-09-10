@@ -10,6 +10,7 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import common.AGConstant;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -166,13 +167,13 @@ public class OldUILeftMenu extends LeftMenu {
     }
 
     public boolean isListSubMenuDisplayCorrect(String menu) {
-        if(menu.equals(REPORT)) {
-            List<String> lstSubReprotMenu = leftMenuList.getListSubMenu(REPORT);
-            return lstSubReprotMenu.equals(AGConstant.Report.LIST_SUB_MENU_CONTROL_BLOCKING_OLDUI);
-        }
         if(menu.equals(AGENCY_MANAGEMENT)){
             List<String> lstSubMenu = leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
             return lstSubMenu.equals(AGConstant.AgencyManagement.LIST_SUBMENU_AGENCY_MANAGEMENT_OLD);
+        }
+        if(menu.equals(REPORT)) {
+            List<String> lstSubReprotMenu = leftMenuList.getListSubMenu(REPORT);
+            return lstSubReprotMenu.equals(AGConstant.Report.LIST_SUB_MENU_CONTROL_BLOCKING_OLDUI);
         }
         if(menu.equals(MARKET_MANAGEMENT)){
             List<String> lstSubMenu = leftMenuList.getListSubMenu(MARKET_MANAGEMENT);
@@ -183,6 +184,13 @@ public class OldUILeftMenu extends LeftMenu {
             return lstSubMenu.equals(AGConstant.FraudDetection.LIST_SUBMENU_FRAUD_DETECTION);
         }
         return false;
+    }
+
+    public void verifyListSubMenuDisplayCorrect() {
+        List<String> lstMenu = Arrays.asList(AGENCY_MANAGEMENT, REPORT, MARKET_MANAGEMENT, FRAUD_DETECTION);
+        for (String menu : lstMenu) {
+            Assert.assertTrue(isListSubMenuDisplayCorrect(menu));
+        }
     }
 }
 

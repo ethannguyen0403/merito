@@ -1,6 +1,7 @@
 package membersite.pages.components.betslipcontainer;
 
 import com.paltech.element.common.Label;
+import com.paltech.element.common.TextBox;
 import membersite.controls.EditStakeControl;
 import membersite.objects.sat.Market;
 import membersite.objects.sat.Order;
@@ -10,6 +11,7 @@ import java.util.List;
 public class BetsSlipContainer {
     public Label lblSuspendedErrorMessage = Label.xpath("//div[@class='modal-body' and contains(text(), 'has been Suspended')]");
     public Label lblMinMaxStakeErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
+    public TextBox txtOdds = TextBox.xpath("//input[contains(@class,'odds')]");
 
     public void cancelAllSelections() {
 

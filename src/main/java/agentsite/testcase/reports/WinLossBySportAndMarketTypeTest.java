@@ -38,7 +38,7 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseTest {
      * @expect: 1. Verify  Win Loss By Sport And Market Type UI display correctly
      */
     @TestRails(id = "805")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_805() {
         log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
         log("Step 1. Navigate Report > Win Loss By Sport And Market Type");
@@ -72,7 +72,7 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseTest {
      */
     @TestRails(id = "806")
     @Parameters({"currency"})
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void Agent_Report_Win_Loss_By_Sport_And_Market_Type_806(String currency) {
         log("@title: Validate Grand total row is correctly");
         log("Step 1. Navigate Report > Win Loss By Sport And Market Type");
@@ -89,7 +89,7 @@ public class WinLossBySportAndMarketTypeTest extends BaseCaseTest {
         log("Verify 1. Verify Grand total row is sum by total of all sports");
         List<String> lstSport = page.getSportList();
         ArrayList<String> expectedData = page.sumSportData(lstSport, currency);
-        Assert.assertEquals(page.getGrandTotalRow(),expectedData,"FAILED! Grand Total Row not match when sum with total row of all sport");
+        Assert.assertEquals(page.getGrandTotalRow(),expectedData, "FAILED! Grand Total Row not match when sum with total row of all sport");
         log("INFO: Executed completely");
     }
 

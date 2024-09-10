@@ -1,10 +1,13 @@
 package membersite.pages;
 
+import baseTest.BaseCaseTest;
 import com.paltech.element.common.Icon;
+import common.MemberConstants;
 import controls.Table;
 import membersite.pages.components.ComponentsFactory;
 import membersite.pages.components.accountstatement.AccountStatementContainer;
 import membersite.pages.components.ps38betdetail.PS38BetDetail;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,5 +71,17 @@ public class AccountStatementPage extends HomePage {
 
     public void waitLoadReport() {
         accountStatementContainer.waitLoadReport();
+    }
+
+    public void verifyHeaderOfTableReport() {
+        List<String> tblHeaders = accountStatementContainer.getReportHeader();
+        //name of header report diff between STG/PROD
+        if(BaseCaseTest.environment.getApiURL().contains("stg")) {
+            Assert.assertEquals(tblHeaders.size(), MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER_STG.size(), String.format("ERROR: The expected no of columns is %s but found %s", MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER_STG.size(), tblHeaders.size()));
+            Assert.assertEquals(tblHeaders, MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER_STG, "ERROR! Account Statement header not match with the expected");
+        } else {
+            Assert.assertEquals(tblHeaders.size(), MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER_GREEN.size(), String.format("ERROR: The expected no of columns is %s but found %s", MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER_GREEN.size(), tblHeaders.size()));
+            Assert.assertEquals(tblHeaders, MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER_GREEN, "ERROR! Account Statement header not match with the expected");
+        }
     }
 }

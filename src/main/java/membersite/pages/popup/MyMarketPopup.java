@@ -5,12 +5,16 @@ import com.paltech.element.common.Label;
 import com.paltech.element.common.Popup;
 import common.MemberConstants;
 import controls.Table;
+import membersite.pages.HomePage;
+import membersite.pages.components.ComponentsFactory;
+import membersite.pages.popup.mymarketpopup.MyMarketPopupContainer;
 import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyMarketPopup {
+public class MyMarketPopup extends HomePage {
+    public MyMarketPopupContainer myMarketPopupContainer;
     public Popup popupSportSetting = Popup.xpath("//app-markets-popup");
     public Label lblTitle = Label.xpath("//div[contains(@class,'my-market-header')]/h4");
     public Button btnCancel = Button.xpath("//div[contains(@class,'my-market-header')]/button");
@@ -22,7 +26,10 @@ public class MyMarketPopup {
     public Label lblNoRecord = Label.xpath("//td[@class='text-center']/strong");
     private int totalColMyMarkets = 4;
     public Table tbMyMarkets = Table.xpath("//table[@class='table table-hover table-bordered table-sm']", totalColMyMarkets);
-
+    public MyMarketPopup(String types){
+        super(types);
+        myMarketPopupContainer = ComponentsFactory.myMarketPopupObject(types);
+    }
     public void clickCancelBtn() {
         btnCancel.click();
     }
@@ -30,12 +37,6 @@ public class MyMarketPopup {
     public void navigateToMarket(String marketName) {
         int index = getRowMatch(marketName);
         tbMyMarkets.getControlOfCell(1, colMarketName, index, "a").click();
-    }
-
-    public void verifyMyMarketPopupUI(){
-        Assert.assertEquals(lblTitle.getText(), MemberConstants.MyMarketsPopup.TITLE, "FAILED! My Markets pop up title is not correct");
-        Assert.assertEquals(lblNote.getText().trim(), MemberConstants.MyMarketsPopup.NOTES, "FAILED! My Markets noted title is not correct");
-        Assert.assertEquals(tbMyMarkets.getHeaderNameOfRows(), MemberConstants.MyMarketsPopup.TABLE_MY_MARKETS_HEADER, "FAILED! My Markets header is not correct");
     }
 
     public List<String> getMarketInfo(int index) {
@@ -79,7 +80,7 @@ public class MyMarketPopup {
             return total;
         } else {
             for (int i = 0; i < lstRecords.size(); i++) {
-                total = String.format("%.2f", Double.valueOf(total) + Double.valueOf(lstRecords.get(i).get(colLiability - 1)));
+                total = String.format("%.2f", Double.valueOf(total) + Double.valueOf(lstRecords.get(i).get(colLiability - 1).replace(",","")));
             }
         }
         return total;

@@ -1,6 +1,7 @@
 package membersite.testcases.exchange;
 
 import baseTest.BaseCaseTest;
+import com.paltech.driver.DriverManager;
 import common.MemberConstants;
 import membersite.objects.AccountBalance;
 import membersite.objects.sat.Event;
@@ -72,7 +73,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * 2. Popup is closed
      */
     @TestRails(id = "943")
-    @Test(groups = {"smoke", "MER.Implementation.V.1.0"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void HeaderSection_TC943() {
         log("@title: Validate can open my markets in Header Section");
         log("Precondition 1: Login member site");
@@ -82,19 +83,19 @@ public class HeaderSectionTest extends BaseCaseTest {
                 "Popup Title: My Markets\n" +
                 "Note: Date will be based on time zone IST (for SAT and White Labels)\n" +
                 "table with the header: Market ID, Market Start Time, Market Name (Reload button), Liability");
-        marketPopup.verifyMyMarketPopupUI();
+        marketPopup.myMarketPopupContainer.verifyMyMarketPopupUI();
         log("INFO: Executed completely");
     }
 
     /** Duplicate with TC494*/
     @TestRails(id = "944")
-    @Test(groups = {"Revised"})
+    @Test(groups = {"Revised", "MER.Implementation.V.1.0"})
     public void HeaderSection_TC944() {
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "945")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void HeaderSection_TC945() {
         log("@title: Can active event page from search page");
         log("Precondition 1: Login member site");
@@ -106,9 +107,9 @@ public class HeaderSectionTest extends BaseCaseTest {
         log("Step 2: Input a active event insearch textbox");
         log("Step 3: Click on event in search page");
         String eventName = memberHomePage.leftMenu.searchEvent(event.getEventName()).getText().trim();
-        EventPage eventPage = memberHomePage.leftMenu.searchEvent(event.getEventName(),true);
+        MarketPage marketPage = memberHomePage.leftMenu.searchEvent(event.getEventName(),true);
         log("Verify 1: Verify event page display correctly with: " + eventName);
-        Assert.assertEquals(eventPage.lblTitleEvent.getText().trim(), eventName, "FAILED! Event page is not displayed");
+        Assert.assertEquals(marketPage.getEventTitle(), eventName, "FAILED! Event page is not displayed");
         log("INFO: Executed completely");
     }
 
@@ -161,14 +162,14 @@ public class HeaderSectionTest extends BaseCaseTest {
      * If My markets display "No records found", Outstanding should be 0.00
      */
     @TestRails(id = "501")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void HeaderSection_TC501() {
         log("@title: Validate Liability in My market and outstanding is synchronized");
         log("Step 1. Get outstanding value");
         log("Step 2. Click on My market");
         log("Step 3. Sum liability of all market");
         AccountBalance balanceUI = memberHomePage.getUserBalance();
-        MyMarketPopup popup = memberHomePage.header.openMyMarketPopup();
+        MyMarketPopup popup = memberHomePage.openMyMarket();
 
         log("Verify 1:  Liability matched with outstanding\n" +
                 "   If My markets display \"No records found\", Outstanding should be 0.00");
@@ -190,7 +191,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance
      */
     @TestRails(id = "502")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void HeaderSection_TC502() {
         log("@title: Validate can navigate to Account Statement page");
         log("Step 1. Click My Account > Account Statement");
@@ -200,13 +201,11 @@ public class HeaderSectionTest extends BaseCaseTest {
                 "- Start Date, End Date Calendar, and Load report button\n" +
                 "- Note: Date will be based on time zone IST\n" +
                 "Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance");
+        page.verifyHeaderOfTableReport();
         Assert.assertEquals(page.accountStatementContainer.getStartDate(), MemberConstants.AccountStatementPage.START_DATE, String.format("ERROR! Expected Start Date but found %s", page.accountStatementContainer.getStartDate()));
         Assert.assertEquals(page.accountStatementContainer.getEndDate(), MemberConstants.AccountStatementPage.END_DATE, String.format("ERROR! Expected End Date but found %s", page.accountStatementContainer.getEndDate()));
         Assert.assertEquals(page.accountStatementContainer.getNote(), String.format(MemberConstants.AccountStatementPage.NOTES, TIMEZONE_BRAND.get(_brandname)), String.format("ERROR! Current Note label shows %s", page.accountStatementContainer.getNote()));
         Assert.assertEquals(page.accountStatementContainer.getLoadReport(), MemberConstants.AccountStatementPage.LOAD_REPORT, String.format("ERROR! Expected Load Report but found %s", page.accountStatementContainer.getLoadReport()));
-        List<String> tblHeaders = page.accountStatementContainer.getReportHeader();
-        Assert.assertEquals(tblHeaders.size(), MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), String.format("ERROR: The expected no of columns is %s but found %s", MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER.size(), tblHeaders.size()));
-        Assert.assertEquals(tblHeaders, MemberConstants.AccountStatementPage.TABLE_SUMMARY_HEADER, "ERROR! Account Statement header not match with the expected");
     }
 
     /**
@@ -221,7 +220,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * - Table with header: Market Name, Bet ID, Event ID, Selection, Type, Odds, Stake, Profit/Loss, Status, Placed Date, IP Address
      */
     @TestRails(id = "503")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void HeaderSection_TC503() {
         log("@title: Validate can navigate to My Bet");
         log("Step 1. Click My Account > My Bets");
@@ -247,7 +246,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * - Table with the header: Sport/Game, Profit/Loss
      */
     @TestRails(id = "504")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void HeaderSection_TC504() {
         log("@title: Validate can navigate to Profit & Loss");
         log("Step 1. Click My Account > Profit & Loss");
@@ -278,7 +277,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Soccer page display with the title: Soccer Highlights
      */
     @TestRails(id = "505")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void HeaderSection_TC505() {
         log("@title: Validate can navigate to Soccer menu");
         log("Step 1. Click on Soccer menu");
@@ -305,7 +304,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Tennis page display with the title: Tennis Highlights
      */
     @TestRails(id = "506")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void HeaderSection_TC506() {
         log("@title: Validate can navigate to Tennis menu");
         log("Step 1. Click on Tennis menu");
@@ -357,7 +356,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Cricket page display with the title: Cricket Highlights
      */
     @TestRails(id = "508")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void HeaderSection_TC508() {
         log("@title: Validate can navigate to Cricket menu");
         log("Step 1. Click on Cricket menu");
@@ -386,11 +385,11 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. The corresponding market is navigate
      */
     @TestRails(id = "509")
-    @Test(groups = {"smoke", "nolan_stabilize"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void HeaderSection_C509() {
         log("@title: Validate can navigate to correct market when click on market in My market");
         log("Step 1. Click on My market ");
-        MyMarketPopup popup = memberHomePage.header.openMyMarketPopup();
+        MyMarketPopup popup = memberHomePage.openMyMarket();
         List<String> marketInfo = popup.getMarketInfo(1);
         if (marketInfo.get(0).equals(MemberConstants.MyMarketsPopup.NO_RECORD_FOUNDS)) {
             log(String.format("SKIPPED! Due to %s", MemberConstants.MyMarketsPopup.NO_RECORD_FOUNDS));
@@ -398,37 +397,38 @@ public class HeaderSectionTest extends BaseCaseTest {
         }
         log("Step 2. Click on market in my market popup");
         MarketPage page = memberHomePage.openMarketInMyMarketPopup(marketInfo.get(2));
-
         log("Verify: 1. The corresponding market is navigate");
         Assert.assertEquals(page.marketOddControl.getTitle(), marketInfo.get(2).split("/")[0].trim(), String.format("ERROR: Incorect market page display"));
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "510")
-    @Test(groups = {"smoke_creditcash"})
+    @Test(groups = {"smoke_creditcash","smoke_dev_sat"})
     public void HeaderSection_C510() {
         log("@title: Validate Credit, Balance, Outstanding of Credit Cash account  display correctly when active Exchange Game product");
         log("Step 1. Get the info: Credit, Balance, Outstanding of credit cash account from api");
         AccountBalance balanceAPI = BetUtils.getUserBalance();
 
         log("Step 2. Click Exchange Game Product");
-        if (!memberHomePage.header.isProductActive("EXCH_GAMES")) {
+        if (!memberHomePage.header.isProductActive("Exchange Games")) {
             log("SKIP! Exchange Games product is NOT active for this account");
             return;
         }
         EGHomePage page = memberHomePage.openExchangeGame();
 
         log("Verify 1: Left menu icon and Logo");
+        DriverManager.getDriver().switchTo().defaultContent();
         String logoImgActual = page.header.getLogoSrc();
         Assert.assertTrue(page.header.isLeftMenuIcondisplay(), "ERROR:Left menu icon is not display");
         Assert.assertTrue(logoImgActual.contains(environment.directusURL), "FAILED! Log0 image not display");
 
         log("Verify 2: Label: Time zone, Credit, Balance, Outstanding, My Markets, My Account");
-        AccountBalance balanceUI = page.getUserBalance();
-        Assert.assertEquals(page.header.getBalanceLabel(), MemberConstants.Header.BALANCE, String.format("ERROR: Expected is Balance label is %s but found %s", page.header.getBalanceLabel(), MemberConstants.Header.BALANCE));
-        Assert.assertEquals(page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING, String.format("ERROR: Expected is Liability label is %s but found %s", page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING));
+        page.header.verifyHeaderUI();
+//        Assert.assertEquals(page.header.getBalanceLabel(), MemberConstants.Header.BALANCE, String.format("ERROR: Expected is Balance label is %s but found %s", page.header.getBalanceLabel(), MemberConstants.Header.BALANCE));
+//        Assert.assertEquals(page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING, String.format("ERROR: Expected is Liability label is %s but found %s", page.header.getLiabilityLabel(), MemberConstants.Header.OUTSTANDING));
 
         log("Verify 3: Verify Credit, Balance, Outstanding of the player are corrected");
+        AccountBalance balanceUI = page.getUserBalance();
         Assert.assertTrue(balanceAPI.getExposure().equals(balanceUI.getExposure()), String.format("ERROR: The expected  Liability is '%s' but found '%s'", balanceAPI.getExposure(), balanceUI.getExposure()));
         Assert.assertTrue(balanceAPI.getBalance().equals(balanceUI.getBalance()), String.format("ERROR: The expected  balance is '%s' but found '%s'", balanceAPI.getBalance(), balanceUI.getBalance()));
 

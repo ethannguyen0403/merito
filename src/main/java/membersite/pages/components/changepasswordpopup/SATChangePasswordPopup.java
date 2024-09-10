@@ -11,7 +11,7 @@ public class SATChangePasswordPopup extends ChangePasswordPopup {
     public Label lblTitle = Label.xpath("//app-change-password//div[@class='modal-header']//h4");
     private Button btnClose = Button.xpath("//app-change-password//div[@class='modal-header']//button");
     private Button btnCancel = Button.xpath("//app-change-password//button[@class='btn btn-default']");
-    private Button btnSaveChange = Button.xpath("//app-change-password//button[@class='btn btn-primary']");
+    private Button btnSaveChange = Button.xpath("//app-change-password//button[contains(@class,'btn-change-password')]");
     private TextBox txtNewPassword = TextBox.id("password-input");
     private TextBox txtConfirmPassword = TextBox.id("password-confirmation-input");
     private TextBox txtOldPassword = TextBox.id("current-password-input");

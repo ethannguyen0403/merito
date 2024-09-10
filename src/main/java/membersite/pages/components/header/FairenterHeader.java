@@ -82,9 +82,8 @@ public class FairenterHeader extends Header1 {
         imgLogo.click();
     }
 
-    public MyMarketPopup openMyMarketPopup() {
+    public void openMyMarketPopup() {
         lnkMyMarkets.click();
-        return new MyMarketPopup();
     }
 
 }

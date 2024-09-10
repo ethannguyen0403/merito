@@ -12,8 +12,8 @@ import java.util.List;
 public class NewUITaxSettingListing extends TaxSettingListing {
     private int updateStatusCol = 15;
     public int fancyCol = 11;
-    public int decimalCricketCol = 12;
-    public int virtualCricketCol = 13;
+    public int decimalCricketCol = 13;
+    public int virtualCricketCol = 12;
     public int otherCol = 14;
     public List<ArrayList<String>> defineListTaxSetting(double inputValue) {
         List<ArrayList<String>> lstTaxSetting = tblTax.getRowsWithoutHeader(1, false);
@@ -102,5 +102,11 @@ public class NewUITaxSettingListing extends TaxSettingListing {
         Assert.assertTrue(lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
         Assert.assertEquals(tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX, "FAILED! Table header not match with the expected");
 
+    }
+
+    public List<String> getListLoginId() {
+        waitingLoadingSpinner();
+        List<String> lstMembers = tblTax.getColumn(loginIDCol - 1, false);
+        return lstMembers;
     }
 }

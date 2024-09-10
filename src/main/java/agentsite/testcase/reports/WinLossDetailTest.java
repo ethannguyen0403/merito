@@ -9,6 +9,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.util.Collections;
 import java.util.List;
 
 public class WinLossDetailTest extends BaseCaseTest {
@@ -31,12 +32,10 @@ public class WinLossDetailTest extends BaseCaseTest {
      * @expect: 1. Verify Win Loss Detail UI display correctly
      */
     @TestRails(id = "794")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
     public void Agent_Report_WinLossDetail_794() {
         log("@title: Validate Win Loss Detail UI display correctly");
         log("Step 1. Navigate Report> Win Loss Detail");
-//        List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-//        String winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL, ProfileUtils.convertDownlineByBrand(lstUsers.get(0).getLevel(), ProfileUtils.getAppName()));
         WinLossDetailPage page = agentHomePage.navigateWinLossDetailPage();
 
         log("Verify 1. Verify Win Loss Detail UI display correctly");
@@ -61,7 +60,7 @@ public class WinLossDetailTest extends BaseCaseTest {
      * @expect: 1. Verify can display data
      */
     @TestRails(id = "795")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     @Parameters("downlineAccount")
     public void Agent_Report_WinLossDetail_795(String downlineAccount) {
         log("@title: Validate can filter Win Loss Detail report");
@@ -86,7 +85,7 @@ public class WinLossDetailTest extends BaseCaseTest {
     }
 
     @TestRails(id = "796")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke", "Fairenter.MER.Maintenance.2024.V.5.0"})
     public void Agent_Report_WinLossDetail_796() {
         log("@title: Validate data product dropdown is corrected");
         log("Step 1: Navigate Report > Win Loss Detail");
@@ -95,7 +94,8 @@ public class WinLossDetailTest extends BaseCaseTest {
 
         log("Step 2: Get all products in dropdown");
         List<String> lstProduct = page.ddbProduct.getAllOption(true);
-//        lstProduct.removeAll(Collections.singleton("Q-tech"));
+        //handle remove Q-Tech out of list product since it's hidden in PROD but dropdown still kept for reporting
+        lstProduct.removeAll(Collections.singleton("Q-tech"));
 
         log("Verify 1: Products display correct");
         Assert.assertTrue( lstAllProductsExpected.containsAll(lstProduct), String.format("FAILED! List product is incorrect. Expected: %s. Actual: %s",lstAllProductsExpected, lstProduct));

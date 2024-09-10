@@ -7,8 +7,9 @@ import common.AGConstant;
 import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static common.AGConstant.AgencyManagement.CreateAccount.LST_POSITION_TAKING_HEADER;
+import static common.AGConstant.*;
 import static common.AGConstant.AgencyManagement.CreateUser.*;
 import static common.AGConstant.AgencyManagement.CreateUser.GAME_HALL_PT_SETTING_HEADER;
 
@@ -24,11 +25,15 @@ public class NewUIPositionTakingSection extends PositionTakingSection {
     public void verifyUIDisplayCorrect(String product) {
         productCode = mapProductNameToCode(product);
         if(product.equalsIgnoreCase(AGConstant.EXCHANGE)) {
-            Table tblPositionTaking = Table.xpath(String.format(positionTakingTableXpath, productCode), totalColumnExchange);
+//            Table tblPositionTaking = Table.xpath(String.format(positionTakingTableXpath, productCode), totalColumnExchange);
             CheckBox cbPTAll = CheckBox.xpath(String.format(ptAllCheckboxXpath, productCode));
             Assert.assertTrue(cbPTAll.isDisplayed(), "FAILED! PT All checkbox does not display");
-            ArrayList<String> lstHeader = tblPositionTaking.getHeaderNameOfRows();
-            Assert.assertEquals(lstHeader, LST_POSITION_TAKING_HEADER, "FAILED! Position header list is not shown correct");
+            List<String> lstSportHeader = new ArrayList<>();
+            Label lblSport = Label.xpath("//app-ptsetting//strong");
+            for (int i = 0; i < lblSport.getWebElements().size();i++){
+                lstSportHeader.add(Label.xpath(String.format("(//app-ptsetting//strong)[%s]",i+1)).getText());
+            }
+            Assert.assertEquals(lstSportHeader, LST_EXCHANGE_SPORT_HEADER, "FAILED! Position sport list is not shown correct");
         } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
             Table tblPositionTaking = Table.xpath(String.format(positionTakingTableXpath, productCode), totalColumnExchangeGames);
             CheckBox cbPTAll = CheckBox.xpath(String.format(ptAllCheckboxXpath, productCode));

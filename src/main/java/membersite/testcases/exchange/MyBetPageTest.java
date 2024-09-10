@@ -51,7 +51,7 @@ public class MyBetPageTest extends BaseCaseTest {
      * @expect: 1. All settled bet is filtered
      */
     @TestRails(id = "516")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","smoke_dev"})
     public void MyBetPage_TC516() {
         log("@title: Validate can filter Settled bet");
         log("Step 1. Active My Account> My Bets");
@@ -80,7 +80,7 @@ public class MyBetPageTest extends BaseCaseTest {
      * @expect: 1. All matched bet is filtered
      */
     @TestRails(id = "517")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void MyBetPage_TC517() {
         log("@title: Validate can filter Matched bet");
         log("Step 1. Active My Account> My Bets");
@@ -106,7 +106,7 @@ public class MyBetPageTest extends BaseCaseTest {
      * @expect: 1. All Unmatched bet is filtered
      */
     @TestRails(id = "518")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void MyBetPage_TC518() {
         log("@title: Validate can filter Settled bet");
         log("Step 1. Active My Account> My Bets");
@@ -134,7 +134,7 @@ public class MyBetPageTest extends BaseCaseTest {
      * @expect: 1. All Cancelled bet is filtered
      */
     @TestRails(id = "519")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void MyBetPage_TC519() {
 
         log("@title: Validate can filter Cancelled bet");
@@ -162,7 +162,7 @@ public class MyBetPageTest extends BaseCaseTest {
      * @expect: 1. Bet info display correctly, all bets display with status: Lapsed
      */
     @TestRails(id = "520")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void MyBetPage_TC520() {
 
         log("@title: Validate can filter Lapsed bet");
@@ -190,7 +190,7 @@ public class MyBetPageTest extends BaseCaseTest {
      * @expect: 1. Bet info display correctly, all bets display with status: Voided
      */
     @TestRails(id = "521")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "smoke_dev"})
     public void MyBetPage_TC521() {
         log("@title: Validate can filter Voided bet");
         log("Step 1. Active My Account> My Bets");

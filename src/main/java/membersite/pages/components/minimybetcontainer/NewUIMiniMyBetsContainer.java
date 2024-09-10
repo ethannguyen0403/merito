@@ -16,6 +16,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     public MiniMyBetControl bookMakerMiniMyBet = MiniMyBetControl.xpath("//app-bookmaker-bets");
     public MiniMyBetControl fancyMiniBetSlip = MiniMyBetControl.xpath("//app-fancy-betslip");
     public MiniMyBetControl bookMakerMiniBetSlip = MiniMyBetControl.xpath("//app-normal-betslip");
+    public MiniMyBetControl normalMiniBetSlip = MiniMyBetControl.xpath("//app-normal-bets");
     private String xPathSelection = "//div[contains(@class,'%s') and contains(@class,'row-open-bet')]";
     private Label lblBetslipErrorMessage = Label.xpath("//div[contains(@class,'betslip-error')]");
     private Label lblErrorMessage = Label.xpath("//div[contains(@class,'bet-info error')]");
@@ -80,6 +81,7 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
                 .selectionName(Label.xpath(String.format("%s[%d]//span[contains(@class,'runner-name')]", matchUnmatchXpath, 1)).getText())
                 .odds(Label.xpath(String.format("%s[%d]/span[2]", matchUnmatchXpath, 1)).getText())
                 .stake(stake)
+                .isBack(isBack)
                 .profit(isBack ? Label.xpath(String.format("%s[%d]/span[4]", matchUnmatchXpath, 1)).getText() : stake)
                 .liablity(isBack ? stake : Label.xpath(String.format("%s[%d]/span[4]", matchUnmatchXpath, 1)).getText())
                 .build();
@@ -88,10 +90,17 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
     @Override
     public void verifyInfoBetSlipAndOddsPage(Market market, Order order) {
         String actualLiability = Label.xpath(lblProfitLiabilityXPath).getText().trim();
-        String expectedLiability = String.format("%.2f", order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
-        Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Liability of selection is not correct");
-        Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
-        Assert.assertEquals(market.getBtnOdd().getText(), order.getOdds(), "FAILED! Odds is not corrct");
+        if (order.getIsBack()) {
+            String expectedLiability = String.format("%.2f", order.getProfit(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
+            Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Profit of selection is not correct");
+            Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
+            Assert.assertEquals(String.format("%.2f",Double.valueOf(market.getBtnOdd().getText())), order.getOdds(), "FAILED! Odds is not correct");
+        } else {
+            String expectedLiability = String.format("%.2f", order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
+            Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Liability of selection is not correct");
+            Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
+            Assert.assertEquals(String.format("%.2f",Double.valueOf(market.getBtnOdd().getText())), order.getOdds(), "FAILED! Odds is not correct");
+        }
     }
 
     public void removeBet(boolean isBack) {
@@ -119,6 +128,41 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
 
     public List<ArrayList> getMatchedFancyInMiniMyBet() {
         return fancyMiniMyBet.getMatchBets(true);
+    }
+
+    public List<Order> getMatchedNormalInMiniMyBet() {
+        List<Order> lstOrder = new ArrayList<>();
+        List<ArrayList> lstMatchBets = normalMiniBetSlip.getMatchNormalBets();
+        for (int i = 0; i < lstMatchBets.size(); i++) {
+            Order ord = new Order.Builder().selectionName(String.valueOf(lstMatchBets.get(i).get(0)))
+                    .odds(String.valueOf(lstMatchBets.get(i).get(1)))
+                    .stake(String.valueOf(lstMatchBets.get(i).get(2)))
+                    .isBack(String.valueOf(lstMatchBets.get(i).get(4)).equalsIgnoreCase("BACK") ? true : false).build();
+            if(String.valueOf(lstMatchBets.get(i).get(4)).equalsIgnoreCase("BACK")) {
+                ord.setProfit(String.valueOf(lstMatchBets.get(i).get(3)));
+            } else {
+                ord.setLiability(String.valueOf(lstMatchBets.get(i).get(3)));
+            }
+            lstOrder.add(ord);
+        }
+        return lstOrder;
+    }
+    public List<Order> getUnmatchedNormalInMiniMyBet() {
+        List<Order> lstOrder = new ArrayList<>();
+        List<ArrayList> lstUnMatchBets = normalMiniBetSlip.getUnmatchNormalBets();
+        for (int i = 0; i < lstUnMatchBets.size(); i++) {
+            Order ord = new Order.Builder().selectionName(String.valueOf(lstUnMatchBets.get(i).get(0)))
+                    .odds(String.valueOf(lstUnMatchBets.get(i).get(1)))
+                    .stake(String.valueOf(lstUnMatchBets.get(i).get(2)))
+                    .isBack(String.valueOf(lstUnMatchBets.get(i).get(4)).equalsIgnoreCase("BACK") ? true : false).build();
+            if(String.valueOf(lstUnMatchBets.get(i).get(4)).equalsIgnoreCase("BACK")) {
+                ord.setProfit(String.valueOf(lstUnMatchBets.get(i).get(3)));
+            } else {
+                ord.setLiability(String.valueOf(lstUnMatchBets.get(i).get(3)));
+            }
+            lstOrder.add(ord);
+        }
+        return lstOrder;
     }
 
     public List<ArrayList> getFancyBetSlipInfo() {

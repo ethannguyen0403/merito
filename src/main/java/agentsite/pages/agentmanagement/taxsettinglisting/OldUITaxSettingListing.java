@@ -12,8 +12,8 @@ import java.util.List;
 public class OldUITaxSettingListing extends TaxSettingListing {
     private int otherCol = 13;
     private int updateStatusCol = 14;
-    public int virtualCricketCol = 12;
-    public int decimalCricketCol = 11;
+    public int virtualCricketCol = 11;
+    public int decimalCricketCol = 12;
 
     public List<ArrayList<String>> defineListTaxSetting(double inputValue) {
         List<ArrayList<String>> lstTaxSetting = tblTax.getRowsWithoutHeader(1, false);
@@ -97,5 +97,11 @@ public class OldUITaxSettingListing extends TaxSettingListing {
         Assert.assertTrue(txtOther.isDisplayed(), "FAILED! Other textbox not display");
         Assert.assertTrue(lblBreadcrumb.getText().contains(userCode), "FAILED! Breadcrumb display incorrect value");
         Assert.assertEquals(tblTax.getHeaderNameOfRows(), AGConstant.AgencyManagement.TaxSettingListing.TABLE_TAX_SAT, "FAILED! Table header not match with the expected");
+    }
+
+    public List<String> getListLoginId() {
+        waitingLoadingSpinner();
+        List<String> lstMembers = tblTax.getColumn(loginIDCol, false);
+        return lstMembers;
     }
 }

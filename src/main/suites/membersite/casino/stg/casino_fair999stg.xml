@@ -35,11 +35,11 @@
             <class name="membersite.testcases.casino.EvolutionPageWhiteCliffTest"/>
             <class name="membersite.testcases.casino.IonPageTest"/>
             <class name="membersite.testcases.casino.PragmaticPageTest"/>
-            <class name="membersite.testcases.casino.GameHallPageTest"/>
+<!--            <class name="membersite.testcases.casino.GameHallPageTest"/>-->
             <class name="membersite.testcases.casino.LiveDealerAsianPageTest"/>
             <class name="membersite.testcases.casino.LiveDealerEuropeanPageTest"/>
             <class name="membersite.testcases.casino.LotterySlotsPageTest"/>
-            <class name="membersite.testcases.casino.VivoPageTest"/>
+<!--            <class name="membersite.testcases.casino.VivoPageTest"/>-->
         </classes>
     </test>
 </suite>

@@ -65,15 +65,15 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify Login display in the result table
      */
     @TestRails(id = "749")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void Agent_AM_Tax_Setting_Listing_749() {
         log("@title: Verify can search downline by Login ID");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
         String userID = ProfileUtils.getProfile().getUserID();
         String loginID = "";
-        loginID = _brandname.equalsIgnoreCase("fairexchange") ?
-                DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode() :
-                DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getLoginID();
+        loginID = _brandname.equalsIgnoreCase("satsport") ?
+                DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getLoginID():
+                DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();
         if (loginID.isEmpty()) {
             throw new SkipException("SKIPPED! The player have no login ID for filter");
         }
@@ -83,10 +83,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
         page.taxSettingListing.search(loginID, "", "");
 
         log("Verify 1. Verify Login display in the result table");
-        int loginIDCol = page.taxSettingListing.loginIDCol;
-        loginIDCol = _brandname.equalsIgnoreCase("fairexchange") ? loginIDCol -1 : loginIDCol;
-
-        List<String> lstMembers = page.taxSettingListing.tblTax.getColumn(loginIDCol, false);
+        List<String> lstMembers = page.getListLoginID();
         Assert.assertEquals(lstMembers.get(0), loginID, "FAILED! Login ID not display as search criteria");
         Assert.assertEquals(lstMembers.size(), 1, "FAILED! Should only display 1 record when searching with correct username");
 
@@ -102,7 +99,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify tax is updated for all sport and Update status is display green check
      */
     @TestRails(id = "750")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
     public void Agent_AM_Tax_Setting_Listing_750() {
         log("@title: Verify can update tax for all sports");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
@@ -113,12 +110,13 @@ public class TaxSettingListingTest extends BaseCaseTest {
 
         log("Step 2. Search a Member account and check on Select All sport");
         page.taxSettingListing.search(loginID, "", "");
+        page.waitingLoadingSpinner();
         List<ArrayList<String>> lstExpectedData = page.taxSettingListing.defineListTaxSetting(adjustValue);
 
         try {
             log("Step 3. Update valid tax for Soccer, Tennis, Cricket, Basketball, Fancy Other and Click update");
             page.taxSettingListing.updateTaxSetting(loginID, lstExpectedData);
-
+            page.waitingLoadingSpinner();
             log("Verify 1. Verify tax is updated for all sport and Update status is display green check");
             List<ArrayList<String>> lstActualData = page.taxSettingListing.tblTax.getRowsWithoutHeader(1, false);
             Assert.assertEquals(lstActualData, lstExpectedData, "FAILED! Data does not update correctly after update tax");
@@ -153,7 +151,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4110")
-    @Test(groups = {"smoke_sat", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
     public void Agent_AM_Tax_Setting_Listing_4110() {
         log("@title: Verify  Tax Setting Listing UI display correct");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");

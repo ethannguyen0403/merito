@@ -42,11 +42,9 @@ public class FancyResultTest extends BaseCaseTest {
      * 2. Column names on this table are correct
      */
     @TestRails(id = "593")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
     public void BO_Settlement_Fancy_Result_593() {
         log("@title: Validate that this page loading is successful");
-
-
         log("Step 1: Navigate Settlement > Fancy Result");
         FancyResultPage page = backofficeHomePage.navigateFancyResult();
         List<String> lstEvents = FancyResultUtils.getEvents(DateUtils.getDateBeforeCurrentDate(0, BOConstants.DASH_YYYY_MM_DD));

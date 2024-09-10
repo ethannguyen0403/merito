@@ -2,10 +2,10 @@ package membersite.pages.casino;
 
 import com.paltech.driver.DriverManager;
 import com.paltech.element.BaseElement;
+import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.Link;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ public class LiveDealerEuropeanPage extends CasinoHomePage{
     String xpathProducts = "//app-ezugi//div[contains(@class,'menu-product')]//a";
     public Link lnkProductsList = Link.xpath(xpathProducts);
     Label lblBalance = Label.xpath("//span[@data-e2e='balance']");
+    Icon icLoading = Icon.xpath("//canvas");
 
     @Override
     public List<String> getListProductsMenu() {
@@ -40,7 +41,7 @@ public class LiveDealerEuropeanPage extends CasinoHomePage{
 
     @Override
     public void selectCasinoGame() {
-        openRandomGame();
+        openGameByIndex("3");
     }
 
     public void openRandomGame() {
@@ -48,30 +49,23 @@ public class LiveDealerEuropeanPage extends CasinoHomePage{
         BaseElement targetGame = new BaseElement(By.xpath(String.format("(%s)[%s]", xpathProducts, randomNum)));
         targetGame.scrollToThisControl(false);
         targetGame.click();
-        targetGame.jsClick();
-        if(DriverManager.getDriver().getWindowHandles().size() > 1) {
-            waitToNewWindowOpen(6);
-            DriverManager.getDriver().switchToWindow();
-            //wait for website ready to get log console precisely
-            waitUntilReadyState(6);
-        }
-    }
-
-    public void openGameByIndex(int index) {
-        BaseElement targetGame = new BaseElement(By.xpath(String.format("(%s)[%s]", xpathProducts, index)));
-        targetGame.isDisplayed();
-        targetGame.scrollToThisControl(false);
-        targetGame.click();
-        if(DriverManager.getDriver().getWindowHandles().size() > 1) {
-            waitToNewWindowOpen(6);
-            DriverManager.getDriver().switchToWindow();
-            //wait for website ready to get log console precisely
-            waitUntilReadyState(6);
-        }
+        waitToNewWindowOpen(6);
+        DriverManager.getDriver().switchToWindow();
     }
 
     public double getBalance() {
+        icLoading.waitForControlInvisible();
         return Double.valueOf(lblBalance.getAttribute("data-value").replace(",",""));
     }
 
+    public void openGameByIndex(String index) {
+        BaseElement targetGame = new BaseElement(By.xpath(String.format("(%s)[%s]", xpathProducts, index)));
+        targetGame.isDisplayed();
+        targetGame.scrollToThisControl(false);
+        targetGame.jsClick();
+        waitToNewWindowOpen(6);
+        DriverManager.getDriver().switchToWindow();
+        //wait for website ready to get log console precisely
+        waitUntilReadyState(6);
+    }
 }

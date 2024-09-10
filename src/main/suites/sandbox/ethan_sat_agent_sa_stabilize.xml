@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="STG_SAT_SMOKE_AGENT_SMA" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="Maintenance and Stabilize SAT Agent in STG 2024.V.5.0">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='false'/>
+        <parameter name='username' value='corpinr2'/>
+        <parameter name='level' value='SAD'/>
+        <parameter name='levelLogin' value='Senior Admin'/>
+        <parameter name='downlineAccount' value='smaag1'/>
+        <parameter name='portalSubAccount' value='SASUBIS'/>
+        <parameter name='memberAccount' value='sabella1'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='INR'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value='satsport'/>
+        <parameter name='skinName' value='satsport'/>
+        <parameter name='isAddTestRailResult' value='true'/>
+        <groups>
+            <run>
+                <include name="MER.Maintenance.2024.V.5.0"/>
+                <include name="SAT.MER.Maintenance.2024.V.5.0"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
+            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
+
+            <class name="agentsite.testcase.reports.ClientLegerTest"/>
+            <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
+        </classes>
+    </test>
+</suite>
