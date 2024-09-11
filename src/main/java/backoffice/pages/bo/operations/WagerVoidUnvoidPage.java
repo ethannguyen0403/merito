@@ -183,14 +183,22 @@ public class WagerVoidUnvoidPage extends HomePage {
     }
 
     public void verifySearchByUsername(String username) {
-        List<String> lstWagerInfo = tblWager.getColumn(colUsername, false);
+        List<String> lstWagerInfo = tblWager.getColumn(colNickname, false);
         for (String actualUsername : lstWagerInfo) {
             Assert.assertEquals(actualUsername, username, "FAILED! Result table not display the searching data");
         }
     }
 
-    public List<ArrayList<String>> getFristWagerInfo(){
-        return tblWager.getRowsWithoutHeader(1,false);
+    public ArrayList<String> getFirstWagerInfo(){
+        List<String> lstBFStatus = tblWager.getColumn(colBFStatus,20,true);
+        int i = 0;
+        for (String status: lstBFStatus){
+            if (status.equals("SETTLED")){
+                break;
+            }
+            i = i + 1;
+        }
+        return tblWager.getRowsWithoutHeader(20,false).get(i);
     }
     public enum ACTION {VOID, UNVOID, REMARK}
 

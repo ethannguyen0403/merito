@@ -59,14 +59,14 @@ public class WagerResettlementTest extends BaseCaseTest {
      * @expect: 1. Data is display, Resettle button display in Action column
      */
     @TestRails(id = "595")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","Maintenance.2024.V.6.0"})
     @Parameters({"satMemberLoginID"})
     public void BO_Settlement_Wager_Resettlement_595(String satMemberLoginID) {
         log("@title: Validate can search wager resettlement");
         log("@Precondition: Get wager info in Wager Void / Un-void page");
         WagerVoidUnvoidPage wagerVoidUnvoidPage = backofficeHomePage.navigateWagerVoidUnvoid();
         wagerVoidUnvoidPage.searchByUsername("Exchange",satMemberLoginID,"","");
-        String wagerID = wagerVoidUnvoidPage.getFristWagerInfo().get(0).get(1);
+        String wagerID = wagerVoidUnvoidPage.getFirstWagerInfo().get(1);
         wagerVoidUnvoidPage.closeActiveTab();
 
         log("Step 1. Access Settlement > Wager Resettlement");
