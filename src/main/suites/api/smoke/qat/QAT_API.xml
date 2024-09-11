@@ -12,10 +12,11 @@
         <parameter name='language' value='en'/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='qatisainr2'/>
+        <parameter name='username' value='0300000000'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
-        <parameter name='currency' value='INR'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name='isAddTestRailResult' value='false'/>
 
         <groups>
             <run>

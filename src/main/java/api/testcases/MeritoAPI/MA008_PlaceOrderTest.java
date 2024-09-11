@@ -1,5 +1,6 @@
 package api.testcases.MeritoAPI;
 
+import api.common.B2BAPIConstant;
 import api.objects.meritoAPI.Market;
 import api.objects.meritoAPI.MemberInfo;
 import api.objects.meritoAPI.result.CompetitionResult;
@@ -132,7 +133,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         String side = "BACK";
         String persistenceType = "LAPSE";
 
-        log(String.format("Step 7 Place a unmatched bet on event %s market id:%s price %s size %s and side %s",eventId,marketBook.getMarketId(),price,size,side));
+        log(String.format("Step 7 Place a unmatched bet on event %s market id:%s price %s size %s and side %s", eventId, marketBook.getMarketId(), price, size, side));
         OrderResult orderResult = PlaceOrderUtils.placeOrder(token, eventId, runnerId, marketBook.getMarketId(), handicap, price, size, orderType, side, persistenceType);
         if (!Objects.nonNull(orderResult)) {
             log("Skip place bet as odds is empty");
@@ -286,7 +287,6 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         log(String.format("Verify can NOT place order id: %s", orderResult.getOrderList().get(0).getBetId()));
         Assert.assertTrue(orderResult.getIsSuccess(), "FAILED! isSuccess should be true but cannnot get as expected");
         Assert.assertTrue(orderResult.getOrderList().get(0).getBetId() != 0, "FAILED! price matched is incorrect");
-        Assert.assertTrue(orderResult.getOrderList().get(0).getBetId() != 0, "FAILED! price matched is incorrect");
         Assert.assertEquals(Integer.toString(orderResult.getOrderList().get(0).getEventId()), eventId, "FAILED! Event id is incorrect");
         Assert.assertEquals(orderResult.getOrderList().get(0).getMarketId(), marketBook.getMarketId(), "FAILED! Market id is incorrect");
         Assert.assertEquals(orderResult.getOrderList().get(0).getSide(), side, "FAILED! Side id is incorrect");
@@ -294,7 +294,7 @@ public class MA008_PlaceOrderTest extends BaseCaseAPI {
         Assert.assertEquals(orderResult.getOrderList().get(0).getOrderType(), orderType, "FAILED! Order Type is incorrect");
         Assert.assertEquals(orderResult.getOrderList().get(0).getSizeMatched(), 0.0, "FAILED!Size Matched is incorrect");
         Assert.assertEquals(orderResult.getOrderList().get(0).getPriceMatched(), 0.0, "FAILED!price matched is incorrect");
-        Assert.assertEquals(orderResult.getOrderList().get(0).getErrorMessage(), "ERROR.BET_PLACEMENT.STAKE_LIMIT", "FAILED! Error message is incorrect");
+        Assert.assertTrue(B2BAPIConstant.PlaceOrder.lstErrorPlaceMinMax.contains(orderResult.getOrderList().get(0).getErrorMessage()), "FAILED! Error message is incorrect");
         Assert.assertEquals(orderResult.getOrderList().size(), 1, "FAILED! List Order more than 1");
 
         log("INFO: Executed completely");

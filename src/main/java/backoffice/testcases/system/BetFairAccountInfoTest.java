@@ -50,7 +50,7 @@ public class BetFairAccountInfoTest extends BaseCaseTest {
      * 2. Available Balance, Current exposure match with the latest row in Change Log popup
      **/
     @TestRails(id = "649")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","Maintenance.2024.V.6.0"})
     public void BO_System_BetFair_Account_Info_649() {
         log("@title: Validate can view Log of exchange and exchange game");
         log("Step 1. Access Tool > BetFair Account Info");

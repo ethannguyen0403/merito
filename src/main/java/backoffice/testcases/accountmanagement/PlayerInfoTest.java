@@ -22,7 +22,7 @@ public class PlayerInfoTest extends BaseCaseTest {
      * @expect: 1. Verify account info is display correctly
      */
     @Test(groups = {"smoke"})
-    @Parameters({"satMemberLoginID"})
+    @Parameters({"satMemberLoginID","Maintenance.2024.V.6.0"})
     public void BO_Account_Management_Player_Info_001(String satMemberLoginID) {
         log("@title: Validate can view player info");
         log("Step 1. Access Tool > Player Info");
@@ -37,7 +37,7 @@ public class PlayerInfoTest extends BaseCaseTest {
         Assert.assertEquals(lstActual.get(0), apiInfo.get(0), "FAILED! Login Id is incorrect");
         Assert.assertEquals(lstActual.get(1), apiInfo.get(1), "FAILED! Username is incorrect");
         Assert.assertEquals(lstActual.get(2), apiInfo.get(3), "FAILED! Login Id is incorrect");
-        Assert.assertEquals(lstActual.get(7), String.format("%.2f", Double.parseDouble(apiInfo.get(6))), "FAILED! Balance is incorrect");
+        Assert.assertEquals(String.format("%.2f", Double.parseDouble(lstActual.get(7))), String.format("%.2f", Double.parseDouble(apiInfo.get(6))), "FAILED! Balance is incorrect");
         Assert.assertEquals(Double.parseDouble(lstActual.get(8)), Double.parseDouble(apiInfo.get(7)), "FAILED! Exposure is incorrect");
         log("INFO: Executed completely");
     }

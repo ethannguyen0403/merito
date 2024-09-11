@@ -31,8 +31,7 @@ public class AdminProfileTest extends BaseCaseTest {
         String name = "autoAcc" + StringUtils.generateNumeric(4);
         String email = name + "@pal.net.vn";
         String passDecrypt = StringUtils.decrypt(password);
-        AdminProfilePage page = backofficeHomePage.navigateAdminProfile();
-
+        AdminProfilePage page = backofficeHomePage.navigateUserProfile();
         try {
             log("Step 2. Input value Current password, Password, Confirm Password");
             log("Step 3. Click Save button");
