@@ -3,6 +3,7 @@ package backoffice.pages.bo.system;
 import backoffice.controls.Table;
 import backoffice.pages.bo.home.HomePage;
 import backoffice.pages.bo.system.productmaintenance.BetFairAccountChangeLogPopup;
+import com.paltech.element.common.Icon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +20,7 @@ public class BetFairAccountInfoPage extends HomePage {
     public int colEGCurrentExposure = 10;
     public int colEGChangeLog = 11;
     public Table tblBFAccount = Table.xpath("//table[contains(@class,'table-sm')]", 11);
-
+    public Icon icLoading = Icon.xpath("//div[contains(@class,'ball-clip-rotate')]");
     public BetFairAccountChangeLogPopup openViewLog(String bfAccount, String product) {
         List<String> lstAccount = tblBFAccount.getColumn(colAccountName, false);
         for (int i = 0; i < lstAccount.size(); i++) {
@@ -32,7 +33,9 @@ public class BetFairAccountInfoPage extends HomePage {
                         tblBFAccount.getControlOfCell(1, colEGChangeLog, i + 1, "a").click();
                         break;
                 }
-                return new BetFairAccountChangeLogPopup();
+                icLoading.waitForControlInvisible();
+                BetFairAccountChangeLogPopup betFairAccountChangeLogPopup = new BetFairAccountChangeLogPopup();
+                return betFairAccountChangeLogPopup;
             }
         }
         return null;

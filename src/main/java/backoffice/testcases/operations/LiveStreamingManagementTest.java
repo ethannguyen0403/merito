@@ -31,12 +31,14 @@ public class LiveStreamingManagementTest extends BaseCaseTest {
      * 3. Auto mapping popup is disappear
      */
     @TestRails(id = "641")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke","Maintenance.2024.V.6.0"})
     public void BO_Operations_Live_Streaming_Management_641() {
         log("@title: Validate Auto Mapping popup data display");
         log("Step 1. Access Operations >Live Streaming Management");
         LiveStreamingManagementPage page = backofficeHomePage.navigateLiveStreamingManagement();
         log("Step 2. Select today, Sport");
+        String date = DateUtils.getDate(0,"yyyy-MM-dd","GMT+7");
+        page.filter(date,"","","","","");
         log("Step 3. Select All data in Competition and event dropdown boxes in  Fair Exchange  and Provider");
         log("Step 4. Click on Auto map");
         AutoMappingPopup popup = page.clickAutoMap();

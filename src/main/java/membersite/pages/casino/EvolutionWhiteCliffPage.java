@@ -52,6 +52,7 @@ public class EvolutionWhiteCliffPage extends CasinoHomePage{
 
     @Override
     public double getBalance() {
+        waitUntilReadyState(10);
         int count = 5;
         while (!lblBalance.isDisplayed() && count >0){
             count--;
