@@ -16,10 +16,10 @@ public class AppConfirmPopup extends BaseElement {
     private AppConfirmPopup(By locator, String xpathPopup) {
         super(locator);
         this._xpathPopup = xpathPopup;
-        lblTitle = Label.xpath(String.format("%s%s", _xpathPopup, "//div[contains(@class,'title')]"));
-        lblContent = Label.xpath(String.format("%s%s", _xpathPopup, "//div[contains(@class,'dialog')]//p"));
-        btnClose = Button.xpath(String.format("%s%s", _xpathPopup, "//button[contains(@class,'btn-outline-secondary')]"));
-        btnConfirm = Button.xpath(String.format("%s%s", _xpathPopup, "//button[contains(@class,'btn-core')]"));
+        lblTitle = Label.xpath(String.format("%s%s", _xpathPopup, "//h5//span"));
+        lblContent = Label.xpath(String.format("%s%s", _xpathPopup, "//h6"));
+        btnClose = Button.xpath(String.format("%s%s", _xpathPopup, "//button[contains(@class,'btn-secondary')]"));
+        btnConfirm = Button.xpath(String.format("%s%s", _xpathPopup, "//button[contains(@class,'btn-warning')]"));
     }
 
     public static AppConfirmPopup xpath(String xpathPopup) {
