@@ -14,9 +14,10 @@ public class AccountInforSection {
     protected String _xPath = "//div[@id='account']//app-agency-account-ui";
     protected CheckBox cbCreditCash = CheckBox.xpath(String.format("%s//input[@name='creditcash']", _xPath));
     public Label lblTitlePage = Label.xpath("//div[@class='title']//label");
+    public TextBox txtLoginId = TextBox.xpath("(//input[@name='lastName'])[1]");
     public TextBox txtPassword = TextBox.xpath("//input[@name='password']");
     public TextBox txtFirstName = TextBox.xpath("//input[@name='firstName']");
-    public TextBox txtLastName = TextBox.xpath("//input[@name='lastName']");
+    public TextBox txtLastName = TextBox.xpath("(//input[@name='lastName'])[2]");
     public TextBox txtPhone = TextBox.xpath("//input[@name='phone']");
     public TextBox txtMobile = TextBox.xpath("//input[@name='mobile']");
     public TextBox txtFax = TextBox.xpath("//input[@name='fax']");

@@ -314,12 +314,12 @@ public class CreateUserTest extends BaseCaseTest {
      * @expect: 1. Message "Password is invalid." display next to Cancel button
      */
     @TestRails(id = "689")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_CreateUser_689() {
         log("@title: Validate if input incorrect Change Password format");
         log("Step 1. Navigate Agency Management > Create User");
         String password = "p@ssword";
-        String loginId = StringUtils.generateString("autoID.", 10);
+        String loginId = StringUtils.generateAlphabetic(10);
         CreateUserPage page = agentHomePage.navigateCreateUserPage(environment.getSecurityCode());
 
         log("Step  Enter security code");
@@ -374,7 +374,7 @@ public class CreateUserTest extends BaseCaseTest {
      * @expect: 1. Message "Min Bet is invalid." and the valid is highlight
      */
     @TestRails(id = "691")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"currency"})
     public void Agent_AM_CreateUser_691(String currency) {
         log("@title: Validate cannot  create downline if input invalid Min Bet Setting");
@@ -392,9 +392,10 @@ public class CreateUserTest extends BaseCaseTest {
         String password = "1234qwer";
 
         log("Step 3. Input invalid Min bet setting less than required");
+        page.accountInforSection.txtLoginId.sendKeys(StringUtils.generateAlphabetic(10));
         page.accountInforSection.txtPassword.sendKeys(password);
         page.betSettingInforSection.inputBetSetting(lstBetSetting);
-       page.getSubmitBtn().click();
+        page.getSubmitBtn().click();
 
         log("Verified  1. Message \"Min Bet is invalid.\" and the valid is highlight");
         Assert.assertEquals(page.lblErrorMsg.getText(), AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID,String.format("FAILED! Expected error message is %s but found", AGConstant.AgencyManagement.CreateUser.LBL_MIN_INVALID, page.lblErrorMsg.getText()));
@@ -414,7 +415,7 @@ public class CreateUserTest extends BaseCaseTest {
      * @expect: 1. Message "Max Bet is invalid." and the valid is highlight
      */
     @TestRails(id = "692")
-    @Test (groups = {"smoke"})
+    @Test (groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"currency"})
     public void Agent_AM_CreateUser_692(String currency) {
         log("@title: Validate cannot  create downline if input invalid= -Max Bet Setting");
@@ -435,6 +436,7 @@ public class CreateUserTest extends BaseCaseTest {
         String password = "1234qwer";
 
         log("Step 3. Input invalid MAx bet setting less than required");
+        page.accountInforSection.txtLoginId.sendKeys(StringUtils.generateAlphabetic(10));
         page.accountInforSection.txtPassword.sendKeys(password);
         page.betSettingInforSection.inputBetSetting(lstBetSetting);
         page.getSubmitBtn().click();
@@ -488,7 +490,7 @@ public class CreateUserTest extends BaseCaseTest {
      *          5. Click on Skip Home page display
      */
     @TestRails(id = "687")
-    @Test (groups = {"smoke", "smoke_dev", "nolan"})
+    @Test (groups = {"smoke", "smoke_dev", "MER.Maintenance.2024.V.6.0"})
     @Parameters({"password", "currency", "isThrown"})
     public void Agent_AM_CreateUser_687(String password, String currency, boolean isThrown) throws Exception {
         log("@title: Validate can Create User successfully");
