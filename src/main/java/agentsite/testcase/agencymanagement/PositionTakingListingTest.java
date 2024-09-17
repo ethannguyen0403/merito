@@ -32,7 +32,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "707")
-    @Test(groups = {"smoke_newui","MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke_newui","MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Position_Taking_Listing_707() {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
