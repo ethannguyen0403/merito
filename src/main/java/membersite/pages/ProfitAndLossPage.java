@@ -110,7 +110,7 @@ public class ProfitAndLossPage extends HomePage {
         int totalSummaryRow = lst.size();
         for (int i = 0, n = totalSummaryRow - 1; i < n; i++) {
             String totalProfitLost = lst.get(i).get(colProfitLoss - 1);
-            total = Math.floor((Double.parseDouble(totalProfitLost) + total)  * 100) / 100;
+            total = Math.ceil((Double.parseDouble(totalProfitLost) + total)  * 100) / 100;
             tblSport.getControlOfCell(1, colSportGame, i + 1, "span[@class='hover hyperlink']").click();
             // Add wait time to wait data load => Will improve when finding the solution
             //tblMarket.isTextDisplayed("Total", 3);
@@ -131,7 +131,7 @@ public class ProfitAndLossPage extends HomePage {
         if (!(total == totalActual)) {
             System.out.println(String.format("By Passed when sum Sport Profit/Los on Sport table does not match with the Total. And the value is in accept range acutal %s and expected %s", total, totalActual));
             // Handle when actual and expected value are difference and we in accept amount 0.01
-            if(Math.abs(total - totalActual )> 0.01) {
+            if(Math.abs(total - totalActual ) > 0.01) {
                 System.out.println(String.format("ERROR! Sum Sport Profit/Los on Sport table does not match in acceptance difference amount 0.01. Summay is %f but display %f", total, totalActual));
                 return false;
             }

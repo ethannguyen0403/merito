@@ -29,7 +29,7 @@ public class ProfitAndLossPageTest extends BaseCaseTest {
      * 2. Profit of each sport match with when summary the details
      */
     @TestRails(id = "522")
-    @Test(groups = {"smoke", "smoke_dev"})
+    @Test(groups = {"smoke", "smoke_dev","MER.Maintenance.2024.V.6.0"})
     @Parameters("timeZone")
     public void ProfitAndLossPage_TC522(String timeZone) {
         log("@title: Validate Data Profit display correctly");
