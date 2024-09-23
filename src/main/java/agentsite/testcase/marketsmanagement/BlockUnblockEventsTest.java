@@ -181,7 +181,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 //    }
 
     @TestRails(id = "758")
-    @Test(groups = {"smoke", "Fairenter.MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_758(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Validate that Unblock Now an event successfully from SAD level");
@@ -226,7 +226,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "759")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_759(String downlineAccount) {
         log("@title: Validate that can block an unblocked event successfully from SAD level");
@@ -267,7 +267,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="760")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_760(String downlineAccount) {
         log("@title: Validate Buttons are enabled when have downline and events is selected");
@@ -316,7 +316,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="761")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     public void Agent_MM_BlockUnblockEvent_761() {
         log("@title: Validate can Unblock Schedule 25min before event start");
         String userID = ProfileUtils.getProfile().getUserID();
@@ -353,7 +353,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="762")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_762(String downlineAccount) {
         log("@title: Validate that can suspend an unblocked event");
@@ -386,7 +386,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="763")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_763(String downlineAccount) {
         log("@title: Validate that cannot suspend a blocked event");
@@ -417,7 +417,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id ="764")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_764(String downlineAccount) {
         log("@title: Validate that cannot Unsuspended a blocked event");
@@ -449,7 +449,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="765")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_765(String downlineAccount) {
         log("@title: Validate that cannot Unsuspended a Unblocked event");
@@ -481,7 +481,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="766")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_766(String downlineAccount) {
         log("@title: Validate that can Unsuspended a Suspend event");
@@ -514,7 +514,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="767")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_767(String downlineAccount) {
         log("@title:Validate that Block a suspend event successfully");
@@ -547,7 +547,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="768")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_768() {
         log("@title:Validate that cannot unblock schedule and suspend event successfully");
@@ -628,7 +628,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="769")
-    @Test(groups = {"smoke", "nolan", "MER.Maintenance.2024.V.6.0"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
     @Parameters({"password", "downlineAccount", "username"})
     public void Agent_MM_BlockUnblockEvent_769() {
         log("@title: Validate can unblocked now all events for an downline in a page");
@@ -747,7 +747,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 //    }
 
     @TestRails(id="770")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_770() {
         log("@title: Validate can blocked all events for an downline");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
