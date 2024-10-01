@@ -25,7 +25,7 @@ public class CommissionSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify UI of Commission Setting Listing display correctly
      */
     @TestRails(id = "740")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Commission_Setting_Listing_740() {
         log("@title: Verify Commission Setting Listing UI display correct");
         log("Step 1. Navigate Agency Management > Commission Setting Listing");

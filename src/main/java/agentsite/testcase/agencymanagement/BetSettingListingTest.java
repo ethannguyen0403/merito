@@ -33,7 +33,7 @@ import static common.MemberConstants.BetSlip.*;
 
 public class BetSettingListingTest extends BaseCaseTest {
     @TestRails(id = "743")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Bet_Setting_Listing_743() {
         log("@title: Can update Min Bet, Max Bet, Max Liability per Market, Max Win per Market, for all sport of Exchange Product");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
@@ -70,7 +70,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "744")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Bet_Setting_Listing_744() {
         log("@title: Verify update bet setting with valid min bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
@@ -113,7 +113,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "745")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Bet_Setting_Listing_745() {
         log("@title: Verify update bet setting with valid max bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
@@ -156,7 +156,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "746")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Bet_Setting_Listing_746() {
         log("@title: Verify update bet setting with valid max liability per market bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");
@@ -199,7 +199,7 @@ public class BetSettingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "747")
-    @Test(groups = {"smoke", "nolan_stabilize_agent"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Bet_Setting_Listing_747() {
         log("@title: Verify update bet setting with valid max win per market bet Setting");
         log("Step 1. Navigate Agency Management > Bet Setting Listing");

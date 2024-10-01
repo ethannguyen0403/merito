@@ -73,7 +73,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * 2. Popup is closed
      */
     @TestRails(id = "943")
-    @Test(groups = {"smoke", "smoke_dev"})
+    @Test(groups = {"smoke", "smoke_dev", "MER.Maintenance.2024.V.6.0"})
     public void HeaderSection_TC943() {
         log("@title: Validate can open my markets in Header Section");
         log("Precondition 1: Login member site");
@@ -95,7 +95,7 @@ public class HeaderSectionTest extends BaseCaseTest {
     }
 
     @TestRails(id = "945")
-    @Test(groups = {"smoke", "smoke_dev"})
+    @Test(groups = {"smoke", "smoke_dev", "MER.Maintenance.2024.V.6.0"})
     public void HeaderSection_TC945() {
         log("@title: Can active event page from search page");
         log("Precondition 1: Login member site");
@@ -162,7 +162,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * If My markets display "No records found", Outstanding should be 0.00
      */
     @TestRails(id = "501")
-    @Test(groups = {"smoke", "smoke_dev"})
+    @Test(groups = {"smoke", "smoke_dev", "MER.Maintenance.2024.V.6.0"})
     public void HeaderSection_TC501() {
         log("@title: Validate Liability in My market and outstanding is synchronized");
         log("Step 1. Get outstanding value");
@@ -191,7 +191,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * Table header: Market ID, Settled Date, Narration, Debit, Credit, Balance
      */
     @TestRails(id = "502")
-    @Test(groups = {"smoke","smoke_dev"})
+    @Test(groups = {"smoke","smoke_dev", "MER.Maintenance.2024.V.6.0"})
     public void HeaderSection_TC502() {
         log("@title: Validate can navigate to Account Statement page");
         log("Step 1. Click My Account > Account Statement");
@@ -220,7 +220,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * - Table with header: Market Name, Bet ID, Event ID, Selection, Type, Odds, Stake, Profit/Loss, Status, Placed Date, IP Address
      */
     @TestRails(id = "503")
-    @Test(groups = {"smoke","smoke_dev"})
+    @Test(groups = {"smoke","smoke_dev", "MER.Maintenance.2024.V.6.0"})
     public void HeaderSection_TC503() {
         log("@title: Validate can navigate to My Bet");
         log("Step 1. Click My Account > My Bets");
@@ -246,7 +246,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * - Table with the header: Sport/Game, Profit/Loss
      */
     @TestRails(id = "504")
-    @Test(groups = {"smoke","smoke_dev"})
+    @Test(groups = {"smoke","smoke_dev", "MER.Maintenance.2024.V.6.0"})
     public void HeaderSection_TC504() {
         log("@title: Validate can navigate to Profit & Loss");
         log("Step 1. Click My Account > Profit & Loss");
@@ -277,7 +277,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Soccer page display with the title: Soccer Highlights
      */
     @TestRails(id = "505")
-    @Test(groups = {"smoke", "smoke_dev"})
+    @Test(groups = {"smoke", "smoke_dev", "MER.Maintenance.2024.V.6.0"})
     public void HeaderSection_TC505() {
         log("@title: Validate can navigate to Soccer menu");
         log("Step 1. Click on Soccer menu");
@@ -304,7 +304,7 @@ public class HeaderSectionTest extends BaseCaseTest {
      * @expect: 1. Tennis page display with the title: Tennis Highlights
      */
     @TestRails(id = "506")
-    @Test(groups = {"smoke", "smoke_dev"})
+    @Test(groups = {"smoke", "smoke_dev", "MER.Maintenance.2024.V.6.0"})
     public void HeaderSection_TC506() {
         log("@title: Validate can navigate to Tennis menu");
         log("Step 1. Click on Tennis menu");

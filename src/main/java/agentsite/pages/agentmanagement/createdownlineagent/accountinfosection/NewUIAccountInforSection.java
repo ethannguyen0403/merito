@@ -7,6 +7,7 @@ import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
+import com.paltech.element.common.TextBox;
 import com.paltech.utils.StringUtils;
 import common.AGConstant;
 import org.openqa.selenium.WebElement;
@@ -29,6 +30,7 @@ public class NewUIAccountInforSection extends AccountInforSection {
     private String ddpUsernameCharXPath = String.format("//select[@name='userNameChar']");
     public DropDownBox ddrAccountStatus = DropDownBox.xpath("//select[@name='status']");
     String listLabel = String.format("%s//div[contains(@class,'column header')]", _xPath);
+    private TextBox txtLoginID = TextBox.xpath("(//input[@name='lastName'])[1]");
     private Label lblBaseCurrencyValue = Label.xpath(String.format("%s//div[contains(@class,'column data')][10]", _xPath));
     private CheckBox cbAllowExtraPT = CheckBox.xpath(String.format("%s//input[@name='allowAutoPT']", _xPath));
     private CheckBox cbAllowCashout = CheckBox.xpath(String.format("%s//input[@name='allowCashOut']", _xPath));
@@ -49,6 +51,9 @@ public class NewUIAccountInforSection extends AccountInforSection {
         ddpLevel.selectByVisibleText(levelName);
     }
     public void inputInfo(String loginID, String password, String accountStatus) {
+        if (!loginID.isEmpty()) {
+            txtLoginID.sendKeys(loginID);
+        }
         if (!password.isEmpty()) {
             txtPassword.sendKeys(password);
         }
@@ -85,21 +90,22 @@ public class NewUIAccountInforSection extends AccountInforSection {
     }
 
     public String getUserName() {
-        String username = lblUsernamePrefix.getText();
-        Label lblUsernameChar = Label.xpath(lblUsernameCharXpath);
-        DropDownBox ddpUsernameChar;
-        int total = lblUsernameChar.getWebElements().size();
-        if (total != 0) {
-            for (int i = 0; i < total; i++) {
-                ddpUsernameChar = DropDownBox.xpath(String.format("%s[%s]%s", lblUsernameCharXpath, i + 1, ddpUsernameCharXPath));
-                if (ddpUsernameChar.isDisplayed()) {
-                    username = username + ddpUsernameChar.getFirstSelectedOption().trim();
-                }
-            }
-            return username;
-        }
-        System.out.println("There is no Username dropdown display");
-        return null;
+        return txtLoginID.getAttribute("value").trim();
+//        String username = lblUsernamePrefix.getText();
+//        Label lblUsernameChar = Label.xpath(lblUsernameCharXpath);
+//        DropDownBox ddpUsernameChar;
+//        int total = lblUsernameChar.getWebElements().size();
+//        if (total != 0) {
+//            for (int i = 0; i < total; i++) {
+//                ddpUsernameChar = DropDownBox.xpath(String.format("%s[%s]%s", lblUsernameCharXpath, i + 1, ddpUsernameCharXPath));
+//                if (ddpUsernameChar.isDisplayed()) {
+//                    username = username + ddpUsernameChar.getFirstSelectedOption().trim();
+//                }
+//            }
+//            return username;
+//        }
+//        System.out.println("There is no Username dropdown display");
+//        return null;
     }
 
     public List<String> getListLabelInfo() {
@@ -119,7 +125,7 @@ public class NewUIAccountInforSection extends AccountInforSection {
         AccountInfo accountInfo = ProfileUtils.getProfile();
         List<String> lstInfo = getListLabelInfo();
         if(accountInfo.getLevel().equalsIgnoreCase("PO")) {
-            Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_USERNAME, "FAILED! Username label display incorrect");
+            Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_LOGINID, "FAILED! Username label display incorrect");
             Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
             Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
             Assert.assertEquals(lstInfo.get(3), AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_NAME, "FAILED! First Name label display incorrect");
@@ -137,7 +143,7 @@ public class NewUIAccountInforSection extends AccountInforSection {
         } else {
             List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), accountInfo.getUserCode(), accountInfo.getUserID());
             String allowExtraPT = String.format("Allow %s Extra PT", ProfileUtils.convertDownlineByBrand(listAccount.get(0).getLevel(), ProfileUtils.getAppName()));
-            Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_USERNAME, "FAILED! Login ID label display incorrect");
+            Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_LOGINID, "FAILED! Login ID label display incorrect");
             Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
             Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
             Assert.assertEquals(lstInfo.get(3), AGConstant.AgencyManagement.CreateAccount.LBL_LEVEL, "FAILED! Level label display incorrect");
