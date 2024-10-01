@@ -162,7 +162,7 @@ public class EditUserTest extends BaseCaseTest {
      * 5. Can login member Site
      */
     @TestRails(id = "699")
-    @Test(groups = {"smoke","FUN.MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke","FUN.MER.Maintenance.2024.V.5.0","isa.maintenance1"})
     public void Agent_AM_Downline_Listing_Edit_User_699() throws Exception {
         log("@title: Verify can inactive and reactive the account");
         log("Step 1. Navigate Agency Management > Downline Listing");

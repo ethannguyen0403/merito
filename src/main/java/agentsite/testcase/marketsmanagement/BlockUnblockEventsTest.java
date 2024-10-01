@@ -764,7 +764,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "771")
-    @Test(groups = {"smoke", "nolan_stabilize_agent"})
+    @Test(groups = {"smoke", "isa.maintenance"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_771() {
         log("@title:Validate can blocked all events for according selected downline");
         String downlineLevel = ProfileUtils.getDownlineBalanceInfo().get(0).get(0);

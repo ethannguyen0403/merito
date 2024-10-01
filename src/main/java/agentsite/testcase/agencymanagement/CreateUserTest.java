@@ -488,7 +488,7 @@ public class CreateUserTest extends BaseCaseTest {
      *          5. Click on Skip Home page display
      */
     @TestRails(id = "687")
-    @Test (groups = {"smoke", "smoke_dev", "nolan"})
+    @Test (groups = {"smoke", "smoke_dev", "isa.maintenance1"})
     @Parameters({"password", "currency", "isThrown"})
     public void Agent_AM_CreateUser_687(String password, String currency, boolean isThrown) throws Exception {
         log("@title: Validate can Create User successfully");
@@ -574,7 +574,7 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "697")
-    @Test(groups = {"smoke_credit", "Fairenter.MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke_credit", "Fairenter.MER.Maintenance.2024.V.5.0","isa.maintenance1"})
     @Parameters({"password", "currency"})
     public void Agent_AM_Downline_Listing_Edit_Agent_697(String password, String currency) throws Exception {
         log("@title: Validate Max Player Credit setting display correctly when create user");

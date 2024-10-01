@@ -20,7 +20,7 @@ import static common.AGConstant.HomePage.CREATE_DOWNLINE_AGENT;
 
 public class CreateDownlineAgentTest extends BaseCaseTest {
     @TestRails(id = "678")
-    @Test (groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
+    @Test (groups = {"smoke", "MER.Maintenance.2024.V.5.0","isa.maintenance1"})
     public void Agent_AM_CreateDownline_Agent_678() {
         log("@title: Validate UI in Create Downline Agent with Exchange Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
@@ -159,7 +159,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "683")
-    @Test (groups = {"smoke","smoke_dev", "FUN.MER.Maintenance.2024.V.5.0"})
+    @Test (groups = {"smoke","smoke_dev", "FUN.MER.Maintenance.2024.V.5.0","isa.maintenance1"})
     public void Agent_AM_CreateDownline_Agent_683() throws Exception {
         log("@title: Validate can Create Downline Agent successfully");
         log("Step 1. Navigate Agency Management > Create Downline Agent");

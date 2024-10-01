@@ -65,7 +65,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify Login display in the result table
      */
     @TestRails(id = "749")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0","isa.maintenance1"})
     public void Agent_AM_Tax_Setting_Listing_749() {
         log("@title: Verify can search downline by Login ID");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");
