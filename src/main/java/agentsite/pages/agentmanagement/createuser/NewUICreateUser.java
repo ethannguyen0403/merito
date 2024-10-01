@@ -17,13 +17,19 @@ public class NewUICreateUser extends CreateUser {
     }
 
     public String createUser(String loginId, String password) {
-        String username = "";
-        username = accountInforSection.getUserName();
-        accountInforSection.txtPassword.sendKeys(password);
-        waitingLoadingSpinner();
+//        String username = "";
+//        username = accountInforSection.getUserName();
+//        accountInforSection.txtPassword.sendKeys(password);
+//        waitingLoadingSpinner();
+//        getSubmitBtn().click();
+//        waitingLoadingSpinner();
+//        return username;
+        accountInforSection.inputInfo(loginId, password, "Active");
         getSubmitBtn().click();
         waitingLoadingSpinner();
-        return username;
+        successPopup.isDisplayed();
+//        successPopup.waitForElementToBePresent(successPopup.getLocator(), 5);
+        return loginId;
     }
 
     public boolean isCreateUserSuccessCorrect() {

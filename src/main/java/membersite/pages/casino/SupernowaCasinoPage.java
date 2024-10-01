@@ -28,7 +28,7 @@ public class SupernowaCasinoPage extends CasinoHomePage {
     }
 
     public double getBalance() {
-        lblBalance.waitForElementToBePresent(lblBalance.getLocator(), 10);
+        waitFrameLoad();
         String balanceText = lblBalance.getText().trim().split(" ")[1].replace(",","");
         return Double.valueOf(balanceText);
     }

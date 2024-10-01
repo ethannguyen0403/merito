@@ -114,12 +114,13 @@ public class CreateDownLineAgentPage extends HomePage {
                 waitingLoadingSpinner();
                 break;
             default:
+//                username = accountInforSection.getUserName();
+                accountInforSection.inputInfo(loginID, password, accountStatus);
                 username = accountInforSection.getUserName();
-                accountInforSection.inputInfo(password, accountStatus);
-                waitingLoadingSpinner();
                 btnSubmit.click();
                 waitingLoadingSpinner();
-                return username;
+                break;
+//                return username;
         }
         return username;
     }

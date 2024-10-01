@@ -3,7 +3,6 @@ package agentsite.pages.agentmanagement.createdownlineagent.accountinfosection;
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.ultils.account.ProfileUtils;
-import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import com.paltech.element.common.CheckBox;
 import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
@@ -120,7 +119,7 @@ public class FunUIAccountInforSection extends AccountInforSection {
         AccountInfo accountInfo = ProfileUtils.getProfile();
         List<String> lstInfo = getListLabelInfo();
         if(accountInfo.getLevel().equalsIgnoreCase("PO")) {
-            Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_USERNAME, "FAILED! Username label display incorrect");
+            Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_LOGINID, "FAILED! Username label display incorrect");
             Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
             Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
             Assert.assertEquals(lstInfo.get(3), AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_NAME, "FAILED! First Name label display incorrect");
@@ -136,7 +135,7 @@ public class FunUIAccountInforSection extends AccountInforSection {
             Assert.assertTrue(cbAllowCashout.isDisplayed(), "FAILED! Allow Cashout checkbox does not display");
             Assert.assertTrue(cbCreditCash.isDisplayed(), "FAILED! Credit Cash checkbox does not display");
         } else {
-            Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_USERNAME, "FAILED! Login ID label display incorrect");
+            Assert.assertEquals(lstInfo.get(0), AGConstant.AgencyManagement.LBL_LOGINID, "FAILED! Login ID label display incorrect");
             Assert.assertEquals(lstInfo.get(1), AGConstant.AgencyManagement.CreateAccount.LBL_ACCOUNT_STATUS, "FAILED! Account Status display incorrect");
             Assert.assertEquals(lstInfo.get(2), AGConstant.AgencyManagement.CreateAccount.LBL_PASSWORD, "FAILED! Password label display incorrect");
             Assert.assertEquals(lstInfo.get(3), AGConstant.AgencyManagement.CreateAccount.LBL_LEVEL, "FAILED! Level label display incorrect");

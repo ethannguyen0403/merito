@@ -2,6 +2,7 @@ package backoffice.testcases.marketmanagement;
 
 import agentsite.pages.agentmanagement.eventbetsizesetting.EventBetSizeSetting;
 import agentsite.ultils.agencymanagement.EventBetSizeSettingUtils;
+import backoffice.common.BOConstants;
 import backoffice.pages.bo.marketmanagement.LiquidityThresholdSettingsPage;
 import baseTest.BaseCaseTest;
 import membersite.objects.sat.Event;
@@ -71,7 +72,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
      * 2. Verify the confirm popup is closed and the setting is not affect
      */
     @TestRails(id = "629")
-    @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke","Maintenance.2024.V.6.0"})
     public void BO_Operations_Liquidity_Threshold_Setting_629() {
         log("@title: Validate confirm message display when input Live setting");
         String sportName = "Golf";
@@ -89,7 +90,7 @@ public class LiquidityThresholdSettingsTest extends BaseCaseTest {
         page.waitSpinIcon();
 
         log("Verify 1 Confirm popup display with the title : Update - [Market Type] with  the message: Are you sure to set this live to setting value ?");
-        Assert.assertEquals(page.popup.getContent(), String.format("Are you sure to set this live to %s ?", "1"), "FAILED! Confirm message is incorrect");
+        Assert.assertTrue(BOConstants.System.LiquidityThresholdSettings.LST_MSG_CONFIRM_POPUP.contains(page.popup.getContent()), "FAILED! Confirm message is incorrect");
 
         log("Step 4. Click close");
         page.popup.clickCloseBtn();

@@ -43,12 +43,13 @@ public class EvolutionPageWhiteCliffTest extends BaseCaseTest {
         log("@Step 3: Click on first game");
         evolutionWhiteCliffPage.selectCasinoGame();
         double balanceCasino = evolutionWhiteCliffPage.getBalance();
-        loginBackoffice(BOLoginId, BOLoginPwd, true);
-        double rate = CasinoUtils.getProviderCurRate(ProviderCurrencyMappingUltils.getProviderCurrencyMapping(
-                PRODUCT_NAME_TO_CODE.get(EVOLUTION)), currency);
-        log("@Step 4: Get rate of currency from BO with rate: " + rate);
+//        loginBackoffice(BOLoginId, BOLoginPwd, true);
+//        double rate = CasinoUtils.getProviderCurRate(ProviderCurrencyMappingUltils.getProviderCurrencyMapping(
+//                PRODUCT_NAME_TO_CODE.get(EVOLUTION)), currency);
+//        log("@Step 4: Get rate of currency from BO with rate: " + rate);
         log("@Verify 1: The in game balance should match with user's balance");
-        evolutionWhiteCliffPage.checkBalance(balanceCasino, balance, rate);
+//        evolutionWhiteCliffPage.checkBalance(balanceCasino, balance, rate);
+        Assert.assertEquals(balance,balanceCasino,"FAILED! Balance of Casino game not equals to balance user");
         log("INFO: Executed completely");
     }
 

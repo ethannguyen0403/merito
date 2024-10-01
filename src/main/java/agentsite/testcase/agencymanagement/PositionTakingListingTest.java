@@ -32,7 +32,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "707")
-    @Test(groups = {"smoke_newui","MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke_newui", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Position_Taking_Listing_707() {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
@@ -45,7 +45,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4136")
-    @Test(groups = {"smoke_sat","SAT.MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke_sat", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Position_Taking_Listing_4136() {
         log("@title: Verify Position Taking List UI display correct");
         log("Step 1. Navigate Agency Management  > Position Taking Listing");
@@ -91,7 +91,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "708")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Position_Taking_Listing_708() {
         log("@title:Verify can search by Login ID ");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
@@ -141,7 +141,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3600")
-    @Test(groups = {"regression", "nolan"})
+    @Test(groups = {"regression", "MER.Maintenance.2024.V.6.0"})
     @Parameters({"brandname"})
     public void Agent_AM_Position_Taking_Listing_3600(String brandname) {
         log("@title:Verify filter member level display correctly");
@@ -180,8 +180,9 @@ public class PositionTakingListingTest extends BaseCaseTest {
         Assert.assertEquals(lstResult.get(0), agent, "FAILED! Filter member level incorrect");
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3602")
-    @Test(groups = {"regression", "nolan"})
+    @Test(groups = {"regression","MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Position_Taking_Listing_3602() {
         log("@title: Validate filter all level display correctly");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
@@ -196,13 +197,14 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log(" Verify 1 Change PT Setting popup display with the message \"Please select at least 1 user");
         List<String> lstResultAll = page.positionTakingListing.tblDownline.getColumnByBody(page.positionTakingListing.levelCol, false);
-        Assert.assertTrue(lstResultAll.size()==lstResultMember.size() + lstResultAgent.size(), "FAILED! Result should display 1 record");
+        Assert.assertTrue(lstResultAll.size() == lstResultMember.size() + lstResultAgent.size(), "FAILED! Result should display 1 record");
         Assert.assertTrue(lstResultAll.contains(lstResultAgent.get(0)), "Failed! Filter All level does not contains Agent level");
         Assert.assertTrue(lstResultAll.contains(lstResultMember.get(0)), "Failed! Filter All level does not contains Member level");
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3603")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Position_Taking_Listing_3603() {
         log("@title:Verify can active/inactive sport column");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
@@ -210,7 +212,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step 2. Uncheck /Check on Soccer checkbox");
         log("Verify 1. Verify Soccer checkbox is disappear/display when unchecked/checked");
-       page.positionTakingListing.unCheckCheckbox("Soccer");
+        page.positionTakingListing.unCheckCheckbox("Soccer");
         List<String> lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Soccer"), "FAILED, Pt Table header contains Soccer after uncheck Soccer checkbox");
 
@@ -231,7 +233,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step 4. Uncheck /Check on Fancy checkbox");
         log("Verify 3. Verify Fancy checkbox is disappear/display when unchecked/checked");
-       page.positionTakingListing.unCheckCheckbox("Fancy");
+        page.positionTakingListing.unCheckCheckbox("Fancy");
         lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Fancy"), "FAILED, Pt Table header contains Fancy after uncheck Fancy checkbox");
 
@@ -241,7 +243,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step 5. Uncheck /Check on Tennis checkbox");
         log("Verify 4. Verify Tennis checkbox is disappear/display when unchecked/checked");
-       page.positionTakingListing.unCheckCheckbox("Tennis");
+        page.positionTakingListing.unCheckCheckbox("Tennis");
         lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Tennis"), "FAILED, Pt Table header contains Tennis after uncheck Tennis checkbox");
 
@@ -251,7 +253,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step 6. Uncheck /Check on Basketball checkbox");
         log("Verify 5. Verify Basketball checkbox is disappear/display when unchecked/checked");
-       page.positionTakingListing.unCheckCheckbox("Basketball");
+        page.positionTakingListing.unCheckCheckbox("Basketball");
         lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Basketball"), "FAILED, Pt Table header contains Basketball after uncheck Basketball checkbox");
 
@@ -262,7 +264,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step 7. Uncheck /Check on Horse Racing checkbox");
         log("Verify 6. Verify Horse Racing checkbox is disappear/display when unchecked/checked");
-       page.positionTakingListing.unCheckCheckbox("Horse Racing");
+        page.positionTakingListing.unCheckCheckbox("Horse Racing");
         lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Horse Racing"), "FAILED, Pt Table header contains Horse Racing after uncheck Horse Racing checkbox");
 
@@ -272,7 +274,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step 8. Uncheck /Check on Greyhound Racing checkbox");
         log("Verify 7. Verify Greyhound Racing checkbox is disappear/display when unchecked/checked");
-       page.positionTakingListing.unCheckCheckbox("Greyhound Racing");
+        page.positionTakingListing.unCheckCheckbox("Greyhound Racing");
         lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Greyhound Racing"), "FAILED, Pt Table header contains Greyhound Racing after uncheck Greyhound Racing checkbox");
 
@@ -282,7 +284,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step 9. Uncheck /Check on Other checkbox");
         log("Verify 8. Verify Other checkbox is disappear/display when unchecked/checked");
-       page.positionTakingListing.unCheckCheckbox("Other");
+        page.positionTakingListing.unCheckCheckbox("Other");
         lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Other"), "FAILED, Pt Table header contains Other after uncheck Other checkbox");
 
@@ -294,7 +296,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3604")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Position_Taking_Listing_3604() {
         log("@title: Verify Select All checkbox works");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
@@ -302,7 +304,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
 
         log("Step 2. Uncheck /Check on Select All checkbox");
         log("Verify 1. Verify Select All checkbox is disappear/display when unchecked/checked");
-       page.positionTakingListing.unCheckCheckbox("Select All");
+        page.positionTakingListing.unCheckCheckbox("Select All");
         List<String> lstResult = page.positionTakingListing.tblDownline.getHeaderList();
         Assert.assertFalse(lstResult.contains("Soccer"), "FAILED, Pt Table header contains Soccer after uncheck Select All checkbox");
         Assert.assertFalse(lstResult.contains("Cricket"), "FAILED, Pt Table header contains Cricket after uncheck Select All checkbox");
@@ -328,7 +330,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "709")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Position_Taking_Listing_709() {
         log("@title: Verify can update PT for all sports");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
@@ -351,8 +353,9 @@ public class PositionTakingListingTest extends BaseCaseTest {
         Assert.assertTrue(page.positionTakingListing.verifyUpdateStatus(member, true), "FAILED! Update Status not display green check");
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3605")
-    @Test(groups = {"regression", "nolan"})
+    @Test(groups = {"regression", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Position_Taking_Listing_3605() {
         log("@title: Verify the popup message display when updating PT without select any user");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
@@ -374,7 +377,7 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "710")
-    @Test(groups = {"smoke" , "MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Position_Taking_Listing_710() {
         log("@title: Verify can update PT for selected sport");
         log("Step 1. Navigate Agency Management > Position Taking Listing");

@@ -73,6 +73,9 @@ public class BOConstants {
             public final static String MSG_UPDATE_REJECT_LAY = "Are you sure to update Reject Lay if Potential Liability of agent %s from %s times to %s times?";
             public final static String MSG_AGENT_NOT_EXIST = "Agent does not exist in the system!";
         }
+        public static class LiquidityThresholdSettings {
+            public final static List<String> LST_MSG_CONFIRM_POPUP = Arrays.asList(String.format("Are you sure to set this live to %s ?", "1"), String.format("Are you sure to edit this live from %s to %s ?","20,000","1"));
+        }
     }
 
     public static class Settlement {

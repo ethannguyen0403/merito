@@ -58,11 +58,11 @@ public class SupernowaTest extends BaseCaseTest {
         log("@Verify 1: The in game balance should match with user's balance");
         SupernowaCasinoPage supernowa = memberHomePage.openSupernowa();
         double balanceCasino = supernowa.getBalance();
-        loginBackoffice(BOLoginId, BOLoginPwd, true);
-        double rate = CasinoUtils.getProviderCurRate(ProviderCurrencyMappingUltils.getProviderCurrencyMapping(
-                PRODUCT_NAME_TO_CODE.get(SUPERNOWA)), currency);
-
-        supernowa.checkBalance(balance, balanceCasino, rate);
+        Assert.assertEquals(balance,balanceCasino,"FAILED! Balance of Casino game not equals to balance user");
+//        loginBackoffice(BOLoginId, BOLoginPwd, true);
+//        double rate = CasinoUtils.getProviderCurRate(ProviderCurrencyMappingUltils.getProviderCurrencyMapping(
+//                PRODUCT_NAME_TO_CODE.get(SUPERNOWA)), currency);
+//        supernowa.checkBalance(balance, balanceCasino, rate);
         log("INFO: Executed completely");
     }
 

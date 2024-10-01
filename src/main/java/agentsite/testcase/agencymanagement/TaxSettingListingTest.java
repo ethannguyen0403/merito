@@ -138,7 +138,7 @@ public class TaxSettingListingTest extends BaseCaseTest {
      * @expect: 1. Verify UI Tax Setting Listing display correctly
      */
     @TestRails(id = "748")
-    @Test(groups = {"smoke_newui", "MER.Maintenance.2024.V.4.0"})
+    @Test(groups = {"smoke_newui", "MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Tax_Setting_Listing_748() {
         log("@title: Verify  Tax Setting Listing UI display correct");
         log("Step 1. Navigate Agency Management > Tax Setting Listing");

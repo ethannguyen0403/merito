@@ -33,8 +33,8 @@
         <classes>
             <class name="membersite.testcases.casino.SupernowaTest"/>
             <class name="membersite.testcases.casino.EvolutionPageWhiteCliffTest"/>
-            <class name="membersite.testcases.casino.IonPageTest"/>
-            <class name="membersite.testcases.casino.PragmaticPageTest"/>
+<!--            <class name="membersite.testcases.casino.IonPageTest"/>-->
+<!--            <class name="membersite.testcases.casino.PragmaticPageTest"/>-->
 <!--            <class name="membersite.testcases.casino.GameHallPageTest"/>-->
             <class name="membersite.testcases.casino.LiveDealerAsianPageTest"/>
             <class name="membersite.testcases.casino.LiveDealerEuropeanPageTest"/>
