@@ -85,21 +85,12 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         Assert.assertEquals(page.lblProductSetting.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_PRODUCT_SETTING,"FAILED! Product Setting Section display incorrect");
 
         log("Verify 4. Verify Sport setting, Bet Settings, Tax Setting. Position Taking Setting");
-        List<String> lstBetSettingHeader = page.tblEGBetSettings.getHeaderNameOfRows();
-        List<String> lstBetSettingOption = page.tblEGBetSettings.getColumn(1,false);
-        List<String> lstTaxSettingHeader = page.tblEGTaxSettings.getHeaderNameOfRows();
-        List<String> lstTaxSettingOption = page.tblEGTaxSettings.getColumn(1,false);
-        List<String> lstPositionTakingHeader = page.tblEGPositionTakingListing.getHeaderNameOfRows();
+        page.betSettingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE_GAMES);
+        page.taxSettingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE_GAMES);
+        page.positionTakingInforSection.verifyUIDisplayCorrect(AGConstant.EXCHANGE_GAMES);
         Assert.assertEquals(page.lblEGBetSettings.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_BET_SETTING,"FAILED! Bet Setting Section Label display incorrect");
-        Assert.assertEquals(lstBetSettingHeader, AGConstant.AgencyManagement.CreateAccount.LST_EG_GAME_GROUP_HEADER,"FAILED! Exchange Game Bet Setting  Header does not display as expected");
-        Assert.assertEquals(lstBetSettingOption, AGConstant.AgencyManagement.CreateAccount.LST_BET_SETTING_OPTION,"FAILED! Bet Setting options in the first column does not display as expected");
-
         Assert.assertEquals(page.lblEGTaxSettings.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_TAX_SETTING,"FAILED! Tax Setting Section Label display incorrect");
-        Assert.assertEquals(lstTaxSettingHeader, AGConstant.AgencyManagement.CreateAccount.LST_EG_GAME_GROUP_HEADER,"FAILED! Exchange Game Tax Setting Header does not display as expected");
-        Assert.assertEquals(lstTaxSettingOption, AGConstant.AgencyManagement.CreateAccount.LST_TAX_SETTING_OPTION,"FAILED! Tax Setting options in the first column does not display as expected");
-
         Assert.assertEquals(page.lblEGPositionTakingListing.getText(), AGConstant.AgencyManagement.CreateAccount.LBL_POSITION_TAKING,"FAILED! Position Taking Section Label display incorrect");
-        Assert.assertEquals(lstPositionTakingHeader, AGConstant.AgencyManagement.CreateAccount.LST_EG_GAME_GROUP_HEADER,"FAILED! Exchange Game Position Taking Header does not display as expected");
 
         log("Verify 5. Submit and Cancel button");
         Assert.assertEquals(page.getSubmitBtn().getText(), AGConstant.BTN_SUBMIT,"FAILED! Submit button display incorrect");
@@ -115,14 +106,8 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 1.Credit Cash Balance section display");
-//        List<ArrayList<String>> lstBalance = page.cashBalanceSection.tblCashBalance.getRowsWithoutHeader(2,false);
         Assert.assertEquals(page.cashBalanceInforSection.getCashSectionTitle(),AGConstant.AgencyManagement.CreateAccount.LBL_CASH_BALANCE,"FAILED! Cash Balance Section display incorrect");
-//        Assert.assertEquals(lstBalance.get(0).get(0),AGConstant.AgencyManagement.CreateAccount.LBL_CREDIT_INITIATION,"FAILED! Credit Initiation label displays incorrect");
-//        Assert.assertEquals(lstBalance.get(0).get(1),AGConstant.AgencyManagement.CreateAccount.LBL_FIRST_TIME_DEPOSIT,"FAILED! First Time Deposit display incorrect");
-//        Assert.assertEquals(lstBalance.get(1).get(0),AGConstant.AgencyManagement.CreateAccount.LBL_MAX_PLAYER_CREDIT,"FAILED! Max Player Credit display incorrect");
         Assert.assertTrue(page.cashBalanceInforSection.txtFirstTimeDeposit.isDisplayed(),"FAILED! Credit Initiation textbox not display");
-//        Assert.assertTrue(page.cashBalanceSection.txtFirstTimeDeposit.isDisplayed(),"FAILED! First Time Deposit textbox not display");
-//        Assert.assertTrue(page.cashBalanceSection.txtMemberMaxCredit.isDisplayed(),"FAILED!Max Player Credit textbox not display");
 
         log("Verify 2. There is no Credit Balance section display");
         Assert.assertFalse(page.creditBalanceInforSection.lblDownlineAGMaxCreditLimit.isDisplayed(),"FAILED! Credit Limit label display for Cash Account");
@@ -138,10 +123,6 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         log("Step 1. Navigate Agency Management > Create Downline Agent");
         CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
-        log("Step 2. Enter Security code");
-        page.confirmSecurityCode(environment.getSecurityCode());
-        page.waitingLoadingSpinner();
-
         log("Verify  2. Hover to Password hint icon. The title should be \"New Password:\n" +
                 " 1. Should be between 8 to 15 characters.\n" +
                 "  2. Only alphanumeric characters are allowed.\n" +
@@ -151,10 +132,6 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
 
         log("Verify 3. Account Status: Active and Inactive");
         Assert.assertTrue(page.accountInforSection.isAccountStatusDropdownLoadCorrect(AGConstant.AgencyManagement.CreateAccount.LST_ACCOUNTS_STATUS_CREATE),"FAILED! Account status default value not include Active and Inactive Status");
-
-//        log("Verify 4.Verify Currency");
-//        Assert.assertEquals(page.accInfoSection.lblBaseCurrencyValue.getText(),currency,"FAILED! Account status default value not include Active and Inactive Status");
-
         log("INFO: Executed completely");
     }
 
