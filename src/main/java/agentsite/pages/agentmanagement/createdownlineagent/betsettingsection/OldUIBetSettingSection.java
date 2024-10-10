@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static common.AGConstant.AgencyManagement.CreateAccount.LST_BET_SETTING_HEADER;
-import static common.AGConstant.AgencyManagement.CreateUser.EG_BET_TAX_PT_SETTING_HEADER_OLDUI;
+import static common.AGConstant.AgencyManagement.CreateUser.EG_BET_TAX_PT_SETTING_HEADER_NEWUI;
 
 public class OldUIBetSettingSection extends BetSettingSection {
     private Label lblBetSettingTitleEX = Label.xpath("//div[@id='EXCHANGE-bet-settings']//div[text()='Bet Settings']");
@@ -48,7 +48,7 @@ public class OldUIBetSettingSection extends BetSettingSection {
             Assert.assertTrue(lblMaxLiabilityEG.isDisplayed(), "FAILED! Max Liability label does not display");
             Assert.assertTrue(lblMaxWinEG.isDisplayed(), "FAILED! Max Win label does not display");
             ArrayList<String> lstHeader = tblBetSettingEG.getHeaderNameOfRows();
-            Assert.assertEquals(lstHeader, EG_BET_TAX_PT_SETTING_HEADER_OLDUI);
+            Assert.assertEquals(lstHeader, EG_BET_TAX_PT_SETTING_HEADER_NEWUI);
         }
     }
 }

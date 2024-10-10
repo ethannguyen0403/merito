@@ -26,6 +26,7 @@ public class SecurityCodePage extends LoginPage {
 
     public void setSecurityCode(String securityCode, String confirmSecurityCode) {
         imgSpin.isInvisible(5);
+        btnSubmit.waitForElementToBePresent(btnSubmit.getLocator(), 3);
         if (txtSecurityCode.isDisplayed()) {
             txtSecurityCode.sendKeys(securityCode);
         } else {
