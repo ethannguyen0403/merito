@@ -345,8 +345,8 @@ public class AGConstant {
             public final static List<String> LST_EG_GAME_GROUP_HEADER = Arrays.asList("", "Exchange Baccarat", "Exchange BlackJack", "Exchange Card Racer", "Exchange Hi Lo", "Exchange Texas Hold'em", "Exchange Omaha Hi", "Other");
             public final static String LBL_LOGINID_HINT = "Login ID must be unique and at least a minimum of 6 characters and maximum of 15 characters";
             public final static String LBL_PASSWORD_HINT = "New Password: \n" +
-                    " 1. Should be between 8 to 15 characters. \n" +
-                    " 2. Alphanumeric characters and special characters are allowed. \n" +
+                    " 1. Should be between 8 to 15 characters.  \n" +
+                    " 2. Alphanumeric characters and special characters are allowed.  \n" +
                     " 3. Should contains at least 1 letter and 1 number.";
             public final static List<String> LST_ACCOUNTS_STATUS_CREATE = Arrays.asList("Active", "Inactive");
         }

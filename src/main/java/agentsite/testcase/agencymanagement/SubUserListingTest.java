@@ -54,11 +54,8 @@ public class SubUserListingTest extends BaseCaseTest {
         String subUsername = page.subUserListing.createSubUser("", pwDecrypt, "Active", StringUtils.generateAlphabetic(4), StringUtils.generateAlphabetic(4), permissions);
         log("Verify 1. Verify Sub user is created with all permission");
         Assert.assertTrue(page.subUserListing.isSubUserPermissionSettingCorrect(subUsername, permissions), "FAILED the list permission is incorrect");
-//        page.logout();
-//        Thread.sleep(2000);
 
         log("Verify 2. Verify can login agent with new sub account");
-//        loginNewAccount(sosAgentURL, agentNewAccURL, subUsername, password, StringUtils.decrypt(environment.getSecurityCode()));
         loginAgent(subUsername, password, true);
         Assert.assertTrue(agentHomePage.leftMenu.lblLoginID.getText().contains(subUsername), "Failed! Login ID lable display incorrect. Expected: " + subUsername);
         log("INFO: Executed completely");
