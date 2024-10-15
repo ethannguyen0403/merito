@@ -181,4 +181,8 @@ public class NewUILeftMenu extends LeftMenu {
             Assert.assertTrue(isListSubMenuDisplayCorrect(menu));
         }
     }
+
+    public void navigateIPMonitoringPage() {
+        clickSubMenu(RISK_MANAGEMENT, IP_MONITORING);
+    }
 }

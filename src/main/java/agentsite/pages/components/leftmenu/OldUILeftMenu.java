@@ -192,5 +192,9 @@ public class OldUILeftMenu extends LeftMenu {
             Assert.assertTrue(isListSubMenuDisplayCorrect(menu));
         }
     }
+
+    public void navigateIPMonitoringPage() {
+        clickSubMenu(REPORT, IP_MONITORING);
+    }
 }
 
