@@ -5,20 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.paltech</groupId>
     <artifactId>Merito</artifactId>
-    <version>1.0.8</version>
+    <version>1.1.0</version>
 <!--    <packaging>pom</packaging>-->
 <!--    <packaging>jar</packaging>-->
     <parent>
         <groupId>com.paltech</groupId>
         <artifactId>coreselenium</artifactId>
-        <version>1.0.8</version>
+        <version>1.1.0</version>
         <relativePath></relativePath>
     </parent>
     <dependencies>
         <dependency>
             <groupId>com.paltech</groupId>
             <artifactId>coreselenium</artifactId>
-            <version>1.0.8</version>
+            <version>1.1.0</version>
         </dependency>
          <dependency>
             <groupId>com.googlecode.json-simple</groupId>
