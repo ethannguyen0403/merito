@@ -194,9 +194,13 @@ public class FancyContainerControl extends BaseElement {
 
                 if (lnkLiability.isDisplayed())
                     newFancy.setMarketLiability(Double.parseDouble(lnkLiability.getText().trim()));
+                if(i==50) {
+                    // prevent loop forever
+                    System.out.println("DEBUG: Cannot find the market "+ newFancy.getMarketName());
+                    return null;
+                }
                 return newFancy;
-
-            }
+                            }
             i++;
         }
     }
