@@ -111,7 +111,7 @@ public class EGHomPageTest extends BaseCaseTest {
         Assert.assertTrue(hiloPage.getGameHeaderTitle().startsWith("Turbo Exchange Hi Lo"), String.format("FAIELD! Hi Lo title header is incorrect. Expected %s but found %s", "Turbo Exchange Hi Lo", hiloPage.getGameHeaderTitle()));
 
         HoldemPage holdemPage = (HoldemPage) egHomePage.navigateGameFromMainMenu(EGConstants.HOLD_EM);
-        Assert.assertTrue(holdemPage.getGameHeaderTitle().startsWith("Turbo Exchange Hold'em"), String.format("FAIELD! Omahahi title header is incorrect. Expected %s but found %s", "Turbo Exchange Omahahi", holdemPage.getGameHeaderTitle()));
+        Assert.assertTrue(holdemPage.getGameHeaderTitle().startsWith("Turbo Exchange Hold'em"), String.format("FAIELD! Turbo Exchange Hold'em title header is incorrect. Expected %s but found %s", "Turbo Exchange Hold'em", holdemPage.getGameHeaderTitle()));
 
         OmahahiPage omahahiPage = (OmahahiPage) egHomePage.navigateGameFromMainMenu(EGConstants.OMAHA_HI);
         Assert.assertTrue(omahahiPage.getGameHeaderTitle().startsWith("Exchange Omaha Hi"), String.format("FAIELD! Omaha Hi title header is incorrect. Expected %s but found %s", "Exchange Omaha Hi", omahahiPage.getGameHeaderTitle()));

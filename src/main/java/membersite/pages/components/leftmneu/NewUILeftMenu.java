@@ -91,7 +91,7 @@ public class NewUILeftMenu extends LeftMenu {
     }
 
     public void clickFancyMarket(String fancyMarketType, String subMarketName) {
-        Label lblExpand = Label.xpath(String.format("%s/following::div[@class='downs-levels']//span[text()='%s']//..//em[contains(@class,'fa-chevron')]", eventActiveXpath, fancyMarketType));
+        Label lblExpand = Label.xpath(String.format("//span[text()='%s']//..//em[contains(@class,'fa-chevron')]", fancyMarketType));
         if (lblExpand.isDisplayed()) {
             lblExpand.scrollToThisControl(true);
             if (lblExpand.getAttribute("className").contains("down")) {
