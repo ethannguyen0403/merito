@@ -34,7 +34,7 @@ public class OldUIPositionTakingSection extends PositionTakingSection {
         } else if (product.equalsIgnoreCase(AGConstant.EXCHANGE_GAMES)) {
             Table tblPositionTaking = Table.xpath(String.format(positionTakingTableXpath, productCode), totalColumnExchangeGames);
             ArrayList<String> lstHeader = tblPositionTaking.getHeaderNameOfRows();
-            Assert.assertEquals(lstHeader, EG_BET_TAX_PT_SETTING_HEADER_OLDUI,"FAILED! Position header does not display correct");
+            Assert.assertEquals(lstHeader, EG_BET_TAX_PT_SETTING_HEADER_NEWUI,"FAILED! Position header does not display correct");
         } else {
             Table tblPositionTaking = Table.xpath(String.format(positionTakingTableXpath, productCode), totalOther);
             ArrayList<String> lstHeader = tblPositionTaking.getHeaderNameOfRows();
