@@ -82,4 +82,8 @@ public class LeftMenu {
     public boolean isListSubMenuDisplayCorrect(String menu) { return false;}
 
     public void verifyListSubMenuDisplayCorrect() {}
+    public void navigateTransactionHistoryPage() {}
+
+    public void navigateSubUserListingPage() {
+    }
 }

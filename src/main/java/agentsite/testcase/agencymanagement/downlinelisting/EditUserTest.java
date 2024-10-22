@@ -43,6 +43,7 @@ public class EditUserTest extends BaseCaseTest {
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
 
         log("Step 2. Click on Edit icon of any agent");
+        page.searchDownline(loginID,"","");
         page.clickEditIcon(loginID);
 
         log("Verify There is no console error display");
