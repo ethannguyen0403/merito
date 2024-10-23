@@ -12,6 +12,7 @@
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='true'/>
         <parameter name='username' value='ATZ'/>
+<!--        <parameter name='username' value='15W'/>-->
         <parameter name='levelLogin' value='Senior Master Agent'/>
         <parameter name='downlineAccount' value='ATZ00'/>
         <parameter name='portalSubAccount' value='ANSUBIS'/>
@@ -32,7 +33,7 @@
         <classes>
             <class name="agentsite.testcase.LoginTest"/>
             <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
-            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
+<!--            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>--> This page is not available
             <class name="agentsite.testcase.reports.BigStakeConfigurationTest"/>
             <class name="agentsite.testcase.reports.CancelledBetsTest"/>
             <class name="agentsite.testcase.reports.ClientLegerTest"/>
@@ -49,13 +50,12 @@
             <class name="agentsite.testcase.reports.WinLossSimpleTest"/>
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
             <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
+<!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>--> Just for Credit Cash account
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
-            <class name="agentsite.testcase.agencymanagement.AnnouncementTest"/>
+<!--            <class name="agentsite.testcase.agencymanagement.AnnouncementTest"/>--> Just for PO level in FE
             <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
