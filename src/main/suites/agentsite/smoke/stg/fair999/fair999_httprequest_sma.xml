@@ -48,7 +48,6 @@
             <class name="agentsite.testcase.reports.WinLossBySportAndMarketTypeTest"/>
             <class name="agentsite.testcase.reports.WinLossDetailTest"/>
             <class name="agentsite.testcase.reports.WinLossSimpleTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
             <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
 <!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>--> Just for Credit Cash account
 <!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>-->

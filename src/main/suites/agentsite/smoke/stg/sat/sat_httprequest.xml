@@ -68,7 +68,6 @@
             <!--            <class name="agentsite.testcase.marketsmanagement.LiquidityThresholdTest"/>--> Just for PO
             level
             <class name="agentsite.testcase.marketsmanagement.SuspendUnsuspendMarketsTest"/>
-
             <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EdiMarketTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
