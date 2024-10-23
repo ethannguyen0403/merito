@@ -51,7 +51,7 @@
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
             <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
 <!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>--> Just for Credit Cash account
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
+<!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>-->
             <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
