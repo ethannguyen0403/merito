@@ -18,12 +18,18 @@ public class OddsMatchedHistoryPage extends HomePage {
 
     public void search(String eventId, String eventName, String bettingOn, String timeOrder) {
         txtEventID.sendKeys(eventId);
-        ddbMarketName.selectByVisibleText(eventName);
-        if (!bettingOn.isEmpty())
+        waitSpinIcon();
+        if (!eventName.isEmpty()){
+            ddbMarketName.selectByVisibleText(eventName);
+        }
+        if (!bettingOn.isEmpty()){
             ddbBettingOn.selectByVisibleText(bettingOn);
-        if (!timeOrder.isEmpty())
+        }
+        if (!timeOrder.isEmpty()){
             ddbTimeOrder.selectByVisibleText(timeOrder);
+        }
         btnSearch.click();
+        waitSpinIcon();
     }
 
 
