@@ -340,7 +340,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         //Set isProxy = true
         log("@title: Validate There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 1. Create Downline page is displayed without console error");
         Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error display when accessing the page");
