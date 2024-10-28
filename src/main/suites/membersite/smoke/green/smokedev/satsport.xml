@@ -12,7 +12,7 @@
         <parameter name='language' value=''/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='ATPLDJAR'/>
+        <parameter name='username' value='qaat.plsmokedev'/>
         <parameter name='usernameSAT' value='QAAT.SAD'/>
         <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
         <parameter name='isThrown' value='true'/>

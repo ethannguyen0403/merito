@@ -182,6 +182,14 @@ public class NewUILeftMenu extends LeftMenu {
         }
     }
 
+    public void navigateIPMonitoringPage() {
+        clickSubMenu(RISK_MANAGEMENT, IP_MONITORING);
+    }
+
+    public void navigateMonitoredAccountsPage() {
+        clickSubMenu(RISK_MANAGEMENT, MONITORED_ACCOUNT);
+    }
+
     @Override
     public void navigateTransactionHistoryPage() {
         btnMyAccount.moveAndHoverOnControl();

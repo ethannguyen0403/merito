@@ -193,14 +193,12 @@ public class OldUILeftMenu extends LeftMenu {
         }
     }
 
-    @Override
-    public void navigateTransactionHistoryPage() {
-        clickSubMenu(REPORT, TRANSACTION_HISTORY);
+    public void navigateIPMonitoringPage() {
+        clickSubMenu(REPORT, IP_MONITORING);
     }
 
-    @Override
-    public void navigateSubUserListingPage() {
-        clickSubMenu(AGENCY_MANAGEMENT, SUB_USER_LISTING);
+    public void navigateMonitoredAccountsPage() {
+        clickSubMenu(REPORT, MONITORED_ACCOUNT);
     }
 }
 

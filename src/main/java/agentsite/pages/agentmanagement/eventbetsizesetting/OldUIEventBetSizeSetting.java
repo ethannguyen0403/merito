@@ -1,18 +1,21 @@
 package agentsite.pages.agentmanagement.eventbetsizesetting;
 
 
-import agentsite.controls.MenuTree;
-import agentsite.controls.Table;
-import agentsite.pages.HomePage;
 import agentsite.pages.components.ConfirmPopup;
 import com.paltech.element.common.*;
+import com.paltech.utils.DateUtils;
 import org.openqa.selenium.Keys;
+import org.testng.Assert;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 import static common.AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS;
+import static common.AGConstant.timeZone;
 
 public class OldUIEventBetSizeSetting extends EventBetSizeSetting {
     public DropDownBox ddbSport = DropDownBox.xpath("//label[@translate='sport']//following::select[1]");
@@ -152,5 +155,48 @@ public class OldUIEventBetSizeSetting extends EventBetSizeSetting {
             }
         }
         return true;
+    }
+
+    public void verifyResultFilteredByPeriod(String periodTab) throws ParseException {
+        List<ArrayList<String>> lstInfo = getTableInfo();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(periodTab.equalsIgnoreCase(TAB_DAYS.get(0))) {
+            String dateCompare = DateUtils.getDate(0, "yyyy-MM-dd HH:mm:ss", timeZone);
+            Date dateCompareParsed = sdf.parse(dateCompare);
+            for (int i = 0; i < lstInfo.size(); i++) {
+                String dateResult = lstInfo.get(i).get(1).split("\n")[1];
+                Date dateResultParsed = sdf.parse(dateResult);
+                Assert.assertTrue(dateResultParsed.before(dateCompareParsed), String.format("FAILED! Day from result %s is after today %s", dateResult, dateCompare));
+            }
+        } else if (periodTab.equalsIgnoreCase(TAB_DAYS.get(1))) {
+            String dateCompare = DateUtils.getDate(0, "yyyy-MM-dd HH:mm:ss", timeZone);
+            Date dateCompareParsed = sdf.parse(dateCompare);
+            for (int i = 0; i < lstInfo.size(); i++) {
+                String event = lstInfo.get(i).get(1).split("\n")[0];
+                if(!event.contains("In-Play")) {
+                    String dateResult = lstInfo.get(i).get(1).split("\n")[1];
+                    Date dateResultParsed = sdf.parse(dateResult);
+                    if((dateResultParsed.getYear() != dateCompareParsed.getYear()) || (dateResultParsed.getMonth() != dateCompareParsed.getMonth()) || (dateResultParsed.getDate() != dateCompareParsed.getDate())) {
+                        Assert.assertTrue(false, String.format("FAILED! Day from result %s is not equal today %s", dateResult, dateCompare));
+                    }
+                }
+            }
+        } else if (periodTab.equalsIgnoreCase(TAB_DAYS.get(2))) {
+            String dateCompare = DateUtils.getDate(0, "yyyy-MM-dd HH:mm:ss", timeZone);
+            Date dateCompareParsed = sdf.parse(dateCompare);
+            for (int i = 0; i < lstInfo.size(); i++) {
+                String dateResult = lstInfo.get(i).get(1).split("\n")[1];
+                Date dateResultParsed = sdf.parse(dateResult);
+                Assert.assertTrue(dateResultParsed.after(dateCompareParsed), String.format("FAILED! Day from result %s is not after today %s", dateResult, dateCompare));
+            }
+        } else if (periodTab.equalsIgnoreCase(TAB_DAYS.get(3))) {
+            String dateCompare = DateUtils.getDate(1, "yyyy-MM-dd HH:mm:ss",timeZone);
+            Date dateCompareParsed = sdf.parse(dateCompare);
+            for (int i = 0; i < lstInfo.size(); i++) {
+                String dateResult = lstInfo.get(i).get(1).split("\n")[1];
+                Date dateResultParsed = sdf.parse(dateResult);
+                Assert.assertTrue(dateResultParsed.after(dateCompareParsed), String.format("FAILED! Day from result %s is not after tomorrow %s", dateResult, dateCompare));
+            }
+        }
     }
 }

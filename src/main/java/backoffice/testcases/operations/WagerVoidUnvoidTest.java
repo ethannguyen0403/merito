@@ -303,4 +303,21 @@ public class WagerVoidUnvoidTest extends BaseCaseTest {
         page.voidWagers(lstWagers);
         log("INFO: Executed completely");
     }
+
+    @Test(groups = {"postcondition_dev"})
+    @Parameters({"satPlayer","fairPlayer"})
+    public void BO_Operations_Wager_Void_Unvoid_Postcondition_Dev(String satPlayer, String fairPlayer) {
+        log("@title: Postcondition - Void all bets FC/BM after testing");
+        log("Step 1. Access Operations > Wager Void/Un-void");
+        WagerVoidUnvoidPage page = backofficeHomePage.navigateWagerVoidUnvoid();
+        String dateFrom = DateUtils.getDate(-2, "yyyy-MM-dd", GMT_FOUR);
+        String dateTo = DateUtils.getDate(1, "yyyy-MM-dd", GMT_FOUR);
+
+        log("Post-condition: Void all unvoid bets FC/BM of player");
+        List<String> lstWagers = page.getListUnvoidFCBMWagers(satPlayer, dateFrom, dateTo);
+        page.voidWagers(lstWagers);
+        lstWagers = page.getListUnvoidFCBMWagers(fairPlayer, dateFrom, dateTo);
+        page.voidWagers(lstWagers);
+        log("INFO: Executed completely");
+    }
 }
