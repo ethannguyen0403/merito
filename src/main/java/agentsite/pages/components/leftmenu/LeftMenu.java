@@ -84,4 +84,6 @@ public class LeftMenu {
     public void verifyListSubMenuDisplayCorrect() {}
 
     public void navigateIPMonitoringPage() {}
+
+    public void navigateMonitoredAccountsPage() {}
 }

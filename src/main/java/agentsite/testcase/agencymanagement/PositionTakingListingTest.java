@@ -330,9 +330,9 @@ public class PositionTakingListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "709")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
+    @Test(groups = {"smoke", "MER.Implementation.V.2.0"})
     public void Agent_AM_Position_Taking_Listing_709() {
-        log("@title: Verify can update PT for all sports");
+        log("@title: Validate can update PT  for all sports");
         log("Step 1. Navigate Agency Management > Position Taking Listing");
         String userID = ProfileUtils.getProfile().getUserID();
         String member = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(0).getUserCode();

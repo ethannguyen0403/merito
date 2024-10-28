@@ -196,5 +196,9 @@ public class OldUILeftMenu extends LeftMenu {
     public void navigateIPMonitoringPage() {
         clickSubMenu(REPORT, IP_MONITORING);
     }
+
+    public void navigateMonitoredAccountsPage() {
+        clickSubMenu(REPORT, MONITORED_ACCOUNT);
+    }
 }
 

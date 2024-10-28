@@ -5,6 +5,8 @@ import agentsite.pages.agentmanagement.followbets.GroupDetailsPopup;
 import agentsite.pages.agentmanagement.followbets.PlayerDetailsPopup;
 import agentsite.pages.components.ConfirmPopup;
 import agentsite.pages.components.ErrorPopup;
+import agentsite.ultils.account.ProfileUtils;
+import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import agentsite.ultils.agencymanagement.FollowBetsUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
@@ -17,7 +19,7 @@ import util.testraildemo.TestRails;
 import java.util.ArrayList;
 import java.util.List;
 
-import static common.AGConstant.HomePage.FOLLOW_BETS;
+import static common.AGConstant.HomePage.*;
 
 public class FollowBetsTest extends BaseCaseTest {
     /**
@@ -593,5 +595,130 @@ public class FollowBetsTest extends BaseCaseTest {
         }
         log("INFO: Executed completely");
     }
+
+    @TestRails(id = "34918")
+    @Test(groups = {"regression_f24"})
+    public void Agency_Management_Follow_Bets_34918() {
+        log("@title: Validate adding a new page 'Follow Bets’ under ‘Credit/Balance Listing’ in SMA level");
+        log("@Pre-condition: Log in successfully by SMA");
+        log("Step 1: Observe menus under Agency Management");
+        List<String> lstMenus = agentHomePage.leftMenu.leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
+        log("Verify 1. Show the page 'Follow Bets’ under ‘Credit/Balance Listing’ in SMA level");
+        Assert.assertEquals(lstMenus.get(7),CREDIT_BALANCE_LISTING, "FAILED! Index 7 is not Credit/Balance Listing menu");
+        Assert.assertEquals(lstMenus.get(8),FOLLOW_BETS, "FAILED! Index 8 is not Follow Bets menu");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "40215")
+    @Test(groups = {"regression_f24"})
+    @Parameters({"smartPlayer"})
+    public void Agency_Management_Follow_Bets_40215(String smartPlayer) {
+        log("@title: Validate filtering smart player configuration");
+        log("@Pre-condition 1: Log in successfully by SMA");
+        log("Step 1: Navigate Agency Management >  Follow Bets");
+        FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
+        log("Step 2. Input text '<smart player>' >> click on Search button and observe");
+        page.followBets.filterSmartPlayer(smartPlayer);
+        log("Verify 2. Show smart player configuration '<smart player>' on data table");
+        page.followBets.verifyFilterResultCorrect(smartPlayer);
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "40216")
+    @Test(groups = {"regression_f24"})
+    @Parameters({"memberAccount"})
+    public void Agency_Management_Follow_Bets_40216(String memberAccount) {
+        log("@title: Validate adding accounts to follow the bets of smart players");
+        log("@Pre-condition 1: Log in successfully by SMA" +
+                "SMA agent have some players under SMA level");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String smartPlayer = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(1).getUserCode();
+        log("Step 1: Navigate Agency Management >  Follow Bets");
+        FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
+        try {
+            log("Step 2. Click on 'Follow Bet Configuration' button");
+            log("Step 3. Input player at pre-condition >> Click on 'Add Player' button");
+            page.followBets.addFollowBetConfigAllSports(smartPlayer, memberAccount, false, "5", true);
+            page.followBets.filterSmartPlayer(smartPlayer);
+            log("Verify 3. Follow config is added successfully with correct information");
+            page.followBets.verifyFollowConfigAllSportsAdded(smartPlayer, memberAccount, false, "5");
+        } finally {
+            log("Post-condition: Remove added follow config");
+            page.followBets.removeFollowConfig(smartPlayer);
+            log("INFO: Executed completely");
+        }
+    }
+
+    @TestRails(id = "40217")
+    @Test(groups = {"regression_f24"})
+    @Parameters({"memberAccount"})
+    public void Agency_Management_Follow_Bets_40217(String memberAccount) {
+        log("@title: Validate adding Follow Bets Configuration of all sports");
+        log("@Pre-condition 1: Log in successfully by SMA" +
+                "SMA agent have some players under SMA level");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String smartPlayer = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(1).getUserCode();
+        log("Step 1: Navigate Agency Management >  Follow Bets");
+        FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
+        try {
+            log("Step 2. Click on 'Follow Bet Configuration' button");
+            log("Step 3. Input player at pre-condition >> Select 'Follow all sports' >> Input 'Follow Stake %");
+            log("Step 4. Click on 'Save' button >> Observe");
+            page.followBets.addFollowBetConfigAllSports(smartPlayer, memberAccount, false, "5", true);
+            page.followBets.filterSmartPlayer(smartPlayer);
+            log("Verify 4. Show smart player configuration with all sports in data table");
+            page.followBets.verifyFollowConfigAllSportsAdded(smartPlayer, memberAccount, false, "5");
+        } finally {
+            log("Post-condition: Remove added follow config");
+            page.followBets.removeFollowConfig(smartPlayer);
+            log("INFO: Executed completely");
+        }
+    }
+
+    @TestRails(id = "40218")
+    @Test(groups = {"regression_f24"})
+    @Parameters({"memberAccount"})
+    public void Agency_Management_Follow_Bets_40218(String memberAccount) {
+        log("@title: Validate adding Follow Bets Configuration of specific sports");
+        log("@Pre-condition 1: Log in successfully by SMA" +
+                "SMA agent have some players under SMA level");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String smartPlayer = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(1).getUserCode();
+        log("Step 1: Navigate Agency Management >  Follow Bets");
+        FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
+        try {
+            log("Step 2. Click on 'Follow Bet Configuration' button");
+            log("Step 3. Input player at pre-condition >> Select 'Follow specific sports' >> Input 'Follow Stake %' on sports");
+            log("Step 4. Click on 'Save' button >> Observe");
+            page.followBets.addFollowBetConfigSpecificSport(smartPlayer, memberAccount, false, "1,2,3,4,5,6", true);
+            page.followBets.filterSmartPlayer(smartPlayer);
+            log("Verify 4. Show smart player configuration with specific sports in data table");
+            page.followBets.verifyFollowConfigSpecificSportAdded(smartPlayer, memberAccount, false, "1,2,3,4,5,6");
+        } finally {
+            log("Post-condition: Remove added follow config");
+            page.followBets.removeFollowConfig(smartPlayer);
+            log("INFO: Executed completely");
+        }
+    }
+
+    @TestRails(id = "40222")
+    @Test(groups = {"regression_f24"})
+    @Parameters({"memberAccount"})
+    public void Agency_Management_Follow_Bets_40222(String memberAccount) {
+        log("@title: Validate showing error message when add invalid smart player");
+        log("@Pre-condition 1: Log in successfully by SMA" +
+                "SMA agent have some players not under SMA level");
+        log("Step 1: Navigate Agency Management >  Follow Bets");
+        String invalidPlayer = "smartPlayerInvalid";
+        FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
+        log("Step 2. Click on 'Follow Bet Configuration' button");
+        log("Step 3. Input player at pre-condition >> Click on 'Add Player' button");
+        log("Step 4. Click on 'Save' button >> Observe");
+        page.followBets.addFollowBetConfigAllSports(invalidPlayer, memberAccount, false, "5", false);
+        log("Verify 4. Show error message 'Smart player <input player> is not existing. Please try another player!'");
+        Assert.assertEquals(page.followBets.getAddFollowConfigAlertMessage(), String.format("Smart player %s is not existing. Please try another player!", invalidPlayer));
+        log("INFO: Executed completely");
+    }
+
 }
 
