@@ -54,7 +54,7 @@
 
             <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
 <!--            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>--> This page is not available
-            <class name="agentsite.testcase."/>
+            <class name="agentsite.testcase.riskmanagement.IPMonitoringTest"/>
 
             <class name="agentsite.testcase.reports.BigStakeConfigurationTest"/>
             <class name="agentsite.testcase.reports.CancelledBetsTest"/>

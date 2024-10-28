@@ -61,7 +61,7 @@ public class RiskSettingListingTest extends BaseCaseTest {
     @Test(groups = {"http_request"})
     public void Agent_AM_Risk_Setting_Listing_69449() {
         log("@title: Validate there is no http responded error returned");
-        log("Step 1. Navigate Report >  Credit Balance Listing");
+        log("Step 1. Navigate Report > Risk Setting Listing");
         RiskSettingListingPage page = agentHomePage.navigateRiskSettingListingPage();
         log("Verify 1: Validate there is no console error display");
         Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
