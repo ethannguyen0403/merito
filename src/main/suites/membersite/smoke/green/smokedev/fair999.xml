@@ -12,8 +12,8 @@
         <parameter name='language' value=''/>
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='false'/>
-        <parameter name='username' value='03H0000008'/>
-        <parameter name='usernameSAT' value='03H'/>
+        <parameter name='username' value='03G0000000'/>
+        <parameter name='usernameSAT' value='03G'/>
         <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
         <parameter name='isThrown' value='true'/>
         <parameter name='currency' value='HKD'/>

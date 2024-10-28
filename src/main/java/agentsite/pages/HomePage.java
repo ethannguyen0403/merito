@@ -11,9 +11,7 @@ import agentsite.pages.components.header.Header;
 import agentsite.pages.components.leftmenu.LeftMenu;
 import agentsite.pages.marketsmanagement.*;
 import agentsite.pages.report.*;
-import agentsite.pages.riskmanagement.AgentExposureLimitPage;
-import agentsite.pages.riskmanagement.NetExposurePage;
-import agentsite.pages.riskmanagement.VolumeMonitorPage;
+import agentsite.pages.riskmanagement.*;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
@@ -414,5 +412,17 @@ public class HomePage extends LoginPage {
         leftMenu.clickSubMenu(CASH_MANAGEMENT, QUICK_DEPOSIT_CONFIG);
         waitingLoadingSpinner();
         return new QuickDepositConfigurationPage(_type);
+    }
+
+    public IPMonitoringPage navigateIPMonitoringPage() {
+        leftMenu.navigateIPMonitoringPage();
+        waitingLoadingSpinner();
+        return new IPMonitoringPage(_type);
+    }
+
+    public MonitoredAccountsPage navigateMonitoredAccountsPage() {
+        leftMenu.navigateMonitoredAccountsPage();
+        waitingLoadingSpinner();
+        return new MonitoredAccountsPage(_type);
     }
 }

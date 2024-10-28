@@ -22,6 +22,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -864,23 +865,44 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4181")
-//    @Test(groups = {"regression_sat"})
-    public void Agent_AM_Event_Bet_Site_Settings_4181() {
-        //TODO: implement test for this case
+    @Test(groups = {"MER.Implementation.V.2.0"})
+    public void Agent_AM_Event_Bet_Site_Settings_4181() throws ParseException {
+        log("@title: Validate Event display correctly after selecting Today tab");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
+        log("Step 2. Select Cricket and select Today tab");
+        page.eventBetSizeSetting.filter("", SPORT_CRICKET, "Today");
+
+        log("Verify 2. Validate all today event display in Today tab");
+        page.eventBetSizeSetting.verifyResultFilteredByPeriod("Today");
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4182")
-//    @Test(groups = {"regression_sat"})
-    public void Agent_AM_Event_Bet_Site_Settings_4182() {
-        //TODO: implement test for this case
+    @Test(groups = {"MER.Implementation.V.2.0"})
+    public void Agent_AM_Event_Bet_Site_Settings_4182() throws ParseException {
+        log("@title: Validate Event display correctly after selecting Tomorrow tab");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
+        log("Step 2. Select Cricket and select Tomorrow tab");
+        page.eventBetSizeSetting.filter("", SPORT_CRICKET, "Tomorrow");
+
+        log("Verify 2. Validate all today event display in Tomorrow tab");
+        page.eventBetSizeSetting.verifyResultFilteredByPeriod("Tomorrow");
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4183")
-//    @Test(groups = {"regression_sat"})
-    public void Agent_AM_Event_Bet_Site_Settings_4183() {
-        //TODO: implement test for this case
+    @Test(groups = {"MER.Implementation.V.2.0"})
+    public void Agent_AM_Event_Bet_Site_Settings_4183() throws ParseException {
+        log("@title: Validate Event display correctly after selecting Future tab");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
+        log("Step 2. Select Cricket and select Future tab");
+        page.eventBetSizeSetting.filter("", SPORT_CRICKET, "Future");
+
+        log("Verify 2. Validate all today event display in Future tab");
+        page.eventBetSizeSetting.verifyResultFilteredByPeriod("Future");
         log("INFO: Executed completely");
     }
 }

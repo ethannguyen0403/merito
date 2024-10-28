@@ -205,6 +205,8 @@ public class AGConstant {
         public final static String WIN_LOSS_NEWUI = "Win Loss";
         public final static String WIN_LOSS_SIMPLE_NEWUI = "Simple";
         public final static String ANALYSIS_OF_RUNNING_MARKETS = "Analysis of Running Markets";
+        public final static String IP_MONITORING = "IP Monitoring";
+        public final static String MONITORED_ACCOUNT = "Monitored Accounts";
         public final static String SUB_USER_LISTING = "Sub User Listing";
         public final static String EVENT_BET_STIE_SETTINGS = "Event Bet Size Settings";
         public final static List<String> LST_QUICK_SEARCH_MENU_OLDUI = Arrays.asList("Balance", "Downline Listing", "Profit & Loss", "Client Ledger", "Settings", "Login");
@@ -773,6 +775,22 @@ public class AGConstant {
 
         public static class AgentExposureLimit {
             public final static List<String> DOWNLINE_TABLE_HEADER = Arrays.asList("No.", "Username", "Nickname", "Level", "Currency", "Max Exposure", "Exposure", "Exposure Available");
+        }
+
+        public static class IPMonitoring {
+            public final static List<String> FILTER_LIST = Arrays.asList("Live", "Last 7 days");
+            public final static String LBL_INFO_GUIDE = "Multiple accounts are sharing the same IP. Please check and beware of VIP players.";
+            public final static List<String> TBL_HEADER_LIST = Arrays.asList("No","IP","Username","Bet Count","Member Exposure","Member Last 7 Days","My Total", "Actions");
+            public final static String ACTION_SUSPEND = "Suspend";
+            public final static String ACTION_UNSUSPEND = "Unsuspend";
+            public final static String ACTION_MONITOR = "Monitor";
+            public final static String ACTION_UNMONITOR = "Un-monitor";
+            public final static HashMap<String, String> MAP_FILTER_STATUS = new HashMap<String, String>() {
+                {
+                    put("Live", "LIVE");
+                    put("Last 7 days", "LAST_7_DAYS");
+                }
+            };
         }
     }
 

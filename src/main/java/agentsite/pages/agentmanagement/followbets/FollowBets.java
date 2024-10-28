@@ -3,17 +3,16 @@ package agentsite.pages.agentmanagement.followbets;
 import agentsite.controls.Table;
 import agentsite.pages.HomePage;
 import agentsite.pages.components.ConfirmPopup;
-import com.paltech.element.common.Button;
-import com.paltech.element.common.Label;
-import com.paltech.element.common.RadioButton;
-import com.paltech.element.common.TextBox;
+import com.paltech.element.common.*;
 import common.AGConstant;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class FollowBets extends HomePage {
+    //level PO
     public RadioButton rbByGroup = RadioButton.id("ragroup");
     public RadioButton rbByPlayer = RadioButton.id("raplayer");
     public int colTblGroupList = 10;
@@ -58,10 +57,12 @@ public class FollowBets extends HomePage {
     public Label lblErrorContent = Label.xpath("//app-alert//div[@class='modal-body modal-body-fit-with-content']");
     Label lblNoFoundRecordsInPlayerList = Label.xpath("//app-follow-bygroup/div[1]/div[2]//table[contains(@class,'table-sm ptable')]//td[text()='No records found.']");
     public Label lblErrorContentAlert = Label.xpath("//app-alert//div[contains(@class,'modal-body')]");
+
     public FollowBets(String types) {
         super(types);
     }
 
+    //level PO methods
     public GroupDetailsPopup clickAddGroup(String type) {
         switch (type) {
             case "BY PLAYER":
@@ -368,4 +369,21 @@ public class FollowBets extends HomePage {
     public boolean isTblPlayerAgentListByGroupDisplayCorrect() {return false;}
     public boolean isHeaderTableByPlayerDisplayCorrect() {return false;}
     public ConfirmPopup removeAgentPlayerByGroup(String loginID){return new ConfirmPopup();}
+
+    //level SMA methods
+    public void filterSmartPlayer(String smartPlayer) {
+    }
+
+    public void verifyFilterResultCorrect(String smartPlayer) {
+        Assert.assertTrue(false, "FAILED! Search result is not correct");
+    }
+
+    public void addFollowBetConfigAllSports(String smartPlayer, String accountToFollow, boolean isFollowStatus, String followStakePercent, boolean isCloseAlert) {}
+    public void addFollowBetConfigSpecificSport(String smartPlayer, String accountToFollow, boolean isFollowStatus, String lstFollowStakePercent, boolean isCloseAlert) {}
+
+    public void verifyFollowConfigAllSportsAdded(String smartPlayer, String accountToFollow, boolean isFollowStatus, String followStakePercent) { Assert.assertTrue(false, "FAILED! Follow config is not added correctly");}
+    public void verifyFollowConfigSpecificSportAdded(String smartPlayer, String accountToFollow, boolean isFollowStatus, String lstFollowStakePercent) { Assert.assertTrue(false, "FAILED! Follow config is not added correctly");}
+
+    public void removeFollowConfig(String smartPlayer) {}
+    public String getAddFollowConfigAlertMessage() {return "";}
 }
