@@ -10,7 +10,7 @@ import util.testraildemo.TestRails;
 
 public class HomePageTest extends BaseCaseTest {
     @TestRails(id = "3454")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","MER.Implementation.V.2.0"})
     public void Home_Page_3454(){
         log("@title: Validate menu list item display correctly");
         log("Step 1: Click on menu icon");
@@ -23,7 +23,7 @@ public class HomePageTest extends BaseCaseTest {
         agentHomePage.header.verifyListSubMenuDisplay();
     }
     @TestRails(id = "3458")
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","MER.Implementation.V.2.0"})
     public void Home_Page_3458(){
         log("@title: Validate Account Balance page display when click on Home icon");
         log("Step 1: Click on home icon");

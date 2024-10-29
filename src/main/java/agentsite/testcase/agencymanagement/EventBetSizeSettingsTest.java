@@ -108,8 +108,17 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3573")
+    @Test(groups = {"regression1","MER.Implementation.V.2.0"})
     public void Agent_AM_Event_Bet_Site_Settings_3573() {
-        //TODO: implement test for this case
+        log("@title: Validate Event display correctly after selecting Old Events tab");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
+        log("Step 2. Select a Sport");
+        log("Step 3. Select Old Events tab");
+        page.eventBetSizeSetting.filter("", "Soccer","Old Events");
+        page.eventBetSizeSetting.clickTab("old events");
+        log("Verify: Validate all event start is less than today");
+
         log("INFO: Executed completely");
     }
 
