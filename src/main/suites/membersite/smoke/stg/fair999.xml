@@ -26,7 +26,7 @@
         <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
-                <include name="smoke1"/>
+                <include name="smoke"/>
                 <include name="smoke_newui"/>
                 <include name="smoke_credit"/>
             </run>
