@@ -64,6 +64,7 @@ public class MeritoConstant {
     };
     public static final String MEMBER_SOS_URL_SUFFIX = "/member-service/login/login";
     public static final String AGENT_SOS_URL_SUFFIX = "/agent/login/sos-authentication.sv";
+    // qat use AGENT_SOS_URL_SUFFIX = agent-service/v1/api/login/login/sos-authentication.sv
     public static final String AGENT_SOS_BY_PASS_CAPTCHA_URL_SUFFIX = "/agent/code/validate.sv";
     public static final String AGENT_FOLLOW_BETS_URL_SUFFIX = "/agent-management-ui/#/home/follow-bet";
     public static final String BACKOFFICE_SOS_URL = "/system-manager/web/sv/login/sos-doLogin.sv";
