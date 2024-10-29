@@ -72,4 +72,8 @@ public class EventBetSizeSetting extends HomePage {
 
     public void verifyResultFilteredByPeriod(String periodTab) throws ParseException {
     }
+
+    public void verifyEventStartDisplay(String eventStart) {
+    }
+
 }
