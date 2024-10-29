@@ -147,7 +147,10 @@ public class AGConstant {
             }
         };
 
+
+
         public final static List<String> MENULIST = Arrays.asList("Password", "Security code", "OTP");
+        public final static List<String> MENULIST_SMA_NEWUI = Arrays.asList("Login ID","Password", "Security code", "OTP");
         public final static String AGENCY_MANAGEMENT = "Agency Management";
         public final static String RISK_MANAGEMENT = "Risk Management";
         public final static String REPORT = "Report";
@@ -223,7 +226,14 @@ public class AGConstant {
         public final static String PAYMENT_CHANNEL_MANAGEMENT = "Payment Channel Management";
         public final static String QUICK_DEPOSIT_CONFIG = "Quick Deposit Configuration";
 
+        public static class AccountBalance {
+            public final static List<String> TITLE_LST = Arrays.asList("Downline Balance","Yesterday Downline Balance","Total Balance","Transferable Balance","My Credit","My Outstanding","Total Outstanding","Today Win Loss","Yesterday Win Loss",
+                    "Total MA Credit Used","Total AG Credit Used","Total Member Credit Used","Total MA Active/Closed/Suspended/Inactive/Blocked","Total AG Active/Closed/Suspended/Inactive/Blocked","Total Member Active/Closed/Suspended/Inactive");
+            public final static List<String> OLDUI_TITLE_LST = Arrays.asList("Available Balance","My Outstanding","Total Outstanding","Today Win Loss","Yesterday Win Loss","Total AD Available Balance","Total SMA Available Balance","Total MA Available Balance","Total Member Available Balance",
+                    "Total AD Active/Closed/Suspended/Inactive/Blocked","Total SMA Active/Closed/Suspended/Inactive/Blocked","Total MA Active/Closed/Suspended/Inactive/Blocked","Total Member Active/Closed/Suspended/Inactive");
+        }
     }
+
 
     public static class CashManagement {
         public static class DepositWithdrawalTransaction {

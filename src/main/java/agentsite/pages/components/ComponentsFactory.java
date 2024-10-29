@@ -1,5 +1,8 @@
 package agentsite.pages.components;
 
+import agentsite.pages.accountbalance.AccountBalance;
+import agentsite.pages.accountbalance.NewUIAccountBalance;
+import agentsite.pages.accountbalance.OldUIAccountBalance;
 import agentsite.pages.agentmanagement.betsettinglisting.BetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.NewUIBetSettingListing;
 import agentsite.pages.agentmanagement.betsettinglisting.OldUIBetSettingListing;
@@ -447,6 +450,15 @@ public class ComponentsFactory {
                 return new OldUIQuickDepositConfiguration();
             default:
                 return new NewUIQuickDepositConfiguration();
+        }
+    }
+
+    public static AccountBalance accountBalance(String types){
+        switch (types) {
+            case "satsport":
+                return new OldUIAccountBalance();
+            default:
+                return new NewUIAccountBalance();
         }
     }
 }

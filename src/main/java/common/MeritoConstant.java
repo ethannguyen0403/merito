@@ -25,7 +25,7 @@ public class MeritoConstant {
     public static final Map<String, String> AGENT_SECURITY_CODE_URL_SUFFIX = new HashMap<String, String>() {
         {
             put("fairexchange", "/agent/#/1/code");
-            put("satsport", "/agent/#/2/code");
+            put("satsport", "/agent/#/4/code");
             put("funsport", "/agent/#/1/code");
             put("fairenter", "/agent/#/1/code");
             put("laser365", "/agent/#/1/code");
