@@ -276,7 +276,7 @@ public class EditUserTest extends BaseCaseTest {
     @TestRails(id = "701")
     @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     public void Agent_AM_Downline_Listing_Edit_User_701() throws Exception {
-        log("@title: Verify can update Credit Balance");
+        log("@title: Validate can Inactive and active None-Live Event");
         log("Step 1. Navigate Agency Management > Downline Listing");
         DownLineListingPage page = agentHomePage.navigateDownlineListingPage();
         String userID = ProfileUtils.getProfile().getUserID();
