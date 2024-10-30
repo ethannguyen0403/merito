@@ -18,7 +18,7 @@ public class SATLoginPopup extends LoginPopup {
     private Icon iconX = Icon.xpath("//div[@class='login-popup-content']//span[@class='close']/i");
 
     public void login(String username, String password, boolean skipByDefault) {
-        txtUsername.isDisplayed();
+        txtUsername.waitForElementToBePresent(txtUsername.getLocator(), 2);
         if (!username.isEmpty()) {
             txtUsername.sendKeys(username);
         }
