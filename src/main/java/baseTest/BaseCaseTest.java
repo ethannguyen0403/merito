@@ -529,15 +529,13 @@ public class BaseCaseTest {
     }
 
     protected boolean hasHTTPRespondedOK() {
-        browserMobProxy.waitForQuiescence(1, 5, TimeUnit.SECONDS);
+        browserMobProxy.waitForQuiescence(2, 5, TimeUnit.SECONDS);
         List<HarEntry> entries = browserMobProxy.getHar().getLog().getEntries();
         for (HarEntry entry : entries) {
             // skip 423 status due to sending a request in too short time
             // skip 429 status due to a user's sending too many requests
             if (entry.getResponse().getStatus() >= 400 && entry.getResponse().getStatus() != 423
-                    && entry.getResponse().getStatus() != 429
-                    && !entry.getRequest().getUrl().contains("aws.cloud.es.io/intake/v2/rum/events")
-                    && !entry.getRequest().getUrl().contains("mewebsocket/mews")) {
+                    && entry.getResponse().getStatus() != 429){
                 log(String.format("ERROR URL: %s - STATUS CODE: %s", entry.getRequest().getUrl(), entry.getResponse().getStatus()));
                 return false;
             }

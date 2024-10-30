@@ -20,12 +20,12 @@ import java.util.*;
 public class LiquidityThresholdSettingsPage extends HomePage {
     public TextBox txtSearchSport = TextBox.xpath("//input[@placeholder='Search sport']");
     public TextBox txtSearchMarketType = TextBox.xpath("//input[@placeholder='Search Market Type']");
-    public StaticTable tblSport = StaticTable.xpath("//div[contains(@class,'pane-left')]", "div[@class='list-groupb']", "div[contains(@class,'list-group-itemb')]" +
-            "", "span[@class='ml-1']", 1);
+    public StaticTable tblSport = StaticTable.xpath("//div[contains(@class,'pane-left')]", "div[contains(@class,'list-groupb')]", "div[contains(@class,'list-group-itemb')]"
+            , "span[@class='ms-1']", 1);
     public Table tblMarketType = Table.xpath("//table[contains(@class,'table table-striped')]", 3);
     public String inputFirstNonLiveXpath =   tblMarketType.getControlOfCell(1, 2,  1, "input").getLocator().toString().replace("By.xpath: ", "");
     public String inputFirstLiveXpath =   tblMarketType.getControlOfCell(1, 3,  1, "input").getLocator().toString().replace("By.xpath: ", "");
-    public AppConfirmPopup popup = AppConfirmPopup.xpath("//app-comfirm-dialog");
+    public AppConfirmPopup popup = AppConfirmPopup.xpath("//app-confirm");
     public Table tblDetail = Table.xpath("//app-show-details-dialog//table", 4);
     int colMarketType = 1;
     int colNonlive = 2;

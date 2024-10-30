@@ -10,6 +10,7 @@ import agentsite.ultils.agencymanagement.EventBetSizeSettingUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.TextBox;
+import com.paltech.utils.DateUtils;
 import common.MemberConstants;
 import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.Event;
@@ -108,8 +109,18 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3573")
+    @Test(groups = {"regression_sat","MER.Implementation.V.2.0"})
     public void Agent_AM_Event_Bet_Site_Settings_3573() {
-        //TODO: implement test for this case
+        log("@title: Validate Event display correctly after selecting Old Events tab");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
+        log("Step 2. Select a Sport");
+        log("Step 3. Select Old Events tab");
+        page.eventBetSizeSetting.filter("", "Soccer","Old Events");
+        page.eventBetSizeSetting.clickTab("old events");
+        log("Verify: Validate all event start is less than today");
+        String eventStart = DateUtils.getDate(0,"yyyy-MM-dd hh:mm:ss",GMT_7);
+        page.eventBetSizeSetting.verifyEventStartDisplay(eventStart);
         log("INFO: Executed completely");
     }
 

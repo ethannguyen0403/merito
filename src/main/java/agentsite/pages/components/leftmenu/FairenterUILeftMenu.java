@@ -172,4 +172,16 @@ public class FairenterUILeftMenu extends LeftMenu {
             Assert.assertTrue(isListSubMenuDisplayCorrect(menu));
         }
     }
+
+    @Override
+    public void navigateTransactionHistoryPage() {
+        btnMyAccount.moveAndHoverOnControl();
+        lblTransactionHistoryMenu.click();
+    }
+
+    @Override
+    public void navigateSubUserListingPage() {
+        btnMyAccount.moveAndHoverOnControl();
+        lblSubUserMenu.click();
+    }
 }

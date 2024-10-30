@@ -41,7 +41,7 @@
             <class name="agentsite.testcase.LeftMenuTest"/>
 
             <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
-            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
+            <!--            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>--> Out of update
             <class name="agentsite.testcase.reports.BigStakeConfigurationTest"/>
             <class name="agentsite.testcase.reports.CancelledBetsTest"/>
             <class name="agentsite.testcase.reports.ClientLegerTest"/>
@@ -65,9 +65,9 @@
             <class name="agentsite.testcase.marketsmanagement.BlockUnblockCompetitionsTest"/>
             <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
             <class name="agentsite.testcase.marketsmanagement.CurrentBlockingTest"/>
-            <class name="agentsite.testcase.marketsmanagement.LiquidityThresholdTest"/>
+            <!--            <class name="agentsite.testcase.marketsmanagement.LiquidityThresholdTest"/>--> Just for PO
+            level
             <class name="agentsite.testcase.marketsmanagement.SuspendUnsuspendMarketsTest"/>
-
             <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EdiMarketTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
@@ -80,12 +80,12 @@
             <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
             <class name="agentsite.testcase.agencymanagement.CreditBalanceListingTest"/>
             <class name="agentsite.testcase.agencymanagement.EventBetSizeSettingsTest"/>
-            <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
+            <!--            <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>--> Just for PO level
             <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.RiskSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
             <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
-            <class name="agentsite.testcase.agencymanagement.TransferTest"/>
+<!--            <class name="agentsite.testcase.agencymanagement.TransferTest"/> Just for Account Credit-->
 
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
             <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
