@@ -74,11 +74,7 @@ public class SatHeader extends Header1 {
     @Override
     public SATSignInPopup openSigninPopup() {
         btnJoinNow.click();
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            e.getCause();
-        }
+        btnJoinNow.waitForControlInvisible();
         return new SATSignInPopup();
     }
 
