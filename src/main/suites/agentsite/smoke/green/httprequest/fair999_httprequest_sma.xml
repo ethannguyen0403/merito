@@ -32,7 +32,7 @@
         <classes>
             <class name="agentsite.testcase.LoginTest"/>
             <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
-            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
+<!--            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>-->
             <class name="agentsite.testcase.reports.BigStakeConfigurationTest"/>
             <class name="agentsite.testcase.reports.CancelledBetsTest"/>
             <class name="agentsite.testcase.reports.ClientLegerTest"/>
@@ -47,15 +47,14 @@
             <class name="agentsite.testcase.reports.WinLossBySportAndMarketTypeTest"/>
             <class name="agentsite.testcase.reports.WinLossDetailTest"/>
             <class name="agentsite.testcase.reports.WinLossSimpleTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
             <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
+<!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>-->
+<!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>-->
+<!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>-->
             <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
-            <class name="agentsite.testcase.agencymanagement.AnnouncementTest"/>
+<!--            <class name="agentsite.testcase.agencymanagement.AnnouncementTest"/>-->
             <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
             <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>

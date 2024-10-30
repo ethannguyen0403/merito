@@ -282,5 +282,14 @@ public class DownLineListingUtils {
         System.err.println("ERROR: jsonObject is null at getCashCreditListing");
         return -1.0;
     }
-
+    public static String getRandomLoginID(){
+        AccountInfo accountInfo = ProfileUtils.getProfile();
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), accountInfo.getUserCode(), accountInfo.getUserID());
+        for (AccountInfo account : listAccount){
+            if (!account.getLoginID().isEmpty()){
+                return account.getLoginID();
+            }
+        }
+        return "";
+    }
 }

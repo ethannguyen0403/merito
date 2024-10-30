@@ -1,12 +1,6 @@
-package agentsite.pages;
+package agentsite.pages.accountbalance;
 
-
-import agentsite.controls.Table;
-import agentsite.objects.agent.account.AccountInfo;
-import agentsite.pages.accountbalance.AccountBalance;
-import agentsite.pages.components.ComponentsFactory;
 import agentsite.ultils.account.ProfileUtils;
-import com.paltech.element.common.Label;
 import common.AGConstant;
 import org.testng.Assert;
 
@@ -15,14 +9,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AccountBalancePage extends HomePage {
-    public Table tblInfo = Table.xpath("//app-account-balance//table", 2);
-    public AccountBalance accountBalance;
-    public AccountBalancePage(String types) {
-        super(types);
-        accountBalance = ComponentsFactory.accountBalance(types);
-    }
-
+public class AccountBalance {
     private List<String> defineBalanceInfoCredit() {
         List<ArrayList<String>> lstDownlineInfo = ProfileUtils.getDownlineBalanceInfo();
         String level;
@@ -99,27 +86,6 @@ public class AccountBalancePage extends HomePage {
             return defineBalanceInfoCredit();
         return defineBalanceInfoCreditCash();
     }
-
-    public AccountInfo getInfoCreditLoginBalance(String currency) {
-        String downlineBalance = Label.xpath(tblInfo.getxPathOfCell(1, 2, 1, null)).getText().replaceAll(currency, "").trim();
-        String yesterdayDownlineBalance = Label.xpath(tblInfo.getxPathOfCell(1, 2, 2, null)).getText().replaceAll(currency, "").trim();
-        String totalBalance = Label.xpath(tblInfo.getxPathOfCell(1, 2, 3, null)).getText().replaceAll(currency, "").trim();
-        String transferableBalance = Label.xpath(tblInfo.getxPathOfCell(1, 2, 4, null)).getText().replaceAll(currency, "").trim();
-        String myOutstanding = Label.xpath(tblInfo.getxPathOfCell(1, 2, 5, null)).getText().replaceAll(currency, "").trim();
-        String totalOutstanding = Label.xpath(tblInfo.getxPathOfCell(1, 2, 6, null)).getText().replaceAll(currency, "").trim();
-        String todayWinLoss = Label.xpath(tblInfo.getxPathOfCell(1, 2, 7, null)).getText().replaceAll(currency, "").trim();
-        String yesterdayWinLoss = Label.xpath(tblInfo.getxPathOfCell(1, 2, 8, null)).getText().replaceAll(currency, "").trim();
-        String myCredit = Label.xpath(tblInfo.getxPathOfCell(1, 2, 9, null)).getText().replaceAll(currency, "").trim();
-        return new AccountInfo.Builder()
-                .downlineBalance(Double.parseDouble(downlineBalance.replaceAll(",", "")))
-                .yesterdayDownlineBalance(Double.parseDouble(yesterdayDownlineBalance.replaceAll(",", "")))
-                .totalBalance(Double.parseDouble(totalBalance.replaceAll(",", "")))
-                .transferableBalance(Double.parseDouble(transferableBalance.replaceAll(",", "")))
-                .myOutstanding(Double.parseDouble(myOutstanding.replaceAll(",", "")))
-                .totalOustanding(Double.parseDouble(totalOutstanding.replaceAll(",", "")))
-                .todayWinLoss(Double.parseDouble(todayWinLoss.replaceAll(",", "")))
-                .yesterdayWinLoss(Double.parseDouble(yesterdayWinLoss.replaceAll(",", "")))
-                .creditGiven((int) (Double.parseDouble(myCredit.replaceAll(",", ""))))
-                .build();
+    public void verifyTitleDisplay() {
     }
 }

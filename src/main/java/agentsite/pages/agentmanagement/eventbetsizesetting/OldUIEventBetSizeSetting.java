@@ -199,4 +199,16 @@ public class OldUIEventBetSizeSetting extends EventBetSizeSetting {
             }
         }
     }
+
+    @Override
+    public void verifyEventStartDisplay(String eventStartEx) {
+        int rowNumber = tblEvent.getNumberOfRows(false,true);
+        for (int i = 1; i <= rowNumber; i++){
+            String openDateAc = Label.xpath(tblEvent.getxPathOfCell(1,colEventName,i,"span[@class='open-date']")).getText();
+            if (openDateAc.compareTo(eventStartEx) > 0){
+                String competition = Label.xpath(tblEvent.getxPathOfCell(1,colCompetitionName,i,"span[2]")).getText();
+                Assert.assertTrue(false,String.format("FAILED! Event start display incorrect at Competetition: %s",competition));
+            }
+        }
+    }
 }

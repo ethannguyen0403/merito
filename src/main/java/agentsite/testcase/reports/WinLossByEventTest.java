@@ -19,9 +19,9 @@ public class WinLossByEventTest extends BaseCaseTest {
      * @expect: 1. There is no http responded error returned
      */
 
-    @TestRails(id = "3752")
+    @TestRails(id = "69454")
     @Test(groups = {"http_request"})
-    public void Agent_Report_Win_Loss_By_Event_3752() {
+    public void Agent_Report_Win_Loss_By_Event_69454() {
         log("@title: There is no http responded error returned");
         log("Step 1. Navigate Report> Win Loss By Event");
         agentHomePage.navigateWinLossByEventPage();
@@ -38,9 +38,9 @@ public class WinLossByEventTest extends BaseCaseTest {
      * @expect: 1. Verify Win Loss By Event UI display correctly
      */
 
-    @TestRails(id = "808")
+    @TestRails(id = "69451")
     @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
-    public void Agent_Report_Win_Loss_By_Event_808() {
+    public void Agent_Report_Win_Loss_By_Event_69451() {
         log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
         log("Step 1. Navigate Report >  Win Loss By Event");
         WinLossByEventPage page = agentHomePage.navigateWinLossByEventPage();
@@ -76,10 +76,10 @@ public class WinLossByEventTest extends BaseCaseTest {
      * @expect: 1. Verify Grand total row is sum by total of all competitions
      */
 
-    @TestRails(id = "809")
+    @TestRails(id = "69452")
     @Test(groups = {"smoke","MER.Maintenance.2024.V.4.0"})
-    public void Agent_Report_Win_Loss_By_Event_809() {
-        log("@title: Validate Win Loss By Sport And Market Type UI display correctly");
+    public void Agent_Report_Win_Loss_By_Event_69452() {
+        log("@title: Validate Grand total row is correctly");
         log("Step 1. Navigate Report >  Win Loss By Event");
         WinLossByEventPage page = agentHomePage.navigateWinLossByEventPage();
 
@@ -108,9 +108,9 @@ public class WinLossByEventTest extends BaseCaseTest {
      * 4. Click on Turn over number
      * @expect: 1. Verify Turnover match with summary Player stake in bets list
      */
-    @TestRails(id = "810")
+    @TestRails(id = "69453")
     @Test(groups = {"smoke", "MER.Maintenance.2024.V.4.0"})
-    public void Agent_Report_Win_Loss_By_Event_810() {
+    public void Agent_Report_Win_Loss_By_Event_69453() {
         log("@title: Validate Turnover match with summary Player stake in bets list");
         log("Step 1. Navigate Report >  Win Loss By Event");
         WinLossByEventPage page = agentHomePage.navigateWinLossByEventPage();

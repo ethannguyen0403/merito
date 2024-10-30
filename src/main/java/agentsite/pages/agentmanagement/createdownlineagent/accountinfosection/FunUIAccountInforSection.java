@@ -49,6 +49,9 @@ public class FunUIAccountInforSection extends AccountInforSection {
         ddpLevel.selectByVisibleText(levelName);
     }
     public void inputInfo(String loginID, String password, String accountStatus) {
+        if (!loginID.isEmpty()) {
+            txtLoginID.sendKeys(loginID);
+        }
         if (!password.isEmpty()) {
             txtPassword.sendKeys(password);
         }

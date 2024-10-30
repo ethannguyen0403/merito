@@ -67,7 +67,7 @@ public class MeritoConstant {
     // qat use AGENT_SOS_URL_SUFFIX = agent-service/v1/api/login/login/sos-authentication.sv
     public static final String AGENT_SOS_BY_PASS_CAPTCHA_URL_SUFFIX = "/agent/code/validate.sv";
     public static final String AGENT_FOLLOW_BETS_URL_SUFFIX = "/agent-management-ui/#/home/follow-bet";
-    public static final String BACKOFFICE_SOS_URL = "/system-manager/sv/login/sos-doLogin.sv";
+    public static final String BACKOFFICE_SOS_URL = "/system-manager/web/sv/login/sos-doLogin.sv";
     public static final String BACKOFFICE_DASHBOARD_URL = "/system-manager-ui/#/modules";
     public static final String CRYPTO_URL_SUFFIX = "/forex/#/own-bitcoin";
     public static final String ATLANTIC_URL_SUFFIX = "";

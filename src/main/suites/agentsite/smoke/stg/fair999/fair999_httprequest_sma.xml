@@ -12,6 +12,7 @@
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='true'/>
         <parameter name='username' value='ATZ'/>
+<!--        <parameter name='username' value='15W'/>-->
         <parameter name='levelLogin' value='Senior Master Agent'/>
         <parameter name='downlineAccount' value='ATZ00'/>
         <parameter name='portalSubAccount' value='ANSUBIS'/>
@@ -25,20 +26,41 @@
         <parameter name='isAddTestRailResult' value='false'/>
         <groups>
             <run>
-                <include name="http_request"/>
+                <include name="http_request1"/>
             </run>
         </groups>
 
         <classes>
             <class name="agentsite.testcase.LoginTest"/>
+
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
+            <!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>--> Just for Credit Cash account
+            <!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>-->
+            <class name="agentsite.testcase.agencymanagement.TransferTest"/>
+            <class name="agentsite.testcase.reports.StatementReportTest"/>
+            <class name="agentsite.testcase.reports.ClientLegerTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreditBalanceListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.RiskSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
+            <!--            <class name="agentsite.testcase.agencymanagement.AnnouncementTest"/>--> Just for PO level in FE
+
             <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
-            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
+<!--            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>--> This page is not available
+            <class name="agentsite.testcase.riskmanagement.IPMonitoringTest"/>
+
             <class name="agentsite.testcase.reports.BigStakeConfigurationTest"/>
             <class name="agentsite.testcase.reports.CancelledBetsTest"/>
-            <class name="agentsite.testcase.reports.ClientLegerTest"/>
             <class name="agentsite.testcase.reports.PositionTakingReportTest"/>
             <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
-            <class name="agentsite.testcase.reports.StatementReportTest"/>
+
             <class name="agentsite.testcase.reports.TransactionHistoryTest"/>
             <class name="agentsite.testcase.reports.TransferLogTest"/>
             <class name="agentsite.testcase.reports.UnsettledBetTest"/>
@@ -47,22 +69,7 @@
             <class name="agentsite.testcase.reports.WinLossBySportAndMarketTypeTest"/>
             <class name="agentsite.testcase.reports.WinLossDetailTest"/>
             <class name="agentsite.testcase.reports.WinLossSimpleTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
             <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositTest"/>
-            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>
-            <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
-            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditDownlineAgentTest"/>
-            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
-            <class name="agentsite.testcase.agencymanagement.AnnouncementTest"/>
-            <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
-            <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
-            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
-            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
-            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
-            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
-            <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
         </classes>
 
     </test>

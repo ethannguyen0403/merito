@@ -86,4 +86,8 @@ public class LeftMenu {
     public void navigateIPMonitoringPage() {}
 
     public void navigateMonitoredAccountsPage() {}
+    public void navigateTransactionHistoryPage() {}
+
+    public void navigateSubUserListingPage() {
+    }
 }

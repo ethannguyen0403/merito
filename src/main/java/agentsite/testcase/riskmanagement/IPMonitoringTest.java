@@ -2,6 +2,7 @@ package agentsite.testcase.riskmanagement;
 
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.DownLineListingPage;
+import agentsite.pages.agentmanagement.RiskSettingListingPage;
 import agentsite.pages.riskmanagement.IPMonitoringPage;
 import agentsite.pages.riskmanagement.MonitoredAccountsPage;
 import agentsite.ultils.riskmanagement.IPMonitoringUtils;
@@ -293,5 +294,13 @@ public class IPMonitoringTest extends BaseCaseTest {
         log("Validate 2. Displays with bets that the detected players placed and settled within the last 7 days (all products)");
         page.verifyUserDetailInfo(lstUsersHasBet.get(0));
         log("INFO: Executed completely");
+    }
+    @TestRails(id = "69450")
+    @Test(groups = {"http_request"})
+    public void Agent_RM_IPMonitoringTest_69450(){
+        log("Step 1. Navigate Report > IP Monitoring");
+        IPMonitoringPage page = agentHomePage.navigateIPMonitoringPage();
+        log("Verify 1: Validate there is no console error display");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
     }
 }
