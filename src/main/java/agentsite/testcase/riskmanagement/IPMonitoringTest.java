@@ -2,7 +2,6 @@ package agentsite.testcase.riskmanagement;
 
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.DownLineListingPage;
-import agentsite.pages.agentmanagement.RiskSettingListingPage;
 import agentsite.pages.riskmanagement.IPMonitoringPage;
 import agentsite.pages.riskmanagement.MonitoredAccountsPage;
 import agentsite.ultils.riskmanagement.IPMonitoringUtils;
@@ -20,7 +19,7 @@ import static common.AGConstant.RiskManagement.IPMonitoring.*;
 
 public class IPMonitoringTest extends BaseCaseTest {
     @TestRails(id = "29737")
-    @Test(groups = {"regression_fair999", "regression_f24"})
+    @Test(groups = {"regression_fair999", "regression_f24", "MER.Implementation.V.2.0"})
     public void Agent_RM_IPMonitoringTest_29737() {
         log("@title: Validate that IP Monitoring page under Risk Management");
         log("Step 1. Navigate Risk Management");
@@ -31,7 +30,7 @@ public class IPMonitoringTest extends BaseCaseTest {
     }
 
     @TestRails(id = "61998")
-    @Test(groups = {"regression_sat", "regression_fs"})
+    @Test(groups = {"regression_sat", "regression_fs", "MER.Implementation.V.2.0"})
     public void Agent_RM_IPMonitoringTest_61998() {
         log("@title: Validate that IP Monitoring page under Report (SAT/Funsport)");
         log("Step 1. Navigate Report");

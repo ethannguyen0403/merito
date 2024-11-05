@@ -35,6 +35,7 @@ public class UnsettledBetPage extends HomePage {
     public int colUsername = 7;
     public int colLoginID = 3;
     public int colStaus = 5;
+    public int colBetDetail = 4;
     public Table tblLastBetsMode = Table.xpath("//div[contains(@class,'last-bet-table')]//table", tbtLastBetsModeTotalCol);
     public Label lblLastBetsModeNoRecord = Label.xpath("//div[contains(@class,'last-bet-table')]//table//td[@class='text-center']");
 
@@ -106,6 +107,8 @@ public class UnsettledBetPage extends HomePage {
                 Assert.assertTrue(data.get(i).get(colUsername - 1).contains(loginId), String.format("FAILED! Expected login ID %s but found %s", loginId, data.get(i).get(colUsername - 1)));
             if (!status.isEmpty())
                 Assert.assertEquals(data.get(i).get(colStaus - 1), status, String.format("FAILED! Expected Status %s but found %s", status, data.get(i).get(colStaus - 1)));
+            if (!stake.isEmpty())
+                Assert.assertTrue(data.get(i).get(colBetDetail - 1).split("\n")[1].contains(stake), String.format("FAILED! Expected Stake %s but found %s", stake, data.get(i).get(colBetDetail - 1).split("\n")[1]));
         }
     }
 
