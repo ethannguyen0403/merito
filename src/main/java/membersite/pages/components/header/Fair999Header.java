@@ -46,17 +46,11 @@ public class Fair999Header extends Header1 {
     String productMenuXpath = "//app-product-tab-v2//a[(text()='%s')]";
     String productLiveDealerXpath = "//app-live-dealer//a[text()='%s']";
     // Before Login
-    public SATUnderageGamblingPopup clickLogin() {
+    private SATLoginPopup openLoginPopup() {
         if (btnLogin.isDisplayed()) {
             btnLogin.click();
         }
-        return new SATUnderageGamblingPopup();
-
-    }
-
-    private SATLoginPopup openLoginPopup() {
-        SATUnderageGamblingPopup satUnderageGamblingPopup = clickLogin();
-        return satUnderageGamblingPopup.clickConfirmation();
+       return new SATLoginPopup();
     }
 
     public void clickLeftMenuIcon() {
@@ -102,6 +96,7 @@ public class Fair999Header extends Header1 {
     public String loginInvalid(String username, String password) {
         SATLoginPopup loginPopup = openLoginPopup();
         loginPopup.login(username, password, false);
+        waitSpinLoad();
         return loginPopup.lblErrorMessage.getText();
     }
     public boolean isLeftMenuIcondisplay() {
