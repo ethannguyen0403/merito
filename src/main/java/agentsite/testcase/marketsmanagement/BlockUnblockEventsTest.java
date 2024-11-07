@@ -1256,7 +1256,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 
     @TestRails(id = "3690")
     @Parameters({"downlineAccount"})
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression","MER.Implementation.V.2.0"})
     public void Agent_MM_BlockUnblockEvent_UnblockNow_3690(String downlineAccount) throws InterruptedException {
         log("@title: Validate Market Details Status is display as time to open and time to bet as unblock schedule setting");
         log("pre-condition: SAD level login agent in successfully");
@@ -1272,7 +1272,6 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TMR");
         Event event = eventList.get(0);
         page.blockUnblockEvent(downlineAccount, event.getEventName(), "Block");
-        Thread.sleep(2000);
         page.blockUnblockEvent(downlineAccount, event.getEventName(), "Unblock Schedule", "2 days", 1);
         log("Step 5: Click on Details link in Betable column");
         log("Verify 1: Validate all market display Open status and Betable status is displayed based on setting.\n" +
@@ -1290,9 +1289,9 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3694")
-    @Parameters({"downlineAccount", "password", "currency"})
-    @Test(groups = {"regression1"})
-    public void Agent_MM_BlockUnblockEvent_UnblockNow_3694(String downlineAccount, String password, String currency) throws Exception {
+    @Parameters({"downlineAccount", "password", "memberAccount"})
+    @Test(groups = {"regression","MER.Implementation.V.2.0"})
+    public void Agent_MM_BlockUnblockEvent_UnblockNow_3694(String downlineAccount, String password, String memberAccount) throws Exception {
         log("@title: Validate all market in member site display suspend label when an event is suspended");
         log("pre-condition: SAD level login agent in successfully");
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
@@ -1305,16 +1304,14 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         String childID = BlockUnblockEventsUtils.getchildUserID(acc.getUserID(), downlineAccount);
         List<Event> eventList = BlockUnblockEventsUtils.getEventList(sportName, childID, "TMR");
         Event event = eventList.get(0);
-        page.blockUnblockEvent(downlineAccount, event.getEventName(), "Unblock Now");
-        Thread.sleep(2000);
-        page.blockUnblockEvent(downlineAccount, event.getEventName(), "Suspend");
-        Thread.sleep(2000);
+        page.blockUnblockEvent("all", event.getEventName(), "Unblock Now");
+        page.blockUnblockEvent("all", event.getEventName(), "Suspend");
         log("Step 4: Login to member site and search the event");
         page.logout();
-        loginMember(downlineAccount, password, true, "", currency, true);
-        landingPage.leftMenu.searchEvent(event.getEventName());
+        loginMember(_brandname,memberAccount, password);
+        memberHomePage.leftMenu.searchEvent(event.getEventName()).click();
         log("Verify 1: Validate suspend label display when active all markets under this event");
-
+        memberHomePage.eventContainerControl.verifyEventSuspended();
         log("INFO: Executed completely");
     }
 }
