@@ -8,7 +8,6 @@ import com.paltech.element.common.TextBox;
 import common.MemberConstants;
 import membersite.controls.DropDownBox;
 import membersite.controls.DropDownMenu;
-import membersite.pages.EventPage;
 import membersite.pages.MarketPage;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -19,10 +18,10 @@ import java.util.List;
 import static agentsite.pages.HomePage.waitingLoadingSpinner;
 import static common.MemberConstants.WICKET_BOOKMAKER_TITLE;
 
-public class NewUILeftMenu extends LeftMenu {
+public class SatLeftMenu extends LeftMenu {
     public Image imgLoading = Image.xpath("//div[@class='loading-icon']/img");
-    public TextBox txtSearch = TextBox.xpath("//input[@role='combobox']");
-    public Label lblResult = Label.xpath("//div[@role='listbox']//span");
+    public TextBox txtSearch = TextBox.xpath("//input[contains(@type,'text')]");
+    public Label lblResult = Label.xpath("//app-search-box-sat//ul//li[1]");
     public Label lblNoSearchResult = Label.xpath("//div[contains(@class,'completer-dropdown-holder')]//div[@class='completer-no-results']");
     public DropDownMenu casinotMenu = DropDownMenu.xpath("//div[contains(@class,'level casino-menu')]", "//div[contains(@class,'active')]//span", "//div[contains(@class,'casino-sub-menu')]//div");
     private String menuSubItemsXpath = "%s/following::div[@class='downs-levels']/div";
@@ -48,8 +47,13 @@ public class NewUILeftMenu extends LeftMenu {
      }*/
     public Label searchEvent(String eventName) {
         txtSearch.sendKeys(eventName);
-        txtSearch.type(false, Keys.ARROW_DOWN);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if (lblResult.isDisplayed()) {
+            lblResult.moveAndHoverOnControl();
             return lblResult;
         }
         return lblNoSearchResult;
@@ -91,7 +95,7 @@ public class NewUILeftMenu extends LeftMenu {
     }
 
     public void clickFancyMarket(String fancyMarketType, String subMarketName) {
-        Label lblExpand = Label.xpath(String.format("//span[text()='%s']//..//em[contains(@class,'fa-chevron')]", fancyMarketType));
+        Label lblExpand = Label.xpath(String.format("%s/following::div[@class='downs-levels']//span[text()='%s']//..//em[contains(@class,'fa-chevron')]", eventActiveXpath, fancyMarketType));
         if (lblExpand.isDisplayed()) {
             lblExpand.scrollToThisControl(true);
             if (lblExpand.getAttribute("className").contains("down")) {

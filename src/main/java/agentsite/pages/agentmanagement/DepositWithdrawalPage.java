@@ -17,10 +17,11 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class DepositWithdrawalPage extends HomePage {
+    public Label lblMainUser = Label.xpath("//div[@class='downline-bar']//span[@class='downline']");
     public static TextBox txtUsername = TextBox.xpath("//th[contains(@class,'nick-name-field')]//input | //input[@id='userName']");
     public static Button btnSubmit = Button.xpath("//table[contains(@class,'ptable info')]//button[@class='pbtn search']");
     public static Table tblWithdrawalDeposit = Table.xpath("//table[contains(@class,'ptable report table-responsive')]", 13);
-    public Table tblAccountBalance = Table.xpath("(//table[@class='ptable report'])[1]", 4);
+    public Table tblAccountBalance = Table.xpath("(//table[contains(@class,'ptable report')])[1]", 4);
     public CheckBox chkAll = CheckBox.id("cAll");
     public Button btnDeposit = Button.id("bntUpdateDeposit");
     public Button btnWithdraw = Button.id("bntUpdateWithdraw");
@@ -137,7 +138,6 @@ public class DepositWithdrawalPage extends HomePage {
         DepositToPopup popup = (DepositToPopup) action(DepositWithdraw.Actions.DEPOSIT, usercode);
         popup.deposit(amount, remark, isCreditUpdate, true);
         String messsage = popup.lblMessage.getText().trim();
-        ;
         if (isClose)
             popup.clickXIcon();
         return messsage;
@@ -340,4 +340,8 @@ public class DepositWithdrawalPage extends HomePage {
     }
 
     public List<String> getAccountsAvailableBalance(List<ArrayList<String>> lstAccounts, boolean isDownline) { return depositWithdraw.getAccountsAvailableBalance(lstAccounts, isDownline);}
+
+    public String getFirstUserName() {
+        return tblWithdrawalDeposit.getColumn(defineDepositWithdrawTableColumn("User Name"),3,true).get(0);
+    }
 }

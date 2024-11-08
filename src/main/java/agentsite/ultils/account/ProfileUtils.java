@@ -74,7 +74,7 @@ public class ProfileUtils {
                     //  lstArray.add(Double.toString(item.getJSONObject("createUsed")));
                     lstArray.add(Double.toString(item.getDouble("creditLimit")));
                     lstArray.add(Double.toString(item.getDouble("creditRefer")));
-                    lstArray.add(Double.toString(item.getDouble("currency")));
+                    lstArray.add(item.getString("currency"));
                     lstArray.add(Double.toString(item.getDouble("outstanding")));
                     lstArray.add(Double.toString(item.getDouble("todayPnl")));
                     lstArray.add(Double.toString(item.getDouble("totalBalance")));
@@ -137,5 +137,18 @@ public class ProfileUtils {
         }
     }
 
-
+    public static String getAvailableBalance() {
+        JSONObject balanceObj = balanceProductJson();
+        String availableBalance = null;
+        if (Objects.nonNull(balanceObj)) {
+            if (balanceObj.has("ACCOUNT_EXCHANGE")) {
+                JSONArray accountExch = balanceObj.getJSONArray("ACCOUNT_EXCHANGE");
+                for (int i = 0; i < accountExch.length(); i++) {
+                    JSONObject item = accountExch.getJSONObject(i);
+                    availableBalance = Double.toString(item.getDouble("totalBalance"));
+                }
+            }
+        }
+        return availableBalance;
+    }
 }
