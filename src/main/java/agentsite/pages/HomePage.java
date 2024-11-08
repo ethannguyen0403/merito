@@ -9,6 +9,8 @@ import agentsite.pages.components.quicksearch.QuickSearch;
 import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.header.Header;
 import agentsite.pages.components.leftmenu.LeftMenu;
+import agentsite.pages.fraudetection.FraudDetectionPage;
+import agentsite.pages.fraudetection.WagerOddsHistoryPage;
 import agentsite.pages.marketsmanagement.*;
 import agentsite.pages.report.*;
 import agentsite.pages.riskmanagement.*;
@@ -327,6 +329,11 @@ public class HomePage extends LoginPage {
         waitingLoadingSpinner();
         return new TransferLogPage(_type);
     }
+    public ResettlementVoidLogPage navigateResettlementVoidLogPage() {
+        leftMenu.clickSubMenu(REPORT, RESETTLEMENT_VOID_LOG);
+        waitingLoadingSpinner();
+        return new ResettlementVoidLogPage(_type);
+    }
 
     public UnsettledBetPage navigateUnsettledBetPage() {
         leftMenu.clickSubMenu(REPORT, UNSETTLED_BET);
@@ -428,5 +435,15 @@ public class HomePage extends LoginPage {
         leftMenu.navigateMonitoredAccountsPage();
         waitingLoadingSpinner();
         return new MonitoredAccountsPage(_type);
+    }
+    public FraudDetectionPage navigateFraudDetectionPage() {
+        leftMenu.clickSubMenu(FRAUD_DETECTION, FRAUD_DETECTION);
+        waitingLoadingSpinner();
+        return new FraudDetectionPage(_type);
+    }
+    public WagerOddsHistoryPage navigateWagerOddsHistoryPage() {
+        leftMenu.clickSubMenu(FRAUD_DETECTION, WAGER_ODDS_HISTORY);
+        waitingLoadingSpinner();
+        return new WagerOddsHistoryPage(_type);
     }
 }

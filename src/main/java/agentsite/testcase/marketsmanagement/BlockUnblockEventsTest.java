@@ -70,14 +70,14 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3683")
-    @Test(groups = {"http_request", "nolan"})
+    @Test(groups = {"http_request"})
     public void Agent_MM_BlockUnblockEvent_3683() {
         log("@title: Validate there is no http responded error returned");
         log("@Step 11. Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
 
         log("Verify 1. Verify there is no console error display");
-//        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error displayed when navigate the page");
+        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error displayed when navigate the page");
 
         log("INFO: Executed completely");
     }
