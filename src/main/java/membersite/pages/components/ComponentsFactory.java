@@ -23,6 +23,7 @@ import membersite.pages.components.highlightracecontainer.OldUIHighLightRaceCont
 import membersite.pages.components.leftmneu.FairenterUILeftMenu;
 import membersite.pages.components.leftmneu.LeftMenu;
 import membersite.pages.components.leftmneu.NewUILeftMenu;
+import membersite.pages.components.leftmneu.SatLeftMenu;
 import membersite.pages.components.loginform.FairenterLoginPopup;
 import membersite.pages.components.loginform.FunLoginPopup;
 import membersite.pages.components.loginform.LoginPopup;
@@ -166,6 +167,8 @@ public class ComponentsFactory {
         switch (types) {
             case "fairenter":
                 return new FairenterUILeftMenu();
+            case "satsport":
+                return new SatLeftMenu();
             default:
                 return new NewUILeftMenu();
         }

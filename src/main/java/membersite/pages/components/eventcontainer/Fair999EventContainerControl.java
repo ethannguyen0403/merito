@@ -7,6 +7,7 @@ import controls.Table;
 import membersite.objects.sat.Event;
 import membersite.utils.betplacement.BetUtils;
 import membersite.utils.betplacement.FancyUtils;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -588,4 +589,10 @@ public class Fair999EventContainerControl extends EventContainerControl {
 	}
 
  */
+
+    @Override
+    public void verifyEventSuspended() {
+        Label lblSuspend = Label.xpath("//span[contains(@class,'suspended-label')]");
+        Assert.assertTrue(lblSuspend.isDisplayed(),"FAILED! Event is not suspended");
+    }
 }

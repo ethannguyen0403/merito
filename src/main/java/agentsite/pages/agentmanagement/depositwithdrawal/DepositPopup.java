@@ -20,6 +20,7 @@ public class DepositPopup {
     Button btnCancel = Button.xpath("//div[@id='adjustCreditCashDialog']//button[@class='cancel']");
     RadioButton rbtnCreditUpdate = RadioButton.id("radio1");
     RadioButton rbtnWinLossSettle = RadioButton.id("radio2");
+    public Label lblFailedMessage = Label.xpath("//div[contains(@class,'adjust-mgs failed')]/span");
 
     public void deposit(String amount, String remark) {
         deposit(amount, remark, true, true);
