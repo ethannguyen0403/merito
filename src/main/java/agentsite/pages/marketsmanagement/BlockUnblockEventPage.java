@@ -271,9 +271,10 @@ public class BlockUnblockEventPage extends HomePage {
             Button button = Button.xpath(String.format(btnActionDynamic, action, btnIndex));
             button.isClickable(timeOutShortInSeconds);
             button.click();
-            waitingLoadingSpinner();
             if (!unblockScheduleTime.equals("")) {
+                waitingLoadingSpinner();
                 ddbSelectTime.selectByVisibleText(unblockScheduleTime);
+                btnSaveUnblockSchedule.isClickable(timeOutShortInSeconds);
                 btnSaveUnblockSchedule.click();
             }
             waitingLoadingSpinner();
@@ -334,6 +335,7 @@ public class BlockUnblockEventPage extends HomePage {
             lblDownlineName.isClickable(3);
             lblDownlineName.scrollToThisControl(true);
             lblDownlineName.click();
+            waitingLoadingSpinner();
             waitingLoadingSpinner();
         }
     }

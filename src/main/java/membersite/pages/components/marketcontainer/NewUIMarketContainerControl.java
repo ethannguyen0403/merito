@@ -24,9 +24,7 @@ import java.util.List;
  */
 public class NewUIMarketContainerControl extends MarketContainerControl {
     public static String _xpath;
-    public Label oddsSpinIcon = Label.xpath("//div[@id='odds-content']//div[@class='snipper-content']");
     public FancyContainerControl wcFancyContainerControl = FancyContainerControl.xpath("//span[text()='Wicket Fancy']//ancestor::div[contains(@class,'fancy-container')]");
-    public FancyContainerControlOldUI odlUIFancyContainerControl = FancyContainerControlOldUI.xpath("//div[@id='fair-27-fancy']");
     public FancyContainerControl centralFancyContainerControl = FancyContainerControl.xpath("//span[text()='Central Fancy']//ancestor::div[contains(@class,'fancy-container')]");
     public FancyContainerControl fancyContainerControl = FancyContainerControl.xpath("//span[text()='Fancy']//ancestor::div[contains(@class,'fancy-container')]");
     private FancyLadderForecastControl wcFancyLadderControl = FancyLadderForecastControl.xpath("//wicket-fancy-odds//div[@class='fancy-rate']");
@@ -41,14 +39,10 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
     private Label lblTotalSelections = Label.xpath("//span[contains(@class,'selections-count')]");
     private String xPathForeCastLable = "//div[contains(@class,'runner-name')]//span[contains(@class,'forecast-liability-container')]";
     // WWicket Fancy section
-    private Label lblWcFancyMarketName = Label.xpath("//div[contains(@class,'fancy-container')]//span[@class='market-name']");
     private Label lblEventMarketName = Label.xpath("//div[contains(@class,'highlight-page market')]//div[contains(@class,'title')]");
-    private Label lblSuspend = Label.xpath("//div[contains(@class,'highlight-page market')]//span[contains(@class,'suspended-label')]");
-    private String lblOddContainerxPath = "//div[contains(@class,'highlight-page market')]//div[contains(@class,'table-odds')]";
     private String lblSelectionListXPath = "//div[contains(@class,'highlight-page market')]//div[contains(@class,'table-odds')]//div[contains(@class, 'market-runner')]/div";
     private String lblSelectionName = "//div[contains(@class,'runner-name')]//span[2]";
     private String lblOddListXPath = "//div[contains(@class,'cell-odds')]";
-    private String lblOddItem = "//div[contains(@class,'pending-odds')]";
     private Tab tabWicketFancy = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.WICKET_FANCY_TITLE));
     private Tab tabCentralFancy = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.CENTRAL_FANCY_TITLE));
     private Tab tabManualOdds = Tab.xpath(String.format("//div[contains(@class,'container-market-info')]//span[text()='%s']", MemberConstants.CENTRAL_BOOKMAKER_TITLE));
@@ -233,7 +227,6 @@ public class NewUIMarketContainerControl extends MarketContainerControl {
         return Label.xpath(String.format("%s%s", lblSelectionListXPath, lblSelectionName)).getWebElements().size();
     }
 
-    @Override
     public List<Label> getOddsListLabel(String marketName, int selectionIndex, boolean isBack) {
         List<Label> list = new ArrayList<>();
        // String xPathOddsList = String.format("(%s)[%d]%s", lblSelectionListXPath, selectionIndex, lblOddListXPath);

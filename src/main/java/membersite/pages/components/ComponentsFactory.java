@@ -6,16 +6,14 @@ import membersite.pages.components.accountstatement.NewViewAccountStatementConta
 import membersite.pages.components.accountstatement.OldUIAccountStatementContainer;
 import membersite.pages.components.betslipcontainer.BetsSlipContainer;
 import membersite.pages.components.betslipcontainer.NewUIBetsSlipContainer;
+import membersite.pages.components.betslipcontainer.OldUIBetsSlipContainer;
 import membersite.pages.components.deposit.deposit.DepositContainer;
 import membersite.pages.components.deposit.deposit.NewUIDepositContainer;
 import membersite.pages.components.deposit.deposit.NewViewDepositContainer;
 import membersite.pages.components.deposit.transactionhistory.NewUITransactionHistoryContainer;
 import membersite.pages.components.deposit.transactionhistory.NewViewTransactionHistoryContainer;
 import membersite.pages.components.deposit.transactionhistory.TransactionHistoryContainer;
-import membersite.pages.components.eventcontainer.EventContainerControl;
-import membersite.pages.components.eventcontainer.Fair999EventContainerControl;
-import membersite.pages.components.eventcontainer.NewViewEventContainerControl;
-import membersite.pages.components.eventcontainer.SATEventContainerControl;
+import membersite.pages.components.eventcontainer.*;
 import membersite.pages.components.footer.Footer;
 import membersite.pages.components.footer.FunFooter;
 import membersite.pages.components.footer.SatFooter;
@@ -32,6 +30,7 @@ import membersite.pages.components.loginform.LoginPopup;
 import membersite.pages.components.loginform.SATLoginPopup;
 import membersite.pages.components.marketcontainer.MarketContainerControl;
 import membersite.pages.components.marketcontainer.NewUIMarketContainerControl;
+import membersite.pages.components.marketcontainer.OldUIMarketContainerControl;
 import membersite.pages.components.minimybetcontainer.MiniMyBetsContainer;
 import membersite.pages.components.minimybetcontainer.NewUIMiniMyBetsContainer;
 import membersite.pages.components.mybet.MyBetsContainer;
@@ -157,6 +156,8 @@ public class ComponentsFactory {
                 return new Fair999EventContainerControl();
             case "satsport":
                 return new SATEventContainerControl();
+            case "fairenter":
+                return new FairenterEventContainerControl();
             default:
                 return new NewViewEventContainerControl();
         }
@@ -175,6 +176,8 @@ public class ComponentsFactory {
 
     public static MarketContainerControl marketOddControlObject(String types) {
         switch (types) {
+            case "fairenter":
+                return new OldUIMarketContainerControl();
             default:
                 return new NewUIMarketContainerControl();
         }
@@ -182,6 +185,8 @@ public class ComponentsFactory {
 
     public static BetsSlipContainer betsSlipContainerObject(String types) {
         switch (types) {
+            case "fairenter":
+                return new OldUIBetsSlipContainer();
             default:
                 return new NewUIBetsSlipContainer();
         }

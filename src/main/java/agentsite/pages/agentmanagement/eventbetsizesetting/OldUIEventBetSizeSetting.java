@@ -1,6 +1,5 @@
 package agentsite.pages.agentmanagement.eventbetsizesetting;
 
-
 import agentsite.pages.components.ConfirmPopup;
 import com.paltech.element.common.*;
 import com.paltech.utils.DateUtils;
@@ -169,15 +168,15 @@ public class OldUIEventBetSizeSetting extends EventBetSizeSetting {
                 Assert.assertTrue(dateResultParsed.before(dateCompareParsed), String.format("FAILED! Day from result %s is after today %s", dateResult, dateCompare));
             }
         } else if (periodTab.equalsIgnoreCase(TAB_DAYS.get(1))) {
-            String dateCompare = DateUtils.getDate(0, "yyyy-MM-dd HH:mm:ss", timeZone);
-            Date dateCompareParsed = sdf.parse(dateCompare);
+            //Today tab will show event within period in 5 days
+            String dateToCompare = DateUtils.getDate(0, "yyyy-MM-dd HH:mm:ss", timeZone);
+            String dateFromCompare = DateUtils.getDate(-5, "yyyy-MM-dd HH:mm:ss", timeZone);
             for (int i = 0; i < lstInfo.size(); i++) {
                 String event = lstInfo.get(i).get(1).split("\n")[0];
                 if(!event.contains("In-Play")) {
                     String dateResult = lstInfo.get(i).get(1).split("\n")[1];
-                    Date dateResultParsed = sdf.parse(dateResult);
-                    if((dateResultParsed.getYear() != dateCompareParsed.getYear()) || (dateResultParsed.getMonth() != dateCompareParsed.getMonth()) || (dateResultParsed.getDate() != dateCompareParsed.getDate())) {
-                        Assert.assertTrue(false, String.format("FAILED! Day from result %s is not equal today %s", dateResult, dateCompare));
+                    if(!DateUtils.isDateBetweenPeriod(dateResult, dateFromCompare, dateToCompare, "yyyy-MM-dd")) {
+                        Assert.assertTrue(false, String.format("FAILED! Day from result %s is not within 5 days from %s to %s", dateResult, dateFromCompare, dateToCompare));
                     }
                 }
             }

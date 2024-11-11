@@ -6,20 +6,17 @@ import common.MemberConstants;
 import membersite.controls.DropDownMenu;
 import membersite.pages.AccountStatementPage;
 import membersite.pages.MyBetsPage;
+import membersite.pages.SportPage;
 import membersite.pages.components.changepasswordpopup.FunsportChangePasswordPopup;
 import membersite.pages.components.loginform.FairenterLoginPopup;
 import membersite.pages.components.underagegamblingpopup.FairenterUnderageGamblingPopup;
-import membersite.pages.popup.MyMarketPopup;
 
 public class FairenterHeader extends Header1 {
-    private String _xpath;
     private Image imgLogo = Image.xpath("//span[@class='sprite-logos']");
-    private Label imgSpinner = Label.xpath("//div[@class=lds-spinner']");
-    private Label lblTimezone = Label.xpath("//div[contains(@class,'time-contain') or contains(@class,'timer-contain')]");
-    private Button btnLogin = Button.xpath("//input[contains(@class,'btn-login')]");
     private Tab tabExchangeGames = Tab.xpath("//a[contains(text(),'Exchange Games')]");
     private DropDownMenu ddmAccount = DropDownMenu.xpath("//div[@id='my-account-dropdown']", "", "//ul[contains(@class,'dropdown-menu')]//li");
     private Link lnkMyMarkets = Link.xpath("//span[@class='link mymarkets']");
+    private String sportMenuXpath = "//a[contains(text(),'%s')]";
 
     public FairenterLoginPopup clickConfirm() {
         clickLogin().clickConfirmation();
@@ -84,6 +81,24 @@ public class FairenterHeader extends Header1 {
 
     public void openMyMarketPopup() {
         lnkMyMarkets.click();
+    }
+
+    public SportPage navigateSportMenu(String pageName, String brand) {
+        clickHeaderMenu(pageName);
+        return new SportPage(brand);
+    }
+
+    private void clickHeaderMenu(String sportMenu){
+        Menu menu = Menu.xpath(String.format(sportMenuXpath, sportMenu));
+        if (!menu.isDisplayed(5)) {
+            System.out.println(String.format("There is no %s menu display", sportMenu));
+            return;
+        }
+        menu.click();
+    }
+
+    public void logout() {
+        ddmAccount.clickSubMenu(MemberConstants.HomePage.DDB_MY_ACCOUNT.get("Logout"));
     }
 
 }

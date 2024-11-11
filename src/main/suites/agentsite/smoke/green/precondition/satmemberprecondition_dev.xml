@@ -15,7 +15,7 @@
         <parameter name='levelLogin' value='Senior Admin'/>
         <parameter name='level' value='SMA'/>
         <parameter name='donwlineLevel' value='SAD'/>
-        <parameter name='downlineAccount' value='QAAT.AD2'/>
+        <parameter name='downlineAccount' value='qaat.plsmokedev'/>
         <parameter name='portalSubAccount' value='SASUBBA'/>
         <parameter name='memberAccount' value='qaat.plsmokedev'/>
         <parameter name='password' value='p8PEjV0gJOnWf9U0aEgGEA=='/>
