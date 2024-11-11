@@ -183,7 +183,7 @@ public class AGConstant {
         public final static String CURRENT_BLOCKING = "Current Blocking";
         public final static String BLOCKING_LOG = "Blocking Log";
         public final static String BLOCK_RACING = "Block Racing";
-        public final static String SUSPEND_UNSUSPEND_MARKETS = "Line Markets Management";
+        public final static String SUSPEND_UNSUSPEND_MARKETS = "Suspend/Unsuspend Markets";
         public final static String VOLUME_MONITOR = "Volume Monitor";
         public final static String NET_EXPOSURE = "Net Exposure";
         public final static String AGENT_EXPOSURE_LIMIT = "Agent Exposure Limit";

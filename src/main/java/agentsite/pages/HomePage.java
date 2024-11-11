@@ -238,11 +238,13 @@ public class HomePage extends LoginPage {
     public SuspendUnsuspendMarketPage navigateSuspendUnsuspendMarketPage() {
         leftMenu.leftMenuList.expandMenu(MARKET_MANAGEMENT);
         leftMenu.clickSubMenu(MARKET_MANAGEMENT, SUSPEND_UNSUSPEND_MARKETS);
+        waitingLoadingSpinner();
         return new SuspendUnsuspendMarketPage(_type);
     }
 
     public AgentExposureLimitPage navigateAgentExposureLimitPage() {
         leftMenu.clickSubMenu(RISK_MANAGEMENT, AGENT_EXPOSURE_LIMIT);
+        leftMenu.navigateAgentExposureLimitPage();
         waitingLoadingSpinner();
         return new AgentExposureLimitPage(_type);
     }

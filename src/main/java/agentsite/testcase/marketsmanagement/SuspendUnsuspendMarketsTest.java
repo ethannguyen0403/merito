@@ -216,7 +216,8 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         //TODO: implement test for this case
         log("INFO: Executed completely");
     }
-//
+
+    //
 //    @Test(groups = {"interaction"})
 //    @Parameters({"downlineAccount","memberAccount", "password","boAccount","bopassword"})
 //    public void Agent_MM_SuspendUnsuspendMarkets_TC008(String downlineAccount, String password,String boAccount,String bopassword) throws Exception {
@@ -301,6 +302,7 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
         //TODO: implement this case
         log("INFO: Executed completely");
     }
+
     @TestRails(id = "3723")
     @Test(groups = {"interaction", "nolan"})
     @Parameters({"downlineAccount", "password"})
@@ -319,6 +321,17 @@ public class SuspendUnsuspendMarketsTest extends BaseCaseTest {
 
         log("Verify  2 Verify can see menu Suspend/Unsupend Market page under control blocking level");
         Assert.assertTrue(lstSubReprotMenu.contains(SUSPEND_UNSUSPEND_MARKETS), "FAILED! Verify the menu should  display at direct agent under control blocking level");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "72967")
+    @Test(groups = {"http_request"})
+    public void Agent_MM_SuspendUnsuspendMarkets_TC72967() {
+        log("@title: Validate there is no http responded error returned");
+        log("Step 1. Navigate Markets Management > Suspend/Unsuspend Markets");
+        agentHomePage.navigateSuspendUnsuspendMarketPage();
+        log("Verify  1. Verify there is no console error display");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
         log("INFO: Executed completely");
     }
 }

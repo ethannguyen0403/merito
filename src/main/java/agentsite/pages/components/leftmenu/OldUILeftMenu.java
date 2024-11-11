@@ -200,5 +200,10 @@ public class OldUILeftMenu extends LeftMenu {
     public void navigateMonitoredAccountsPage() {
         clickSubMenu(REPORT, MONITORED_ACCOUNT);
     }
+
+    @Override
+    public void navigateAgentExposureLimitPage() {
+        clickSubMenu(REPORT, AGENT_EXPOSURE_LIMIT);
+    }
 }
 

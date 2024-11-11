@@ -106,4 +106,8 @@ public class LeftMenu {
 
     public void navigateSubUserListingPage() {
     }
+
+    public void navigateAgentExposureLimitPage() {
+    }
+
 }

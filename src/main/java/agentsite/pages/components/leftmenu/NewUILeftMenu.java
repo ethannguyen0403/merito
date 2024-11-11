@@ -206,4 +206,9 @@ public class NewUILeftMenu extends LeftMenu {
         btnMyAccount.moveAndHoverOnControl();
         lblSubUserMenu.click();
     }
+
+    @Override
+    public void navigateAgentExposureLimitPage() {
+        clickSubMenu(RISK_MANAGEMENT, AGENT_EXPOSURE_LIMIT);
+    }
 }
