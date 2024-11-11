@@ -172,4 +172,14 @@ public class FunsportUILeftMenu extends LeftMenu {
     public void navigateSubUserListingPage() {
         clickSubMenu(AGENCY_MANAGEMENT, SUB_USER_LISTING);
     }
+
+    @Override
+    public void navigateMonitoredAccountsPage() {
+        clickSubMenu(REPORT, MONITORED_ACCOUNT);
+    }
+
+    @Override
+    public void navigateAgentExposureLimitPage() {
+        clickSubMenu(REPORT, AGENT_EXPOSURE_LIMIT);
+    }
 }

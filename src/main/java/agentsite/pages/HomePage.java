@@ -243,7 +243,6 @@ public class HomePage extends LoginPage {
     }
 
     public AgentExposureLimitPage navigateAgentExposureLimitPage() {
-        leftMenu.clickSubMenu(RISK_MANAGEMENT, AGENT_EXPOSURE_LIMIT);
         leftMenu.navigateAgentExposureLimitPage();
         waitingLoadingSpinner();
         return new AgentExposureLimitPage(_type);
