@@ -784,15 +784,13 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         lstUsers.sort(Comparator.comparing(o -> o.getUserCode()));
         String userCode = lstUsers.get(0).getUserCode();
         String userCode2 = lstUsers.get(1).getUserCode();
-        String childID2 = lstUsers.get(1).getUserID();
-        String sport = SPORT_SOCCER;
         String tomorowTab = AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2);
 
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
 
         log("Step 2. Select sport is soccer, and Tomorrow tab ");
-        page.filter("", sport, tomorowTab);
+        page.filter("", SPORT_SOCCER, tomorowTab);
         log("Step Precondition: Block then Unblock all event for 2 downline accounts");
         page.checkDownline(userCode);
         page.checkDownline(userCode2);

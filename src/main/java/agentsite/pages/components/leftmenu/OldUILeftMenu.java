@@ -200,5 +200,15 @@ public class OldUILeftMenu extends LeftMenu {
     public void navigateMonitoredAccountsPage() {
         clickSubMenu(REPORT, MONITORED_ACCOUNT);
     }
+
+    @Override
+    public void navigateTransactionHistoryPage() {
+        clickSubMenu(REPORT, TRANSACTION_HISTORY);
+    }
+
+    @Override
+    public void navigateSubUserListingPage() {
+        clickSubMenu(AGENCY_MANAGEMENT, SUB_USER_LISTING);
+    }
 }
 
