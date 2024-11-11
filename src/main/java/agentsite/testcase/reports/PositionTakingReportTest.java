@@ -14,7 +14,7 @@ import java.util.Objects;
 
 import static common.AGConstant.BTN_SUBMIT;
 import static common.AGConstant.HomePage.POSITION_TAKING_REPORT;
-import static common.AGConstant.Report.*;
+import static common.AGConstant.AgencyManagement.*;
 import static common.AGConstant.Report.PositionTakingReport.TABLE_HEADER;
 
 public class PositionTakingReportTest extends BaseCaseTest {
@@ -42,11 +42,11 @@ public class PositionTakingReportTest extends BaseCaseTest {
         Assert.assertEquals(page.header.lblPageTitle.getText(), POSITION_TAKING_REPORT, "Failed! Page title is incorrect");
         Assert.assertEquals(page.txtSearchFrom.getAttribute("value"), today, "Failed! From textbox is incorrect day");
         Assert.assertEquals(page.txtSearchTo.getAttribute("value"), today, "Failed! To textbox is incorrect day");
-        Assert.assertEquals(page.btnToday.getText(), BTN_TODAY, "Failed! Today button is incorrect");
-        Assert.assertEquals(page.btnYesterday.getText(), BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
-        Assert.assertEquals(page.btnLastWeek.getText(), LAST_WEEK, "Failed! Last Week button is incorrect");
+        Assert.assertEquals(page.btnToday.getText(), AGConstant.Report.BTN_TODAY, "Failed! Today button is incorrect");
+        Assert.assertEquals(page.btnYesterday.getText(), AGConstant.Report.BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
+        Assert.assertEquals(page.btnLastWeek.getText(), AGConstant.Report.LAST_WEEK, "Failed! Last Week button is incorrect");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "Failed! Submit button is incorrect");
-        Assert.assertEquals(page.lblYouCanSeeReportData.getText(), LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS, "Failed! Submit button is incorrect");
+        Assert.assertEquals(page.lblYouCanSeeReportData.getText(), AGConstant.Report.LBL_YOU_CAN_SEE_REPORT_UP_TO_6_MONTHS, "Failed! Submit button is incorrect");
         Assert.assertEquals(page.tblReport.getColumnNamesOfTable(), TABLE_HEADER, "FAILED! Header tit");
         log("INFO: Executed completely");
     }

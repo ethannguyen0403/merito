@@ -156,6 +156,7 @@ public class AGConstant {
         public final static String REPORT = "Report";
         public final static String MARKET_MANAGEMENT = "Bets/Markets Management";
         public final static String DOWNLINE_LISTING = "Downline Listing";
+        public final static String GROUP_LIST = "Group Listing";
         public final static String CREATE_DOWNLINE_AGENT = "Create Downline Agent";
         public final static String CREATE_USER = "Create User";
         public final static String CREATE_COMPANY = "Create Company";
@@ -208,6 +209,7 @@ public class AGConstant {
         public final static String WIN_LOSS_BY_DETAIL_NEWUI = "%s By Detail";
         public final static String WIN_LOSS_NEWUI = "Win Loss";
         public final static String WIN_LOSS_SIMPLE_NEWUI = "Simple";
+        public final static String WIN_LOSS_ANALYSIS_NEWUI = "Win Loss Analysis";
         public final static String ANALYSIS_OF_RUNNING_MARKETS = "Analysis of Running Markets";
         public final static String IP_MONITORING = "IP Monitoring";
         public final static String MONITORED_ACCOUNT = "Monitored Accounts";
@@ -218,7 +220,7 @@ public class AGConstant {
         public final static List<String> LST_QUICK_SEARCH_MENU_NEWUI = Arrays.asList("Balance", "Unsettled Bet", "Client Ledger", "Settings", "Login");
         public final static List<String> LST_QUICK_SEARCH_LOGIN = Arrays.asList("Created Date", "Last Login Time", "Last Login IP");
         public final static List<String> LST_QUICK_SEARCH_SETTING_MENU = Arrays.asList("User Profile", "Product Status", "Position Taking", "Bet Settings", "Tax Settings", "Commission");
-        public final static String PS38_SPORTS_RESULTS = "PS38 Sports Results";
+        public final static String PS38_SPORTS_RESULTS = "PS38 Sports Result";
         public final static List<String> PRODUCTS_LIST = Arrays.asList("Exchange", "Exchange Games", "Evolution", "Supernowa Casino","CMD Sportsbook","Live Dealer European", "Live Dealer Asian","Pragmatic", "Game Hall",
                 "ViVo", "Ion","Sabong");
 
@@ -681,6 +683,14 @@ public class AGConstant {
                 }
             };
         }
+        public static class StatementReport {
+
+            public final static List<String> TABLE_HEADER_NEWUI = Arrays.asList("Username", "Nickname");
+            public final static List<String> TABLE_HEADER_OLDUI = Arrays.asList("Username", "Login ID");
+            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER_CREDIT_CASH = Arrays.asList("Sport/Game", "Credit", "Profit & Loss", "Tax/Commission", "Available Balance");
+            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER_CREDIT = Arrays.asList("Sport/Game", "Profit & Loss", "Tax/Commission", "Cash Balance");
+            public final static String LBL_STATEMENT_REPORT_SEARCH_TITLE = "Statement Report from %s to %s";
+        }
 
         public static class BetSettingListing {
             public static final HashMap<String, Boolean> SPORT_COLUMN_FALSE = new HashMap<String, Boolean>() {
@@ -896,15 +906,6 @@ public class AGConstant {
             public final static String LBL_INFO = "You can see report data up to 3 months";
             public final static List<String> TABLE_HEADER = Arrays.asList("No.", "Username", "Nickname", "Voided Date", "Description", "Type", "Odds", "Stake", "Status", "Remark");
             public final static List<String> TABLE_HEADED_SAT = Arrays.asList("No.", "Username", "Login ID", "Voided Date", "Description", "Type", "Odds", "Stake", "Status", "Remark");
-        }
-
-        public static class StatementReport {
-
-            public final static List<String> TABLE_HEADER_NEWUI = Arrays.asList("Username", "Nickname");
-            public final static List<String> TABLE_HEADER_OLDUI = Arrays.asList("Username", "Login ID");
-            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER_CREDIT_CASH = Arrays.asList("Sport/Game", "Credit", "Profit & Loss", "Tax/Commission", "Available Balance");
-            public final static List<String> TABLE_DETAIL_STATEMENT_HEADER_CREDIT = Arrays.asList("Sport/Game", "Profit & Loss", "Tax/Commission", "Cash Balance");
-            public final static String LBL_STATEMENT_REPORT_SEARCH_TITLE = "Statement Report from %s to %s";
         }
 
         public static class ClientLedger {

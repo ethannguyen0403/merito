@@ -1,4 +1,4 @@
-package agentsite.pages.report;
+package agentsite.pages.agentmanagement;
 
 import agentsite.controls.Cell;
 import agentsite.controls.DateTimePicker;

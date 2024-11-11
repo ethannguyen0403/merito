@@ -41,7 +41,7 @@
             <!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>--> Just for Credit Cash account
             <!--            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.WithdrawalTest"/>-->
             <class name="agentsite.testcase.agencymanagement.TransferTest"/>
-            <class name="agentsite.testcase.reports.StatementReportTest"/>
+            <class name="agentsite.testcase.agencymanagement.StatementReportTest"/>
             <class name="agentsite.testcase.reports.ClientLegerTest"/>
             <class name="agentsite.testcase.agencymanagement.CreditBalanceListingTest"/>
             <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>

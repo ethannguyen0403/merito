@@ -44,7 +44,7 @@ public class FollowBetsPerformanceTest extends BaseCaseTest {
     @Test(groups = {"smoke_po"})
     public void Agent_Report_Follow_Small_Bets_Performance_826() {
         log("@title: Validate can filter follow bet");
-        log("Step 1. Navigate Report >Follow & Small Bets Performance");
+        log("Step 1. Navigate Report > Follow & Small Bets Performance");
         FollowBetPerformancePage page = agentHomePage.navigateFollowBetPerformancePage();
         String startDate = DateUtils.getDate(85, "MM/dd/yyyy", "GMT-4");
         String endDate = DateUtils.getDate(0, "MM/dd/yyyy", "GMT-4");
@@ -61,9 +61,13 @@ public class FollowBetsPerformanceTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3769")
-//    @Test(groups = {"regression_po"})
+    @Test(groups = {"http_request"})
     public void Agent_Report_Follow_Small_Bets_Performance_3769() {
-        //TODO: implement test this case
+        log("@title: There is no http responded error returned");
+        log("Step 1. Navigate Report> Follow & Small Bets Performance");
+        agentHomePage.navigateFollowBetPerformancePage();
+        log("Verify: There is no http requests error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
         log("INFO: Executed completely");
     }
 }

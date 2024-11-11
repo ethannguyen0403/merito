@@ -127,6 +127,11 @@ public class NewUILeftMenu extends LeftMenu {
         clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_SIMPLE_NEWUI);
     }
 
+    @Override
+    public void navigateWinLossAnalysisPage() {
+        clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_SIMPLE_NEWUI);
+    }
+
     public void navigateWinLossBySportAndMarketTypePage() {
         clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_BY_MARKET_TYPE_NEWUI);
     }

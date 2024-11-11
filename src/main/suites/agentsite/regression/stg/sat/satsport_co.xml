@@ -48,7 +48,7 @@
             <class name="agentsite.testcase.reports.PositionTakingReportTest"/>
             <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
             <class name="agentsite.testcase.reports.PS38SportsResultsTest"/>
-            <class name="agentsite.testcase.reports.StatementReportTest"/>
+            <class name="agentsite.testcase.agencymanagement.StatementReportTest"/>
             <class name="agentsite.testcase.reports.TopGainersTopLosersTest"/>
             <class name="agentsite.testcase.reports.TransactionHistoryTest"/>
             <class name="agentsite.testcase.reports.TransferLogTest"/>

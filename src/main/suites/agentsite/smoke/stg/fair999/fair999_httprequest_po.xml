@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="FE_AG_STG_SMOKE_HTTP_Request" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="Smoke test cases Fair999 Http_request Agent Site in STG">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='true'/>
+        <parameter name='username' value='ANSUBIS'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='INR'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value='fairexchange'/>
+        <parameter name='skinName' value='fairexchange'/>
+        <parameter name='isAddTestRailResult' value='false'/>
+        <groups>
+            <run>
+                <include name="http_request"/>
+            </run>
+        </groups>
+
+        <classes>
+
+            <class name="agentsite.testcase.agencymanagement.CreateCompanyTest"/>
+            <class name="agentsite.testcase.agencymanagement.GroupListTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
+            <class name="agentsite.testcase.agencymanagement.StatementReportTest"/>
+            <class name="agentsite.testcase.reports.PS38SportsResultsTest"/>
+            <class name="agentsite.testcase.agencymanagement.FollowBetsTest"/>
+            <class name="agentsite.testcase.agencymanagement.AnnouncementTest"/>
+
+            <class name="agentsite.testcase.reports.WinLossAnalysisTest"/>
+            <class name="agentsite.testcase.reports.BFVoidedDiscrepancyTest"/>
+            <class name="agentsite.testcase.reports.FollowBetsPerformanceTest"/>
+
+            <class name="agentsite.testcase.marketsmanagement.LiquidityThresholdTest"/>
+
+            <class name="agentsite.testcase.frauddetection.FraudPermissionTest"/>
+        </classes>
+
+    </test>
+</suite>

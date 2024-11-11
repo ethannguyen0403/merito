@@ -34,7 +34,7 @@
         <classes>
             <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
             <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
-<!--            <class name="agentsite.testcase.reports.StatementReportTest"/>-->
+<!--            <class name="agentsite.testcase.agencymanagement.StatementReportTest"/>-->
 
 <!--            <class name="agentsite.testcase.reports.UnsettledBetTest"/>-->
 <!--            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>-->

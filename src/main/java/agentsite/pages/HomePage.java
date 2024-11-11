@@ -10,6 +10,7 @@ import agentsite.pages.components.SecurityPopup;
 import agentsite.pages.components.header.Header;
 import agentsite.pages.components.leftmenu.LeftMenu;
 import agentsite.pages.fraudetection.FraudDetectionPage;
+import agentsite.pages.fraudetection.FraudPermissionPage;
 import agentsite.pages.fraudetection.WagerOddsHistoryPage;
 import agentsite.pages.marketsmanagement.*;
 import agentsite.pages.report.*;
@@ -36,7 +37,7 @@ public class HomePage extends LoginPage {
         super(types);
 //        footer = ComponentsFactory.footerObject(_type);
         header = ComponentsFactory.headerObject(_type);
-        leftMenu=  ComponentsFactory.leftMenuObject(_type);
+        leftMenu = ComponentsFactory.leftMenuObject(_type);
         quickSearch = ComponentsFactory.quickSearchObject(_type);
     }
 
@@ -91,6 +92,12 @@ public class HomePage extends LoginPage {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, DOWNLINE_LISTING);
         waitingLoadingSpinner();
         return new DownLineListingPage(_type);
+    }
+
+    public GroupListPage navigateGroupListPage() {
+        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, GROUP_LIST);
+        waitingLoadingSpinner();
+        return new GroupListPage(_type);
     }
 
     public AnnoucementPage navigateAnnoucementPage() {
@@ -204,7 +211,7 @@ public class HomePage extends LoginPage {
     public CreateDownLineAgentPage navigateCreateDownLineAgentPage(String securityCode) {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, CREATE_DOWNLINE_AGENT);
         CreateDownLineAgentPage page = new CreateDownLineAgentPage(_type);
-        if (securityPopup.isDisplayed()){
+        if (securityPopup.isDisplayed()) {
             page.confirmSecurityCode(securityCode);
         }
         return page;
@@ -283,7 +290,7 @@ public class HomePage extends LoginPage {
     }
 
     public FollowBetPerformancePage navigateFollowBetPerformancePage() {
-        leftMenu.clickSubMenu(REPORT, CLIENT_LEDGER);
+        leftMenu.clickSubMenu(REPORT, FOLLOW_BETS_PERFORMANCE);
         waitingLoadingSpinner();
         return new FollowBetPerformancePage(_type);
     }
@@ -329,6 +336,7 @@ public class HomePage extends LoginPage {
         waitingLoadingSpinner();
         return new TransferLogPage(_type);
     }
+
     public ResettlementVoidLogPage navigateResettlementVoidLogPage() {
         leftMenu.clickSubMenu(REPORT, RESETTLEMENT_VOID_LOG);
         waitingLoadingSpinner();
@@ -363,6 +371,12 @@ public class HomePage extends LoginPage {
         leftMenu.navigateWinLossDetailPage();
         waitingLoadingSpinner();
         return new WinLossDetailPage(_type);
+    }
+
+    public WinLossAnalysisPage navigateWinLossAnalysisPage() {
+        leftMenu.navigateWinLossAnalysisPage();
+        waitingLoadingSpinner();
+        return new WinLossAnalysisPage(_type);
     }
 
     public WinLossSimplePage navigateWinLossSimplePage() {
@@ -436,11 +450,18 @@ public class HomePage extends LoginPage {
         waitingLoadingSpinner();
         return new MonitoredAccountsPage(_type);
     }
+
     public FraudDetectionPage navigateFraudDetectionPage() {
         leftMenu.clickSubMenu(FRAUD_DETECTION, FRAUD_DETECTION);
         waitingLoadingSpinner();
         return new FraudDetectionPage(_type);
     }
+    public FraudPermissionPage navigateFraudPermissionPage() {
+        leftMenu.clickSubMenu(FRAUD_DETECTION, FRAUD_PERMISSION);
+        waitingLoadingSpinner();
+        return new FraudPermissionPage(_type);
+    }
+
     public WagerOddsHistoryPage navigateWagerOddsHistoryPage() {
         leftMenu.clickSubMenu(FRAUD_DETECTION, WAGER_ODDS_HISTORY);
         waitingLoadingSpinner();

@@ -127,4 +127,14 @@ public class PS38SportsResultsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
+    @TestRails(id = "72964")
+    @Test(groups = {"http_request"})
+    public void Agent_Report_Analysis_Of_Running_Markets_72964() {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Navigate Report> PS38 Sports Results");
+        agentHomePage.navigatePS38SportsResultsPage();
+        log("Verify: There is no http requests error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
+        log("INFO: Executed completely");
+    }
 }

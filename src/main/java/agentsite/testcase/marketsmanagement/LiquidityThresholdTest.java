@@ -29,7 +29,7 @@ public class LiquidityThresholdTest extends BaseCaseTest {
      * @expect: 1. Verify there is no console error display
      */
     @TestRails(id = "780")
-    @Test(groups = {"http_request2"})
+    @Test(groups = {"http_request"})
     public void Agent_MM_Liquidity_Threshold_TC780() {
         log("@title: Validate there is no http responded error returned");
 

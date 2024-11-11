@@ -4,6 +4,7 @@ import agentsite.pages.agentmanagement.SubUserListingPage;
 import agentsite.pages.agentmanagement.subuserlisting.SubUserPopup;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
+import common.AGConstant;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -15,7 +16,7 @@ import java.util.List;
 import static common.AGConstant.BTN_CANCEL;
 import static common.AGConstant.BTN_SUBMIT;
 import static common.AGConstant.HomePage.*;
-import static common.AGConstant.SubUserListing.*;
+
 
 public class SubUserListingTest extends BaseCaseTest {
     /**
@@ -83,7 +84,7 @@ public class SubUserListingTest extends BaseCaseTest {
 
         log("Verify 1. Verify UI Sub User Listing display correctly");
         Assert.assertEquals(page.subUserListing.btnCreate.getText(), "Create", "FAILED! Create button incorrect display");
-        Assert.assertEquals(page.subUserListing.tblSubUSer.getHeaderNameOfRows(), TBL_SUB_USER_TABLE_NONPO, "FAILED! Header table column is incorrect display");
+        Assert.assertEquals(page.subUserListing.tblSubUSer.getHeaderNameOfRows(), AGConstant.SubUserListing.TBL_SUB_USER_TABLE_NONPO, "FAILED! Header table column is incorrect display");
         Assert.assertTrue(page.subUserListing.btnCreate.isEnabled(), "FAILED! Creat button not enable");
         log("INFO: Executed completely");
     }
@@ -110,9 +111,9 @@ public class SubUserListingTest extends BaseCaseTest {
         Assert.assertTrue(popup.txtLastName.isDisplayed(), "FAILED! Last Name textbox not display");
         Assert.assertEquals(popup.btnCancel.getText(), BTN_CANCEL, "FAILED! Submit button is incorrect display");
         List<String> lstPermisison = popup.permisisonList.getListSubMenu();
-        Assert.assertTrue(PERMISSION_LIST_SAD.containsAll(lstPermisison), "FAILED! List Permission on Create Sub User. Actual: " + lstPermisison);
+        Assert.assertTrue(AGConstant.SubUserListing.PERMISSION_LIST_SAD.containsAll(lstPermisison), "FAILED! List Permission on Create Sub User. Actual: " + lstPermisison);
         List<String> lstFormHeader = popup.tblForm.getColumn(1, false);
-        Assert.assertEquals(lstFormHeader, CREATE_SUB_USER_FORM, "FAILED! Labels Create Sub User");
+        Assert.assertEquals(lstFormHeader, AGConstant.SubUserListing.CREATE_SUB_USER_FORM, "FAILED! Labels Create Sub User");
 
         log("INFO: Executed completely");
     }

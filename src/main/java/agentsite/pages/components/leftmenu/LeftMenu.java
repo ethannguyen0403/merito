@@ -22,6 +22,7 @@ public class LeftMenu {
         switchMainMenu();
         leftMenuList.clickSubMenu(menu, submenu);
     }
+
     public void clickSubMenu(String menu, String submenu1, String submenu2) {
         leftMenuList.clickSubMenu(menu, submenu1, submenu2);
     }
@@ -69,24 +70,39 @@ public class LeftMenu {
     public void navigateBigStakeConfigurationPage() {
     }
 
-    public void navigateWinLossBySportAndMarketTypePage() {}
+    public void navigateWinLossBySportAndMarketTypePage() {
+    }
 
-    public void navigateStatementReportPage() {}
+    public void navigateStatementReportPage() {
+    }
 
-    public void navigateWinLossDetailPage() {}
+    public void navigateWinLossDetailPage() {
+    }
 
-    public void navigateWinLossByEventPage() {}
+    public void navigateWinLossAnalysisPage() {
+    }
 
-    public void navigateClientLedgerPage() {}
+    public void navigateWinLossByEventPage() {
+    }
 
-    public boolean isListSubMenuDisplayCorrect(String menu) { return false;}
+    public void navigateClientLedgerPage() {
+    }
 
-    public void verifyListSubMenuDisplayCorrect() {}
+    public boolean isListSubMenuDisplayCorrect(String menu) {
+        return false;
+    }
 
-    public void navigateIPMonitoringPage() {}
+    public void verifyListSubMenuDisplayCorrect() {
+    }
 
-    public void navigateMonitoredAccountsPage() {}
-    public void navigateTransactionHistoryPage() {}
+    public void navigateIPMonitoringPage() {
+    }
+
+    public void navigateMonitoredAccountsPage() {
+    }
+
+    public void navigateTransactionHistoryPage() {
+    }
 
     public void navigateSubUserListingPage() {
     }
