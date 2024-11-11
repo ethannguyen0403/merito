@@ -43,6 +43,7 @@ public class Fair999Header extends Header1 {
     private Label lblLiabilityCurrency = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')]/span[contains(@class,'lia-val')][1]");
     private Label lblLiability = Label.xpath("(//div[contains(@class,'profit-group d-none')]/div[contains(@class,'liability')])[1]/span[@class='lia-val'][1]");
     private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
+    private String sportSelectingTabXpath = "//a//div[contains(text(),'%s')]//parent::a";
     String productMenuXpath = "//app-product-tab-v2//a[(text()='%s')]";
     String productLiveDealerXpath = "//app-live-dealer//a[text()='%s']";
     // Before Login
@@ -76,11 +77,15 @@ public class Fair999Header extends Header1 {
 
     private void clickHeaderMenu(String sportMenu){
         Menu menu = Menu.xpath(String.format(sportMenuXpath, sportMenu));
-        if (!menu.isDisplayed(5)) {
-            System.out.println(String.format("There is no %s menu display", sportMenu));
-            return;
+        Label selectingMenu = Label.xpath(String.format(sportSelectingTabXpath, sportMenu));
+        int count = 0;
+        while(count < 3) {
+            menu.click();
+            if(selectingMenu.getAttribute("class").contains("selected-tab")) {
+                return;
+            }
+            count++;
         }
-        menu.click();
     }
     public RacingPage navigateRacing(String pageName, String brand) {
         clickHeaderMenu(pageName);
