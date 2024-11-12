@@ -28,15 +28,15 @@ public class DownLineListingUtils {
 
     }
 
-    private static JSONObject getDownLineJson(String brandName, String userName, String loginID) {
+    private static JSONObject getDownLineJson(String brandName, String loginID) {
         String api = defineAPIUrl(brandName);
-        String jsn = null;
+        String jsn = "";
         switch (brandName) {
             case "satsport":
-                jsn = String.format("{\"userName\":\"%s\",\"loginId\":\"%s\",\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", userName,loginID, DateUtils.getMilliSeconds());
+                jsn = String.format("{\"userName\":\"\",\"loginId\":\"%s\",\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", loginID, DateUtils.getMilliSeconds());
                 break;
             default:
-                jsn = String.format("{\"userName\":\"%s\",\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}",userName, DateUtils.getMilliSeconds());
+                jsn = String.format("{\"userName\":\"\",\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", DateUtils.getMilliSeconds());
         }
         return WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
     }
@@ -120,7 +120,7 @@ public class DownLineListingUtils {
     public static List<AccountInfo> getAllDownLineUsers(String brandName, String userName, String loginID) {
         // String api = defineAPIUrl(brandName);
         List<AccountInfo> lstUsers = new ArrayList<>();
-        JSONObject jsonObject = getDownLineJson(brandName, userName, loginID);
+        JSONObject jsonObject = getDownLineJson(brandName, loginID);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("pageInfo")) {
                 JSONObject jsnPageInfo = jsonObject.getJSONObject("pageInfo");
