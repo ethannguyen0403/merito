@@ -8,6 +8,7 @@ import controls.Table;
 import membersite.objects.sat.Event;
 import membersite.utils.betplacement.BetUtils;
 import membersite.utils.betplacement.FancyUtils;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -357,172 +358,176 @@ public class SATEventContainerControl extends EventContainerControl {
     }
 
 
+    /*
+        public Odd getOdd(Team team, boolean isBack, boolean isOddEmpty, int limit, int eventIndex) {
+            if (lblNoEvent.isInvisible(2)) {
+                String xpathEvents = String.format("%s//div[@id='content-odds']//ul[@class='list-coupon']/li[@class='vevent coming-up']", _xpath);
+                int i = Math.max(eventIndex, 1);
+                while(true) {
+                    String xpathEvent = String.format("%s[%s]", xpathEvents, i);
+                    Label lblEvent = Label.xpath(xpathEvent);
+                    if (!lblEvent.isPresent(2)){
+                        return null;
+                    }
+                    Label lblSuspend = Label.xpath(String.format("%s//ul/li//div[@class='status-overlay']", xpathEvent));
+                    if (!lblSuspend.isDisplayedShort(2)) {
+                        Icon iconInPlay = Icon.xpath(String.format("%s/span[@class='in-play-icon']", xpathEvent));
+                        Link lnkHome = Link.xpath(String.format("%s//span[@class='home-team']", xpathEvent));
+                        Link lnkAway = Link.xpath(String.format("%s//span[@class='away-team']", xpathEvent));
+                        Label lnkStartTime = Label.xpath(String.format("%s//div[@class='start-time']", xpathEvent));
 
-/*
-	public Odd getOdd(Team team, boolean isBack, boolean isOddEmpty, int limit, int eventIndex) {
-		if (lblNoEvent.isInvisible(2)) {
-			String xpathEvents = String.format("%s//div[@id='content-odds']//ul[@class='list-coupon']/li[@class='vevent coming-up']", _xpath);
-			int i = Math.max(eventIndex, 1);
-			while(true) {
-				String xpathEvent = String.format("%s[%s]", xpathEvents, i);
-				Label lblEvent = Label.xpath(xpathEvent);
-				if (!lblEvent.isPresent(2)){
-					return null;
-				}
-				Label lblSuspend = Label.xpath(String.format("%s//ul/li//div[@class='status-overlay']", xpathEvent));
-				if (!lblSuspend.isDisplayedShort(2)) {
-					Icon iconInPlay = Icon.xpath(String.format("%s/span[@class='in-play-icon']", xpathEvent));
-					Link lnkHome = Link.xpath(String.format("%s//span[@class='home-team']", xpathEvent));
-					Link lnkAway = Link.xpath(String.format("%s//span[@class='away-team']", xpathEvent));
-					Label lnkStartTime = Label.xpath(String.format("%s//div[@class='start-time']", xpathEvent));
+                        String backOrLay = isBack ? "back" : "lay";
+                        String homeTeam = lnkHome.getText();
+                        String awayTeam = lnkAway.getText();
+                        int iSelectedTeam = _isMatchOdds ? (team.equals(Team.HOME) ? 1 : 2) : (team.equals(Team.HOME) ? 1 : team.equals(Team.DRAW) ? 2 : 3);
+                        String selectedTeam = team.equals(Team.HOME) ? homeTeam : team.equals(Team.DRAW) ? Constants.BetSlip.DRAW : awayTeam;
 
-					String backOrLay = isBack ? "back" : "lay";
-					String homeTeam = lnkHome.getText();
-					String awayTeam = lnkAway.getText();
-					int iSelectedTeam = _isMatchOdds ? (team.equals(Team.HOME) ? 1 : 2) : (team.equals(Team.HOME) ? 1 : team.equals(Team.DRAW) ? 2 : 3);
-					String selectedTeam = team.equals(Team.HOME) ? homeTeam : team.equals(Team.DRAW) ? Constants.BetSlip.DRAW : awayTeam;
+                        String xpathOdd = String.format("%s//li[@class='prices-list']//li[@class='%s-cell'][%s]//span", xpathEvent, backOrLay, iSelectedTeam);
+                        Link lnkSelectedOdd = Link.xpath(xpathOdd); // which odd at Back | Lay of (1 | x | 2)
 
-					String xpathOdd = String.format("%s//li[@class='prices-list']//li[@class='%s-cell'][%s]//span", xpathEvent, backOrLay, iSelectedTeam);
-					Link lnkSelectedOdd = Link.xpath(xpathOdd); // which odd at Back | Lay of (1 | x | 2)
+                        if (lnkSelectedOdd.isDisplayedShort(2)) {
+                            boolean isInPlayOnOdd = iconInPlay.isDisplayedShort(2);
+                            String oddRate = lnkSelectedOdd.getText();
 
-					if (lnkSelectedOdd.isDisplayedShort(2)) {
-						boolean isInPlayOnOdd = iconInPlay.isDisplayedShort(2);
-						String oddRate = lnkSelectedOdd.getText();
+                            // check whether odd rate is less than 4 we will place this bet
+                            String checkOddRate = oddRate.isEmpty() ? "100" : oddRate;
+                            boolean isAllow = true;
+                            if(!isBack && Double.parseDouble(checkOddRate) > 4) {
+                                isAllow = false;
+                            }
 
-						// check whether odd rate is less than 4 we will place this bet
-						String checkOddRate = oddRate.isEmpty() ? "100" : oddRate;
-						boolean isAllow = true;
-						if(!isBack && Double.parseDouble(checkOddRate) > 4) {
-							isAllow = false;
-						}
+                            if (isOddEmpty) {
+                                if (oddRate.isEmpty()) {
+                                    return getOdd(lnkSelectedOdd, oddRate, homeTeam, awayTeam, isInPlayOnOdd, selectedTeam, i);
+                                }
+                            } else {
+                                if (isAllow && !oddRate.isEmpty()) {
+                                    return getOdd(lnkSelectedOdd, oddRate, homeTeam, awayTeam, isInPlayOnOdd, selectedTeam, i);
+                                }
+                            }
+                        }
+                    }
+                    if (i > limit) {
+                        return null;
+                    }
+                    i++;
+                }
+            }
+            return null;
+        }
 
-						if (isOddEmpty) {
-							if (oddRate.isEmpty()) {
-								return getOdd(lnkSelectedOdd, oddRate, homeTeam, awayTeam, isInPlayOnOdd, selectedTeam, i);
-							}
-						} else {
-							if (isAllow && !oddRate.isEmpty()) {
-								return getOdd(lnkSelectedOdd, oddRate, homeTeam, awayTeam, isInPlayOnOdd, selectedTeam, i);
-							}
-						}
-					}
-				}
-				if (i > limit) {
-					return null;
-				}
-				i++;
-			}
-		}
-		return null;
-	}
+        public Odd getOdd(Team team, boolean isBack, boolean isOddEmpty, Status statusType, int limit, int eventIndex) {
+            if (lblNoEvent.isInvisible(2)) {
+                String xpathEvents = String.format("%s//div[@id='content-odds']//ul[@class='list-coupon']/li[@class='vevent coming-up']", _xpath);
+                int i = Math.max(eventIndex, 1);
+                while(true) {
+                    String xpathEvent = String.format("%s[%s]", xpathEvents, i);
+                    Label lblEvent = Label.xpath(xpathEvent);
+                    if (!lblEvent.isPresent(2)){
+                        return null;
+                    }
+                    Label lblSuspend = Label.xpath(String.format("%s//ul/li//div[@class='status-overlay']", xpathEvent));
+                    if (!lblSuspend.isDisplayedShort(2)) {
+                        Icon iconInPlay = Icon.xpath(String.format("%s/span[@class='in-play-icon']", xpathEvent));
+                        Link lnkHome = Link.xpath(String.format("%s//span[@class='home-team']", xpathEvent));
+                        Link lnkSeparate = Link.xpath(String.format("%s//span[@class='sep']", xpathEvent));
+                        Link lnkAway = Link.xpath(String.format("%s//span[@class='away-team']", xpathEvent));
+                        Label lnkStartTime = Label.xpath(String.format("%s//div[@class='start-time']", xpathEvent));
 
-	public Odd getOdd(Team team, boolean isBack, boolean isOddEmpty, Status statusType, int limit, int eventIndex) {
-		if (lblNoEvent.isInvisible(2)) {
-			String xpathEvents = String.format("%s//div[@id='content-odds']//ul[@class='list-coupon']/li[@class='vevent coming-up']", _xpath);
-			int i = Math.max(eventIndex, 1);
-			while(true) {
-				String xpathEvent = String.format("%s[%s]", xpathEvents, i);
-				Label lblEvent = Label.xpath(xpathEvent);
-				if (!lblEvent.isPresent(2)){
-					return null;
-				}
-				Label lblSuspend = Label.xpath(String.format("%s//ul/li//div[@class='status-overlay']", xpathEvent));
-				if (!lblSuspend.isDisplayedShort(2)) {
-					Icon iconInPlay = Icon.xpath(String.format("%s/span[@class='in-play-icon']", xpathEvent));
-					Link lnkHome = Link.xpath(String.format("%s//span[@class='home-team']", xpathEvent));
-					Link lnkSeparate = Link.xpath(String.format("%s//span[@class='sep']", xpathEvent));
-					Link lnkAway = Link.xpath(String.format("%s//span[@class='away-team']", xpathEvent));
-					Label lnkStartTime = Label.xpath(String.format("%s//div[@class='start-time']", xpathEvent));
+                        String backOrLay = isBack ? "back" : "lay";
+                        String homeTeam = lnkHome.getText();
+                        String separateCharacter = lnkSeparate.getText(); // v  or @
+                        String awayTeam = lnkAway.getText();
+                        String eventName = String.format("%s %s %s", homeTeam, separateCharacter, awayTeam);
+                        int iSelectedTeam = _isMatchOdds ? (team.equals(Team.HOME) ? 1 : 2) : (team.equals(Team.HOME) ? 1 : team.equals(Team.DRAW) ? 2 : 3);
+                        String selectedTeam = team.equals(Team.HOME) ? homeTeam : team.equals(Team.DRAW) ? Constants.BetSlip.DRAW : awayTeam;
 
-					String backOrLay = isBack ? "back" : "lay";
-					String homeTeam = lnkHome.getText();
-					String separateCharacter = lnkSeparate.getText(); // v  or @
-					String awayTeam = lnkAway.getText();
-					String eventName = String.format("%s %s %s", homeTeam, separateCharacter, awayTeam);
-					int iSelectedTeam = _isMatchOdds ? (team.equals(Team.HOME) ? 1 : 2) : (team.equals(Team.HOME) ? 1 : team.equals(Team.DRAW) ? 2 : 3);
-					String selectedTeam = team.equals(Team.HOME) ? homeTeam : team.equals(Team.DRAW) ? Constants.BetSlip.DRAW : awayTeam;
+                        String xpathOdd = String.format("%s//li[@class='prices-list']//li[@class='%s-cell'][%s]//span", xpathEvent, backOrLay, iSelectedTeam);
+                        Link lnkSelectedOdd = Link.xpath(xpathOdd); // which odd at Back | Lay of (1 | x | 2)
 
-					String xpathOdd = String.format("%s//li[@class='prices-list']//li[@class='%s-cell'][%s]//span", xpathEvent, backOrLay, iSelectedTeam);
-					Link lnkSelectedOdd = Link.xpath(xpathOdd); // which odd at Back | Lay of (1 | x | 2)
+                        if (lnkSelectedOdd.isDisplayedShort(2)) {
+                            boolean isInPlayOnOdd = iconInPlay.isDisplayedShort(2);
+                            String oddRate = lnkSelectedOdd.getText();
 
-					if (lnkSelectedOdd.isDisplayedShort(2)) {
-						boolean isInPlayOnOdd = iconInPlay.isDisplayedShort(2);
-						String oddRate = lnkSelectedOdd.getText();
+                            // check whether odd rate is less than 4 we will place this bet
+                            String checkOddRate = oddRate.isEmpty() ? "100" : oddRate;
+                            boolean isAllow = true;
+                            if(!isBack && Double.parseDouble(checkOddRate) > 4) {
+                                isAllow = false;
+                            }
+                            switch (statusType) {
+                                case NA:
+                                    if (isOddEmpty) {
+                                        if (oddRate.isEmpty()) {
+                                            return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
+                                        }
+                                    } else {
+                                        if (isAllow && !oddRate.isEmpty()) {
+                                            return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
+                                        }
+                                    }
+                                case IN_PLAY:
+                                    if (isInPlayOnOdd) {
+                                        if (isOddEmpty) {
+                                            if (oddRate.isEmpty()) {
+                                                return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
+                                            }
+                                        } else {
+                                            if (isAllow && !oddRate.isEmpty()) {
+                                                return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
+                                            }
+                                        }
+                                    }
+                                case COMING:
+                                    if (!isInPlayOnOdd) {
+                                        if (isOddEmpty) {
+                                            if (oddRate.isEmpty()) {
+                                                return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
+                                            }
+                                        } else {
+                                            if (isAllow && !oddRate.isEmpty()) {
+                                                return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
+                                            }
+                                        }
+                                    }
+                            }
+                        }
+                    }
+                    if (i - eventIndex > limit) {
+                        return null;
+                    }
+                    i++;
+                }
+            }
+            return null;
+        }
 
-						// check whether odd rate is less than 4 we will place this bet
-						String checkOddRate = oddRate.isEmpty() ? "100" : oddRate;
-						boolean isAllow = true;
-						if(!isBack && Double.parseDouble(checkOddRate) > 4) {
-							isAllow = false;
-						}
-						switch (statusType) {
-							case NA:
-								if (isOddEmpty) {
-									if (oddRate.isEmpty()) {
-										return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
-									}
-								} else {
-									if (isAllow && !oddRate.isEmpty()) {
-										return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
-									}
-								}
-							case IN_PLAY:
-								if (isInPlayOnOdd) {
-									if (isOddEmpty) {
-										if (oddRate.isEmpty()) {
-											return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
-										}
-									} else {
-										if (isAllow && !oddRate.isEmpty()) {
-											return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
-										}
-									}
-								}
-							case COMING:
-								if (!isInPlayOnOdd) {
-									if (isOddEmpty) {
-										if (oddRate.isEmpty()) {
-											return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
-										}
-									} else {
-										if (isAllow && !oddRate.isEmpty()) {
-											return getOdd(lnkSelectedOdd, oddRate, eventName, isInPlayOnOdd, selectedTeam, i);
-										}
-									}
-								}
-						}
-					}
-				}
-				if (i - eventIndex > limit) {
-					return null;
-				}
-				i++;
-			}
-		}
-		return null;
-	}
+        private Odd getOdd (Link lnkSelectedOdd, String oddRate, String homeTeam, String awayTeam, boolean isInPlay, String selectedTeam, int eventIndex) {
+            return new Odd.Builder()
+                    .eventName(String.format("%s v %s", homeTeam, awayTeam))
+                    .selectedTeam(selectedTeam)
+                    .isInPlay(isInPlay)
+                    .oddRate(oddRate)
+                    .lnkOdd(lnkSelectedOdd)
+                    .eventIndex(eventIndex)
+                    .build();
+        }
 
-	private Odd getOdd (Link lnkSelectedOdd, String oddRate, String homeTeam, String awayTeam, boolean isInPlay, String selectedTeam, int eventIndex) {
-		return new Odd.Builder()
-				.eventName(String.format("%s v %s", homeTeam, awayTeam))
-				.selectedTeam(selectedTeam)
-				.isInPlay(isInPlay)
-				.oddRate(oddRate)
-				.lnkOdd(lnkSelectedOdd)
-				.eventIndex(eventIndex)
-				.build();
-	}
+        private Odd getOdd (Link lnkSelectedOdd, String oddRate, String eventName, boolean isInPlay, String selectedTeam, int eventIndex) {
+            return new Odd.Builder()
+                    .eventName(eventName)
+                    .selectedTeam(selectedTeam)
+                    .isInPlay(isInPlay)
+                    .oddRate(oddRate)
+                    .lnkOdd(lnkSelectedOdd)
+                    .eventIndex(eventIndex)
+                    .build();
+        }
 
-	private Odd getOdd (Link lnkSelectedOdd, String oddRate, String eventName, boolean isInPlay, String selectedTeam, int eventIndex) {
-		return new Odd.Builder()
-				.eventName(eventName)
-				.selectedTeam(selectedTeam)
-				.isInPlay(isInPlay)
-				.oddRate(oddRate)
-				.lnkOdd(lnkSelectedOdd)
-				.eventIndex(eventIndex)
-				.build();
-	}
-
- */
+     */
+    @Override
+    public void verifyEventSuspended() {
+        Label lblSuspend = Label.xpath("//span[contains(@class,'suspended-label')]");
+        Assert.assertTrue(lblSuspend.isDisplayed(), "FAILED! Event is not suspended");
+    }
 }

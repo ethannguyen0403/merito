@@ -40,6 +40,7 @@ public class SatHeader extends Header1 {
     private Image imgLeftMenu = Image.xpath("//div[@class='left-menu-icon']/i");
     private Menu menuSports = Menu.xpath("//app-sport-menu-bar//ul[@class='navbar-nav']//a");
     private String sportMenuXpath = "//a//div[contains(text(),'%s')]";
+    private String sportSelectingTabXpath = "//a//div[contains(text(),'%s')]//parent::a";
     private String sportMenuOldUIXpath = "//a[contains(@data-sport-name,'%s')]";
     private Link lnkMyMarkets = Link.xpath("//div[contains(@class,'account d-none')]");
     private Label lblBalanceTitle = Label.xpath("//div[contains(@class,'profit-group d-none')]/div[@class='balance']/span[@class='title' and contains(text(),'Balance')]");
@@ -74,11 +75,7 @@ public class SatHeader extends Header1 {
     @Override
     public SATSignInPopup openSigninPopup() {
         btnJoinNow.click();
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            e.getCause();
-        }
+        btnJoinNow.waitForControlInvisible();
         return new SATSignInPopup();
     }
 
@@ -286,11 +283,15 @@ public class SatHeader extends Header1 {
 
     private void clickHeaderMenu(String sportMenu){
         Menu menu = Menu.xpath(String.format(sportMenuXpath, sportMenu));
-        if (!menu.isDisplayed(5)) {
-            System.out.println(String.format("There is no %s menu display", sportMenu));
-            return;
+        Label selectingMenu = Label.xpath(String.format(sportSelectingTabXpath, sportMenu));
+        int count = 0;
+        while(count < 3) {
+            menu.click();
+            if(selectingMenu.getAttribute("class").contains("selected-tab")) {
+                return;
+            }
+            count++;
         }
-        menu.click();
     }
     public void openMyMarketPopup() {
         lnkMyMarkets.click();

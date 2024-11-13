@@ -50,6 +50,7 @@ public class OldUIPositionTakingListing extends PositionTakingListing {
         //Click update
         btnUpdate.click();
         waitingLoadingSpinner();
+        waitingLoadingSpinner();
     }
 
     public void verifyTableHeaderProductDisplayCorrect(List<String> lstProduct) {

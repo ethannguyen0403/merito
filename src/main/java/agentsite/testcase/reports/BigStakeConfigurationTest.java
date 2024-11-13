@@ -79,8 +79,8 @@ public class BigStakeConfigurationTest extends BaseCaseTest {
             page.btnOK.click();
             List<ArrayList<String>> configuredData = page.tblBigStakeConfiguration.getRowsWithoutHeader(1, false);
             Assert.assertTrue(configuredData.get(0).get(0).contains(currentDateTime), "FAILED! configure date time not correctly");
-            Assert.assertTrue(configuredData.get(0).get(1).contains(String.format("%,.2f", Double.valueOf(stake))), "FAILED! configure date time not correctly");
-            Assert.assertTrue(configuredData.get(0).get(2).contains(username), "FAILED! configure date time not correctly");
+            Assert.assertTrue(configuredData.get(0).get(1).contains(String.format("%,.2f", Double.valueOf(stake))), "FAILED! configure stake not correctly");
+            Assert.assertTrue(configuredData.get(0).get(2).contains(username.toLowerCase()), "FAILED! configure username not correctly");
             log("INFO: Executed completely");
         } finally {
             log("PostCondition: Set big stake to 0");

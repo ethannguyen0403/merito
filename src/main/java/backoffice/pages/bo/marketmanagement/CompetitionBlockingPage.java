@@ -15,8 +15,8 @@ import java.util.List;
 import static backoffice.common.BOConstants.NO_RECORDS_FOUND;
 
 public class CompetitionBlockingPage extends HomePage {
-    public Button btnBlock = Button.xpath("//div[@class='margin-top']/button[1]");
-    public Button btnUnblock = Button.xpath("//div[@class='margin-top']/button[2]");
+    public Button btnBlock = Button.xpath("//div[@class='mt-1']/button[1]");
+    public Button btnUnblock = Button.xpath("//div[@class='mt-1']/button[2]");
     public Label lblNote = Label.xpath("//span[@class='user-guide']");
     public TextBox txtSearchSport = TextBox.xpath("//div[@class='sport-container']//input");
     public TextBox txtSearchCompetition = TextBox.xpath("//div[@class='competition-container']//input[@placeholder='Search competition']");
@@ -24,7 +24,7 @@ public class CompetitionBlockingPage extends HomePage {
     public TextBox txtSearchEventID = TextBox.xpath("//div[@class='event-container']//input[@placeholder='Search id']");
     public TextBox txtSearchEventName = TextBox.xpath("//div[@class='event-container']//input[@placeholder='Search name']");
     public int colSport = 1;
-    public StaticTable tblSport = StaticTable.xpath("//div[@class='sport-container']", "div[contains(@class,'custom-scrollbar')]", "div[contains(@class,'tr-event')]", "div[@class='td']", 1);
+    public StaticTable tblSport = StaticTable.xpath("//div[@class='sport-container']", "div[contains(@class,'custom-scrollbar')]", "div[contains(@class,'tr-event')]", "div[contains(@class,'td')]", 1);
     public int colLastUpdateBy = 4;
     public int colCompetition = 1;
     public int colStatus = 2;

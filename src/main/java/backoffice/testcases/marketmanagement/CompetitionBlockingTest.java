@@ -22,7 +22,7 @@ public class CompetitionBlockingTest extends BaseCaseTest {
      * 2. The competition is unblock by default
      */
     @TestRails(id = "625")
-    @Test(groups = {"smoke"})
+    @Test(groups = {"smoke","Maintenance.STG.2024.V.6.0"})
     public void BO_Market_Management_Competition_Blocking_625() {
         log("@title: Validate default UI is loaded and competition is unblocked by default");
         log("Step 1. Access Operations > Competition Blocking");

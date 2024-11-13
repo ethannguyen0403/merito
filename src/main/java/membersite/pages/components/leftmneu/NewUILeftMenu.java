@@ -21,8 +21,8 @@ import static common.MemberConstants.WICKET_BOOKMAKER_TITLE;
 
 public class NewUILeftMenu extends LeftMenu {
     public Image imgLoading = Image.xpath("//div[@class='loading-icon']/img");
-    public TextBox txtSearch = TextBox.id("searchMarket");
-    public Label lblResult = Label.xpath("//div[contains(@class,'completer-dropdown-holder')]//*[@class='completer-title']");
+    public TextBox txtSearch = TextBox.xpath("//input[@role='combobox']");
+    public Label lblResult = Label.xpath("//div[@role='listbox']//span");
     public Label lblNoSearchResult = Label.xpath("//div[contains(@class,'completer-dropdown-holder')]//div[@class='completer-no-results']");
     public DropDownMenu casinotMenu = DropDownMenu.xpath("//div[contains(@class,'level casino-menu')]", "//div[contains(@class,'active')]//span", "//div[contains(@class,'casino-sub-menu')]//div");
     private String menuSubItemsXpath = "%s/following::div[@class='downs-levels']/div";

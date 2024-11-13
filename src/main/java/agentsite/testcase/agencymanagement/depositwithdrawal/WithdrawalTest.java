@@ -448,7 +448,7 @@ public class WithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 1.1 Filter Active account");
-        page.filter("", "Active", "");
+//        page.filter("", "Active", "");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         List<AccountInfo> lstFiveUser = new ArrayList<>();
@@ -530,7 +530,7 @@ public class WithdrawalTest extends BaseCaseTest {
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 1.1 Filter Active account");
-        page.filter("", "Active", "");
+//        page.filter("", "Active", "");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
         Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
         List<AccountInfo> lstFiveUser = new ArrayList<>();

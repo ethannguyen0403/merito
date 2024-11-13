@@ -1,6 +1,7 @@
 package agentsite.testcase.agencymanagement;
 
 import agentsite.objects.agent.account.AccountInfo;
+import agentsite.pages.components.ConfirmPopup;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import common.AGConstant;
@@ -164,10 +165,15 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "684")
+    @Test (groups = {"smoke","MER.Implementation.V.2.0"})
     public void Agent_AM_CreateDownline_Agent_684() {
         log("@title: Validate if input incorrect Login ID format");
-        //TODO: implement this case
-        log("@title: Validate Cricket match odds will include fancy market");
+        log("@Step 1: Navigate Agency Management > Create Downline Agent");
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
+        log("@Step 2: Input incorrect Login ID format");
+        page.accountInforSection.inputInfo("123","","");
+        log("Verify 1: Message \"Login ID is invalid.\" display next to Cancel button");
+        Assert.assertEquals(page.lblErrorMsg.getText(),AGConstant.AgencyManagement.CreateDownlineAgent.LBL_LOGINID_INVALID,"FAILED! Error message display incorrect.");
         log("INFO: Executed completely");
     }
 
@@ -191,8 +197,17 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "686")
+    @Test (groups = {"smoke","MER.Implementation.V.2.0"})
     public void Agent_AM_CreateDownline_Agent_686() {
-        //TODO: implement test for this case
+        log("@title: Validate cannot create downline with the exist Login ID");
+        log("@Step 1: Navigate Agency Management > Create Downline Agent");
+        String username = DownLineListingUtils.getRandomLoginID();
+        CreateDownLineAgentPage page = agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
+        log("@Step 2: Input Login ID that exist in the system and correct password then click submit");
+        page.accountInforSection.inputInfo(username,"1234qwer","");
+        page.getSubmitBtn().click();
+        log("Verify 1: Popup Create Downline with the message \"Login ID already exist.\"");
+        Assert.assertEquals(page.successPopup.getContentMessage(),AGConstant.AgencyManagement.CreateDownlineAgent.LBL_LOGINID_EXIST,"FAILED! Error message display incorrect.");
         log("INFO: Executed completely");
     }
     @TestRails(id = "3486")
@@ -340,7 +355,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
         //Set isProxy = true
         log("@title: Validate There is no http responded error returned");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
-        agentHomePage.navigateCreateDownLineAgentPage(StringUtils.decrypt(environment.getSecurityCode()));
+        agentHomePage.navigateCreateDownLineAgentPage(environment.getSecurityCode());
 
         log("Verify 1. Create Downline page is displayed without console error");
         Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error display when accessing the page");

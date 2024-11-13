@@ -3,8 +3,12 @@ package agentsite.pages;
 
 import agentsite.controls.Table;
 import agentsite.objects.agent.account.AccountInfo;
+import agentsite.pages.accountbalance.AccountBalance;
+import agentsite.pages.components.ComponentsFactory;
 import agentsite.ultils.account.ProfileUtils;
 import com.paltech.element.common.Label;
+import common.AGConstant;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +17,10 @@ import java.util.List;
 
 public class AccountBalancePage extends HomePage {
     public Table tblInfo = Table.xpath("//app-account-balance//table", 2);
-
+    public AccountBalance accountBalance;
     public AccountBalancePage(String types) {
         super(types);
+        accountBalance = ComponentsFactory.accountBalance(types);
     }
 
     private List<String> defineBalanceInfoCredit() {
@@ -26,11 +31,11 @@ public class AccountBalancePage extends HomePage {
                 "Yesterday Downline Balance",
                 "Total Balance",
                 "Transferable Balance",
+                "My Credit",
                 "My Outstanding",
                 "Total Outstanding",
                 "Today Win Loss",
-                "Yesterday Win Loss",
-                "My Credit"
+                "Yesterday Win Loss"
         ));
         // define downline Credit Used
         for (int i = 0; i < lstDownlineInfo.size(); i++) {
@@ -117,6 +122,4 @@ public class AccountBalancePage extends HomePage {
                 .creditGiven((int) (Double.parseDouble(myCredit.replaceAll(",", ""))))
                 .build();
     }
-
-
 }

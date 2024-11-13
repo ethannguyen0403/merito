@@ -11,9 +11,7 @@ import agentsite.pages.components.header.Header;
 import agentsite.pages.components.leftmenu.LeftMenu;
 import agentsite.pages.marketsmanagement.*;
 import agentsite.pages.report.*;
-import agentsite.pages.riskmanagement.AgentExposureLimitPage;
-import agentsite.pages.riskmanagement.NetExposurePage;
-import agentsite.pages.riskmanagement.VolumeMonitorPage;
+import agentsite.pages.riskmanagement.*;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.Icon;
 import com.paltech.element.common.Label;
@@ -147,7 +145,8 @@ public class HomePage extends LoginPage {
     }
 
     public SubUserListingPage navigateSubUserListingPage() {
-        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, SUB_USER_LISTING);
+        leftMenu.navigateSubUserListingPage();
+//        leftMenu.clickSubMenu(AGENCY_MANAGEMENT, SUB_USER_LISTING);
         waitingLoadingSpinner();
         return new SubUserListingPage(_type);
     }
@@ -203,7 +202,9 @@ public class HomePage extends LoginPage {
     public CreateDownLineAgentPage navigateCreateDownLineAgentPage(String securityCode) {
         leftMenu.clickSubMenu(AGENCY_MANAGEMENT, CREATE_DOWNLINE_AGENT);
         CreateDownLineAgentPage page = new CreateDownLineAgentPage(_type);
-        page.confirmSecurityCode(securityCode);
+        if (securityPopup.isDisplayed()){
+            page.confirmSecurityCode(securityCode);
+        }
         return page;
     }
 
@@ -315,7 +316,8 @@ public class HomePage extends LoginPage {
     }
 
     public TransactionHistoryPage navigateTransactionHistoryPage() {
-        leftMenu.clickSubMenu(REPORT, TRANSACTION_HISTORY);
+//        leftMenu.clickSubMenu(REPORT, TRANSACTION_HISTORY);
+        leftMenu.navigateTransactionHistoryPage();
         waitingLoadingSpinner();
         return new TransactionHistoryPage(_type);
     }
@@ -414,5 +416,17 @@ public class HomePage extends LoginPage {
         leftMenu.clickSubMenu(CASH_MANAGEMENT, QUICK_DEPOSIT_CONFIG);
         waitingLoadingSpinner();
         return new QuickDepositConfigurationPage(_type);
+    }
+
+    public IPMonitoringPage navigateIPMonitoringPage() {
+        leftMenu.navigateIPMonitoringPage();
+        waitingLoadingSpinner();
+        return new IPMonitoringPage(_type);
+    }
+
+    public MonitoredAccountsPage navigateMonitoredAccountsPage() {
+        leftMenu.navigateMonitoredAccountsPage();
+        waitingLoadingSpinner();
+        return new MonitoredAccountsPage(_type);
     }
 }

@@ -82,4 +82,12 @@ public class LeftMenu {
     public boolean isListSubMenuDisplayCorrect(String menu) { return false;}
 
     public void verifyListSubMenuDisplayCorrect() {}
+
+    public void navigateIPMonitoringPage() {}
+
+    public void navigateMonitoredAccountsPage() {}
+    public void navigateTransactionHistoryPage() {}
+
+    public void navigateSubUserListingPage() {
+    }
 }

@@ -1,6 +1,8 @@
 package membersite.pages.components.eventcontainer;
 
+import com.paltech.element.common.Label;
 import membersite.objects.sat.Event;
+import org.testng.Assert;
 
 import java.util.List;
 
@@ -96,5 +98,5 @@ public class EventContainerControl {
     public boolean isEventDisplay(String eventName){
         return false;
     }
-
+    public void verifyEventSuspended(){}
 }

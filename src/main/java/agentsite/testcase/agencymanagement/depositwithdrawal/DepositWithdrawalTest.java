@@ -2,14 +2,12 @@ package agentsite.testcase.agencymanagement.depositwithdrawal;
 
 import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.agentmanagement.DepositWithdrawalPage;
-import agentsite.pages.agentmanagement.depositwithdrawal.DepositPopup;
-import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
-import agentsite.pages.agentmanagement.depositwithdrawal.NewUIDepositWithdraw;
-import agentsite.pages.agentmanagement.depositwithdrawal.ViewLogPopup;
+import agentsite.pages.agentmanagement.depositwithdrawal.*;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.DateUtils;
+import com.paltech.utils.DoubleUtils;
 import com.paltech.utils.StringUtils;
 import common.AGConstant;
 import org.testng.Assert;
@@ -482,6 +480,74 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
         Assert.assertTrue(page.verifyBalanceUpdated(depositAmount, downlineAvailableBalance, DepositWithdraw.Actions.WITHDRAWAL));
     }
+    @TestRails(id = "3623")
+    @Test(groups = {"regression_creditcash","MER.Implementation.V.2.0"})
+    public void Agent_AM_DepositWithdrawal_3623() {
+        log("@title: Validate cannot Deposit if exceed Max Player Credit setting ");
+        log("pre-condition: Log in successfully by SAD that belonging to Credit Cash line");
+        log("Step 1: Navigate Agency Management > Deposit Withdrawal");
+        DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
+        String fullUsername = page.lblMainUser.getText();
+        log("Step 2: Select direct member account and click on Deposit link");
+        String firstAgent = page.getFirstUserName();
+        log("Step 3: Deposit by Credit Update with the amount greater than Max Player Credit Setting of upline");
+        log("Step 4: Click submit");
+        Double balanceAgent = page.getDataByColumn(firstAgent,page.colAvailableBalance);
+        String message = page.deposit(firstAgent,String.valueOf(balanceAgent+1),"",false,false);
+        log("Verify 1. The validate message displays \"<username> is insufficient\"");
+        Assert.assertEquals(message,String.format(AGConstant.AgencyManagement.DepositWithdrawal.DEPOSIT_ERROR_INSUFFICIENT,fullUsername),"FAILED! The validate message displays incorrect.");
+        log("INFO: Executed completely");
+    }
+    @TestRails(id = "3626")
+    @Parameters({"brandname","password"})
+    @Test(groups = {"regression_creditcash","MER.Implementation.V.2.0"})
+    public void Agent_AM_DepositWithdrawal_3626(String brandname, String password) throws Exception {
+        log("@title: Validate Balance agent is correctly is correct when deposit from agent site");
+        log("pre-condition: Log in successfully by SAD that belonging to Credit Cash line");
+        log("Step 1: Navigate Agency Management > Deposit Withdrawal");
+        DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
+        log("Step 2: Select direct agent account and click on Deposit link");
+        String firstAgent = page.getFirstUserName();
+        log("Step 3: Deposit an ammount for a player");
+        page.deposit(firstAgent,"0.1","",true,true);
+        Double balanceAgentEx = page.getDataByColumn(firstAgent,page.colAvailableBalance);
+        if (brandname.equals("satsport")){
+            firstAgent = page.tblWithdrawalDeposit.getColumn(page.defineDepositWithdrawTableColumn("Login ID"),3,true).get(0);
+        }
+        log("Step 4: Login agent with the account deposit in step 3 and check Balance info");
+        page.logout();
+        Thread.sleep(2000);
+        loginAgent(sosAgentURL,agentSecurityCodeURL,firstAgent,password,environment.getSecurityCode());
+        Double balanceAgentAc = DoubleUtils.roundEvenWithTwoPlaces(Double.valueOf(ProfileUtils.getAvailableBalance()));
+        log("Verify 1. Validate dowline agent balance is deposit");
+        Assert.assertEquals(balanceAgentAc,balanceAgentEx,"FAILED! dowline agent balance is not deposit");
+        log("INFO: Executed completely");
+    }
 
+    @TestRails(id = "3627")
+    @Parameters({"brandname", "password"})
+    @Test(groups = {"regression_creditcash", "MER.Implementation.V.2.0"})
+    public void Agent_AM_DepositWithdrawal_3627(String brandname, String password) throws Exception {
+        log("@title: Validate Balance agent is correctly is correct when withdraw from agent site");
+        log("pre-condition: Log in successfully by SAD that belonging to Credit Cash line");
+        log("Step 1: Navigate Agency Management > Deposit Withdrawal");
+        DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
+        log("Step 2: Select direct agent account and click on Withdraw link");
+        String firstAgent = page.getFirstUserName();
+        page.withdraw(firstAgent, "0.1", "", true, true);
+        Double balanceAgentEx = page.getDataByColumn(firstAgent, page.colAvailableBalance);
+        if (brandname.equals("satsport")) {
+            firstAgent = page.tblWithdrawalDeposit.getColumn(page.defineDepositWithdrawTableColumn("Login ID"), 3, true).get(0);
+        }
+        log("Step 3: Withdraw an ammount for a player");
+        log("Step 4: Login agent with the account withdraw in step 3 and check Balance info");
+        page.logout();
+        Thread.sleep(2000);
+        loginAgent(sosAgentURL, agentSecurityCodeURL, firstAgent, password, environment.getSecurityCode());
+        Double balanceAgentAc = DoubleUtils.roundEvenWithTwoPlaces(Double.valueOf(ProfileUtils.getAvailableBalance()));
+        log("Verify 1. Validate dowline agent balance is withdraw");
+        Assert.assertEquals(balanceAgentAc, balanceAgentEx, "FAILED! dowline agent balance is not withdraw");
+        log("INFO: Executed completely");
+    }
 }
 

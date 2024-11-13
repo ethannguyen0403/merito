@@ -10,6 +10,7 @@ import agentsite.ultils.agencymanagement.EventBetSizeSettingUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.driver.DriverManager;
 import com.paltech.element.common.TextBox;
+import com.paltech.utils.DateUtils;
 import common.MemberConstants;
 import membersite.objects.sat.BookmakerMarket;
 import membersite.objects.sat.Event;
@@ -22,6 +23,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -107,8 +109,18 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3573")
+    @Test(groups = {"regression_sat","MER.Implementation.V.2.0"})
     public void Agent_AM_Event_Bet_Site_Settings_3573() {
-        //TODO: implement test for this case
+        log("@title: Validate Event display correctly after selecting Old Events tab");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
+        log("Step 2. Select a Sport");
+        log("Step 3. Select Old Events tab");
+        page.eventBetSizeSetting.filter("", "Soccer","Old Events");
+        page.eventBetSizeSetting.clickTab("old events");
+        log("Verify: Validate all event start is less than today");
+        String eventStart = DateUtils.getDate(0,"yyyy-MM-dd hh:mm:ss",GMT_7);
+        page.eventBetSizeSetting.verifyEventStartDisplay(eventStart);
         log("INFO: Executed completely");
     }
 
@@ -864,23 +876,44 @@ public class EventBetSizeSettingsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "4181")
-//    @Test(groups = {"regression_sat"})
-    public void Agent_AM_Event_Bet_Site_Settings_4181() {
-        //TODO: implement test for this case
+    @Test(groups = {"MER.Implementation.V.2.0"})
+    public void Agent_AM_Event_Bet_Site_Settings_4181() throws ParseException {
+        log("@title: Validate Event display correctly after selecting Today tab");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
+        log("Step 2. Select Cricket and select Today tab");
+        page.eventBetSizeSetting.filter("", SPORT_CRICKET, "Today");
+
+        log("Verify 2. Validate all today event display in Today tab");
+        page.eventBetSizeSetting.verifyResultFilteredByPeriod("Today");
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4182")
-//    @Test(groups = {"regression_sat"})
-    public void Agent_AM_Event_Bet_Site_Settings_4182() {
-        //TODO: implement test for this case
+    @Test(groups = {"MER.Implementation.V.2.0"})
+    public void Agent_AM_Event_Bet_Site_Settings_4182() throws ParseException {
+        log("@title: Validate Event display correctly after selecting Tomorrow tab");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
+        log("Step 2. Select Cricket and select Tomorrow tab");
+        page.eventBetSizeSetting.filter("", SPORT_CRICKET, "Tomorrow");
+
+        log("Verify 2. Validate all today event display in Tomorrow tab");
+        page.eventBetSizeSetting.verifyResultFilteredByPeriod("Tomorrow");
         log("INFO: Executed completely");
     }
 
     @TestRails(id = "4183")
-//    @Test(groups = {"regression_sat"})
-    public void Agent_AM_Event_Bet_Site_Settings_4183() {
-        //TODO: implement test for this case
+    @Test(groups = {"MER.Implementation.V.2.0"})
+    public void Agent_AM_Event_Bet_Site_Settings_4183() throws ParseException {
+        log("@title: Validate Event display correctly after selecting Future tab");
+        log("Step 1. Navigate Agency Management > Event Bet Size Settings");
+        EventBetSizeSettingsPage page = agentHomePage.navigateEventBetSizeSettingsPage();
+        log("Step 2. Select Cricket and select Future tab");
+        page.eventBetSizeSetting.filter("", SPORT_CRICKET, "Future");
+
+        log("Verify 2. Validate all today event display in Future tab");
+        page.eventBetSizeSetting.verifyResultFilteredByPeriod("Future");
         log("INFO: Executed completely");
     }
 }

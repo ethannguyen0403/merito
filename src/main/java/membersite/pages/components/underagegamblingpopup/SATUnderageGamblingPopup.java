@@ -12,8 +12,8 @@ public class SATUnderageGamblingPopup extends UnderageGamblingPopup {
     private Button btnExit = Button.xpath("//div[@class='confirm-container']//button[@class='btn-verification']");
 
     public SATLoginPopup clickConfirmation() {
-        if(btnConfirm.isDisplayed())
-            btnConfirm.click();
+        btnConfirm.click();
+        btnConfirm.waitForControlInvisible();
         return new SATLoginPopup();
     }
 

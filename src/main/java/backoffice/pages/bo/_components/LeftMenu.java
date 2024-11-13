@@ -29,75 +29,78 @@ import backoffice.pages.bo.tools.MarketBetListPage;
 public class LeftMenu extends Header {
     Label lblOverLay = Label.xpath("//div[@class='overlay']");
 
-    Menu menuSystem = Menu.name("system");
-    SubMenu smCurrencyManagement = SubMenu.name("currency-management");
-    SubMenu smCurrencyCountryMapping = SubMenu.name("currency-country-mapping");
-    SubMenu smCountryIPMapping = SubMenu.name("country-ip-mapping");
-    SubMenu smPrioritySettings = SubMenu.name("priority-settings");
-    SubMenu smBetFairInformation = SubMenu.name("betfair-information");
-    public SubMenu smProductMaintenance = SubMenu.name("product-maintenance");
-    SubMenu smBetFairAccountInfo = SubMenu.name("betfair-account-info");
+    Menu menuSystem = Menu.id("menu__system'");
+    SubMenu smCurrencyManagement = SubMenu.xpath("//a[@title='Currency Management']//parent::ul");
+    SubMenu smCurrencyCountryMapping = SubMenu.xpath("//a[@title='Currency - Country Mapping']//parent::ul");
+    SubMenu smCountryIPMapping = SubMenu.xpath("//a[@title='Country - IP Mapping']//parent::ul");
+    SubMenu smLiabilityAnalysis = SubMenu.xpath("//a[@title='Liability Analysis']//parent::ul");
+    SubMenu smPrioritySettings = SubMenu.xpath("//a[@title='Priority Settings']//parent::ul");
+    public SubMenu smProductMaintenance = SubMenu.xpath("//a[@title='Product Maintenance']//parent::ul");
+    SubMenu smBetFairAccountInfo = SubMenu.xpath("//a[@title='BetFair Account Info']//parent::ul");
+    SubMenu smBetFairInformation = SubMenu.xpath("//a[@title='Betfair Information']//parent::ul");
+    SubMenu smProviderCurrencyMapping = SubMenu.xpath("//a[@title='Provider Currency Mapping']//parent::ul");
+    SubMenu smSmallBetConfiguration = SubMenu.xpath("//a[@title='Small Bet Configuration']//parent::ul");
+    SubMenu smLiabilityThresholdSettings = SubMenu.xpath("//a[@title='Liability Threshold Settings']//parent::ul");
     SubMenu smBetFairTaxRecrawl = SubMenu.name("betfair-tax-re-crawl");
-    SubMenu smProviderCurrencyMapping = SubMenu.name("provider-currency-mapping");
     SubMenu smFollowBetToThirdParty = SubMenu.name("follow-bets-to-3rd-party");
-    SubMenu smSmallBetConfiguration = SubMenu.name("small-bet-configuration");
 
-    Menu menuOperation = Menu.name("operations");
-    SubMenu smWagerVoidUnvoid = SubMenu.name("wager-void-un-void");
-    SubMenu smLiveStreamingManagement = SubMenu.name("live-streaming-management");
-    SubMenu smAnnouncementManagement = SubMenu.name("announcement-management");
+    Menu menuOperation = Menu.id("menu__operations");
+    SubMenu smWagerVoidUnvoid = SubMenu.xpath("//a[@title='Wager Void / Un-void']//parent::ul");
+    SubMenu smLiveStreamingManagement = SubMenu.xpath("//a[@title='Live Streaming Management']//parent::ul");
+    SubMenu smAnnouncementManagement = SubMenu.xpath("//a[@title='Announcement Management']//parent::ul");
     SubMenu smMixedPTConfiguration = SubMenu.name("mixed-pt-configuration");
-    SubMenu smBannerManagement = SubMenu.name("banner-management");
-    SubMenu smPerformance = SubMenu.name("performance");
+    SubMenu smBannerManagement = SubMenu.xpath("//a[@title='Banner Management']//parent::ul");
+    SubMenu smPerformance = SubMenu.xpath("//a[@title='Performance']//parent::ul");
 
     Menu menuPaymentManagement = Menu.name("payment-management");
     SubMenu smPaymentConfiguration = SubMenu.name("payment-configuration");
     SubMenu smDepositWithdrawalTransactions = SubMenu.name("deposit-withdrawal-transactions");
 
-    Menu menuMarketManagement = Menu.id("market-management");
-    SubMenu smFindBlockedMarket = SubMenu.name("find-blocked-market");
-    SubMenu smEventMarketsStatus = SubMenu.name("events-markets-status");
-    SubMenu smEventMarketLog = SubMenu.name("event-market-log");
-    SubMenu smBlockingSettings =SubMenu.name("blocking-settings");
-    SubMenu smCompetitionBlocking =SubMenu.name("competition-blocking");
-    SubMenu smLiquidityThresholdSettings = SubMenu.name("liquidity-threshold-settings");
-    SubMenu smBeforeLoginManagement = SubMenu.name("before-login-management");
-    SubMenu smBlockUnblockEvent = SubMenu.name("block-unblock-events");
-    SubMenu smLiquidityThresholdLog =SubMenu.name("liquidity-threshold-log");
+    Menu menuMarketManagement = Menu.id("menu__market-management");
+    SubMenu smFindBlockedMarket = SubMenu.xpath("//a[@title='Find Blocked Market']//parent::ul");
+    SubMenu smEventMarketsStatus = SubMenu.xpath("//a[@title='Events/Markets Status']//parent::ul");
+    SubMenu smEventMarketLog = SubMenu.xpath("//a[@title='Event/Market Log']//parent::ul");
+    SubMenu smBlockingSettings = SubMenu.xpath("//a[@title='Blocking Settings']//parent::ul");
+    SubMenu smCompetitionBlocking = SubMenu.xpath("//a[@title='Competition Blocking']//parent::ul");
+    SubMenu smLiquidityThresholdSettings = SubMenu.xpath("//a[@title='Liquidity Threshold Settings']//parent::ul");
+    SubMenu smLiquidityThresholdLog = SubMenu.xpath("//a[@title='Liquidity Threshold Log']//parent::ul");
+    SubMenu smBeforeLoginManagement = SubMenu.xpath("//a[@title='Before Login Management']//parent::ul");
+    SubMenu smBlockUnblockEvent = SubMenu.xpath("//a[@title='Block/Unblock Events']//parent::ul");
+
 
     Menu menuFraudDetection = Menu.id("menu__fraud-detection");
-    SubMenu smOddsMatcedHistory = SubMenu.name("odds-matched-history");
-    SubMenu smWagerOddsHistory = SubMenu.name("wager-odds-history");
-    SubMenu smFraudDetection = SubMenu.xpath("//a[@name='fraud-detection' and @title='Fraud Detection']");
+    SubMenu smFraudDetection = SubMenu.xpath("//a[@title='Fraud Detection']//parent::ul");
+    SubMenu smOddsMatcedHistory = SubMenu.xpath("//a[@title='Odds Matched History']//parent::ul");
+    SubMenu smWagerOddsHistory = SubMenu.xpath("//a[@title='Wager Odds History']//parent::ul");
 
-    Menu menuSettlement = Menu.name("settlement");
-    SubMenu smWagerResettlement = SubMenu.name("wager-resettlement");
-    SubMenu smFancyResult = SubMenu.name("fancy-result");
-    SubMenu smResettlementLogPage =SubMenu.name("resettlement-void-log");
+    Menu menuSettlement = Menu.id("menu__settlement");
+    SubMenu smWagerResettlement = SubMenu.xpath("//a[contains(@title,'Wager Resettlement')]//parent::ul");
+    SubMenu smResettlementLogPage = SubMenu.xpath("//a[@title='Resettlement/Void Log']//parent::ul");
+    SubMenu smFancyResult = SubMenu.xpath("//a[@title='Fancy Result']//parent::ul");
 
-    Menu menuAccountManagement = Menu.id("account-management");
-    SubMenu smResetAccountPassword = SubMenu.name("reset-account-password");
-    SubMenu smReopenUser = SubMenu.name("reopen-user");
-    SubMenu smLoginInfo = SubMenu.name("login-info");
-    SubMenu smPlayerInfo =SubMenu.name("player-info");
-    SubMenu smAPIPlayer = SubMenu.name("api-player");
-    SubMenu smCryptoAccessManagement = SubMenu.name("crypto-access-management");
-    SubMenu smAtlanticAccessManagement = SubMenu.name("atlantic-access-management");
+    Menu menuAccountManagement = Menu.id("menu__account-management");
+    SubMenu smResetAccountPassword = SubMenu.xpath("//a[contains(@title,'Reset Account Password')]//parent::ul");
+    SubMenu smReopenUser = SubMenu.xpath("//a[contains(@title,'Reopen User')]//parent::ul");
+    SubMenu smLoginInfo = SubMenu.xpath("//a[contains(@title,'Login Info')]//parent::ul");
+    SubMenu smPlayerInfo = SubMenu.xpath("//a[@title='Player Info']//parent::ul");
+    SubMenu smAPIPlayer = SubMenu.xpath("//a[@title='API Player']//parent::ul");
+    SubMenu smCryptoAccessManagement = SubMenu.xpath("//a[contains(@title,'Crypto Access Management')]//parent::ul");
+    SubMenu smAtlanticAccessManagement = SubMenu.xpath("//a[contains(@title,'Atlantic Access Management')]//parent::ul");
 
-    Menu menuReports = Menu.name("reports");
-    SubMenu smWinLossDetails = SubMenu.name("win-loss-detail");
-    SubMenu smPunterPerformance = SubMenu.name("punter-performance");
-
-
-    Menu menuTools = Menu.name("tools");
-    SubMenu smExposureAnalysis=SubMenu.name("exposure-analysis");
-    SubMenu smMarketBetList = SubMenu.name("market-bet-list");
+    Menu menuReports = Menu.id("menu__reports");
+    SubMenu smWinLossDetails = SubMenu.xpath("//a[contains(@title,'Win Loss Detail')]//parent::ul");
+    SubMenu smPunterPerformance = SubMenu.xpath("//a[contains(@title,'Punter Performance')]//parent::ul");
 
 
-    Menu menuAdminManagement = Menu.name("admin-management");
+    Menu menuTools = Menu.id("menu__tools");
+    SubMenu smExposureAnalysis= SubMenu.xpath("//a[@title='Exposure Analysis']//parent::ul");
+    SubMenu smMarketBetList = SubMenu.xpath("//a[@title='Market Bet List']//parent::ul");
+
+
+    Menu menuAdminManagement = Menu.id("menu__admin-management");
     SubMenu smAdminProfile = SubMenu.name("admin-profile");
-    SubMenu smRoleManagement = SubMenu.name("role-management");
-    SubMenu smAdminUserManagement = SubMenu.name("admin-user-management");
+    SubMenu smRoleManagement = SubMenu.xpath("//a[contains(@title,'Role Management')]//parent::ul");
+    SubMenu smAdminUserManagement = SubMenu.xpath("//a[contains(@title,'Admin User Management')]//parent::ul");
 
 
     SubMenu smBrandManagement = SubMenu.name("m-admin3");
@@ -105,8 +108,8 @@ public class LeftMenu extends Header {
     SubMenu smWinLossByMarket = SubMenu.name("rp01");
     SubMenu smRunnerStatus = SubMenu.name("ss03");
     SubMenu smPersonalMessage = SubMenu.name("op15");
-    Menu menuB2BWhileLabel = Menu.xpath("//div[@id='m-white-label'][1]");
-    Menu menuB2BSeamlessWallet = Menu.xpath("//div[@id='m-white-label'][2]");
+    Menu menuB2BWhileLabel = Menu.id("menu__b2b-white-label");
+    Menu menuB2BSeamlessWallet = Menu.id("menu__b2b-seamless-wallet");
     SubMenu smDailyOnlineMember = SubMenu.name("mm04");
     SubMenu smWhoOnlineList = SubMenu.name("mm05");
     SubMenu smLoginActivity = SubMenu.name("mm07");

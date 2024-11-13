@@ -163,4 +163,13 @@ public class FunsportUILeftMenu extends LeftMenu {
             Assert.assertTrue(isListSubMenuDisplayCorrect(menu), String.format("FAILED! List Sub Menu of %s displays incorrect",menu));
         }
     }
+    @Override
+    public void navigateTransactionHistoryPage() {
+        clickSubMenu(REPORT, TRANSACTION_HISTORY);
+    }
+
+    @Override
+    public void navigateSubUserListingPage() {
+        clickSubMenu(AGENCY_MANAGEMENT, SUB_USER_LISTING);
+    }
 }

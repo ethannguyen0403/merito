@@ -9,6 +9,7 @@ import com.paltech.element.common.DropDownBox;
 import com.paltech.element.common.Label;
 import com.paltech.element.common.TextBox;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,4 +69,11 @@ public class EventBetSizeSetting extends HomePage {
     public boolean searchResultContainsKey(List<String> lstResult, String searchKey) {
         return false;
     }
+
+    public void verifyResultFilteredByPeriod(String periodTab) throws ParseException {
+    }
+
+    public void verifyEventStartDisplay(String eventStart) {
+    }
+
 }

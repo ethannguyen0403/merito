@@ -28,14 +28,20 @@ public class DownLineListingUtils {
 
     }
 
-    private static JSONObject getDownLineJson(String brandName, String userName, String loginID) {
+    private static JSONObject getDownLineJson(String brandName, String loginID) {
         String api = defineAPIUrl(brandName);
-        //String jsn = String.format("{\"userName\":%s,\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", userName,loginID, DateUtils.getMilliSeconds());
-        String jsn = String.format("{\"loginId\":%s,\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":250}",loginID, DateUtils.getMilliSeconds());
+        String jsn = "";
+        switch (brandName) {
+            case "satsport":
+                jsn = String.format("{\"userName\":\"\",\"loginId\":\"%s\",\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", loginID, DateUtils.getMilliSeconds());
+                break;
+            default:
+                jsn = String.format("{\"userName\":\"\",\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":200}", DateUtils.getMilliSeconds());
+        }
         return WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
     }
 
-    private static JSONObject getLineInfoJson(String brandName, String userName) {
+    public static JSONObject getLineInfoJson(String brandName, String userName) {
         String api = defineAPIUrl(brandName);
         String jsn = String.format("{\"userName\":\"%s\",\"isAgentOnly\":null,\"accStatus\":\"ALL\",\"t\":%s,\"currentPage\":1,\"numOfRows\":20}", userName, DateUtils.getMilliSeconds());
         return WSUtils.getPOSTJSONObjectWithCookies(api, Configs.HEADER_JSON, jsn, DriverManager.getDriver().getCookies().toString(), Configs.HEADER_JSON);
@@ -114,7 +120,7 @@ public class DownLineListingUtils {
     public static List<AccountInfo> getAllDownLineUsers(String brandName, String userName, String loginID) {
         // String api = defineAPIUrl(brandName);
         List<AccountInfo> lstUsers = new ArrayList<>();
-        JSONObject jsonObject = getDownLineJson(brandName, userName, loginID);
+        JSONObject jsonObject = getDownLineJson(brandName, loginID);
         if (Objects.nonNull(jsonObject)) {
             if (jsonObject.has("pageInfo")) {
                 JSONObject jsnPageInfo = jsonObject.getJSONObject("pageInfo");
@@ -282,5 +288,14 @@ public class DownLineListingUtils {
         System.err.println("ERROR: jsonObject is null at getCashCreditListing");
         return -1.0;
     }
-
+    public static String getRandomLoginID(){
+        AccountInfo accountInfo = ProfileUtils.getProfile();
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), accountInfo.getUserCode(), accountInfo.getUserID());
+        for (AccountInfo account : listAccount){
+            if (!account.getLoginID().isEmpty()){
+                return account.getLoginID();
+            }
+        }
+        return "";
+    }
 }
