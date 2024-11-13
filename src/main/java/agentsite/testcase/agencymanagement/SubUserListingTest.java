@@ -29,7 +29,7 @@ public class SubUserListingTest extends BaseCaseTest {
      * 2. Verify can login agent with new sub account
      */
     @TestRails(id = "751")
-    @Test(groups = {"smoke_sat", "nolan"})
+    @Test(groups = {"smoke_sat"})
     @Parameters("password")
     public void Agent_AM_Sub_User_Listing_751(String password) throws Exception {
         log("@title: Can create Sub user successfully with full permissions");
@@ -88,7 +88,7 @@ public class SubUserListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3647")
-    @Test(groups = {"regression_sat", "nolan"})
+    @Test(groups = {"regression_sat"})
     public void Agent_SAD_Sub_User_Listing_3647() {
         log("@title: Verify Create Sub User UI popup display correct");
         log("Step 1. Navigate Agency Management > Sub User Listing");
@@ -117,7 +117,7 @@ public class SubUserListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3648")
-    @Test(groups = {"regression_sat", "nolan"})
+    @Test(groups = {"regression_sat"})
     @Parameters("password")
     public void Agent_SAD_Sub_User_Listing_3648(String password) throws Exception {
         log("@title:Verify Sub account only setting for a create account permission");
@@ -159,7 +159,7 @@ public class SubUserListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3649")
-    @Test(groups = {"regression_sat", "nolan"})
+    @Test(groups = {"regression_sat"})
     @Parameters("password")
     public void Agent_SAD_Sub_User_Listing_3649(String password) throws Exception {
         log("@title: Verify Sub account only setting for Update Account permission");
@@ -204,7 +204,7 @@ public class SubUserListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3650")
-    @Test(groups = {"regression_sat", "nolan"})
+    @Test(groups = {"regression_sat"})
     @Parameters("password")
     public void Agent_SAD_Sub_User_Listing_3650(String password) throws Exception {
         log("@title: Verify Sub account only setting for Report permission");
@@ -243,7 +243,7 @@ public class SubUserListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3651")
-    @Test(groups = {"regression_sat", "nolan"})
+    @Test(groups = {"regression_sat"})
     @Parameters("password")
     public void Agent_SAD_Sub_User_Listing_3651(String password) throws Exception {
         log("@title: Verify Sub account only setting for Transfer & Deposit/Withdraw permission");
@@ -282,7 +282,7 @@ public class SubUserListingTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3652")
-    @Test(groups = {"regression_sat", "nolan"})
+    @Test(groups = {"regression_sat"})
     @Parameters("password")
     public void Agent_SAD_Sub_User_Listing_3652(String password) throws Exception {
         log("@title: Verify Sub account only setting for Markets Management permission");

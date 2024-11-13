@@ -18,7 +18,7 @@ public class ProfitAndLostTest extends BaseCaseTest {
 
     @TestRails(id = "9458")
     @Parameters({"memberAccount"})
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0", "Cash_out"})
+    @Test(groups = {"ps38", "Cash_out"})
     public void Agent_PS38_Report_Profit_And_Loss_9458(String memberAccount) {
         log("@title: Validate showing the 'Cashed Out' text link in the report pages of agent site");
         log("Precondition: Configurated 'Allow Cash Out' of PS39 product in agent site\n" +

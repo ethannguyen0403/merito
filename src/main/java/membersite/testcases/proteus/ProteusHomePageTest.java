@@ -74,7 +74,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "23655")
-    @Test(groups = {"ps38_groupa","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38_groupa"})
     public void PS38_Member_TC23655() {
         log("@title: Validate the number order display on Bet Slip is correct when adding odds on different market");
         log("Step 1: Select PS38 product");
@@ -92,7 +92,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "23656")
-    @Test(groups = {"ps38_groupa","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38_groupa"})
     public void PS38_Member_TC23656() {
         log("@title: Validate Bet Slip just display 1 bet when adding 2 odds on same market");
         log("Step 1: Select PS38 product");
@@ -113,7 +113,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "23657")
-    @Test(groups = {"ps38_groupa","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38_groupa"})
     public void PS38_Member_TC23657() {
         log("@title: Validate the number order display on Place bet button is correct when adding odds on different market");
         log("Step 1: Select PS38 product");
@@ -130,7 +130,7 @@ public class ProteusHomePageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "23658")
-    @Test(groups = {"ps38_groupa","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38_groupa"})
     public void PS38_Member_TC23658() {
         log("@title: Validate the number order display on Place bet button is correct when adding odds on same market");
         log("Step 1: Select PS38 product");

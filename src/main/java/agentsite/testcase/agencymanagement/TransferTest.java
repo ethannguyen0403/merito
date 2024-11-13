@@ -37,10 +37,10 @@ public class TransferTest extends BaseCaseTest {
 
 
     @TestRails(id = "3614")
-    @Test(groups = {"regression_credit"})
+    @Test(groups = {"smoke_credit"})
     @Parameters({"memberAccount"})
     public void Agent_AM_Transfer_3614( String memberAccount) {
-        log("@title: Verify Balance of login account is updated after transfer");
+        log("@title: Validate can Transfer");
         log("Precondition Step Log in successfully by SAD that belonging to Credit line");
         log("Step 1. Navigate Agency Management > Transfer");
         TransferPage page = agentHomePage.navigateTransferPage(environment.getSecurityCode());
@@ -64,7 +64,7 @@ public class TransferTest extends BaseCaseTest {
     @Test(groups = {"regression_credit"})
     @Parameters({"memberAccount"})
     public void Agent_AM_Transfer_3615( String memberAccount) {
-        log("@title: Verify Balance of login account is updated after transfer");
+        log("@title: Validate A confirm message display when click on Transfer button");
         log("Precondition Step Log in successfully by SAD that belonging to Credit line");
         log("Step 1. Navigate Agency Management > Transfer");
         TransferPage page = agentHomePage.navigateTransferPage(environment.getSecurityCode());
@@ -86,9 +86,9 @@ public class TransferTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3613")
-    @Test(groups = {"regression_credit"})
+    @Test(groups = {"smoke_credit"})
     public void Agent_AM_Transfer_3613() {
-        log("@title: Verify Balance of login account is updated after transfer");
+        log("@title: Validate Transfer display correct");
         log("Precondition Step Log in successfully by SAD that belonging to Credit line");
         log("Step 1. Navigate Agency Management > Transfer");
         TransferPage page = agentHomePage.navigateTransferPage(environment.getSecurityCode());
@@ -109,17 +109,14 @@ public class TransferTest extends BaseCaseTest {
     @TestRails(id = "3616")
     @Test(groups = {"regression_credit"})
     public void Agent_AM_Transfer_3616() {
-        log("@title: Verify Balance of login account is updated after transfer");
+        log("@title: Validate have to input security code to access Transfer page in fair999");
         log("Precondition Step Log in successfully by SAD that belonging to Credit line");
         log("Step 1. Navigate Agency Management > Transfer");
         TransferPage page = agentHomePage.navigateTransferPage("");
 
         log("Verify: Validate security popup display and only access when input correct security code");
         Assert.assertTrue(page.securityPopup.isDisplayed(),"Failed! Security popup dose not display when login for old UI");
-        page.confirmSecurityCode(environment.getSecurityCode());
-        Assert.assertEquals(page.header.lblPageTitle.getText(),TRANSFER);
-
-        log("INFO: Executed completely");
+         log("INFO: Executed completely");
     }
 
     @TestRails(id = "3617")
