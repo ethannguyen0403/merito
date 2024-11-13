@@ -576,7 +576,7 @@ public class CreateUserTest extends BaseCaseTest {
     }
 
     @TestRails(id = "697")
-    @Test(groups = {"smoke_credit", "Fairenter.MER.Maintenance.2024.V.5.0"})
+    @Test(groups = {"smoke_credit_cash", "Fairenter.MER.Maintenance.2024.V.5.0"})
     @Parameters({"password", "currency"})
     public void Agent_AM_Downline_Listing_Edit_Agent_697(String password, String currency) throws Exception {
         log("@title: Validate Max Player Credit setting display correctly when create user");
