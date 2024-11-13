@@ -351,7 +351,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29541")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Agent_TC29541()  {
         log("@title: Agent Site - PS38 - Edit Member - Validate UI in Bet Settings Section");
         log("Precondition: There is a player active PS38 product");
@@ -370,7 +370,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29543")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Agent_TC29543()  {
         log("@title: Agent Site - PS38 - Edit Member - Validate UI in Position Taking Section");
         log("Precondition: There is a player active PS38 product");
@@ -404,7 +404,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29544")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Agent_TC29544()  {
         log("@title: Agent Site - PS38 - Edit Member - Validate can add a new sport and General league in Bet Setting");
         log("Precondition: There is a player active PS38 product");
@@ -425,7 +425,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29545")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Agent_TC29545()  {
         log("@title: Agent Site - PS38 - Edit Member - Validate can add a new sport with the league that is not general in Bet Setting");
         log("Precondition: There is a player active PS38 product");
@@ -447,7 +447,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29546")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Agent_TC29546()  {
         log("@title: Agent Site - PS38 - Edit Member - Validate Checkbox \"Copy all Limits for all Sport\" state when selecting a league in Bet Setting");
         log("Precondition: There is a player active PS38 product");
@@ -468,7 +468,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29547")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Agent_TC29547()  {
         log("@title: Agent Site - PS38 - Edit Member - Validate UI when tick/untick the checkbox \"Copy all Limits..\"in Bet Setting for Pregame and Inplay tab");
         log("Precondition: There is a player active PS38 product");
@@ -517,7 +517,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29548")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Agent_TC29548()  {
         log("@title: Agent Site - PS38 - Edit Member - Validate cannot update Bet Setting for indirect player ");
         log("Precondition: There is a player active PS38 product. The player has SMA > Agent > Player");
@@ -549,7 +549,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29540")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Agent_TC29540()  {
         log("@title: Agent Site - PS38 - Edit Member - Validate Confirm switch tabs popup display correct when select Inplay tab");
         log("Precondition: There is a player active PS38 product");
@@ -572,7 +572,7 @@ public class DownlineListingTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29542")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Agent_TC29542()  {
         log("@title: Agent Site - PS38 - Edit Member - Validate UI in Commission Section");
         log("Precondition: There is a player active PS38 product");

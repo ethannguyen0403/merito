@@ -15,7 +15,7 @@ import static common.AGConstant.Report.ProfitAndLoss.*;
 public class WinLossDetailPS38Test extends BaseCaseTest {
     @TestRails(id = "9459")
     @Parameters({"memberAccount"})
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0", "Cash_out"})
+    @Test(groups = {"ps38", "Cash_out"})
     public void BO_Report_WinLossDetail_PS38_9459(String memberAccount) {
         log("@title: Validate showing the 'Cashed Out' text link in the report pages of BO site ");
         log("@Precondition: Configurated 'Allow Cash Out' of PS39 product in agent site\n" +

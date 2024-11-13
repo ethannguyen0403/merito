@@ -1326,7 +1326,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29549")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29549(){
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add Decimal odds in bet slip is displayed as agent setting for none Inplay market of a sport ");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1350,7 +1350,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29550")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29550(){
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add HK odds in bet slip is displayed as agent setting for none Inplay market of a sport");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1374,7 +1374,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29551")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29551(){
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add MY positive odds in bet slip is displayed as agent setting for none Inplay market of a sport");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1399,7 +1399,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29552")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29552(){
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add MY negative odds in bet slip is displayed as agent setting for none Inplay market of a sport");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1424,7 +1424,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29553")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29553(){
         log("@title: \tMember Site - PS38 - Asian - Validate min, max, max per match when add AM negative odds in bet slip is displayed as agent setting for none Inplay market of a sport");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1449,7 +1449,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29554")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29554(){
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add AM positive odds in bet slip is displayed as agent setting for none Inplay market of a sport");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1474,7 +1474,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29555")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29555(){
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add Decimal odds in bet slip is displayed as agent setting for Inplay market");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1498,7 +1498,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29556")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29556(){
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add Decimal odds in bet slip is displayed as agent setting for Inplay market");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1523,7 +1523,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29557")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29557(){
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add MY positive odds in bet slip is displayed as agent setting for Inplay market ");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1548,7 +1548,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29558")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29558(){
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add MY negative odds in bet slip is displayed as agent setting for Inplay ");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1573,7 +1573,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29559")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29559(){
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add AM negative odds in bet slip is displayed as agent setting for Inplay");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1598,7 +1598,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29560")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29560(){
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add AM positive odds in bet slip is displayed as agent setting for Inplay");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1623,7 +1623,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29561")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29561(){
         log("@title: \tMember Site - PS38 - Asian - Validate min, max, max per match when add MY positive odds in bet slip is displayed as agent setting per sport");
         log("Precondition: There is a player active PS38 product.\n" +
@@ -1662,7 +1662,7 @@ public class AsianViewPageTest extends BaseCaseTest {
     }
 
     @TestRails(id = "29562")
-    @Test(groups = {"ps38","nolan_Proteus.2024.V.3.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Member_TC29562(){
         // use League Spain - La Liga for verify
         log("@title: Member Site - PS38 - Asian - Validate min, max, max per match when add MY positive odds in bet slip is displayed as agent setting for special league");

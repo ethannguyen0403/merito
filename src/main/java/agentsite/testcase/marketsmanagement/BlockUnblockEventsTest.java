@@ -69,7 +69,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "3683")
-    @Test(groups = {"http_request", "nolan"})
+    @Test(groups = {"http_request"})
     public void Agent_MM_BlockUnblockEvent_3683() {
         log("@title: Validate there is no http responded error returned");
         log("@Step 11. Navigate Markets Management > Block/Unblock Events");
@@ -1015,7 +1015,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id="3695")
-    @Test(groups = {"interaction","tim", "nolan_stabilize_agent"})
+    @Test(groups = {"interaction","tim"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_3695(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Validate suspend label display on market in member site when suspend an unblock the event");

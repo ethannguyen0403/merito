@@ -548,7 +548,7 @@ public class CreateUserTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "696")
-    @Test(groups = {"smoke", "nolan", "nolan_stabilize_agent"})
+    @Test(groups = {"smoke"})
     @Parameters({"currency"})
     public void Agent_AM_Downline_Listing_Edit_Agent_696(String currency) throws Exception {
         log("@title: Validate cannot update if Max Player Credit exceed the limit");

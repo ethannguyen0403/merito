@@ -60,7 +60,7 @@ public class BigStakeConfigurationTest extends BaseCaseTest {
      * @expect: 1. Can update big stake successfully" Big stake configuration is saved successfully."
      */
     @TestRails(id = "814")
-    @Test(groups = {"smoke_sat", "nolan"})
+    @Test(groups = {"smoke_sat"})
     @Parameters("username")
     public void Agent_Report_Big_Stake_Configuration_814(String username) {
         log("@title:Validate can configure big stake ");
