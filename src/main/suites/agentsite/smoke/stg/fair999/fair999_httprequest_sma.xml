@@ -12,7 +12,6 @@
         <parameter name='isLogin' value='true'/>
         <parameter name='isProxy' value='true'/>
         <parameter name='username' value='ATZ'/>
-<!--        <parameter name='username' value='15W'/>-->
         <parameter name='levelLogin' value='Senior Master Agent'/>
         <parameter name='downlineAccount' value='ATZ00'/>
         <parameter name='portalSubAccount' value='ANSUBIS'/>

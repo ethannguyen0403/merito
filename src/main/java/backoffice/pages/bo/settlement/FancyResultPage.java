@@ -23,7 +23,7 @@ public class FancyResultPage extends HomePage {
      public TextBox txtMarketId = TextBox.name("market-id");
      public Button btnQueue =Button.name("queue");*/
     public DateTimePicker dpEventDate = DateTimePicker.xpath(txtEventDate, "//div[@class='bs-calendar-container']");
-    Button btnSearch = Button.xpath("//input[@value='Search']");
+    public Button btnSearch = Button.xpath("//input[@value='Search']");
     TextBox txtMarketName = TextBox.xpath("//input[@aria-label='Market name']");
 
     public void filerOnTableHeader(String marketName) {

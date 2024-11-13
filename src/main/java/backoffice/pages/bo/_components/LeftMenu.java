@@ -299,8 +299,11 @@ public class LeftMenu extends Header {
         smFancyResult.isInvisible(2);
         int countIframesInPage = DriverManager.getDriver().findElements(By. tagName("iframe")). size();
         DriverManager.getDriver().switchToFrame(countIframesInPage-1);
-//        smFancyResult.isInvisible(2);
-        return new FancyResultPage();
+        FancyResultPage fancyResultPage = new FancyResultPage();
+        if (!fancyResultPage.btnSearch.isDisplayed()){
+            DriverManager.getDriver().refresh();
+        }
+        return fancyResultPage;
     }
     public WagerResettlementPage navigateWagerResettlement() {
         smWagerResettlement.click();
