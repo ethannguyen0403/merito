@@ -14,6 +14,7 @@
         <parameter name='username' value='FSSUBTI'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='funsport'/>
         <parameter name='skinName' value='funsport'/>
