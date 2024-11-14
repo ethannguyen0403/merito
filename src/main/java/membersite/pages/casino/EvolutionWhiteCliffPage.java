@@ -17,9 +17,10 @@ public class EvolutionWhiteCliffPage extends CasinoHomePage{
         try {
             lblBalance.waitForElementToBePresent(lblBalance.getLocator(), 15);
         } catch (Exception e) {
+            DriverManager.getDriver().switchToFrame(0);
+            DriverManager.getDriver().switchToFrame(0);
+            return;
         }
-        DriverManager.getDriver().switchToFrame(0);
-        DriverManager.getDriver().switchToFrame(0);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class EvolutionWhiteCliffPage extends CasinoHomePage{
 
     @Override
     public double getBalance() {
-        waitUntilReadyState(10);
+        lblBalance.isDisplayedShort(5);
         int count = 5;
         while (!lblBalance.isDisplayed() && count >0){
             count--;

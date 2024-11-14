@@ -31,8 +31,7 @@ public class EvolutionPageWhiteCliffTest extends BaseCaseTest {
 
     @TestRails(id = "20244")
     @Test(groups = {"casino", "Casino.2024.V.1.0"})
-    @Parameters({"BOLoginId", "BOLoginPwd", "currency"})
-    public void Casino_Test_TC20244(String BOLoginId, String BOLoginPwd, String currency) throws Exception {
+    public void Casino_Test_TC20244() {
         log("@title: Validate balance in Evolution (WhiteCliff) game match with user's balance");
         log("@Precondition: Account has been activated Evolution (WhiteCliff) game in Agent Site");
         double balance = Double.valueOf(memberHomePage.getUserBalance().getBalance().replace(",", ""));
@@ -43,12 +42,7 @@ public class EvolutionPageWhiteCliffTest extends BaseCaseTest {
         log("@Step 3: Click on first game");
         evolutionWhiteCliffPage.selectCasinoGame();
         double balanceCasino = evolutionWhiteCliffPage.getBalance();
-//        loginBackoffice(BOLoginId, BOLoginPwd, true);
-//        double rate = CasinoUtils.getProviderCurRate(ProviderCurrencyMappingUltils.getProviderCurrencyMapping(
-//                PRODUCT_NAME_TO_CODE.get(EVOLUTION)), currency);
-//        log("@Step 4: Get rate of currency from BO with rate: " + rate);
         log("@Verify 1: The in game balance should match with user's balance");
-//        evolutionWhiteCliffPage.checkBalance(balanceCasino, balance, rate);
         Assert.assertEquals(balance,balanceCasino,"FAILED! Balance of Casino game not equals to balance user");
         log("INFO: Executed completely");
     }
