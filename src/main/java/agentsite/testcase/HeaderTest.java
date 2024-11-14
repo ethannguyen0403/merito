@@ -68,7 +68,7 @@ public class HeaderTest extends BaseCaseTest {
      * *Back consecutive are not allowed, for example: 765432.
      */
     @TestRails(id = "3456")
-    @Test(groups = {"regression", "nolan"})
+    @Test(groups = {"regression"})
     public void Header_TC3456() throws Exception {
         log("@title: Validate Update Security Code page display");
         log("Step 1: Click on menu icon and select Security Code");
@@ -191,7 +191,7 @@ public class HeaderTest extends BaseCaseTest {
      * @expect: Left menu is active Agency Management menu section
      */
     @TestRails(id = "3460")
-    @Test(groups = {"regression", "nolan"})
+    @Test(groups = {"regression"})
     public void Header_TC3460() {
         log("@title: Validate can expand Agent management section in left menu");
         log("Step: 1. Collapse left menu");

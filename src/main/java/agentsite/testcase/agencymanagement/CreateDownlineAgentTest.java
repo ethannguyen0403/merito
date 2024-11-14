@@ -63,7 +63,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
      *          6. Submit and Cancel button
      */
     @TestRails(id = "679")
-    @Test (groups = {"smoke_creditcash", "nolan"})
+    @Test (groups = {"smoke_creditcash"})
     public void Agent_AM_CreateDownline_Agent_679() {
         log("@title: Validate UI in Create Downline Agent with Exchange Game Product setting");
         log("Step 1. Navigate Agency Management > Create Downline Agent");
@@ -118,7 +118,7 @@ public class CreateDownlineAgentTest extends BaseCaseTest {
     }
 
     @TestRails(id = "682")
-    @Test (groups = {"smoke_creditcash", "nolan"})
+    @Test (groups = {"smoke_creditcash"})
     public void Agent_AM_CreateDownline_Agent_682() {
         log("@title: Validate display Cash Balance for Credit Cash account");
         log("Step 1. Navigate Agency Management > Create Downline Agent");

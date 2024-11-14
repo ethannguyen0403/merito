@@ -125,7 +125,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15772")
-    @Test(groups = {"smoke", "2024.01.19"})
+    @Test(groups = {"smoke"})
     public void CentralFancyTest_15772() {
         log("@title: Validate exposure is kept correctly when place on Yes");
         log("Step 1. Login member site and click on Cricket");
@@ -253,7 +253,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15764")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void CentralFancyTest_15764() {
         log("@title: Validate My Bet display correct after place bet on Central Fancy market");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -288,7 +288,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15765")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void CentralFancyTest_15765() {
         log("@title: Validate able navigate to Central Fancy market page");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -314,7 +314,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15766")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void CentralFancyTest_15766() {
         log("@title: Validate able to open Ladder forecast score");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -342,7 +342,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15767")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void CentralFancyTest_15767() {
         log("@title: Validate bet slip is cleared when navigate to another market");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -380,7 +380,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15768")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void CentralFancyTest_15768() {
         log("@title: Validate able to choose multi selection");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -410,7 +410,7 @@ public class CentralFancyTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
     @TestRails(id = "15769")
-    @Test(groups = {"regression_stg", "2024.01.19"})
+    @Test(groups = {"regression_stg"})
     public void CentralFancyTest_15769() {
         log("@title: Validate multi tab (bet slip) is disabled");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -442,7 +442,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15770")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void CentralFancyTest_15770() {
         log("@title: Validate bet slip information show correctly for selection Yes");
         log("@Precondition: Get the event that have Central Fancy market");
@@ -478,7 +478,7 @@ public class CentralFancyTest extends BaseCaseTest {
     }
 
     @TestRails(id = "15771")
-    @Test(groups = {"regression", "2024.01.19"})
+    @Test(groups = {"regression"})
     public void CentralFancyTest_15771() {
         log("@title: Validate bet slip information show correctly for selection No");
         log("@Precondition: Get the event that have Central Fancy market");

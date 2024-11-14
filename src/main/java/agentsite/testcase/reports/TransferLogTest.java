@@ -43,7 +43,7 @@ public class TransferLogTest extends BaseCaseTest {
      * @expect: 1. Verify log show correctly
      */
     @TestRails(id = "802")
-    @Test(groups = {"smoke_creditcash", "nolan"})
+    @Test(groups = {"smoke_creditcash"})
     public void Agent_Report_Transfer_Log_802() {
         log("@title: Validate data Transfer Log display correctly");
         DepositWithdrawalPage page;

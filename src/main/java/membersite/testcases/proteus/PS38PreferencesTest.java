@@ -16,7 +16,7 @@ import static common.ProteusConstant.TEXT_HDP;
 public class PS38PreferencesTest extends BaseCaseTest {
 
     @TestRails(id = "23677")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.2.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Preferences_TC23677(){
         log("@title: Validate PS38 Preferences menu display when the product PS38 is active");
         log("@Precondition: Login to the account active PS38 product");
@@ -27,7 +27,7 @@ public class PS38PreferencesTest extends BaseCaseTest {
     }
 
     @TestRails(id = "23678")
-    @Test(groups = {"ps38_inactive", "nolan_Proteus.2024.V.2.0"})
+    @Test(groups = {"ps38_inactive"})
     public void PS38_Preferences_TC23678(){
         log("@title: Validate PS38 Preferences menu display when the product PS38 is Inactive");
         log("@Precondition: Login to the account Inactive PS38 product");
@@ -38,7 +38,7 @@ public class PS38PreferencesTest extends BaseCaseTest {
     }
 
     @TestRails(id = "23683")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.2.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Preferences_TC23683(){
         log("@title: Validate Accept Better Odds is checked when the setting is enable");
         log("@Precondition: Login to the account active PS38 product");
@@ -58,7 +58,7 @@ public class PS38PreferencesTest extends BaseCaseTest {
     }
 
     @TestRails(id = "23684")
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.2.0"})
+    @Test(groups = {"ps38"})
     public void PS38_Preferences_TC23684(){
         log("@title: Validate Accept Better Odds is unchecked when the setting is disable");
         log("@Precondition: Login to the account active PS38 product");
