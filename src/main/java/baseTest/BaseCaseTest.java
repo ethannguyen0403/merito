@@ -244,6 +244,7 @@ public class BaseCaseTest {
                 atlanticPage = new AtlanticPage(_brandname);
                 if (isLogin) {
                     memberHomePage = atlanticPage.login(username, StringUtils.decrypt(password));
+                    memberHomePage.waitMenuLoading();
                     log(String.format("Successfully login Crypto with account %s", username));
                     return memberHomePage;
                 }
@@ -252,6 +253,7 @@ public class BaseCaseTest {
                 alpicfoxPage = new AlpicfoxPage(_brandname);
                 if (isLogin) {
                     memberHomePage = alpicfoxPage.login(username, StringUtils.decrypt(password));
+                    memberHomePage.waitMenuLoading();
                     log(String.format("Successfully login Crypto with account %s", username));
                     return memberHomePage;
                 }
