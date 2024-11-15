@@ -22,6 +22,17 @@ import static common.MemberConstants.*;
 import static common.MemberConstants.Header.MY_BETS;
 
 public class HomePageTest extends BaseCaseTest {
+    @TestRails(id = "72887")
+    @Test(groups = {"http_request"})
+    public void HomePage_72887() {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Login and navigate to Home Page");
+        memberHomePage.waitMenuLoading();
+
+        log("Verify: There is no http requests error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
+        log("INFO: Executed completely");
+    }
 
 //    @TestRails(id = "1057")
 //    @Test(groups = {"regression"})

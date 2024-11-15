@@ -21,6 +21,18 @@ import static common.MemberConstants.TIMEZONE_BRAND;
 
 public class AccountStatementTest extends BaseCaseTest {
 
+    @TestRails(id = "72894")
+    @Test(groups = {"http_request"})
+    public void AccountStatement_72894() {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Navigate Account Statement page");
+        memberHomePage.header.openAccountStatement(_brandname);
+
+        log("Verify: There is no http requests error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
+        log("INFO: Executed completely");
+    }
+
     /**
      * @title: Validate data in account statement is correctly
      * @precondition: 1. Login member site

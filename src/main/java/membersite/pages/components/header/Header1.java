@@ -121,6 +121,10 @@ public class Header1 {
         return new InPlayPage(brand);
     }
 
+    public FavouritesPage navigateFavouritesPage(String brand){
+        return new FavouritesPage(brand);
+    }
+
     public RacingPage navigateRacing(String pageName, String brand) {
         return new RacingPage(brand);
     }

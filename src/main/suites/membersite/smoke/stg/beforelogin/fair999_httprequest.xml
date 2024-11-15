@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="CONSOLE_ERROR_Member_Fair999_STG_TEST" verbose="1">
+<suite name="CONSOLE_ERROR_FAIR999_STG_TEST_BEFORE_LOGIN" verbose="1">
     <listeners>
         <listener class-name="com.paltech.utils.ExtentReporterNG"/>
         <listener class-name="util.testraildemo.Listener"/>
     </listeners>
 
-    <test name="Detect console error Fair999 Member Site in STG">
+    <test name="Detect console error FAIR999 STG Before login ">
         <parameter name='browser' value='window10.local.chrome'/>
         <parameter name='env' value='stg'/>
         <parameter name='language' value=''/>
-        <parameter name='isLogin' value='true'/>
+        <parameter name='isLogin' value='false'/>
         <parameter name='isProxy' value='true'/>
-        <parameter name='username' value='ATZ0000000'/>
-        <parameter name='usernameSAT' value='ATZ'/>
+        <parameter name='username' value='FEINRISA'/>
+        <parameter name='usernameSAT' value='03H'/>
         <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
         <parameter name='isThrown' value='true'/>
-        <parameter name='currency' value='INR'/>
+        <parameter name='currency' value='HKD'/>
         <parameter name="skinName" value="fairexchange"/>
         <parameter name="isCloseBanner" value="true"/>
-        <parameter name="isCredit" value="true"/>
+        <parameter name="isCredit" value="false"/>
         <parameter name="timeZone" value="GMT-04:00"/>
         <parameter name='appname' value='membersite'/>
         <parameter name='brandname' value='fairexchange'/>
@@ -29,16 +29,8 @@
                 <include name="http_request"/>
             </run>
         </groups>
-
         <classes>
-            <class name="membersite.testcases.exchange.AccountStatementTest"/>
-            <class name="membersite.testcases.exchange.ProfitAndLossPageTest"/>
-            <class name="membersite.testcases.exchange.MyBetPageTest"/>
-            <class name="membersite.testcases.exchange.HomePageTest"/>
-            <class name="membersite.testcases.exchange.FavouritesPageTest"/>
-            <class name="membersite.testcases.exchange.InplayPageTest"/>
-            <class name="membersite.testcases.exchange.MarketPageTest"/>
+            <class name="membersite.testcases.exchange.LandingPageTest"/>
         </classes>
-
     </test>
 </suite>

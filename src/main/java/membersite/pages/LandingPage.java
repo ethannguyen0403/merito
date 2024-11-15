@@ -13,7 +13,6 @@ import membersite.pages.components.header.Header1;
 import membersite.pages.components.leftmneu.LeftMenu;
 import membersite.pages.components.loginform.LoginPopup;
 import membersite.pages.components.underagegamblingpopup.UnderageGamblingPopup;
-import membersite.pages.popup.MyMarketPopup;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 
@@ -91,6 +90,11 @@ public class LandingPage extends BasePage {
     public InPlayPage navigateInPlayPage() {
         leftMenu.waitMenuLoading();
         return header.navigateInPlayPage(this._type);
+    }
+
+    public FavouritesPage navigateFavouritesPage() {
+        leftMenu.waitMenuLoading();
+        return header.navigateFavouritesPage(this._type);
     }
 
     public RacingPage navigateRacing(String sportName) {

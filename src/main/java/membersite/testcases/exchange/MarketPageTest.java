@@ -28,6 +28,24 @@ import static common.MemberConstants.*;
 import static common.MemberConstants.HomePage.SPORT_ID;
 
 public class MarketPageTest extends BaseCaseTest {
+    @TestRails(id = "72889")
+    @Test(groups = {"http_request"})
+    public void MarketPage_72889() {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Login and navigate to Market Page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        memberHomePage.clickEventName(event.getEventName());
+
+        log("Verify: There is no http requests error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "1074")
     @Test(groups = {"regression"})
     public void MB_Change_Password_TC1074() {

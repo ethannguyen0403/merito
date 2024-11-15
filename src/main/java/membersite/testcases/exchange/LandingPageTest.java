@@ -11,6 +11,16 @@ import org.testng.annotations.Test;
 import util.testraildemo.TestRails;
 
 public class LandingPageTest extends BaseCaseTest {
+    @TestRails(id = "72834")
+    @Test(groups = {"http_request"})
+    public void LandingPage_72834() {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Navigate to Login Page");
+        log("Verify: There is no http requests error");
+        landingPage.login("", "", false);
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
+        log("INFO: Executed completely");
+    }
 
     @TestRails(id = "1213")
     @Test(groups = {"smoke","smoke_dev"})
