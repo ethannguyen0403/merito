@@ -23,7 +23,7 @@
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='fairenter'/>
         <parameter name='skinName' value='fairenter'/>
-        <parameter name='isAddTestRailResult' value='false'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="http_request"/>

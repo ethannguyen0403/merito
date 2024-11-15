@@ -22,7 +22,7 @@
         <parameter name='appname' value='agentsite'/>
         <parameter name='brandname' value='funsport'/>
         <parameter name='skinName' value='funsport'/>
-        <parameter name='isAddTestRailResult' value='false'/>
+        <parameter name='isAddTestRailResult' value='true'/>
         <groups>
             <run>
                 <include name="http_request"/>
