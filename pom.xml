@@ -6,7 +6,7 @@
     <groupId>com.paltech</groupId>
     <artifactId>Merito</artifactId>
     <version>1.1.2</version>
-<!--    <packaging>pom</packaging>-->
+    <packaging>pom</packaging>
 <!--    <packaging>jar</packaging>-->
     <parent>
         <groupId>com.paltech</groupId>
@@ -25,6 +25,11 @@
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.97.Final</version>
         </dependency>
     </dependencies>
     <repositories>
