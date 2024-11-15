@@ -20,8 +20,8 @@ import static common.MemberConstants.WICKET_BOOKMAKER_TITLE;
 
 public class SatLeftMenu extends LeftMenu {
     public Image imgLoading = Image.xpath("//div[@class='loading-icon']/img");
-    public TextBox txtSearch = TextBox.xpath("//input[contains(@type,'text')]");
-    public Label lblResult = Label.xpath("//app-search-box-sat//ul//li[1]");
+    public TextBox txtSearch = TextBox.xpath("//input[@placeholder='Search event']");
+    public Label lblResult = Label.xpath("//app-left-menu//completer-list-item/span");
     public Label lblNoSearchResult = Label.xpath("//div[contains(@class,'completer-dropdown-holder')]//div[@class='completer-no-results']");
     public DropDownMenu casinotMenu = DropDownMenu.xpath("//div[contains(@class,'level casino-menu')]", "//div[contains(@class,'active')]//span", "//div[contains(@class,'casino-sub-menu')]//div");
     private String menuSubItemsXpath = "%s/following::div[@class='downs-levels']/div";
@@ -46,12 +46,9 @@ public class SatLeftMenu extends LeftMenu {
          return  new MarketPage();
      }*/
     public Label searchEvent(String eventName) {
-        txtSearch.sendKeys(eventName);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        txtSearch.type(eventName);
+        txtSearch.type(false, Keys.ARROW_DOWN);
+        waitMenuLoading();
         if (lblResult.isDisplayed()) {
             lblResult.moveAndHoverOnControl();
             return lblResult;
