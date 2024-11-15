@@ -17,17 +17,18 @@ import java.util.List;
 import static common.MemberConstants.ProfitAndLossPage.*;
 
 public class ProfitAndLossPageTest extends BaseCaseTest {
+    @TestRails(id = "72893")
+    @Test(groups = {"http_request"})
+    public void ProfitAndLoss_72893() {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Navigate Profit and Loss page");
+        memberHomePage.header.openProfitAndLoss(_brandname);
 
-    /**
-     * @title: Validate Data Profit display correctly
-     * @precondition: 1. Login member site
-     * @step: 1. Active My Account> Profit and loss
-     * 2. Filter in a date range
-     * 3. Click on Load report
-     * 4. Click on any sport and check details
-     * @expect: 1. Verify Total profit = sum profit of all sports
-     * 2. Profit of each sport match with when summary the details
-     */
+        log("Verify: There is no http requests error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "522")
     @Test(groups = {"smoke", "smoke_dev","MER.Maintenance.2024.V.6.0"})
     @Parameters("timeZone")
@@ -52,16 +53,6 @@ public class ProfitAndLossPageTest extends BaseCaseTest {
         Assert.assertTrue(page.verifyProfitLostMatchedWithDetails(totalRow));
     }
 
-    /**
-     * @title: Validate Table header when clicking on sport and market
-     * @precondition: 1. Login member site
-     * @step: 1. Active My Account> Profit and loss
-     * 2. Filter in a date range
-     * 3. Click on Load report
-     * 4. Click on a sport
-     * 5. Click on a event
-     * @expect: 1. Table header display correctly when clicking on sport> event
-     */
     @TestRails(id = "523")
     @Test(groups = {"smoke", "smoke_dev"})
     @Parameters("timeZone")

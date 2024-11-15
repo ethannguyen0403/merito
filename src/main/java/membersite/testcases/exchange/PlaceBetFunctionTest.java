@@ -85,13 +85,10 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         log("Step 3. Update odds > offer odds and Input valid stake");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         String odds = market.getBtnOdd().getText();
-        String expectedProfit = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
         market.getBtnOdd().click();
+        market.setOdds(odds);
 
         log(String.format("Step 4. Place bet with odds:%s Stake: %s", odds, minBet));
-//        AccountBalance balance = memberHomePage.getUserBalance();
-//        marketPage.betsSlipContainer.placeBet(odds, minBet);
-//        List<Order> wagers = marketPage.myBetsContainer.getOrder(true, true, 1);
         AccountBalance balanceBeforeBet = memberHomePage.getUserBalance();
         List<ArrayList<String>> foreCastInfoBefore = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
         marketPage.betsSlipContainer.placeBet(odds, minBet);
@@ -99,9 +96,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
         List<Order> wagers = marketPage.myBetsContainer.getMatchedNormalInMiniMyBet();
-        Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
-        Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
-        Assert.assertEquals(expectedProfit, wagers.get(0).getProfit().replace(",",""), "Incorrect Profit");
+        marketPage.myBetsContainer.verifyInfoPlacedMatchedBet(market, minBet, wagers.get(0));
 
         log("Verify: Account Balance/Outstanding updated correctly");
         AccountBalance balanceActual = memberHomePage.getUserBalance();
@@ -133,14 +128,11 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
         int selectionIndex = marketPage.marketOddControl.getSelectionHaveMinOdds(event.getMarketName(),false);
         Market market = marketPage.marketOddControl.getMarket(event, selectionIndex, false);
         String odds = market.getBtnOdd().getText();
-        String expectedLiability = String.format("%.2f", (Double.parseDouble(odds) - 1) * Double.parseDouble(minBet));
+        market.setOdds(odds);
         market.getBtnOdd().click();
 
         log("Step 4. Input stake and click submit");
         log(String.format("----- Place bet  %s@%s ------", odds, minBet));
-//        AccountBalance balance = marketPage.getUserBalance();
-//        marketPage.betsSlipContainer.placeBet(odds, minBet);
-//        List<Order> wagers = marketPage.myBetsContainer.getOrder(true, false, 1);
         AccountBalance balanceBeforeBet = memberHomePage.getUserBalance();
         List<ArrayList<String>> foreCastInfoBefore = marketPage.marketOddControl.getUIForeCast(market.getMarketName());
         marketPage.betsSlipContainer.placeBet(odds, minBet);
@@ -148,11 +140,7 @@ public class PlaceBetFunctionTest extends BaseCaseTest {
 
         log("Verify: Mini My Bet display correct info, Selection name, Odds, Stake, Profit/Liability");
         List<Order> wagers = marketPage.myBetsContainer.getMatchedNormalInMiniMyBet();
-        Assert.assertEquals(market.getSelectionName(), wagers.get(0).getSelectionName(), "Place on incorrect selection");
-        // Cannot verify odds matched as expected
-        //Assert.assertEquals(String.format("%.2f", Double.parseDouble(odds)), wagers.get(0).getOdds(), "Incorrect Odds");
-        Assert.assertEquals(String.format("%.2f", Double.parseDouble(minBet)), wagers.get(0).getStake(), "Incorrect Stake");
-        Assert.assertEquals(expectedLiability, wagers.get(0).getLiability(), "Incorrect Liability");
+        marketPage.myBetsContainer.verifyInfoPlacedMatchedBet(market, minBet, wagers.get(0));
 
         log("Verify: Account Balance/Outstanding updated correctly");
         AccountBalance balanceActual = memberHomePage.getUserBalance();

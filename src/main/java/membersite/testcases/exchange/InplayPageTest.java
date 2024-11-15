@@ -18,6 +18,17 @@ import static common.MemberConstants.LBL_BACK_TYPE;
 import static common.MemberConstants.LBL_SOCCER_SPORT;
 
 public class InplayPageTest extends BaseCaseTest {
+    @TestRails(id = "72890")
+    @Test(groups = {"http_request"})
+    public void InPlayPage_72890() {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Login and navigate to In-Play Page");
+        memberHomePage.navigateInPlayPage();
+
+        log("Verify: There is no http requests error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
+        log("INFO: Executed completely");
+    }
 
     @TestRails(id = "1010")
     @Test(groups = {"regression"})

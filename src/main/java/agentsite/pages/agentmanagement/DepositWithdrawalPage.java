@@ -1,6 +1,7 @@
 package agentsite.pages.agentmanagement;
 
 import agentsite.controls.Table;
+import agentsite.objects.agent.account.AccountInfo;
 import agentsite.pages.HomePage;
 import agentsite.pages.agentmanagement.depositwithdrawal.*;
 import agentsite.pages.components.ComponentsFactory;
@@ -11,10 +12,7 @@ import com.paltech.utils.DoubleUtils;
 import org.testng.Assert;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 public class DepositWithdrawalPage extends HomePage {
     public Label lblMainUser = Label.xpath("//div[@class='downline-bar']//span[@class='downline']");
@@ -163,6 +161,16 @@ public class DepositWithdrawalPage extends HomePage {
         return returnValue;
     }
 
+    public List<Double> getDataAmountByUser(String username) {
+        List<Double> lstValue = new ArrayList<>();
+        double creditInit = getDataByColumn(username, colCreditInitiation);
+        double totalBalanceAcc = getDataByColumn(username, colTotalBalance);
+        double availableBalanceAcc =getDataByColumn(username, colAvailableBalance);
+        double winlossAcc = getDataByColumn(username, colWinloss);
+        Collections.addAll(lstValue, creditInit, totalBalanceAcc, availableBalanceAcc, winlossAcc);
+        return lstValue;
+    }
+
     public int defineDepositWithdrawTableColumn(String colName) {
         String level = ProfileUtils.getProfile().getLevel();
         if (level.equalsIgnoreCase("PO")) {
@@ -187,7 +195,24 @@ public class DepositWithdrawalPage extends HomePage {
         if (CheckBox.xpath(cbCheck).isDisplayed()) {
             System.out.println("Select username: " + userName);
             CheckBox.xpath(cbCheck).click();
+            CheckBox.xpath(cbCheck).isSelected();
         }
+    }
+
+    public void selectMultipleUser(List<AccountInfo> lstUsers, int limit) {
+        if(lstUsers.size() < limit) {
+            System.out.println("List user does not have enough member for selecting with limit");
+            return;
+        }
+        for (int i = 0; i < limit; i++) {
+            String cbCheck = tblWithdrawalDeposit.getControlxPathBasedValueOfDifferentColumnOnRow(lstUsers.get(i).getUserCode(), 1, colUsername, 1, null, colCheckAll, "input", false, false);
+            if (CheckBox.xpath(cbCheck).isDisplayed()) {
+                System.out.println("Select username: " + lstUsers.get(i).getUserCode());
+                CheckBox.xpath(cbCheck).click();
+                CheckBox.xpath(cbCheck).isSelected();
+            }
+        }
+
     }
 
     public void selectUser(List<ArrayList<String>> listDownlineInfo) {
@@ -214,16 +239,6 @@ public class DepositWithdrawalPage extends HomePage {
         if (expected.equals("Member"))
             return actual.equals(expected);
         return true;
-    }
-
-    public List<String> getRowContainsUsercode(String usercode) {
-        List<ArrayList<String>> lstData = tblWithdrawalDeposit.getRowsWithoutHeader(false);
-        for (int i = 0; i < lstData.size(); i++)
-            if (lstData.get(i).get(colUsername - 1).contains(usercode))
-                return lstData.get(i);
-        System.out.println(String.format("Usercode not exit in the list", usercode));
-        return null;
-
     }
 
     public List<ArrayList<String>> calculateMainAccountInfo(List<ArrayList<String>> lstBalanceInfo, double totalAmount, boolean isDeposit) {
@@ -343,5 +358,15 @@ public class DepositWithdrawalPage extends HomePage {
 
     public String getFirstUserName() {
         return tblWithdrawalDeposit.getColumn(defineDepositWithdrawTableColumn("User Name"),3,true).get(0);
+    }
+
+    public void verifyDataAmountUpdated(List<Double> lstDataBeforeUpdate, List<Double> lstDataAfterUpdate, double amount) {
+        for (int i = 0; i < lstDataBeforeUpdate.size(); i++) {
+            if(i==0) {
+                Assert.assertEquals(lstDataBeforeUpdate.get(i), lstDataAfterUpdate.get(i), "FAILED! Data amount is not updated correctly");
+            } else {
+                Assert.assertEquals(lstDataBeforeUpdate.get(i) + amount, lstDataAfterUpdate.get(i), "FAILED! Data amount is not updated correctly");
+            }
+        }
     }
 }

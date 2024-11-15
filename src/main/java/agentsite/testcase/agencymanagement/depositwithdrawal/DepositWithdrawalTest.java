@@ -52,15 +52,13 @@ public class DepositWithdrawalTest extends BaseCaseTest {
      */
     @TestRails(id = "712")
     @Test(groups = {"smoke_creditcash"})
-    @Parameters("currency")
-    public void Agent_AM_DepositWithdrawal_712(String currency) {
+    public void Agent_AM_DepositWithdrawal_712() {
         log("@title: Validate that this page loading is successful");
         log("Step 1: Navigate Agency Management > Deposit Withdrawal");
         String loginAccBalance = String.format(Locale.getDefault(), "%,.2f", DownLineListingUtils.getMyCreditCashBalance());
         DepositWithdrawalPage page = agentHomePage.navigateDepositWithdrawalPage(environment.getSecurityCode());
 
         log("Step 1: Input security code");
-//        page.securityPopup.submitSecurityCode(StringUtils.decrypt(environment.getSecurityCode()));
         boolean isStatusItems = page.depositWithdraw.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_ACCOUNT_STATUS, "ddbAccountStatus");
         boolean isLevel = page.depositWithdraw.areOptionsMatched(AGConstant.AgencyManagement.DepositWithdrawal.DDB_LEVEL, "ddbLevel");
         List<String> lstHeader = page.tblWithdrawalDeposit.getColumnNamesOfTable();
@@ -74,7 +72,6 @@ public class DepositWithdrawalTest extends BaseCaseTest {
         Assert.assertEquals(page.getLabelText("lblAccountStatus"), AGConstant.AgencyManagement.DepositWithdrawal.LBL_ACCOUNT_STATUS, "FAILED! Account status not correct");
         Assert.assertEquals(page.getLabelText("lblLevel"), AGConstant.AgencyManagement.DepositWithdrawal.LBL_LEVEL, "FAILED! Level label not correct");
         Assert.assertEquals(page.txtUsername.getAttribute("placeholder").trim(), AGConstant.AgencyManagement.DepositWithdrawal.USERNAME_NICKNAME, "FAILED! Username placeholder not correct");
-//        Assert.assertEquals(page.btnSubmit.getText(), AGConstant.BTN_SUBMIT, "Failed, Submit button display incorrect");
 
         log("Verify 4: Column names on Deposit/withdraw info table are correct");
         Assert.assertEquals(lstHeader, AGConstant.AgencyManagement.DepositWithdrawal.TABLE_HEADER_MAP.get(_brandname) , "FAILED! Header Deposit Withdraw not match with the expected");

@@ -43,13 +43,6 @@ public class MyBetPageTest extends BaseCaseTest {
         log("INFO: Executed Completely!");
     }
 
-    /**
-     * @title: Validate can filter Settled bet
-     * @precondition: 1. Login member site
-     * @step:c 1. Active My Account> My Bets
-     * 2. Select Exchange Bets , Order Type: Settled , Start and End Date, click Load Report
-     * @expect: 1. All settled bet is filtered
-     */
     @TestRails(id = "516")
     @Test(groups = {"smoke","smoke_dev"})
     public void MyBetPage_TC516() {
@@ -72,13 +65,6 @@ public class MyBetPageTest extends BaseCaseTest {
         log("INFO: Executed Completely!");
     }
 
-    /**
-     * @title: Validate can filter Matched bet
-     * @precondition: 1. Login member site
-     * @step:c 1. Active My Account> My Bets
-     * 2. Select Exchange Bets , Order Type: Matched , Start and End Date, click Load Report
-     * @expect: 1. All matched bet is filtered
-     */
     @TestRails(id = "517")
     @Test(groups = {"smoke", "smoke_dev"})
     public void MyBetPage_TC517() {
@@ -98,13 +84,6 @@ public class MyBetPageTest extends BaseCaseTest {
         log("INFO: Executed Completely!");
     }
 
-    /**
-     * @title: Validate can filter Unmatched bet
-     * @precondition: 1. Login member site
-     * @step:c 1. Active My Account> My Bets
-     * 2. Select Exchange Bets , Order Type: Unmatched , Start and End Date, click Load Report
-     * @expect: 1. All Unmatched bet is filtered
-     */
     @TestRails(id = "518")
     @Test(groups = {"smoke", "smoke_dev"})
     public void MyBetPage_TC518() {
@@ -126,13 +105,6 @@ public class MyBetPageTest extends BaseCaseTest {
         log("INFO: Executed Completely!");
     }
 
-    /**
-     * @title: Validate can filter Canceled bet
-     * @precondition: 1. Login member site
-     * @step:c 1. Active My Account> My Bets
-     * 2. Select Exchange Bets , Order Type: Cancelled , Start and End Date, click Load Report
-     * @expect: 1. All Cancelled bet is filtered
-     */
     @TestRails(id = "519")
     @Test(groups = {"smoke", "smoke_dev"})
     public void MyBetPage_TC519() {
@@ -154,13 +126,6 @@ public class MyBetPageTest extends BaseCaseTest {
         log("INFO: Executed Completely!");
     }
 
-    /**
-     * @title: Validate can filter Lapsed bet
-     * @precondition: 1. Login member site
-     * @step:c 1. Active My Account> My Bets
-     * 2. Select Exchange Bets , Order Type: Lapsed , Start and End Date, click Load Report
-     * @expect: 1. Bet info display correctly, all bets display with status: Lapsed
-     */
     @TestRails(id = "520")
     @Test(groups = {"smoke", "smoke_dev"})
     public void MyBetPage_TC520() {
@@ -182,13 +147,6 @@ public class MyBetPageTest extends BaseCaseTest {
         log("INFO: Executed Completely!");
     }
 
-    /**
-     * @title: Validate can filter Voided bet
-     * @precondition: 1. Login member site
-     * @step:c 1. Active My Account> My Bets
-     * 2. Select Exchange Bets , Order Type: Voided , Start and End Date, click Load Report
-     * @expect: 1. Bet info display correctly, all bets display with status: Voided
-     */
     @TestRails(id = "521")
     @Test(groups = {"smoke", "smoke_dev"})
     public void MyBetPage_TC521() {
@@ -209,20 +167,15 @@ public class MyBetPageTest extends BaseCaseTest {
         log("INFO: Executed Completely!");
     }
 
-    /**
-     * @title: Validate no console error when navigate to My Bets
-     * @precondition: 1. Login member site
-     * @step: 1. Click My Account > My Bets
-     * @expect: 1. There is no console error display
-     */
+    @TestRails(id = "72892")
     @Test(groups = {"http_request"})
-    public void MyBetPage_TC009() {
+    public void MyBetPage_72892() {
         log("@title: Validate no console error when navigate to My Bets Page");
         log("Step 1. 1. Click My Account > My Bets");
-        MyBetsPage page = memberHomePage.header.openMyBets(_brandname);
+        memberHomePage.header.openMyBets(_brandname);
+
         log("Verify 1. There is no console error display");
-        boolean isError = hasHTTPRespondedOK();
-        Assert.assertTrue(isError, "ERROR: There are some response request error when navigating to My Bets page");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error when navigating to My Bets page");
         log("INFO: Executed Completely!");
     }
 

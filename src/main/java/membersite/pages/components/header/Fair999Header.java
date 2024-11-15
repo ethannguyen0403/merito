@@ -69,10 +69,14 @@ public class Fair999Header extends Header1 {
         return new SportPage(brand);
     }
 
-    @Override
     public InPlayPage navigateInPlayPage(String brand) {
         Label.xpath("//a//*[contains(text(),'In-Play')]").click();
         return new InPlayPage(brand);
+    }
+
+    public FavouritesPage navigateFavouritesPage(String brand) {
+        Label.xpath("//a//*[contains(text(),'Favourites')]").click();
+        return new FavouritesPage(brand);
     }
 
     private void clickHeaderMenu(String sportMenu){

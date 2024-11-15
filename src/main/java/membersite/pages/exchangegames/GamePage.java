@@ -34,10 +34,12 @@ public class GamePage extends LandingPage {
         switch (pageName) {
             case "BACCARAT":
                 menuBaccarat.click();
+                icSpin.isDisplayedShort(3);
                 waitGameLoad();
                 return new BaccaratPage(this._type);
             case "BLACKJACK":
                 menuBlackjack.click();
+                icSpin.isDisplayedShort(3);
                 waitGameLoad();
                 return new BlackJackPage(this._type);
             case "CARD DERBY RACING":
@@ -46,18 +48,22 @@ public class GamePage extends LandingPage {
                 return new CardDerbyRacingPage(this._type);
             case "HI LO":
                 menuHiLo.click();
+                icSpin.isDisplayedShort(3);
                 waitGameLoad();
                 return new HiloPage(this._type);
             case "OMAHA HI":
                 menuOmahaHi.click();
+                icSpin.isDisplayedShort(3);
                 waitGameLoad();
                 return new OmahahiPage(this._type);
             case "HOLD'EM":
                 menuHoldEm.click();
+                icSpin.isDisplayedShort(3);
                 waitGameLoad();
                 return new HoldemPage(this._type);
             default:
                 icHomeMenu.click();
+                icSpin.isDisplayedShort(3);
                 waitGameLoad();
                 return new EGHomePage(this._type);
         }

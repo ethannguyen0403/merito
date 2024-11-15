@@ -27,6 +27,7 @@ public class BigStakeConfigurationPage extends HomePage {
             txtBigStake.sendKeys(bigStake);
         btnSubmit.click();
         waitingLoadingSpinner();
+        lblMessage.isDisplayedShort(2);
         return lblMessage.getText();
     }
 

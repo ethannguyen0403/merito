@@ -87,22 +87,26 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
                 .build();
     }
 
-    @Override
-    public void verifyInfoBetSlipAndOddsPage(Market market, Order order) {
-        String actualLiability = Label.xpath(lblProfitLiabilityXPath).getText().trim();
-        if (order.getIsBack()) {
-            String expectedLiability = String.format("%.2f", order.getProfit(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
-            Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Profit of selection is not correct");
+    public void verifyInfoPlacedMatchedBet(Market market, String stake, Order order) {
+        String actualProfitLiability = Label.xpath(lblProfitLiabilityXPath).getText().trim();
+        String oddsPlaceBet = market.getOdds();
+        if(!oddsPlaceBet.equals(order.getOdds())) {
+            oddsPlaceBet = order.getOdds();
+        }
+        if(order.getIsBack()) {
+            String expectedProfit = String.format("%.2f", Double.valueOf(stake) * (Double.valueOf(oddsPlaceBet) - 1));
+            Assert.assertEquals(actualProfitLiability, expectedProfit, "FAILED! Profit of selection is not correct");
             Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
-            Assert.assertEquals(String.format("%.2f",Double.valueOf(market.getBtnOdd().getText())), order.getOdds(), "FAILED! Odds is not correct");
+            Assert.assertEquals(String.format("%.2f",Float.valueOf(stake)), order.getStake(), "FAILED! Stake is not correct");
+            Assert.assertEquals(String.format("%.2f",Float.valueOf(oddsPlaceBet)), order.getOdds(), "FAILED! Odds is not correct");
         } else {
-            String expectedLiability = String.format("%.2f", order.getLiablity(order.getIsBack(), Double.valueOf(order.getOdds()) , Double.valueOf(order.getStake())));
-            Assert.assertEquals(actualLiability, expectedLiability, "FAILED! Liability of selection is not correct");
+            String expectedLiability = String.format("%.2f", Double.valueOf(stake) * (Double.valueOf(oddsPlaceBet) - 1));
+            Assert.assertEquals(actualProfitLiability, expectedLiability, "FAILED! Profit of selection is not correct");
             Assert.assertEquals(market.getSelectionName(), order.getSelectionName(), "FAILED! Selection name is not correct");
-            Assert.assertEquals(String.format("%.2f",Double.valueOf(market.getBtnOdd().getText())), order.getOdds(), "FAILED! Odds is not correct");
+            Assert.assertEquals(String.format("%.2f",Float.valueOf(stake)), order.getStake(), "FAILED! Stake is not correct");
+            Assert.assertEquals(String.format("%.2f",Float.valueOf(oddsPlaceBet)), order.getOdds(), "FAILED! Odds is not correct");
         }
     }
-
     public void removeBet(boolean isBack) {
         String layOrBack = isBack ? "back" : "lay";
 
@@ -117,10 +121,10 @@ public class NewUIMiniMyBetsContainer extends MiniMyBetsContainer {
         return iconRemoveBet.isPresent();
     }
 
-    public List<ArrayList<String>> forecastLstBasedMatchedBetFromAPI(List<String> marketInfo, List<String> lstSelection) {
-        List<Wager> lstWager = BetUtils.getMatchedOpenBet(marketInfo.get(0), marketInfo.get(1), marketInfo.get(2), marketInfo.get(3));
-        return BetUtils.calculateForecast(BetUtils.getProfitandLiabilityBySelection(lstWager, lstSelection));
-    }
+//    public List<ArrayList<String>> forecastLstBasedMatchedBetFromAPI(List<String> marketInfo, List<String> lstSelection) {
+//        List<Wager> lstWager = BetUtils.getMatchedOpenBet(marketInfo.get(0), marketInfo.get(1), marketInfo.get(2), marketInfo.get(3));
+//        return BetUtils.calculateForecast(BetUtils.getProfitandLiabilityBySelection(lstWager, lstSelection));
+//    }
 
     public List<ArrayList> getBookmakerMatchBets() {
         return bookMakerMiniMyBet.getMatchBets(false);

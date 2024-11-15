@@ -27,7 +27,7 @@ public class MiniMyBetsContainer {
         return null;
     }
 
-    public void verifyInfoBetSlipAndOddsPage(Market market, Order order) {}
+    public void verifyInfoPlacedMatchedBet(Market market, String stake, Order order) {}
 
     public void removeBet(boolean isBack) {
     }

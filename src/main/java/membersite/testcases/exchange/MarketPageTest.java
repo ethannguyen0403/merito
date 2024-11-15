@@ -28,6 +28,24 @@ import static common.MemberConstants.*;
 import static common.MemberConstants.HomePage.SPORT_ID;
 
 public class MarketPageTest extends BaseCaseTest {
+    @TestRails(id = "72889")
+    @Test(groups = {"http_request"})
+    public void MarketPage_72889() {
+        log("@title: There is no http responded error returned");
+        log("Step 1. Login and navigate to Market Page");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(SPORT_SOCCER);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event)) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        memberHomePage.clickEventName(event.getEventName());
+
+        log("Verify: There is no http requests error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "ERROR: There are some response request error returned");
+        log("INFO: Executed completely");
+    }
+
     @TestRails(id = "1074")
     @Test(groups = {"regression"})
     public void MB_Change_Password_TC1074() {
@@ -613,6 +631,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("Step 3: Click an odd without empty at Home team and Back type");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
+        market.setOdds(market.getBtnOdd().getText());
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
         String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
         marketPage.betsSlipContainer.placeBet(minBet);
@@ -623,7 +642,7 @@ public class MarketPageTest extends BaseCaseTest {
                 "Selected team on My Bet and on Bet Slip is the same\n" +
                 "Liability on My Bet and on Bet Slip is the same\n" +
                 "Profit on My Bet and on Bet Slip is the same");
-        marketPage.myBetsContainer.verifyInfoBetSlipAndOddsPage(market, betOrder.get(0));
+        marketPage.myBetsContainer.verifyInfoPlacedMatchedBet(market, minBet, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "989")
@@ -642,6 +661,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("Step 3: Click an odd without empty at Home team and Lay type");
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
         market.getBtnOdd().click();
+        market.setOdds(market.getBtnOdd().getText());
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
         String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_LAY_TYPE);
         marketPage.betsSlipContainer.placeBet(minBet);
@@ -652,7 +672,7 @@ public class MarketPageTest extends BaseCaseTest {
                 "Selected team on My Bet and on Bet Slip is the same\n" +
                 "Liability on My Bet and on Bet Slip is the same\n" +
                 "Profit on My Bet and on Bet Slip is the same");
-        marketPage.myBetsContainer.verifyInfoBetSlipAndOddsPage(market, betOrder.get(0));
+        marketPage.myBetsContainer.verifyInfoPlacedMatchedBet(market, minBet, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "990")
@@ -671,6 +691,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("Step 3: Click an odd without empty at Away team and Back type");
         Market market = marketPage.marketOddControl.getMarket(event, 1, true);
         market.getBtnOdd().click();
+        market.setOdds(market.getBtnOdd().getText());
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
         String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_BACK_TYPE);
         marketPage.betsSlipContainer.placeBet(minBet);
@@ -681,7 +702,7 @@ public class MarketPageTest extends BaseCaseTest {
                 "Selected team on My Bet and on Bet Slip is the same\n" +
                 "Liability on My Bet and on Bet Slip is the same\n" +
                 "Profit on My Bet and on Bet Slip is the same");
-        marketPage.myBetsContainer.verifyInfoBetSlipAndOddsPage(market, betOrder.get(0));
+        marketPage.myBetsContainer.verifyInfoPlacedMatchedBet(market, minBet, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "991")
@@ -700,6 +721,7 @@ public class MarketPageTest extends BaseCaseTest {
         log("Step 3: Click an odd without empty at Away team and Lay type");
         Market market = marketPage.marketOddControl.getMarket(event, 1, false);
         market.getBtnOdd().click();
+        market.setOdds(market.getBtnOdd().getText());
         log("Step 4: Input a stake less than minimum stake into Stake text-box");
         String minBet = BetUtils.getMinBet(SPORT_SOCCER, LBL_LAY_TYPE);
         marketPage.betsSlipContainer.placeBet(minBet);
@@ -710,7 +732,7 @@ public class MarketPageTest extends BaseCaseTest {
                 "Selected team on My Bet and on Bet Slip is the same\n" +
                 "Liability on My Bet and on Bet Slip is the same\n" +
                 "Profit on My Bet and on Bet Slip is the same");
-        marketPage.myBetsContainer.verifyInfoBetSlipAndOddsPage(market, betOrder.get(0));
+        marketPage.myBetsContainer.verifyInfoPlacedMatchedBet(market, minBet, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "992")
@@ -786,6 +808,7 @@ public class MarketPageTest extends BaseCaseTest {
         String race = racelst.get(racelst.size() - 1);
         MarketPage marketPage = racingPage.clickRacing(country, trackName, race);
         Market market = marketPage.racingMarketContainer.getRace(1, true);
+        market.setOdds(market.getBtnOdd().getText());
         log("Step 2: Place bet");
         marketPage.placeBet(market, minBet);
         List<Order> betOrder = marketPage.myBetsContainer.getOrder(true, true, 1);
@@ -795,7 +818,7 @@ public class MarketPageTest extends BaseCaseTest {
                 "Selected team on My Bet and on Bet Slip is the same\n" +
                 "Liability on My Bet and on Bet Slip is the same\n" +
                 "Profit on My Bet and on Bet Slip is the same");
-        marketPage.myBetsContainer.verifyInfoBetSlipAndOddsPage(market, betOrder.get(0));
+        marketPage.myBetsContainer.verifyInfoPlacedMatchedBet(market, minBet, betOrder.get(0));
         log("INFO: Executed completely");
     }
     @TestRails(id = "995")

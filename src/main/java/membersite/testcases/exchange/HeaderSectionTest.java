@@ -106,10 +106,9 @@ public class HeaderSectionTest extends BaseCaseTest {
         }
         log("Step 2: Input a active event insearch textbox");
         log("Step 3: Click on event in search page");
-        String eventName = memberHomePage.leftMenu.searchEvent(event.getEventName()).getText().trim();
         MarketPage marketPage = memberHomePage.leftMenu.searchEvent(event.getEventName(),true);
-        log("Verify 1: Verify event page display correctly with: " + eventName);
-        Assert.assertEquals(marketPage.getEventTitle(), eventName, "FAILED! Event page is not displayed");
+        log("Verify 1: Verify event page display correctly with: " + event.getEventName());
+        Assert.assertEquals(marketPage.getEventTitle(), event.getEventName(), "FAILED! Event page is not displayed");
         log("INFO: Executed completely");
     }
 

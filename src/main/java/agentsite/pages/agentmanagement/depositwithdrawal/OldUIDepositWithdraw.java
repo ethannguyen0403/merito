@@ -53,7 +53,7 @@ public class OldUIDepositWithdraw extends DepositWithdraw {
         Map<String, DropDownBox> vars = new HashMap<>();
         vars.put("ddbAccountStatus",ddbAccountStatus);
         vars.put("ddbLevel",ddbLevel);
-        return vars.get(controlDropDownName).areOptionsMatched(expectedList);
+        return vars.get(controlDropDownName).getOptions().equals(expectedList);
     }
 
     public String getLabelText(String controlNameString) {

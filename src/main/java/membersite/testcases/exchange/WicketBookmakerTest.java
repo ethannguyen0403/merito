@@ -43,7 +43,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
 
         log("Step 5 Get Wicket Bookmaker market has runner available");
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket, true);
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(market)) {
             log("DEBUG: Skip as have no event has Wicket Bookmaker market");
             Assert.assertFalse(true, "Cannot place on the market, please check market status");
             return;
@@ -88,7 +88,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         memberHomePage.leftMenu.openBookmakerMarket(WICKET_BOOKMAKER);
 
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket, true);
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(market)) {
             log("DEBUG: Skip as have no event has Wicket Bookmaker market");
             Assert.assertFalse(true, "Cannot place on the market, please check market status");
             return;
@@ -126,7 +126,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
         log("Step 4 Active Wicket Bookmaker tab");
         memberHomePage.leftMenu.openBookmakerMarket(WICKET_BOOKMAKER);
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket, false);
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(market)) {
             log("DEBUG: Skip as have no event has Wicket Bookmaker market");
             Assert.assertFalse(true, "Cannot place on the market, please check market status");
             return;
@@ -165,7 +165,7 @@ public class WicketBookmakerTest extends BaseCaseTest {
 
         log("Step 5 Click on an odds of a Bookmaker market then place bet with the stake  greater than available balance");
         Market market = marketPage.getBookmakerMarketInfo(bookmakerMarket, true);
-        if (Objects.isNull(marketPage)) {
+        if (Objects.isNull(market)) {
             log("DEBUG: Skip as have no event has Wicket Bookmaker market");
             Assert.assertFalse(true, "Cannot place on the market, please check market status");
             return;

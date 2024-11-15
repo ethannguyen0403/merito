@@ -49,6 +49,7 @@ public class DepositPopup {
             btnSubmit.click();
             btnSubmit.waitForControlInvisible(2, 4);
         }
+       btnSubmit.isDisplayedShort(3);
     }
 
     public void closeDepositPopup() {
