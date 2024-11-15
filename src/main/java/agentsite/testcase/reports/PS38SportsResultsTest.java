@@ -69,7 +69,7 @@ public class PS38SportsResultsTest extends BaseCaseTest {
      * @expect: 1. Verify data display. If have no record, display the message : No records found
      */
     @TestRails(id = "3873")
-    @Test(groups = {"regression", "nolan"})
+    @Test(groups = {"regression"})
     public void Agent_Report_Analysis_Of_Running_Markets_3873() {
         log("@title: Validate can search result");
         log("Step 1. Click on PS38 Sports Result");

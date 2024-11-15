@@ -68,7 +68,6 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         page.verifyBlockUnblockEvent(eventName, "Unblocked", true, true, UNBLOCKTYPE.get(0), UNBLOCKTYPE.get(0));
         log("INFO: Executed completely");
     }
-
     @TestRails(id = "3683")
     @Test(groups = {"http_request"})
     public void Agent_MM_BlockUnblockEvent_3683() {
@@ -228,7 +227,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "759")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_759(String downlineAccount) {
         log("@title: Validate that can block an unblocked event successfully from SAD level");
@@ -268,8 +267,8 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
 ////        log("INFO: Executed completely");
     }
 
-    @TestRails(id = "760")
-    @Test(groups = {"smoke", "MER.Maintenance.2024.V.6.0"})
+    @TestRails(id="760")
+    @Test(groups = {"smoke","MER.Maintenance.2024.V.6.0"})
     @Parameters({"downlineAccount"})
     public void Agent_MM_BlockUnblockEvent_760(String downlineAccount) {
         log("@title: Validate Buttons are enabled when have downline and events is selected");
@@ -784,15 +783,13 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         lstUsers.sort(Comparator.comparing(o -> o.getUserCode()));
         String userCode = lstUsers.get(0).getUserCode();
         String userCode2 = lstUsers.get(1).getUserCode();
-        String childID2 = lstUsers.get(1).getUserID();
-        String sport = SPORT_SOCCER;
         String tomorowTab = AGConstant.MarketsManagement.BlockUnblockEvent.TAB_DAYS.get(2);
 
         log("Step 1: Navigate Markets Management > Block/Unblock Events");
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
 
         log("Step 2. Select sport is soccer, and Tomorrow tab ");
-        page.filter("", sport, tomorowTab);
+        page.filter("", SPORT_SOCCER, tomorowTab);
         log("Step Precondition: Block then Unblock all event for 2 downline accounts");
         page.checkDownline(userCode);
         page.checkDownline(userCode2);
@@ -1016,8 +1013,8 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         log("INFO: Executed completely");
     }
 
-    @TestRails(id = "3695")
-    @Test(groups = {"interaction", "tim", "nolan_stabilize_agent"})
+    @TestRails(id="3695")
+    @Test(groups = {"interaction","tim"})
     @Parameters({"downlineAccount", "memberAccount", "password"})
     public void Agent_MM_BlockUnblockEvent_3695(String downlineAccount, String memberAccount, String password) throws Exception {
         log("@title: Validate suspend label display on market in member site when suspend an unblock the event");

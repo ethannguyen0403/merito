@@ -328,7 +328,7 @@ public class MyBetPageTest extends BaseCaseTest {
 
     @TestRails(id = "9451")
     @Parameters({"cashOutBetID"})
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0", "Cash_out"})
+    @Test(groups = {"ps38", "Cash_out"})
     public void MyBetPage_Cash_out_TC9451(String cashOutBetID) {
         log("@title: Validate showing cash out bet in my bet page ");
         log("Step 1. Active My Account> My Bets");

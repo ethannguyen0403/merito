@@ -161,7 +161,7 @@ public class AccountStatementTest extends BaseCaseTest {
 
     @TestRails(id = "9452")
     @Parameters({"cashOutBetID"})
-    @Test(groups = {"ps38", "nolan_Proteus.2024.V.3.0", "Cash_out"})
+    @Test(groups = {"ps38", "Cash_out"})
     public void AccountStatement_Cash_out_TC9452(String cashOutBetID) {
         log("@title: Validate showing cash out bet in account statement page");
 

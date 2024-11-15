@@ -114,7 +114,7 @@ public class StatementReportTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3744")
-    @Test(groups = {"regression", "nolan"})
+    @Test(groups = {"regression"})
     public void Agent_Report_Statement_Report_3744() {
         log("@title: Validate  Statement Report can drilldown");
         String fromDateApi = DateUtils.getDate(-28, "yyyy-MM-dd", AGConstant.timeZone);
@@ -145,7 +145,7 @@ public class StatementReportTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3745")
-    @Test(groups = {"regression", "nolan"})
+    @Test(groups = {"regression"})
     public void Agent_Report_Statement_Report_3745() {
         log("@title: Validate  Statement Report can drilldown");
         String fromDateApi = DateUtils.getDate(-28, "yyyy-MM-dd", AGConstant.timeZone);
@@ -174,7 +174,7 @@ public class StatementReportTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3746")
-    @Test(groups = {"regression", "nolan"})
+    @Test(groups = {"regression"})
     public void Agent_Report_Statement_Report_3746() {
         log("@title: Validate Transaction detail report match with summary");
         String fromDateApi = DateUtils.getDate(-28, "yyyy-MM-dd", AGConstant.timeZone);

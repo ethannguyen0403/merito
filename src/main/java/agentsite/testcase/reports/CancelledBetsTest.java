@@ -68,7 +68,7 @@ public class CancelledBetsTest extends BaseCaseTest {
      * @expect: 1. Data display with status is System Voided
      */
     @TestRails(id = "799")
-    @Test(groups = {"smoke", "nolan"})
+    @Test(groups = {"smoke"})
     public void Agent_Report_Cancelled_Bets_799() {
         log("@title: Validate cancelled Bets can filter correct data");
         log("Step 1. Navigate Report > Cancelled Bets");

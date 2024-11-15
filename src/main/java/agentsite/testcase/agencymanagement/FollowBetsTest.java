@@ -5,12 +5,18 @@ import agentsite.pages.agentmanagement.followbets.GroupDetailsPopup;
 import agentsite.pages.agentmanagement.followbets.PlayerDetailsPopup;
 import agentsite.pages.components.ConfirmPopup;
 import agentsite.pages.components.ErrorPopup;
+import agentsite.pages.report.UnsettledBetPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import agentsite.ultils.agencymanagement.FollowBetsUtils;
 import baseTest.BaseCaseTest;
 import com.paltech.utils.StringUtils;
 import common.AGConstant;
+import membersite.objects.sat.Event;
+import membersite.objects.sat.Market;
+import membersite.pages.MarketPage;
+import membersite.pages.SportPage;
+import membersite.utils.betplacement.BetUtils;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -18,8 +24,10 @@ import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static common.AGConstant.HomePage.*;
+import static common.MemberConstants.*;
 
 public class FollowBetsTest extends BaseCaseTest {
     /**
@@ -610,12 +618,13 @@ public class FollowBetsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "40215")
-    @Test(groups = {"regression_f24"})
-    @Parameters({"smartPlayer"})
-    public void Agency_Management_Follow_Bets_40215(String smartPlayer) {
+    @Test(groups = {"regression_f24_stg"})
+    public void Agency_Management_Follow_Bets_40215() {
         log("@title: Validate filtering smart player configuration");
         log("@Pre-condition 1: Log in successfully by SMA");
         log("Step 1: Navigate Agency Management >  Follow Bets");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String smartPlayer = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(2).getUserCode();
         FollowBetsPage page = agentHomePage.navigateFollowBetsPage();
         log("Step 2. Input text '<smart player>' >> click on Search button and observe");
         page.followBets.filterSmartPlayer(smartPlayer);
@@ -625,7 +634,7 @@ public class FollowBetsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "40216")
-    @Test(groups = {"regression_f24"})
+    @Test(groups = {"regression_f24_stg"})
     @Parameters({"memberAccount"})
     public void Agency_Management_Follow_Bets_40216(String memberAccount) {
         log("@title: Validate adding accounts to follow the bets of smart players");
@@ -650,7 +659,7 @@ public class FollowBetsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "40217")
-    @Test(groups = {"regression_f24"})
+    @Test(groups = {"regression_f24_stg"})
     @Parameters({"memberAccount"})
     public void Agency_Management_Follow_Bets_40217(String memberAccount) {
         log("@title: Validate adding Follow Bets Configuration of all sports");
@@ -676,7 +685,7 @@ public class FollowBetsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "40218")
-    @Test(groups = {"regression_f24"})
+    @Test(groups = {"regression_f24_stg"})
     @Parameters({"memberAccount"})
     public void Agency_Management_Follow_Bets_40218(String memberAccount) {
         log("@title: Validate adding Follow Bets Configuration of specific sports");
@@ -702,7 +711,7 @@ public class FollowBetsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "40222")
-    @Test(groups = {"regression_f24"})
+    @Test(groups = {"regression_f24_stg"})
     @Parameters({"memberAccount"})
     public void Agency_Management_Follow_Bets_40222(String memberAccount) {
         log("@title: Validate showing error message when add invalid smart player");
@@ -717,6 +726,80 @@ public class FollowBetsTest extends BaseCaseTest {
         page.followBets.addFollowBetConfigAllSports(invalidPlayer, memberAccount, false, "5", false);
         log("Verify 4. Show error message 'Smart player <input player> is not existing. Please try another player!'");
         Assert.assertEquals(page.followBets.getAddFollowConfigAlertMessage(), String.format("Smart player %s is not existing. Please try another player!", invalidPlayer));
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "40219")
+    @Test(groups = {"regression_f24_stg"})
+    @Parameters({"memberAccount","username","password"})
+    public void Agency_Management_Follow_Bets_40219(String memberAccount, String username, String password) throws Exception {
+        log("@title: Validate placing follow bet of all sports");
+        log("@Pre-condition: SMA agent have one smart player configuration of all sport with follow stake % is 50");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String smartPlayerAllSport = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(2).getUserCode();
+        agentHomePage.logout();
+
+        log("Step 1: Login smart player at pre-condition on member site");
+        loginMember(_brandname, smartPlayerAllSport, password);
+        log("Step 2. Place bet on Soccer with valid stake");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_SOCCER_SPORT);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEventName(event.getEventName());
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_BACK_TYPE);
+        float expectedFollowStake = Float.valueOf(minBet) * 50 / 100;
+        page.betsSlipContainer.placeBet("", minBet);
+        memberHomePage.logout();
+
+        log("Step 3. Login SMA level >> Unsettled bet");
+        loginAgent(username, password, _brandname);
+        UnsettledBetPage unsettledBetPage = agentHomePage.navigateUnsettledBetPage();
+        unsettledBetPage.search("ALL", "", memberAccount, "", LBL_SOCCER_SPORT, "","","");
+        List<ArrayList<String>> data = unsettledBetPage.tblLastBetsMode.getRowsWithoutHeader(false);
+        log("Verify 3. Validate follow stake show correctly with 50 percentage configured");
+        unsettledBetPage.verifySearchLastBetsMode(data, memberAccount, "", String.format("%.2f",expectedFollowStake), "", "", "");
+        log("INFO: Executed completely");
+    }
+
+    @TestRails(id = "40220")
+    @Test(groups = {"regression_f24_stg"})
+    @Parameters({"memberAccount","username","password"})
+    public void Agency_Management_Follow_Bets_40220(String memberAccount, String username, String password) throws Exception {
+        log("@title: Validate placing follow bet of all sports");
+        log("@Pre-condition: SMA agent have one smart player configuration of specific sport (e.g. tennis) with follow stake % is 30");
+        String userID = ProfileUtils.getProfile().getUserID();
+        String smartPlayerAllSport = DownLineListingUtils.getDownLineUsers(userID, "PL", "ACTIVE", _brandname).get(3).getUserCode();
+        agentHomePage.logout();
+
+        log("Step 1: Login smart player at pre-condition on member site");
+        loginMember(_brandname, smartPlayerAllSport, password);
+        log("Step 2. Place bet on Soccer with valid stake");
+        SportPage page = memberHomePage.navigateSportHeaderMenu(LBL_TENNIS_SPORT);
+        Event event = page.eventContainerControl.getEventRandom(false, false);
+        if (Objects.isNull(event) || event.getEventName().isEmpty()) {
+            log("DEBUG: There is no event available");
+            return;
+        }
+        MarketPage marketPage = page.clickEventName(event.getEventName());
+        Market market = marketPage.marketOddControl.getMarket(event, 1, true);
+        market.getBtnOdd().click();
+        String minBet = BetUtils.getMinBet(LBL_SOCCER_SPORT, LBL_BACK_TYPE);
+        float expectedFollowStake = Float.valueOf(minBet) * 40 / 100;
+        page.betsSlipContainer.placeBet("", minBet);
+        memberHomePage.logout();
+
+        log("Step 3. Login SMA level >> Unsettled bet");
+        loginAgent(username, password, _brandname);
+        UnsettledBetPage unsettledBetPage = agentHomePage.navigateUnsettledBetPage();
+        unsettledBetPage.search("ALL", "", memberAccount, "", LBL_TENNIS_SPORT, "","","");
+        List<ArrayList<String>> data = unsettledBetPage.tblLastBetsMode.getRowsWithoutHeader(false);
+        log("Verify 3. Validate follow stake show correctly with 50 percentage configured");
+        unsettledBetPage.verifySearchLastBetsMode(data, memberAccount, "", String.format("%.2f",expectedFollowStake), "", "", "");
         log("INFO: Executed completely");
     }
 

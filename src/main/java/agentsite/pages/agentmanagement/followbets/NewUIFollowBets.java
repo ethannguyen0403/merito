@@ -3,7 +3,6 @@ package agentsite.pages.agentmanagement.followbets;
 import agentsite.controls.Table;
 import agentsite.pages.components.ConfirmPopup;
 import agentsite.ultils.account.ProfileUtils;
-import agentsite.ultils.agencymanagement.FollowBetsUtils;
 import com.paltech.element.common.*;
 import com.paltech.utils.DateUtils;
 import common.AGConstant;
@@ -131,7 +130,7 @@ public class NewUIFollowBets extends FollowBets{
 
     public void verifyFollowConfigAllSportsAdded(String smartPlayer, String accountToFollow, boolean isFollowStatus, String followStakePercent) {
         String userCode = ProfileUtils.getProfile().getUserCode();
-        String updateTime = DateUtils.getDateFollowingGMT("GMT +7", "dd/MM/yyyy");
+        String updateTime = DateUtils.getDateFollowingGMT("GMT -4", "dd/MM/yyyy");
         List<ArrayList<String>> lstConfig = tblResultSmartPlayer.getRowsWithoutHeader(1, false);
         for (int i = 0; i < lstConfig.size(); i++) {
             Assert.assertEquals(lstConfig.get(i).get(0),smartPlayer,String.format("FAILED! Config username is not correct expected %s but found %s", smartPlayer, lstConfig.get(i).get(0)));

@@ -273,8 +273,11 @@ public class BlockUnblockEventPage extends HomePage {
             button.click();
             waitingLoadingSpinner();
             if (!unblockScheduleTime.equals("")) {
+                ddbSelectTime.waitForElementToBePresent(ddbSelectTime.getLocator(), 2);
                 ddbSelectTime.selectByVisibleText(unblockScheduleTime);
+                btnSaveUnblockSchedule.isClickable(timeOutShortInSeconds);
                 btnSaveUnblockSchedule.click();
+                btnSaveUnblockSchedule.waitForControlInvisible(1, 3);
             }
             waitingLoadingSpinner();
         }
@@ -334,6 +337,7 @@ public class BlockUnblockEventPage extends HomePage {
             lblDownlineName.isClickable(3);
             lblDownlineName.scrollToThisControl(true);
             lblDownlineName.click();
+            waitingLoadingSpinner();
             waitingLoadingSpinner();
         }
     }

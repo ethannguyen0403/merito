@@ -58,6 +58,7 @@ public class CommissionSettingListingPage extends HomePage {
         }
         btnSearch.click();
         waitingLoadingSpinner();
+        waitingLoadingSpinner();
     }
 
 
