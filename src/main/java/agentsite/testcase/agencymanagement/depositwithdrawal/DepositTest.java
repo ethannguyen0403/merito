@@ -8,7 +8,6 @@ import agentsite.pages.agentmanagement.depositwithdrawal.DepositWithdraw;
 import agentsite.pages.agentmanagement.depositwithdrawal.WithdrawalPopup;
 import agentsite.ultils.agencymanagement.DownLineListingUtils;
 import baseTest.BaseCaseTest;
-import com.paltech.utils.DoubleUtils;
 import common.AGConstant;
 import membersite.objects.AccountBalance;
 import org.testng.Assert;
@@ -18,7 +17,6 @@ import util.testraildemo.TestRails;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class DepositTest extends BaseCaseTest {
     @TestRails(id = "3621")
@@ -368,12 +366,6 @@ public class DepositTest extends BaseCaseTest {
         log("Step 1.1 Filter Active account");
         page.filter("", "Active", "");
         List<AccountInfo> lstUsers = DownLineListingUtils.getCashCreditListing();
-        Assert.assertTrue(lstUsers.size() > 0, "ERROR: lstUsers size in DownLineListing is zero");
-        List<AccountInfo> lstFiveUser = new ArrayList<>();
-        int n = lstUsers.size() > 2 ? 2 : lstFiveUser.size();
-        for (int i = 0; i < n; i++) {
-            lstFiveUser.add(i, lstUsers.get(i));
-        }
         String username1 = lstUsers.get(0).getUserCode();
         String username2 = lstUsers.get(1).getUserCode();
         double depositAmount = 1;
@@ -383,17 +375,10 @@ public class DepositTest extends BaseCaseTest {
         List<ArrayList<String>> mainBalanceInfo = page.getLoginAccountBalanceInfo();
 
         log("Step  2. Check on more than 1 account and click on Deposit button");
-        page.selectUser(lstUsers.get(0).getUserCode());
-        page.selectUser(lstUsers.get(1).getUserCode());
+        page.selectMultipleUser(lstUsers, 2);
 
-        double creditInitationAcc1 = page.getDataByColumn(username1, page.colCreditInitiation);
-        double totalBalanceAcc1 = page.getDataByColumn(username1, page.colTotalBalance);
-        double availableBalanceAcc1 = page.getDataByColumn(username1, page.colAvailableBalance);
-        double winlossAcc1 = page.getDataByColumn(username1, page.colWinloss);
-        double creditInitationAcc2 = page.getDataByColumn(username2, page.colCreditInitiation);
-        double totalBalanceAcc2 = page.getDataByColumn(username2, page.colTotalBalance);
-        double availableBalanceAcc2 = page.getDataByColumn(username2, page.colAvailableBalance);
-        double winlossAcc2 = page.getDataByColumn(username2, page.colWinloss);
+        List<Double> lstValueAcc1 = page.getDataAmountByUser(username1);
+        List<Double> lstValueAcc2 = page.getDataAmountByUser(username2);
         DepositPopup popup = page.openDepositPopup();
 
         log("Step 3. Input amount to deposit, select Win/Loss Settle, enter remark and click on Submit button");
@@ -401,31 +386,20 @@ public class DepositTest extends BaseCaseTest {
 
         log("Step 4. Get info after deposit");
         List<ArrayList<String>> mainBalanceInfoExpected = page.calculateMainAccountInfo(mainBalanceInfo, totalDepositAmount, true);
-        double actualCreditInitationAcc1 = page.getDataByColumn(username1, page.colCreditInitiation);
-        double actualTotalBalanceAcc1 = page.getDataByColumn(username1, page.colTotalBalance);
-        double actualAvailableBalanceAcc1 = page.getDataByColumn(username1, page.colAvailableBalance);
-        double actualWinlossAcc1 = page.getDataByColumn(username1, page.colWinloss);
-        double actualCreditInitationAcc2 = page.getDataByColumn(username2, page.colCreditInitiation);
-        double actualTotalBalanceAcc2 = page.getDataByColumn(username2, page.colTotalBalance);
-        double actualAvailableBalanceAcc2 = page.getDataByColumn(username2, page.colAvailableBalance);
-        double actualWinlossAcc2 = page.getDataByColumn(username2, page.colWinloss);
+
+        List<Double> lstActualValueAcc1 = page.getDataAmountByUser(username1);
+        List<Double> lstActualValueAcc2 = page.getDataAmountByUser(username2);
 
         log("Verify 1. Deposit popup is disappeared and there is a green check display in Update Status column");
-        Assert.assertTrue(page.isUpdateStatusSuccess(lstUsers.get(0).getUserCode()), "FAILED! Green check on Update Status column is not display as expected");
-        Assert.assertTrue(page.isUpdateStatusSuccess(lstUsers.get(1).getUserCode()), "FAILED! Green check on Update Status column is not display as expected");
+        Assert.assertTrue(page.isUpdateStatusSuccess(username1), "FAILED! Green check on Update Status column is not display as expected");
+        Assert.assertTrue(page.isUpdateStatusSuccess(username2), "FAILED! Green check on Update Status column is not display as expected");
 
         log("Verify  2. Verify Balance of main account");
         Assert.assertEquals(page.getLoginAccountBalanceInfo(), mainBalanceInfoExpected, "FAILED! Main account balance info is not match with the expected");
 
         log("Verify  3. Verify balance on deposit account");
-        Assert.assertEquals(actualCreditInitationAcc1, creditInitationAcc1, String.format("FAILED! Credit Initiation account %s is incorrect after deposit expected %s actual %s", username1, actualCreditInitationAcc1, creditInitationAcc1));
-        Assert.assertEquals(actualTotalBalanceAcc1, totalBalanceAcc1 + 1, String.format("FAILED! Total balance account %s is incorrect after deposit expected %s actual %s", username1, actualTotalBalanceAcc1, totalBalanceAcc1 + 1));
-        Assert.assertEquals(actualAvailableBalanceAcc1, availableBalanceAcc1 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit expected %s actual %s", username1, actualAvailableBalanceAcc1, availableBalanceAcc1 + 1));
-        Assert.assertEquals(actualWinlossAcc1, winlossAcc1 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit expected %s actual %s", username1, actualWinlossAcc1, winlossAcc1 + 1));
-        Assert.assertEquals(actualCreditInitationAcc2, creditInitationAcc2, String.format("FAILED! Credit Initiation account %s is incorrect after deposit expected %s actual %s", username2, actualCreditInitationAcc2, creditInitationAcc2));
-        Assert.assertEquals(actualTotalBalanceAcc2, totalBalanceAcc2 + 1, String.format("FAILED! Total balance account %s is incorrect after deposit expected %s actual %s", username2, actualTotalBalanceAcc2, totalBalanceAcc2 + 1));
-        Assert.assertEquals(actualAvailableBalanceAcc2, availableBalanceAcc2 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit expected %s actual %s", username2, actualAvailableBalanceAcc2, availableBalanceAcc2 + 1));
-        Assert.assertEquals(actualWinlossAcc2, winlossAcc2 + 1, String.format("FAILED! Available Balance account %s is incorrect after deposit expected %s actual %s", username1, actualWinlossAcc2, winlossAcc2 + 1));
+        page.verifyDataAmountUpdated(lstValueAcc1, lstActualValueAcc1, depositAmount);
+        page.verifyDataAmountUpdated(lstValueAcc2, lstActualValueAcc2, depositAmount);
         log("INFO: Executed completely");
     }
 

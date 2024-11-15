@@ -431,7 +431,7 @@ public class AGConstant {
         public static class DepositWithdrawal {
             public final static String TITLE_PAGE = "Deposit/Withdraw";
             public final static String LBL_AVAILABLE_BALANCE = "Available Balance";
-            public final static List<String> DDB_ACCOUNT_STATUS = Arrays.asList("All", "Active", "Inactive", "Suspended", "Closed", "Blocked", "Self-excluded");
+            public final static List<String> DDB_ACCOUNT_STATUS = Arrays.asList("All", "Active", "Inactive", "Suspended", "Closed", "Blocked");
             public final static List<String> TABLE_ACCOUNT_BALANCE_HEADER = Arrays.asList("My Credit", "Total Balance", "Sub Balance", "Available Balance");
             public final static List<String> DDB_LEVEL = Arrays.asList("All", "Agent", "Member");
             public final static Map<String, List<String>> TABLE_HEADER_MAP = new HashMap() {
@@ -454,8 +454,7 @@ public class AGConstant {
                                     "Inactive\n" +
                                     "Suspended\n" +
                                     "Closed\n" +
-                                    "Blocked\n" +
-                                    "Self-excluded"
+                                    "Blocked"
                             , "Level\n" +
                                     "All\n" +
                                     "Agent\n" +
@@ -472,8 +471,7 @@ public class AGConstant {
                     "Inactive\n" +
                     "Suspended\n" +
                     "Closed\n" +
-                    "Blocked\n" +
-                    "Self-excluded";
+                    "Blocked";
             public final static String LBL_LEVEL = "Level\n" +
                     "All\n" +
                     "Agent\n" +
