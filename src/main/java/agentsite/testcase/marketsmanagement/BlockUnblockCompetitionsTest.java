@@ -126,9 +126,13 @@ public class BlockUnblockCompetitionsTest extends BaseCaseTest {
     }
 
     @TestRails(id = "3704")
-//    @Test(groups = {"smoke"})
+    @Test(groups = {"http_request"})
     public void Agent_MM_BlockUnblockCompetitions_TC3704() {
-        //TODO: implement this test case
+        log("@title: Validate there is no http responded error returned");
+        log("Step 1. Navigate Markets Management > Block/Unblock Competition");
+        agentHomePage.navigateBlockUnblockCompetitionPage();
+        log("Verify 1. Verify there is no console error display");
+        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error displayed when navigate the page");
         log("INFO: Executed completely");
     }
 

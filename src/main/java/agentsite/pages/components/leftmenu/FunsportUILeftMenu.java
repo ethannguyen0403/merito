@@ -108,7 +108,7 @@ public class FunsportUILeftMenu extends LeftMenu {
     }
 
     public void navigatePS38SportsResultsPage() {
-        clickSubMenu(REPORT, PS38_SPORTS_RESULTS);
+        clickSubMenu(REPORT, "PS38 Sports Results");
     }
 
     @Override
@@ -132,7 +132,7 @@ public class FunsportUILeftMenu extends LeftMenu {
     public void navigateWinLossDetailPage() {
         String winLossDetailMenu;
         AccountInfo accountInfo = ProfileUtils.getProfile();
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), accountInfo.getUserCode(), accountInfo.getUserID());
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), "", "");
         winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_OLDUI, ProfileUtils.convertDownlineByBrand(listAccount.get(0).getLevel(), ProfileUtils.getAppName()));
         clickSubMenu(REPORT, winLossDetailMenu);
     }
@@ -171,5 +171,15 @@ public class FunsportUILeftMenu extends LeftMenu {
     @Override
     public void navigateSubUserListingPage() {
         clickSubMenu(AGENCY_MANAGEMENT, SUB_USER_LISTING);
+    }
+
+    @Override
+    public void navigateMonitoredAccountsPage() {
+        clickSubMenu(REPORT, MONITORED_ACCOUNT);
+    }
+
+    @Override
+    public void navigateAgentExposureLimitPage() {
+        clickSubMenu(REPORT, AGENT_EXPOSURE_LIMIT);
     }
 }

@@ -133,7 +133,7 @@ public class FairenterUILeftMenu extends LeftMenu {
     public void navigateWinLossDetailPage() {
         String winLossDetailMenu;
         AccountInfo accountInfo = ProfileUtils.getProfile();
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), accountInfo.getUserCode(), accountInfo.getUserID());
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), "", "");
         winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_NEWUI, ProfileUtils.convertDownlineByBrand(listAccount.get(0).getLevel(), ProfileUtils.getAppName()));
         clickSubMenu(REPORT, winLossDetailMenu);
     }

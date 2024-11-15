@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="STG_FE_SMOKE_AGENT_SMA" verbose="1">
+    <listeners>
+        <listener class-name="com.paltech.utils.ExtentReporterNG"/>
+    </listeners>
+
+    <test name="Smoke test cases Funsport http_request Agent Site in STG">
+        <parameter name='browser' value='window10.local.chrome'/>
+        <parameter name='env' value='stg'/>
+        <parameter name='language' value='en'/>
+        <parameter name='isLogin' value='true'/>
+        <parameter name='isProxy' value='true'/>
+        <parameter name='username' value='30H'/>
+        <parameter name='levelLogin' value='Senior Master Agent'/>
+        <parameter name='downlineAccount' value='30H00'/>
+        <parameter name='portalSubAccount' value='FSSUBTI'/>
+        <parameter name='memberAccount' value='30H0000000'/>
+        <parameter name='password' value='5pjguoEh1fnSILpykWt1vQ=='/>
+        <parameter name='isThrown' value='false'/>
+        <parameter name='currency' value='HKD'/>
+        <parameter name='appname' value='agentsite'/>
+        <parameter name='brandname' value='funsport'/>
+        <parameter name='skinName' value='funsport'/>
+        <parameter name='isAddTestRailResult' value='true'/>
+        <groups>
+            <run>
+                <include name="http_request"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="agentsite.testcase.LoginTest"/>
+
+            <class name="agentsite.testcase.agencymanagement.CreateDownlineAgentTest"/>
+            <class name="agentsite.testcase.agencymanagement.CreateUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.downlinelisting.EditUserTest"/>
+            <class name="agentsite.testcase.agencymanagement.PositionTakingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.depositwithdrawal.DepositWithdrawalTest"/>
+            <class name="agentsite.testcase.agencymanagement.CommissionSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.BetSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.TaxSettingListingTest"/>
+            <class name="agentsite.testcase.agencymanagement.SubUserListingTest"/>
+
+            <class name="agentsite.testcase.reports.UnsettledBetTest"/>
+            <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
+            <class name="agentsite.testcase.reports.WinLossSimpleTest"/>
+            <class name="agentsite.testcase.reports.WinLossDetailTest"/>
+            <class name="agentsite.testcase.reports.PositionTakingReportTest"/>
+            <class name="agentsite.testcase.reports.CancelledBetsTest"/>
+            <class name="agentsite.testcase.agencymanagement.StatementReportTest"/>
+            <class name="agentsite.testcase.reports.TransferLogTest"/>
+            <class name="agentsite.testcase.reports.ResettlementVoidLogTest"/>
+            <class name="agentsite.testcase.reports.ClientLegerTest"/>
+            <class name="agentsite.testcase.reports.WinLossBySportAndMarketTypeTest"/>
+            <class name="agentsite.testcase.reports.WinLossByEventTest"/>
+            <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
+            <class name="agentsite.testcase.riskmanagement.IPMonitoringTest"/>
+            <class name="agentsite.testcase.riskmanagement.MonitoredAccountsTest"/>
+            <class name="agentsite.testcase.reports.TransactionHistoryTest"/>
+            <class name="agentsite.testcase.reports.TopGainersTopLosersTest"/>
+            <class name="agentsite.testcase.reports.ViewLogTest"/>
+
+        </classes>
+
+    </test>
+</suite>

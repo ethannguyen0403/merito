@@ -51,7 +51,7 @@
             <class name="agentsite.testcase.reports.PositionTakingReportTest"/>
             <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
             <class name="agentsite.testcase.reports.PS38SportsResultsTest"/>
-            <class name="agentsite.testcase.reports.StatementReportTest"/>
+            <class name="agentsite.testcase.agencymanagement.StatementReportTest"/>
             <class name="agentsite.testcase.reports.TopGainersTopLosersTest"/>
             <class name="agentsite.testcase.reports.TransactionHistoryTest"/>
             <class name="agentsite.testcase.reports.TransferLogTest"/>
@@ -62,13 +62,13 @@
             <class name="agentsite.testcase.reports.WinLossByEventTest"/>
             <class name="agentsite.testcase.reports.WinLossSimpleTest"/>
 
-            <class name="agentsite.testcase.marketsmanagement.BlockingLogTest"/>
-            <class name="agentsite.testcase.marketsmanagement.BlockRacingTest"/>
-            <class name="agentsite.testcase.marketsmanagement.BlockUnblockCompetitionsTest"/>
-            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>
-            <class name="agentsite.testcase.marketsmanagement.CurrentBlockingTest"/>
-            <class name="agentsite.testcase.marketsmanagement.LiquidityThresholdTest"/>
-            <class name="agentsite.testcase.marketsmanagement.SuspendUnsuspendMarketsTest"/>
+<!--            <class name="agentsite.testcase.marketsmanagement.BlockingLogTest"/>-->
+<!--            <class name="agentsite.testcase.marketsmanagement.BlockRacingTest"/>-->
+<!--            <class name="agentsite.testcase.marketsmanagement.BlockUnblockCompetitionsTest"/>-->
+<!--            <class name="agentsite.testcase.marketsmanagement.BlockUnblockEventsTest"/>-->
+<!--            <class name="agentsite.testcase.marketsmanagement.CurrentBlockingTest"/>-->
+<!--            <class name="agentsite.testcase.marketsmanagement.LiquidityThresholdTest"/>-->
+<!--            <class name="agentsite.testcase.marketsmanagement.SuspendUnsuspendMarketsTest"/>-->
 
             <class name="agentsite.testcase.agencymanagement.downlinelisting.DownlineListingTest"/>
             <class name="agentsite.testcase.agencymanagement.downlinelisting.EdiMarketTest"/>

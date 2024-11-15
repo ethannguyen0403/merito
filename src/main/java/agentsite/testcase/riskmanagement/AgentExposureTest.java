@@ -66,4 +66,15 @@ public class AgentExposureTest extends BaseCaseTest {
         Assert.assertEquals(page.tblDownline.getColumn(2, false).get(0), lstAgent.get(0).getUsername(), "FAILED! Username is incorrect after searching");
         log("INFO: Executed completely");
     }
+    @TestRails(id = "72919")
+    @Test (groups = {"http_request"})
+    public void Agent_RM_AgentExposureTest_72919(){
+        //Set isProxy = true
+        log("@title: Validate There is no http responded error returned");
+        log("Step 1. Navigate Agency Management > Create Downline Agent");
+        AgentExposureLimitPage page = agentHomePage.navigateAgentExposureLimitPage();
+        log("Verify 1. Create Downline page is displayed without console error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error display when accessing the page");
+        log("INFO: Executed completely");
+    }
 }

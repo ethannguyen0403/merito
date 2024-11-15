@@ -54,14 +54,14 @@
             <!-- End Market Management-->
 
             <!-- Start Report-->
-            <class name="agentsite.testcase.riskmanagement.AnalysisOfRunningMarketsTest"/>
+            <class name="agentsite.testcase.reports.AnalysisOfRunningMarketsTest"/>
             <class name="agentsite.testcase.reports.CancelledBetsTest"/>
             <class name="agentsite.testcase.reports.ClientLegerTest"/>
             <class name="agentsite.testcase.reports.FollowBetsPerformanceTest"/>
             <class name="agentsite.testcase.reports.PositionTakingReportTest"/>
             <class name="agentsite.testcase.reports.ProfitAndLossTest"/>
             <class name="agentsite.testcase.reports.UnsettledBetTest"/>
-            <class name="agentsite.testcase.reports.StatementReportTest"/>
+            <class name="agentsite.testcase.agencymanagement.StatementReportTest"/>
             <class name="agentsite.testcase.reports.ViewLogTest"/>
             <class name="agentsite.testcase.reports.TransactionHistoryTest"/>
             <class name="agentsite.testcase.reports.UnsettledBetTest"/>

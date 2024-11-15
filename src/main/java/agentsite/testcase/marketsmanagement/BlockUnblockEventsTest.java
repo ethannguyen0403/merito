@@ -76,7 +76,7 @@ public class BlockUnblockEventsTest extends BaseCaseTest {
         BlockUnblockEventPage page = agentHomePage.navigateBlockUnblockEventsPage();
 
         log("Verify 1. Verify there is no console error display");
-//        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error displayed when navigate the page");
+        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error displayed when navigate the page");
 
         log("INFO: Executed completely");
     }

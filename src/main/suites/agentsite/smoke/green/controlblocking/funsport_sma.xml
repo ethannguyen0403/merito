@@ -61,7 +61,7 @@
             <class name="agentsite.testcase.reports.WinLossDetailTest"/>
             <class name="agentsite.testcase.reports.PositionTakingReportTest"/>
             <class name="agentsite.testcase.reports.CancelledBetsTest"/>
-<!--            <class name="agentsite.testcase.reports.StatementReportTest"/>-->
+<!--            <class name="agentsite.testcase.agencymanagement.StatementReportTest"/>-->
             <class name="agentsite.testcase.reports.TransferLogTest"/>
             <class name="agentsite.testcase.reports.ClientLegerTest"/>
             <class name="agentsite.testcase.reports.WinLossBySportAndMarketTypeTest"/>

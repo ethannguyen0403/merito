@@ -151,8 +151,8 @@ public class StatementReport {
 
     public void verifyTableDetailHeaderDisplayCorrect(String userType) {
         List<String> expectedHeader =
-                userType.equalsIgnoreCase("CREDIT") ? AGConstant.Report.StatementReport.TABLE_DETAIL_STATEMENT_HEADER_CREDIT :
-                        AGConstant.Report.StatementReport.TABLE_DETAIL_STATEMENT_HEADER_CREDIT_CASH;
+                userType.equalsIgnoreCase("CREDIT") ? AGConstant.AgencyManagement.StatementReport.TABLE_DETAIL_STATEMENT_HEADER_CREDIT :
+                        AGConstant.AgencyManagement.StatementReport.TABLE_DETAIL_STATEMENT_HEADER_CREDIT_CASH;
         ArrayList<String> lstHeader = tblDetailReport.getHeaderNameOfRows();
         Assert.assertEquals(lstHeader, expectedHeader, "FAILED! Table Header displays incorrectly");
     }

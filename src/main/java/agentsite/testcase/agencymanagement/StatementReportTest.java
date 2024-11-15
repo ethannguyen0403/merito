@@ -1,6 +1,6 @@
-package agentsite.testcase.reports;
+package agentsite.testcase.agencymanagement;
 
-import agentsite.pages.report.StatementReportPage;
+import agentsite.pages.agentmanagement.StatementReportPage;
 import agentsite.ultils.account.ProfileUtils;
 import agentsite.ultils.report.StatementReportUtils;
 import baseTest.BaseCaseTest;
@@ -17,8 +17,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static common.AGConstant.BTN_SUBMIT;
-import static common.AGConstant.Report.*;
-import static common.AGConstant.Report.StatementReport.*;
+import static common.AGConstant.AgencyManagement.*;
+import static common.AGConstant.AgencyManagement.StatementReport.*;
 
 public class StatementReportTest extends BaseCaseTest {
     /**
@@ -80,11 +80,11 @@ public class StatementReportTest extends BaseCaseTest {
         log("Verify 1. Verify Statement Report UI display correctly");
         Assert.assertEquals(page.txtSearchFrom.getAttribute("value"), today, "Failed! From date is incorrect");
         Assert.assertEquals(page.txtSearchTo.getAttribute("value"), today, "Failed! To date is incorrect");
-        Assert.assertEquals(page.btnToday.getText(), BTN_TODAY, "Failed! Today button is incorrect");
-        Assert.assertEquals(page.btnYesterday.getText(), BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
-        Assert.assertEquals(page.btnLastWeek.getText(), LAST_BUSINESS_WEEK, "Failed! Last Week button is incorrect");
+        Assert.assertEquals(page.btnToday.getText(), AGConstant.Report.BTN_TODAY, "Failed! Today button is incorrect");
+        Assert.assertEquals(page.btnYesterday.getText(), AGConstant.Report.BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
+        Assert.assertEquals(page.btnLastWeek.getText(), AGConstant.Report.LAST_BUSINESS_WEEK, "Failed! Last Week button is incorrect");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "Failed! Submit button is incorrect");
-        Assert.assertEquals(page.lblYouCanSeeReportData.getText(), LBL_YOU_CAN_SEE_REPORT_UP_1_TO_6, "Failed! Submit button is incorrect");
+        Assert.assertEquals(page.lblYouCanSeeReportData.getText(), AGConstant.Report.LBL_YOU_CAN_SEE_REPORT_UP_1_TO_6, "Failed! Submit button is incorrect");
         Assert.assertEquals(page.lnkHome.getText(), "Home", "FAILED! Home link is incorrect");
         Assert.assertTrue(page.lnlBreadcrumbSearchTitle.getText().equalsIgnoreCase(String.format(StatementReport.LBL_STATEMENT_REPORT_SEARCH_TITLE, today, today)), "FAILED! Search title is incorrect");
         Assert.assertEquals(page.tblReport.getColumnNamesOfTable(), TABLE_HEADER_OLDUI, "FAILED!Table Header is incorrect");
@@ -102,11 +102,11 @@ public class StatementReportTest extends BaseCaseTest {
         log("Verify 1. Verify Statement Report UI display correctly");
         Assert.assertEquals(page.txtSearchFrom.getAttribute("value"), today, "Failed! From date is incorrect");
         Assert.assertEquals(page.txtSearchTo.getAttribute("value"), today, "Failed! To date is incorrect");
-        Assert.assertEquals(page.btnToday.getText(), BTN_TODAY, "Failed! Today button is incorrect");
-        Assert.assertEquals(page.btnYesterday.getText(), BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
-        Assert.assertEquals(page.btnLastWeek.getText(), LAST_BUSINESS_WEEK, "Failed! Last Week button is incorrect");
+        Assert.assertEquals(page.btnToday.getText(), AGConstant.Report.BTN_TODAY, "Failed! Today button is incorrect");
+        Assert.assertEquals(page.btnYesterday.getText(), AGConstant.Report.BTN_YESTERDAY, "Failed! Yesterday button is incorrect");
+        Assert.assertEquals(page.btnLastWeek.getText(), AGConstant.Report.LAST_BUSINESS_WEEK, "Failed! Last Week button is incorrect");
         Assert.assertEquals(page.btnSubmit.getText(), BTN_SUBMIT, "Failed! Submit button is incorrect");
-        Assert.assertEquals(page.lblYouCanSeeReportData.getText(), LBL_YOU_CAN_SEE_REPORT_UP_1_TO_6, "Failed! You can see report label is incorrect");
+        Assert.assertEquals(page.lblYouCanSeeReportData.getText(), AGConstant.Report.LBL_YOU_CAN_SEE_REPORT_UP_1_TO_6, "Failed! You can see report label is incorrect");
         Assert.assertEquals(page.lnkHome.getText(), "Home", "FAILED! Home link is incorrect");
         Assert.assertTrue(page.lnlBreadcrumbSearchTitle.getText().equalsIgnoreCase(String.format(StatementReport.LBL_STATEMENT_REPORT_SEARCH_TITLE, today, today)), "FAILED! Search title is incorrect");
         Assert.assertEquals(page.tblReport.getColumnNamesOfTable(), TABLE_HEADER_NEWUI, "FAILED!Table Header is incorrect");

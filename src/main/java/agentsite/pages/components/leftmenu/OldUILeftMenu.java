@@ -125,7 +125,7 @@ public class OldUILeftMenu extends LeftMenu {
     }
 
     public void navigatePS38SportsResultsPage() {
-        clickSubMenu(REPORT, PS38_SPORTS_RESULTS);
+        clickSubMenu(REPORT, "PS38 Sports Results");
     }
 
     @Override
@@ -150,10 +150,11 @@ public class OldUILeftMenu extends LeftMenu {
     public void navigateStatementReportPage() {
         clickSubMenu(REPORT, STATEMENT_REPORT);
     }
+
     public void navigateWinLossDetailPage() {
         String winLossDetailMenu;
         AccountInfo accountInfo = ProfileUtils.getProfile();
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), accountInfo.getUserCode(), accountInfo.getUserID());
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), "", "");
         winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_OLDUI, ProfileUtils.convertDownlineByBrand(listAccount.get(0).getLevel(), ProfileUtils.getAppName()));
         clickSubMenu(REPORT, winLossDetailMenu);
     }
@@ -167,19 +168,19 @@ public class OldUILeftMenu extends LeftMenu {
     }
 
     public boolean isListSubMenuDisplayCorrect(String menu) {
-        if(menu.equals(AGENCY_MANAGEMENT)){
+        if (menu.equals(AGENCY_MANAGEMENT)) {
             List<String> lstSubMenu = leftMenuList.getListSubMenu(AGENCY_MANAGEMENT);
             return lstSubMenu.equals(AGConstant.AgencyManagement.LIST_SUBMENU_AGENCY_MANAGEMENT_OLD);
         }
-        if(menu.equals(REPORT)) {
+        if (menu.equals(REPORT)) {
             List<String> lstSubReprotMenu = leftMenuList.getListSubMenu(REPORT);
             return lstSubReprotMenu.equals(AGConstant.Report.LIST_SUB_MENU_CONTROL_BLOCKING_OLDUI);
         }
-        if(menu.equals(MARKET_MANAGEMENT)){
+        if (menu.equals(MARKET_MANAGEMENT)) {
             List<String> lstSubMenu = leftMenuList.getListSubMenu(MARKET_MANAGEMENT);
             return lstSubMenu.equals(AGConstant.MarketsManagement.LIST_SUBMENU_MARKETS_MANAGEMENT);
         }
-        if(menu.equals(FRAUD_DETECTION)){
+        if (menu.equals(FRAUD_DETECTION)) {
             List<String> lstSubMenu = leftMenuList.getListSubMenu(FRAUD_DETECTION);
             return lstSubMenu.equals(AGConstant.FraudDetection.LIST_SUBMENU_FRAUD_DETECTION);
         }
@@ -209,6 +210,11 @@ public class OldUILeftMenu extends LeftMenu {
     @Override
     public void navigateSubUserListingPage() {
         clickSubMenu(AGENCY_MANAGEMENT, SUB_USER_LISTING);
+    }
+
+    @Override
+    public void navigateAgentExposureLimitPage() {
+        clickSubMenu(REPORT, AGENT_EXPOSURE_LIMIT);
     }
 }
 

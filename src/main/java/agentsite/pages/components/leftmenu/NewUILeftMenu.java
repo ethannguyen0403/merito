@@ -127,6 +127,11 @@ public class NewUILeftMenu extends LeftMenu {
         clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_SIMPLE_NEWUI);
     }
 
+    @Override
+    public void navigateWinLossAnalysisPage() {
+        clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_SIMPLE_NEWUI);
+    }
+
     public void navigateWinLossBySportAndMarketTypePage() {
         clickSubMenu(REPORT, WIN_LOSS_NEWUI, WIN_LOSS_BY_MARKET_TYPE_NEWUI);
     }
@@ -138,7 +143,7 @@ public class NewUILeftMenu extends LeftMenu {
     public void navigateWinLossDetailPage() {
         String winLossDetailMenu;
         AccountInfo accountInfo = ProfileUtils.getProfile();
-        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), accountInfo.getUserCode(), accountInfo.getUserID());
+        List<AccountInfo> listAccount = DownLineListingUtils.getAllDownLineUsers(ProfileUtils.getAppName(), "", "");
         winLossDetailMenu = String.format(WIN_LOSS_BY_DETAIL_NEWUI, ProfileUtils.convertDownlineByBrand(listAccount.get(0).getLevel(), ProfileUtils.getAppName()));
         clickSubMenu(REPORT, winLossDetailMenu);
     }
@@ -200,5 +205,10 @@ public class NewUILeftMenu extends LeftMenu {
     public void navigateSubUserListingPage() {
         btnMyAccount.moveAndHoverOnControl();
         lblSubUserMenu.click();
+    }
+
+    @Override
+    public void navigateAgentExposureLimitPage() {
+        clickSubMenu(RISK_MANAGEMENT, AGENT_EXPOSURE_LIMIT);
     }
 }

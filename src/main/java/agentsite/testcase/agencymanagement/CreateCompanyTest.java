@@ -10,6 +10,17 @@ import util.testraildemo.TestRails;
 import static common.AGConstant.AgencyManagement.CreateAccount.*;
 
 public class CreateCompanyTest extends BaseCaseTest {
+    @TestRails(id = "3656")
+    @Test(groups = {"http_request"})
+    public void Agent_AM_CreateDownline_Agent_3656() {
+        //Set isProxy = true
+        log("@title: There is no http responded error returned");
+        log("Step 1. Navigate Agency Management > Create Company");
+        agentHomePage.navigateCreateCompanyPage(environment.getSecurityCode());
+        log("Verify 1. Create Company page is displayed with down console error");
+        Assert.assertTrue(hasHTTPRespondedOK(), "FAILED! Console error display when accessing the page");
+        log("INFO: Executed completely");
+    }
     @TestRails(id = "3657")
     @Test(groups = {"smoke_po"})
     public void Agent_AM_CreateDownline_Agent_3657() {
